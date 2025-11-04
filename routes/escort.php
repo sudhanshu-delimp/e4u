@@ -25,6 +25,7 @@ use App\Http\Controllers\Escort\EscortReviewsController;
 use App\Http\Controllers\Escort\EscortTourPaymentController;
 use App\Http\Controllers\Escort\EscortSuspendProfileController;
 use App\Http\Controllers\Escort\EscortTourScheduleContoller;
+use App\Http\Controllers\Escort\NumController;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
 
 //remove before prod
@@ -356,17 +357,20 @@ Route::get('report',function(){
 Route::post('ugly-mug-register',[MugsController::class,'create'])->name('escort.mug.register');
 Route::get('ugly-mug/dataTable', [MugsController::class, 'dataTable'])->name('escort.mug.dataTable');
 
-Route::get('add-report',function(){
-    return view('escort.dashboard.UglyMugsRegister.add-report');
-})->name('escort.add-report');
+Route::get('add-report',[NumController::class, 'addReport'])->name('escort.add-report');
+Route::post('add-report',[NumController::class, 'storeReport'])->name('escort.store-report');
+Route::get('num-dashboard',[NumController::class, 'showReportOnDashboardAjax'])->name('escort.numdashboard');
+Route::get('my-reports',[NumController::class, 'showMyReportByAjax'])->name('escort.my-reports');
+Route::get('edit-my-reports/{id}',[NumController::class, 'editMyReport'])->name('escort.edit-my-reports');
+Route::post('update-my-reports',[NumController::class, 'updateMyReportByAjax'])->name('escort.update-my-reports');
 
-Route::get('my-reports',function(){
-    return view('escort.dashboard.UglyMugsRegister.my-reports');
-})->name('escort.my-reports');
+// Route::get('my-reports',function(){
+//     return view('escort.dashboard.UglyMugsRegister.my-reports');
+// })->name('escort.my-reports');
 
-Route::get('numdashboard',function(){
-    return view('escort.dashboard.UglyMugsRegister.numdashboard');
-})->name('escort.numdashboard');
+// Route::get('numdashboard',function(){
+//     return view('escort.dashboard.UglyMugsRegister.numdashboard');
+// })->name('escort.numdashboard');
 
 Route::get('lookup',function(){
     return view('escort.dashboard.UglyMugsRegister.lookup');
@@ -453,3 +457,5 @@ Route::get('tours',function(){
 })->name('escort.tours');
 
 Route::get('/my-statistics',[EscortStatisticsController::class,'index'])->name('escort.dashboard.my-statistics');
+
+

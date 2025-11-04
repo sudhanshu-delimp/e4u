@@ -137,7 +137,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 col-xl-4 col-sm-12 text-center">
-                        <button type="button" class="btn my_legbox all_btn_flx">
+                        <button type="button" class="btn mc_my_legbox_btn ">
                             {{-- <span class="add_to_favrate"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
                     Save to My Legbox</button> --}}
                             @if (auth()->user())
@@ -1020,11 +1020,11 @@
                     <div class="col-5">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
                             data-target="#mysendmessage">
-                            <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Me</button>
+                            <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="image_20px_msg">Message Me</button>
                     </div>
                     <div class="col-7 text-right">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
-                            data-target="#sendcarlat"><img src="{{ asset('assets/app/img/messageicon.png') }}"
+                            data-target="#sendcarlat"><img src="{{ asset('assets/app/img/smallsmsicon.png') }}"
                                 class="image_20px_msg">Report Massage</button>
                     </div>
                 </div>
@@ -1253,8 +1253,8 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color">
-                <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon">
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"><img src="{{ asset('assets/app/img/replaysmsicon.png') }}" class="img-fluid"> Message Me </h5>
+               
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Me </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>

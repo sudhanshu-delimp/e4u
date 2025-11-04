@@ -5,6 +5,69 @@
    .swal-button {
    background-color: #242a2c;
    }
+.concierge_services_table tbody td:nth-child(1), 
+.concierge_services_table tbody td:nth-child(3), 
+.concierge_services_table tbody td:nth-child(4),   
+.concierge_services_table tbody td:nth-child(5) {
+  text-align: center;
+}
+#loyalty_program_advertisers tbody td:nth-child(7),
+#loyalty_program_advertisers tbody td:nth-child(1),
+#loyalty_program_advertisers tbody td:nth-child(4),
+#loyalty_program_advertisers tbody td:nth-child(5),
+#loyalty_program_advertisers tbody td:nth-child(6),
+#loyalty_program_advertisers tbody td:nth-child(3) {
+  text-align: center;
+}
+
+
+#fee_support_services tbody td:nth-child(1),
+#fee_support_services tbody td:nth-child(3),
+#fee_support_services tbody td:nth-child(4),
+#fee_support_services tbody td:nth-child(5) {
+  text-align: center;
+}
+#agent_operator_fees tbody td:nth-child(5) {
+  text-align: center;
+}
+
+#agent_operator_fees tbody td:nth-child(3) {
+  text-align: center;
+}
+
+#agent_operator_fees tbody td:nth-child(4) {
+  text-align: center;
+}
+#agent_operator_fees tbody td:nth-child(1) {
+  text-align: center;
+}
+
+#commision_playbox_fees tbody td:nth-child(4) {
+  text-align: center;
+}
+
+
+#commision_playbox_fees tbody td:nth-child(1) {
+  text-align: center;
+}
+
+#commision_playbox_fees tbody td:nth-child(3) {
+  text-align: center;
+}
+
+
+#myPricing tbody td:nth-child(1),
+#myPricing tbody td:nth-child(3),
+#myPricing tbody td:nth-child(4),
+#myPricing tbody td:nth-child(5),
+#myPricing tbody td:nth-child(6),
+#myPricing tbody td:nth-child(7),
+#myPricing tbody td:nth-child(8)  {
+  text-align: center;
+}
+
+
+
 </style>
 @stop
 @section('content')
@@ -17,7 +80,7 @@
          <div class="row">
 
             <div class="custom-heading-wrapper col-md-12">
-               <h1 class="h1">Set Fees & Variables for UAdvertisers</h1>
+               <h1 class="h1">Set Fees & Variables</h1>
                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
             <div class="col-md-12 mb-4">
@@ -147,7 +210,7 @@
                               </ol>
 
                               <div class="table-responsive">
-                                 <table class="table table-bordered membership-table mt-3 w-100" id="concierge_services">
+                                 <table class="table table-bordered membership-table mt-3 w-100 concierge_services_table" id="concierge_services">
                                     <thead class="bg-first text-center">
                                        <tr>
                                        <th class="text-center">Item</th>
@@ -244,7 +307,7 @@
                            </ol>
                         
                            <div class="table-responsive">
-                              <table class="table table-bordered membership-table mt-3">
+                              <table class="table table-bordered membership-table mt-3 w-100" id="loyalty_program_advertisers">
                                  <thead class="bg-first text-center">
                                     <tr>
                                        <th class="text-center">Item</th>
@@ -257,44 +320,7 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <tr>
-                                       <td class="text-center">30</td>
-                                       <td class="text-left">Escorts</td>
-                                       <td class="text-center">P, G, S</td>
-                                       <td class="text-left">Spend</td>
-                                       <td class="text-center">$ 200.00</td>
-                                       <td class="text-center">1</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td class="text-center">31</td>
-                                       <td class="text-left">Massage Centre</td>
-                                       <td class="text-center">MC</td>
-                                       <td class="text-left">Spend</td>
-                                       <td class="text-center">$ 500.00</td>
-                                       <td class="text-center">1</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
+                                    
                                  </tbody>
                               </table>
                         
@@ -323,11 +349,12 @@
                      <div id="additional_variableagent" class="collapse" data-parent="#accordion">
                         <div class="card-body pb-0">
                            <div class="table-responsive">
-                              <table class="table table-bordered membership-table mt-3">
+                              <table class="table table-bordered membership-table mt-3 w-100" id="agent_operator_fees">
                                  <thead class="bg-first text-center">
                                     <tr>
+
                                        <th class="text-center">Item</th>
-                                       <th class="text-left">Description</th>
+                                       <th class="text-center">Description</th>
                                        <th class="text-center">Rate</th>
                                        <th class="text-center">Value</th>
                                        <th class="text-center">
@@ -336,57 +363,7 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <tr>
-                                       <td class="text-center">40</td>
-                                       <td class="text-left">Commission - Advertising</td>
-                                       <td class="text-center">per day</td>
-                                       <td class="text-center">5.00%</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Agent_Operator"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td class="text-center">41</td>
-                                       <td class="text-left">Commission - Massage Centre sign up</td>
-                                       <td class="text-center">per Registration</td>
-                                       <td class="text-center">$ 20.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Agent_Operator"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td class="text-center">42</td>
-                                       <td class="text-left">Commission - Operator</td>
-                                       <td class="text-center">per day</td>
-                                       <td class="text-center">2.00%</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Agent_Operator"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
+                                    
                                  </tbody>
                               </table>
                         
@@ -426,7 +403,7 @@
                            </ol>
                         
                            <div class="table-responsive mt-3">
-                              <table class="table table-bordered membership-table mt-3">
+                              <table class="table table-bordered membership-table mt-3 w-100" id="commision_playbox_fees">
                                  <thead class="bg-first text-center">
                                     <tr>
                                        <th class="text-center">Item</th>
@@ -436,22 +413,7 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <tr>
-                                       <td class="text-center">50</td>
-                                       <td class="text-left">Earnings portion - Escort</td>
-                                       <td class="text-center">10%</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#playbox"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
+                                    
                                  </tbody>
                               </table>
                         
@@ -490,7 +452,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-               <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/edit-price.png')}}" class="custompopicon">Edit Pricing Detail</h5>
+               <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/edit-price.png')}}" class="custompopicon">Edit Fee Value</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                </button>
@@ -535,7 +497,7 @@
                   <div class="col-md-6">
                      <div class="form-group">
                         <label>%</label>
-                        <input type="text " class="form-control" placeholder="%"  id="percentage" disabled>
+                        <input type="text " class="form-control" placeholder="%"  id="percentage" name="percentage">
                      </div>
                   </div>
                   <div class="col-md-6">
@@ -547,7 +509,7 @@
                   </div>
                   <div class="col-md-12 mb-3">
                      <div class="form-group">
-                           <button type="submit" class="btn-success-modal shadow-none float-right">Save</button>
+                           <button type="submit" class="btn-success-modal shadow-none float-right"> Save & Update</button>
                      </div>
                   </div>
                </div>
@@ -604,8 +566,19 @@
 
 
 <div class="modal fade upload-modal" id="support_fees_modal" tabindex="-1" role="dialog" aria-labelledby="Support_ServicesLabel" aria-hidden="true">
-   
 </div>
+
+<div class="modal fade upload-modal" id="loyalty_program_advertisers_modal" tabindex="-1" role="dialog" aria-labelledby="Support_ServicesLabel" aria-hidden="true">
+</div>
+
+<div class="modal fade upload-modal" id="agent_operator_fees_modal" tabindex="-1" role="dialog" aria-labelledby="Support_ServicesLabel" aria-hidden="true">
+</div>
+
+<div class="modal fade upload-modal" id="commision_playbox_fees_fees_modal" tabindex="-1" role="dialog" aria-labelledby="Support_ServicesLabel" aria-hidden="true">
+</div>
+
+
+
 
 
 <div class="modal fade upload-modal" id="Agent_Operator" tabindex="-1" role="dialog" aria-labelledby="Agent_OperatorLabel" aria-hidden="true">
@@ -678,6 +651,7 @@
       </div>
    </div>
 </div>
+
 
 
 @endsection
@@ -858,7 +832,7 @@ $(document).ready(function(){
 
       $('#membershipname').val($(button).data('membershipname'));
       $('#pricingId').val($(button).data('id'));
-      $('#price').val($(button).data('price'));
+      $('#price').val(parseFloat($(button).data('price')).toFixed(2));
       $('#frequency').val($(button).data('frequency'));
       if($(button).data('membershipname') == 'Free') {
       $('#frequency').attr('disabled',false);
@@ -870,8 +844,11 @@ $(document).ready(function(){
       $('#percentage').val($(button).data('per'));
       $('#discount_amount').val($(button).data('discount_amount'));
 
-      if($(button).data('discount_amount') != "N/A") {
-      $('#ac_amount').val($(button).data('discount_amount'));
+      if ($(button).data('discount_amount') !== "N/A") {
+         let discounts = parseFloat($(button).data('discount_amount'));
+         if (!isNaN(discounts)) {
+            $('#ac_amount').val(discounts);
+         }
       }
       
 
@@ -881,26 +858,51 @@ $(document).ready(function(){
    });
 
 
-   $("#price").keyup(function(){
-      var price = $(this).val();
-      console.log("price = ", price);
-      var per = $("#percentage").val();
-      if(per != 'N/A') {
-         var percent = price*per/100;
-         var amount = price-percent;
-         var per = $("#discount_amount").val(amount);
-         $("#ac_amount").val(amount);
-      } else {
-         var per = $("#discount_amount").val('N/A');
-         $("#ac_amount").val('');
-      }
+   // $("#price").keyup(function(){
+   //    var price = $(this).val();
+   //    console.log("price = ", price);
+   //    var per = $("#percentage").val();
+   //    if(per != 'N/A') {
+   //       var percent = price*per/100;
+   //       var amount = price-percent;
+   //       var per = $("#discount_amount").val(Math.ceil(amount * 100) / 100);
+   //       $("#ac_amount").val(amount);
+   //    } else {
+   //       var per = $("#discount_amount").val('N/A');
+   //       $("#ac_amount").val('');
+   //    }
 
-      console.log("ac price = ", price-percent);
+   //    console.log("ac price = ", price-percent);
+   // });
 
+   $("#price").on("keyup change", calculateDiscount);
+   $("#percentage").on("keyup change", calculateDiscount);
 
-   });
+   function calculateDiscount() {
+    var price = parseFloat($("#price").val());
+    var per = $("#percentage").val();
+
+    // if price is not a number, stop
+    if (isNaN(price)) return;
+
+    if (per !== 'N/A' && per !== '' && !isNaN(per)) {
+        per = parseFloat(per);
+        var percent = (price * per) / 100;
+        var amount = price - percent;
+
+        // Set both values rounded up to 2 decimals
+        $("#discount_amount").val(Math.ceil(amount * 100) / 100);
+        $("#ac_amount").val(amount);
+
+        console.log("Discount =", percent, "Final Amount =", amount);
+    } else {
+        $("#discount_amount").val('N/A');
+        $("#ac_amount").val('');
+    }
+}
 
    $("body").on('submit','#agent_bank',function(e){
+      $('.head_modal_title').html('Fee Value Setting');
       e.preventDefault();
       var form = $(this);
       var url = form.attr('action');
@@ -940,7 +942,7 @@ $(document).ready(function(){
 var fee_support_services = $("#fee_support_services").DataTable({
       language: {
       search: "Search: _INPUT_",
-      searchPlaceholder: "Search by Fee Type...",
+      searchPlaceholder: "Search by Fee...",
       lengthMenu: "Show _MENU_ entries",
       zeroRecords: "No matching records found",
       info: "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -968,7 +970,7 @@ var fee_support_services = $("#fee_support_services").DataTable({
             { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
       ],
 
-      order: [[1, 'asc']],
+      order: [[0, 'asc']],
       lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
       pageLength: 10,
       });
@@ -981,7 +983,7 @@ var fee_support_services = $("#fee_support_services").DataTable({
                                      <form name="fee_support_services_frm" method="post">
                                        <div class="modal-content">
                                           <div class="modal-header">
-                                             <h5 class="modal-title" id="Concierge_Services"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Fees - Concierge Services</h5>
+                                             <h5 class="modal-title" id="Concierge_Services"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Fees - Support Services (E4U Staff)</h5>
                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                              <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                                              </button>
@@ -1044,7 +1046,399 @@ var fee_support_services = $("#fee_support_services").DataTable({
          });
       });
 
-///////////// Set Fees - Support Services /////////////////
+///////////// Loyalty Program Advertisers /////////////////
+
+var loyalty_program_advertisers = $("#loyalty_program_advertisers").DataTable({
+      language: {
+      search: "Search: _INPUT_",
+      searchPlaceholder: "Search By Type...",
+      lengthMenu: "Show _MENU_ entries",
+      zeroRecords: "No matching records found",
+      info: "Showing _START_ to _END_ of _TOTAL_ entries",
+      infoEmpty: "No entries available",
+      infoFiltered: "(filtered from _MAX_ total entries)"
+      },
+
+      processing: true,
+      serverSide: true,
+      lengthChange: true,
+      searchable:false,
+      bStateSave: false,
+
+      ajax: {
+      url: "{{ route('admin.loyalty_program_advertisers') }}",
+      data: function (d) {
+      d.type = 'player';
+      }
+      },
+      columns: [
+            { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'type', name: 'type', searchable: true, orderable:false ,defaultContent: 'NA'},
+            { data: 'level', name: 'level', searchable: false, orderable:false,defaultContent: 'NA' },
+            { data: 'discription', name: 'discription', searchable: false, orderable:false,defaultContent: 'NA' },
+            { data: 'amount', name: 'amount', searchable: false, orderable:false,defaultContent: 'NA' },
+            { data: 'reward', name: 'reward', searchable: false, orderable:false,defaultContent: 'NA' },
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
+      ],
+
+      order: [[0, 'desc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10,
+      });
+
+
+        $(document).on('click', '.edit_item_loyalty_program_advertisers', function(e) 
+      {
+                  var rowData = $(this).data('id');
+                  let rewardOptions = '';
+                  for (let i = 1; i <= 10; i++) {
+                     let selected = (rowData.reward == i) ? 'selected' : '';
+                     rewardOptions += `<option value="${i}" ${selected}>${i}</option>`;
+                  }
+
+
+                  var modal_html = `<div class="modal-dialog modal-dialog-centered" role="document">
+                                       <form name="loyalty_program_advertisers_modal_frm" method="post">
+                                          <div class="modal-content">
+                                             <div class="modal-header">
+                                                <h5 class="modal-title" id="Edit_Competitor"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon"> Set Variables - Loyalty Program Advertisers</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                                                </button>
+                                             </div>
+                                             <div class="modal-body pb-0">
+                                               
+                                                   <div class="row">
+                                                     
+
+                                                      <div class="col-6 mb-3">
+                                                         <label>Type</label>
+                                                         <input type="text" class="form-control rounded-0" name="type"  value="${(rowData.type  ? rowData.type : '')}" required>
+                                                      </div>
+
+                                                      <div class="col-6 mb-3">
+                                                         <label>Level</label>
+                                                         <input type="text" class="form-control rounded-0" name="level"  value="${(rowData.level  ? rowData.level : '')}" required>
+                                                      </div>
+
+                                                      <div class="col-6 mb-3">
+                                                         <label>Value</label>
+                                                         <input type="number" class="form-control rounded-0" name="amount"  value="${(rowData.amount  ? rowData.amount : '')}" required>
+                                                      </div>
+
+                                                      <div class="col-6 mb-3">
+                                                         <label>Reward (Days)</label>
+                                                         <select class="form-control rounded-0" name="reward" required>
+                                                            <option value="" disabled ${!rowData.reward ? 'selected' : ''}>Select Reward</option>
+                                                            ${rewardOptions}
+                                                         </select>
+                                                      </div>
+
+                                                      
+                                                      <div class="col-12 mb-3">
+                                                         <label>Description</label>
+                                                         <textarea name="decs" class="form-control rounded-0" rows="5">${(rowData.discription  ? rowData.discription : '')}</textarea>
+                                                      </div>
+                                                   </div>
+                                                
+                                             </div>
+                                             <div class="modal-footer">
+                                              <input type="hidden" type="hidden" name="loyalty_program_advertisers" value="loyalty_program_advertisers">
+                                              <input type="hidden" type="hidden" name="id" value="${(rowData.id ? rowData.id : '')}">
+                                                <input type="submit" name="submit" class="btn-success-modal" value="Save &amp; Update">
+                                             </div>
+                                          </div>
+                                        </form>
+                                       </div>`;
+
+                  $('#loyalty_program_advertisers_modal').html(modal_html);
+                  $('#loyalty_program_advertisers_modal').modal({backdrop: 'static',  keyboard: false});          
+
+      });
+
+      $(document).on('submit', 'form[name="loyalty_program_advertisers_modal_frm"]', function(e) 
+      {
+        
+         e.preventDefault(); 
+         let form = $(this);
+         let formData = new FormData(this);
+         swal_waiting_popup({'title':'Updatin Data'});
+         $.ajax({
+               url: "{{ route('admin.update_fees_data') }}",
+               method: 'POST',
+               data: formData,
+               contentType: false,
+               processData: false, 
+               success: function(response) {
+                     loyalty_program_advertisers.ajax.reload(null, false); 
+                     $('#loyalty_program_advertisers_modal').modal('hide');
+                     Swal.close();
+                     swal_success_popup(response.message);
+               },
+               error: function(xhr) {
+                   $('#loyalty_program_advertisers_modal').modal('hide');
+                  swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+               }
+         });
+      });
+
+
+//////////////// End Loyalty Program Advertisers /////////////////////
+
+
+/////////////// Set Variables - Agent & Operator ////////////
+var agent_operator_fees = $("#agent_operator_fees").DataTable({
+      language: {
+      search: "Search: _INPUT_",
+      searchPlaceholder: "Search by Rate...",
+      lengthMenu: "Show _MENU_ entries",
+      zeroRecords: "No matching records found",
+      info: "Showing _START_ to _END_ of _TOTAL_ entries",
+      infoEmpty: "No entries available",
+      infoFiltered: "(filtered from _MAX_ total entries)"
+      },
+
+      processing: true,
+      serverSide: true,
+      lengthChange: true,
+      searchable:false,
+      bStateSave: false,
+
+      ajax: {
+      url: "{{ route('admin.agent_operator_fees') }}",
+      data: function (d) {
+      d.type = 'player';
+      }
+      },
+      columns: [
+            
+            { data: 'id', name: 'id', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'discription', name: 'discription', orderable:false, defaultContent: 'NA'},
+            { data: 'rate', name: 'rate', searchable: true, orderable:false ,defaultContent: 'NA'},
+            { data: 'percent', name: 'percent', searchable: false, orderable:false,defaultContent: 'NA' },
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
+           
+      ],
+
+      order: [[0, 'asc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10,
+      });
+
+
+        $(document).on('click', '.edit_item_agent_operator_fees_modal', function(e) 
+      {
+                  var rowData = $(this).data('id');
+                  let rewardOptions = '';
+                  for (let i = 1; i <= 10; i++) {
+                     let selected = (rowData.reward == i) ? 'selected' : '';
+                     rewardOptions += `<option value="${i}" ${selected}>${i}</option>`;
+                  }
+
+
+                  var modal_html = `<div class="modal-dialog modal-dialog-centered" role="document">
+                                       <form name="agent_operator_fees_frm" method="post">
+                                          <div class="modal-content">
+                                             <div class="modal-header">
+                                                <h5 class="modal-title" id="Edit_Competitor"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Variables - Agent & Operator</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                                                </button>
+                                             </div>
+                                             <div class="modal-body pb-0">
+                                               
+                                                   <div class="row">
+                                                      <div class="col-6 mb-3">
+                                                         <label>Rate</label>
+                                                               <select class="custom-select" name="rate" id="rate" required data-parsley-required-message="Please select state">
+                                                                  <option value="">Select</option>
+                                                                  <option value="1" ${rowData.rate == 'per day' ? 'selected' : ''}>per day</option>
+                                                                  <option value="2" ${rowData.rate == 'per week' ? 'selected' : ''}>per week</option>
+                                                                  <option value="3" ${rowData.rate == 'per Registration' ?  'selected' : ''}>per Registration</option>
+                                                               </select>
+                                                       
+                                                      </div>
+                                                      <div class="col-6 mb-3">
+                                                         <label>Value</label>
+                                                         <input type="text"  class="form-control rounded-0" name="percent"  value="${(rowData.percent  ? rowData.percent : '')}" required>
+                                                      </div>
+
+                                                       <div class="col-12 mb-3">
+                                                         <label>Description</label>
+                                                         <textarea name="discription" class="form-control rounded-0" rows="5">${(rowData.discription  ? rowData.discription : '')}</textarea>
+                                                      </div>
+
+                                                     
+                                                      
+                                                   </div>
+                                                
+                                             </div>
+                                             <div class="modal-footer">
+                                              <input type="hidden" type="hidden" name="agent_operator_fees" value="agent_operator_fees">
+                                              <input type="hidden" type="hidden" name="id" value="${(rowData.id ? rowData.id : '')}">
+                                                <input type="submit" name="submit" class="btn-success-modal" value="Save &amp; Update">
+                                             </div>
+                                          </div>
+                                        </form>
+                                       </div>`;
+
+                  $('#agent_operator_fees_modal').html(modal_html);
+                  $('#agent_operator_fees_modal').modal({backdrop: 'static',  keyboard: false});          
+
+      });
+
+      $(document).on('submit', 'form[name="agent_operator_fees_frm"]', function(e) 
+      {
+        
+         e.preventDefault(); 
+         let form = $(this);
+         let formData = new FormData(this);
+         swal_waiting_popup({'title':'Updatin Data'});
+         $.ajax({
+               url: "{{ route('admin.update_fees_data') }}",
+               method: 'POST',
+               data: formData,
+               contentType: false,
+               processData: false, 
+               success: function(response) {
+                     agent_operator_fees.ajax.reload(null, false); 
+                     $('#agent_operator_fees_modal').modal('hide');
+                     Swal.close();
+                     swal_success_popup(response.message);
+               },
+               error: function(xhr) {
+                   $('#agent_operator_fees_modal').modal('hide');
+                  swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+               }
+         });
+      });
+
+/////////////// Set Variables - Agent & Operator ////////////
+
+
+/////////////// Set Commission - Playbox  ////////////
+var commision_playbox_fees = $("#commision_playbox_fees").DataTable({
+      language: {
+      search: "Search: _INPUT_",
+      searchPlaceholder: "Search by Description...",
+      lengthMenu: "Show _MENU_ entries",
+      zeroRecords: "No matching records found",
+      info: "Showing _START_ to _END_ of _TOTAL_ entries",
+      infoEmpty: "No entries available",
+      infoFiltered: "(filtered from _MAX_ total entries)"
+      },
+
+      processing: true,
+      serverSide: true,
+      lengthChange: true,
+      searchable:false,
+      bStateSave: false,
+
+      ajax: {
+      url: "{{ route('admin.commision_playbox_fees') }}",
+      data: function (d) {
+      d.type = 'player';
+      }
+      },
+      columns: [
+            
+            { data: 'id', name: 'id', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'discription', name: 'discription', orderable:false, defaultContent: 'NA'},
+            { data: 'amount_perent', name: 'amount_perent', searchable: true, orderable:false ,defaultContent: 'NA'},
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
+           
+      ],
+
+      order: [[0, 'asc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10,
+      });
+
+
+        $(document).on('click', '.edit_item_commision_playbox_fees', function(e) 
+      {
+                  var rowData = $(this).data('id');
+                  let rewardOptions = '';
+                  for (let i = 1; i <= 10; i++) {
+                     let selected = (rowData.reward == i) ? 'selected' : '';
+                     rewardOptions += `<option value="${i}" ${selected}>${i}</option>`;
+                  }
+
+
+                  var modal_html = `<div class="modal-dialog modal-dialog-centered" role="document">
+                                       <form name="commision_playbox_fees_frm" method="post">
+                                          <div class="modal-content">
+                                             <div class="modal-header">
+                                                <h5 class="modal-title" id="Edit_Competitor"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Distribution - Add My to Playbox</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                                                </button>
+                                             </div>
+                                             <div class="modal-body pb-0">
+                                               
+                                                   <div class="row">
+                                                     
+                                                      <div class="col-12 mb-3">
+                                                         <label>Amount</label>
+                                                         <input type="text"  class="form-control rounded-0" name="amount"  value="${(rowData.amount  ? rowData.amount : '')}" required>
+                                                      </div>
+
+                                                       <div class="col-12 mb-3">
+                                                         <label>Description</label>
+                                                         <textarea name="discription" class="form-control rounded-0" rows="5">${(rowData.discription  ? rowData.discription : '')}</textarea>
+                                                      </div>
+
+                                                     
+                                                      
+                                                   </div>
+                                                
+                                             </div>
+                                             <div class="modal-footer">
+                                              <input type="hidden" type="hidden" name="commision_playbox_fees" value="commision_playbox_fees">
+                                              <input type="hidden" type="hidden" name="id" value="${(rowData.id ? rowData.id : '')}">
+                                                <input type="submit" name="submit" class="btn-success-modal" value="Save &amp; Update">
+                                             </div>
+                                          </div>
+                                        </form>
+                                       </div>`;
+
+                  $('#commision_playbox_fees_fees_modal').html(modal_html);
+                  $('#commision_playbox_fees_fees_modal').modal({backdrop: 'static',  keyboard: false});          
+
+      });
+
+
+      $(document).on('submit', 'form[name="commision_playbox_fees_frm"]', function(e) 
+      {
+        
+         e.preventDefault(); 
+         let form = $(this);
+         let formData = new FormData(this);
+         swal_waiting_popup({'title':'Updatin Data'});
+         $.ajax({
+               url: "{{ route('admin.update_fees_data') }}",
+               method: 'POST',
+               data: formData,
+               contentType: false,
+               processData: false, 
+               success: function(response) {
+                     commision_playbox_fees.ajax.reload(null, false); 
+                     $('#commision_playbox_fees_fees_modal').modal('hide');
+                     Swal.close();
+                     swal_success_popup(response.message);
+               },
+               error: function(xhr) {
+                   $('#commision_playbox_fees_fees_modal').modal('hide');
+                  swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+               }
+         });
+      });
+
+
+/////////////// Set Commission - Playbox   ////////////
+
+
+
 
 </script>
 @endpush

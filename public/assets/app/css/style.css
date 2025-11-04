@@ -3388,6 +3388,30 @@ i.fa.fa-heart-o{
         font-weight: 400;
     }
     
+    .mc_my_legbox_btn {
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 27px;
+        background: var(--blue--text);
+        text-align: center;
+        color: #ffffff;
+        border-radius: 5px;
+    }
+    
+    .mc_my_legbox_btn:hover {
+        background-color: var(--peach);
+    }
+    
+    .mc_my_legbox_btn span i {
+        padding-right: 10px;
+    }
+    
+    .mc_my_legbox_btn:hover span i {
+        color: #fff;
+    }
+    
     .my_legbox {
         font-family: Poppins;
         font-style: normal;
@@ -5976,15 +6000,26 @@ i.fa.fa-heart-o{
         position: absolute;
         font-size: 12px;
         width: max-content;
-        top: -36px;
+        top: -35px;
         text-align: center;
-        left: -3px;
+        left: 0px;
         opacity: 0;
         visibility: hidden;
         color: rgb(255, 255, 255);
         border-radius: 3px;
         background: rgb(255, 60, 95);
-        padding: 8px;
+        padding: 5px;
+    }
+    
+    .custom--service-tag .grid_list_icon_box span.custom-toltip::after {
+        content: "";
+        position: absolute;
+        top: 28px;
+        left: 0%;
+        transform: translateX(91%) rotate(0deg);
+        border-width: 5px;
+        border-style: solid;
+        border-color: var(--peach) transparent transparent transparent;
     }
     
     .gold_list_frame .verify-image-custom {
@@ -5994,15 +6029,47 @@ i.fa.fa-heart-o{
         bottom: 20px !important;
     }
     
-    .custom--service-tag .grid_list_icon_box:hover span,
-    .toltip-parent:hover span.custom-toltip {
+    .custom--service-tag .grid_list_icon_box:hover span {
         opacity: 1;
         visibility: visible;
     }
+    /* filter tool-tip */
     
-    .toltip-parent {
+    .filter-tooltip-wrap {
         position: relative;
     }
+    
+    .filter-tooltip-wrap span.filter-tooltip {
+        position: absolute;
+        font-size: 12px;
+        width: max-content;
+        top: -35px;
+        text-align: center;
+        left: 0px;
+        opacity: 0;
+        visibility: hidden;
+        color: rgb(255, 255, 255);
+        border-radius: 3px;
+        background: rgb(255, 60, 95);
+        padding: 5px;
+    }
+    
+    .filter-tooltip-wrap span.filter-tooltip::after {
+        content: "";
+        position: absolute;
+        top: 28px;
+        left: 0%;
+        transform: translateX(91%) rotate(0deg);
+        border-width: 5px;
+        border-style: solid;
+        border-color: var(--peach) transparent transparent transparent;
+    }
+    
+    .filter-tooltip-wrap:hover span.filter-tooltip {
+        opacity: 1;
+        visibility: visible;
+    }
+    /* end */
     
     .custom-search-help {
         display: flex;
@@ -6395,7 +6462,7 @@ i.fa.fa-heart-o{
     
     .blog-title {
         font-size: 32px;
-        font-weight: 700;
+        /* font-weight: 700; */
         line-height: 1.2;
     }
     
