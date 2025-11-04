@@ -590,7 +590,7 @@ class User extends Authenticatable
 
     public function agent_settings()
     {
-      return $this->belongsTo(AgentSetting::class, 'id','user_id');
+       return $this->hasOne(AgentSetting::class, 'user_id', 'id');
     }
 
 
