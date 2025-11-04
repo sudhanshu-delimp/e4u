@@ -143,7 +143,7 @@
         <div class="modal-content custome_modal_max_width">
            <!-- Modal body -->
            <div class="modal-body p-0">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 20px;">
               <img src="{{ asset('assets/app/img/newcross.png') }}" class=" ">
               </button>
               <h3><img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}" class="custompopicon menu-icon my--play"> My Playbox</h3>

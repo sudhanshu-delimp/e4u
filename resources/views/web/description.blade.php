@@ -1358,7 +1358,7 @@
                         Please log in or Register to access Message Me.</span>
                 </h6>
                 <div class="modal-footer text-center justify-content-center pt-0" >
-                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>
+                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
                 <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
                 </div>
             </div>
@@ -1388,7 +1388,7 @@
                     <span id="Lname">Report Advertiser is only available to Viewers. Please log in or Register to access Report Advertiser.</span>
                 </h6>
                 <div class="modal-footer text-center justify-content-center" >
-                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>
+                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
                 <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
                 </div>
             </div>
@@ -1725,7 +1725,7 @@
                 <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
                     <span id="Lname">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
                 </h1>
-                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>
+                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
                 <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
             </div>
         </div>
