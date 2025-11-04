@@ -1264,12 +1264,12 @@
                                 @if(!$reviewAlreadyExist)
                                     <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
                                     <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                    Add Reviews
+                                    Add Review
                                 </button>
                                 @else
                                     <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
                                         <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                        Edit Reviews
+                                        Edit Review
                                     </button>
                                 @endif
 
@@ -1304,7 +1304,7 @@
                     @if(auth()->user()->type == 0)
                         <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
                             <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                            Add Reviews
+                            Add Review
                         </button>
                     @endif
                 @else
@@ -1702,7 +1702,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn main_bg_color site_btn_primary">Post Reviews</button>
+                    <button type="submit" class="btn main_bg_color site_btn_primary">Post Review</button>
                 </div>
             </form>
         </div>
