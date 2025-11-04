@@ -41,6 +41,7 @@ use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
 use App\Http\Controllers\Escort\EscortTourScheduleContoller;
+use App\Http\Controllers\InfluencerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -269,7 +270,8 @@ Route::get('state-list',[App\Http\Controllers\StateController::class,'stateList'
 //Route::get('/escorts', [App\Http\Controllers\HomeController::class, 'intendedRedirect'])->name('dashboard');
 
 Route::get('/dmca', [App\Http\Controllers\HomeController::class, 'noticeDmca'])->name('notice.dmca');
-Route::get('/influencer', [App\Http\Controllers\HomeController::class, 'becomeInfluencer'])->name('become.influencer');
+Route::get('/influencer', [InfluencerController::class, 'becomeInfluencer'])->name('become.influencer');
+Route::post('/save-influencer', [InfluencerController::class, 'store'])->name('store.influencer');
 
 
 

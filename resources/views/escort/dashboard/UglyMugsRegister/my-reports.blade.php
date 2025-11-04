@@ -56,7 +56,7 @@
               searching the mobile number. Or scroll through the pages.
             </li>
             <li>
-              You can also select a Report/s you wish to edit or remove from your register by clicking
+              You can also select a Report's you wish to edit or remove from your register by clicking
               the appropriate button. Any Report you remove from your register will be permanently
               removed.
             </li>

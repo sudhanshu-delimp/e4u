@@ -168,44 +168,14 @@ class NumController extends Controller
 
     public function editMyReport(Request $request, $id)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'incident_state'    => 'required',
-        //     'incident_date'    => 'required',
-        //     'incident_location' => 'required',
-        //     'offender_mobile'   => 'required|min:8',
-        //     'incident_nature'   => 'required',
-        //     'profile_link'      => 'nullable',
-        //     'what_happened'     => 'required|string',
-        //     'rating'            => 'required|string',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return response()->json([
-        //         'status'  => false,
-        //         'errors'  => $validator->errors(),
-        //     ], 422);
-        // }
         $states = State::where('iso2', 'NOT REGEXP', '^[0-9]+$')->get();
         $num = Num::where('id', $id)->where('user_id', Auth::user()->id)->with('state')->first();
 
         return view('escort.dashboard.UglyMugsRegister.edit-report',['num' => $num, 'states' => $states]);
-
-        // if (!$num) {
-        //     return response()->json([
-        //         'status' => false,
-        //         'message' => 'Report not found or access denied.'
-        //     ], 404);
-        // }
-
-        // return response()->json([
-        //     'status' => true,
-        //     'data' => $num
-        // ]);
     }  
 
     public function updateMyReportByAjax(Request $request)
     {
-        //dd($request->all());
         $validator = Validator::make($request->all(), [
             'incident_state'    => 'required',
             'incident_date'    => 'required',
@@ -247,16 +217,5 @@ class NumController extends Controller
 
         return view('escort.dashboard.UglyMugsRegister.edit-report',['num' => $num, 'states' => $states]);
 
-        // if (!$num) {
-        //     return response()->json([
-        //         'status' => false,
-        //         'message' => 'Report not found or access denied.'
-        //     ], 404);
-        // }
-
-        // return response()->json([
-        //     'status' => true,
-        //     'data' => $num
-        // ]);
     }   
 }
