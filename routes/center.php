@@ -107,10 +107,8 @@ Route::post('settings-socials-link',[CenterProfileInformationController::class,'
 //////////////end settings
 /////////////end
 
-Route::get('customise-dashboard',function(){
-    return view('center.dashboard.customise-dashboard');
-})->name('center.dashboard.customise-dashboard');
-
+Route::get('customise-dashboard', [CenterController::class, 'customiseDashboard'])->name('center.dashboard.customise-dashboard');
+Route::post('customise-dashboard', [CenterController::class, 'updateCustomiseDashboard'])->name('center.dashboard.customise-dashboard');
 
 Route::get('centre-statistics',function(){
     return view('center.dashboard.centre-statistics');
