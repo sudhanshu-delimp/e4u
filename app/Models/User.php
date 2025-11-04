@@ -75,6 +75,11 @@ class User extends Authenticatable
         'member_id',
     ];
 
+    public function getTypeAttribute($value)
+    {
+       return (int) $value;
+    }
+
     public function getOnlineAttribute()
     {
         if (!$this->last_online_at) return false;
@@ -577,7 +582,7 @@ class User extends Authenticatable
       return $this->belongsTo(AccountSetting::class, 'id','user_id');
     }
 
-     public function viewer_settings()
+    public function viewer_settings()
     {
       return $this->belongsTo(ViewerSetting::class, 'id','user_id');
     }
@@ -585,7 +590,7 @@ class User extends Authenticatable
 
     public function agent_settings()
     {
-      return $this->belongsTo(AgentSetting::class, 'id','user_id');
+       return $this->hasOne(AgentSetting::class, 'user_id', 'id');
     }
 
 

@@ -52,7 +52,7 @@
                                 <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
                                 <div class="stat-label">Appointments Today</div>
                             </div>
-                            <div class="stat-number">5</div>
+                            <div class="stat-number" id="summaryToday">0</div>
                         </div>
 
                         <div class="stat-card">
@@ -60,7 +60,7 @@
                                 <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
                                 <div class="stat-label">Appointments This Week</div>
                             </div>
-                            <div class="stat-number">15</div>
+                            <div class="stat-number" id="summaryWeek">0</div>
                         </div>
 
                         <div class="stat-card">
@@ -68,7 +68,7 @@
                                 <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
                                 <div class="stat-label">Appointments This Month</div>
                             </div>
-                            <div class="stat-number">200</div>
+                            <div class="stat-number" id="summaryMonth">0</div>
                         </div>
 
                         
@@ -133,7 +133,7 @@
         eventDurationEditable: false,
         snapDuration: '00:30:00',
         events: {
-          url: '{{ route('agent.appointment.calendar.events') }}',
+          url: "{{ route('agent.appointment.calendar.events') }}",
           method: 'GET',
           failure: function() {
             console.error('Failed to load calendar events.');
@@ -146,7 +146,7 @@
           if (!id) return;
           $('#appointmentDetailBody').html('<div class="text-center py-4">Loading...</div>');
           $('#appointmentDetailModal').modal('show');
-          var detailUrl = '{{ route('agent.appointment.details', ['id' => '___ID___']) }}'.replace('___ID___', id);
+          var detailUrl = "{{ route('agent.appointment.details', ['id' => '___ID___']) }}".replace('___ID___', id);
           $.ajax({
             url: detailUrl,
             method: 'GET',

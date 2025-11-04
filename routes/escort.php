@@ -319,10 +319,6 @@ Route::get('visa-migration',function(){
 });
 
 Route::get('/list-tour/{type}',[TourController::class, 'viewTourList'])->name('escort.view.tour.list');
-// Route::get('edit-tour',function(){
-//     return view('escort.dashboard.NewTour.edit-tour');
-
-// });
 
 Route::get('/tour-schedule',[EscortTourScheduleContoller::class,'index'])->name('escort.dashboard.tour-schedule');
 Route::get('/get-tour-schedule-ajax',[EscortTourScheduleContoller::class,'getTourScheduleByAjax'])->name('escort.dashboard.get-tour-schedule-ajax');
@@ -409,6 +405,7 @@ Route::get('/get-account-locations', [TourController::class, 'getAccountLocation
 Route::get('/get-account-profiles', [TourController::class, 'getAccountProfiles'])->name('account.location_profiles');
 Route::post('/save-account-tour', [TourController::class, 'saveAccountTour'])->name('account.save_tour');
 Route::post('/update-account-tour/{id}', [TourController::class, 'updateAccountTour'])->name('account.update_tour');
+Route::get('/tour-checkout/{id}', [TourController::class, 'tourCheckout'])->name('account.checkout_tour');
 
 
 Route::post('agent-request',[AgentRequestController::class, 'agentRequest'])->name('escort.agent-request');

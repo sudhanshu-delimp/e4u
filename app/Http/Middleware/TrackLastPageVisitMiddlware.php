@@ -2,15 +2,16 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\AttemptLogin;
+use Closure;
+use Carbon\Carbon;
 use App\Models\City;
 use App\Models\Visitor;
-use Carbon\Carbon;
-use Closure;
+use Illuminate\Support\Str;
+use App\Models\AttemptLogin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 
 class TrackLastPageVisitMiddlware
 {
@@ -37,7 +38,8 @@ class TrackLastPageVisitMiddlware
             return $next($request);
         }
         
-        if(auth()->user() != null) {
+        if(auth()->user() != null) 
+        {
 
             # if user is suspended or blocked then logout the console
             if (auth()->user()->status == 'Suspended' || auth()->user()->status == 3 || auth()->user()->status == 'Blocked' || auth()->user()->status == 4) {
@@ -50,6 +52,41 @@ class TrackLastPageVisitMiddlware
             $lastActivity = AttemptLogin::where('user_id', auth()->user()->id)
             ->where('email', '!=', 'admin@e4u.com.au')
             ->value('updated_at');
+
+
+            
+            # logout user if their idle time is more than their preference time
+            if(auth()->user()->type == 5)
+            {
+
+                $idle_preference_time = (auth()->user()->agent_settings && auth()->user()->agent_settings->idle_preference_time) ? auth()->user()->agent_settings->idle_preference_time : '60';
+
+                if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
+                auth()->logout();
+                return redirect()->route('agent.login')
+                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+                } 
+            }
+            elseif(auth()->user()->type == 0)
+            {
+
+                $idle_preference_time = (auth()->user()->viewer_settings && auth()->user()->viewer_settings->idle_preference_time) ? auth()->user()->viewer_settings->idle_preference_time : '60';
+                if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
+                auth()->logout();
+                return redirect()->route('viewer.login')
+                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+                } 
+            }
+            else
+            {
+                if ($lastActivity && now()->diffInMinutes($lastActivity) > (int)auth()->user()->idle_preference_time) {
+                auth()->logout();
+
+                return redirect()->route('/')
+                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+                }
+            }
+
 
             # logout user if their idle time is more than their preference time
             if ($lastActivity && now()->diffInMinutes($lastActivity) > (int)auth()->user()->idle_preference_time) {

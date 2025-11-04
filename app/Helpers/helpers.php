@@ -570,3 +570,12 @@ if (!function_exists('saving_escort_stats')) {
     }
      
 }
+
+function print_this($array,$die=false){
+    echo '<pre>';
+    print_r($array);
+    echo '</pre>';
+    if($die){
+        die;
+    }
+}

@@ -11,6 +11,8 @@ use App\Models\Service;
 use App\Models\Duration;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\DashboardViewer;
+use App\Models\CenterNotification;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -30,7 +32,6 @@ use App\Repositories\Escort\AvailabilityInterface;
 use App\Http\Requests\Escort\UpdateRequestReadMore;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
-use App\Models\CenterNotification;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 
 
@@ -55,12 +56,12 @@ class CenterController extends Controller
     public function index()
     {
 
-
         $escorts = $this->escort->all();
-
-        return view('center.dashboard.index', compact('escorts'));
-        //return view('center.profile-info.create-profile', compact('escorts'));
+        $viewer_array = DashboardViewer::where('user_id', auth()->id())->first(); 
+        return view('center.dashboard.index', compact('escorts','viewer_array'));
     }
+
+
     public function escortList()
     {
         $escorts = $this->escort->all();
@@ -480,6 +481,36 @@ class CenterController extends Controller
         } catch (\Throwable $e) {
             return error_response('Failed to fetch active notification.', 500, ['error' => $e->getMessage()]);
         }
-    } 
+    }
+    
+    
+    public function customiseDashboard(Request $request)
+    {
+        
+        $viewer_array = DashboardViewer::where('user_id', auth()->id())->first(); 
+        return view('center.dashboard.customise-dashboard', compact('viewer_array'));
+    }
+
+    public function updateCustomiseDashboard(Request $request)
+    {
+           $viewers = config('constants.dashboard_viewer.center');
+            $my_view = [];
+            foreach($viewers as $view) :
+                $my_view[$view['key']] = 0 ;
+            endforeach;
+
+          
+            $viewer = DashboardViewer::firstOrCreate(
+                ['user_id' => auth()->id()],
+                ['my_view' =>  $my_view]
+            );
+
+            $data = $viewer->my_view;
+            $data[$request->key] = (int) $request->value;
+
+            $viewer->update(['my_view' => $data]);
+            return response()->json(['success' => true, 'data' => $data]);
+    }
+
 
 }

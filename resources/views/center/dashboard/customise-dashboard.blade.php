@@ -30,90 +30,62 @@
             </div>
         </div>
         <!-- Page Heading -->
+
         <div class="row">
+           
+         <?php
+         $viewers = config('constants.dashboard_viewer.center');
+         if(!empty($viewers))
+         {
+             foreach($viewers as $view) :
+             $checked = (($viewer_array->my_view[$view['key']] ?? 0) == 1) ? true : false; 
+         ?>
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <label class="card-label shadow-sm">
-                    <input type="checkbox" name="My_Legbox_Viewers" data-key="My_Legbox_Viewers" value="1"
-                        class="toggle-view">
+                    <input type="checkbox" name="{{$view['key']}}" data-key="{{$view['key'] }}" value="1" class="toggle-view" 
+                     @if($checked) checked @endif >
                     <div class="selectable-card">
-                        <div class="card-title-row">
-                            <div class="card-title">Media Views</div>
-                            <div class="card-image">
-                                <img src="{{ asset('assets/dashboard/img/boxicon/center/media-views-today.png') }}"
-                                    alt="Media Views">
-                            </div>
+                    <div class="card-title-row">
+                        <div class="card-title">{{$view['name']}}</div>
+                        <div class="card-image">
+                            <img src="{{ asset('assets/dashboard/img/'.$view['icon'].'')}}" alt="{{$view['name']}}">
                         </div>
-                        <div class="card-desc">View a complete summary of your Media Views.</div>
+                    </div>
+                    <div class="card-desc">{{$view['text']}}</div>
                     </div>
                 </label>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <label class="card-label shadow-sm">
-                    <input type="checkbox" name="My_Legbox_Viewers" data-key="My_Legbox_Viewers" value="1"
-                        class="toggle-view">
-                    <div class="selectable-card">
-                        <div class="card-title-row">
-                            <div class="card-title">Support Tickets</div>
-                            <div class="card-image">
-                                <img src="{{ asset('assets/dashboard/img/boxicon/center/suppor-tickets.png') }}"
-                                    alt="Support Tickets">
-                            </div>
-                        </div>
-                        <div class="card-desc">View a complete summary of your Support Tickets.</div>
-                    </div>
-                </label>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <label class="card-label shadow-sm">
-                    <input type="checkbox" name="My_Legbox_Viewers" data-key="My_Legbox_Viewers" value="1"
-                        class="toggle-view">
-                    <div class="selectable-card">
-                        <div class="card-title-row">
-                            <div class="card-title">Profile Views</div>
-                            <div class="card-image">
-                                <img src="{{ asset('assets/dashboard/img/boxicon/center/profile-views-today.png') }}"
-                                    alt="Profile Views">
-                            </div>
-                        </div>
-                        <div class="card-desc">View a complete summary of your Profile Views.</div>
-                    </div>
-                </label>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <label class="card-label shadow-sm">
-                    <input type="checkbox" name="My_Legbox_Viewers" data-key="My_Legbox_Viewers" value="1"
-                        class="toggle-view">
-                    <div class="selectable-card">
-                        <div class="card-title-row">
-                            <div class="card-title">Recommendations</div>
-                            <div class="card-image">
-                                <img src="{{ asset('assets/dashboard/img/boxicon/center/recommendations-this-week.png') }}"
-                                    alt="Recommendations">
-                            </div>
-                        </div>
-                        <div class="card-desc">View a complete summary of your Recommendations.</div>
-                    </div>
-                </label>
-            </div>
-
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <label class="card-label shadow-sm">
-                    <input type="checkbox" name="My_Legbox_Viewers" data-key="My_Legbox_Viewers" value="1"
-                        class="toggle-view">
-                    <div class="selectable-card">
-                        <div class="card-title-row">
-                            <div class="card-title">Reviews Posted</div>
-                            <div class="card-image">
-                                <img src="{{ asset('assets/dashboard/img/boxicon/center/reviews-posted-this-week.png') }}"
-                                    alt="Reviews Posted">
-                            </div>
-                        </div>
-                        <div class="card-desc">View a complete summary of your Reviews Posted.</div>
-                    </div>
-                </label>
-            </div>
-
+            <?php
+             endforeach;
+            } 
+            ?>
+           
         </div>
     @endsection
     @section('script')
+       
+     <script>
+    $(document).on("change", ".toggle-view", function () {
+                    let key = $(this).data("key");
+                    let value = $(this).is(":checked") ? 1 : 0;
+
+                    $.ajax({
+                        url: "{{ route('center.dashboard.customise-dashboard') }}",
+                        method: "POST",
+                        data: {
+                            key: key,
+                            value: value
+                        },
+                        success: function (res) {
+                            console.log("Saved:", res);
+                        },
+                        error: function (xhr) {
+                            console.error("Error:", xhr.responseText);
+                        }
+                    });
+        });
+
+
+    </script>
+
     @endsection

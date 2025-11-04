@@ -174,6 +174,7 @@ class PricingsummariesController extends BaseController
         // $data->status = $request->price - $percent;
 
         $data->price = $request->price;
+        $data->percentage = $request->percentage;
         $data->discount_amount = $request->discount_amount;
         $data->days = $request->days;
         $data->save();
@@ -240,6 +241,8 @@ class PricingsummariesController extends BaseController
         $i = 1;
                
         foreach($fees_list as $key => $item) {
+
+            $item->amount = '$'.$item->amount;
             $dropdown = '<div class="dropdown no-arrow">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -388,6 +391,8 @@ class PricingsummariesController extends BaseController
         $i = 1;
                
         foreach($fees_list as $key => $item) {
+
+            $item->amount = '$'.$item->amount;
             $dropdown = '<div class="dropdown no-arrow">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -461,6 +466,7 @@ class PricingsummariesController extends BaseController
         foreach($fees_list as $key => $item) {
 
             $item->percent = $item->percent;
+            $item->rate = $item->rate == '1' ? 'per day' : ($item->rate == '2' ? 'per week' : 'per Registration') ;
             $dropdown = '<div class="dropdown no-arrow">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
