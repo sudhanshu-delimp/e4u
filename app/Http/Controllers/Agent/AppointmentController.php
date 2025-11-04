@@ -452,7 +452,7 @@ class AppointmentController extends Controller
 			return error_response('Appointment not found', 404);
 		}
 		$detail = [
-			'date' => Carbon::parse($appointment->date)->format('M d, Y'),
+			'date' => Carbon::parse($appointment->date)->format('d-m-Y'),
 			'time' => Carbon::parse($appointment->start_time)->format('h:i A') . ' - ' . Carbon::parse($appointment->end_time)->format('h:i A'),
 			'advertiser' => ($appointment->advertiser_name ?? ''),
 			'address' => $appointment->address,
@@ -462,7 +462,7 @@ class AppointmentController extends Controller
 			'source' => $appointment->source,
 			'importance' => $appointment->importance,
             'status' => ucfirst(str_replace("_", " ",$appointment->status)),
-			'create_date' => Carbon::parse($appointment->created_at)->format('M d, Y'),
+			'create_date' => Carbon::parse($appointment->created_at)->format('d-m-Y'),
 		];
 		return success_response($detail, 'Appointment details');
 	}
