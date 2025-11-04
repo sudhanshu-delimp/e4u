@@ -30,6 +30,7 @@ use App\Repositories\Escort\EscortMediaInterface;
 use App\Models\EscortCovidReport;
 use App\Repositories\Tour\TourInterface;
 
+use App\Models\Escort;
 use App\Models\Tour;
 use App\Models\TourLocation;
 use App\Models\TourProfile;
@@ -65,10 +66,6 @@ class TourController extends Controller
     {
         $escorts = $this->escort->FindByUsers(auth()->user()->id);
         $tours = $this->tour->find($id);
-        //dd($tour->profiles);
-        //dd($tour->locations);
-        //$tour->tour_location;
-
         return view('escort.dashboard.archives.archive-tour-summer',compact('escorts','tours'));
     }
     public function viewTourList($type)
@@ -78,8 +75,6 @@ class TourController extends Controller
         $tours = $this->tour->all();
         $user_names = $escort->whereNotNull('state_id')->where('default_setting',0);
         $find_tour = null;
-
-        //dd($find_tour);
         return view('escort.dashboard.archives.archive-tour-view-profiles',compact('escorts','tours','find_tour','user_names', 'type'));
     }
     public function viewTourEdit($id)
@@ -147,9 +142,9 @@ class TourController extends Controller
     $query = \App\Models\Tour::with('locations');
     $query->where('user_id', $user_id);
     if ($type === 'current') {
-        $query->whereHas('locations', fn($q) => $q->where('end_date', '>=', $today));
+        //$query->whereHas('locations', fn($q) => $q->where('start_date', '<=', $today));
     } elseif ($type === 'past') {
-        $query->whereDoesntHave('locations', fn($q) => $q->where('end_date', '>=', $today));
+        //$query->whereDoesntHave('locations', fn($q) => $q->where('start_date', '>', $today));
     }
 
     // Search by tour name
@@ -162,20 +157,27 @@ class TourController extends Controller
     ->skip($start)
     ->take($length)
     ->get()
-    ->map(function ($tour) {
+    ->map(function ($tour, $index) {
         $startDate = $tour->locations->min('start_date');
         $endDate = $tour->locations->max('end_date');
         $days = $startDate && $endDate ? \Carbon\Carbon::parse($startDate)->diffInDays(\Carbon\Carbon::parse($endDate)) + 1 : 0;
 
+        $action = '<div class="dropdown no-arrow archive-dropdown">
+            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
+        if($tour->tourPurchase->count() == 0){
+            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('account.checkout_tour', $tour->id).'"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
+        }
+        $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
+        $action .= '</div></div>';
+
         return [
             'id' => $tour->id,
             'name' => $tour->name,
-            'start_date' => $startDate,
-            'end_date' => $endDate,
+            'start_date' => $startDate->format('d-m-Y'),
+            'end_date' => $endDate->format('d-m-Y'),
             'days' => $days,
-            'action' => '<div class="dropdown no-arrow archive-dropdown">
-            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-fw fa-pen " ></i> Edit </a> </div></div>'
+            'action' => $action
         ];
     });
 
@@ -778,13 +780,14 @@ return response()->json([
         $endDate = $request->input('end_date');
         $escort = $this->escort->FindByUsers(auth()->user()->id);
         // $escorts = $escort->where('state_id',$stateId)->toArray();
-        $escorts = $escort->where('state_id', $stateId);
+        $escorts = $escort->where('state_id', $stateId)->whereNotNull('name');
 
         $availableEscorts = $escorts->filter(function ($escort) use ($startDate, $endDate) {
             return !$escort->purchase()
                 ->where(function ($query) use ($startDate, $endDate) {
-                    $query->where('start_date', '<=', $endDate)
-                          ->where('end_date', '>=', $startDate);
+                    // $query->where('start_date', '<=', $endDate)
+                    //       ->where('end_date', '>=', $startDate);
+                    $query->overlapping($startDate, $endDate);
                 })->exists(); // true = overlap found, false = no overlap or no purchases
         })->values();
 
@@ -941,5 +944,36 @@ return response()->json([
         //$locations = Location::all();
         //$profiles = Profile::all();
         //return view('escort.dashboard.NewTour.create-tour',compact('escorts','tours','find_tour','user_names'));
+    }
+
+    public function tourCheckout($id){
+        $tour = Tour::findOrFail($id);
+        $data = [];
+        $escort_ids = [];
+        $tourProfiles = $tour->tourProfiles;
+        foreach ($tourProfiles as $profile) {
+            $data[] = [
+                'escort_id' => $profile->escort_id,
+                'tour_location_id'=>$profile->tour_location_id,
+                'membership' => $profile->tour_plan,
+                'start_date' => $profile->location->start_date->format('d-m-Y'),
+                'end_date' => $profile->location->end_date->format('d-m-Y'),
+            ];
+            $escort_ids[] = $profile->escort_id;
+        }
+        $checkoutData = [];
+        foreach($data  as $key=>$listing){
+            $index = date('Ymd', strtotime($listing['start_date'])) . rand(100, 999);
+            $checkoutData[$index] = [
+                'escort_id'=>$listing['escort_id'],
+                'tour_location_id'=>$listing['tour_location_id'],
+                'start_date'=>$listing['start_date'],
+                'end_date'=>$listing['end_date'],
+                'membership'=>$listing['membership']
+            ];
+        }
+        $escorts = Escort::whereIn('id', $escort_ids)->pluck('name', 'id')->toArray();
+        session()->put('checkout', $checkoutData);
+        return view('escort.dashboard.checkoutPage', compact('data', 'escorts'));
     }
 }

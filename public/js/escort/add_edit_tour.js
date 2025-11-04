@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", async function() {
             let locationsContainer = document.getElementById("locationsContainer");
             let addLocationButton = document.getElementById("addLocation");
@@ -34,11 +33,11 @@ document.addEventListener("DOMContentLoaded", async function() {
             </div>
             <div class="listing-field">
                 <label for="start-date">Start Date:</label>
-                <input type="text" name="start_date[]" class="form-control start-date js_datepicker" value="${nextStartDate}" min="${nextStartDate}">
+                <input type="text" name="start_date[]" class="form-control start-date js_datepicker" value="${nextStartDate}">
             </div>
             <div class="listing-field">            
                 <label for="end-date">End Date:</label>
-                <input type="text" name="end_date[]" class="form-control end-date js_datepicker">
+                <input type="text" name="end_date[]" class="form-control end-date js_datepicker" value="${nextStartDate}">
             </div>
             <div class="d-flex align-items-end justify-content-end gap-10">
                 <button type="button" class="btn-success-modal addProfile" style="padding:6px 10px;">Add Profile</button>
@@ -52,7 +51,6 @@ document.addEventListener("DOMContentLoaded", async function() {
         locationsContainer.appendChild(newLocation);
         initJsDatePicker();
         updateSaveButton();
-        updateAllEndDatesMin();
         updateProfileButtonState(newLocation);
     });
 
@@ -184,14 +182,6 @@ document.addEventListener("DOMContentLoaded", async function() {
         return allProfiles.filter(profile => !selectedProfiles.has(String(profile.id)));
     }
 
-    // function getNextDate(date) {
-    //     console.log('PREVIOUS_Date',date);
-    //     let nextDate = new Date(date);
-    //     console.log('NEXT_Date',nextDate);
-    //     nextDate.setDate(nextDate.getDate() + 1);
-    //     return nextDate;
-    // }
-
     function getNextDate(dateStr) {
         let [day, month, year] = dateStr.split('-');
         let date = new Date(year, month - 1, day);
@@ -270,12 +260,14 @@ document.addEventListener("DOMContentLoaded", async function() {
 }
 
 function updateProfileButtonState(locationGroup) {
-    let startDate = locationGroup.querySelector(".start-date").value;
-    console.log('startDate', startDate);
-    let endDate = locationGroup.querySelector(".end-date").value;
+    let startDate = $(locationGroup).find(".start-date");
+    let endDate = $(locationGroup).find(".end-date");
     let addProfileButton = locationGroup.querySelector(".addProfile");
-
-    addProfileButton.disabled = !(startDate && endDate);
+    if(startDate.val()){
+        startDate.datepicker('option', 'minDate', startDate.val());
+        endDate.datepicker('option', 'minDate', startDate.val());
+    }
+    addProfileButton.disabled = !(startDate.val() && endDate.val());
 }
 
     saveButton.addEventListener("click", function (event) {
@@ -343,7 +335,7 @@ function updateProfileButtonState(locationGroup) {
                     tour_plan: tourPlan
                 });
             });
-            console.log("profiles length" , profiles.length);
+            
             if (profiles.length === 0) {
                 alert("Each location must have at least one profile.");
                 return null;
@@ -367,4 +359,11 @@ function updateProfileButtonState(locationGroup) {
             locations: locations
         };
     }
+
+    $(document).on('change', 'input[name="start_date[]"]', function() {
+        let $row = $(this).closest('.listing-row');
+        let startDate = $(this).val();
+        let endDate = $row.find('input[name="end_date[]"]');
+        endDate.datepicker('option', 'minDate', startDate);
+    });
 });
