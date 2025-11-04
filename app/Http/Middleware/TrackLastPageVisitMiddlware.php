@@ -59,7 +59,8 @@ class TrackLastPageVisitMiddlware
             if(auth()->user()->type == 5)
             {
 
-                $idle_preference_time = auth()->user()->agent_settings->idle_preference_time ? auth()->user()->agent_settings->idle_preference_time : '60';
+                $idle_preference_time = (auth()->user()->agent_settings && auth()->user()->agent_settings->idle_preference_time) ? auth()->user()->agent_settings->idle_preference_time : '60';
+
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
                 return redirect()->route('agent.login')
@@ -69,7 +70,7 @@ class TrackLastPageVisitMiddlware
             elseif(auth()->user()->type == 0)
             {
 
-                $idle_preference_time = auth()->user()->viewer_settings->idle_preference_time ? auth()->user()->viewer_settings->idle_preference_time : '60';
+                $idle_preference_time = (auth()->user()->viewer_settings && auth()->user()->viewer_settings->idle_preference_time) ? auth()->user()->viewer_settings->idle_preference_time : '60';
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
                 return redirect()->route('viewer.login')

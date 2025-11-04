@@ -1,6 +1,12 @@
 <div class="col-lg col-md-6 col-sm-6 mb-5 brb--text">
-    <div class="seven_column_content_top d-flex justify-content-between mid_tit wish_span wish_span" style="z-index: 1;width: 87%;">
-           <span><img src="{{ asset('assets/img/e4u-verified-shield-dark.png') }}" class="" title="This Escort's Media has been verified by E4U" style="width: 12px;height: 12px;"></span>
+    <div class="seven_column_content_top d-flex justify-content-between mid_tit wish_span wish_span" style="z-index: 1;width: 90%;">
+           {{-- <span>
+            <img src="{{ asset('assets/img/e4u-verified-shield-dark.png') }}" class="" title="This Escort's Media has been verified by E4U" style="width: 12px;height: 12px;">
+           </span> --}}
+            <div class="vrf-tooltip-wrap">
+                <span ><img width="18" height="18" src="{{ asset('assets/img/e4u-verified-shield-dark.png') }}"></span>            
+                <span class="vrf-tooltip">Media Verified</span>
+            </div>
                 <span class="seven_column_content_top_font_size">{{ substr($escort->name,0,10)}}</span>
                 
                 @if(auth()->user())
