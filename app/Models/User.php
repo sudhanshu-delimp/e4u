@@ -582,7 +582,7 @@ class User extends Authenticatable
       return $this->belongsTo(AccountSetting::class, 'id','user_id');
     }
 
-     public function viewer_settings()
+    public function viewer_settings()
     {
       return $this->belongsTo(ViewerSetting::class, 'id','user_id');
     }

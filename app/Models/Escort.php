@@ -608,4 +608,9 @@ class Escort extends Model
         // relation used for viewer only
         return $this->hasOne(EscortViewerInteractions::class, 'escort_id','id')->where('viewer_id', Auth::user()->id);
     }
+
+    public function tourProfiles()
+    {
+        return $this->hasMany(TourProfile::class,'escort_id');
+    }
 }
