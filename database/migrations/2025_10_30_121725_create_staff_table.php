@@ -13,7 +13,7 @@ class CreateStaffTable extends Migration
      */
     public function up()
     {
-        Schema::create('staff', function (Blueprint $table) {
+        Schema::create('staff_details', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unique();
             // Personal Details
@@ -31,7 +31,7 @@ class CreateStaffTable extends Migration
             $table->string('position')->nullable();
             $table->string('location')->nullable();
             $table->date('commenced_date')->nullable();
-            $table->tinyInteger('level')->nullable();
+            $table->tinyInteger('security_level')->nullable();
             $table->enum('employment_status', ['full_time', 'part_time', 'casual', 'contractor'])->default('full_time')->index();
             $table->enum('employment_agreement',  ['yes', 'no'])->default('no');
             // Building Security
@@ -49,6 +49,6 @@ class CreateStaffTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('staff');
+        Schema::dropIfExists('staff_details');
     }
 }

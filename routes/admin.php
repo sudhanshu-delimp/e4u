@@ -235,9 +235,14 @@ Route::get('reports/advertiser-suspensions-list-ajax',[ReportAdvertiserSuspensio
 
 Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
 Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('admin.send-notiification');
-
+/** Staff */
 Route::get('/management/staff',[StaffController::class,'staff_list'])->name('admin.staff');
 Route::post('/management/add-staff',[StaffController::class,'add_sfaff'])->name('admin.add-staff');
+Route::get('staff_list_data_table', [StaffController::class, 'staff_data_list'])->name('admin.staff_list_data_table');
+Route::post('/suspend-staff',[StaffController::class,'suspend_staff'])->name('admin.suspend-staff');
+Route::post('/active-staff-account',[StaffController::class,'activate_user'])->name('admin.active-staff-account');
+Route::get('/edit-staff/{id}',[StaffController::class,'editStaff'])->name('admin.edit-staff');
+Route::post('/store-staff',[StaffController::class,'update_staff'])->name('admin.store-staff');
 
 Route::get('/management/agent',[AgentController::class,'agent_list'])->name('admin.agent');
 Route::post('/suspend-agent',[AgentController::class,'suspend_agent'])->name('admin.suspend-agent');

@@ -20,7 +20,7 @@ class StaffDetail extends Model
         'position',
         'location',
         'commenced_date',
-        'level',
+        'security_level',
         'employment_status',
         'employment_agreement',
         'building_access_code',
@@ -30,4 +30,16 @@ class StaffDetail extends Model
         'updated_at',
     ];
     protected $hidden = ['updated_at'];
+
+    public function scopeSecurityLevel($query, $value)
+    {
+ 
+        return match ($value) {
+            1 => 'Level 1',
+            2 => 'Level 2',
+            3 => 'Level 3',
+            4 => 'Level 4',
+            default =>'N/A'
+        };
+    }
 }

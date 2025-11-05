@@ -14,7 +14,6 @@ class Staff extends Model
 
     public function staff_detail()
     {
-      return $this->belongsTo(AgentDetail::class,  'id','user_id');  
+      return $this->belongsTo(StaffDetail::class,  'id','user_id');  
     }
-
 }
