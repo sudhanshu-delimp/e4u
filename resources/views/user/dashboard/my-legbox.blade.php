@@ -161,7 +161,7 @@
                   <td>Phone</td>
                   <td>WhatsApp Only</td>
                   <td class="text-center">
-                     <div class="dropdown no-arrow">
+                     <div class="dropdown no-arrow text-center">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-v text-gray-400"></i>
                         </a>
