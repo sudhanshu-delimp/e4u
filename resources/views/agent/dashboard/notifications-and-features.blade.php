@@ -29,7 +29,13 @@
    <!-- Main Content -->
    <div id="content">
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+
+    
+
     <div class="row">    
+
+        <div class="col-md-12 commanAlert"></div>
+
         <div class="custom-heading-wrapper col-md-12">
            <h1 class="h1">Notifications & Features</h1>
            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
@@ -243,6 +249,8 @@ $(document).ready(function() {
  $(document).on('submit', 'form[name="notification_setting"]', function(e) 
       {
          e.preventDefault(); 
+        $('#commanAlert').removeClass('alert-success');
+        $('#commanAlert').removeClass('alert-error');
         let form = $('#notification_setting')[0];
         let formData = new FormData(form);
         let url = $('#notification_setting').attr('action');
@@ -255,15 +263,15 @@ $(document).ready(function() {
                processData: false, 
                success: function(response) {
                      Swal.close();
-                     swal_success_popup(response.message);
+                     $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`);
                      setTimeout(function() {
-                    location.reload();
-                }, 2000);
+                     location.reload();
+                }, 3000);
                },
                error: function(xhr) {
                      Swal.close();
                      console.log(xhr);
-                    swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                     $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-error">Error : Something went wrong</div>`);
                }
          });
       });
