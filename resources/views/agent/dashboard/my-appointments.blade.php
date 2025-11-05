@@ -257,13 +257,11 @@
                         @csrf
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
-                                <!-- Advertiser -->
+                                <!-- Advertiser Name (free text) -->
                                 <div class="form-group">
-                                    <label for="advertiser"><b>Advertiser's name</b><span class="text-danger">*</span></label>
-                                    <select id="new_advertiser" name="new_advertiser" class="form-control" required>
-                                        <option value="">Select Advertiser</option>
-                                    </select>
-                                    <small class="form-text text-muted">Select from agent's advertiser list.</small>
+                                    <label for="new_advertiser_name"><b>Advertiser's name</b><span class="text-danger">*</span></label>
+                                    <input id="new_advertiser_name" name="new_advertiser_name" type="text" class="form-control" placeholder="Enter advertiser name" required>
+                                    <small class="form-text text-muted">Type the massage center name.</small>
                                 </div>
 
                                 <!-- Date -->
@@ -487,12 +485,9 @@
 
                                         <!-- Advertiser -->
                                         <div class="form-group">
-                                            <label for="edit_advertiser"><b>Advertiser’s name</b><span
+                                            <label for="edit_advertiser_name"><b>Advertiser’s name</b><span
                                                     class="text-danger">*</span></label>
-                                            <select id="edit_advertiser" name="advertiser" class="form-control" required>
-                                                <option value="">Select Advertiser</option>
-                                                <!-- Populate dynamically -->
-                                            </select>
+                                            <input id="edit_advertiser_name" name="advertiser_name" type="text" class="form-control" placeholder="Enter advertiser name" required>
                                         </div>
 
                                         <!-- Date -->
@@ -1027,7 +1022,6 @@
 
         const mmRoot = $('#manage-route');
         endpoint = {
-            get_adverser: mmRoot.data('get-adverser'),
             get_slot_list: mmRoot.data('get-slot-list'),
             save_appointment: mmRoot.data('save-appointment'),
             csrf_token: mmRoot.data('scrf-token'),
@@ -1043,11 +1037,10 @@
         }
 
         function urlFor(tpl, id){ return (tpl || '').replace('__ID__', id); }
-        // get Advertiser List data and append inside the option list
+        // Open New Appointment modal
         $('#new_appointment').on('click', function() {
             initAutocomplete();
             $('#new_appointment_model').modal('show');
-            ajaxRequest(endpoint.get_adverser, {}, 'GET',null , successPopulateAdvisorDropdown,  errorPopulateAdvisorDropdown);
         });
 
         // Initialize map + autocomplete after modal is visible (ensures container sizes)
@@ -1064,33 +1057,14 @@
             }
         });
 
-        function successPopulateAdvisorDropdown(response, targetSelector = '#new_advertiser', selectedId = null) {
-            let dropdown = $(targetSelector);
-            dropdown.empty().append('<option value="">Select Advisor</option>');
-            if (response && response.data && Array.isArray(response.data)) {
-                response.data.forEach(function(advisor) {
-                    let displayText = advisor.name ? advisor.name + ' (' + advisor.member_id + ')' : advisor.member_id;
-                    dropdown.append(`<option value="${advisor.id}">${displayText}</option>`);
-                });
-            }
-            if (selectedId !== null && selectedId !== undefined) {
-                dropdown.val(String(selectedId));
-            }
-        }
-        // Error: Handle failure
-        function errorPopulateAdvisorDropdown(xhr, status, error, targetSelector = '#new_advertiser') {
-            let dropdown = $(targetSelector);
-            dropdown.empty().append('<option >Something is worng!!</option>');
-            console.error("❌ AJAX Error:", status, error);
-        }
+        // Removed advertiser dropdown population (free text now)
 
      
-        //Advisor/date change -> load grid data
-        $('#new_advertiser, #new_appointment_date').on('change', function() {
-            let advertiserId = $('#new_advertiser').val();
+        // Date change -> load slot grid (global blocks by date)
+        $('#new_appointment_date').on('change', function() {
             let date = $('#new_appointment_date').val();
-            if (advertiserId && date) {
-                ajaxRequest(endpoint.get_slot_list + `?mode=grid&advertiser_id=${encodeURIComponent(advertiserId)}&date=${encodeURIComponent(date)}`, {}, 'GET', null, loadNewAppointmentSlots, errorResponseForNewAppointment);
+            if (date) {
+                ajaxRequest(endpoint.get_slot_list + `?mode=grid&date=${encodeURIComponent(date)}`, {}, 'GET', null, loadNewAppointmentSlots, errorResponseForNewAppointment);
             }
         });
 
@@ -1225,7 +1199,6 @@
         }
 
         var rescheduleAppointmentId = null; 
-        var rescheduleAdvertiserId = null; // Store Advertiser ID temporarily
 
         function ajaxRequest(url, data = {}, method = 'GET', token = null, successCallback = null, errorCallback = null) {
             $.ajax({
@@ -1309,16 +1282,14 @@
             ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
                 var a = resp.data || {};
                 $('#edit_date').val(a.date);
-                // Populate advertisers first, then set selected
-                ajaxRequest(endpoint.get_adverser, {}, 'GET', null, function(resAdv){
-                    successPopulateAdvisorDropdown(resAdv, '#edit_advertiser', a.advertiser_id || '');
-                });
-                // Populate time slots for current advertiser/date
-                if (a.advertiser_id && a.date) {
-                     const currentStart = a.start_time || '00:00'; // Adjust based on your API response
-                     const currentEnd = a.end_time || '00:00';     // Adjust based on your API response
-                    
-                     ajaxRequest(endpoint.get_slot_list + `?mode=grid&advertiser_id=${encodeURIComponent(a.advertiser_id)}&current_id=${encodeURIComponent(a.id)}&date=${encodeURIComponent(a.date)}`, {}, 'GET', null, function(r){
+                // Populate advertiser name
+                $('#edit_advertiser_name').val(a.advertiser_name || '');
+                // Populate time slots for current date
+                if (a.date) {
+                     const currentStart = a.start_time || '00:00';
+                     const currentEnd = a.end_time || '00:00';
+
+                     ajaxRequest(endpoint.get_slot_list + `?mode=grid&current_id=${encodeURIComponent(a.id)}&date=${encodeURIComponent(a.date)}`, {}, 'GET', null, function(r){
                         // 2. Populate the new grid
                        // populateEditSlotGrid(r, currentStart, currentEnd); 
                        populateUnifiedSlotGrid(r, {
@@ -1354,18 +1325,17 @@
         });
 
         // On change of advertiser/date in edit modal, reload time slots
-        $('#edit_advertiser, #edit_date').on('change', function(){
-            let advertiserId = $('#edit_advertiser').val();
+        $('#edit_date').on('change', function(){
             let date = $('#edit_date').val();
-            if (!advertiserId || !date) { 
+            if (!date) { 
                 $('#editSlotGrid').empty();
                 $('#edit_start_time').val('');
                 $('#edit_end_time').val('');
                 return;
             }
 
-                // For manual changes, there is no pre-selected slot, so pass null for current times
-            ajaxRequest(endpoint.get_slot_list + `?mode=grid&advertiser_id=${encodeURIComponent(advertiserId)}&date=${encodeURIComponent(date)}&current_id=${encodeURIComponent(currentAppointmentId)}`, {}, 'GET', null, function(response){
+            // For manual changes, there is no pre-selected slot, so pass null for current times
+            ajaxRequest(endpoint.get_slot_list + `?mode=grid&date=${encodeURIComponent(date)}&current_id=${encodeURIComponent(currentAppointmentId)}`, {}, 'GET', null, function(response){
                 //populateEditSlotGrid(response, null, null);
                 populateUnifiedSlotGrid(response, {
                 gridId: '#editSlotGrid',
@@ -1386,7 +1356,7 @@
                 $('#view_appointment_time_display').text(timeDisplay);
                 $('#view_date').val(a.date ? a.date.split('-').reverse().join('-') : '');
                 $('#view_time').val(a.time);
-                $('#view_advertiser').val(a.advertiser.name);
+                $('#view_advertiser').val(a.advertiser_name || '');
                 $('#view_address').val(a.address);
                 $('#view_latitude').val(a.lat);
                 $('#view_longitude').val(a.long);
@@ -1417,12 +1387,11 @@
                 var a = resp.data || {};
                 console.log(a.date);
                 $('#reschedule_appointment_id').val(a.id);
-                rescheduleAdvertiserId = a.advertiser_id;
                 $('#reschedule_date').val(a.date);
-                if (rescheduleAdvertiserId && a.date) {
+                if (a.date) {
                     const currentStart = a.start_time || null; 
                     const currentEnd = a.end_time || null;
-                    ajaxRequest(endpoint.get_slot_list + `?mode=grid&advertiser_id=${encodeURIComponent(rescheduleAdvertiserId)}&current_id=${encodeURIComponent(a.id)}&date=${encodeURIComponent(a.date)}`, {}, 'GET', null, function(r){
+                    ajaxRequest(endpoint.get_slot_list + `?mode=grid&current_id=${encodeURIComponent(a.id)}&date=${encodeURIComponent(a.date)}`, {}, 'GET', null, function(r){
                         populateUnifiedSlotGrid(r, {
                             gridId: '#rescheduleSlotGrid',
                             startTimeId: '#reschedule_start_time',
@@ -1437,16 +1406,15 @@
 
         // Reschedule date change -> reload slots
         $('#reschedule_date').on('change', function(){
-           
             let date = $(this).val();
-            if (!rescheduleAdvertiserId || !date) { 
+            if (!date) { 
                 $('#rescheduleSlotGrid').empty();
                 $('#reschedule_start_time').val('');
                 $('#reschedule_end_time').val('');
                 return;
             }
-           
-            ajaxRequest(endpoint.get_slot_list + `?mode=grid&advertiser_id=${encodeURIComponent(rescheduleAdvertiserId)}&date=${encodeURIComponent(date)}&current_id=${encodeURIComponent(rescheduleAppointmentId)}`, {}, 'GET', null, function(r){
+            
+            ajaxRequest(endpoint.get_slot_list + `?mode=grid&date=${encodeURIComponent(date)}&current_id=${encodeURIComponent(rescheduleAppointmentId)}`, {}, 'GET', null, function(r){
                         populateUnifiedSlotGrid(r, { 
                         gridId: '#rescheduleSlotGrid',
                         startTimeId: '#reschedule_start_time',
@@ -1465,7 +1433,7 @@
                 date: $('#edit_date').val(),
                 start_time: $('#edit_start_time').val(),
                 end_time: $('#edit_end_time').val(), 
-                advertiser_id: $('#edit_advertiser').val(),
+                advertiser_name: $('#edit_advertiser_name').val(),
                 address: $('#edit_address').val(),
                 lat: $('#edit_latitude').val(),
                 long: $('#edit_longitude').val(),

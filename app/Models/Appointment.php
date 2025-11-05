@@ -9,7 +9,7 @@ class Appointment extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'advertiser_id',
+        'advertiser_name',
         'date',
         'start_time',
         'end_time',

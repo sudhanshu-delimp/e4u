@@ -211,6 +211,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
         //        $result = $result->toArray();
         foreach ($result as $key => $item) {
             // dd($item->suspendProfile, $item->profile_name);
+            $playmates = $item->playmates->count();
             $s = explode('/', $_SERVER['REQUEST_URI']);
             $item->sn = ($start + $i);
             $item->name = $item->name ? $item->name : "NA";
@@ -299,6 +300,12 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 </sup>';
             }
             
+            if($playmates){
+                $item->pro_name .= '<sup class="playmate_icon listing-tag-tooltip ml-1">'.$playmates;
+                $item->pro_name .= $playmates == 1 ? ' Playmate':' Playmates';
+                $item->pro_name .= '</sup>';
+            }
+
             $item->pro_name .= '</span>';
             $i++;
         }
