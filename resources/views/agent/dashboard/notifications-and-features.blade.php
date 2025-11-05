@@ -34,12 +34,14 @@
 
     <div class="row">    
 
-        <div class="col-md-12 commanAlert"></div>
+        
 
         <div class="custom-heading-wrapper col-md-12">
            <h1 class="h1">Notifications & Features</h1>
            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
+
+
         <div class="col-md-12 mb-4">
            <div class="card collapse" id="notes" style="">
               <div class="card-body">
@@ -53,6 +55,10 @@
               </div>
            </div>
         </div>
+
+
+        <div class="col-md-12 commanAlert"></div>
+
         <div class="col-md-12" id="profile_and_tour_options">
   
            <form class="v-form-design" id="notification_setting" name="notification_setting" action="{{route('agent.update_notifications')}}" method="POST">

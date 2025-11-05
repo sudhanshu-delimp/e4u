@@ -22,6 +22,9 @@
    <!--middle content start here-->
       {{-- Page Heading   --}}
       <div class="row">
+
+            
+
          <div class="custom-heading-wrapper col-lg-12">
             <h1 class="h1">Change password</h1>
             <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
@@ -38,6 +41,11 @@
       </div>
       {{-- end --}}
  
+
+        <div class="row">
+       <div class="col-md-12 commanAlert"></div>
+       </div>
+
 
 <div class="row">
     <div class="col-md-12 mb-5">
@@ -220,13 +228,13 @@
                         $(this).val('');
                         });
 
-                        swal_success_popup(data.message);
+                        $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`);
                         setTimeout(function () {
                            location.reload();
                         }, 3000); 
                      } 
                      else {
-                     swal_error_popup(data.message);
+                      $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-error" >${response.message}</div>`);    
                      }
                },
          });
@@ -259,13 +267,13 @@
                         $(this).val('');
                         });
 
-                        swal_success_popup(data.message);
+                        $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${data.message}</div>`);
                         setTimeout(function () {
                            location.reload();
                         }, 3000); 
                      } 
                      else {
-                     swal_error_popup(data.message);
+                     $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${data.message}</div>`);
                      }
                },
    

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Agent;
 
 use Auth;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Sms\SendSms;
 use Illuminate\Http\Request;
 use App\Models\PasswordSecurity;
@@ -122,7 +123,7 @@ class AgentAccountController extends BaseController
      */
     public function edit()
     {
-        $user = $this->user->find(auth()->user()->id);
+        $user = User::with('agent_detail')->where('id',auth()->user()->id)->first();
         return view('agent.dashboard.my-account', compact('user'));
     }
     public function editPassword()
