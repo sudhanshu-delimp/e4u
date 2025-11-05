@@ -18,6 +18,10 @@
    <!--middle content start here-->
    <!-- Page Heading -->
    <div class="row">
+
+     
+
+
       <div class="custom-heading-wrapper col-lg-12">
          <h1 class="h1">Edit My Account</h1>
          <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
@@ -34,6 +38,10 @@
    </div>
    {{-- end --}}
    <div class="row">
+
+       <div class="col-md-12 commanAlert"></div>
+
+       
       <div class="col-md-12 mb-5">
          <div id="accordion" class="myacording-design">
             <div class="card">
@@ -120,7 +128,9 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="exampleInputEmail1">{{ __('Email') }}</label>
-                                       <input  type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email2" value="{{ $user->email2}}" required autocomplete="email" placeholder="Email Address" data-parsley-required-message="@lang('errors/validation/required.email')" data-parsley-type-message="@lang('errors/validation/valid.email')" >
+                                        <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{$user->email}} </label>
+
+                                       <!-- <input  type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email1" value="{{ $user->email}}" required autocomplete="email" placeholder="Email Address" data-parsley-required-message="@lang('errors/validation/required.email')" data-parsley-type-message="@lang('errors/validation/valid.email')" > -->
                                        <span id="email2-errors"></span> 
                                        <div class="termsandconditions_text_color">
                                           @error('email2')
@@ -138,7 +148,7 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="mobile">E4U Email</label>
-                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{$user->email}} </label>
+                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{$user->email2}} </label>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
@@ -203,26 +213,26 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="membership_num">Agreement Date</label>
-                                       <span class="form-control form-back">{{ $user->member_id }}</span>
+                                       <span class="form-control form-back">{{ ($user->agent_detail->agreement_date) ?  date('d-m-Y',strtotime($user->agent_detail->agreement_date)) : '' }} </span>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="membership_num">Term</label>
-                                       <span class="form-control form-back">3 Years</span>
+                                       <span class="form-control form-back">{{ ($user->agent_detail->term) ? $user->agent_detail->term : '' }}</span>
                                        </label>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="my_name">Option Period</label>
-                                       <span class="form-control form-back">3 Years+ 3 Years</span>
+                                       <span class="form-control form-back">{{ ($user->agent_detail->option_peroid) ? $user->agent_detail->option_peroid :'' }}</span>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="my_name" class="my-agent">Option Exercised</label>
-                                       <span class="form-control form-back">Not Applicable</span>
+                                       <span class="form-control form-back">{{ ($user->agent_detail->option_exercised) ? $user->agent_detail->option_exercised : '' }}</span>
                                     </div>
                                  </div>
                                  <div class="col-md-12">
@@ -234,7 +244,22 @@
                                  <div class="col-md-12">
                                     <div class="form-group">
                                        <h5 for="mobile">Your Agreement</h5>
-                                       <label>You can retrieve your Agent Agreement by <a href="#" data-toggle="modal" data-target="#Agent_Agreement" class="custom_links_design"><span style="color: #FF3C5F;">clicking here.</span></a></label>
+                                       <label>You can retrieve your Agent Agreement by
+                                       @if($user->agent_detail->agreement_file && $user->agent_detail->agreement_file != "")
+                                          <a download="true" href="{{ asset('storage/' . $user->agent_detail->agreement_file) }}" 
+                                             class="custom_links_design">
+                                             <span style="color: #FF3C5F;">clicking here.</span>
+                                          </a>
+                                          @else
+
+                                          <a download="true" href="#" 
+                                             class="custom_links_design">
+                                             <span style="color: #FF3C5F;">clicking here.</span>
+                                          </a>
+
+                                       @endif            
+                                      
+                                           
                                     </div>
                                  </div>
                               </div>
@@ -260,13 +285,13 @@
                                     <div class="form-group">
                                        <label for="membership_num">Advertiser
                                        </label>
-                                       <span class="form-control form-back">5%</span>
+                                       <span class="form-control form-back">{{ ($user->agent_detail->commission_advertising_percent) ? $user->agent_detail->commission_advertising_percent : '' }}</span>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="membership_num">Massage Centres (Signed Up)</label>
-                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">$20.00</label>
+                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{ ($user->agent_detail->commission_registration_amount) ? $user->agent_detail->commission_registration_amount : '' }}</label>
                                     </div>
                                  </div>
                               </div>
@@ -332,14 +357,16 @@
                },
                success: function(data) {
                    if (!data.error) {
-                        $('.comman_msg').html("Saved");
+                        $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-success">Your details have been updated successfully.</div>`);
+                        //$('.comman_msg').html("Saved");
                         //$("#my_account_modal").modal('show');
                         //$("#my_account_modal").show();
-                        $("#comman_modal").modal('show');
+                        //$("#comman_modal").modal('show');
                
                    } else {
-                     $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                     $("#comman_modal").show();
+                     $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-error">Error occured while updating data.</div>`);
+                     // $('.comman_msg').html("Oops.. sumthing wrong Please try again");
+                     // $("#comman_modal").show();
    
                    }
                },
