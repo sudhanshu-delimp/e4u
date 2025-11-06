@@ -1,11 +1,11 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
+<ul class="navbar-nav sidebar-bg sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
     <!-- Sidebar - Brand -->
         <a class="sidebar-brand text-left pb-3" href="{{ route('home') }}">
             <img src="{{ asset('assets/dashboard/img/operator/logo.png') }}" class="mb-3 w-50" alt="E4u Logo">
         </a>
 
-        <span class="sidebar-console-head">Operator Console</span>
+        <span class="operator-sidebar-head">Operator Console</span>
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
@@ -36,14 +36,14 @@
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'edit-my-account' ? 'color: #e5365a;' : '' }}">
+                            style="{{ request()->segment(2) == 'edit-my-account' ? 'color: #ffc60b;' : '' }}">
                             Edit my account</span>
                     </a>
                     <a class="collapse-item" href="{{ route('operator.change-password') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'change-password'  ? 'color: #e5365a;' : '' }}">Change
+                            style="{{ request()->segment(2) == 'change-password'  ? 'color: #ffc60b;' : '' }}">Change
                             password</span>
                     </a>
 
@@ -51,20 +51,20 @@
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'notifications-and-features' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">Notifications & Features</span>
+                            style="{{ request()->segment(2) == 'notifications-and-features' || request()->segment(2) == 'profile' ? 'color: #ffc60b;' : '' }}">Notifications & Features</span>
                     </a> --}}
                     <a class="collapse-item" href="{{ route('operator.upload-avatar') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'upload-avatar' ? 'color: #e5365a;' : '' }}">Upload
+                            style="{{ request()->segment(2) == 'upload-avatar' ? 'color: #ffc60b;' : '' }}">Upload
                             my avatar</span>
                     </a>
                     <a class="collapse-item" href="{{ route('operator.bank-account') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/app/img/sales-performance.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'bank-account' ? 'color: #e5365a;' : '' }}">Bank Account</span>
+                            style="{{ request()->segment(2) == 'bank-account' ? 'color: #ffc60b;' : '' }}">Bank Account</span>
                     </a>
                 </div>
             </div>
@@ -165,7 +165,7 @@
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'e4u-monthly-report' ? 'color: #e5365a;' : '' }}">
+                            style="{{ request()->segment(2) == 'e4u-monthly-report' ? 'color: #ffc60b;' : '' }}">
                             Monthly Report</span>
                     </a>
                     
@@ -189,7 +189,7 @@
                 <div class="py-0 collapse-inner rounded mb-2">
                     <a class="collapse-item" href="{{ route('operator.agents-monthly-report') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/registration.png') }}">
-                         <span style="{{ request()->segment(2) == 'agents-monthly-report' ? 'color: #e5365a;' : '' }}">Monthly Report</span>
+                         <span style="{{ request()->segment(2) == 'agents-monthly-report' ? 'color: #ffc60b;' : '' }}">Monthly Report</span>
                     </a>
                 </div>
             </div>
