@@ -184,7 +184,7 @@
   var table = $("#myReportListTable").DataTable({
       language: {
          search: "Search: _INPUT_",
-         searchPlaceholder: "Search by Date..."
+         searchPlaceholder: "Search by mobile number"
       },
       info: true,
       paging: true,
