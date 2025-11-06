@@ -328,13 +328,29 @@ Route::get('operator-dashboard/',function(){
     return view('operator.dashboard.index');
 })->name('operator.index');
 
-Route::get('operator-dashboard/e4u/monthly-report',function(){
-    return view('operator.dashboard.e4u.monthly-report');
-})->name('operator.monthly-report');
+Route::get('operator-dashboard/edit-my-account',function(){
+    return view('operator.dashboard.my-account.edit-my-account');
+})->name('operator.edit-my-account');
 
-Route::get('operator-dashboard/agents/monthly-report',function(){
-    return view('operator.dashboard.agents.monthly-report');
-})->name('operator.monthly-report');
+Route::get('operator-dashboard/change-password',function(){
+    return view('operator.dashboard.my-account.change-password');
+})->name('operator.change-password');
+
+Route::get('operator-dashboard/upload-avatar',function(){
+    return view('operator.dashboard.my-account.upload-avatar');
+})->name('operator.upload-avatar');
+
+Route::get('operator-dashboard/bank-account',function(){
+    return view('operator.dashboard.my-account.bank-account');
+})->name('operator.bank-account');
+
+Route::get('operator-dashboard/e4u-monthly-report',function(){
+    return view('operator.dashboard.e4u.e4u-monthly-report');
+})->name('operator.e4u-monthly-report');
+
+Route::get('operator-dashboard/agents-monthly-report',function(){
+    return view('operator.dashboard.agents.agents-monthly-report');
+})->name('operator.agents-monthly-report');
 
 /************ END ************/ 
 

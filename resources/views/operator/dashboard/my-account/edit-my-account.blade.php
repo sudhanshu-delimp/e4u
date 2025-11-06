@@ -1,4 +1,4 @@
-@extends('layouts.agent')
+@extends('layouts.operator')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
@@ -54,7 +54,7 @@
                   <div class="card-body">
                      {{-- 
                      <form id="userProfile" class="v-form-design"> --}}
-                     <form id="userProfile" class="v-form-design" action="{{ route('agent.account.update',[$user->id])}}" method="POST">
+                     <form id="userProfile" class="v-form-design" action="{{--{{ route('agent.account.update',[$user->id])}}--}}" method="POST">
                         <input type="hidden" name="_token">                        
                         <div class="row">
                            <div class="col-md-10 px-0">
@@ -62,25 +62,25 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="membership_num">Membership Number</label>
-                                       <span class="form-control form-back">{{ $user->member_id }}</span>
+                                       <span class="form-control form-back">{{--{{ $user->member_id }}--}}</span>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="membership_num">Date Joined</label>
-                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{Carbon\Carbon::parse($user->created_at)->format('d-m-Y')}}</label>
+                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{--{{Carbon\Carbon::parse($user->created_at)->format('d-m-Y')}}--}}</label>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="my_name">Business Name</label>
-                                       <input type="text" class="form-control" name="business_name" placeholder=" Business Name" aria-describedby="emailHelp" value="{{ $user->business_name}} ">
+                                       <input type="text" class="form-control" name="business_name" placeholder=" Business Name" aria-describedby="emailHelp" value="{{--{{ $user->business_name}}--}} ">
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="my_name" class="my-agent">ABN</label>
-                                       <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp" name="abn" data-parsley-maxlength="12" required  placeholder="ABN" data-parsley-required-message="Your ABN is required" value="{{ $user->abn }}" data-parsley-type="integer" data-parsley-type-message="Enter only numbers" >
+                                       <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp" name="abn" data-parsley-maxlength="12" required  placeholder="ABN" data-parsley-required-message="Your ABN is required" value="{{--{{ $user->abn }}--}}" data-parsley-type="integer" data-parsley-type-message="Enter only numbers" >
                                        <span id="abn-errors"></span> 
                                        <div class="termsandconditions_text_color">
                                           @error('abn')
@@ -92,13 +92,13 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="mobile">Business Address</label>
-                                       <input type="text" class="form-control" name="business_address" placeholder="Business Address " aria-describedby="emailHelp" value=" {{ $user->business_address}}">
+                                       <input type="text" class="form-control" name="business_address" placeholder="Business Address " aria-describedby="emailHelp" value=" {{--{{ $user->business_address}}--}}">
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="mobile">Business Number</label>
-                                       <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp" name="business_number" data-parsley-maxlength="10" required  placeholder="Business Number" data-parsley-required-message="Your Business Number is required" value="{{ $user->business_number}}" data-parsley-type="digits" data-parsley-type-message="Enter only numbers" >
+                                       <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp" name="business_number" data-parsley-maxlength="10" required  placeholder="Business Number" data-parsley-required-message="Your Business Number is required" value="{{--{{ $user->business_number}}--}}" data-parsley-type="digits" data-parsley-type-message="Enter only numbers" >
                                        <span id="business_number-errors"></span> 
                                        <div class="termsandconditions_text_color">
                                           @error('business_number')
@@ -110,13 +110,13 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="mobile">Contact</label>
-                                       <input type="text" class="form-control" name="contact_person" placeholder=" Contact " aria-describedby="emailHelp" value="{{ $user->contact_person}} ">
+                                       <input type="text" class="form-control" name="contact_person" placeholder=" Contact " aria-describedby="emailHelp" value="{{--{{ $user->contact_person}} --}}">
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="mobileno">Mobile</label>
-                                       <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp" name="phone" data-parsley-maxlength="10" required  placeholder="Mobile Number" data-parsley-required-message="Your mobile number is required" value="{{ $user->phone }}" data-parsley-type="digits" data-parsley-type-message="Enter only mobile numbers" >
+                                       <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp" name="phone" data-parsley-maxlength="10" required  placeholder="Mobile Number" data-parsley-required-message="Your mobile number is required" value="{{--{{ $user->phone }}--}}" data-parsley-type="digits" data-parsley-type-message="Enter only mobile numbers" >
                                        <span id="phone-errors"></span> 
                                        <div class="termsandconditions_text_color">
                                           @error('phone')
@@ -128,9 +128,9 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="exampleInputEmail1">{{ __('Email') }}</label>
-                                        <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{$user->email}} </label>
+                                        <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{--{{$user->email}} --}}</label>
 
-                                       <!-- <input  type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email1" value="{{ $user->email}}" required autocomplete="email" placeholder="Email Address" data-parsley-required-message="@lang('errors/validation/required.email')" data-parsley-type-message="@lang('errors/validation/valid.email')" > -->
+                                       <!-- <input  type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email1" value="" required autocomplete="email" placeholder="Email Address" data-parsley-required-message="@lang('errors/validation/required.email')" data-parsley-type-message="@lang('errors/validation/valid.email')" > -->
                                        <span id="email2-errors"></span> 
                                        <div class="termsandconditions_text_color">
                                           @error('email2')
@@ -142,13 +142,13 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="mobile">Territory</label>
-                                       <label class="form-control form-back" aria-describedby="emailHelp" >{{$user->state->name}} </label>
+                                       <label class="form-control form-back" aria-describedby="emailHelp" >{{--{{$user->state->name}}--}} </label>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="mobile">E4U Email</label>
-                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{$user->email2}} </label>
+                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{--{{$user->email2}}--}} </label>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
@@ -213,39 +213,39 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="membership_num">Agreement Date</label>
-                                       <span class="form-control form-back">{{ ($user->agent_detail) ?  date('d-m-Y',strtotime($user->agent_detail)) : '' }} </span>
+                                       <span class="form-control form-back">{{--{{ ($user->agent_detail) ?  date('d-m-Y',strtotime($user->agent_detail)) : '' }}--}} </span>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="membership_num">Term</label>
-                                       <span class="form-control form-back">{{ ($user->agent_detail) ? $user->agent_detail->term : '' }}</span>
+                                       <span class="form-control form-back">{{--{{ ($user->agent_detail) ? $user->agent_detail->term : '' }}--}}</span>
                                        </label>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="my_name">Option Period</label>
-                                       <span class="form-control form-back">{{ ($user->agent_detail) ? $user->agent_detail->option_peroid :'' }}</span>
+                                       <span class="form-control form-back">{{--{{ ($user->agent_detail) ? $user->agent_detail->option_peroid :'' }}--}}</span>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="my_name" class="my-agent">Option Exercised</label>
-                                       <span class="form-control form-back">{{ ($user->agent_detail) ? $user->agent_detail->option_exercised : '' }}</span>
+                                       <span class="form-control form-back">{{---{{ ($user->agent_detail) ? $user->agent_detail->option_exercised : '' }}--}}</span>
                                     </div>
                                  </div>
                                  <div class="col-md-12">
                                     <div class="form-group">
                                        <label for="mobile">Territory</label>
-                                       <label class="form-control form-back" aria-describedby="emailHelp">{{$user->state->name}}</label>
+                                       <label class="form-control form-back" aria-describedby="emailHelp">{{--{{$user->state->name}}--}}</label>
                                     </div>
                                  </div>
                                  <div class="col-md-12">
                                     <div class="form-group">
                                        <h5 for="mobile">Your Agreement</h5>
                                        <label>You can retrieve your Agent Agreement by
-                                       @if($user->agent_detail && $user->agent_detail->agreement_file != "")
+                                       {{-- @if($user->agent_detail && $user->agent_detail->agreement_file != "")
                                           <a download="true" href="{{ asset('storage/' . $user->agent_detail->agreement_file) }}" 
                                              class="custom_links_design">
                                              <span style="color: #FF3C5F;">clicking here.</span>
@@ -257,7 +257,7 @@
                                              <span style="color: #FF3C5F;">clicking here.</span>
                                           </a>
 
-                                       @endif            
+                                       @endif             --}}
                                       
                                            
                                     </div>
@@ -285,13 +285,13 @@
                                     <div class="form-group">
                                        <label for="membership_num">Advertiser
                                        </label>
-                                       <span class="form-control form-back">{{ ($user->agent_detail) ? $user->agent_detail->commission_advertising_percent : '' }}</span>
+                                       <span class="form-control form-back">{{--{{ ($user->agent_detail) ? $user->agent_detail->commission_advertising_percent : '' }}--}}</span>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="membership_num">Massage Centres (Signed Up)</label>
-                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{ ($user->agent_detail) ? $user->agent_detail->commission_registration_amount : '' }}</label>
+                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{--{{ ($user->agent_detail) ? $user->agent_detail->commission_registration_amount : '' }}--}}</label>
                                     </div>
                                  </div>
                               </div>
