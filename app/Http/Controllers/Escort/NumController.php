@@ -16,7 +16,8 @@ class NumController extends Controller
 {
     public function addReport()
     {
-        $states = State::where('iso2', 'NOT REGEXP', '^[0-9]+$')->get();
+        $states = config('escorts.profile.states');
+
         return view('escort.dashboard.UglyMugsRegister.add-report',['states' => $states]);
     }
 
@@ -54,10 +55,10 @@ class NumController extends Controller
             'offender_mobile'   => $request->offender_mobile,
             'offender_email'    => $request->offender_email,
             'incident_nature'   => $request->incident_nature,
-            'platform'          => $request->platform,
-            'profile_link'      => $request->profile_link,
+            'platform'          => $request->platform ?? null, // remove this field after discussion with wayne
+            'profile_link'      => $request->profile_link ?? null, // remove this field after discussion with wayne
             'what_happened'     => $request->what_happened,
-            'status'            => 'reported',
+            'status'            => 'pending',
             'rating'            => $request->rating,
         ]);
 
@@ -70,7 +71,7 @@ class NumController extends Controller
 
     public function showReportOnDashboardAjax(Request $request)
     {
-        $nums = Num::where('user_id',Auth::user()->id)->with('state')->get();
+        $nums = Num::where('user_id',Auth::user()->id)->where('status', '!=', 'pending')->with('state')->get();
 
         if($request->ajax()){
 
@@ -105,7 +106,7 @@ class NumController extends Controller
     public function showMyReportByAjax(Request $request)
     {
         $userId = Auth::user()->id;
-        $nums = Num::where('user_id',$userId)->with('state')->get();
+        $nums = Num::where('user_id',$userId)->where('status', '!=', 'pending')->with('state')->get();
 
         $timeZone = config('escorts.profile.states')[Auth::user()->state_id] ?? 'UTC';
 
@@ -117,19 +118,19 @@ class NumController extends Controller
 
         # Summary Counts
         $counts = [
-            'today' => Num::where('user_id', $userId)
+            'today' => Num::where('user_id', $userId)->where('status', '!=', 'pending')
                 ->whereDate('incident_date', $today->format('Y-m-d'))
                 ->count(),
 
-            'this_month' => Num::where('user_id', $userId)
+            'this_month' => Num::where('user_id', $userId)->where('status', '!=', 'pending')
                 ->whereBetween('incident_date', [$monthStart->format('Y-m-d'), $now->format('Y-m-d')])
                 ->count(),
 
-            'this_year' => Num::where('user_id', $userId)
+            'this_year' => Num::where('user_id', $userId)->where('status', '!=', 'pending')
                 ->whereBetween('incident_date', [$yearStart->format('Y-m-d'), $now->format('Y-m-d')])
                 ->count(),
 
-            'all_time' => Num::where('user_id', $userId)->count(),
+            'all_time' => Num::where('user_id', $userId)->where('status', '!=', 'pending')->count(),
         ];
 
         if($request->ajax()){
@@ -168,44 +169,14 @@ class NumController extends Controller
 
     public function editMyReport(Request $request, $id)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'incident_state'    => 'required',
-        //     'incident_date'    => 'required',
-        //     'incident_location' => 'required',
-        //     'offender_mobile'   => 'required|min:8',
-        //     'incident_nature'   => 'required',
-        //     'profile_link'      => 'nullable',
-        //     'what_happened'     => 'required|string',
-        //     'rating'            => 'required|string',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return response()->json([
-        //         'status'  => false,
-        //         'errors'  => $validator->errors(),
-        //     ], 422);
-        // }
         $states = State::where('iso2', 'NOT REGEXP', '^[0-9]+$')->get();
-        $num = Num::where('id', $id)->where('user_id', Auth::user()->id)->with('state')->first();
+        $num = Num::where('id', $id)->where('user_id', Auth::user()->id)->where('status', '!=', 'pending')->with('state')->first();
 
         return view('escort.dashboard.UglyMugsRegister.edit-report',['num' => $num, 'states' => $states]);
-
-        // if (!$num) {
-        //     return response()->json([
-        //         'status' => false,
-        //         'message' => 'Report not found or access denied.'
-        //     ], 404);
-        // }
-
-        // return response()->json([
-        //     'status' => true,
-        //     'data' => $num
-        // ]);
     }  
 
     public function updateMyReportByAjax(Request $request)
     {
-        //dd($request->all());
         $validator = Validator::make($request->all(), [
             'incident_state'    => 'required',
             'incident_date'    => 'required',
@@ -233,10 +204,11 @@ class NumController extends Controller
             'offender_mobile'   => $request->offender_mobile,
             'offender_email'    => $request->offender_email,
             'incident_nature'   => $request->incident_nature,
-            'platform'          => $request->platform,
-            'profile_link'      => $request->profile_link,
+            'platform'          => $request->platform ?? null, // remove this field after discussion with wayne
+            'profile_link'      => $request->profile_link ?? null, // remove this field after discussion with wayne
             'what_happened'     => $request->what_happened,
             'rating'            => $request->rating,
+            'status'            => 'pending',
         ]);
 
          return response()->json([
@@ -247,16 +219,5 @@ class NumController extends Controller
 
         return view('escort.dashboard.UglyMugsRegister.edit-report',['num' => $num, 'states' => $states]);
 
-        // if (!$num) {
-        //     return response()->json([
-        //         'status' => false,
-        //         'message' => 'Report not found or access denied.'
-        //     ], 404);
-        // }
-
-        // return response()->json([
-        //     'status' => true,
-        //     'data' => $num
-        // ]);
     }   
 }

@@ -122,11 +122,11 @@
             </p>
 
             <form id="membershipForm" onsubmit="handleFormSubmit(event)">
-
+                {{ csrf_field() }}
                 <div class="mb-3">
                     <label for="membershipId" class="form-label">Membership ID <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="membershipId" placeholder="Membership ID"
-                        name="membershipId" required>
+                    <input type="text" class="form-control" id="membershipd" placeholder="Membership ID"
+                        name="member_id" required>
                 </div>
 
                 <div class="mb-3">
@@ -139,7 +139,7 @@
                     <label class="form-label">Social Media Address(es) <span class="text-danger">*</span></label>
                     <div id="socialMediaContainer">
                         <div class="input-group mb-2">
-                            <input type="url" class="form-control" name="socialMedia[]"
+                            <input type="url" class="form-control" name="social_media[]"
                                 placeholder="Social Media Address(es)" required>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                 </div>
 
                 <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="ccEmail" name="ccEmail">
+                    <input class="form-check-input" type="checkbox" id="ccEmail" checked name="cc_email">
                     <label class="form-check-label" for="ccEmail">CC email to me</label>
                 </div>
                 <button type="submit" class="common-btn">Send Request</button>
@@ -259,7 +259,7 @@
             // Create input field
             const input = document.createElement('input');
             input.type = 'url';
-            input.name = 'socialMedia[]';
+            input.name = 'social_media[]';
             input.required = true;
             input.className = 'form-control';
             input.placeholder = 'Social Media Address';
@@ -288,8 +288,73 @@
             const form = document.getElementById('membershipForm');
 
             // ✅ Show Bootstrap modal
-            $('#confirmationModal').modal('show'); 
-            form.reset(); // Reset the form
+            // $('#confirmationModal').modal('show');
+            //form.reset(); // Reset the form
+
+            submitFormDataByAjax(form)
+
+           
+        }
+
+        function submitFormDataByAjax(formData) 
+        {
+            const form = $(formData);
+            const url = "{{ route('store.influencer') }}";
+            const data = new FormData(form[0]);
+
+            console.log('data' , data, form);
+            
+            // var url = "{{ route('escort.update-my-reports') }}";
+            // var data = new FormData(form[0]);
+
+            $.ajax({
+                method: 'POST',
+                url: url,
+                dataType: "json",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    console.log('data jiten', data);
+
+                    if (data.status == true) {
+
+                        // Show modal
+                        $('#confirmationModal').modal('show');
+                        //document.getElementById('confirmationModal').style.display = 'block';
+                        //form[0].reset();
+                    } else {
+                        swal.fire(
+                            'Influencer Request',
+                            data.message,
+                            data.type === 'found' ? 'success' : 'error'
+                        );
+                    }
+                    
+                },
+                error: function(xhr) {
+                    console.log(xhr.status, );
+
+                    if (xhr.status === 422) {
+                        let errors = JSON.parse(xhr.responseText).errors;
+                        $('.error-text').remove(); // remove old errors
+                        $.each(errors, function(key, value) {
+                            let input = $('[name="' + key + '"]');
+                            input.after('<span class="text-danger error-text error_text">' + value[0] +
+                                '</span>');
+                        });
+                    } else {
+                        swal.fire(
+                            'Influencer Request',
+                            'Oops.. something wrong Please try again',
+                            'error'
+                        );
+                    }
+                }
+
+            });
+
+
         }
 
         function closeModal() {
