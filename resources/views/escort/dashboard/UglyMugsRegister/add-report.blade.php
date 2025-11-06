@@ -157,7 +157,7 @@
                       <label class="required d-block">Rating</label>
                       <div class="form-check d-flex align-items-center">
                           <input class="form-check-input" checked type="radio" name="rating" value="Do Not Book" id="rate1">
-                          <label class="form-check-label" for="rate1">Do not book</label>
+                          <label class="form-check-label" for="rate1">Do Not book</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
                           <input class="form-check-input" type="radio" name="rating" value="Exercise Caution" id="rate2">
