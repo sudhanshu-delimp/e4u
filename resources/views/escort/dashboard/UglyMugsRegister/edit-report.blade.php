@@ -115,13 +115,13 @@
                       <label>Offender's Email</label>
                       <input type="email" class="form-control" name="offender_email" value="{{$num ? $num->offender_email : ''}}" placeholder="If known">
                   </div>
-      
                     <div class="form-group">
                         <label class="required">Incident Type</label>
                         <select class="custom-select" name="incident_nature">
-                            <option value="fraud" {{ ($num && strtolower($num->incident_nature) == 'fraud') ? 'selected' : '' }}>Fraud</option>
-                            <option value="no_show" {{ ($num && strtolower($num->incident_nature) == 'no_show') ? 'selected' : '' }}>No Show</option>
-                            <option value="violence" {{ ($num && strtolower($num->incident_nature) == 'violence') ? 'selected' : '' }}>Violence</option>
+                            <option value="Time Waster" {{ ($num && strtolower($num->incident_nature) == 'Time Waster') ? 'selected' : '' }}>Time Waster</option>
+                            <option value="Con Man" {{ ($num && strtolower($num->incident_nature) == 'Con Man') ? 'selected' : '' }}>Con Man</option>
+                            <option value="Dangerous" {{ ($num && strtolower($num->incident_nature) == 'Dangerous') ? 'selected' : '' }}>Dangerous</option>
+                            <option value="Assault" {{ ($num && strtolower($num->incident_nature) == 'Assault') ? 'selected' : '' }}>Assault</option>
                         </select>
                     </div>
 

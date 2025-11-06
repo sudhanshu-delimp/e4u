@@ -155,16 +155,20 @@
                   <div class="form-group">
                       <label class="required d-block">Rating</label>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" checked type="radio" name="rating" value="do_not_book" id="rate1">
-                          <label class="form-check-label" for="rate1">Do not book</label>
+                          <input class="form-check-input" checked type="radio" name="rating" value="Time Waster" id="rate1">
+                          <label class="form-check-label" for="rate1">Time Waster</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" name="rating" value="exercise_caution" id="rate2">
-                          <label class="form-check-label" for="rate2">Exercise caution</label>
+                          <input class="form-check-input" type="radio" name="rating" value="Con Man" id="rate2">
+                          <label class="form-check-label" for="rate2">Con Man</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" value="safe" name="rating" id="rate3">
-                          <label class="form-check-label" for="rate3">Safe</label>
+                          <input class="form-check-input" type="radio" value="Dangerous" name="rating" id="rate3">
+                          <label class="form-check-label" for="rate3">Dangerous</label>
+                      </div>
+                      <div class="form-check d-flex align-items-center">
+                          <input class="form-check-input" type="radio" value="Assault" name="rating" id="rate3">
+                          <label class="form-check-label" for="rate3">Assault</label>
                       </div>
                   </div>
       
