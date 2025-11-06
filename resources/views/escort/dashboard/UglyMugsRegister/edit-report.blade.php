@@ -144,12 +144,12 @@
                   <div class="form-group">
                       <label class="required d-block">Rating</label>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" {{($num && $num->rating == 'Do not book') ? 'checked' : ''}}  type="radio" name="rating" value="Do not book" id="rate1">
-                          <label class="form-check-label" for="rate1">Do not book</label>
+                          <input class="form-check-input" {{($num && $num->rating == 'Do Not Book') ? 'checked' : ''}}  type="radio" name="rating" value="Do not book" id="rate1">
+                          <label class="form-check-label" for="rate1">Do Not Book</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" {{($num && $num->rating == 'Exercise caution') ? 'checked' : ''}} name="rating" value="Exercise caution" id="rate2">
-                          <label class="form-check-label" for="rate2">Exercise caution</label>
+                          <input class="form-check-input" type="radio" {{($num && $num->rating == 'Exercise Caution') ? 'checked' : ''}} name="rating" value="Exercise caution" id="rate2">
+                          <label class="form-check-label" for="rate2">Exercise Caution</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
                           <input class="form-check-input" type="radio" {{($num && $num->rating == 'Safe') ? 'checked' : ''}} value="Safe" name="rating" id="rate3">

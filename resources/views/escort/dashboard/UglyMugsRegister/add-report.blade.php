@@ -131,9 +131,10 @@
                   <div class="form-group">
                       <label class="required">Incident Type</label>
                       <select class="custom-select" name="incident_nature">
-                        <option value="Fraud" >Fraud</option>
-                        <option value="No Show">No Show</option>
-                        <option value="Violence">Violence</option>
+                        <option value="Time Waster" >Time Waster</option>
+                        <option value="Con Man">Con Man</option>
+                        <option value="Dangerous">Dangerous</option>
+                        <option value="Assault">Assault</option>
                      </select>
                   </div>
       
@@ -155,20 +156,16 @@
                   <div class="form-group">
                       <label class="required d-block">Rating</label>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" checked type="radio" name="rating" value="Time Waster" id="rate1">
-                          <label class="form-check-label" for="rate1">Time Waster</label>
+                          <input class="form-check-input" checked type="radio" name="rating" value="Do Not Book" id="rate1">
+                          <label class="form-check-label" for="rate1">Do not book</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" name="rating" value="Con Man" id="rate2">
-                          <label class="form-check-label" for="rate2">Con Man</label>
+                          <input class="form-check-input" type="radio" name="rating" value="Exercise Caution" id="rate2">
+                          <label class="form-check-label" for="rate2">Exercise caution</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" value="Dangerous" name="rating" id="rate3">
-                          <label class="form-check-label" for="rate3">Dangerous</label>
-                      </div>
-                      <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" value="Assault" name="rating" id="rate3">
-                          <label class="form-check-label" for="rate3">Assault</label>
+                          <input class="form-check-input" type="radio" value="Safe" name="rating" id="rate3">
+                          <label class="form-check-label" for="rate3">Safe</label>
                       </div>
                   </div>
       
