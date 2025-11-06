@@ -89,8 +89,9 @@
                                 $st = auth()->user()->state_id;
                             }
                         @endphp
-                        @foreach ($states as $state)
-                              <option value="{{ $state->id }}" {{$state->id == $st ? 'selected' : ''}}>{{ $state->iso2 }} - {{$state->name}}</option>
+                        @foreach ($states as $key => $state)
+                        
+                              <option value="{{ $key }}" {{$key == $st ? 'selected' : ''}}> {{$state['stateName']}}</option>
                         @endforeach
                           </select>
                   </div>

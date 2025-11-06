@@ -159,8 +159,8 @@
                 infoFiltered: "(filtered from _MAX_ total entries)"
             },
             "language": {
-                "zeroRecords": "There is no record of the search criteria you entered.",
-                searchPlaceholder: "Search by incident type..."
+                "zeroRecords": "No Record Found!",
+                searchPlaceholder: "Search by Mobile..."
             },
             paging: true,
             processing: false,
