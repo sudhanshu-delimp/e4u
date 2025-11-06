@@ -78,7 +78,13 @@ class InfluencerController extends Controller
         ];
 
         Mail::to(config('escorts.mobileOrderSimRequest.admin'))->queue(new RequestInfluencerOperationCenterMail($body));
-        Mail::to($request->email)->queue(new RequestInfluencerToUserMail($body));
+
+        if($request->has('cc_email')  && $request->cc_email == 'on'){
+            Mail::to($member->email)->cc($request->email)->queue(new RequestInfluencerToUserMail($body));
+        }else{
+            Mail::to($member->email)->queue(new RequestInfluencerToUserMail($body));
+        }
+        
 
         return response()->json(['status' => true ,'message' => 'Influencer request sent successfully.'], 200);
     }
