@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+ :root {
+    --color-teal-dark: #003c3e;
+    --color-teal: #008085;
+    --color-yellow: #ffc60b;
+    --color-orange: #f5841f;
+    --color-white: #ffffff;
+}
+
+.sidebar-bg {
+    background-color: var(--color-teal-dark);
+    background-size: cover;
+}

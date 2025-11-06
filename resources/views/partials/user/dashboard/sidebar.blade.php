@@ -177,7 +177,7 @@
         <div id="notebox" class="collapse @if (request()->segment(3) == 'list' || request()->segment(3) == 'new') show @endif"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-                <a class="collapse-item" href="{{ route('user.list') }}">
+                <a class="collapse-item" href="{{ route('user.list', ['from' => 'sidebar']) }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/notebox.png') }}">
                     <span style="{{ request()->segment(3) == 'list' ? 'color: #e5365a;' : '' }}">My Noteboxes</span>
                 </a>
@@ -206,7 +206,7 @@
                     <img src="{{ asset('assets/dashboard/img/menu-icon/add-report.png') }}">
                     <span style="{{ request()->segment(3) == 'add-report' ? 'color: #e5365a;' : '' }}">Add Report</span>
                 </a>
-                <a class="collapse-item show" href="{{ route('user.punterbox.dashboard') }}">
+                <a class="collapse-item show" href="{{ route('user.punterbox.dashboard', ['from' => 'sidebar']) }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/my-dashboard.png') }}">
                     <span style="{{ request()->segment(3) == 'dashboard' ? 'color: #e5365a;' : '' }}">Dashboard</span>
                 </a>

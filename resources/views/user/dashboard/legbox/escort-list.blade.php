@@ -205,68 +205,6 @@
                                 </td>
                             </tr>
                         @endforeach
-                       
-                       {{-- <td class="text-center">E60587</td>
-                       <td class="text-center">Western Australia</td>
-                       <td class="text-center">Joanne </td>
-                       <td class="text-center">F </td>
-                       <td class="text-center">Good </td>
-                       <td>Yes or No</td>
-                       <td class="text-center">Yes</td>
-                       <td class="text-center">Text</td>
-                       <td class="text-center">0438 028 728</td>
-                       <td class="text-center">
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                <label class="custom-control-label" for="customSwitch1"></label>
-                            </div>
-                        </td>
-                       
-                       <td class="theme-color text-center bg-white">
-                           <div class="dropdown no-arrow">
-                               <a class="dropdown-toggle" href="#" role="button"
-                                   id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                   aria-expanded="false">
-                                   <i
-                                       class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                               </a>
-                               <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink">
-                                    
-                                    <div class="custom-tooltip-container">
-                                        <a class="dropdown-item align-item-custom" href="#"> <i class="fa fa-phone-slash"></i> Disable Contact</a>
-                                        <span class="tooltip-text">Viewer can’t contact this escort again </span>
-                                        <div class="dropdown-divider"></div>
-                                    </div>
-                                    <div class="custom-tooltip-container">
-                                        <a class="dropdown-item align-item-custom" href="#"> <i class="fa fa-bell-slash" aria-hidden="true"></i>
-                                            Disable Notifications</a>
-                                            <span class="tooltip-text">Viewer will not get notifications from this escort</span>
-                                        <div class="dropdown-divider"></div>
-                                    </div>
-                                    <div class="custom-tooltip-container">
-                                    <a class="dropdown-item align-item-custom" href="#" title="" data-toggle="modal" data-target="#rateEscortModal"> <i class="fa fa-star" aria-hidden="true"></i>
-                                         Rate</a>
-                                         <span class="tooltip-text">Rate this Escort</span>
-                                    <div class="dropdown-divider"></div>
-                                    </div>
-                                    <div class="custom-tooltip-container">    
-                                    <a class="dropdown-item align-item-custom" href="#" data-toggle="modal" data-target="#removeEscort"> <i class="fa fa-trash" aria-hidden="true"></i>
-                                         Remove</a>
-                                         <span class="tooltip-text">Viewer can’t contact this escort again </span>
-                                    <div class="dropdown-divider"></div>
-                                    </div>
-                                    <div class="custom-tooltip-container">
-                                    <a class="dropdown-item align-item-custom" href="#" data-toggle="modal" data-target="#escortProfileMissingModal"> <i class="fa fa-eye" aria-hidden="true"></i>
-                                         View</a>
-                                         <span class="tooltip-text">View the Escort’s Profile</span>
-                                    </div>
-                                </div>
-
-                           </div>
-                       </td> --}}
-                   
-                   
                    </tbody>
              </table>
            </div>

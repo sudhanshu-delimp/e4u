@@ -24,8 +24,12 @@ class AppointmentController extends Controller
 
     public function appointmentcountDayWeekMonth(){
         $today = Carbon::today('UTC');
-        $weekStart = Carbon::now('UTC')->startOfWeek();
+        $weekStart = Carbon::now('UTC')->startOfWeek(Carbon::SUNDAY);
+        $endOfWeek   = Carbon::now('UTC')->endOfWeek(Carbon::SATURDAY);
+        
         $monthStart = Carbon::now('UTC')->startOfMonth();
+        $monthend = Carbon::now('UTC')->endOfMonth();
+       
         
 
         
@@ -34,12 +38,14 @@ class AppointmentController extends Controller
             $result = Appointment::where('agent_id', Auth::id())
                 ->selectRaw(
                     "SUM(CASE WHEN date = ? THEN 1 ELSE 0 END) as today_count, " .
-                    "SUM(CASE WHEN date >= ? THEN 1 ELSE 0 END) as week_count, " .
-                    "SUM(CASE WHEN date >= ? THEN 1 ELSE 0 END) as month_count",
+                    "SUM(CASE WHEN date BETWEEN ? AND ? THEN 1 ELSE 0 END) as week_count, " .
+                    "SUM(CASE WHEN date BETWEEN ? AND ? THEN 1 ELSE 0 END) as month_count",
                     [
                         $today->toDateString(),
                         $weekStart->toDateString(),
-                        $monthStart->toDateString()
+                        $endOfWeek->toDateString(),
+                        $monthStart->toDateString(),
+                        $monthend->toDateString()
                     ]
                 )
                 ->first();

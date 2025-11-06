@@ -138,26 +138,27 @@
       </nav>
 
       <!-- My Playbox Modal -->
-<div class="modal defult-modal fade" id="myPlayboxModal" tabindex="-1" role="dialog" aria-labelledby="myPlayboxModalLabel" aria-hidden="true">
+<div class="modal defult-modal fade" id="myPlayboxModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myPlayboxModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
            <!-- Modal body -->
            <div class="modal-body p-0">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 20px;">
               <img src="{{ asset('assets/app/img/newcross.png') }}" class=" ">
               </button>
               <h3><img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}" class="custompopicon menu-icon my--play"> My Playbox</h3>
               <div class="modal-sec pb-0">
                 <h1 class="popu_heading_style mb-3 mt-3" style="text-align: center;">
-                    <span id="Lname " class="my_legbox_title">Full My Playbox content is only available to Viewers. Please log in or Register to access My Playbox.</span>
+                    <span id="Lname " class="my_legbox_title">Full My Playbox content is only available to Viewers. Please Login or Register to access My Playbox.</span>
                     </h1>
                 
                     
                 </div>
            </div>
            <div class="modal-footer justify-content-center pt-3">
-            <a href="{{route('viewer.login')}}" class="btn btn_advertiser">Login</a>
-            <a href="{{url('/register')}}" class="btn  btn_become_pin_up">Register</a>
+            <a href="{{route('viewer.login')}}" class="btn btn_advertiser btn-cancel-modal border-0">Login</a>
+            <a href="{{url('/register')}}" class="btn  btn_become_pin_up btn-success-modal border-0">Register</a>
+            
           </div>
         </div>
      </div>

@@ -107,7 +107,7 @@
                            <ol class="level-2">
                                           <li>Discounts to Adverting Fees.</li>
                                           <li>Loyalty Program entitlements and discounts.</li>
-                                          <li>Agent Commission.</li>
+                                          <li>Agent Fees.</li>
                                        </ol>
                            </li>
                            <li>
@@ -389,7 +389,7 @@
                   <div class="card custom-help-contain">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_variableplaybox">
-                        Set Commission - Playbox
+                        Set Distribution - Playbox
                         </a>
                      </div>
                      <div id="additional_variableplaybox" class="collapse" data-parent="#accordion">
@@ -482,9 +482,9 @@
                            {{-- <input type="text" class="form-control" id="days" name="days" disabled> --}}
                            <select class="custom-select" name="days" id="days" required data-parsley-required-message="Please select state">
                               <option value="">Select</option>
-                              <option value="1">per day</option>
-                              <option value="2">per week</option>
-                              <option value="3">per Service</option>
+                              <option value="1">Per Day</option>
+                              <option value="2">Per Week</option>
+                              <option value="3">Per Service</option>
                            </select>
                      </div>
                   </div>
@@ -1252,9 +1252,9 @@ var agent_operator_fees = $("#agent_operator_fees").DataTable({
                                                          <label>Rate</label>
                                                                <select class="custom-select" name="rate" id="rate" required data-parsley-required-message="Please select state">
                                                                   <option value="">Select</option>
-                                                                  <option value="1" ${rowData.rate == 'per day' ? 'selected' : ''}>per day</option>
-                                                                  <option value="2" ${rowData.rate == 'per week' ? 'selected' : ''}>per week</option>
-                                                                  <option value="3" ${rowData.rate == 'per Registration' ?  'selected' : ''}>per Registration</option>
+                                                                  <option value="1" ${rowData.rate == 'Per Day' ? 'selected' : ''}>Per Day</option>
+                                                                  <option value="2" ${rowData.rate == 'Per Week' ? 'selected' : ''}>Per Week</option>
+                                                                  <option value="3" ${rowData.rate == 'Per Registration' ?  'selected' : ''}>Per Registration</option>
                                                                </select>
                                                        
                                                       </div>

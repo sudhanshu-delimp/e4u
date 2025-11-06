@@ -4,7 +4,7 @@
         .loader {
             border: 16px solid #f3f3f3;
             border-radius: 50%;
-            border-top: 16px solid #3498db;
+            border-top: 16px solid #0c223d;
             width: 120px;
             height: 120px;
             -webkit-animation: spin 2s linear infinite;
@@ -93,7 +93,7 @@
         }
 
         .ok-btn {
-            background-color: #6C63FF;
+            background-color: #0c223d;
             border: none;
             color: white;
             padding: 8px 20px;
@@ -103,7 +103,7 @@
         }
 
         .ok-btn:hover {
-            background-color: #5952d4;
+            background-color: #0c223d;
         }
     </style>
 @endsection
@@ -176,13 +176,47 @@
 
     <!-- Modal -->
     <!-- Success Modal -->
-    <div id="confirmationModal" class="modal-overlay" style="display:none;">
+    {{-- <div id="confirmationModal" class="modal-overlay" style="display:none;">
         <div class="modal-box">
             <div class="icon">&#10004;</div>
             <p class="message">Thank you for your request.<br>An email has been forwarded.</p>
             <button onclick="closeModal()" class="ok-btn">OK</button>
         </div>
-    </div>
+    </div> --}}
+
+    
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+   aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content custome_modal_max_width">
+         <div class="modal-header main_bg_color border-0">
+            <h5 class="modal-title" id="exampleModalLabel" style="color:white">
+               <img src="{{ asset('assets/dashboard/img/unblock.png')}}" class="custompopicon">
+               Influencer
+            </h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">
+                  <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+               </span>
+            </button>
+         </div>
+         <div class="modal-body text-center">
+            <h1 class="popu_heading_style mb-4 mt-4">
+               <span id="Lname" class="my_legbox_title">Thank you for your request.<br>An email has been forwarded.</span>
+            </h1>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="form-group d-flex align-items-center justify-content-center">
+                        <a href="javascript:void(0)" onclick="closeModal()" class="btn-success-modal text-decoration-none text-white" data-dismiss="modal">OK</a>
+                    </div>
+                </div>
+            </div>
+         </div> 
+      </div>
+   </div>
+</div>
+
+</div>
 @endsection
 @push('scripts')
     <script>
@@ -253,6 +287,10 @@
 
             const form = document.getElementById('membershipForm');
 
+            // ✅ Show Bootstrap modal
+            // $('#confirmationModal').modal('show');
+            //form.reset(); // Reset the form
+
             submitFormDataByAjax(form)
 
            
@@ -282,7 +320,8 @@
                     if (data.status == true) {
 
                         // Show modal
-                        document.getElementById('confirmationModal').style.display = 'block';
+                        $('#confirmationModal').modal('show');
+                        //document.getElementById('confirmationModal').style.display = 'block';
                         //form[0].reset();
                     } else {
                         swal.fire(
@@ -319,7 +358,9 @@
         }
 
         function closeModal() {
-            document.getElementById('confirmationModal').style.display = 'none';
+            // ✅ Hide Bootstrap modal
+            $('#confirmationModal').modal('hide');
         }
+
     </script>
 @endpush

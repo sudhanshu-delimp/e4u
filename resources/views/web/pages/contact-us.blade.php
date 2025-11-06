@@ -356,6 +356,13 @@ $contactMsg = session('success');
             <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
                <span id="Lname " class="my_legbox_title">{{$contactMsg}}</span>
             </h1>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="form-group d-flex align-items-center justify-content-center">
+                        <a href="javascript:void(0)" class="btn-success-modal text-decoration-none text-white" data-dismiss="modal">OK</a>
+                    </div>
+                </div>
+            </div>
          </div>
       </div>
    </div>
