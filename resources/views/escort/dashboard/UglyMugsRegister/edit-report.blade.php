@@ -118,10 +118,10 @@
                     <div class="form-group">
                         <label class="required">Incident Type</label>
                         <select class="custom-select" name="incident_nature">
-                            <option value="Time Waster" {{ ($num && strtolower($num->incident_nature) == 'Time Waster') ? 'selected' : '' }}>Time Waster</option>
-                            <option value="Con Man" {{ ($num && strtolower($num->incident_nature) == 'Con Man') ? 'selected' : '' }}>Con Man</option>
-                            <option value="Dangerous" {{ ($num && strtolower($num->incident_nature) == 'Dangerous') ? 'selected' : '' }}>Dangerous</option>
-                            <option value="Assault" {{ ($num && strtolower($num->incident_nature) == 'Assault') ? 'selected' : '' }}>Assault</option>
+                            <option value="Time Waster" {{ ($num && $num->incident_nature == 'Time Waster') ? 'selected' : '' }}>Time Waster</option>
+                            <option value="Con Man" {{ ($num && $num->incident_nature == 'Con Man') ? 'selected' : '' }}>Con Man</option>
+                            <option value="Dangerous" {{ ($num && $num->incident_nature == 'Dangerous') ? 'selected' : '' }}>Dangerous</option>
+                            <option value="Assault" {{ ($num && $num->incident_nature == 'Assault') ? 'selected' : '' }}>Assault</option>
                         </select>
                     </div>
 
