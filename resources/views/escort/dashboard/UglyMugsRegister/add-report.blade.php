@@ -131,9 +131,9 @@
                   <div class="form-group">
                       <label class="required">Incident Type</label>
                       <select class="custom-select" name="incident_nature">
-                        <option value="fraud" >Fraud</option>
-                        <option value="no_show">No Show</option>
-                        <option value="violence">Violence</option>
+                        <option value="Fraud" >Fraud</option>
+                        <option value="No Show">No Show</option>
+                        <option value="Violence">Violence</option>
                      </select>
                   </div>
       
