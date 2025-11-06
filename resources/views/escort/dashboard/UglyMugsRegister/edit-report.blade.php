@@ -144,7 +144,7 @@
                   <div class="form-group">
                       <label class="required d-block">Rating</label>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" {{($num && $num->rating == 'Do Not Book') ? 'checked' : ''}}  type="radio" name="rating" value="Do not book" id="rate1">
+                          <input class="form-check-input" {{($num && $num->rating == 'Do Not Book') ? 'checked' : ''}}  type="radio" name="rating" value="Do Not book" id="rate1">
                           <label class="form-check-label" for="rate1">Do Not Book</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
