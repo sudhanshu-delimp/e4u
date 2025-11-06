@@ -328,6 +328,14 @@ Route::get('operator-dashboard/',function(){
     return view('operator.dashboard.index');
 })->name('operator.index');
 
+Route::get('operator-dashboard/e4u/monthly-report',function(){
+    return view('operator.dashboard.e4u.monthly-report');
+})->name('operator.monthly-report');
+
+Route::get('operator-dashboard/agents/monthly-report',function(){
+    return view('operator.dashboard.agents.monthly-report');
+})->name('operator.monthly-report');
+
 /************ END ************/ 
 
 
