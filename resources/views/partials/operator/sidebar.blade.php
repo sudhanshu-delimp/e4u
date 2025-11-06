@@ -22,16 +22,13 @@
                 <span>E4U</span>
             </a>
 
-            <div id="e4u-Tab"
-                class="collapse @if(
-                    request()->segment(2) == 'monthly-report'))
-                ) show @endif"
+            <div id="e4u-Tab" class="collapse @if( request()->segment(2) == 'monthly-report') show @endif"
                 aria-labelledby="headingProfile" data-parent="#accordionSidebar">
 
                 <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="collapse-item" href="#">
+                    <a class="collapse-item" href="{{ route('operator.monthly-report') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/registration.png') }}">
-                        <span class="{{ request()->segment(2) == 'monthly-report' ? 'menu-active' : '' }}">Monthly Report</span>
+                         <span style="{{ request()->segment(2) == 'monthly-report' ? 'color: #e5365a;' : '' }}">Monthly Report</span>
                     </a>
                 </div>
             </div>
@@ -47,15 +44,13 @@
             </a>
 
             <div id="Agents-Tab"
-                class="collapse @if(
-                    request()->segment(2) == 'monthly-report'))
-                ) show @endif"
+                class="collapse @if( request()->segment(2) == 'monthly-report') show @endif"
                 aria-labelledby="headingProfile" data-parent="#accordionSidebar">
 
                 <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="collapse-item" href="#">
+                    <a class="collapse-item" href="{{ route('operator.monthly-report') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/registration.png') }}">
-                        <span class="{{ request()->segment(2) == 'monthly-report' ? 'menu-active' : '' }}">Monthly Report</span>
+                         <span style="{{ request()->segment(2) == 'monthly-report' ? 'color: #e5365a;' : '' }}">Monthly Report</span>
                     </a>
                 </div>
             </div>
