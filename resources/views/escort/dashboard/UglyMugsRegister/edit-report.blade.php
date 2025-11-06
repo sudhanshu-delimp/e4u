@@ -116,7 +116,7 @@
                   </div>
       
                     <div class="form-group">
-                        <label class="required">Incident Nature</label>
+                        <label class="required">Incident Type</label>
                         <select class="custom-select" name="incident_nature">
                             <option value="fraud" {{ ($num && strtolower($num->incident_nature) == 'fraud') ? 'selected' : '' }}>Fraud</option>
                             <option value="no_show" {{ ($num && strtolower($num->incident_nature) == 'no_show') ? 'selected' : '' }}>No Show</option>
@@ -125,7 +125,7 @@
                     </div>
 
       
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                       <label>Platform</label>
                       <input type="text" class="form-control" value="{{$num ? $num->platform : ''}}" name="platform" placeholder="If known">
                   </div>
@@ -133,7 +133,7 @@
                   <div class="form-group">
                       <label>Profile Link</label>
                       <input type="text" class="form-control" value="{{$num ? $num->profile_link : ''}}" name="profile_link" placeholder="Link or Membership ID or Ref">
-                  </div>
+                  </div> --}}
       
                   <div class="form-group">
                       <label class="required">What Happened</label>
