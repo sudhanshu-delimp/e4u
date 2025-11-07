@@ -869,10 +869,10 @@
                         <span id="Lname " class="my_legbox_title">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
                     </h1>
                 </div>
-                <div class="modal-footer my_legbox_footer" style="justify-content: center;">
-                    <a href="{{ route('viewer.login') }}" type="button" class="btn site_btn_primary"
+                <div class="modal-footer my_legbox_footer" style="justify-content: center;"> 
+                    <a href="{{ route('viewer.login') }}" type="button" class="btn-cancel-modal text-decoration-none text-white"
                         id="loginUrl">Login</a>
-                    <a href="{{ route('register') }}" type="button" class="btn site_btn_primary"
+                    <a href="{{ route('register') }}" type="button" class="btn-success-modal text-decoration-none text-white"
                         id="regUrl">Register</a>
                 </div>
 
