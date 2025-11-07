@@ -12,11 +12,11 @@ class TourProfile extends Model
 
     public function location()
     {
-        return $this->belongsTo(TourLocation::class);
+        return $this->belongsTo(TourLocation::class,'tour_location_id');
     }
 
     public function escort()
     {
-        return $this->belongsTo(Escort::class);
+        return $this->belongsTo(Escort::class,'escort_id');
     }
 }

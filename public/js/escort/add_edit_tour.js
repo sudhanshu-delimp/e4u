@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", async function() {
             let locationsContainer = document.getElementById("locationsContainer");
             let addLocationButton = document.getElementById("addLocation");
@@ -13,7 +12,11 @@ document.addEventListener("DOMContentLoaded", async function() {
                         
                         let availableLocations = getAvailableLocations();
                         if (availableLocations.length === 0) {
-                            alert("No more locations available.");
+                            Swal.fire({
+                                title: 'Tour',
+                                text: `No more locations available.`,
+                                icon: 'warning'
+                            });
                             return;
                         }
 
@@ -21,7 +24,6 @@ document.addEventListener("DOMContentLoaded", async function() {
                         newLocation.classList.add("location-group");
 
                         let nextStartDate = lastEndDate ? getNextDate(lastEndDate) : "";
-                        console.log("nextStartDate",nextStartDate);
                         newLocation.innerHTML = `
         <div class="card p-3 mb-3 shadow-sm">
         <!--- <h5 class="card-title">Location</h5>-->
@@ -34,11 +36,11 @@ document.addEventListener("DOMContentLoaded", async function() {
             </div>
             <div class="listing-field">
                 <label for="start-date">Start Date:</label>
-                <input type="text" name="start_date[]" class="form-control start-date js_datepicker" value="${nextStartDate}" min="${nextStartDate}">
+                <input type="text" name="start_date[]" class="form-control start-date js_datepicker" value="${nextStartDate}">
             </div>
             <div class="listing-field">            
                 <label for="end-date">End Date:</label>
-                <input type="text" name="end_date[]" class="form-control end-date js_datepicker">
+                <input type="text" name="end_date[]" class="form-control end-date js_datepicker" value="${nextStartDate}">
             </div>
             <div class="d-flex align-items-end justify-content-end gap-10">
                 <button type="button" class="btn-success-modal addProfile" style="padding:6px 10px;">Add Profile</button>
@@ -52,7 +54,6 @@ document.addEventListener("DOMContentLoaded", async function() {
         locationsContainer.appendChild(newLocation);
         initJsDatePicker();
         updateSaveButton();
-        updateAllEndDatesMin();
         updateProfileButtonState(newLocation);
     });
 
@@ -73,7 +74,11 @@ document.addEventListener("DOMContentLoaded", async function() {
             let availableProfiles = getAvailableProfiles(profilesContainer, profileOptions[selectedLocation]);
 
             if (availableProfiles.length === 0) {
-                alert("No more profiles available for this location.");
+                Swal.fire({
+                    title: 'Tour',
+                    text: `No more profiles available for this location.`,
+                    icon: 'warning'
+                });
                 return;
             }
 
@@ -184,14 +189,6 @@ document.addEventListener("DOMContentLoaded", async function() {
         return allProfiles.filter(profile => !selectedProfiles.has(String(profile.id)));
     }
 
-    // function getNextDate(date) {
-    //     console.log('PREVIOUS_Date',date);
-    //     let nextDate = new Date(date);
-    //     console.log('NEXT_Date',nextDate);
-    //     nextDate.setDate(nextDate.getDate() + 1);
-    //     return nextDate;
-    // }
-
     function getNextDate(dateStr) {
         let [day, month, year] = dateStr.split('-');
         let date = new Date(year, month - 1, day);
@@ -270,12 +267,14 @@ document.addEventListener("DOMContentLoaded", async function() {
 }
 
 function updateProfileButtonState(locationGroup) {
-    let startDate = locationGroup.querySelector(".start-date").value;
-    console.log('startDate', startDate);
-    let endDate = locationGroup.querySelector(".end-date").value;
+    let startDate = $(locationGroup).find(".start-date");
+    let endDate = $(locationGroup).find(".end-date");
     let addProfileButton = locationGroup.querySelector(".addProfile");
-
-    addProfileButton.disabled = !(startDate && endDate);
+    if(startDate.val()){
+        startDate.datepicker('option', 'minDate', startDate.val());
+        endDate.datepicker('option', 'minDate', startDate.val());
+    }
+    addProfileButton.disabled = !(startDate.val() && endDate.val());
 }
 
     saveButton.addEventListener("click", function (event) {
@@ -283,7 +282,11 @@ function updateProfileButtonState(locationGroup) {
         
         let formData = collectFormData();
         if (!formData) {
-            alert("Please fill in all required fields before saving.");
+            Swal.fire({
+                title: 'Tour',
+                text: `Please fill in all required fields before saving.`,
+                icon: 'warning'
+            });
             return;
         }
         console.log("Collected Form Data:", formData);
@@ -299,12 +302,19 @@ function updateProfileButtonState(locationGroup) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
         if (data.success) {
-            alert("Tour saved successfully!");
-           
+            Swal.fire({
+                title: 'Tour',
+                text: `Tour saved successfully.`,
+                icon: 'success'
+            });
+            location.assign(`${window.App.baseUrl}escort-dashboard/list-tour/past`);
         } else {
-            alert("Error saving tour: " + data.message);
+            Swal.fire({
+                title: 'Tour',
+                text: `Error saving tour: ${data.message}`,
+                icon: 'error'
+            });
         }
         })
         .catch(error => console.error("Error:", error));
@@ -313,7 +323,11 @@ function updateProfileButtonState(locationGroup) {
     function collectFormData() {
         let tourName = document.getElementById("tourName").value.trim();
         if (!tourName) {
-            alert("Please enter a Tour Name.");
+            Swal.fire({
+                title: 'Tour',
+                text: `Please enter a Tour Name.`,
+                icon: 'warnning'
+            });
             return null;
         }
 
@@ -324,7 +338,11 @@ function updateProfileButtonState(locationGroup) {
             let endDate = locationGroup.querySelector(".end-date").value;
 
             if (!locationId || !startDate || !endDate) {
-                alert("Please fill in all location details.");
+                Swal.fire({
+                    title: 'Tour',
+                    text: `Please fill in all location details.`,
+                    icon: 'warnning'
+                });
                 return null;
             }
 
@@ -334,7 +352,11 @@ function updateProfileButtonState(locationGroup) {
                 let tourPlan = profileDiv.querySelector(".tour-plan-dropdown").value;
 
                 if (!profileId || !tourPlan) {
-                    alert("Please select a profile and tour plan.");
+                    Swal.fire({
+                        title: 'Tour',
+                        text: `Please select a profile and tour plan.`,
+                        icon: 'warnning'
+                    });
                     return null;
                 }
 
@@ -343,9 +365,13 @@ function updateProfileButtonState(locationGroup) {
                     tour_plan: tourPlan
                 });
             });
-            console.log("profiles length" , profiles.length);
+            
             if (profiles.length === 0) {
-                alert("Each location must have at least one profile.");
+                Swal.fire({
+                    title: 'Tour',
+                    text: `Each location must have at least one profile.`,
+                    icon: 'warnning'
+                });
                 return null;
             }
 
@@ -358,7 +384,11 @@ function updateProfileButtonState(locationGroup) {
         });
 
         if (locations.length < 2) {
-            alert("You must add at least two locations.");
+            Swal.fire({
+                title: 'Tour',
+                text: `You must add at least two locations.`,
+                icon: 'warnning'
+            });
             return null;
         }
 
@@ -367,4 +397,11 @@ function updateProfileButtonState(locationGroup) {
             locations: locations
         };
     }
+
+    $(document).on('change', 'input[name="start_date[]"]', function() {
+        let $row = $(this).closest('.listing-row');
+        let startDate = $(this).val();
+        let endDate = $row.find('input[name="end_date[]"]');
+        endDate.datepicker('option', 'minDate', startDate);
+    });
 });

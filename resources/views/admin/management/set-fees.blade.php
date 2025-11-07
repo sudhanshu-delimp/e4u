@@ -5,6 +5,69 @@
    .swal-button {
    background-color: #242a2c;
    }
+.concierge_services_table tbody td:nth-child(1), 
+.concierge_services_table tbody td:nth-child(3), 
+.concierge_services_table tbody td:nth-child(4),   
+.concierge_services_table tbody td:nth-child(5) {
+  text-align: center;
+}
+#loyalty_program_advertisers tbody td:nth-child(7),
+#loyalty_program_advertisers tbody td:nth-child(1),
+#loyalty_program_advertisers tbody td:nth-child(4),
+#loyalty_program_advertisers tbody td:nth-child(5),
+#loyalty_program_advertisers tbody td:nth-child(6),
+#loyalty_program_advertisers tbody td:nth-child(3) {
+  text-align: center;
+}
+
+
+#fee_support_services tbody td:nth-child(1),
+#fee_support_services tbody td:nth-child(3),
+#fee_support_services tbody td:nth-child(4),
+#fee_support_services tbody td:nth-child(5) {
+  text-align: center;
+}
+#agent_operator_fees tbody td:nth-child(5) {
+  text-align: center;
+}
+
+#agent_operator_fees tbody td:nth-child(3) {
+  text-align: center;
+}
+
+#agent_operator_fees tbody td:nth-child(4) {
+  text-align: center;
+}
+#agent_operator_fees tbody td:nth-child(1) {
+  text-align: center;
+}
+
+#commision_playbox_fees tbody td:nth-child(4) {
+  text-align: center;
+}
+
+
+#commision_playbox_fees tbody td:nth-child(1) {
+  text-align: center;
+}
+
+#commision_playbox_fees tbody td:nth-child(3) {
+  text-align: center;
+}
+
+
+#myPricing tbody td:nth-child(1),
+#myPricing tbody td:nth-child(3),
+#myPricing tbody td:nth-child(4),
+#myPricing tbody td:nth-child(5),
+#myPricing tbody td:nth-child(6),
+#myPricing tbody td:nth-child(7),
+#myPricing tbody td:nth-child(8)  {
+  text-align: center;
+}
+
+
+
 </style>
 @stop
 @section('content')
@@ -17,7 +80,7 @@
          <div class="row">
 
             <div class="custom-heading-wrapper col-md-12">
-               <h1 class="h1">Set Fees & Variables for UAdvertisers</h1>
+               <h1 class="h1">Set Fees & Variables</h1>
                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
             <div class="col-md-12 mb-4">
@@ -44,7 +107,7 @@
                            <ol class="level-2">
                                           <li>Discounts to Adverting Fees.</li>
                                           <li>Loyalty Program entitlements and discounts.</li>
-                                          <li>Agent Commission.</li>
+                                          <li>Agent Fees.</li>
                                        </ol>
                            </li>
                            <li>
@@ -147,7 +210,7 @@
                               </ol>
 
                               <div class="table-responsive">
-                                 <table class="table table-bordered membership-table mt-3 w-100" id="concierge_services">
+                                 <table class="table table-bordered membership-table mt-3 w-100 concierge_services_table" id="concierge_services">
                                     <thead class="bg-first text-center">
                                        <tr>
                                        <th class="text-center">Item</th>
@@ -326,7 +389,7 @@
                   <div class="card custom-help-contain">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_variableplaybox">
-                        Set Commission - Playbox
+                        Set Distribution - Playbox
                         </a>
                      </div>
                      <div id="additional_variableplaybox" class="collapse" data-parent="#accordion">
@@ -389,7 +452,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-               <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/edit-price.png')}}" class="custompopicon">Edit Pricing Detail</h5>
+               <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/edit-price.png')}}" class="custompopicon">Edit Fee Value</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                </button>
@@ -419,9 +482,9 @@
                            {{-- <input type="text" class="form-control" id="days" name="days" disabled> --}}
                            <select class="custom-select" name="days" id="days" required data-parsley-required-message="Please select state">
                               <option value="">Select</option>
-                              <option value="1">per day</option>
-                              <option value="2">per week</option>
-                              <option value="3">per Service</option>
+                              <option value="1">Per Day</option>
+                              <option value="2">Per Week</option>
+                              <option value="3">Per Service</option>
                            </select>
                      </div>
                   </div>
@@ -434,7 +497,7 @@
                   <div class="col-md-6">
                      <div class="form-group">
                         <label>%</label>
-                        <input type="text " class="form-control" placeholder="%"  id="percentage" disabled>
+                        <input type="text " class="form-control" placeholder="%"  id="percentage" name="percentage">
                      </div>
                   </div>
                   <div class="col-md-6">
@@ -446,7 +509,7 @@
                   </div>
                   <div class="col-md-12 mb-3">
                      <div class="form-group">
-                           <button type="submit" class="btn-success-modal shadow-none float-right">Save</button>
+                           <button type="submit" class="btn-success-modal shadow-none float-right"> Save & Update</button>
                      </div>
                   </div>
                </div>
@@ -769,7 +832,7 @@ $(document).ready(function(){
 
       $('#membershipname').val($(button).data('membershipname'));
       $('#pricingId').val($(button).data('id'));
-      $('#price').val($(button).data('price'));
+      $('#price').val(parseFloat($(button).data('price')).toFixed(2));
       $('#frequency').val($(button).data('frequency'));
       if($(button).data('membershipname') == 'Free') {
       $('#frequency').attr('disabled',false);
@@ -781,8 +844,11 @@ $(document).ready(function(){
       $('#percentage').val($(button).data('per'));
       $('#discount_amount').val($(button).data('discount_amount'));
 
-      if($(button).data('discount_amount') != "N/A") {
-      $('#ac_amount').val($(button).data('discount_amount'));
+      if ($(button).data('discount_amount') !== "N/A") {
+         let discounts = parseFloat($(button).data('discount_amount'));
+         if (!isNaN(discounts)) {
+            $('#ac_amount').val(discounts);
+         }
       }
       
 
@@ -792,26 +858,51 @@ $(document).ready(function(){
    });
 
 
-   $("#price").keyup(function(){
-      var price = $(this).val();
-      console.log("price = ", price);
-      var per = $("#percentage").val();
-      if(per != 'N/A') {
-         var percent = price*per/100;
-         var amount = price-percent;
-         var per = $("#discount_amount").val(amount);
-         $("#ac_amount").val(amount);
-      } else {
-         var per = $("#discount_amount").val('N/A');
-         $("#ac_amount").val('');
-      }
+   // $("#price").keyup(function(){
+   //    var price = $(this).val();
+   //    console.log("price = ", price);
+   //    var per = $("#percentage").val();
+   //    if(per != 'N/A') {
+   //       var percent = price*per/100;
+   //       var amount = price-percent;
+   //       var per = $("#discount_amount").val(Math.ceil(amount * 100) / 100);
+   //       $("#ac_amount").val(amount);
+   //    } else {
+   //       var per = $("#discount_amount").val('N/A');
+   //       $("#ac_amount").val('');
+   //    }
 
-      console.log("ac price = ", price-percent);
+   //    console.log("ac price = ", price-percent);
+   // });
 
+   $("#price").on("keyup change", calculateDiscount);
+   $("#percentage").on("keyup change", calculateDiscount);
 
-   });
+   function calculateDiscount() {
+    var price = parseFloat($("#price").val());
+    var per = $("#percentage").val();
+
+    // if price is not a number, stop
+    if (isNaN(price)) return;
+
+    if (per !== 'N/A' && per !== '' && !isNaN(per)) {
+        per = parseFloat(per);
+        var percent = (price * per) / 100;
+        var amount = price - percent;
+
+        // Set both values rounded up to 2 decimals
+        $("#discount_amount").val(Math.ceil(amount * 100) / 100);
+        $("#ac_amount").val(amount);
+
+        console.log("Discount =", percent, "Final Amount =", amount);
+    } else {
+        $("#discount_amount").val('N/A');
+        $("#ac_amount").val('');
+    }
+}
 
    $("body").on('submit','#agent_bank',function(e){
+      $('.head_modal_title').html('Fee Value Setting');
       e.preventDefault();
       var form = $(this);
       var url = form.attr('action');
@@ -1159,7 +1250,13 @@ var agent_operator_fees = $("#agent_operator_fees").DataTable({
                                                    <div class="row">
                                                       <div class="col-6 mb-3">
                                                          <label>Rate</label>
-                                                         <input type="text" class="form-control rounded-0" name="rate"  value="${(rowData.rate  ? rowData.rate : '')}" required>
+                                                               <select class="custom-select" name="rate" id="rate" required data-parsley-required-message="Please select state">
+                                                                  <option value="">Select</option>
+                                                                  <option value="1" ${rowData.rate == 'Per Day' ? 'selected' : ''}>Per Day</option>
+                                                                  <option value="2" ${rowData.rate == 'Per Week' ? 'selected' : ''}>Per Week</option>
+                                                                  <option value="3" ${rowData.rate == 'Per Registration' ?  'selected' : ''}>Per Registration</option>
+                                                               </select>
+                                                       
                                                       </div>
                                                       <div class="col-6 mb-3">
                                                          <label>Value</label>
@@ -1272,7 +1369,7 @@ var commision_playbox_fees = $("#commision_playbox_fees").DataTable({
                                        <form name="commision_playbox_fees_frm" method="post">
                                           <div class="modal-content">
                                              <div class="modal-header">
-                                                <h5 class="modal-title" id="Edit_Competitor"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Commission - Playbox</h5>
+                                                <h5 class="modal-title" id="Edit_Competitor"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Distribution - Add My to Playbox</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                                                 </button>

@@ -223,6 +223,10 @@ Route::get('reports/agent-requests',function(){
     return view('admin.reports.agent-requests');
 })->name('admin.agent-requests');
 
+Route::get('reports/num',function(){
+    return view('admin.reports.num');
+})->name('admin.num');
+
 Route::get('reports/transaction-summary',function(){
     return view('admin.reports.transaction-summary');
 })->name('admin.transaction-summary');

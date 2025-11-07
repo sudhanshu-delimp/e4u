@@ -9587,6 +9587,13 @@ border-top: 5px solid var(--peach);
     padding: 0 5px;
 }
 
+.playmate_icon {
+    color: white;
+    background-color: #c81c1c;
+    border-radius: 15%;
+    padding: 0 5px;
+}
+
 .pinup_brb_strip {
     position: absolute;
     top: 80%;

@@ -446,10 +446,11 @@
 
                             <div class="col-lg-12 col-md-12 col-12">
                                 <div class="mb-2">
-                                                <span class="about_box_small_heading">Available to:</span> @if(!empty($escort->available_to)) @foreach($escort->available_to as $available_to) <span class="about_box_small_heading_value">{{ config("escorts.profile.available-to.$available_to") }}</span>@endforeach @endif
+                                    <span class="about_box_small_heading">Available to:</span>
+                                    @if(!empty($escort->available_to))
+                                        {{ implode(', ', array_map(fn($item) => config("escorts.profile.available-to.$item"), $escort->available_to)) }}
+                                    @endif
                                 </div>
-                                
-                                
                             </div>
                         </div>
                     </div>
@@ -487,7 +488,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4 col-12">
                                 <div class="mb-2">
-                                    <span class="about_box_small_heading">Hair Colour:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.hair-colour.$escort->hair_color") }}</span>
+                                    <span class="about_box_small_heading">Hair colour:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.hair-colour.$escort->hair_color") }}</span>
                                 </div>
                                 <div class="mb-2">
                                     <span class="about_box_small_heading">Skin tone:</span> <span class="about_box_small_heading_value">{{config("escorts.profile.skin-tone.$escort->skin_tone") }}</span>
@@ -556,9 +557,15 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="mb-2">
-                                        <span class="about_box_small_heading">Play types:</span> @if(!empty($escort->play_type)) @foreach($escort->play_type as $playtype)<span class="about_box_small_heading_value">{{ config("escorts.profile.play-types.$playtype") }} </span>@endforeach @endif
-                                    </div>
+                                   <div class="mb-2">
+    <span class="about_box_small_heading">Play types:</span>
+    @if(!empty($escort->play_type))
+        <span class="about_box_small_heading_value">
+            {{ implode(', ', array_map(fn($playtype) => config("escorts.profile.play-types.$playtype"), $escort->play_type)) }}
+        </span>
+    @endif
+</div>
+
                                     <div class="mb-2">
                                         <span class="about_box_small_heading">Payment:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.Payments.$escort->payment_type") }}</span>
                                     </div>
@@ -1263,12 +1270,12 @@
                                 @if(!$reviewAlreadyExist)
                                     <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
                                     <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                    Add Reviews
+                                    Add Review
                                 </button>
                                 @else
                                     <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
                                         <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                        Edit Reviews
+                                        Edit Review
                                     </button>
                                 @endif
 
@@ -1276,7 +1283,7 @@
                         @else
                             <button type="button" class="btn add_reviews_btn all_btn_flx">
                                 <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
+                                <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
                             </button>
                         @endif
                     </div>
@@ -1303,13 +1310,13 @@
                     @if(auth()->user()->type == 0)
                         <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
                             <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                            Add Reviews
+                            Add Review
                         </button>
                     @endif
                 @else
                     <button type="button" class="btn add_reviews_btn all_btn_flx">
                         <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
+                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
                     </button>
                 @endif
             </div>
@@ -1357,7 +1364,7 @@
                         Please log in or Register to access Message Me.</span>
                 </h6>
                 <div class="modal-footer text-center justify-content-center pt-0" >
-                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>
+                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
                 <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
                 </div>
             </div>
@@ -1387,7 +1394,7 @@
                     <span id="Lname">Report Advertiser is only available to Viewers. Please log in or Register to access Report Advertiser.</span>
                 </h6>
                 <div class="modal-footer text-center justify-content-center" >
-                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>
+                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
                 <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
                 </div>
             </div>
@@ -1701,7 +1708,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn main_bg_color site_btn_primary">Post Reviews</button>
+                    <button type="submit" class="btn main_bg_color site_btn_primary">Post Review</button>
                 </div>
             </form>
         </div>
@@ -1724,7 +1731,7 @@
                 <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
                     <span id="Lname">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
                 </h1>
-                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>
+                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
                 <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
             </div>
         </div>

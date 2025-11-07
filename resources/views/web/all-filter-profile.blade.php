@@ -869,10 +869,10 @@
                         <span id="Lname " class="my_legbox_title">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
                     </h1>
                 </div>
-                <div class="modal-footer my_legbox_footer" style="justify-content: center;">
-                    <a href="{{ route('viewer.login') }}" type="button" class="btn site_btn_primary"
+                <div class="modal-footer my_legbox_footer" style="justify-content: center;"> 
+                    <a href="{{ route('viewer.login') }}" type="button" class="btn-cancel-modal text-decoration-none text-white"
                         id="loginUrl">Login</a>
-                    <a href="{{ route('register') }}" type="button" class="btn site_btn_primary"
+                    <a href="{{ route('register') }}" type="button" class="btn-success-modal text-decoration-none text-white"
                         id="regUrl">Register</a>
                 </div>
 
@@ -1373,10 +1373,10 @@
                 $(this).addClass('null');
                 console.log('legboxId_' + Eid,  ' hello', $('#legboxId_' + Eid).html())
                 $('.legboxClass_' + Eid).html(
-                    "<i class='fa fa-heart' style='color: #ff3c5f;' title='Remove from My Legbox' aria-hidden='true'></i><span class='custom-heart-text'>Remove from My Legbox</span>"
+                    "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text remove-tool'>Remove from My Legbox</span>"
                 );
                 $('#legboxId_' + Eid).html(
-                    "<i class='fa fa-heart' style='color: #ff3c5f;' title='Remove from My Legbox' aria-hidden='true'></i><span class='custom-heart-text'>Remove from My Legbox</span>");
+                    "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text'>Remove from My Legbox</span>");
                 
                 var url = "{{ route('user.save.legbox', ':id') }}";
                 url = url.replace(':id', Eid);
@@ -1402,9 +1402,9 @@
                 // <i class="fa fa-heart-o" aria-hidden="true"></i>
                 console.log('legboxId_' + Eid,  ' hello null', $('#legboxId_' + Eid).html())
                 $('.legboxClass_' + Eid).html(
-                    "<i class='fa fa-heart-o' title='Add to My Legbox' aria-hidden='true'></i><span class='custom-heart-text'>Add to My Legbox</span>");
+                    "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text list-tool'>Add to My Legbox</span>");
                 $('#legboxId_' + Eid).html(
-                    "<i class='fa fa-heart-o' title='Add to My Legbox' aria-hidden='true'></i><span class='custom-heart-text'>Add to My Legbox</span>");
+                    "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text'>Add to My Legbox</span>");
 
                 var url = "{{ route('user.delete.legbox', ':id') }} ";
                 url = url.replace(':id', Eid);

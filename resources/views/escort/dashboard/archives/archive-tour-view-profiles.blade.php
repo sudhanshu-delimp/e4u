@@ -182,12 +182,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
-   $('#myTour').parsley({
-
-   });
-
+   var table; 
    $(document).ready(function () {
-   var table = $('#sailorTable').DataTable({
+      table = $('#sailorTable').DataTable({
       serverSide: true,
       processing: true,
        "language": {
@@ -236,416 +233,53 @@
            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
        }
    });
-   $(document).on('click','.delete-center', function(e){
-       e.preventDefault();
-       var $this = $(this);
-       var table = $('#myTable').DataTable();
-       const swalWithBootstrapButtons = Swal.mixin({
-       customClass: {
-       confirmButton: 'btn btn-success',
-       cancelButton: 'btn btn-danger'
-       },
-       buttonsStyling: false
-       })
 
-       swalWithBootstrapButtons.fire({
-           title: 'Are you sure?',
-           text: "You won't be able to revert this!",
-           icon: 'warning',
-           showCancelButton: true,
-           confirmButtonText: 'Yes, delete it!',
-           cancelButtonText: 'No, cancel!',
-           reverseButtons: true
-       }).then((result) => {
-           if (result.isConfirmed) {
-               $.post({
-                   type: 'POST',
-                   url: $this.attr('href')
-               }).done(function (data) {
-                   if(data.error == 0)
-                   {
-                       Swal.fire({
-                         icon: 'error',
-                         title: 'Oops...',
-                         text: 'Something went wrong!',
-                         footer: '<a href="">Why do I have this issue?</a>'
-                       })
-                   }else {
-                       swalWithBootstrapButtons.fire(
-                       'Deleted!',
-                       'Your file has been deleted.',
-                       'success'
-                       );
+   $(document).on('click','.tourDelete', function(e){
+    e.preventDefault();
+    $this = $(this);
+    Swal.fire({
+        title: "Are you sure?",
+        text: "This will delete the tour and all related data!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel"
+    }).then((result)=>{
+        if (result.isConfirmed) {
+            $.ajax({
+                url: $(this).attr('href'),
+                type: "POST",
+                beforeSend: function () {
+                    Swal.fire({
+                        title: "Deleting...",
+                        text: "Please wait while we remove this tour.",
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                },
+                success: function (response) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Tour and its related data have been deleted.",
+                        icon: "success"
+                    });
+
+                    table.row( $this.parents('tr') ).remove().draw();
+                },
+                error: function (xhr) {
+                    Swal.fire("Error!", "Something went wrong while deleting.", "error");
+                }
+            });
+        }
+        else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire("Cancelled", "Your tour is safe :)", "info");
+        }
+    })
+})
 
-                       table.row( $this.parents('tr') ).remove().draw();
-                   }
-
-
-               });
-           } else if (
-           /* Read more about handling dismissals below */
-           result.dismiss === Swal.DismissReason.cancel
-           ) {
-               swalWithBootstrapButtons.fire(
-               'Cancelled',
-               'Your imaginary file is safe :)',
-               'error'
-               )
-           }
-       });
-   });
-
-   $('#play-mates-modal').on('shown.bs.modal', function (e) {
-
-       var name, city, source = e.relatedTarget;
-       console.log($(source).data('url'));
-       $('#hidden_escort_id').val($(source).data('id'));
-
-       if(name = $(source).data('name')) {
-           $('#playmate-modal-name').html('Playmates for ' + $(source).data('name'));
-       }
-
-       if(city = $(source).data('city')) {
-           $('#playmate-modal-location').html('<svg width="14" height="21" viewBox="0 0 14 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 10C6.33696 10 5.70107 9.73661 5.23223 9.26777C4.76339 8.79893 4.5 8.16304 4.5 7.5C4.5 6.83696 4.76339 6.20107 5.23223 5.73223C5.70107 5.26339 6.33696 5 7 5C7.66304 5 8.29893 5.26339 8.76777 5.73223C9.23661 6.20107 9.5 6.83696 9.5 7.5C9.5 7.8283 9.43534 8.15339 9.3097 8.45671C9.18406 8.76002 8.99991 9.03562 8.76777 9.26777C8.53562 9.49991 8.26002 9.68406 7.95671 9.8097C7.65339 9.93534 7.3283 10 7 10V10ZM7 0.5C5.14348 0.5 3.36301 1.2375 2.05025 2.55025C0.737498 3.86301 0 5.64348 0 7.5C0 12.75 7 20.5 7 20.5C7 20.5 14 12.75 14 7.5C14 5.64348 13.2625 3.86301 11.9497 2.55025C10.637 1.2375 8.85652 0.5 7 0.5V0.5Z" fill="#FF3C5F"></path></svg>' + $(source).data('city'));
-       }
-
-       $.ajax({
-           url: $(source).data('url'),
-           success: function (data) {
-               $('#playmate-template').html(data);
-           }
-       });
-   });
-
-   $('#play-mates-modal').on('hidden.bs.modal', function () {
-       $('#playmate-template').html('<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>');
-       $('#playmate-modal-name').html('');
-       $('#playmate-modal-location').html('');
-   });
-
-   $(function () {
-       var count = 1;
-       var startid = $("#startDate_").attr('id','startDate_'+count);
-       var endid = $("#endDate_").attr('id','endDate_'+count);
-       $('body').on('change', ".addMore_Location", function(e) {
-
-           var stateId = $(this).val();
-           var locationId = $(this).attr('id');
-           var getIdValue = locationId.split('_');
-           console.log(getIdValue[1]);
-           var elem = $(this);
-           //var addClass = $(".addAssign_").removeClass('addAssign_'+stateId);
-           console.log("hello state=", stateId);
-           var url = "{{ route('escort.stateId',':id') }}";
-           url = url.replace(':id',stateId);
-           console.log("count",count);
-           $.ajax({
-               url : url,
-               method : "POST",
-               success: function(data) {
-                   console.log(data);
-                   var optionString = '';
-                   $.each(data.escorts, function(index, elem) {
-                       optionString += '<option value='+elem.id+'>'+elem.name+'</option>';
-                       console.log(elem);
-                   });
-                   $('.addAssign_'+getIdValue[1]).attr('id','assignProfile_'+data.id).html(optionString);
-                   $("#assignProfile_"+data.id).attr('disabled',  false);
-
-               },
-               error: function (data) {
-                   console.log("error a",data);
-               },
-
-           });
-       });
-
-
-       $('body').on('click', '.addLocation', function(e) {
-           //$('#myTour').parsley({});
-
-
-           //$('#myTour').submit()
-           $('#myTour').parsley().validate();
-           if ($('#myTour').parsley().isValid()) {
-               count += 1;
-               var row_count = $(this).data('count')+ count - 1;
-               console.log("hello="+ row_count);
-
-               if(row_count <= 8) {
-                   {{--$('#accordion').append("@include('escort.dashboard.archives.partials.tourModalAppend')".trim());--}}
-               }
-           }
-
-
-          $('#kstart_date_'+count).on('change', function()
-           {
-               console.log(count);
-               $("#end_date_"+count).show();
-               var val = $(this).val();
-               var result = new Date(val);
-               console.log("end date "+result);
-               var ss = result.setDate(result.getDate() + 1);
-               var first_date = moment(ss).format('YYYY-MM-DD');
-              
-               console.log(first_date);
-           });
-
-           console.log("val");
-       })
-
-       $("body").on('click','#kstart_date_'+count,function(){
-
-               var today = new Date();
-
-               var start_date = moment(today).format('YYYY-MM-DD');
-               var startdate = moment();
-               //startdate = startdate.subtract(1, "days");
-               $("#start_date_"+count).val(startdate);
-                   $("#start_date_"+count).attr({
-                   "min" : start_date,          // values (or variables) here
-                   });
-                   console.log("ok date")
-
-       });
-       $("body").on('click','#kend_date_'+count,function(){
-
-               var today = new Date();
-
-               var start_date = moment(today).format('YYYY-MM-DD');
-               var startdate = moment();
-               //startdate = startdate.subtract(1, "days");
-               $("#end_date_"+count).val(startdate);
-                   $("#end_date_"+count).attr({
-                   "min" : start_date,          // values (or variables) here
-                   });
-
-                   console.log("ok end date")
-       });
-
-       $("body").on('change','#2start_date_'+count,function(){
-       
-           console.log(count);
-           $("#end_date_"+count).show();
-           var val = $(this).val();
-           var result = new Date(val);
-           console.log("end date "+result);
-           var ss = result.setDate(result.getDate() + 1);
-           var first_date = moment(ss).format('YYYY-MM-DD');
-           $("#end_date_"+count).val(first_date);
-              
-               console.log(first_date);
-               console.log(val);
-
-       });
-   
-   });
-
-
-
-   $("body").on('click', '#showNotification', function(e){
-      $('#AccessModal').modal('show');
-   })
-   $("body").on('click', '#TourPermission', function(e){
-      $('#AccessModal').modal('show');
-   })
-
-
-
-   $("body").on('submit', '#myTour', function(e){
-       e.preventDefault();
-       console.log("hiii");
-       var form = $(this);
-        
-           var url = form.attr('action');
-           var data = new FormData($('#myTour')[0]);
-           console.log(url);
-           $('#pesrmissionModal').modal('show');
-           $('#msg').html("Are you sure you want to save?");
-           $('.nopermission').click(function(){
-               location.reload();
-           });
-           $('.permission').click(function(){
-               $('#pesrmissionModal').modal('hide');
-
-
-
-
-               $.ajax({
-                   method: form.attr('method'),
-                   url:url,
-                   data:data,
-                   contentType: false,
-                   processData: false,
-                   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                   success: function (data) {
-                       console.log(data);
-                       if(!data.error){
-
-                        $('#poli_payment').prop('disabled', true);
-                                $('#poli_payment').html('<div class="spinner-border"></div>');
-                                var tourId = data.tour.id;
-                                var url = "{{ route('escort.tour.paymentUrl',':id')}}";
-                                url = url.replace(':id',tourId);
-                                console.log("url = "+url);
-
-                                $('<form/>', { action: url, method: 'POST' }).append($('<input>', {type: 'hidden', name: '_token', value: '{{csrf_token()}}'}),).appendTo('body').submit();
-                          
-                       } else {
-                           $.toast({
-                               heading: 'Error',
-                               text: 'Records Not update',
-                               icon: 'error',
-                               loader: true,
-                               position: 'top-right',      // Change it to false to disable loader
-                               loaderBg: '#9EC600'  // To change the background
-                           });
-
-                       }
-
-                   }
-               });
-           });
-       //}
-
-   })
-
-   $(document).ready(function(){
-       $('body').on('click', '.editTour', function(e) {
-           var id = $(this).data('id');
-
-           console.log("");
-           $('#exampleModal').modal('show');
-           var url = "{{ route('escort.tour.edit',':id')}}";
-           url = url.replace(':id',id);
-
-           console.log(url);
-           $.ajax({
-               url : url,
-               type : "post",
-               contentType: false,
-               processData: false,
-               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-               success: function (data) {
-                   $('#addTourForm').html(data.template);
-               }
-
-           });
-
-
-           $("#exampleModalLongTitle").text('Edit Tour');
-           //  $('#myTour').parsley({
-
-           // });
-       });
-   });
-
-   $('body').on('hidden.bs.modal','#exampleModal', function () {
-
-     
-       location.reload();
-   });
-
-   $('body').on('click','.resetTour', function () {
-       $('#myTour')[0].reset();
-      // $('input[type=date]').val('');
-      var p_element = $(this);
-      var element_class = p_element.attr('data-class');
-       console.log("hii="+element_class);
-       $('select.'+element_class).prop('selectedIndex',0);
-       $('input[type=date]').val('');
-       $('input[type=text]').val('');
-       //location.reload();
-
-   });
-
-   $(".dctour").click(function(){
-       $("#exampleModalLongTitle").text('Create New Tour');
-   })
-   //deleteMyTour
-   $(document).ready(function(){
-       $('body').on('click','.deleteTour', function () {
-           var id = $(this).data('id');
-           $('#deleteModal').modal('show');
-           $('#deleteId').val(id);
-           console.log("id =="+id);
-           // console.log($('#myTour')[0].reset());
-           //location.reload();
-       });
-   })
-
-
-
-   $('#deleteMyTour').on('submit',function(e){
-       e.preventDefault();
-       var id = $('#deleteId').val();
-       var form = $(this);
-       var data = new FormData($('#deleteMyTour')[0]);
-       var url = form.attr('action');
-       url = url.replace(':id',id);
-       console.log("url=" + url);
-       $('#deleteModal').modal('hide');
-
-       //console.log(url);
-       $.ajax({
-           type:"post",
-           url:url,
-           data:data,
-           contentType: false,
-           processData: false,
-           headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-           success: function(data){
-               console.log(data);
-               if(!data.error){
-                   $.toast({
-                       heading: 'Success',
-                       text: 'Tour delete successfully',
-                       icon: 'success',
-                       loader: true,
-                       position: 'top-right',      // Change it to false to disable loader
-                       loaderBg: '#9EC600'  // To change the background
-                   });
-                  location.reload();
-               } else {
-                   $.toast({
-                       heading: 'Error',
-                       text: 'Records Not delete',
-                       icon: 'error',
-                       loader: true,
-                       position: 'top-right',      // Change it to false to disable loader
-                       loaderBg: '#9EC600'  // To change the background
-                   });
-
-               }
-           }
-       });
-   });
-
-
-
-
-   $('body').on('change','.akhReset', function()
-        {
-
-
-
-            var val = $(this).attr('id');
-            var selectedDate = $("#"+val).val();
-
-            var getCountValue = val.split('_');
-
-            if(getCountValue[0] == "startDate") {
-                var result = new Date(selectedDate);
-                var ss = result.setDate(result.getDate() + 1);
-                var first_date = moment(ss).format('YYYY-MM-DD');
-                $("#endDate_"+getCountValue[1]).attr({
-                "min" : first_date,
-                "value" : first_date,
-                });
-            }
-                console.log(first_date);
-                console.log(val);
-
-        });
 </script>
 @endpush

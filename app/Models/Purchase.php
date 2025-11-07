@@ -10,7 +10,7 @@ class Purchase extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['escort_id', 'start_date', 'end_date', 'membership', 'utc_start_time', 'utc_end_time', 'status'];
+    protected $fillable = ['escort_id', 'start_date', 'end_date', 'membership', 'utc_start_time', 'utc_end_time', 'status', 'tour_location_id'];
     protected $table = 'purchase';
     public $timestamps = false;
 
@@ -47,8 +47,11 @@ class Purchase extends Model
 
     public function scopeOverlapping($query, $start, $end)
     {
-        return $query->where('start_date', '<=', $end)
-                     ->where('end_date', '>=', $start);
+        $formatted_start = Carbon::createFromFormat('d-m-Y', $start)->format('Y-m-d');
+        $formatted_end = Carbon::createFromFormat('d-m-Y', $end)->format('Y-m-d');
+
+        return $query->where('start_date', '<=', $formatted_end)
+                     ->where('end_date', '>=', $formatted_start);
     }
     
     public function availabilityFromA($day)

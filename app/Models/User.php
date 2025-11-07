@@ -609,7 +609,11 @@ class User extends Authenticatable
 
     public function agent_settings()
     {
+<<<<<<< HEAD
         return $this->belongsTo(AgentSetting::class, 'id', 'user_id');
+=======
+       return $this->hasOne(AgentSetting::class, 'user_id', 'id');
+>>>>>>> delimp-dev
     }
 
     public function staff_detail()

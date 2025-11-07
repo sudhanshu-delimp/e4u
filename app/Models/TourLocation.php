@@ -23,18 +23,19 @@ class TourLocation extends Model
         $this->attributes['end_date'] = empty($value)?null:Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
     
-    public function tour()
-    {
-        return $this->belongsTo(Tour::class);
-    }
     public function state()
     {
         return $this->hasOne(State::class, 'id', 'state_id');
     }
 
+    public function tour()
+    {
+        return $this->belongsTo(Tour::class);
+    }
+    
     public function profiles()
     {
-        return $this->hasMany(TourProfile::class);
+        return $this->hasMany(TourProfile::class,'tour_location_id');
     }
 
     public function getStartDateFormattedAttribute()
@@ -48,6 +49,15 @@ class TourLocation extends Model
         return $this->end_date
             ? Carbon::parse($this->end_date)->format('d-m-Y')
             : null;
+    }
+
+    public function scopeOverlapping($query, $start, $end)
+    {
+        $formatted_start = Carbon::createFromFormat('d-m-Y', $start)->format('Y-m-d');
+        $formatted_end = Carbon::createFromFormat('d-m-Y', $end)->format('Y-m-d');
+
+        return $query->where('start_date', '<=', $formatted_end)
+                     ->where('end_date', '>=', $formatted_start);
     }
 }
 

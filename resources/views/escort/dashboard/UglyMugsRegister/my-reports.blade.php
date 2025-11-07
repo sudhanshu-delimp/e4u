@@ -56,7 +56,7 @@
               searching the mobile number. Or scroll through the pages.
             </li>
             <li>
-              You can also select a Report/s you wish to edit or remove from your register by clicking
+              You can also select a Report's you wish to edit or remove from your register by clicking
               the appropriate button. Any Report you remove from your register will be permanently
               removed.
             </li>
@@ -71,30 +71,43 @@
     </div>
   </div>
 
-  <div class="col-lg-12">
-    <div class="my-punter-report mt-0">
-       <div class="my-punter-report-box ">
-          <span class="today_report">0</span>
-          <h4 >Today</h4>
-       </div>
-       <div class="my-punter-report-box ">
-          <span class="month_report">0</span>
-          <h4>This month
-          </h4>
-       </div>
-       <div class="my-punter-report-box ">
-          <span class="year_report">0</span>
-          <h4>This year
-          </h4>
-       </div>
-       <div class="my-punter-report-box ">
-          <span class="all_time_report">0</span>
-          <h4>All time
-          </h4>
-       </div>
-    </div>
+ <div class="col-md-12">
+    <div class="stats-container">
+        <div class="stat-card-wrapper">
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
+                    <div class="stat-label">Today</div>
+                </div>
+                <div class="stat-number today_report">0</div>
+            </div>
 
- </div>
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
+                    <div class="stat-label">This Month</div>
+                </div>
+                <div class="stat-number month_report">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="stat-label">This Year</div>
+                </div>
+                <div class="stat-number year_report">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="stat-label">All Time</div>
+                </div>
+                <div class="stat-number all_time_report">0</div>
+            </div>
+        </div>
+    </div>
+  </div>
 
     <!-- DataTable -->
     <div class="col-md-12">
@@ -159,8 +172,8 @@
                 infoFiltered: "(filtered from _MAX_ total entries)"
             },
             "language": {
-                "zeroRecords": "There is no record of the search criteria you entered.",
-                searchPlaceholder: "Search by incident type..."
+                "zeroRecords": "No Record Found!",
+                searchPlaceholder: "Search by Mobile..."
             },
             paging: true,
             processing: false,

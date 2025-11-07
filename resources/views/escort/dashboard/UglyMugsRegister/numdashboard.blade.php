@@ -101,12 +101,16 @@ by Escorts)</li>
                                 <td>{{ $num->state ? $num->state->iso2 : '' }} - {{ $num->state ? $num->state->name : '' }}
                                 </td>
                                 <td class="text-center">
-                                    <a href="javascript:void(0);" class="toggle-details"
+                                    {{-- <a href="javascript:void(0);" class="toggle-details"
                                         data-target="details-{{ $num->id }}">
                                         <i class="fa fa-search" data-toggle="tooltip" title="View"></i>
+                                    </a> --}}
+                                     <a href="javascript:void(0);" class="toggle-details">
+                                        <i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="View"></i>
                                     </a>
                                 </td>
                             </tr>
+                            
                         @endforeach
                     </tbody>
                 </table>
@@ -140,8 +144,8 @@ by Escorts)</li>
                     infoFiltered: "(filtered from _MAX_ total entries)"
                 },
                 "language": {
-                    "zeroRecords": "There is no record of the search criteria you entered.",
-                    searchPlaceholder: "Search by incident type..."
+                    "zeroRecords": "No Record Found!",
+                    searchPlaceholder: "Search by Mobile..."
                 },
                 paging: true,
                 processing: false,
@@ -190,13 +194,75 @@ by Escorts)</li>
                 ]
             });
 
+            // Handle expand/collapse
+            $('#myReportTable tbody').on('click', '.toggle-details', function(e) {
+                e.preventDefault();
 
-            // Toggle expandable rows
-            $('body').on('click', '.toggle-details', function() {
-                var targetId = $(this).data('target');
-                $('#' + targetId).toggleClass('d-none');
-                $(this).toggleClass('open');
+                const tr = $(this).closest('tr');
+                const row = table.row(tr);
+
+                if (row.child.isShown()) {
+                    // Close the details
+                    row.child.hide();
+                    tr.removeClass('shown');
+                    $(this).removeClass('open');
+                } else {
+                    // Open the details
+                    console.log(row.data());
+                    
+                    row.child(format(row.data())).show();
+                    tr.addClass('shown');
+                    $(this).addClass('open');
+                }
             });
+
+            function formatDate(dateString) {
+                if (!dateString) return 'N/A';
+                const date = new Date(dateString);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}-${month}-${year}`;
+            }
+
+            function format(data) {
+                return `
+                    <div class="details-content p-3 bg-light border rounded">
+                        <table class="table mb-0">
+                            <tbody>
+                                <tr>
+                                    <th>Ref:</th>
+                                    <td class="border-0">${data.ref ?? 'N/A'}</td>
+                                    <th>Incident Date:</th>
+                                    <td class="border-0">${data.incident_date ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Offender's Name:</th>
+                                    <td class="border-0">${data.offender_name ?? 'N/A'}</td>
+                                    <th>Incident Type:</th>
+                                    <td class="border-0">${data.incident_nature ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Report Date:</th>
+                                    <td class="border-0">${formatDate(data.created_at) ?? 'N/A'}</td>
+                                    <th>Location:</th>
+                                    <td class="border-0">${data.location ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Offender's Email:</th>
+                                    <td class="border-0">${data.offender_email ?? 'N/A'}</td>
+                                    <th>Rating:</th>
+                                    <td class="border-0">${data.rating ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Summary of Incident:</th>
+                                    <td colspan="3" class="border-0">${data.what_happened ?? 'N/A'}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
 
         });
     </script>

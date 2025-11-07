@@ -17,12 +17,12 @@
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="text-align: left;">
-                    <img src="http://127.0.0.1:8000/assets/app/img/logo.png" alt="E4U Logo" style="height: 50px;">
+                    <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                   </td>
                   <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                    Request to be an Influencer [Title from form]<br>
-                    <span style="font-size: 13px; color: #cccccc;">(Ref: [insert ref number])<br>
-                      Member ID: [Member ID]</span>
+                    Request to be an Influencer {{$body['member_id']}}<br>
+                    <span style="font-size: 13px; color: #cccccc;">(Ref: {{$body['ref_number']}})<br>
+                      Member ID: {{$body['member_id']}}</span>
                   </td>
                 </tr>
               </table>
@@ -39,31 +39,31 @@
                 <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; font-size: 14px; color: #2b3d50;">
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Member Name:</td>
-                    <td style="padding: 10px 0px 10px 10px">[Members name]</td>
+                    <td style="padding: 10px 0px 10px 10px">{{$body['member_name']}}</td>
                   </tr>
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Member ID:</td>
-                    <td style="padding: 10px 0px 10px 10px">[Member ID]</td>
+                    <td style="padding: 10px 0px 10px 10px">{{$body['member_id']}}</td>
                   </tr>
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Email:</td>
-                    <td style="padding: 10px 0px 10px 10px">[from form]</td>
+                    <td style="padding: 10px 0px 10px 10px">{{$body['email']}}</td>
                   </tr>
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Mobile:</td>
-                    <td style="padding: 10px 0px 10px 10px">[Mobile (&gt; My Account &gt; Edit My Account &gt; About Me &gt; Mobile)]</td>
+                    <td style="padding: 10px 0px 10px 10px">{{$body['mobile']}}</td>
                   </tr>
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Location:</td>
-                    <td style="padding: 10px 0px 10px 10px">[Home State (&gt; My Account &gt; Edit My Account &gt; About Me &gt; Home State)]</td>
+                    <td style="padding: 10px 0px 10px 10px">{{$body['location']}}</td>
                   </tr>
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Social Media address:</td>
-                    <td style="padding: 10px 0px 10px 10px">[from form. Note may be more than one]</td>
+                    <td style="padding: 10px 0px 10px 10px">{{$body['social_media']}}</td>
                   </tr>
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Comments (by Escort):</td>
-                    <td style="padding: 10px 0px 10px 10px">[from form]</td>
+                    <td style="padding: 10px 0px 10px 10px">{{$body['comments']}}</td>
                   </tr>
                 </table>
 
@@ -82,7 +82,7 @@
           <tr>
             <td>
               <em>This is an automatically generated email by the Escorts4U Operations Centre.<br>
-                &copy; Copyright 2024 Blackbox Tech Pty Ltd. All rights reserved.</em>
+                &copy; Copyright 2025 Blackbox Tech Pty Ltd. All rights reserved.</em>
             </td>
           </tr>
         </table>
