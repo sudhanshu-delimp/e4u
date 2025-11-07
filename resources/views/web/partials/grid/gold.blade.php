@@ -2,8 +2,8 @@
     <div class="six_column_content_top d-flex justify-content-between mid_tit wish_span" style="z-index: 1;width: 90%;">
            
                  <div class="vrf-tooltip-wrap">
-                    <span ><img width="18" height="18" src="{{ asset('assets/img/verified media.png') }}"></span>            
-                    <span class="vrf-tooltip">Media Verified</span>
+                    <span ><img width="18" height="18" src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"></span>            
+                    <span class="vrf-tooltip">Media Unverified</span>
                 </div>
             <span class="six_column_fonts_top">{{ substr($escort->name,0,12)}}</span>
             {{-- <span class="add_to_favrate @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">

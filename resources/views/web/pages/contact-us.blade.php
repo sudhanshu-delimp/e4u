@@ -184,7 +184,7 @@ $contactMsg = session('success');
                   <p>Our offices are attended between 8:00 am and 6:00 pm WST (Australia). If you are:</p>
                   <ul>
                      <li>Looking to make an appointment with an Advertiser, we are not an agency and do not
-                        arrange bookings. Please contact <a class="c-red" href="{{ url('help-for-advertisers')}}">Advertisers</a> directly
+                        arrange bookings. Please contact <a class="c-red" href="{{ url('help-for-advertisers')}}">Advertisers</a> directly.
                      </li>
                      <li>An Advertiser with a question, first look at our help for <a class="c-red"
                         href="{{ url('help-for-advertisers')}}">Advertisers</a>,
@@ -254,7 +254,7 @@ $contactMsg = session('success');
             <div class="content">
                <div class="accodien_manage_padding_content">
                   <p>We offer an after hours contact by email. Any assistance requested via our after hours
-                     email will be attended to as soon as possible
+                     email will be attended to as soon as possible.
                   </p>
                </div>
             </div>

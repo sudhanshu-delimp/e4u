@@ -682,6 +682,7 @@
         font-size: 14px !important;
         margin-bottom: 12px;
         line-height: 19px;
+        text-align: justify;
     }
     
     div#add_wishlist .modal-dialog {
@@ -854,6 +855,7 @@
         font-weight: 400;
         font-size: 16px;
         line-height: 150%;
+        text-align: justify;
     }
     
     .footer-links-si a {
@@ -1612,6 +1614,7 @@
         line-height: 28px;
         padding: 2px 0px;
         margin: 0;
+        text-align: justify;
     }
     
     .footer-links-si p,
@@ -1622,6 +1625,7 @@
         font-weight: normal;
         font-size: 16px;
         line-height: 28px;
+        text-align: justify;
     }
     
     .content p:first-of-type {
@@ -4929,6 +4933,7 @@ i.fa.fa-heart-o{
         font-weight: normal;
         font-size: 16px;
         line-height: 28px;
+        text-align: justify;
     }
     
     .set .content a {
@@ -4942,6 +4947,7 @@ i.fa.fa-heart-o{
         font-weight: normal;
         font-size: 16px;
         color: #000;
+        text-align: justify;
     }
     
     .list-step li {
@@ -6025,11 +6031,28 @@ i.fa.fa-heart-o{
         border-color: var(--peach) transparent transparent transparent;
     }
     
+    .silver_listbx .verify-image-custom {
+        position: absolute;
+        top: unset !important;
+        right: 0px;
+        bottom: 10px !important;
+        background: #0c223d;
+        width: 100px;
+        padding: 3px;
+    }
+    
+    .silver_listbx .verify-image-custom img {
+        width: 100%;
+    }
+    
     .gold_list_frame .verify-image-custom {
         position: absolute;
         top: unset !important;
         right: 0px;
-        bottom: 20px !important;
+        bottom: 44px !important;
+        background: #0c223d;
+        width: 100px;
+        padding: 3px;
     }
     
     .custom--service-tag .grid_list_icon_box:hover span {
@@ -6459,9 +6482,12 @@ i.fa.fa-heart-o{
     
     .verify-image-custom {
         position: absolute;
-        top: 350px !important;
+        top: 340px !important;
         right: 0px;
         bottom: unset !important;
+        width: 100px;
+        background: #0c223d;
+        padding: 2px;
     }
     
     .all-escort-profile-pic img {
@@ -6791,11 +6817,15 @@ i.fa.fa-heart-o{
         z-index: 1000;
     }
     
+    .register_ul li {
+        text-align: left !important;
+    }
+    
     .vrf-tooltip::after {
         content: '';
         position: absolute;
         top: 35%;
-        left: -6%;
+        right: 100%;
         margin-left: -5px;
         border-width: 5px;
         transform: rotate(90deg);

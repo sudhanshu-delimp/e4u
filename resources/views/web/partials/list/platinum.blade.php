@@ -1,5 +1,5 @@
 <div class="listview_each_section_border_btm silver-sec brb--listing">
-    <div class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view list_provide_cruise">
+    <div class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view list_provide_cruise plat_list_frame">
         <div class="row plat_num_row">
             <div class="col-md-12 col-lg-8 col-xl-8 col-sm-12 self-w-73">
                 <div class="row plat-inner mr-0 ml-0">
@@ -40,7 +40,7 @@
                                     @endif
                                 </div>
                                 <div class="verify_image verify-image-custom">
-                                    <img src="{{ asset('assets/app/img/verifyimage.png')}}">
+                                    <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
                                 </div>
                             </div>
                         {{-- </a> --}}
