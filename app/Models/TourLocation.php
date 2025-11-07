@@ -50,5 +50,14 @@ class TourLocation extends Model
             ? Carbon::parse($this->end_date)->format('d-m-Y')
             : null;
     }
+
+    public function scopeOverlapping($query, $start, $end)
+    {
+        $formatted_start = Carbon::createFromFormat('d-m-Y', $start)->format('Y-m-d');
+        $formatted_end = Carbon::createFromFormat('d-m-Y', $end)->format('Y-m-d');
+
+        return $query->where('start_date', '<=', $formatted_end)
+                     ->where('end_date', '>=', $formatted_start);
+    }
 }
 

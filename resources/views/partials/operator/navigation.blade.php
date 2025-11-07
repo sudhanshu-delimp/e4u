@@ -7,22 +7,22 @@
         <i class="fa fa-bars"></i>
     </button>
     {{-- logged in user data --}}
-    <div class="topbar-logged-in-user-data d-flex">
+    <div class="topbar-logged-in-user-data operator-topbar-userdata d-flex">
 
         <div class="d-user-info">
             <div class="gap-b escort_header_top_menu"
                 style="display: grid; grid-template-columns: 1fr 1fr; font-size: 14px;">
                 <span>
-                    <b>Welcome back : </b><span class="user-values">{{ auth()->user()->business_name }}</span> <span
+                    <b>Welcome back : </b><span class="user-values">{{-- {{ auth()->user()->business_name }} --}} Operator</span> <span
                         class="separator">|</span>
                 </span>
                 <span>
-                    <b>Membership ID : </b><span class="user-values">{{ auth()->user()->member_id }}</span> <span
+                    <b>Membership ID : </b><span class="user-values">{{-- {{ auth()->user()->member_id }} --}}</span>  <span
                         class="separator"></span>
                 </span>
                 <span>
                     <b>Home State : </b><span class="user-values"
-                        style="padding-left: 21%">{{ auth()->user()->home_state }} </span>
+                        style="padding-left: 21%">{{-- {{ auth()->user()->home_state }}--}} Perth escort Services</span>
                 </span>
 
             </div>
@@ -36,7 +36,7 @@
 
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
 
-        <form class="form-inline form-inline-custom navbar-search custom-nav-search" style="width: 23rem;">
+        <form class="form-inline form-inline-custom navbar-search custom-nav-search opr-itmes" style="width: 23rem;">
             <div class="input-group dk-border-radius">
                 <div class="input-group-append">
                     <button class="btn" type="button">
@@ -49,7 +49,7 @@
             </div>
         </form>
 
-        <li class="nav-item dropdown no-arrow d-sm-none">
+        <li class="nav-item dropdown no-arrow d-sm-none opr-itmes">
             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
@@ -72,7 +72,7 @@
         </li>
 
         <!-- Nav Item - support tickets -->
-        <li class="nav-item dropdown no-arrow mx-1 support-tooltip-wrap">
+        <li class="nav-item dropdown no-arrow mx-1 support-tooltip-wrap opr-itmes">
             <span class="support-tooltip">Support Tickets</span>
             <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -91,7 +91,7 @@
 
         </li>
 
-        <li class="nav-item dropdown no-arrow mx-1 alert-tooltip-wrap">
+        <li class="nav-item dropdown no-arrow mx-1 alert-tooltip-wrap opr-itmes">
             <span class="alert-tooltip">Alert Centre</span>
             <a class="nav-link dropdown-toggle alert_notify_bell" href="#" id="alertsDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -115,22 +115,22 @@
         <div class=" d-none d-sm-block"></div>
 
         <!-- Nav Item - User Information -->
-        <li class="nav-item dropdown no-arrow">
+        <li class="nav-item dropdown no-arrow opr-itmes">
             <a class="nav-link dropdown-toggle pr-0" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
-                <img src="{{ asset(auth()->user()->avatar_url) }}" class="img-profile rounded-circle avatarName">
+                <img src="{{-- {{ asset(auth()->user()->avatar_url) }} ---}}" class="img-profile rounded-circle avatarName">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                 aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
                     <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border "></i>
-                    Member ID: {{ auth()->user()->member_id }}
+                    Member ID: {{--  {{ auth()->user()->member_id }} --}}
                 </a>
                 <a class="dropdown-item" href="#">
                     <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
-                    User Name: {{ auth()->user()->business_name }}
+                     User Name: {{--{{ auth()->user()->business_name }} --}}
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('operator.edit-my-account') }}">
