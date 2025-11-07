@@ -213,26 +213,26 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="membership_num">Agreement Date</label>
-                                       <span class="form-control form-back">{{ ($user->agent_detail->agreement_date) ?  date('d-m-Y',strtotime($user->agent_detail->agreement_date)) : '' }} </span>
+                                       <span class="form-control form-back">{{ isset($user->agent_detail->agreement_date) ?  date('d-m-Y',strtotime($user->agent_detail->agreement_date)) : '' }} </span>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="membership_num">Term</label>
-                                       <span class="form-control form-back">{{ ($user->agent_detail->term) ? $user->agent_detail->term : '' }}</span>
+                                       <span class="form-control form-back">{{ isset($user->agent_detail->term) ? $user->agent_detail->term : '' }}</span>
                                        </label>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="my_name">Option Period</label>
-                                       <span class="form-control form-back">{{ ($user->agent_detail->option_peroid) ? $user->agent_detail->option_peroid :'' }}</span>
+                                       <span class="form-control form-back">{{ isset($user->agent_detail->option_peroid) ? $user->agent_detail->option_peroid :'' }}</span>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="my_name" class="my-agent">Option Exercised</label>
-                                       <span class="form-control form-back">{{ ($user->agent_detail->option_exercised) ? $user->agent_detail->option_exercised : '' }}</span>
+                                       <span class="form-control form-back">{{ isset($user->agent_detail->option_exercised) ? $user->agent_detail->option_exercised : '' }}</span>
                                     </div>
                                  </div>
                                  <div class="col-md-12">
@@ -245,7 +245,7 @@
                                     <div class="form-group">
                                        <h5 for="mobile">Your Agreement</h5>
                                        <label>You can retrieve your Agent Agreement by
-                                       @if($user->agent_detail->agreement_file && $user->agent_detail->agreement_file != "")
+                                       @if(isset($user->agent_detail->agreement_file) && $user->agent_detail->agreement_file != "")
                                           <a download="true" href="{{ asset('storage/' . $user->agent_detail->agreement_file) }}" 
                                              class="custom_links_design">
                                              <span style="color: #FF3C5F;">clicking here.</span>
@@ -285,13 +285,13 @@
                                     <div class="form-group">
                                        <label for="membership_num">Advertiser
                                        </label>
-                                       <span class="form-control form-back">{{ ($user->agent_detail->commission_advertising_percent) ? $user->agent_detail->commission_advertising_percent : '' }}</span>
+                                       <span class="form-control form-back">{{ isset($user->agent_detail->commission_advertising_percent) ? $user->agent_detail->commission_advertising_percent : '' }}</span>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="membership_num">Massage Centres (Signed Up)</label>
-                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{ ($user->agent_detail->commission_registration_amount) ? $user->agent_detail->commission_registration_amount : '' }}</label>
+                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{ isset($user->agent_detail->commission_registration_amount) ? $user->agent_detail->commission_registration_amount : '' }}</label>
                                     </div>
                                  </div>
                               </div>
