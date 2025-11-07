@@ -601,7 +601,7 @@ class EscortPolyPaymentController extends Controller
             $item['utc_start_time'] = $utcSartTime;
             $item['utc_end_time'] = $utcEndTime; 
             //Payment::create($item);  //Moved to polyPaymentUrl()
-            Purchase::create($item);
+            $purchaseDetail = Purchase::create($item);
 
             if ($item['utc_start_time'] <= Carbon::now('UTC') && $item['utc_end_time'] >= Carbon::now('UTC')) {
                 $escort = $this->escort->find($item['referenceId']);
@@ -611,6 +611,7 @@ class EscortPolyPaymentController extends Controller
                 $escort->utc_end_time = $utcEndTime;
                 $escort->membership = $item['plan'];
                 $escort->enabled = 1;
+                $escort->purchase_id = $purchaseDetail->id;
                 $escort->save();
             }
         }

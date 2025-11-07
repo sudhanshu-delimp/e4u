@@ -958,4 +958,34 @@ return response()->json([
         session()->put('checkout', $checkoutData);
         return view('escort.dashboard.checkoutPage', compact('data', 'escorts'));
     }
+
+    public function validateDateRange(Request $request){
+        try {
+            $response['success'] = false;
+            $startDate = $request->startDate;
+            $endDate = $request->endDate;
+            $userId = auth()->user()->id;
+
+            $conflictExists = Tour::where('user_id',$userId)
+            ->with('locations')
+            ->whereHas('locations', function ($query) use ($startDate, $endDate) {
+                $query->overlapping($startDate, $endDate);
+            })
+            ->orderByDesc('id')
+            ->first();
+
+            if($conflictExists){
+                $response['success'] = true;
+                $response['message'] = "You already have a <a class='custom_links_design' href='".route('escort.store.tour', $conflictExists->id)."' target='_blank'>{$conflictExists->name}</a> tour booked from {$conflictExists->locations->min('start_date_formatted')} to {$conflictExists->locations->max('end_date_formatted')}.";
+            }
+
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
