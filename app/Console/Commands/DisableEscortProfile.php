@@ -66,6 +66,7 @@ class DisableEscortProfile extends Command
                         'end_date' => null,
                         'utc_start_time' => null,
                         'utc_end_time' => null,
+                        'purchase_id' => null
                     ]);
                     $this->info("=============== $key ===============");
                     $this->info("Disabled Escort ID {$escort->id} (related to expired Purchase ID {$purchase->id})");
