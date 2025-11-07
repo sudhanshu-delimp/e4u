@@ -56,7 +56,7 @@
                         </tr>
                      </tbody>
                   </table>
-                  <p class="pb-1">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy the thrill of being with that quite little girl who secretely really is that office slut. I am tall, slim and naughty when it matters.</p>
+                  <p class="pb-1 text-justify">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy the thrill of being with that quite little girl who secretely really is that office slut. I am tall, slim and naughty when it matters.</p>
                   <a href="{{ route('blogs.single')}}" class="btn-card">Read More</a>   
                </div>
             </div>
@@ -77,7 +77,7 @@
                         </tr>
                      </tbody>
                   </table>
-                  <p class="pb-1">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy the thrill of being with that quite little girl who secretely really is that office slut. I am tall, slim and naughty when it matters. </p>
+                  <p class="pb-1 text-justify">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy the thrill of being with that quite little girl who secretely really is that office slut. I am tall, slim and naughty when it matters. </p>
                   <a href="{{ route('blogs.single')}}" class="btn-card">Read More</a>   
                </div>
             </div>
@@ -98,7 +98,7 @@
                         </tr>
                      </tbody>
                   </table>
-                  <p class="pb-1">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy the thrill of being with that quite little girl who secretely really is that office slut. I am tall, slim and naughty when it matters.</p>
+                  <p class="pb-1 text-justify">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy the thrill of being with that quite little girl who secretely really is that office slut. I am tall, slim and naughty when it matters.</p>
                   <a href="{{ route('blogs.single')}}" class="btn-card">Read More</a>   
                </div>
             </div>
