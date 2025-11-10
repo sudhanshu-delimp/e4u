@@ -25,7 +25,7 @@ class CreateDefaultAccountSettings
     {
     
         $userdata  =  json_decode(json_encode($event),true);
-        if(isset($userdata['escort']) || isset($userdata['user']) || $userdata['agent'])
+        if(isset($userdata['escort']) || isset($userdata['user']) || isset($userdata['agent']))
         {
             if (isset($userdata['escort'])) {
                 $user = $userdata['escort'];
