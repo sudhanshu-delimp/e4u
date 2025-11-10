@@ -122,7 +122,7 @@
                     {{-- $tasks --}}
                     <div class="card-body p-0 Dash-table task_table">
                         <div class="table-full-width table-responsive">
-                            <table class="table table-bordered " >
+                            <table class="table table-bordered " id="taskListreport">
                                 <thead style="background-color: #0C223D; color: #ffffff;">
                                     <tr>
                                         <th >Task</th>
@@ -436,7 +436,29 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script>
+  var table = $("#taskListreport").DataTable({
+    language: {
+        search: "Search: _INPUT_",
+        searchPlaceholder: "Search by Status"
+    },
+    info: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    bStateSave: true,
+    order: [[1, 'desc']], // default sort on 2nd column (index starts from 0)
+    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+    pageLength: 10,
+    
+    columnDefs: [
+        { targets: 2, orderable: false }
+    ]
+});
 
+   
+</script>
 
 {{-- JavaScript to enable editing --}}
 <script>

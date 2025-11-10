@@ -57,11 +57,13 @@ if (auth()->check())
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color border-0">
                 <h5 class="modal-title" id="changePasswordLabel" style="color:white">
-                    <i class="fa fa-key fa-lg fa-fw" style="color: white;"></i>
-                  
+                    {{-- <i class="fa fa-key fa-lg fa-fw" style="color: white;"></i> --}}
+                    <img src="{{asset('assets/dashboard/img/reset-password.png')}}" alt="" class="custompopicon">
                     Change Password  
                 </h5>
-                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                </button>
             </div>
 
             <form method="POST" name="change_Password_Modal" action="{{ route($submit_url) }}">
