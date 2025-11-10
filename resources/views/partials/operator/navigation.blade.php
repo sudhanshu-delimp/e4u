@@ -36,7 +36,7 @@
 
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
 
-        <form class="form-inline form-inline-custom navbar-search custom-nav-search" style="width: 23rem;">
+        <form class="form-inline form-inline-custom navbar-search custom-nav-search opr-itmes" style="width: 23rem;">
             <div class="input-group dk-border-radius">
                 <div class="input-group-append">
                     <button class="btn" type="button">
@@ -49,7 +49,7 @@
             </div>
         </form>
 
-        <li class="nav-item dropdown no-arrow d-sm-none">
+        <li class="nav-item dropdown no-arrow d-sm-none opr-itmes">
             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
@@ -72,7 +72,7 @@
         </li>
 
         <!-- Nav Item - support tickets -->
-        <li class="nav-item dropdown no-arrow mx-1 support-tooltip-wrap">
+        <li class="nav-item dropdown no-arrow mx-1 support-tooltip-wrap opr-itmes">
             <span class="support-tooltip">Support Tickets</span>
             <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -91,7 +91,7 @@
 
         </li>
 
-        <li class="nav-item dropdown no-arrow mx-1 alert-tooltip-wrap">
+        <li class="nav-item dropdown no-arrow mx-1 alert-tooltip-wrap opr-itmes">
             <span class="alert-tooltip">Alert Centre</span>
             <a class="nav-link dropdown-toggle alert_notify_bell" href="#" id="alertsDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -115,7 +115,7 @@
         <div class=" d-none d-sm-block"></div>
 
         <!-- Nav Item - User Information -->
-        <li class="nav-item dropdown no-arrow">
+        <li class="nav-item dropdown no-arrow opr-itmes">
             <a class="nav-link dropdown-toggle pr-0" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->

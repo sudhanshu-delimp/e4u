@@ -111,6 +111,11 @@ class Escort extends Model
         return $this->hasMany(Purchase::class, 'escort_id','id');
     }
 
+    public function mainPurchase()
+    {
+        return $this->belongsTo(Purchase::class, 'purchase_id');
+    }
+
     public function isListingExtended(){
         $purchases = $this->purchase()
         ->where('utc_end_time', '>=', Carbon::now('UTC'))

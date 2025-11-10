@@ -55,7 +55,8 @@ class EnableEscortProfile extends Command
                         'utc_start_time' => $purchase['utc_start_time'],
                         'utc_end_time' => $purchase['utc_end_time'],
                         'membership' => $purchase['membership'],
-                        'enabled' => 1
+                        'enabled' => 1,
+                        'purchase_id' => $purchase['id']
                     ]);
                 }
                 $purchase->update(['status'=>'listed']);

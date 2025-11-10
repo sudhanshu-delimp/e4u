@@ -36,14 +36,14 @@
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'edit-my-account' ? 'color: #ffc60b;' : '' }}">
+                            style="{{ request()->segment(2) == 'edit-my-account' ? 'color: #f5841f;' : '' }}">
                             Edit my account</span>
                     </a>
                     <a class="collapse-item" href="{{ route('operator.change-password') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'change-password'  ? 'color: #ffc60b;' : '' }}">Change
+                            style="{{ request()->segment(2) == 'change-password'  ? 'color: #f5841f;' : '' }}">Change
                             password</span>
                     </a>
 
@@ -51,20 +51,20 @@
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'notifications-and-features' || request()->segment(2) == 'profile' ? 'color: #ffc60b;' : '' }}">Notifications & Features</span>
+                            style="{{ request()->segment(2) == 'notifications-and-features' || request()->segment(2) == 'profile' ? 'color: #f5841f;' : '' }}">Notifications & Features</span>
                     </a> --}}
                     <a class="collapse-item" href="{{ route('operator.upload-avatar') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'upload-avatar' ? 'color: #ffc60b;' : '' }}">Upload
+                            style="{{ request()->segment(2) == 'upload-avatar' ? 'color: #f5841f;' : '' }}">Upload
                             my avatar</span>
                     </a>
                     <a class="collapse-item" href="{{ route('operator.bank-account') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/app/img/sales-performance.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'bank-account' ? 'color: #ffc60b;' : '' }}">Bank Account</span>
+                            style="{{ request()->segment(2) == 'bank-account' ? 'color: #f5841f;' : '' }}">Bank Account</span>
                     </a>
                 </div>
             </div>
@@ -165,7 +165,7 @@
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'e4u-monthly-report' ? 'color: #ffc60b;' : '' }}">
+                            style="{{ request()->segment(2) == 'e4u-monthly-report' ? 'color: #f5841f;' : '' }}">
                             Monthly Report</span>
                     </a>
                     
@@ -189,7 +189,7 @@
                 <div class="py-0 collapse-inner rounded mb-2">
                     <a class="collapse-item" href="{{ route('operator.agents-monthly-report') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/registration.png') }}">
-                         <span style="{{ request()->segment(2) == 'agents-monthly-report' ? 'color: #ffc60b;' : '' }}">Monthly Report</span>
+                         <span style="{{ request()->segment(2) == 'agents-monthly-report' ? 'color: #f5841f;' : '' }}">Monthly Report</span>
                     </a>
                 </div>
             </div>

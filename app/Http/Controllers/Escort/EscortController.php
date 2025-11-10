@@ -15,6 +15,7 @@ use App\Models\Pricing;
 use App\Models\Purchase;
 use App\Models\PasswordHistory;
 use App\Models\EscortPinup;
+use App\Models\Tour;
 use Illuminate\Support\Str;
 use MongoDB\Driver\Session;
 use Illuminate\Http\Request;

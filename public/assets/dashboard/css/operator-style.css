@@ -2,6 +2,7 @@
  :root {
     --color-teal-dark: #003c3e;
     --color-teal: #008085;
+    --hover-bg: #0080851f;
     --color-yellow: #ffc60b;
     --color-orange: #f5841f;
     --color-white: #ffffff;
@@ -17,23 +18,72 @@
 }
 
 .sidebar-bg .nav-item .collapse .collapse-inner .collapse-item:hover {
-    color: var(--color-yellow);
+    color: var(--color-orange);
+}
+
+.opr-itmes i {
+    color: var(--color-teal-dark) !important;
 }
 
 .operator-sidebar-head {
-    color: var(--color-yellow);
+    color: var(--color-orange);
     font-size: 16px;
     padding-left: 16px;
     padding-bottom: 24px;
 }
 
+.operator-heading-wrapper .h1 {
+    font-family: Poppins;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 42px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-bottom: 20px;
+    color: var(--color-teal-dark);
+    text-transform: capitalize;
+}
 
-/* .operator-topbar-userdata .user-values {
-    color: var(--color-yellow) !important;
+.opr-console .notes {
+    color: var(--color-teal-dark);
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+.oprhelpNote {
+    color: var(--color-orange);
+    display: inline-block;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.operator-heading-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 30px 0px 30px;
+    flex-wrap: wrap;
+}
+
+.operator-topbar-userdata .user-values {
+    color: var(--color-orange) !important;
     display: inline-block;
 }
 
 .operator-topbar-userdata span {
     color: var(--color-teal-dark) !important;
     display: inline-block;
-} */
+}
+
+.opr-console .my-custom-box h2 {
+    color: var(--color-teal-dark);
+}
+
+.opr-console .my-custom-box {
+    border: 1px solid var(--color-teal);
+}
+
+.opr-console .my-custom-box:hover {
+    background-color: var(--hover-bg);
+}

@@ -49,8 +49,8 @@
                                 <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text list-tool">Remove from My Legbox</span></span>
                             @endif
                         </div>
-                        <div class="verify_image">
-                            <img src="{{ asset('assets/app/img/verifyimage.png') }}">
+                        <div class="verify_image verify-image-custom">
+                            <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                         </div>
                     </div>
                 

@@ -234,7 +234,7 @@
                             <div class="border_top_one_px padding_ten_px_top_btm">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 col-12">
-                                        <ul class="padding_zero_px_ul_ol list_style_none font_size_forteenpx mb-0">
+                                        <ul class="padding_zero_px_ul_ol list_style_none font_size_forteenpx mb-0 register_ul">
                                             <li><span class="correct_symbole_font_weight">&#10003;</span> At least 1
                                                 lowercase character
                                             </li>
@@ -244,7 +244,7 @@
                                         </ul>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-12">
-                                        <ul class="padding_zero_px_ul_ol list_style_none font_size_forteenpx mb-0">
+                                        <ul class="padding_zero_px_ul_ol list_style_none font_size_forteenpx mb-0 register_ul">
                                             <li><span class="correct_symbole_font_weight">&#10003;</span> At least 1
                                                 uppercase character
                                             </li>
@@ -255,7 +255,7 @@
                                         </ul>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-12">
-                                        <ul class="padding_zero_px_ul_ol list_style_none font_size_forteenpx">
+                                        <ul class="padding_zero_px_ul_ol list_style_none font_size_forteenpx register_ul">
                                             <li><span class="correct_symbole_font_weight">&#10003;</span> 8 characters
                                                 minimum
                                             </li>

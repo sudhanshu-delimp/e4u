@@ -274,8 +274,8 @@
                                     <img src="{{ asset('assets/img/e4u-verified-dark.png') }}">
                                 </button> --}}
                                 <select class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                    id=""name="verify_list" title="Coming Soon" disabled>
-                                    <option value="all">All</option>
+                                    id=""name="verify_list">
+                                    <option value="all">Verification</option>
                                     <option value="unverified">Unverified</option>
                                     <option value="verified">Verified</option>
                                 </select>
@@ -869,10 +869,10 @@
                         <span id="Lname " class="my_legbox_title">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
                     </h1>
                 </div>
-                <div class="modal-footer my_legbox_footer" style="justify-content: center;">
-                    <a href="{{ route('viewer.login') }}" type="button" class="btn site_btn_primary"
+                <div class="modal-footer my_legbox_footer" style="justify-content: center;"> 
+                    <a href="{{ route('viewer.login') }}" type="button" class="btn-cancel-modal text-decoration-none text-white"
                         id="loginUrl">Login</a>
-                    <a href="{{ route('register') }}" type="button" class="btn site_btn_primary"
+                    <a href="{{ route('register') }}" type="button" class="btn-success-modal text-decoration-none text-white"
                         id="regUrl">Register</a>
                 </div>
 

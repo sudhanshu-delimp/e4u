@@ -4,8 +4,8 @@
             <img src="{{ asset('assets/img/e4u-verified-shield-dark.png') }}" class="" title="This Escort's Media has been verified by E4U" style="width: 12px;height: 12px;">
            </span> --}}
             <div class="vrf-tooltip-wrap">
-                <span ><img width="18" height="18" src="{{ asset('assets/img/e4u-verified-shield-dark.png') }}"></span>            
-                <span class="vrf-tooltip">Media Verified</span>
+                <span ><img width="18" height="18" src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"></span>            
+                <span class="vrf-tooltip">Media Unverified</span>
             </div>
                 <span class="seven_column_content_top_font_size">{{ substr($escort->name,0,10)}}</span>
                 
