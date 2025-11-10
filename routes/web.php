@@ -41,6 +41,7 @@ use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
 use App\Http\Controllers\Escort\EscortTourScheduleContoller;
+use App\Http\Controllers\InfluencerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -269,7 +270,8 @@ Route::get('state-list',[App\Http\Controllers\StateController::class,'stateList'
 //Route::get('/escorts', [App\Http\Controllers\HomeController::class, 'intendedRedirect'])->name('dashboard');
 
 Route::get('/dmca', [App\Http\Controllers\HomeController::class, 'noticeDmca'])->name('notice.dmca');
-Route::get('/influencer', [App\Http\Controllers\HomeController::class, 'becomeInfluencer'])->name('become.influencer');
+Route::get('/influencer', [InfluencerController::class, 'becomeInfluencer'])->name('become.influencer');
+Route::post('/save-influencer', [InfluencerController::class, 'store'])->name('store.influencer');
 
 
 
@@ -327,6 +329,30 @@ Route::get('operator-login', [App\Http\Controllers\Admin\AuthController::class,'
 Route::get('operator-dashboard/',function(){
     return view('operator.dashboard.index');
 })->name('operator.index');
+
+Route::get('operator-dashboard/edit-my-account',function(){
+    return view('operator.dashboard.my-account.edit-my-account');
+})->name('operator.edit-my-account');
+
+Route::get('operator-dashboard/change-password',function(){
+    return view('operator.dashboard.my-account.change-password');
+})->name('operator.change-password');
+
+Route::get('operator-dashboard/upload-avatar',function(){
+    return view('operator.dashboard.my-account.upload-avatar');
+})->name('operator.upload-avatar');
+
+Route::get('operator-dashboard/bank-account',function(){
+    return view('operator.dashboard.my-account.bank-account');
+})->name('operator.bank-account');
+
+Route::get('operator-dashboard/e4u-monthly-report',function(){
+    return view('operator.dashboard.e4u.e4u-monthly-report');
+})->name('operator.e4u-monthly-report');
+
+Route::get('operator-dashboard/agents-monthly-report',function(){
+    return view('operator.dashboard.agents.agents-monthly-report');
+})->name('operator.agents-monthly-report');
 
 /************ END ************/ 
 

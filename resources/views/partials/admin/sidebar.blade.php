@@ -753,6 +753,7 @@
             </a>
             <div id="Reports" class="collapse @if (request()->is('*credit*') ||
                     request()->is('*agent-requests*') ||
+                    request()->is('*num*') ||
                     request()->is('*transaction-summary*') ||
                     request()->is('*advertiser-suspensions*')) show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -767,6 +768,12 @@
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
                         <span style="{{ request()->is('*credit*') ? 'color: #e5365a;' : '' }}">Credits</span>
+                    </a>
+
+                     <a class="nav-link collapsed" href="{{ route('admin.num') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
+                        <span style="{{ request()->is('*num*') ? 'color: #e5365a;' : '' }}">NUM</span>
                     </a>
                     <a class="nav-link collapsed" href="{{ route('admin.transaction-summary', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"

@@ -3396,7 +3396,7 @@ i.fa.fa-heart-o{
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
-        line-height: 27px;
+        line-height: 35px;
         background: var(--blue--text);
         text-align: center;
         color: #ffffff;
@@ -3405,6 +3405,7 @@ i.fa.fa-heart-o{
     
     .mc_my_legbox_btn:hover {
         background-color: var(--peach);
+        color: #fff !important;
     }
     
     .mc_my_legbox_btn span i {

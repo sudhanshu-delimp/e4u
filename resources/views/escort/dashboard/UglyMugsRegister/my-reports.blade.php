@@ -56,7 +56,7 @@
               searching the mobile number. Or scroll through the pages.
             </li>
             <li>
-              You can also select a Report/s you wish to edit or remove from your register by clicking
+              You can also select a Report's you wish to edit or remove from your register by clicking
               the appropriate button. Any Report you remove from your register will be permanently
               removed.
             </li>
@@ -159,8 +159,8 @@
                 infoFiltered: "(filtered from _MAX_ total entries)"
             },
             "language": {
-                "zeroRecords": "There is no record of the search criteria you entered.",
-                searchPlaceholder: "Search by incident type..."
+                "zeroRecords": "No Record Found!",
+                searchPlaceholder: "Search by Mobile..."
             },
             paging: true,
             processing: false,

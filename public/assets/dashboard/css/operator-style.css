@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+ :root {
+    --color-teal-dark: #003c3e;
+    --color-teal: #008085;
+    --color-yellow: #ffc60b;
+    --color-orange: #f5841f;
+    --color-white: #ffffff;
+}
+
+.sidebar-bg {
+    background-color: var(--color-teal-dark);
+    background-size: cover;
+}
+
+.sidebar-bg .helpNoteLink {
+    color: var(--color-orange) !important;
+}
+
+.sidebar-bg .nav-item .collapse .collapse-inner .collapse-item:hover {
+    color: var(--color-yellow);
+}
+
+.operator-sidebar-head {
+    color: var(--color-yellow);
+    font-size: 16px;
+    padding-left: 16px;
+    padding-bottom: 24px;
+}
+
+
+/* .operator-topbar-userdata .user-values {
+    color: var(--color-yellow) !important;
+    display: inline-block;
+}
+
+.operator-topbar-userdata span {
+    color: var(--color-teal-dark) !important;
+    display: inline-block;
+} */

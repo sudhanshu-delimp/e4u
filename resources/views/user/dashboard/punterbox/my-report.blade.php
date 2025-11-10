@@ -43,31 +43,44 @@
   </div>
   <!-- Page Heading -->
    <div class="row">
-      <div class="col-lg-12">
-         <div class="my-punter-report">
-            <div class="my-punter-report-box ">
-               <span>0</span>
-               <h4>Today</h4>
-            </div>
-            <div class="my-punter-report-box ">
-               <span>0</span>
-               <h4>This month
-               </h4>
-            </div>
-            <div class="my-punter-report-box ">
-               <span>0</span>
-               <h4>This year
-               </h4>
-            </div>
-            <div class="my-punter-report-box ">
-               <span>0</span>
-               <h4>All time
-               </h4>
-            </div>
-         </div>
+      <div class="col-md-12">
+          <div class="stats-container">
+              <div class="stat-card-wrapper">
+                  <div class="stat-card">
+                      <div class="stat-top">
+                          <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
+                          <div class="stat-label">Today</div>
+                      </div>
+                      <div class="stat-number">0</div>
+                  </div>
 
+                  <div class="stat-card">
+                      <div class="stat-top">
+                          <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
+                          <div class="stat-label">This Month</div>
+                      </div>
+                      <div class="stat-number">0</div>
+                  </div>
+
+                  <div class="stat-card">
+                      <div class="stat-top">
+                          <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                          <div class="stat-label">This Year</div>
+                      </div>
+                      <div class="stat-number">0</div>
+                  </div>
+
+                  <div class="stat-card">
+                      <div class="stat-top">
+                          <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                          <div class="stat-label">All Time</div>
+                      </div>
+                      <div class="stat-number">0</div>
+                  </div>
+              </div>
+          </div>
       </div>
-      <div class="col-lg-6 col-sm-12">
+      {{-- <div class="col-lg-6 col-sm-12">
          <div class="add-punterbox-report">
             <form action="">
                <label class="search-label">Search by mobile number (no spaces)</label>
@@ -80,10 +93,10 @@
             </form>
           </div>
       </div>
-      <div class="col-md-12">
-         
+       --}}
+      <div class="col-md-12">         
          <div class="table-responsive">
-            <table id="myReportTable" class="table display" width="100%">
+            <table id="myReportListTable" class="table">
               <thead class="bg-first">
                 <tr>
                   <th>REF</th>
@@ -109,7 +122,7 @@
                 </tr>
           
                 <!-- Hidden expandable row -->
-                <tr class="details-row d-none">
+                {{-- <tr class="details-row d-none">
                   <td colspan="6">
                     <div>
                       <table class="table mb-0">
@@ -152,7 +165,7 @@
                       </table>
                     </div>
                   </td>
-                </tr>
+                </tr> --}}
                 
           
               </tbody>
@@ -164,9 +177,26 @@
 </div>
 @endsection
 @push('script')
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+  
+
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script>
+  var table = $("#myReportListTable").DataTable({
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by mobile number"
+      },
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: true,
+      order: [[1, 'desc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10
+   });
+   
+</script>
 <script>
    $(document).ready(function () {
      $('.toggle-details').on('click', function () {

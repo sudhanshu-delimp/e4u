@@ -38,7 +38,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('user.my-legbox') }}">
+                <a href="{{ route('user.my-legbox',['escort']) }}">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/icon_mylegbox.png') }}" alt=" My Legbox">
                     </div>

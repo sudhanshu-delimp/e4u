@@ -22,10 +22,21 @@
    <!--middle content start here-->
     <!-- Page Heading -->
     <div class="row">
-      <div class="custom-heading-wrapper col-md-12">
-          <h1 class="h1">Dashboard</h1>
-          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-      </div>
+      
+        <div class="d-sm-flex align-items-center justify-content-between col-md-12">
+            <div class="custom-heading-wrapper">
+                <h1 class="h1">Dashboard</h1>
+                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
+                </h6>
+            </div>
+             @if (request('from') !== 'sidebar')
+            <div class="back-to-dashboard">
+                <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                </a>
+            </div>
+             @endif 
+        </div>
       <div class="col-md-12 mb-4">
           <div class="card collapse" id="notes" style="">
             <div class="card-body">
@@ -52,7 +63,7 @@
   <!-- Page Heading -->
    
   <div class="row">
-   <div class="col-lg-6 col-sm-12">
+   {{-- <div class="col-lg-6 col-sm-12">
       <div class="add-punterbox-report">
          <form action="">
             <label class="search-label">Search by mobile number (no spaces)</label>
@@ -64,11 +75,11 @@
             </div>
          </form>
        </div>
-   </div>
+   </div> --}}
    <div class="col-md-12">
       
       <div class="table-responsive">
-         <table id="myReportTable" class="table display" width="100%">
+         <table id="myReportListTable" class="table">
            <thead class="bg-first">
              <tr>
                <th>REF</th>
@@ -96,7 +107,7 @@
              </tr>
        
              <!-- Hidden expandable row -->
-             <tr class="details-row d-none">
+             {{-- <tr class="details-row d-none">
                <td colspan="7">
                  <div>
                    <table class="table mb-0">
@@ -140,7 +151,7 @@
                  </div>
                </td>
              </tr>
-             
+              --}}
        
            </tbody>
          </table>
@@ -155,7 +166,25 @@
 <!-- file upload plugin end here -->
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+  var table = $("#myReportListTable").DataTable({
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by mobile number"
+      },
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: true,
+      order: [[1, 'desc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10
+   });
+   
+</script>
 <!-- jQuery Toggle Script -->
 <script>
    $(document).ready(function () {

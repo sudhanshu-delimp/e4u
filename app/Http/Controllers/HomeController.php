@@ -51,11 +51,6 @@ class HomeController extends Controller
         return view('web.pages.thankyou');
     }
 
-    public function becomeInfluencer(Request $request)
-    {
-        return view('web.influencer');
-    }
-
     public function index(Request $request)
     {
         Session::put('session_state_id', $request->query('location_state'));

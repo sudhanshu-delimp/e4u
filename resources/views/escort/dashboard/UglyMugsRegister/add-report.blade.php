@@ -78,12 +78,32 @@
                       <label class="required">Incident Date</label>
                       <input type="date" class="form-control" name="incident_date">
                   </div>
+                    {{-- <div class="col-lg-6">
+                        <div class="form-group row"> 
+                            <label class="col-sm-4" for="exampleFormControlSelect1"><span style="color:red">* </span>Stage Name:</label>
+                            <div class="col-sm-6">
+                                <input type="txt" class="form-control form-control-sm removebox_shdow" placeholder="Name" required name="name" value="" data-parsley-required-message="Please enter name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4" for="exampleFormControlSelect1"><span style="color:red">* </span> State:</label>
+                            <div class="col-sm-6">
+                                <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="stateId" name="state_id" data-parsley-errors-container="#state-errors" required data-parsley-required-message="Select State">
+                                    <option value="">-Select-</option>
+                                    @foreach(config('escorts.profile.states') as $key => $state)
+                                    <option value="{{$key}}">{{ $state['stateName'] }}</option>
+                                    @endforeach
+                                </select>
+                                <span id="state-errors"></span>
+                            </div>
+                        </div>
+                    </div> --}}
                   <div class="form-group">
                       <label class="required">Incident State</label>
                       <select class="custom-select" name="incident_state" >
                         <option selected>Please Choose</option>
-                        @foreach ($states as $state)
-                              <option value="{{ $state->id }}" {{$state->id == auth()->user()->state_id ? 'selected' : ''}}>{{ $state->iso2 }} - {{$state->name}}</option>
+                        @foreach ($states as $key => $state)
+                              <option value="{{ $key }}" {{$key == auth()->user()->state_id ? 'selected' : ''}}>{{ $state['stateName'] }}</option>
                         @endforeach
                           </select>
                   </div>
@@ -109,15 +129,16 @@
                   </div>
       
                   <div class="form-group">
-                      <label class="required">Incident Nature</label>
+                      <label class="required">Incident Type</label>
                       <select class="custom-select" name="incident_nature">
-                        <option value="fraud" >Fraud</option>
-                        <option value="no_show">No Show</option>
-                        <option value="violence">Violence</option>
+                        <option value="Time Waster" >Time Waster</option>
+                        <option value="Con Man">Con Man</option>
+                        <option value="Dangerous">Dangerous</option>
+                        <option value="Assault">Assault</option>
                      </select>
                   </div>
       
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                       <label>Platform</label>
                       <input type="text" class="form-control" name="platform" placeholder="If known">
                   </div>
@@ -125,7 +146,7 @@
                   <div class="form-group">
                       <label>Profile Link</label>
                       <input type="text" class="form-control" name="profile_link" placeholder="Link or Membership ID or Ref">
-                  </div>
+                  </div> --}}
       
                   <div class="form-group">
                       <label class="required">What Happened</label>
@@ -135,15 +156,15 @@
                   <div class="form-group">
                       <label class="required d-block">Rating</label>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" checked type="radio" name="rating" value="do_not_book" id="rate1">
-                          <label class="form-check-label" for="rate1">Do not book</label>
+                          <input class="form-check-input" checked type="radio" name="rating" value="Do Not Book" id="rate1">
+                          <label class="form-check-label" for="rate1">Do Not book</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" name="rating" value="exercise_caution" id="rate2">
+                          <input class="form-check-input" type="radio" name="rating" value="Exercise Caution" id="rate2">
                           <label class="form-check-label" for="rate2">Exercise caution</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" value="safe" name="rating" id="rate3">
+                          <input class="form-check-input" type="radio" value="Safe" name="rating" id="rate3">
                           <label class="form-check-label" for="rate3">Safe</label>
                       </div>
                   </div>

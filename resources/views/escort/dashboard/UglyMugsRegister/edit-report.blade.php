@@ -89,8 +89,9 @@
                                 $st = auth()->user()->state_id;
                             }
                         @endphp
-                        @foreach ($states as $state)
-                              <option value="{{ $state->id }}" {{$state->id == $st ? 'selected' : ''}}>{{ $state->iso2 }} - {{$state->name}}</option>
+                        @foreach ($states as $key => $state)
+                        
+                              <option value="{{ $key }}" {{$key == $st ? 'selected' : ''}}> {{$state['stateName']}}</option>
                         @endforeach
                           </select>
                   </div>
@@ -114,18 +115,18 @@
                       <label>Offender's Email</label>
                       <input type="email" class="form-control" name="offender_email" value="{{$num ? $num->offender_email : ''}}" placeholder="If known">
                   </div>
-      
                     <div class="form-group">
-                        <label class="required">Incident Nature</label>
+                        <label class="required">Incident Type</label>
                         <select class="custom-select" name="incident_nature">
-                            <option value="fraud" {{ ($num && strtolower($num->incident_nature) == 'fraud') ? 'selected' : '' }}>Fraud</option>
-                            <option value="no_show" {{ ($num && strtolower($num->incident_nature) == 'no_show') ? 'selected' : '' }}>No Show</option>
-                            <option value="violence" {{ ($num && strtolower($num->incident_nature) == 'violence') ? 'selected' : '' }}>Violence</option>
+                            <option value="Time Waster" {{ ($num && $num->incident_nature == 'Time Waster') ? 'selected' : '' }}>Time Waster</option>
+                            <option value="Con Man" {{ ($num && $num->incident_nature == 'Con Man') ? 'selected' : '' }}>Con Man</option>
+                            <option value="Dangerous" {{ ($num && $num->incident_nature == 'Dangerous') ? 'selected' : '' }}>Dangerous</option>
+                            <option value="Assault" {{ ($num && $num->incident_nature == 'Assault') ? 'selected' : '' }}>Assault</option>
                         </select>
                     </div>
 
       
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                       <label>Platform</label>
                       <input type="text" class="form-control" value="{{$num ? $num->platform : ''}}" name="platform" placeholder="If known">
                   </div>
@@ -133,7 +134,7 @@
                   <div class="form-group">
                       <label>Profile Link</label>
                       <input type="text" class="form-control" value="{{$num ? $num->profile_link : ''}}" name="profile_link" placeholder="Link or Membership ID or Ref">
-                  </div>
+                  </div> --}}
       
                   <div class="form-group">
                       <label class="required">What Happened</label>
@@ -143,15 +144,15 @@
                   <div class="form-group">
                       <label class="required d-block">Rating</label>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" {{($num && $num->rating == 'do_not_book') ? 'checked' : ''}}  type="radio" name="rating" value="do_not_book" id="rate1">
-                          <label class="form-check-label" for="rate1">Do not book</label>
+                          <input class="form-check-input" {{($num && $num->rating == 'Do Not Book') ? 'checked' : ''}}  type="radio" name="rating" value="Do Not Book" id="rate1">
+                          <label class="form-check-label" for="rate1">Do Not Book</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" {{($num && $num->rating == 'exercise_caution') ? 'checked' : ''}} name="rating" value="exercise_caution" id="rate2">
-                          <label class="form-check-label" for="rate2">Exercise caution</label>
+                          <input class="form-check-input" type="radio" {{($num && $num->rating == 'Exercise Caution') ? 'checked' : ''}} name="rating" value="Exercise caution" id="rate2">
+                          <label class="form-check-label" for="rate2">Exercise Caution</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" {{($num && $num->rating == 'safe') ? 'checked' : ''}} value="safe" name="rating" id="rate3">
+                          <input class="form-check-input" type="radio" {{($num && $num->rating == 'Safe') ? 'checked' : ''}} value="Safe" name="rating" id="rate3">
                           <label class="form-check-label" for="rate3">Safe</label>
                       </div>
                   </div>

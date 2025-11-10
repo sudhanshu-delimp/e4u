@@ -11,6 +11,10 @@
     .fc-event {
     cursor: pointer !important;
     }
+    .viewer-plan-table.table td {
+        vertical-align: middle !important;
+    }
+    
 </style>
 @endsection
 @section('content')
@@ -160,7 +164,7 @@
               var d = resp.data || {};
               var ucfirst = function(s){ s = s || ''; return s.charAt(0).toUpperCase() + s.slice(1); };
               var html = '\
-                <table class="table table-sm table-bordered mb-0">\
+                <table class="table table-sm table-bordered mb-0 viewer-plan-table">\
                   <tr><th style="width:30%">Date</th><td>'+(d.date || '')+'</td></tr>\
                   <tr><th>Time</th><td>'+(d.time || '')+'</td></tr>\
                   <tr><th>Advertiser</th><td>'+(d.advertiser || '')+'</td></tr>\

@@ -167,6 +167,7 @@ class TourController extends Controller
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
         if($tour->tourPurchase->count() == 0){
             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('account.checkout_tour', $tour->id).'"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
+            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 tourDelete" href="'.route('escort.delete.tour', $tour->id).'"> <i class="fa fa-trash" ></i> Delete</a><div class="dropdown-divider"></div>';
         }
         $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
         $action .= '</div></div>';
@@ -214,23 +215,7 @@ return response()->json([
            // 'location' => $request->cityId,
         ];
         $tour = $this->tour->store($tourData,$id);
-        //$tour = $this->tour->find(1);
-        //dd($tour->id);
         $arr = [];
-        //dd($request->cityId);
-        // if(!empty($request->stateId)) {
-        //     foreach($request->stateId as $key => $stateId)
-        //     {
-        //         $arr += [$stateId  => [
-        //                     "profile_id" => (int) $request->escortId[$key],
-        //                     "start_date" => $tourData['start_date'],
-        //                     "end_date" => $tourData['end_date'],
-        //                     "user_id" => auth()->user()->id,
-        //                     "tour_plan" => $request->tour_plan[$key],
-        //                     ]
-        //                 ];
-        //     }
-        // }
            
         if (!empty($request->stateId)) {
             
@@ -253,32 +238,26 @@ return response()->json([
 
         }
 
-        //dd($tour->locations);
-        //
-        //return view('escort.dashboard.tour.createTour',compact('escorts'));
+       
         return response()->json(compact('error','tour'));
     }
     public function DeleteTour($id)
     {
-
-       // dd($id);
-        $tour = $this->tour->find($id);
-        //$tour = $this->tour->find(1);
-        //dd($tour->id);
-        $arr = [];
-
-        $error = true;
-
-        if($data = $tour->locations()->sync($arr)) {
-
-                $error = false;
-
+        try {
+            $tour = $this->tour->find($id);
+            $tour->locations()->delete();
+            $tour->tourProfiles()->delete();
+            $tour->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Tour and related data deleted successfully.'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error deleting tour: ' . $e->getMessage()
+            ], 500);
         }
-        $this->tour->destroy($id);
-        //dd($tour->locations);
-        //
-        //return view('escort.dashboard.tour.createTour',compact('escorts'));
-        return response()->json(compact('error'));
     }
 
     public function updateBasicProfile($id = null)
@@ -779,16 +758,19 @@ return response()->json([
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $escort = $this->escort->FindByUsers(auth()->user()->id);
-        // $escorts = $escort->where('state_id',$stateId)->toArray();
         $escorts = $escort->where('state_id', $stateId)->whereNotNull('name');
-
         $availableEscorts = $escorts->filter(function ($escort) use ($startDate, $endDate) {
-            return !$escort->purchase()
+            $purchase = $escort->purchase()
                 ->where(function ($query) use ($startDate, $endDate) {
-                    // $query->where('start_date', '<=', $endDate)
-                    //       ->where('end_date', '>=', $startDate);
                     $query->overlapping($startDate, $endDate);
-                })->exists(); // true = overlap found, false = no overlap or no purchases
+                })->exists();
+
+            $tour = $escort->tourProfiles()
+                ->whereHas('location', function ($query) use ($startDate, $endDate) {
+                $query->overlapping($startDate, $endDate);
+            })
+            ->exists();
+            return  !$purchase && !$tour; // include escrot if not overlap with existing purchase and tour        
         })->values();
 
         $userProfiles = [];

@@ -424,7 +424,7 @@
                                             first have to make sure you have enabled the
                                             feature in <a href="{{ route('escort.profile.information') }}"
                                                 class="custom_links_design"> My
-                                                Information</a> Once you have
+                                                Information</a>. Once you have
                                             enabled the feature, you can then select as
                                             many Playmates as you want to be
                                             associated with any Listed Profile.</p>
