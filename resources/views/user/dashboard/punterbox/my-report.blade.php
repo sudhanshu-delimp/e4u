@@ -184,7 +184,7 @@
   var table = $("#myReportListTable").DataTable({
       language: {
          search: "Search: _INPUT_",
-         searchPlaceholder: "Search by mobile number"
+         searchPlaceholder: "Search by Mobile Number"
       },
       info: true,
       paging: true,
@@ -193,7 +193,11 @@
       bStateSave: true,
       order: [[1, 'desc']],
       lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10
+      pageLength: 10,
+      
+    columnDefs: [
+        { targets: 5, orderable: false }
+    ]
    });
    
 </script>
