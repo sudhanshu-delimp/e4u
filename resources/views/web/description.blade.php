@@ -881,7 +881,7 @@
                             <div class="row">
                                 <div class="col-12 remove_padding_for_carousel  profile--thumb--sec">
                                     <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="">
-                                    <div class="custom-tooltip">Click to view My Media</div>
+                                    <a href="" class="custom-tooltip text-decoration-none text-white" data-toggle="modal" data-target="#exampleModal">Click to view My Media</a>
                                     </div>
                             </div>
                             

@@ -274,8 +274,8 @@
                                     <img src="{{ asset('assets/img/e4u-verified-dark.png') }}">
                                 </button> --}}
                                 <select class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                    id=""name="verify_list" title="Coming Soon" disabled>
-                                    <option value="all">All</option>
+                                    id=""name="verify_list">
+                                    <option value="all">Verification</option>
                                     <option value="unverified">Unverified</option>
                                     <option value="verified">Verified</option>
                                 </select>

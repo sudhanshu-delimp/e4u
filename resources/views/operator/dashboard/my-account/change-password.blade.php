@@ -22,9 +22,6 @@
    <!--middle content start here-->
       {{-- Page Heading   --}}
       <div class="row">
-
-            
-
          <div class="operator-heading-wrapper col-lg-12">
             <h1 class="h1">Change password</h1>
             <span class="oprhelpNote font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
@@ -36,7 +33,8 @@
                   <ol>
                     <li>Use this feature to change your Password and to set up your Password preferences.</li>
                     <li>Your Password, unless you change the settings, will by default expire every 30 days.
-You will be notified before the expiry date.</li>
+                        You will be notified before the expiry date.
+                    </li>
                   </ol>
                </div>
             </div>
@@ -155,8 +153,8 @@ You will be notified before the expiry date.</li>
                
                <div class="pt-1">
                 <i id="emailHelp">You will be notified of your impending password expiry by Text or Email, according to your
-preference setting. The notification will be sent 5 days and then 24 hours prior to expiry,
-otherwise you will be notified by the Browser on the day your password has expired.</i>
+                preference setting. The notification will be sent 5 days and then 24 hours prior to expiry,
+                otherwise you will be notified by the Browser on the day your password has expired.</i>
               </div>
             </div>
             <input type="submit" value="Save" class="btn btn-primary shadow-none mt-4" name="submit">

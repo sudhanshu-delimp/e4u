@@ -406,6 +406,7 @@ Route::get('/get-account-profiles', [TourController::class, 'getAccountProfiles'
 Route::post('/save-account-tour', [TourController::class, 'saveAccountTour'])->name('account.save_tour');
 Route::post('/update-account-tour/{id}', [TourController::class, 'updateAccountTour'])->name('account.update_tour');
 Route::get('/tour-checkout/{id}', [TourController::class, 'tourCheckout'])->name('account.checkout_tour');
+Route::post('/tour/validate-date-range', [TourController::class, 'validateDateRange'])->name('tour.validate_date_range');
 
 
 Route::post('agent-request',[AgentRequestController::class, 'agentRequest'])->name('escort.agent-request');
