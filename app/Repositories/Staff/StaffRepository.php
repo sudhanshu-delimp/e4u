@@ -75,7 +75,8 @@ class StaffRepository extends BaseRepository implements StaffInterface
                     'name' => $data['name'] ?? null,
                     'phone' => $data['phone'] ?? null,
                     'email' => $data['email'] ?? null,
-                    'state_id' => $data['location'] ?? null,
+                    //'state_id' => $data['location'] ?? null,
+                    'city_id' => $data['location'] ?? null,
                     'gender' => $data['gender'] ?? null,
                 ];
 

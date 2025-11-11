@@ -22,6 +22,11 @@ class StaffController extends BaseController
         $this->staffRepo = $staffRepo;
     }
 
+    /**
+     * Add staff
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
     public function add_sfaff(AddNewStaff $request)
     {
         $data = $request->all();
@@ -32,16 +37,26 @@ class StaffController extends BaseController
             return $this->validationError($resposne['message']);
     }
 
+    /**
+     * Edit staff
+     * 
+     * @param integer $id
+     */
     public function editStaff($id)
     {
         $staff = User::with('staff_detail')->where("id", $id)->first();
-        if($staff) {
-        return view('admin.management.staff-edit', compact('staff'));
+        if ($staff) {
+            return view('admin.management.staff-edit', compact('staff'));
         } else {
             return "";
         }
     }
 
+    /**
+     * Store staff
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
     public function update_staff(Request $request)
     {
         $data = $request->all();
@@ -51,17 +66,31 @@ class StaffController extends BaseController
         else
             return $this->validationError($resposne['message']);
     }
-
-
-    public function staff_list(Request $request)
+    /**
+     * View staff
+     * 
+     * @param integer $id
+     */
+    public function viewStaff($id)
     {
-        //echo config('staff.staff_role_type');
-        //$lists = User::where('type','6')->get();
-        //dd($lists);
+        $staff = User::with('staff_detail')->where("id", $id)->first();
+        if ($staff) {
+            return view('admin.management.staff-view', compact('staff'));
+        } else {
+            return "";
+        }
+    }
+    /**
+     * View staff list
+     */
+    public function staff_list()
+    {
         return view('admin.management.staff');
     }
 
-
+    /**
+     * Get all staff list
+     */
     public function staff_data_list()
     {
         list($result, $count) = $this->staff_data_pagination(
@@ -80,7 +109,14 @@ class StaffController extends BaseController
         return response()->json($data);
     }
 
-
+    /**
+     *  Get all staff list with filter
+     * 
+     * @param integer $start
+     * @param integer $limit
+     * @param string $order_key
+     * @param string $dir
+     */
     public function staff_data_pagination($start, $limit, $order_key, $dir)
     {
         $staff = User::with('state', 'staff_detail', 'account_setting', 'LoginStatus')
@@ -107,7 +143,6 @@ class StaffController extends BaseController
             case 2:
                 $staff->orderBy('name', $dir);
                 break;
-
             default:
                 $staff->orderBy('id', 'DESC')->orderBy('id', 'ASC');
                 break;
@@ -132,14 +167,18 @@ class StaffController extends BaseController
             if ($item->status == 'Suspended')
                 $activate_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center active-account-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-check"></i> Activate</a><div class="dropdown-divider"></div>';
             $dropdown = '<div class="dropdown no-arrow ml-3">
-                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '>  
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item view-account-btn view-staff-btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '>  
                 <i class="fa fa-eye "></i> View Account</a> <div class="dropdown-divider"></div>' . $activate_html . $suspend_html . ' <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a></div></div>';
             $item->action = $dropdown;
             $i++;
         }
         return [$staffs, $total_staffs];
     }
-
+    /**
+     *  Suspent the access of staff dashboard
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
     public function suspend_staff(Request $request)
     {
         if ($request->id && $request->request_type && $request->request_type == 'suspend') {
@@ -161,7 +200,11 @@ class StaffController extends BaseController
         }
     }
 
-
+    /**
+     * Check email
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
     public function check_staff_email(Request $request)
     {
         $data = $request->all();
@@ -173,6 +216,11 @@ class StaffController extends BaseController
             return $this->successResponse('Email(s) are available');
     }
 
+    /**
+     *  Change the staff status
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
     public function approve_staff_account(Request $request)
     {
 
@@ -184,6 +232,11 @@ class StaffController extends BaseController
             return $this->validationError($resposne['message']);
     }
 
+    /**
+     *  Approve the staff
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
     public function activate_user(Request $request)
     {
 

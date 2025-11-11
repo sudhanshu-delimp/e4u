@@ -277,7 +277,7 @@
     <!-- end -->
 
 
-    <div class="modal fade upload-modal" id="editModal" tabindex="-1" role="dialog"
+    <div class="modal fade upload-modal" id="staffEditModal" tabindex="-1" role="dialog"
         aria-labelledby="editStaffnewLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content basic-modal">
@@ -291,12 +291,31 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="modal-content" id="modalContent"></div>
+                    <div class="modal-content" id="modalStaffEditContent"></div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="modal fade upload-modal" id="staffViewModal" tabindex="-1" role="dialog"
+        aria-labelledby="editStaffnewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewStaffnewTitle"><img
+                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">View Staff
+                        Member</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-content" id="modalViewStaffContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('script')
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
@@ -336,8 +355,8 @@
                         defaultContent: 'NA'
                     },
                     {
-                        data: 'business_name',
-                        name: 'business_name',
+                        data: 'name',
+                        name: 'name',
                         searchable: true,
                         orderable: false,
                         defaultContent: 'NA'
@@ -456,6 +475,7 @@
                         Swal.close();
                         $('span.text-danger').text('');
                         $('#addStaffnew').modal('hide');
+                        $('#staffEditModal').modal('hide');
                         swal_success_popup(response.message);
                     },
                     error: function(xhr) {
@@ -505,6 +525,30 @@
                 }
             })
 
+            ///////// Approve Agent //////////////////////////////
+      $(document).on('click', '.approve_account', function(e) 
+      {
+
+         swal_waiting_popup({'title':'Approving Account'});
+         $.ajax({
+               url: "{{ route('admin.approve_staff_account') }}",
+               method: 'POST',
+               data: {'user_id':$(this).attr('data-id'),'status': '1'},
+               success: function(response) {
+                  table.ajax.reload(null, false); 
+                  Swal.close();
+                  $('#staffViewModal').modal('hide');
+                  swal_success_popup(response.message);
+               },
+               error: function(xhr) {
+                  
+                  Swal.close();
+                  $('#staffViewModal').modal('hide');
+                  swal_error_popup(xhr.responseJSON.message);
+               }
+            });
+      })
+
             /*** Activate staff Account */
             $(document).on('click', '.active-account-btn', async function(e) {
                 if (await isConfirm({
@@ -544,10 +588,31 @@
                     if ($.trim(response) === "") {
                         swal_error_popup("Staff data not found");
                     } else {
-                        $('#modalContent').html(response);
-                        $('#editModal').modal('show');
+                        $('#modalStaffEditContent').html(response);
+                        $('#staffEditModal').modal('show');
                     }
                 },
+                error: function() {
+                    alert("Error loading form");
+                }
+            });
+        });
+
+        /*** Edit the staff */
+        $(document).on('click', '.view-staff-btn', function() {
+            let id = $(this).data('id');
+            $.ajax({
+                url: "/admin-dashboard/view-staff/" + id,
+                type: 'GET',
+                success: function(response) {
+                    if ($.trim(response) === "") {
+                        swal_error_popup("Staff data not found");
+                    } else {
+                        $('#modalViewStaffContent').html(response);
+                        $('#staffViewModal').modal('show');
+                    }
+                }, 
+
                 error: function() {
                     alert("Error loading form");
                 }

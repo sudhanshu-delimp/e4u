@@ -69,8 +69,8 @@
         <div class="col-6 mb-3">
             <select class="form-control rounded-0" name="location" id="location">
                 <option value="">Select Location</option>
-                @foreach (config('escorts.profile.states') as $skey => $stateLoc)
-                    <option value="{{ $skey }}" {{$staff->state_id == $skey ? 'selected' : ""}}>{{ $stateLoc['stateName'] }}</option>
+                @foreach (config('escorts.profile.cities') as $skey => $city)
+                    <option value="{{ $skey }}" {{$staff->city_id == $skey ? 'selected' : ""}}>{{ $city }}</option>
                 @endforeach
                 <span class="text-danger error-location"></span>
             </select>
@@ -140,7 +140,11 @@
         </div>
 
     </div>
+    @php
+       $update_button = $staff->status === 'Pending' ? '<button type="button" class="btn-success-modal mr-2 approve_account" data-id='.$staff->id.'>Approve</button>' : '';  
+    @endphp
     <div class="modal-footer p-0 pl-2 pb-4">
+        {!!$update_button !!}
         <button type="submit" class="btn-success-modal mr-3">Save</button>
     </div>
 </form>
