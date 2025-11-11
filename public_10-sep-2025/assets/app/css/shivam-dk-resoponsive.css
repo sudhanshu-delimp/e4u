@@ -1,0 +1,324 @@
+/*@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 568px)
+{
+div.tip:hover div{
+left: 15px;
+}
+.manage_toolkit_font{
+font-size: 12px;
+}
+.trikon_style{
+padding: 8px 7px !important;
+width: fit-content;
+}
+.padding_ninty_top_ninty_px {
+padding-top: 15px;
+}
+.age_style span {
+line-height: 40px;
+}
+.pinup_profile_name {
+font-size: 30px; line-height: 52px;
+}
+.age_style span{
+font-size: 22px;
+}
+.pinup_social_profile_padiing_top_btm {
+padding: 10px 0px;
+}
+.pinup_locatin_text {
+font-size: 15px;
+}
+.padding_btm_ninty_pxonly {
+padding-bottom: 20px;
+}
+.manage_gap_text_img {
+gap: 10px;
+}
+.footer_social_icons {
+display: inline-block;
+padding-left: 4px;
+}
+.padding_fifty_top_and_btm{
+padding-bottom: 0px;
+}
+.footer_social_icons li a i {
+padding: 9px;
+height: 35px;
+width: 35px;
+}
+.dk-center{
+text-align: center ;
+}
+.dk-right{
+text-align: center ;    
+margin-bottom: 13px;
+}
+.slect__btn_tab{
+display: block;
+}
+.ryt_srch_btn{
+display: block;
+}
+.pad_ryt {
+margin-right: 1em;
+padding: 5px 0px 10px;
+}
+.item_dis{
+width: 65%;
+}
+/*.footer_text_color_white h4{
+font-size: 17px; 
+margin-bottom: 0;
+margin-top: 30px;padding-bottom: 4px;
+}
+.smGlobalBtn {
+width: 33px;
+height: 33px;
+font-size: 20px;
+line-height: 1.6em;
+}
+.pinup_view_profile_btn {
+padding: 9px 17px;
+font-weight: 500;
+font-size: 17px;
+line-height: 27px;
+}
+.footer_mange_padding img {
+padding-bottom: 5px;
+}
+.footer_mange_padding img {
+padding-bottom: 0px;
+width: 40%;
+}
+.footer_text_color_white p{
+font-size: 12px;
+}
+.footer_text_color_white ul li a {
+font-size: 13px;
+line-height: 13px;
+}
+/*profile css from hare
+.profile_page_title h2{
+font-size: 30px
+}
+.profile_description_banner{
+height: 300px;margin-bottom: 30px;
+}
+.profile_page_name_and_phno p {
+line-height: 30px;
+}
+.profile_page_location_and_id p {
+font-size: 17px;
+line-height: 15px;
+}
+.table_striped{
+margin-top: 30px;
+}
+.profile_description_contect h2 {
+font-size: 20px;
+line-height: 24px;
+}
+.profile_description_contect_pera{
+font-size: 14px;
+}
+.manage_padding_margin_bg_color {
+padding: 10px;
+}
+.profile_page_box_heading h2{
+font-size: 20px;line-height: 25px;
+}
+.padding_20_tob_btm_side {
+padding: 10px 0px;
+}
+.set>a {
+padding: 6px 10px;
+font-size: 15px;
+line-height: 18.5px;
+}
+.star-align-dk{
+text-align: left;
+}
+.carousel .testimonial {
+padding: 2px 0 1px;
+}
+.my_legbox{
+font-size: 16px !important;
+}
+.preview-dk {
+width: 29%;
+}
+.next-dk {
+width: 29%;
+}
+.table_heading_bgcolor_color tr th {
+line-height: 22px;
+}
+.footer_copy_right {
+padding-top: 14px;
+}
+#myFrontpop{
+padding-left: 15px !important;
+padding-right: 15px;
+}
+#myFrontpop img{
+max-height: 35px;
+}
+#myFrontpop button{
+font-size: 12px;
+}
+#myFrontpop select, option.form-control{
+font-size: 12px;
+}
+#myFrontpop p, li{
+font-size: 12px !important;
+margin-bottom: 5px;
+line-height: 22px;
+}
+#myFrontpop a{
+font-size: 12px;
+}
+#myFrontpop .modal-header{
+border-radius: 0;
+}
+.modal-body button{
+padding: 16px 20px 16px 20px;
+}
+select.form-control:not([size]):not([multiple]){
+height: calc(1.8rem + 1px);
+}
+/*profile css End*/
+}*/
+/* ----------- iPad 1, 2, Mini and Air ----------- */
+/* Portrait and Landscape 
+@media only screen 
+and (min-device-width: 768px) 
+and (max-device-width: 1030px) 
+and (-webkit-min-device-pixel-ratio: 1) {
+div.tip:hover div{
+left: 15px;
+}
+.manage_toolkit_font{
+font-size: 12px;
+}
+.trikon_style{
+padding: 8px 7px !important;
+width: fit-content;
+}
+/*.homebanner_bg{
+background-image:none; 
+}
+.profile-sidebar-margin-top{
+margin-top: -95px
+}
+.padding_ninty_top_ninty_px {
+padding-top: 15px;
+}
+.pinup_profile_name {
+font-size: 48px;
+}
+.padding_fifty_top_and_btm{
+padding-bottom: 0px;
+}
+.age_style span {
+font-size: 25px;
+}
+.padding_btm_pinup_pera {
+padding-bottom: 10px;
+}
+.dk-center{
+text-align: right;
+}
+.dk-right{
+text-align: left;    
+margin-bottom: 13px;
+}
+.footerbtn-flex {
+padding: 0;
+text-align: center !important;
+margin-top: 20px !important;
+}
+/*profile css start
+.table_striped{
+margin-top: 20px;
+}
+.my_legbox{
+font-size: 16px !important;
+}
+.profile_description_contect h2 {
+font-size: 21px;
+line-height: 30px;
+}
+.manage_padding_margin_bg_color {
+padding: 10px;
+}
+.preview-dk {
+width: 15%;
+}
+.next-dk {
+width: 15%;
+}
+.footer_copy_right {
+padding-top: 14px;
+}
+/*profile css End
+}
+/* ----------- iPad 3, 4 and Pro 9.7" ----------- */
+/* Portrait and Landscape
+@media only screen 
+and (min-device-width: 834px) 
+and (max-device-width: 1112px)
+and (-webkit-min-device-pixel-ratio: 2) {
+.profile_message_btn_cc{
+font-size: 11px;width: 98%;
+}
+.blue-bg-before::before{
+height: 75vh;
+}
+.profile-sidebar-margin-top{
+margin-top: -100px
+}
+.pinup_profile_name {
+font-size: 36px;
+}
+.pinup_meet_with{
+margin-left: -80px;
+}
+.pinup_view_profile_btn{
+margin-left: -30px;
+}
+.footer_text_color_white h4{
+margin-top: 0px;
+}
+.dk-right {
+text-align: left;
+margin-bottom: 13px;
+}
+.preview-dk {
+width: 12%;
+}
+.next-dk {
+width: 12%;
+}
+.table-width-dk{
+flex: 0 0 100%;
+max-width: 100%;
+}
+.footer_copy_right {
+padding-top: 14px;
+}
+}
+@media screen and (max-width: 767px) {
+.profile-sidebar-margin-top{
+margin-top: 10px
+}
+.profile-sidebar-margin-top .remove_padding_for_carousel img{
+height: 300px;
+object-fit: cover;
+}
+.profile-sidebar-margin-top .remove_padding_for_carousel video{
+height: 300px;
+object-fit: cover;
+}
+}

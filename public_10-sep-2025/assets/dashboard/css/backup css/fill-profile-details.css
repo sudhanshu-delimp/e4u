@@ -1,0 +1,24 @@
+.width_hundred_present_imp{
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+}
+
+.remove_padding{
+    padding: 7px !important;
+}
+
+
+.select2-container .select2-selection--single{
+    color: #858796 !important;
+    height:34px !important;
+}
+.select2-container--default .select2-selection--single{
+         border: 1px solid #858796; !important; 
+     border-radius: 0px !important;
+     width: 100% !important; 
+      max-width: 100% !important;
+    /*min-width: 100% !important;*/
+}
+
+
