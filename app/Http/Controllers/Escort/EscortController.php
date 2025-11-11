@@ -226,16 +226,16 @@ class EscortController extends Controller
             //$usr_type->agentEscorts->pluck("id")->toArray(),
         );
 
-        foreach($result as $key => $item) {
+        // foreach($result as $key => $item) {
 
-            if($item->getRawOriginal('gender')==3)
-                $item->stage_name = 'TS-'.$item->name;
-                else
-                $item->stage_name = $item->name;
+        //     if($item->getRawOriginal('gender')==3)
+        //         $item->stage_name = 'TS-'.$item->name;
+        //         else
+        //         $item->stage_name = $item->name;
 
 
             
-        }
+        // }
 
 
         $data = array(

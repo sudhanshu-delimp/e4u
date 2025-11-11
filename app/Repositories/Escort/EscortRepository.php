@@ -197,6 +197,13 @@ class EscortRepository extends BaseRepository implements EscortInterface
             } else {
                 $item->enabled = "Draft";
             }
+
+
+            if($item->gender==3)
+            $item->name = 'TS-'.$item->name;
+            else
+            $item->name = $item->name;
+
             // $item->gender;
             //
             // $item->country_code = $item->state->country_code;

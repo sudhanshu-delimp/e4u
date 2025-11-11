@@ -1,8 +1,15 @@
+@php
+    $escortName = ($escort->gender == 'Transgender')
+        ? 'TS - ' . substr($escort->name, 0, 15)
+        : substr($escort->name, 0, 15);
+@endphp
+
+
 <div class="col-lg col-md-6 col-sm-6 mb-5">
 
     <div class="five_column_content_top d-flex justify-content-between wish_span" style="z-index: 1;width: 90%;">
         <span><img src="{{ asset('assets/app/img/pro_tect.svg') }}" class="" title="This advertiser is E4U verified"></span>
-        <span class="card_tit">{{ substr($escort->name,0,15)}}</span>
+        <span class="card_tit">{{ $escortName }}</span>
         @if(auth()->user())
             @if(auth()->user()->type == 0)
                 <span class="add_to_favrate @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
@@ -84,7 +91,7 @@
         </div>
     </a>
        
-        <button type="button" class="short-list btn btn-primary removeshortlist" id="escort_{{$escort->id}}" data-name="{{$escort->name}}" data-escortId="{{$escort->id}}">Remove from Shortlist</button>
+        <button type="button" class="short-list btn btn-primary removeshortlist" id="escort_{{$escort->id}}" data-name="{{$escortName}}" data-escortId="{{$escort->id}}">Remove from Shortlist</button>
             <!--  <div class="uperbutton text-center mt-3">
                 <button href="#" class="btn btn-blue removeshortlist" data-name="{{$escort->name}}" data-escortId="{{$escort->id}}">Remove from Shortlist</button>
             </div> -->

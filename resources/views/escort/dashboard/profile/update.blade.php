@@ -276,8 +276,9 @@ $loginAccount = auth()->user();
                     title: '',
                     html: `
                         <div style="text-align: center;">
-                            This stage name will be displayed as <br>
-                            <strong>TS - Stage Name </strong>
+                            <strong>The stage name will appear as "TS-Stage Name" on the profile.</strong> <br>
+                            <strong>"Stage Name" will be taken from the field you fill in above. </strong><br>
+                            Example : TS-Marissa
                         </div>
                     `,
                     icon: 'info',
