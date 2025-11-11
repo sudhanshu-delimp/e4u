@@ -46,7 +46,7 @@ class StaffController extends BaseController
     {
         $staff = User::with('staff_detail')->where("id", $id)->first();
         if ($staff) {
-            return view('admin.management.staff-edit', compact('staff'));
+            return view('admin.management.staff.staff-edit', compact('staff'));
         } else {
             return "";
         }
@@ -75,7 +75,7 @@ class StaffController extends BaseController
     {
         $staff = User::with('staff_detail')->where("id", $id)->first();
         if ($staff) {
-            return view('admin.management.staff-view', compact('staff'));
+            return view('admin.management.staff.staff-view', compact('staff'));
         } else {
             return "";
         }
@@ -85,7 +85,7 @@ class StaffController extends BaseController
      */
     public function staff_list()
     {
-        return view('admin.management.staff');
+        return view('admin.management.staff.staff');
     }
 
     /**
@@ -246,5 +246,16 @@ class StaffController extends BaseController
             return $this->successResponse($resposne['message']);
         else
             return $this->validationError($resposne['message']);
+    }
+
+    public function printStaffDetails(Request $request)
+    {
+        $userId  = $request->user_id;
+        $staff = User::with('staff_detail')->where("id", $userId)->first();
+        if ($staff) {
+            return view('admin.management.staff.staff_report', ['staff' => $staff]);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Staff ID is required.'], 400);
+        }
     }
 }

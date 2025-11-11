@@ -1,19 +1,27 @@
 <div class="row">
     @php
         $employmentStatuss = config('staff.employment_status');
-        $employmentStatus = isset($employmentStatuss[$staff->staff_detail->employment_status]) ? $employmentStatuss[$staff->staff_detail->employment_status]: "";
+        $employmentStatus = isset($employmentStatuss[$staff->staff_detail->employment_status])
+            ? $employmentStatuss[$staff->staff_detail->employment_status]
+            : '';
         $securityLevels = config('staff.security_level');
-        $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? $securityLevels[$staff->staff_detail->security_level]: "";
+        $securityLevel = isset($securityLevels[$staff->staff_detail->security_level])
+            ? $securityLevels[$staff->staff_detail->security_level]
+            : '';
         $genders = config('escorts.profile.genders');
-        $gender = isset($genders[$staff->gender]) ? $genders[$staff->gender]: "";
+        $gender = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
         $cities = config('escorts.profile.cities');
-        $city = isset($cities[$staff->city_id]) ? $cities[$staff->city_id]: "";
+        $city = isset($cities[$staff->city_id]) ? $cities[$staff->city_id] : '';
     @endphp
     <!-- Section: Personal Details -->
     <div class="col-12 my-2">
         <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
         <table class="table table-bordered">
             <tbody>
+                <tr>
+                    <th width="40%">Member ID</th>
+                    <td width="60%">{{ $staff->member_id }}</td>
+                </tr>
                 <tr>
                     <th width="40%">Full Name</th>
                     <td width="60%">{{ $staff->name }}</td>
@@ -115,5 +123,14 @@
 
             </tbody>
         </table>
+        <div class="col-12 my-2 text-right">
+            <form action="{{ route('admin.print_staff') }}" method="post">
+                {{ csrf_field() }}
+                <input name="user_id" type="hidden" id="user_print_id" class="user_print_id"
+                    value="{{ $staff->id }}">
+                <button type="submit" class="print-btn m-0">🖨️ Print Report</button>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
+            </form>
+        </div>
     </div>
 </div>

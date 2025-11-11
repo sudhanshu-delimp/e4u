@@ -249,6 +249,7 @@ Route::get('/edit-staff/{id}',[StaffController::class,'editStaff'])->name('admin
 Route::post('/store-staff',[StaffController::class,'update_staff'])->name('admin.store-staff');
 Route::get('/view-staff/{id}',[StaffController::class,'viewStaff'])->name('admin.view-staff');
 Route::post('/approve-staff-account',[StaffController::class,'approve_staff_account'])->name('admin.approve_staff_account');
+Route::post('/print-staff',[StaffController::class,'printStaffDetails'])->name('admin.print_staff');
 
 
 Route::get('/management/agent',[AgentController::class,'agent_list'])->name('admin.agent');
