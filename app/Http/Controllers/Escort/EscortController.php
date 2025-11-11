@@ -191,12 +191,7 @@ class EscortController extends Controller
             ->where('enabled', 1)
             ->where('user_id', auth()->user()->id)
             ->whereNotNull('profile_name')
-            ->whereHas('purchase', function ($query) {
-                $query->where('utc_end_time', '>=', Carbon::now());
-            })
-            ->with(['purchase' => function ($query) {
-                $query->where('utc_end_time', '>=', Carbon::now());
-            }])
+            ->where('utc_end_time', '>=', Carbon::now())
             ->get();
 
             $activePinup = EscortPinup::where('user_id', auth()->user()->id)
@@ -795,6 +790,8 @@ class EscortController extends Controller
             $endDate = $request->endDate;
             $escortId = $request->escortId;
             $escort = $this->escort->find($escortId);
+            $startDate = '11-11-2025';
+            $endDate = '15-11-2025';
 
             $conflictExists = Purchase::overlapping($startDate, $endDate)
                 ->whereHas('escort', function ($q) use ($escort) {

@@ -7,6 +7,9 @@
 </style>
 @endsection
 @section('content')
+@php 
+$is_checkout = $tour->tourPurchase->count();
+@endphp
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content start here-->
             <div class="row">
@@ -49,6 +52,7 @@
                                 <div id="locationsContainer" class="mb-3">
                                     @foreach($tourLocations as $tourLocation)
                                     <div class="location-group">
+                                        <input type="hidden" name="tour_location_id" value="{{$tourLocation->id}}">
                                         <div class="card p-3 mb-3 shadow-sm">
                                             <div class="listing-row">
                                                 <div class="listing-field">
@@ -68,14 +72,17 @@
                                                     <input type="text" name="end_date[]" class="form-control end-date js_datepicker" value="{{$tourLocation->end_date_formatted}}" min="{{$tourLocation->start_date}}" disabled="">
                                                 </div>
                                                 <div class="d-flex align-items-end justify-content-start gap-10">
+                                                @if(!$is_checkout)    
                                                 <button type="button" class="btn-success-modal addProfile" style="padding: 6px 10px;">Add Profile</button>
                                                 <button type="button" class="btn-cancel-modal removeLocation" style="padding: 6px 10px;">Remove</button>
+                                                @endif
                                                 </div>
                                             </div>
                                             <div class="profiles mt-3">
                                                 @if(!empty($tourLocation->profiles->toArray()))
                                                     @foreach($tourLocation->profiles as $profile)
                                                         <div class="profile">
+                                                            <input type="hidden" name="tour_profile_id" value="{{$profile->id}}">
                                                             <div class="d-flex align-items-center gap-2 p-2 border rounded bg-light">
                                                                 <select name="profile[][]" class="form-select profile-dropdown w-25">
                                                                     <option value="{{$profile['escort_id']}}" selected>{{$profile->escort->name}}</option>
@@ -87,7 +94,9 @@
                                                                     <option value="4" {{($profile['tour_plan']=='4'?'selected':'')}}>Free</option>
                                                                 </select>
                                                                 <span class="profile-dates text-muted">Start: {{$tourLocation->start_date_formatted}}, End: {{$tourLocation->end_date_formatted}}</span>
+                                                                @if(!$is_checkout) 
                                                                 <button type="button" class="btn btn-sm btn-danger removeProfile">Remove</button>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     @endforeach
@@ -102,12 +111,14 @@
 
                         <!-- Card Footer with Buttons -->
                         <div class="card-footer bg-white d-flex gap-3 justify-content-end">
+                            @if(!$is_checkout)
                             <button type="button" id="addLocation" class="btn btn-primary px-4 py-2 rounded">
                                 <i class="fas fa-map-marker-alt"></i> Add Location
                             </button>
                             <button type="submit" id="saveButton" class="btn btn-success px-4 py-2 rounded" {{count($tourLocations)<2?'disabled':''}}>
                                 <i class="fas fa-save"></i> Save
                             </button>
+                            @endif
                         </div>
                     </div>
                 </div>
