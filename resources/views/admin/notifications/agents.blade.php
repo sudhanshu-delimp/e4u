@@ -140,7 +140,7 @@
                             <div class="col-12 mb-3" id="typeField">
                                 <select id="type" class="form-control" name="type">
                                     <option value="adhoc" selected>Adhoc</option>
-                                    <option value="scheduled" >Scheduled</option>
+                                    <option value="scheduled">Scheduled</option>
                                     <option value="notice">Notice</option>
                                 </select>
                             </div>
@@ -197,9 +197,10 @@
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <label for="startFirstMonth">Select Month</label>
-                                                        <select id="startFirstMonth" class="form-control rounded-0 mb-2" name="startFirstMonth">
+                                                        <select id="startFirstMonth" class="form-control rounded-0 mb-2"
+                                                            name="startFirstMonth">
                                                             <option value="">Select Month</option>
-                                                            
+
                                                         </select>
                                                     </div>
                                                     <div class="col-6">
@@ -207,7 +208,7 @@
                                                         <select id="startFirstDate" class="form-control rounded-0"
                                                             name="startFirstDate">
                                                             <!-- Days 1 to 31 -->
-                                                            
+
                                                         </select>
                                                     </div>
                                                 </div>
@@ -223,15 +224,15 @@
                                                         <select id="endSecondMonth" class="form-control rounded-0 mb-2"
                                                             name="endSecondMonth">
                                                             <option value="">Select Month</option>
-                                                           
+
                                                         </select>
                                                     </div>
                                                     <div class="col-6">
                                                         <label for="endSecondDay">Select Day</label>
                                                         <select id="endSecondDay" class="form-control rounded-0"
                                                             name="endSecondDay">
-                                                         
-                                                           
+
+
                                                         </select>
                                                     </div>
                                                 </div>
@@ -240,7 +241,7 @@
                                         </div>
                                     </div>
 
-                                      <!-- Monthly Option -->
+                                    <!-- Monthly Option -->
                                     <div class="form-group col-lg-12 schedule-options" id="monthlyOptions"
                                         style="display:none;">
                                         <div class="row">
@@ -248,14 +249,14 @@
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <label for="monthWiseStartDate">Start Day</label>
-                                                        <select id="monthWiseStartDate" class="form-control rounded-0"  name="monthWiseStartDate">
-                                                        </select>
+                                                        <select id="monthWiseStartDate" class="form-control rounded-0"
+                                                            name="monthWiseStartDate"></select>
                                                     </div>
 
                                                     <div class="col-6">
                                                         <label for="monthWiseEndDate">End Day</label>
-                                                        <select id="monthWiseEndDate" class="form-control rounded-0"  name="monthWiseEndDate">
-                                                        </select>
+                                                        <select id="monthWiseEndDate" class="form-control rounded-0"
+                                                            name="monthWiseEndDate"></select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -266,7 +267,7 @@
 
                             </div>
 
-                             <!-- Number of Recurring  -->
+                            <!-- Number of Recurring  -->
                             <div id="numberOfRecurring" class="col-12 mb-3" style="display:none;">
                                 <input type="number" id="recurring" name="recurring" class="form-control"
                                     placeholder="Number of Recurring">
@@ -339,7 +340,7 @@
         $(document).ready(function() {
             function toggleFields() {
                 var type = $('#type').val();
-             
+
 
                 // Hide all conditionally visible fields initially
                 $('#scheduledSection').hide();
@@ -388,67 +389,62 @@
                     // No additional fields shown
                 }
             });
-
-        
-
             $('#type').change(toggleFields);
-           
             toggleFields();
 
-
-         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+                "October", "November", "December"
+            ];
             //Populate month selects
-           function populateMonths(selectId) {
-            $(selectId).empty();
-             $(selectId).append(`<option value="">Select</option>`);
-                for(let i = 0; i < months.length; i++) {
+            function populateMonths(selectId) {
+                $(selectId).empty();
+                $(selectId).append(`<option value="">Select</option>`);
+                for (let i = 0; i < months.length; i++) {
                     $(selectId).append($('<option>', {
-                    value: i + 1,
-                    text: months[i]
+                        value: i + 1,
+                        text: months[i]
                     }));
                 }
             }
 
             //Get days in month
-            function getDaysInMonth(month, year = new Date().getFullYear()){
-                return new Date(year,month,0).getDate();
+            function getDaysInMonth(month, year = new Date().getFullYear()) {
+                return new Date(year, month, 0).getDate();
             }
 
             //Get Selectd Date
-            function getSelectedDate(monthId, dayId){
-                let month  = $(monthId).val();
+            function getSelectedDate(monthId, dayId) {
+                let month = $(monthId).val();
                 let day = $(dayId).val();
                 let year = new Date().getFullYear();
-                return new Date(year,month-1, day);
+                return new Date(year, month - 1, day);
             }
 
             //Match start date and end date
-            function matchEndDateToStartDate(){
+            function matchEndDateToStartDate() {
                 let startDate = getSelectedDate("#startFirstMonth", "#startFirstDate");
-                let endDate =  getSelectedDate("#endSecondMonth", "#endSecondDay");
-                console.log(startDate, endDate);
-
-                if(startDate > endDate){
+                let endDate = getSelectedDate("#endSecondMonth", "#endSecondDay");
+                if (startDate > endDate) {
                     $("#endSecondMonth").val($("#startFirstMonth").val());
-                     populateDays("#endSecondDay", $("#startFirstMonth").val());
+                    populateDays("#endSecondDay", $("#startFirstMonth").val());
                     $("#endSecondDay").val($("#startFirstDate").val());
-                }   
+                }
             }
 
-            
+
             $("#startFirstMonth, #startFirstDate, #endSecondMonth, #endSecondDay").on("change", function() {
-               // console.log('on click......');
-                 matchEndDateToStartDate();
+                // console.log('on click......');
+                matchEndDateToStartDate();
             });
 
             //Populate day selects
-            function populateDays(selectId, month){
+            function populateDays(selectId, month) {
                 $(selectId).empty();
                 let days = getDaysInMonth(month);
-                for(let i = 1; i <= days; i++){
+                for (let i = 1; i <= days; i++) {
                     $(selectId).append($('<option>', {
                         value: i,
-                        text : i
+                        text: i
                     }));
                 }
             }
@@ -458,47 +454,100 @@
             populateMonths('#endSecondMonth');
 
             //When start_month change
-            $("#startFirstMonth").on("change", function(){
+            $("#startFirstMonth").on("change", function() {
                 let startMonth = parseInt($(this).val());
-                if(!startMonth) return;
+                if (!startMonth) return;
                 // Populate start_day based on start_month
                 populateDays("#startFirstDate", startMonth);
-                
+
                 //Disable months before start_month in end_month
-                $("#endSecondMonth option").each(function(){
+                $("#endSecondMonth option").each(function() {
                     let val = parseInt($(this).val());
-                    if(val < startMonth){
+                    if (val < startMonth) {
                         $(this).prop('disabled', true);
-                    }else{
+                    } else {
                         $(this).prop('disabled', false);
                     }
 
                 });
-                
+
                 // If currently selected endMonth id disabled , rest selection to startMonth
                 let currentEndMonth = parseInt($('#endSecondMonth').val());
-                if(!currentEndMonth || currentEndMonth < startMonth){
-                    populateDays('#endSecondDay',startMonth);
+                if (!currentEndMonth || currentEndMonth < startMonth) {
+                    populateDays('#endSecondDay', startMonth);
                 }
-  
+
             });
 
             // When end_month changes
-            $('#endSecondMonth').on("change", function(){
+            $('#endSecondMonth').on("change", function() {
                 let endMonth = parseInt($(this).val());
-                if(!endMonth) return;
+                if (!endMonth) return;
                 populateDays("#endSecondDay", endMonth);
             });
-
-
-            
-
 
             // Trigger change on page load to initialize days for start_month and end_month
             $("#startFirstMonth").change();
 
-        });
+            function populateTypeMonthDate(selectDate, totalDays) {
+                for (i = 1; i <= totalDays; i++) {
+                    $(selectDate).append(`<option value="${i}">${i}</option>`);
+                }
+            }
 
-        
+
+            //When select Scheduled Type Month
+            const today = new Date();
+            const totalDays = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+            populateTypeMonthDate("#monthWiseStartDate", totalDays);
+            populateTypeMonthDate("#monthWiseEndDate", totalDays);
+
+            //Fill dropdown with day numbers
+
+
+            //When Start day changes
+            $("#monthWiseStartDate").on('change', function() {
+                const startDate = parseInt($(this).val());
+                //Disable months before start_month in end_month
+                $("#monthWiseEndDate option").each(function() {
+                    let val = parseInt($(this).val());
+                    if (val < startDate) {
+                        $(this).prop('disabled', true);
+                    } else {
+                        $(this).prop('disabled', false);
+                    }
+
+                });
+
+            });
+
+
+
+
+            
+            //Match start date and end date for type Monthly
+            function typeMonthlySelectedDate(dayId) {
+                let month = new Date().getMonth() + 1;
+                let day = $(dayId).val();
+                let year = new Date().getFullYear();
+                return new Date(year, month - 1, day);
+            }
+
+            //Match tart date and end date
+            function typeMonthlyWiseMatchStartEndDate() {
+                let startDate = typeMonthlySelectedDate("#monthWiseStartDate");
+                let endDate = typeMonthlySelectedDate("#monthWiseEndDate");
+                console.log(startDate,endDate);
+                if (startDate > endDate) {
+                    $("#monthWiseEndDate").val($("#monthWiseStartDate").val());
+                }
+            }
+
+            $("#monthWiseStartDate, #monthWiseEndDate").on('change', function() {
+                console.log('start on change...');
+                typeMonthlyWiseMatchStartEndDate();
+            });
+
+        });
     </script>
 @endpush
