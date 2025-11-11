@@ -172,16 +172,20 @@
   var table = $("#myReportListTable").DataTable({
       language: {
          search: "Search: _INPUT_",
-         searchPlaceholder: "Search by mobile number"
+         searchPlaceholder: "Search by Mobile Number"
       },
       info: true,
       paging: true,
       lengthChange: true,
       searching: true,
       bStateSave: true,
-      order: [[1, 'desc']],
+      order: [[1, 'desc']], // default sort on 2nd column (index starts from 0)
       lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10
+      pageLength: 10,
+    
+    columnDefs: [
+        { targets: 6, orderable: false }
+    ]
    });
    
 </script>

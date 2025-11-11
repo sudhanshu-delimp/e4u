@@ -40,7 +40,7 @@
          <div class="row">
             <div class="col-md-12">
                <div class="table-responsive custom-table-responsive  list-sec">
-                  <table id="listings" class="table  custom--common-table" width="100%">
+                  <table id="currentListings" class="table  custom--common-table" width="100%">
                         <thead>
                            <tr>
                               <th>ID</th>
@@ -56,10 +56,16 @@
                         </thead>
                         <tbody>
                            <tr>
-                              <td colspan="9" class="text-center">
-                                 No record(s) found.
-                              </td>                              
-                           </tr>
+                                        <td>123</td>
+                                        <td>Waskovins</td>
+                                        <td>123, Hyd,22/34</td>
+                                        <td>WKS</td>
+                                        <td>11-11-2025</td>
+                                        <td>15-11-2025</td>
+                                        <td>5</td>
+                                        <td>Platinum</td>
+                                        <td>$10009</td>
+                                    </tr>
                         </tbody>
                   </table>
                </div>
@@ -73,6 +79,25 @@
 @push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+   <script>
+   var table = $("#currentListings").DataTable({
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by Profile Name"
+      },
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: true,
+      order: [[1, 'desc']], // default sort on 2nd column (index starts from 0)
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10
+   });
+
+   
+</script>
     
 @endpush
