@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Admin\AdvertiserReviewsController;
+use App\Http\Controllers\Admin\AgentNotificationController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\CenterNotificationController;
 use App\Http\Controllers\Admin\AdminMakeNotificationController;
@@ -249,15 +250,21 @@ Route::post('/active-agent-account',[AgentController::class,'activate_user'])->n
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');
 
 
-// Notification system for admin
+//Centres Notification system for admin
 
 Route::get('notifications/centres/list', [CenterNotificationController::class, 'index'])->name('admin.centres.notifications.index');
-//Route::post('/list', [AdminMakeNotificationController::class, 'list'])->name('admin_make_notifications.list');
 Route::post('/notifications/centres/store', [CenterNotificationController::class, 'store'])->name('admin.centres.notifications.store');
 Route::get('/notifications/centres/{id}', [CenterNotificationController::class, 'show'])->name('admin.centres.notifications.show');
 Route::post('/notifications/centres/{id}/remove', [CenterNotificationController::class, 'updateStatus'])->name('admin.centres.notifications.remove');
 Route::get('/notifications/centres/pdf-download/{id}', [CenterNotificationController::class, 'pdfDownload'])->name('admin.centres.pdf.download');
-//Route::post('/remove/{id}', [AdminMakeNotificationController::class, 'remove'])->name('admin_make_notifications.remove');
+
+//Agent Notification system for admin
+Route::get('notifications/agents/list', [AgentNotificationController::class, 'index'])->name('admin.agent.notifications.index');
+Route::post('/notifications/agent/store', [AgentNotificationController::class, 'store'])->name('admin.agent.notifications.store');
+//Route::get('/notifications/agent/{id}', [AgentNotificationController::class, 'show'])->name('admin.agent.notifications.show');
+//Route::post('/notifications/agent/{id}/remove', [AgentNotificationController::class, 'updateStatus'])->name('admin.agent.notifications.remove');
+//Route::get('/notifications/agent/pdf-download/{id}', [AgentNotificationController::class, 'pdfDownload'])->name('admin.agent.pdf.download');
+
 
 
 

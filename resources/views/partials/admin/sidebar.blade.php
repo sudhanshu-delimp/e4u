@@ -560,6 +560,7 @@
                     request()->segment(3) == 'escorts' ||
                     request()->segment(3) == 'centres') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+               
                 <div class="py-0 collapse-inner rounded mb-2">
                     {{-- global --}}
                     <a href="{{ route('admin.global', ['from' => 'sidebar']) }}" class="collapse-item">
@@ -568,7 +569,8 @@
                             style="{{ request()->segment(3) == 'global' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Global</span>
                     </a>
                     {{-- agents --}}
-                    <a href="{{ route('admin.agents') }}" class="collapse-item">
+                    
+                    <a href="{{ route('admin.agent.notifications.index') }}" class="collapse-item">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/agent.png') }}">
                         <span
                             style="{{ request()->segment(3) == 'agents' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Agents</span>
