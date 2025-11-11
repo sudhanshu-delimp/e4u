@@ -1,5 +1,36 @@
 @extends('layouts.web')
 @section('content')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
+<style>
+   .swal-button {
+   background-color: #242a2c;
+   align-items: center;
+   }
+
+   .swal-footer {
+  display: flex;
+  justify-content: center; /* horizontally center */
+  align-items: center;     /* vertically center */
+  padding: 20px;           /* optional spacing */
+}
+
+.swal-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swal-button--ok {
+  /* background-color: #3085d6; */
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+</style>
 <section class="section_bg_color padding_ninty_top_ninty_px padding_ninty_btm_ninty_px">
 
 <div class="container">
@@ -12,6 +43,11 @@
                   </div>
 
                   <h4 class="welcome_sub_login_heading text-uppercase"><strong>Admin LOGIN</strong></h4>
+                  @if($errors->has('message'))
+              <div class="alert alert-danger text-center">
+                {{ $errors->first('message') }}
+              </div>
+            @endif
                   <form id="admin_login" action="{{ route('admin.login')}}" method="post">
                     @csrf
                     <input type="hidden" name="type_admin" value="1">
@@ -139,6 +175,8 @@
 @endsection
 @section('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     $(function() {
         $('#admin_login').parsley({
@@ -234,6 +272,7 @@ $(document).ready(function() {
                'X-CSRF-Token': token
          },
             success: function(data) {
+               console.log(data);
                 $('#formerror').html('');
                  Swal.close();
                 console.log(data);
@@ -303,7 +342,16 @@ $(document).ready(function() {
                 
          },
          error: function(data) {
-
+            swal({
+                               title: "Oops!",
+                               text: data.responseJSON.message,
+                               icon: "error",
+                               closeModal: true,
+                               buttons: {
+                                   cancel: false,
+                                   ok:true,
+                               },
+                           });
                console.log("error w: ", data.responseJSON.errors);
                 Swal.close();
                $.each(data.responseJSON.errors, function(key, value) {

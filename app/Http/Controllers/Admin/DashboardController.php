@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use FFMpeg;
 use File;
+use Illuminate\Http\Request;
 
 class DashboardController extends BaseController
 {
@@ -27,14 +28,13 @@ class DashboardController extends BaseController
     {
         $this->escort = $escort;
         $this->user = $user;
-
     }
 
     public function index()
     {
         //dd('dfd');
         $task = Task::latest()->paginate(10);
-        return view('admin.dashboard',['tasks'=>$task]);
+        return view('admin.dashboard', ['tasks' => $task]);
     }
     public function edit()
     {
@@ -61,48 +61,57 @@ class DashboardController extends BaseController
         //dd($request->all());
         $data = [];
         $data = [
-                'name' => $request->name,
-                'gender' => $request->gender,
-                //'contact_type' => $request->contact_type,
+            'name' => $request->name,
+            'gender' => $request->gender,
+            //'contact_type' => $request->contact_type,
             //    'phone' => $request->phone,
-                //'city_id'=>$request->city_id,
-                //'country_id'=>$request->country_id,
-                // 'state_id'=>$request->state_id,
-                // 'email'=>$request->email ? $request->email : null,
-                //'social_links'=>$request->social_links,
+            //'city_id'=>$request->city_id,
+            //'country_id'=>$request->country_id,
+            // 'state_id'=>$request->state_id,
+            // 'email'=>$request->email ? $request->email : null,
+            //'social_links'=>$request->social_links,
         ];
 
         $error = true;
-        if($this->user->store($data, auth()->user()->id)) {
+        if ($this->user->store($data, auth()->user()->id)) {
             $error = false;
         }
         return response()->json(compact('error'));
     }
 
-    public function updatePassword(UpdateEscortRequest $request)
+    public function updatePassword(Request $request)
     {
-        $user = $this->user->find(auth()->user()->id);
-       //dd($request->all());
-        $error = true;
-        if(!Hash::check($request->password, $user->password)){
-           //'Return error with current passowrd is not match';
-           $error = false;
-        }else{
-            //'Write here your update password code';
-            $data = [
-                'password' => Hash::make($request->new_password),
-            ];
-            $this->user->store($data, auth()->user()->id);
+        $request->validate([
+            'password' => 'required',
+            'new_password' => 'required|min:8|same:password_confirmation',
+            'password_confirmation' => 'required|min:8',
+        ], [
+            'password.required' => 'Please enter your current password.',
+            'new_password.required' => 'Please enter a new password.',
+            'new_password.min' => 'New password must be at least 8 characters.',
+            'new_password.same' => 'New password and confirmation do not match.',
+            'password_confirmation.required' => 'Please confirm your new password.',
+            'password_confirmation.min' => 'Password confirmation must be at least 8 characters.',
+        ]);
 
+        $user = Auth::user();
+
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json(["status" => false,"message" => 'Your current password is incorrect.']);
+           
         }
-
-        return response()->json(compact('error'));
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+        return response()->json(["status" => true,"message" => 'Your password has been updated successfully!']);
     }
+
+
+
     public function uploadAvatar()
     {
         return view('admin.my-account.upload-avatar');
     }
-    public function storeMyAvatar(StoreAvatarMediaRequest $request,$id)
+    public function storeMyAvatar(StoreAvatarMediaRequest $request, $id)
     {
         // $attachment = $request->file('avatar_img');
         // list($width, $height) = getimagesize($attachment);
@@ -131,7 +140,7 @@ class DashboardController extends BaseController
         $data               = base64_decode($data);
         $avatar_owner       = Auth::user()->id;
 
-        $avatarName          = time(). '-' .$avatar_owner .'.'.$extension;
+        $avatarName          = time() . '-' . $avatar_owner . '.' . $extension;
         $avatar_uri          = file_put_contents(public_path() . '/avatars/' . $avatarName, $data);
 
         //dd($avatar_uri);
@@ -140,14 +149,14 @@ class DashboardController extends BaseController
 
         $user->save();
         $type = 0;
-        return response()->json(compact('type','avatarName'));
+        return response()->json(compact('type', 'avatarName'));
     }
     public function removeMyAvatar()
     {
-            $user = $this->user->find(auth()->user()->id);
-            $user->avatar_img = null;
-            $user->save();
-            $type = 1;
+        $user = $this->user->find(auth()->user()->id);
+        $user->avatar_img = null;
+        $user->save();
+        $type = 1;
         return response()->json(compact('type'));
     }
 }
