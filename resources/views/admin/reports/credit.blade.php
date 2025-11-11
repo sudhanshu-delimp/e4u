@@ -329,7 +329,7 @@
                      <td>9,410</td>
                   </tr>
                   <!-- total -->
-                  <tr class="collapse-row group-3 table-primary font-weight-bold">
+                  <tr class="collapse-row group-4 table-primary font-weight-bold">
                      <td></td>
                      <td>Total</td>
                      <td>152</td>
@@ -641,6 +641,11 @@
 </div>
 @endsection
 @section('script')
+
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
       $(document).ready(function() {
             let isHidden = false;
