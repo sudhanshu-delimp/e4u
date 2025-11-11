@@ -224,9 +224,25 @@ class EscortController extends Controller
             auth()->user()->id,
             $conditions
 
+
+
+
             //auth()->user()->state_id,
             //$usr_type->agentEscorts->pluck("id")->toArray(),
         );
+
+        foreach($result as $key => $item) {
+
+            if($item->getRawOriginal('gender')==3)
+                $item->stage_name = 'TS-'.$item->name;
+                else
+                $item->stage_name = $item->name;
+
+
+            
+        }
+
+
         $data = array(
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),
@@ -234,7 +250,7 @@ class EscortController extends Controller
             "data"            => $result
         );
 
-        // dd($data);
+        //dd($result);
 
         return response()->json($data);
     }

@@ -216,7 +216,7 @@ $loginAccount = auth()->user();
             <h3 class="my-2"><span id="Lname"></span> </h3>
             <h3 class="my-2"><span id="log"></span> </h3>
             <div class="modal-footer">
-               <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+               <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
                   value="close" id="close_change">No</button>
                <button type="button" class="btn-success-modal" id="save_change">Yes</button>
             </div>
@@ -254,6 +254,42 @@ $loginAccount = auth()->user();
     <script>
         window.App = window.App || {};
         window.App.escortId = '{{$escort->id}}';
+
+        var trans_gender = 0;    
+        
+        $(document).on('change', '#Gender', function(e) {
+        trans_gender = $.trim(this.value); 
+        });
+
+        $(document).on('click', '.gender_alert', function(e) {
+             call_gender_alert();
+        });
+
+        function call_gender_alert()
+        {
+             if($.trim(trans_gender)==3) 
+              {
+
+                //let stageName = $('#stageName').val();
+                //let message = `This stage name will be displayed as TS - (stage name).`;
+                Swal.fire({
+                    title: '',
+                    html: `
+                        <div style="text-align: center;">
+                            This stage name will be displayed as <br>
+                            <strong>TS - Stage Name </strong>
+                        </div>
+                    `,
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+
+               
+              } 
+        }
+
+
+
         $(document).on('keypress', 'form input', function(event) {
             return event.keyCode !== 13;
         });
@@ -1333,6 +1369,7 @@ $loginAccount = auth()->user();
                     _displayGenderDependentFields($('#current').val());
                 }
                 $('#change_all').modal('hide');
+                call_gender_alert();
             });
             $.each($("input[name^='availability_time']"), function(index, value) {
                 let p_element = $(value).attr('id');

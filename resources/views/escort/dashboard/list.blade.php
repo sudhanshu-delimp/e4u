@@ -495,8 +495,8 @@
                         defaultContent: 'NA'
                     },
                     {
-                        data: 'name',
-                        name: 'name',
+                        data: 'stage_name',
+                        name: 'stage_name',
                         searchable: true,
                         orderable: true,
                         defaultContent: 'NA'

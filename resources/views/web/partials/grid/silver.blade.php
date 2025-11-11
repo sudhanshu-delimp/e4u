@@ -1,3 +1,9 @@
+@php
+    $escortName = ($escort->gender == 'Transgender')
+        ? 'TS - ' . substr($escort->name, 0, 12)
+        : substr($escort->name, 0, 12);
+@endphp
+
 <div class="col-lg col-md-6 col-sm-6 mb-5 brb--text">
     <div class="seven_column_content_top d-flex justify-content-between mid_tit wish_span wish_span" style="z-index: 1;width: 90%;">
            {{-- <span>
@@ -7,11 +13,11 @@
                 <span ><img width="18" height="18" src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"></span>            
                 <span class="vrf-tooltip">Media Unverified</span>
             </div>
-                <span class="seven_column_content_top_font_size">{{ substr($escort->name,0,10)}}</span>
+                <span class="seven_column_content_top_font_size">{{ $escortName }}</span>
                 
                 @if(auth()->user())
                 @if(auth()->user()->type == 0)
-                <span class="add_to_favrate custom--favourite @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}}">
+                <span class="add_to_favrate custom--favourite @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escortName}}">
                     @if(!empty($user_type))
                         @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
                             <i class='fa fa-heart' style='color: #ff3c5f;' title='' aria-hidden='true'></i>
@@ -23,11 +29,11 @@
                     @endif
                 </span>
                 @else
-                <span class="add_to_favrate custom--favourite" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i> <span class="custom-heart-text">Add to My Legbox</span></span>
+                <span class="add_to_favrate custom--favourite" data-name="{{$escortName}}"><i class="fa fa-heart-o" aria-hidden="true"></i> <span class="custom-heart-text">Add to My Legbox</span></span>
                 @endif
             @else
-            {{-- <span class="add_to_favrate"  data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span> --}}
-            <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text">Add to My Legbox</span></span>
+            {{-- <span class="add_to_favrate"  data-escortId="{{$escort->id}}" data-name="{{$escortName}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span> --}}
+            <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escortName}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text">Add to My Legbox</span></span>
             @endif
         </div>
     <a  class="card card_box_style mb-0 short-card" href="{{ route('profile.description',[$escort->id, $escort->city_id, $escort->membership])}}?brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}">
@@ -102,12 +108,12 @@
         </div>
     </a>
     @if(Request::path() == "showList")
-        <button type="button" class="short-list btn btn-primary removeshortlist" data-name="{{$escort->name}}"  data-escortId="{{$escort->id}}"><span>Remove from Shortlist</span></button>
+        <button type="button" class="short-list btn btn-primary removeshortlist" data-name="{{$escortName}}"  data-escortId="{{$escort->id}}"><span>Remove from Shortlist</span></button>
         <!-- <div class="uperbutton text-center mt-3">
             <button href="#" class="btn btn-blue removeshortlist" data-escortId="{{$escort->id}}">Remove from Shortlist</button>
         </div> -->
     @else
-        <button type="button" class="short-list btn btn-primary shortlist myescort_{{$escort->id}}" data-name="{{$escort->name}}"  id="escort_{{$escort->id}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
+        <button type="button" class="short-list btn btn-primary shortlist myescort_{{$escort->id}}" data-name="{{$escortName}}"  id="escort_{{$escort->id}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
             @if(!empty($escortId))
             {{-- @if($escort->shortListed->isEmpty()) --}}
                 @if(in_array($escort->id,$escortId))
