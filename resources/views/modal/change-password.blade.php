@@ -11,11 +11,11 @@ if (auth()->check())
 {
    
 
-    $user = auth()->user();
+            $user = auth()->user();
    
-    if($user->type!=3)
-    {
             // First login check (assuming user first time come)
+
+            if($user->type==5)
             $open_pop_up = $user?->account_setting?->is_first_login === "1";
 
             $password_updated_date = $user?->account_setting?->password_updated_date;
@@ -42,7 +42,7 @@ if (auth()->check())
 
             if( $user->type=='0')
             $submit_url  = 'update-password';
-    } 
+    
 }
 @endphp
 
