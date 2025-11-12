@@ -21,7 +21,7 @@ use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
-
+use App\Http\Controllers\Admin\StaffController;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {  
     Route::get('/admin-login', 'DashboardController@index')->name('admin.index');
@@ -239,7 +239,17 @@ Route::get('reports/advertiser-suspensions-list-ajax',[ReportAdvertiserSuspensio
 
 Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
 Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('admin.send-notiification');
-
+/** Staff */
+Route::get('/management/staff',[StaffController::class,'staff_list'])->name('admin.staff');
+Route::post('/management/add-staff',[StaffController::class,'add_sfaff'])->name('admin.add-staff');
+Route::get('staff_list_data_table', [StaffController::class, 'staff_data_list'])->name('admin.staff_list_data_table');
+Route::post('/suspend-staff',[StaffController::class,'suspend_staff'])->name('admin.suspend-staff');
+Route::post('/active-staff-account',[StaffController::class,'activate_user'])->name('admin.active-staff-account');
+Route::get('/edit-staff/{id}',[StaffController::class,'editStaff'])->name('admin.edit-staff');
+Route::post('/store-staff',[StaffController::class,'update_staff'])->name('admin.store-staff');
+Route::get('/view-staff/{id}',[StaffController::class,'viewStaff'])->name('admin.view-staff');
+Route::post('/approve-staff-account',[StaffController::class,'approve_staff_account'])->name('admin.approve_staff_account');
+Route::post('/print-staff',[StaffController::class,'printStaffDetails'])->name('admin.print_staff');
 
 
 Route::get('/management/agent',[AgentController::class,'agent_list'])->name('admin.agent');

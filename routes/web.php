@@ -694,9 +694,9 @@ Route::get('/admin-dashboard/management/logs-staff',function(){
     return view('admin.management.logs-staff');
 })->name('admin.logs-staff');
 
-Route::get('/admin-dashboard/management/staff',function(){
+/* Route::get('/admin-dashboard/management/staff',function(){
     return view('admin.management.staff');
-})->name('admin.staff');
+})->name('admin.staff'); */
 
 
 
