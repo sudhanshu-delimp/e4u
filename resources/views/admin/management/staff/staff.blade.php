@@ -116,7 +116,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form name="add_staff" method="POST" action="{{ route('admin.add-staff') }}"
+                    <form name="add_staff" id="add_staff" method="POST" action="{{ route('admin.add-staff') }}"
                         enctype="multipart/form-data">
                         <div class="row">
                             <!-- Section: Personal Details -->
@@ -476,6 +476,7 @@
                         $('span.text-danger').text('');
                         $('#addStaffnew').modal('hide');
                         $('#staffEditModal').modal('hide');
+                         $('#add_staff')[0].reset(); 
                         swal_success_popup(response.message);
                     },
                     error: function(xhr) {

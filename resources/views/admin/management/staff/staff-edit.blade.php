@@ -1,4 +1,4 @@
-<form name="add_staff" method="POST" action="{{ route('admin.store-staff') }}" enctype="multipart/form-data">
+<form name="add_staff" id="edit_staff" method="POST" action="{{ route('admin.store-staff') }}" enctype="multipart/form-data">
     <div class="row">
         <!-- Section: Personal Details -->
         <div class="col-12 my-2">
