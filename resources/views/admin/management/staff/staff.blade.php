@@ -210,7 +210,7 @@
                                 <select class="form-control rounded-0" name="security_level" id="security_level">
                                     <option value="">Security Level</option>
                                     @foreach (config('staff.security_level') as $seckey => $secLevel)
-                                        <option value="{{ $seckey }}">{{ $secLevel }}</option>
+                                        <option value="{{ $seckey }}" {{$seckey == 3 ? "selected": ""}}>{{ $secLevel }}</option>
                                     @endforeach
                                 </select>
                                 <span class="text-danger error-security_level"></span>
