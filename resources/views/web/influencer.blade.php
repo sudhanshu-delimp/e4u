@@ -317,6 +317,7 @@
                 success: function(data) {
                     console.log('data jiten', data);
 
+                    form[0].reset()
                     if (data.status == true) {
 
                         // Show modal

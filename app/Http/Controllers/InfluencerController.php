@@ -7,6 +7,7 @@ use App\Mail\Influencer\RequestInfluencerToUserMail;
 use App\Models\Influencer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -77,12 +78,17 @@ class InfluencerController extends Controller
             'cc_email' => $request->has('cc_email') ? true : false,
         ];
 
-        Mail::to(config('escorts.mobileOrderSimRequest.admin'))->queue(new RequestInfluencerOperationCenterMail($body));
-
-        if($request->has('cc_email')  && $request->cc_email == 'on'){
-            Mail::to($member->email)->cc($request->email)->queue(new RequestInfluencerToUserMail($body));
-        }else{
-            Mail::to($member->email)->queue(new RequestInfluencerToUserMail($body));
+        try {
+            if($request->has('cc_email')  && $request->cc_email == 'on'){
+                 // Test email sending
+                Mail::to(config('escorts.mobileOrderSimRequest.admin'))->queue(new RequestInfluencerOperationCenterMail($body));
+                Mail::to([$member->email, $request->email])->queue(new RequestInfluencerToUserMail($body));
+            }else{
+                Mail::to($member->email)->queue(new RequestInfluencerToUserMail($body));
+            }
+           
+        } catch (\Exception $e) {
+            Log::info('Influencer Email sending failed: ' . $e->getMessage());
         }
         
 
