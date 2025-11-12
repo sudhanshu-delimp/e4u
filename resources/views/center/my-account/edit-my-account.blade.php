@@ -951,27 +951,26 @@
     </script>
 
     <script>
-        $(document).ready(function() {
-            var table = $("#add_centre_table").DataTable({
-                language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Member ID"
-                },
-                processing: false,
-                serverSide: false,
-                paging: true,
-                lengthChange: true,
-                searching: true,
-                bStateSave: true,
-                sorting: false,
-                ordering: false,
-                lengthMenu: [
-                    [10, 25, 50, 100],
-                    [10, 25, 50, 100]
-                ],
-                pageLength: 10
-            });
-        });
+        $(document).ready(function () {
+    $("#add_centre_table").DataTable({
+        language: {
+            search: "Search: _INPUT_",
+            searchPlaceholder: "Search by Member ID"
+        },
+        paging: true,
+        lengthChange: true,
+        searching: true,
+        info: true,
+        ordering: false, // disable sorting if you want
+        bStateSave: true,
+        pageLength: 10,
+        lengthMenu: [
+            [10, 25, 50, 100],
+            [10, 25, 50, 100]
+        ]
+    });
+});
+
     </script>
     <script type="text/javascript">
         $('#userProfile').parsley({

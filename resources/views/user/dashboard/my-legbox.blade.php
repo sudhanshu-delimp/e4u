@@ -619,7 +619,7 @@
                     {
                         data: 'escort_communication',
                         name: 'escort_communication',
-                        orderable: false,
+                        orderable: true,
                         render: function (data, type, row) {
                             if (!data) return '';
                             let str = String(data); 
@@ -627,7 +627,7 @@
                             return str.replace(/(.{12})/g, '$1<br>');
                         }
                     },
-                    { data: 'is_blocked', name: 'is_blocked',orderable: false, searchable: false },                       // 9
+                    { data: 'is_blocked', name: 'is_blocked',orderable: true, searchable: false },                       // 9
                     { data: 'action', name: 'action', orderable: false, searchable: false } // 10
                 ],
                 columnDefs: [

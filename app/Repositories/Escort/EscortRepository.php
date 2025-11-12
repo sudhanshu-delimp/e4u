@@ -132,12 +132,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 'brb' => function ($query) {
                     $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
                 },
-                // 'suspendProfile' => function ($query) {
-                //     $today = Carbon::now(config('app.timezone'));
-                //     $query->where('utc_start_date', '<=', $today)
-                //         ->where('utc_end_date', '>=', $today)
-                //         ->where('status', true);
-                // }
             ])
 
             //->whereNotNull('profile_name')
@@ -159,28 +153,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
                         $query = $query->orWhere($column, 'LIKE', "%{$search}%");
                     }
                 });
-
-
-            // if($query) { echo "ok"; } else { echo "not ok";}
-            //echo $column."</br>";
-
-
-            // if($query->where('profile_name', '!=', null)->Where('profile_name', 'LIKE', "%{$search}%")) {
-            //     $query = $query->where('profile_name', '!=', null)
-            //         ->Where('profile_name', 'LIKE', "%{$search}%");
-            //         //echo "1";
-            // }
-            // elseif($query->where('name', '!=', null)->Where('phone', 'LIKE', "%{$search}%")) {
-            //     $query = $query->where('name', '!=', null)
-            //         ->Where('name', 'LIKE', "%{$search}%");
-            //        // echo "2";
-            // } else {
-            //     $query = $query->where('phone', '!=', null)
-            //         ->Where('phone', 'LIKE', "%{$search}%");
-            //         //echo "3";
-            // }
-
-
             $result = $query->get();
 
             $result = $this->modifyEscorts($result, $start);
@@ -210,7 +182,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
         //        $result = $result->toArray();
         foreach ($result as $key => $item) {
-            // dd($item->suspendProfile, $item->profile_name);
             $playmates = $item->playmates->count();
             $s = explode('/', $_SERVER['REQUEST_URI']);
             $item->sn = ($start + $i);
@@ -226,6 +197,13 @@ class EscortRepository extends BaseRepository implements EscortInterface
             } else {
                 $item->enabled = "Draft";
             }
+
+
+            if($item->gender==3)
+            $item->name = 'TS-'.$item->name;
+            else
+            $item->name = $item->name;
+
             // $item->gender;
             //
             // $item->country_code = $item->state->country_code;
@@ -306,6 +284,14 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->pro_name .= '</sup>';
             }
 
+            if($item->mainPurchase && $item->mainPurchase->tour_location_id!=null){
+                $item->pro_name .= '<sup class="tour_icon listing-tag-tooltip ml-1">Tour
+                <small class="listing-tag-tooltip-desc">Listed from ' . date("d-m-Y", strtotime($item->start_date)) . " to ".date("d-m-Y", strtotime($item->end_date)).'</small>
+                </sup>';
+                $item->tour = true;
+            }
+            $item->start_date_formatted = $item->start_date_formatted;
+            $item->end_date_formatted = $item->end_date_formatted;
             $item->pro_name .= '</span>';
             $i++;
         }

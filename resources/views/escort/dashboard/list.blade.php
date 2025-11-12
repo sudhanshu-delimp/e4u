@@ -196,7 +196,7 @@
                           <div class="col-sm-5 pr-1">
                             <input type="hidden" name="membership[]" id="extendMembership">
                             <input type="hidden" name="start_date[]" id="extendStartDate">
-                            <input type="date" id="extendEndDate" class="form-control form-control-sm removebox_shdow" name="end_date[]" required disabled>
+                            <input type="text" id="extendEndDate" class="form-control form-control-sm removebox_shdow js_datepicker" name="end_date[]" required disabled>
                           </div>
                         </div>
                       </div>
@@ -438,13 +438,13 @@
                     if (records.recordsTotal > 0) {
                         $select.append('<option value="">-- Select Profile --</option>');
                         $.each(records.data, function (i, item) {
-                            if(!item.is_extended){
+                            if(!item.is_extended && !item.tour){
                                 $select.append(
                                     $('<option>', {
                                     value: item.id,
                                     text: `${item.id} - ${item.name} - ${item.state.name}`,
-                                    'data-start': item.start_date,
-                                    'data-end': item.end_date,
+                                    'data-start': item.start_date_formatted,
+                                    'data-end': item.end_date_formatted,
                                     'data-membership':item.membership,
                                     })
                                 );
@@ -495,8 +495,8 @@
                         defaultContent: 'NA'
                     },
                     {
-                        data: 'name',
-                        name: 'name',
+                        data: 'stage_name',
+                        name: 'stage_name',
                         searchable: true,
                         orderable: true,
                         defaultContent: 'NA'
@@ -614,26 +614,33 @@
 
         });
 
-        var formatDateLocal = function(date) {
-            let y = date.getFullYear();
-            let m = String(date.getMonth() + 1).padStart(2, '0');
-            let d = String(date.getDate()).padStart(2, '0');
-            return `${y}-${m}-${d}`;
+        // var formatDateLocal = function(date) {
+        //     let y = date.getFullYear();
+        //     let m = String(date.getMonth() + 1).padStart(2, '0');
+        //     let d = String(date.getDate()).padStart(2, '0');
+        //     return `${y}-${m}-${d}`;
+        // }
+
+        var getDateAfter = function(dateStr,after=1) {
+            let [day, month, year] = dateStr.split('-');
+            let date = new Date(year, month - 1, day);
+            date.setDate(date.getDate() + after);
+            return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
         }
 
         $(document).on('change','#extendProfileId', function () {
-            let endDate = $(this).find(':selected').data('end');
+            let previousEndDateValue = $(this).find(':selected').data('end'); //getDateAfter
             let membership = $(this).find(':selected').data('membership');
-            let startDate = $('#extendStartDate');
             let $membershipField = $('#extendMembership');
-            let $dateField = $('#extendEndDate');
+            let extendStartDateObject = $('#extendStartDate');
+            let extendEndDateObject = $('#extendEndDate');
             let profileId = $(this).val();
             if($.trim(profileId)!=""){
-                $dateField.removeAttr('disabled');
+                extendEndDateObject.removeAttr('disabled');
                 $("input[name='extend_days']").removeAttr('disabled');
             }
             else{
-                $dateField.attr('disabled','disabled');
+                extendEndDateObject.attr('disabled','disabled');
                 $("input[name='extend_days']").attr('disabled','disabled');
             }
             switch(membership){
@@ -650,37 +657,25 @@
                     $membershipField.val(4);
                 }
             }
-            if (endDate) {
-                let extendStartDate = new Date(endDate);
-                let extendEndDate = new Date(endDate);
-                extendStartDate.setDate(extendStartDate.getDate() + 1);
-                extendEndDate.setDate(extendEndDate.getDate() + 2);
-                startDate.val(formatDateLocal(extendStartDate));
-                $dateField.attr('min', formatDateLocal(extendEndDate)).val(formatDateLocal(extendEndDate));
-                if ($dateField.val() && $dateField.val() < formatDateLocal(extendEndDate)) {
-                    $dateField.val('');
-                }
+            if (previousEndDateValue) {
+                extendStartDateObject.val(getDateAfter(previousEndDateValue,1));
+                extendEndDateObject.val(getDateAfter(previousEndDateValue,2));
+                extendEndDateObject.datepicker('option', 'minDate', extendStartDateObject.val());
             } else {
-                $dateField.removeAttr('min');
-                $dateField.val('');
+                extendEndDateObject.datepicker('option', 'minDate', null);
+                extendEndDateObject.val('');
             }
         });
 
         $('input[name="extend_days"]').on('change', function () {
             let days = parseInt($(this).val(), 10);
-            let $select = $('#extendProfileId');
-            let endDate = $select.find(':selected').data('end');
-            let $dateField = $('#extendEndDate');
+            let previousEndDateValue = $('#extendProfileId').find(':selected').data('end');
+            let extendEndDateObject = $('#extendEndDate');
 
-            if (endDate && days) {
-                let newDate = new Date(endDate);
-                newDate.setDate(newDate.getDate() + days + 1);
-
-                $dateField.val(formatDateLocal(newDate));
-                //$dateField.prop('readonly', true); // make readonly
+            if (previousEndDateValue && days) {
+                extendEndDateObject.val(getDateAfter(previousEndDateValue,days+1));
             } else {
-                $dateField.val('');
-                //$dateField.prop('readonly', false);
+                extendEndDateObject.val('');
             }
         });
 
@@ -696,7 +691,6 @@
             let formButton = document.querySelector("#extend_profile form button[type='submit']");
             
             if(startDate && escortId){
-                console.log(escortId, startDate, endDate);
                 $.ajax({
                 url: '/escort-dashboard/listing/validate-date-range',
                 method: 'POST',
@@ -722,7 +716,7 @@
 
                 },
                 error: function (xhr, status, error) {
-                console.error('Error in location filter:', error);
+                    console.error('Error in location filter:', error);
                 }
                 });
             }

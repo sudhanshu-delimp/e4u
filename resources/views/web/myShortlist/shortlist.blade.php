@@ -40,6 +40,8 @@
 </style>
 @endsection
 @section('content')
+
+
 <section class="">
     <div class="container filter-contain">
         <div class="search_filters">
@@ -397,7 +399,7 @@
         </div>
         @endif
 
-        <div class="modal defult-modal" id="forhelp">
+        <d      iv class="modal defult-modal" id="forhelp">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0">
                     <!-- Modal body -->
