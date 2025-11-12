@@ -396,20 +396,26 @@ class User extends Authenticatable
             return 'DL' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id) . ':001';
         }
         if ($this->type == 6) {
-            $staff = $this->select(['id', 'name', 'member_id'])->where('type', '6')->orderBy('id', 'desc')->first();
-            //return 'ST' . $this->city_id . sprintf("%04d", $this->id);
-            if( $staff) {
-                $memberIdInt = trim(str_replace('ST', '', $staff->member_id));
-                if( $memberIdInt > 0) 
-                {
-                     $memberIdInt =  $memberIdInt+1;
-                     return 'ST'.( $memberIdInt);
-                } else {
-                     return 'ST60002';
-                }
+            $memberId = 'ST' . $this->city_id . sprintf("%04d", $this->id);
+            $staff = User::select(['id', 'name', 'member_id'])
+                ->where('type', '6')
+                ->where('member_id', '!=', '')
+                ->orderByDesc('id')
+                ->first();
+            if ($staff && !empty($staff->member_id)) {
+                $code = trim($staff->member_id);
+                $prefix = 'ST';
+                preg_match('/\d+$/', $code, $numberMatch);
+                $number = isset($numberMatch[0]) ? (int)$numberMatch[0] : 0;
+                $length = strlen($numberMatch[0] ?? '00002');
+                // Increment and pad
+                $newCode = $prefix . str_pad($number + 1, $length, '0', STR_PAD_LEFT);
+                $memberId = $newCode;
             } else {
-                 return 'ST60002';
+                $memberId = 'ST60002';
             }
+
+            return $memberId;
         }
 
         return null;
@@ -431,8 +437,10 @@ class User extends Authenticatable
         static::created(function ($user) {
             // Only set member_id if it's not already set
             if (empty($user->member_id)) {
-                $user->member_id = $user->generateMemberId();
-                $user->save();
+                if ($user->generateMemberId()) {
+                    $user->member_id = $user->generateMemberId();
+                    $user->save();
+                }
             }
         });
     }
