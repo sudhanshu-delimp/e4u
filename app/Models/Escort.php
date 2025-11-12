@@ -34,7 +34,6 @@ class Escort extends Model
         } catch (\Exception $e) {
             $date = Carbon::parse($value);
         }
-
         $this->attributes['start_date'] = $date->format('Y-m-d');
     }
 
