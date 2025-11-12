@@ -88,7 +88,7 @@
                                           You can also create <a target="_blank" href="{{route('escort.profile.information')}}">Stage Names</a> to use in any Profile.
                                       </span>
                                        </label>
-                                       <input type="text" class="form-control" name="name" placeholder="Enter name..." value="{{ $escort->name }}">
+                                       <input type="text" class="form-control" name="name" placeholder="Enter name..." value="{{ $escort->name }}" required>
                                     </div>
                                  </div>
                                  <div class="col-md-6">

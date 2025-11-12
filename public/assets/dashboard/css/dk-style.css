@@ -167,7 +167,10 @@ span.menu-active {
     color: #0c223d!important;
     font-weight: 500;
 }
-
+.ui-state-highlight, .ui-widget-content .ui-state-highlight {
+    background: #0c223d !important;
+    color: #ffffff !important;
+}
 .dk-border-radius {
     border: 1px solid #D6D7E3;
     border-radius: 7px;
