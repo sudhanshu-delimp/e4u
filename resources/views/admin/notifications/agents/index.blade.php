@@ -361,7 +361,8 @@
     <div id="manage-route" data-scrf-token="{{ csrf_token() }}"
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}" 
-        data-pdf-download="{{ route('admin.agent.pdf.download', ['id' => '__ID__']) }}">
+        data-pdf-download="{{ route('admin.agent.pdf.download', ['id' => '__ID__']) }}"
+        data-agent-notification-status="{{ route('admin.agent.notifications.status', ['id' => '__ID__']) }}">
 
         <!-- End of Page Wrapper -->
         <!-- Scroll to Top Button-->
@@ -682,6 +683,7 @@
                 success_image: mmRoot.data('success-image'),
                 error_image: mmRoot.data('error-image'),
                 pdf_download: mmRoot.data('pdf-download'),
+                agent_notification_status: mmRoot.data('agent-notification-status'),
             }
 
 
@@ -870,37 +872,42 @@
                 // Implement print logic
             });
 
-            $(document).on('click', '.js-remove', function(e) {
+            $(document).on('click', '.js-suspend, .js-publish, .js-remove', function(e) {
                 e.preventDefault();
                 const id = $(this).data('id');
+                let status = '';
+                let confirmMsg = '';
+                if ($(this).hasClass('js-suspend')) {
+                    status = 'Suspend';
+                    confirmMsg = 'Are you sure you want to suspend this notification?';
+                } else if ($(this).hasClass('js-publish')) {
+                    status = 'Published';
+                    confirmMsg = 'Are you sure you want to publish this notification?';
+                } else if ($(this).hasClass('js-remove')) {
+                    status = 'Removed';
+                    confirmMsg = 'Are you sure you want to remove this notification?';
+                }
+
                 const modal = $('#successModal');
                 const body = $('#success_form_html');
                 const img = $('#image_icon');
                 $('#success_task_title').text('Confirmation');
                 img.attr('src', endpoint.error_image);
-                body.html(`<h4>Are you sure you want to remove this notification?</h4>
-                            <div class="d-flex justify-content-center gap-10 mt-3">
-                                <button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes, Remove</button>
-                                <button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button>
-                            </div>`);
+                body.html(`<h4>${confirmMsg}</h4><div class="d-flex justify-content-center gap-10 mt-3"><button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button><button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button></div>`);
                 modal.modal('show');
-
                 body.off('click', '#confirmRemove').on('click', '#confirmRemove', function() {
-                    // Disable button to prevent duplicate
                     $(this).prop('disabled', true);
                     $.ajax({
-                        url: "{{ route('admin.agent.notifications.suspend', ['id' => '__ID__']) }}".replace('__ID__', id),
+                        url: endpoint.agent_notification_status.replace('__ID__', id),
                         type: 'POST',
                         data: {
-                            _token: endpoint.csrf_token
+                            _token: endpoint.csrf_token,
+                            status: status
                         },
                         success: function(response) {
                             $('#success_task_title').text('Success');
-                            img.attr('src', endpoint.success_image);
-                            body.html(`
-                                <h4>${response.message || 'Status updated successfully'}</h4>
-                                <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>
-                            `);
+                            $('#image_icon').attr('src', endpoint.success_image);
+                            $('#success_form_html').html('<h4>' + (response.message || 'Status updated successfully') + '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>');
                             setTimeout(function() {
                                 modal.modal('hide');
                                 table.ajax.reload(null, false);
@@ -908,15 +915,12 @@
                         },
                         error: function(xhr) {
                             let msg = 'Something went wrong';
-                            if (xhr.responseJSON && xhr.responseJSON.message) {
-                                msg = xhr.responseJSON.message;
+                            if(xhr.responseJSON && xhr.responseJSON.message){
+                              msg = xhr.responseJSON.message;
                             }
                             $('#success_task_title').text('Error');
-                            img.attr('src', endpoint.error_image);
-                            body.html(`
-                                <h4>${msg}</h4>
-                                <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>
-                            `);
+                            $('#image_icon').attr('src', endpoint.error_image);
+                            $('#success_form_html').html('<h4>' + msg + '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>');
                         }
                     });
                 });

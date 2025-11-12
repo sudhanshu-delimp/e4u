@@ -28,7 +28,7 @@ class CreateAgentNotificationsTable extends Migration
             $table->tinyInteger('end_month')->nullable();   // yearly ke liye month int (1-12)
             $table->integer('num_recurring')->nullable();   // Kitne times repeat karna hai
             $table->text('content')->nullable();
-            $table->enum('status', ['Published','Completed','Suspend'])->default('Published');
+            $table->enum('status', ['Published','Completed','Suspend', 'Removed'])->default('Published');
             $table->timestamps();
         });
     }

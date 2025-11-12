@@ -263,6 +263,7 @@ Route::get('notifications/agents/list', [AgentNotificationController::class, 'in
 Route::post('/notifications/agent/store', [AgentNotificationController::class, 'store'])->name('admin.agent.notifications.store');
 Route::get('/notifications/agent/{id}', [AgentNotificationController::class, 'show'])->name('admin.agent.notifications.show');
 Route::post('/notifications/agent/{id}/suspend', [AgentNotificationController::class, 'updateStatus'])->name('admin.agent.notifications.suspend');
+Route::post('/notifications/agent/{id}/status', [AgentNotificationController::class, 'changeStatus'])->name('admin.agent.notifications.status');
 Route::get('/notifications/agent/pdf-download/{id}', [AgentNotificationController::class, 'pdfDownload'])->name('admin.agent.pdf.download');
 
 

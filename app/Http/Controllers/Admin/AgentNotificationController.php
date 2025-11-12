@@ -37,9 +37,12 @@ class AgentNotificationController extends Controller
                     $actions = [];
                     // Example: you can add your own business logic for action buttons
                     if (($row->status ?? null) === 'Published') {
-                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspend</a>';
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspend</a>';
+                    } elseif (in_array($row->status ?? null, ['Suspend'])) {
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
                     }
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
+                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
 
                     $dropdown = '<div class="dropdown no-arrow">'
                         . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
@@ -67,6 +70,22 @@ class AgentNotificationController extends Controller
             $notification->status = 'Suspend';
             $notification->save();
             return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification removed successfully.');
+        } catch (\Exception $e) {
+            return error_response('Failed to update status: ' . $e->getMessage(), 500);
+        }
+    }
+
+    public function changeStatus(Request $request, $id) {
+        try {
+            $notification = AgentNotification::findOrFail($id);
+            $allowed = ['Published', 'Suspend', 'Suspended', 'Removed'];
+            $status = $request->input('status');
+            if (!in_array($status, $allowed)) {
+                return response()->json(['success' => false, 'message' => 'Invalid status'], 422);
+            }
+            $notification->status = $status;
+            $notification->save();
+            return success_response(['id' => $notification->id, 'status' => $notification->status], 'Status updated successfully.');
         } catch (\Exception $e) {
             return error_response('Failed to update status: ' . $e->getMessage(), 500);
         }
