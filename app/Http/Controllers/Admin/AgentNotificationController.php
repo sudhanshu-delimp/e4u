@@ -4,137 +4,227 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\AgentNotification;
+use Carbon\Carbon;
+use Intervention\Image\Colors\Rgb\Channels\Red;
+use Yajra\DataTables\Facades\DataTables;
 
 class AgentNotificationController extends Controller
 {
-    public function index(Request $request){
-        // if ($request->ajax()) {
-        //     $query = CenterNotification::query();
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = AgentNotification::query();
 
-        //     return DataTables::of($query)
-        //         ->addIndexColumn()
-        //         ->addColumn('ref', function ($row) {
-        //             return sprintf('#%05d', $row->id);
-        //         })
-        //         ->editColumn('start_date', function ($row) {
-        //             return Carbon::parse($row['start_date'])->format('d-m-Y');
-        //         })
-        //         ->editColumn('finish_date', function ($row) {
-        //             return Carbon::parse($row['finish_date'])->format('d-m-Y');
-        //         })
-        //         ->editColumn('type', function ($row) {
-        //             return $row->type;
-        //         })
-        //         ->editColumn('status', function ($row) {
-        //             return $row->status;
-        //         })
-        //         ->addColumn('action', function ($row) {
-        //             $actions = [];
+            return DataTables::of($query)
+                ->addIndexColumn()
+                ->addColumn('ref', function ($row) {
+                    return sprintf('#%05d', $row->id);
+                })
+                ->editColumn('start_date', function ($row) {
+                    return $row->start_date ? Carbon::parse($row->start_date)->format('d-m-Y') : '';
+                })
+                ->editColumn('end_date', function ($row) {
+                    return $row->end_date ? Carbon::parse($row->end_date)->format('d-m-Y') : '';
+                })
+                ->editColumn('type', function ($row) {
+                    return $row->type;
+                })
+                ->editColumn('status', function ($row) {
+                    return $row->status ?? '';
+                })
+                ->addColumn('action', function ($row) {
+                    $actions = [];
+                    // Example: you can add your own business logic for action buttons
+                    if (($row->status ?? null) === 'Published') {
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspend</a>';
+                    }
+                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
 
-        //             // Dynamic actions based on status
-        //             if ($row->status === 'Published') {
-        //                 $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Removed</a>';
-        //             }
+                    $dropdown = '<div class="dropdown no-arrow">'
+                        . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+                        . '<i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>'
+                        . '</a>'
+                        . '<div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">'
+                        . implode('<div class="dropdown-divider"></div>', $actions)
+                        . '</div>'
+                        . '</div>';
 
-        //             $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
-        //             // $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-print" data-id="' . $row->id . '"><i class="fa fa-fw fa-print"></i> Print</a>';
-
-        //             $dropdown = '<div class="dropdown no-arrow">'
-        //                 . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-        //                 . '<i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>'
-        //                 . '</a>'
-        //                 . '<div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">'
-        //                 . implode('<div class="dropdown-divider"></div>', $actions)
-        //                 . '</div>'
-        //                 . '</div>';
-
-        //             return $dropdown;
-        //         })
-        //         ->rawColumns(['action','start_date','finish_date'])
-        //         ->make(true);
-        // }
-        return view('admin.notifications.agents.index');     
+                    return $dropdown;
+                })
+                ->rawColumns(['action', 'start_date', 'end_date'])
+                ->make(true);
+        }
+        return view('admin.notifications.agents.index');
     }
 
-    // public function updateStatus(Request $request, $id){
-    //     try {
-    //         $notification = CenterNotification::findOrFail($id);
-    //         if($notification->status !== 'Published'){
-    //             return error_response('Only Published notifications can be removed.', 422);
-    //         }
-    //         $notification->status = 'Removed';
-    //         $notification->save();
-    //         return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification removed successfully.');
-    //     } catch (\Exception $e) {
-    //         return error_response('Failed to update status: ' . $e->getMessage(), 500);
-    //     }
-    // }
+    public function updateStatus(Request $request, $id){
+        try {
+            $notification = AgentNotification::findOrFail($id);
+            if($notification->status !== 'Published'){
+                return error_response('Only Published notifications can be removed.', 422);
+            }
+            $notification->status = 'Suspend';
+            $notification->save();
+            return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification removed successfully.');
+        } catch (\Exception $e) {
+            return error_response('Failed to update status: ' . $e->getMessage(), 500);
+        }
+    }
 
-    // public function show($id){
-    //     try {
-    //         $n = CenterNotification::findOrFail($id);
-    //         return success_response([
-    //             'id' => $n->id,
-    //             'ref' => sprintf('#%05d', $n->id),
-    //             'heading' => $n->heading,
-    //             'start_date' => $n->start_date ? Carbon::parse($n->start_date)->format('d-m-Y') : null,
-    //             'finish_date' => $n->finish_date ? Carbon::parse($n->finish_date)->format('d-m-Y') : null,
-    //             'type' => $n->type,
-    //             'status' => $n->status,
-    //             'content' => $n->content,
-    //             'template_name' => $n->template_name,
-    //             'member_id' => $n->member_id,
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);
-    //     }
-    // }
+    public function show($id)
+    {
+        try {
+            $n = AgentNotification::findOrFail($id);
+            // Format recurring day/month range
+            $recurringRange = null;
+            if (in_array($n->recurring_type, ['weekly', 'monthly'])) {
+                $recurringRange = "{$n->start_day} - {$n->end_day}";
+            } elseif ($n->recurring_type === 'yearly') {
+                $recurringRange = "{$n->start_month}/{$n->start_day} - {$n->end_month}/{$n->end_day}";
+            } elseif ($n->recurring_type === 'forever') {
+                $recurringRange = "Forever";
+            }
 
-    // public function store(Request $request){
-    //     $data =  $request->only(['heading','start_date', 'finish_date', 'type', 'content', 'member_id', 'template_name']);
-    //     $start = Carbon::parse($data['start_date']);
-    //     $end =  Carbon::parse($data['finish_date']);
-    //     //Check condition 
-    //     $query = CenterNotification::where('status', '=', 'Published')->where(function($q) use ($start, $end){
-    //             $q->whereBetween('start_date', [$start, $end])
-    //             ->orWhereBetween('finish_date', [$start, $end])
-    //             ->orWhere(function($q2) use ($start, $end){
-    //                 $q2->where('start_date', '<=', $start)
-    //                     ->where('finish_date', '>=', $end);
-    //                 });
-    //     });
-    //     if($query->exists()){
-    //          return error_response('A Notification already exists in the selected date range!', 422);
-    //     }
-    //     try {
-    //         CenterNotification::create($data);
-    //          return success_response($data, 'Notification create successfully!!');
-    //     } catch (\Exception $e) {
-    //         return error_response('Failed to create notification: ' . $e->getMessage(), 500);
-    //     }
-       
-    // }
+            return success_response([
+                'id' => $n->id,
+                'ref' => sprintf('#%05d', $n->id),
+                'current_day' => $n->current_day ? \Carbon\Carbon::parse($n->current_day)->format('d-m-Y') : null,
+                'heading' => $n->heading,
+                'type' => $n->type,
+                'start_date' => $n->start_date ? \Carbon\Carbon::parse($n->start_date)->format('d-m-Y') : null,
+                'end_date' => $n->end_date ? \Carbon\Carbon::parse($n->end_date)->format('d-m-Y') : null,
+                'member_id' => $n->member_id,
+                'recurring_type' => $n->recurring_type,
+                'recurring_range' => $recurringRange,
+                'num_recurring' => $n->num_recurring,
+                'content' => $n->content,
+                'created_at' => $n->created_at ? $n->created_at->format('d-m-Y H:i:s') : null,
+                'updated_at' => $n->updated_at ? $n->updated_at->format('d-m-Y H:i:s') : null,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch notification: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
 
-    // public function pdfDownload($id)
-    // {
-    //     try {
-    //         $decodedId = (int) base64_decode($id);
-	// 		$data = CenterNotification::find($decodedId);
-    //         if (is_null($data)) {
-    //             abort(404); // Throws a NotFoundHttpException
-    //         }
-    //         $pdfDetail['ref'] = $data['id'];
-    //         $pdfDetail['heading'] = $data['heading'];
-    //         $pdfDetail['type'] = $data['type'];
-    //         $pdfDetail['status'] = $data['status'];
-    //         $pdfDetail['member_id'] = $data['member_id'];
-    //         $pdfDetail['start_date'] = Carbon::parse($data['start_date'])->format('d-m-Y');
-    //         $pdfDetail['finish_date'] = Carbon::parse($data['finish_date'])->format('d-m-Y');;
-    //         $pdfDetail['template_name'] = $data['template_name'];
-    //         return view('admin.notifications.centres.center-notification-pdf-download',compact( 'pdfDetail'));
+
+    public function store(Request $request)
+    {
+        // dd($request->all());
+        try {
+            $data = [
+                'current_day' => Carbon::createFromFormat('d-m-Y', $request->current_day)->toDateString(),
+                'heading' => $request->heading,
+                'type' => $request->type,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'content' => $request->content,
+            ];
+
+            if ($request->type === 'notice') {
+                $data['member_id'] = $request->member_id;
+            }
+
+            if ($request->type === 'scheduled') {
+                $data['recurring_type'] = $request->recurring_type;
+                $data['num_recurring'] = $request->recurring;
+
+                switch ($request->recurring_type) {
+                    case 'weekly':
+                        $data['start_day'] = $request->start_day_week;
+                        $data['end_day'] = $request->end_day_week;
+                        break;
+                    case 'monthly':
+                        $data['start_day'] = $request->start_day_monthly;
+                        $data['end_day'] = $request->end_day_monthly;
+                        break;
+                    case 'yearly':
+                        $data['start_month'] = $request->start_month_yearly;
+                        $data['start_day'] = $request->start_day_yearly;
+                        $data['end_month'] = $request->end_month_yearly;
+                        $data['end_day'] = $request->end_day_yearly;
+                        break;
+                    case 'forever':
+                        // No additional data needed for forever
+                        break;
+                }
+            }
+
+            $notification = AgentNotification::create($data);
+            return success_response($notification, 'Notification saved successfully');
+        } catch (\Exception $e) {
+            return error_response('Failed to create notification: ' . $e->getMessage(), 500);
+        }
+    }
+
+
+
+
+
+    public function pdfDownload($id)
+    {
+        try {
+            $decodedId = (int) base64_decode($id);
+    		$data = AgentNotification::find($decodedId);
+            
+
+             $recurringRange = null;
+            if (in_array($data->recurring_type, ['weekly', 'monthly'])) {
+                $recurringRange = "{$data->start_day} - {$data->end_day}";
+            } elseif ($data->recurring_type === 'yearly') {
+                $recurringRange = "{$data->start_month}/{$data->start_day} - {$data->end_month}/{$data->end_day}";
+            } elseif ($data->recurring_type === 'forever') {
+                $recurringRange = "Forever";
+            }
+            
+            if (is_null($data)) {
+                abort(404); // Throws a NotFoundHttpException
+            }
+            $pdfDetail['ref'] = $data['id'];
+            $pdfDetail['current_day'] = $data['current_day'] ? \Carbon\Carbon::parse($data['current_day'])->format('d-m-Y') : null;
+            $pdfDetail['heading'] = $data['heading'];
+            $pdfDetail['type'] = $data['type'];
+            $pdfDetail['status'] = $data['status'];
+            $pdfDetail['start_date'] = $data['start_date'] ? \Carbon\Carbon::parse($data['start_date'])->format('d-m-Y') : null;
+            $pdfDetail['end_date'] = $data['end_date'] ? \Carbon\Carbon::parse($data['end_date'])->format('d-m-Y') : null;;
+            $pdfDetail['member_id'] = $data['member_id'];
+            $pdfDetail['recurring_type'] = $data['recurring_type'];
+            $pdfDetail['recurring_range'] = $recurringRange;
+            $pdfDetail['num_recurring'] = $data['num_recurring'];
+            $pdfDetail['content'] = $data['content'];
            
-    //     } catch (\Throwable $e) {
-    //         abort(404);
-    //     }
-    // }
+            return view('admin.notifications.agents.agents-notification-pdf-download',compact( 'pdfDetail'));
+
+        } catch (\Throwable $e) {
+            abort(404);
+        }
+    }
+
+
+
+    /**
+     * Fetch active agent notifications for the dashboard.
+     */
+    public function showAgentNotifications()
+    {
+        // $agentId = Auth::id();
+        // $date = now()->toDateString();
+        // $items = AgentNotification::active($date, $agentId)->orderByDesc('created_at')->get();
+        // $data = $items->map(function($n) {
+        //     return [
+        //         'id' => $n->id,
+        //         'heading' => $n->heading,
+        //         'content' => $n->content,
+        //         'type' => $n->type,
+        //         'recurring_type' => $n->recurring_type,
+        //         'start_date' => $n->start_date,
+        //         'end_date' => $n->end_date,
+        //         'created_at' => $n->created_at->format('d-m-Y'),
+        //     ];
+        // });
+        // return response()->json(['notifications' => $data]);
+    }
 }

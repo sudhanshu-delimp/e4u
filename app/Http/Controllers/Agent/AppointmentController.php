@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
+use App\Models\AgentNotification;
 
 class AppointmentController extends Controller
 {
@@ -475,4 +476,6 @@ class AppointmentController extends Controller
                 ];
                 return $map[$status];
     }
+
+
 }

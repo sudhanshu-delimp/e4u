@@ -57,10 +57,8 @@
                                                 <table class="table" id="agentNotificationTable">
                                                     <thead class="table-bg">
                                                         <tr>
-                                                            <th scope="col">Ref
-                                                            </th>
+                                                            <th scope="col">Ref</th>
                                                             <th scope="col">Start</th>
-
                                                             <th scope="col">Finish</th>
                                                             <th scope="col">Type</th>
                                                             <th scope="col">Status</th>
@@ -68,40 +66,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="table-content">
-                                                        {{-- <tr class="row-color">
-                                                            <td class="theme-color">Maintenance</td>
-                                                            <td class="theme-color">08-06-2025</td>
-                                                            <td class="theme-color">09-06-2025</td>
-                                                            <td class="theme-color">Adhoc</td>
-                                                            <td class="theme-color">Published</td>
 
-                                                            <td class="theme-color text-center">
-                                                                <div class="dropdown no-arrow">
-                                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                                        id="dropdownMenuLink" data-toggle="dropdown"
-                                                                        aria-haspopup="true" aria-expanded="false">
-                                                                        <i
-                                                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                                    </a>
-                                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                                        aria-labelledby="dropdownMenuLink" style="">
-                                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                            href="#"> <i
-                                                                                class="fa fa-fw fa-times"></i> Removed </a>
-                                                                        <div class="dropdown-divider"></div>
-
-                                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                            href="#"> <i class="fa fa-eye"></i> View
-                                                                        </a>
-                                                                        <div class="dropdown-divider"></div>
-                                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                            href="#"> <i
-                                                                                class="fa fa-fw fa-print"></i> Print </a>
-
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr> --}}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -326,41 +291,77 @@
         </div>
     </div>
 
-    <!-- open success popup -->
-<div class="modal fade upload-modal" id="successModal" tabindex="-1" role="dialog"
-    aria-labelledby="successModallabel" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    <img id="image_icon" class="custompopicon" src="#"> <span id="success_task_title"></span>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                            class="img-fluid img_resize_in_smscreen"></span>
-                </button>
-            </div>
-            <div class="modal-body pb-0 agent-tour">
-                <div class="py-4 text-center" id="success_form_html">
-                    <h4 id="success_msg"></h4>
-                    <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal"
-                        aria-label="Close">OK</button>
+    <div class="modal fade upload-modal " id="view-listing" tabindex="-1" role="dialog"
+        aria-labelledby="view-listingLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="view-listings"><img
+                            src="{{ asset('assets/dashboard/img/create-notification.png') }}" alt="alert"
+                            style="width:29px;">
+                        View Notification
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
                 </div>
+                <div class="modal-body pb-0">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div id="listingModalContent">
+                                <table
+                                    style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
 
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer pb-4 mb-2">
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+                    <button type="submit" id="pdf-download" data-notification-id="">Print</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- End of Page Wrapper -->
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
+
+    <!-- open success popup -->
+    <div class="modal fade upload-modal" id="successModal" tabindex="-1" role="dialog"
+        aria-labelledby="successModallabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <img id="image_icon" class="custompopicon" src="#"> <span id="success_task_title"></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0 agent-tour">
+                    <div class="py-4 text-center" id="success_form_html">
+                        <h4 id="success_msg"></h4>
+                        <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal"
+                            aria-label="Close">OK</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
     <div id="manage-route" data-scrf-token="{{ csrf_token() }}"
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
-        data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
-        data-pdf-download="{{ route('admin.centres.pdf.download', ['id' => '__ID__']) }}">
+        data-error-image="{{ asset('assets/dashboard/img/alert.png') }}" 
+        data-pdf-download="{{ route('admin.agent.pdf.download', ['id' => '__ID__']) }}">
 
         <!-- End of Page Wrapper -->
         <!-- Scroll to Top Button-->
@@ -376,30 +377,6 @@
 
     @push('script')
         <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-        </script>
-
-        <script>
-            var table = $("#agentNotificationTable").DataTable({
-                language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Ref..."
-                },
-                info: true,
-                paging: true,
-                lengthChange: true,
-                searching: true,
-                bStateSave: true,
-                order: [
-                    [1, 'desc']
-                ],
-                lengthMenu: [
-                    [10, 25, 50, 100],
-                    [10, 25, 50, 100]
-                ],
-                pageLength: 10
-            });
-
-            //
         </script>
 
         <!-- hide show field js -->
@@ -443,10 +420,10 @@
                         $('.schedule-options').hide();
                         $('#startDateField').hide();
                         $('#endDateField').hide();
-                         $("#member_id").val('');
-                         $("#start_date").val('');
-                         $("#end_date").val('');
-                         $("#end_date").val('');
+                        $("#member_id").val('');
+                        $("#start_date").val('');
+                        $("#end_date").val('');
+                        $("#end_date").val('');
                     }
                 }
 
@@ -458,26 +435,31 @@
                         $('#weekOptions').show();
                         populateTypeWeekDate("#weekWiseStartDate");
                         populateTypeWeekDate("#weekWiseEndDate");
-                       $("#monthWiseStartDate, #monthWiseEndDate, #startFirstMonth, #startFirstDate, #endSecondMonth, #endSecondDay").empty('');
-                       $("#member_id").val('');
+                        $("#monthWiseStartDate, #monthWiseEndDate, #startFirstMonth, #startFirstDate, #endSecondMonth, #endSecondDay")
+                            .empty('');
+                        $("#member_id").val('');
 
                     } else if (scheduleType === 'monthly') {
                         $('#monthlyOptions').show();
                         populateTypeMonthDate("#monthWiseStartDate", totalDays);
                         populateTypeMonthDate("#monthWiseEndDate", totalDays);
-                         $("#weekWiseStartDate", "#weekWiseEndDate", "#startFirstMonth", "#startFirstDate", "#endSecondMonth", "#endSecondDay").empty('');
-                         $("#member_id").val('');
+                        $("#weekWiseStartDate", "#weekWiseEndDate", "#startFirstMonth", "#startFirstDate",
+                            "#endSecondMonth", "#endSecondDay").empty('');
+                        $("#member_id").val('');
                     } else if (scheduleType === 'yearly') {
                         $('#startyearlyOptions').show();
                         $('#endyearlyOptions').show();
                         populateMonths('#startFirstMonth');
                         populateMonths('#endSecondMonth');
-                        $("#weekWiseStartDate", "#weekWiseEndDate", "#monthWiseStartDate", "#monthWiseEndDate").empty('');
+                        $("#weekWiseStartDate", "#weekWiseEndDate", "#monthWiseStartDate", "#monthWiseEndDate")
+                            .empty('');
                         $("#member_id").val('');
                     } else if (scheduleType === 'forever') {
-                         $("#weekWiseStartDate", "#weekWiseEndDate","#monthWiseStartDate, #monthWiseEndDate, #startFirstMonth, #startFirstDate, #endSecondMonth, #endSecondDay").empty('');
-                         $("#recurring").hide();
-                         $("#recurring").val('');
+                        $("#weekWiseStartDate", "#weekWiseEndDate",
+                            "#monthWiseStartDate, #monthWiseEndDate, #startFirstMonth, #startFirstDate, #endSecondMonth, #endSecondDay"
+                        ).empty('');
+                        $("#recurring").hide();
+                        $("#recurring").val('');
                         // No additional fields shown
                     }
                 });
@@ -563,9 +545,6 @@
                     }
                 }
 
-                //append Months
-                //populateMonths('#startFirstMonth');
-                //populateMonths('#endSecondMonth');
 
                 //When start_month change
                 $("#startFirstMonth").on("change", function() {
@@ -669,8 +648,8 @@
                     }
                 }
 
-               // populateTypeWeekDate("#weekWiseStartDate");
-               // populateTypeWeekDate("#weekWiseEndDate");
+                // populateTypeWeekDate("#weekWiseStartDate");
+                // populateTypeWeekDate("#weekWiseEndDate");
 
                 $("#weekWiseStartDate, #weekWiseEndDate").on('change', function() {
 
@@ -693,6 +672,7 @@
 
             });
         </script>
+
 
 
         <script>
@@ -724,7 +704,7 @@
                     }
 
                     let formData = form.serialize();
-                    
+
                     $.ajax({
                         url: form.attr('action'),
                         type: "POST",
@@ -733,13 +713,13 @@
                         success: function(response) {
                             console.log(response);
                             if (response.status === true) {
-                                 $('#createNotification').modal('hide');
-                                 let msg = response.message ? response.message : 'Saved successfully';
-                                 $("#image_icon").attr("src", endpoint.success_image);
-                                 $('#success_task_title').text('Success');
-                                 $('#success_msg').text(msg);
-                                 form[0].reset();
-                                 $('#successModal').modal('show');
+                                $('#createNotification').modal('hide');
+                                let msg = response.message ? response.message : 'Saved successfully';
+                                $("#image_icon").attr("src", endpoint.success_image);
+                                $('#success_task_title').text('Success');
+                                $('#success_msg').text(msg);
+                                form[0].reset();
+                                $('#successModal').modal('show');
                                 setTimeout(function() {
                                     $('#successModal').modal('hide');
                                     table.ajax.reload(null, false);
@@ -779,6 +759,177 @@
                 var form = $(this);
                 console.log(form);
                 ensureParsleyAndSubmit(form);
+            });
+
+            var table = $("#agentNotificationTable").DataTable({
+                language: {
+                    search: "Search: _INPUT_",
+                    searchPlaceholder: "Search by Ref..."
+                },
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin.agent.notifications.index') }}",
+                    type: 'GET'
+                },
+                columns: [{
+                        data: 'ref',
+                        name: 'ref'
+                    },
+                    {
+                        data: 'start_date',
+                        name: 'start_date'
+                    },
+                    {
+                        data: 'end_date',
+                        name: 'end_date'
+                    },
+                    {
+                        data: 'type',
+                        name: 'type'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center'
+                    },
+                ],
+                order: [
+                    [1, 'desc']
+                ],
+                lengthMenu: [
+                    [10, 25, 50, 100],
+                    [10, 25, 50, 100]
+                ],
+                pageLength: 10
+            });
+
+            // Event delegation for dynamic action buttons
+            $(document).on('click', '.js-view', function(e) {
+                e.preventDefault();
+                const id = $(this).data('id');
+                const container = $('#listingModalContent');
+                container.html('<div class="text-center py-3">Loading...</div>');
+                $.ajax({
+                    url: "{{ route('admin.agent.notifications.show', ['id' => '__ID__']) }}".replace('__ID__',
+                        id),
+                    type: 'GET',
+                    success: function(response) {
+
+                        if (response.success === true || response.status === true) {
+                            const d = response.data || response;
+                            const rows = [
+                                ['Ref', d.ref || ''],
+                                ['Heading', d.heading || ''],
+                                ['Type', d.type || ''],
+                                ['Recurring Type', d.recurring_type || ''],
+                                ['Recurring Range', d.recurring_range || ''],
+                                ['Number of Recurring', d.num_recurring || ''],
+                                ['Status', d.status || 'N/A'],
+                                ['Member ID', d.member_id || ''],
+                                ['Start Date', d.start_date || ''],
+                                ['Finish Date', d.finish_date || ''],
+                                ['Content', (d.content || '')]
+                            ];
+
+
+                            let html =`<table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;"><tbody>`;
+                            rows.forEach(function(r) {
+                                html += `
+                                        <tr>
+                                            <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>${r[0]}</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">${r[1]}</td>
+                                        </tr>
+                                    `;
+                            });
+                            html += '</tbody></table>';
+                           
+                            container.html(html);
+                             $('#pdf-download').attr('data-notification-id', id);
+                            $('#view-listing').modal('show');
+                        } else {
+                            container.html('<div class="text-danger">Failed to load details.</div>');
+                        }
+                    },
+                    error: function() {
+                        container.html('<div class="text-danger">Failed to load details.</div>');
+                    }
+                });
+            });
+
+
+            $(document).on('click', '.js-print', function(e) {
+                e.preventDefault();
+                const id = $(this).data('id');
+                // Implement print logic
+            });
+
+            $(document).on('click', '.js-remove', function(e) {
+                e.preventDefault();
+                const id = $(this).data('id');
+                const modal = $('#successModal');
+                const body = $('#success_form_html');
+                const img = $('#image_icon');
+                $('#success_task_title').text('Confirmation');
+                img.attr('src', endpoint.error_image);
+                body.html(`<h4>Are you sure you want to remove this notification?</h4>
+                            <div class="d-flex justify-content-center gap-10 mt-3">
+                                <button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes, Remove</button>
+                                <button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button>
+                            </div>`);
+                modal.modal('show');
+
+                body.off('click', '#confirmRemove').on('click', '#confirmRemove', function() {
+                    // Disable button to prevent duplicate
+                    $(this).prop('disabled', true);
+                    $.ajax({
+                        url: "{{ route('admin.agent.notifications.suspend', ['id' => '__ID__']) }}".replace('__ID__', id),
+                        type: 'POST',
+                        data: {
+                            _token: endpoint.csrf_token
+                        },
+                        success: function(response) {
+                            $('#success_task_title').text('Success');
+                            img.attr('src', endpoint.success_image);
+                            body.html(`
+                                <h4>${response.message || 'Status updated successfully'}</h4>
+                                <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>
+                            `);
+                            setTimeout(function() {
+                                modal.modal('hide');
+                                table.ajax.reload(null, false);
+                            }, 1000);
+                        },
+                        error: function(xhr) {
+                            let msg = 'Something went wrong';
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                msg = xhr.responseJSON.message;
+                            }
+                            $('#success_task_title').text('Error');
+                            img.attr('src', endpoint.error_image);
+                            body.html(`
+                                <h4>${msg}</h4>
+                                <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>
+                            `);
+                        }
+                    });
+                });
+            });
+
+            // Redirect new page and generate pdf
+            $('#pdf-download').on('click', function() {
+                var notificationId = $(this).attr('data-notification-id');
+                console.log('PDF Download for Notification ID:', notificationId);
+                var encodedId = btoa(String(notificationId));
+                var url = urlFor(endpoint.pdf_download, encodedId);
+                window.open(url, '_blank');
+
             });
         </script>
     @endpush
