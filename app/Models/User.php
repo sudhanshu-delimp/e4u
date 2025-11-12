@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Exception;
 use App\Models\AgentDetail;
 use App\Models\AgentSetting;
@@ -77,7 +78,7 @@ class User extends Authenticatable
 
     public function getTypeAttribute($value)
     {
-       return (int) $value;
+        return (int) $value;
     }
 
     public function getOnlineAttribute()
@@ -129,6 +130,9 @@ class User extends Authenticatable
             case 'agents':
                 $type = 5;
                 break;
+            case 'staff':
+                $type = 6;
+                break;
 
             default:
                 $type = 0;
@@ -166,6 +170,9 @@ class User extends Authenticatable
             case (5):
                 return "Agents";
                 break;
+            case (6):
+                return "Staff";
+                break;
         }
     }
     public function getUserTypeAttribute()
@@ -196,6 +203,9 @@ class User extends Authenticatable
             case (5):
                 return "A";
                 break;
+            case (6):
+                return "ST";
+                break;
         }
     }
     public function getLevelTypeAttribute()
@@ -225,6 +235,9 @@ class User extends Authenticatable
             case (5):
                 return 3;
                 break;
+            case (6):
+                return 6;
+                break;
             case (0):
                 return 4;
                 break;
@@ -246,19 +259,19 @@ class User extends Authenticatable
     {
         $this->loadMissing('listedEscorts.playmates');
         return $this->escorts
-                    ->flatMap(fn ($escort) => $escort->playmates)
-                    ->unique('id') 
-                    ->sortBy('name')
-                    ->values();
+            ->flatMap(fn($escort) => $escort->playmates)
+            ->unique('id')
+            ->sortBy('name')
+            ->values();
     }
     public function getAddedByAttribute()
     {
         $this->loadMissing('listedEscorts.addedBy');
         return $this->escorts
-                    ->flatMap(fn ($escort) => $escort->addedBy)
-                    ->unique('id') 
-                    ->sortBy('name')
-                    ->values();
+            ->flatMap(fn($escort) => $escort->addedBy)
+            ->unique('id')
+            ->sortBy('name')
+            ->values();
     }
     public function scopeInRole($q, $role)
     {
@@ -382,6 +395,28 @@ class User extends Authenticatable
         if ($this->type == 10) {
             return 'DL' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id) . ':001';
         }
+        if ($this->type == 6) {
+            $memberId = 'ST' . $this->city_id . sprintf("%04d", $this->id);
+            $staff = User::select(['id', 'name', 'member_id'])
+                ->where('type', '6')
+                ->where('member_id', '!=', '')
+                ->orderByDesc('id')
+                ->first();
+            if ($staff && !empty($staff->member_id)) {
+                $code = trim($staff->member_id);
+                $prefix = 'ST';
+                preg_match('/\d+$/', $code, $numberMatch);
+                $number = isset($numberMatch[0]) ? (int)$numberMatch[0] : 0;
+                $length = strlen($numberMatch[0] ?? '00002');
+                // Increment and pad
+                $newCode = $prefix . str_pad($number + 1, $length, '0', STR_PAD_LEFT);
+                $memberId = $newCode;
+            } else {
+                $memberId = 'ST60002';
+            }
+
+            return $memberId;
+        }
 
         return null;
     }
@@ -402,8 +437,10 @@ class User extends Authenticatable
         static::created(function ($user) {
             // Only set member_id if it's not already set
             if (empty($user->member_id)) {
-                $user->member_id = $user->generateMemberId();
-                $user->save();
+                if ($user->generateMemberId()) {
+                    $user->member_id = $user->generateMemberId();
+                    $user->save();
+                }
             }
         });
     }
@@ -416,8 +453,8 @@ class User extends Authenticatable
     public function listedEscorts()
     {
         return $this->hasMany('App\Models\Escort', 'user_id')
-        ->whereNotNull('name')
-        ->where('enabled',1);
+            ->whereNotNull('name')
+            ->where('enabled', 1);
     }
 
     public function interest()
@@ -536,7 +573,7 @@ class User extends Authenticatable
         return !empty($this->attributes['avatar_img']);
     }
 
-  
+
 
     /**
      * Get avatar URL (uploaded or default)
@@ -546,7 +583,7 @@ class User extends Authenticatable
         if ($this->hasUploadedAvatar()) {
             return asset('avatars/' . $this->avatar_img);
         }
-       
+
         // Return default image based on user type
         switch ($this->type) {
             case 3: //for escort
@@ -554,6 +591,8 @@ class User extends Authenticatable
             case 4: // fro massage center
                 return config('constants.massage_default_icon');
             case 5: //for agent
+                return config('constants.agent_default_icon');
+            case 6: //for Staff
                 return config('constants.agent_default_icon');
             case 0: // For Viewers
                 return config('constants.viewer_default_icon');
@@ -570,33 +609,37 @@ class User extends Authenticatable
 
     public function loginAttempts()
     {
-        return $this->hasOne(LoginAttempt::class,  'user_id', 'id')->where('online','yes')->orderBy('id','desc');
+        return $this->hasOne(LoginAttempt::class,  'user_id', 'id')->where('online', 'yes')->orderBy('id', 'desc');
     }
 
-    public function LoginStatus(){
+    public function LoginStatus()
+    {
         return $this->hasOne(LoginAttempt::class,  'user_id', 'id');
     }
 
     public function account_setting()
     {
-      return $this->belongsTo(AccountSetting::class, 'id','user_id');
+        return $this->belongsTo(AccountSetting::class, 'id', 'user_id');
     }
 
     public function viewer_settings()
     {
-      return $this->belongsTo(ViewerSetting::class, 'id','user_id');
+        return $this->belongsTo(ViewerSetting::class, 'id', 'user_id');
     }
 
 
     public function agent_settings()
     {
-       return $this->hasOne(AgentSetting::class, 'user_id', 'id');
+        return $this->belongsTo(AgentSetting::class, 'id', 'user_id');
     }
 
+    public function staff_detail()
+    {
+        return $this->belongsTo(StaffDetail::class,  'id', 'user_id');
+    }
 
-
-
-     public function generateOTP(){
+    public function generateOTP()
+    {
         $otp = '123456';
         //$otp = mt_rand(1000,9999);
         return $otp;
@@ -605,41 +648,31 @@ class User extends Authenticatable
 
     public function update_last_login($user)
     {
-            try 
-            {
-                $accountSetting = new AccountSetting;
-                $accountSetting = AccountSetting::where('user_id', $user->id)->first();
-                if(!$accountSetting)
-                {
-                     AccountSetting::create([
-                        'user_id'  => $user->id,
-                        'password_updated_date' => date('Y-m-d H:i:s'),
-                        'password_expiry_days'   => '30',
-                        'is_text_notificaion_on' => '0',
-                        'is_email_notificaion_on' => '0',
-                        'is_first_login' => '0',
-                        'last_login' =>  date('Y-m-d H:i:s')
-                    ]);
-                } 
-                else
-                {
-                    $accountSetting->last_login = date('Y-m-d H:i:s');
-                    $accountSetting->save();
-                }  
-                return true;
-            } 
-            catch (Exception $e){
-            return false;
+        try {
+            $accountSetting = new AccountSetting;
+            $accountSetting = AccountSetting::where('user_id', $user->id)->first();
+            if (!$accountSetting) {
+                AccountSetting::create([
+                    'user_id'  => $user->id,
+                    'password_updated_date' => date('Y-m-d H:i:s'),
+                    'password_expiry_days'   => '30',
+                    'is_text_notificaion_on' => '0',
+                    'is_email_notificaion_on' => '0',
+                    'is_first_login' => '0',
+                    'last_login' =>  date('Y-m-d H:i:s')
+                ]);
+            } else {
+                $accountSetting->last_login = date('Y-m-d H:i:s');
+                $accountSetting->save();
             }
-
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
-        public function referrals()
-        {
-            return $this->hasMany(User::class, 'assigned_agent_id');
-        }
-
-    
-
-    
+    public function referrals()
+    {
+        return $this->hasMany(User::class, 'assigned_agent_id');
+    }
 }

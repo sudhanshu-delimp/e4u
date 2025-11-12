@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                         if (availableLocations.length === 0) {
                             Swal.fire({
                                 title: 'Tour',
-                                text: `No more locations are available.`,
+                                text: `No more locations available.`,
                                 icon: 'warning'
                             });
                             return;
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             if (availableProfiles.length === 0) {
                 Swal.fire({
                     title: 'Tour',
-                    text: `No more Profiles available for this location.`,
+                    text: `No more profiles available for this location.`,
                     icon: 'warning'
                 });
                 return;
@@ -267,13 +267,14 @@ document.addEventListener("DOMContentLoaded", async function() {
 }
 
 function updateProfileButtonState(locationGroup) {
-    let startDateField = $(locationGroup).find(".start-date");
-    let endDateField = $(locationGroup).find(".end-date");
+    let startDate = $(locationGroup).find(".start-date");
+    let endDate = $(locationGroup).find(".end-date");
     let addProfileButton = locationGroup.querySelector(".addProfile");
-    if(startDateField.val()){
-        endDateField.datepicker('option', 'minDate', endDateField.val());
+    if(startDate.val()){
+        startDate.datepicker('option', 'minDate', startDate.val());
+        endDate.datepicker('option', 'minDate', startDate.val());
     }
-    addProfileButton.disabled = !(startDateField.val() && endDateField.val());
+    addProfileButton.disabled = !(startDate.val() && endDate.val());
 }
 
     saveButton.addEventListener("click", function (event) {
@@ -406,47 +407,9 @@ function updateProfileButtonState(locationGroup) {
     }
 
     $(document).on('change', 'input[name="start_date[]"]', function() {
-        let row = $(this).closest('.listing-row');
+        let $row = $(this).closest('.listing-row');
         let startDate = $(this).val();
-        let endDateField = row.find('input[name="end_date[]"]');
-        let endDate = endDateField.val();
-        endDateField.datepicker('option', 'minDate', startDate);
-        if(startDate && endDate){
-            validateSelectedDateRange(row, {startDate,endDate});
-        }
+        let endDate = $row.find('input[name="end_date[]"]');
+        endDate.datepicker('option', 'minDate', startDate);
     });
-
-    $(document).on('change', 'input[name="end_date[]"]', function() {
-        let row = $(this).closest('.listing-row');
-        let endDate = $(this).val();
-        let startDateField = row.find('input[name="start_date[]"]');
-        let startDate = startDateField.val();
-        if(startDate && endDate){
-            validateSelectedDateRange(row, {startDate,endDate});
-        }
-    });
-   
-    var validateSelectedDateRange = function(object, requestPayload){
-        console.log('requestPayload',requestPayload);
-        $.ajax({
-            url: `${window.App.baseUrl}escort-dashboard/tour/validate-date-range`,
-            method: 'POST',
-            data: requestPayload,
-            success: function (response) {
-                if(response.success){
-                    object.find('input[name="start_date[]"]').val('');
-                    object.find('input[name="end_date[]"]').val('');
-                    object.find('.addProfile').attr('disabled','disabled');
-                    Swal.fire({
-                        title: 'Tour',
-                        html: `${response.message}`,
-                        icon: 'warning'
-                    });
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error('Error in location filter:', error);
-            }
-        });
-    }
 });

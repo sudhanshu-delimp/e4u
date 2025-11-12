@@ -163,6 +163,11 @@
                                     Membership ID: {{auth()->user()->member_id }}
                                 </a>
 
+
+                               
+
+                                
+
                                 @if(!auth()->user()->my_agent)
                                 
                                 <a class="dropdown-item" href="{{url('/center-dashboard/agent-request') }}">
@@ -178,6 +183,12 @@
                                         @endif
                                         
                                 </a>
+
+
+                                 <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2  saptate_by_border"></i>
+                                    Business Name : {{auth()->user()->name }}
+                                </a>
                                
 
                                 <div class="dropdown-divider"></div>
@@ -185,19 +196,40 @@
                                     <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/account1-edit.png')}}">
                                     Edit my account
                                 </a>
+
+                                <a class="dropdown-item" href="{{ route('center.change.password')}}">
+                                    <i class="fas fa-key fa-sm fa-fw mr-2 saptate_by_border"></i>
+                                    
+                                    Change password
+                                </a>
+
+                                <a class="dropdown-item" href="{{ route('center.profile')}}">
+                                    <i class="fas fa-user-plus fa-sm fa-fw mr-2  saptate_by_border"></i>
+                                    New Profile
+                                </a>
+
+                                 <a class="dropdown-item" href="{{ route('center.new-listing')}}">
+                                     <i class="fas fa-user-plus fa-sm fa-fw mr-2  saptate_by_border"></i>
+                                    New Masseur 
+                                </a>
+
+                                  <a class="dropdown-item" href="{{ route('support-ticket.form_create')}}">
+                                     <i class="fas fa-ticket-alt fa-sm fa-fw mr-2  saptate_by_border"></i>
+                                    Support Ticket
+                                </a>
+
+
+                               
                                
                                 {{-- <a class="dropdown-item" href="#">
                                     <img src="{{asset('assets/dashboard/img/menu-icon/bell-badge.png')}}">
                                     Notification & Features
                                 </a> --}}
-                                <a class="dropdown-item" href="{{ route('center.profile.information')}}">
+                                <!-- <a class="dropdown-item" href="{{ route('center.profile.information')}}">
                                 <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/cellphone-information.png')}}">
                                     Profile Information
-                                </a> 
-                                <a class="dropdown-item" href="{{ route('center.change.password')}}">
-                                    <img class="mr-2 ml-1 pr-1" src="{{asset('assets/dashboard/img/menu-icon/changePassword.png')}}">
-                                    Change password
-                                </a>
+                                </a>  -->
+                                
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <img src="{{asset('assets/dashboard/img/menu-icon/logout.png')}}">

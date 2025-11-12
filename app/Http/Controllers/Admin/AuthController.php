@@ -56,10 +56,10 @@ class AuthController extends Controller
         $otp = mt_rand(1000,9999);
         return $otp;
     }
+    
     public function login(Request $request)
     {
-        // dd($request->all());
-        $this->validateLogin($request);
+        
         if(! is_null($request->phone)) {
             $user = User::where('phone','=',$request->phone)->first();
             if($user == null) {
@@ -69,10 +69,14 @@ class AuthController extends Controller
         }
         if(! is_null($request->email)) {
             $user = User::where('email','=',$request->email)->first();
-            if($user == null) {
-                return $this->sendFailedLoginResponse($request);
-            }
+           if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid email or password.',
+            ], 401);
         }
+        }
+
         if($user->type == 1 || $user->type == 2) {
             $hasher = app('hash');
             $error = 0;
@@ -127,6 +131,7 @@ class AuthController extends Controller
 
 
     }
+    
     protected function checkOTP(Request $request)
     {
         //dd($request->all());
@@ -215,4 +220,12 @@ class AuthController extends Controller
             : redirect()->route('home');
 
     }
+
+    protected function validateLogin(Request $request)
+     {
+        return $request->validate([
+             'email' => 'required|string',
+             'password' => 'required|string',
+         ]);
+     }
 }

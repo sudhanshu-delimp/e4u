@@ -8,6 +8,63 @@
     --color-white: #ffffff;
 }
 
+.my_opr_table th,
+td {
+    text-align: center;
+}
+
+.opr_modal_table td {
+    text-align: left;
+    border: 0px;
+    padding-left: 0px;
+}
+
+.opr_accordian_table td {
+    border: 0px;
+}
+
+.opr_accordian_table .detail-row {
+    display: none;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+.opr_accordian_table .detail-row.show {
+    display: table-row;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.opr_accordian_table .opr_expand_arrow i {
+    transition: transform 0.3s ease;
+}
+
+.opr_accordian_table .opr_expand_arrow i.rotated {
+    transform: rotate(180deg);
+}
+
+.opr_accordian_table .accordion-toggle:hover {
+    background-color: #f9f9f9;
+}
+
+.opr_accordian_table .opr_expand_arrow {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.opr_accordian_table .accordion-toggle {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.accordion-toggle[aria-expanded="true"] .opr_expand_arrow i {
+    transform: rotate(180deg);
+}
+
 .sidebar-bg {
     background-color: var(--color-teal-dark);
     background-size: cover;

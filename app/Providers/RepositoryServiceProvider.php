@@ -133,6 +133,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Pricing\PricingInterface',
             'App\Repositories\Pricing\PricingRepository'
         );
+        $this->app->bind(
+            'App\Repositories\Staff\StaffInterface',
+            'App\Repositories\Staff\StaffRepository'
+        );
     }
 
     /**
