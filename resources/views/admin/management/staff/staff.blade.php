@@ -193,8 +193,8 @@
                             <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="location" id="location">
                                     <option value="">Select Location</option>
-                                    @foreach (config('escorts.profile.states') as $skey => $stateLoc)
-                                        <option value="{{ $skey }}">{{ $stateLoc['stateName'] }}</option>
+                                   @foreach (config('escorts.profile.cities') as $skey => $city)
+                                        <option value="{{ $skey }}">{{ $city}}</option>
                                     @endforeach
                                     <span class="text-danger error-location"></span>
                                 </select>
@@ -538,12 +538,14 @@
                   table.ajax.reload(null, false); 
                   Swal.close();
                   $('#staffViewModal').modal('hide');
+                  $('#staffEditModal').modal('hide');
                   swal_success_popup(response.message);
                },
                error: function(xhr) {
                   
                   Swal.close();
                   $('#staffViewModal').modal('hide');
+                  $('#staffEditModal').modal('hide');
                   swal_error_popup(xhr.responseJSON.message);
                }
             });
