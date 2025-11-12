@@ -336,6 +336,7 @@ function updateProfileButtonState(locationGroup) {
             let locationId = locationGroup.querySelector(".location-dropdown").value;
             let startDate = locationGroup.querySelector(".start-date").value;
             let endDate = locationGroup.querySelector(".end-date").value;
+            let tour_location_id = locationGroup.querySelector('input[name="tour_location_id"]')?locationGroup.querySelector('input[name="tour_location_id"]').value:null;
 
             if (!locationId || !startDate || !endDate) {
                 Swal.fire({
@@ -350,7 +351,7 @@ function updateProfileButtonState(locationGroup) {
             locationGroup.querySelectorAll(".profile").forEach(profileDiv => {
                 let profileId = profileDiv.querySelector(".profile-dropdown").value;
                 let tourPlan = profileDiv.querySelector(".tour-plan-dropdown").value;
-
+                let tour_profile_id = profileDiv.querySelector('input[name="tour_profile_id"]')?profileDiv.querySelector('input[name="tour_profile_id"]').value:null;
                 if (!profileId || !tourPlan) {
                     Swal.fire({
                         title: 'Tour',
@@ -361,6 +362,7 @@ function updateProfileButtonState(locationGroup) {
                 }
 
                 profiles.push({
+                    id:tour_profile_id,
                     profile_id: profileId,
                     tour_plan: tourPlan
                 });
@@ -376,6 +378,7 @@ function updateProfileButtonState(locationGroup) {
             }
 
             locations.push({
+                id:tour_location_id,
                 location_id: locationId,
                 start_date: startDate,
                 end_date: endDate,
@@ -392,6 +395,11 @@ function updateProfileButtonState(locationGroup) {
             return null;
         }
 
+        console.log({
+            tour_name: tourName,
+            locations: locations
+        });
+        //return false;
         return {
             tour_name: tourName,
             locations: locations

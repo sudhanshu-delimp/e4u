@@ -5,7 +5,14 @@
                 <span ><img width="18" height="18" src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"></span>            
                 <span class="vrf-tooltip">Media Unverified</span>
             </div>
-            <span class="card_tit">{{ substr($escort->name,0,15)}}</span>
+            <span class="card_tit">
+                @if($escort->gender=='Transgender')
+                {{ 'TS - '.substr($escort->name,0,15)}}
+                @else
+                {{ substr($escort->name,0,15)}}
+                @endif
+  
+            </span>
             @if(auth()->user())
                 @if(auth()->user()->type == 0)
                     <span class="add_to_favrate @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif custom--favourite" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}} ">

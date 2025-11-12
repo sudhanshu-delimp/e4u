@@ -151,6 +151,33 @@
         </li>
         {{-- end --}}
 
+        {{----------------------------- Agents tab ------------------------------}}        
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Agents-Tab"
+            aria-expanded="true" aria-controls="Agents-Tab">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
+                <span>Agents</span>
+            </a>
+
+            <div id="Agents-Tab"
+                class="collapse @if( request()->segment(2) == 'agents-monthly-report') show @endif"
+                aria-labelledby="headingProfile" data-parent="#accordionSidebar">
+
+                <div class="py-0 collapse-inner rounded mb-2">
+                    <a class="collapse-item" href="{{ route('operator.agents-monthly-report') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/registration.png') }}">
+                         <span style="{{ request()->segment(2) == 'agents-monthly-report' ? 'color: #f5841f;' : '' }}">Monthly Report</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        {{-- end --}}
+
+
+        
+
+        {{----------------------------- E4u ------------------------------}}  
+
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                 aria-expanded="true" aria-controls="collapseTwo">
@@ -169,28 +196,6 @@
                             Monthly Report</span>
                     </a>
                     
-                </div>
-            </div>
-        </li>
-        {{-- end --}}
-
-        {{----------------------------- Agents tab ------------------------------}}        
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Agents-Tab"
-            aria-expanded="true" aria-controls="Agents-Tab">
-                <img src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
-                <span>Agents</span>
-            </a>
-
-            <div id="Agents-Tab"
-                class="collapse @if( request()->segment(2) == 'agents-monthly-report') show @endif"
-                aria-labelledby="headingProfile" data-parent="#accordionSidebar">
-
-                <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="collapse-item" href="{{ route('operator.agents-monthly-report') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/registration.png') }}">
-                         <span style="{{ request()->segment(2) == 'agents-monthly-report' ? 'color: #f5841f;' : '' }}">Monthly Report</span>
-                    </a>
                 </div>
             </div>
         </li>

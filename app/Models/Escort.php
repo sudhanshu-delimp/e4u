@@ -32,6 +32,19 @@ class Escort extends Model
         $this->attributes['end_date'] = empty($value)?null:Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
 
+    public function getStartDateFormattedAttribute()
+    {
+        return $this->start_date
+            ? Carbon::parse($this->start_date)->format('d-m-Y')
+            : null;
+    }
+    public function getEndDateFormattedAttribute()
+    {
+        return $this->end_date
+            ? Carbon::parse($this->end_date)->format('d-m-Y')
+            : null;
+    }
+
     public function getGenderTypeAttribute($value)
     {
          switch($this->gender)

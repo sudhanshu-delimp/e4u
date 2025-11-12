@@ -752,6 +752,7 @@ $(document).ready(function(){
       $(document).on('click', '.edit_item', function(e) 
       {
                   var rowData = $(this).data('id');
+                  let amount = parseFloat(rowData.amount.match(/[\d.]+/)[0]).toFixed(2);
                   var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
                                      <form name="concierge_services_frm" method="post">
                                        <div class="modal-content">
@@ -774,7 +775,7 @@ $(document).ready(function(){
                                                    </div>
                                                    <div class="col-6 mb-3">
                                                       <label>Amount</label>
-                                                      <input type="text" name="amount" class="form-control rounded-0" value="${(rowData.amount ? rowData.amount : '')}">
+                                                      <input type="text" name="amount" class="form-control rounded-0" value="${amount}">
                                                    </div>
                                                 </div>
                                             
@@ -979,6 +980,8 @@ var fee_support_services = $("#fee_support_services").DataTable({
         $(document).on('click', '.edit_item_fee_support_services', function(e) 
       {
                   var rowData = $(this).data('id');
+                  let amount = parseFloat(rowData.amount.match(/[\d.]+/)[0]).toFixed(2);
+
                   var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
                                      <form name="fee_support_services_frm" method="post">
                                        <div class="modal-content">
@@ -1001,7 +1004,7 @@ var fee_support_services = $("#fee_support_services").DataTable({
                                                    </div>
                                                    <div class="col-6 mb-3">
                                                       <label>Amount</label>
-                                                      <input type="text" name="amount" class="form-control rounded-0" value="${(rowData.amount ? rowData.amount : '')}">
+                                                      <input type="text" name="amount" class="form-control rounded-0" value="${amount}">
                                                    </div>
                                                 </div>
                                             
@@ -1090,6 +1093,7 @@ var loyalty_program_advertisers = $("#loyalty_program_advertisers").DataTable({
         $(document).on('click', '.edit_item_loyalty_program_advertisers', function(e) 
       {
                   var rowData = $(this).data('id');
+                  let amount = parseFloat(rowData.amount.match(/[\d.]+/)[0]).toFixed(2);
                   let rewardOptions = '';
                   for (let i = 1; i <= 10; i++) {
                      let selected = (rowData.reward == i) ? 'selected' : '';
@@ -1122,8 +1126,8 @@ var loyalty_program_advertisers = $("#loyalty_program_advertisers").DataTable({
                                                       </div>
 
                                                       <div class="col-6 mb-3">
-                                                         <label>Value</label>
-                                                         <input type="number" class="form-control rounded-0" name="amount"  value="${(rowData.amount  ? rowData.amount : '')}" required>
+                                                         <label>Value </label>
+                                                         <input type="number" class="form-control rounded-0" name="amount"  value="${amount}" required>
                                                       </div>
 
                                                       <div class="col-6 mb-3">

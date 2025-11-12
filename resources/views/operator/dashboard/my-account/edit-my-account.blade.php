@@ -47,7 +47,7 @@
             <div class="card">
                <div class="card-header">
                   <a class="card-link" data-toggle="collapse" href="#Abbreviations" aria-expanded="true">
-                  About Me
+                  About Us
                   </a>
                </div>
                <div id="Abbreviations" class="collapse" data-parent="#accordion" style="">
@@ -145,21 +145,9 @@
                                        <label class="form-control form-back" aria-describedby="emailHelp" >{{--{{$user->state->name}}--}} </label>
                                     </div>
                                  </div>
-                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                       <label for="mobile">E4U Email</label>
-                                       <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{--{{$user->email2}}--}} </label>
-                                    </div>
-                                 </div>
-                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                       
-                                       
-                                    </div>
-                                 </div>
-                                 {{-- <div class="col-md-12">
+                                  <div class="col-md-12"> <h5 for="mobile">Method of contact - how we communicate with you</h5>
                                     <div class="form-group custom--contact">
-                                       <label for="mobile">Method of contact:</label>
+                                      
                                        <div class="form-check-inline">
                                           <label class="customradio mr-4">
                                             <input type="checkbox" name="contact_type[]" value="1"
@@ -190,7 +178,7 @@
                                           </label>
                                         </div>
                                     </div>
-                                 </div> --}}
+                                 </div>   
                               </div>
                            </div>
                         </div>
@@ -223,18 +211,6 @@
                                        </label>
                                     </div>
                                  </div>
-                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                       <label for="my_name">Option Period</label>
-                                       <span class="form-control form-back">{{--{{ ($user->agent_detail) ? $user->agent_detail->option_peroid :'' }}--}}</span>
-                                    </div>
-                                 </div>
-                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                       <label for="my_name" class="my-agent">Option Exercised</label>
-                                       <span class="form-control form-back">{{---{{ ($user->agent_detail) ? $user->agent_detail->option_exercised : '' }}--}}</span>
-                                    </div>
-                                 </div>
                                  <div class="col-md-12">
                                     <div class="form-group">
                                        <label for="mobile">Territory</label>
@@ -244,20 +220,11 @@
                                  <div class="col-md-12">
                                     <div class="form-group">
                                        <h5 for="mobile">Your Agreement</h5>
-                                       <label>You can retrieve your Agent Agreement by
-                                       {{-- @if($user->agent_detail && $user->agent_detail->agreement_file != "")
-                                          <a download="true" href="{{ asset('storage/' . $user->agent_detail->agreement_file) }}" 
+                                       <label>You can retrieve your Agent Management Agreement by clicking
+                                          <a download="true" href="{{ asset('assets/dashboard/agreement/Agent-Management-Agreement-(02-2025).pdf') }}" download="" 
                                              class="custom_links_design">
-                                             <span style="color: #FF3C5F;">clicking here.</span>
-                                          </a>
-                                          @else
-
-                                          <a download="true" href="#" 
-                                             class="custom_links_design">
-                                             <span style="color: #FF3C5F;">clicking here.</span>
-                                          </a>
-
-                                       @endif             --}}
+                                             <span style="color: #FF3C5F;">here</span>.
+                                          </a>       
                                       
                                            
                                     </div>
@@ -272,7 +239,7 @@
             </div>
             <div class="card">
                <div class="card-header">
-                  <a class="card-link collapsed" data-toggle="collapse" href="#abbrieviations" aria-expanded="false">Fees</a>
+                  <a class="card-link collapsed" data-toggle="collapse" href="#abbrieviations" aria-expanded="false">Fees (clause 7 - Agent Management Agreement)</a>
                </div>
                <div id="abbrieviations" class="collapse" data-parent="#accordion" style="">
                   <div class="card-body">
@@ -283,14 +250,14 @@
                               <div class="row">
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label for="membership_num">Advertiser
+                                       <label for="membership_num">Advertising
                                        </label>
                                        <span class="form-control form-back">{{--{{ ($user->agent_detail) ? $user->agent_detail->commission_advertising_percent : '' }}--}}</span>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label for="membership_num">Massage Centres (Signed Up)</label>
+                                       <label for="membership_num">Massage Centre (Membership)</label>
                                        <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{--{{ ($user->agent_detail) ? $user->agent_detail->commission_registration_amount : '' }}--}}</label>
                                     </div>
                                  </div>

@@ -39,6 +39,9 @@
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css') }}">-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
+    
+    <link rel="stylesheet" href="{{asset('assets/app/css/jquery-ui.css')}}">
+    <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     @section('style')
