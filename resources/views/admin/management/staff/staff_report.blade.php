@@ -203,7 +203,7 @@
                     </div>
                     <div class="info-item {{ $staff->staff_detail->commenced_date == '' ? 'd-none' : '' }}">
                         <label>Commenced Date</label>
-                        <span class="account_ip_address">{{ $staff->staff_detail->commenced_date }}</span>
+                        <span class="account_ip_address">{{showDateWithFormat($staff->staff_detail->commenced_date, "d/m/Y")}}</span>
                     </div>
                     <div class="info-item {{ $securityLevel == '' ? 'd-none' : '' }}">
                         <label>Security Level</label>
