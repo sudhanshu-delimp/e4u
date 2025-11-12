@@ -34,6 +34,9 @@
   font-size: 16px;
   cursor: pointer;
 }
+.swal-button:not([disabled]):hover {
+    background-color: #ff3c5f;
+}
 
 
     .toggle-password {

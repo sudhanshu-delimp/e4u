@@ -29,6 +29,9 @@
   font-size: 16px;
   cursor: pointer;
 }
+.swal-button:not([disabled]):hover {
+    background-color: #ff3c5f;
+}
 
 </style>
 <section class="section_bg_color padding_ninty_top_ninty_px padding_ninty_btm_ninty_px">
