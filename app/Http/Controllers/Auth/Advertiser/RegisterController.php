@@ -95,7 +95,7 @@ class RegisterController extends Controller
     protected function create($data)
     {
         return User::create([
-            // 'phone' => (int) $data['phone'],
+            'name' => $data['name'],
             'phone' => $data['phone'],
             'email' => $data['email'],
             'state_id' => $data['state_id'],
@@ -122,6 +122,7 @@ class RegisterController extends Controller
         $user = $this->create($request->all());
         $userDataForEvent = [
             'id' => $user->id,
+            'name' => $user->name,
             'email' => $user->email,
             'phone' => $user->phone,
             'password' => $request->password,

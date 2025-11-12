@@ -31,7 +31,7 @@
                     <!-- Body content -->
                     <tr>
                         <td style="padding: 30px; text-align: justify;">
-                            <p style="font-size: 16px; margin: 0 0 15px 0;">Dear</p>
+                            <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$user->name ?? ''}},</p>
 
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
                                 We are pleased to confirm your Registration has been accepted and you can now log into the Escort Console and proceed to create Profiles and Tours.

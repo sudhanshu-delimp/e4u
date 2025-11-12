@@ -73,6 +73,19 @@
                         <form id="escort_registration" action="{{ route('advertiser.register')}}" method="post">
                             @csrf
                             <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="txt" class="form-control" id="name" aria-describedby="emailHelp"
+                                       name="name" required placeholder="Name"
+                                       data-parsley-required-message="Your name is required"
+                                       value="{{ old('name') }}">
+                                <span id="name-errors"></span>
+                                <div class="termsandconditions_text_color">
+                                    @error('name')
+                                    <strong>{{ $message }}</strong>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="mobileno">Mobile Number</label>
                                 <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp"
                                        name="phone" data-parsley-maxlength="10" required placeholder="Mobile Number"
