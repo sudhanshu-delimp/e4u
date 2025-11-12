@@ -33,13 +33,21 @@ class StaffDetail extends Model
 
     public function scopeSecurityLevel($query, $value)
     {
- 
-        return match ($value) {
-            1 => 'Level 1',
-            2 => 'Level 2',
-            3 => 'Level 3',
-            4 => 'Level 4',
-            default =>'N/A'
-        };
+        switch ($value) {
+            case (1):
+                return 'Level 1';
+                break;
+            case (2):
+                return 'Level 2';
+                break;
+            case (3):
+                return 'Level 3';
+                break;
+            case (4):
+                return 'Level 4';
+                break;
+            default:
+                return 'N/A';
+        }
     }
 }
