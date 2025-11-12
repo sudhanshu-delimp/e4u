@@ -396,7 +396,20 @@ class User extends Authenticatable
             return 'DL' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id) . ':001';
         }
         if ($this->type == 6) {
-            return 'ST' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+            $staff = $this->select(['id', 'name', 'member_id'])->where('type', '6')->orderBy('id', 'desc')->first();
+            //return 'ST' . $this->city_id . sprintf("%04d", $this->id);
+            if( $staff) {
+                $memberIdInt = trim(str_replace('ST', '', $staff->member_id));
+                if( $memberIdInt > 0) 
+                {
+                     $memberIdInt =  $memberIdInt+1;
+                     return 'ST'.( $memberIdInt);
+                } else {
+                     return 'ST60002';
+                }
+            } else {
+                 return 'ST60002';
+            }
         }
 
         return null;
