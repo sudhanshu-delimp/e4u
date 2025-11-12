@@ -50,6 +50,26 @@
         })
         
         </script>
+
+        <script>
+                
+                 var initJsDatePicker = function(){
+                    $(".js_datepicker").attr('placeholder','DD-MM-YYYY');
+                    $(".js_datepicker").attr('autocomplete','off');
+                    $(".js_datepicker").datepicker({
+                        dateFormat: "dd-mm-yy",
+                        changeMonth: true,
+                        changeYear: true,
+                        showAnim: "slideDown",
+                        constrainInput: false,
+                        onSelect: function(dateText) {
+                            const event = new Event('change', { bubbles: true });
+                            this.dispatchEvent(event); // 👈 manually trigger change event
+                        }
+                    });
+                }
+                initJsDatePicker();
+            </script> 
         <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
 
         @section('script')
