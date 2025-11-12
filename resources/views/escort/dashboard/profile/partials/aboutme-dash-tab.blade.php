@@ -142,7 +142,7 @@
 </style>
 <div class="tab-pane fade {{$activeTab=='about-me'?'show active':''}}" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
     <div class="row pl-3">
-        <div class="col-lg-3">
+        <div class="col-12">
             <div class="member-id pl-0 pb-2 pt-3">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -150,12 +150,6 @@
                         fill="#C2CFE0" />
                 </svg>
                 <span>Member ID: {{$loginAccount->member_id}}</span>&nbsp;&nbsp;<span>{{$editMode?"Profile: $escort->profile_name":""}}</span>
-            </div>
-        </div>
-        <div class="col-lg-6">
-
-            <div class="member-id pl-0 pb-2 pt-3">
-
             </div>
         </div>
     </div>
