@@ -961,6 +961,26 @@
                         </a>
                        
                     </div>
+                    <!-- Concierge -->
+                    <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
+                       data-target="#ConciergeMenu" aria-expanded="false" aria-controls="ConciergeMenu">
+                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
+                        <span>Concierge</span>
+                    </a>
+                    <div id="ConciergeMenu"
+                         class="collapse @if(in_array(request()->segment(3), ['email-management','sim-management'])) show @endif pl-3"
+                         style="margin-left: 10px;">
+                         <a class="collapse-item" href="{{ route('admin.email-management') }}">
+                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/email-manage.png') }}">
+                            <span style="{{ request()->segment(3) == 'email-management' ? 'color: #e5365a;' : '' }}">Email Management</span>
+                        </a>
+        
+                        <a class="collapse-item" href="{{ route('sim-management') }}">
+                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/sim-manage.png') }}">
+                            <span style="{{ request()->segment(3) == 'sim-management' ? 'color: #e5365a;' : '' }}">SIM Management</span>
+                        </a>
+                    </div>
+                    {{-- end --}}
 
                     <!-- Manage People -->
                     <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
@@ -1054,15 +1074,7 @@
                     <!-- Direct Items -->
                     <a class="collapse-item" href="#"> <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/cms.png') }}"> <span>CMS</span></a>
         
-                    <a class="collapse-item" href="{{ route('admin.email-management') }}">
-                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/email-manage.png') }}">
-                        <span style="{{ request()->segment(3) == 'email-management' ? 'color: #e5365a;' : '' }}">Email Management</span>
-                    </a>
-        
-                    <a class="collapse-item" href="{{ route('sim-management') }}">
-                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/sim-manage.png') }}">
-                        <span style="{{ request()->segment(3) == 'sim-management' ? 'color: #e5365a;' : '' }}">SIM Management</span>
-                    </a>
+                   
         
                     <a class="collapse-item" href="#"> <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/email-template.png') }}"> <span>Email Templates</span></a>
         
@@ -1097,12 +1109,12 @@
         
                     <a class="collapse-item" href="#"> <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/agent-reg.png') }}"> <span>Agent Registrations</span></a>
         
-                    <a class="collapse-item" href="{{ route('admin.competitor-database') }}">
+                    {{-- <a class="collapse-item" href="{{ route('admin.competitor-database') }}">
                         <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/competitor.png') }}">
                         <span style="{{ request()->segment(3) == 'competitor-database' ? 'color: #e5365a;' : '' }}">Competitor Database</span>
                     </a>
         
-                    <a class="collapse-item" href="#"> <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/web-manage.png') }}"> <span>Website Management</span></a>
+                    <a class="collapse-item" href="#"> <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/web-manage.png') }}"> <span>Website Management</span></a> --}}
                 </div>
             </div>
         </li>
