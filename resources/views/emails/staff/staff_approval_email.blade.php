@@ -39,8 +39,8 @@
                 <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
                   
                   <tr>
-                    <td style="font-weight: bold; padding: 10px 0px;">Mobile Number :</td>
-                    <td style="padding: 10px 0px 10px 10px">{{$staff['phone'] ?? ''}}</td>
+                    <td style="font-weight: bold; padding: 10px 0px;">Email Address :</td>
+                    <td style="padding: 10px 0px 10px 10px">{{$staff['email'] ?? ''}}</td>
                   </tr>
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Password :</td>
