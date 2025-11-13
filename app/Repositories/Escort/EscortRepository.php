@@ -229,7 +229,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             }
             
             if($isExtended->count){
-                $item->pro_name .= '<sup class="extend_icon listing-tag-tooltip ml-1">Extend
+                $item->pro_name .= '<sup class="extend_icon listing-tag-tooltip ml-1">Extended
                 <small class="listing-tag-tooltip-desc">Extended from ' . date("d-m-Y", strtotime($isExtended->data->start_date)) . " to ".date("d-m-Y", strtotime($isExtended->data->end_date)).'</small>
                 </sup>';
             }
@@ -729,6 +729,9 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ->whereDoesntHave('mainPurchase', function ($query) {
                 $query->whereNotNull('tour_location_id');
             })
+            ->whereHas('purchase', function ($query) {
+                $query->where('utc_end_time', '>', Carbon::now());
+            }, '<', 2)
             ->get();
         }
         else{
@@ -738,6 +741,9 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ->whereDoesntHave('mainPurchase', function ($query) {
                 $query->whereNotNull('tour_location_id');
             })
+            ->whereHas('purchase', function ($query) {
+                $query->where('utc_end_time', '>', Carbon::now());
+            }, '<', 2)
             ->get();
         }
     }
