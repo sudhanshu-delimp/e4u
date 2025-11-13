@@ -940,8 +940,8 @@
                      'set-fees','manage-user','memberships','legbox-report',
                      'punterbox-reports','tours','staff','competitor-database',
                      'commission-statements','commission-summary','operator-manage',
-                     'profile','agent','manage-suppliers','dashboard'
-                 ]) || request()->segment(2) == 'All-user') show @endif"
+                     'profile','agent','manage-suppliers','dashboard','All-user','email-templates'
+                 ])) show @endif"
                  aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         
                 <div class="py-0 collapse-inner rounded mb-2">
@@ -952,7 +952,7 @@
                         <span>Agents </span>
                     </a>
                     <div id="manageAgentMenu"
-                         class="collapse @if(in_array(request()->segment(3), ['Agent'])) show @endif pl-3"
+                         class="collapse @if(in_array(request()->segment(3), ['agent'])) show @endif pl-3"
                          style="margin-left: 10px;">
                         
                         <a class="collapse-item" href="{{ route('admin.agent') }}">
@@ -971,13 +971,13 @@
                         <span>CMS</span>
                     </a>
                     <div id="CMSMenu"
-                         class="collapse @if(in_array(request()->segment(3), ['email-template'])) show @endif pl-3"
+                         class="collapse @if(in_array(request()->segment(3), ['email-templates'])) show @endif pl-3"
                          style="margin-left: 10px;">
                            
         
-                        <a class="collapse-item" href="#">
+                        <a class="collapse-item" href="{{route('admin.email-templates')}}">
                             <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/email-template.png') }}">
-                            <span style="{{ request()->segment(3) == 'email-template' ? 'color: #e5365a;' : '' }}">Email Templates</span>
+                            <span style="{{ request()->segment(3) == 'email-templates' ? 'color: #e5365a;' : '' }}">Email Templates</span>
                         </a>
 
                     </div>
@@ -1087,16 +1087,17 @@
                         <span>Settings</span>
                     </a>
                     <div id="SettingsMenu"
-                         class="collapse @if(in_array(request()->segment(3), ['tours','profile', 'memberships'])) show @endif pl-3"
+                         class="collapse @if(in_array(request()->segment(3), ['All-user','set-fees'])) show @endif pl-3"
                          style="margin-left: 10px;">
-                        <a class="collapse-item" href="{{ route('admin.management.allUser') }}">
-                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/set-fee.png') }}">
-                            <span style="{{ request()->segment(2) == 'All-user' ? 'color: #e5365a;' : '' }}">Security & Access Levels</span>
-                        </a>
+                        
             
                         <a class="collapse-item" href="{{ route('admin.set-fees') }}">
                             <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/set-security.png') }}">
                             <span style="{{ request()->segment(3) == 'set-fees' ? 'color: #e5365a;' : '' }}">Fees & Variables - Users</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('admin.management.allUser') }}">
+                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/set-fee.png') }}">
+                            <span style="{{ request()->segment(3) == 'All-user' ? 'color: #e5365a;' : '' }}">Security & Access Levels</span>
                         </a>
 
                     </div>

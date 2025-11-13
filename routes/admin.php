@@ -68,7 +68,7 @@ Route::get('pages/{id}', 'PageController@destroy')->name('admin.page.destroy');
 Route::get('page-listing/data-table','PageController@pageListAjaxdatatable')->name('admin.pages.dataTable');
 Route::post('pages-published/{id?}', 'PageController@published')->name('admin.page.published');
 
-Route::get('All-user', 'AttemptLoginController@showAllUsers')->name('admin.management.allUser');
+Route::get('/management/All-user', 'AttemptLoginController@showAllUsers')->name('admin.management.allUser');
 Route::get('all-user/data-table','AttemptLoginController@allUserDatatable')->name('admin.management.allUserDatatable');
 Route::get('change-security-level/{id}','AttemptLoginController@changeSecurityLevel')->name('admin.management.changeSecurityLevel');
 Route::post('/update-user/{id}', 'AttemptLoginController@updateSecurityLevel')->name('admin.update.updateSecurityLevel');
@@ -134,6 +134,11 @@ Route::get('accounting-reports',function(){
 Route::get('reporting',function(){
     return view('admin.reporting');
 })->name('admin.reporting');
+
+
+Route::get('cms/email-templates',function(){
+    return view('admin.management.cms.email-templates');
+})->name('admin.email-templates');
 
 
 # Advertiser report section

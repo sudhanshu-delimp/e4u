@@ -915,35 +915,34 @@
                   <!-- end 8 -->
 
                   <!-- GROUP 9: Total Summary -->
-                  <tr class="font-weight-bold">
+                 <tr class="font-weight-bold">
                      <td>
 
                      </td>
                      <td>Total</td>
-                     <td>1,258</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[sum]</td>
+                     <td>Total</td>
+                     <td>Total</td>
+                     <td>Total</td>
+                     <td>total</td>
+                     <td>sum</td>
+                     <td>sum</td>
+                     <td>total</td>
+                     <td>sum</td>
+                     <td>sum</td>
+                     <td>total</td>
+                     <td>sum</td>
+                     <td>sum</td>
                   </tr>
                </tbody>
-
-         </table>
+            </table>
          </div>
      </div>
 
      <div class="col-md-12">
         <div class="timer_section">
-                <p>Server time: <span>[10:23:51 am]</span></p>
-                <p>Refresh time:<span> [seconds]</span></p>
-                <p>Up time: <span>[214 days & 09 hours 12 minutes]</span></p>
+                <p>Server time: <span>10:23:51 am</span></p>
+                <p>Refresh time:<span> 15 seconds</span></p>
+                <p>Up time: <span>214 days & 09 hours 12 minutes</span></p>
             </div>
        </div>
    </div>
