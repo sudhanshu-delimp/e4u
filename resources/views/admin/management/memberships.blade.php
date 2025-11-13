@@ -24,12 +24,13 @@
                </div>
          </div>
       </div>
-      <div class="col-md-12">
+      
+    <div class="col-md-12">
          <div class="row mb-3">
             <div class="col-lg-4 col-md-12 col-sm-12">
                   
             </div>
-            <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
+            <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
                
                   <div class="total_listing">
                      <div><span>Total Memberships: </span></div>
@@ -37,540 +38,875 @@
                   </div>
             </div>
          </div>
-         
-         <div class="table-responsive membership--inner">
-            <table class="table table-bordered">
-               <thead>
-                  <tr>
-                     <th colspan="6">Year to Year Growth <br>(Days: 158) [number of days into the year]</th>
-                     <th colspan="3">Total Membership <br> (Last FY)</th>
-                     <th colspan="3">Historical Membership <br> (End of last FY)</th>
+        <div class="table-responsive membership--inner">
+            <table class="table table-bordered text-center mb-0" id="tourStatisticTable">
+               <colgroup>
+                  <col style="width: 7%;">
+                  <col style="width: 7%;">
+                  <col style="width: 6%;">
+                  <col style="width: 6%;">
+                  <col style="width: 6%;">
+                  <col style="width: 6%;">
+                  <col style="width: 6%;">
+                  <col style="width: 6%;">
+                  <col style="width: 6%;">
+                  <col style="width: 6%;">
+                  <col style="width: 6%;">
+                  <col style="width: 6%;">
+               </colgroup>
+
+               <thead style="background-color: #0c223d; color: white; text-align: center;">
+                  <tr style="border: 1px solid white;">
+                     <th colspan="6" style="border: 1px solid white;">Year to Year Growth <br>(Days: 158)</th>
+                     <th colspan="3" style="border: 1px solid white;">Total Membership <br> (Last FY)</th>
+                     <th colspan="3" style="border: 1px solid white;">Historical Membership <br> (End of last FY)</th>
                   </tr>
-                  <tr>
-                     <th colspan="3">Current</th>
-                     <th class="pb-0 border-0" colspan="1">Total </th>
-                     <th colspan="2">Variation</th>
-                     <th class="pb-0 border-0">Total </th>
-                     <th colspan="2">Variation</th>
-                     <th class="pb-0 border-0">Total</th>
-                     <th colspan="2">Overall Growth</th>
+                  <tr style="border: 1px solid white;">
+                     <th colspan="3" style="border: 1px solid white;">Current</th>
+                     <th style="border: 1px solid white;" rowspan="2">Total <br> Last FY</th>
+                     <th colspan="2" style="border: 1px solid white;">Variation</th>
+                     <th style="border: 1px solid white;" rowspan="2">Total <br> Units </th>
+                     <th colspan="2" style="border: 1px solid white;">Variation</th>
+                     <th style="border: 1px solid white;" rowspan="2">Total <br> Units </th>
+                     <th colspan="2" style="border: 1px solid white;">Overall Growth</th>
                   </tr>
-                  <tr>
-                     <th>Location</th>
-                     <th>Member</th>
-                     <th>Total</th>
-                     <th class="pt-0">Last FY</th>
-                     <th>Units</th>
-                     <th>%</th>
-                     <th class="pt-0">Units</th>
-                     <th>Units</th>
-                     <th>%</th>
-                     <th class="pt-0">Units</th>
-                     <th>Units</th>
-                     <th>%</th>
+                  <tr style="border: 1px solid white;">
+                     <th colspan="" style="border: 1px solid white;">Location</th>
+                     <th style="border: 1px solid white;">Member</th>
+                     <th style="border: 1px solid white;">Total</th>
+                     <th style="border: 1px solid white;">Units</th>
+                     <th style="border: 1px solid white;">%</th>
+                     <th style="border: 1px solid white;">Units</th>
+                     <th style="border: 1px solid white;">%</th>
+                     <th style="border: 1px solid white;">Units</th>
+                     <th style="border: 1px solid white;">%</th>
                   </tr>
                </thead>
-               <tbody>
-                  <tr>
-                     <td class="border-right-0 text-black">+ Total Summary</td>
-                     <td class="border-0"></td>
-                     <td class="border-0"></td>
-                     <td class="border-0"></td>
-                     <td class="border-0"></td>
-                     <td class="border-0"></td>
-                     <td class="border-0"></td>
-                     <td class="border-0"></td>
-                     <td class="border-0"></td>
-                     <td class="border-0"></td>
-                     <td class="border-0"></td>
-                     <td class="border-left-0">V</td>
-                  </tr>  
-                  <tr>
-                     <td>ACT</td>
-                     <td>All</td>
-                     <td>387</td>
-                     <td>296</td>
-                     <td>
-                        <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 91</div>
-                     </td>
-                     <td>
-                        <div class="d-flex justify-content-between"><span class="arrow-down">↑</span> 30.7</div>
-                     </td>
-                     <td>653</td>
-                     <td>266</td>
-                     <td>
-                        <div class="d-flex justify-content-between"><span class="arrow-down">↑</span> 40.7</div>
-                     </td>
-                     <td>4,211</td>
-                     <td>
-                        <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 387</div>
-                     </td>
-                     <td>
-                        <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 10.1</div>
+               <tbody id="collapse-accordion">
+
+                  <tr id="hideAlltr">
+                     <td colspan="12" style="text-align: left; font-weight: bold;">
+                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>Total Summary</span> <i class="fa fa-chevron-down"></i></div>
                      </td>
                   </tr>
-                  <tr>
-                     <td>NSW</td>
+                  <!-- GROUP 1: ACT -->
+                  <tr data-toggle="toggle-row" data-target=".group-1" data-parent="#collapse-accordion" style="cursor: pointer;">
+                     <td>
+                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>ACT</span> <i class="fa fa-chevron-down"></i></div>
+                     </td>
                      <td>All</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
                   </tr>
-                  <tr>
-                     <td>Vic</td>
-                     <td>All</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
+                  <!-- middle Content -->
+                  <tr class="collapse-row group-1">
+                     <td></td>
+                     <td>Female</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
                   </tr>
-                  <tr>
-                     <td>Qld</td>
-                     <td>All</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
+                  <tr class="collapse-row group-1">
+                     <td></td>
+                     <td>Male</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
                   </tr>
-                  <tr>
-                     <td>SA</td>
-                     <td>All</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
+                  <tr class="collapse-row group-1">
+                     <td></td>
+                     <td>Trans</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
                   </tr>
-                  <tr>
-                     <td>WA</td>
-                     <td>All</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
+                  <tr class="collapse-row group-1">
+                     <td></td>
+                     <td>Couple</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
                   </tr>
-                  <tr>
-                     <td>Tas</td>
-                     <td>All</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                  </tr>
-                  <tr>
-                     <td>NT</td>
-                     <td>All</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                  </tr>
-                  <tr class="fw-bold table-primary">
+                  <!-- total -->
+                  <tr class="collapse-row group-1 table-primary font-weight-bold">
                      <td></td>
                      <td>Total</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>9,258</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
+                     <td>3,524</td>
+                     <td>3,701</td>
+                     <td>3,574</td>
+                     <td><span class="text-success">↑ 254</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>8,856</td>
+                     <td><span class="text-danger">↓ 5,028</span></td>
+                     <td>18,820</td>
+                     <td><span class="text-success">↑ 3,828</span></td>
+                     <td><span class="text-success">↑ 40.6</span></td>
+                  </tr>
+                  <!-- end 1 -->
+                  <!-- GROUP 2: NSW -->
+                  <tr data-toggle="toggle-row" data-target=".group-2" data-parent="#collapse-accordion" style="cursor: pointer;">
+                     <td>
+                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>NSW</span> <i class="fa fa-chevron-down"></i></div>
+                     </td>
+                     <td>All</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <!-- middle Content -->
+                  <tr class="collapse-row group-2">
+                     <td></td>
+                     <td>Female</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-2">
+                     <td></td>
+                     <td>Male</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-2">
+                     <td></td>
+                     <td>Trans</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-2">
+                     <td></td>
+                     <td>Couple</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-2 table-primary font-weight-bold">
+                     <td></td>
+                     <td>Total</td>
+                     <td>3,524</td>
+                     <td>3,701</td>
+                     <td>3,574</td>
+                     <td><span class="text-success">↑ 254</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>8,856</td>
+                     <td><span class="text-danger">↓ 5,028</span></td>
+                     <td>18,820</td>
+                     <td><span class="text-success">↑ 3,828</span></td>
+                     <td><span class="text-success">↑ 40.6</span></td>
+                  </tr>
+                  <!-- end 2 -->
+
+                  <!-- GROUP 3: Vic -->
+                  <tr data-toggle="toggle-row" data-target=".group-3" data-parent="#collapse-accordion" style="cursor: pointer;">
+                     <td>
+                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>Vic</span> <i class="fa fa-chevron-down"></i></div>
+                     </td>
+                     <td>All</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <!-- middle Content -->
+                  <tr class="collapse-row group-3">
+                     <td></td>
+                     <td>Female</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-3">
+                     <td></td>
+                     <td>Male</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-3">
+                     <td></td>
+                     <td>Trans</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-3">
+                     <td></td>
+                     <td>Couple</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-3 table-primary font-weight-bold">
+                     <td></td>
+                     <td>Total</td>
+                     <td>3,524</td>
+                     <td>3,701</td>
+                     <td>3,574</td>
+                     <td><span class="text-success">↑ 254</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>8,856</td>
+                     <td><span class="text-danger">↓ 5,028</span></td>
+                     <td>18,820</td>
+                     <td><span class="text-success">↑ 3,828</span></td>
+                     <td><span class="text-success">↑ 40.6</span></td>
+                  </tr>
+                  <!-- end 3 -->
+
+                  <!-- GROUP 4: Qld -->
+                  <tr data-toggle="toggle-row" data-target=".group-4" data-parent="#collapse-accordion" style="cursor: pointer;">
+                     <td>
+                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>Qld</span> <i class="fa fa-chevron-down"></i></div>
+                     </td>
+                     <td>All</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <!-- middle Content -->
+                  <tr class="collapse-row group-4">
+                     <td></td>
+                     <td>Female</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-4">
+                     <td></td>
+                     <td>Male</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-4">
+                     <td></td>
+                     <td>Trans</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-4">
+                     <td></td>
+                     <td>Couple</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-4 table-primary font-weight-bold">
+                     <td></td>
+                     <td>Total</td>
+                     <td>3,524</td>
+                     <td>3,701</td>
+                     <td>3,574</td>
+                     <td><span class="text-success">↑ 254</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>8,856</td>
+                     <td><span class="text-danger">↓ 5,028</span></td>
+                     <td>18,820</td>
+                     <td><span class="text-success">↑ 3,828</span></td>
+                     <td><span class="text-success">↑ 40.6</span></td>
+                  </tr>
+                  <!-- end 4 -->
+
+                  <!-- GROUP 5: SA -->
+                  <tr data-toggle="toggle-row" data-target=".group-5" data-parent="#collapse-accordion" style="cursor: pointer;">
+                     <td>
+                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>SA</span> <i class="fa fa-chevron-down"></i></div>
+                     </td>
+                     <td>All</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <!-- middle Content -->
+                  <tr class="collapse-row group-5">
+                     <td></td>
+                     <td>Female</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-5">
+                     <td></td>
+                     <td>Male</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-5">
+                     <td></td>
+                     <td>Trans</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-5">
+                     <td></td>
+                     <td>Couple</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-5 table-primary font-weight-bold">
+                     <td></td>
+                     <td>Total</td>
+                     <td>3,524</td>
+                     <td>3,701</td>
+                     <td>3,574</td>
+                     <td><span class="text-success">↑ 254</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>8,856</td>
+                     <td><span class="text-danger">↓ 5,028</span></td>
+                     <td>18,820</td>
+                     <td><span class="text-success">↑ 3,828</span></td>
+                     <td><span class="text-success">↑ 40.6</span></td>
+                  </tr>
+                  <!-- end 5 -->
+
+                  <!-- GROUP 6: WA -->
+                  <tr data-toggle="toggle-row" data-target=".group-6" data-parent="#collapse-accordion" style="cursor: pointer;">
+                     <td>
+                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>WA</span> <i class="fa fa-chevron-down"></i></div>
+                     </td>
+                     <td>All</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <!-- middle Content -->
+                  <tr class="collapse-row group-6">
+                     <td></td>
+                     <td>Female</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-6">
+                     <td></td>
+                     <td>Male</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-6">
+                     <td></td>
+                     <td>Trans</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-6">
+                     <td></td>
+                     <td>Couple</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-6 table-primary font-weight-bold">
+                     <td></td>
+                     <td>Total</td>
+                     <td>3,524</td>
+                     <td>3,701</td>
+                     <td>3,574</td>
+                     <td><span class="text-success">↑ 254</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>8,856</td>
+                     <td><span class="text-danger">↓ 5,028</span></td>
+                     <td>18,820</td>
+                     <td><span class="text-success">↑ 3,828</span></td>
+                     <td><span class="text-success">↑ 40.6</span></td>
+                  </tr>
+                  <!-- end 6 -->
+
+
+                  <!-- GROUP 7: Tas -->
+                  <tr data-toggle="toggle-row" data-target=".group-7" data-parent="#collapse-accordion" style="cursor: pointer;">
+                     <td>
+                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>Tas</span> <i class="fa fa-chevron-down"></i></div>
+                     </td>
+                     <td>All</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <!-- middle Content -->
+                  <tr class="collapse-row group-7">
+                     <td></td>
+                     <td>Female</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-7">
+                     <td></td>
+                     <td>Male</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-7">
+                     <td></td>
+                     <td>Trans</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-7">
+                     <td></td>
+                     <td>Couple</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-7 table-primary font-weight-bold">
+                     <td></td>
+                     <td>Total</td>
+                     <td>3,524</td>
+                     <td>3,701</td>
+                     <td>3,574</td>
+                     <td><span class="text-success">↑ 254</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>8,856</td>
+                     <td><span class="text-danger">↓ 5,028</span></td>
+                     <td>18,820</td>
+                     <td><span class="text-success">↑ 3,828</span></td>
+                     <td><span class="text-success">↑ 40.6</span></td>
+                  </tr>
+                  <!-- end 7 -->
+
+
+                  <!-- GROUP 8: NT -->
+                  <tr data-toggle="toggle-row" data-target=".group-8" data-parent="#collapse-accordion" style="cursor: pointer;">
+                     <td>
+                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>NT</span> <i class="fa fa-chevron-down"></i></div>
+                     </td>
+                     <td>All</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <!-- middle Content -->
+                  <tr class="collapse-row group-8">
+                     <td></td>
+                     <td>Female</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-8">
+                     <td></td>
+                     <td>Male</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-8">
+                     <td></td>
+                     <td>Trans</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-8">
+                     <td></td>
+                     <td>Couple</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td><span class="text-success">↑ 127</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>4,428</td>
+                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
+                     <td><span class="text-success">↑ 1,914</span></td>
+                     <td><span class="text-success">↑ 20.3%</span></td>
+                  </tr>
+                  <tr class="collapse-row group-8 table-primary font-weight-bold">
+                     <td></td>
+                     <td>Total</td>
+                     <td>3,524</td>
+                     <td>3,701</td>
+                     <td>3,574</td>
+                     <td><span class="text-success">↑ 254</span></td>
+                     <td><span class="text-success">↑ 7.1%</span></td>
+                     <td>8,856</td>
+                     <td><span class="text-danger">↓ 5,028</span></td>
+                     <td>18,820</td>
+                     <td><span class="text-success">↑ 3,828</span></td>
+                     <td><span class="text-success">↑ 40.6</span></td>
+                  </tr>
+                  <!-- end 8 -->
+
+                  <!-- GROUP 9: Total Summary -->
+                  <tr class="font-weight-bold">
+                     <td>
+
+                     </td>
+                     <td>Total</td>
+                     <td>1,258</td>
+                     <td>total</td>
+                     <td>sum</td>
+                     <td>sum</td>
+                     <td>total</td>
+                     <td>sum</td>
+                     <td>sum</td>
+                     <td>total</td>
+                     <td>sum</td>
+                     <td>sum</td>
                   </tr>
                </tbody>
+
             </table>
-
-            <table class="table table-bordered">
-            <tbody>
-               <tr>
-                  <td class="border-right-0 text-black">+ ACT (Prefix 1)</td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0">V</td>
-               </tr>
-               <tr>
-                  <td>Escorts</td>
-                  <td>Female</td>
-                  <td>235</td>
-                  <td>205</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 30</div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 14.6 </div>
-                  </td>
-                  <td>450</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span> 219 </div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span> 47.8 </div>
-                  </td>
-                  <td>2,725</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 235 </div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 9.4 </div>
-                  </td>
-               </tr>
-               <tr>
-                  <td></td>
-                  <td>Male</td>
-                  <td>5</td>
-                  <td>2</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>3</div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 150.0 </div>
-                  </td>
-                  <td>8</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span> 3 </div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span> 37.5 </div>
-                  </td>
-                  <td>120</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>5</div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>4.3</div>
-                  </td>
-               </tr>
-               <tr>
-                  <td></td>
-                  <td>Trans</td>
-                  <td>50</td>
-                  <td>33</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 17 </div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 51.5 </div>
-                  </td>
-                  <td>68</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span> 16 </div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span>26.5 </div>
-                  </td>
-                  <td>252</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>50</div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>24.8</div>
-                  </td>
-               </tr>
-               <tr>
-                  <td></td>
-                  <td>Couple</td>
-                  <td>2</td>
-                  <td>1</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>1</div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 100.0 </div>
-                  </td>
-                  <td>5</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span> 3 </div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span> 60.0</div>
-                  </td>
-                  <td>18</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>2</div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>12.5</div>
-                  </td>
-               </tr>
-               <tr class="fw-bold">
-                  <td></td>
-                  <td>Sub-total:</td>
-                  <td>292</td>
-                  <td>241</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 51 </div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 21.2 </div>
-                  </td>
-                  <td>536</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span>244</div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span>45.5</div>
-                  </td>
-                  <td>2,863</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>292</div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>11.4</div>
-                  </td>
-               </tr>
-               <tr>
-                  <td>Massage Centres</td>
-                  <td></td>
-                  <td>95</td>
-                  <td>55</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 40</div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 72.7 </div>
-                  </td>
-                  <td>117</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span>22</div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span>18.8</div>
-                  </td>
-                  <td>1,348</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>95</div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>7.6</div>
-                  </td>
-               </tr>
-               <tr class="fw-bold table-primary">
-                  <td></td>
-                  <td>Total:</td>
-                  <td>387</td>
-                  <td>296</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 91 </div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span> 30.7 </div>
-                  </td>
-                  <td>653</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span>266</div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-down">↑</span>40.7</div>
-                  </td>
-                  <td>4,211</td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>387</div>
-                  </td>
-                  <td>
-                     <div class="d-flex justify-content-between"><span class="arrow-up">↑</span>10.1</div>
-                  </td>
-               </tr>
-            </tbody>
-         </table>
-
-         <table class="table table-bordered">
-            <tbody>
-               <tr>
-                  <td class="border-right-0 text-black">+ NSW (Prefix 2)</td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0">V</td>
-               </tr>  
-               
-            </tbody>
-         </table>
-
-         <table class="table table-bordered">
-            <tbody>
-               <tr>
-                  <td class="border-right-0 text-black">+ Vic (Prefix 3)</td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0">V</td>
-               </tr>  
-               
-            </tbody>
-         </table>
-
-         <table class="table table-bordered">
-            <tbody>
-               <tr>
-                  <td class="border-right-0 text-black">+ Qld (Prefix 4) </td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0">V</td>
-               </tr>  
-               
-            </tbody>
-         </table>
-
-         <table class="table table-bordered">
-            <tbody>
-               <tr>
-                  <td class="border-right-0 text-black">+ SA (Prefix 5) </td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0">V</td>
-               </tr>  
-               
-            </tbody>
-         </table>
-
-         <table class="table table-bordered">
-            <tbody>
-               <tr>
-                  <td class="border-right-0 text-black">+ WA (Prefix 6) </td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0">V</td>
-               </tr>  
-               
-            </tbody>
-         </table>
-
-         <table class="table table-bordered">
-            <tbody>
-               <tr>
-                  <td class="border-right-0 text-black">+ Tas (Prefix 7)</td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0">V</td>
-               </tr>  
-               
-            </tbody>
-         </table>
-
-         <table class="table table-bordered">
-            <tbody>
-               <tr>
-                  <td class="border-right-0 text-black">+ NT (Prefix 8) </td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0 border-right-0"></td>
-                  <td class="border-left-0">V</td>
-               </tr>  
-               
-            </tbody>
-         </table>
          </div>
-      </div>
+     </div>
+
+     <div class="col-md-12">
+        <div class="timer_section">
+                <p>Server time: <span>10:23:51 am</span></p>
+                <p>Refresh time:<span> seconds</span></p>
+                <p>Up time: <span>214 days & 09 hours 12 minutes</span></p>
+            </div>
+       </div>
    </div>
 </div>
 @endsection
 @section('script')
+
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
-    
+  $(document).ready(function() {
+            let isHidden = false;
+
+            $('#hideAlltr').on('click', function() {
+                const $chevron = $(this).find('i');
+
+                if (!isHidden) {
+                    // Hide only visible rows, and mark them
+                    $('#hideAlltr').nextAll('tr:visible').addClass('user-hidden').hide();
+                    $chevron.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                    isHidden = true;
+                } else {
+                    // Show only those rows that were hidden by this action
+                    $('tr.user-hidden').removeClass('user-hidden').show();
+                    $chevron.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                    isHidden = false;
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $('.collapse-row').hide(); // 🔒 Hide all groups initially
+
+            $('[data-toggle="toggle-row"]').on('click', function() {
+                const targetClass = $(this).data('target');
+                const $icon = $(this).find('i.fa');
+                const isVisible = $(targetClass).is(':visible');
+
+                $('.collapse-row').not(targetClass).hide();
+                $('[data-toggle="toggle-row"] i.fa').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+
+                if (!isVisible) {
+                    $(targetClass).show();
+                    $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                } else {
+                    $(targetClass).hide();
+                }
+            });
+        });
 </script>
+<script>
+   var table = $("#profileStatisticTable").DataTable({
+    language: {
+        search: "Search: _INPUT_",
+        searchPlaceholder: "Search by Name..."
+    },
+    info: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    bStateSave: true,
+    order: [[1, 'desc']],
+    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+    pageLength: 10
+});
+
+ </script>
+
 @endsection
