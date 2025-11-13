@@ -48,6 +48,7 @@ class EnableEscortProfile extends Command
             $this->info('Records are found.');
             foreach ($pendingPurchases as $key=>$purchase) {
                 $escort = $purchase->escort;
+               // print_this($escort->toArray());
                 if($escort){
                     $escort->update([
                         'start_date' => $purchase['start_date'],

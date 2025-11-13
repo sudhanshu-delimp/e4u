@@ -24,8 +24,8 @@ class CreateEscortAccountSettingsTable extends Migration
 
             // Single-value settings
             $table->string('auto_recharge_option')->default('no'); // e.g. "100"
-            $table->integer('idle_time')->nullable();                // e.g. 15 (minutes)
-            $table->string('auth')->nullable();                      // e.g. "2"
+            $table->integer('idle_preference_time')->nullable();                // e.g. 15 (minutes)
+            $table->string('twofa')->nullable();                      // e.g. "2"
             $table->string('num')->nullable();                       // e.g. "NUM"
             $table->string('subscription')->nullable();      
             $table->timestamps();

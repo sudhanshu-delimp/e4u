@@ -55,6 +55,6 @@ class SendProfileListingExpiryReminder extends Command
                 }
             }
             $this->info('All reminders processed.');
-        }    
+        }
     }
 }

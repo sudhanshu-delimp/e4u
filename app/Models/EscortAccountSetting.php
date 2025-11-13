@@ -15,8 +15,8 @@ class EscortAccountSetting extends Model
         'auto_recharge_option',
         'agent_communications',
         'alert_notifications',
-        'idle_time',
-        'auth',
+        'idle_preference_time',
+        'twofa',
         'num',
         'subscription',
     ];

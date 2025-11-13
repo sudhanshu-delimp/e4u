@@ -125,3 +125,7 @@ var validateSelectedDateRange = function(object, requestPayload){
         }
     });
 }
+
+$(document).on('focus', 'input[name="start_date[]"].js_datepicker', function() {
+    $(this).datepicker('option', 'minDate', 0); //calnder start from today
+});

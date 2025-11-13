@@ -91,11 +91,13 @@ class StaffRepository extends BaseRepository implements StaffInterface
                     }
                 } else {
                     $staffData['enabled'] = 1;
-                    $staffData['status'] = 1;
+                    $staffData['status'] = 2;
                     $staffData['type'] = (string) config('staff.staff_role_type');
                     $message = 'New staff added successfully';
                     $user = User::create($staffData);
-                    $this->setting->create_account_setting($user);
+                    if ($user) {
+                        $this->setting->create_account_setting($user);
+                    }
                 }
 
                 /// Update staff detail
@@ -123,7 +125,7 @@ class StaffRepository extends BaseRepository implements StaffInterface
                 return $this->response;
             } catch (Exception $e) {
 
-                Log::info($e->getMessage());
+                Log::info($e->getMessage() . " Line no.:" . $e->getLine() . " Line no.:" . $e->getFile());
                 logErrorLocal($e);
                 $this->response = ['status' => false, 'message' => 'Error occured while making request...'];
                 return $this->response;

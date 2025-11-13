@@ -18,7 +18,7 @@
          <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <div class="row">
                <div class="custom-heading-wrapper col-md-12">
-                  <h1 class="h1">Manage Advertiser Email Accounts</h1>
+                  <h1 class="h1">Email Management</h1>
                      <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                </div>
                <div class="col-md-12 mb-5 collapse" id="notes">
@@ -122,147 +122,6 @@
    </div>
    <!-- End of Main Content -->
 </div>
-<!-- End of Content Wrapper -->
-<div class="modal fade upload-modal" id="createNotification" tabindex="-1" role="dialog" aria-labelledby="createNotification" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content basic-modal">
-         <div class="modal-header">
-            <h5 class="modal-title" id="createNotification">  <img src="{{ asset('assets/dashboard/img/add-email.png') }}" style="width:25px"> Add New Record</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-            </button>
-         </div>
-         <form>
-         <div class="modal-body pb-0">
-           
-                <div class="row">
-                  
-                  <!-- Server Field -->
-                  <div class="col-12 mb-3">
-                    <input type="text" class="form-control rounded-0 fw-bold" placeholder="Server" name="server" required>
-                  </div>
-              
-                  <!-- Email Account Field -->
-                  <div class="col-12 mb-3">
-                    <input type="email" class="form-control rounded-0" placeholder="Email Account" name="email_account" required>
-                  </div>
-              
-                  <!-- Notification Address Field -->
-                  <div class="col-12 mb-3">
-                    <input type="email" class="form-control rounded-0" placeholder="Notification Address" name="notification_address" required>
-                  </div>
-              
-                </div>
-              
-
-         </div>
-         <div class="modal-footer pr-3">
-            <button type="button" class="btn-success-modal">Save</button>
-         </div>
-         
-        </form>
-      </div>
-   </div>
-</div>
-<!-- Confirmation Modal -->
-<div class="modal fade upload-modal" id="confirmSaveModal" tabindex="-1" role="dialog" aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-       <div class="modal-content basic-modal">
-          <div class="modal-header">
-             <h5 class="modal-title" id="confirmSaveModalLabel">
-                <img src="{{ asset('assets/dashboard/img/data-listing.png') }}" style="width:25px"> New Record Added
-             </h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">
-                   <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                </span>
-             </button>
-          </div>
-          <div class="modal-body">
-             <p class="mb-0">Are you sure you want to save this record?</p>
-          </div>
-          <div class="modal-footer pr-3">
-             <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
-             <button type="submit" class="btn-success-modal">Yes, Save</button>
-          </div>
-       </div>
-    </div>
- </div>
- 
-<!-- Edit SIM Record Modal -->
-<div class="modal fade upload-modal" id="editEmailModal" tabindex="-1" role="dialog" aria-labelledby="editEmailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-       <div class="modal-content basic-modal">
-          <div class="modal-header">
-             <h5 class="modal-title" id="editEmailModalLabel">
-                <img src="{{ asset('assets/dashboard/img/add-email.png') }}" style="width:25px">
-                Edit Email Record
-             </h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">
-                   <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                </span>
-             </button>
-          </div>
-          <form>
-             <div class="modal-body pb-0">
-                <div class="row">
-                   <!-- Email Account Field -->
-                   <div class="col-12 mb-3">
-                    <input type="email" class="form-control rounded-0" placeholder="Email Account" name="email_account" required>
-                  </div>
-              
-                  <!-- Notification Address Field -->
-                  <div class="col-12 mb-3">
-                    <input type="email" class="form-control rounded-0" placeholder="Notification Address" name="notification_address" required>
-                  </div>
-                </div>
-             </div>
-             <div class="modal-footer pr-3">
-                <button type="submit" class="btn-success-modal">Save Changes</button>
-             </div>
-          </form>
-       </div>
-    </div>
- </div>
- 
-
-<!-- Renew SIM Service Modal -->
-<div class="modal fade upload-modal" id="renewEmailModal" tabindex="-1" role="dialog" aria-labelledby="renewEmailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-       <div class="modal-content basic-modal">
-          <div class="modal-header">
-             <h5 class="modal-title" id="renewEmailModalLabel">
-                <img src="{{ asset('assets/dashboard/img/add-email.png') }}" style="width:25px">
-                Renew Email Service
-             </h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">
-                   <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                </span>
-             </button>
-          </div>
-          <form>
-             <div class="modal-body pb-0">
-                <div class="row">
-                   <!-- Term Field -->
-                   <div class="col-12 mb-3">
-                      <input type="number" class="form-control rounded-0 fw-bold" placeholder="Term (e.g. 12 months)" name="term" required>
-                   </div>
-                   <!-- Activation Date -->
-                   <div class="col-12 mb-3">
-                      <input type="date" class="form-control rounded-0" placeholder="Activation Date" name="activation_date" required>
-                   </div>
-                </div>
-             </div>
-             <div class="modal-footer pr-3">
-                <button type="submit" class="btn-success-modal">Renew</button>
-             </div>
-          </form>
-       </div>
-    </div>
- </div>
-<!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
 <i class="fas fa-angle-up"></i>
@@ -272,23 +131,66 @@
 @push('script')
   
 
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-
 <script>
-      var table = $("#EmailManageTable").DataTable({
-      language: {
-         search: "Search: _INPUT_",
-         searchPlaceholder: "Search by Member ID..."
-      },
-      info: true,
-      paging: true,
-      lengthChange: true,
-      searching: true,
-      bStateSave: true,
-      order: [[1, 'desc']],
-      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10
-   });
+  $(document).ready(function() {
+            let isHidden = false;
+
+            $('#hideAlltr').on('click', function() {
+                const $chevron = $(this).find('i');
+
+                if (!isHidden) {
+                    // Hide only visible rows, and mark them
+                    $('#hideAlltr').nextAll('tr:visible').addClass('user-hidden').hide();
+                    $chevron.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                    isHidden = true;
+                } else {
+                    // Show only those rows that were hidden by this action
+                    $('tr.user-hidden').removeClass('user-hidden').show();
+                    $chevron.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                    isHidden = false;
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $('.collapse-row').hide(); // 🔒 Hide all groups initially
+
+            $('[data-toggle="toggle-row"]').on('click', function() {
+                const targetClass = $(this).data('target');
+                const $icon = $(this).find('i.fa');
+                const isVisible = $(targetClass).is(':visible');
+
+                $('.collapse-row').not(targetClass).hide();
+                $('[data-toggle="toggle-row"] i.fa').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+
+                if (!isVisible) {
+                    $(targetClass).show();
+                    $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                } else {
+                    $(targetClass).hide();
+                }
+            });
+        });
+</script>
+<script>
+   var table = $("#profileStatisticTable").DataTable({
+    language: {
+        search: "Search: _INPUT_",
+        searchPlaceholder: "Search by Name..."
+    },
+    info: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    bStateSave: true,
+    order: [[1, 'desc']],
+    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+    pageLength: 10
+});
 
  </script>
   

@@ -15,6 +15,7 @@ use App\Models\Pricing;
 use App\Models\Purchase;
 use App\Models\PasswordHistory;
 use App\Models\EscortPinup;
+use App\Models\EscortAccountSetting;
 use App\Models\Tour;
 use Illuminate\Support\Str;
 use MongoDB\Driver\Session;
@@ -33,6 +34,7 @@ use App\Http\Requests\UpdateEscortRequest;
 use App\Repositories\Escort\EscortInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Repositories\AttemptLogin\AttemptLoginRepository;
+use Illuminate\Support\Facades\Log;
 
 class EscortController extends Controller
 {
@@ -486,7 +488,7 @@ class EscortController extends Controller
         $data = [];
         $data = [
             'name' => $request->name,
-            'gender' => $request->gender,
+            //'gender' => $request->gender,
             'contact_type' => $request->contact_type,
             // 'phone' => $request->phone,
             //'city_id'=>$request->city_id,
@@ -524,7 +526,9 @@ class EscortController extends Controller
         }
         return response()->json(compact('error'));
     }
-    public function notificationUpdate(UpdateEscortRequest $request)
+
+
+    public function notificationUpdate(UpdateEscortRequest $request)  
     {
         $playmateAvailable = null;
         if($request->notification_feature && in_array('available_playmate', $request->notification_feature)){
@@ -545,6 +549,45 @@ class EscortController extends Controller
         }
         return response()->json(compact('error'));
     }
+
+    // public function notificationUpdate(Request $request)
+    // {
+    //     try {
+    //         $userId = auth()->id();
+    //         $data = [
+    //             'user_id' => $userId,
+    //             'alert_notifications' => $request->alert_notifications,
+    //             'agent_communications' => $request->agent_communications,
+    //             'notification_feature' => $request->notification_feature,
+    //             'auto_recharge_option' => $request->auto_recharge_option,
+    //             'idle_preference_time' => $request->idle_time,
+    //             'twofa' => $request->idle_time,
+    //             'num' => $request->num,
+    //             'subscription' => $request->subscription,
+    //         ];
+    
+    //         // Either update existing or create new record
+    //         $setting = EscortAccountSetting::updateOrCreate(
+    //             ['user_id' => $userId],
+    //             $data
+    //         );
+    
+    //         return response()->json([
+    //             'error' => false,
+    //             'message' => 'Notification settings updated successfully.',
+    //             'data' => $setting
+    //         ], 200);
+    
+    //     } catch (\Exception $e) {
+    //         Log::error('Notification update failed: '.$e->getMessage());
+    //         return response()->json([
+    //             'error' => true,
+    //             'message' => 'Something went wrong while updating notification settings.',
+    //             'exception' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+    
 
     public function updatePassword(UpdateEscortRequest $request)
     {
@@ -770,6 +813,7 @@ class EscortController extends Controller
     }
     public function notificationsFeatures()
     {
+       $escordSettingData = EscortAccountSetting::where('user_id' , auth()->user()->id)->first();
         return view('escort.dashboard.profileNotifications');
     }
     public function getGeoLocationProfiles(Request $request){

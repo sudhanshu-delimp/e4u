@@ -116,7 +116,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form name="add_staff" method="POST" action="{{ route('admin.add-staff') }}"
+                    <form name="add_staff" id="add_staff" method="POST" action="{{ route('admin.add-staff') }}"
                         enctype="multipart/form-data">
                         <div class="row">
                             <!-- Section: Personal Details -->
@@ -193,8 +193,8 @@
                             <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="location" id="location">
                                     <option value="">Select Location</option>
-                                    @foreach (config('escorts.profile.states') as $skey => $stateLoc)
-                                        <option value="{{ $skey }}">{{ $stateLoc['stateName'] }}</option>
+                                   @foreach (config('escorts.profile.cities') as $skey => $city)
+                                        <option value="{{ $skey }}">{{ $city}}</option>
                                     @endforeach
                                     <span class="text-danger error-location"></span>
                                 </select>
@@ -210,7 +210,7 @@
                                 <select class="form-control rounded-0" name="security_level" id="security_level">
                                     <option value="">Security Level</option>
                                     @foreach (config('staff.security_level') as $seckey => $secLevel)
-                                        <option value="{{ $seckey }}">{{ $secLevel }}</option>
+                                        <option value="{{ $seckey }}" {{$seckey == 3 ? "selected": ""}}>{{ $secLevel }}</option>
                                     @endforeach
                                 </select>
                                 <span class="text-danger error-security_level"></span>
@@ -476,6 +476,7 @@
                         $('span.text-danger').text('');
                         $('#addStaffnew').modal('hide');
                         $('#staffEditModal').modal('hide');
+                         $('#add_staff')[0].reset(); 
                         swal_success_popup(response.message);
                     },
                     error: function(xhr) {
@@ -538,12 +539,14 @@
                   table.ajax.reload(null, false); 
                   Swal.close();
                   $('#staffViewModal').modal('hide');
+                  $('#staffEditModal').modal('hide');
                   swal_success_popup(response.message);
                },
                error: function(xhr) {
                   
                   Swal.close();
                   $('#staffViewModal').modal('hide');
+                  $('#staffEditModal').modal('hide');
                   swal_error_popup(xhr.responseJSON.message);
                }
             });

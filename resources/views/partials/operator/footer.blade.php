@@ -37,6 +37,7 @@
         <script src="{{ asset('assets/dashboard/js/sb-admin-2.min.js') }}"></script>
         <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
         
+        <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
         <script src="{{ asset('assets/js/common.js') }}"></script>
 
@@ -69,8 +70,7 @@
                     });
                 }
                 initJsDatePicker();
-            </script> 
-        <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+            </script>
 
         @section('script')
         @show

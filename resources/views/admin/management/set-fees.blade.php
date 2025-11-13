@@ -80,7 +80,7 @@
          <div class="row">
 
             <div class="custom-heading-wrapper col-md-12">
-               <h1 class="h1">Set Fees & Variables</h1>
+               <h1 class="h1">Fees & Variables</h1>
                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
             <div class="col-md-12 mb-4">

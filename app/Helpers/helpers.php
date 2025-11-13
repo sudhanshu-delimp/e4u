@@ -579,3 +579,33 @@ function print_this($array,$die=false){
         die;
     }
 }
+
+if (!function_exists('showDateWithFormat')) {
+    /**
+     * Format the date as per supplied format to
+     * display date in UI.
+     * e.g. 10-23-2022
+     *
+     * @param string $date Date or datetime string
+     * @param string $format Date format
+     * @return string
+     */
+    function showDateWithFormat($date, $format = '')
+    {
+        if (empty($format)) {
+            $format = "d-m-Y";
+        }
+
+        $formattedDate = '';
+        try {
+            if (empty($date) || strtotime($date) === false) {
+                $formattedDate = '';
+            } else {
+                $formattedDate = Carbon::parse($date)->format($format);
+            }
+        } catch (\Exception $e) {
+            //
+        }
+        return $formattedDate;
+    }
+}

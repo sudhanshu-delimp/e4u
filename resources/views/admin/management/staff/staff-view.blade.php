@@ -86,7 +86,7 @@
                 </tr>
                 <tr>
                     <th>Commenced Date</th>
-                    <td>{{ $staff->staff_detail->commenced_date }}</td>
+                    <td>{{showDateWithFormat($staff->staff_detail->commenced_date, "d/m/Y")}}</td>
                 </tr>
                 <tr>
                     <th>Security Level</th>
