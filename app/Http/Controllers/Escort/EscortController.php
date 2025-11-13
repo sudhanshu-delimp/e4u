@@ -496,6 +496,9 @@ class EscortController extends Controller
             //'social_links'=>$request->social_links,
         ];
 
+        if(isset($request->gender) && $request->gender!="")
+        $data['gender'] = $request->gender;
+
         $error = true;
         if ($this->user->store($data, auth()->user()->id)) {
             $error = false;
