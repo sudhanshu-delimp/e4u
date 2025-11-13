@@ -94,10 +94,14 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="Gender">Gender</label>
-                                       <select class="form-control" name="gender" required>
-                                          <option value="">Select</option>
+                                       
+                                       
                                           @foreach(config('escorts.profile.genders') as $key => $gender)
-                                          <option value="{{$key}}" {{ ($escort->gender == $key)? 'selected' : ''}}>{{$gender}}</option>
+                                           @if($escort->gender == $key)
+                                            <span class="form-control form-back">{{ $gender }}</span>
+                                           @endif
+
+                                         
                                           @endforeach
                                        </select>
                                     </div>
