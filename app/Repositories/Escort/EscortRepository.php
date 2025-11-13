@@ -54,23 +54,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
         ];
     }
 
-    // public function getlinks($escort_id)
-    // {
-    //     $next = $this->model
-    //         ->where('id', '>', $escort_id)
-    //         ->whereNotNull('membership')
-    //         ->first();
-
-    //     $previous = $this->model
-    //         ->where('id', '<', $escort_id)
-    //         ->whereNotNull('membership')
-    //         ->latest()->first();
-
-    //     return [
-    //         $next ? route('profile.description', $next->id) : '#',
-    //         $previous ? route('profile.description', $previous->id) : '#',
-    //     ];
-    // }
 
     public function paginatedByEscortId($start, $limit, $order_key, $dir, $columns, $search = null, $escort_id, $stateId = null)
     {
@@ -83,37 +66,18 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ->limit($limit)
             ->orderBy($order, $dir);
 
-        //$member_type = ['Free','Platinum','Silver','Gold'];
         if ($search) {
             foreach ($searchables as $column) {
                 if (in_array($column, $this->getColumns())) {
-                    // echo "column -:".$column."</br>";
-                    // echo "search -:".$search."</br>";
                     $query = $query->orWhere($column, 'LIKE', "%{$search}%");
                 }
             }
         }
         if ($stateId != null) {
             $query = $query->where('state_id', $stateId);
-            // $query = $query->where('state_id',$stateId);
         }
         $result = $query->where('user_id', $escort_id)->where('default_setting', '!=', 1)->get();
 
-
-        // if($stateId != null) {
-        //     $result = $this->modifyPropertiesforArchives($result,$start);
-        //     $count =  $this->model->where('user_id', $escort_id)->where('city_id',$stateId)->count();
-
-        // }
-        // else {
-        //     $result = $this->modifyProperties($result);
-        //     $count =  $query->count();
-        //     //dd($result);
-        //     // $count =  $this->model->count();
-
-        // }
-
-        //$result = $this->modifyProperties($result,$start);
         $result = $this->modifyPropertiesforArchives($result, $start);
         $count =  $this->model->where('user_id', $escort_id)->where('default_setting', '!=', 1)->where('state_id', $stateId)->count();
 
@@ -134,11 +98,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                     $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
                 },
             ])
-
-            //->whereNotNull('profile_name')
             ->orderBy($order, $dir);
-
-            //dd($query->pluck('id'));
 
         if ($search) {
             $query = $query->where($conditions)
@@ -165,7 +125,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 ->where('default_setting', '!=', 1)->get();
 
             $result = $this->modifyEscorts($result, $start);
-            //$count =  $result->count();
       
             $count =  $this->model->where('user_id', $user_id)->where($conditions)->where('default_setting', '!=', 1)->where('profile_name', '!=', null)->count();
         }
@@ -180,8 +139,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
     protected function modifyEscorts($result, $start)
     {
         $i = 1;
-
-        //        $result = $result->toArray();
         foreach ($result as $key => $item) {
             $playmates = $item->playmates->count();
             $s = explode('/', $_SERVER['REQUEST_URI']);
@@ -207,11 +164,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->stage_name = 'TS-'.$item->name;
             else
             $item->stage_name = $item->name;
-
-            // $item->gender;
-            //
-            // $item->country_code = $item->state->country_code;
-            // this data for agent: list Adertiser <Manage Profile
             $item->phone = $item->phone ? $item->phone : "NA";
             $item->gender = $item->gender ? $item->gender : "NA";
             $item->membership = $item->membership ? $item->membershipType : "NA";
@@ -550,17 +502,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
         // dd($collection->get());
         if (!empty($str['state_id'])) {
             $collection = $collection->where('state_id', $str['state_id']);
-            // dd($newCollection->get()->toArray() );
-            // if(count($newCollection->get()->toArray()) <= 0){
-            //     $collection = $collection;
-            //     //dd($collection);
-            // }else{
-            //     $collection = $newCollection;
-            // }
-            //->orWhere('name','LIKE','%'.$str)
         }
-
-        //dd($collection->get(), $str['state_id']);
 
         if (!empty($str['city_id'])) {
             $collection = $collection->where('city_id', '=', $str['city_id']);
@@ -675,17 +617,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ->orderBy('membership', 'asc')
             ->paginate($count ?? 50);
 
-        // $collection = $play_type->getCollection();
-
-        // $collection = $collection->map(function($item, $key) {
-        //     return $item;
-        // })->collect();
-
-        // $collection = $collection->groupBy(['user' => function($item) {
-        //     return $item->membership;
-        // }], $preserveKeys = true)->sortKeys();
-
-        // $pagination = $play_type->setCollection($collection);
         $pagination = $play_type;
 
         return $pagination;
@@ -702,7 +633,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
         return $city;
     }
 
-    //public function escortsForPlaymates($escort_id)
     public function escortsForPlaymates($user_id, $str)
     {
         //dd($str);
@@ -780,18 +710,35 @@ class EscortRepository extends BaseRepository implements EscortInterface
         return  $result;
     }
     public function findandfill() {}
+
     public function latest()
     {
         $result = $this->model->latest()->first();
         return  $result;
     }
 
-    // public function addToList($user_id)
-    // {
-    //     $q = $this->model
-    //                 ->whereHas('user', function($q) use ($user_id) {
-    //                         $q->where('id', '!=', $user_id);
-    //                     });
-    //                 })
-    // }
+    public function getExpiringListings($startDays = 0, $endDays = 0, $login=false)
+    {
+        $startDate = Carbon::now()->addDays($startDays)->startOfDay();
+        $endDate = Carbon::now()->addDays($endDays)->endOfDay();
+        if($login){
+            return $this->model
+            ->where('enabled', 1)
+            ->where('user_id', auth()->id())
+            ->whereBetween('utc_end_time', [$startDate, $endDate])
+            ->whereDoesntHave('mainPurchase', function ($query) {
+                $query->whereNotNull('tour_location_id');
+            })
+            ->get();
+        }
+        else{
+            return $this->model
+            ->where('enabled', 1)
+            ->whereBetween('utc_end_time', [$startDate, $endDate])
+            ->whereDoesntHave('mainPurchase', function ($query) {
+                $query->whereNotNull('tour_location_id');
+            })
+            ->get();
+        }
+    }
 }

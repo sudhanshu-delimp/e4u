@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Models\Escort;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+use App\Repositories\Escort\EscortInterface;
 use App\Mail\ListingExpiryReminder;
 
 class SendProfileListingExpiryReminder extends Command
@@ -16,6 +17,7 @@ class SendProfileListingExpiryReminder extends Command
      * @var string
      */
     protected $signature = 'escort:send-listing-expiry-reminders';
+    protected $escort;
 
     /**
      * The console command description.
@@ -29,9 +31,10 @@ class SendProfileListingExpiryReminder extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(EscortInterface $escort)
     {
         parent::__construct();
+        $this->escort = $escort;
     }
 
     /**
@@ -43,9 +46,7 @@ class SendProfileListingExpiryReminder extends Command
     {
        $targetDate = Carbon::now()->addDays(2)->startOfDay();
        $endOfTargetDate = (clone $targetDate)->endOfDay();
-       $escorts = Escort::where('enabled', 1)
-            ->whereBetween('utc_end_time', [$targetDate, $endOfTargetDate])
-            ->get();
+       $escorts = $this->escort->getExpiringListings(1,1);
         if($escorts->count()>0){
             foreach ($escorts as $escort) {
                 if ($escort->user && $escort->user->email) {
@@ -55,6 +56,9 @@ class SendProfileListingExpiryReminder extends Command
                 }
             }
             $this->info('All reminders processed.');
+        }
+        else{
+            $this->info('No reminders found.');
         }
     }
 }
