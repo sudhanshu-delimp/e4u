@@ -186,7 +186,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    <img src="{{ asset('assets/dashboard/img/change-security.png') }}" class="custompopicon">
+                    <img src="{{ asset('assets/dashboard/img/monthly-report.png') }}" class="custompopicon">
                     Fee Report - Member ID A600025 (Period Ending: 01-10-25 to 31-10-25)
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

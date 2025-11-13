@@ -162,6 +162,10 @@ Route::get('registrations-reports',[ReportingController::class, 'userRegistratio
 // })->name('admin.registrations-reports');
 
 
+Route::get('management/dashboard',function(){
+    return view('admin.management.management');
+})->name('admin.management');
+
 Route::get('management/commission-statements',function(){
     return view('admin.management.operator.commission-statements');
 })->name('admin.commission-statements');
