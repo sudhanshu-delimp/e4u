@@ -164,11 +164,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->stage_name = 'TS-'.$item->name;
             else
             $item->stage_name = $item->name;
-
-            // $item->gender;
-            //
-            // $item->country_code = $item->state->country_code;
-            // this data for agent: list Adertiser <Manage Profile
             $item->phone = $item->phone ? $item->phone : "NA";
             $item->gender = $item->gender ? $item->gender : "NA";
             $item->membership = $item->membership ? $item->membershipType : "NA";
