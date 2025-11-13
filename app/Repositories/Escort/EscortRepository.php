@@ -2,14 +2,15 @@
 
 namespace App\Repositories\Escort;
 
-use App\Repositories\BaseRepository;
-use App\Traits\DataTablePagination;
+use DB;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Escort;
 use App\Models\EscortLike;
-use App\Models\User;
-use Carbon\Carbon;
-use DB;
 use Illuminate\Support\Arr;
+use App\Traits\DataTablePagination;
+use Illuminate\Support\Facades\Log;
+use App\Repositories\BaseRepository;
 
 class EscortRepository extends BaseRepository implements EscortInterface
 {
@@ -199,10 +200,13 @@ class EscortRepository extends BaseRepository implements EscortInterface
             }
 
 
-            if($item->gender==3)
-            $item->name = 'TS-'.$item->name;
+
+           
+
+            if($item->gender=='Transgender')
+            $item->stage_name = 'TS-'.$item->name;
             else
-            $item->name = $item->name;
+            $item->stage_name = $item->name;
 
             // $item->gender;
             //
