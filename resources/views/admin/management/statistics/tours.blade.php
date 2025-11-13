@@ -14,7 +14,7 @@
    <div class="row">
       
       <div class=" custom-heading-wrapper col-md-12">
-        <h1 class="h1"> Tours</h1>
+        <h1 class="h1">Tours</h1>
         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
      </div>
      <div class="col-md-12 mb-4">
@@ -920,30 +920,30 @@
 
                      </td>
                      <td>Total</td>
-                     <td>1,258</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td>[sum]</td>
-                     <td>[sum]</td>
+                     <td>Total</td>
+                     <td>Total</td>
+                     <td>Total</td>
+                     <td>total</td>
+                     <td>sum</td>
+                     <td>sum</td>
+                     <td>total</td>
+                     <td>sum</td>
+                     <td>sum</td>
+                     <td>total</td>
+                     <td>sum</td>
+                     <td>sum</td>
                   </tr>
                </tbody>
 
-         </table>
+            </table>
          </div>
      </div>
 
      <div class="col-md-12">
         <div class="timer_section">
-                <p>Server time: <span>[10:23:51 am]</span></p>
-                <p>Refresh time:<span> [seconds]</span></p>
-                <p>Up time: <span>[214 days & 09 hours 12 minutes]</span></p>
+                <p>Server time: <span>10:23:51 am</span></p>
+                <p>Refresh time:<span> 15 seconds</span></p>
+                <p>Up time: <span>214 days & 09 hours 12 minutes</span></p>
             </div>
        </div>
    </div>
