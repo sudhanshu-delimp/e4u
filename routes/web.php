@@ -65,6 +65,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/agent-login', [AdvertiserLoginController::class,'indexAgent'])->name('agent.login');
     Route::get('/register', [GuestRegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [RegisterController::class,'register']);
+    Route::get('/staff-login', [AdvertiserLoginController::class,'indexStaff'])->name('staff.login');
     
 });
 ############## End Put All Guest Url Here ####################

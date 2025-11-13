@@ -311,6 +311,10 @@ class LoginController extends BaseController
     {
         return view('auth.advertiser.loginViewer');
     }
+    public function indexStaff()
+    {
+        return view('auth.advertiser.loginStaff');
+    }
     public function forgotpassword()
     {
         return view('auth.advertiser.forgot');
@@ -377,5 +381,6 @@ class LoginController extends BaseController
              'password' => 'required|string',
          ]);
      }
+     
 
 }
