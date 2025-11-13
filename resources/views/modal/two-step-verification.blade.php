@@ -76,18 +76,13 @@
                                     <p id="resendLine" class="pt-2" style="display: none;">
                                         Not received your verification code?
                                         <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a>
-                                    </p>
-
-                                    
+                                    </p>             
                            
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
-
-
 
 
 <script>

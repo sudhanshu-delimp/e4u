@@ -91,7 +91,7 @@
                                     type="radio"
                                     name="auto_recharge_option"
                                     id="auto_recharge_none"
-                                    value="none"
+                                    value="no"
                                     checked>
                                 <label class="form-check-label" for="auto_recharge_none">
                                     No Auto-Recharge
@@ -104,7 +104,7 @@
                                     type="radio"
                                     name="auto_recharge_option"
                                     id="auto_recharge_100"
-                                    value="100">
+                                    value="100" {{ (  $escordSettingData && $escordSettingData->auto_recharge_option == 100) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="auto_recharge_100">
                                     $100.00
                                 </label>
@@ -116,7 +116,7 @@
                                     type="radio"
                                     name="auto_recharge_option"
                                     id="auto_recharge_250"
-                                    value="250">
+                                    value="250" {{ ($escordSettingData && $escordSettingData->auto_recharge_option == 250) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="auto_recharge_250">
                                     $250.00
                                 </label>
@@ -128,7 +128,7 @@
                                     type="radio"
                                     name="auto_recharge_option"
                                     id="auto_recharge_500"
-                                    value="500">
+                                    value="500" {{ ($escordSettingData && $escordSettingData->auto_recharge_option == 500) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="auto_recharge_500">
                                     $500.00
                                 </label>
@@ -158,7 +158,7 @@
                             <div class="mt-2"><i>Enable communications between you and your Escort Agency (if
                                     applicable).</i></div>
                         </div>
-                        
+
                         <div class="form-group">
                             <h3 class="h3">Alert notifications</h3>
                             <div class="custom-control custom-switch">
@@ -199,16 +199,28 @@
                         </div>
                         <div class="form-group">
                             <h3 class="h3">2FA Authentication</h3>
-
                             <!-- Email Option -->
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="auth" id="auth_email" value="1">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="twofa"
+                                    id="auth_email"
+                                    value="1"
+                                    {{ ($escordSettingData && $escordSettingData->twofa == "1") ? 'checked' : '' }}>
                                 <label class="form-check-label" for="auth_email">Email</label>
                             </div>
 
+
                             <!-- Text Option -->
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="auth" id="auth_text" value="2" checked>
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="twofa"
+                                    id="auth_text"
+                                    value="2"
+                                    {{ ($escordSettingData && $escordSettingData->twofa == "1") ? '' : 'checked' }}>
                                 <label class="form-check-label" for="auth_text">Text</label>
                             </div>
 
@@ -218,22 +230,23 @@
                             </div>
                         </div>
 
+
                         <div class="form-group">
                             <h3 class="h3">Subscriptions</h3>
 
                             <!-- G NUM Checkbox -->
                             <div class="form-check">
-                                <input class="form-check-input" name="num" type="checkbox" id="num" value="NUM">
+                                <input class="form-check-input" name="num" type="checkbox" id="num" value="num" {{ ($escordSettingData && $escordSettingData->num == "num") ? 'checked' : '' }}>
                                 <label class="form-check-label" for="num">NUM</label>
                             </div>
 
                             <!-- Coverage Options (Radio Buttons) -->
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="subscription" id="home_state" value="HS">
+                                <input class="form-check-input" type="radio" name="subscription" id="home_state" value="HS" {{ ($escordSettingData && $escordSettingData->subscription == "HS") ? 'checked' : '' }}>
                                 <label class="form-check-label" for="home_state">Home State</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="subscription" id="aus_wide" value="AUS">
+                                <input class="form-check-input" type="radio" name="subscription" id="aus_wide" value="AUS" {{ ($escordSettingData && $escordSettingData->subscription == "AUS") ? 'checked' : '' }}>
                                 <label class="form-check-label" for="aus_wide">Australia wide</label>
                             </div>
 
@@ -251,6 +264,34 @@
     </div>
     <!--middle content end here-->
 </div>
+
+
+<div class="modal fade upload-modal" id="success_popup" tabindex="-1" aria-labelledby="confirmPopupLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content basic-modal">
+            <div class="modal-header border-0">
+                <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
+                    <img src="{{ asset('assets/dashboard/img/unblock.png') }}" alt="resolved" class="custompopicon">
+                    <span class="success-modal-title">Notification Settings</span>
+                </h5>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close" style="background: none; border: none;">
+                    <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                </button>
+            </div>
+
+            <div class="modal-body pb-0 teop-text text-center">
+                <h6 class="popu_heading_style mt-2">
+                    <span class="Lname success-modal-text resMsg"> </span>
+                </h6>
+            </div>
+
+            <div class="modal-footer justify-content-center border-0 pb-4">
+                <button type="button" class="btn-success-modal" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @push('script')
 <!-- file upload plugin start here -->
@@ -261,7 +302,9 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script type="text/javascript">
     $('#userProfile').parsley({
@@ -491,6 +534,7 @@
             alertBox.addClass('d-none');
         }, 10000); // Hide after 4 seconds
     }
+
     $('#profile_notification_options').on('submit', function(e) {
         e.preventDefault();
         $("#modal-title").text('Notifications & Features');
@@ -510,8 +554,26 @@
             },
             success: function(data) {
                 if (!data.error) {
-                    showGlobalAlert("Notification settings saved successfully.", "success");
+                    var myModal = new bootstrap.Modal(document.getElementById('success_popup'));
+                    myModal.show();
+
+                    // Update the message inside the modal
+                    var resMsgElement = document.querySelector('.resMsg');
+                    if (resMsgElement) {
+                        resMsgElement.textContent = data.message;
+                    }
+
                 } else {
+                    swal({
+                        title: "Oops!",
+                        text: data.message,
+                        icon: "error",
+                        closeModal: true,
+                        buttons: {
+                            cancel: false,
+                            ok: true,
+                        },
+                    });
                     showGlobalAlert("Something went wrong. Please try again.", "danger");
                 }
             },
