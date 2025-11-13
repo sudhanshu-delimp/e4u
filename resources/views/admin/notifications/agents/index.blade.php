@@ -360,7 +360,7 @@
 
     <div id="manage-route" data-scrf-token="{{ csrf_token() }}"
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
-        data-error-image="{{ asset('assets/dashboard/img/alert.png') }}" 
+        data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
         data-pdf-download="{{ route('admin.agent.pdf.download', ['id' => '__ID__']) }}"
         data-agent-notification-status="{{ route('admin.agent.notifications.status', ['id' => '__ID__']) }}">
 
@@ -593,9 +593,6 @@
                 //When select Scheduled Type Month
                 const today = new Date();
                 const totalDays = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
-                //populateTypeMonthDate("#monthWiseStartDate", totalDays);
-                //populateTypeMonthDate("#monthWiseEndDate", totalDays);
-
                 //Fill dropdown with day numbers
 
 
@@ -614,10 +611,6 @@
                     });
 
                 });
-
-
-
-
 
                 //Match start date and end date for type Monthly
                 function typeMonthlySelectedDate(dayId) {
@@ -648,9 +641,6 @@
                         $(selectId).append(`<option value="${i}">${i}</option>`);
                     }
                 }
-
-                // populateTypeWeekDate("#weekWiseStartDate");
-                // populateTypeWeekDate("#weekWiseEndDate");
 
                 $("#weekWiseStartDate, #weekWiseEndDate").on('change', function() {
 
@@ -774,9 +764,18 @@
                     url: "{{ route('admin.agent.notifications.index') }}",
                     type: 'GET'
                 },
-                columns: [{
-                        data: 'ref',
-                        name: 'ref'
+                columns: [
+                    { // 👇 New column for row index
+                        data: null,
+                        name: 'row_index',
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            // meta.row starts from 0
+                            let idNumber = meta.row + meta.settings._iDisplayStart + 1;
+                            // Format like #00001
+                            return '#' + idNumber.toString().padStart(5, '0');
+                        }
                     },
                     {
                         data: 'start_date',
@@ -841,7 +840,8 @@
                             ];
 
 
-                            let html =`<table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;"><tbody>`;
+                            let html =
+                                `<table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;"><tbody>`;
                             rows.forEach(function(r) {
                                 html += `
                                         <tr>
@@ -851,9 +851,9 @@
                                     `;
                             });
                             html += '</tbody></table>';
-                           
+
                             container.html(html);
-                             $('#pdf-download').attr('data-notification-id', id);
+                            $('#pdf-download').attr('data-notification-id', id);
                             $('#view-listing').modal('show');
                         } else {
                             container.html('<div class="text-danger">Failed to load details.</div>');
@@ -893,7 +893,9 @@
                 const img = $('#image_icon');
                 $('#success_task_title').text('Confirmation');
                 img.attr('src', endpoint.error_image);
-                body.html(`<h4>${confirmMsg}</h4><div class="d-flex justify-content-center gap-10 mt-3"><button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button><button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button></div>`);
+                body.html(
+                    `<h4>${confirmMsg}</h4><div class="d-flex justify-content-center gap-10 mt-3"><button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button><button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button></div>`
+                    );
                 modal.modal('show');
                 body.off('click', '#confirmRemove').on('click', '#confirmRemove', function() {
                     $(this).prop('disabled', true);
@@ -907,7 +909,10 @@
                         success: function(response) {
                             $('#success_task_title').text('Success');
                             $('#image_icon').attr('src', endpoint.success_image);
-                            $('#success_form_html').html('<h4>' + (response.message || 'Status updated successfully') + '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>');
+                            $('#success_form_html').html('<h4>' + (response.message ||
+                                    'Status updated successfully') +
+                                '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                );
                             setTimeout(function() {
                                 modal.modal('hide');
                                 table.ajax.reload(null, false);
@@ -915,12 +920,14 @@
                         },
                         error: function(xhr) {
                             let msg = 'Something went wrong';
-                            if(xhr.responseJSON && xhr.responseJSON.message){
-                              msg = xhr.responseJSON.message;
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                msg = xhr.responseJSON.message;
                             }
                             $('#success_task_title').text('Error');
                             $('#image_icon').attr('src', endpoint.error_image);
-                            $('#success_form_html').html('<h4>' + msg + '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>');
+                            $('#success_form_html').html('<h4>' + msg +
+                                '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                );
                         }
                     });
                 });

@@ -14,8 +14,8 @@ class AgentNotificationController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = AgentNotification::query();
-
+            $query = AgentNotification::query()
+            ->orderByRaw("FIELD(type, 'scheduled','notice','adhoc')")->orderByRaw("FIELD(status, 'Published','Completed','Suspend', 'Removed')");
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('ref', function ($row) {
@@ -42,7 +42,10 @@ class AgentNotificationController extends Controller
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
                     }
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
-                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                    if(!$row->status ==='Removed'){
+                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                    }
+                   
 
                     $dropdown = '<div class="dropdown no-arrow">'
                         . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
