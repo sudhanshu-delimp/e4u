@@ -3,6 +3,20 @@
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <!-- Page Heading -->
         <div class="row">
+            @if($expiringListings->count() > 0)
+                @foreach ($expiringListings as $profile)
+                <div class="col-sm-12 ">
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Profile Listing #{{$profile->id}} is about to expire.  <strong> <a href="{{route('escort.list','current')}}">Click here</a></strong> to extend the Listing.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                @endforeach
+            @endif
+        </div>
+        <div class="row">
             <div class="col-md-12 custom-heading-wrapper"><h1 class="h1">Dashboard</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
           </div>

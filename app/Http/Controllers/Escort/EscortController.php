@@ -61,7 +61,8 @@ class EscortController extends Controller
         $escorts = $this->escort->all();
         $tasks = Task::latest()->paginate(10);
         $viewer_array = DashboardViewer::where('user_id', auth()->id())->first(); 
-        return view('escort.dashboard.index', compact('escorts', 'result', 'result2', 'tasks','viewer_array'));
+        $expiringListings = $this->escort->getExpiringListings(0, 2, true);
+        return view('escort.dashboard.index', compact('escorts', 'result', 'result2', 'tasks','viewer_array','expiringListings'));
     }
 
 
