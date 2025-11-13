@@ -386,6 +386,8 @@
             $(document).ready(function() {
                 function toggleFields() {
                     var type = $('#type').val();
+                    console.log('Selected type:', type);
+                    
 
 
                     // Hide all conditionally visible fields initially
@@ -425,7 +427,7 @@
                         $("#start_date").val('');
                         $("#end_date").val('');
                         $("#end_date").val('');
-                    }
+                    } 
                 }
 
                 // On schedule type change, show related fields
@@ -461,6 +463,7 @@
                         ).empty('');
                         $("#recurring").hide();
                         $("#recurring").val('');
+                        $('#numberOfRecurring').hide();
                         // No additional fields shown
                     }
                 });

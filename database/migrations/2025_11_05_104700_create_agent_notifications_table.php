@@ -29,6 +29,7 @@ class CreateAgentNotificationsTable extends Migration
             $table->integer('num_recurring')->nullable();   // Kitne times repeat karna hai
             $table->text('content')->nullable();
             $table->enum('status', ['Published','Completed','Suspend', 'Removed'])->default('Published');
+            $table->text('scheduled_days')->nullable();
             $table->timestamps();
         });
     }
