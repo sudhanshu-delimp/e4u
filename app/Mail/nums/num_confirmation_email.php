@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Mail\Influencer;
+namespace App\Mail\nums;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class RequestInfluencerToUserMail extends Mailable implements ShouldQueue
+class num_confirmation_email extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
     public $data;
-
     /**
      * Create a new message instance.
      *
@@ -30,8 +29,8 @@ class RequestInfluencerToUserMail extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'))
-            ->markdown('emails.Influencer.requestInfluencer')
-            ->subject($this->data['subject'])
-            ->with('body',$this->data);
+        ->markdown('emails.nums.num_confirmation_email')
+        ->subject($this->data['subject'])
+        ->with('body',$this->data);
     }
 }
