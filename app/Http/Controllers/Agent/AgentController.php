@@ -66,7 +66,7 @@ class AgentController extends BaseController
         //dd($userEscort->where('type',3)->count());
         //return redirect()->view('agent.dashboard.index',compact('escorts'));
         $agentNotifications = $this->agentNotificationCount();
-        return view('agent.dashboard.index', compact('escorts', 'userEscort','agentNotifications'));
+        return view('agent.dashboard.index', compact('escorts', 'userEscort', 'agentNotifications'));
     }
     public function escortList()
     {
@@ -778,12 +778,10 @@ class AgentController extends BaseController
     {
         $today = Carbon::today();
         $todayDate = $today->toDateString();
-        $todayWeekDay = $today->dayOfWeekIso; 
-        $todayDay = $today->day;
-        $todayMonthDay = $today->format('m-d');
-        $loggedMemberId = Auth::user()->member; // get from auth/session
+        $loggedMemberId = Auth::user()->member_id;
+        
 
-        $notifications = AgentNotification::where(function ($query) use ($todayDate, $todayWeekDay, $todayDay, $todayMonthDay, $loggedMemberId) {
+        $notifications = AgentNotification::where('status', 'Published')->where(function ($query) use ($todayDate, $loggedMemberId) {
 
             // Adhoc notifications valid for today
             $query->where('type', 'adhoc')
@@ -798,37 +796,17 @@ class AgentController extends BaseController
                     ->where('member_id', $loggedMemberId);
             });
 
-            // Scheduled notifications valid for today based on recurring_type and scheduled_days
-            $query->orWhere(function ($q) use ($todayWeekDay, $todayDay, $todayMonthDay) {
+            // Scheduled notifications valid for today based on scheduled_days or forever recurring
+            $query->orWhere(function ($q) use ($todayDate) {
                 $q->where('type', 'scheduled')
-                    ->where('status', 'Published')
-                    ->where(function ($sq) use ($todayWeekDay, $todayDay, $todayMonthDay) {
-
-                        // Weekly recurring: match current weekday in scheduled_days
-                        $sq->where(function ($weekly) use ($todayWeekDay) {
-                            $weekly->where('recurring_type', 'weekly')
-                                ->whereRaw('FIND_IN_SET(?, scheduled_days)', [$todayWeekDay]);
-                        });
-
-                        // Monthly recurring: match current day of month in scheduled_days
-                        $sq->orWhere(function ($monthly) use ($todayDay) {
-                            $monthly->where('recurring_type', 'monthly')
-                                ->whereRaw('FIND_IN_SET(?, scheduled_days)', [$todayDay]);
-                        });
-
-                        // Yearly recurring: match current month-day in scheduled_days
-                        $sq->orWhere(function ($yearly) use ($todayMonthDay) {
-                            $yearly->where('recurring_type', 'yearly')
-                                ->whereRaw('FIND_IN_SET(?, scheduled_days)', [$todayMonthDay]);
-                        });
-
-                        // Forever recurring: always show (no day check)
-                        $sq->orWhere(function ($forever) {
-                            $forever->where('recurring_type', 'forever');
-                        });
+                    ->where(function ($sq) use ($todayDate) {
+                        $sq->whereRaw('FIND_IN_SET(?, scheduled_days)', [$todayDate])
+                            ->orWhere('recurring_type', 'forever');
                     });
             });
-        })->orderBy('created_at', 'desc')->select('id', 'heading', 'content')->get();
+        })->orderBy('created_at', 'desc')
+            ->select('id', 'heading', 'content')
+            ->get();
 
         return $notifications;
     }

@@ -25,14 +25,16 @@ class AgentNotificationController extends Controller
                 ->editColumn('start_date', function ($row) {
                     return $row->start_date ? Carbon::parse($row->start_date)->format('d-m-Y') : '';
                 })
+                ->editColumn('type', function ($row) {
+                    $type = $row->type;
+                    if ($type === 'scheduled') {
+                        $recurringRange = $row->recurring_type;
+                        return $type . ($recurringRange ? ' (' . $recurringRange . ')' : '');
+                    }
+                    return $type;
+                })
                 ->editColumn('end_date', function ($row) {
                     return $row->end_date ? Carbon::parse($row->end_date)->format('d-m-Y') : '';
-                })
-                ->editColumn('type', function ($row) {
-                    return $row->type;
-                })
-                ->editColumn('status', function ($row) {
-                    return $row->status ?? '';
                 })
                 ->addColumn('action', function ($row) {
                     $actions = [];
@@ -103,10 +105,8 @@ class AgentNotificationController extends Controller
             $n = AgentNotification::findOrFail($id);
             // Format recurring day/month range
             $recurringRange = null;
-            if (in_array($n->recurring_type, ['weekly', 'monthly'])) {
-                $recurringRange = "{$n->start_day} - {$n->end_day}";
-            } elseif ($n->recurring_type === 'yearly') {
-                $recurringRange = "{$n->start_month}/{$n->start_day} - {$n->end_month}/{$n->end_day}";
+            if (in_array($n->recurring_type, ['weekly', 'monthly','yearly'])) {
+                $recurringRange = basicDateFormat($n['start_date']).' - '.basicDateFormat($n['end_date']);
             } elseif ($n->recurring_type === 'forever') {
                 $recurringRange = "Forever";
             }
@@ -114,11 +114,11 @@ class AgentNotificationController extends Controller
             return success_response([
                 'id' => $n->id,
                 'ref' => sprintf('#%05d', $n->id),
-                'current_day' => $n->current_day ? \Carbon\Carbon::parse($n->current_day)->format('d-m-Y') : null,
+                'current_day' => $n->current_day ? basicDateFormat($n->current_day) : null,
                 'heading' => $n->heading,
                 'type' => $n->type,
-                'start_date' => $n->start_date ? \Carbon\Carbon::parse($n->start_date)->format('d-m-Y') : null,
-                'end_date' => $n->end_date ? \Carbon\Carbon::parse($n->end_date)->format('d-m-Y') : null,
+                'start_date' => $n->start_date ? basicDateFormat($n->start_date) : null,
+                'end_date' => $n->end_date ? basicDateFormat($n->end_date) : null,
                 'member_id' => $n->member_id,
                 'recurring_type' => $n->recurring_type,
                 'recurring_range' => $recurringRange,
@@ -307,11 +307,9 @@ class AgentNotificationController extends Controller
 
 
             $recurringRange = null;
-            if (in_array($data->recurring_type, ['weekly', 'monthly'])) {
-                $recurringRange = "{$data->start_day} - {$data->end_day}";
-            } elseif ($data->recurring_type === 'yearly') {
-                $recurringRange = "{$data->start_month}/{$data->start_day} - {$data->end_month}/{$data->end_day}";
-            } elseif ($data->recurring_type === 'forever') {
+            if (in_array($data->recurring_type, ['weekly', 'monthly','yearly'])) {
+                $recurringRange = basicDateFormat($data['start_date']).' - '.basicDateFormat($data['end_date']);
+            }  elseif ($data->recurring_type === 'forever') {
                 $recurringRange = "Forever";
             }
 
@@ -319,12 +317,12 @@ class AgentNotificationController extends Controller
                 abort(404); // Throws a NotFoundHttpException
             }
             $pdfDetail['ref'] = $data['id'];
-            $pdfDetail['current_day'] = $data['current_day'] ? \Carbon\Carbon::parse($data['current_day'])->format('d-m-Y') : null;
+            $pdfDetail['current_day'] = $data['current_day'] ? basicDateFormat($data['current_day']) : null;
             $pdfDetail['heading'] = $data['heading'];
             $pdfDetail['type'] = $data['type'];
             $pdfDetail['status'] = $data['status'];
-            $pdfDetail['start_date'] = $data['start_date'] ? \Carbon\Carbon::parse($data['start_date'])->format('d-m-Y') : null;
-            $pdfDetail['end_date'] = $data['end_date'] ? \Carbon\Carbon::parse($data['end_date'])->format('d-m-Y') : null;;
+            $pdfDetail['start_date'] = $data['start_date'] ? basicDateFormat($data['start_date']) : null;
+            $pdfDetail['end_date'] = $data['end_date'] ? basicDateFormat($data['end_date']) : null;
             $pdfDetail['member_id'] = $data['member_id'];
             $pdfDetail['recurring_type'] = $data['recurring_type'];
             $pdfDetail['recurring_range'] = $recurringRange;

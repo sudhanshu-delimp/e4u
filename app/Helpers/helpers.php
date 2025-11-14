@@ -579,3 +579,12 @@ function print_this($array,$die=false){
         die;
     }
 }
+
+
+function basicDateFormat($date){
+    if($date){
+        return \Carbon\Carbon::parse($date)->format('d-m-Y');
+    }else{
+        return '';
+    }   
+}

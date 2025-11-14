@@ -387,7 +387,6 @@
                 function toggleFields() {
                     var type = $('#type').val();
                     console.log('Selected type:', type);
-                    
 
 
                     // Hide all conditionally visible fields initially
@@ -660,10 +659,6 @@
                     return day;
                 }
 
-
-
-
-
             });
         </script>
 
@@ -838,7 +833,7 @@
                                 ['Status', d.status || 'N/A'],
                                 ['Member ID', d.member_id || ''],
                                 ['Start Date', d.start_date || ''],
-                                ['Finish Date', d.finish_date || ''],
+                                ['Finish Date', d.end_date || ''],
                                 ['Content', (d.content || '')]
                             ];
 
