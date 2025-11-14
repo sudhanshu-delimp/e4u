@@ -56,8 +56,8 @@
                                     <th>Agent ID</th>
                                     <th>Territory</th>
                                     <th>Fees</th>
-                                    <th>Date Agent Approved</th>
                                     <th>Status</th>
+                                    <th>Date Agent Approved</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -81,11 +81,11 @@
                                                 aria-labelledby="dropdownMenuLink">
                                                 <div class="custom-tooltip-container"><a
                                                         class="dropdown-item align-item-custom toggle-massage-notification"
-                                                        href="#" title="Click to disable notification"
-                                                       >
+                                                        href="#" title="Click to disable notification">
                                                     </a>
-                                                    <a class="dropdown-item align-item-custom" data-toggle="modal" data-target="#payAgentreport" href=""> <i class="fa fa-star"
-                                                            aria-hidden="true"></i>
+                                                    <a class="dropdown-item align-item-custom" data-toggle="modal"
+                                                        data-target="#payAgentreport" href=""> <i
+                                                            class="fa fa-star" aria-hidden="true"></i>
                                                         Pay</a>
                                                     <div class="dropdown-divider"></div>
                                                 </div>
@@ -112,12 +112,10 @@
 {{-- Payment Authorisation --}}
 
 <div class="modal fade upload-modal" id="payAgentreport" tabindex="-1" role="dialog"
-    aria-labelledby="payAgentreportLabel" aria-hidden="true" 
-    data-backdrop="static" 
-    data-keyboard="false">
+    aria-labelledby="payAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
-            
+
             <!-- Header -->
 
 
@@ -156,125 +154,195 @@
                 </p>
 
                 <p style="margin-top: 25px;">
-                    Managing Director: <span style="display: inline-block; border-bottom: 1px solid #000; width: 200px;"></span>
+                    Managing Director: <span
+                        style="display: inline-block; border-bottom: 1px solid #000; width: 200px;"></span>
                 </p>
 
                 <hr style="margin: 20px 0;">
 
                 <div style="text-align: center;">
-                   
+
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">
                         Close
-                    </button> 
-                    
+                    </button>
+
                     <button type="button" class="btn-success-modal">Print</button>
                 </div>
             </div>
         </div>
     </div>
-</div>  
+</div>
 
 {{-- end --}}
 
 {{-- View Report --}}
 
 <div class="modal fade upload-modal" id="viewAgentreport" tabindex="-1" role="dialog"
-    aria-labelledby="viewAgentreportLabel" aria-hidden="true" 
-    data-backdrop="static" 
-    data-keyboard="false">
-    <div class="modal-dialog modal-xl modal-dialog-centered" role="document" >
+    aria-labelledby="viewAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
                     <img src="{{ asset('assets/dashboard/img/monthly-report.png') }}" class="custompopicon">
-                    Fee Report - Member ID A600025 (Period Ending: 01-10-25 to 31-10-25)
+                    Fee Report - Member ID A600025 (Period Ending: 31-10-25)
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
-                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}"
+                            class="img-fluid img_resize_in_smscreen">
                     </span>
                 </button>
             </div>
 
-           <div class="modal-body">
+            <div class="modal-body">
 
                 <table class="table table-bordered mb-0 opr_accordian_table">
                     <thead class="table-bg">
                         <tr>
-                        <th>Member ID</th>
-                        <th>Name</th>
-                        <th>Territory</th>
-                        <th>Type</th>
-                        <th>Days</th>
-                        <th>Spend</th>
-                        <th>Fee</th>
+                            <th>Member ID</th>
+                            <th>Name</th>
+                            <th>Territory</th>
+                            <th>Type</th>
+                            <th>Days</th>
+                            <th>Spend</th>
+                            <th>Fee</th>
                         </tr>
                     </thead>
 
                     <tbody id="accordionParent">
 
                         <!-- ========= MEMBER 1 ========= -->
-                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1" aria-expanded="false" aria-controls="details1">
-                        <td>E612344</td>
-                        <td class="opr_expand_arrow">Oxe Daisy <i class="fa fa-chevron-down"></i></td>
-                        <td>WA</td>
-                        <td></td>
-                        <td>35</td>
-                        <td class="text-left">$683.00</td>
-                        <td class="text-left">$34.15</td>
+                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1"
+                            aria-expanded="false" aria-controls="details1">
+                            <td>E612344</td>
+                            <td class="opr_expand_arrow">Oxe Daisy <i class="fa fa-chevron-down"></i></td>
+                            <td>WA</td>
+                            <td></td>
+                            <td>35</td>
+                            <td class="text-left">$683.00</td>
+                            <td class="text-left">$34.15</td>
                         </tr>
 
                         <!-- Detail rows -->
                         <tr class="detail-row" data-group="details1">
-                        <td></td><td></td><td></td><td>P</td><td>22</td><td class="text-left">$176.00</td><td class="text-left">$8.80</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>P</td>
+                            <td>22</td>
+                            <td class="text-left">$176.00</td>
+                            <td class="text-left">$8.80</td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
-                        <td></td><td></td><td></td><td>G</td><td>4</td><td class="text-left">$24.00</td><td class="text-left">$1.20</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>G</td>
+                            <td>4</td>
+                            <td class="text-left">$24.00</td>
+                            <td class="text-left">$1.20</td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
-                        <td></td><td></td><td></td><td>S</td><td>2</td><td class="text-left">$8.00</td><td class="text-left">$0.40</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>S</td>
+                            <td>2</td>
+                            <td class="text-left">$8.00</td>
+                            <td class="text-left">$0.40</td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
-                        <td></td><td></td><td></td><td>PU</td><td>7</td><td class="text-left">$475.00</td><td class="text-left">$23.75</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>PU</td>
+                            <td>7</td>
+                            <td class="text-left">$475.00</td>
+                            <td class="text-left">$23.75</td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
-                        <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                        <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">35</td>
-                        <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">$683.00</td>
-                        <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">$34.15</td>
+                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">35
+                            </td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
+                                $683.00</td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
+                                $34.15</td>
                         </tr>
 
                         <!-- ========= MEMBER 2 ========= -->
-                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#details2" aria-expanded="false" aria-controls="details2">
-                        <td>E612351</td>
-                        <td class="opr_expand_arrow">Rose Chaplin <i class="fa fa-chevron-down"></i></td>
-                        <td>WA</td>
-                        <td></td>
-                        <td>35</td>
-                        <td class="text-left">$683.00</td>
-                        <td class="text-left">$34.15</td>
+                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#details2"
+                            aria-expanded="false" aria-controls="details2">
+                            <td>E612351</td>
+                            <td class="opr_expand_arrow">Rose Chaplin <i class="fa fa-chevron-down"></i></td>
+                            <td>WA</td>
+                            <td></td>
+                            <td>35</td>
+                            <td class="text-left">$683.00</td>
+                            <td class="text-left">$34.15</td>
                         </tr>
 
                         <tr class="detail-row" data-group="details2">
-                        <td></td><td></td><td></td><td>P</td><td>22</td><td class="text-left">$176.00</td><td class="text-left">$8.80</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>P</td>
+                            <td>22</td>
+                            <td class="text-left">$176.00</td>
+                            <td class="text-left">$8.80</td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
-                        <td></td><td></td><td></td><td>G</td><td>4</td><td class="text-left">$24.00</td><td class="text-left">$1.20</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>G</td>
+                            <td>4</td>
+                            <td class="text-left">$24.00</td>
+                            <td class="text-left">$1.20</td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
-                        <td></td><td></td><td></td><td>S</td><td>2</td><td class="text-left">$8.00</td><td class="text-left">$0.40</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>S</td>
+                            <td>2</td>
+                            <td class="text-left">$8.00</td>
+                            <td class="text-left">$0.40</td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
-                        <td></td><td></td><td></td><td>PU</td><td>7</td><td class="text-left">$475.00</td><td class="text-left">$23.75</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>PU</td>
+                            <td>7</td>
+                            <td class="text-left">$475.00</td>
+                            <td class="text-left">$23.75</td>
                         </tr>
-                        <tr class="detail-row" data-group="details2">
-                        <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                        <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">35</td>
-                        <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">$683.00</td>
-                        <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">$34.15</td>
+                        <tr class="detail-row" data-group="details1">
+                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">35
+                            </td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
+                                $683.00</td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
+                                $34.15</td>
                         </tr>
 
                     </tbody>
+                    <tfoot>
+                        <!-- ========= MEMBER 2 ========= -->
+                        
+                        <tr>
+                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">70
+                            </td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
+                                $1,366.00</td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
+                                $68.30</td>
+                        </tr>
+
+                    </tfoot>
                 </table>
             </div>
 
@@ -291,27 +359,28 @@
 @section('script')
 <!-- opr_accordian_table JS -->
 <script>
-  document.querySelectorAll('.accordion-toggle').forEach(toggle => {
-    toggle.addEventListener('click', () => {
-      const target = toggle.getAttribute('data-target').replace('#', '');
-      const openGroup = document.querySelectorAll(`.detail-row[data-group="${target}"]`);
-      const isOpen = openGroup[0]?.classList.contains('show');
+    document.querySelectorAll('.accordion-toggle').forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const target = toggle.getAttribute('data-target').replace('#', '');
+            const openGroup = document.querySelectorAll(`.detail-row[data-group="${target}"]`);
+            const isOpen = openGroup[0]?.classList.contains('show');
 
-      // Close all open groups
-      document.querySelectorAll('.detail-row.show').forEach(r => {
-        r.classList.remove('show');
-      });
+            // Close all open groups
+            document.querySelectorAll('.detail-row.show').forEach(r => {
+                r.classList.remove('show');
+            });
 
-      // Open current group if not already open
-      if (!isOpen) {
-        openGroup.forEach(r => r.classList.add('show'));
-      }
+            // Open current group if not already open
+            if (!isOpen) {
+                openGroup.forEach(r => r.classList.add('show'));
+            }
 
-      // Rotate arrow
-      document.querySelectorAll('.accordion-toggle i').forEach(i => i.classList.remove('rotated'));
-      if (!isOpen) toggle.querySelector('i').classList.add('rotated');
+            // Rotate arrow
+            document.querySelectorAll('.accordion-toggle i').forEach(i => i.classList.remove(
+            'rotated'));
+            if (!isOpen) toggle.querySelector('i').classList.add('rotated');
+        });
     });
-  });
 </script>
 
 <script>
