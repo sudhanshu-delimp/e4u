@@ -75,7 +75,7 @@
                                         </li>
                                     </ol>
                                 </li>
-                                <li>Where you suspend a listing that is currently posted, you will not be refunded any
+                                <li>Where you suspend a listing that is currently Listed, you will not be refunded any
                                     Fee.
                                 </li>
                             </ol>
