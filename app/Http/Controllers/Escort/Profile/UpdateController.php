@@ -1205,7 +1205,6 @@ class UpdateController extends AppController
         $input = [
             'gender' => $request->gender,
             'nationality_id' => $request->nationality_id,
-            //'statistics'=>$request->statistics,
             'height' => $request->height,
             'eyes' => $request->eyes,
             'orientation' => $request->orientation,
@@ -1219,7 +1218,6 @@ class UpdateController extends AppController
             'hair_style' => $request->hair_style,
             'weight' => $request->weight,
             'dress_size' => $request->dress_size,
-            'profile_name' => $request->profile_name,
             'membership' => $request->membership,
             'shaved' => $request->shaved,
             'endowment' => $request->endowment,

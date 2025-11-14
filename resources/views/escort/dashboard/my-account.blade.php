@@ -93,17 +93,23 @@
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label for="Gender">Gender {{$escort->gender}}</label>
+                                       <label for="Gender">Gender </label>
                                        
-                                       
-                                          @foreach(config('escorts.profile.genders') as $key => $gender)
-                                           @if($escort->gender == $key)
-                                            <span class="form-control form-back">{{ $gender }}</span>
-                                           @endif
-
+                                          @if($escort->gender=="")
+                                          <select class="form-control" name="gender"  required>
+                                             <option value="">Select</option>
+                                             @foreach(config('escorts.profile.genders') as $key => $gender)
+                                             <option value="{{$key}}" {{ ($escort->gender == $key)? 'selected' : ''}}>{{$gender}}</option>
+                                             @endforeach
+                                          </select>
                                          
-                                          @endforeach
-                                       </select>
+                                          @else
+                                           @foreach(config('escorts.profile.genders') as $key => $gender)
+                                             @if($escort->gender == $key)
+                                             <span class="form-control form-back">{{ $gender }}</span>
+                                             @endif
+                                           @endforeach
+                                        @endif
                                     </div>
                                  </div>
                                  <div class="col-md-6">

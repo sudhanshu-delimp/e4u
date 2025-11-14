@@ -48,7 +48,7 @@
                             </ul>
                             <p style="font-size: 13px; font-style: italic;">Note: Your logging in process is also subject to SMS 2FA verification. It is a good idea to bookmark the Website.</p>
 
-                            <h3 style="margin-top: 30px;">My Account</h3>
+                            <h3 style="margin-top: 30px;">Welcome</h3>
                             <p style="font-size: 15px; line-height: 1.6;">
                                 Now that you have completed your Registration, before you can create any Profiles or Tours, you need to spend a little time setting up your Account information. This will make your experience when creating a Profile or Tour much easier and quicker for you.
                             </p>

@@ -44,7 +44,7 @@
                             </div>
                             
                             <p style="font-size: 15px; margin-top: 20px;">
-                                Regards1,<br>
+                                Regards,<br>
                                 <b>E4U - Operations Centre</b>
                             </p>
                         </td>

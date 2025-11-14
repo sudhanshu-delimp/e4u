@@ -62,8 +62,14 @@ class EscortController extends Controller
 
         $escorts = $this->escort->all();
         $tasks = Task::latest()->paginate(10);
+<<<<<<< HEAD
         $viewer_array = DashboardViewer::where('user_id', auth()->id())->first();
         return view('escort.dashboard.index', compact('escorts', 'result', 'result2', 'tasks', 'viewer_array'));
+=======
+        $viewer_array = DashboardViewer::where('user_id', auth()->id())->first(); 
+        $expiringListings = $this->escort->getExpiringListings(0, 2, true);
+        return view('escort.dashboard.index', compact('escorts', 'result', 'result2', 'tasks','viewer_array','expiringListings'));
+>>>>>>> 810283304a1ccf0793021aacf114b0904677c87a
     }
 
 
@@ -497,6 +503,9 @@ class EscortController extends Controller
             // 'email' => $request->email ? $request->email : null,
             //'social_links'=>$request->social_links,
         ];
+
+        if(isset($request->gender) && $request->gender!="")
+        $data['gender'] = $request->gender;
 
         $error = true;
         if ($this->user->store($data, auth()->user()->id)) {
