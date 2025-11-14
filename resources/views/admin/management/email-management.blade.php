@@ -55,7 +55,7 @@
                      </div>
 
                      <div class="col-sm-12 d-flex justify-content-end mt-3">
-                        <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#createNotification">Add New Record</button>
+                        <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#createNewrecord">Add New Record</button>
                      </div>
                 </div>
                <div class="row">
@@ -93,16 +93,17 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#">   <i class="fa fa-fw fa-check"></i> Activate</a>
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal">   <i class="fa fa-fw fa-check"></i> Activate</a>
                                            <div class="dropdown-divider"></div>
-                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-toggle="modal" data-target="#editEmailModal" > <i class="fa fa-fw fa-pen"></i> Edit</a>
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-toggle="modal" data-target="#editNewrecord" > <i class="fa fa-fw fa-pen"></i> Edit</a>
                                            <div class="dropdown-divider"></div>
                                            
-                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-target="#renewEmailModal" data-toggle="modal" >  <i class="fa fa-sync-alt"></i> Renew</a>
+                                           
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-target="#renewEmailmodal" data-toggle="modal" >  <i class="fa fa-sync-alt"></i> Renew</a>
                                            <div class="dropdown-divider"></div>
-                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" >  <i class="fa fa-fw fa-ban" ></i> Suspend</a>
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal" >  <i class="fa fa-fw fa-ban" ></i> Suspend</a>
                                            <div class="dropdown-divider"></div>
-                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" >   <i class="fa fa-fw fa-times" ></i> Deactivate</a>
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal" >   <i class="fa fa-fw fa-times" ></i> Deactivate</a>
                                            
                                            
                                         </div>
@@ -126,6 +127,183 @@
 <a class="scroll-to-top rounded" href="#page-top">
 <i class="fas fa-angle-up"></i>
 </a>
+
+
+<!-- End of Content Wrapper -->
+{{-- add new record --}}
+<div class="modal fade upload-modal" id="createNewrecord" tabindex="-1" role="dialog" aria-labelledby="createNewrecord" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content basic-modal">
+         <div class="modal-header">
+            <h5 class="modal-title" id="createNewrecord">  <img src="{{ asset('assets/dashboard/img/mailing.png') }}" class="custompopicon"> Add New Record</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <form>
+         <div class="modal-body pb-0">
+           
+                <div class="row">
+                  
+                  <!-- Server Field -->
+                  <div class="col-12 mb-3">
+                     <label for="server email account" class="label">Email Account</label>
+                    <input type="email" class="form-control rounded-0 fw-bold" placeholder="Email Account " name="server" required>
+                  </div>
+              
+                  <!-- Email Account Field -->
+                  <div class="col-12 mb-3">
+                     <label for="address" class="label">Notification Address</label>
+                    <input type="text" class="form-control rounded-0" placeholder="Notification Address" name="address" required>
+                  </div>
+              
+                </div>
+              
+
+         </div>
+         <div class="modal-footer pr-3">
+            <button type="button" class="btn-success-modal">Save</button>
+         </div>
+         
+        </form>
+      </div>
+   </div>
+</div>
+{{-- end --}}
+<!-- Renew renewEmailmodal  Service Modal -->
+<div class="modal fade upload-modal" id="renewEmailmodal" tabindex="-1" role="dialog" aria-labelledby="renewEmailmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+       <div class="modal-content basic-modal">
+          <div class="modal-header">
+             <h5 class="modal-title" id="renewEmailmodal">
+                <img src="{{ asset('assets/dashboard/img/mailing.png') }}" class="custompopicon">
+                Renew Email Service
+             </h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">
+                   <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                </span>
+             </button>
+          </div>
+          <form>
+             <div class="modal-body pb-0">
+                <div class="row">
+                   <!-- Term Field -->
+                   <div class="col-12 mb-3">
+                     <label for="term" class="label">Term</label>
+                      <input type="number" class="form-control rounded-0 fw-bold" placeholder="Term (e.g. 12 months)" name="term" required>
+                   </div>
+                   <!-- Activation Date -->
+                   <div class="col-12 mb-3">
+                     <label for="date" class="label">Activation Date</label>
+                      <input type="date" class="form-control rounded-0" placeholder="Activation Date" name="activation_date" required>
+                   </div>
+                </div>
+             </div>
+             <div class="modal-footer pr-3">
+                <button type="submit" class="btn-success-modal">Renew</button>
+             </div>
+          </form>
+       </div>
+    </div>
+ </div>
+ 
+
+<!-- Scroll to Top Button-->
+
+{{-- edit new record --}}
+<div class="modal fade upload-modal" id="editNewrecord" tabindex="-1" role="dialog" aria-labelledby="editNewrecord" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content basic-modal">
+         <div class="modal-header">
+            <h5 class="modal-title" id="editNewrecord">  <img src="{{ asset('assets/dashboard/img/mailing.png') }}" class="custompopicon"> Edit Email Record</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <form>
+         <div class="modal-body pb-0">
+           
+                <div class="row">
+                  
+                  <!-- Server Field -->
+                  <div class="col-12 mb-3">
+                     <label for="server" class="label">Server Email Account</label>
+                    <input type="email" class="form-control rounded-0 fw-bold" placeholder="Server email account " name="server" required>
+                  </div>
+              
+                  <!-- Email Account Field -->
+                  <div class="col-12 mb-3">
+                     <label for="address" class="label">Notification Address</label>
+                    <input type="text" class="form-control rounded-0" placeholder="Notification Address" name="address" required>
+                  </div>
+              
+                </div>
+              
+
+         </div>
+         <div class="modal-footer pr-3">
+            <button type="button" class="btn-success-modal">Update</button>
+         </div>
+         
+        </form>
+      </div>
+   </div>
+</div>
+{{-- end --}}
+
+<!-- Confirmation Modal -->
+<div class="modal fade upload-modal" id="confirmSaveModal" tabindex="-1" role="dialog" aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+       <div class="modal-content basic-modal">
+          <div class="modal-header">
+             <h5 class="modal-title" id="confirmSaveModalLabel">
+                <img src="{{ asset('assets/dashboard/img/unblock.png') }}" class="custompopicon"> New Record Added
+             </h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">
+                   <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                </span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p class="mb-0">Are you sure you want to save this record?</p>
+          </div>
+          <div class="modal-footer pr-3">
+             <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+             <button type="submit" class="btn-success-modal">Yes, Save</button>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- Confirmation Modal -->
+
+
+ <div class="modal fade upload-modal" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+       <div class="modal-content basic-modal">
+          <div class="modal-header">
+             <h5 class="modal-title" id="confirmModalLabel">
+                <img src="{{ asset('assets/dashboard/img/unblock.png') }}" class="custompopicon"> Common Confirmation modal
+             </h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">
+                   <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                </span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p class="mb-0">Are you sure you want to save this record?</p>
+          </div>
+          <div class="modal-footer pr-3">
+             <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+             <button type="submit" class="btn-success-modal">Yes, Save</button>
+          </div>
+       </div>
+    </div>
+ </div>
+<!-- End of Page Wrapper -->
+
 @endsection
 
 @push('script')
