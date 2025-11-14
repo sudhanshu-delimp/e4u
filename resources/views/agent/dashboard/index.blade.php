@@ -4,9 +4,11 @@
    <!-- Page Heading -->
    <div class="row">
       <div class="cal-lg-12 w-100">
+         @if($agentNotifications)
          @foreach ($agentNotifications as $notification)
-            <x-notification-alert :heading="$notification['heading']":content="$notification['content']" type="success" />
+             <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success" />
          @endforeach
+         @endif
           
       </div>
       <div class="custom-heading-wrapper col-md-12">
