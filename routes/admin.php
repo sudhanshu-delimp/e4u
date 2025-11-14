@@ -231,6 +231,7 @@ Route::get('reports/agent-requests',function(){
 Route::get('reports-num',[AdminNumsController::class,'index'])->name('admin.num');
 Route::get('reports-num-ajax',[AdminNumsController::class,'showReportOnDashboardAjax'])->name('admin.num.ajax');
 Route::post('reports-num-status',[AdminNumsController::class,'updateStatus'])->name('admin.num.status.ajax');
+Route::get('reports-num-email',[AdminNumsController::class,'viewReport'])->name('admin.num.status.email');
 
 Route::get('reports/transaction-summary',function(){
     return view('admin.reports.transaction-summary');

@@ -255,6 +255,10 @@ by Escorts)</li>
                                     <td class="border-0">${data.rating ?? 'N/A'}</td>
                                 </tr>
                                 <tr>
+                                    <th>Status:</th>
+                                    <td class="border-0">${data.status ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
                                     <th>Summary of Incident:</th>
                                     <td colspan="3" class="border-0">${data.what_happened ?? 'N/A'}</td>
                                 </tr>

@@ -156,6 +156,15 @@
                 <div class="modal-body pb-0 teop-text text-center">
                     <h6 class="popu_heading_style mt-2">
                         <span id="Lname">Are you sure you want to <span class="add_review_title"></span> this Report?</span>
+                        <div class="mx-auto w-75 my-3 action_reason_div" style="display: none;">
+                            <select name="action_reason" class="form-control " id="action_reason" style="color: #525a64;">
+                                <option value="Report is not factual" selected>Report is not factual</option>
+                                <option value="Report does not comply with Code of Conduct">Report does not comply with Code of Conduct</option>
+                                <option value="Inappropriate language">Inappropriate language</option>
+                                <option value="Report is slanderous">Report is slanderous</option>
+                            </select>
+                        </div>
+                        
                     </h6>
 
                 </div>
@@ -213,6 +222,18 @@
     <script>
 
         $(document).ready(function() {
+
+            // jQuery.extend(jQuery.fn.dataTable.ext.type.order, {
+            //     "status-pre": function (data) {
+            //         const order = {
+            //             "pending": 1,
+            //             "on_hold": 2,
+            //             "rejected": 3,
+            //             "published": 4
+            //         };
+            //         return order[data.trim()] ?? 999;
+            //     }
+            // });
             // Initialize DataTable
             var table = $('#myReportListTable').DataTable({
                 language: {
@@ -236,11 +257,10 @@
                     [10, 20, 50, 100],
                     [10, 20, 50, 100]
                 ],
+                order: [[5, "asc"]],
                 ordering: true,
-                columnDefs: [{
-                        targets: 5,
-                        orderable: false
-                    } // Action column
+                columnDefs: [
+                    { targets: 5, type: "status" },
                 ],
                 ajax: {
                     url: "{{ route('admin.num.ajax') }}",
@@ -276,7 +296,8 @@
                     },
                     {
                         data: 'status',
-                        name: 'status'
+                        name: 'status',
+                        type: 'status'
                     },
                     {
                         data: 'actions',
@@ -374,11 +395,13 @@
                 let status = $(this).data('status');
                 let ref = $(this).data('ref');
                 //let st = status == 'published' ? 'publish' : 'reject';
+                $(".action_reason_div").css('display','none');
 
                 if(status == 'on_hold'){
                     st = 'mark as on hold';
                 }else if(status == 'rejected'){
                     st = 'reject';
+                    $(".action_reason_div").css('display','block');
                 }else if(status == 'pending'){
                     st = 'pending';
                 }else{
@@ -399,10 +422,14 @@
                 e.preventDefault();
                 let reviewId = $('#status_data_id').val();
                 let status = $('#status_data_value').val();
+                let action_reason = $('#action_reason').val();
                 var reviewData = {
                     'id' :reviewId,
                     'status' :status,
+                    'action_reason' :action_reason,
                 }
+
+                $(".action_reason_div").css('display','none');
 
                 let imageUrl = '{{ asset("assets/dashboard/img/rejected.png") }}';
                 if(status == 'published'){
@@ -417,6 +444,7 @@
                     imageUrl = '{{ asset("assets/dashboard/img/rejected.png") }}';
                     $("#custompopicon").attr('src', imageUrl );
                     $(".success-modal-text").text('This report is now Rejected.');
+                    $(".action_reason_div").css('display','block');
                 }else if(status == 'on_hold'){
                     $(".success-modal-title").text('On Hold');
                     $("#custompopicon").attr('src', imageUrl );
@@ -441,6 +469,7 @@
                     data:{
                         'id':reportData.id,
                         'status':reportData.status,
+                        'action_reason':reportData.action_reason,
                     },
                     success: function(response) {
                         if(response.error == false){

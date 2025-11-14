@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\nums\num_on_hold_email;
+use App\Mail\nums\num_published_email;
+use App\Mail\nums\num_rejected_email;
 use App\Models\Num;
 use Carbon\Carbon;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class AdminNumsController extends Controller
@@ -20,7 +25,7 @@ class AdminNumsController extends Controller
 
     public function showReportOnDashboardAjax(Request $request)
     {
-        $nums = Num::with(['state','user:id,member_id,name'])->get();
+        $nums = Num::with(['state','user:id,member_id,name'])->orderBy('updated_at','desc')->get();
 
         $timeZone = config('escorts.profile.states')[Auth::user()->state_id] ?? 'UTC';
 
@@ -125,15 +130,80 @@ class AdminNumsController extends Controller
 
     public function updateStatus(Request $req)
     {
-        $report = Num::find($req->id);
+        $report = Num::with('user')->find($req->id);
 
         if (!$report) {
             return response()->json(['success' => false, 'error'=>true,'message' => 'Report not found.']);
         }
 
         $report->status = $req->status;
+        $report->admin_action = $req->action_reason;
         $report->save();
 
+        $body = [
+                'ref' => '#'.$report->id,
+                'name' => $report->user->name ?? 'UserID',
+                'member_id' => $report->user->member_id ?? 'MemberID',
+                'report_date' => Carbon::parse($report->created_at)->format('d-m-Y') ?? date(),
+                'subject' => 'NUM report On Hold',
+                'status' => $req->status,
+            ];
+
+        if($req->status == 'on_hold'){
+            
+            $body['subject'] = 'NUM Report On Hold';
+            $body['on_hold'] = Carbon::now()->format('d-m-Y') ?? 'N/A';
+            
+            try {
+                Mail::to($report->user->email)->send(new num_on_hold_email($body));
+            } catch (\Exception $e) {
+                Log::info('NUM On Hold Email sending failed: ' . $e->getMessage());
+            }
+        }
+
+        if($req->status == 'published'){
+            $body['subject'] = 'NUM Report Published';
+            $body['approved_date'] = Carbon::now()->format('d-m-Y') ?? 'N/A';
+            
+
+            try {
+                Mail::to($report->user->email)->queue(new num_published_email($body));
+            } catch (\Exception $e) {
+                Log::info('NUM On published Email sending failed: ' . $e->getMessage());
+            }
+        }
+
+        if($req->status == 'rejected'){
+
+            $body['subject'] = 'NUM Report Rejected';
+            $body['rejected_date'] = Carbon::now()->format('d-m-Y') ?? 'N/A';
+            $body['reason'] = $req->action_reason;
+
+            try {
+                Mail::to($report->user->email)->queue(new num_rejected_email($body));
+            } catch (\Exception $e) {
+                Log::info('NUM rejected Email sending failed: ' . $e->getMessage());
+            }
+        }
+
         return response()->json(['success' => true, 'error'=>false, 'message' => 'Report status updated successfully.']);
+    }
+
+    public function viewReport(Request $req)
+    {
+        $body = [
+            'ref_number' => 'NUM-',
+            'member_name' => 'Test User',
+            'subject' => 'NUM Report Details',
+        ];
+
+        return view('emails.nums.num_confirmation_email',['body'=>$body]);
+        // $report = Num::with(['state','user:id,member_id,name'])->find($req->id);
+
+        // if (!$report) {
+        //     return response()->json(['success' => false, 'error'=>true,'message' => 'Report not found.']);
+        // }
+
+        // return response()->json(['success' => true, 'error'=>false, 'data' => $report]);
     }
 }
