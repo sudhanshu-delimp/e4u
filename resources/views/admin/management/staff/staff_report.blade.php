@@ -253,7 +253,5 @@
                 </div>
         </div>
     </div>
-    <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
 </body>
-
 </html>
