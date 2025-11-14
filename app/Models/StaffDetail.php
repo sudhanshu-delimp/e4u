@@ -50,4 +50,24 @@ class StaffDetail extends Model
                 return 'N/A';
         }
     }
+
+    public function scopePosition($query, $value)
+    {
+        switch ((int)$value) {
+            case (1):
+                return 'Managing Director';
+                break;
+            case (2):
+                return 'Director';
+                break;
+            case (3):
+                return 'Staff';
+                break;
+            case (4):
+                return 'Developer';
+                break;
+            default:
+                return 'N/A';
+        }
+    }
 }

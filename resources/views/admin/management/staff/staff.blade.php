@@ -130,8 +130,8 @@
                                 <span class="text-danger error-name"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Address" name="address"
-                                    id="address">
+                                <input type="text" class="form-control rounded-0" placeholder="Address"
+                                    name="address" id="address">
                                 <span class="text-danger error-address"></span>
                             </div>
                             <div class="col-6 mb-3">
@@ -185,19 +185,40 @@
                                 <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
                             </div>
 
-                            <div class="col-6 mb-3">
+                            {{--  <div class="col-6 mb-3">
                                 <input type="text" name="position" id="position" class="form-control rounded-0"
                                     placeholder="Position">
+                                <span class="text-danger error-position"></span>
+                            </div> --}}
+                            <div class="col-6 mb-3">
+                                <select class="form-control rounded-0" name="security_level" id="security_level">
+                                    <option value="">Security Level</option>
+                                    @foreach (config('staff.security_level') as $seckey => $secLevel)
+                                        <option value="{{ $seckey }}" {{ $seckey == 3 ? 'selected' : '' }}>
+                                            {{ $secLevel }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="text-danger error-security_level"></span>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <select class="form-control rounded-0" name="position" id="position" disabled>
+                                    <option value="">Position</option>
+                                    @foreach (config('staff.position') as $pkey => $position)
+                                        <option value="{{ $pkey }}" {{ $pkey == 3 ? 'selected' : '' }}>
+                                            {{ $position }}</option>
+                                    @endforeach
+                                </select>
                                 <span class="text-danger error-position"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="location" id="location">
                                     <option value="">Select Location</option>
-                                   @foreach (config('escorts.profile.cities') as $skey => $city)
-                                        <option value="{{ $skey }}">{{ $city}}</option>
+                                    @foreach (config('escorts.profile.cities') as $skey => $city)
+                                        <option value="{{ $skey }}">{{ $city }}</option>
                                     @endforeach
-                                    <span class="text-danger error-location"></span>
+
                                 </select>
+                                <span class="text-danger error-location"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" name="commenced_date" id="commenced_date"
@@ -206,15 +227,7 @@
                                 <span class="text-danger error-commenced_date"></span>
 
                             </div>
-                            <div class="col-6 mb-3">
-                                <select class="form-control rounded-0" name="security_level" id="security_level">
-                                    <option value="">Security Level</option>
-                                    @foreach (config('staff.security_level') as $seckey => $secLevel)
-                                        <option value="{{ $seckey }}" {{$seckey == 3 ? "selected": ""}}>{{ $secLevel }}</option>
-                                    @endforeach
-                                </select>
-                                <span class="text-danger error-security_level"></span>
-                            </div>
+
                             <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="employment_status" id="employment_status">
                                     <option value="">Select Employment Status</option>
@@ -476,7 +489,7 @@
                         $('span.text-danger').text('');
                         $('#addStaffnew').modal('hide');
                         $('#staffEditModal').modal('hide');
-                         $('#add_staff')[0].reset(); 
+                        $('#add_staff')[0].reset();
                         swal_success_popup(response.message);
                     },
                     error: function(xhr) {
@@ -527,30 +540,34 @@
             })
 
             ///////// Approve Agent //////////////////////////////
-      $(document).on('click', '.approve_account', function(e) 
-      {
+            $(document).on('click', '.approve_account', function(e) {
 
-         swal_waiting_popup({'title':'Approving Account'});
-         $.ajax({
-               url: "{{ route('admin.approve_staff_account') }}",
-               method: 'POST',
-               data: {'user_id':$(this).attr('data-id'),'status': '1'},
-               success: function(response) {
-                  table.ajax.reload(null, false); 
-                  Swal.close();
-                  $('#staffViewModal').modal('hide');
-                  $('#staffEditModal').modal('hide');
-                  swal_success_popup(response.message);
-               },
-               error: function(xhr) {
-                  
-                  Swal.close();
-                  $('#staffViewModal').modal('hide');
-                  $('#staffEditModal').modal('hide');
-                  swal_error_popup(xhr.responseJSON.message);
-               }
-            });
-      })
+                swal_waiting_popup({
+                    'title': 'Approving Account'
+                });
+                $.ajax({
+                    url: "{{ route('admin.approve_staff_account') }}",
+                    method: 'POST',
+                    data: {
+                        'user_id': $(this).attr('data-id'),
+                        'status': '1'
+                    },
+                    success: function(response) {
+                        table.ajax.reload(null, false);
+                        Swal.close();
+                        $('#staffViewModal').modal('hide');
+                        $('#staffEditModal').modal('hide');
+                        swal_success_popup(response.message);
+                    },
+                    error: function(xhr) {
+
+                        Swal.close();
+                        $('#staffViewModal').modal('hide');
+                        $('#staffEditModal').modal('hide');
+                        swal_error_popup(xhr.responseJSON.message);
+                    }
+                });
+            })
 
             /*** Activate staff Account */
             $(document).on('click', '.active-account-btn', async function(e) {
@@ -614,11 +631,20 @@
                         $('#modalViewStaffContent').html(response);
                         $('#staffViewModal').modal('show');
                     }
-                }, 
+                },
 
                 error: function() {
                     alert("Error loading form");
                 }
+            });
+        });
+
+        $(document).ready(function() {
+            $("#security_level").on("change", function() {
+                let level = $(this).val();
+                // Auto-select position = same value as security_level
+                $("#position").val(level).trigger("change");
+                $("#position").prop("disabled", true);
             });
         });
     </script>
