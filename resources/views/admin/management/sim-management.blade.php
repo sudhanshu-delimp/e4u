@@ -99,16 +99,16 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#">  <i class="fa fa-fw fa-check"></i> Activate </a>
+                                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal">  <i class="fa fa-fw fa-check"></i> Activate </a>
                                           <div class="dropdown-divider"></div>
                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-toggle="modal" data-target="#editSIMModal" > <i class="fa fa-fw fa-pen"></i> Edit</a>
                                           <div class="dropdown-divider"></div>
                                           
                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-target="#renewSIMModal" data-toggle="modal" >  <i class="fa fa-sync-alt"></i> Renew</a>
                                           <div class="dropdown-divider"></div>
-                                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" >  <i class="fa fa-fw fa-ban" ></i> Suspend</a>
+                                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal" >  <i class="fa fa-fw fa-ban" ></i> Suspend</a>
                                           <div class="dropdown-divider"></div>
-                                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" >   <i class="fa fa-fw fa-times" ></i> Deactivate</a>
+                                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal" >   <i class="fa fa-fw fa-times" ></i> Deactivate</a>
                                           
                                           
                                        </div>
@@ -133,7 +133,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="createNotification">  <img src="{{ asset('assets/dashboard/img/add-sim.png') }}" style="width:25px"> Add New Record</h5>
+            <h5 class="modal-title" id="createNotification">  <img src="{{ asset('assets/dashboard/img/add-sim.png') }}" class="custompopicon"> Add New Record</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -145,11 +145,13 @@
                   
                   <!-- Server Field -->
                   <div class="col-12 mb-3">
+                     <label for="Carrier" class="label">Carrier</label>
                     <input type="text" class="form-control rounded-0 fw-bold" placeholder="Carrier" name="carrier" required>
                   </div>
               
                   <!-- Email Account Field -->
                   <div class="col-12 mb-3">
+                     <label for="USIM" class="label">USIM</label>
                     <input type="email" class="form-control rounded-0" placeholder="USIM" name="usim" required>
                   </div>
               
@@ -165,13 +167,41 @@
       </div>
    </div>
 </div>
+
+
 <!-- Confirmation Modal -->
 <div class="modal fade upload-modal" id="confirmSaveModal" tabindex="-1" role="dialog" aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
        <div class="modal-content basic-modal">
           <div class="modal-header">
              <h5 class="modal-title" id="confirmSaveModalLabel">
-                <img src="{{ asset('assets/dashboard/img/data-listing.png') }}" style="width:25px"> New Record Added
+                <img src="{{ asset('assets/dashboard/img/add-sim.png') }}" class="custompopicon"> New Record Added
+             </h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">
+                   <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                </span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p class="mb-0">Are you sure you want to save this record?</p>
+          </div>
+          <div class="modal-footer pr-3">
+             <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+             <button type="submit" class="btn-success-modal">Yes, Save</button>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- Confirmation Modal -->
+
+<!-- Confirmation Modal -->
+<div class="modal fade upload-modal" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+       <div class="modal-content basic-modal">
+          <div class="modal-header">
+             <h5 class="modal-title" id="confirmSaveModalLabel">
+                <img src="{{ asset('assets/dashboard/img/unblock.png') }}" class="custompopicon"> Common Confirmation Modal
              </h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">
@@ -198,7 +228,7 @@
        <div class="modal-content basic-modal">
           <div class="modal-header">
              <h5 class="modal-title" id="editSIMModalLabel">
-                <img src="{{ asset('assets/dashboard/img/add-sim.png') }}" style="width:25px">
+                <img src="{{ asset('assets/dashboard/img/add-sim.png') }}" class="custompopicon">
                 Edit SIM Record
              </h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -212,10 +242,12 @@
                 <div class="row">
                    <!-- USIM Field -->
                    <div class="col-12 mb-3">
+                     <label for="USIM" class="label">USIM</label>
                       <input type="text" class="form-control rounded-0 fw-bold" placeholder="USIM" name="usim" required>
                    </div>
                    <!-- Mobile Number Field -->
                    <div class="col-12 mb-3">
+                     <label for="Mobile Number" class="label">Mobile Number</label>
                       <input type="text" class="form-control rounded-0" placeholder="Mobile Number" name="mobile_number" required>
                    </div>
                 </div>
@@ -235,7 +267,7 @@
        <div class="modal-content basic-modal">
           <div class="modal-header">
              <h5 class="modal-title" id="renewSIMModalLabel">
-                <img src="{{ asset('assets/dashboard/img/add-sim.png') }}" style="width:25px">
+                <img src="{{ asset('assets/dashboard/img/add-sim.png') }}" class="custompopicon">
                 Renew SIM Service
              </h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -249,10 +281,12 @@
                 <div class="row">
                    <!-- Term Field -->
                    <div class="col-12 mb-3">
+                     <label for="term" class="label">Term</label>
                       <input type="number" class="form-control rounded-0 fw-bold" placeholder="Term (e.g. 12 months)" name="term" required>
                    </div>
                    <!-- Activation Date -->
                    <div class="col-12 mb-3">
+                     <label for="date" class="label">Activation Date</label>
                       <input type="date" class="form-control rounded-0" placeholder="Activation Date" name="activation_date" required>
                    </div>
                 </div>
