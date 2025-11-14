@@ -5,10 +5,7 @@
    <div class="row">
       <div class="cal-lg-12 w-100">
          @foreach ($agentNotifications as $notification)
-            <div class="alert alert-success " role="alert">  
-               <h4 class="alert-heading">{{$notification['heading']}}</h4>  
-               <p class="mb-0">{{$notification['content']}}</p>  
-            </div>
+            <x-notification-alert :heading="$notification['heading']":content="$notification['content']" type="success" />
          @endforeach
           
       </div>
