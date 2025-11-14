@@ -43,7 +43,7 @@
                             <h3 class="NotesHeader"><b>Notes:</b></h3>
                             <ol class="pl-4">
                                 <li>This is a social feature to help Escorts connect with Viewers.</li>
-                                <li>Once launched, Playbox will be visible on your profile if content is uploaded.</li>
+                                <li>Once launched, Playbox will be visible on your Profile if content is uploaded.</li>
                             </ol>
                         </div>
                     </div>

@@ -10052,8 +10052,8 @@ a.text-dark:hover {
 
 @media print {
     *,
-    ::after,
-    ::before {
+     ::after,
+     ::before {
         text-shadow: none !important;
         box-shadow: none !important
     }
@@ -10672,7 +10672,7 @@ a:focus {
 }
 
 .sidebar {
-    width: 200px;
+    width: 350px;
     height: 100vh
 }
 
@@ -10862,7 +10862,7 @@ a:focus {
 
 @media (min-width:768px) {
     .sidebar {
-        width: 470px !important
+        /* width: px !important */
     }
     .sidebar .nav-item .collapse {
         position: relative;
@@ -10888,7 +10888,7 @@ a:focus {
         display: block;
         width: 100%;
         text-align: left;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0rem .5rem 1rem;
         width: 14rem
     }
     .sidebar .nav-item .nav-link i {

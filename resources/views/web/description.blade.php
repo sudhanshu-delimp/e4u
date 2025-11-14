@@ -152,6 +152,18 @@
                         '3' => $isPinupActive?asset('images/silver_membership_pin.png'):asset('images/silver_membership.png'),
                         default => false
                     };
+
+
+                    if($escort->gender =='Transgender')
+                    {
+                             $escortName = 'TS-'.$escort->name;
+                    }
+                    else
+                    {
+                             $escortName =  $escort->name;
+                    }
+                       
+
                     @endphp
 
                     @if($membershipImage)
@@ -161,10 +173,10 @@
                        </div> 
                     @endif
 
-                    @if(strlen($escort->name) <= 250)
-                            <h2 class="display_inline_block">{{ $escort->name}}</h2>
+                    @if(strlen($escortName) <= 250)
+                            <h2 class="display_inline_block">  {{ $escortName }}</h2>
                     @else
-                            <h3 class="display_inline_block" style="color: white;">{{ $escort->name}}</h3>
+                            <h3 class="display_inline_block" style="color: white;">{{ $escortName }}</h3>
                         @endif
                 </div>
                 <div class="profile_page_name_and_phno px-3">

@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\AgentNotificationController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\CenterNotificationController;
 use App\Http\Controllers\Admin\AdminMakeNotificationController;
+use App\Http\Controllers\Admin\AdminNumsController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
@@ -233,9 +234,14 @@ Route::get('reports/agent-requests',function(){
     return view('admin.reports.agent-requests');
 })->name('admin.agent-requests');
 
-Route::get('reports/num',function(){
-    return view('admin.reports.num');
-})->name('admin.num');
+// Route::get('reports/num',function(){
+//     return view('admin.reports.num');
+// })->name('admin.num');
+
+Route::get('reports-num',[AdminNumsController::class,'index'])->name('admin.num');
+Route::get('reports-num-ajax',[AdminNumsController::class,'showReportOnDashboardAjax'])->name('admin.num.ajax');
+Route::post('reports-num-status',[AdminNumsController::class,'updateStatus'])->name('admin.num.status.ajax');
+Route::get('reports-num-email',[AdminNumsController::class,'viewReport'])->name('admin.num.status.email');
 
 Route::get('reports/transaction-summary',function(){
     return view('admin.reports.transaction-summary');
