@@ -156,7 +156,7 @@
                     <input class="form-check-input" type="checkbox" id="ccEmail" checked name="cc_email">
                     <label class="form-check-label" for="ccEmail">CC email to me</label>
                 </div>
-                <button type="submit" class="common-btn">Send Request</button>
+                <button type="submit" class="common-btn send_request_btn">Send Request</button>
             </form>
             <!-- changes to this policy -->
             <div class="container mt-4 px-0 chagneto-policy">
@@ -290,6 +290,7 @@
             // ✅ Show Bootstrap modal
             // $('#confirmationModal').modal('show');
             //form.reset(); // Reset the form
+            $(".send_request_btn").text('Loading...')
 
             submitFormDataByAjax(form)
 
@@ -316,7 +317,8 @@
                 processData: false,
                 success: function(data) {
                     console.log('data jiten', data);
-
+                    
+                    $(".send_request_btn").text('Send Request')
                     form[0].reset()
                     if (data.status == true) {
 
