@@ -1246,7 +1246,8 @@ $loginAccount = auth()->user();
                     // Do soomething with the previous value after the change
 
 
-                   if (profile_gender !== "Null" && profile_gender !== "") 
+                   let inputName = $(this).attr('name');
+                   if ( inputName==='gender' && profile_gender !== "Null" && profile_gender !== "") 
                    {
                         call_gender_alert(this.value);
                         return false;
