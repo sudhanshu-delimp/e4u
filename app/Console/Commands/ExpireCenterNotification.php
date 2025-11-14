@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Models\CenterNotification;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use App\Models\AgentNotification;
+use App\Models\CenterNotification;
 
 class ExpireCenterNotification extends Command
 {
@@ -39,5 +41,12 @@ class ExpireCenterNotification extends Command
     public function handle()
     {
         CenterNotification::where('finish_date', '<', now())->where('status', 'Published')->update(['status' => 'Completed']);
+        
+        $today = Carbon::today()->toDateString();
+        AgentNotification::where('status', 'Published')
+            ->whereNotNull('end_date')
+            ->where('end_date', '<', $today)
+            ->update(['status' => 'Completed']);
+
     }
 }

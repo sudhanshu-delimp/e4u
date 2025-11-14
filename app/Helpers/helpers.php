@@ -609,3 +609,11 @@ if (!function_exists('showDateWithFormat')) {
         return $formattedDate;
     }
 }
+
+function basicDateFormat($date){
+    if($date){
+        return \Carbon\Carbon::parse($date)->format('d-m-Y');
+    }else{
+        return '';
+    }   
+}

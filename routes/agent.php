@@ -282,4 +282,6 @@ Route::post('/appointments/{id}/reschedule', [AppointmentController::class, 'res
 Route::post('/appointments/{id}/complete', [AppointmentController::class, 'complete'])->name('agent.appointments.complete');
 Route::get('/appointments-count', [AppointmentController::class, 'appointmentCount'])->name('agent.appointment.count');
 Route::get('/appointment-pdf-download/{id}', [AppointmentController::class, 'appointmentPdfDownload'])->name('agent.appointment.pdf.download');
+Route::get('/dashboard/notifications', [\App\Http\Controllers\Agent\AppointmentController::class, 'showAgentNotifications'])->name('agent.dashboard.notifications');
+Route::get('/dashboard/notifications/datatable', [\App\Http\Controllers\Agent\AppointmentController::class, 'notificationsDatatable'])->name('agent.dashboard.notifications.datatable');
 
