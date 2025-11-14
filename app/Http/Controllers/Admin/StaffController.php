@@ -159,7 +159,7 @@ class StaffController extends BaseController
             $item->sfaff_id = $item->id;
             $item->territory = isset($item->state->name) ? $item->state->name : 'NA';
             $item->security_level = isset($item->staff_detail->security_level) ? $item->staff_detail->securityLevel($item->staff_detail->security_level) : 'NA';
-            $item->position = isset($item->staff_detail->position) ? $item->staff_detail->position : 'NA';
+            $item->position = isset($item->staff_detail->position) ? $item->staff_detail->position($item->staff_detail->position) : 'NA';
             $suspend_html = "";
             $activate_html = "";
             if ($item->status != 'Suspended')

@@ -77,8 +77,12 @@
         <table class="table table-bordered mb-3">
             <tbody>
                 <tr>
+                    <th>Security Level</th>
+                    <td>{{ $securityLevel }}</td>
+                </tr>
+                <tr>
                     <th width="40%">Position</th>
-                    <td width="60%">{{ $staff->staff_detail->position }}</td>
+                    <td width="60%">{{ $staff->staff_detail->position($staff->staff_detail->position) }}</td>
                 </tr>
                 <tr>
                     <th>Location</th>
@@ -88,10 +92,7 @@
                     <th>Commenced Date</th>
                     <td>{{showDateWithFormat($staff->staff_detail->commenced_date, "d/m/Y")}}</td>
                 </tr>
-                <tr>
-                    <th>Security Level</th>
-                    <td>Level {{ $securityLevel }}</td>
-                </tr>
+                
                 <tr>
                     <th>Employment Status</th>
                     <td>{{ $employmentStatus }}</td>
