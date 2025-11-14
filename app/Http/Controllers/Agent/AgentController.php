@@ -63,8 +63,6 @@ class AgentController extends BaseController
     {
         $escorts = $this->escort->all();
         $userEscort = $this->user->all();
-        //dd($userEscort->where('type',3)->count());
-        //return redirect()->view('agent.dashboard.index',compact('escorts'));
         $agentNotifications = $this->agentNotificationCount();
         return view('agent.dashboard.index', compact('escorts', 'userEscort', 'agentNotifications'));
     }

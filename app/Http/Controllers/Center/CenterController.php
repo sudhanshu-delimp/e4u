@@ -58,7 +58,8 @@ class CenterController extends Controller
 
         $escorts = $this->escort->all();
         $viewer_array = DashboardViewer::where('user_id', auth()->id())->first(); 
-        return view('center.dashboard.index', compact('escorts','viewer_array'));
+        $notification = $this->getActiveNotification(); 
+        return view('center.dashboard.index', compact('escorts','viewer_array', 'notification'));
     }
 
 
@@ -458,29 +459,16 @@ class CenterController extends Controller
 
     public function getActiveNotification(){
         $userId = auth()->user()->member_id;
-        try {
-            $notification  = CenterNotification::where('status', 'Published')
+         $notification  = CenterNotification::where('status', 'Published')
                 ->where('start_date', '<=', now())
                 ->where(function($query) use ($userId) {
                     $query->whereNull('member_id')
                           ->orWhere('member_id', $userId);
                 })
                 ->orderBy('start_date', 'asc')
+                ->select('id', 'heading', 'content', 'template_name')
                 ->first();
-            $data = '';
-            if($notification){
-                if($notification->type == 'Template'){
-                    $data = $notification->template_name;
-                }else{
-                    $data = $notification->content;
-                }
-                return success_response($data, 'Active notification found.');
-            }else{
-                return error_response('No active notifications available.', 200);
-            }
-        } catch (\Throwable $e) {
-            return error_response('Failed to fetch active notification.', 500, ['error' => $e->getMessage()]);
-        }
+            return $notification;   
     }
     
     
