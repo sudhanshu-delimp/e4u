@@ -37,7 +37,7 @@ class AddNewStaff extends FormRequest
             'kin_relationship' => 'bail|required|string|max:100',
             'kin_mobile' => 'required||min:10|max:14',
             'kin_email' => 'nullable|email:rfc,filter|max:100',
-            'position' => 'bail|required|string|max:100',
+            //'position' => 'bail|required|string|max:100',
             'location' => 'required',
             'commenced_date' => 'bail|required|string|max:100',
             'security_level' => 'bail|required',
