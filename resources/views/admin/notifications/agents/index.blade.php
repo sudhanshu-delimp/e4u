@@ -446,6 +446,8 @@
                         $("#monthWiseStartDate, #monthWiseEndDate, #startFirstMonth, #startFirstDate, #endSecondMonth, #endSecondDay")
                             .empty('');
                         $("#member_id").val('');
+                        $('#numberOfRecurring').show();
+                        $("#recurring").show();
 
                     } else if (scheduleType === 'monthly') {
                         $('#monthlyOptions').show();
@@ -454,6 +456,8 @@
                         $("#weekWiseStartDate", "#weekWiseEndDate", "#startFirstMonth", "#startFirstDate",
                             "#endSecondMonth", "#endSecondDay").empty('');
                         $("#member_id").val('');
+                        $('#numberOfRecurring').show();
+                        $("#recurring").show();
                     } else if (scheduleType === 'yearly') {
                         $('#startyearlyOptions').show();
                         $('#endyearlyOptions').show();
@@ -462,6 +466,8 @@
                         $("#weekWiseStartDate", "#weekWiseEndDate", "#monthWiseStartDate", "#monthWiseEndDate")
                             .empty('');
                         $("#member_id").val('');
+                        $('#numberOfRecurring').show();
+                        $("#recurring").show();
                     } else if (scheduleType === 'forever') {
                         $("#weekWiseStartDate", "#weekWiseEndDate",
                             "#monthWiseStartDate, #monthWiseEndDate, #startFirstMonth, #startFirstDate, #endSecondMonth, #endSecondDay"
