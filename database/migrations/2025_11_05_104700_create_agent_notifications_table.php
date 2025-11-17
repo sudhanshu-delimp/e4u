@@ -17,7 +17,7 @@ class CreateAgentNotificationsTable extends Migration
             $table->id();
             $table->string('current_day')->nullable();               // Date jab notification create/update hua 
             $table->string('heading');
-            $table->enum('type', ['adhoc', 'scheduled', 'notice'])->default('adhoc');
+            $table->enum('type', ['Ad hoc', 'Scheduled', 'Notice'])->default('Ad hoc');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->string('member_id')->nullable(); 
@@ -28,7 +28,7 @@ class CreateAgentNotificationsTable extends Migration
             $table->tinyInteger('end_month')->nullable();   // yearly ke liye month int (1-12)
             $table->integer('num_recurring')->nullable();   // Kitne times repeat karna hai
             $table->text('content')->nullable();
-            $table->enum('status', ['Published','Completed','Suspend', 'Removed'])->default('Published');
+            $table->enum('status', ['Published','Completed','Suspended', 'Removed'])->default('Published');
             $table->text('scheduled_days')->nullable();
             $table->timestamps();
         });

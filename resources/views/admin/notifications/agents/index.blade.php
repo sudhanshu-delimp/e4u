@@ -44,7 +44,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="bothsearch-form mb-3">
-                                <button type="button" class="create-tour-sec dctour" data-toggle="modal"
+                                <button type="button" class="create-tour-sec dctour" data-toggle="modal" id=""
                                     data-target="#createNotification">New Notification</button>
                             </div>
                         </div>
@@ -121,9 +121,9 @@
                             <div class="col-12 mb-3" id="typeField">
                                 <label class="label" for="type">Type</label>
                                 <select id="type" class="form-control" name="type">
-                                    <option value="adhoc" selected>Adhoc</option>
-                                    <option value="scheduled">Scheduled</option>
-                                    <option value="notice">Notice</option>
+                                    <option value="Ad hoc" selected>Ad hoc</option>
+                                    <option value="Scheduled">Scheduled</option>
+                                    <option value="Notice">Notice</option>
                                 </select>
                             </div>
 
@@ -405,16 +405,16 @@
                     $('#endDateField').show();
                     $('#contentField').show();
 
-                    if (type === 'adhoc') {
+                    if (type === 'Ad hoc') {
                         // Adhoc: Show date, heading, type, start_date, end_date, content
                         // All already shown, no extra fields
                         $("#numberOfRecurring").val('');
                         $("#member_id").val('');
-                    } else if (type === 'notice') {
+                    } else if (type === 'Notice') {
                         // Notice: Also show member_id
                         $('#noticeSection').show();
                         $("#numberOfRecurring").val('');
-                    } else if (type === 'scheduled') {
+                    } else if (type === 'Scheduled') {
                         // Show Schedule Type dropdown
                         $('#scheduledSection').show();
                         $('#numberOfRecurring').show();
@@ -428,6 +428,12 @@
                         $("#end_date").val('');
                     } 
                 }
+
+                //after open Agent Create Nitification modal reset fields
+                $('#createNotification').on('shown.bs.modal', function() {
+                    $('#createNotificationForm')[0].reset();
+                    toggleFields();
+                });
 
                 // On schedule type change, show related fields
                 $('#scheduleType').change(function() {
@@ -626,7 +632,6 @@
                 function typeMonthlyWiseMatchStartEndDate() {
                     let startDate = typeMonthlySelectedDate("#monthWiseStartDate");
                     let endDate = typeMonthlySelectedDate("#monthWiseEndDate");
-                    console.log(startDate, endDate);
                     if (startDate > endDate) {
                         $("#monthWiseEndDate").val($("#monthWiseStartDate").val());
                     }
@@ -648,7 +653,6 @@
 
                     let startDate = getTypeWeeklySelectedDate("#weekWiseStartDate");
                     let endDate = getTypeWeeklySelectedDate("#weekWiseEndDate");
-                    console.log(startDate, endDate);
                     if (startDate > endDate) {
                         $("#weekWiseEndDate").val($("#weekWiseStartDate").val());
                     }
@@ -701,7 +705,6 @@
                         _token: endpoint.csrf_token,
                         data: formData,
                         success: function(response) {
-                            console.log(response);
                             if (response.status === true) {
                                 $('#createNotification').modal('hide');
                                 let msg = response.message ? response.message : 'Saved successfully';
@@ -745,9 +748,7 @@
 
             $('#createNotificationForm').on('submit', function(e) {
                 e.preventDefault();
-
                 var form = $(this);
-                console.log(form);
                 ensureParsleyAndSubmit(form);
             });
 
@@ -876,7 +877,7 @@
                 let status = '';
                 let confirmMsg = '';
                 if ($(this).hasClass('js-suspend')) {
-                    status = 'Suspend';
+                    status = 'Suspended';
                     confirmMsg = 'Are you sure you want to suspend this notification?';
                 } else if ($(this).hasClass('js-publish')) {
                     status = 'Published';
