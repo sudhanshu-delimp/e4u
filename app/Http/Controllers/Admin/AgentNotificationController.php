@@ -17,9 +17,9 @@ class AgentNotificationController extends Controller
         
         if ($request->ajax()) {
             $query = AgentNotification::query()
-                ->orderByRaw("FIELD(type, 'scheduled','notice','Ad hoc')")
-                ->orderByRaw("FIELD(status, 'Published','Completed','Suspended', 'Removed')")
-                ->orderBy('start_date', 'DESC');
+                //->orderByRaw("FIELD(type, 'scheduled','notice','Ad hoc')")
+                //->orderByRaw("FIELD(status, 'Published','Completed','Suspended', 'Removed')")
+                ->orderByDesc('created_at');
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('ref', function ($row) {
