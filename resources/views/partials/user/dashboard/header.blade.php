@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
 
-    <title>E4U - Escorts for you</title>
+    <title>Viewer Console</title>
 
     <!-- Custom fonts for this template-->
 

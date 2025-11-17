@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
-    <title>E4U - Escorts for you</title>
+    <link rel="shortcut icon" href="{{ asset('assets/dashboard/img/operator/favicon.ico') }}" />
+    <title>Operator Console</title>
 
     <!-- Custom fonts for this template-->
 
