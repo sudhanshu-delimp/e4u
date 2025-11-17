@@ -17,7 +17,7 @@ class CreateAgentNotificationsTable extends Migration
             $table->id();
             $table->string('current_day')->nullable();               // Date jab notification create/update hua 
             $table->string('heading');
-            $table->enum('type', ['Ad hoc', 'Scheduled', 'Notice'])->default('Ad hoc');
+            $table->enum('type', ['Ad hoc','Scheduled','Notice'])->default('Ad hoc');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->string('member_id')->nullable(); 
@@ -31,6 +31,7 @@ class CreateAgentNotificationsTable extends Migration
             $table->enum('status', ['Published','Completed','Suspended', 'Removed'])->default('Published');
             $table->text('scheduled_days')->nullable();
             $table->timestamps();
+
         });
     }
 

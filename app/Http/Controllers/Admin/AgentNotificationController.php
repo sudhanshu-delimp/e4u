@@ -14,6 +14,7 @@ class AgentNotificationController extends Controller
 {
     public function index(Request $request)
     {
+        
         if ($request->ajax()) {
             $query = AgentNotification::query()
                 ->orderByRaw("FIELD(type, 'scheduled','notice','Ad hoc')")

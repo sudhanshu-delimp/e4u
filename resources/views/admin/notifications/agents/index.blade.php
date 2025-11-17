@@ -472,7 +472,6 @@
                         // No additional fields shown
                     }
                 });
-
                 //Hide Disable Validation filed
                 // function toggleValidation(fields, enable) {
                 //     fields.forEach(function(fieldId) {
@@ -491,8 +490,6 @@
                 //         }
                 //     });
                 // }
-
-
 
                 $('#type').change(toggleFields);
                 toggleFields();
