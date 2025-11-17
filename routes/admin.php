@@ -294,8 +294,8 @@ Route::get('/notifications/agent/{id}', [AgentNotificationController::class, 'sh
 Route::post('/notifications/agent/{id}/suspend', [AgentNotificationController::class, 'updateStatus'])->name('admin.agent.notifications.suspend');
 Route::post('/notifications/agent/{id}/status', [AgentNotificationController::class, 'changeStatus'])->name('admin.agent.notifications.status');
 Route::get('/notifications/agent/pdf-download/{id}', [AgentNotificationController::class, 'pdfDownload'])->name('admin.agent.pdf.download');
-
-
+Route::get('/notifications/{id}/edit', [AgentNotificationController::class, 'edit'])->name('admin.agent.notifications.edit');
+Route::post('/notifications/{id}/update', [AgentNotificationController::class, 'update'])->name('admin.agent.notifications.update');
 
 
 ################### PDF ###################

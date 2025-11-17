@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AgentNotification;
 use Carbon\Carbon;
+use GrahamCampbell\ResultType\Success;
 use Intervention\Image\Colors\Rgb\Channels\Red;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Database\Eloquent\Builder;
@@ -49,6 +50,7 @@ class AgentNotificationController extends Controller
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
                     }
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
+                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-edit" data-id="' . $row->id . '"><i class="fa fa-fw fa-edit"></i> Edit</a>';
 
                     $dropdown = '<div class="dropdown no-arrow">'
                         . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
@@ -334,6 +336,27 @@ class AgentNotificationController extends Controller
             return view('admin.notifications.agents.agents-notification-pdf-download', compact('pdfDetail'));
         } catch (\Throwable $e) {
             abort(404);
+        }
+    }
+
+    public function edit($id){
+        try{
+            $notification = AgentNotification::findOrFail($id);
+             return success_response($notification, 'Notification saved successfully');
+         } catch (\Exception $e) {
+            return error_response('Failed to create notification: ' . $e->getMessage(), 500);
+        }
+     
+    }
+
+    public function update(Request  $request, $id){
+        try{
+            $notification = AgentNotification::findOrFail($id);
+            $data = $request->all();
+            $notification->update($data);
+            return success_response($notification,'Notification updated successfully.');
+        } catch(\Exception $e){
+            return error_response('Faild to update Notification: '. $e->getMessage(), 500);
         }
     }
 
