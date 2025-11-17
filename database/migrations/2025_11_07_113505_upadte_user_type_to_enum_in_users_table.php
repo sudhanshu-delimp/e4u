@@ -31,7 +31,7 @@ class UpadteUserTypeToEnumInUsersNewTable extends Migration
      */
     public function down()
     {
-        Schema::table('enum_in_users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }
