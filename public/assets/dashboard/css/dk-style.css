@@ -289,10 +289,6 @@ span.menu-active {
     height: 40px;
 }
 
-.sidebar .nav-item .nav-link span {
-    font-size: 15px !important;
-}
-
 #content {
     background: #fff !important;
 }

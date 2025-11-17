@@ -168,7 +168,7 @@
             <div class="card custom-help-contain">
                <div class="card-header">
                   <a class="card-link" data-toggle="collapse" href="#additional_information">
-                  My Additional Information 
+                  My Personal Information 
                   </a>
                </div>
                <div id="additional_information" class="collapse" data-parent="#accordion">
