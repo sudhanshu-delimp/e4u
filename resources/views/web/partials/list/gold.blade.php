@@ -1,3 +1,7 @@
+@php
+    $escortName = ($escort->gender == 'Transgender')? 'TS - ' . $escort->name : $escort->name;
+@endphp
+
 <div class="listview_each_section_border_btm silver-sec brb--listing">
     <div
         class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view gold_list_frame">
@@ -29,7 +33,7 @@
                                             class="add_to_favrate custom--favourite @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray())) {{ 'null' }}@else{{ 'fill' }} @endif legboxClass_{{ $escort->id }}"
                                             id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
                                             data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"
-                                            data-name="{{ $escort->name }}">
+                                            data-name="{{ $escortName }}">
                                             @if (!empty($user_type))
                                                 @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray()))
                                                     <i class='fa fa-heart' style='color: #ff3c5f;'
@@ -42,14 +46,14 @@
                                             @endif
                                         </span>
                                     @else
-                                        <span class="add_to_favrate custom--favourite" data-name="{{ $escort->name }}"><i
+                                        <span class="add_to_favrate custom--favourite" data-name="{{ $escortName }}"><i
                                                 class="fa fa-heart-o" aria-hidden="true"></i> <span class="custom-heart-text list-tool">Add to My Legbox</span></span>
                                     @endif
                                 @else
                                     {{-- <span class="add_to_favrate" data-escortId="{{ $escort->id }}"
-                                        data-name="{{ $escort->name }}"><i class="fa fa-heart-o" aria-hidden="true"
+                                        data-name="{{ $escortName }}"><i class="fa fa-heart-o" aria-hidden="true"
                                             title="Add to Legbox"></i></span> --}}
-                                        <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My Legbox</span></span>
+                                        <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escortName}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My Legbox</span></span>
                                 @endif
                             </div>
                             <div class="verify_image verify-image-custom">
@@ -60,7 +64,7 @@
                     </div>
                     <div class="col-md-8 p-0 gold-seven all-escort-view-profile-box">
                         <div class="d-flex justify-content-between mb-4 sm-my-2 gold-profile-details-custom">
-                            <div class="free_profile_name_and_color">{{ $escort->name }}</div>
+                            <div class="free_profile_name_and_color">{{ $escortName }}</div>
                             <div class="age" style="margin-top: 5px;display: flex;gap: 8px;">
                                 <span class="margin_and_font_size_color_for_free">AGE:</span><span
                                     class="free_profile_age_color_and_font">{{ $escort->age }}</span>
@@ -70,14 +74,14 @@
                             @if (Request::path() == 'showList')
                                 <button type="button"
                                     class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn removeshortlist"
-                                    data-name="{{ $escort->name }}" data-escortId="{{ $escort->id }}">
+                                    data-name="{{ $escortName }}" data-escortId="{{ $escort->id }}">
                                     Remove from Shortlist</button>
                             @else
                                 {{-- <button type="button" class="btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist" data-escortId="{{$escort->id}}">
                                 <img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">Add to shortlist</button> --}}
                                 <button type="button"
                                     class="btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_{{ $escort->id }}"
-                                    id="escort_{{ $escort->id }}" data-name="{{ $escort->name }}"
+                                    id="escort_{{ $escort->id }}" data-name="{{ $escortName }}"
                                     data-escortId="{{ $escort->id }}"
                                     data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"><img
                                         class="listiconprofilelistview"
@@ -138,12 +142,16 @@
                                         @endif
                                     </span>
                                 </div>
+
+                                @if($escort->escort_videos->count()>0)
                                 <div class="d-inline video_icon">
                                         <a href="#">
                                             <img src="{{ asset('assets/app/img/video_play.svg') }}">
                                             <span class="custom--tooltip">Escort has video to view</span>
                                         </a>
                                 </div>
+                                @endif
+
                             </div>
 
                         </div>

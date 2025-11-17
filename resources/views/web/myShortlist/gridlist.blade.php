@@ -1,3 +1,7 @@
+@php
+    $escortName = ($escort->gender == 'Transgender') ? 'TS - ' . $escort->name : $escort->name;
+@endphp
+
 <div class="listview_each_section_border_btm">
     <div
         class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view gold_list_frame">
@@ -18,7 +22,7 @@
                     </div>
                     <div class="col-md-8 p-0">
                         <div class="d-flex justify-content-between mb-3 flex_directiom_warp list_cruise pr-0">
-                            <div class="free_profile_name_and_color profile-text">{{ $escort->name }}</div>
+                            <div class="free_profile_name_and_color profile-text">{{ $escortName }}</div>
                             <div class="age" style="text-align: end; margin-top: 13px;">
                                 <span
                                     class="margin_and_font_size_color_for_free manage_age_responsive_in_gold">AGE:</span><span
@@ -26,7 +30,7 @@
                             </div>
                             <div class="add_to_shortlist_btn manage_btn_gor_gold_in_responsive">
 
-                                <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn removeshortlist custom-sort-filter"  data-name="{{$escort->name}}"  data-escortId="{{$escort->id}}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
+                                <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn removeshortlist custom-sort-filter"  data-name="{{$escortName}}"  data-escortId="{{$escort->id}}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
                                     Remove from Shortlist</button>
                             </div>
                         </div>
@@ -69,12 +73,16 @@
                                         @endif
                                     </span>
                                 </div>
+
+                                 @if($escort->escort_videos->count()>0)
                                 <div class="video_icon padding_top_ten_px">
                                     <a href="#">
                                         <img src="{{ asset('assets/app/img/video_play.svg') }}">
                                         <span class="custom--tooltip">Escort has video to view</span>
                                     </a>
                                 </div>
+                                @endif
+
                             </div>
                         </div>
                         <div class="row mb-2 margin_lft_rgt_one_five  pr-0">

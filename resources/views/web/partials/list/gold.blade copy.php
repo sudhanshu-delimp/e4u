@@ -55,9 +55,14 @@
                                 @endif
                                 </span>
                             </div>
+
+
+                            @if($escort->escort_videos->count()>0)
                             <div class="video_icon padding_top_ten_px">
                                 <a href="#"><img src="{{ asset('assets/app/img/videoiconlistviewimg.png')}}"></a>
                             </div>
+                            @endif
+
                         </div>
                         <div class="row mb-2 margin_lft_rgt_one_five">
                             <div class="col-xl-3 col-md-3 col-sm-6 col-6 p-1">
