@@ -548,7 +548,7 @@
                                 <div class="col-sm-12 pl-0">
                                 <input type="text" class="form-control form-control-sm" id="st_name" placeholder="Enter stage name">
                             </div>
-                            <span><b>Note:</b>  <i>Save your new Stage Names before you apply the Sort feature</i></span><br>
+                            <span><b>Note:</b>  <i>Save your new Stage Names before you apply the Sort feature.</i></span><br>
                                 <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{$escort->covidreport}}">
