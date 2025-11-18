@@ -1,7 +1,8 @@
 @php
     $escortName = ($escort->gender == 'Transgender') ? 'TS - ' . $escort->name : $escort->name;
 @endphp
-
+<div class="container">
+    
 <div class="listview_each_section_border_btm">
     <div
         class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view gold_list_frame">
@@ -14,8 +15,8 @@
                                 <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
                                     class="img-fluid height_for_platinum">
 
-                                <div class="verify_image">
-                                    <img src="{{ asset('assets/app/img/verifyimage.png') }}">
+                                <div class="verify-image-custom">
+                                    <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                 </div>
                             </div>
                         </a>
@@ -183,4 +184,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
