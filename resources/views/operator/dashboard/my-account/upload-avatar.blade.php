@@ -1,35 +1,13 @@
 @extends('layouts.operator')
 @section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 <link rel="stylesheet" type="text/css" href="https://foliotek.github.io/Croppie/croppie.css">
-<style>
-    .swal-button {
-        background-color: #242a2c;
-    }
-
-    label.cabinet input.file {
-        position: relative;
-        height: 100%;
-        width: auto;
-        opacity: 0;
-        -moz-opacity: 0;
-        filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
-        margin-top: -30px;
-    }
-
-    #upload-demo {
-        width: 250px;
-        height: 250px;
-        padding-bottom: 25px;
-    }
-</style>
 @stop
 @section('content')
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
     <!-- Main Content -->
     <div id="content">
-        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 operator-">
+        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 opr-console">
             <!--middle content start here-->
             {{-- Page Heading   --}}
             <div class="row">
@@ -79,8 +57,8 @@
                                                         <img class="file-upload-image item-img" src="#" alt="your image" id="item-img-output" />
                                                         <div class="image-title-wrap">
 
-                                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-                                                            <button type="submit" class="remove-image crop_image">Save <span class="image-title">Uploaded Image</span></button>
+                                                            <button type="button" onclick="removeUpload()" class="opr-btn-common">Remove <span class="image-title">Uploaded Image</span></button>
+                                                            <button type="submit" class="opr-btn-common">Save <span class="image-title">Uploaded Image</span></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -152,15 +130,14 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
-<div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal opr-modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/crop-image.png') }}" class="custompopicon"> Crop Photo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-
-                </button>
+                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/crop.png') }}" class="custompopicon"> Crop Photo</h5>
+                <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                   <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
+                </a>
 
             </div>
             <div class="modal-body">
@@ -172,37 +149,34 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
-            <button type="button" id="cropImageBtn" class="btn-success-modal">Crop</button>
+            <button type="button" class="opr-btn-common" data-dismiss="modal">Close</button>
+            <button type="button" id="cropImageBtn" class="opr-btn-common">Crop</button>
         </div>
     </div>
 </div>
 </div>
 
-<div class="modal" id="conformation_modal" style="display: none">
+<div class="modal opr-modal" id="conformation_modal" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color border-0">
                 <h5 class="modal-title text-white">
-                    <img src="{{ asset('assets/dashboard/img/remove-image.png') }}" class="custompopicon" id="modal-icon">
+                    <img src="{{ asset('assets/dashboard/img/operator/image.png') }}" class="custompopicon" id="modal-icon">
                     <span style="color:white" id="modal-title">Remove Avatar</span>
                 </h5>
 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <a class="close" href="" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
-                        <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
                     </span>
-                </button>
+                </a>
             </div>
             <div class="modal-body">
-                <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
-                    <span id="comman_str">Are you sure you want to delete your avatar?</span>
-                    <!-- <span class="comman_msg"></span> -->
-                </h1>
+                <p class="opr-modal-text">Are you sure you want to delete your avatar?</p>
             </div>
             <div class="modal-footer" style="justify-content: center;">
-                <button type="submit" class="btn-success-modal" id="confirmDelete" data-dismiss="modal" id="close">Yes</button>
-                <button type="submit" class="btn-cancel-modal" id="cancelDelete" data-dismiss="modal" id="close">NO</button>
+                <button type="submit" class="opr-btn-common" id="confirmDelete" data-dismiss="modal" id="close">Yes</button>
+                <button type="submit" class="opr-btn-common" id="cancelDelete" data-dismiss="modal" id="close">No</button>
             </div>
         </div>
     </div>
