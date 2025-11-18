@@ -44,7 +44,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="bothsearch-form mb-3">
-                                <button type="button" class="create-tour-sec dctour" data-toggle="modal"
+                                <button type="button" class="create-tour-sec dctour" data-toggle="modal" id=""
                                     data-target="#createNotification">New Notification</button>
                             </div>
                         </div>
@@ -121,9 +121,9 @@
                             <div class="col-12 mb-3" id="typeField">
                                 <label class="label" for="type">Type</label>
                                 <select id="type" class="form-control" name="type">
-                                    <option value="adhoc" selected>Adhoc</option>
-                                    <option value="scheduled">Scheduled</option>
-                                    <option value="notice">Notice</option>
+                                    <option value="Ad hoc" selected>Ad hoc</option>
+                                    <option value="Scheduled">Scheduled</option>
+                                    <option value="Notice">Notice</option>
                                 </select>
                             </div>
 
@@ -291,6 +291,55 @@
         </div>
     </div>
 
+    <!-- Edit of Content Wrapper -->
+    <div class="modal fade upload-modal" id="editNotification" tabindex="-1" role="dialog"
+        aria-labelledby="editNotification" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createNotification">
+                        <img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Edit
+                        Notification
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0">
+                    <form method="POST" action="#" id="editNotificationForm"
+                        data-parsley-validate novalidate>
+                        @csrf
+                        <div class="row">
+                            <!-- Heading Field -->
+                            <div class="col-12 mb-3" id="headingField">
+                                <input type="hidden" id="edit_notification_id" name="id" />
+                                <label class="label" for="headingField">Heading</label>
+                                <input type="text" class="form-control rounded-0 fw-bold" name="heading" id="edit_heading"
+                                    placeholder="Heading" data-parsley-required="true" />
+                            </div>
+
+                            <!-- Content -->
+                            <div class="col-12 mb-3" id="contentField">
+                                <label class="label" for="content">Content</label>
+                                <textarea id="edit_content" name="content"  class="form-control" required placeholder="up to 250 characters..."
+                                    maxlength="250" data-parsley-required="true">
+
+                                </textarea>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer pr-3">
+                            <button type="submit" class="btn-success-modal">Update</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+     <!-- Edit of Content Wrapper -->
+
     <div class="modal fade upload-modal " id="view-listing" tabindex="-1" role="dialog"
         aria-labelledby="view-listingLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -327,6 +376,8 @@
         </div>
     </div>
 
+    
+
     <!-- open success popup -->
     <div class="modal fade upload-modal" id="successModal" tabindex="-1" role="dialog"
         aria-labelledby="successModallabel" aria-hidden="true" data-backdrop="static">
@@ -352,7 +403,7 @@
             </div>
         </div>
     </div>
-    <!-- End of Page Wrapper -->
+
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
@@ -362,7 +413,10 @@
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
         data-pdf-download="{{ route('admin.agent.pdf.download', ['id' => '__ID__']) }}"
-        data-agent-notification-status="{{ route('admin.agent.notifications.status', ['id' => '__ID__']) }}">
+        data-agent-notification-status="{{ route('admin.agent.notifications.status', ['id' => '__ID__']) }}"
+        data-agent-notification-edit="{{route('admin.agent.notifications.edit', ['id' => '__ID__'])}}"
+        data-agent-notification-update="{{route('admin.agent.notifications.update', ['id' => '__ID__'])}}"
+        >
 
         <!-- End of Page Wrapper -->
         <!-- Scroll to Top Button-->
@@ -405,16 +459,16 @@
                     $('#endDateField').show();
                     $('#contentField').show();
 
-                    if (type === 'adhoc') {
+                    if (type === 'Ad hoc') {
                         // Adhoc: Show date, heading, type, start_date, end_date, content
                         // All already shown, no extra fields
                         $("#numberOfRecurring").val('');
                         $("#member_id").val('');
-                    } else if (type === 'notice') {
+                    } else if (type === 'Notice') {
                         // Notice: Also show member_id
                         $('#noticeSection').show();
                         $("#numberOfRecurring").val('');
-                    } else if (type === 'scheduled') {
+                    } else if (type === 'Scheduled') {
                         // Show Schedule Type dropdown
                         $('#scheduledSection').show();
                         $('#numberOfRecurring').show();
@@ -426,8 +480,14 @@
                         $("#start_date").val('');
                         $("#end_date").val('');
                         $("#end_date").val('');
-                    } 
+                    }
                 }
+
+                //after open Agent Create Nitification modal reset fields
+                $('#createNotification').on('shown.bs.modal', function() {
+                    $('#createNotificationForm')[0].reset();
+                    toggleFields();
+                });
 
                 // On schedule type change, show related fields
                 $('#scheduleType').change(function() {
@@ -440,6 +500,8 @@
                         $("#monthWiseStartDate, #monthWiseEndDate, #startFirstMonth, #startFirstDate, #endSecondMonth, #endSecondDay")
                             .empty('');
                         $("#member_id").val('');
+                        $('#numberOfRecurring').show();
+                        $("#recurring").show();
 
                     } else if (scheduleType === 'monthly') {
                         $('#monthlyOptions').show();
@@ -448,6 +510,8 @@
                         $("#weekWiseStartDate", "#weekWiseEndDate", "#startFirstMonth", "#startFirstDate",
                             "#endSecondMonth", "#endSecondDay").empty('');
                         $("#member_id").val('');
+                        $('#numberOfRecurring').show();
+                        $("#recurring").show();
                     } else if (scheduleType === 'yearly') {
                         $('#startyearlyOptions').show();
                         $('#endyearlyOptions').show();
@@ -456,6 +520,8 @@
                         $("#weekWiseStartDate", "#weekWiseEndDate", "#monthWiseStartDate", "#monthWiseEndDate")
                             .empty('');
                         $("#member_id").val('');
+                        $('#numberOfRecurring').show();
+                        $("#recurring").show();
                     } else if (scheduleType === 'forever') {
                         $("#weekWiseStartDate", "#weekWiseEndDate",
                             "#monthWiseStartDate, #monthWiseEndDate, #startFirstMonth, #startFirstDate, #endSecondMonth, #endSecondDay"
@@ -466,7 +532,6 @@
                         // No additional fields shown
                     }
                 });
-
                 //Hide Disable Validation filed
                 // function toggleValidation(fields, enable) {
                 //     fields.forEach(function(fieldId) {
@@ -485,8 +550,6 @@
                 //         }
                 //     });
                 // }
-
-
 
                 $('#type').change(toggleFields);
                 toggleFields();
@@ -626,7 +689,6 @@
                 function typeMonthlyWiseMatchStartEndDate() {
                     let startDate = typeMonthlySelectedDate("#monthWiseStartDate");
                     let endDate = typeMonthlySelectedDate("#monthWiseEndDate");
-                    console.log(startDate, endDate);
                     if (startDate > endDate) {
                         $("#monthWiseEndDate").val($("#monthWiseStartDate").val());
                     }
@@ -648,7 +710,6 @@
 
                     let startDate = getTypeWeeklySelectedDate("#weekWiseStartDate");
                     let endDate = getTypeWeeklySelectedDate("#weekWiseEndDate");
-                    console.log(startDate, endDate);
                     if (startDate > endDate) {
                         $("#weekWiseEndDate").val($("#weekWiseStartDate").val());
                     }
@@ -672,6 +733,8 @@
                 error_image: mmRoot.data('error-image'),
                 pdf_download: mmRoot.data('pdf-download'),
                 agent_notification_status: mmRoot.data('agent-notification-status'),
+                agent_notification_edit: mmRoot.data('agent-notification-edit'),
+                agent_notification_update: mmRoot.data('agent-notification-update'),
             }
 
 
@@ -701,7 +764,6 @@
                         _token: endpoint.csrf_token,
                         data: formData,
                         success: function(response) {
-                            console.log(response);
                             if (response.status === true) {
                                 $('#createNotification').modal('hide');
                                 let msg = response.message ? response.message : 'Saved successfully';
@@ -745,9 +807,7 @@
 
             $('#createNotificationForm').on('submit', function(e) {
                 e.preventDefault();
-
                 var form = $(this);
-                console.log(form);
                 ensureParsleyAndSubmit(form);
             });
 
@@ -762,8 +822,7 @@
                     url: "{{ route('admin.agent.notifications.index') }}",
                     type: 'GET'
                 },
-                columns: [
-                    { // 👇 New column for row index
+                columns: [{ // 👇 New column for row index
                         data: null,
                         name: 'row_index',
                         orderable: false,
@@ -876,7 +935,7 @@
                 let status = '';
                 let confirmMsg = '';
                 if ($(this).hasClass('js-suspend')) {
-                    status = 'Suspend';
+                    status = 'Suspended';
                     confirmMsg = 'Are you sure you want to suspend this notification?';
                 } else if ($(this).hasClass('js-publish')) {
                     status = 'Published';
@@ -893,7 +952,7 @@
                 img.attr('src', endpoint.error_image);
                 body.html(
                     `<h4>${confirmMsg}</h4><div class="d-flex justify-content-center gap-10 mt-3"><button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button><button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button></div>`
-                    );
+                );
                 modal.modal('show');
                 body.off('click', '#confirmRemove').on('click', '#confirmRemove', function() {
                     $(this).prop('disabled', true);
@@ -910,7 +969,7 @@
                             $('#success_form_html').html('<h4>' + (response.message ||
                                     'Status updated successfully') +
                                 '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
-                                );
+                            );
                             setTimeout(function() {
                                 modal.modal('hide');
                                 table.ajax.reload(null, false);
@@ -925,7 +984,7 @@
                             $('#image_icon').attr('src', endpoint.error_image);
                             $('#success_form_html').html('<h4>' + msg +
                                 '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
-                                );
+                            );
                         }
                     });
                 });
@@ -940,5 +999,72 @@
                 window.open(url, '_blank');
 
             });
+
+            //edit Agent moduel
+            $(document).on('click', '.js-edit', function(e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                $('#currentDateField, #startDateField, #typeField, #endDateField,  #scheduledSection, #noticeSection, #weeklyOptions, #monthlyOptions, #startyearlyOptions, #endyearlyOptions, #numberOfRecurring, #weekOptions').hide();
+               
+                $.ajax({
+                    url: endpoint.agent_notification_edit.replace('__ID__', id),
+                    type: 'GET',
+                    success: function(response) {
+                        $('#editNotification').modal('show');
+                        $('#editNotificationForm')[0].reset();
+                        if (response.status === true) {
+                            let n = response.data;
+                            $('#edit_notification_id').val(n.id);
+                            $('#edit_heading').val(n.heading);
+                            $('#edit_content').val(n.content);
+                        }
+                    },
+                    error: function() {
+                        container.html('<div class="text-danger">Failed to load details.</div>');
+                    }
+                });
+            });
+
+            //update Agent Notification Module
+            $("#editNotificationForm").on('submit', function(e){
+                e.preventDefault();
+                let id = $("#edit_notification_id").val();
+                let form = $(this);
+                let formData = form.serialize();
+                console.log(formData, 'formData');
+                 $.ajax({
+                        url: endpoint.agent_notification_update.replace('__ID__', id),
+                        type: "POST",
+                        _token: endpoint.csrf_token,
+                        data: formData,
+                        success: function(response) {
+                            if (response.status === true) {
+                                $('#editNotification').modal('hide');
+                                let msg = response.message ? response.message : 'Saved successfully';
+                                $("#image_icon").attr("src", endpoint.success_image);
+                                $('#success_task_title').text('Success');
+                                $('#success_msg').text(msg);
+                                form[0].reset();
+                                $('#successModal').modal('show');
+                                setTimeout(function() {
+                                    $('#successModal').modal('hide');
+                                    table.ajax.reload(null, false);
+                                }, 1200);
+                            }
+
+                        },
+                        error: function(xhr) {
+                            let msg = 'Something went wrong';
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                msg = xhr.responseJSON.message;
+                            }
+                            $("#image_icon").attr("src", endpoint.error_image);
+                            $('#success_task_title').text('Error');
+                            $('#success_msg').text(msg);
+                            $('#successModal').modal('show');
+                        }
+                    });
+
+            })
         </script>
     @endpush
