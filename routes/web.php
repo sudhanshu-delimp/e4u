@@ -722,13 +722,13 @@ Route::get('/admin-dashboard/notifications/global',function(){
 })->name('admin.global');
 
 
-Route::get('/admin-dashboard/notifications/agents',function(){
-    return view('admin.notifications.agents');
-})->name('admin.agents');
+// Route::get('/admin-dashboard/notifications/agents',function(){
+//     return view('admin.notifications.agents');
+// })->name('admin.agents');
 
-Route::get('/admin-dashboard/notifications/viewers',function(){
-    return view('admin.notifications.viewers');
-})->name('admin.viewers');
+// Route::get('/admin-dashboard/notifications/viewers',function(){
+//     return view('admin.notifications.viewers');
+// })->name('admin.viewers');
 
 
 Route::get('/admin-dashboard/notifications/escorts',function(){
