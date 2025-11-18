@@ -1,5 +1,13 @@
 @extends('layouts.webHome')
 @section('content')
+
+@php
+    $escortName = ($escort->gender == 'Transgender')
+        ? 'TS - ' . substr($escort->name, 0, 15)
+        : substr($escort->name, 0, 15);
+@endphp
+
+
     <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly homebanner_bg js_pinup_summary">
     <div class="container-fluid banner_width">
         <div class="row align-items-center">
@@ -21,7 +29,7 @@
                     </div>
                 </div>
                 <div class="pin-up-content pl-5">
-                    <h1 class="home_heading_first mb-0 pin-head-custom">{{$escort->name}} <span>
+                    <h1 class="home_heading_first mb-0 pin-head-custom">{{$escortName}} <span>
                             <div class="pin-age">Age: <span>{{$escort->age}}</span></div>
                         </span>
                         @php 
