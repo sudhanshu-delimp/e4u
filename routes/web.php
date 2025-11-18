@@ -362,10 +362,6 @@ Route::get('operator-dashboard/agents-monthly-report',function(){
 Route::get('shareholder-login', [App\Http\Controllers\Admin\AuthController::class,'showShareholderLoginForm'])->name('shareholder.login');
 
 
-
-Route::get('shareholder-dashboard/',function(){
-    return view('shareholder.dashboard.index');
-})->name('shareholder.index');
 /************ END ************/ 
 // shortlist
 Route::post('/shortlist', [App\Http\Controllers\WebController::class,'saveShortList'])->name('web.save.shortlist');

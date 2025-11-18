@@ -110,7 +110,8 @@
                                         <th>Start Date</th>
                                         <th>End Date</th>
                                         <th>Days</th>
-                                         <th>Membership</th>
+                                        <th>Membership</th>
+                                        <th>Status</th>
                                         <th>Fee @if ($type == 'past')
                                                 Paid
                                             @endif
@@ -155,7 +156,6 @@
                 },
                 drawCallback: function(settings) {
                     var api = this.api();
-                    //var records = api.data().length;
                     var length = table.page.info().recordsTotal;
                     if (length <= 10) {
                        $('.dataTables_paginate').show();
@@ -178,7 +178,6 @@
                     url: "{{ route('escort.list.dataTableListing', $type) }}",
                     data: function(d) {
                         d.type = 'player';
-                      //  d.type = "{{$type}}";
                     }
                 },
 
@@ -191,11 +190,11 @@
                         data: 'profile_name'
                     },
                     {
-                        data: 'city',
+                        data: 'location',
                         searchable: false,
                     },
                     {
-                        data: 'name',
+                        data: 'stage_name',
                         searchable: true,
                     },
                     {
@@ -207,10 +206,15 @@
                         searchable: false,
                     },
                     {
-                        data: 'days',
+                        data: 'days_number',
                         searchable: false
                     },
-                     { data: 'membership', name: 'membership', searchable: false, orderable:true ,defaultContent: 'NA', visible: shouldHide},
+                    { data: 'membership', name: 'membership', searchable: false, orderable:true ,defaultContent: 'NA', visible: shouldHide},
+                    {
+                        data: 'status',
+                        searchable: false,
+                        visible: '{{$type == "past"?false:true}}'
+                    },
                     {
                         data: 'fee',
                         searchable: false
