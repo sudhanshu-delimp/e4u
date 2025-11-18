@@ -182,7 +182,9 @@
                               </div>
                            </div>
                         </div>
-                        <input type="submit" value="save" class="btn btn-primary shadow-none float-right" name="submit">
+                        <div class="d-flex justify-content-end">
+                           <button type="submit" name="submit" class="opr-common-btn">Save</button>
+                        </div>
                      </form>
                   </div>
                </div>
@@ -223,7 +225,7 @@
                                        <label>You can retrieve your Agent Management Agreement by clicking
                                           <a download="true" href="{{ asset('assets/dashboard/agreement/Agent-Management-Agreement-(02-2025).pdf') }}" download="" 
                                              class="custom_links_design">
-                                             <span style="color: #FF3C5F;">here</span>.
+                                             <span style="color: var(--color-orange: #f5841f;)">here</span>.
                                           </a>       
                                       
                                            
