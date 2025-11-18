@@ -78,7 +78,7 @@ class AgentNotificationController extends Controller
             }
             $notification->status = 'Suspended';
             $notification->save();
-            return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification removed successfully.');
+            return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification removed Successfully.');
         } catch (\Exception $e) {
             return error_response('Failed to update status: ' . $e->getMessage(), 500);
         }
@@ -90,12 +90,17 @@ class AgentNotificationController extends Controller
             $notification = AgentNotification::findOrFail($id);
             $allowed = ['Published', 'Suspended', 'Suspended', 'Removed'];
             $status = $request->input('status');
+            if($status == 'Removed'){
+                 $notification->delete();
+                 return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification delete Successfylly!!.');
+            }
+            
             if (!in_array($status, $allowed)) {
                 return response()->json(['success' => false, 'message' => 'Invalid status'], 422);
             }
             $notification->status = $status;
             $notification->save();
-            return success_response(['id' => $notification->id, 'status' => $notification->status], 'Status updated successfully.');
+            return success_response(['id' => $notification->id, 'status' => $notification->status], 'Status updated Successfully.');
         } catch (\Exception $e) {
             return error_response('Failed to update status: ' . $e->getMessage(), 500);
         }

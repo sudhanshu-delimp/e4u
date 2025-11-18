@@ -782,13 +782,13 @@ class AgentController extends BaseController
         $notifications = AgentNotification::where('status', 'Published')->where(function ($query) use ($todayDate, $loggedMemberId) {
 
             // Adhoc notifications valid for today
-            $query->where('type', 'adhoc')
+            $query->where('type', 'Ad hoc')
                 ->where('start_date', '<=', $todayDate)
                 ->where('end_date', '>=', $todayDate);
 
             // Notice notifications valid for today with matching member_id
             $query->orWhere(function ($q) use ($todayDate, $loggedMemberId) {
-                $q->where('type', 'notice')
+                $q->where('type', 'Notice')
                     ->where('start_date', '<=', $todayDate)
                     ->where('end_date', '>=', $todayDate)
                     ->where('member_id', $loggedMemberId);
@@ -796,7 +796,7 @@ class AgentController extends BaseController
 
             // Scheduled notifications valid for today based on scheduled_days or forever recurring
             $query->orWhere(function ($q) use ($todayDate) {
-                $q->where('type', 'scheduled')
+                $q->where('type', 'Scheduled')
                     ->where(function ($sq) use ($todayDate) {
                         $sq->whereRaw('FIND_IN_SET(?, scheduled_days)', [$todayDate])
                             ->orWhere('recurring_type', 'forever');
