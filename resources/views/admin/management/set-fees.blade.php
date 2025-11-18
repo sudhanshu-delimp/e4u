@@ -1382,17 +1382,24 @@ var commision_playbox_fees = $("#commision_playbox_fees").DataTable({
                                                
                                                    <div class="row">
                                                      
-                                                      <div class="col-12 mb-3">
+                                                      <div class="col-6 mb-3">
                                                          <label>Amount</label>
                                                          <input type="text"  class="form-control rounded-0" name="amount"  value="${(rowData.amount  ? rowData.amount : '')}" required>
                                                       </div>
+
+                                                      <div class="col-6 mb-3">
+                                                         <label>Type</label>
+                                                          <select class="form-control rounded-0" name="amount_type" required>
+                                                            <option value="fixed"  ${!rowData.amount_type ? 'selected' : ''}>Fixed</option>
+                                                             <option value="percent"  ${!rowData.amount_type ? 'selected' : ''}>Percent</option>
+                                                         </select>
+                                                      </div>
+
 
                                                        <div class="col-12 mb-3">
                                                          <label>Description</label>
                                                          <textarea name="discription" class="form-control rounded-0" rows="5">${(rowData.discription  ? rowData.discription : '')}</textarea>
                                                       </div>
-
-                                                     
                                                       
                                                    </div>
                                                 
