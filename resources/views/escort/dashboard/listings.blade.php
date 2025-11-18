@@ -156,7 +156,6 @@
                 },
                 drawCallback: function(settings) {
                     var api = this.api();
-                    //var records = api.data().length;
                     var length = table.page.info().recordsTotal;
                     if (length <= 10) {
                        $('.dataTables_paginate').show();
@@ -179,7 +178,6 @@
                     url: "{{ route('escort.list.dataTableListing', $type) }}",
                     data: function(d) {
                         d.type = 'player';
-                      //  d.type = "{{$type}}";
                     }
                 },
 
@@ -211,10 +209,11 @@
                         data: 'days_number',
                         searchable: false
                     },
-                     { data: 'membership', name: 'membership', searchable: false, orderable:true ,defaultContent: 'NA', visible: shouldHide},
-                     {
+                    { data: 'membership', name: 'membership', searchable: false, orderable:true ,defaultContent: 'NA', visible: shouldHide},
+                    {
                         data: 'status',
-                        searchable: false
+                        searchable: false,
+                        visible: '{{$type == "past"?false:true}}'
                     },
                     {
                         data: 'fee',

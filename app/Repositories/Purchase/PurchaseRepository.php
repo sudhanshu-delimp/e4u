@@ -40,46 +40,23 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
         $order = $this->getOrder($order_key);
         $searchables = $this->getSearchableFields($columns);
         $query = $this->model
-            ->offset($start)
-            ->limit($limit)
-            // ->with([
-            //     'latestActivePinup',
-            //     'activeUpcomingSuspend',
-            //     'brb' => function ($query) {
-            //         $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
-            //     },
-            // ])
-            ->orderBy($order, $dir);
-
-        if ($search) {
-            // $query = $query->where($conditions)
-            //     ->where('user_id', $user_id)
-            //     ->where('default_setting', '!=', 1)
-            //     ->where('profile_name', '!=', null)
-            //     ->where(function ($query) use ($searchables, $search) {
-            //         $query->where('id', 'like', "%{$search}%");
-            //         foreach ($searchables as $column) {
-            //             if ($column == 'pro_name') {
-            //                 $column = 'profile_name';
-            //             }
-            //             $query = $query->orWhere($column, 'LIKE', "%{$search}%");
-            //         }
-            //     });
-            $result = $query->get();
-
-            $result = $this->modifyEscorts($result, $start);
-            $count =  $result->count();
-        } else {
-            $query = $this->model
             ->where($conditions)
-            ->whereHas('escort', function($sub_query) use($user_id){
+            ->whereHas('escort', function($sub_query) use($user_id, $searchables, $search){
                 $sub_query->where('user_id', $user_id);
                 $sub_query->whereNotNull('profile_name');
+                if($search) {
+                    $sub_query->where('id', 'like', "%{$search}%");
+                    foreach ($searchables as $column) {
+                        if ($column == 'stage_name') {
+                            $column = 'profile_name';
+                        }
+                        $sub_query->orWhere($column, 'LIKE', "%{$search}%");
+                    }
+                }
             });
-            $result = $query->offset($start)->limit($limit)->orderBy($order, $dir)->get();
+        $result = $query->offset($start)->limit($limit)->orderBy($order, $dir)->get();
             $result = $this->modifyEscorts($result, $start);
             $count =  $query->count();
-        }
 
         return [$result, $count];
     }
@@ -92,10 +69,12 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $item->id = $item->escort_id;
             $item->profile_name = $item->escort->profile_name;
             $item->stage_name = $item->escort->gender=='Transgender'?'TS - '.$item->escort->name:$item->escort->name;
-            $item->membership = $item->escort->membership ? $item->escort->membershipType : "NA";
             $item->days_number = $item->days_number;
             $item->status = $item->escort->enabled == 1 ?'Current':'Upcoming';
             $item->location = $locations[$item->escort->state_id]['stateName'];
+            [$discount, $rate, $totalAmount] = calculateTotalFee($item->membership, $item->days_number);
+            $item->membership = getMembershipType($item->membership);
+            $item->fee = formatCurrency($totalAmount);
             $i++;
         }
 
