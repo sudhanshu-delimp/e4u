@@ -1,3 +1,9 @@
+
+@php
+    $escortName = ($escort->gender == 'Transgender')? 'TS - ' . $escort->name : $escort->name;
+@endphp
+
+
 <div class="listview_each_section_border_btm">
     <div class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view gold_list_frame">
         <div class="row plat_num_row">
@@ -24,7 +30,7 @@
                         <div class="d-block justify-content-between mb-2">
                             <!-- <div class="free_profile_name_and_color v-otherheding">{{$escort->name}}</div> -->
                             <div class="v-list-location">
-                                <h2>{{$escort->name}}</h2>
+                                <h2>{{$escortName}}</h2>
                                 <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$escort->address ? $escort->address : ""}} </p>
                             </div>
                             <div class="v-list-count-3">
@@ -82,13 +88,13 @@
                             </p>
 
                             @if(Request::path() == "massage-show-list")
-                                <button type="button" class="short-list btn btn-primary removeshortlist" id="escort_{{$escort->id}}" data-name="{{$escort->name}}" data-escortId="{{$escort->id}}">
+                                <button type="button" class="short-list btn btn-primary removeshortlist" id="escort_{{$escort->id}}" data-name="{{$escortName}}" data-escortId="{{$escort->id}}">
 
                                 Remove from Shortlist</button>
 
                             @else
 
-                                <button type="button" class="short-list btn btn-primary shortlist myescort_{{$escort->id}}" id="escort_{{$escort->id}}" data-name="{{$escort->name}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
+                                <button type="button" class="short-list btn btn-primary shortlist myescort_{{$escort->id}}" id="escort_{{$escort->id}}" data-name="{{$escortName}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
                                     @if(!empty($escortId))
                                         {{-- @if($escort->shortListed->isEmpty()) --}}
                                         @if(in_array($escort->id,$escortId))

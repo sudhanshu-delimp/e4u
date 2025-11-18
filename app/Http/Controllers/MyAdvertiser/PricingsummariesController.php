@@ -107,6 +107,7 @@ class PricingsummariesController extends BaseController
                                     ->update([
                                         'discription'=>$request->discription,
                                         'amount'=>$request->amount,
+                                        'amount_type'=>$request->amount_type,
                                     ]);
             if($feesConciergeService)
             return $this->successResponse('Updated Successfully');
@@ -540,7 +541,7 @@ class PricingsummariesController extends BaseController
                
         foreach($fees_list as $key => $item) {
 
-            $item->amount_perent =  $item->amount;
+            $item->amount_perent = ($item->amount_type=='fixed') ? '$'.$item->amount : $item->amount.'%';
             $dropdown = '<div class="dropdown no-arrow">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>

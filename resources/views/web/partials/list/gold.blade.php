@@ -1,3 +1,7 @@
+@php
+    $escortName = $escort->gender == 'Transgender' ? 'TS - ' . $escort->name : $escort->name;
+@endphp
+
 <div class="listview_each_section_border_btm silver-sec brb--listing">
     <div
         class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view gold_list_frame">
@@ -7,7 +11,7 @@
                     <div class="col-md-4 featured-pic pl-0">
 
                         <div class="section_wise_level_icon_img all-escort-profile-pic">
-                            <a href="{{ route('profile.description', [$escort->id,$escort->city_id]) }}?list">
+                            <a href="{{ route('profile.description', [$escort->id, $escort->city_id]) }}?list" class="">
                                 @if ($escort->latestActiveBrb)
                                     <div class="brb--content">
                                         <div class="brb--wrappr">
@@ -18,9 +22,13 @@
                                         </div>
                                     </div>
                                 @endif
-                                <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
+                                    <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
                                     class="img-fluid" title="View Profile">
+                                
                             </a>
+                            <div class="verify-image-custom">
+                                <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                            </div>
                             <div class="siliver_logo_icon"><img src="{{ asset('images/gold_membership.png') }}"></div>
                             <div class="add_to_fab_list_view_each_sec">
                                 @if (auth()->user())
@@ -29,12 +37,13 @@
                                             class="add_to_favrate custom--favourite @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray())) {{ 'null' }}@else{{ 'fill' }} @endif legboxClass_{{ $escort->id }}"
                                             id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
                                             data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"
-                                            data-name="{{ $escort->name }}">
+                                            data-name="{{ $escortName }}">
                                             @if (!empty($user_type))
                                                 @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray()))
                                                     <i class='fa fa-heart' style='color: #ff3c5f;'
                                                         aria-hidden='true'></i>
-                                                    <span class="custom-heart-text list-tool remove-tool">Remove from My Legbox</span>
+                                                    <span class="custom-heart-text list-tool remove-tool">Remove from My
+                                                        Legbox</span>
                                                 @else
                                                     <i class="fa fa-heart-o" aria-hidden="true"></i>
                                                     <span class="custom-heart-text list-tool">Add to My Legbox</span>
@@ -42,59 +51,62 @@
                                             @endif
                                         </span>
                                     @else
-                                        <span class="add_to_favrate custom--favourite" data-name="{{ $escort->name }}"><i
-                                                class="fa fa-heart-o" aria-hidden="true"></i> <span class="custom-heart-text list-tool">Add to My Legbox</span></span>
+                                        <span class="add_to_favrate custom--favourite"
+                                            data-name="{{ $escortName }}"><i class="fa fa-heart-o"
+                                                aria-hidden="true"></i> <span class="custom-heart-text list-tool">Add to
+                                                My Legbox</span></span>
                                     @endif
                                 @else
                                     {{-- <span class="add_to_favrate" data-escortId="{{ $escort->id }}"
-                                        data-name="{{ $escort->name }}"><i class="fa fa-heart-o" aria-hidden="true"
+                                        data-name="{{ $escortName }}"><i class="fa fa-heart-o" aria-hidden="true"
                                             title="Add to Legbox"></i></span> --}}
-                                        <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My Legbox</span></span>
+                                    <span class="add_to_favrate custom--favourite" data-escortId="{{ $escort->id }}"
+                                        data-name="{{ $escortName }}"><i class="fa fa-heart-o"
+                                            aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My
+                                            Legbox</span></span>
                                 @endif
                             </div>
-                            <div class="verify_image verify-image-custom">
-                                <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
-                            </div>
+
                         </div>
 
                     </div>
                     <div class="col-md-8 p-0 gold-seven all-escort-view-profile-box">
                         <div class="d-flex justify-content-between mb-4 sm-my-2 gold-profile-details-custom">
-                            <div class="free_profile_name_and_color">{{ $escort->name }}</div>
+                            <div class="free_profile_name_and_color">{{ $escortName }}</div>
                             <div class="age" style="margin-top: 5px;display: flex;gap: 8px;">
                                 <span class="margin_and_font_size_color_for_free">AGE:</span><span
                                     class="free_profile_age_color_and_font">{{ $escort->age }}</span>
-                               
+
                             </div>
                             <div class="add_to_short_list_btn_custom">
-                            @if (Request::path() == 'showList')
-                                <button type="button"
-                                    class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn removeshortlist"
-                                    data-name="{{ $escort->name }}" data-escortId="{{ $escort->id }}">
-                                    Remove from Shortlist</button>
-                            @else
-                                {{-- <button type="button" class="btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist" data-escortId="{{$escort->id}}">
+                                @if (Request::path() == 'showList')
+                                    <button type="button"
+                                        class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn removeshortlist"
+                                        data-name="{{ $escortName }}" data-escortId="{{ $escort->id }}">
+                                        Remove from Shortlist</button>
+                                @else
+                                    {{-- <button type="button" class="btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist" data-escortId="{{$escort->id}}">
                                 <img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">Add to shortlist</button> --}}
-                                <button type="button"
-                                    class="btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_{{ $escort->id }}"
-                                    id="escort_{{ $escort->id }}" data-name="{{ $escort->name }}"
-                                    data-escortId="{{ $escort->id }}"
-                                    data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"><img
-                                        class="listiconprofilelistview"
-                                        src="{{ asset('assets/app/img/filter_view.png') }}">
-                                    @if (!empty($escortId))
-                                        @if (in_array($escort->id, $escortId))
-                                            Remove from Shortlist
+                                    <button type="button"
+                                        class="btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_{{ $escort->id }}"
+                                        id="escort_{{ $escort->id }}" data-name="{{ $escortName }}"
+                                        data-escortId="{{ $escort->id }}"
+                                        data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"><img
+                                            class="listiconprofilelistview"
+                                            src="{{ asset('assets/app/img/filter_view.png') }}">
+                                        @if (!empty($escortId))
+                                            @if (in_array($escort->id, $escortId))
+                                                Remove from Shortlist
+                                            @else
+                                                Add to Shortlist
+                                            @endif
                                         @else
                                             Add to Shortlist
                                         @endif
-                                    @else
-                                        Add to Shortlist
-                                    @endif
-                                </button>
-                            @endif
+                                    </button>
+                                @endif
+                            </div>
                         </div>
-                                </div>
                         <div class="d-flex justify-content-between mb-4 flex_warp list_gender_area  pr-0">
                             <div class="custom--gender--area">
                                 <div class="gender">
@@ -102,19 +114,20 @@
                                     <span>{{ $escort->gender ? $escort->gender : '' }}</span>
                                 </div>
                                 <div class="perth">
-                                    <span class="filter-pad">Location:</span> <span>{{ $escort->city ? $escort->city->name : '' }}</span>
+                                    <span class="filter-pad">Location:</span>
+                                    <span>{{ $escort->city ? $escort->city->name : '' }}</span>
                                 </div>
                                 <div class="perth">
                                     <span class="filter-pad">Rating:</span>
                                     <span class="give_rating_after_get_servive">
-                                        @for($i=1; $i<= 5; $i++)
-                                            @if($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
-                                                <i class="fa fa-star" aria-hidden="true" ></i>
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
+                                                <i class="fa fa-star" aria-hidden="true"></i>
                                             @else
                                                 <i class="fa fa-star-o" aria-hidden="true"></i>
                                             @endif
                                         @endfor
-                                        
+
                                     </span>
                                 </div>
                             </div>
@@ -126,83 +139,89 @@
                                             @foreach ($escort->available_to as $key => $available_to)
                                                 {{-- <img
                                                     src="{{ config('escorts.profile.available-to-images')[$available_to] }}"> --}}
-                                                    <div class="icon-with-tooltip position-relative">
-                                                        <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}" title="">
-                                                
-                                                        <span class="custom-icon-hover-tooltip">
+                                                <div class="icon-with-tooltip position-relative">
+                                                    <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}"
+                                                        title="">
+
+                                                    <span class="custom-icon-hover-tooltip">
                                                         {{ config('escorts.profile.available-to')[$available_to] }}
-                                                        </span>
-                                                        
-                                                    </div>
-                                        @endforeach
+                                                    </span>
+
+                                                </div>
+                                            @endforeach
                                         @endif
                                     </span>
                                 </div>
-                                <div class="d-inline video_icon">
+
+                                @if ($escort->escort_videos->count() > 0)
+                                    <div class="d-inline video_icon">
                                         <a href="#">
                                             <img src="{{ asset('assets/app/img/video_play.svg') }}">
                                             <span class="custom--tooltip">Escort has video to view</span>
                                         </a>
-                                </div>
+                                    </div>
+                                @endif
+
                             </div>
 
                         </div>
-                        
+
                         <div class="icon-lis-col gold-view-escort-list">
-                                <div class=" manage_gap_text_img-profile gold-type-icon-text p-1">
-                                    <img src="{{ asset('assets/app/img/handwithhart.png') }}">
-                                    <div class="div_contain_text">
-                                        <div class="profile_message">
-                                            <h4>Massage</h4>
-                                        </div>
-                                        <div class="profile_hr">
-                                            <h4>
-                                                {{ $escort->durations()->where('name', '1 Hour')->first() ? $escort->durations()->where('name', '1 Hour')->first()->pivot->massage_price : '' }}
-                                                /hr</h4>
-                                        </div>
+                            <div class=" manage_gap_text_img-profile gold-type-icon-text p-1">
+                                <img src="{{ asset('assets/app/img/handwithhart.png') }}">
+                                <div class="div_contain_text">
+                                    <div class="profile_message">
+                                        <h4>Massage</h4>
+                                    </div>
+                                    <div class="profile_hr">
+                                        <h4>
+                                            {{ $escort->durations()->where('name', '1 Hour')->first() ? $escort->durations()->where('name', '1 Hour')->first()->pivot->massage_price : '' }}
+                                            /hr</h4>
                                     </div>
                                 </div>
-                                <div class=" manage_gap_text_img-profile gold-type-icon-text p-1">
-                                    <img src="{{ asset('assets/app/img/areodownimg.png') }}">
-                                    <div class="div_contain_text">
-                                        <div class="profile_message">
-                                            <h4>Incalls</h4>
-                                        </div>
-                                        <div class="profile_hr">
-                                            <h4>
-                                                {{ $escort->durations()->where('name', '1 Hour')->first() ? $escort->durations()->where('name', '1 Hour')->first()->pivot->incall_price : '' }}
-                                                /hr</h4>
-                                        </div>
+                            </div>
+                            <div class=" manage_gap_text_img-profile gold-type-icon-text p-1">
+                                <img src="{{ asset('assets/app/img/areodownimg.png') }}">
+                                <div class="div_contain_text">
+                                    <div class="profile_message">
+                                        <h4>Incalls</h4>
+                                    </div>
+                                    <div class="profile_hr">
+                                        <h4>
+                                            {{ $escort->durations()->where('name', '1 Hour')->first() ? $escort->durations()->where('name', '1 Hour')->first()->pivot->incall_price : '' }}
+                                            /hr</h4>
                                     </div>
                                 </div>
-                                <div class=" manage_gap_text_img-profile gold-type-icon-text p-1">
-                                    <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
-                                    <div class="div_contain_text">
-                                        <div class="profile_message">
-                                            <h4>Outcalls</h4>
-                                        </div>
-                                        <div class="profile_hr">
-                                            <h4>
-                                                {{ $escort->durations()->where('name', '1 Hour')->first() ? $escort->durations()->where('name', '1 Hour')->first()->pivot->outcall_price : '' }}
-                                                /hr</h4>
-                                        </div>
+                            </div>
+                            <div class=" manage_gap_text_img-profile gold-type-icon-text p-1">
+                                <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
+                                <div class="div_contain_text">
+                                    <div class="profile_message">
+                                        <h4>Outcalls</h4>
                                     </div>
-                                </div> 
+                                    <div class="profile_hr">
+                                        <h4>
+                                            {{ $escort->durations()->where('name', '1 Hour')->first() ? $escort->durations()->where('name', '1 Hour')->first()->pivot->outcall_price : '' }}
+                                            /hr</h4>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         @php
                             $plainTextAbout = strip_tags($escort->about);
                             $limitText = Str::limit($plainTextAbout, 200, '...');
                         @endphp
                         <div class="col pl-0 pr-1">
-                            <p class="list_view_profile_pera_font_size">{!! $limitText !!}  
-                                @if(strlen($plainTextAbout) > 200)
-                                    <a href="{{ route('profile.description', $escort->id) }}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}" class="h6 text-danger">Read More</a>
-                            @endif
+                            <p class="list_view_profile_pera_font_size">{!! $limitText !!}
+                                @if (strlen($plainTextAbout) > 200)
+                                    <a href="{{ route('profile.description', $escort->id) }}?list&brb={{ isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : '' }}"
+                                        class="h6 text-danger">Read More</a>
+                                @endif
                             </p>
                         </div>
                         <div class="col pl-0 pr-1 all-escort-view-profile-btn">
-                        <a href="{{ route('profile.description', $escort->id) }}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}"
-                                    class="btn btn_for_profile_list_view custom-view-profile">View Profile</a>
+                            <a href="{{ route('profile.description', $escort->id) }}?list&brb={{ isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : '' }}"
+                                class="btn btn_for_profile_list_view custom-view-profile">View Profile</a>
                         </div>
 
                     </div>

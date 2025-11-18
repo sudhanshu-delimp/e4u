@@ -1,3 +1,7 @@
+@php
+    $escortName = ($escort->gender == 'Transgender')? 'TS - ' . $escort->name : $escort->name;
+@endphp
+
 <div class="col-md-4 col-lg-4 col-sm-12 col-12 mb-4">
     <div class="box_shdow_service_provider_list_view freelist_view_padding">
         <div class="d-flex freelist_view_flex_gap flex_direction_column_in_responsive" >
@@ -12,7 +16,7 @@
                 <img src="{{ asset('assets/app/img/service-provider/Frame-408.png') }}" class="img-fluid height_for_free"></a></div>
             <div>
                 <div class="d-flex justify-content-between">
-                    <div class="list_view_sil_and_free_name">{{$escort->name}}</div>
+                    <div class="list_view_sil_and_free_name">{{$escortName}}</div>
                     <div class="age"><span class="margin_and_font_size_color_for_free">AGE:</span><span class="free_profile_age_color_and_font">{{$escort->age}}</span></div>
                 </div>
                 <div class="d-flex justify-content-between pt-2">

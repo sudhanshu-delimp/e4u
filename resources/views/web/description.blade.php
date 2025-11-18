@@ -107,6 +107,11 @@
     </style>
 @endif
 
+@php
+    $escortName = ($escort->gender == 'Transgender') ? 'TS - ' . $escort->name : $escort->name;
+@endphp
+
+
 <div class="profile_description_banner overlay_parent custom--overlay custom--brb-overlay" style="background: none;">
    
 
@@ -1057,7 +1062,7 @@
                     @endforeach
                 </div>
             @else
-            <p class="profile_description_contect_pera">{{$escort->name}} does not have any Playmates.</p>
+            <p class="profile_description_contect_pera">{{$escortName}} does not have any Playmates.</p>
             @endif
         </div>
     </div>
@@ -1110,7 +1115,7 @@
             @endphp
             <b>When texting me please say:</b>
             <p class="profile_description_contect_pera">
-                <b><i>Hi {{ $escort->name }}, I found you on Escorts4U ...</i></b>
+                <b><i>Hi {{ $escortName }}, I found you on Escorts4U ...</i></b>
                 @php
                     $formattedNumber = preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $number));
                     $contactTypes = $escort->contact != null ? $escort->contact : '';
@@ -1314,7 +1319,7 @@
                     }
                 @endphp
                 <p class="testimonial">
-                    <strong>{{ $escort->name}}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $escort->name}}</strong> their first Review?’ @php } @endphp
+                    <strong>{{ $escortName }}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $escortName}}</strong> their first Review?’ @php } @endphp
                 </p>
             </div>
             <div class="col-md-12 mb-4">

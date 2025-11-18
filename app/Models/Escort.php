@@ -423,8 +423,19 @@ class Escort extends Model
 
     public function videos()
     {
-        return $this->hasMany('App\Models\EscortMedia', 'escort_id')->where('type', 1);
+        return $this->hasMany('App\Models\EscortMedia', 'user_id','user_id')->where('type', 1);
     }
+
+    public function escort_videos()
+    {
+        return $this->belongsToMany('App\Models\EscortMedia','escort_gallery','escort_id','escort_media_id')
+                    ->withPivot('position', 'type')
+                    ->wherePivot('type', 1);
+    }
+
+
+   
+    
 
     public function getLastVedioAttribute()
     {

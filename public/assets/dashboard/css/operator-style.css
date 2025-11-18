@@ -8,9 +8,175 @@
     --color-white: #ffffff;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--color-teal-dark);
+}
+
+.swal-button {
+    background-color: #242a2c;
+}
+
+label.cabinet input.file {
+    position: relative;
+    height: 100%;
+    width: auto;
+    opacity: 0;
+    -moz-opacity: 0;
+    filter: progid: DXImageTransform.Microsoft.Alpha(opacity=0);
+    margin-top: -30px;
+}
+
+#upload-demo {
+    width: 250px;
+    height: 250px;
+    padding-bottom: 25px;
+}
+
+.myacording-design .card-header a {
+    color: var(--color-teal-dark);
+}
+
+.opr-heading-1 {
+    color: var(--color-teal-dark);
+    font-size: 42px;
+    font-weight: 500;
+}
+
+.opr-heading-2 {
+    color: var(--color-teal-dark);
+    font-size: 18px;
+    font-weight: 600;
+}
+
 .my_opr_table th,
 td {
     text-align: center;
+}
+
+.image-upload-wrap {
+    border: 2px dashed var(--color-teal-dark);
+}
+
+.custom_links_design {
+    color: var(--color-orange);
+}
+
+.custom_links_design:hover {
+    text-decoration: underline;
+    color: var(--color-orange);
+}
+
+.opr-table-bg {
+    background-color: var(--color-teal-dark);
+    color: #fff;
+}
+
+
+/* For radio buttons */
+
+input[type=checkbox],
+input[type=radio] {
+    accent-color: var(--color-teal-dark);
+    color: #fff;
+}
+
+
+/* Optional checkmark for checkbox */
+
+form.v-form-design label {
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 23px;
+    letter-spacing: 0.01em;
+    text-align: left;
+    color: var(--color-teal-darks);
+}
+
+form.v-form-design .form-control {
+    font-family: Poppins;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    text-align: left;
+    max-height: 20px;
+    border: 0;
+    border-bottom: 1px solid var(--color-teal-dark);
+    border-radius: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0px;
+}
+
+button {
+    background-color: var(--color-teal-dark);
+}
+
+button:hover {
+    background-color: var(--color-orange);
+}
+
+.opr-modal button {
+    background-color: var(--color-teal-dark);
+}
+
+.opr-modal button:hover {
+    background-color: var(--color-orange);
+}
+
+.opr-common-btn {
+    background: var(--color-teal-dark);
+}
+
+.opr-common-btn:hover {
+    background: var(--color-orange) !important;
+}
+
+.opr-close-btn {
+    width: 30px;
+}
+
+.avatar.close {
+    background: var(--color-orange);
+}
+
+.parsley-errors-list {
+    list-style: none;
+    color: var(--color-orange);
+    padding-left: 0;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 28px;
+    right: 15px;
+    cursor: pointer;
+    z-index: 2;
+    color: var(--color-teal-dark);
+}
+
+.opr-modal .modal-header {
+    background: var(--color-teal-dark);
+    color: #fff;
+}
+
+.opr-modal-text {
+    font-size: 18px;
+    text-align: center;
+    color: var(--color-teal-dark);
+    margin-top: 20px;
+}
+
+.opr-common-btn:hover {
+    background-color: var(--color-orange);
 }
 
 .opr_modal_table td {
@@ -104,7 +270,7 @@ td {
 
 .opr-console .notes {
     color: var(--color-teal-dark);
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 0;
 }
 

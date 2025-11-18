@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AgentNotification;
 use Carbon\Carbon;
+use GrahamCampbell\ResultType\Success;
 use Intervention\Image\Colors\Rgb\Channels\Red;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,9 +15,12 @@ class AgentNotificationController extends Controller
 {
     public function index(Request $request)
     {
+        
         if ($request->ajax()) {
             $query = AgentNotification::query()
-                ->orderByRaw("FIELD(type, 'scheduled','notice','adhoc')")->orderByRaw("FIELD(status, 'Published','Completed','Suspend', 'Removed')");
+                //->orderByRaw("FIELD(type, 'scheduled','notice','Ad hoc')")
+                //->orderByRaw("FIELD(status, 'Published','Completed','Suspended', 'Removed')")
+                ->orderByDesc('created_at');
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('ref', function ($row) {
@@ -27,7 +31,7 @@ class AgentNotificationController extends Controller
                 })
                 ->editColumn('type', function ($row) {
                     $type = $row->type;
-                    if ($type === 'scheduled') {
+                    if ($type === 'Scheduled') {
                         $recurringRange = $row->recurring_type;
                         return $type . ($recurringRange ? ' (' . $recurringRange . ')' : '');
                     }
@@ -40,12 +44,13 @@ class AgentNotificationController extends Controller
                     $actions = [];
                     // Example: you can add your own business logic for action buttons
                     if (($row->status ?? null) === 'Published') {
-                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspend</a>';
-                    } elseif (in_array($row->status ?? null, ['Suspend'])) {
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspended</a>';
+                    } elseif (in_array($row->status ?? null, ['Suspended'])) {
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
                     }
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
+                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-edit" data-id="' . $row->id . '"><i class="fa fa-fw fa-edit"></i> Edit</a>';
 
                     $dropdown = '<div class="dropdown no-arrow">'
                         . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
@@ -71,9 +76,9 @@ class AgentNotificationController extends Controller
             if ($notification->status !== 'Published') {
                 return error_response('Only Published notifications can be removed.', 422);
             }
-            $notification->status = 'Suspend';
+            $notification->status = 'Suspended';
             $notification->save();
-            return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification removed successfully.');
+            return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification removed Successfully.');
         } catch (\Exception $e) {
             return error_response('Failed to update status: ' . $e->getMessage(), 500);
         }
@@ -83,14 +88,19 @@ class AgentNotificationController extends Controller
     {
         try {
             $notification = AgentNotification::findOrFail($id);
-            $allowed = ['Published', 'Suspend', 'Suspended', 'Removed'];
+            $allowed = ['Published', 'Suspended', 'Suspended', 'Removed'];
             $status = $request->input('status');
+            if($status == 'Removed'){
+                 $notification->delete();
+                 return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification delete Successfylly!!.');
+            }
+            
             if (!in_array($status, $allowed)) {
                 return response()->json(['success' => false, 'message' => 'Invalid status'], 422);
             }
             $notification->status = $status;
             $notification->save();
-            return success_response(['id' => $notification->id, 'status' => $notification->status], 'Status updated successfully.');
+            return success_response(['id' => $notification->id, 'status' => $notification->status], 'Status updated Successfully.');
         } catch (\Exception $e) {
             return error_response('Failed to update status: ' . $e->getMessage(), 500);
         }
@@ -117,6 +127,7 @@ class AgentNotificationController extends Controller
                 'start_date' => $n->start_date ? basicDateFormat($n->start_date) : null,
                 'end_date' => $n->end_date ? basicDateFormat($n->end_date) : null,
                 'member_id' => $n->member_id,
+                'status' => $n->status,
                 'recurring_type' => $n->recurring_type,
                 'recurring_range' => $recurringRange,
                 'num_recurring' => $n->num_recurring,
@@ -135,6 +146,7 @@ class AgentNotificationController extends Controller
 
     public function store(Request $request)
     {
+
         try {
             $data = [
                 'current_day' => Carbon::createFromFormat('d-m-Y', $request->current_day)->toDateString(),
@@ -145,11 +157,11 @@ class AgentNotificationController extends Controller
                 'content' => $request->content,
             ];
 
-            if ($request->type === 'notice') {
+            if ($request->type === 'Notice') {
                 $data['member_id'] = $request->member_id;
             }
 
-            if ($request->type === 'scheduled') {
+            if ($request->type === 'Scheduled') {
                 $data['recurring_type'] = $request->recurring_type;
                 $data['num_recurring'] = $request->recurring;
 
@@ -332,6 +344,27 @@ class AgentNotificationController extends Controller
         }
     }
 
+    public function edit($id){
+        try{
+            $notification = AgentNotification::findOrFail($id);
+             return success_response($notification, 'Notification saved successfully');
+         } catch (\Exception $e) {
+            return error_response('Failed to create notification: ' . $e->getMessage(), 500);
+        }
+     
+    }
+
+    public function update(Request  $request, $id){
+        try{
+            $notification = AgentNotification::findOrFail($id);
+            $data = $request->all();
+            $notification->update($data);
+            return success_response($notification,'Notification updated successfully.');
+        } catch(\Exception $e){
+            return error_response('Faild to update Notification: '. $e->getMessage(), 500);
+        }
+    }
+
 
 
     /**
@@ -357,88 +390,5 @@ class AgentNotificationController extends Controller
         // return response()->json(['notifications' => $data]);
     }
 
-    public function showAgentNotificationCount()
-    {
-        // Assume $loggedMemberId holds the logged in user's member ID
-        $loggedMemberId = 'M100244:001';
-        $today = Carbon::today();
-        $currentWeekDay = $today->dayOfWeekIso; // 1=Monday, 7=Sunday
-        $currentDay = $today->day;
-        $currentMonth = $today->month;
 
-        $query = AgentNotification::query();
-
-        $query->where(function (Builder $query) use ($today, $loggedMemberId, $currentWeekDay, $currentDay) {
-            // Adhoc type
-            $query->orWhere(function (Builder $q) use ($today) {
-                $q->where('type', 'adhoc')
-                    ->where('start_date', '<=', $today->toDateString())
-                    ->where('end_date', '>=', $today->toDateString());
-            });
-
-            // Notice type
-            $query->orWhere(function (Builder $q) use ($today, $loggedMemberId) {
-                $q->where('type', 'notice')
-                    ->where('start_date', '<=', $today->toDateString())
-                    ->where('end_date', '>=', $today->toDateString())
-                    ->where('member_id', $loggedMemberId);
-            });
-
-            // Scheduled type
-            $query->orWhere(function (Builder $q) use ($today, $currentWeekDay, $currentDay, $loggedMemberId) {
-                $q->where('type', 'scheduled')
-                    ->where('status', 'Published')
-                    ->where(function (Builder $sq) use ($currentWeekDay, $currentDay, $today) {
-                        // Forever recurring
-                        $sq->orWhere(function (Builder $sub) {
-                            $sub->where('recurring_type', 'forever');
-                        });
-
-                        // Weekly recurring
-                        $sq->orWhere(function (Builder $sub) use ($currentWeekDay, $today) {
-                            $sub->where('recurring_type', 'weekly')
-                                ->where('start_day', '<=', $currentWeekDay)
-                                ->where('end_day', '>=', $currentWeekDay)
-                                ->whereRaw("TIMESTAMPDIFF(WEEK, start_date, ?) <= num_recurring", [$today->toDateString()]);
-                        });
-
-                        // Monthly recurring
-                        $sq->orWhere(function (Builder $sub) use ($currentDay, $today) {
-                            $sub->where('recurring_type', 'monthly')
-                                ->where('start_day', '<=', $currentDay)
-                                ->where('end_day', '>=', $currentDay)
-                                ->whereRaw("TIMESTAMPDIFF(MONTH, start_date, ?) <= num_recurring", [$today->toDateString()]);
-                        });
-
-                        // Yearly recurring
-                        $sq->orWhere(function (Builder $sub) use ($today, $currentMonth, $currentDay) {
-                            $sub->where('recurring_type', 'yearly')
-                                ->whereRaw('? BETWEEN start_month AND end_month', [$currentMonth])
-                                ->whereRaw("TIMESTAMPDIFF(YEAR, start_date, ?) <= num_recurring", [$today->toDateString()])
-                                ->where(function ($dateRange) use ($currentMonth, $currentDay) {
-                                    $dateRange->where(function ($startRange) use ($currentMonth, $currentDay) {
-                                        // Start month and day condition
-                                        $startRange->whereRaw("(start_month < end_month OR (start_month = end_month AND start_day <= end_day))")
-                                            ->where(function ($cond) use ($currentMonth, $currentDay) {
-                                                $cond->whereRaw("(? > start_month OR (? = start_month AND ? >= start_day))", [$currentMonth, $currentMonth, $currentDay]);
-                                            })
-                                            ->where(function ($cond) use ($currentMonth, $currentDay) {
-                                                $cond->whereRaw("(? < end_month OR (? = end_month AND ? <= end_day))", [$currentMonth, $currentMonth, $currentDay]);
-                                            });
-                                    })->orWhere(function ($endRange) use ($currentMonth, $currentDay) {
-                                        // Handle year wrap (e.g. end_month < start_month)
-                                        $endRange->whereRaw("(start_month > end_month)")
-                                            ->where(function ($cond) use ($currentMonth, $currentDay) {
-                                                $cond->whereRaw("(? > start_month OR (? = start_month AND ? >= start_day))", [$currentMonth, $currentMonth, $currentDay])
-                                                    ->orWhereRaw("(? < end_month OR (? = end_month AND ? <= end_day))", [$currentMonth, $currentMonth, $currentDay]);
-                                            });
-                                    });
-                                });
-                        });
-                    });
-            });
-        });
-
-        $notifications = $query->get();
-    }
 }
