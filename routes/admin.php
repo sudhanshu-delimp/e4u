@@ -287,6 +287,10 @@ Route::post('/notifications/centres/store', [CenterNotificationController::class
 Route::get('/notifications/centres/{id}', [CenterNotificationController::class, 'show'])->name('admin.centres.notifications.show');
 Route::post('/notifications/centres/{id}/remove', [CenterNotificationController::class, 'updateStatus'])->name('admin.centres.notifications.remove');
 Route::get('/notifications/centres/pdf-download/{id}', [CenterNotificationController::class, 'pdfDownload'])->name('admin.centres.pdf.download');
+//Route::post('/notifications/centres/{id}/suspend', [CenterNotificationController::class, 'updateStatus'])->name('admin.centres.notifications.suspend');
+//Route::post('/notifications/centres/{id}/status', [CenterNotificationController::class, 'changeStatus'])->name('admin.centres.notifications.status');
+//Route::get('/notifications/centres/{id}/edit', [CenterNotificationController::class, 'edit'])->name('admin.centres.notifications.edit');
+//Route::post('/notifications/centres/{id}/update', [CenterNotificationController::class, 'update'])->name('admin.centres.notifications.update');
 
 //Agent Notification system for admin
 Route::get('notifications/agents/list', [AgentNotificationController::class, 'index'])->name('admin.agent.notifications.index');
@@ -300,11 +304,6 @@ Route::post('/notifications/agent/{id}/update', [AgentNotificationController::cl
 
 
 //Viewer Notification system for admin
-
-// Route::get('/admin-dashboard/notifications/viewers',function(){
-//     return view('admin.notifications.viewers');
-// })->name('admin.viewers');
-
 
 Route::get('notifications/viewer/list', [ViewerNotificationController::class, 'index'])->name('admin.viewer.notification.index');
 Route::post('/notifications/viewer/store', [ViewerNotificationController::class, 'store'])->name('admin.viewer.notification.store');
