@@ -131,48 +131,47 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
                                     <img class="img-profile rounded-circle avatarName" src="{{ !auth()->user()->avatar_img ? asset('assets/dashboard/img/undraw_profile.svg') : asset('avatars/'.auth()->user()->avatar_img) }}">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                                     aria-labelledby="userDropdown">
                                     <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
-                                        Member ID: {{auth()->user()->member_id }}
+                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                                        Member ID : {{auth()->user()->member_id }}
                                     </a>
                                     <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
-                                        User Name: {{auth()->user()->name }}
+                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                                        User Name : {{auth()->user()->name }}
                                     </a>
                                             <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="/user-dashboard/change-features">
-                                        <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/account1-edit.png')}}">
+                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/setting.png') }}">
                                         Change Features
                                     </a>
                                     <a class="dropdown-item" href="{{ route('user.change.password')}}">
-                                        <img class="mr-2 ml-1 pr-1" src="{{asset('assets/dashboard/img/menu-icon/changePassword.png')}}">
+                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
                                         Change Password
                                     </a>
                                     
                                     <a class="dropdown-item" href="/user-dashboard/my-legbox-list">
-                                    <img class="mr-2 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox.png')}}">
+                                    <img class="profile_icons" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox.png')}}">
                                         My Legbox
                                     </a>
                                     
                                     <a class="dropdown-item" href="/user-dashboard/notebox/list">
-                                        <img class="mr-2 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyNotebox.png')}}">
+                                        <img class="profile_icons" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyNotebox.png')}}">
                                         My Notebox
                                     </a>
                                     
                                     <a class="dropdown-item" href="/user-dashboard/punterbox/lookup">
-                                        <img class="mr-2 cstm--icon" src="{{asset('assets/dashboard/img/boxicon/icon_punterbox.png')}}">
+                                        <img class="profile_icons" src="{{asset('assets/dashboard/img/boxicon/icon_punterbox.png')}}">
                                         Punterbox
                                     </a>
                                     
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                        <img src="{{asset('assets/dashboard/img/menu-icon/logout.png')}}">
+                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                                         Logout
                                     </a>
                                 </div>

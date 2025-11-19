@@ -83,10 +83,16 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
         return [$result, $count, $start];
     }
+
+    protected function getOrderEscort($order_key)
+	{
+		$columns = ['id','profile_name','state_name','name','membership','phone','created_at','status'];
+        return $columns[$order_key];
+	}
+
     public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id, $conditions = [])
     {
-
-        $order = $this->getOrder($order_key);
+        $order = $this->getOrderEscort($order_key);
         $searchables = $this->getSearchableFields($columns);
         $query = $this->model
             ->offset($start)
@@ -122,9 +128,9 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $result = $query->where('user_id', $user_id)
                 ->where($conditions)
                 ->where('profile_name', '!=', null)
-                ->where('default_setting', '!=', 1)->get();
+                ->where('default_setting', '!=', 1);
 
-            $result = $this->modifyEscorts($result, $start);
+            $result = $this->modifyEscorts($result->get(), $start);
       
             $count =  $this->model->where('user_id', $user_id)->where($conditions)->where('default_setting', '!=', 1)->where('profile_name', '!=', null)->count();
         }

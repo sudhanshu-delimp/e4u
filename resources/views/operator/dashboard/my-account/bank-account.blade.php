@@ -43,11 +43,11 @@ authentification is applied for any changes to your Bank Account details.
                 <div class="col-md-12 mb-2">
                     <div class="card Summary">
                         <div class="card-body pb-0">
-                            <p><b>Operator Details</b> </p>
+                            <p class="opr-heading-2">Operator Details</p>
                             <ul class="mb-2">
-                                <li><b style="color: #5D6D7E;">Name:</b>Agency Management (Australia) Pty Ltd</li>
-                                <li><b style="color: #5D6D7E;">Contact:</b>Wayne Primrose</li>
-                                <li><b style="color: #5D6D7E;">ABN:</b>74682550670</li>
+                                <li>Name: Agency Management (Australia) Pty Ltd</li>
+                                <li>Contact: Wayne Primrose</li>
+                                <li>ABN: 74682550670</li>
                             </ul>
                         </div>
                     </div>
@@ -56,7 +56,7 @@ authentification is applied for any changes to your Bank Account details.
             <div class="row mb-2">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="bothsearch-form">
-                        <button type="button" class="create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New</button>
+                        <button type="button" class="opr-common-btn" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New</button>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@ authentification is applied for any changes to your Bank Account details.
                 <div class="col-md-12 mt-2">
                     <div id="table-sec" class="table-responsive-xl">
                         <table class="table" id="bankAccountTable">
-                            <thead class="table-bg">
+                            <thead class="opr-table-bg">
                                 <tr>
                                     <th scope="col">Bank</th>
                                     <th scope="col">Account Name</th>
@@ -84,7 +84,7 @@ authentification is applied for any changes to your Bank Account details.
     
 </div>
 
-<div class="modal fade upload-modal" id="commission-report" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel" aria-hidden="true" style="display: none">
+<div class="modal fade opr-modal" id="commission-report" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel" aria-hidden="true" style="display: none">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
@@ -143,7 +143,7 @@ authentification is applied for any changes to your Bank Account details.
                   </div>
                   <div class="col-md-12 mb-3">
                      <div class="form-group">
-                           <button type="submit" class="btn-success-modal float-right">Save</button>
+                           <button type="submit" class="opr-common-btn float-right">Save</button>
                      </div>
                   </div>
                </div>
@@ -152,7 +152,7 @@ authentification is applied for any changes to your Bank Account details.
       </div>
    </div>
 </div>
-<div class="modal" id="sendOtp_modal" style="display: none">
+<div class="modal fade opr-modal" id="sendOtp_modal" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
             <form id="SendBankOtp" method="post" action="" >
@@ -206,7 +206,7 @@ authentification is applied for any changes to your Bank Account details.
         </div>
     </div>
 </div>
-<div class="modal programmatic" id="delete_bank" style="display: none">
+<div class="modal programmatic opr-modal" id="delete_bank" style="display: none">
     <div class="modal-dialog modal-dialog-centered" role="document">
        <div class="modal-content custome_modal_max_width">
           <div class="modal-header main_bg_color border-0">
@@ -227,8 +227,8 @@ authentification is applied for any changes to your Bank Account details.
              <h3 class="my-3"><span id="Lname"></span> </h3>
              <h3 class=""><span id="log"></span> </h3>
              <div class="modal-footer">
-                <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close" id="close_change">Close</button>
-                <button type="button" class="btn-success-modal" id="save_change">Delete</button>
+                <button type="button" class="opr-common-btn" data-dismiss="modal" value="close" id="close_change">Close</button>
+                <button type="button" class="opr-common-btn" id="save_change">Delete</button>
              </div>
           </div>
        </div>
@@ -298,27 +298,26 @@ authentification is applied for any changes to your Bank Account details.
         info: true,
         bLengthChange: true,
         processing: true,
-        serverSide: true,
+        serverSide: false,
         lengthChange: true,
         order: [1,'asc'],
         searchable:true,
         searching:true,
         bStateSave: true,
     
-        ajax: {
-            url: "{{ route('agent.bankDetail.dataTable') }}",
-            data: function (d) {
-                d.type = 'player';
-            }
-        },
+        // ajax: {
+        //     url: "{{ route('agent.bankDetail.dataTable') }}",
+        //     data: function (d) {
+        //         d.type = 'player';
+        //     }
+        // },
         columns: [
             
-            { data: 'bank_name', name: 'bank_name', searchable: true, orderable:false ,defaultContent: 'NA'},
-            { data: 'account_name', name: 'account_name', searchable: true, orderable:false,defaultContent: 'NA' },
-            { data: 'bsb', name: 'bsb', searchable: true, orderable:false,defaultContent: 'NA' },
+            { data: 'bank_name', name: 'bank_name', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'account_name', name: 'account_name', searchable: true, orderable:true,defaultContent: 'NA' },
+            { data: 'bsb', name: 'bsb', searchable: true, orderable:true,defaultContent: 'NA' },
             { data: 'account_numbers', name: 'account_numbers', searchable: true, orderable:false,defaultContent: 'NA' },
-            { data: 'states', name: 'states', searchable: true, orderable:false,defaultContent: 'NA' },
-            // { data: 'joined', name: 'joined', searchable: true, orderable:false,defaultContent: 'NA' },
+            { data: 'states', name: 'states', searchable: true, orderable:true,defaultContent: 'NA' },
             { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
         ]
     });

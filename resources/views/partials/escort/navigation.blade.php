@@ -144,7 +144,7 @@
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                      aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="#">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
+                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                         Membership ID : {{auth()->user()->member_id }}
                     </a>
 
@@ -154,7 +154,7 @@
                                 @else
                                  <a class="dropdown-item" href="#">   
                                 @endif    
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                         
                                         @if(auth()->user()->my_agent)
                                         My Agent :  {{ auth()->user()->my_agent->member_id }}
@@ -165,35 +165,34 @@
                                 </a>
 
                     <a class="dropdown-item" href="#">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
+                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                         User Name: {{auth()->user()->name }} 
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('escort.account.edit')}}">
-                        {{-- <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/account1-edit.png')}}"> --}}
-                        <img class="mr-2 ml-1 pr-1" style="filter: brightness(0) invert(0.2);" src="{{asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                         My account
                     </a>
                     <a class="dropdown-item" href="{{ route('escort.change.password')}}">
-                        <img class="mr-2 ml-1 pr-1" src="{{asset('assets/dashboard/img/menu-icon/changePassword.png')}}">
+                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
                         Change password
                     </a>
                     <a class="dropdown-item" href="{{ route('escort.profile')}}">
-                        <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/cellphone-information.png')}}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
                         New Profile
                     </a>
                     <a class="dropdown-item" href="{{url('escort-dashboard/create-tour')}}">
-                        <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/bell-badge.png')}}">
+                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/tour.png') }}">
                         New Tour
                     </a>
 
                     <a class="dropdown-item" href="{{route('support-ticket.list')}}">
-                        <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/ticket.png')}}">
+                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
                         Support Ticket
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                        <img src="{{asset('assets/dashboard/img/menu-icon/logout.png')}}">
+                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                         Logout
                     </a>
                 </div>

@@ -2,24 +2,14 @@
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <style type="text/css">
-   .parsley-errors-list {
-   list-style: none;
-   color: rgb(248, 0, 0);
-   padding-left: 0;
-   }
-    .toggle-password {
-    position: absolute;
-    top: 28px;
-    right: 15px;
-    cursor: pointer;
-    z-index: 2;
-    color: #6c757d;
-}
 </style>
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 change-pass-sec opr-console">
    <!--middle content start here-->
+   <div class="row">
+            <div class="col-md-12 commanAlert"></div>
+       </div>
       {{-- Page Heading   --}}
       <div class="row">
          <div class="operator-heading-wrapper col-lg-12">
@@ -43,9 +33,7 @@
       {{-- end --}}
  
 
-        <div class="row">
-       <div class="col-md-12 commanAlert"></div>
-       </div>
+        
 
 
 <div class="row">
@@ -108,7 +96,7 @@
                 </div>
             </div>
         </div>
-        <input type="submit" value="Save Password" class="btn btn-primary shadow-none" name="submit">
+        <button type="submit" class="opr-common-btn" name="submit">Save Password</button>
          </form>
     
 
@@ -157,7 +145,7 @@
                 otherwise you will be notified by the Browser on the day your password has expired.</i>
               </div>
             </div>
-            <input type="submit" value="Save" class="btn btn-primary shadow-none mt-4" name="submit">
+             <button type="submit" class="opr-common-btn mt-4" name="submit">Save</button>
          </form>
 
 

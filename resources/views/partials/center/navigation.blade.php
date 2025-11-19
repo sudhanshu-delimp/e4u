@@ -159,14 +159,9 @@
                             <div class="dropdown-menu dropdown-menu-right animated--grow-in custom-nav-dropdown"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2  saptate_by_border"></i>
-                                    Membership ID: {{auth()->user()->member_id }}
+                                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                                    Membership ID : {{auth()->user()->member_id }}
                                 </a>
-
-
-                               
-
-                                
 
                                 @if(!auth()->user()->my_agent)
                                 
@@ -174,7 +169,7 @@
                                 @else
                                  <a class="dropdown-item" href="#">   
                                 @endif    
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                         
                                         @if(auth()->user()->my_agent)
                                            My Agent ID :   {{ auth()->user()->my_agent->member_id }}
@@ -186,35 +181,34 @@
 
 
                                  <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2  saptate_by_border"></i>
+                                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                     Business Name : {{auth()->user()->name }}
                                 </a>
                                
 
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('center.account.edit')}}">
-                                    <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/account1-edit.png')}}">
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                     Edit my account
                                 </a>
 
                                 <a class="dropdown-item" href="{{ route('center.change.password')}}">
-                                    <i class="fas fa-key fa-sm fa-fw mr-2 saptate_by_border"></i>
-                                    
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
                                     Change password
                                 </a>
 
                                 <a class="dropdown-item" href="{{ route('center.profile')}}">
-                                    <i class="fas fa-user-plus fa-sm fa-fw mr-2  saptate_by_border"></i>
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
                                     New Profile
                                 </a>
 
                                  <a class="dropdown-item" href="{{ route('center.new-listing')}}">
-                                     <i class="fas fa-user-plus fa-sm fa-fw mr-2  saptate_by_border"></i>
+                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
                                     New Masseur 
                                 </a>
 
                                   <a class="dropdown-item" href="{{ route('support-ticket.form_create')}}">
-                                     <i class="fas fa-ticket-alt fa-sm fa-fw mr-2  saptate_by_border"></i>
+                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
                                     Support Ticket
                                 </a>
 
@@ -232,7 +226,7 @@
                                 
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <img src="{{asset('assets/dashboard/img/menu-icon/logout.png')}}">
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                                     Logout
                                 </a>
                             </div>

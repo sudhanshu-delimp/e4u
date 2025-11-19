@@ -115,16 +115,16 @@
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
+                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                     Member ID: {{ auth()->user()->member_id }}
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('admin.account.edit') }}">
-                    <img class="mr-2" src="{{ asset('assets/dashboard/img/menu-icon/account1-edit.png') }}">
+                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                     Edit my account
                 </a>
                 <a class="dropdown-item" href="{{ route('admin.change.password') }}">
-                    <img class="mr-2 ml-1 pr-1" src="{{ asset('assets/dashboard/img/menu-icon/changePassword.png') }}">
+                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
                     Change password
                 </a>
                 {{-- <a class="dropdown-item" href="{{ route('admin.profile.information')}}">
@@ -133,7 +133,7 @@
                 </a> --}}
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/logout.png') }}">
+                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                     Logout
                 </a>
             </div>
