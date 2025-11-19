@@ -8782,13 +8782,13 @@ td {
 .escort_header_top_menu {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .shareholder_header_top_menu {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .justify-navbar {

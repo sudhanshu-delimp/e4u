@@ -17,8 +17,8 @@
                     <b>Welcome back : </b><span class="user-values">Wayne Primrose</span>
                 </span>
                 <span>
-                    <span class="separator">|</span> <b>My Agent : </b><span class="user-values"
-                        style="padding-left: 10%;">
+                    <span class="separator">|</span> <b>Member ID : </b><span class="user-values"
+                        style="padding-left: 7%;">
                         S60658
                     </span>
                 </span>
@@ -28,7 +28,7 @@
                         Ltd</span>
                 </span>
                 <span>
-                    <span class="separator">|</span> <b>Shareholding: </b><span
+                    <span class="separator">|</span> <b>Shareholding : </b><span
                         class="user-values live_current_location">18,500</span>
                 </span>
 
