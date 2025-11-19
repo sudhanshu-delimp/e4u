@@ -29,7 +29,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="#">
+              <a href="{{ route('shareholder.registrations') }}">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/admin/registratios.png') }}" alt="Registrations">
                   </div>
@@ -45,7 +45,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="#">
+              <a href="{{ route('shareholder.revenue') }}">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/center/our-spend.png') }}" alt="Revenue">
                   </div>
@@ -75,7 +75,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="#">
+              <a href="{{ route('shareholder.escort-listings') }}">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/operator/Commission-Agents.png') }}" alt="Global Monitoring Escorts">
                   </div>
@@ -122,7 +122,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
          <div class="my-custom-box shadow-sm">
-             <a href="#">
+             <a  href="{{ route('shareholder.directors') }}">
                  <div class="box-icon">
                      <img src="{{ asset('assets/dashboard/img/boxicon/operator/Support-Tickets.png') }}" alt="Directors">
                  </div>
@@ -151,7 +151,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
          <div class="my-custom-box shadow-sm">
-             <a href="#">
+             <a href="{{ route('shareholder.view-and-reply') }}">
                  <div class="box-icon">
                      <img src="{{ asset('assets/dashboard/img/boxicon/operator/Support-Tickets.png') }}" alt=" Support Tickets">
                  </div>

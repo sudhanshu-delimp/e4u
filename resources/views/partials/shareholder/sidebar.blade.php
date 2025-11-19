@@ -86,7 +86,7 @@
                             Annual Report</span>
                     </a>
 
-                    <a class="collapse-item" href="{{ route('shareholder.directors') }}">
+                    <a class="collapse-item" href="{{ route('shareholder.directors', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                         <span
@@ -160,7 +160,7 @@
                     request()->segment(2) == 'revenue') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="py-2 collapse-inner rounded pb-0 mb-0 pt-0">
-                    <a class="collapse-item" href="{{ route('shareholder.registrations') }}">
+                    <a class="collapse-item" href="{{ route('shareholder.registrations', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                         <span
@@ -168,7 +168,7 @@
                             Registrations</span>
                     </a>
 
-                    <a class="collapse-item" href="{{ route('shareholder.revenue') }}">
+                    <a class="collapse-item" href="{{ route('shareholder.revenue', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                         <span
@@ -193,7 +193,7 @@
                     request()->segment(2) == 'pin-up-listing') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="py-2 collapse-inner rounded pb-0 mb-0 pt-0">
-                    <a class="collapse-item" href="{{ route('shareholder.escort-listings') }}">
+                    <a class="collapse-item" href="{{ route('shareholder.escort-listings', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                         <span
@@ -302,7 +302,7 @@
                             Overview</span>
                     </a>
 
-                    <a class="collapse-item" href="{{ route('shareholder.shareholders') }}">
+                    <a class="collapse-item" href="{{ route('shareholder.shareholders', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                         <span
@@ -391,7 +391,7 @@
                     </a>
 
                     
-                    <a class="collapse-item" href="{{ route('shareholder.view-and-reply') }}">
+                    <a class="collapse-item" href="{{ route('shareholder.view-and-reply', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                         <span
