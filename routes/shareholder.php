@@ -31,7 +31,7 @@ Route::get('/massage-centre-listings', [ShareholderController::class, 'massageLi
 Route::get('/pin-up-listing', [ShareholderController::class, 'pinUplisting'])->name('shareholder.pin-up-listing');
 
 // Shareholder Documents
-Route::get('/annual-profit-&-loss', [ShareholderController::class, 'annualProfitloss'])->name('shareholder.annual-profit-&-loss');
+Route::get('/annual-profit-and-loss', [ShareholderController::class, 'annualProfitloss'])->name('shareholder.annual-profit-and-loss');
 Route::get('/balance-sheet', [ShareholderController::class, 'balanceSheet'])->name('shareholder.balance-sheet');
 Route::get('/constitution', [ShareholderController::class, 'constitution'])->name('shareholder.constitution');
 Route::get('/shareholder-minutes', [ShareholderController::class, 'shareholderMinutes'])->name('shareholder.shareholder-minutes');
@@ -43,13 +43,13 @@ Route::get('/shareholders', [ShareholderController::class, 'shareholders'])->nam
 Route::get('/share-value', [ShareholderController::class, 'shareValue'])->name('shareholder.share-value');
 
 // Subsidiaries
-Route::get('/overview-&-portfolio', [ShareholderController::class, 'overviewPortfolio'])->name('shareholder.overview-&-portfolio');
-Route::get('/annual-profit-&-loss', [ShareholderController::class, 'subAnnualProfitloss'])->name('shareholder.annual-profit-&-loss');
-Route::get('/balance-sheet', [ShareholderController::class, 'subBalancesheet'])->name('shareholder.balance-sheet');
+Route::get('/overview-and-portfolio', [ShareholderController::class, 'overviewPortfolio'])->name('shareholder.overview-and-portfolio');
+Route::get('/profit-and-loss', [ShareholderController::class, 'subAnnualProfitloss'])->name('shareholder.profit-and-loss');
+Route::get('/balance-sheets', [ShareholderController::class, 'subBalancesheet'])->name('shareholder.balance-sheets');
 
 
-// Subsidiaries
+// Support Tickets
 Route::get('/submit', [ShareholderController::class, 'submit'])->name('shareholder.submit');
-Route::get('/view-&-reply', [ShareholderController::class, 'viewReply'])->name('shareholder.view-&-reply');
+Route::get('/view-and-reply', [ShareholderController::class, 'viewReply'])->name('shareholder.view-and-reply');
 
 
