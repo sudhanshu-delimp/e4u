@@ -86,7 +86,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
     protected function getOrderEscort($order_key)
 	{
-		$columns = ['id','profile_name','location','name','membership','phone','created_at','status'];
+		$columns = ['id','profile_name','state_name','name','membership','phone','created_at','status'];
         return $columns[$order_key];
 	}
 
