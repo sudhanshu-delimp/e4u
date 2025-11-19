@@ -11,14 +11,23 @@
            
             
             <div class="d-user-info">
-                <div class="shareholder_header_top_menu">
+                <div class="escort_header_top_menu">
                     <span>
                         <b>Welcome back :  </b><span class="user-values">{{\Illuminate\Support\Str::limit(auth()->user()->name, 12, '..') }}</span>  
                     </span>
                     <span>
                         <span class="separator">|</span> <b>Membership ID :  </b><span class="user-values" style="padding-left: 4%;">{{auth()->user()->member_id }}</span> 
                     </span>
-                    <br>
+                    <span>
+                        <span class="separator">|</span> <b>My Agent :  </b><span class="user-values" style="padding-left: 13%;">
+                            @if(auth()->user()->my_agent)
+                                {{  \Illuminate\Support\Str::limit(Str::title(auth()->user()->my_agent->name), 8, '..') }}
+                            @else
+                                <a href="{{url('/escort-dashboard/escort-agency-request') }}" class="request-active"> Request one</a>
+                            @endif
+                        </span>
+                    </span>
+
                      <span>
                         <b>Home State :  </b><span class="user-values resident_home_state" style="margin-left:11%">--</span> 
                     </span>
