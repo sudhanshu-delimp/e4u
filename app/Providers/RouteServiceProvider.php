@@ -73,7 +73,12 @@ class RouteServiceProvider extends ServiceProvider
             Route::prefix('shareholder-dashboard')
             ->middleware(['web', 'HeaderInfo','TrackLoginUserInfo'])
             ->namespace('App\Http\Controllers\Shareholder')
-            ->group(base_path('routes/shareholder.php'));    
+            ->group(base_path('routes/shareholder.php')); 
+            
+            Route::prefix('operator-dashboard')
+            ->middleware(['web', 'HeaderInfo','TrackLoginUserInfo'])
+            ->namespace('App\Http\Controllers\Operator')
+            ->group(base_path('routes/operator.php')); 
 
             Route::prefix('center-dashboard')
                 ->middleware(['web', 'center', 'HeaderInfo','TrackLoginUserInfo'])
