@@ -491,7 +491,7 @@
                         data: 'state_name',
                         name: 'state_name',
                         searchable: false,
-                        orderable: true,
+                        orderable: false,
                         defaultContent: 'NA'
                     },
                     {
@@ -509,8 +509,6 @@
                         defaultContent: 'NA',
                         visible: shouldHide
                     },
-                    //{ data: 'city_name', name: 'city_name', searchable: false, orderable:true ,defaultContent: 'NA'},
-
                     {
                         data: 'phone',
                         name: 'phone',
