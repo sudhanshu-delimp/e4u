@@ -213,7 +213,7 @@ class EscortController extends Controller
         } elseif ($type == 'past') {
             $conditions[] = ['enabled', 0];
         }
-        list($result, $count,$sql, $bindings) = $this->escort->paginatedList(
+        list($result, $count) = $this->escort->paginatedList(
             request()->get('start'),
             request()->get('length'),
             request()->get('order')[0]['column'],
@@ -228,8 +228,6 @@ class EscortController extends Controller
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
-            "sql" => $sql, 
-            "bindings" => $bindings,
             "data"            => $result
         );
 

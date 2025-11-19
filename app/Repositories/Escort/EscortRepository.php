@@ -120,8 +120,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
                         $query = $query->orWhere($column, 'LIKE', "%{$search}%");
                     }
                 });
-                $sql = $query->toSql();
-                $bindings = $query->getBindings();
             $result = $query->get();
 
             $result = $this->modifyEscorts($result, $start);
@@ -131,15 +129,13 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 ->where($conditions)
                 ->where('profile_name', '!=', null)
                 ->where('default_setting', '!=', 1);
-                $sql = $result->toSql();
-                $bindings = $result->getBindings();
 
             $result = $this->modifyEscorts($result->get(), $start);
       
             $count =  $this->model->where('user_id', $user_id)->where($conditions)->where('default_setting', '!=', 1)->where('profile_name', '!=', null)->count();
         }
 
-        return [$result, $count, $sql, $bindings];
+        return [$result, $count];
     }
 
 
