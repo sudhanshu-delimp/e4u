@@ -213,10 +213,10 @@ class EscortController extends Controller
         } elseif ($type == 'past') {
             $conditions[] = ['enabled', 0];
         }
-        list($result, $count) = $this->escort->paginatedList(
+        list($result, $count,$sql, $bindings) = $this->escort->paginatedList(
             request()->get('start'),
             request()->get('length'),
-            (request()->get('order')[0]['column'] == 1 ? 6 : request()->get('order')[0]['column']),
+            request()->get('order')[0]['column'],
             request()->get('order')[0]['dir'],
             request()->get('columns'),
             request()->get('search')['value'],
@@ -228,6 +228,8 @@ class EscortController extends Controller
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
+            "sql" => $sql, 
+            "bindings" => $bindings,
             "data"            => $result
         );
 
@@ -245,7 +247,7 @@ class EscortController extends Controller
         list($result, $count) = $this->purchase->paginatedList(
             request()->get('start'),
             request()->get('length'),
-            (request()->get('order')[0]['column'] == 1 ? 6 : request()->get('order')[0]['column']),
+            request()->get('order')[0]['column'],
             request()->get('order')[0]['dir'],
             request()->get('columns'),
             request()->get('search')['value'],

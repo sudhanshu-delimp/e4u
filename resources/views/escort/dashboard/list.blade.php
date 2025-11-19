@@ -476,7 +476,7 @@
                 columns: [{
                         data: 'id',
                         name: 'id',
-                        searchable: false,
+                        searchable: true,
                         orderable: true,
                         defaultContent: 'NA'
                     },
@@ -497,7 +497,7 @@
                     {
                         data: 'stage_name',
                         name: 'stage_name',
-                        searchable: true,
+                        searchable: false,
                         orderable: true,
                         defaultContent: 'NA'
                     },
@@ -505,7 +505,7 @@
                         data: 'membership',
                         name: 'membership',
                         searchable: false,
-                        orderable: true,
+                        orderable: false,
                         defaultContent: 'NA',
                         visible: shouldHide
                     },
@@ -515,21 +515,21 @@
                         data: 'phone',
                         name: 'phone',
                         searchable: false,
-                        orderable: true,
+                        orderable: false,
                         defaultContent: 'NA'
                     },
                     {
                         data: 'timezone_created_at',
                         name: 'created_at',
                         searchable: false,
-                        orderable: false,
+                        orderable: true,
                         defaultContent: 'NA'
                     },
                     {
                         data: 'enabled',
                         name: 'enabled',
                         searchable: false,
-                        orderable: true,
+                        orderable: false,
                         defaultContent: 'NA'
                     },
                     {

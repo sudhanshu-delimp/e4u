@@ -29,34 +29,44 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
     {
         return $this->model->offset($to)->limit($from)->get();
     }
-
-    
-
-
    
+    protected function getOrderPurchase($order_key)
+	{
+		$columns = ['escort_id','profile_name','location','name','start_date','end_date','days_number','membership','status','fee'];
+        return $columns[$order_key];
+	}
+
     public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id, $conditions = [])
     {
-
-        $order = $this->getOrder($order_key);
+        $order_field = $this->getOrderPurchase($order_key);
         $searchables = $this->getSearchableFields($columns);
         $query = $this->model
             ->where($conditions)
             ->whereHas('escort', function($sub_query) use($user_id, $searchables, $search){
-                $sub_query->where('user_id', $user_id);
-                $sub_query->whereNotNull('profile_name');
+                $sub_query->where('user_id', $user_id)
+                ->whereNotNull('profile_name');
                 if($search) {
-                    $sub_query->where('id', 'like', "%{$search}%");
-                    foreach ($searchables as $column) {
-                        if ($column == 'stage_name') {
-                            $column = 'profile_name';
+                    $sub_query->where(function ($q) use ($searchables, $search) {
+                        foreach ($searchables as $column) {
+                            $q->orWhere($column, 'LIKE', "%{$search}%");
                         }
-                        $sub_query->orWhere($column, 'LIKE', "%{$search}%");
-                    }
+                    });
                 }
             });
-        $result = $query->offset($start)->limit($limit)->orderBy($order, $dir)->get();
-            $result = $this->modifyEscorts($result, $start);
-            $count =  $query->count();
+        if (in_array($order_field,['profile_name','name'])) {
+            $query->orderBy(
+                Escort::select("{$order_field}")->whereColumn('escorts.id', 'purchase.escort_id')->limit(1),$dir
+            );
+        }
+        else if($order_field=='days_number'){
+            $query->orderByRaw("DATEDIFF(end_date, start_date) $dir");
+        } 
+        else {
+            $query->orderBy($order_field, $dir);
+        }
+        $mainQuery = $query->offset($start)->limit($limit);
+        $result = $this->modifyEscorts($mainQuery->get(), $start);
+        $count =  $query->count();
 
         return [$result, $count];
     }
@@ -66,7 +76,7 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
         $i = 1;
         $locations = config('escorts.profile.states');
         foreach ($result as $key => $item) {
-            $item->id = $item->escort_id;
+            $item->escort_id = $item->escort_id;
             $item->profile_name = $item->escort->profile_name;
             $item->stage_name = $item->escort->gender=='Transgender'?'TS - '.$item->escort->name:$item->escort->name;
             $item->days_number = $item->days_number;

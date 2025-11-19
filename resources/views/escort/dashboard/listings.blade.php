@@ -142,7 +142,6 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function(e) {
-              var shouldHide = true;
             var table = $("#listings").DataTable({
                 processing: true,
                 serverSide: true,
@@ -182,20 +181,23 @@
                 },
 
                 columns: [{
-                        data: 'id',
+                        data: 'escort_id',
                         searchable: true,
-                        orderable: false
+                        orderable: true
                     },
                     {
-                        data: 'profile_name'
+                        data: 'profile_name',
+                        orderable: true
                     },
                     {
                         data: 'location',
                         searchable: false,
+                        orderable: false
                     },
                     {
                         data: 'stage_name',
-                        searchable: true,
+                        searchable: false,
+                        orderable: true
                     },
                     {
                         data: 'start_date',
@@ -207,17 +209,25 @@
                     },
                     {
                         data: 'days_number',
-                        searchable: false
+                        searchable: false,
+                        orderable: true
                     },
-                    { data: 'membership', name: 'membership', searchable: false, orderable:true ,defaultContent: 'NA', visible: shouldHide},
+                    { 
+                        data: 'membership',
+                        searchable: false, 
+                        orderable:false,
+                        defaultContent: 'NA'
+                    },
                     {
                         data: 'status',
                         searchable: false,
+                        orderable: false,
                         visible: '{{$type == "past"?false:true}}'
                     },
                     {
                         data: 'fee',
-                        searchable: false
+                        searchable: false,
+                        orderable: false
                     }
                 ]
             });
