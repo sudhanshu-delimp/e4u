@@ -418,6 +418,7 @@
         data-viewer-notification-update="{{route('admin.viewer.notifications.update', ['id' => '__ID__'])}}"
         data-viewer-notification-index="{{route('admin.viewer.notification.index')}}"
         data-viewer-notification-store="{{route('admin.viewer.notification.store')}}"
+        data-viewer-notification-show="{{route('admin.viewer.notifications.show', ['id' => '__ID__'])}}"
         >
 
         <!-- End of Page Wrapper -->
@@ -442,27 +443,10 @@
             $(document).ready(function() {
                 function toggleFields() {
                     var type = $('#type').val();
-                    console.log('Selected type:', type);
-
-
                     // Hide all conditionally visible fields initially
-                    $('#scheduledSection').hide();
-                    $('#noticeSection').hide();
-                    $('#weeklyOptions').hide();
-                    $('#monthlyOptions').hide();
-                    $('#startyearlyOptions').hide();
-                    $('#endyearlyOptions').hide();
-                    $('#numberOfRecurring').hide();
-                    $('#weekOptions').hide();
-
-                    $('#currentDateField').show();
-                    $('#headingField').show();
-                    $('#startDateField').show();
-                    $('#endDateField').show();
-                    $('#contentField').show();
-
+                    $('#scheduledSection, #noticeSection, #weeklyOptions, #monthlyOptions, #startyearlyOptions, #endyearlyOptions, #numberOfRecurring, #weekOptions').hide();
+                    $('#currentDateField, #headingField, #startDateField, #endDateField, #contentField').show();
                     if (type === 'Ad hoc') {
-                        // Adhoc: Show date, heading, type, start_date, end_date, content
                         // All already shown, no extra fields
                         $("#numberOfRecurring").val('');
                         $("#member_id").val('');
@@ -472,16 +456,12 @@
                         $("#numberOfRecurring").val('');
                     } else if (type === 'Scheduled') {
                         // Show Schedule Type dropdown
-                        $('#scheduledSection').show();
-                        $('#numberOfRecurring').show();
-                        // Hide all schedule options until selection
-                        $('.schedule-options').hide();
-                        $('#startDateField').hide();
-                        $('#endDateField').hide();
-                        $("#member_id").val('');
-                        $("#start_date").val('');
-                        $("#end_date").val('');
-                        $("#end_date").val('');
+                        $('#scheduledSection, #numberOfRecurring').show();
+                        $('.schedule-options, #startDateField, #endDateField').hide();
+
+                        // Reset input fields
+                        $('#member_id, #start_date, #end_date').val('');
+    
                     }
                 }
 
@@ -534,24 +514,6 @@
                         // No additional fields shown
                     }
                 });
-                //Hide Disable Validation filed
-                // function toggleValidation(fields, enable) {
-                //     fields.forEach(function(fieldId) {
-                //         const $field = $(fieldId);
-                //         const parsleyInstance = $field.parsley();
-
-                //         if (enable) {
-                //             // enable required validation
-                //             $field.attr('data-parsley-required', 'true');
-                //             parsleyInstance.addConstraint('required', true);
-                //         } else {
-                //             // disable required validation
-                //             $field.removeAttr('data-parsley-required');
-                //             parsleyInstance.removeConstraint('required');
-                //             parsleyInstance.reset(); // clear old errors
-                //         }
-                //     });
-                // }
 
                 $('#type').change(toggleFields);
                 toggleFields();
@@ -597,7 +559,6 @@
 
 
                 $("#startFirstMonth, #startFirstDate, #endSecondMonth, #endSecondDay").on("change", function() {
-                    // console.log('on click......');
                     matchEndDateToStartDate();
                 });
 
@@ -739,6 +700,7 @@
                 viewer_notification_update: mmRoot.data('viewer-notification-update'),
                 viewer_notification_index: mmRoot.data('viewer-notification-index'),
                 viewer_notification_store: mmRoot.data('viewer-notification-store'),
+                viewer_notification_show: mmRoot.data('viewer-notification-show'),
             }
 
 
@@ -879,7 +841,7 @@
                 const container = $('#listingModalContent');
                 container.html('<div class="text-center py-3">Loading...</div>');
                 $.ajax({
-                    url: endpoint.viewer_notification_status.replace('__ID__', id),
+                    url: endpoint.viewer_notification_show.replace('__ID__', id),
                     type: 'GET',
                     success: function(response) {
 
@@ -996,7 +958,6 @@
             // Redirect new page and generate pdf
             $('#pdf-download').on('click', function() {
                 var notificationId = $(this).attr('data-notification-id');
-                console.log('PDF Download for Notification ID:', notificationId);
                 var encodedId = btoa(String(notificationId));
                 var url = urlFor(endpoint.pdf_download, encodedId);
                 window.open(url, '_blank');

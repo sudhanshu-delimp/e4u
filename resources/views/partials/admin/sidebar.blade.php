@@ -556,7 +556,7 @@
             </a>
             <div id="notification" class=" collapse  @if (request()->segment(3) == 'global' ||
                     request()->segment(3) == 'agents' ||
-                    request()->segment(3) == 'viewers' ||
+                    request()->segment(3) == 'viewer' ||
                     request()->segment(3) == 'escorts' ||
                     request()->segment(3) == 'centres') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
