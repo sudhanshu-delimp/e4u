@@ -81,7 +81,7 @@ class ShareholderController extends Controller
 
     
      public function annualProfitloss(){
-        return view('shareholder.dashboard.shareholder-documents.annual-profit-&-loss');
+        return view('shareholder.dashboard.shareholder-documents.annual-profit-and-loss');
     }
      public function balanceSheet(){
         return view('shareholder.dashboard.shareholder-documents.balance-sheet');
@@ -111,10 +111,10 @@ class ShareholderController extends Controller
     // Subsidiaries
 
      public function overviewPortfolio(){
-        return view('shareholder.dashboard.subsidiaries.overview-&-portfolio');
+        return view('shareholder.dashboard.subsidiaries.overview-and-portfolio');
     }
      public function subAnnualProfitloss(){
-        return view('shareholder.dashboard.subsidiaries.annual-profit-&-loss');
+        return view('shareholder.dashboard.subsidiaries.annual-profit-and-loss');
     }
      public function subBalancesheet(){
         return view('shareholder.dashboard.subsidiaries.balance-sheet');
@@ -127,7 +127,7 @@ class ShareholderController extends Controller
         return view('shareholder.dashboard.support-tickets.submit');
     }
      public function viewReply(){
-        return view('shareholder.dashboard.support-tickets.view-&-reply');
+        return view('shareholder.dashboard.support-tickets.view-and-reply');
     }
     /**
      * Show the form for creating a new resource.
