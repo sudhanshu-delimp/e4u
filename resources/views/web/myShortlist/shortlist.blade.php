@@ -572,8 +572,9 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/my-legbox.png') }}"
-                    class="custompopicon"> Add To Shortlist</h5>
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> 
+                    <img src="{{ asset('assets/app/img/my-legbox.png') }}"
+                    class="custompopicon"> <span class="model_hd_title">Add To Shortlist</span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
                         <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -817,6 +818,7 @@
                 if (data.error == 1) {
 
                     $('#add_wishlist').modal('show');
+                    $('.model_hd_title').html('Remove from Shortlist');
                     $('.class_msg').text(name + ' has been remove from your Shortlist');
                     $('.myescort_' + Eid).text('Add to Shortlist');
                     $('#session_count').text(data.count_session);

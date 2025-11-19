@@ -1,5 +1,5 @@
 @php
-    $escortName = ($escort->gender == 'Transgender') ? 'TS - ' . $escort->name : $escort->name;
+    $escortName = ($escort->gender == 'Transgender') ? 'TS-' . $escort->name : $escort->name;
 @endphp
 
 

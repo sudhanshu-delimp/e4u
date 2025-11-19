@@ -1,6 +1,6 @@
 @php
     $escortName = ($escort->gender == 'Transgender')
-        ? 'TS - ' . substr($escort->name, 0, 15)
+        ? 'TS-' . substr($escort->name, 0, 15)
         : substr($escort->name, 0, 15);
 @endphp
 

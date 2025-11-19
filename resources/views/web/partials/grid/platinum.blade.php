@@ -1,6 +1,6 @@
 
 @php
-    $escortName = ($escort->gender == 'Transgender') ? 'TS - ' . $escort->name : $escort->name;
+    $escortName = ($escort->gender == 'Transgender') ? 'TS-' . $escort->name : $escort->name;
 @endphp
 
 <div class="col-lg col-md-6 col-sm-6 mb-5 brb--text">
@@ -12,7 +12,7 @@
             </div>
             <span class="card_tit">
                 @if($escort->gender=='Transgender')
-                {{ 'TS - '.substr($escort->name,0,15)}}
+                {{ 'TS-'.substr($escort->name,0,15)}}
                 @else
                 {{ substr($escort->name,0,15)}}
                 @endif

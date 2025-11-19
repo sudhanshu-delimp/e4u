@@ -102,7 +102,7 @@ padding: 2px 8px 2px 8px !important;
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">Frequency<sup>(2)</sup></th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 206px;" aria-label="Subscription Type">Rate</th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">%</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Rate</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Amount</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -195,6 +195,10 @@ padding: 2px 8px 2px 8px !important;
                                                         </tr> -->
 
                                                     </tbody>
+
+                                                    <tfoot></tfoot>  
+
+
                                                 </table>
                                             </div>
                                         </div>
@@ -686,317 +690,292 @@ padding: 2px 8px 2px 8px !important;
 <script>
     $(document).ready(function(){
     
-        // $('#add-new-row').on('click', function(){
-        //     var newRow = `
-        //      <tr role="row">
-        //         <td><select style="border: 0;width:100%">
-        //                 <option value="WA">WA</option>
-        //                 <option value="SA" selected>SA</option>
-        //             </select>
-        //         </td>
-        //         <td><input name="start" id="start_date" type="date" style="border: 0;width:100%"></td>
-        //         <td><input name="end" id="end_date" type="date" style="border: 0;width:100%"></td>
-        //         <td><select style="border: 0;width:100%">
-        //                 <option value="Platinum">Platinum</option>
-        //                 <option value="Gold" selected>Gold</option>
-        //                 <option value="Silver">Silver</option>
-        //             </select>
-        //         </td>
-        //         <td><select style="border: 0;width:100%">
-        //                 <option value="1">1</option>
-        //                 <option value="2">2</option>
-        //                 <option value="3">3</option>
-        //             </select>
-        //         </td>
-        //         <td class="d-flex align-items-center">
-        //             <label class="mb-0">$</label><input name="fee" id="fee" type="text" style="border: 0;width:100%" value="80.00">
-        //         </td>
-        //     </tr>
-        //     `;
-        //     $('#reckoner tbody tr.custom-last-row').before(newRow);
-        // });
-
+        
 
     $('#add-new-row').on('click', function() {
         var modal = new bootstrap.Modal(document.getElementById('membershipModal'));
         modal.show();
     });
 
+     $('#reckoner tbody').html(`
+        <tr class="blank-row">
+            <td colspan="8" class="text-center text-muted">No Profile Added.</td>
+        </tr>
+    `);
+    $('#reckoner tfoot').hide();
+
+    $('#add-new-row').on('click', function () {
+        setNextStartDate();
+        var modal = new bootstrap.Modal(document.getElementById('membershipModal'));
+        modal.show();
+        
+    });
+
+      $('#start_date, #end_date').on('input change', function () {
+        $(this).removeClass('input-error');
+        $(this).siblings('.invalid-feedback').addClass('d-none');
+    });
+
 });
-
-
 
 
  // ############ Calculater ###########
 
    $(document).ready(function() {
 
-    
-
-    var usedDates = [];
-    var usedLocations = [];
-    var lastEndDate = null; // Track the last end date
-
-    function addBlankRow() {
-        $('#reckoner tbody tr.blank-row').remove();
-        var blankRow = `
-            <tr class="blank-row">
-                <td colspan="8" class="text-center text-muted">No Profile Added.</td>
-            </tr>
-        `;
-        $('#reckoner tbody').prepend(blankRow);
+    // Helper: format Date -> yyyy-mm-dd (for input[type=date])
+    function formatForInput(dateObj) {
+        const y = dateObj.getFullYear();
+        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const d = String(dateObj.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
     }
 
-    // Set next available start date after last added end date
-    function setNextStartDate() {
-        var nextStart;
+    // Helper: parse display date string (supports dd-mm-yyyy, yyyy-mm-dd, mm/dd/yyyy)
+    function parseDisplayDate(str) {
+        if (!str) return null;
+        str = String(str).trim();
 
-        if (lastEndDate) {
-            nextStart = new Date(lastEndDate);
-            nextStart.setDate(nextStart.getDate() + 1); // +1 day after last end date
-        } else {
-            nextStart = new Date();
+        // ISO yyyy-mm-dd or yyyy-mm-ddTHH:MM:SS
+        const isoMatch = str.match(/^(\d{4})-(\d{2})-(\d{2})/);
+        if (isoMatch) {
+            return new Date(Number(isoMatch[1]), Number(isoMatch[2]) - 1, Number(isoMatch[3]));
         }
 
-        nextStart.setHours(0, 0, 0, 0);
+        // dd-mm-yyyy
+        const dmy = str.match(/^(\d{2})-(\d{2})-(\d{4})/);
+        if (dmy) {
+            return new Date(Number(dmy[3]), Number(dmy[2]) - 1, Number(dmy[1]));
+        }
 
-        var yyyy = nextStart.getFullYear();
-        var mm = String(nextStart.getMonth() + 1).padStart(2, '0');
-        var dd = String(nextStart.getDate()).padStart(2, '0');
-        var nextStartStr = `${yyyy}-${mm}-${dd}`;
+        // mm/dd/yyyy
+        const mdy = str.match(/^(\d{2})\/(\d{2})\/(\d{4})/);
+        if (mdy) {
+            return new Date(Number(mdy[3]), Number(mdy[1]) - 1, Number(mdy[2]));
+        }
 
-        // Set min and value for start_date and end_date
-        $('#start_date').attr('min', nextStartStr).val(nextStartStr);
-        $('#end_date').attr('min', nextStartStr).val(nextStartStr);
+        // fallback: try Date constructor
+        const d = new Date(str);
+        return isNaN(d.getTime()) ? null : d;
     }
 
-    addBlankRow();
-    updateTotal();
-    setNextStartDate();
+    // Get last row's End Date as a Date object (or null)
+    function getLastRowEndDate() {
+        const lastRow = $('#reckoner tbody tr').not('.blank-row').last();
+        if (!lastRow.length) return null;
 
-    $('#start_date, #end_date').on('input change', function () {
-        $(this).removeClass('input-error');
-        $(this).siblings('.invalid-feedback').addClass('d-none');
+        // end date expected in 3rd td (index 2)
+        const endText = lastRow.find('td').eq(2).text().trim();
+        return parseDisplayDate(endText);
+    }
+
+    // When modal opens, set start_date & end_date min = lastEnd + 1 day
+    $('#membershipModal').on('show.bs.modal', function () {
+        const lastEnd = getLastRowEndDate();
+
+       
+
+    if (!lastEnd) {
+        // ⭐ FIRST TIME ONLY → use today as default
+        let today = new Date();
+        let todayStr = formatForInput(today);
+
+        $('#start_date')
+            .attr('min', todayStr)
+            .val(todayStr);
+
+        $('#end_date')
+            .attr('min', todayStr)
+            .val(todayStr);
+
+    } else {
+        // ⭐ AFTER FIRST ROW → use last end date + 1 day
+        const nextDay = new Date(lastEnd);
+        nextDay.setDate(nextDay.getDate() + 1);
+        const nextStr = formatForInput(nextDay);
+
+        $('#start_date')
+            .attr('min', nextStr)
+            .val(nextStr);
+
+        $('#end_date')
+            .attr('min', nextStr)
+            .val(nextStr);
+    }
+
+
+        // Clear any validation UI if you have
+        $('#start_date, #end_date').removeClass('input-error');
+        $('#start_date, #end_date').siblings('.invalid-feedback').addClass('d-none');
     });
 
-    // Open modal event - always set correct next start date
-    $('#add-new-row').on('click', function () {
-        setNextStartDate();
-        var modal = new bootstrap.Modal(document.getElementById('membershipModal'));
-        modal.show();
-    });
 
+    // ======= SUBMIT (with client-side check against min) =======
     $('#membershipModal form').on('submit', function (e) {
         e.preventDefault();
 
-        var startDateInput = $('#start_date');
-        var endDateInput = $('#end_date');
-        var stateSelect = $('#state');
+        // client-side validation against min and start <= end
+        const startVal = $('#start_date').val(); // yyyy-mm-dd
+        const endVal = $('#end_date').val();     // yyyy-mm-dd
+        const minVal = $('#start_date').attr('min'); // may be undefined
 
-        var stateText = stateSelect.find('option:selected').text();
-        var stateValue = stateSelect.val();
-        var startDate = startDateInput.val();
-        var endDate = endDateInput.val();
-        var membershipType = $('#cal_memship_type').val();
-        var members = parseInt($('#cal_members').val()) || 1;
+        let hasError = false;
+        $('#start_date, #end_date').removeClass('input-error');
+        $('#start_date, #end_date').siblings('.invalid-feedback').addClass('d-none');
 
-        var advertings = @json($advertings);
-        var hasError = false;
-
-        startDateInput.removeClass('input-error');
-        endDateInput.removeClass('input-error');
-        startDateInput.siblings('.invalid-feedback').addClass('d-none');
-        endDateInput.siblings('.invalid-feedback').addClass('d-none');
-
-        if (!startDate) {
-            startDateInput.addClass('input-error');
-            startDateInput.siblings('.invalid-feedback').removeClass('d-none').text('Start date is required.');
+        if (!startVal) {
+            $('#start_date').addClass('input-error');
+            $('#start_date').siblings('.invalid-feedback').removeClass('d-none').text('Start date is required.');
+            hasError = true;
+        } else if (minVal && startVal < minVal) {
+            $('#start_date').addClass('input-error');
+            $('#start_date').siblings('.invalid-feedback').removeClass('d-none').text('Start date must be after previous add-on end date.');
             hasError = true;
         }
-        if (!endDate) {
-            endDateInput.addClass('input-error');
-            endDateInput.siblings('.invalid-feedback').removeClass('d-none').text('End date is required.');
+
+        if (!endVal) {
+            $('#end_date').addClass('input-error');
+            $('#end_date').siblings('.invalid-feedback').removeClass('d-none').text('End date is required.');
             hasError = true;
-        }
-        if (!hasError && new Date(endDate) < new Date(startDate)) {
-            startDateInput.addClass('input-error');
-            endDateInput.addClass('input-error');
-            endDateInput.siblings('.invalid-feedback').removeClass('d-none').text('End date cannot be earlier than start date.');
+        } else if (endVal < startVal) {
+            $('#end_date').addClass('input-error');
+            $('#end_date').siblings('.invalid-feedback').removeClass('d-none').text('End date cannot be earlier than start date.');
             hasError = true;
-        }
-        if (!hasError && usedLocations.includes(stateValue)) {
-            hasError = true;
-            stateSelect.addClass('input-error');
         }
 
         if (hasError) return;
 
+        // prepare AJAX data (unchanged)
+        let formData = {
+            location: $('#state').val(),
+            start_date: startVal,
+            end_date: endVal,
+            membership_id: $('#cal_memship_type').val(),
+            members: $('#cal_members').val(),
+            _token: $('meta[name="csrf-token"]').attr('content')
+        };
+
+        $.ajax({
+            url: "{{ route('agent.reckoner-calculate') }}",
+            type: "POST",
+            data: formData,
+            success: function (response) {
+
+                const data = {
+                    locationText: $('#state option:selected').text(),
+                    startFormatted: response.start_formatted,
+                    endFormatted: response.end_formatted,
+                    membershipName: response.membership_name,
+                    members: $('#cal_members').val(),
+                    fee: response.fee,
+                    days: response.days,
+                    locationValue: $('#state').val()
+                };
+
+                // Remove blank row
+                $('#reckoner tbody tr.blank-row').remove();
+
+                // Add new row
+                $('#reckoner tbody').append(buildDataRow(data));
+
+                // Update total footer
+                updateTotal();
+
+                // Reset modal form
+                $('#membershipModal form')[0].reset();
+
+                // Close modal
+                $('#membershipModal .close').trigger('click');
+            },
+            error: function (xhr) {
+                console.log(xhr.responseJSON || xhr);
+                alert("Validation Error");
+            }
+        });
+    });
 
 
-        var start = new Date(startDate);
-        var end = new Date(endDate);
-        var days = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
 
-       
-
-        var selectedAd = advertings.find(ad => ad.membership_id === membershipType);
-
-         console.log('membershipType',membershipType);
-         console.log('selectedAd',selectedAd.price);
-         let membershipTypeName = selectedAd.memberships?.name;
-
-        var rate = selectedAd.discount_amount  ?? selectedAd.price;
-        var fee = 0;
-        if (selectedAd.frequency.toLowerCase().includes('1')) {
-            fee = rate * days * members;
-        } else if (selectedAd.frequency.toLowerCase().includes('2')) {
-            var weeks = Math.ceil(days / 7);
-            fee = rate * weeks * members;
-        } else {
-            fee = rate * days * members;
-        }
-        fee = fee.toFixed(2);
-
-        // Track used locations and dates
-        usedLocations.push(stateValue);
-        stateSelect.find(`option[value="${stateValue}"]`).remove();
-        usedDates.push(startDate, endDate);
-
-        // Save this as the last end date
-        lastEndDate = endDate;
-
-        // Add new row
-        var newRow = `
-            <tr data-location="${stateValue}">
-                <td>${stateText}</td>
-                <td>${getFirstDayOfYear(startDate) }</td>
-                <td>${getFirstDayOfYear(endDate) }</td>
-                <td>${membershipTypeName}</td>
-                <td>${members}</td>
-                
-                <td style="width:20%">
-                   
-                    <input type="hidden" class="border-0" value="${fee}"  >
+    // ============================
+    // BUILD ROW HTML (unchanged)
+    // ============================
+    function buildDataRow({ locationText, startFormatted, endFormatted, membershipName, members, fee, days, locationValue }) {
+        return `
+            <tr data-location="${locationValue}">
+                <td>${locationText}</td>
+                <td>${startFormatted}</td>
+                <td>${endFormatted}</td>
+                <td>${membershipName}</td>
+                <td class="text-center">${members}</td>
+                <td class="text-right">
+                    <input type="hidden" class="row-fee" value="${fee}">
                     ${fee}
                 </td>
-                <td>${days}</td>
-                <td>
-
-                        <button type="button" class="btn btn-danger btn-sm remove-row">Remove</button>
-
-                       
-
-                   
+                <td class="text-center">${days}</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-danger btn-sm remove-row">Remove</button>
                 </td>
             </tr>
         `;
+    }
 
-        // $('#reckoner tbody tr.blank-row').remove();
-        // $('#reckoner tbody').prepend(newRow);
 
-        $('#reckoner tbody tr.blank-row').remove();
-        if ($('#reckoner tbody tr.custom-last-row').length > 0) {
-            $(newRow).insertBefore('#reckoner tbody tr.custom-last-row');
-        } else {
-            $('#reckoner tbody').append(newRow);
-        }
 
-        updateTotal();
-        $(this)[0].reset();
-
-        // Hide modal (Bootstrap 4)
-        //$('#membershipModal').modal('hide');
-        $('#membershipModal .close').trigger('click');
-    });
-
-    // Remove row and restore location
-    $('#reckoner').on('click', '.remove-row', function () {
-        var row = $(this).closest('tr');
-        var locationValue = row.data('location');
-        var locationText = row.find('td:first').text();
-        var endDate = row.find('td:nth-child(3)').text();
-
-        usedLocations = usedLocations.filter(l => l !== locationValue);
-        usedDates = usedDates.filter(d => d !== endDate);
-
-        // Restore the location option
-        $('#state').append(`<option value="${locationValue}">${locationText}</option>`);
-
-        // If this was the last row, clear lastEndDate
-        if ($('#reckoner tbody tr').not('.blank-row, .custom-last-row').length === 1) {
-            lastEndDate = null;
-        }
-
-        row.remove();
-        updateTotal();
-        setNextStartDate();
-    });
-
+    // ============================
+    // UPDATE TOTAL FEES (unchanged)
+    // ============================
     function updateTotal() {
-        var total = 0;
-        var rowCount = 0;
+        let total = 0;
+        let rows = $('#reckoner tbody tr').not('.blank-row');
 
-        $('#reckoner tbody tr').not('.custom-last-row, .blank-row').each(function () {
-            var feeVal = parseFloat($(this).find('input').val()) || 0;
-            total += feeVal;
-            rowCount++;
+        if (rows.length === 0) {
+            $('#reckoner tbody').html(`
+                <tr class="blank-row">
+                    <td colspan="8" class="text-center text-muted">No Profile Added.</td>
+                </tr>
+            `);
+            $('#reckoner tfoot').hide();
+            return;
+        }
+
+        rows.each(function () {
+            total += parseFloat($(this).find('.row-fee').val()) || 0;
         });
 
-        if (rowCount === 0) {
-            $('#reckoner tbody tr.custom-last-row').remove();
-            addBlankRow();
-        } else {
-            if ($('#reckoner tbody tr.custom-last-row').length === 0) {
-                var totalRow = `
-                    <tr class="custom-last-row">
-                        <td class="border-0"></td>
-                        <td class="border-0"></td>
-                        <td class="border-0"></td>
-                        <td class="border-0"></td>
-                        <td class="border-0"></td>
-                        <td class="border-0"></td>
-                        <td class="font-weight-bold">Total Fees:</td>
-                        <td class="font-weight-bold text-center"><span>$</span>${total.toFixed(2)}</td>
-                    </tr>
-                `;
-                $('#reckoner tbody').append(totalRow);
-            } else {
-                $('#reckoner tbody tr.custom-last-row td:last').html('<span>$</span>' + total.toFixed(2));
-            }
-        }
+        $('#reckoner tfoot').html(`
+            <tr class="custom-last-row">
+                <td colspan="7" class="text-right font-weight-bold">Total Fees:</td>
+                <td  class="font-weight-bold text-center">$${total.toFixed(2)}</td>
+            </tr>
+        `).show();
     }
 
 
-    function getFirstDayOfYear(inputDate) 
-    {
-        var dateObj;
+    $('#reckoner').on('click', '.remove-row', function () {
+        $(this).closest('tr').remove();
+        updateTotal();
+    });
 
-        if (typeof inputDate === "string" || inputDate instanceof String) {
-            dateObj = new Date(inputDate);
-        } else if (inputDate instanceof Date) {
-            dateObj = inputDate;
+   
+    (function init() {
+        // if there are no rows pre-existing, show blank
+        if ($('#reckoner tbody tr').not('.blank-row').length === 0) {
+            $('#reckoner tbody').html(`
+                <tr class="blank-row">
+                    <td colspan="8" class="text-center text-muted">No Profile Added.</td>
+                </tr>
+            `);
+            $('#reckoner tfoot').hide();
         } else {
-            throw new Error("Invalid input. Provide a date string or Date object.");
+            updateTotal();
         }
-
-        if (isNaN(dateObj.getTime())) {
-            throw new Error("Invalid date format.");
-        }
-        var day = String(dateObj.getDate()).padStart(2, '0');
-        var month = String(dateObj.getMonth() + 1).padStart(2, '0'); 
-        var year = dateObj.getFullYear();
-        return day + "-" + month + "-" + year;
-    }
-
+    })();
 
 });
 
 
 
-
-
-
-    // ############# End Calculater ###########
+// ############# End Calculater ###########
 
    
 </script>

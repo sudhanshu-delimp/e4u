@@ -1,5 +1,5 @@
 @php
-    $escortName = ($escort->gender == 'Transgender')? 'TS - ' . $escort->name : $escort->name;
+    $escortName = ($escort->gender == 'Transgender')? 'TS-' . $escort->name : $escort->name;
 @endphp
 
 <div class="col-md-4 col-lg-4 col-sm-12 col-12 mb-4">

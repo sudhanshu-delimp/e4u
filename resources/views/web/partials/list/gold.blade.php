@@ -1,5 +1,5 @@
 @php
-    $escortName = ($escort->gender == 'Transgender')? 'TS - ' . $escort->name : $escort->name;
+    $escortName = ($escort->gender == 'Transgender')? 'TS-' . $escort->name : $escort->name;
 @endphp
 
 <div class="listview_each_section_border_btm silver-sec brb--listing">

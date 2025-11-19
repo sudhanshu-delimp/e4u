@@ -223,6 +223,8 @@ Route::post('agent/task-delete',[AgentTaskController::class,'destroy'])->name('a
 Route::get('pricingsummaries',[PricingsummariesController::class ,'showPricingsummary'])->name('pricingsummaries');
 Route::get('pricingsummaries-datatable',[PricingsummariesController::class ,'PricingDataTable'])->name('agent.myPricing.dataTable');
 Route::post('update-pricing-detail',[PricingsummariesController::class ,'storePricingDetail'])->name('agent.save.pricing.details');
+Route::get('calculate-reckoner',[PricingsummariesController::class ,'showPricingsummary'])->name('pricingsummaries');
+Route::post('calculate-reckoner', [PricingsummariesController::class, 'calculate'])->name('agent.reckoner-calculate');
 
 
 Route::get('bank_account',[AgentAccountController::class,'bankDetails'])->name('bank_account');
