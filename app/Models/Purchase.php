@@ -14,7 +14,6 @@ class Purchase extends Model
     protected $table = 'purchase';
     public $timestamps = false;
 
-    protected $dates = ['start_date', 'end_date'];
 
     public function setStartDateAttribute($value)
     {
@@ -24,6 +23,26 @@ class Purchase extends Model
     public function setEndDateAttribute($value)
     {
         $this->attributes['end_date'] = empty($value)?null:Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
+
+    public function getStartDateAttribute($value)
+    {
+        return !empty($value)
+            ? Carbon::parse($value)->format('d-m-Y')
+            : null;
+    }
+
+    public function getEndDateAttribute($value)
+    {
+        return !empty($value)
+            ? Carbon::parse($value)->format('d-m-Y')
+            : null;
+    }
+
+    public function getDaysNumberAttribute()
+    {
+        return Carbon::parse($this->start_date)
+              ->diffInDays(Carbon::parse($this->end_date))+1;
     }
 
     public function getMembershipTypeAttribute($value)

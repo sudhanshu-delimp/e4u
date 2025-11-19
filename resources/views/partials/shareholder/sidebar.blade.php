@@ -23,64 +23,386 @@
                 aria-expanded="true" aria-controls="collapseOne">
                 
                 <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
-                <span>Our Account</span>
+                <span>My Account</span>
             </a>
             <div id="collapseOne" class="collapse @if (request()->segment(2) == 'edit-my-account' ||
                     request()->segment(2) == 'change-password' ||
-                    request()->segment(2) == 'notifications-and-features' ||
-                    request()->segment(2) == 'upload-avatar' ||
-                    request()->segment(2) == 'bank-account') show @endif;"
+                    request()->segment(2) == 'notifications' ||
+                    request()->segment(2) == 'upload-my-avatar') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="py-2 collapse-inner rounded pb-0 mb-0 pt-0">
-                    <a class="collapse-item" href="{{ route('operator.edit-my-account') }}">
+                    <a class="collapse-item" href="{{ route('shareholder.edit-my-account') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'edit-my-account' ? 'color: #f5841f;' : '' }}">
+                            style="{{ request()->segment(2) == 'edit-my-account' ? 'color: #ff3c5f;' : '' }}">
                             Edit my account</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('operator.change-password') }}">
+                    <a class="collapse-item" href="{{ route('shareholder.change-password') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'change-password'  ? 'color: #f5841f;' : '' }}">Change
+                            style="{{ request()->segment(2) == 'change-password'  ? 'color: #ff3c5f;' : '' }}">Change
                             password</span>
                     </a>
 
-                    {{-- <a class="collapse-item" href="{{ route('agent.notifications-and-features') }}">
+                    <a class="collapse-item" href="{{ route('shareholder.notifications') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'notifications-and-features' || request()->segment(2) == 'profile' ? 'color: #f5841f;' : '' }}">Notifications & Features</span>
-                    </a> --}}
-                    <a class="collapse-item" href="{{ route('operator.upload-avatar') }}">
+                            style="{{ request()->segment(2) == 'notifications' ? 'color: #ff3c5f;' : '' }}">Notifications</span>
+                    </a>
+                    <a class="collapse-item" href="{{ route('shareholder.upload-my-avatar') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                         <span
-                            style="{{ request()->segment(2) == 'upload-avatar' ? 'color: #f5841f;' : '' }}">Upload
+                            style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #ff3c5f;' : '' }}">Upload
                             my avatar</span>
-                    </a>
-                    <a class="collapse-item" href="{{ route('operator.bank-account') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/app/img/sales-performance.png') }}">
-                        <span
-                            style="{{ request()->segment(2) == 'bank-account' ? 'color: #f5841f;' : '' }}">Bank Account</span>
                     </a>
                 </div>
             </div>
         </li>
-        {{----------------------------- E4u tab ------------------------------}}   
         
-        
-        {{----------------------------- Support Agents tab ------------------------------}}        
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Support"
-            aria-expanded="true" aria-controls="Support">
-                <img src="{{ asset('assets/dashboard/img/menu-icon/management.png') }}">
-                <span>Support Agents</span>
+        {{----------------------------- Blackbox Tech Pty Ltd tab ------------------------------}}        
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Blackbox"
+                aria-expanded="true" aria-controls="Blackbox">
+                
+                <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
+                <span>Blackbox Tech Pty Ltd</span>
             </a>
+            <div id="Blackbox" class="collapse 
+            @if (request()->segment(2) == 'annual-report' ||
+                    request()->segment(2) == 'directors' ||
+                    request()->segment(2) == 'portfolio' ||
+                    request()->segment(2) == 'contact-us') show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="py-2 collapse-inner rounded pb-0 mb-0 pt-0">
+                    <a class="collapse-item" href="{{ route('shareholder.annualreport') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'annual-report' ? 'color: #ff3c5f;' : '' }}">
+                            Annual Report</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('shareholder.directors') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'directors' ? 'color: #ff3c5f;' : '' }}">
+                           Directors</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('shareholder.portfolio') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'portfolio' ? 'color: #ff3c5f;' : '' }}">
+                            Portfolio</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('shareholder.contact-us') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'contact-us' ? 'color: #ff3c5f;' : '' }}">
+                            Contact Us</span>
+                    </a>
+                </div>
+            </div>
         </li>
         {{-- end --}}
+
+
+         {{----------------------------- Communications ------------------------------}}        
+         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Communications"
+                aria-expanded="true" aria-controls="Communications">
+                
+                <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
+                <span>Communications</span>
+            </a>
+            <div id="Communications" class="collapse @if (request()->segment(2) == 'shareholder-notices' ||
+                    request()->segment(2) == 'newsletter') show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="py-2 collapse-inner rounded pb-0 mb-0 pt-0">
+                    <a class="collapse-item" href="{{ route('shareholder.shareholder-notices') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'shareholder-notices' ? 'color: #ff3c5f;' : '' }}">
+                            Shareholder Notices</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('shareholder.newsletter') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'newsletter' ? 'color: #ff3c5f;' : '' }}">
+                           Newsletter</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        {{-- end --}}
+
+
+        {{----------------------------- E4u Information ------------------------------}}        
+         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#E4uInformation"
+                aria-expanded="true" aria-controls="E4uInformation">
+                
+                <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
+                <span>E4u Information</span>
+            </a>
+            <div id="E4uInformation" class="collapse @if (request()->segment(2) == 'registrations' ||
+                    request()->segment(2) == 'revenue') show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="py-2 collapse-inner rounded pb-0 mb-0 pt-0">
+                    <a class="collapse-item" href="{{ route('shareholder.registrations') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'registrations' ? 'color: #ff3c5f;' : '' }}">
+                            Registrations</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('shareholder.revenue') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'revenue' ? 'color: #ff3c5f;' : '' }}">
+                           Revenue</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        {{-- end --}}
+
+         {{----------------------------- Global Monitoring ------------------------------}}        
+         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#globalMonitoring"
+                aria-expanded="true" aria-controls="globalMonitoring">
+                
+                <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
+                <span>Global Monitoring</span>
+            </a>
+            <div id="globalMonitoring" class="collapse @if (request()->segment(2) == 'escort-listings' ||
+                    request()->segment(2) == 'massage-centre-listings'||
+                    request()->segment(2) == 'pin-up-listing') show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="py-2 collapse-inner rounded pb-0 mb-0 pt-0">
+                    <a class="collapse-item" href="{{ route('shareholder.escort-listings') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'escort-listings' ? 'color: #ff3c5f;' : '' }}">
+                            Escort Listings</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('shareholder.massage-centre-listings') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'massage-centre-listings' ? 'color: #ff3c5f;' : '' }}">
+                           Massage Centre Listings</span>
+                    </a>
+
+                    
+                    <a class="collapse-item" href="{{ route('shareholder.pin-up-listing') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'pin-up-listing' ? 'color: #ff3c5f;' : '' }}">
+                           Pin Up Listing</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        {{-- end --}}
+
+
+        {{----------------------------- Shareholder Documents ------------------------------}}        
+         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Shareholderdoc"
+                aria-expanded="true" aria-controls="Shareholderdoc">
+                
+                <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
+                <span>Shareholder Documents</span>
+            </a>
+            <div id="Shareholderdoc" class="collapse @if (request()->segment(2) == 'annual-profit-&-loss' ||
+                    request()->segment(2) == 'balance-sheet' || 
+                    request()->segment(2) == 'constitution' ||
+                    request()->segment(2) == 'shareholder-minutes' ||
+                    request()->segment(2) == 'shareholder-updates') show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="py-2 collapse-inner rounded pb-0 mb-0 pt-0">
+                    <a class="collapse-item" href="{{ route('shareholder.annual-profit-&-loss') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'annual-profit-&-loss' ? 'color: #ff3c5f;' : '' }}">
+                            Annual Profit & Loss</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('shareholder.balance-sheet') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'balance-sheet' ? 'color: #ff3c5f;' : '' }}">
+                           Balance Sheet</span>
+                    </a>
+
+                    
+                    <a class="collapse-item" href="{{ route('shareholder.constitution') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'constitution' ? 'color: #ff3c5f;' : '' }}">
+                           Constitution</span>
+                    </a>
+                    <a class="collapse-item" href="{{ route('shareholder.shareholder-minutes') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'shareholder-minutes' ? 'color: #ff3c5f;' : '' }}">
+                           Shareholder Minutes</span>
+                    </a>
+                    <a class="collapse-item" href="{{ route('shareholder.shareholder-updates') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'shareholder-updates' ? 'color: #ff3c5f;' : '' }}">
+                           Shareholder Updates</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        {{-- end --}}
+
+         {{----------------------------- Share Register ------------------------------}}        
+         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ShareRegister"
+                aria-expanded="true" aria-controls="ShareRegister">
+                
+                <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
+                <span>Share Register</span>
+            </a>
+            <div id="ShareRegister" class="collapse @if (request()->segment(2) == 'share-value' ||
+                    request()->segment(2) == 'overview' || 
+                    request()->segment(2) == 'shareholders') show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="py-2 collapse-inner rounded pb-0 mb-0 pt-0">
+                    <a class="collapse-item" href="{{ route('shareholder.overview') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'overview' ? 'color: #ff3c5f;' : '' }}">
+                            Overview</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('shareholder.shareholders') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'shareholders' ? 'color: #ff3c5f;' : '' }}">
+                           Shareholders</span>
+                    </a>
+
+                    
+                    <a class="collapse-item" href="{{ route('shareholder.share-value') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'share-value' ? 'color: #ff3c5f;' : '' }}">
+                           Share Value</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        {{-- end --}}
+
+
+         {{----------------------------- Subsidiaries ------------------------------}}        
+         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Subsidiaries"
+                aria-expanded="true" aria-controls="Subsidiaries">
+                
+                <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
+                <span>Subsidiaries</span>
+            </a>
+            <div id="Subsidiaries" class="collapse @if (request()->segment(2) == 'overview-&-portfolio' ||
+                    request()->segment(2) == 'annual-profit-&-loss' || 
+                    request()->segment(2) == 'balance-sheet') show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="py-2 collapse-inner rounded pb-0 mb-0 pt-0">
+                    <a class="collapse-item" href="{{ route('shareholder.overview-&-portfolio') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'overview-&-portfolio' ? 'color: #ff3c5f;' : '' }}">
+                           Overview & Portfolio</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('shareholder.annual-profit-&-loss') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'annual-profit-&-loss' ? 'color: #ff3c5f;' : '' }}">
+                           Annual Profit & Loss</span>
+                    </a>
+
+                    
+                    <a class="collapse-item" href="{{ route('shareholder.balance-sheet') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'balance-sheet' ? 'color: #ff3c5f;' : '' }}">
+                           Balance Sheet</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        {{-- end --}}
+
+
+
+         {{----------------------------- Support Tickets ------------------------------}}        
+         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#SupportTickets"
+                aria-expanded="true" aria-controls="SupportTickets">
+                
+                <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
+                <span>Support Tickets</span>
+            </a>
+            <div id="SupportTickets" class="collapse @if (request()->segment(2) == 'submit' ||
+                    request()->segment(2) == 'view-&-reply') show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="py-2 collapse-inner rounded pb-0 mb-0 pt-0">
+                    
+
+                    <a class="collapse-item" href="{{ route('shareholder.submit') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'submit' ? 'color: #ff3c5f;' : '' }}">
+                           Submit</span>
+                    </a>
+
+                    
+                    <a class="collapse-item" href="{{ route('shareholder.view-&-reply') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'view-&-reply' ? 'color: #ff3c5f;' : '' }}">
+                           View & Reply</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        {{-- end --}}
+
 
 </ul> 
 <!-- End of Sidebar -->

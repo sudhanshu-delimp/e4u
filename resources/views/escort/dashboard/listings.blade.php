@@ -110,7 +110,8 @@
                                         <th>Start Date</th>
                                         <th>End Date</th>
                                         <th>Days</th>
-                                         <th>Membership</th>
+                                        <th>Membership</th>
+                                        <th>Status</th>
                                         <th>Fee @if ($type == 'past')
                                                 Paid
                                             @endif
@@ -191,11 +192,11 @@
                         data: 'profile_name'
                     },
                     {
-                        data: 'city',
+                        data: 'location',
                         searchable: false,
                     },
                     {
-                        data: 'name',
+                        data: 'stage_name',
                         searchable: true,
                     },
                     {
@@ -207,10 +208,14 @@
                         searchable: false,
                     },
                     {
-                        data: 'days',
+                        data: 'days_number',
                         searchable: false
                     },
                      { data: 'membership', name: 'membership', searchable: false, orderable:true ,defaultContent: 'NA', visible: shouldHide},
+                     {
+                        data: 'status',
+                        searchable: false
+                    },
                     {
                         data: 'fee',
                         searchable: false
