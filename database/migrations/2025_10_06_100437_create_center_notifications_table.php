@@ -21,7 +21,7 @@ class CreateCenterNotificationsTable extends Migration
             $table->enum('type', ['Ad hoc','Template', 'Notice']);
             $table->text('content')->nullable();
             $table->string('template_name')->nullable();
-            $table->unsignedBigInteger('member_id')->nullable();
+            $table->string('member_id')->nullable();
             $table->enum('status', ['Published','Completed','Suspended', 'Removed'])->default('Published');
             $table->timestamps();
         });

@@ -287,10 +287,8 @@ Route::post('/notifications/centres/store', [CenterNotificationController::class
 Route::get('/notifications/centres/{id}', [CenterNotificationController::class, 'show'])->name('admin.centres.notifications.show');
 Route::post('/notifications/centres/{id}/status', [CenterNotificationController::class, 'updateStatus'])->name('admin.centres.notifications.status');
 Route::get('/notifications/centres/pdf-download/{id}', [CenterNotificationController::class, 'pdfDownload'])->name('admin.centres.pdf.download');
-//Route::post('/notifications/centres/{id}/suspend', [CenterNotificationController::class, 'updateStatus'])->name('admin.centres.notifications.suspend');
-//Route::post('/notifications/centres/{id}/status', [CenterNotificationController::class, 'changeStatus'])->name('admin.centres.notifications.status');
 Route::get('/notifications/centres/{id}/edit', [CenterNotificationController::class, 'edit'])->name('admin.centres.notifications.edit');
-//Route::post('/notifications/centres/{id}/update', [CenterNotificationController::class, 'update'])->name('admin.centres.notifications.update');
+Route::post('/notifications/centres/{id}/update', [CenterNotificationController::class, 'update'])->name('admin.centres.notifications.update');
 
 //Agent Notification system for admin
 Route::get('notifications/agents/list', [AgentNotificationController::class, 'index'])->name('admin.agent.notifications.index');

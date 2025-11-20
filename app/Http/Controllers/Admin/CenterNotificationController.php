@@ -13,7 +13,7 @@ class CenterNotificationController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = CenterNotification::query();
+            $query = CenterNotification::query()->orderBy('created_at', 'DESC');
 
             return DataTables::of($query)
                 ->addIndexColumn()
@@ -118,10 +118,21 @@ class CenterNotificationController extends Controller
 
     public function store(Request $request)
     {
-        $data =  $request->only(['heading', 'start_date', 'end_date', 'type', 'content', 'member_id', 'template_name']);
+        $data =  $request->only(['heading', 'start_date', 'end_date', 'type', 'content', 'member_id', 'template_name', 'edit_notification_id']);
         $start = Carbon::parse($data['start_date']);
         $end =  Carbon::parse($data['end_date']);
         //Check condition 
+        $notificationId = $request->edit_notification_id;
+    
+        if($notificationId){
+            //dd($request->content);
+            $update = CenterNotification::find($notificationId);
+            $update->heading = $request->heading;
+            $update->content = $data['content'];
+            $update->template_name = $request->template_name;
+            $update->save();
+            return success_response($data, 'Notification update successfully!!');
+        }
         $query = CenterNotification::where('status', '=', 'Published')->where(function ($q) use ($start, $end) {
             $q->whereBetween('start_date', [$start, $end])
                 ->orWhereBetween('end_date', [$start, $end])
@@ -167,9 +178,15 @@ class CenterNotificationController extends Controller
     {
         try {
             $notification = CenterNotification::findOrFail($id);
-            return success_response($notification, 'Notification  view');
+            // Return raw date format for edit form
+            $notificationData = $notification->toArray();
+            $notificationData['start_date'] = $notification->start_date ? Carbon::parse($notification->start_date)->format('Y-m-d') : null;
+            $notificationData['end_date'] = $notification->end_date ? Carbon::parse($notification->end_date)->format('Y-m-d') : null;
+            $notificationData['finish_date'] = $notification->finish_date ? Carbon::parse($notification->finish_date)->format('d-m-Y') : null;
+            return success_response($notificationData, 'Notification view');
         } catch (\Exception $e) {
-            return error_response('Failed to create notification: ' . $e->getMessage(), 500);
+            return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);
         }
     }
+
 }

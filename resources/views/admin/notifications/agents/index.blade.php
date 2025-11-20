@@ -939,7 +939,7 @@
                     confirmMsg = 'Are you sure you want to suspend this notification?';
                 } else if ($(this).hasClass('js-publish')) {
                     status = 'Published';
-                    confirmMsg = 'Are you sure you want to publish this notification?';
+                    onfirmMsg = 'Are you sure you want to publish this notification';
                 } else if ($(this).hasClass('js-remove')) {
                     status = 'Removed';
                     confirmMsg = 'Are you sure you want to remove this notification?';

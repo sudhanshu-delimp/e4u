@@ -22,7 +22,7 @@
 @section('content')
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
+            
                 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                     <div class="row">
                         <div class="custom-heading-wrapper col-md-12">
@@ -76,8 +76,7 @@
                         </div>
                     </div>
                 </div>
-                <!--right side bar end-->
-            </div>
+                
         </div>
         <!-- End of Main Content -->
     </div>
@@ -102,30 +101,34 @@
                         <div class="row">
                             <!-- Auto-generated Date (readonly) -->
                             <div class="col-12 mb-3">
-                                <input type="date" class="form-control rounded-0" placeholder="Date (Auto-generated)"
-                                    value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" required />
+                                <label class="label">Current Date</label>
+                                <input type="date" id="current_date" class="form-control rounded-0"
+                                    value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  />
                             </div>
 
                             <!-- Heading Field -->
                             <div class="col-12 mb-3">
+                                <label class="label">Heading</label>
                                 <input type="text" name="heading" id="heading" class="form-control rounded-0  fw-bold"
                                     placeholder="Heading" required />
-                                    <input type="hidden" name="edit_notification_id" id="edit_notification_id">
+                                <input type="hidden" name="edit_notification_id" id="edit_notification_id">
                             </div>
 
                             <!-- Start Date -->
                             <div class="col-12 mb-3">
-                                <input type="text" name="start_date" id="start_date" onfocus="(this.type='date')"
-                                    placeholder="Start Date" class="form-control rounded-0"
-                                    min="{{ \Carbon\Carbon::now()->format('d-m-Y') }}" required />
+                                <label class="label">Start Date</label>
+                                <input type="date" name="start_date" id="start_date" placeholder="Start Date"
+                                    class="form-control rounded-0" min="{{ \Carbon\Carbon::now()->format('d-m-Y') }}"
+                                    required />
 
                             </div>
 
                             <!-- Finish Date -->
                             <div class="col-12 mb-3">
-                                <input type="text" name="end_date" id="end_date" onfocus="(this.type='date')"
-                                    placeholder="End Date" class="form-control rounded-0"
-                                    min="{{ \Carbon\Carbon::now()->format('d-m-Y') }}" required />
+                                <label class="label">End Date</label>
+                                <input type="date" name="end_date" id="end_date" placeholder="End Date"
+                                    class="form-control rounded-0" min="{{ \Carbon\Carbon::now()->format('d-m-Y') }}"
+                                    required />
 
                             </div>
                             <!-- Type Field (fixed Adhoc Content) -->
@@ -133,7 +136,7 @@
                                 <select id="type" onchange="toggleFields()" name="type"
                                     class="form-control rounded-0" required>
                                     <option value="">-- Select Type --</option>
-                                    <option value="Ad hoc">Adhoc</option>
+                                    <option value="Ad hoc">Ad hoc</option>
                                     <option value="Template">Template</option>
                                     <option value="Notice">Notice</option>
                                 </select>
@@ -172,12 +175,13 @@
 
                             <!-- content -->
                             <div class="col-12 mb-3" id="contentField">
-                                <textarea id="content" name="content" class="form-control" placeholder="up to 250 characters..."></textarea>
+                                <textarea id="edit_content" name="content" class="form-control" placeholder="up to 250 characters..."></textarea>
 
                             </div>
                         </div>
                         <div class="modal-footer pr-3">
-                            <button type="submit" class="btn-success-modal">Save</button>
+                            <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+                            <button type="submit" id="submitBtn" class="btn-success-modal">Save</button>
                         </div>
                     </form>
 
@@ -258,8 +262,9 @@
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
         data-pdf-download="{{ route('admin.centres.pdf.download', ['id' => '__ID__']) }}"
         data-center-notification-status="{{ route('admin.centres.notifications.status', ['id' => '__ID__']) }}"
-        data-center-notification-edit="{{route('admin.centres.notifications.edit', ['id' => '__ID__'])}}"
-        >
+        data-center-notification-edit="{{ route('admin.centres.notifications.edit', ['id' => '__ID__']) }}"
+        data-center-notification-update="{{ route('admin.centres.notifications.update', ['id' => '__ID']) }}"
+        data-center-notification-store="{{ route('admin.centres.notifications.store') }}">
 
 
     </div>
@@ -284,7 +289,7 @@
                 templateSelect.style.display = 'none';
                 noticeSection.style.display = 'block';
                 contentField.style.display = 'block';
-            } else if (type === 'Adhoc') {
+            } else if (type === 'Ad hoc') {
                 templateSelect.style.display = 'none';
                 noticeSection.style.display = 'none';
                 contentField.style.display = 'block';
@@ -304,6 +309,7 @@
             pdf_download: mmRoot.data('pdf-download'),
             center_notification_status: mmRoot.data('center-notification-status'),
             center_notification_edit: mmRoot.data('center-notification-edit'),
+            center_notification_store: mmRoot.data('center-notification-store'),
         }
 
         function urlFor(tpl, id) {
@@ -326,7 +332,7 @@
 
                 let formData = form.serialize();
                 $.ajax({
-                    url: form.attr('action'),
+                    url: endpoint.center_notification_store,
                     type: "POST",
                     _token: endpoint.csrf_token,
                     data: formData,
@@ -376,6 +382,23 @@
             e.preventDefault();
             var form = $(this);
             ensureParsleyAndSubmit(form);
+
+        });
+
+        // Reset form when modal is hidden
+        $('#createNotification').on('hide.bs.modal', function() {
+            $('#createNotificationForm')[0].reset();
+            $('#edit_notification_id').val('');
+            $('#submitBtn').text('Save');
+            $('#current_date').prop('readonly', false);
+            $('#start_date').prop('readonly', false);
+            $('#end_date').prop('readonly', false);
+            $('#type').prop('disabled', false);
+            // Reset modal title
+            $(this).find('h5.modal-title').html(
+                '<img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create Notification'
+            );
+
         });
     </script>
 
@@ -495,6 +518,7 @@
                 confirmMsg = 'Are you sure you want to suspend this notification';
             } else if ($(this).hasClass('js-publish')) {
                 status = 'Published';
+                confirmMsg = 'Are you sure you want to suspend this notification';
             } else if ($(this).hasClass('js-remove')) {
                 status = 'Removed';
                 confirmMsg = 'Are you sure you want to remove the notification';
@@ -502,7 +526,9 @@
 
             const modal = $('#successModal');
             const body = $('#success_form_html');
-            const img = $('#success_task_title').text('Confirmation');
+            const title = $('#success_task_title').text('Confirmation');
+            const img = $('#image_icon');
+
             img.attr('src', endpoint.error_image);
             body.html(
                 `
@@ -545,34 +571,74 @@
             });
         });
 
-         $(document).on('click', '.js-edit', function(e) {
+        $(document).on('click', '.js-edit', function(e) {
             e.preventDefault();
             let id = $(this).data('id');
             const container = $('#listingModalContent');
-                  container.html('<div class="text-center py-3">Loading...</div>');
+            container.html('<div class="text-center py-3">Loading...</div>');
+            $('#createNotificationForm')[0].reset();
+            // $('#edit_notification_id').val(id);
+            $('#submitBtn').text('Save');
+            $('#current_date').prop('readonly', true);
+            $('#start_date').prop('readonly', true);
+            $('#end_date').prop('readonly', true);
+            $('#type').prop('disabled', true);
+            // Reset modal title
+            $(this).find('h5.modal-title').html(
+                '<img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create Notification'
+            );
 
             $.ajax({
                 url: endpoint.center_notification_edit.replace('__ID__', id),
                 type: 'GET',
-                success: function(response){
-                    $('#createNotification').modal('show');
-                   // $('#createNotification')[0].reset();
-                    $('#createNotification').val('Edit Notification');
-                    if(response.status === true){
+                success: function(response) {
+                    if (response.status === true) {
                         let n = response.data;
+                        console.log(n, 'n');
+
+                        // Populate form fields
                         $('#edit_notification_id').val(n.id);
                         $('#heading').val(n.heading);
-                        //$('#edit_content').val(n.content);
+                        $('#start_date').val(n.start_date || '');
+                        $('#end_date').val(n.end_date || '');
+                        $('#type').val(n.type || 'Ad hoc').trigger('change');
+                        $('#edit_content').val(n.content || '');
+                        if (n.template_name) {
+                            $('#template_name').val(n.template_name);
+                        }
+                        if (n.member_id) {
+                            $('#member_id').val(n.member_id);
+                        }
+
+                        // Make date fields readonly in edit mode
+                        ['#current_date', '#start_date', '#end_date'].forEach(id => $(id).prop(
+                            'readonly', true));
+                        $('#type').prop('disabled', true);
+                        // Change button text to Update
+                        $('#submitBtn').text('Update');
+
+                        // Change modal title
+                        $('#createNotification').find('h5.modal-title').html(
+                            '<img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Edit Notification'
+                        );
+
+                        // Show modal
+                        $('#createNotification').modal('show');
+
+                        // Reset form action
+
+                    } else {
+                        container.html('<div class="text-danger">Failed to load details.</div>');
                     }
                 },
-                error: function(){
+                error: function() {
                     container.html(`<div class="text-danger">Failed to load details.</div>`);
                 }
             });
-            
-         });
 
-        
+        });
+
+
 
         // Redirect new page and generate pdf
         $('#pdf-download').on('click', function() {
@@ -582,14 +648,6 @@
             window.open(url, '_blank');
 
         });
-
-
-        //Edit Center Notification
-        //  $(document).on('click', '.js-edit', function(e) {
-        //     e.preventDefault();
-        //     let id = $(this).date('id');
-        //     console.log(id);
-        // });
     </script>
 
 
