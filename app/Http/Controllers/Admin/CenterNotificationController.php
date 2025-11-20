@@ -21,10 +21,10 @@ class CenterNotificationController extends Controller
                     return sprintf('#%05d', $row->id);
                 })
                 ->editColumn('start_date', function ($row) {
-                    return Carbon::parse($row['start_date'])->format('d-m-Y');
+                    return basicDateFormat($row['start_date']);
                 })
-                ->editColumn('finish_date', function ($row) {
-                    return Carbon::parse($row['finish_date'])->format('d-m-Y');
+                ->editColumn('end_date', function ($row) {
+                    return basicDateFormat($row['end_date']);
                 })
                 ->editColumn('type', function ($row) {
                     return $row->type;
@@ -73,10 +73,6 @@ class CenterNotificationController extends Controller
                 return error_response('Invalid status', 422);
             }
 
-            // if ($notification->status !== 'Published') {
-            //     return error_response('Only Published notifications can be modified.', 422);
-            // }
-
             if ($status === 'Removed') {
                 $notification->delete();
                 return success_response(
@@ -103,8 +99,8 @@ class CenterNotificationController extends Controller
                 'id' => $n->id,
                 'ref' => sprintf('#%05d', $n->id),
                 'heading' => $n->heading,
-                'start_date' => $n->start_date ? Carbon::parse($n->start_date)->format('d-m-Y') : null,
-                'end_date' => $n->end_date ? Carbon::parse($n->end_date)->format('d-m-Y') : null,
+                'start_date' => basicDateFormat($n->start_date),
+                'end_date' => basicDateFormat($n->end_date),
                 'type' => $n->type,
                 'status' => $n->status,
                 'content' => $n->content,
@@ -165,9 +161,15 @@ class CenterNotificationController extends Controller
             $pdfDetail['type'] = $data['type'];
             $pdfDetail['status'] = $data['status'];
             $pdfDetail['member_id'] = $data['member_id'];
-            $pdfDetail['start_date'] = Carbon::parse($data['start_date'])->format('d-m-Y');
-            $pdfDetail['finish_date'] = Carbon::parse($data['finish_date'])->format('d-m-Y');;
-            $pdfDetail['template_name'] = $data['template_name'];
+            $pdfDetail['start_date'] = basicDateFormat($data['start_date']);
+            $pdfDetail['end_date'] = basicDateFormat($data['end_date']);
+            if($data['type'] == 'Template'){
+                $pdfDetail['template_name'] = $data['template_name'];
+            }else{
+                $pdfDetail['content'] = $data['content'];
+            }
+            
+            
             return view('admin.notifications.centres.center-notification-pdf-download', compact('pdfDetail'));
         } catch (\Throwable $e) {
             abort(404);
@@ -180,9 +182,8 @@ class CenterNotificationController extends Controller
             $notification = CenterNotification::findOrFail($id);
             // Return raw date format for edit form
             $notificationData = $notification->toArray();
-            $notificationData['start_date'] = $notification->start_date ? Carbon::parse($notification->start_date)->format('Y-m-d') : null;
-            $notificationData['end_date'] = $notification->end_date ? Carbon::parse($notification->end_date)->format('Y-m-d') : null;
-            $notificationData['finish_date'] = $notification->finish_date ? Carbon::parse($notification->finish_date)->format('d-m-Y') : null;
+            $notificationData['start_date'] = basicDateFormat($notification->start_date);
+            $notificationData['end_date'] = basicDateFormat($notification->end_date);
             return success_response($notificationData, 'Notification view');
         } catch (\Exception $e) {
             return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);

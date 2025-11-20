@@ -60,7 +60,7 @@
                                                         <tr>
                                                             <th scope="col">Ref</th>
                                                             <th scope="col">Start</th>
-                                                            <th scope="col">Finish</th>
+                                                            <th scope="col">End</th>
                                                             <th scope="col">Type</th>
                                                             <th scope="col">Status</th>
                                                             <th scope="col" class="text-center">Action</th>

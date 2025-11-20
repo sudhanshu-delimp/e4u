@@ -65,12 +65,20 @@
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Finish Date</td>
-                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['finish_date']}}</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['end_date']}}</td>
                     </tr>
+                    @if($pdfDetail['type'] == 'Template')
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Template Name</td>
                         <td style="border:1px solid #ccc;padding:8px;">{{ucfirst($pdfDetail['template_name'])}}</td>
                     </tr>
+                    @else
+                    <tr>
+                        <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Content</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{ucfirst($pdfDetail['content'])}}</td>
+                    </tr>
+                    @endif
+
                 </table>
 
 
