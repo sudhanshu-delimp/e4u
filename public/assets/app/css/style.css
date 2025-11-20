@@ -1030,6 +1030,14 @@
         color: #FF3C5F;
         margin-left: 12px;
     }
+    /*  profile-list-container*/
+    
+    .profile-list-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    /* end */
     
     div.defult-modal .modal-dialog {
         max-width: 768px;
@@ -2448,7 +2456,7 @@ i.fa.fa-heart-o{
     
     .escost_list,
     .nine_card_area {
-        max-width: 1130px;
+        /* max-width: 1130px; */
         margin: 0 auto;
         width: 100%;
         position: relative;
@@ -2841,8 +2849,11 @@ i.fa.fa-heart-o{
     .plat_num_row .section_wise_level_icon_img,
     .plat_num_row .section_wise_level_icon_img img,
     .plat-inner {
-        height: 100% !important;
         width: 100%;
+    }
+    
+    .all-escort-profile-pic a img {
+        height: 400px !important;
     }
     
     .gold-seven {
@@ -6343,7 +6354,11 @@ i.fa.fa-heart-o{
     }
     
     .custom--gender--area div {
-        width: calc(33.3333% - 6px);
+        /* width: calc(33.3333% - 6px); */
+    }
+    
+    .custom--gender--area .perth {
+        display: flex;
     }
     
     .custom--available-section {
@@ -6782,7 +6797,7 @@ i.fa.fa-heart-o{
         white-space: nowrap;
         position: absolute;
         top: 5px;
-        left: 18%;
+        left: 15%;
         transition: opacity 0.3s;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         z-index: 1000;
@@ -6921,6 +6936,22 @@ i.fa.fa-heart-o{
         } */
     }
     
+    @media (max-width: 1900px) {
+        .profile-list-container {
+            max-width: 1700px;
+            margin: 0 auto;
+            width: 100%;
+        }
+    }
+    
+    @media (max-width: 1700px) {
+        .profile-list-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            width: 100%;
+        }
+    }
+    
     @media (max-width: 1500px) {
         .footer_mange_padding .row>div:first-child {
             order: 5;
@@ -6933,6 +6964,11 @@ i.fa.fa-heart-o{
         .footer_mange_padding .row>div:not(:first-child) {
             min-width: fit-content;
             padding-right: 5% !important;
+        }
+        .profile-list-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
         }
     }
     
@@ -6947,6 +6983,19 @@ i.fa.fa-heart-o{
             padding: 8px 7px !important;
             width: fit-content;
             font-size: 12px;
+        }
+        .profile-list-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+    }
+    
+    @media (max-width: 1200px) {
+        .profile-list-container {
+            max-width: 1140px;
+            margin: 0 auto;
+            width: 100%;
         }
     }
     
@@ -6978,9 +7027,14 @@ i.fa.fa-heart-o{
         .footer_mange_padding .row {
             justify-content: space-between;
         }
+        .profile-list-container {
+            max-width: 1140px;
+            margin: 0 auto;
+            width: 100%;
+        }
     }
     
-    @media screen (max-width: 1140px) {
+    @media (max-width: 1140px) {
         .manage_alments_in_ds {
             text-align: right !important;
         }

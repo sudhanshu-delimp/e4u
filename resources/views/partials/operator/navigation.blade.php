@@ -1,6 +1,6 @@
 <!-- Topbar -->
 <nav
-    class="db-custom-topbar navbar justify-navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 ">
+    class="db-custom-topbar opr navbar justify-navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 ">
 
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -10,19 +10,19 @@
     <div class="topbar-logged-in-user-data operator-topbar-userdata d-flex">
 
         <div class="d-user-info">
-            <div class="gap-b escort_header_top_menu"
-                style="display: grid; grid-template-columns: 1fr 1fr; font-size: 14px;">
+            <div class="operator_header_top_menu">
                 <span>
-                    <b>Welcome back : </b><span class="user-values">{{-- {{ auth()->user()->business_name }} --}} Operator</span> <span
+                    <b>Welcome back : </b><span class="user-values">Operator</span> <span
                         class="separator">|</span>
                 </span>
                 <span>
-                    <b>Membership ID : </b><span class="user-values">{{-- {{ auth()->user()->member_id }} --}}</span>  <span
-                        class="separator"></span>
+                    <b>Membership ID : </b><span class="user-values">OP123456</span>
+               
                 </span>
                 <span>
-                    <b>Home State : </b><span class="user-values"
-                        style="padding-left: 21%">{{-- {{ auth()->user()->home_state }}--}} Perth escort Services</span>
+                    <b>Home State : </b>
+                    <span style="padding-left:8%" class="user-values"
+                       > Perth escort Services</span>
                 </span>
 
             </div>
