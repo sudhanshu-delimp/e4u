@@ -92,13 +92,15 @@
                                 <div class="d-flex flex-column gap-2" style="width:105px">
                                     <div class="d-flex align-items-start"
                                         @php
-                                            $myLocation = false;
-                                            if(request()->filled('lat')){
-                                                $myLocation = true; 
-                                            }
+                                            // $myLocation = false;
+                                            // if(request()->filled('lat')){
+                                            //     $myLocation = true; 
+                                            // }
+                                            $searchByRadio = request()->get('search_by_radio');
+                                            $locationByRadio = request()->get('locationByRadio');
                                         @endphp
                                         style=" padding-top: 2px;">
-                                        <input type="radio" name="locationByRadio" {{ ($radio_location_filter != null || $myLocation) ? 'checked':'' }} value="your_location" id="yourLocation">
+                                        <input type="radio" name="locationByRadio" {{ ($locationByRadio != 'australia') ? 'checked':'' }} value="your_location" id="yourLocation">
                                         <label for="yourLocation"
                                             style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
                                             Your Location
@@ -106,7 +108,7 @@
                                     </div>
 
                                     <div class="d-flex align-items-start" >
-                                        <input type="radio" name="locationByRadio" value="australia" id="australia" {{ ($radio_location_filter == null && $myLocation == false ) ? 'checked' : ''}}>
+                                        <input type="radio" name="locationByRadio" value="australia" id="australia" {{ ($locationByRadio == 'australia' || $locationByRadio == null ) ? 'checked' : ''}}>
                                         <label for="australia"
                                             style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
                                             Australia
@@ -119,6 +121,8 @@
                                         class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
 
                                         <input type="hidden" name="search_by_radio" id="search_by_radio" value="0">
+                                        <input type="hidden" name="lat" id="set_lat" value="">
+                                        <input type="hidden" name="lng" id="set_lng" value="">
                                         
                                         <input type="search" name="name" class="form-control remove_border_btm rounded "
                                             placeholder="Search by Member ID or Name" aria-label="Search"
@@ -182,7 +186,6 @@
                                     name="city">
                                     <option value="" selected>All Cities</option>
                                     @foreach (@config('escorts.profile.cities') as $key => $city)
-                                        {{-- <option value="{{$key}}" {{ (request()->get('city') == $key) ? 'selected' : '' }}>{{$city}}</option> --}}
                                         <option value="{{ $key }}" {{ $locationCityId == $key ? 'selected' : '' }}>
                                             {{ $city }}</option>
                                     @endforeach
@@ -1486,6 +1489,20 @@
         });
 
         $(document).ready(function () {
+
+            let RadioButton = $("#search_by_radio").val();
+            if(RadioButton != '' || RadioButton == '1' || RadioButton == 1){
+                
+                navigator.geolocation.getCurrentPosition(async function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    $("#set_lat").val(latitude);
+                    $("#set_lng").val(longitude);
+                    
+                });
+            }
+
             $('input[name="locationByRadio"]').on('change', function () {
                 let selectedLocation = {};
                 selectedLocation.location = $(this).attr('id'); // "yourLocation" or "australia" 
@@ -1499,6 +1516,9 @@
                         const longitude = position.coords.longitude;
                         selectedLocation.lat = latitude;
                         selectedLocation.lng = longitude;
+
+                        $("#set_lat").val(latitude);
+                        $("#set_lng").val(longitude);
 
                         console.log(longitude, latitude, ' jitendera')
                         sendLocationData(selectedLocation);

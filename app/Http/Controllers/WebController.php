@@ -97,6 +97,9 @@ class WebController extends Controller
         # Search escort by search button on the bases on radio button with search icon
         if(isset($str['search_by_radio']) && ($str['search_by_radio'] == '1' || $str['search_by_radio'] == 1))
         {
+            $query->where('enabled', 1);
+            $radioLocation = $str['locationByRadio'];
+
             if(!empty($str['string']))
             {
                 $uid = $str['string'];
@@ -109,19 +112,19 @@ class WebController extends Controller
                     });
                 });
 
-                if(!empty($str['city_id']))
+                if(!empty($str['lat_state']) && $radioLocation == 'your_location')
                 {
-                    $radioLocation = $str['locationByRadio'];  // australia
-                    if($radioLocation != 'australia'){
-                        $query->where('city_id','=',$str['city_id']);
-                    }
-                    
-                    if($str['string'] == ''  && $radioLocation == 'australia'){
-                        $query->where('city_id','=',$str['city_id']);
-                    }
+                    $query->where('state_id','=',$str['lat_state']);
                 }
-                return $query;
             }
+
+            // if any search key not added then get data on state base only
+            if(!empty($str['lat_state']) && $radioLocation == 'your_location')
+            {
+                $query->where('state_id','=',$str['lat_state']);
+            }
+
+            return $query;
         }
 
 
@@ -257,6 +260,8 @@ class WebController extends Controller
         $userLocation = null;
         if($request->lat != '' && $request->lng != ''){
            $userLocation = $this->getRealTimeGeolocationOfUsers($request->lat, $request->lng);
+           $lat_state = $userLocation['state'];
+           $lng_city = $userLocation['city'];
            session(['radio_location_filter'=> true]);
         }
 
@@ -294,6 +299,8 @@ class WebController extends Controller
             'search_by_radio'=> request()->get('search_by_radio') ,
             'locationByRadio'=> request()->get('locationByRadio') ,
             'playmate_status'=> request()->get('playmate_status') ,
+            'lat_state'=> $lat_state ?? '' ,
+            'lng_city'=> $lng_city ?? '' ,
         ];
 
         $radio_location_filter = session('radio_location_filter');

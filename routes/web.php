@@ -693,17 +693,6 @@ Route::get('/admin-dashboard/notifications/escorts',function(){
     return view('admin.notifications.escorts');
 })->name('admin.escorts');
 
-
-
-
-Route::get('/admin-dashboard/post-office/send-reports',function(){
-    return view('admin.post-office.send-reports');
-})->name('admin.send-reports');
-
-Route::get('/admin-dashboard/post-office/reports',function(){
-    return view('admin.post-office.reports');
-})->name('admin.reports');
-
 Route::get('/admin-dashboard/blog',function(){
     return view('admin.blog');
 })->name('admin.blog');
