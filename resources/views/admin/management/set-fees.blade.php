@@ -479,9 +479,9 @@
                   <div class="col-md-6">
                      <div class="form-group">
                            <label>Rate</label>
-                           {{-- <input type="text" class="form-control" id="days" name="days" disabled> --}}
-                           <select class="custom-select" name="days" id="days" required data-parsley-required-message="Please select state">
-                              <option value="">Select</option>
+                           
+                           <select class="custom-select" name="days" id="days" disabled="true">
+                             
                               <option value="1">Per Day</option>
                               <option value="2">Per Week</option>
                               <option value="3">Per Service</option>
@@ -737,7 +737,7 @@ $(document).ready(function(){
       },
       columns: [
             { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'fee', name: 'fee', searchable: true, orderable:false ,defaultContent: 'NA'},
+            { data: 'service_type', name: 'service_type', searchable: true, orderable:false ,defaultContent: 'NA'},
             { data: 'frequency', name: 'frequency', searchable: true, orderable:false,defaultContent: 'NA' },
             { data: 'amount', name: 'amount', searchable: true, orderable:false,defaultContent: 'NA' },
             { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
@@ -767,11 +767,11 @@ $(document).ready(function(){
                                                 <div class="row">
                                                    <div class="col-6 mb-3">
                                                       <label>Fee</label>
-                                                      <input type="text" name="fee" class="form-control rounded-0" value="${(rowData.fee  ? rowData.fee : '')}" readonly>
+                                                      <input type="text" name="service_type" class="form-control rounded-0" value="${(rowData.service_type  ? rowData.service_type : '')}">
                                                    </div>
                                                    <div class="col-6 mb-3">
                                                       <label>Rate</label>
-                                                      <input type="text" name="frequency" class="form-control rounded-0" value="${(rowData.frequency ? rowData.frequency : '')}" readonly>
+                                                      <input type="text" name="frequency" class="form-control rounded-0" value="${(rowData.frequency ? rowData.frequency : '')}">
                                                    </div>
                                                    <div class="col-6 mb-3">
                                                       <label>Amount</label>
@@ -841,7 +841,15 @@ $(document).ready(function(){
       } else {
       $('#frequency').attr('disabled',true);
       }
-      $('#days').val($(button).data('days'));
+      // $('#days').val($(button).data('days'));
+      let days = $(button).data('days');
+
+      ///console.log('days',days);
+
+      //const my_days = days == "Per Day" ? "1" : days == "Per Week" ? "2" : "3";
+      //console.log(my_days);
+      $('#days').val(days);
+
       $('#percentage').val($(button).data('per'));
       $('#discount_amount').val($(button).data('discount_amount'));
 
@@ -1449,7 +1457,16 @@ var commision_playbox_fees = $("#commision_playbox_fees").DataTable({
 /////////////// Set Commission - Playbox   ////////////
 
 
-
+function getRate(days) {
+    switch (days) {
+        case 1:
+            return "Per day";
+        case 2:
+            return "Per week";
+        default:
+            return "Per Service";
+    }
+}
 
 </script>
 @endpush

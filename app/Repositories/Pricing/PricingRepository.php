@@ -66,18 +66,19 @@ class PricingRepository extends BaseRepository implements PricingInterface
             $item->sn =  ($i+$start);
             $item->member_type = $item->memberships ? $item->memberships->name : 'NA';
             if($item->memberships->name == "Free") {
-                $item->frequency_day = $item->frequency ? $item->frequency ." Days": 'NA';
+                $item->frequency_day = $item->frequency ? $item->frequency ."": 'NA';
             } else {
                 $item->frequency_day = $item->frequency ? $item->frequency : 'NA';
             }
             if( $item->days == 1) {
-                    $item->rate = $item->days ? "Per day" : "N/A";
+                    $item->rate = $item->days ? "Per Day" : "";
             }
             elseif( $item->days == 2) {
-                    $item->rate = $item->days ? "Per week" : "N/A";
+                    $item->rate = $item->days ? "Per Week" : "";
             }
+            
             else {
-                    $item->rate = $item->days ? "Per Service" : "N/A";
+                    $item->rate = $item->days ? "Per Service" : "";
             }
 
             // $item->days = $item->days == 1 ? "per day" : "per week";
