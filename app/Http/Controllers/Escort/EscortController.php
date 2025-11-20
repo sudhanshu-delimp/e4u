@@ -32,6 +32,7 @@ use App\Repositories\User\UserInterface;
 use App\Http\Requests\StoreEscortRequest;
 use App\Http\Requests\UpdateEscortRequest;
 use App\Repositories\Escort\EscortInterface;
+use App\Repositories\Purchase\PurchaseInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Repositories\AttemptLogin\AttemptLoginRepository;
 use Illuminate\Support\Facades\Log;
@@ -45,12 +46,14 @@ class EscortController extends Controller
      * @return \Illuminate\Http\Response
      */
     protected $escort;
+    protected $purchase;
     protected $user;
     protected $attemptlogin;
 
-    public function __construct(AttemptLoginRepository $attemptlogin, EscortInterface $escort, UserInterface $user)
+    public function __construct(AttemptLoginRepository $attemptlogin, EscortInterface $escort, UserInterface $user, PurchaseInterface $purchase)
     {
         $this->escort = $escort;
+        $this->purchase = $purchase;
         $this->user = $user;
         $this->attemptlogin = $attemptlogin;
     }
@@ -220,20 +223,15 @@ class EscortController extends Controller
         list($result, $count) = $this->escort->paginatedList(
             request()->get('start'),
             request()->get('length'),
-            (request()->get('order')[0]['column'] == 1 ? 6 : request()->get('order')[0]['column']),
+            request()->get('order')[0]['column'],
             request()->get('order')[0]['dir'],
             request()->get('columns'),
             request()->get('search')['value'],
             auth()->user()->id,
             $conditions
-
-
-
-
-            //auth()->user()->state_id,
-            //$usr_type->agentEscorts->pluck("id")->toArray(),
         );
 
+<<<<<<< HEAD
         // foreach($result as $key => $item) {
 
         //     if($item->getRawOriginal('gender')==3)
@@ -246,6 +244,8 @@ class EscortController extends Controller
         // }
 
 
+=======
+>>>>>>> 4199ad4e167d7d4d0fbdb4af4c6da61fa16ff01a
         $data = array(
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),
@@ -253,13 +253,12 @@ class EscortController extends Controller
             "data"            => $result
         );
 
-        //dd($result);
-
         return response()->json($data);
     }
 
     public function dataTableListing($type = NULL)
     {
+<<<<<<< HEAD
 
         $start = request()->get('start');
         $limit = request()->get('length');
@@ -407,15 +406,193 @@ class EscortController extends Controller
             }
         }
         // print_r($dataTableData);die;
+=======
+        $conditions = [];
+        if ($type == 'current') {
+            $conditions[] = ['end_date', '>=', date('Y-m-d')];
+        } elseif ($type == 'past') {
+            $conditions[] = ['end_date', '<', date('Y-m-d')];
+        }
+        list($result, $count) = $this->purchase->paginatedList(
+            request()->get('start'),
+            request()->get('length'),
+            request()->get('order')[0]['column'],
+            request()->get('order')[0]['dir'],
+            request()->get('columns'),
+            request()->get('search')['value'],
+            auth()->user()->id,
+            $conditions
+        );
+
+>>>>>>> 4199ad4e167d7d4d0fbdb4af4c6da61fa16ff01a
         $data = array(
             "draw"            => intval(request()->input('draw')),
-            "recordsTotal"    => intval($recordTotal),
-            "recordsFiltered" => intval($recordTotal),
-            "data"            => $dataTableData
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "data"            => $result
         );
 
         return response()->json($data);
     }
+
+    // public function dataTableListing($type = NULL)
+    // {
+
+    //     $start = request()->get('start');
+    //     $limit = request()->get('length');
+    //     $order_key = (request()->get('order')[0]['column'] == 1 ? 6 : request()->get('order')[0]['column']);
+    //     $dir = request()->get('order')[0]['dir'];
+    //     $columns = request()->get('columns');
+    //     $search = request()->get('search')['value'];
+    //     $user_id = auth()->user()->id;
+    //     $ascDesc = 'ASC';
+    //     $recordTotal = 0;
+    //     $dataTableData = [];
+    //     //$dataTablePagination = (new DataTablePagination);
+    //     //$order = $dataTablePagination->getOrder($order_key);
+    //     // $searchables = $dataTablePagination->getSearchableFields($columns);
+
+    //     $result = Escort::with(['purchase' => function ($query) use ($type, $ascDesc, $start, $limit) {
+    //         if ($type == 'past') {
+    //             $query->where('end_date', '<', date('Y-m-d'));
+    //             $ascDesc = 'DESC';
+    //         } else {
+    //             $query->where('end_date', '>=', date('Y-m-d'));
+    //         }
+    //          $query->offset($start)
+    //         ->limit($limit)
+
+    //        ->orderBy('start_date', $ascDesc);
+    //     }])
+    //         ->whereHas('purchase')
+    //         ->with([
+    //             'Brb' => function ($query) {
+    //                 $query->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+    //             }
+    //         ])
+    //         ->where('profile_name', '!=', null)
+    //         ->where('user_id', auth()->user()->id);
+
+    //     if ($search) {
+    //         $result = $result->where(function ($query) use ($search) {
+    //             $query->where('id', 'like', "%{$search}%")
+    //                 ->orWhere('profile_name', 'LIKE', "%{$search}%")
+    //                 ->orWhere('name', 'LIKE', "%{$search}%");
+    //         });
+    //     }
+    //     $result = $result->get()->toArray();
+    //    // For count
+    //     $resultNoLImit = Escort::with(['purchase' => function ($query2) use ($type, $ascDesc, $start, $limit) {
+    //         if ($type == 'past') {
+    //             $query2->where('end_date', '<', date('Y-m-d'));
+    //             $ascDesc = 'DESC';
+    //         } else {
+    //             $query2->where('end_date', '>=', date('Y-m-d'));
+    //         }
+    //        $query2->orderBy('start_date', $ascDesc);
+    //     }])
+    //         ->whereHas('purchase')
+    //         ->with([
+    //             'Brb' => function ($query2) {
+    //                 $query2->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+    //             }
+    //         ])
+    //         ->where('profile_name', '!=', null)
+    //         ->where('user_id', auth()->user()->id);
+
+    //     if ($search) {
+    //         $resultNoLImit = $resultNoLImit->where(function ($query2) use ($search) {
+    //             $query2->where('id', 'like', "%{$search}%")
+    //                 ->orWhere('profile_name', 'LIKE', "%{$search}%")
+    //                 ->orWhere('name', 'LIKE', "%{$search}%");
+    //         });
+    //     }
+    //     $resultNoLImit = $resultNoLImit->get();
+    //     foreach ($resultNoLImit as $escort2) {
+    //         if ($escort2['purchase']) {
+               
+    //             foreach ($escort2['purchase'] as $purchase2) {
+    //                  $recordTotal++;
+    //             }
+    //         }
+    //     }
+
+    //     $i = 1;
+
+    //     foreach ($result as $escort) {
+    //         if ($escort['purchase']) {
+    //             // $recordTotal++;
+    //             foreach ($escort['purchase'] as $purchase) {
+    //                 $daysDiff = 0;
+    //                 $brb = $escort['profile_name'];
+    //                 $totalAmount = 0;
+    //                 if (isset($escort['brb'][0]['brb_time'])) {
+    //                     $brb =
+    //                         '<span id="brb_' .
+    //                         $escort['id'] .
+    //                         '" >' .
+    //                         $escort['profile_name'] .
+    //                         ' <sup
+    //                                         title="Brb at ' .
+    //                         date(
+    //                             'd-m-Y h:i A',
+    //                             strtotime($escort['brb'][0]['brb_time']),
+    //                         ) .
+    //                         '"
+    //                                         class="brb_icon">BRB</sup></span>';
+    //                 }
+    //                 if (!empty($purchase['start_date'])) {
+    //                     $daysDiff = Carbon::parse(
+    //                         $purchase['end_date'],
+    //                     )->diffInDays(Carbon::parse($purchase['start_date']))+1;
+    //                     if($purchase['start_date'] == $purchase['end_date']) {
+    //                         $daysDiff = 1;
+    //                     }
+    //                     [$discount, $rate] = calculateTatalFee(
+    //                         $purchase['membership'],
+    //                         $daysDiff,
+    //                     );
+    //                     $totalAmount = $rate;
+    //                     $totalAmount -= $discount;
+    //                     $totalAmount = formatIndianCurrency($totalAmount);
+    //                 }
+    //                 $dataTableData[] = [
+    //                     //'sl_no' => $i++,
+    //                     'id' => $escort['id'],
+    //                     //'profile_name' => $escort['profile_name'],
+    //                     'profile_name' => $escort['profile_name'] ? $brb : 'NA',
+    //                     //'city' =>
+    //                     config(
+    //                         "escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName",
+    //                     ) .
+    //                         '<br>' .
+    //                         config("escorts.profile.states.$escort[state_id].stateName"),
+    //                     'city' => config(
+    //                         "escorts.profile.states.$escort[state_id].stateName",
+    //                     ),
+    //                     'name' => $escort['name'],
+    //                     'start_date' => date(
+    //                         'd-m-Y',
+    //                         strtotime($purchase['start_date']),
+    //                     ),
+    //                     'end_date' => date('d-m-Y', strtotime($purchase['end_date'])),
+    //                     'days' => $daysDiff,
+    //                     'membership' => $purchase['membership'] ? getMembershipType($purchase['membership']) : "NA",
+    //                     'fee' => $totalAmount,
+    //                 ];
+    //             }
+    //         }
+    //     }
+    //     // print_r($dataTableData);die;
+    //     $data = array(
+    //         "draw"            => intval(request()->input('draw')),
+    //         "recordsTotal"    => intval($recordTotal),
+    //         "recordsFiltered" => intval($recordTotal),
+    //         "data"            => $dataTableData
+    //     );
+
+    //     return response()->json($data);
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -838,8 +1015,6 @@ class EscortController extends Controller
             $endDate = $request->endDate;
             $escortId = $request->escortId;
             $escort = $this->escort->find($escortId);
-            $startDate = '11-11-2025';
-            $endDate = '15-11-2025';
 
             $conflictExists = Purchase::overlapping($startDate, $endDate)
                 ->whereHas('escort', function ($q) use ($escort) {

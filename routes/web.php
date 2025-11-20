@@ -320,52 +320,10 @@ Route::post('/admin-login', [App\Http\Controllers\Admin\AuthController::class, '
 Route::post('/admin-logout', [App\Http\Controllers\Admin\AuthController::class,'logout'])->name('admin.logout');
 
 
-
-/********** OPERATOR Login**********/
-Route::get('operator-login', [App\Http\Controllers\Admin\AuthController::class,'showOperatorLoginForm'])->name('operator.login');
-
-
-
-Route::get('operator-dashboard/',function(){
-    return view('operator.dashboard.index');
-})->name('operator.index');
-
-Route::get('operator-dashboard/edit-my-account',function(){
-    return view('operator.dashboard.my-account.edit-my-account');
-})->name('operator.edit-my-account');
-
-Route::get('operator-dashboard/change-password',function(){
-    return view('operator.dashboard.my-account.change-password');
-})->name('operator.change-password');
-
-Route::get('operator-dashboard/upload-avatar',function(){
-    return view('operator.dashboard.my-account.upload-avatar');
-})->name('operator.upload-avatar');
-
-Route::get('operator-dashboard/bank-account',function(){
-    return view('operator.dashboard.my-account.bank-account');
-})->name('operator.bank-account');
-
-Route::get('operator-dashboard/e4u-monthly-report',function(){
-    return view('operator.dashboard.e4u.e4u-monthly-report');
-})->name('operator.e4u-monthly-report');
-
-Route::get('operator-dashboard/agents-monthly-report',function(){
-    return view('operator.dashboard.agents.agents-monthly-report');
-})->name('operator.agents-monthly-report');
-
-/************ END ************/ 
-
-
-
 /********** Shareholder Login **********/
 Route::get('shareholder-login', [App\Http\Controllers\Admin\AuthController::class,'showShareholderLoginForm'])->name('shareholder.login');
 
 
-
-Route::get('shareholder-dashboard/',function(){
-    return view('shareholder.dashboard.index');
-})->name('shareholder.index');
 /************ END ************/ 
 // shortlist
 Route::post('/shortlist', [App\Http\Controllers\WebController::class,'saveShortList'])->name('web.save.shortlist');

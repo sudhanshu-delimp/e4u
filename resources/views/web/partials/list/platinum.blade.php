@@ -1,3 +1,7 @@
+@php
+    $escortName = ($escort->gender == 'Transgender')? 'TS-' . $escort->name : $escort->name;
+@endphp
+
 <div class="listview_each_section_border_btm silver-sec brb--listing">
     <div class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view list_provide_cruise plat_list_frame">
         <div class="row plat_num_row">
@@ -20,7 +24,7 @@
                                 <div class="add_to_fab_list_view_each_sec">
                                     @if(auth()->user())
                                         @if(auth()->user()->type == 0)
-                                        <span class="add_to_favrate custom--favourite @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif legboxClass_{{$escort->id}}" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}}">
+                                        <span class="add_to_favrate custom--favourite @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif legboxClass_{{$escort->id}}" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escortName}}">
                                             @if(!empty($user_type))
                                                 @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
                                                     <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
@@ -32,14 +36,14 @@
                                             @endif
                                         </span>
                                         @else
-                                        <span class="add_to_favrate custom--favourite" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My Legbox </span></span>
+                                        <span class="add_to_favrate custom--favourite" data-name="{{$escortName}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My Legbox </span></span>
                                         @endif
                                     @else
-                                    {{-- <span class="add_to_favrate"  data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span> --}}
-                                    <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My Legbox</span></span>
+                                    {{-- <span class="add_to_favrate"  data-escortId="{{$escort->id}}" data-name="{{$escortName}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span> --}}
+                                    <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escortName}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My Legbox</span></span>
                                     @endif
                                 </div>
-                                <div class="verify_image verify-image-custom">
+                                <div class="verify-image-custom">
                                     <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
                                 </div>
                             </div>
@@ -47,18 +51,18 @@
                     </div>
                     <div class="col-md-8 p-0 all-escort-view-profile-box">
                         <div class="mb-3 list_cruise pr-0 platinum-escort-list-view-custom">
-                            <div class="list_view_pla_name manage_name_responsive_in_gold">{{$escort->name}}</div>
+                            <div class="list_view_pla_name manage_name_responsive_in_gold">{{$escortName}}</div>
                             <div class="age" style="margin-top: 13px;">
                                 <span class="margin_and_font_size_color_for_free manage_age_responsive_in_gold">AGE:</span><span class="free_profile_age_color_and_font">{{$escort->age}}</span>
                             </div>
                             <div class="add_to_shortlist_btn manage_btn_gor_gold_in_responsive">
                                 @if(Request::path() == "showList")
-                                <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn removeshortlist custom-sort-filter"  data-name="{{$escort->name}}"  data-escortId="{{$escort->id}}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
+                                <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn removeshortlist custom-sort-filter"  data-name="{{$escortName}}"  data-escortId="{{$escort->id}}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
                                 Remove from Shortlist</button>
                                 @else
 
 
-                                <button type="button" class="btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_{{$escort->id}}" id="escort_{{$escort->id}}" data-name="{{$escort->name}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
+                                <button type="button" class="btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_{{$escort->id}}" id="escort_{{$escort->id}}" data-name="{{$escortName}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
                                     @if(!empty($escortId))
                                          @if(in_array($escort->id,$escortId))
                                         Remove from Shortlist
@@ -111,12 +115,17 @@
                                             @endif
                                         </span>
                                 </div>
+
+                                 @if($escort->escort_videos->count()>0)
                                 <div class="video_icon">
                                     <a href="#">
                                     <img src="{{ asset('assets/app/img/video_play.svg') }}">
                                     <span class="custom--tooltip">Escort has video to view</span>
                                     </a>
                                 </div>
+                                @endif
+
+                                
                             </div>
                         </div>
                         <div class="row mb-2 margin_lft_rgt_one_five  pr-0">
@@ -209,7 +218,7 @@
                     </tbody>
                     <thead class="table_heading_bgcolor_color">
                         <tr>
-                            <th class="payment_accept_text_color" scope="col" colspan="3">Available: <span class="date_from_available">{{ date('d-m-Y',strtotime($escort->start_date))}}</span>   to   <span class="date_from_available">{{date('y-m-d',strtotime($escort->end_date))}}</span></th>
+                            <th class="payment_accept_text_color" scope="col" colspan="3">Available: <span class="date_from_available">{{ date('d-m-Y',strtotime($escort->start_date))}}</span>   to   <span class="date_from_available">{{date('d-m-Y',strtotime($escort->end_date))}}</span></th>
                         </tr>
                     </thead>
                 </table>

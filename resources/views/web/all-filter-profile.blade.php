@@ -1429,8 +1429,8 @@
                 
 
                @if(auth()->user() && auth()->user()->type != 0)
-                    $(".my_legbox_title").text('My Legbox is only available to Viewers.');
-                    $(".my_legbox_footer").hide();
+                    $(".my_legbox_title").text('My Legbox is only available to Viewers. Please log in or Register to access your Legbox.');
+                    $(".my_legbox_footer").show();
                 @else
                     $(".my_legbox_title").text('My Legbox is only available to Viewers. Please log in or Register to access your Legbox.');
                     $(".my_legbox_footer").show();

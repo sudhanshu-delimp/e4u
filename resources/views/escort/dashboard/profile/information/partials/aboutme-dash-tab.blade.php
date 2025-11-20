@@ -534,31 +534,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500 custom--stathead" for="exampleFormControlSelect1" style="font-size: 18px;"><h2>Covid 19</h2></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <div class="pt-2 pb-3" data-i="{{$escort->covidreport}}">
-                            <div class="form-check form-check-inline ml-1">
-                                <input class="form-check-input covidreport" type="radio" name="covidreport" id="inlineRadio1" value="1"{{ $escort->getRawOriginal('covidreport') == 1 ? ' checked' : null }}>
-                                <label class="form-check-label" for="inlineRadio1">Vaccinated, not up to date</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input covidreport" type="radio" name="covidreport" id="inlineRadio2" value="2"{{ $escort->getRawOriginal('covidreport') == 2 ? ' checked' : null }}>
-                                <label class="form-check-label" for="inlineRadio2">Vaccinated, up to date</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input covidreport" type="radio" name="covidreport" id="inlineRadio3" value="3"{{ $escort->getRawOriginal('covidreport') == 3 ? ' checked' : null }}>
-                                <label class="form-check-label" for="inlineRadio3">Not Vaccinated</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <br>
                 <div class="row">
                     <div class="col-lg-12 stage">
@@ -571,12 +546,9 @@
                             
                             <div class="col-sm-12 stageListParent pl-1">
                                 <div class="col-sm-12 pl-0">
-                                <input type="text" class="form-control form-control-sm {{-- js-example-tokenizer--}}" id="st_name" placeholder="Enter stage name">
-                                </div>
-                                    {{-- <option value="">-Not Set-</option> --}}
-
-                                {{-- </select> --}}
-                                
+                                <input type="text" class="form-control form-control-sm" id="st_name" placeholder="Enter stage name">
+                            </div>
+                            <span><b>Note:</b>  <i>Save your new Stage Names before you apply the Sort feature.</i></span><br>
                                 <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{$escort->covidreport}}">
@@ -589,6 +561,7 @@
                                             <label class="form-check-label" for="random">Random</label>
                                         </div>
                                     </div>
+                                    
                                 </div>
 
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
@@ -612,6 +585,33 @@
                                         </ul>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group row tab-about-me-row-padding">
+                            <label class="col-sm-3 font-weight-500 custom--stathead" for="exampleFormControlSelect1" style="font-size: 18px;"><h2>Covid 19</h2></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="pb-3" data-i="{{$escort->covidreport}}">
+                            <div class="form-check form-check-inline ml-1">
+                                <input class="form-check-input covidreport" type="radio" name="covidreport" id="inlineRadio1" value="1"{{ $escort->getRawOriginal('covidreport') == 1 ? ' checked' : null }}>
+                                <label class="form-check-label" for="inlineRadio1">Vaccinated, not up to date</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input covidreport" type="radio" name="covidreport" id="inlineRadio2" value="2"{{ $escort->getRawOriginal('covidreport') == 2 ? ' checked' : null }}>
+                                <label class="form-check-label" for="inlineRadio2">Vaccinated, up to date</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input covidreport" type="radio" name="covidreport" id="inlineRadio3" value="3"{{ $escort->getRawOriginal('covidreport') == 3 ? ' checked' : null }}>
+                                <label class="form-check-label" for="inlineRadio3">Not Vaccinated</label>
                             </div>
                         </div>
                     </div>

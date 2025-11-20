@@ -101,9 +101,16 @@ class UpdateController extends AppController
         $error = true;
         $user = auth()->user();
         $escortDefault = $this->escort->findDefault($user->id, 1);
-        if (!empty(trim($request->name))) {
+        $users = $this->user->find($user->id);
 
-            $users = $this->user->find($user->id);
+        if($request->gender!="" && $user->gender=="")
+        {
+             $users->gender =  $request->gender;
+             $users->save();
+             $error = false;
+             return response()->json(compact('error'));
+        }   
+        if (!empty(trim($request->name))) {
 
             $escortNames = $users->escorts_names;
             if ($escortNames == NULL || !in_array($request->name, $escortNames)) {

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\MyAdvertiser;
 
+use Carbon\Carbon;
 use App\Models\Pricing;
 use Illuminate\Http\Request;
 use App\Models\MembershipPlan;
 use App\Models\PricingSummary;
+use App\Models\CommissionPlaybox;
 use App\Models\FeesSupportService;
 use App\Http\Controllers\Controller;
 use App\Models\FeesConciergeService;
@@ -15,7 +17,6 @@ use App\Http\Controllers\BaseController;
 use App\Repositories\User\UserInterface;
 use App\Repositories\Escort\EscortInterface;
 use App\Repositories\Pricing\PricingInterface;
-use App\Models\CommissionPlaybox;
 
 class PricingsummariesController extends BaseController
 {
@@ -107,6 +108,7 @@ class PricingsummariesController extends BaseController
                                     ->update([
                                         'discription'=>$request->discription,
                                         'amount'=>$request->amount,
+                                        'amount_type'=>$request->amount_type,
                                     ]);
             if($feesConciergeService)
             return $this->successResponse('Updated Successfully');
@@ -540,7 +542,7 @@ class PricingsummariesController extends BaseController
                
         foreach($fees_list as $key => $item) {
 
-            $item->amount_perent =  $item->amount;
+            $item->amount_perent = ($item->amount_type=='fixed') ? '$'.$item->amount : $item->amount.'%';
             $dropdown = '<div class="dropdown no-arrow">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -559,4 +561,54 @@ class PricingsummariesController extends BaseController
     }
     
     ###### End Set Commission - Playbox  #############
+
+
+
+
+    public function calculate(Request $request)
+    {
+        $request->validate([
+            'location' => 'required',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'membership_id' => 'required',
+            'members' => 'required|integer|min:1'
+        ]);
+
+        $start = Carbon::parse($request->start_date);
+        $end   = Carbon::parse($request->end_date);
+
+        // Count days including start + end
+        $days = $start->diffInDays($end) + 1;
+
+        // Get Membership Pricing
+        $ad = Pricing::where('membership_id', $request->membership_id)
+                ->with('memberships')
+                ->first();
+
+        if (!$ad) {
+            return response()->json(['error' => 'Membership not found'], 422);
+        }
+
+        $rate = $ad->discount_amount ?? $ad->price;
+
+        // Calculate Fee
+        if (str_contains(strtolower($ad->frequency), '1')) {
+            $fee = $rate * $days * $request->members;
+        } elseif (str_contains(strtolower($ad->frequency), '2')) {
+            $weeks = ceil($days / 7);
+            $fee = $rate * $weeks * $request->members;
+        } else {
+            $fee = $rate * $days * $request->members;
+        }
+
+        return response()->json([
+            'days' => $days,
+            'fee' => number_format($fee, 2),
+            'membership_name' => $ad->memberships->name ?? 'N/A',
+            'start_formatted' => $start->format('d-m-Y'),
+            'end_formatted' => $end->format('d-m-Y'),
+        ]);
+    }
+
 }

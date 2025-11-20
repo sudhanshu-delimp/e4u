@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
+use App\Mail\nums\num_confirmation_email;
 use App\Models\Num;
 use App\Models\State;
 use Carbon\Carbon;
@@ -11,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use DataTables;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class NumController extends Controller
 {
@@ -60,7 +63,25 @@ class NumController extends Controller
             'what_happened'     => $request->what_happened,
             'status'            => 'pending',
             'rating'            => $request->rating,
-        ]);
+        ]); 
+
+        $body = [
+            'ref' => '#'.$num->id,
+            'name' => Auth::user()->name ?? 'UserID',
+            'member_id' => Auth::user()->member_id ?? 'MemberID',
+            'report_date' => now()->setTimezone($timeZone['timeZone'])->format('d-m-Y'),
+            'subject' => 'Confirmation of New Report',
+            'status' => 'pending',
+        ];
+
+        if($num->status == 'pending'){
+            
+            try {
+                Mail::to(Auth::user()->email)->send(new num_confirmation_email($body));
+            } catch (\Exception $e) {
+                Log::info('NUM On Hold Email sending failed: ' . $e->getMessage());
+            }
+        }
 
         return response()->json([
             'status'  => true,

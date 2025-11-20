@@ -14,7 +14,7 @@ class EscortDashboardController extends Controller
         $user = Auth::user();
         $state = config('escorts.profile.states')[$user->state_id]['stateName'] ?? '';
         $logAndStatus = $user->LoginStatus;
-        $passwirdExpire = $user->passwordSecurity;
+        $passwirdExpire = $user->account_setting;
        $passwordExpiryText = CheckExpireDate($passwirdExpire->password_expiry_days);
       
         
@@ -24,16 +24,10 @@ class EscortDashboardController extends Controller
     public function updatePasswordDuration(UpdateEscortRequest $request)
     {   $user = Auth::user();
         $passwordExpiry = $request->input('password_expiry');
-
-        // Normalize 'never' to 0 for consistency
-        $expiryDays = ($passwordExpiry === 'never') ? 0 : (int) $passwordExpiry;
-
-        $passwordSecurity = $user->passwordSecurity;
-        if ($passwordSecurity) {
-            $passwordSecurity->update([
-                'password_expiry_days' => $expiryDays,
-                'password_updated_at' => now(),
-            ]);
+       
+        if ($user->account_setting) {
+            $user->account_setting->password_expiry_days = $passwordExpiry; 
+            $user->account_setting->save();
         } else {
             // Optionally handle the case where passwordSecurity is missing
             return response()->json([
@@ -42,11 +36,12 @@ class EscortDashboardController extends Controller
             ], 404);
         }
 
-        $passwordExpiryText = CheckExpireDate($expiryDays);
+        $passwordExpiryText = CheckExpireDate($passwordExpiry);
+       // dd($passwordExpiryText);
 
         return response()->json([
             'status' => true,
-            'passwordExp' => $expiryDays,
+            'passwordExp' => $passwordExpiry,
             'text' => $passwordExpiryText,
         ]);
     }

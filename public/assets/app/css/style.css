@@ -3001,7 +3001,7 @@ i.fa.fa-heart-o{
     
     .video_icon img {
         /*height: 30px;*/
-        width: 35px;
+        width: 25px;
     }
     
     .section_wise_level_icon_img {
@@ -3102,7 +3102,7 @@ i.fa.fa-heart-o{
         font-family: Poppins;
         font-style: normal;
         font-weight: 500;
-        font-size: 36px;
+        font-size: 25px;
         color: var(--peach);
         text-transform: capitalize;
     }
@@ -4722,18 +4722,6 @@ i.fa.fa-heart-o{
         transform: rotate(180deg);
     }
     
-    .platinum-sec {
-        /* border-left: 1px solid; */
-    }
-    
-    .silver-sec {
-        margin-left: 40px;
-    }
-    
-    .silver-sec:last-child {
-        /* border-bottom: 1px solid; */
-    }
-    
     .custom-mb {
         margin-bottom: 2rem;
     }
@@ -4758,7 +4746,7 @@ i.fa.fa-heart-o{
     
     .silver_card {
         border-bottom: 1px solid;
-        margin-left: 30px;
+        margin-bottom: 50px;
     }
     
     .free_card {
@@ -6025,11 +6013,22 @@ i.fa.fa-heart-o{
         border-color: var(--peach) transparent transparent transparent;
     }
     
-    .gold_list_frame .verify-image-custom {
+    .all-escort-profile-pic {
+        position: relative;
+    }
+    
+    .verify-image-custom {
         position: absolute;
-        top: unset !important;
         right: 0px;
-        bottom: 20px !important;
+        bottom: 0px;
+        width: 100px;
+        height: 32px;
+        background: #0c223d;
+        padding: 2px;
+    }
+    
+    .verify-image-custom img {
+        width: 100% !important;
     }
     
     .custom--service-tag .grid_list_icon_box:hover span {
@@ -6246,10 +6245,18 @@ i.fa.fa-heart-o{
         gap: 10px;
     }
     
+    .give_rating_after_get_servive {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
     .custom--available-section .video_icon,
     .custom--video-section,
     .video--icon {
         position: relative;
+        display: flex;
+        justify-content: end;
     }
     
     .custom--available-section .video_icon span.custom--tooltip,
@@ -6260,7 +6267,7 @@ i.fa.fa-heart-o{
         position: absolute;
         color: #fff;
         pointer-events: none;
-        left: 0;
+        right: 0;
         width: max-content;
         top: -35px;
         visibility: hidden;
@@ -6275,7 +6282,7 @@ i.fa.fa-heart-o{
         content: '';
         position: absolute;
         top: 100%;
-        left: 10px;
+        right: 10px;
         border-width: 5px;
         transform: rotate(0deg);
         border-style: solid;
@@ -6348,6 +6355,7 @@ i.fa.fa-heart-o{
         width: 100%;
         display: flex;
         gap: 10px;
+        justify-content: space-between;
     }
     
     .gold_list_frame th.payment_accept_text_color * {
@@ -6455,17 +6463,6 @@ i.fa.fa-heart-o{
         justify-content: space-between;
         flex-wrap: wrap !important;
         padding: 15px;
-    }
-    
-    .verify-image-custom {
-        position: absolute;
-        top: 350px !important;
-        right: 0px;
-        bottom: unset !important;
-    }
-    
-    .all-escort-profile-pic img {
-        max-height: 383px !important;
     }
     
     .all-escort-view-profile-box {
@@ -6795,7 +6792,7 @@ i.fa.fa-heart-o{
         content: '';
         position: absolute;
         top: 35%;
-        left: -6%;
+        right: 100%;
         margin-left: -5px;
         border-width: 5px;
         transform: rotate(90deg);
@@ -6916,12 +6913,12 @@ i.fa.fa-heart-o{
             margin: 10px 0px;
             display: flow-root;
         }
-        .verify-image-custom {
+        /* .verify-image-custom {
             position: absolute;
             top: 330px !important;
             right: 0px;
             bottom: unset !important;
-        }
+        } */
     }
     
     @media (max-width: 1500px) {

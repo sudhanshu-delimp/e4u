@@ -95,8 +95,7 @@
                 </button>
             </div>
             <div class="modal-body pb-0">
-                <form method="POST" id="createNotificationForm"
-                    action="{{ route('admin.centres.notifications.store') }}" data-parsley-validate>
+                <form method="POST" id="createNotificationForm"  action="{{ route('admin.centres.notifications.store') }}" data-parsley-validate>
                     @csrf
                     <div class="row">
                         <!-- Auto-generated Date (readonly) -->

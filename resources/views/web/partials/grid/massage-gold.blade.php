@@ -1,3 +1,8 @@
+@php
+    $escortName = ($escort->gender == 'Transgender') ? 'TS-' . $escort->name : $escort->name;
+@endphp
+
+
 <div class="col-lg col-md-6 col-sm-6 mb-5">
     <div class="six_column_content_top d-flex justify-content-between mid_tit wish_span" style="z-index: 1;width: 90%;">
        <span>
@@ -16,7 +21,7 @@
             
         @endphp
        <img src="{{$mediaImage}}" class="custom-sheild" title="This Escort's Media has been verified by E4U" style="width: 12px;height: 12px;"></span>
-       <span class="six_column_fonts_top">{{ substr($escort->name,0,15)}}</span>
+       <span class="six_column_fonts_top">{{ substr($escortName,0,15)}}</span>
        
         @if(auth()->user())
         {{-- {{ dd($user_type->massageCenterLegBox->pluck('id')->toArray()) }} --}}
@@ -31,12 +36,12 @@
                     @endif
                 </span>
             @else
-                <span class="add_to_favrate" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span>
+                <span class="add_to_favrate" data-name="{{$escortName}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span>
             @endif
        
         @else
-        {{-- <span class="add_to_favrate"  data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span> --}}
-            <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text">Add to My Legbox</span></span>
+        {{-- <span class="add_to_favrate"  data-escortId="{{$escort->id}}" data-name="{{$escortName}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span> --}}
+            <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escortName}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text">Add to My Legbox</span></span>
         @endif
       
       </span>
@@ -90,13 +95,13 @@
        </div>
     </a>
     @if(Request::path() == "massage-show-list") 
-        <button type="button" class="short-list btn btn-primary removeshortlist" id="escort_{{$escort->id}}" data-name="{{$escort->name}}" data-escortId="{{$escort->id}}">
+        <button type="button" class="short-list btn btn-primary removeshortlist" id="escort_{{$escort->id}}" data-name="{{$escortName}}" data-escortId="{{$escort->id}}">
        
         Remove from Shortlist</button>
         
     @else
 
-        <button type="button" class="short-list btn btn-primary shortlist myescort_{{$escort->id}}" id="escort_{{$escort->id}}" data-name="{{$escort->name}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
+        <button type="button" class="short-list btn btn-primary shortlist myescort_{{$escort->id}}" id="escort_{{$escort->id}}" data-name="{{$escortName}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
             @if(!empty($escortId))
                 {{-- @if($escort->shortListed->isEmpty()) --}}
                 @if(in_array($escort->id,$escortId))

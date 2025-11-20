@@ -17,7 +17,7 @@
                                     <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator"></span>
                                 </span>
                                 <span>
-                                    <b>Home State :  </b><span class="user-values" style="padding-left: 21%">{{auth()->user()->home_state  }} </span>
+                                    <b>Home State :  </b><span class="user-values" style="padding-left: 10%">{{auth()->user()->home_state  }} </span>
                                 </span>
 
                             </div>
@@ -135,36 +135,36 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border "></i>
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                     Member ID: {{auth()->user()->member_id }}
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                     User Name: {{auth()->user()->business_name }}
                                 </a>
                                         <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('agent.account.edit') }}">
-                                     <img class="mr-2 ml-1 pr-1" style="filter: brightness(0) invert(0.2);width:25px;" src="{{asset('assets/dashboard/img/menu-icon/edit-my-account.png') }}">
+                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                     Edit My Account
                                 </a>
                                 <a class="dropdown-item" href="{{ route('agent.change.password') }}">
-                                    <img class="mr-2 ml-1 pr-1" src="{{asset('assets/dashboard/img/menu-icon/changePassword.png')}}">
+                                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
                                     Change Password
                                 </a>
 
                                 
                                 <a class="dropdown-item" href="{{ route('agent.advertiser-list') }}">
-                                     <img class="mr-2 ml-1 pr-1" style="filter: brightness(0) invert(0.2); width:25px;" src="{{asset('assets/dashboard/img/menu-icon/lists.png') }}">
+                                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/list.png') }}">
                                     List Advertisers
                                 </a>
                                 <a class="dropdown-item" href="{{ route('Fees.statements') }}">
-                                    <img class="mr-2 ml-1 pr-1" style="filter: brightness(0) invert(0.2); width:25px;" src="{{asset('assets/dashboard/img/menu-icon/discount.png') }}">
+                                   <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/report.png') }}">
                                     Monthly Report
                                 </a>
                                 
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <img src="{{ asset('assets/dashboard/img/menu-icon/logout.png') }}" alt="">
+                                  <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                                     Logout
                                 </a>
                             </div>

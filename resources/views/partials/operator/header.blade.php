@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
-    <title>E4U - Escorts for you</title>
+    <link rel="shortcut icon" href="{{ asset('assets/dashboard/img/operator/favicon.ico') }}" />
+    <title>Operator Console</title>
 
     <!-- Custom fonts for this template-->
 
@@ -27,7 +27,7 @@
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.5') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/operator-style.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/operator-style.css?v1.1') }}" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Quicksand&display=swap" rel="stylesheet">

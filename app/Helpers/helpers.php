@@ -17,15 +17,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
-if (!function_exists('calculateTatalFee')) {
-    /**
-     * Calculate the fee
-     * 
-     * @param integer $plan
-     * @param integer $days
-     * @return array
-     */
-    function calculateTatalFee($plan, $days)
+if (!function_exists('calculateTotalFee')) {
+    function calculateTotalFee($plan=0, $days=0)
     {
         $dis_rate = 0;
         if ($plan == 1) {
@@ -53,14 +46,12 @@ if (!function_exists('calculateTatalFee')) {
                 $dis_rate = 0.2;
             }
         } else {
-            //return redirect()->route('escort.setting.profile',$id);
             $actual_rate = 0;
             $rate = 0;
             $dis_rate = 0;
         }
 
         if ($days !== null && $days <= 21) {
-            //$rate = $days*30/days;
             $total_rate = $days * $rate;
             $total_dis = 0;
         } else {
@@ -69,15 +60,16 @@ if (!function_exists('calculateTatalFee')) {
             $total_rate = ($above_day * $rate + $days_21);
             $total_dis = $above_day * $dis_rate;
         }
-
-        return [$total_dis, $total_rate];
+         $total_amount = $total_rate;
+         $total_amount -= $total_dis;
+        return [$total_dis, $total_rate, $total_amount];
     }
 }
-if (!function_exists('formatIndianCurrency')) {
+if (!function_exists('formatCurrency')) {
     /**
      * Format the amount
      */
-    function formatIndianCurrency($amount)
+    function formatCurrency($amount)
     {
         $amount = number_format($amount, 2, '.', ''); // keep 2 decimals
         list($intPart, $decimalPart) = explode('.', $amount);
@@ -434,7 +426,7 @@ if (!function_exists('CheckExpireDate')) {
     function CheckExpireDate($data)
     {
         $map = [
-            0 => 'Never',
+            'never' => 'Never',
             30 => 'Renew every 30 days',
             60 => 'Renew every 60 days',
             90 => 'Renew every 90 days',
@@ -608,4 +600,12 @@ if (!function_exists('showDateWithFormat')) {
         }
         return $formattedDate;
     }
+}
+
+function basicDateFormat($date){
+    if($date){
+        return \Carbon\Carbon::parse($date)->format('d-m-Y');
+    }else{
+        return '';
+    }   
 }

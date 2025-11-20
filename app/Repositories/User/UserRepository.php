@@ -538,6 +538,7 @@ class UserRepository extends BaseRepository implements UserInterface
     
     public function update_account_setting($data)
     {
+        
         if(auth()->user())
         {
              $user = auth()->user();

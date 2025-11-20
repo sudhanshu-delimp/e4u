@@ -1,3 +1,8 @@
+@php
+    $escortName = ($escort->gender == 'Transgender')? 'TS-' . $escort->name : $escort->name;
+@endphp
+
+
 <div class="col-md-6 col-lg-6 col-sm-6 col-12 px-md-2 brb--listing silver-brb">
     <div
         class="manage_listview_margin_siliver_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view silver_listbx">
@@ -27,7 +32,7 @@
                                         class="add_to_favrate custom--favourite @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray())) {{ 'null' }}@else{{ 'fill' }} @endif legboxClass_{{ $escort->id }}"
                                         id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
                                         data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"
-                                        data-name="{{ $escort->name }}">
+                                        data-name="{{ $escortName }}">
                                         @if (!empty($user_type))
                                             @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray()))
                                                 <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
@@ -39,14 +44,14 @@
                                         @endif
                                     </span>
                                 @else
-                                    <span class="add_to_favrate custom--favourite" data-name="{{ $escort->name }}"><i
+                                    <span class="add_to_favrate custom--favourite" data-name="{{ $escortName }}"><i
                                             class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My Legbox</span></span>
                                 @endif
                             @else
                                 {{-- <span class="add_to_favrate" data-escortId="{{ $escort->id }}"
-                                    data-name="{{ $escort->name }}"><i class="fa fa-heart-o" aria-hidden="true"
+                                    data-name="{{ $escortName }}"><i class="fa fa-heart-o" aria-hidden="true"
                                         title="Add to Legbox"></i></span> --}}
-                                <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text list-tool">Remove from My Legbox</span></span>
+                                <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escortName}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text list-tool">Remove from My Legbox</span></span>
                             @endif
                         </div>
                         <div class="verify_image verify-image-custom">
@@ -58,7 +63,7 @@
             <div class="col-lg-8 col-md-12 col-sm-12 col-12 pt-1">
                 <div class="d-flex justify-content-between">
                     <div class="">
-                        <h5 class="list_view_sil_and_free_name">{{ $escort->name }}</h5>
+                        <h5 class="list_view_sil_and_free_name">{{ $escortName }}</h5>
                     </div>
                     <div class="age"><span class="margin_and_font_size_color_for_free">AGE:</span><span
                             class="free_profile_age_color_and_font">{{ $escort->age }}</span></div>
@@ -120,10 +125,17 @@
                                 class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">Add
                             to Shortlist</button>
                     </div>
+
+
+                    @if($escort->escort_videos->count()>0)
                     <div class="video_icon custom--video-section">
                         <a href="#"><img src="{{ asset('assets/app/img/video_play.svg') }}">
                             <span class="custom--tooltip">Escort has video to view</span></a>
                     </div>
+                    @endif
+
+
+
                 </div>
                 @php
                     $plainTextAbout = strip_tags($escort->about);

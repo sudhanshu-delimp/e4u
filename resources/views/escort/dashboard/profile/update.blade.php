@@ -255,6 +255,10 @@ $loginAccount = auth()->user();
         window.App = window.App || {};
         window.App.escortId = '{{$escort->id}}';
 
+        var profile_gender = '{{auth()->user()->gender}}';
+
+        
+
         var trans_gender = 0;    
         
         $(document).on('change', '#Gender', function(e) {
@@ -262,10 +266,10 @@ $loginAccount = auth()->user();
         });
 
         $(document).on('click', '.gender_alert', function(e) {
-             call_gender_alert();
+             call_gender_alert($('#Gender').val());
         });
 
-        function call_gender_alert()
+        function call_gender_alert(trans_gender)
         {
              if($.trim(trans_gender)==3) 
               {
@@ -1238,9 +1242,19 @@ $loginAccount = auth()->user();
                 let days = ["mon", "tue", "wed", "thur", "fri", "sat", "sun"];
                 $(".change_default").focus(function() {
                     previous = this.value;
-
                 }).on('change paste', function() {
                     // Do soomething with the previous value after the change
+
+
+                   let inputName = $(this).attr('name');
+                   if ( inputName==='gender' && profile_gender !== "Null" && profile_gender !== "") 
+                   {
+                        call_gender_alert(this.value);
+                        return false;
+                   }
+
+                  
+
                     var Current = $(this).val();
                     var original = $(this).parent().prev().text();
                     let label = original.substring(0, original.lastIndexOf(":"));
@@ -1249,6 +1263,8 @@ $loginAccount = auth()->user();
                     $('#label').val(label);
                     $('#current').val(Current);
                     $('#previous').val(previous);
+
+
 
                     if (label == 'stageName' && Current === 'new') {
 

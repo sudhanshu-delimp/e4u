@@ -3,9 +3,18 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!-- Page Heading -->
    <div class="row">
+      <div class="cal-lg-12 w-100">
+         @if($agentNotifications)
+         @foreach ($agentNotifications as $notification)
+             <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success" />
+         @endforeach
+         @endif
+          
+      </div>
       <div class="custom-heading-wrapper col-md-12">
          <h1 class="h1">Dashboard</h1>
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+
       </div>
       <div class="col-md-12 mb-4">
          <div class="card collapse" id="notes" style="">
@@ -105,7 +114,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
          <div class="my-custom-box shadow-sm">
-             <a href="{{ route('marketing.agencreate-prospect') }}">
+             <a href="{{ route('agent.database-centers') }}">
                  <div class="box-icon">
                      <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt=" Database (Centers)">
                  </div>

@@ -110,10 +110,12 @@ class StaffRepository extends BaseRepository implements StaffInterface
                     'kin_relationship' => $data['kin_relationship'] ?? null,
                     'kin_mobile' => $data['kin_mobile'] ?? null,
                     'kin_email' => $data['kin_email'] ?? null,
-                    'position' => $data['position'] ?? null,
+                   
                     'location' => $data['location'] ?? null,
                     'commenced_date' => $data['commenced_date'] ?? null,
                     'security_level' => $data['security_level'] ?? null,
+                    //'position' => $data['position'] ?? null,
+                     'position' => $data['security_level'] ?? null,
                     'employment_status' => $data['employment_status'] ?? null,
                     'employment_agreement' => $data['employment_agreement'] ?? null,
                     'building_access_code' => $data['building_access_code'] ?? null,

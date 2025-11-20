@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
      <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
-        <title>E4U - Escorts for you</title>
+        <title>Escort Console</title>
 
     <!-- Custom fonts for this template--> 
 
@@ -23,7 +23,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.3') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.5') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload-ui.css') }}" />

@@ -82,16 +82,16 @@ $loginAccount = auth()->user();
                         <table class="listing-summary-table table table-bordered">
                             <thead class="bg-first">
                                 <tr>
-                                    <th>Listing</th>
-                                    <th>Stage Name</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Duration</th>
-                                    <th>Membership Type</th>
-                                    <th>Rate</th>
-                                    <th>Full Fee</th>
-                                    <th>Discount</th>
-                                    <th>Discounted Fee</th>
+                                    <th class="text-center">Listing</th>
+                                    <th class="text-center">Stage Name</th>
+                                    <th class="text-center">Start Date</th>
+                                    <th class="text-center">End Date</th>
+                                    <th class="text-center">Days</th>
+                                    <th class="text-center">Membership Type</th>
+                                    <th class="text-center">Rate</th>
+                                    <th class="text-center">Full Fee</th>
+                                    <th class="text-center">Discount</th>
+                                    <th class="text-center">Discounted Fee</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -104,24 +104,24 @@ $loginAccount = auth()->user();
                                             $totalAmount += $rate;
                                         @endphp
                                     <tr>
-                                        <td>{{ $idx+1 }}</td>
-                                        <td>{{ $listing['escort_id'] ? $escorts[$listing['escort_id']] : ''}}</td>
-                                        <td>{{ $listing['start_date'] ? date('d-m-Y',strtotime($listing['start_date'])) : ''}}</td>
-                                        <td>{{ $listing['end_date'] ? date('d-m-Y',strtotime($listing['end_date'])) : ''}}</td>
-                                        <td>{{ $daysDiff }}</td>
-                                        <td>{{ $membership[$listing['membership']] }}</td>
-                                        <td><span class="mr-2">$</span>  {{ number_format($discount > 0 ? ($fullFee / $daysDiff) : ($rate / $daysDiff), 2) }}</td>
-                                        <td><span class="mr-2">$</span>  {{ number_format($fullFee, 2) }}</td>
-                                        <td><span class="mr-2">$</span>  {{ number_format($discount, 2) }}</td>
-                                        <td><span class="mr-2">$</span>  {{ number_format($rate, 2) }}</td>
+                                        <td class="text-center">{{ $idx+1 }}</td>
+                                        <td class="text-center">{{ $listing['escort_id'] ? $escorts[$listing['escort_id']] : ''}}</td>
+                                        <td class="text-center">{{ $listing['start_date'] ? date('d-m-Y',strtotime($listing['start_date'])) : ''}}</td>
+                                        <td class="text-center">{{ $listing['end_date'] ? date('d-m-Y',strtotime($listing['end_date'])) : ''}}</td>
+                                        <td class="text-center">{{ $daysDiff }}</td>
+                                        <td class="text-center">{{ $membership[$listing['membership']] }}</td>
+                                        <td class="text-center"><span class="mr-2">$</span>  {{ number_format($discount > 0 ? ($fullFee / $daysDiff) : ($rate / $daysDiff), 2) }}</td>
+                                        <td class="text-center"><span class="mr-2">$</span>  {{ number_format($fullFee, 2) }}</td>
+                                        <td class="text-center"><span class="mr-2">$</span>  {{ number_format($discount, 2) }}</td>
+                                        <td class="text-center"><span class="mr-2">$</span>  {{ number_format($rate, 2) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="8" class="border-0"></td>
-                                    <td  style="text-align:right;"><b>Total Fees:</b></td>
-                                    <td><b><span class="mr-2">$</span> {{ number_format($totalAmount, 2) }}</b></td>
+                                    <td  class="text-center"><b>Total Fees:</b></td>
+                                    <td class="text-center"><b><span class="mr-2">$</span> {{ number_format($totalAmount, 2) }}</b></td>
                                 </tr>
                             </tfoot>
                         </table>

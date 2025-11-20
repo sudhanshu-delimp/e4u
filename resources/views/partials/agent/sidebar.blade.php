@@ -239,13 +239,13 @@
                         style="{{ request()->segment(2) == 'advertiser-social-media' ? 'color: #e5365a;' : '' }}">Advertiser
                         Social Media</span>
                 </a> --}}
-                <a class="collapse-item" href="{{ route('agent.prospets-memberships') }}">
+                {{-- <a class="collapse-item" href="{{ route('agent.prospets-memberships') }}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                         src="{{ asset('assets/app/img/membership.png') }}">
                     <span
                         style="{{ request()->segment(2) == 'prospets-memberships' ? 'color: #e5365a;' : '' }}">Prospets
                         & Memberships</span>
-                </a>
+                </a> --}}
                 
                 <a class="collapse-item" href="{{ route('agent.toursummary') }}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"

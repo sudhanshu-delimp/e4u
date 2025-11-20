@@ -75,7 +75,7 @@
                                         </li>
                                     </ol>
                                 </li>
-                                <li>Where you suspend a listing that is currently posted, you will not be refunded any
+                                <li>Where you suspend a listing that is currently Listed, you will not be refunded any
                                     Fee.
                                 </li>
                             </ol>
@@ -110,7 +110,8 @@
                                         <th>Start Date</th>
                                         <th>End Date</th>
                                         <th>Days</th>
-                                         <th>Membership</th>
+                                        <th>Membership</th>
+                                        <th>Status</th>
                                         <th>Fee @if ($type == 'past')
                                                 Paid
                                             @endif
@@ -141,7 +142,6 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function(e) {
-              var shouldHide = true;
             var table = $("#listings").DataTable({
                 processing: true,
                 serverSide: true,
@@ -155,7 +155,6 @@
                 },
                 drawCallback: function(settings) {
                     var api = this.api();
-                    //var records = api.data().length;
                     var length = table.page.info().recordsTotal;
                     if (length <= 10) {
                        $('.dataTables_paginate').show();
@@ -178,25 +177,27 @@
                     url: "{{ route('escort.list.dataTableListing', $type) }}",
                     data: function(d) {
                         d.type = 'player';
-                      //  d.type = "{{$type}}";
                     }
                 },
 
                 columns: [{
-                        data: 'id',
+                        data: 'escort_id',
                         searchable: true,
+                        orderable: true
+                    },
+                    {
+                        data: 'profile_name',
+                        orderable: true
+                    },
+                    {
+                        data: 'location',
+                        searchable: false,
                         orderable: false
                     },
                     {
-                        data: 'profile_name'
-                    },
-                    {
-                        data: 'city',
+                        data: 'stage_name',
                         searchable: false,
-                    },
-                    {
-                        data: 'name',
-                        searchable: true,
+                        orderable: true
                     },
                     {
                         data: 'start_date',
@@ -207,13 +208,26 @@
                         searchable: false,
                     },
                     {
-                        data: 'days',
-                        searchable: false
+                        data: 'days_number',
+                        searchable: false,
+                        orderable: true
                     },
-                     { data: 'membership', name: 'membership', searchable: false, orderable:true ,defaultContent: 'NA', visible: shouldHide},
+                    { 
+                        data: 'membership',
+                        searchable: false, 
+                        orderable:false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'status',
+                        searchable: false,
+                        orderable: false,
+                        visible: '{{$type == "past"?false:true}}'
+                    },
                     {
                         data: 'fee',
-                        searchable: false
+                        searchable: false,
+                        orderable: false
                     }
                 ]
             });

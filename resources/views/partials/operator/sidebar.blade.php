@@ -23,7 +23,7 @@
                 aria-expanded="true" aria-controls="collapseOne">
                 
                 <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
-                <span>My Account</span>
+                <span>Our Account</span>
             </a>
             <div id="collapseOne" class="collapse @if (request()->segment(2) == 'edit-my-account' ||
                     request()->segment(2) == 'change-password' ||

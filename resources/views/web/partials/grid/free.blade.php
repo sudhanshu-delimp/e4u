@@ -1,4 +1,9 @@
 
+@php
+    $escortName = ($escort->gender == 'Transgender') ? 'TS-' . $escort->name : $escort->name;
+@endphp
+
+
 <div class="col-lg col-md-6 col-sm-6 mb-2">
     <a href="{{ route('profile.description',[$escort->id, $escort->city_id, $escort->membership])}}?brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}">
         <div class="card card_box_style">
@@ -11,7 +16,7 @@
             @endif
             <img class="card-img-top" src="{{ asset('assets/app/img/service-provider/Frame-408.png') }}" alt="Card image cap">
             <div class="nine_column_content_top nine_column_top_font_size">
-                <span class="card_top_title_center">{{$escort->name}} </span>
+                <span class="card_top_title_center">{{$escortName}} </span>
             </div>
             <div class="content_bottom_and_padding_all_side_nine_col">
                 <div class="display_inline_block nine_column_top_font_size"><span>{{$escort->city ? $escort->city->name : ''}} {{ $escort->age ? " - ".$escort->age : "" }}</span></div>

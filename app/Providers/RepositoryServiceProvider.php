@@ -61,6 +61,12 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Escort\EscortInterface',
             'App\Repositories\Escort\EscortRepository'
         );
+
+        $this->app->bind(
+            'App\Repositories\Purchase\PurchaseInterface',
+            'App\Repositories\Purchase\PurchaseRepository'
+        );
+
         $this->app->bind(
             'App\Repositories\Agent\AgentEscortInterface',
             'App\Repositories\Agent\AgentEscortRepository'

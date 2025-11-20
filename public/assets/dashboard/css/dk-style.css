@@ -129,10 +129,10 @@ span.menu-active {
 .sidebar .nav-item .collapse .collapse-inner .collapse-item,
 .sidebar .nav-item .collapsing .collapse-inner .collapse-item {
     padding-top: 0;
-    padding-bottom: 13px;
-    padding-left: 34px;
+    padding-bottom: 10px;
+    padding-left: 22px;
     font-family: Poppins;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 24px;
@@ -142,7 +142,7 @@ span.menu-active {
 }
 
 .sidebar .nav-item .collapse-inner .collapse-item img {
-    margin-right: 15px;
+    margin-right: 5px;
     width: 21px;
     height: 20px;
     object-fit: contain;
@@ -167,10 +167,13 @@ span.menu-active {
     color: #0c223d!important;
     font-weight: 500;
 }
-.ui-state-highlight, .ui-widget-content .ui-state-highlight {
+
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight {
     background: #0c223d !important;
     color: #ffffff !important;
 }
+
 .dk-border-radius {
     border: 1px solid #D6D7E3;
     border-radius: 7px;
@@ -284,10 +287,6 @@ span.menu-active {
     border-radius: 40px;
     width: 42px;
     height: 40px;
-}
-
-.sidebar .nav-item .nav-link span {
-    font-size: 16px !important;
 }
 
 #content {
@@ -4791,7 +4790,7 @@ white-space: nowrap;
 .sidebar .nav-item .nav-link svg,
 .sidebar .nav-item .nav-link img,
 .sidebar .nav-item.v-last-setting span.v-icon {
-    margin-right: 15px;
+    margin-right: 5px;
     width: 22px;
     height: auto;
     object-fit: fill;
@@ -8766,6 +8765,11 @@ td {
     left: 0;
 }
 
+.profile_icons {
+    width: 20px;
+    margin-right: 10px;
+}
+
 .custom-profile-pic {
     height: 40px !important;
     width: 40px !important;
@@ -8777,7 +8781,13 @@ td {
 .escort_header_top_menu {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    font-size: 13px;
+    font-size: 14px;
+}
+
+.shareholder_header_top_menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 14px;
 }
 
 .justify-navbar {
@@ -8816,7 +8826,8 @@ td {
     .topbar-logged-in-user-data .d-user-info {
         max-width: 295px;
     }
-    .escort_header_top_menu {
+    .escort_header_top_menu,
+    .shareholder_header_top_menu {
         font-size: 12px;
     }
 }

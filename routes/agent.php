@@ -223,6 +223,8 @@ Route::post('agent/task-delete',[AgentTaskController::class,'destroy'])->name('a
 Route::get('pricingsummaries',[PricingsummariesController::class ,'showPricingsummary'])->name('pricingsummaries');
 Route::get('pricingsummaries-datatable',[PricingsummariesController::class ,'PricingDataTable'])->name('agent.myPricing.dataTable');
 Route::post('update-pricing-detail',[PricingsummariesController::class ,'storePricingDetail'])->name('agent.save.pricing.details');
+Route::get('calculate-reckoner',[PricingsummariesController::class ,'showPricingsummary'])->name('pricingsummaries');
+Route::post('calculate-reckoner', [PricingsummariesController::class, 'calculate'])->name('agent.reckoner-calculate');
 
 
 Route::get('bank_account',[AgentAccountController::class,'bankDetails'])->name('bank_account');
@@ -282,4 +284,6 @@ Route::post('/appointments/{id}/reschedule', [AppointmentController::class, 'res
 Route::post('/appointments/{id}/complete', [AppointmentController::class, 'complete'])->name('agent.appointments.complete');
 Route::get('/appointments-count', [AppointmentController::class, 'appointmentCount'])->name('agent.appointment.count');
 Route::get('/appointment-pdf-download/{id}', [AppointmentController::class, 'appointmentPdfDownload'])->name('agent.appointment.pdf.download');
+Route::get('/dashboard/notifications', [\App\Http\Controllers\Agent\AppointmentController::class, 'showAgentNotifications'])->name('agent.dashboard.notifications');
+Route::get('/dashboard/notifications/datatable', [\App\Http\Controllers\Agent\AppointmentController::class, 'notificationsDatatable'])->name('agent.dashboard.notifications.datatable');
 

@@ -13,5 +13,12 @@ return [
         '3'  => 'Level 3',
         '4'  => 'Level 4',
     ],
-    'staff_role_type' => '6'
+     'position' => [
+        '1' => 'Managing Director',
+        '2'  => 'Director',
+        '3'  => 'Staff',
+        '4'  => 'Developer',
+    ],
+    'staff_role_type' => '6',
+    'staff_member_id_prefix' => 'S'
 ];

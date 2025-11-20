@@ -560,6 +560,7 @@
                     request()->segment(3) == 'escorts' ||
                     request()->segment(3) == 'centres') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+               
                 <div class="py-0 collapse-inner rounded mb-2">
                     {{-- global --}}
                     <a href="{{ route('admin.global', ['from' => 'sidebar']) }}" class="collapse-item">
@@ -568,7 +569,8 @@
                             style="{{ request()->segment(3) == 'global' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Global</span>
                     </a>
                     {{-- agents --}}
-                    <a href="{{ route('admin.agents') }}" class="collapse-item">
+                    
+                    <a href="{{ route('admin.agent.notifications.index') }}" class="collapse-item">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/agent.png') }}">
                         <span
                             style="{{ request()->segment(3) == 'agents' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Agents</span>
@@ -760,31 +762,31 @@
                 <div class="py-0 collapse-inner rounded mb-2">
                     <a class="nav-link collapsed" href="{{ route('admin.agent-requests', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/agent-request.png') }}">
                         <span style="{{ request()->is('*agent-requests*') ? 'color: #e5365a;' : '' }}">Agent
                             Requests</span>
                     </a>
                     <a class="nav-link collapsed" href="{{ route('admin.credit') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/credits.png') }}">
                         <span style="{{ request()->is('*credit*') ? 'color: #e5365a;' : '' }}">Credits</span>
                     </a>
 
                      <a class="nav-link collapsed" href="{{ route('admin.num') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png') }}">
                         <span style="{{ request()->is('*num*') ? 'color: #e5365a;' : '' }}">NUM</span>
                     </a>
                     <a class="nav-link collapsed" href="{{ route('admin.transaction-summary', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/transaction-summary.png') }}">
                         <span
                             style="{{ request()->is('*transaction-summary*') ? 'color: #e5365a;' : '' }}">Transaction
                             Summary</span>
                     </a>
                     <a class="nav-link collapsed" href="{{ route('admin.advertiser-suspensions') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/suspension.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/profile-suspensions.png') }}">
                         <span
                             style="{{ request()->is('*advertiser-suspensions*') ? 'color: #e5365a;' : '' }}">Advertiser
                             Suspensions</span>

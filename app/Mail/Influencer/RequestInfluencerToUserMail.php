@@ -33,6 +33,5 @@ class RequestInfluencerToUserMail extends Mailable implements ShouldQueue
             ->markdown('emails.Influencer.requestInfluencer')
             ->subject($this->data['subject'])
             ->with('body',$this->data);
-        return $this->view('view.name');
     }
 }

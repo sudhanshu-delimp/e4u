@@ -14,9 +14,11 @@ use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Admin\AdvertiserReviewsController;
+use App\Http\Controllers\Admin\AgentNotificationController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\CenterNotificationController;
 use App\Http\Controllers\Admin\AdminMakeNotificationController;
+use App\Http\Controllers\Admin\AdminNumsController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
@@ -232,9 +234,14 @@ Route::get('reports/agent-requests',function(){
     return view('admin.reports.agent-requests');
 })->name('admin.agent-requests');
 
-Route::get('reports/num',function(){
-    return view('admin.reports.num');
-})->name('admin.num');
+// Route::get('reports/num',function(){
+//     return view('admin.reports.num');
+// })->name('admin.num');
+
+Route::get('reports-num',[AdminNumsController::class,'index'])->name('admin.num');
+Route::get('reports-num-ajax',[AdminNumsController::class,'showReportOnDashboardAjax'])->name('admin.num.ajax');
+Route::post('reports-num-status',[AdminNumsController::class,'updateStatus'])->name('admin.num.status.ajax');
+Route::get('reports-num-email',[AdminNumsController::class,'viewReport'])->name('admin.num.status.email');
 
 Route::get('reports/transaction-summary',function(){
     return view('admin.reports.transaction-summary');
@@ -272,16 +279,23 @@ Route::post('/active-agent-account',[AgentController::class,'activate_user'])->n
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');
 
 
-// Notification system for admin
+//Centres Notification system for admin
 
 Route::get('notifications/centres/list', [CenterNotificationController::class, 'index'])->name('admin.centres.notifications.index');
-//Route::post('/list', [AdminMakeNotificationController::class, 'list'])->name('admin_make_notifications.list');
 Route::post('/notifications/centres/store', [CenterNotificationController::class, 'store'])->name('admin.centres.notifications.store');
 Route::get('/notifications/centres/{id}', [CenterNotificationController::class, 'show'])->name('admin.centres.notifications.show');
 Route::post('/notifications/centres/{id}/remove', [CenterNotificationController::class, 'updateStatus'])->name('admin.centres.notifications.remove');
 Route::get('/notifications/centres/pdf-download/{id}', [CenterNotificationController::class, 'pdfDownload'])->name('admin.centres.pdf.download');
-//Route::post('/remove/{id}', [AdminMakeNotificationController::class, 'remove'])->name('admin_make_notifications.remove');
 
+//Agent Notification system for admin
+Route::get('notifications/agents/list', [AgentNotificationController::class, 'index'])->name('admin.agent.notifications.index');
+Route::post('/notifications/agent/store', [AgentNotificationController::class, 'store'])->name('admin.agent.notifications.store');
+Route::get('/notifications/agent/{id}', [AgentNotificationController::class, 'show'])->name('admin.agent.notifications.show');
+Route::post('/notifications/agent/{id}/suspend', [AgentNotificationController::class, 'updateStatus'])->name('admin.agent.notifications.suspend');
+Route::post('/notifications/agent/{id}/status', [AgentNotificationController::class, 'changeStatus'])->name('admin.agent.notifications.status');
+Route::get('/notifications/agent/pdf-download/{id}', [AgentNotificationController::class, 'pdfDownload'])->name('admin.agent.pdf.download');
+Route::get('/notifications/{id}/edit', [AgentNotificationController::class, 'edit'])->name('admin.agent.notifications.edit');
+Route::post('/notifications/{id}/update', [AgentNotificationController::class, 'update'])->name('admin.agent.notifications.update');
 
 
 ################### PDF ###################

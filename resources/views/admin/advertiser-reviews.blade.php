@@ -298,36 +298,36 @@
     {{-- confirm modal --}}
     <div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content basic-modal">
-            <div class="modal-header border-0">
-                <input type="hidden" id="status_data_id">
-                <input type="hidden" id="status_data_value">
-                <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
-                    <img src="{{ asset('assets/dashboard/img/question-mark.png') }}" alt="resolved"  class="custompopicon">
-                    <span>Confirmation <span class="ref_clas"></span></span>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                    </span>
-                </button>
-            </div>
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header border-0">
+                    <input type="hidden" id="status_data_id">
+                    <input type="hidden" id="status_data_value">
+                    <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
+                        <img src="{{ asset('assets/dashboard/img/question-mark.png') }}" alt="resolved"  class="custompopicon">
+                        <span>Confirmation <span class="ref_clas"></span></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
 
-            <div class="modal-body pb-0 teop-text text-center">
-                <h6 class="popu_heading_style mt-2">
-                    <span id="Lname">Are you sure you want to <span class="add_review_title"></span> this Review?</span>
-                </h6>
+                <div class="modal-body pb-0 teop-text text-center">
+                    <h6 class="popu_heading_style mt-2">
+                        <span id="Lname">Are you sure you want to <span class="add_review_title"></span> this Review?</span>
+                    </h6>
 
-            </div>
+                </div>
 
-            <div class="modal-footer justify-content-center border-0 pb-4">
-                <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
-                <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal" aria-label="Close">Save</button>
+                <div class="modal-footer justify-content-center border-0 pb-4">
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
+                    <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal" aria-label="Close">Save</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
     {{-- published modal --}}
@@ -409,7 +409,7 @@
 
         
         
-    });
+    }); 
 
     $(document).on('click', '.update-review-status', function(e) {
         e.preventDefault();

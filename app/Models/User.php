@@ -396,15 +396,17 @@ class User extends Authenticatable
             return 'DL' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id) . ':001';
         }
         if ($this->type == 6) {
-            $memberId = 'ST' . $this->city_id . sprintf("%04d", $this->id);
+            $staffPrefix = config('staff.staff_member_id_prefix');
+            $memberId = $staffPrefix . $this->city_id . sprintf("%04d", $this->id);
             $staff = User::select(['id', 'name', 'member_id'])
                 ->where('type', '6')
                 ->where('member_id', '!=', '')
+                ->where('member_id', '!=', 'S60001')
                 ->orderByDesc('id')
                 ->first();
             if ($staff && !empty($staff->member_id)) {
                 $code = trim($staff->member_id);
-                $prefix = 'ST';
+                $prefix = 'S';
                 preg_match('/\d+$/', $code, $numberMatch);
                 $number = isset($numberMatch[0]) ? (int)$numberMatch[0] : 0;
                 $length = strlen($numberMatch[0] ?? '00002');
@@ -412,7 +414,7 @@ class User extends Authenticatable
                 $newCode = $prefix . str_pad($number + 1, $length, '0', STR_PAD_LEFT);
                 $memberId = $newCode;
             } else {
-                $memberId = 'ST60002';
+                $memberId = 'S60002';
             }
 
             return $memberId;
