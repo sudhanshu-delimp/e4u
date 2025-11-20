@@ -133,6 +133,7 @@
                             </div>
                             <!-- Type Field (fixed Adhoc Content) -->
                             <div class="col-12 mb-3">
+                                 <label class="label">Select Type</label>
                                 <select id="type" onchange="toggleFields()" name="type"
                                     class="form-control rounded-0" required>
                                     <option value="">-- Select Type --</option>
@@ -144,6 +145,7 @@
 
 
                             <div id="templateSelect" style="display: none;" class="col-12 mb-3">
+                                <label class="label">Select Template</label>
                                 <select id="template_name" name="template_name" class="form-control rounded-0">
                                     <option value="">-- Choose a Template --</option>
                                     <option value="Check out our Visa services. Go to Concierge and select- Visa.">Check
@@ -169,12 +171,14 @@
 
                             <!-- Notice Section -->
                             <div id="noticeSection" class="col-12 mb-3" style="display: none;">
+                                <label class="label">Member Id</label>
                                 <input type="text" id="member_id" name="member_id" class="form-control"
                                     placeholder="Member Id e.g. 123456">
                             </div>
 
                             <!-- content -->
                             <div class="col-12 mb-3" id="contentField">
+                                <label class="label">Content</label>
                                 <textarea id="edit_content" name="content" class="form-control" placeholder="up to 250 characters..."></textarea>
 
                             </div>
@@ -423,7 +427,8 @@
                 },
                 {
                     data: 'start_date',
-                    name: 'start_date'
+                    name: 'start_date',
+                    
                 },
                 {
                     data: 'end_date',
@@ -435,7 +440,7 @@
                 },
                 {
                     data: 'status',
-                    name: 'status'
+                    name: 'status',
                 },
                 {
                     data: 'action',
@@ -445,9 +450,7 @@
                     className: 'text-center'
                 },
             ],
-            order: [
-                [1, 'desc']
-            ],
+            order: [],
             lengthMenu: [
                 [10, 25, 50, 100],
                 [10, 25, 50, 100]

@@ -12,8 +12,15 @@ class CenterNotificationController extends Controller
 {
     public function index(Request $request)
     {
+
+        
         if ($request->ajax()) {
-            $query = CenterNotification::query()->orderBy('created_at', 'DESC');
+            $query = CenterNotification::query();
+            $clientOrder = $request->input('order'); // null or array
+            if (empty($clientOrder)) {
+                $query->orderBy('created_at', 'DESC');
+            }
+
 
             return DataTables::of($query)
                 ->addIndexColumn()
@@ -23,14 +30,26 @@ class CenterNotificationController extends Controller
                 ->editColumn('start_date', function ($row) {
                     return basicDateFormat($row['start_date']);
                 })
+                ->orderColumn('start_date', function ($query, $order) {
+                    $query->orderBy('start_date', $order);
+                })
                 ->editColumn('end_date', function ($row) {
                     return basicDateFormat($row['end_date']);
+                })
+                ->orderColumn('end_date', function ($query, $order) {
+                    $query->orderBy('end_date', $order);
                 })
                 ->editColumn('type', function ($row) {
                     return $row->type;
                 })
+                ->orderColumn('type', function ($query, $order) {
+                    $query->orderBy('type', $order);
+                })
                 ->editColumn('status', function ($row) {
                     return $row->status;
+                })
+                ->orderColumn('status', function ($query, $order) {
+                    $query->orderBy('status', $order);
                 })
                 ->addColumn('action', function ($row) {
                     $actions = [];
@@ -119,8 +138,8 @@ class CenterNotificationController extends Controller
         $end =  Carbon::parse($data['end_date']);
         //Check condition 
         $notificationId = $request->edit_notification_id;
-    
-        if($notificationId){
+
+        if ($notificationId) {
             //dd($request->content);
             $update = CenterNotification::find($notificationId);
             $update->heading = $request->heading;
@@ -163,13 +182,13 @@ class CenterNotificationController extends Controller
             $pdfDetail['member_id'] = $data['member_id'];
             $pdfDetail['start_date'] = basicDateFormat($data['start_date']);
             $pdfDetail['end_date'] = basicDateFormat($data['end_date']);
-            if($data['type'] == 'Template'){
+            if ($data['type'] == 'Template') {
                 $pdfDetail['template_name'] = $data['template_name'];
-            }else{
+            } else {
                 $pdfDetail['content'] = $data['content'];
             }
-            
-            
+
+
             return view('admin.notifications.centres.center-notification-pdf-download', compact('pdfDetail'));
         } catch (\Throwable $e) {
             abort(404);
@@ -182,12 +201,11 @@ class CenterNotificationController extends Controller
             $notification = CenterNotification::findOrFail($id);
             // Return raw date format for edit form
             $notificationData = $notification->toArray();
-            $notificationData['start_date'] = basicDateFormat($notification->start_date);
-            $notificationData['end_date'] = basicDateFormat($notification->end_date);
+            //$notificationData['start_date'] = basicDateFormat($notification->start_date);
+            //$notificationData['end_date'] = basicDateFormat($notification->end_date);
             return success_response($notificationData, 'Notification view');
         } catch (\Exception $e) {
             return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);
         }
     }
-
 }
