@@ -263,8 +263,10 @@
         data-pdf-download="{{ route('admin.centres.pdf.download', ['id' => '__ID__']) }}"
         data-center-notification-status="{{ route('admin.centres.notifications.status', ['id' => '__ID__']) }}"
         data-center-notification-edit="{{ route('admin.centres.notifications.edit', ['id' => '__ID__']) }}"
-        data-center-notification-update="{{ route('admin.centres.notifications.update', ['id' => '__ID']) }}"
-        data-center-notification-store="{{ route('admin.centres.notifications.store') }}">
+        data-center-notification-update="{{ route('admin.centres.notifications.update', ['id' => '__ID__']) }}"
+        data-center-notification-store="{{ route('admin.centres.notifications.store') }}"
+        data-center-notification-show="{{route('admin.centres.notifications.show',['id' => '__ID__'])}}"
+        >
 
 
     </div>
@@ -310,6 +312,7 @@
             center_notification_status: mmRoot.data('center-notification-status'),
             center_notification_edit: mmRoot.data('center-notification-edit'),
             center_notification_store: mmRoot.data('center-notification-store'),
+            center_notification_show: mmRoot.data('center-notification-show'),
         }
 
         function urlFor(tpl, id) {
@@ -459,10 +462,10 @@
             const container = $('#listingModalContent');
             container.html('<div class="text-center py-3">Loading...</div>');
             $.ajax({
-                url: "{{ route('admin.centres.notifications.show', ['id' => '__ID__']) }}".replace(
-                    '__ID__', id),
+                url: endpoint.center_notification_show.replace('__ID__', id),
                 type: 'GET',
                 success: function(response) {
+                    console.log(response);
                     if (response.status === true) {
                         const d = response.data || {};
                         const rows = [
@@ -472,7 +475,7 @@
                             ['Status', d.status || ''],
                             ['Member ID', d.member_id || ''],
                             ['Start Date', d.start_date || ''],
-                            ['Finish Date', d.finish_date || ''],
+                            ['Finish Date', d.end_date || ''],
                             [d.template_name ? 'Template Name' : 'Content', (d.template_name || d
                                 .content || '')]
                         ];
@@ -518,7 +521,7 @@
                 confirmMsg = 'Are you sure you want to suspend this notification';
             } else if ($(this).hasClass('js-publish')) {
                 status = 'Published';
-                confirmMsg = 'Are you sure you want to suspend this notification';
+                confirmMsg = 'Are you sure you want to publish this notification';
             } else if ($(this).hasClass('js-remove')) {
                 status = 'Removed';
                 confirmMsg = 'Are you sure you want to remove the notification';

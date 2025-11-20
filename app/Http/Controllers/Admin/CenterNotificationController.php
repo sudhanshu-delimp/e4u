@@ -104,7 +104,7 @@ class CenterNotificationController extends Controller
                 'ref' => sprintf('#%05d', $n->id),
                 'heading' => $n->heading,
                 'start_date' => $n->start_date ? Carbon::parse($n->start_date)->format('d-m-Y') : null,
-                'finish_date' => $n->finish_date ? Carbon::parse($n->finish_date)->format('d-m-Y') : null,
+                'end_date' => $n->end_date ? Carbon::parse($n->end_date)->format('d-m-Y') : null,
                 'type' => $n->type,
                 'status' => $n->status,
                 'content' => $n->content,

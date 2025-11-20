@@ -284,7 +284,7 @@ Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])
 
 Route::get('notifications/centres/list', [CenterNotificationController::class, 'index'])->name('admin.centres.notifications.index');
 Route::post('/notifications/centres/store', [CenterNotificationController::class, 'store'])->name('admin.centres.notifications.store');
-Route::get('/notifications/centres/{id}', [CenterNotificationController::class, 'show'])->name('admin.centres.notifications.show');
+Route::get('/notifications/centres/{id}/show', [CenterNotificationController::class, 'show'])->name('admin.centres.notifications.show');
 Route::post('/notifications/centres/{id}/status', [CenterNotificationController::class, 'updateStatus'])->name('admin.centres.notifications.status');
 Route::get('/notifications/centres/pdf-download/{id}', [CenterNotificationController::class, 'pdfDownload'])->name('admin.centres.pdf.download');
 Route::get('/notifications/centres/{id}/edit', [CenterNotificationController::class, 'edit'])->name('admin.centres.notifications.edit');
