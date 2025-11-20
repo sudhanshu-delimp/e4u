@@ -12,6 +12,6 @@ class CenterNotification extends Model
     protected $table = 'center_notifications';
 
     protected $fillable = [
-        'heading', 'start_date', 'finish_date', 'type', 'content','template_name', 'member_id', 'status'
+        'heading', 'start_date', 'end_date', 'type', 'content','template_name', 'member_id', 'status'
     ];
 }
