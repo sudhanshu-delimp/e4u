@@ -17,17 +17,21 @@ class AgentNotificationController extends Controller
     {
         
         if ($request->ajax()) {
-            $query = AgentNotification::query()
-                //->orderByRaw("FIELD(type, 'scheduled','notice','Ad hoc')")
-                //->orderByRaw("FIELD(status, 'Published','Completed','Suspended', 'Removed')")
-                ->orderByDesc('created_at');
+            $query = AgentNotification::query();
+                $clientOrder = $request->input('order'); 
+            if (empty($clientOrder)) {
+                $query->orderBy('created_at', 'DESC');
+            }
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('ref', function ($row) {
                     return sprintf('#%05d', $row->id);
                 })
                 ->editColumn('start_date', function ($row) {
-                    return $row->start_date ? Carbon::parse($row->start_date)->format('d-m-Y') : '';
+                     return basicDateFormat($row['start_date']);
+                })
+                ->orderColumn('start_date', function ($query, $order) {
+                    $query->orderBy('start_date', $order);
                 })
                 ->editColumn('type', function ($row) {
                     $type = $row->type;
@@ -37,8 +41,14 @@ class AgentNotificationController extends Controller
                     }
                     return $type;
                 })
+                ->orderColumn('type', function ($query, $order) {
+                    $query->orderBy('type', $order);
+                })
                 ->editColumn('end_date', function ($row) {
-                    return $row->end_date ? Carbon::parse($row->end_date)->format('d-m-Y') : '';
+                    return basicDateFormat($row['end_date']);
+                })
+                ->orderColumn('end_date', function ($query, $order) {
+                    $query->orderBy('end_date', $order);
                 })
                 ->addColumn('action', function ($row) {
                     $actions = [];
@@ -121,11 +131,11 @@ class AgentNotificationController extends Controller
             return success_response([
                 'id' => $n->id,
                 'ref' => sprintf('#%05d', $n->id),
-                'current_day' => $n->current_day ? basicDateFormat($n->current_day) : null,
+                'current_day' => basicDateFormat($n->current_day),
                 'heading' => $n->heading,
                 'type' => $n->type,
-                'start_date' => $n->start_date ? basicDateFormat($n->start_date) : null,
-                'end_date' => $n->end_date ? basicDateFormat($n->end_date) : null,
+                'start_date' =>  basicDateFormat($n->start_date),
+                'end_date' =>  basicDateFormat($n->end_date),
                 'member_id' => $n->member_id,
                 'status' => $n->status,
                 'recurring_type' => $n->recurring_type,
@@ -365,30 +375,6 @@ class AgentNotificationController extends Controller
         }
     }
 
-
-
-    /**
-     * Fetch active agent notifications for the dashboard.
-     */
-    public function showAgentNotifications()
-    {
-        // $agentId = Auth::id();
-        // $date = now()->toDateString();
-        // $items = AgentNotification::active($date, $agentId)->orderByDesc('created_at')->get();
-        // $data = $items->map(function($n) {
-        //     return [
-        //         'id' => $n->id,
-        //         'heading' => $n->heading,
-        //         'content' => $n->content,
-        //         'type' => $n->type,
-        //         'recurring_type' => $n->recurring_type,
-        //         'start_date' => $n->start_date,
-        //         'end_date' => $n->end_date,
-        //         'created_at' => $n->created_at->format('d-m-Y'),
-        //     ];
-        // });
-        // return response()->json(['notifications' => $data]);
-    }
 
 
 }
