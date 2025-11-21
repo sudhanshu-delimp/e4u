@@ -64,7 +64,7 @@
                         <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['start_date']}}</td>
                     </tr>
                     <tr>
-                        <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Finish Date</td>
+                        <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">End Date</td>
                         <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['end_date']}}</td>
                     </tr>
                     @if($pdfDetail['type'] == 'Template')

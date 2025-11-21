@@ -59,7 +59,7 @@
                                                         <tr>
                                                             <th scope="col">Ref</th>
                                                             <th scope="col">Start</th>
-                                                            <th scope="col">Finish</th>
+                                                            <th scope="col">End</th>
                                                             <th scope="col">Type</th>
                                                             <th scope="col">Status</th>
                                                             <th scope="col" class="text-center">Action</th>
@@ -892,7 +892,7 @@
                                 ['Status', d.status || 'N/A'],
                                 ['Member ID', d.member_id || ''],
                                 ['Start Date', d.start_date || ''],
-                                ['Finish Date', d.end_date || ''],
+                                ['End Date', d.end_date || ''],
                                 ['Content', (d.content || '')]
                             ];
 
@@ -939,7 +939,7 @@
                     confirmMsg = 'Are you sure you want to suspend this notification?';
                 } else if ($(this).hasClass('js-publish')) {
                     status = 'Published';
-                    onfirmMsg = 'Are you sure you want to publish this notification';
+                    confirmMsg = 'Are you sure you want to publish this notification?';
                 } else if ($(this).hasClass('js-remove')) {
                     status = 'Removed';
                     confirmMsg = 'Are you sure you want to remove this notification?';

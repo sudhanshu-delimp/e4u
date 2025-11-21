@@ -478,7 +478,7 @@
                             ['Status', d.status || ''],
                             ['Member ID', d.member_id || ''],
                             ['Start Date', d.start_date || ''],
-                            ['Finish Date', d.end_date || ''],
+                            ['End Date', d.end_date || ''],
                             [d.template_name ? 'Template Name' : 'Content', (d.template_name || d
                                 .content || '')]
                         ];

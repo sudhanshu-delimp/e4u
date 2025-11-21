@@ -340,15 +340,15 @@ class ViewerNotificationController extends Controller
             $pdfDetail['heading'] = $data['heading'];
             $pdfDetail['type'] = $data['type'];
             $pdfDetail['status'] = $data['status'];
-            $pdfDetail['start_date'] = $data['start_date'] ? basicDateFormat($data['start_date']) : null;
-            $pdfDetail['end_date'] = $data['end_date'] ? basicDateFormat($data['end_date']) : null;
+            $pdfDetail['start_date'] = basicDateFormat($data['start_date']);
+            $pdfDetail['end_date'] = basicDateFormat($data['end_date']);
             $pdfDetail['member_id'] = $data['member_id'];
             $pdfDetail['recurring_type'] = $data['recurring_type'];
             $pdfDetail['recurring_range'] = $recurringRange;
             $pdfDetail['num_recurring'] = $data['num_recurring'];
             $pdfDetail['content'] = $data['content'];
 
-            return view('admin.notifications.agents.agents-notification-pdf-download', compact('pdfDetail'));
+            return view('admin.notifications.viewers.viewer-notification-pdf-download', compact('pdfDetail'));
         } catch (\Throwable $e) {
             abort(404);
         }

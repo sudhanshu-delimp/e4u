@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\AdminMakeNotificationController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
+use App\Http\Controllers\Admin\PostOfficeController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {  
@@ -235,9 +236,14 @@ Route::get('reports/agent-requests',function(){
     return view('admin.reports.agent-requests');
 })->name('admin.agent-requests');
 
+
+
 // Route::get('reports/num',function(){
 //     return view('admin.reports.num');
 // })->name('admin.num');
+
+Route::get('/post-office/reports',[PostOfficeController::class,'addPostOfficeReport'])->name('admin.reports');
+Route::get('/post-office/send-reports',[PostOfficeController::class,'listingPostOfficeReport'])->name('admin.send-reports');
 
 Route::get('reports-num',[AdminNumsController::class,'index'])->name('admin.num');
 Route::get('reports-num-ajax',[AdminNumsController::class,'showReportOnDashboardAjax'])->name('admin.num.ajax');
