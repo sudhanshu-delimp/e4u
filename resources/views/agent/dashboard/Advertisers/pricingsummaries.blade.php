@@ -110,7 +110,7 @@ padding: 2px 8px 2px 8px !important;
                                                             @foreach($advertings as $adverting)
                                                                 <tr role="row">
                                                                     <td>{!! $adverting['memberships']['name'] !!}</td>
-                                                                    <td>{{ $adverting['days'] }}</td>
+                                                                    <td>{{ period_days($adverting['days']) }}</td>
                                                                     <td>{{ $adverting['frequency'] }}</td>
                                                                     <td>${{ number_format($adverting['price'], 2) }}</td>
                                                                     <td>
@@ -252,36 +252,17 @@ padding: 2px 8px 2px 8px !important;
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr role="row">
-                                                        <td>Travel</td>
-                                                        <td>per Service</td>
-                                                        <td>[$value]</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Accommodation</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 75.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Mobile SIM</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 75.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Email Account</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 75.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Visa Migration & Education Placement</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 75.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Support Services</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 75.00</td>
-                                                    </tr>
+                                                                @foreach($fees_concierge_services as $service)
+                                                                <tr role="row">
+                                                                    <td>{{ $service->service_type }}</td>
+                                                                    <td>{{ $service->frequency }}</td>
+                                                                    <td>${{ $service->amount }}</td>
+                                                                    
+                                                                </tr>
+                                                                 @endforeach 
+
+                                                   
+                                                   
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -398,67 +379,18 @@ padding: 2px 8px 2px 8px !important;
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr role="row">
-                                                        <td>Create Profile</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 50.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Edit Profile</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 20.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Create Tour</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 50.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Edit Tour</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 20.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Upload Media (for verification) post initial setup</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 20.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Complete Media Verification (excluding Platinum)</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 10.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Complete Profile Information</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 30.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Organise Profiles and Media</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 50.00</td>
-                                                    </tr>
-                                                        <tr role="row">
-                                                            <td>Organise a Concierge service</td>
-                                                            <td>Complete a Concierge Services request, assist with the delivery
-                                                                if applicable.</td>
-                                                            <td>$ 75.00</td>
-                                                        </tr>
-                                                        <tr role="row">
-                                                            <td>Establishing an
-                                                                Escort's Playbox</td>
-                                                            <td>Upload Content <sup>(3)</sup> to the Escort's Playbox, ensuring compliance,
-                                                                create the Playbox profile, including setting the pricing
-                                                                schedule.</td>
-                                                            <td>$ 100.00</td>
-                                                        </tr>
-                                                        <tr role="row">
-                                                            <td>Updating Escort's
-                                                                Playbox</td>
-                                                            <td>Remove Content and / or upload new Content and post to the
-                                                                Escort's Playbox. Undertake any maintenance issues.</td>
-                                                            <td>$ 75.00</td>
-                                                        </tr>
+                                                    
+
+                                                                 @foreach($fees_support_services as $support_services)
+                                                                <tr role="row">
+                                                                    <td>{{ $support_services->fee }}</td>
+                                                                    <td>{{ $support_services->frequency }}</td>
+                                                                    <td>${{ $support_services->amount }}</td>
+                                                                    
+                                                                </tr>
+                                                                 @endforeach 
+
+                                                    
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -518,20 +450,16 @@ padding: 2px 8px 2px 8px !important;
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr role="row">
-                                                            <td>Escort</td>
-                                                            <td>P, G, S</td>
-                                                            <td>Spend</td>
-                                                            <td>$ 200.00 </td>
-                                                            <td>1</td>
-                                                        </tr>
-                                                        <tr role="row">
-                                                            <td>Massage Centre</td>
-                                                            <td>MC</td>
-                                                            <td>Spend</td>
-                                                            <td>$ 500.00 </td>
-                                                            <td>1</td>
-                                                        </tr>
+                                                                @foreach($variablLoyaltyProgram as $program)
+                                                                <tr role="row">
+                                                                    <td>{{ $program->type }}</td>
+                                                                    <td>{{ $program->level }}</td>
+                                                                    <td>{{ $program->discription }}</td>
+                                                                    <td>{{ $program->amount }}</td>
+                                                                    <td>{{ $program->reward }}</td>
+                                                                    
+                                                                </tr>
+                                                                 @endforeach 
                                                     </tbody>
                                                 </table>
                                             </div>

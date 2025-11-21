@@ -430,6 +430,9 @@
                     </form>
                 </div>
             </div>
+        {{-- </div>
+        <div class="profile-list-container"> --}}
+                
             <!-- ================     service provider start here     ========================= -->
             @if ($user != '1')
                 <div class="row grid_list_part grid_wishlist_part mb-5" id="v_li_wishlist" style="display: block;">

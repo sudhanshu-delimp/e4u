@@ -39,9 +39,14 @@ class PricingsummariesController extends BaseController
         $no_of_members = config('agent.no_of_members');
 
         $advertings = Pricing::with('memberships')->get()->toArray();
+        $fees_concierge_services = FeesConciergeService::all();
+        $fees_support_services = FeesSupportService::all();
+        $variablLoyaltyProgram = VariablLoyaltyProgram::all();
+
+        
         //dd($advertings);
 
-        return view('agent.dashboard.Advertisers.pricingsummaries',compact('advertings', 'membership_types','states','no_of_members'));
+        return view('agent.dashboard.Advertisers.pricingsummaries',compact('advertings', 'membership_types','states','no_of_members','fees_concierge_services','fees_support_services','variablLoyaltyProgram'));
     }
 
 
@@ -52,7 +57,8 @@ class PricingsummariesController extends BaseController
 
         if(isset($request->concierge_services) && $request->concierge_services=='concierge_services')
         {
-            $feesConciergeService = FeesConciergeService::where('id',$request->id)->update(['amount'=>$request->amount]);
+            $feesConciergeService = FeesConciergeService::where('id',$request->id)
+                    ->update(['amount'=>$request->amount,'service_type'=>$request->service_type,'frequency'=>$request->frequency]);
             if($feesConciergeService)
             return $this->successResponse('Updated Successfully');
             else

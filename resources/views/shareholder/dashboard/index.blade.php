@@ -137,7 +137,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="#">
+              <a  href="{{ route('shareholder.shareholders') }}">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/operator/AMA-Earning.png') }}" alt="Share Registry">
                   </div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>View Appointment — Details</title>
+    <title>View Agent Notification — Details</title>
     <style>
         @media print {
         .no-print {
@@ -14,6 +14,7 @@
           box-shadow: none !important;
         }
         }
+        
     </style>
 </head>
 
@@ -24,7 +25,7 @@
 
             <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #e6e6e6;background:#fafafa;">
                 <div style="display:flex;gap:12px;align-items:center;">
-                    <h2 style="margin:0;font-size:18px;color:#0C223D">Center Notification Details</h2>
+                    <h2 style="margin:0;font-size:18px;color:#0C223D">Viewer Notification Details</h2>
 
                 </div>
                 <div style="display:flex;gap:8px;align-items:center;">
@@ -56,29 +57,29 @@
                         <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['status']}}</td>
                     </tr>
                     <tr>
-                        <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Member ID</td>
-                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['member_id']}}</td>
+                        <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Recurring Type</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['recurring_type']}}</td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Recurring Range</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['recurring_range']}}</td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Number of Recurring</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['num_recurring']}}</td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Start Date</td>
-                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['start_date']}}</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{ucfirst($pdfDetail['start_date'])}}</td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">End Date</td>
-                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['end_date']}}</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{ucfirst($pdfDetail['end_date'])}}</td>
                     </tr>
-                    @if($pdfDetail['type'] == 'Template')
-                    <tr>
-                        <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Template Name</td>
-                        <td style="border:1px solid #ccc;padding:8px;">{{ucfirst($pdfDetail['template_name'])}}</td>
-                    </tr>
-                    @else
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Content</td>
                         <td style="border:1px solid #ccc;padding:8px;">{{ucfirst($pdfDetail['content'])}}</td>
                     </tr>
-                    @endif
-
                 </table>
 
 

@@ -622,3 +622,25 @@ if (!function_exists('showDateWithFormat')) {
         // Convert to Title Case
         return Str::title(strtolower($label));  
     }
+
+
+
+if (!function_exists('period_days')) {
+
+    function period_days($day){
+
+        switch ($day) {
+            case 1:
+                return "Per Day";
+
+            case 2:
+                return "Per Week";
+
+            default:
+                return "Per Service";
+        }
+    }
+
+}
+
+    
