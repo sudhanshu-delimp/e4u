@@ -302,6 +302,7 @@ Route::get('/admin-forgot/{token?}', [AdvertiserLoginController::class,'adminFor
 Route::get('/advertiser-forgot/{token?}', [AdvertiserLoginController::class,'escortForgotPassword'])->name('escort.forgot');
 //Route::post('/reset-forgot', [AdvertiserLoginController::class,'viewerResetPassword'])->name('web.reset.password.viewer');
 Route::post('/reset-forgot', [App\Http\Controllers\SendForgotPasswordController::class,'viewerResetPassword'])->name('web.reset.password.viewer');
+Route::get('/staff-forgot/{token?}', [AdvertiserLoginController::class,'staffForgotPassword'])->name('staff.forgot');
 
 Route::post('/advertiser-login', [AdvertiserLoginController::class, 'login']);
 Route::post('/advertiser-logout', [AdvertiserLoginController::class,'logout'])->name('advertiser.logout');
@@ -467,6 +468,7 @@ Route::post('/viewer-send-mail-forgot-passord', [App\Http\Controllers\SendForgot
 Route::post('/agent-send-mail-forgot-passord', [App\Http\Controllers\SendForgotPasswordController::class,'sendMail'])->name('web.sendMail.agent');
 Route::post('/escort-send-mail-forgot-passord', [App\Http\Controllers\SendForgotPasswordController::class,'sendMail'])->name('web.sendMail.escort');
 Route::post('/admin-send-mail-forgot-passord', [App\Http\Controllers\SendForgotPasswordController::class,'sendMail'])->name('web.sendMail.admin');
+Route::post('/staff-send-mail-forgot-passord', [App\Http\Controllers\SendForgotPasswordController::class,'sendMail'])->name('web.sendMail.staff');
 Route::post('/asend-otpt-passord', [App\Http\Controllers\SendForgotPasswordController::class,'sendOtp'])->name('web.send.otp');
 
 

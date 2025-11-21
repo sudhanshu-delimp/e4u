@@ -327,7 +327,10 @@ class LoginController extends BaseController
 
         return view('auth.advertiser.forgotEscort', compact('token'));
     }
-
+    public function staffForgotPassword($token)
+    {
+        return view('auth.advertiser.forgotStaff', compact('token'));
+    }
 
     public function username()
     {

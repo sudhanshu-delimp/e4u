@@ -4118,7 +4118,9 @@ i.fa.fa-heart-o{
     .footer_text_color_white {
         color: white;
     }
-    
+    .footer_text_color_white span{
+        font-size: 15px;
+    }
     .footer_text_color_white h4,
     .custom--resurce h4 {
         font-family: Montserrat;
@@ -5591,7 +5593,7 @@ i.fa.fa-heart-o{
     
     .custom--copyryt {
         display: flex;
-        gap: 10px;
+        gap: 6px;
         align-items: center;
     }
     
@@ -5874,7 +5876,7 @@ i.fa.fa-heart-o{
     }
     
     .custom--copyryt a.admin-login {
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 400;
     }
     
