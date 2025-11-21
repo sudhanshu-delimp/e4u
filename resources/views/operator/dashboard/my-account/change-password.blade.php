@@ -122,7 +122,7 @@
                   <label class="form-check-label" for="flexCheckDefault">Renew every 90 days</label>
                </div>
                <div class="pt-1">
-                    <i id="emailHelp">Unless you set your preferred Password Expiry, by default your password will renew every</i>
+                    <i id="emailHelp">Unless you set your preferred Password Expiry, by default your password will renew every 30 days.</i>
                </div>
                
             </div>

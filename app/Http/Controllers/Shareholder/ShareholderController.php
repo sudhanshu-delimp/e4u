@@ -108,6 +108,19 @@ class ShareholderController extends Controller
      public function shareValue(){
         return view('shareholder.dashboard.share-register.share-value');
     }
+
+
+    
+    // support
+
+     public function escortStatistics(){
+        return view('shareholder.dashboard.statistics.escort-statistics');
+    }
+     public function massageStatistics(){
+        return view('shareholder.dashboard.statistics.massage-centre-statistics');
+    }
+
+
     // Subsidiaries
 
      public function overviewPortfolio(){

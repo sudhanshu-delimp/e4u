@@ -90,7 +90,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="#">
+              <a href="{{ route('shareholder.escort-statistics') }}">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/icon_escort-statistics.png') }}" alt="Escort Statistics">
                   </div>
@@ -105,7 +105,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="#">
+              <a href="{{ route('shareholder.massage-centre-statistics') }}">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/center/masseurs-statistics.png') }}" alt="Massage Centre Statistics">
                   </div>
@@ -151,7 +151,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
          <div class="my-custom-box shadow-sm">
-             <a href="{{ route('shareholder.view-and-reply') }}">
+             <a href="{{ route('shareholder.submit') }}">
                  <div class="box-icon">
                      <img src="{{ asset('assets/dashboard/img/boxicon/operator/Support-Tickets.png') }}" alt=" Support Tickets">
                  </div>

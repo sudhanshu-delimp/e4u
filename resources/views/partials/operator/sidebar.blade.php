@@ -1,7 +1,7 @@
 <!-- Sidebar -->
 <ul class="navbar-nav sidebar-bg sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-        <a class="sidebar-brand text-left pb-3" href="{{ route('home') }}">
+        <a class="sidebar-brand text-left pb-3">
             <img src="{{ asset('assets/dashboard/img/operator/logo.png') }}" class="mb-3 w-50" alt="E4u Logo">
         </a>
 
