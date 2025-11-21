@@ -8,31 +8,35 @@ use File;
 use FFMpeg;
 use Carbon\Carbon;
 use App\Models\Task;
+use App\Models\Tour;
 use App\Models\User;
 use App\Models\Escort;
 use App\Models\PinUps;
 use App\Models\Pricing;
 use App\Models\Purchase;
-use App\Models\PasswordHistory;
 use App\Models\EscortPinup;
-use App\Models\Tour;
 use Illuminate\Support\Str;
 use MongoDB\Driver\Session;
 use Illuminate\Http\Request;
+use App\Models\MembershipPlan;
 use App\Models\DashboardViewer;
+use App\Models\PasswordHistory;
 use Illuminate\Http\JsonResponse;
+use App\Models\FeesSupportService;
 use Illuminate\Support\Facades\DB;
 use App\Traits\DataTablePagination;
 use App\Http\Controllers\Controller;
+use App\Models\FeesConciergeService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
+use App\Models\VariablLoyaltyProgram;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\StoreEscortRequest;
 use App\Http\Requests\UpdateEscortRequest;
 use App\Repositories\Escort\EscortInterface;
-use App\Repositories\Purchase\PurchaseInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
+use App\Repositories\Purchase\PurchaseInterface;
 use App\Repositories\AttemptLogin\AttemptLoginRepository;
 
 class EscortController extends Controller
@@ -877,12 +881,25 @@ class EscortController extends Controller
 
       public function showPricingsummary() {
         
+        // $states = config('escorts.profile.states');
+         $advertings= config('agent.advertising');
+         $membership_types = config('agent.membership_types');
+        // $no_of_members = config('agent.no_of_members');
+       
+
+
         $states = config('escorts.profile.states');
-        $advertings= config('agent.advertising');
-        $membership_types = config('agent.membership_types');
+        $membership_types = MembershipPlan::where('is_for_calculater','1')->pluck('name')->toArray();
         $no_of_members = config('agent.no_of_members');
+        $advertings = Pricing::with('memberships')->get()->toArray();
+
+       
+
+        $fees_concierge_services = FeesConciergeService::all();
+        $fees_support_services = FeesSupportService::all();
+        $variablLoyaltyProgram = VariablLoyaltyProgram::all();
 
         
-        return view('escort.dashboard.Community.pricing',compact('advertings', 'membership_types','states','no_of_members'));
+        return view('escort.dashboard.Community.pricing',compact('advertings', 'membership_types','states','no_of_members','fees_concierge_services','fees_support_services','variablLoyaltyProgram'));
     }
 }

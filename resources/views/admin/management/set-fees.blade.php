@@ -928,9 +928,10 @@ $(document).ready(function(){
          success :function(data) {
             console.log(data.data);
             if(data.error == 0) {
-               $('.comman_msg').html("Updated");
-               $("#comman_modal").modal('show');
-               $("#pricing-detail").modal('hide');
+               swal_success_popup('Fee Value Updated Successfully');
+               // $('.comman_msg').html("Updated");
+               // $("#comman_modal").modal('show');
+               // $("#pricing-detail").modal('hide');
                table.draw();
             }
          },

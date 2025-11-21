@@ -391,7 +391,12 @@ Route::get('/faqs', function() { return view('web.pages.faqs'); });
 Route::get('/parent-control', function() { return view('web.pages.parent-control'); });
 Route::get('/feedback', function() { return view('web.pages.feedback'); });
 Route::get('/thankyou', function() { return view('web.pages.thankyou'); })->name('feedback.thankyou');
-Route::get('/help-for-escorts', function() { return view('web.pages.help-for-advertisers'); })->name('web.help-for-advertisers');
+
+Route::get('help-for-escorts', [App\Http\Controllers\WebController::class,'help_for_escort'])->name('web.help-for-advertisers');
+
+//Route::get('/help-for-escorts', function() { return view('web.pages.help-for-advertisers'); })->name('web.help-for-advertisers');
+
+
 Route::get('/help-for-agents', function() { return view('web.pages.help-for-agents'); });
 Route::get('/help-for-massage-centres', function() { return view('web.pages.help-for-massage-centres'); });
 Route::get('/help-for-viewers', function() { return view('web.pages.help-for-viewers'); });

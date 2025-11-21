@@ -184,7 +184,7 @@ class PricingsummariesController extends BaseController
         $data->price = $request->price;
         $data->percentage = $request->percentage;
         $data->discount_amount = $request->discount_amount;
-        $data->days = $request->days;
+        //$data->days = $request->days;
         $data->save();
        
 

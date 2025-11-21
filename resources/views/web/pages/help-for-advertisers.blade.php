@@ -380,29 +380,38 @@ not available to meet, but they still can view your Profile</li>
                                         <td>✓</td>
                                         <td>✓</td>
                                         <td>&#x2717;</td>
-                                        <td>View all your statistics in your Dashboard</td>
+                                        <td>View all your statistics in your Dashboard 
+
+                                        <?php 
+                                        //echo '<pre>';
+                                        //print_r($advertings[0]['price']);
+                                        ///echo '</pre>';
+                                       // exit
+                                        ?>>
+
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Daily Rate<sup style="font-size: smaller">(3)</sup></td>
-                                        <td>$8.00</td>
-                                        <td>$6.00</td>
-                                        <td>$4.00</td>
+                                        <td>{{ isset($advertings[0]['price']) ? '$'.$advertings[0]['price'] : ''}}</td>
+                                        <td>{{ isset($advertings[1]['price']) ? '$'.$advertings[1]['price'] : ''}}</td>
+                                        <td>{{ isset($advertings[2]['price']) ? '$'.$advertings[2]['price'] : ''}}</td>
                                         <td>14 days</td>
                                         <td>You choose the number of days you want to advertise your Profile</td>
                                     </tr>
                                     <tr>
                                         <td>Bulk Discounts<sup style="font-size: smaller">(3)</sup></td>
-                                        <td>$7.50</td>
-                                        <td>$7.50</td>
-                                        <td>$3.80</td>
+                                        <td>{{ isset($advertings[0]['discount_amount']) ? '$'.$advertings[0]['discount_amount'] : ''}}</td>
+                                        <td>{{ isset($advertings[1]['discount_amount']) ? '$'.$advertings[1]['discount_amount'] : ''}}</td>
+                                        <td>{{ isset($advertings[2]['discount_amount']) ? '$'.$advertings[2]['discount_amount'] : ''}}</td>
                                         <td>&#x2717;</td>
                                         <td>A fixed weekly fee to be exclusively featured on the home page</td>
                                     </tr>
                                     <tr>
                                         <td>Home Page Pin Up</td>
-                                        <td>$475.00</td>
-                                        <td>$475.00</td>
-                                        <td>$475.00</td>
+                                        <td>{{ isset($advertings[5]['price']) ? '$'.$advertings[5]['price'] : ''}}</td>
+                                        <td>{{ isset($advertings[5]['price']) ? '$'.$advertings[5]['price'] : ''}}</td>
+                                         <td>{{ isset($advertings[5]['price']) ? '$'.$advertings[5]['price'] : ''}}</td>
                                         <td>None</td>
                                         <td>Discounts apply to advertisements for 22 days or more</td>
                                     </tr>
