@@ -571,50 +571,69 @@ class PricingsummariesController extends BaseController
 
 
 
-    public function calculate(Request $request)
-    {
-        $request->validate([
-            'location' => 'required',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'membership_id' => 'required',
-            'members' => 'required|integer|min:1'
-        ]);
+        public function calculate(Request $request)
+        {
+            $discount_day = 21;
+            $request->validate([
+                'location' => 'required',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date|after_or_equal:start_date',
+                'membership_id' => 'required',
+                'members' => 'required|integer|min:1'
+            ]);
 
-        $start = Carbon::parse($request->start_date);
-        $end   = Carbon::parse($request->end_date);
+            $start = Carbon::parse($request->start_date);
+            $end   = Carbon::parse($request->end_date);
 
-        // Count days including start + end
-        $days = $start->diffInDays($end) + 1;
+            // Total days including start + end
+            $days = $start->diffInDays($end) + 1;
 
-        // Get Membership Pricing
-        $ad = Pricing::where('membership_id', $request->membership_id)
-                ->with('memberships')
-                ->first();
+            // Get membership pricing
+            $ad = Pricing::where('membership_id', $request->membership_id)
+                    ->with('memberships')
+                    ->first();
 
-        if (!$ad) {
-            return response()->json(['error' => 'Membership not found'], 422);
+            if (!$ad) {
+                return response()->json(['error' => 'Membership not found'], 422);
+            }
+
+            // Normal price & discount price
+            $normalRate   = $ad->price;
+            $discountRate = $ad->discount_amount ?? $ad->price;
+
+            // Days before discount and after discount
+            $normalDays   = min($discount_day, $days);
+            $discountDays = max(0, $days - $discount_day);
+
+            // Calculate based on frequency
+            if ($ad->frequency == 1) { // Per day
+                $fee  = ($normalDays * $normalRate);
+                $fee += ($discountDays * $discountRate);
+                $fee *= $request->members;
+
+            } elseif ($ad->frequency == 2) { // Per week
+                // Convert days to weeks separately
+                $normalWeeks   = ceil($normalDays / 7);
+                $discountWeeks = ceil($discountDays / 7);
+
+                $fee  = ($normalWeeks * $normalRate);
+                $fee += ($discountWeeks * $discountRate);
+                $fee *= $request->members;
+
+            } else { // Default per day
+                $fee  = ($normalDays * $normalRate);
+                $fee += ($discountDays * $discountRate);
+                $fee *= $request->members;
+            }
+
+            return response()->json([
+                'days' => $days,
+                'fee' => number_format($fee, 2),
+                'membership_name' => $ad->memberships->name ?? 'N/A',
+                'start_formatted' => $start->format('d-m-Y'),
+                'end_formatted' => $end->format('d-m-Y'),
+            ]);
         }
 
-        $rate = $ad->discount_amount ?? $ad->price;
-
-        // Calculate Fee
-        if (str_contains(strtolower($ad->frequency), '1')) {
-            $fee = $rate * $days * $request->members;
-        } elseif (str_contains(strtolower($ad->frequency), '2')) {
-            $weeks = ceil($days / 7);
-            $fee = $rate * $weeks * $request->members;
-        } else {
-            $fee = $rate * $days * $request->members;
-        }
-
-        return response()->json([
-            'days' => $days,
-            'fee' => number_format($fee, 2),
-            'membership_name' => $ad->memberships->name ?? 'N/A',
-            'start_formatted' => $start->format('d-m-Y'),
-            'end_formatted' => $end->format('d-m-Y'),
-        ]);
-    }
 
 }

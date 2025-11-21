@@ -1501,8 +1501,6 @@ class WebController extends Controller
     public function help_for_escort(Request $request)
     {
          $advertings = Pricing::with('memberships')->get()->toArray();
-
-        
         return view('web.pages.help-for-advertisers',compact('advertings'));    
     }
 
