@@ -162,7 +162,7 @@
                     My Shareholding
                 </a>
 
-                <a class="dropdown-item" href="{{ route('shareholder.view-and-reply') }}">
+                <a class="dropdown-item" href="{{ route('shareholder.submit') }}">
                     <img class="profile_icons"
                         src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
                     Support Ticket
