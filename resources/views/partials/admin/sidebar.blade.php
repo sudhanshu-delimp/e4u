@@ -556,7 +556,7 @@
             </a>
             <div id="notification" class=" collapse  @if (request()->segment(3) == 'global' ||
                     request()->segment(3) == 'agents' ||
-                    request()->segment(3) == 'viewers' ||
+                    request()->segment(3) == 'viewer' ||
                     request()->segment(3) == 'escorts' ||
                     request()->segment(3) == 'centres') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -576,10 +576,10 @@
                             style="{{ request()->segment(3) == 'agents' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Agents</span>
                     </a>
                     {{-- viewers --}}
-                    <a href="{{ route('admin.viewers') }}" class="collapse-item">
+                    <a href="{{ route('admin.viewer.notification.index') }}" class="collapse-item">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/v-notification.png') }}">
                         <span
-                            style="{{ request()->segment(3) == 'viewers' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Viewers</span>
+                            style="{{ request()->segment(3) == 'viewer' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Viewers</span>
                     </a>
                     {{-- escorts --}}
                     <a href="{{ route('admin.escorts') }}" class="collapse-item">

@@ -17,12 +17,12 @@ class CreateCenterNotificationsTable extends Migration
             $table->id();
             $table->string('heading');  
             $table->date('start_date');
-            $table->date('finish_date');
-            $table->enum('type', ['Adhoc','Template', 'Notice']);
+            $table->date('end_date');
+            $table->enum('type', ['Ad hoc','Template', 'Notice']);
             $table->text('content')->nullable();
             $table->string('template_name')->nullable();
-            $table->unsignedBigInteger('member_id')->nullable();
-            $table->enum('status', ['Published','Completed','Removed'])->default('Published');
+            $table->string('member_id')->nullable();
+            $table->enum('status', ['Published','Completed','Suspended', 'Removed'])->default('Published');
             $table->timestamps();
         });
     }

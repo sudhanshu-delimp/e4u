@@ -26,7 +26,7 @@
                 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                     <div class="row">
                         <div class="custom-heading-wrapper col-md-12">
-                            <h1 class="h1">Agent Notifications</h1>
+                            <h1 class="h1">Viewer Notifications</h1>
                             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                         </div>
                         <div class="col-md-12 mb-4">
@@ -34,7 +34,7 @@
                                 <div class="card-body">
                                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                     <ol>
-                                        <li>You can create a Notification, published at the top of the Agent’s Dashboard.
+                                        <li>You can create a Notification, published at the top of the Viewer’s Dashboard.
                                         </li>
                                     </ol>
                                 </div>
@@ -59,7 +59,7 @@
                                                         <tr>
                                                             <th scope="col">Ref</th>
                                                             <th scope="col">Start</th>
-                                                            <th scope="col">Finish</th>
+                                                            <th scope="col">End</th>
                                                             <th scope="col">Type</th>
                                                             <th scope="col">Status</th>
                                                             <th scope="col" class="text-center">Action</th>
@@ -412,10 +412,13 @@
     <div id="manage-route" data-scrf-token="{{ csrf_token() }}"
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
-        data-pdf-download="{{ route('admin.agent.pdf.download', ['id' => '__ID__']) }}"
-        data-agent-notification-status="{{ route('admin.agent.notifications.status', ['id' => '__ID__']) }}"
-        data-agent-notification-edit="{{route('admin.agent.notifications.edit', ['id' => '__ID__'])}}"
-        data-agent-notification-update="{{route('admin.agent.notifications.update', ['id' => '__ID__'])}}"
+        data-pdf-download="{{ route('admin.viewer.pdf.download', ['id' => '__ID__']) }}"
+        data-viewer-notification-status="{{ route('admin.viewer.notifications.status', ['id' => '__ID__']) }}"
+        data-viewer-notification-edit="{{route('admin.viewer.notifications.edit', ['id' => '__ID__'])}}"
+        data-viewer-notification-update="{{route('admin.viewer.notifications.update', ['id' => '__ID__'])}}"
+        data-viewer-notification-index="{{route('admin.viewer.notification.index')}}"
+        data-viewer-notification-store="{{route('admin.viewer.notification.store')}}"
+        data-viewer-notification-show="{{route('admin.viewer.notifications.show', ['id' => '__ID__'])}}"
         >
 
         <!-- End of Page Wrapper -->
@@ -440,27 +443,10 @@
             $(document).ready(function() {
                 function toggleFields() {
                     var type = $('#type').val();
-                    console.log('Selected type:', type);
-
-
                     // Hide all conditionally visible fields initially
-                    $('#scheduledSection').hide();
-                    $('#noticeSection').hide();
-                    $('#weeklyOptions').hide();
-                    $('#monthlyOptions').hide();
-                    $('#startyearlyOptions').hide();
-                    $('#endyearlyOptions').hide();
-                    $('#numberOfRecurring').hide();
-                    $('#weekOptions').hide();
-
-                    $('#currentDateField').show();
-                    $('#headingField').show();
-                    $('#startDateField').show();
-                    $('#endDateField').show();
-                    $('#contentField').show();
-
+                    $('#scheduledSection, #noticeSection, #weeklyOptions, #monthlyOptions, #startyearlyOptions, #endyearlyOptions, #numberOfRecurring, #weekOptions').hide();
+                    $('#currentDateField, #headingField, #startDateField, #endDateField, #contentField').show();
                     if (type === 'Ad hoc') {
-                        // Adhoc: Show date, heading, type, start_date, end_date, content
                         // All already shown, no extra fields
                         $("#numberOfRecurring").val('');
                         $("#member_id").val('');
@@ -470,16 +456,12 @@
                         $("#numberOfRecurring").val('');
                     } else if (type === 'Scheduled') {
                         // Show Schedule Type dropdown
-                        $('#scheduledSection').show();
-                        $('#numberOfRecurring').show();
-                        // Hide all schedule options until selection
-                        $('.schedule-options').hide();
-                        $('#startDateField').hide();
-                        $('#endDateField').hide();
-                        $("#member_id").val('');
-                        $("#start_date").val('');
-                        $("#end_date").val('');
-                        $("#end_date").val('');
+                        $('#scheduledSection, #numberOfRecurring').show();
+                        $('.schedule-options, #startDateField, #endDateField').hide();
+
+                        // Reset input fields
+                        $('#member_id, #start_date, #end_date').val('');
+    
                     }
                 }
 
@@ -532,24 +514,6 @@
                         // No additional fields shown
                     }
                 });
-                //Hide Disable Validation filed
-                // function toggleValidation(fields, enable) {
-                //     fields.forEach(function(fieldId) {
-                //         const $field = $(fieldId);
-                //         const parsleyInstance = $field.parsley();
-
-                //         if (enable) {
-                //             // enable required validation
-                //             $field.attr('data-parsley-required', 'true');
-                //             parsleyInstance.addConstraint('required', true);
-                //         } else {
-                //             // disable required validation
-                //             $field.removeAttr('data-parsley-required');
-                //             parsleyInstance.removeConstraint('required');
-                //             parsleyInstance.reset(); // clear old errors
-                //         }
-                //     });
-                // }
 
                 $('#type').change(toggleFields);
                 toggleFields();
@@ -595,7 +559,6 @@
 
 
                 $("#startFirstMonth, #startFirstDate, #endSecondMonth, #endSecondDay").on("change", function() {
-                    // console.log('on click......');
                     matchEndDateToStartDate();
                 });
 
@@ -732,9 +695,12 @@
                 success_image: mmRoot.data('success-image'),
                 error_image: mmRoot.data('error-image'),
                 pdf_download: mmRoot.data('pdf-download'),
-                agent_notification_status: mmRoot.data('agent-notification-status'),
-                agent_notification_edit: mmRoot.data('agent-notification-edit'),
-                agent_notification_update: mmRoot.data('agent-notification-update'),
+                viewer_notification_status: mmRoot.data('viewer-notification-status'),
+                viewer_notification_edit: mmRoot.data('viewer-notification-edit'),
+                viewer_notification_update: mmRoot.data('viewer-notification-update'),
+                viewer_notification_index: mmRoot.data('viewer-notification-index'),
+                viewer_notification_store: mmRoot.data('viewer-notification-store'),
+                viewer_notification_show: mmRoot.data('viewer-notification-show'),
             }
 
 
@@ -759,7 +725,7 @@
                     let formData = form.serialize();
 
                     $.ajax({
-                        url: form.attr('action'),
+                        url: endpoint.viewer_notification_store,
                         type: "POST",
                         _token: endpoint.csrf_token,
                         data: formData,
@@ -819,7 +785,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.agent.notifications.index') }}",
+                    url: endpoint.viewer_notification_index,
                     type: 'GET'
                 },
                 columns: [{ // 👇 New column for row index
@@ -858,9 +824,7 @@
                         className: 'text-center'
                     },
                 ],
-                order: [
-                    [1, 'desc']
-                ],
+                order: [],
                 lengthMenu: [
                     [10, 25, 50, 100],
                     [10, 25, 50, 100]
@@ -875,8 +839,7 @@
                 const container = $('#listingModalContent');
                 container.html('<div class="text-center py-3">Loading...</div>');
                 $.ajax({
-                    url: "{{ route('admin.agent.notifications.show', ['id' => '__ID__']) }}".replace('__ID__',
-                        id),
+                    url: endpoint.viewer_notification_show.replace('__ID__', id),
                     type: 'GET',
                     success: function(response) {
 
@@ -939,7 +902,7 @@
                     confirmMsg = 'Are you sure you want to suspend this notification?';
                 } else if ($(this).hasClass('js-publish')) {
                     status = 'Published';
-                    onfirmMsg = 'Are you sure you want to publish this notification';
+                    confirmMsg = 'Are you sure you want to publish this notification?';
                 } else if ($(this).hasClass('js-remove')) {
                     status = 'Removed';
                     confirmMsg = 'Are you sure you want to remove this notification?';
@@ -957,7 +920,7 @@
                 body.off('click', '#confirmRemove').on('click', '#confirmRemove', function() {
                     $(this).prop('disabled', true);
                     $.ajax({
-                        url: endpoint.agent_notification_status.replace('__ID__', id),
+                        url: endpoint.viewer_notification_status.replace('__ID__', id),
                         type: 'POST',
                         data: {
                             _token: endpoint.csrf_token,
@@ -993,7 +956,6 @@
             // Redirect new page and generate pdf
             $('#pdf-download').on('click', function() {
                 var notificationId = $(this).attr('data-notification-id');
-                console.log('PDF Download for Notification ID:', notificationId);
                 var encodedId = btoa(String(notificationId));
                 var url = urlFor(endpoint.pdf_download, encodedId);
                 window.open(url, '_blank');
@@ -1007,7 +969,7 @@
                 $('#currentDateField, #startDateField, #typeField, #endDateField,  #scheduledSection, #noticeSection, #weeklyOptions, #monthlyOptions, #startyearlyOptions, #endyearlyOptions, #numberOfRecurring, #weekOptions').hide();
                
                 $.ajax({
-                    url: endpoint.agent_notification_edit.replace('__ID__', id),
+                    url: endpoint.viewer_notification_edit.replace('__ID__', id),
                     type: 'GET',
                     success: function(response) {
                         $('#editNotification').modal('show');
@@ -1031,9 +993,8 @@
                 let id = $("#edit_notification_id").val();
                 let form = $(this);
                 let formData = form.serialize();
-                console.log(formData, 'formData');
                  $.ajax({
-                        url: endpoint.agent_notification_update.replace('__ID__', id),
+                        url: endpoint.viewer_notification_update.replace('__ID__', id),
                         type: "POST",
                         _token: endpoint.csrf_token,
                         data: formData,
@@ -1041,6 +1002,7 @@
                             if (response.status === true) {
                                 $('#editNotification').modal('hide');
                                 let msg = response.message ? response.message : 'Saved successfully';
+
                                 $("#image_icon").attr("src", endpoint.success_image);
                                 $('#success_task_title').text('Success');
                                 $('#success_msg').text(msg);

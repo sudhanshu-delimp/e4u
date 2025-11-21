@@ -4,8 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\VisitorController;
+use App\Http\Controllers\Admin\AdminNumsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ReportingController;
 use App\Http\Controllers\Admin\PDF\AgentPdfController;
@@ -17,14 +19,13 @@ use App\Http\Controllers\Admin\AdvertiserReviewsController;
 use App\Http\Controllers\Admin\AgentNotificationController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\CenterNotificationController;
+use App\Http\Controllers\Admin\ViewerNotificationController;
 use App\Http\Controllers\Admin\AdminMakeNotificationController;
-use App\Http\Controllers\Admin\AdminNumsController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\PostOfficeController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
-use App\Http\Controllers\Admin\StaffController;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {  
     Route::get('/admin-login', 'DashboardController@index')->name('admin.index');
@@ -289,9 +290,11 @@ Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])
 
 Route::get('notifications/centres/list', [CenterNotificationController::class, 'index'])->name('admin.centres.notifications.index');
 Route::post('/notifications/centres/store', [CenterNotificationController::class, 'store'])->name('admin.centres.notifications.store');
-Route::get('/notifications/centres/{id}', [CenterNotificationController::class, 'show'])->name('admin.centres.notifications.show');
-Route::post('/notifications/centres/{id}/remove', [CenterNotificationController::class, 'updateStatus'])->name('admin.centres.notifications.remove');
+Route::get('/notifications/centres/{id}/show', [CenterNotificationController::class, 'show'])->name('admin.centres.notifications.show');
+Route::post('/notifications/centres/{id}/status', [CenterNotificationController::class, 'updateStatus'])->name('admin.centres.notifications.status');
 Route::get('/notifications/centres/pdf-download/{id}', [CenterNotificationController::class, 'pdfDownload'])->name('admin.centres.pdf.download');
+Route::get('/notifications/centres/{id}/edit', [CenterNotificationController::class, 'edit'])->name('admin.centres.notifications.edit');
+Route::post('/notifications/centres/{id}/update', [CenterNotificationController::class, 'update'])->name('admin.centres.notifications.update');
 
 //Agent Notification system for admin
 Route::get('notifications/agents/list', [AgentNotificationController::class, 'index'])->name('admin.agent.notifications.index');
@@ -300,8 +303,21 @@ Route::get('/notifications/agent/{id}', [AgentNotificationController::class, 'sh
 Route::post('/notifications/agent/{id}/suspend', [AgentNotificationController::class, 'updateStatus'])->name('admin.agent.notifications.suspend');
 Route::post('/notifications/agent/{id}/status', [AgentNotificationController::class, 'changeStatus'])->name('admin.agent.notifications.status');
 Route::get('/notifications/agent/pdf-download/{id}', [AgentNotificationController::class, 'pdfDownload'])->name('admin.agent.pdf.download');
-Route::get('/notifications/{id}/edit', [AgentNotificationController::class, 'edit'])->name('admin.agent.notifications.edit');
-Route::post('/notifications/{id}/update', [AgentNotificationController::class, 'update'])->name('admin.agent.notifications.update');
+Route::get('/notifications/agent/{id}/edit', [AgentNotificationController::class, 'edit'])->name('admin.agent.notifications.edit');
+Route::post('/notifications/agent/{id}/update', [AgentNotificationController::class, 'update'])->name('admin.agent.notifications.update');
+
+
+//Viewer Notification system for admin
+
+Route::get('notifications/viewer/list', [ViewerNotificationController::class, 'index'])->name('admin.viewer.notification.index');
+Route::post('/notifications/viewer/store', [ViewerNotificationController::class, 'store'])->name('admin.viewer.notification.store');
+Route::get('/notifications/viewer/{id}', [ViewerNotificationController::class, 'show'])->name('admin.viewer.notifications.show');
+Route::post('/notifications/viewer/{id}/suspend', [ViewerNotificationController::class, 'updateStatus'])->name('admin.viewer.notifications.suspend');
+Route::post('/notifications/viewer/{id}/status', [ViewerNotificationController::class, 'changeStatus'])->name('admin.viewer.notifications.status');
+Route::get('/notifications/viewer/pdf-download/{id}', [ViewerNotificationController::class, 'pdfDownload'])->name('admin.viewer.pdf.download');
+Route::get('/notifications/viewer/{id}/edit', [ViewerNotificationController::class, 'edit'])->name('admin.viewer.notifications.edit');
+Route::post('/notifications/viewer/{id}/update', [ViewerNotificationController::class, 'update'])->name('admin.viewer.notifications.update');
+
 
 
 ################### PDF ###################
