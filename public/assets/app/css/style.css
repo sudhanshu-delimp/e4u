@@ -1031,12 +1031,11 @@
         margin-left: 12px;
     }
     /*  profile-list-container*/
-    
-    .profile-list-container {
+    /* .profile-list-container {
         max-width: 1400px;
         margin: 0 auto;
         width: 100%;
-    }
+    } */
     /* end */
     
     div.defult-modal .modal-dialog {
@@ -2687,7 +2686,7 @@ i.fa.fa-heart-o{
         color: #192A3E;
         font-family: 'Poppins';
         font-weight: normal;
-        font-size: 16px;
+        font-size: 14px;
     }
     
     .massage-centres-list td {
@@ -2850,10 +2849,11 @@ i.fa.fa-heart-o{
     .plat_num_row .section_wise_level_icon_img img,
     .plat-inner {
         width: 100%;
+        height: 100% !important;
     }
     
     .all-escort-profile-pic a img {
-        height: 400px !important;
+        /* height: 400px !important; */
     }
     
     .gold-seven {
@@ -6797,7 +6797,7 @@ i.fa.fa-heart-o{
         white-space: nowrap;
         position: absolute;
         top: 5px;
-        left: 15%;
+        left: 18%;
         transition: opacity 0.3s;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         z-index: 1000;
@@ -6935,22 +6935,20 @@ i.fa.fa-heart-o{
             bottom: unset !important;
         } */
     }
-    
-    @media (max-width: 1900px) {
+    /* @media (max-width: 1900px) {
         .profile-list-container {
             max-width: 1700px;
             margin: 0 auto;
             width: 100%;
         }
-    }
-    
-    @media (max-width: 1700px) {
+    } */
+    /* @media (max-width: 1700px) {
         .profile-list-container {
             max-width: 1500px;
             margin: 0 auto;
             width: 100%;
         }
-    }
+    } */
     
     @media (max-width: 1500px) {
         .footer_mange_padding .row>div:first-child {
@@ -6965,11 +6963,11 @@ i.fa.fa-heart-o{
             min-width: fit-content;
             padding-right: 5% !important;
         }
-        .profile-list-container {
+        /* .profile-list-container {
             max-width: 1300px;
             margin: 0 auto;
             width: 100%;
-        }
+        } */
     }
     
     @media (max-width: 1300px) {
@@ -6984,20 +6982,19 @@ i.fa.fa-heart-o{
             width: fit-content;
             font-size: 12px;
         }
-        .profile-list-container {
+        /* .profile-list-container {
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
-        }
+        } */
     }
-    
-    @media (max-width: 1200px) {
+    /* @media (max-width: 1200px) {
         .profile-list-container {
             max-width: 1140px;
             margin: 0 auto;
             width: 100%;
         }
-    }
+    } */
     
     @media (min-width: 1200px) {
         .grid.list-view .col-xl-4.self-w-26 {
@@ -7027,11 +7024,11 @@ i.fa.fa-heart-o{
         .footer_mange_padding .row {
             justify-content: space-between;
         }
-        .profile-list-container {
+        /* .profile-list-container {
             max-width: 1140px;
             margin: 0 auto;
             width: 100%;
-        }
+        } */
     }
     
     @media (max-width: 1140px) {

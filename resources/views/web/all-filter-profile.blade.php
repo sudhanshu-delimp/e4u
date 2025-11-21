@@ -430,8 +430,8 @@
                     </form>
                 </div>
             </div>
-        </div>
-        <div class="profile-list-container">
+        {{-- </div>
+        <div class="profile-list-container"> --}}
                 
             <!-- ================     service provider start here     ========================= -->
             @if ($user != '1')
