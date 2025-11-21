@@ -2,33 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\AgentNotification;
 use Carbon\Carbon;
-use GrahamCampbell\ResultType\Success;
-use Intervention\Image\Colors\Rgb\Channels\Red;
+use Illuminate\Http\Request;
+use App\Models\ViewerNotification;
+use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Database\Eloquent\Builder;
 
-class AgentNotificationController extends Controller
+class ViewerNotificationController extends Controller
 {
     public function index(Request $request)
     {
-        
+
         if ($request->ajax()) {
-            $query = AgentNotification::query();
-                $clientOrder = $request->input('order'); 
+
+            $query = ViewerNotification::query();
+            $clientOrder = $request->input('order');
+
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
             }
+
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('ref', function ($row) {
                     return sprintf('#%05d', $row->id);
                 })
                 ->editColumn('start_date', function ($row) {
-                     return basicDateFormat($row['start_date']);
+                    return basicDateFormat($row->start_date);
                 })
                 ->orderColumn('start_date', function ($query, $order) {
                     $query->orderBy('start_date', $order);
@@ -45,7 +45,7 @@ class AgentNotificationController extends Controller
                     $query->orderBy('type', $order);
                 })
                 ->editColumn('end_date', function ($row) {
-                    return basicDateFormat($row['end_date']);
+                    return $row->end_date ? basicDateFormat($row->end_date) : '';
                 })
                 ->orderColumn('end_date', function ($query, $order) {
                     $query->orderBy('end_date', $order);
@@ -76,13 +76,13 @@ class AgentNotificationController extends Controller
                 ->rawColumns(['action', 'start_date', 'end_date'])
                 ->make(true);
         }
-        return view('admin.notifications.agents.index');
+        return view('admin.notifications.viewers.index');
     }
 
     public function updateStatus(Request $request, $id)
     {
         try {
-            $notification = AgentNotification::findOrFail($id);
+            $notification = ViewerNotification::findOrFail($id);
             if ($notification->status !== 'Published') {
                 return error_response('Only Published notifications can be removed.', 422);
             }
@@ -97,14 +97,14 @@ class AgentNotificationController extends Controller
     public function changeStatus(Request $request, $id)
     {
         try {
-            $notification = AgentNotification::findOrFail($id);
+            $notification = ViewerNotification::findOrFail($id);
             $allowed = ['Published', 'Suspended', 'Suspended', 'Removed'];
             $status = $request->input('status');
-            if($status == 'Removed'){
-                 $notification->delete();
-                 return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification delete Successfylly!!.');
+            if ($status == 'Removed') {
+                $notification->delete();
+                return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification delete Successfylly!!.');
             }
-            
+
             if (!in_array($status, $allowed)) {
                 return response()->json(['success' => false, 'message' => 'Invalid status'], 422);
             }
@@ -119,11 +119,11 @@ class AgentNotificationController extends Controller
     public function show($id)
     {
         try {
-            $n = AgentNotification::findOrFail($id);
+            $n = ViewerNotification::findOrFail($id);
             // Format recurring day/month range
             $recurringRange = null;
-            if (in_array($n->recurring_type, ['weekly', 'monthly','yearly'])) {
-                $recurringRange = basicDateFormat($n['start_date']).' - '.basicDateFormat($n['end_date']);
+            if (in_array($n->recurring_type, ['weekly', 'monthly', 'yearly'])) {
+                $recurringRange = basicDateFormat($n['start_date']) . ' - ' . basicDateFormat($n['end_date']);
             } elseif ($n->recurring_type === 'forever') {
                 $recurringRange = "Forever";
             }
@@ -131,11 +131,11 @@ class AgentNotificationController extends Controller
             return success_response([
                 'id' => $n->id,
                 'ref' => sprintf('#%05d', $n->id),
-                'current_day' => basicDateFormat($n->current_day),
+                'current_day' => $n->current_day ? basicDateFormat($n->current_day) : null,
                 'heading' => $n->heading,
                 'type' => $n->type,
-                'start_date' =>  basicDateFormat($n->start_date),
-                'end_date' =>  basicDateFormat($n->end_date),
+                'start_date' => $n->start_date ? basicDateFormat($n->start_date) : null,
+                'end_date' => $n->end_date ? basicDateFormat($n->end_date) : null,
                 'member_id' => $n->member_id,
                 'status' => $n->status,
                 'recurring_type' => $n->recurring_type,
@@ -307,7 +307,7 @@ class AgentNotificationController extends Controller
                 }
             }
 
-            $notification = AgentNotification::create($data);
+            $notification = ViewerNotification::create($data);
             return success_response($notification, 'Notification saved successfully');
         } catch (\Exception $e) {
             return error_response('Failed to create notification: ' . $e->getMessage(), 500);
@@ -322,13 +322,13 @@ class AgentNotificationController extends Controller
     {
         try {
             $decodedId = (int) base64_decode($id);
-            $data = AgentNotification::find($decodedId);
+            $data = ViewerNotification::find($decodedId);
 
 
             $recurringRange = null;
-            if (in_array($data->recurring_type, ['weekly', 'monthly','yearly'])) {
-                $recurringRange = basicDateFormat($data['start_date']).' - '.basicDateFormat($data['end_date']);
-            }  elseif ($data->recurring_type === 'forever') {
+            if (in_array($data->recurring_type, ['weekly', 'monthly', 'yearly'])) {
+                $recurringRange = basicDateFormat($data['start_date']) . ' - ' . basicDateFormat($data['end_date']);
+            } elseif ($data->recurring_type === 'forever') {
                 $recurringRange = "Forever";
             }
 
@@ -340,41 +340,39 @@ class AgentNotificationController extends Controller
             $pdfDetail['heading'] = $data['heading'];
             $pdfDetail['type'] = $data['type'];
             $pdfDetail['status'] = $data['status'];
-            $pdfDetail['start_date'] = $data['start_date'] ? basicDateFormat($data['start_date']) : null;
-            $pdfDetail['end_date'] = $data['end_date'] ? basicDateFormat($data['end_date']) : null;
+            $pdfDetail['start_date'] = basicDateFormat($data['start_date']);
+            $pdfDetail['end_date'] = basicDateFormat($data['end_date']);
             $pdfDetail['member_id'] = $data['member_id'];
             $pdfDetail['recurring_type'] = $data['recurring_type'];
             $pdfDetail['recurring_range'] = $recurringRange;
             $pdfDetail['num_recurring'] = $data['num_recurring'];
             $pdfDetail['content'] = $data['content'];
 
-            return view('admin.notifications.agents.agents-notification-pdf-download', compact('pdfDetail'));
+            return view('admin.notifications.viewers.viewer-notification-pdf-download', compact('pdfDetail'));
         } catch (\Throwable $e) {
             abort(404);
         }
     }
 
-    public function edit($id){
-        try{
-            $notification = AgentNotification::findOrFail($id);
-             return success_response($notification, 'Notification saved successfully');
-         } catch (\Exception $e) {
+    public function edit($id)
+    {
+        try {
+            $notification = ViewerNotification::findOrFail($id);
+            return success_response($notification, 'Notification saved successfully');
+        } catch (\Exception $e) {
             return error_response('Failed to create notification: ' . $e->getMessage(), 500);
         }
-     
     }
 
-    public function update(Request  $request, $id){
-        try{
-            $notification = AgentNotification::findOrFail($id);
+    public function update(Request  $request, $id)
+    {
+        try {
+            $notification = ViewerNotification::findOrFail($id);
             $data = $request->all();
             $notification->update($data);
-            return success_response($notification,'Notification updated successfully.');
-        } catch(\Exception $e){
-            return error_response('Faild to update Notification: '. $e->getMessage(), 500);
+            return success_response($notification, 'Notification updated successfully.');
+        } catch (\Exception $e) {
+            return error_response('Faild to update Notification: ' . $e->getMessage(), 500);
         }
     }
-
-
-
 }

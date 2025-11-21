@@ -62,21 +62,15 @@
                             ?>
                             <h3 class="NotesHeader"><b>Notes:</b></h3>
                             <ol>
-                                <li>Use this feature to check all of your current listings, no matter the Location. This
-                                    report does not include listings associated with a Tour.
+                                <li>Use this feature to check all of your current and upcoming listings, no matter the
+                                    Location. This report includes listings associated with a Tour (usually the upcoming
+                                    Listings across your selected Locations).
                                 </li>
-                                <li>You can change the Profile listing by selecting 'Action'. You will be able to:
-                                    <ol type="a" class="ol_lower_alpha_bracket">
-                                        <li>Edit, Suspend or Delete the listing; and</li>
-                                        <li>Switch on and off your Be Right Back (<b>BRB</b>) notification. When you activate
-                                            your BRB, a floating notification will appear at the top of your Profile
-                                            advising when you will be returning, but allowing your Profile still to be
-                                            viewed.
-                                        </li>
-                                    </ol>
+                                <li>To change the Listing period, click the 'Change Listing' button and adjust the dates
+                                    accordingly.
                                 </li>
-                                <li>Where you suspend a listing that is currently Listed, you will not be refunded any
-                                    Fee.
+                                <li>To Suspend or activate the BRB features, click <a href="{{route('escort.list','current')}}">here</a>. Where
+                                    you suspend a Listing that is currently posted, you will receive a Credit.
                                 </li>
                             </ol>
                             <?php

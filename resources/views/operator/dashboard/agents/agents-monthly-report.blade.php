@@ -49,7 +49,7 @@
                 <div class="col-md-12 mt-2">
                     <div id="table-sec" class="table-responsive-xl">
                         <table class="table my_opr_table" id="AgentReportTable">
-                            <thead class="table-bg">
+                            <thead class="opr-table-bg">
                                 <tr>
                                     <th>Date Issued</th>
                                     <th>Billing Period</th>
@@ -111,7 +111,7 @@
 </div>
 {{-- Payment Authorisation --}}
 
-<div class="modal fade upload-modal" id="payAgentreport" tabindex="-1" role="dialog"
+<div class="modal fade opr-modal" id="payAgentreport" tabindex="-1" role="dialog"
     aria-labelledby="payAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -120,15 +120,11 @@
 
 
             <div class="modal-header">
-                <h5 class="modal-title">
-                    <img src="{{ asset('assets/dashboard/img/change-security.png') }}" class="custompopicon">
-                    Payment Authorisation
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                    </span>
-                </button>
+                
+                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/secure-payment.png') }}" class="custompopicon"> Payment Authorisation</h5>
+                <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                   <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
+                </a>
             </div>
             <!-- Body -->
             <div class="modal-body" style="padding: 20px;">
@@ -162,11 +158,11 @@
 
                 <div style="text-align: center;">
 
-                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">
+                    <button type="button" class="opr-btn-common" data-dismiss="modal">
                         Close
                     </button>
 
-                    <button type="button" class="btn-success-modal">Print</button>
+                    <button type="button" class="opr-btn-common">Print</button>
                 </div>
             </div>
         </div>
@@ -177,27 +173,23 @@
 
 {{-- View Report --}}
 
-<div class="modal fade upload-modal" id="viewAgentreport" tabindex="-1" role="dialog"
+<div class="modal fade opr-modal" id="viewAgentreport" tabindex="-1" role="dialog"
     aria-labelledby="viewAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">
-                    <img src="{{ asset('assets/dashboard/img/monthly-report.png') }}" class="custompopicon">
-                    Fee Report - Member ID A600025 (Period Ending: 31-10-25)
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        <img src="{{ asset('assets/app/img/newcross.png') }}"
-                            class="img-fluid img_resize_in_smscreen">
-                    </span>
-                </button>
+                
+                 
+                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/report.png') }}" class="custompopicon">  Fee Report - Member ID A600025 (Period Ending: 31-10-25)</h5>
+                <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                   <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
+                </a>
             </div>
 
             <div class="modal-body">
 
                 <table class="table table-bordered mb-0 opr_accordian_table">
-                    <thead class="table-bg">
+                    <thead class="opr-table-bg">
                         <tr>
                             <th>Member ID</th>
                             <th>Name</th>

@@ -8750,6 +8750,11 @@ td {
     background-color: transparent !important;
 }
 
+.select2-selection__rendered {
+    color: #6e707e !important;
+    font-size: 14px !important;
+}
+
 .db-custom-topbar {
     position: sticky;
     top: 0;
@@ -8785,6 +8790,12 @@ td {
 }
 
 .shareholder_header_top_menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 14px;
+}
+
+.operator_header_top_menu {
     display: grid;
     grid-template-columns: 1fr 1fr;
     font-size: 14px;

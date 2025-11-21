@@ -88,10 +88,11 @@ authentification is applied for any changes to your Bank Account details.
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-               <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/add-new-account.png')}}" class="custompopicon"> Add Bank Account</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-               </button>
+             
+               <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/add-bank.png') }}" class="custompopicon"> Add Bank Account</h5>
+                <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                   <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
+                </a>
          </div>
          
          <div class="modal-body pb-0 agent-tour">
@@ -158,12 +159,10 @@ authentification is applied for any changes to your Bank Account details.
             <form id="SendBankOtp" method="post" action="" >
                 @csrf
                 <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/face-lock.png') }}" style="width:40px;" alt="face-lock verification">  2FA Verification</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                    <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                    </span>
-                    </button>
+                    <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/2fa.png') }}" class="custompopicon"> 2FA Verification</h5>
+                <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                   <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
+                </a>
                 </div>
                 <div class="modal-body forgot_pass pb-1">
                     <div class="form-group label_margin_zero_for_login">
@@ -200,7 +199,7 @@ authentification is applied for any changes to your Bank Account details.
                 </div>
                 <div class="modal-footer justify-content-center forgot_pass pt-0 pb-4">
                     {{-- <button type="submit" class="btn main_bg_color site_btn_primary" id="sendOtpSubmit">Send</button> --}}
-                    <p class="pt-2">Not received your verification code? <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a></p>
+                    <p class="pt-2">Not received your verification code? <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color opr-btn-common">Resend Code</a></p>
                 </div>
             </form>
         </div>
@@ -210,15 +209,11 @@ authentification is applied for any changes to your Bank Account details.
     <div class="modal-dialog modal-dialog-centered" role="document">
        <div class="modal-content custome_modal_max_width">
           <div class="modal-header main_bg_color border-0">
-             {{-- 
-             <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5>
-             --}}
-             <span style="color:white"> <img src="{{ asset('assets/dashboard/img/remove-bank-account.png')}}" class="custompopicon"> Delete Bank Account</span>
-             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">
-             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-             </span>
-             </button>
+             <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/remove-bank.png') }}" class="custompopicon"> Delete Bank Account</h5>
+                <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                   <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
+                </a>
+             
           </div>
           <div class="modal-body">
              <input type="hidden" id="previous" name="url">

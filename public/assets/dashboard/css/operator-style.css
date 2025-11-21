@@ -1,312 +1,348 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
- :root {
-    --color-teal-dark: #003c3e;
-    --color-teal: #008085;
-    --hover-bg: #0080851f;
-    --color-yellow: #ffc60b;
-    --color-orange: #f5841f;
-    --color-white: #ffffff;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: var(--color-teal-dark);
-}
-
-.swal-button {
-    background-color: #242a2c;
-}
-
-label.cabinet input.file {
-    position: relative;
-    height: 100%;
-    width: auto;
-    opacity: 0;
-    -moz-opacity: 0;
-    filter: progid: DXImageTransform.Microsoft.Alpha(opacity=0);
-    margin-top: -30px;
-}
-
-#upload-demo {
-    width: 250px;
-    height: 250px;
-    padding-bottom: 25px;
-}
-
-.myacording-design .card-header a {
-    color: var(--color-teal-dark);
-}
-
-.opr-heading-1 {
-    color: var(--color-teal-dark);
-    font-size: 42px;
-    font-weight: 500;
-}
-
-.opr-heading-2 {
-    color: var(--color-teal-dark);
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.my_opr_table th,
-td {
-    text-align: center;
-}
-
-.image-upload-wrap {
-    border: 2px dashed var(--color-teal-dark);
-}
-
-.custom_links_design {
-    color: var(--color-orange);
-}
-
-.custom_links_design:hover {
-    text-decoration: underline;
-    color: var(--color-orange);
-}
-
-.opr-table-bg {
-    background-color: var(--color-teal-dark);
-    color: #fff;
-}
-
-
-/* For radio buttons */
-
-input[type=checkbox],
-input[type=radio] {
-    accent-color: var(--color-teal-dark);
-    color: #fff;
-}
-
-
-/* Optional checkmark for checkbox */
-
-form.v-form-design label {
-    font-family: Poppins;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 23px;
-    letter-spacing: 0.01em;
-    text-align: left;
-    color: var(--color-teal-darks);
-}
-
-form.v-form-design .form-control {
-    font-family: Poppins;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0.01em;
-    text-align: left;
-    max-height: 20px;
-    border: 0;
-    border-bottom: 1px solid var(--color-teal-dark);
-    border-radius: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0px;
-}
-
-button {
-    background-color: var(--color-teal-dark);
-}
-
-button:hover {
-    background-color: var(--color-orange);
-}
-
-.opr-modal button {
-    background-color: var(--color-teal-dark);
-}
-
-.opr-modal button:hover {
-    background-color: var(--color-orange);
-}
-
-.opr-common-btn {
-    background: var(--color-teal-dark);
-}
-
-.opr-common-btn:hover {
-    background: var(--color-orange) !important;
-}
-
-.opr-close-btn {
-    width: 30px;
-}
-
-.avatar.close {
-    background: var(--color-orange);
-}
-
-.parsley-errors-list {
-    list-style: none;
-    color: var(--color-orange);
-    padding-left: 0;
-}
-
-.toggle-password {
-    position: absolute;
-    top: 28px;
-    right: 15px;
-    cursor: pointer;
-    z-index: 2;
-    color: var(--color-teal-dark);
-}
-
-.opr-modal .modal-header {
-    background: var(--color-teal-dark);
-    color: #fff;
-}
-
-.opr-modal-text {
-    font-size: 18px;
-    text-align: center;
-    color: var(--color-teal-dark);
-    margin-top: 20px;
-}
-
-.opr-common-btn:hover {
-    background-color: var(--color-orange);
-}
-
-.opr_modal_table td {
-    text-align: left;
-    border: 0px;
-    padding-left: 0px;
-}
-
-.opr_accordian_table td {
-    border: 0px;
-}
-
-.opr_accordian_table .detail-row {
-    display: none;
-    opacity: 0;
-    transform: translateY(-5px);
-    transition: all 0.3s ease;
-}
-
-.opr_accordian_table .detail-row.show {
-    display: table-row;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.opr_accordian_table .opr_expand_arrow i {
-    transition: transform 0.3s ease;
-}
-
-.opr_accordian_table .opr_expand_arrow i.rotated {
-    transform: rotate(180deg);
-}
-
-.opr_accordian_table .accordion-toggle:hover {
-    background-color: #f9f9f9;
-}
-
-.opr_accordian_table .opr_expand_arrow {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    align-items: center;
-    cursor: pointer;
-}
-
-.opr_accordian_table .accordion-toggle {
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.accordion-toggle[aria-expanded="true"] .opr_expand_arrow i {
-    transform: rotate(180deg);
-}
-
-.sidebar-bg {
-    background-color: var(--color-teal-dark);
-    background-size: cover;
-}
-
-.sidebar-bg .helpNoteLink {
-    color: var(--color-orange) !important;
-}
-
-.sidebar-bg .nav-item .collapse .collapse-inner .collapse-item:hover {
-    color: var(--color-orange);
-}
-
-.opr-itmes i {
-    color: var(--color-teal-dark) !important;
-}
-
-.operator-sidebar-head {
-    color: var(--color-orange);
-    font-size: 16px;
-    padding-left: 16px;
-    padding-bottom: 24px;
-}
-
-.operator-heading-wrapper .h1 {
-    font-family: Poppins;
-    font-size: 42px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 42px;
-    letter-spacing: 0em;
-    text-align: left;
-    margin-bottom: 20px;
-    color: var(--color-teal-dark);
-    text-transform: capitalize;
-}
-
-.opr-console .notes {
-    color: var(--color-teal-dark);
-    font-size: 18px;
-    margin-bottom: 0;
-}
-
-.oprhelpNote {
-    color: var(--color-orange);
-    display: inline-block;
-    margin-left: 20px;
-    cursor: pointer;
-}
-
-.operator-heading-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin: 30px 0px 30px;
-    flex-wrap: wrap;
-}
-
-.operator-topbar-userdata .user-values {
-    color: var(--color-orange) !important;
-    display: inline-block;
-}
-
-.operator-topbar-userdata span {
-    color: var(--color-teal-dark) !important;
-    display: inline-block;
-}
-
-.opr-console .my-custom-box h2 {
-    color: var(--color-teal-dark);
-}
-
-.opr-console .my-custom-box {
-    border: 1px solid var(--color-teal);
-}
-
-.opr-console .my-custom-box:hover {
-    background-color: var(--hover-bg);
-}
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+     :root {
+        --color-teal-dark: #003c3e;
+        --color-teal: #008085;
+        --hover-bg: #0080851f;
+        --color-yellow: #ffc60b;
+        --color-orange: #f5841f;
+        --color-white: #ffffff;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: var(--color-teal-dark);
+    }
+    
+    .opr .dropdown-item:active {
+        background-color: var(--color-teal) !important;
+    }
+    
+    .opr .support-tooltip-wrap .support-tooltip {
+        background-color: var(--color-teal-dark);
+    }
+    
+    .opr .alert-tooltip-wrap .alert-tooltip {
+        background-color: var(--color-teal-dark);
+    }
+    
+    .opr .support-tooltip-wrap .support-tooltip::after {
+        border-color: var(--color-teal-dark) transparent transparent transparent;
+    }
+    
+    .alert-tooltip-wrap .alert-tooltip::after {
+        border-color: var(--color-teal-dark) transparent transparent transparent;
+    }
+    
+    .opr-console .dropdown-item:active {
+        background-color: var(--color-teal) !important;
+    }
+    
+    .swal-button {
+        background-color: #242a2c;
+    }
+    
+    .opr-console i {
+        color: var(--color-teal-dark);
+    }
+    
+    label.cabinet input.file {
+        position: relative;
+        height: 100%;
+        width: auto;
+        opacity: 0;
+        -moz-opacity: 0;
+        filter: progid: DXImageTransform.Microsoft.Alpha(opacity=0);
+        margin-top: -30px;
+    }
+    
+    #upload-demo {
+        width: 250px;
+        height: 250px;
+        padding-bottom: 25px;
+    }
+    
+    .myacording-design .card-header a {
+        color: var(--color-teal-dark);
+    }
+    
+    .opr-heading-1 {
+        color: var(--color-teal-dark);
+        font-size: 42px;
+        font-weight: 500;
+    }
+    
+    .opr-heading-2 {
+        color: var(--color-teal-dark);
+        font-size: 18px;
+        font-weight: 600;
+    }
+    
+    .my_opr_table th,
+    td {
+        text-align: center;
+    }
+    
+    .image-upload-wrap {
+        border: 2px dashed var(--color-teal-dark);
+    }
+    
+    .custom_links_design {
+        color: var(--color-orange);
+    }
+    
+    .custom_links_design:hover {
+        text-decoration: underline;
+        color: var(--color-orange);
+    }
+    
+    .opr-table-bg {
+        background-color: var(--color-teal-dark);
+        color: #fff;
+    }
+    /* For radio buttons */
+    
+    input[type=checkbox],
+    input[type=radio] {
+        accent-color: var(--color-teal-dark);
+        color: #fff;
+    }
+    /* Optional checkmark for checkbox */
+    
+    form.v-form-design label {
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 23px;
+        letter-spacing: 0.01em;
+        text-align: left;
+        color: var(--color-teal-darks);
+    }
+    
+    form.v-form-design .form-control {
+        font-family: Poppins;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0.01em;
+        text-align: left;
+        max-height: 20px;
+        border: 0;
+        border-bottom: 1px solid var(--color-teal-dark);
+        border-radius: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: 0px;
+    }
+    
+    button {
+        background-color: var(--color-teal-dark);
+    }
+    
+    button:hover {
+        background-color: var(--color-orange);
+    }
+    
+    .opr-modal button {
+        background-color: var(--color-teal-dark);
+    }
+    
+    .opr-modal button:hover {
+        background-color: var(--color-orange);
+    }
+    
+    .opr-common-btn {
+        background: var(--color-teal-dark);
+    }
+    
+    .opr-common-btn:hover {
+        background: var(--color-orange) !important;
+    }
+    
+    .opr-close-btn {
+        width: 30px;
+    }
+    
+    .avatar.close {
+        background: var(--color-orange);
+    }
+    
+    .opr-console .dataTables_paginate .previous {
+        background-color: var(--color-teal-dark);
+    }
+    
+    .opr-console .dataTables_paginate .next {
+        background-color: var(--color-teal-dark);
+    }
+    
+    .opr-console .paginate_button.current {
+        color: var(--color-orange);
+    }
+    
+    .parsley-errors-list {
+        list-style: none;
+        color: var(--color-orange);
+        padding-left: 0;
+    }
+    
+    .toggle-password {
+        position: absolute;
+        top: 28px;
+        right: 15px;
+        cursor: pointer;
+        z-index: 2;
+        color: var(--color-teal-dark);
+    }
+    
+    .opr-modal .modal-header {
+        background: var(--color-teal-dark);
+        color: #fff;
+    }
+    
+    .opr-modal-text {
+        font-size: 18px;
+        text-align: center;
+        color: var(--color-teal-dark);
+        margin-top: 20px;
+    }
+    
+    .opr-common-btn:hover {
+        background-color: var(--color-orange);
+    }
+    
+    .opr_modal_table td {
+        text-align: left;
+        border: 0px;
+        padding-left: 0px;
+    }
+    
+    .opr_accordian_table td {
+        border: 0px;
+    }
+    
+    .opr_accordian_table .detail-row {
+        display: none;
+        opacity: 0;
+        transform: translateY(-5px);
+        transition: all 0.3s ease;
+    }
+    
+    .opr_accordian_table .detail-row.show {
+        display: table-row;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .opr_accordian_table .opr_expand_arrow i {
+        transition: transform 0.3s ease;
+    }
+    
+    .opr_accordian_table .opr_expand_arrow i.rotated {
+        transform: rotate(180deg);
+    }
+    
+    .opr_accordian_table .accordion-toggle:hover {
+        background-color: #f9f9f9;
+    }
+    
+    .opr_accordian_table .opr_expand_arrow {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    .opr_accordian_table .accordion-toggle {
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    
+    .accordion-toggle[aria-expanded="true"] .opr_expand_arrow i {
+        transform: rotate(180deg);
+    }
+    
+    .sidebar-bg {
+        background-color: var(--color-teal-dark);
+        background-size: cover;
+    }
+    
+    .sidebar-bg .helpNoteLink {
+        color: var(--color-orange) !important;
+    }
+    
+    .sidebar-bg .nav-item .collapse .collapse-inner .collapse-item:hover {
+        color: var(--color-orange);
+    }
+    
+    .opr-itmes i {
+        color: var(--color-teal-dark) !important;
+    }
+    
+    .operator-sidebar-head {
+        color: var(--color-orange);
+        font-size: 16px;
+        padding-left: 16px;
+        padding-bottom: 24px;
+    }
+    
+    .operator-heading-wrapper .h1 {
+        font-family: Poppins;
+        font-size: 42px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 42px;
+        letter-spacing: 0em;
+        text-align: left;
+        margin-bottom: 20px;
+        color: var(--color-teal-dark);
+        text-transform: capitalize;
+    }
+    
+    .opr-console .notes {
+        color: var(--color-teal-dark);
+        font-size: 18px;
+        margin-bottom: 0;
+    }
+    
+    .oprhelpNote {
+        color: var(--color-orange);
+        display: inline-block;
+        margin-left: 20px;
+        cursor: pointer;
+    }
+    
+    .operator-heading-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 30px 0px 30px;
+        flex-wrap: wrap;
+    }
+    
+    .operator-topbar-userdata .user-values {
+        color: var(--color-orange) !important;
+        display: inline-block;
+    }
+    
+    .operator-topbar-userdata span {
+        color: var(--color-teal-dark) !important;
+        display: inline-block;
+    }
+    
+    .opr-console .my-custom-box h2 {
+        color: var(--color-teal-dark);
+    }
+    
+    .opr-console .my-custom-box {
+        border: 1px solid var(--color-teal);
+    }
+    
+    .opr-console .my-custom-box:hover {
+        background-color: var(--hover-bg);
+    }

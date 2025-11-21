@@ -556,7 +556,7 @@
             </a>
             <div id="notification" class=" collapse  @if (request()->segment(3) == 'global' ||
                     request()->segment(3) == 'agents' ||
-                    request()->segment(3) == 'viewers' ||
+                    request()->segment(3) == 'viewer' ||
                     request()->segment(3) == 'escorts' ||
                     request()->segment(3) == 'centres') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -575,24 +575,29 @@
                         <span
                             style="{{ request()->segment(3) == 'agents' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Agents</span>
                     </a>
-                    {{-- viewers --}}
-                    <a href="{{ route('admin.viewers') }}" class="collapse-item">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/v-notification.png') }}">
+
+                    {{-- centres --}}
+                    <a href="{{route('admin.centres.notifications.index')}}" class="collapse-item">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/c-notification.png') }}">
                         <span
-                            style="{{ request()->segment(3) == 'viewers' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Viewers</span>
+                            style="{{ request()->segment(3) == 'centres' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Massage Centres</span>
                     </a>
+
                     {{-- escorts --}}
                     <a href="{{ route('admin.escorts') }}" class="collapse-item">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/e-notification.png') }}">
                         <span
                             style="{{ request()->segment(3) == 'escorts' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Escorts</span>
                     </a>
-                    {{-- centres --}}
-                    <a href="{{route('admin.centres.notifications.index')}}" class="collapse-item">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/c-notification.png') }}">
+
+                    {{-- viewers --}}
+                    <a href="{{ route('admin.viewer.notification.index') }}" class="collapse-item">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/v-notification.png') }}">
                         <span
-                            style="{{ request()->segment(3) == 'centres' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Centres</span>
+                            style="{{ request()->segment(3) == 'viewer' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Viewers</span>
                     </a>
+                    
+                    
                 </div>
             </div>
         </li>
