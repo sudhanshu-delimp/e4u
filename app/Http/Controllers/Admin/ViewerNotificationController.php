@@ -14,17 +14,24 @@ class ViewerNotificationController extends Controller
     {
 
         if ($request->ajax()) {
-            $query = ViewerNotification::query()
-                //->orderByRaw("FIELD(type, 'scheduled','notice','Ad hoc')")
-                //->orderByRaw("FIELD(status, 'Published','Completed','Suspended', 'Removed')")
-                ->orderByDesc('created_at');
+
+            $query = ViewerNotification::query();
+            $clientOrder = $request->input('order');
+
+            if (empty($clientOrder)) {
+                $query->orderBy('created_at', 'DESC');
+            }
+
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('ref', function ($row) {
                     return sprintf('#%05d', $row->id);
                 })
                 ->editColumn('start_date', function ($row) {
-                    return $row->start_date ? basicDateFormat($row->start_date) : '';
+                    return basicDateFormat($row->start_date);
+                })
+                ->orderColumn('start_date', function ($query, $order) {
+                    $query->orderBy('start_date', $order);
                 })
                 ->editColumn('type', function ($row) {
                     $type = $row->type;
@@ -34,8 +41,14 @@ class ViewerNotificationController extends Controller
                     }
                     return $type;
                 })
+                ->orderColumn('type', function ($query, $order) {
+                    $query->orderBy('type', $order);
+                })
                 ->editColumn('end_date', function ($row) {
                     return $row->end_date ? basicDateFormat($row->end_date) : '';
+                })
+                ->orderColumn('end_date', function ($query, $order) {
+                    $query->orderBy('end_date', $order);
                 })
                 ->addColumn('action', function ($row) {
                     $actions = [];

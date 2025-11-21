@@ -16,7 +16,7 @@ class CenterNotificationController extends Controller
         
         if ($request->ajax()) {
             $query = CenterNotification::query();
-            $clientOrder = $request->input('order'); // null or array
+            $clientOrder = $request->input('order'); 
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
             }

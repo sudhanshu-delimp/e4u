@@ -59,7 +59,7 @@
                                                         <tr>
                                                             <th scope="col">Ref</th>
                                                             <th scope="col">Start</th>
-                                                            <th scope="col">Finish</th>
+                                                            <th scope="col">End</th>
                                                             <th scope="col">Type</th>
                                                             <th scope="col">Status</th>
                                                             <th scope="col" class="text-center">Action</th>
@@ -824,9 +824,7 @@
                         className: 'text-center'
                     },
                 ],
-                order: [
-                    [1, 'desc']
-                ],
+                order: [],
                 lengthMenu: [
                     [10, 25, 50, 100],
                     [10, 25, 50, 100]
@@ -995,7 +993,6 @@
                 let id = $("#edit_notification_id").val();
                 let form = $(this);
                 let formData = form.serialize();
-                console.log(formData, 'formData');
                  $.ajax({
                         url: endpoint.viewer_notification_update.replace('__ID__', id),
                         type: "POST",
@@ -1005,6 +1002,7 @@
                             if (response.status === true) {
                                 $('#editNotification').modal('hide');
                                 let msg = response.message ? response.message : 'Saved successfully';
+
                                 $("#image_icon").attr("src", endpoint.success_image);
                                 $('#success_task_title').text('Success');
                                 $('#success_msg').text(msg);
