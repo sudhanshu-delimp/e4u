@@ -7,6 +7,7 @@ use App\Http\Controllers\Center\CenterController;
 use App\Http\Controllers\Escort\EscortController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
+use App\Http\Controllers\Center\CenterNumController;
 use App\Http\Controllers\Center\PolyPaymentController;
 use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\UpdateController;
@@ -407,17 +408,12 @@ Route::get('media-masseurs',function(){
     return view('center.dashboard.HowisDone.media-masseurs');
 })->name('center.media-masseurs');
 
-Route::get('numdashboard',function(){
-    return view('center.numdash.numdashboard');
-})->name('center.numdashboard');
-
-Route::get('add-report',function(){
-    return view('center.numdash.add-report');
-})->name('center.add-report');
-
-Route::get('my-reports',function(){
-    return view('center.numdash.my-reports');
-})->name('center.my-reports');
+Route::get('add-report',[CenterNumController::class, 'addReport'])->name('center.add-report');
+Route::post('add-report',[CenterNumController::class, 'storeReport'])->name('center.store-report');
+Route::get('num-dashboard',[CenterNumController::class, 'showReportOnDashboardAjax'])->name('center.numdashboard');
+Route::get('my-reports',[CenterNumController::class, 'showMyReportByAjax'])->name('center.my-reports');
+Route::get('edit-my-reports/{id}',[CenterNumController::class, 'editMyReport'])->name('center.edit-my-reports');
+Route::post('update-my-reports',[CenterNumController::class, 'updateMyReportByAjax'])->name('center.update-my-reports');
 
 Route::get('num-tips',function(){
     return view('center.numdash.num-tips');

@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 if (!function_exists('calculateTotalFee')) {
     function calculateTotalFee($plan=0, $days=0)
@@ -602,10 +603,22 @@ if (!function_exists('showDateWithFormat')) {
     }
 }
 
-function basicDateFormat($date){
-    if($date){
-        return \Carbon\Carbon::parse($date)->format('d-m-Y');
-    }else{
-        return '';
-    }   
-}
+    function basicDateFormat($date){
+        if($date){
+            return \Carbon\Carbon::parse($date)->format('d-m-Y');
+        }else{
+            return '';
+        }   
+    }
+
+    function formatLabelAttribute($label){
+        if (empty($label)) {
+            return $label;
+        }
+
+        // Replace underscores with spaces (if any)
+        $label = str_replace('_', ' ', $label);
+
+        // Convert to Title Case
+        return Str::title(strtolower($label));  
+    }

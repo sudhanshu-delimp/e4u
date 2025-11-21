@@ -364,13 +364,6 @@ Route::get('my-reports',[NumController::class, 'showMyReportByAjax'])->name('esc
 Route::get('edit-my-reports/{id}',[NumController::class, 'editMyReport'])->name('escort.edit-my-reports');
 Route::post('update-my-reports',[NumController::class, 'updateMyReportByAjax'])->name('escort.update-my-reports');
 
-// Route::get('my-reports',function(){
-//     return view('escort.dashboard.UglyMugsRegister.my-reports');
-// })->name('escort.my-reports');
-
-// Route::get('numdashboard',function(){
-//     return view('escort.dashboard.UglyMugsRegister.numdashboard');
-// })->name('escort.numdashboard');
 
 Route::get('lookup',function(){
     return view('escort.dashboard.UglyMugsRegister.lookup');
