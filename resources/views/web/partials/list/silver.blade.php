@@ -120,7 +120,7 @@
                     </div>
                     <div class="mb-3">
                         <button type="button"
-                            class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_34 peach--text"
+                            class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_34"
                             style="padding: 0;font-size: 12px;height: 30px;padding-right: 5px;"><img
                                 class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">Add
                             to Shortlist</button>
