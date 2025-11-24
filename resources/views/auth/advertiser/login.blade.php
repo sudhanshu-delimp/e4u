@@ -232,6 +232,9 @@
 
 </script>
 <script>
+    document.getElementById('mobileno').focus();
+</script>
+<script>
 
     $(document).ready(function() {
         $("body").on("click","#forgotpassword",function(e){

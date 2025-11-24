@@ -189,7 +189,7 @@
             <div class="modal-body">
 
                 <table class="table table-bordered mb-0 opr_accordian_table">
-                    <thead class="opr-table-bg">
+                    <thead class="opr-table-bg modal-thaed">
                         <tr>
                             <th>Member ID</th>
                             <th>Name</th>

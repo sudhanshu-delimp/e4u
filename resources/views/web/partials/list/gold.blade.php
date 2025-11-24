@@ -1,5 +1,5 @@
 @php
-    $escortName = ($escort->gender == 'Transgender')? 'TS-' . $escort->name : $escort->name;
+    $escortName = $escort->gender == 'Transgender' ? 'TS-' . $escort->name : $escort->name;
 @endphp
 
 <div class="listview_each_section_border_btm silver-sec brb--listing">
@@ -11,7 +11,8 @@
                     <div class="col-md-4 featured-pic pl-0">
 
                         <div class="section_wise_level_icon_img all-escort-profile-pic">
-                            <a href="{{ route('profile.description', [$escort->id, $escort->city_id]) }}?list" class="">
+                            <a href="{{ route('profile.description', [$escort->id, $escort->city_id]) }}?list"
+                                class="">
                                 @if ($escort->latestActiveBrb)
                                     <div class="brb--content">
                                         <div class="brb--wrappr">
@@ -22,9 +23,9 @@
                                         </div>
                                     </div>
                                 @endif
-                                    <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
+                                <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
                                     class="img-fluid" title="View Profile">
-                                
+
                             </a>
                             <div class="verify-image-custom">
                                 <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
@@ -174,9 +175,12 @@
                                         <h4>Massage</h4>
                                     </div>
                                     <div class="profile_hr">
-                                        <h4>
-                                            {{ $escort->durations()->where('name', '1 Hour')->first() ? $escort->durations()->where('name', '1 Hour')->first()->pivot->massage_price : '' }}
-                                            /hr</h4>
+                                    <h4>
+                                    @php  
+                                    $massage_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->massage_price:0;
+                                    @endphp
+                                    {{ $massage_price ? '$'. $massage_price.'/hr' : 'N/A' }}
+                                    </h4>
                                     </div>
                                 </div>
                             </div>
@@ -188,8 +192,11 @@
                                     </div>
                                     <div class="profile_hr">
                                         <h4>
-                                            {{ $escort->durations()->where('name', '1 Hour')->first() ? $escort->durations()->where('name', '1 Hour')->first()->pivot->incall_price : '' }}
-                                            /hr</h4>
+                                            @php  
+                                            $incall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->incall_price:0;
+                                            @endphp
+                                            {{ $incall_price ? '$'. $incall_price.'/hr' : 'N/A' }}
+                                        </h4>
                                     </div>
                                 </div>
                             </div>
@@ -201,25 +208,44 @@
                                     </div>
                                     <div class="profile_hr">
                                         <h4>
-                                            {{ $escort->durations()->where('name', '1 Hour')->first() ? $escort->durations()->where('name', '1 Hour')->first()->pivot->outcall_price : '' }}
-                                            /hr</h4>
+                                            @php  
+                                            $outcall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price:0;
+                                            @endphp
+                                            {{ $outcall_price ? '$'. $outcall_price.'/hr' : 'N/A' }}
+                                        </h4>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         @php
                             $plainTextAbout = strip_tags($escort->about);
-                            $limitText = Str::limit($plainTextAbout, 200, '...');
+                            $limitText = Str::limit($plainTextAbout, 210, '...');
                         @endphp
                         <div class="col pl-0 pr-1">
                             <p class="list_view_profile_pera_font_size">{!! $limitText !!}
-                                @if (strlen($plainTextAbout) > 200)
+                                @if (strlen($plainTextAbout) > 210)
                                     <a href="{{ route('profile.description', $escort->id) }}?list&brb={{ isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : '' }}"
                                         class="h6 text-danger">Read More</a>
                                 @endif
                             </p>
                         </div>
                         <div class="col pl-0 pr-1 all-escort-view-profile-btn">
+                            {{-- social-media icon --}}
+                            <div class="social_media_icons">
+                                {{-- <div class="s_icon">
+                                    <a href="" target="_blank"><i class="fa fa-facebook"
+                                            aria-hidden="true"></i></a>
+                                </div>
+                                <div class="s_icon">
+                                    <a href="" target="_blank"><i class="fa fa-instagram"
+                                            aria-hidden="true"></i></a>
+                                </div> --}}
+                                <div class="s_icon">
+                                    <a href="https://x.com/NMugs32853" target="_blank"><img
+                                            src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo"
+                                            alt="logo"></a>
+                                </div>
+                            </div>
                             <a href="{{ route('profile.description', $escort->id) }}?list&brb={{ isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : '' }}"
                                 class="btn btn_for_profile_list_view custom-view-profile">View Profile</a>
                         </div>
@@ -242,12 +268,14 @@
                             @foreach ($escort->durations as $key => $duration)
                                 <tr>
                                     <td>{{ $duration->name }}</td>
+
                                     <td>{!! $duration->pivot->massage_price
-                                        ? $duration->pivot->massage_price
+                                        ? "<div class='public-num-value-table'> <span>$ </span>" . $duration->pivot->massage_price . '</div>'
                                         : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>
+
                                     <td>{!! $duration->pivot->incall_price
-                                        ? $duration->pivot->incall_price
+                                        ? "<div class='public-num-value-table'> <span>$ </span>" . $duration->pivot->incall_price . '</div>'
                                         : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>
                                 </tr>
@@ -257,7 +285,7 @@
                             @endforeach
                         @endif
                     </tbody>
-                    <thead class="table_heading_bgcolor_color">
+                    <thead class="table_heading_bgcolor_color available_footer">
                         <tr>
                             <th class="payment_accept_text_color" scope="col" colspan="3">Available: <span
                                     class="date_from_available">{{ date('d-m-Y', strtotime($escort->start_date)) }}</span>

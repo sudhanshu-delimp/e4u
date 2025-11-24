@@ -42,6 +42,11 @@ Route::get('/overview', [ShareholderController::class, 'overview'])->name('share
 Route::get('/shareholders', [ShareholderController::class, 'shareholders'])->name('shareholder.shareholders');
 Route::get('/share-value', [ShareholderController::class, 'shareValue'])->name('shareholder.share-value');
 
+// Statistics 
+Route::get('/escort-statistics', [ShareholderController::class, 'escortStatistics'])->name('shareholder.escort-statistics');
+Route::get('/massage-centre-statistics', [ShareholderController::class, 'massageStatistics'])->name('shareholder.massage-centre-statistics');
+
+
 // Subsidiaries
 Route::get('/overview-and-portfolio', [ShareholderController::class, 'overviewPortfolio'])->name('shareholder.overview-and-portfolio');
 Route::get('/profit-and-loss', [ShareholderController::class, 'subAnnualProfitloss'])->name('shareholder.profit-and-loss');

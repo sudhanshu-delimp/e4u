@@ -263,7 +263,10 @@
                                         </div>
                                         <div class="profile_hr">
                                             <h4>
-                                                {{$escort->durations()->where('name','=','1 Hour')->first() ? $escort->durations()->where('name','=','1 Hour')->first()->pivot->massage_price : '' }}/hr
+                                            @php  
+                                            $massage_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->massage_price:0;
+                                            @endphp
+                                            {{ $massage_price ? '$'. $massage_price.'/hr' : 'N/A' }}
                                             </h4>
 
                                         </div>
@@ -279,7 +282,12 @@
                                         </div>
                                         <div class="profile_hr">
 
-                                            <h4>{{$escort->durations()->where('name','=','1 Hour')->first() ? $escort->durations()->where('name','=','1 Hour')->first()->pivot->incall_price : ''}}/hr</h4>
+                                        <h4>
+                                        @php  
+                                        $incall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->incall_price:0;
+                                        @endphp
+                                        {{ $incall_price ? '$'. $incall_price.'/hr' : 'N/A' }}
+                                        </h4>
                                         </div>
                                     </div>
                                 </div>
@@ -292,7 +300,12 @@
                                             <h4>Outcalls</h4>
                                         </div>
                                         <div class="profile_hr">
-                                            <h4>{{$escort->durations()->where('name','=','1 Hour')->first() ? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price : ''}}/hr</h4>
+                                            <h4>
+                                            @php  
+                                            $outcall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price:0;
+                                            @endphp
+                                            {{ $outcall_price ? '$'. $outcall_price.'/hr' : 'N/A' }}
+                                            </h4>
                                            
                                         </div>
                                     </div>
@@ -345,11 +358,11 @@
                                 @foreach($escort->durations as $key => $duration)
                                 <tr>
                                     <td>{{ $duration->name }}</td>
-                                    <td>{{isset($duration->pivot->massage_price) && $duration->pivot->massage_price != 0 ? '$' : ''}}{!! ($duration->pivot->massage_price) ? number_format($duration->pivot->massage_price) : "<span class='if_data_not_available'>N/A</span>" !!}
+                                    <td>{!! ($duration->pivot->massage_price) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>
-                                    <td>{{isset($duration->pivot->incall_price) ? '$' : ''}}{!! ($duration->pivot->incall_price) ? number_format($duration->pivot->incall_price) : "<span class='if_data_not_available'>N/A</span>" !!}
+                                    <td>{!! ($duration->pivot->incall_price) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>
-                                    <td>{{isset($duration->pivot->outcall_price) ? '$' : ''}}{!! ($duration->pivot->outcall_price) ? number_format($duration->pivot->outcall_price) : "<span class='if_data_not_available'>N/A</span>" !!}
+                                    <td>{!! ($duration->pivot->outcall_price) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->outcall_price) . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>
                                 </tr>
                                 @endforeach
@@ -651,7 +664,7 @@
                                                     <table class="table {{empty($categoryOneServices[0]) ? '': ' ' }}  ">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
-                                                                <th scope="col">Description</th>
+                                                                <th scope="col" style="width:75%">Description</th>
                                                                 <th scope="col">Extra</th>
                                                             </tr>
                                                         </thead>
@@ -660,7 +673,7 @@
                                                                 @foreach($categoryOneServices[0] as $service)
                                                                     <tr>
                                                                         <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "$" . number_format($service['pivot']['price']) : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             @else
@@ -674,7 +687,7 @@
                                                     <table class="table {{empty($categoryOneServices[1]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
-                                                                <th scope="col">Description</th>
+                                                                <th scope="col" style="width:75%">Description</th>
                                                                 <th scope="col">Extra</th>
                                                             </tr>
                                                         </thead>
@@ -683,7 +696,7 @@
                                                                 @foreach($categoryOneServices[1] as $service)
                                                                     <tr>
                                                                         <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "$" . number_format($service['pivot']['price']) : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             @else
@@ -705,7 +718,7 @@
                                                                 @foreach($categoryOneServices[2] as $service)
                                                                     <tr>
                                                                         <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "$" . number_format($service['pivot']['price']) : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']). "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             @else
@@ -732,7 +745,7 @@
                                                     <table class="table {{empty($categoryTwoServices[0]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
-                                                                <th scope="col">Description</th>
+                                                                <th scope="col" style="width:75%">Description</th>
                                                                 <th scope="col">Extra</th>
                                                             </tr>
                                                         </thead>
@@ -741,7 +754,7 @@
                                                                 @foreach($categoryTwoServices[0] as $service)
                                                                     <tr>
                                                                         <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "$" . number_format($service['pivot']['price']) : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>"  . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             @else
@@ -754,7 +767,7 @@
                                                     <table class="table {{empty($categoryTwoServices[1]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
-                                                                <th scope="col">Description</th>
+                                                                <th scope="col" style="width:75%">Description</th>
                                                                 <th scope="col">Extra</th>
                                                             </tr>
                                                         </thead>
@@ -763,7 +776,7 @@
                                                                 @foreach($categoryTwoServices[1] as $service)
                                                                     <tr>
                                                                         <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "$" . number_format($service['pivot']['price']) : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             @else
@@ -785,7 +798,7 @@
                                                                 @foreach($categoryTwoServices[2] as $service)
                                                                     <tr>
                                                                         <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "$" . number_format($service['pivot']['price']) : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             @else
@@ -812,7 +825,7 @@
                                                     <table class="table  {{ empty($categoryThreeServices[0]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
-                                                                <th scope="col">Description</th>
+                                                                <th scope="col" style="width:75%">Description</th>
                                                                 <th scope="col">Extra</th>
                                                             </tr>
                                                         </thead>
@@ -821,7 +834,7 @@
                                                                 @foreach($categoryThreeServices[0] as $service)
                                                                     <tr>
                                                                         <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "$" . number_format($service['pivot']['price']) : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             @else
@@ -834,7 +847,7 @@
                                                     <table class="table {{empty($categoryThreeServices[1]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
-                                                                <th scope="col">Description</th>
+                                                                <th scope="col" style="width:75%">Description</th>
                                                                 <th scope="col">Extra</th>
                                                             </tr>
                                                         </thead>
@@ -843,7 +856,7 @@
                                                                 @foreach($categoryThreeServices[1] as $service)
                                                                     <tr>
                                                                         <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "$" . number_format($service['pivot']['price']) : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             @else
@@ -856,7 +869,7 @@
                                                     <table class="table {{ empty($categoryThreeServices[2]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
-                                                                <th scope="col">Description</th>
+                                                                <th scope="col" style="width:75%">Description</th>
                                                                 <th scope="col">Extra</th>
                                                             </tr>
                                                         </thead>
@@ -865,7 +878,7 @@
                                                                 @foreach($categoryThreeServices[2] as $service)
                                                                     <tr>
                                                                         <td class="table_border_dash_left">{!!$service['name']!!}</td>
-                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "$" . number_format($service['pivot']['price']) : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
+                                                                        <td class="table_border_solid_left">{!! ($service['pivot']['price']!=0) ? (is_numeric($service['pivot']['price']) ? "<div class='public-num-value-table'> <span>$ </span>"  . number_format($service['pivot']['price']) . "</div>" : ''):"<span class='if_data_not_available'>N/A</span>" !!}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             @else
