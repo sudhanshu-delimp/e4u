@@ -1,5 +1,5 @@
 
-$('#passwordExpiry').on('submit', function(e) {
+$('#passwordExpiry').on('submit', function (e) {
     e.preventDefault();
     var form = $(this);
     $("#modal-title").text('Password Expiry');
@@ -17,22 +17,33 @@ $('#passwordExpiry').on('submit', function(e) {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            success: function(data) {
+            success: function (data) {
+              //  console.log(data.message, 'data');
                 if (data.status === true) {
-                    showGlobalAlert("Password expiry updated successfully.", "success");
+                    swal_success_popup(data.message);
+                    showGlobalAlert(data.message, "success");
                     $("#resetPasswordDate").modal('hide');
-                    $('#passwordExpiryText').html(data.text);
-                } else {
-                    showGlobalAlert(errorsHtml, "danger");
+                    $('#passwordExpiryText').html(data.data.text);
                 }
             },
-            error: function(data) {
-                let errorsHtml = '<ul>';
-                $.each(data.responseJSON.errors, function(key, value) {
-                    errorsHtml += '<li>' + value + '</li>';
-                });
-                errorsHtml += '</ul>';
-                showGlobalAlert(errorsHtml, "danger");
+            error: function (xhr) {
+                var errorMsg = "Something went wrong.";
+                // If the server sent a JSON response with a message
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMsg = xhr.responseJSON.message;
+                } else if (xhr.responseText) {
+                    // Try to parse manual JSON if server responded as plain text
+                    try {
+                        var res = JSON.parse(xhr.responseText);
+                        if (res.message) {
+                            errorMsg = res.message;
+                        }
+                        swal_error_popup(errorMsg);
+                    } catch (e) {
+                        // Not JSON, keep the generic message
+                    }
+                }
+
             }
         });
     }

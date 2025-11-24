@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Models\ViewerNotification;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class UserController extends Controller
@@ -271,20 +272,20 @@ class UserController extends Controller
 
     public function updatePassword(Request $request)
     {
+        
         $response = [];
         try {
             $current_user  = User::with('account_setting')->where('id', auth()->user()->id)->first();
             if (!Hash::check($request->password, $current_user->password)) {
-                $response = ['error' => true, 'message' => 'Your current password is incorrect.'];
+                $response =  error_response('Your current password is incorrect.', 422);
             } else {
-
                 $data = $request->all();
                 $this->user->changeUserPassword($data);
-                $response = ['error' => false, 'message' => 'Password Changed Successfully'];
+               $response =  Success_response($data,'Password Changed Successfully',200);
             }
-            return response()->json($response);
+            return $response;
         } catch (Exception $e) {
-            return response()->json(['error' => true, 'message' => 'Error occured while changing password']);
+            return error_response('Error occured while changing password', 500);
         }
     }
 

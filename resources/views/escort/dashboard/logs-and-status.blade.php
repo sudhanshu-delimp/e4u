@@ -150,7 +150,9 @@
 @endsection
 @section('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/for_multiple_console/logs_and_status_blade.js') }}"></script>
+
 
 
 @endsection
