@@ -101,7 +101,7 @@ aria-hidden="true" data-backdrop="static">
                         <label><strong>Password Expiry</strong></label><br>
             
                         <div class="form-check">
-                        <input class="form-check-input" type="radio" name="password_expiry" id="expiry_never"  value="never" @if($passwirdExpire['password_expiry_days'] == '0') checked @endif>
+                        <input class="form-check-input" type="radio" name="password_expiry" id="expiry_never"  value="never" @if($passwirdExpire['password_expiry_days'] == 'never') checked @endif>
                             <label class="form-check-label" for="expiry_never">Never</label>
                         </div>
             
@@ -146,6 +146,7 @@ aria-hidden="true" data-backdrop="static">
 @endsection
 @section('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script src="{{ asset('assets/js/common.js?v1') }}"></script>
 <script type="text/javascript" src="{{ asset('js/for_multiple_console/logs_and_status_blade.js') }}"></script>
 
 @endsection

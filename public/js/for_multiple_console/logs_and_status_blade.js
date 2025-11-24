@@ -1,6 +1,7 @@
 
+
 $('#passwordExpiry').on('submit', function (e) {
-    e.preventDefault();
+    e.preventDefault();;
     var form = $(this);
     $("#modal-title").text('Password Expiry');
 
@@ -48,6 +49,8 @@ $('#passwordExpiry').on('submit', function (e) {
         });
     }
 });
+
+
 
 function showGlobalAlert(message, type = 'success') {
     const alertBox = $('#globalAlert');
