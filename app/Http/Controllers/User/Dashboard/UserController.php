@@ -293,8 +293,13 @@ class UserController extends Controller
     public function updatePasswordExpiry(Request $request)
     {
         $data = $request->all();
-        $this->user->update_account_setting($data);
-        return response()->json(['error' => false, 'message' => 'Password Settings Updated Successfully']);
+        try{
+            $this->user->update_account_setting($data);
+           return  Success_response($data,'Password Settings Updated Successfully',200);
+        } catch(Exception $e){
+             return error_response('Failed to update Password Settings', 500);
+            
+        }
     }
 
 
