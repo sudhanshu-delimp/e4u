@@ -7,16 +7,21 @@ use Auth;
 use FFMpeg;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Pricing;
 use App\Models\Service;
 use App\Models\Duration;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\MembershipPlan;
 use App\Models\DashboardViewer;
 use App\Models\CenterNotification;
+use App\Models\FeesSupportService;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\FeesConciergeService;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use App\Models\VariablLoyaltyProgram;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\Escort\StoreRequest;
@@ -498,6 +503,22 @@ class CenterController extends Controller
 
             $viewer->update(['my_view' => $data]);
             return response()->json(['success' => true, 'data' => $data]);
+    }
+
+
+    public function pricing() {
+        
+        $states = config('escorts.profile.states');
+        $membership_types = MembershipPlan::where('is_for_calculater','1')->get()->toArray();
+        $no_of_members = config('agent.no_of_members');
+
+        $advertings = Pricing::with('memberships')->get()->toArray();
+        $fees_concierge_services = FeesConciergeService::all();
+        $fees_support_services = FeesSupportService::all();
+        $variablLoyaltyProgram = VariablLoyaltyProgram::all();
+
+
+        return view('center.dashboard.Community.pricing',compact('advertings', 'membership_types','states','no_of_members','fees_concierge_services','fees_support_services','variablLoyaltyProgram'));
     }
 
 

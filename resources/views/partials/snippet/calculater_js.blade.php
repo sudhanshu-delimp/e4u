@@ -1,7 +1,9 @@
 @php
-    $reckonerUrl = auth()->user()->type == 5
-        ? route('agent.reckoner-calculate')
-        : route('escort.reckoner-calculate');
+    $reckonerUrl = match (auth()->user()->type) {
+    5 => route('agent.reckoner-calculate'),
+    4 => route('centre.reckoner-calculate'),
+    default => route('escort.reckoner-calculate'),
+};
 @endphp
 
 <script>

@@ -77,14 +77,23 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr role="row">
-                                                            <td>Massage Centre</td>
-                                                            <td>Fixed</td>
-                                                            <td>per day</td>
-                                                            <td>$ 8.00 </td>
-                                                            <td>6.25</td>
-                                                            <td>$ 7.50 </td>
-                                                        </tr>
+                                                        
+                                                                @foreach($advertings as $adverting)
+                                                                <tr role="row">
+                                                                    <td>{!! $adverting['memberships']['name'] !!}</td>
+                                                                    <td>{{ period_days($adverting['days']) }}</td>
+                                                                    <td>{{ $adverting['frequency'] }}</td>
+                                                                    <td>${{ number_format($adverting['price'], 2) }}</td>
+                                                                    <td>
+                                                                        @if(!empty($adverting['percentage']))
+                                                                            {{ $adverting['percentage'] }}
+                                                                        @else
+                                                                            N/A
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>${{ number_format($adverting['discount_amount'], 2) }}</td>
+                                                                </tr>
+                                                            @endforeach 
                                                         
                                                     </tbody>
                                                 </table>
@@ -109,41 +118,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="table-responsive pl-2 pt-3 list-sec">
-                                            <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                                                    <thead class="text-center">
-                                                    <tr role="row">
-                                                        <th class="sorting_disabled" rowspan="1" colspan="5" style="width: 212px;" aria-label="Fees">
-                                                            <p><b>Profile / Tour Ready Reckoner</b></p>
-                                                        </th>
-                                                    </tr>
-                                                    <tr role="row" class="custom--row">
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
-                                                            Start Date
-                                                        </th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
-                                                            End Date
-                                                        </th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">
-                                                            Membership Type
-                                                        </th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">Locations</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Fee</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr role="row">
-                                                        <td><input name="start" id="start_date" type="date"></td>
-                                                        <td><input name="end" id="end_date" type="date"></td>
-                                                        <td><select><option></option></select></td>
-                                                        <td><select><option></option></select></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                                        
+
+                                         @include('partials.snippet.calculater_table')
+
+
                                         <div class="card border-0 mb-0 pb-0">
                                             <div class="card-body border-0 p-0 mt-2">
                                                 <div class="card border-0 p-0 mb-0">
@@ -202,36 +181,18 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr role="row">
-                                                        <td>Travel</td>
-                                                        <td>per Service</td>
-                                                        <td>[$value]</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Accommodation</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 75.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Mobile SIM</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 75.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Email Account</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 75.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Visa Migration & Education Placement</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 75.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Support Services</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 75.00</td>
-                                                    </tr>
+
+                                                         @foreach($fees_concierge_services as $service)
+                                                                <tr role="row">
+                                                                    <td>{{ $service->service_type }}</td>
+                                                                    <td>{{ $service->frequency }}</td>
+                                                                    <td>${{ $service->amount }}</td>
+                                                                    
+                                                                </tr>
+                                                                 @endforeach 
+
+
+                                                            
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -352,36 +313,18 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr role="row">
-                                                        <td>Create Profile</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 50.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Edit Profile</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 20.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Upload Media (for verification)</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 20.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Complete Media Verification</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 10.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Complete Profile Information</td>
-                                                        <td>per Service</td>
-                                                        <td>$ 30.00</td>
-                                                    </tr>
-                                                    <tr role="row">
-                                                        <td>Organise Profiles and Media in Archives </td>
-                                                        <td>per Service</td>
-                                                        <td>$ 50.00</td>
-                                                    </tr>
+                                                    
+
+                                                            @foreach($fees_support_services as $support_services)
+                                                                <tr role="row">
+                                                                    <td>{{ $support_services->fee }}</td>
+                                                                    <td>{{ $support_services->frequency }}</td>
+                                                                    <td>${{ $support_services->amount }}</td>
+                                                                    
+                                                                </tr>
+                                                            @endforeach 
+
+
                                                     
                                                     </tbody>
                                                 </table>
@@ -445,13 +388,20 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr role="row">
-                                                        <td>Massage Centre </td>
-                                                        <td>MC</td>
-                                                        <td>Spend</td>
-                                                        <td>$ 1,000.00</td>
-                                                        <td>1</td>
-                                                    </tr>
+
+                                                            @foreach($variablLoyaltyProgram as $program)
+                                                                <tr role="row">
+                                                                    <td>{{ $program->type }}</td>
+                                                                    <td>{{ $program->level }}</td>
+                                                                    <td>{{ $program->discription }}</td>
+                                                                    <td>{{ '$'.$program->amount }}</td>
+                                                                    <td>{{ $program->reward }}</td>
+                                                                    
+                                                                </tr>
+                                                                 @endforeach 
+
+
+                                                   
                                                     
                                                     </tbody>
                                                 </table>
@@ -489,10 +439,12 @@
     </div>
 </div>
 @include('escort.dashboard.partials.playmates-modal')
+@include('partials.snippet.calculater_modal')
 @endsection
 @push('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+@include('partials.snippet.calculater_js')
 
 @endpush

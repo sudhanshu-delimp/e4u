@@ -10,6 +10,7 @@ use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Center\PolyPaymentController;
 use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\UpdateController;
+use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Center\CenterProfileInformationController;
 use App\Http\Controllers\Center\MassageViewerInteractionController;
 
@@ -264,6 +265,9 @@ Route::post('get-default-photos', [CenterProfileInformationController ::class, '
 Route::post('delete-photos/{id}', [CenterProfileInformationController ::class, 'ImagesDelete'])->name('center.delete.gallery');
  Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('center.update-password');
 
+ Route::get('pricing', [CenterController ::class, 'pricing'])->name('center.dashboard.Community.pricing');
+ Route::post('calculate-reckoner', [PricingsummariesController::class, 'calculate'])->name('centre.reckoner-calculate');
+
 // function(){
 //     return view('center.dashboard.archives.archive-view-photos');
 // })->name('cen.archive-view-photos');
@@ -275,9 +279,10 @@ Route::get('archive-view-videos',function(){
 Route::get('register-for-pin-up',function(){
     return view('center.dashboard.registerPinup.register-pin-up');
 });
-Route::get('pricing',function(){
-    return view('center.dashboard.Community.pricing');
-})->name('center.dashboard.Community.pricing');
+
+// Route::get('pricing',function(){
+//     return view('center.dashboard.Community.pricing');
+// })->name('center.dashboard.Community.pricing');
 
 Route::get('submitticket',function(){
     return view('center.dashboard.supportticket.submitticket');
