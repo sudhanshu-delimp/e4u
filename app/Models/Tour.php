@@ -16,6 +16,11 @@ class Tour extends Model
         return $this->hasMany(TourLocation::class);
     }
 
+    public function latestLocation()
+    {
+        return $this->hasOne(TourLocation::class)->latestOfMany('end_date');
+    }
+
     public function user()
     {
         return $this->hasOne(user::class, 'id', 'user_id');

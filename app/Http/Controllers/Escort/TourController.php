@@ -142,9 +142,13 @@ class TourController extends Controller
     $query = \App\Models\Tour::with('locations');
     $query->where('user_id', $user_id);
     if ($type === 'current') {
-        //$query->whereHas('locations', fn($q) => $q->where('start_date', '<=', $today));
+        $query->whereHas('latestLocation', fn($q) => 
+            $q->where('end_date', '>=', $today)
+        );
     } elseif ($type === 'past') {
-        //$query->whereDoesntHave('locations', fn($q) => $q->where('start_date', '>', $today));
+        $query->whereHas('latestLocation', fn($q) => 
+         $q->where('end_date', '<', $today)
+        );
     }
 
     // Search by tour name
@@ -161,15 +165,19 @@ class TourController extends Controller
         $startDate = $tour->locations->min('start_date');
         $endDate = $tour->locations->max('end_date');
         $days = $startDate && $endDate ? \Carbon\Carbon::parse($startDate)->diffInDays(\Carbon\Carbon::parse($endDate)) + 1 : 0;
-
+        $is_checkout = $tour->tourPurchase->count();
         $action = '<div class="dropdown no-arrow archive-dropdown">
             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
-        if($tour->tourPurchase->count() == 0){
+        if(empty($is_checkout)){
             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('account.checkout_tour', $tour->id).'"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 tourDelete" href="'.route('escort.delete.tour', $tour->id).'"> <i class="fa fa-trash" ></i> Delete</a><div class="dropdown-divider"></div>';
+            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
         }
-        $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
+        else{
+            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
+        }
+        
         $action .= '</div></div>';
 
         return [
@@ -766,7 +774,7 @@ return response()->json([
                 })->exists();
 
             $tour = $escort->tourProfiles()
-                ->whereHas('location', function ($query) use ($startDate, $endDate) {
+                ->whereHas('location.tour.locations', function ($query) use ($startDate, $endDate) {
                 $query->overlapping($startDate, $endDate);
             })
             ->exists();
@@ -813,7 +821,7 @@ return response()->json([
             DB::commit();
             return response()->json([
                 'success' => true,
-                'message' => 'Tour created successfully!',
+                'message' => 'Tour created successfully! <br> To undertake a Return Tour create a new Tour.',
                 'tour_id' => $tour->id
             ]);
         }
