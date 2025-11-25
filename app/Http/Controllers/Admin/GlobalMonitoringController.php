@@ -168,200 +168,6 @@ class GlobalMonitoringController extends Controller
             ->make(true);
     }
 
-    // public function dataTableListingAjaxMassage($type = NULL, $callbyFunc = false)
-    // {
-
-    //     $search = request()->get('search')['value'];
-    //     // $user_id = auth()->user()->id;
-    //     $ascDesc = 'DESC';
-    //     $recordTotal = 0;
-    //     $dataTableData = [];
-
-    //     $result = Escort::with([
-    //         'user',
-    //         'purchase' => function ($query) use ($type, $ascDesc) {
-    //             if ($type == 'past') {
-    //                 $query->where('end_date', '<', date('Y-m-d'));
-    //                 $ascDesc = 'DESC';
-    //             } else {
-    //                 $query->where('end_date', '>=', date('Y-m-d'));
-    //             }
-
-    //             $query->orderBy('start_date', $ascDesc);
-    //         },
-    //         'Brb' => function ($query) {
-    //             $query->where('brb_time', '>', date('Y-m-d H:i:s'))
-    //                 ->where('active', 'Y')
-    //                 ->orderBy('brb_time', 'desc');
-    //         }
-    //     ])
-    //         ->whereHas('purchase')
-    //         ->where('profile_name', '!=', null);
-
-    //         //dd($result);
-
-    //     if ($search) {
-    //         $result = $result->where(function ($query) use ($search) {
-    //             $query->where('profile_name', 'LIKE', "%{$search}%")
-    //                 ->orWhereHas('user', function ($q) use ($search) {
-    //                     $q->where('member_id', 'LIKE', "%{$search}%");
-    //                 });
-    //         });
-    //     }
-
-    //     $result = $result->get()->toArray();
-
-    //     // For count
-    //     $resultNoLImit = Escort::with(['user', 'purchase' => function ($query2) use ($type, $ascDesc) {
-    //         if ($type == 'past') {
-    //             $query2->where('end_date', '<', date('Y-m-d'));
-    //             $ascDesc = 'DESC';
-    //         } else {
-    //             $query2->where('end_date', '>=', date('Y-m-d'));
-    //         }
-    //         $query2->orderBy('start_date', $ascDesc);
-    //     }])
-    //         ->whereHas('purchase')
-    //         ->with([
-    //             'Brb' => function ($query2) {
-    //                 $query2->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc');
-    //             }
-    //         ])
-    //         ->where('profile_name', '!=', null);
-
-    //     if ($search) {
-    //         $resultNoLImit = $resultNoLImit->where(function ($query2) use ($search) {
-    //             $query2->where('id', 'like', "%{$search}%")
-    //                 ->orWhere('profile_name', 'LIKE', "%{$search}%")
-    //                 ->orWhere('name', 'LIKE', "%{$search}%");
-    //         });
-    //     }
-    //     $resultNoLImit = $resultNoLImit->get();
-    //     foreach ($resultNoLImit as $escort2) {
-    //         if ($escort2['purchase']) {
-
-    //             foreach ($escort2['purchase'] as $purchase2) {
-    //                 $recordTotal++;
-    //             }
-    //         }
-    //     }
-
-    //     $i = 1;
-
-    //     foreach ($result as $escort) {
-    //         if ($escort['purchase']) {
-    //             // $recordTotal++;
-    //             foreach ($escort['purchase'] as $purchase) {
-    //                 $daysDiff = 0;
-    //                 $brb = $escort['profile_name'];
-    //                 $totalAmount = 0;
-    //                 if (isset($escort['brb'][0]['brb_time'])) {
-    //                     $brb =
-    //                         '<span id="brb_' .
-    //                         $escort['id'] .
-    //                         '" >' .
-    //                         $escort['profile_name'] .
-    //                         ' <sup
-    //                                         title="Brb at ' .
-    //                         date(
-    //                             'd-m-Y h:i A',
-    //                             strtotime($escort['brb'][0]['brb_time']),
-    //                         ) .
-    //                         '"
-    //                                         class="brb_icon">BRB</sup></span>';
-    //                 }
-    //                 if (!empty($purchase['start_date'])) {
-    //                     $daysDiff = Carbon::parse(
-    //                         $purchase['end_date'],
-    //                     )->diffInDays(Carbon::parse($purchase['start_date']));
-    //                     if ($purchase['start_date'] == $purchase['end_date']) {
-    //                         $daysDiff = 1;
-    //                     }
-    //                     [$discount, $rate] = calculateTatalFee(
-    //                         $purchase['membership'],
-    //                         $daysDiff,
-    //                     );
-    //                     $totalAmount = $rate;
-    //                     $totalAmount -= $discount;
-    //                     $totalAmount = formatIndianCurrency($totalAmount);
-    //                 }
-    //                 //dd($escort['user']['member_id']);
-    //                 $memberId = isset($escort['user']['member_id']) ? $escort['user']['member_id'] : '';
-    //                 $dataTableData[] = [
-    //                     //'sl_no' => $i++,
-
-    //                     'id' => $escort['id'],
-    //                     'total_record' => intval($recordTotal),
-    //                     'server_time' => now()->format('h:i:s A'),
-    //                     'member_id' => $memberId,
-    //                     'member' => '-',
-    //                     //  'city' => config(
-    //                     //     "escorts.profile.states.$escort[state_id].stateName",
-    //                     // ),
-    //                     'city' =>
-    //                     config(
-    //                         "escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName",
-    //                     ),
-    //                     'profile_name' => $escort['profile_name'] ? $brb : 'NA',
-    //                     //'city' =>
-    //                     // config(
-    //                     //     "escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName",
-    //                     // ) .
-    //                     //     '<br>' .
-    //                     //     config("escorts.profile.states.$escort[state_id].stateName"),
-
-    //                     'masseurs' => '-',
-    //                     'start_date' => date(
-    //                         'd-m-Y',
-    //                         strtotime($purchase['start_date']),
-    //                     ),
-    //                     'end_date' => date('d-m-Y', strtotime($purchase['end_date'])),
-    //                     'days' => $daysDiff,
-    //                     // 'membership' => $purchase['membership'] ? getMembershipType($purchase['membership']) : "NA",
-    //                     // 'fee' => $totalAmount,
-    //                     'left_days' => Carbon::parse($purchase['end_date'])->diffInDays(Carbon::now()),
-    //                     'fee' => $totalAmount,
-
-    //                 ];
-    //             }
-    //         }
-    //     }
-    //     // print_r($dataTableData);die;
-    //     $data = array(
-    //         "draw"            => intval(request()->input('draw')),
-    //         "recordsTotal"    => intval($recordTotal),
-    //         "recordsFiltered" => intval($recordTotal),
-    //         "data"            => $dataTableData
-    //     );
-
-    //     $actionButtons = `<div class="dropdown no-arrow ml-3">
-    //                                 <input type="hidden" class="tortalRecords" value="` . $recordTotal . `">
-    //                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-    //                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    //                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-    //                                 </a>
-    //                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-    //                                     aria-labelledby="dropdownMenuLink" style="">
-    //                                     <a class="dropdown-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#view-listing" href="#">View Listing <i class="fa fa-eye text-dark"
-    //                                             style="color: var(--peach);" ></i></a>
-    //                                 </div>
-    //                             </div>`;
-
-    //     return DataTables::of($dataTableData)
-    //         ->addColumn('member_id', fn($row) => $row['member_id'])
-    //         ->addColumn('member', fn($row) => $row['member'])
-    //         ->addColumn('listing', fn($row) => $row['city'])
-    //         ->addColumn('profile_name', fn($row) => $row['profile_name'])
-    //         ->addColumn('masseurs', fn($row) => $row['masseurs'])
-    //         ->addColumn('start_date', fn($row) => $row['start_date'])
-    //         ->addColumn('end_date', fn($row) => $row['end_date'])
-    //         ->addColumn('days', fn($row) => $row['days'])
-    //         ->addColumn('left_days', fn($row) => Carbon::parse($row['end_date'])->diffInDays(Carbon::now()))
-    //         ->addColumn('action', fn($row) => $actionButtons)
-    //         ->rawColumns(['action']) // if you're returning HTML
-    //         ->make(true);
-    // }
-
     public function dataTableSingleListingAjax($id)
     {
         $escorts = MassageProfile::where('id', $id)->with('user')->first();
@@ -434,158 +240,42 @@ class GlobalMonitoringController extends Controller
 
     public function dataTableEscortListingAjax($type = NULL)
     {
-        $search = request()->get('search')['value'];
-        // $user_id = auth()->user()->id;
-        $ascDesc = 'DESC';
-        $recordTotal = 0;
-        $dataTableData = [];
+         $conditions = [];
+         $conditions[] = ['enabled', 1];
+        list($result, $count) = $this->escort->paginatedList(
+            request()->get('start'),
+            request()->get('length'),
+            request()->get('order')[0]['column'],
+            request()->get('order')[0]['dir'],
+            request()->get('columns'),
+            request()->get('search')['value'],
+            null,
+            $conditions
+        );
 
-        $result = $this->escortListedProfile(null);
+        $data = array(
+            "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "data"            => $result,
+            "membershipCounts" => $this->countEscortMembershipCategories(),
+        );
 
-        if ($search) {
-            $result = $result->where(function ($query) use ($search) {
-                $query->where('profile_name', 'LIKE', "%{$search}%")
-                    ->orWhereHas('user', function ($q) use ($search) {
-                        $q->where('member_id', 'LIKE', "%{$search}%");
-                    });
-            });
-        }
+        return response()->json($data);
+    }
 
-        $result = $result->get()->toArray();
-        $platinumTotal = 0;
-        $goldTotal = 0;
-        $silverTotal = 0;
+    public function countEscortMembershipCategories()
+    {
+        $escorts = Escort::where('default_setting', '!=', 1)
+                    ->where('enabled', 1)
+                ->where('profile_name', '!=', null);
 
-        foreach ($result as $index=>$escort) {
-            if (!empty($escort['purchase'])) {
-                $days = 0;
-                $left = 0;
-                $totalAmount = 0;
-                
-
-                foreach ($escort['purchase'] as $purchase) {
-                    # Dates calculation
-                    $startDate = Carbon::parse($purchase['utc_start_time']);
-                    $endDate   = Carbon::parse($purchase['utc_end_time']);
-                    $now       = Carbon::now();
-
-                    $days += $endDate->gte($startDate) ? $startDate->diffInDays($endDate) + 1 : 0;
-
-                    if ($startDate > $now) {
-                        $left = '-';
-                    } elseif ($endDate < $now) {
-                        $left = 0;
-                    } else {
-                        $left = $endDate->diffInDays($now) + 1;
-                    }
-
-                    // Add fee if exists (assuming purchase has 'amount')
-                    $totalAmount += $purchase['amount'] ?? 0;
-                }
-
-                $badgeEscort = Escort::where('id', $escort['id'])->first();
-
-                # BRB badge
-                $brbBadge = '';
-                if (!empty($escort['brb'][0]['selected_time'])) {
-                    $brbBadge = "<sup class='brb_icon listing-tag-tooltip ml-1'>BRB <small class='listing-tag-tooltip-desc'>Brb  " . date('d-m-Y h:i A', strtotime($escort['brb'][0]['selected_time']))."</small></sup>";
-                }
-
-                # Suspension badge
-                $suspensionBadge = '';
-                if (!empty($badgeEscort->activeUpcomingSuspend)) {
-                    $suspensionBadge = '<sup class="suspend_icon listing-tag-tooltip ml-1">SUS
-                    <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($badgeEscort->activeUpcomingSuspend->start_date)) . " to ".date("d-m-Y", strtotime($badgeEscort->activeUpcomingSuspend->end_date)).'</small>
-                    </sup>';
-                }
-
-                # Extended badge
-                $extendBadge = '';
-                
-                if (!empty($badgeEscort->isListingExtended()) && $badgeEscort->isListingExtended()->count > 0) {
-                    $extendBadge = '<sup class="extend_icon listing-tag-tooltip ml-1">Extend
-                <small class="listing-tag-tooltip-desc">Extended from ' . date("d-m-Y", strtotime($badgeEscort->start_date)) . " to ".date("d-m-Y", strtotime($badgeEscort->end_date)).'</small>
-                </sup>';
-                }
-
-                # Pinup badge
-                $pinupBadge = '';
-                if($badgeEscort->latestActivePinup){
-                    $pinupBadge = '<sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
-                    <small class="listing-tag-tooltip-desc">Pinup from ' . date("d-m-Y", strtotime($badgeEscort->latestActivePinup->start_date)) . " to ".date("d-m-Y", strtotime($badgeEscort->latestActivePinup->end_date)).'</small>
-                    </sup>';
-                }
-
-                # Member Id
-                $memberId = $escort['user']['member_id'] ?? '';
-
-                if(!empty($escort['purchase'][0]['membership'])){
-                    if($escort['purchase'][0]['membership'] == 1){
-                        $platinumTotal += 1;
-                    }elseif($escort['purchase'][0]['membership'] == 2){
-                        $goldTotal += 1;
-                    }elseif($escort['purchase'][0]['membership'] == 3){
-                        $silverTotal += 1;
-                    }
-                }
-
-                # Add row to DataTable once per escort
-                $dataTableData[] = [
-                    'id'           => $escort['id'],
-                    'total_record' => intval($recordTotal),
-                    // 'platinum_total' => intval($platinumTotal),
-                    // 'gold_total' => intval($goldTotal),
-                    // 'silver_total' => intval($silverTotal),
-                    'server_time'  => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
-                    'member_id'    => $memberId,
-                    'member'       => $escort['name'],
-                    'city'         => config("escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName"),
-                    'profile_name' => $escort['profile_name'] ? $escort['profile_name'] . $brbBadge. $suspensionBadge . $extendBadge . $pinupBadge : 'NA',
-                    'type'         => !empty($escort['purchase'][0]['membership'])
-                                        ? getMembershipType($escort['purchase'][0]['membership'])
-                                        : "NA",
-                    'start_date'   => date('d-m-Y', strtotime($escort['purchase'][0]['start_date'])),
-                    'end_date'     => date('d-m-Y', strtotime($escort['purchase'][0]['end_date'])),
-                    'days'         => $days,
-                    'left_days'    => $left,
-                    'fee'          => $totalAmount,
-                    'upTime'       => $this->getAppUptime(),
-                ];
-            }
-        }
-
-        $actionButtons = `<div class="dropdown no-arrow ml-3">
-                                    <input type="hidden" class="tortalRecords" value="` . $recordTotal . `">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink" style="">
-                                        <a class="dropdown-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#view-listing" href="#">View Listing <i class="fa fa-eye text-dark"
-                                                style="color: var(--peach);" ></i></a>
-                                    </div>
-                                </div>`;
-
-        return DataTables::of($dataTableData)
-            ->addColumn('member_id', fn($row) => $row['member_id'])
-            ->addColumn('member', fn($row) => $row['member'])
-            ->addColumn('listing', fn($row) => $row['city'])
-            ->addColumn('profile_name', fn($row) => $row['profile_name'])
-            ->addColumn('type', fn($row) => $row['type'])
-            ->addColumn('start_date', fn($row) => $row['start_date'])
-            ->addColumn('end_date', fn($row) => $row['end_date'])
-            ->addColumn('days', fn($row) => $row['days'])
-            ->addColumn('left_days', fn($row) => $row['left_days'])
-            ->addColumn('action', fn($row) => $actionButtons)
-            ->rawColumns(['action']) // if you're returning HTML
-            ->rawColumns(['profile_name'])
-            ->with([
-                'platinumTotal'=> intval($platinumTotal),
-                'goldTotal'=> intval($goldTotal),
-                'silverTotal'=> intval($silverTotal)
-                ])
-            ->make(true);
+        return [
+            'silver'   => (clone $escorts)->whereIn('membership', ['3'])->count() ?? 0,
+            'gold'     => (clone $escorts)->whereIn('membership', ['2'])->count() ?? 0,
+            'platinum' => (clone $escorts)->whereIn('membership', ['1'])->count() ?? 0,
+            'total' => (clone $escorts)->whereIn('membership', ['1','2','3'])->count() ?? 0,
+        ];
     }
 
     public function escortListedProfile($escortId)
@@ -600,21 +290,6 @@ class GlobalMonitoringController extends Controller
                     $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
                 },'pinup','suspendProfile'])->whereIn('membership', ['1','2','3']);
         }
-        
-        
-        // # Get suspended escort profile only
-        // $suspendProfileIds = SuspendProfile::where('utc_start_date', '<=', Carbon::now('UTC'))
-        // ->where('utc_end_date', '>=', Carbon::now('UTC'))
-        // ->pluck('escort_profile_id')
-        // ->unique();
-
-        // # Suspend by admin console through report by viewers
-        // $query = $escorts
-        //         ->with('suspendProfile')
-        //         ->whereHas('user', function($q) {
-        //             $q->where('status', 1);
-        //         })
-        //     ->whereNotIn('id', $suspendProfileIds);  
 
             $escorts->where('enabled', 1);
     

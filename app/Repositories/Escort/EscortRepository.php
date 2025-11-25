@@ -106,40 +106,43 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ])
             ->orderBy($order, $dir);
 
+        if($user_id != null){
+            $query = $query->where('user_id', $user_id);
+        }
+          
         if ($search) {
+
             $query = $query->where($conditions)
-                ->where('user_id', $user_id)
                 ->where('default_setting', '!=', 1)
                 ->where('profile_name', '!=', null)
-                ->where(function ($query) use ($searchables, $search) {
-                    $query->where('id', 'like', "%{$search}%");
-                    foreach ($searchables as $column) {
-                        if ($column == 'pro_name') {
-                            $column = 'profile_name';
-                        }
-                        $query = $query->orWhere($column, 'LIKE', "%{$search}%");
-                    }
+                ->where(function ($query) use ($search) {
+                    $query->where('profile_name', 'LIKE', "%{$search}%")
+                        ->orWhereHas('user', function ($q) use ($search) {
+                            $q->where('member_id', 'LIKE', "%{$search}%");
+                        });
                 });
+
             $result = $query->get();
 
             $result = $this->modifyEscorts($result, $start);
             $count =  $result->count();
         } else {
-            $result = $query->where('user_id', $user_id)
-                ->where($conditions)
+            $result = $query->where($conditions)
                 ->where('profile_name', '!=', null)
                 ->where('default_setting', '!=', 1);
 
             $result = $this->modifyEscorts($result->get(), $start);
       
-            $count =  $this->model->where('user_id', $user_id)->where($conditions)->where('default_setting', '!=', 1)->where('profile_name', '!=', null)->count();
+            if($user_id != null){
+                $count =  $this->model->where('user_id', $user_id)->where($conditions)->where('default_setting', '!=', 1)->where('profile_name', '!=', null)->count();
+            }else{
+                $count =  $this->model->where($conditions)->where('default_setting', '!=', 1)->where('profile_name', '!=', null)->count();
+            }
+            
         }
 
         return [$result, $count];
     }
-
-
-
 
 
     protected function modifyEscorts($result, $start)
@@ -150,7 +153,9 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $s = explode('/', $_SERVER['REQUEST_URI']);
             $item->sn = ($start + $i);
             $item->name = $item->name ? $item->name : "NA";
-
+            $item->member_id = $item->user->member_id;
+            $item->days_number = $item->days_number;
+            $item->days_left = $item->days_left;
             $item->pro_name = $item->profile_name ? '<span id="brb_' . $item->id . '" >' . $item->profile_name : "NA";
             $item->city_name = $item->city ? $item->city->name : null;
             $item->state_name = $item->state ? $item->state->name : null;
@@ -161,9 +166,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
             } else {
                 $item->enabled = "Draft";
             }
-
-
-
            
 
             if($item->gender=='Transgender')
