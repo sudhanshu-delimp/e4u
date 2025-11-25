@@ -36,6 +36,7 @@ use App\Http\Requests\StoreEscortRequest;
 use App\Http\Requests\UpdateEscortRequest;
 use App\Repositories\Escort\EscortInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
+use App\Models\EscortSetting;
 use App\Repositories\Purchase\PurchaseInterface;
 use App\Repositories\AttemptLogin\AttemptLoginRepository;
 
@@ -67,41 +68,41 @@ class EscortController extends Controller
 
         $escorts = $this->escort->all();
         $tasks = Task::latest()->paginate(10);
-        $viewer_array = DashboardViewer::where('user_id', auth()->id())->first(); 
+        $viewer_array = DashboardViewer::where('user_id', auth()->id())->first();
         $expiringListings = $this->escort->getExpiringListings(0, 2, true);
-        return view('escort.dashboard.index', compact('escorts', 'result', 'result2', 'tasks','viewer_array','expiringListings'));
+        return view('escort.dashboard.index', compact('escorts', 'result', 'result2', 'tasks', 'viewer_array', 'expiringListings'));
     }
 
 
     public function customiseDashboard(Request $request)
     {
-        
-        $viewer_array = DashboardViewer::where('user_id', auth()->id())->first(); 
+
+        $viewer_array = DashboardViewer::where('user_id', auth()->id())->first();
         return view('escort.dashboard.customise-dashboard', compact('viewer_array'));
     }
 
     public function updateCustomiseDashboard(Request $request)
     {
-           $viewers = config('constants.dashboard_viewer.escort');
-            $my_view = [];
-            foreach($viewers as $view) :
-                $my_view[$view['key']] = 0 ;
-            endforeach;
+        $viewers = config('constants.dashboard_viewer.escort');
+        $my_view = [];
+        foreach ($viewers as $view) :
+            $my_view[$view['key']] = 0;
+        endforeach;
 
-          
-            $viewer = DashboardViewer::firstOrCreate(
-                ['user_id' => auth()->id()],
-                ['my_view' =>  $my_view]
-            );
 
-            $data = $viewer->my_view;
-            $data[$request->key] = (int) $request->value;
+        $viewer = DashboardViewer::firstOrCreate(
+            ['user_id' => auth()->id()],
+            ['my_view' =>  $my_view]
+        );
 
-            $viewer->update(['my_view' => $data]);
-            return response()->json(['success' => true, 'data' => $data]);
+        $data = $viewer->my_view;
+        $data[$request->key] = (int) $request->value;
+
+        $viewer->update(['my_view' => $data]);
+        return response()->json(['success' => true, 'data' => $data]);
     }
 
-    
+
 
     function add_listing()
     {
@@ -144,10 +145,10 @@ class EscortController extends Controller
         foreach ($escort_ids as $key => $escort_id) {
             $index = date('Ymd', strtotime($start_dates[$key])) . rand(100, 999);
             $checkoutData[$index] = [
-                'escort_id'=>$escort_id,
-                'start_date'=>$start_dates[$key],
-                'end_date'=>$end_dates[$key],
-                'membership'=>$memberships[$key]
+                'escort_id' => $escort_id,
+                'start_date' => $start_dates[$key],
+                'end_date' => $end_dates[$key],
+                'membership' => $memberships[$key]
             ];
         }
         $escorts = Escort::whereIn('id', $escort_ids)->pluck('name', 'id')->toArray();
@@ -187,7 +188,7 @@ class EscortController extends Controller
 
         $escort = auth()->user()->escort;
 
-        $active_escorts = Escort::select(['id', 'name', 'profile_name', 'state_id', 'city_id','membership','start_date','end_date'])
+        $active_escorts = Escort::select(['id', 'name', 'profile_name', 'state_id', 'city_id', 'membership', 'start_date', 'end_date'])
             ->with('state', function ($query) {
                 $query->select(['id', 'name', 'country_id']);
             })
@@ -195,18 +196,18 @@ class EscortController extends Controller
             ->whereNotNull('profile_name')
             ->get()->toArray();
 
-        $suspended_escorts = Escort::select(['id', 'name', 'profile_name', 'state_id', 'city_id','membership','start_date','end_date'])
+        $suspended_escorts = Escort::select(['id', 'name', 'profile_name', 'state_id', 'city_id', 'membership', 'start_date', 'end_date'])
             ->where('enabled', 1)
             ->where('user_id', auth()->user()->id)
             ->whereNotNull('profile_name')
             ->where('utc_end_time', '>=', Carbon::now())
             ->get();
 
-            $activePinup = EscortPinup::where('user_id', auth()->user()->id)
+        $activePinup = EscortPinup::where('user_id', auth()->user()->id)
             ->where('utc_end_time', '>=', $today) // still active (today or future)
             ->exists();
 
-        return view('escort.dashboard.list', compact('escort', 'type', 'active_escorts','suspended_escorts','activePinup'));
+        return view('escort.dashboard.list', compact('escort', 'type', 'active_escorts', 'suspended_escorts', 'activePinup'));
     }
 
     public function dataTable($type = NULL)
@@ -481,7 +482,7 @@ class EscortController extends Controller
      */
     public function edit()
     {
-        $escort = User::where('id',auth()->user()->id)->first();
+        $escort = User::where('id', auth()->user()->id)->first();
         return view('escort.dashboard.my-account', compact('escort'));
     }
     public function editPassword()
@@ -509,12 +510,12 @@ class EscortController extends Controller
             //'city_id'=>$request->city_id,
             //'country_id'=>$request->country_id,
             // 'state_id'=>$request->state_id,
-           // 'email' => $request->email ? $request->email : null,
+            // 'email' => $request->email ? $request->email : null,
             //'social_links'=>$request->social_links,
         ];
 
-        if(isset($request->gender) && $request->gender!="")
-        $data['gender'] = $request->gender;
+        if (isset($request->gender) && $request->gender != "")
+            $data['gender'] = $request->gender;
 
         $error = true;
         if ($this->user->store($data, auth()->user()->id)) {
@@ -544,26 +545,90 @@ class EscortController extends Controller
         }
         return response()->json(compact('error'));
     }
+
+    // notification setting code code  here  
+    // public function notificationUpdate(UpdateEscortRequest $request)
+    // {
+    //     $playmateAvailable = null;
+    //     if($request->notification_feature && in_array('available_playmate', $request->notification_feature)){
+    //         $playmateAvailable = true;
+    //     }
+
+    //     $data = [
+    //         'alert_notifications' => $request->alert_notifications,
+    //         'agent_communications' => $request->agent_communications,
+    //         'notification_features' => $request->notification_feature,
+    //         'available_playmate' => $playmateAvailable,
+    //         'idle_preference_time' => $request->idle_time,
+    //     ];
+
+    //     $error = true;
+    //     if ($this->user->store($data, auth()->user()->id)) {
+    //         $error = false;
+    //     }
+    //     return response()->json(compact('error'));
+    // }
+
+
     public function notificationUpdate(UpdateEscortRequest $request)
     {
-        $playmateAvailable = null;
-        if($request->notification_feature && in_array('available_playmate', $request->notification_feature)){
-            $playmateAvailable = true;
+        try {
+            // List of checkbox fields (ENUM '0','1')
+            $checkboxFields = [
+                "features_viewer_notifications_forward_v_alerts",
+                "features_allow_viewers_to_ask_you_a_question",
+                "features_allow_viewers_to_send_you_a_text_message",
+                "features_i_am_available_as_a_playmate",
+                "auto_recharge_no",
+                "auto_recharge_100",
+                "auto_recharge_250",
+                "auto_recharge_500",
+                "agent_receive_communications",
+                "agent_send_communications",
+                "alert_notification_email",
+                "alert_notification_text",
+            ];
+
+            // List of numeric fields
+              $numericFields = [
+                "idle_preference_time",  
+                "twofa",                  
+                "subscriptions_num",     
+                "subscriptions_state"     
+            ];
+
+            $data = [];
+
+            // Prepare checkbox values ('1' if checked, '0' if unchecked)
+            foreach ($checkboxFields as $field) {
+                $data[$field] = $request->has($field) ? '1' : '0';
+            }
+
+            // Prepare numeric fields
+          foreach ($numericFields as $field) {
+            // Convert to string so ENUM fields do not throw a warning
+            $data[$field] = $request->$field !== null ? (string)$request->$field : '0';
         }
 
-        $data = [
-            'alert_notifications' => $request->alert_notifications,
-            'agent_communications' => $request->agent_communications,
-            'notification_features' => $request->notification_feature,
-            'available_playmate' => $playmateAvailable,
-            'idle_preference_time' => $request->idle_time,
-        ];
+            $data['user_id'] = auth()->id();
 
-        $error = true;
-        if ($this->user->store($data, auth()->user()->id)) {
-            $error = false;
+            // Insert or update
+            EscortSetting::updateOrCreate(
+                ['user_id' => auth()->id()],
+                $data
+            );
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Settings updated successfully'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage()
+            ], 500);
         }
-        return response()->json(compact('error'));
     }
 
     public function updatePassword(UpdateEscortRequest $request)
@@ -626,6 +691,7 @@ class EscortController extends Controller
 
         return response()->json(compact('msg'));
     }
+
     public function updatePasswordExpiry(UpdateEscortRequest $request)
     {
         $user = $this->user->find(auth()->user()->id);
@@ -758,7 +824,7 @@ class EscortController extends Controller
             $user->save();
 
             $type = 0;
-            return response()->json(compact('type','avatarName'));
+            return response()->json(compact('type', 'avatarName'));
         } catch (\Throwable $e) {
             \Log::error('Error saving avatar for user ' . $id . ': ' . $e->getMessage());
             return response()->json(['type' => 1, 'message' => $e->getMessage()], 500);
@@ -768,46 +834,48 @@ class EscortController extends Controller
     {
         try {
             $user = $this->user->find(auth()->user()->id);
-            
+
             if (!$user) {
-                return response()->json([ 'type' => 1,'message' => 'User not found'], 404);
+                return response()->json(['type' => 1, 'message' => 'User not found'], 404);
             }
             $path =  public_path('/avatars/' . $user->avatar_img);
-            if(File::exists($path)){
+            if (File::exists($path)) {
                 File::delete($path);
                 $user->avatar_img = null;
                 $user->save();
-            }else{
+            } else {
                 return response()->json(['type' => 1, 'message' => 'Image not found!']);
             }
-           $defaultImg = asset(config('constants.escort_default_icon'));
-            return response()->json(['type' => 0, 'message' => 'Avatar removed successfully', 'img' => $defaultImg ]);
-            
+            $defaultImg = asset(config('constants.escort_default_icon'));
+            return response()->json(['type' => 0, 'message' => 'Avatar removed successfully', 'img' => $defaultImg]);
         } catch (\Exception $e) {
             \Log::error('Error removing avatar: ' . $e->getMessage());
-            return response()->json([ 'type' => 1,'message' => 'An error occurred while removing avatar. Please try again.' ], 500);
+            return response()->json(['type' => 1, 'message' => 'An error occurred while removing avatar. Please try again.'], 500);
         }
     }
     public function notificationsFeatures()
     {
-        return view('escort.dashboard.profileNotifications');
+        $escostSetting =  EscortSetting::where('user_id',auth()->user()->id)->first();
+        return view('escort.dashboard.profileNotifications',compact('escostSetting'));
     }
-    public function getGeoLocationProfiles(Request $request){
+
+
+    public function getGeoLocationProfiles(Request $request)
+    {
         try {
             $response['success'] = false;
             $state_id = $request->state;
-            $profiles = Escort::where(['user_id'=>auth()->user()->id,'state_id'=>$state_id])
+            $profiles = Escort::where(['user_id' => auth()->user()->id, 'state_id' => $state_id])
                 ->whereNotNull('profile_name')
                 ->whereDoesntHave('purchase', function ($query) {
                     $query->where('utc_end_time', '>=', Carbon::now());
                 })
-                ->get(['id','name','profile_name','state_id']);
-            if($profiles->isNotEmpty()){
+                ->get(['id', 'name', 'profile_name', 'state_id']);
+            if ($profiles->isNotEmpty()) {
                 $response['success'] = true;
                 $response['profiles'] = $profiles;
                 $response['message'] = "Profiles are available.";
-            }
-            else{
+            } else {
                 $response['message'] = "You need to create at least one Profile for the Location.";
             }
             return response()->json($response);
@@ -819,7 +887,8 @@ class EscortController extends Controller
         }
     }
 
-    public function validateDateRange(Request $request){
+    public function validateDateRange(Request $request)
+    {
         try {
             $response['success'] = false;
             $startDate = $request->startDate;
@@ -829,20 +898,19 @@ class EscortController extends Controller
 
             $conflictExists = Purchase::overlapping($startDate, $endDate)
                 ->whereHas('escort', function ($q) use ($escort) {
-                $q->where('user_id',auth()->user()->id);
-                $q->where('state_id', '<>', $escort->state_id);
-            })
-            ->with('escort:id,state_id')
-            ->orderByDesc('end_date')
-            ->first()?->escort?->state?->name;
+                    $q->where('user_id', auth()->user()->id);
+                    $q->where('state_id', '<>', $escort->state_id);
+                })
+                ->with('escort:id,state_id')
+                ->orderByDesc('end_date')
+                ->first()?->escort?->state?->name;
 
-            if($conflictExists){
+            if ($conflictExists) {
                 $response['success'] = true;
                 $response['message'] = "You have a Current or Upcomming Listing in {$conflictExists}. To create multiple Listings across Locations, use the Tour creator.";
             }
 
             return response()->json($response);
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
@@ -851,24 +919,24 @@ class EscortController extends Controller
         }
     }
 
-    public function getAvailablePlaymates(Request $request){
+    public function getAvailablePlaymates(Request $request)
+    {
         try {
             $response['success'] = false;
             $selectedStateId = $request->input('state_id');
             $accountUserId = auth()->user()->id;
             $userIds = User::where('current_state_id', $selectedStateId)->pluck('id');
             $escorts = Escort::whereIn('user_id', $userIds)
-            ->where('state_id', $selectedStateId)
-            ->where('user_id', '!=', $currentUserId)
-            ->get();
+                ->where('state_id', $selectedStateId)
+                ->where('user_id', '!=', $currentUserId)
+                ->get();
 
-            if($conflictExists){
+            if ($conflictExists) {
                 $response['success'] = true;
                 $response['playmates'] = $escorts;
             }
 
             return response()->json($response);
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
@@ -879,27 +947,28 @@ class EscortController extends Controller
 
 
 
-      public function showPricingsummary() {
-        
+    public function showPricingsummary()
+    {
+
         // $states = config('escorts.profile.states');
         // $advertings= config('agent.advertising');
-         //$membership_types = config('agent.membership_types');
+        //$membership_types = config('agent.membership_types');
         // $no_of_members = config('agent.no_of_members');
-       
+
 
 
         $states = config('escorts.profile.states');
-        $membership_types = MembershipPlan::where('is_for_calculater','1')->get()->toArray();
+        $membership_types = MembershipPlan::where('is_for_calculater', '1')->get()->toArray();
         $no_of_members = config('agent.no_of_members');
         $advertings = Pricing::with('memberships')->get()->toArray();
 
-       
+
 
         $fees_concierge_services = FeesConciergeService::all();
         $fees_support_services = FeesSupportService::all();
         $variablLoyaltyProgram = VariablLoyaltyProgram::all();
 
-        
-        return view('escort.dashboard.Community.pricing',compact('advertings', 'membership_types','states','no_of_members','fees_concierge_services','fees_support_services','variablLoyaltyProgram'));
+
+        return view('escort.dashboard.Community.pricing', compact('advertings', 'membership_types', 'states', 'no_of_members', 'fees_concierge_services', 'fees_support_services', 'variablLoyaltyProgram'));
     }
 }

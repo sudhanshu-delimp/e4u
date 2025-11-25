@@ -58,53 +58,51 @@
                                 <h3 class="h3">Features</h3>
 
                                 <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" type="checkbox" id="notification_feature1" name="notification_feature[]" value="viewer_notification"
-                                        @if (!empty(auth()->user()->notification_features)) {{ in_array('viewer_notification', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
+                                    <input class="custom-control-input" type="checkbox" id="notification_feature1" name="features_viewer_notifications_forward_v_alerts" value="1"
+                                            @if(isset($escostSetting)) {{ $escostSetting->features_viewer_notifications_forward_v_alerts == 1 ? 'checked' : '' }} @else checked @endif>
                                     <label class="custom-control-label" for="notification_feature1">Viewer notifications, forward V-Alerts</label>
                                 </div>
                                 
                                 <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" type="checkbox" id="notification_feature2" name="notification_feature[]" value="viewer_ask_question"
-                                        @if (!empty(auth()->user()->notification_features)) {{ in_array('viewer_ask_question', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
+                                    <input class="custom-control-input" type="checkbox" id="notification_feature2" name="features_allow_viewers_to_ask_you_a_question" value="1"
+                                       {{ optional($escostSetting)->features_allow_viewers_to_ask_you_a_question == 1 ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="notification_feature2">Allow Viewers to ask you a question</label>
                                 </div>
                                 
                                 <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" id="notification_feature3" type="checkbox" name="notification_feature[]" value="viewer_send_text"
-                                        @if (!empty(auth()->user()->notification_features)) {{ in_array('viewer_send_text', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
+                                    <input class="custom-control-input" id="notification_feature3" type="checkbox" name="features_allow_viewers_to_send_you_a_text_message" value="1"
+                                        {{ optional($escostSetting)->features_allow_viewers_to_send_you_a_text_message == 1 ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="notification_feature3">Allow Viewers to send you a text message</label>
                                 </div>
                                 
                                 <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" id="notification_feature4" name="notification_feature[]" value="available_playmate" type="checkbox"
-                                        @if (!empty(auth()->user()->notification_features)) {{ in_array('available_playmate', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
+                                    <input class="custom-control-input" id="notification_feature4" name="features_i_am_available_as_a_playmate" value="1" type="checkbox"
+                                        @if(isset($escostSetting)) {{ $escostSetting->features_i_am_available_as_a_playmate == 1 ? 'checked' : '' }} @else checked @endif>
                                     <label class="custom-control-label" for="notification_feature4">I’m available as a playmate</label>
                                 </div>
                                 
-
                                 <div class="mt-2"><i>Some features are enabled by default unless you disable them.</i></div>
                             </div>
                             <div class="form-group">
                                 <h3 class="h3">Auto-Recharge options</h3>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" checked
-                                        name="alert_notifications[]" id="alert_notifications1" value="1">
-                                    <label class="form-check-label" for="alert_notifications1">No</label>
+                                    <input class="form-check-input" type="checkbox" name="auto_recharge_no" id="auto_recharge_no" value="1" @if(isset($escostSetting)) {{ $escostSetting->auto_recharge_no == 1 ? 'checked' : '' }} @else checked @endif>
+                                    <label class="form-check-label" for="auto_recharge_no">No</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" name="auto-recharge" type="checkbox"
-                                        id="auto-recharge" value="2">
-                                    <label class="form-check-label" for="auto-recharge">$100.00</label>
+                                    <input class="form-check-input" name="auto_recharge_100" type="checkbox"
+                                        id="auto_recharge_100" value="1" {{ optional($escostSetting)->auto_recharge_100 == 1 ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="auto_recharge_100">$100.00</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" name="auto-recharge" type="checkbox"
-                                        id="auto-recharge" value="2">
-                                    <label class="form-check-label" for="auto-recharge">$250.00</label>
+                                    <input class="form-check-input" name="auto_recharge_250" type="checkbox"
+                                        id="auto_recharge_250" value="1" {{ optional($escostSetting)->auto_recharge_250 == 1 ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="auto_recharge_250">$250.00</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" name="auto-recharge" type="checkbox"
-                                        id="auto-recharge" value="2">
-                                    <label class="form-check-label" for="auto-recharge">$500.00</label>
+                                    <input class="form-check-input" name="auto_recharge_500" type="checkbox"
+                                        id="auto_recharge_500" value="1"{{ optional($escostSetting)->auto_recharge_500 == 1 ? 'checked' : '' }} >
+                                    <label class="form-check-label" for="auto_recharge_500">$500.00</label>
                                 </div>
                                 <div class="pt-1"><i>Select your preferred top up value to be applied to your Credit.</i></div>
                             </div>
@@ -112,15 +110,15 @@
                                 <h3 class="h3">Agent</h3>
                                 <div class="custom-control custom-switch">
                                     <input class="custom-control-input" type="checkbox" id="agent_communications1"
-                                        value="1" name="agent_communications[]"
-                                        @if (!empty(auth()->user()->agent_communications)) {{ in_array(1, auth()->user()->agent_communications) ? 'checked' : '' }} @endif>
+                                        value="1" name="agent_receive_communications"
+                                        {{ optional($escostSetting)->agent_receive_communications == 1 ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="agent_communications1">Receive communications</label>
                                 </div>
                                 
                                 <div class="custom-control custom-switch">
                                     <input class="custom-control-input" type="checkbox" id="agent_communications2"
-                                        value="2" name="agent_communications[]"
-                                        @if (!empty(auth()->user()->agent_communications)) {{ in_array(2, auth()->user()->agent_communications) ? 'checked' : '' }} @endif>
+                                        value="1" name="agent_send_communications"
+                                        {{ optional($escostSetting)->agent_send_communications == 1 ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="agent_communications2">Send communications</label>
                                 </div>
                                 
@@ -130,16 +128,15 @@
                             <div class="form-group">
                                 <h3 class="h3">Alert notifications</h3>
                                 <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" type="checkbox" name="alert_notifications[]"
+                                    <input class="custom-control-input" type="checkbox" name="alert_notification_email"
                                         id="alert_notifications1" value="1"
-                                        @if (!empty(auth()->user()->alert_notifications)) {{ in_array(1, auth()->user()->alert_notifications) ? 'checked' : '' }} @endif>
+                                        {{ optional($escostSetting)->alert_notification_email == 1 ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="alert_notifications1">Email (A-Alert)</label>
                                 </div>
                                 
                                 <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" type="checkbox" name="alert_notifications[]"
-                                        id="alert_notifications2" value="2"
-                                        @if (!empty(auth()->user()->alert_notifications)) {{ in_array(2, auth()->user()->alert_notifications) ? 'checked' : '' }} @endif>
+                                    <input class="custom-control-input" type="checkbox" name="alert_notification_text"
+                                        id="alert_notifications2" value="1" @if(isset($escostSetting)) {{ $escostSetting->alert_notification_text == 1 ? 'checked' : '' }} @else checked @endif>
                                     <label class="custom-control-label" for="alert_notifications2">Text</label>
                                 </div>
                                 
@@ -149,15 +146,15 @@
                             <div class="form-group">
                                 <h3 class="h3">Idle Time Preference</h3>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="idle_time" id="idle_15" value="15" {{ (auth()->user() && auth()->user()->idle_preference_time != null && auth()->user()->idle_preference_time == 15) ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="idle_preference_time" id="idle_15" value="15" {{ optional($escostSetting)->idle_preference_time == 15 ? 'checked' : '' }}>
                                     <label class="form-check-label" for="idle_15">15 minutes</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="idle_time" id="idle_30" value="30" {{ (auth()->user() && auth()->user()->idle_preference_time != null && auth()->user()->idle_preference_time == 30) ? 'checked' : (auth()->user()->idle_preference_time == null ? 'checked' : '') }} >
+                                    <input class="form-check-input" type="radio" name="idle_preference_time" id="idle_30" value="30" {{ optional($escostSetting)->idle_preference_time == 30 ? 'checked' : '' }}>
                                     <label class="form-check-label" for="idle_30">30 minutes</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="idle_time" id="idle_60" value="60" {{ (auth()->user() && auth()->user()->idle_preference_time != null && auth()->user()->idle_preference_time == 60) ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="idle_preference_time" id="idle_60" value="60" @if(isset($escostSetting)) {{ $escostSetting->idle_preference_time == 60 ? 'checked' : '' }} @else checked @endif>
                                     <label class="form-check-label" for="idle_60">60 minutes</label>
                                 </div>
                                 <!-- Info -->
@@ -168,19 +165,19 @@
                             <div class="form-group">
                                 <h3 class="h3">2FA Authentication</h3>
                             
-                                <!-- Email Option -->
+                                
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="auth" id="auth_email" value="1">
+                                    <input class="form-check-input" type="radio" name="twofa" id="auth_email" value="1" {{ optional($escostSetting)->twofa == 1 ? 'checked' : '' }}>
                                     <label class="form-check-label" for="auth_email">Email</label>
                                 </div>
                             
-                                <!-- Text Option -->
+                               
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="auth" id="auth_text" value="2" checked>
+                                    <input class="form-check-input" type="radio" name="twofa" id="auth_text" value="2" @if(isset($escostSetting)) {{ $escostSetting->twofa == 2 ? 'checked' : '' }} @else checked @endif >
                                     <label class="form-check-label" for="auth_text">Text</label>
                                 </div>
                             
-                                <!-- Info -->
+                                
                                 <div class="pt-1">
                                     <i>How your authentication code will be sent to you.</i>
                                 </div>
@@ -191,17 +188,17 @@
                             
                                 <!-- G NUM Checkbox -->
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="num" value="NUM">
+                                    <input class="form-check-input" type="checkbox" id="num" value="1" name="subscriptions_num" {{ optional($escostSetting)->subscriptions_num == 1 ? 'checked' : '' }} >
                                     <label class="form-check-label" for="num">NUM</label>
                                 </div>
                             
                                 <!-- Coverage Options (Radio Buttons) -->
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="subscription" id="home_state" value="HS">
+                                    <input class="form-check-input" type="radio" name="subscriptions_state" id="home_state" value="1" {{ optional($escostSetting)->subscriptions_state == 1 ? 'checked' : '' }} >
                                     <label class="form-check-label" for="home_state">Home State</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="subscription" id="aus_wide" value="AUS">
+                                    <input class="form-check-input" type="radio" name="subscriptions_state" id="aus_wide" value="2" {{ optional($escostSetting)->subscriptions_state == 2 ? 'checked' : '' }} >
                                     <label class="form-check-label" for="aus_wide">Australia wide</label>
                                 </div>
                             
@@ -213,7 +210,10 @@
                             
                         </div>
                     </div>
-                    <input type="submit" value="save" class="btn-common" name="submit">
+                    <button type="submit" id="saveEscortSetting" class="btn-common">
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                        <span class="btn-text">Save</span>
+                    </button>
                 </form>
             </div>
         </div>
@@ -466,7 +466,9 @@
             var form = $(this);
             var url = form.attr('action');
             var data = new FormData(form[0]);
-
+            var btn = $("#saveEscortSetting");
+            var btnText = btn.find(".btn-text");
+            var spinner = btn.find(".spinner-border");
             $.ajax({
                 method: form.attr('method'),
                 url: url,
@@ -476,16 +478,27 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
+                 beforeSend: function() {
+                     btn.prop("disabled", true);      
+                    btnText.text("Submitting...");   
+                    spinner.removeClass("d-none");   
+                },
                 success: function(data) {
-                    if (!data.error) {
+                    if (data.error == false) {
                         showGlobalAlert("Notification settings saved successfully.", "success");
                     } else {
                         showGlobalAlert("Something went wrong. Please try again.", "danger");
                     }
                 },
+               
                 error: function(xhr) {
-                    showGlobalAlert("❌ Server error occurred.", "danger");
+                    showGlobalAlert("Server error occurred.", "danger");
                     console.error("AJAX error: ", xhr.responseText);
+                },
+                complete: function() {
+                    btn.prop("disabled", false);   
+                    btnText.text("Save");          
+                    spinner.addClass("d-none");    
                 }
             });
         });
