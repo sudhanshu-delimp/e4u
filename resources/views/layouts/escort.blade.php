@@ -13,9 +13,7 @@
             <div id="content">
 
                 @include('partials.escort.navigation')
-{{--                <div style="padding-top: 40px;">--}}
                 @yield('content')
-{{--                </div>--}}
 
             </div>
             <div class="modal" id="my_account_modal" style="display: none">

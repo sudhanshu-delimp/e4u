@@ -233,9 +233,7 @@ class UserController extends Controller
 
     public function editPassword()
     {
-        $user = User::with('account_setting')->where('id', auth()->user()->id)->first();
-        //dd( $user);
-        //dd($user->passwordSecurity);
+        $user = User::where('id',auth()->user()->id)->first();
         return view('user.dashboard.change-password', compact('user'));
     }
 

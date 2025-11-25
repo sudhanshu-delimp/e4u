@@ -25,7 +25,8 @@
                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                     <p></p>
                     <ol>
-
+                    <li>You can change your Password settings here. You will be notified by your preferred
+                    method when your Password is due to expire.</li>
                     </ol>
                 </div>
             </div>
