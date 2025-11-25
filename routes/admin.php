@@ -121,6 +121,50 @@ Route::get('get-visitors-by-ajax', [VisitorController::class, "getVisitorsByAjax
 //     return view('admin.visitors');
 // })->name('admin.visitors');
 
+// OC(M) Shareholder
+
+Route::get('shareholders/annual-report', function(){
+    return view('admin.management.shareholders.annual-report');
+})->name('admin.annual-report');
+ 
+Route::get('shareholders/annual-profit-and-loss', function(){
+    return view('admin.management.shareholders.annual-profit-and-loss');
+})->name('admin.annual-profit-and-loss');
+ 
+Route::get('shareholders/balance-sheet', function(){
+    return view('admin.management.shareholders.balance-sheet');
+})->name('admin.balance-sheet');
+ 
+Route::get('shareholders/constitution', function(){
+    return view('admin.management.shareholders.constitution');
+})->name('admin.constitution');
+ 
+Route::get('shareholders/minutes', function(){
+    return view('admin.management.shareholders.minutes');
+})->name('admin.minutes');
+ 
+Route::get('shareholders/newsletter', function(){
+    return view('admin.management.shareholders.newsletter');
+})->name('admin.newsletter');
+ 
+Route::get('shareholders/shareholder-notices', function(){
+    return view('admin.management.shareholders.shareholder-notices');
+})->name('admin.shareholder-notices');
+ 
+Route::get('shareholders/subsidiaries-balance-sheet', function(){
+    return view('admin.management.shareholders.subsidiaries-balance-sheet');
+})->name('admin.subsidiaries-balance-sheet');
+ 
+Route::get('shareholders/subsidiaries-annual-profit-and-loss', function(){
+    return view('admin.management.shareholders.subsidiaries-annual-profit-and-loss');
+})->name('admin.subsidiaries-annual-profit-and-loss');
+ 
+Route::get('shareholders/updates', function(){
+    return view('admin.management.shareholders.updates');
+})->name('admin.updates');
+ 
+
+
 
 Route::get('pinup-listings', function(){
     return view('admin.pin-up-listings');

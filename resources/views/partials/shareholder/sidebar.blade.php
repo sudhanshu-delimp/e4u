@@ -154,7 +154,7 @@
                 aria-expanded="true" aria-controls="E4uInformation">
                 
                 <img src="{{ asset('assets/dashboard/img/menu-icon/information.png') }}">
-                <span>E4u Information</span>
+                <span>E4U Information</span>
             </a>
             <div id="E4uInformation" class="collapse @if (request()->segment(2) == 'registrations' ||
                     request()->segment(2) == 'revenue') show @endif;"
