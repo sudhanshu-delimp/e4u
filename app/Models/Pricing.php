@@ -19,6 +19,14 @@ class Pricing extends Model
 
     public function getPercentageAttribute($value)
     {
-        return (int) $value;
+
+        if($value=='0.00' || $value=="") {
+
+             return 'N/A';
+        }
+
+        return (int) $value.'%';
+
+        
     }
 }
