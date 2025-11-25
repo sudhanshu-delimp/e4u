@@ -52,6 +52,9 @@
         </script>
 
         @stack('script')
+        @section('script')
+        @show
+
 
         <!-- ///////////// Notification ////////////////// -->
         <script>
