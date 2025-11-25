@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             profileRow.classList.add("profile");
             profileRow.innerHTML = `
             <div class="d-flex align-items-center gap-2 p-2 border rounded bg-light my-2">
-            <select name="profile[][]" class="form-select profile-dropdown w-25">
+            <select name="profile[][]" class="form-select profile-dropdown-inprocess w-25">
             ${availableProfiles.map(profile => `<option value="${profile.id}">${profile.name}</option>`).join("")}
             </select>
 
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             updateProfileDropdowns(locationGroup);
         }
 
-        if (target.classList.contains("profile-dropdown")) {
+        if (target.classList.contains("profile-dropdown-inprocess")) {
             updateProfileDropdowns(locationGroup);
         }
     });
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     function getAvailableProfiles(profilesContainer, allProfiles) {
         let selectedProfiles = new Set(
-            Array.from(profilesContainer.querySelectorAll(".profile-dropdown"))
+            Array.from(profilesContainer.querySelectorAll(".profile-dropdown-inprocess"))
                 .map(select => select.value)
         );
 
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     // Check if every location has at least one profile
     for (let location of locationGroups) {
-        let profiles = location.querySelectorAll(".profile-dropdown");
+        let profiles = location.querySelectorAll(".profile-dropdown-inprocess, .profile-dropdown");
         if (profiles.length === 0) {
             saveButton.disabled = true;
             return;
@@ -233,11 +233,11 @@ document.addEventListener("DOMContentLoaded", async function() {
         }
 
         let selectedProfiles = new Set(
-            Array.from(profilesContainer.querySelectorAll(".profile-dropdown"))
+            Array.from(profilesContainer.querySelectorAll(".profile-dropdown-inprocess"))
                 .map(select => select.value)
         );
 
-        profilesContainer.querySelectorAll(".profile-dropdown").forEach(dropdown => {
+        profilesContainer.querySelectorAll(".profile-dropdown-inprocess").forEach(dropdown => {
             let selectedValue = dropdown.value;
 
             let filteredProfiles = allProfiles.filter(profile => 
@@ -305,10 +305,12 @@ function updateProfileButtonState(locationGroup) {
         if (data.success) {
             Swal.fire({
                 title: 'Tour',
-                text: `Tour saved successfully.`,
-                icon: 'success'
+                html: `${data.message}`,
+                icon: 'success',
+                confirmButtonText: "OK"
+            }).then(() => {
+                location.assign(`${window.App.baseUrl}escort-dashboard/list-tour/past`);
             });
-            location.assign(`${window.App.baseUrl}escort-dashboard/list-tour/past`);
         } else {
             Swal.fire({
                 title: 'Tour',
@@ -349,7 +351,7 @@ function updateProfileButtonState(locationGroup) {
 
             let profiles = [];
             locationGroup.querySelectorAll(".profile").forEach(profileDiv => {
-                let profileId = profileDiv.querySelector(".profile-dropdown").value;
+                let profileId = profileDiv.querySelector(".profile-dropdown-inprocess,.profile-dropdown").value;
                 let tourPlan = profileDiv.querySelector(".tour-plan-dropdown").value;
                 let tour_profile_id = profileDiv.querySelector('input[name="tour_profile_id"]')?profileDiv.querySelector('input[name="tour_profile_id"]').value:null;
                 if (!profileId || !tourPlan) {
