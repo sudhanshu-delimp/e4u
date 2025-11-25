@@ -169,7 +169,7 @@
             {{-- box start --}}
             <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('center.dashboard.logs-and-status') }}">
+                    <a href="{{ route('center.logs-and-status') }}">
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/boxicon/center/logs-and-status.png') }}"
                                 alt="Logs & Status">

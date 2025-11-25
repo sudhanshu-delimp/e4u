@@ -1,7 +1,7 @@
 
 
 $('#passwordExpiry').on('submit', function (e) {
-    e.preventDefault();;
+    e.preventDefault();
     var form = $(this);
     $("#modal-title").text('Password Expiry');
 
