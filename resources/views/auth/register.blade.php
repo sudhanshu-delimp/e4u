@@ -168,10 +168,10 @@
                             </div>
                         </div>
                       </div>
-                        <div class="mt-3">
+                        {{-- <div class="mt-3">
                             <b>Changes to this Guide</b><br>
                             <span>This Guide was last updated on 02-2024.</span>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -193,10 +193,6 @@
                             your name to be disclosed.
                         </span>
 
-                        <div class="mt-3 text-justify">
-                            <b>Changes to this Guide</b><br>
-                            <span>This Guide was last updated on 02-2024.</span>
-                        </div>
                     </div>
                 </div>
             </div>

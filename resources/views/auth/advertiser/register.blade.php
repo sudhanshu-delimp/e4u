@@ -393,10 +393,6 @@
                             </table>
 
 
-                            <div class="mt-3">
-                                <b>Changes to this Guide</b><br>
-                                <span>This Guide was last updated on 02-2024.</span>
-                            </div>
                         </div>
                     </div>
                 </div>

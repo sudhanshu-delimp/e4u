@@ -154,7 +154,7 @@
                 aria-expanded="true" aria-controls="E4uInformation">
                 
                 <img src="{{ asset('assets/dashboard/img/menu-icon/information.png') }}">
-                <span>E4u Information</span>
+                <span>E4U Information</span>
             </a>
             <div id="E4uInformation" class="collapse @if (request()->segment(2) == 'registrations' ||
                     request()->segment(2) == 'revenue') show @endif;"
@@ -323,6 +323,40 @@
         </li>
         {{-- end --}}
 
+           {{----------------------------- Statistics  ------------------------------}}        
+         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Statistics"
+                aria-expanded="true" aria-controls="Statistics">
+                
+                <img src="{{ asset('assets/dashboard/img/menu-icon/statistic.png') }}">
+                <span>Statistics </span>
+            </a>
+            <div id="Statistics" class="collapse @if (request()->segment(2) == 'escort-statistics' ||
+                    request()->segment(2) == 'massage-centre-statistics') show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
+                    
+
+                    <a class="collapse-item" href="{{ route('shareholder.escort-statistics', ['from' => 'sidebar']) }}">
+                        <img 
+                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'escort-statistics' ? 'color: #ff3c5f;' : '' }}">
+                           Escort Statistics</span>
+                    </a>
+
+                    
+                    <a class="collapse-item" href="{{ route('shareholder.massage-centre-statistics', ['from' => 'sidebar']) }}">
+                        <img 
+                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'massage-centre-statistics' ? 'color: #ff3c5f;' : '' }}">
+                           Massage Centre Statistics</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        {{-- end --}}
 
          {{----------------------------- Subsidiaries ------------------------------}}        
          <li class="nav-item">
@@ -382,7 +416,7 @@
                 <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
                     
 
-                    <a class="collapse-item" href="{{ route('shareholder.submit') }}">
+                    <a class="collapse-item" href="{{ route('shareholder.submit', ['from' => 'sidebar']) }}">
                         <img 
                             src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                         <span

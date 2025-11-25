@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
-if (!function_exists('calculateTotalFee')) {
-    function calculateTotalFee($plan=0, $days=0)
+if (!function_exists('old_calculateTotalFee')) {
+    function old_calculateTotalFee($plan=0, $days=0)
     {
         $dis_rate = 0;
         if ($plan == 1) {
@@ -66,6 +66,51 @@ if (!function_exists('calculateTotalFee')) {
         return [$total_dis, $total_rate, $total_amount];
     }
 }
+
+
+if (!function_exists('calculateTotalFee')) {
+    function calculateTotalFee($membership_id, $days)
+    {
+        $discount_day = 21;
+        $pricing = \App\Models\Pricing::where('membership_id', $membership_id)->first();
+        if (!$pricing) {
+            return [0, 0, 0];
+        }
+
+        $normalRate   = $pricing->price;
+        $discountRate = $pricing->discount_amount ?: $normalRate;
+
+        if ($days <= $discount_day) {
+            $total_rate     = $days * $normalRate;
+            $total_discount = 0;
+            return [$total_discount, $total_rate, $total_rate];
+        }
+
+        
+        $normalDays   = $discount_day;
+        $discountDays = $days - $discount_day;
+
+        if ($pricing->day == 1) {  // frequency 
+            $total_rate  = ($normalDays * $normalRate) + ($discountDays * $discountRate);
+
+        } elseif ($pricing->day == 2) {  // frequency 
+            $normalWeeks   = ceil($normalDays / 7);
+            $discountWeeks = ceil($discountDays / 7);
+
+            $total_rate  = ($normalWeeks * $normalRate) + ($discountWeeks * $discountRate);
+
+        } else {
+            $total_rate = ($normalDays * $normalRate) + ($discountDays * $discountRate);
+        }
+
+        $total_discount = $discountDays * ($normalRate - $discountRate);
+
+        return [$total_discount, $total_rate, $total_rate];
+    }
+}
+
+
+
 if (!function_exists('formatCurrency')) {
     /**
      * Format the amount

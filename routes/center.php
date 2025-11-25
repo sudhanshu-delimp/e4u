@@ -11,6 +11,7 @@ use App\Http\Controllers\Center\CenterNumController;
 use App\Http\Controllers\Center\PolyPaymentController;
 use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\UpdateController;
+use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Center\CenterProfileInformationController;
 use App\Http\Controllers\Center\MassageViewerInteractionController;
 
@@ -111,6 +112,11 @@ Route::post('settings-socials-link',[CenterProfileInformationController::class,'
 Route::get('customise-dashboard', [CenterController::class, 'customiseDashboard'])->name('center.dashboard.customise-dashboard');
 Route::post('customise-dashboard', [CenterController::class, 'updateCustomiseDashboard'])->name('center.dashboard.customise-dashboard');
 
+
+Route::get('logs-and-status', [CenterController::class, 'LogsAndStatus'])->name('center.logs-and-status');
+Route::post('center-update-password-duration', [CenterController::class, 'updatePasswordDuration'])->name('center.update.password.duration');
+
+
 Route::get('centre-statistics',function(){
     return view('center.dashboard.centre-statistics');
 })->name('center.dashboard.centre-statistics');
@@ -144,9 +150,9 @@ Route::get('masseurs-statistics',function(){
     return view('center.dashboard.masseurs-statistics');
 })->name('center.dashboard.masseurs-statistics');
 
-Route::get('logs-and-status',function(){
-    return view('center.dashboard.logs-and-status');
-})->name('center.dashboard.logs-and-status');
+// Route::get('logs-and-status',function(){
+//     return view('center.dashboard.logs-and-status');
+// })->name('center.dashboard.logs-and-status');
 
 
 
@@ -228,12 +234,15 @@ Route::get('/profile-info/edit-profile', function()
 })->name('center.profile-info.edit-profile');
 
 
-Route::get('/notifications-and-features', function()
-{
-	return view('center.my-account.notifications-and-features');
-})->name('centre.notifications-and-features');
+// Route::get('/notifications-and-features', function()
+// {
+// 	return view('center.my-account.notifications-and-features');
+// })->name('centre.notifications-and-features');
 
-Route::post('/update-notifications-and-features',[CenterProfileInformationController ::class, 'updateNotificationsFeatures'] )->name('centre.update.notifications-and-features');
+
+Route::get('notifications-and-features', [CenterProfileInformationController::class, 'massageSettings'])->name('centre.notifications-and-features');
+
+Route::post('notifications-and-features',[CenterProfileInformationController ::class, 'updateNotificationsAndFeatures'] )->name('centre.notifications-and-features');
 
 
 Route::get('view-archives',function(){
@@ -265,6 +274,9 @@ Route::post('get-default-photos', [CenterProfileInformationController ::class, '
 Route::post('delete-photos/{id}', [CenterProfileInformationController ::class, 'ImagesDelete'])->name('center.delete.gallery');
  Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('center.update-password');
 
+ Route::get('pricing', [CenterController ::class, 'pricing'])->name('center.dashboard.Community.pricing');
+ Route::post('calculate-reckoner', [PricingsummariesController::class, 'calculate'])->name('centre.reckoner-calculate');
+
 // function(){
 //     return view('center.dashboard.archives.archive-view-photos');
 // })->name('cen.archive-view-photos');
@@ -276,9 +288,10 @@ Route::get('archive-view-videos',function(){
 Route::get('register-for-pin-up',function(){
     return view('center.dashboard.registerPinup.register-pin-up');
 });
-Route::get('pricing',function(){
-    return view('center.dashboard.Community.pricing');
-})->name('center.dashboard.Community.pricing');
+
+// Route::get('pricing',function(){
+//     return view('center.dashboard.Community.pricing');
+// })->name('center.dashboard.Community.pricing');
 
 Route::get('submitticket',function(){
     return view('center.dashboard.supportticket.submitticket');

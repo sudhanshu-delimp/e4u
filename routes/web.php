@@ -12,10 +12,12 @@ use App\Mail\sendPlaymateAccountDisableMail;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\NotificationSetting;
 use App\Http\Controllers\Admin\TaskController;
+use App\Http\Controllers\InfluencerController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Center\CenterController;
 use App\Http\Controllers\Escort\EscortController;
 use App\Http\Controllers\Escort\PinUpsController;
+use App\Http\Controllers\Viewer\ViewerController;
 use App\Http\Controllers\AccountSettingController;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\User\Auth\LoginController;
@@ -31,6 +33,7 @@ use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Http\Controllers\Admin\ManagePeopleStaffController;
 use App\Http\Controllers\Escort\EscortStatisticsController;
+use App\Http\Controllers\Escort\EscortTourScheduleContoller;
 use App\Http\Controllers\GetCurrentUserGeolocationController;
 use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
 use App\Http\Controllers\Escort\EscortViewerInteractionController;
@@ -40,8 +43,6 @@ use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
-use App\Http\Controllers\Escort\EscortTourScheduleContoller;
-use App\Http\Controllers\InfluencerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -170,6 +171,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/viewer/massage-profile-view/{id?}', [ViewerMassageInteractionController::class, 'dataTableSingleMassageListingAjax'])->name('viewer.massage.profile-view');
         Route::post('/viewer/massage-remove-from-legbox', [ViewerMassageInteractionController::class, 'viewerRemoveMassageFromLegbox'])->name('viewer.massage-remove');
 
+        # Dashboard Logs & Status
+        Route::get('logs-and-statistics', [ViewerController::class, 'logsAndStatistics'])->name('user.logs-and-statistics');
+        Route::post('update-password-duration', [ViewerController::class, 'updatePasswordDuration'])->name('user.update.password.duration');
+
 
         Route::get('/favorites-online',function(){
             return view('user.dashboard.favorites-online');
@@ -179,9 +184,7 @@ Route::middleware('auth')->group(function () {
             return view('user.dashboard.punterbox');
         })->name('user.punterbox');
 
-        Route::get('/logs-and-statistics',function(){
-            return view('user.dashboard.logs-and-statistics');
-        })->name('user.logs-and-statistics');
+        // Route::get('/logs-and-statistics',function(){ return view('user.dashboard.logs-and-statistics');})->name('user.logs-and-statistics');
 
         Route::get('/my-statistics',function(){
             return view('user.dashboard.my-statistics');
@@ -391,7 +394,12 @@ Route::get('/faqs', function() { return view('web.pages.faqs'); });
 Route::get('/parent-control', function() { return view('web.pages.parent-control'); });
 Route::get('/feedback', function() { return view('web.pages.feedback'); });
 Route::get('/thankyou', function() { return view('web.pages.thankyou'); })->name('feedback.thankyou');
-Route::get('/help-for-escorts', function() { return view('web.pages.help-for-advertisers'); })->name('web.help-for-advertisers');
+
+Route::get('help-for-escorts', [App\Http\Controllers\WebController::class,'help_for_escort'])->name('web.help-for-advertisers');
+
+//Route::get('/help-for-escorts', function() { return view('web.pages.help-for-advertisers'); })->name('web.help-for-advertisers');
+
+
 Route::get('/help-for-agents', function() { return view('web.pages.help-for-agents'); });
 Route::get('/help-for-massage-centres', function() { return view('web.pages.help-for-massage-centres'); });
 Route::get('/help-for-viewers', function() { return view('web.pages.help-for-viewers'); });

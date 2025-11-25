@@ -182,6 +182,10 @@
     });
 
 </script>
+
+<script>
+    document.getElementById('email').focus();
+</script>
 <script>
 
     $(document).ready(function() {

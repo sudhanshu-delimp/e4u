@@ -83,7 +83,7 @@ class PricingRepository extends BaseRepository implements PricingInterface
 
             // $item->days = $item->days == 1 ? "per day" : "per week";
             $item->prices = $item->price ? "$".$item->price : 'NA';
-            $item->percentage = $item->percentage ? $item->percentage : "N/A";
+           
             // $percent = $item->percentage*$item->price/100;
             // $item->discount_amount = $item->price - $percent;
             if($item->percentage == 'N/A' || $item->percentage == '0.00') {

@@ -2,39 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Repositories\Escort\EscortMediaInterface;
-use App\Repositories\Escort\EscortInterface;
-use App\Repositories\Service\ServiceInterface;
-use App\Repositories\Escort\AvailabilityInterface;
-use App\Repositories\Page\PageInterface;
-use App\Models\Add_to_list;
-use App\Models\Add_to_massage_shortlist;
-use App\Models\AttemptLogin;
-use App\Models\City;
-use App\Models\Country;
-use App\Models\Escort;
-use App\Models\Payment;
-use App\Models\EscortLike;
-use App\Models\MassageLike;
-use App\Models\EscortBrb;
-use App\Models\EscortViewerInteractions;
-use App\Models\LoginAttempt;
-use App\Models\ReportEscortProfile;
-use App\Models\Reviews;
-use App\Models\State;
-use App\Models\SuspendProfile;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Cookie;
-use App\Repositories\MassageProfile\MassageProfileInterface;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Session;
-
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\City;
+use App\Models\State;
+use App\Models\Escort;
+use App\Models\Country;
+use App\Models\Payment;
+use App\Models\Pricing;
+use App\Models\Reviews;
+use App\Models\EscortBrb;
+use App\Models\EscortLike;
+use App\Models\Add_to_list;
+use App\Models\MassageLike;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
+use App\Models\AttemptLogin;
+use App\Models\LoginAttempt;
+use Illuminate\Http\Request;
+use App\Models\SuspendProfile;
 use Illuminate\Support\Facades\DB;
+use App\Models\ReportEscortProfile;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
+use App\Models\Add_to_massage_shortlist;
+use App\Models\EscortViewerInteractions;
+use App\Repositories\Page\PageInterface;
+use App\Repositories\Escort\EscortInterface;
+
+use App\Repositories\Service\ServiceInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\Repositories\Escort\EscortMediaInterface;
+use App\Repositories\Escort\AvailabilityInterface;
+use App\Repositories\MassageProfile\MassageProfileInterface;
 
 class WebController extends Controller
 {
@@ -1494,4 +1495,14 @@ class WebController extends Controller
 
         return response()->json(['status' => true, 'stats'=>'Stats saved succsessfully.']);  
     }
+
+
+
+    public function help_for_escort(Request $request)
+    {
+         $advertings = Pricing::with('memberships')->get()->toArray();
+        return view('web.pages.help-for-advertisers',compact('advertings'));    
+    }
+
+
 }

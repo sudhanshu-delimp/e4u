@@ -576,9 +576,11 @@
                 <div class="otherliste" style="display: none;">
                     @if ($grouped->has('1'))
                         <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
-                            <div class="bod_image"><img src="{{ asset('images/platinum_membership.png') }}"
-                                    data-toggle="tooltip"
-                                    title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
+                            <div class="bod_image">
+                            <div class="ec_tooltip">    
+                                <img src="{{ asset('images/platinum_membership.png') }}">
+                                <span class="ec_type_tooltip">Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
+                            </div>
                                 {{ $memberTotalCount[1] }}
                                 <span class="bordertopp">
                                     {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
@@ -595,9 +597,13 @@
                     @endif
                     @if ($grouped->has('2'))
                         <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
-                            <div class="bod_image"><img src="{{ asset('images/gold_membership.png') }}"
-                                    data-toggle="tooltip"
-                                    title="Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}">
+                            <div class="bod_image">
+                                 <div class="ec_tooltip">
+                                    <img src="{{ asset('images/gold_membership.png') }}">
+                                    <span class="ec_type_tooltip">
+                                        Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}
+                                    </span>
+                                 </div>
                                 {{ $memberTotalCount[2] }}
                                 <span class="bordertopp">
                                     {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
@@ -614,9 +620,13 @@
                     @endif
                     @if ($grouped->has('3'))
                         <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
-                            <div class="bod_image"><img src="{{ asset('images/silver_membership.png') }}"
-                                    data-toggle="tooltip"
-                                    title="Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}">
+                            <div class="bod_image">
+                                 <div class="ec_tooltip">
+                                    <img src="{{ asset('images/silver_membership.png') }}">
+                                    <span class="ec_type_tooltip">
+                                        Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}
+                                    </span>
+                                 </div>
                                 {{ $memberTotalCount[3] }}
                                 <span class="bordertopp">
                                     {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
@@ -633,9 +643,13 @@
                     @endif
                     @if ($grouped->has('4'))
                         <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
-                            <div class="bod_image"><img src="{{ asset('assets/app/img/Group 153.png') }}"
-                                    data-toggle="tooltip"
-                                    title="Free Members -{{ $memberTotalCount[4] }} {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}">
+                            <div class="bod_image">
+                                 <div class="ec_tooltip">
+                                    <img src="{{ asset('assets/app/img/Group 153.png') }}">
+                                    <span class="ec_type_tooltip">
+                                        Free Members -{{ $memberTotalCount[4] }} {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}
+                                    </span>
+                                 </div> 
                                 {{ $memberTotalCount[4] }}
                                 <span class="bordertopp">
                                     {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
@@ -654,9 +668,13 @@
                 <div class="grid list-view list-view-div" style="display: none;">
                     @if ($grouped->has('1'))
                         <div class="platinum-sec">
-                            <div class="bod_image"><img src="{{ asset('images/platinum_membership.png') }}"
-                                    data-toggle="tooltip"
-                                    title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
+                            <div class="bod_image">
+                                <div class="ec_tooltip">
+                                    <img src="{{ asset('images/platinum_membership.png') }}">
+                                    <span class="ec_type_tooltip">
+                                        Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}
+                                    </span>
+                                 </div> 
                                 {{ $memberTotalCount[1] }}
                                 <span class="bordertopp">
                                     {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
@@ -673,9 +691,13 @@
                     @endif
                     @if ($grouped->has('2'))
                         <div class="platinum-sec gold">
-                            <div class="bod_image"><img src="{{ asset('images/gold_membership.png') }}"
-                                    data-toggle="tooltip"
-                                    title="Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}">
+                            <div class="bod_image">
+                                  <div class="ec_tooltip">
+                                    <img src="{{ asset('images/gold_membership.png') }}">
+                                        <span class="ec_type_tooltip">
+                                        Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}
+                                    </span>
+                                 </div>
                                 {{ $memberTotalCount[2] }}
                                 <span class="bordertopp">{{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}</span>
                             </div>
@@ -691,10 +713,16 @@
                     @endif
                     @if ($grouped->has('3'))
                         <div class="listview_each_section_border_btm silver_card">
-                            <div class="bod_image custom-mb"><img src="{{ asset('images/silver_membership.png') }}"
-                                    data-toggle="tooltip"
-                                    title="Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}">{{ $memberTotalCount[3] }}<span
-                                    class="bordertopp">{{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
+                            <div class="bod_image custom-mb">
+                                
+                                  <div class="ec_tooltip">
+                                        <img src="{{ asset('images/silver_membership.png') }}">
+                                        <span class="ec_type_tooltip">
+                                            Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}
+                                        </span>
+                                    </div>
+                                        {{ $memberTotalCount[3] }}
+                                        <span class="bordertopp">{{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
                             </div>
                             <div class="row  mx-md-n2">
                                 @if ($grouped->has('3'))
@@ -707,9 +735,14 @@
                     @endif
                     @if ($grouped->has('4'))
                         <div class="manage_listview_margin_siliver_section free_card">
-                            <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/Group 153.png') }}"
-                                    data-toggle="tooltip"
-                                    title="Free Members - {{ $memberTotalCount[4] }} {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}">{{ $memberTotalCount[4] }}<span
+                            <div class="bod_image custom-mb">
+                                 <div class="ec_tooltip">
+                                    <img src="{{ asset('assets/app/img/Group 153.png') }}">
+                                        <span class="ec_type_tooltip">
+                                            Free Members - {{ $memberTotalCount[4] }} {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}
+                                        </span>
+                                    </div> 
+                                    {{ $memberTotalCount[4] }}<span
                                     class="bordertopp">{{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
                             </div>
                             <div class="row">

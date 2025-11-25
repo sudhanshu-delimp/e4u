@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MugsController;
 use App\Http\Controllers\EscortBrbController;
+use App\Http\Controllers\Escort\NumController;
 use App\Http\Controllers\Escort\TourController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Escort\EscortController;
@@ -16,16 +17,16 @@ use App\Http\Controllers\Escort\HowIsItDoneController;
 use App\Http\Controllers\User\Dashboard\UserController;
 use App\Http\Controllers\Escort\EscortAccountController;
 use App\Http\Controllers\Escort\EscortGalleryController;
+use App\Http\Controllers\Escort\EscortReviewsController;
 use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
 use App\Http\Controllers\Escort\EscortDashboardController;
 use App\Http\Controllers\Escort\EscortStatisticsController;
 use App\Http\Controllers\Escort\EscortPolyPaymentController;
-use App\Http\Controllers\Escort\EscortReviewsController;
 use App\Http\Controllers\Escort\EscortTourPaymentController;
-use App\Http\Controllers\Escort\EscortSuspendProfileController;
 use App\Http\Controllers\Escort\EscortTourScheduleContoller;
-use App\Http\Controllers\Escort\NumController;
+use App\Http\Controllers\Escort\EscortSuspendProfileController;
+use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
 
 //remove before prod
@@ -338,6 +339,7 @@ Route::get('Community',function(){
 //////////tour payment
 
 Route::get('pricing',[EscortController::class ,'showPricingsummary'])->name('escort.dashboard.Community.pricing');
+Route::post('calculate-reckoner', [PricingsummariesController::class, 'calculate'])->name('escort.reckoner-calculate');
 Route::post('poli-paymentUrl',[EscortPolyPaymentController::class,'polyPaymentUrl'])->name('escort.poli.paymentUrl');
 Route::get('paymentUrl-status-success/{id}',[EscortPolyPaymentController::class,'successUrl'])->name('escort.poly.paymentUrl.status.success');
 Route::get('paymentUrl-status-FailureURL/{id}',[EscortPolyPaymentController::class,'FailureURL'])->name('escort.poly.paymentUrl.status.FailureURL');

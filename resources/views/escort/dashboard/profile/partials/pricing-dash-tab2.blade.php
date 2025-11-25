@@ -12,7 +12,7 @@ $loginAccount = auth()->user();
 @endphp
 <div class="tab-pane fade" id="pricing" role="tabpanel" aria-labelledby="contact-tab">
     
-    @php
+    <!-- @php
     $membership = [1 => "Platinum", 2=>"Gold", 3=>"Silver", 4=>"Free"]; 
     function calculateChargeFee($plan, $days) {
         $dis_rate = 0;
@@ -64,7 +64,7 @@ $loginAccount = auth()->user();
     }
 
     $totalAmount = 0;
-    @endphp
+    @endphp -->
     <div class="about_me_drop_down_info ">
         <div class="padding_20_all_side payment_form_bg">
             <div class="row margin_zero_for_row">
@@ -99,7 +99,7 @@ $loginAccount = auth()->user();
                                     @php
                                         if(!empty(($listing['start_date'])))
                                             $daysDiff = Carbon\Carbon::parse($listing['end_date'])->diffInDays(Carbon\Carbon::parse($listing['start_date']))+1;
-                                            list($discount, $rate) = calculateChargeFee($listing['membership'], $daysDiff);
+                                            list($discount, $rate) = calculateTotalFee($listing['membership'], $daysDiff);
                                             $fullFee = $rate + $discount;
                                             $totalAmount += $rate;
                                         @endphp

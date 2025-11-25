@@ -25,7 +25,8 @@
                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                     <p></p>
                     <ol>
-
+                    <li>You can change your Password settings here. You will be notified by your preferred
+                    method when your Password is due to expire.</li>
                     </ol>
                 </div>
             </div>
@@ -150,7 +151,9 @@
 @endsection
 @section('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/for_multiple_console/logs_and_status_blade.js') }}"></script>
+
 
 
 @endsection

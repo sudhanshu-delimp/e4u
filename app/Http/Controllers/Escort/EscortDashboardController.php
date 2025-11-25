@@ -29,21 +29,13 @@ class EscortDashboardController extends Controller
             $user->account_setting->password_expiry_days = $passwordExpiry; 
             $user->account_setting->save();
         } else {
-            // Optionally handle the case where passwordSecurity is missing
-            return response()->json([
-                'status' => false,
-                'message' => 'Password security settings not found.',
-            ], 404);
+            
+          return  error_response('Password security settings not found.', 422);
         }
 
         $passwordExpiryText = CheckExpireDate($passwordExpiry);
-       // dd($passwordExpiryText);
 
-        return response()->json([
-            'status' => true,
-            'passwordExp' => $passwordExpiry,
-            'text' => $passwordExpiryText,
-        ]);
+       return Success_response(['passwordExp' => $passwordExpiry, 'text' => $passwordExpiryText], 'Password duration updated successfully', 200);
     }
 
  

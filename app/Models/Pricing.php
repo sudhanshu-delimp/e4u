@@ -15,4 +15,18 @@ class Pricing extends Model
     {
         return $this->belongsTo('App\Models\MembershipPlan', 'membership_id');
     }
+
+
+    public function getPercentageAttribute($value)
+    {
+
+        if($value=='0.00' || $value=="") {
+
+             return 'N/A';
+        }
+
+        return (int) $value.'%';
+
+        
+    }
 }

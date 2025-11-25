@@ -7,6 +7,7 @@ use App\Models\AgentDetail;
 use App\Models\AgentSetting;
 use App\Models\ViewerSetting;
 use App\Models\AccountSetting;
+use App\Models\MassageSetting;
 use App\Models\AgentBankDetail;
 use App\Models\PasswordSecurity;
 use Laravel\Sanctum\HasApiTokens;
@@ -634,6 +635,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo(AgentSetting::class, 'id', 'user_id');
     }
+
+    public function massage_settings()
+    {
+        return $this->belongsTo(MassageSetting::class, 'id', 'user_id');
+    }
+
+    
 
     public function staff_detail()
     {
