@@ -881,13 +881,6 @@ class EscortController extends Controller
 
       public function showPricingsummary() {
         
-        // $states = config('escorts.profile.states');
-        // $advertings= config('agent.advertising');
-         //$membership_types = config('agent.membership_types');
-        // $no_of_members = config('agent.no_of_members');
-       
-
-
         $states = config('escorts.profile.states');
         $membership_types = MembershipPlan::where('is_for_calculater','1')->get()->toArray();
         $no_of_members = config('agent.no_of_members');
