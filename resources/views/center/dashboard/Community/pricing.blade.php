@@ -240,7 +240,7 @@
                                         <div class="mt-5">
                                             <h3>Changes to this Guide</h3>
                                             <span>
-                                                This Guide was last updated 16-06-2025.
+                                                This Guide was last updated {{last_updated_price('pricing')}}.
                                             </span>
                                         </div>
                                     </div>
@@ -444,7 +444,7 @@
                                         <div class="mt-5">
                                             <h3>Changes to this Guide</h3>
                                             <span>
-                                                This Guide was last updated 16-06-2025.
+                                                This Guide was last updated {{last_updated_price('fees_support_services')}}.
                                             </span>
                                         </div>
                                     </div>
@@ -526,7 +526,7 @@
                                         <div class="mt-5">
                                             <h3>Changes to this Guide</h3>
                                             <span>
-                                                This Guide was last updated 16-06-2025.
+                                                This Guide was last updated {{last_updated_price('variabl_loyalty_programs')}}.
                                             </span>
                                         </div>
                                     </div>
