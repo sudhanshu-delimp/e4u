@@ -111,6 +111,11 @@ Route::post('settings-socials-link',[CenterProfileInformationController::class,'
 Route::get('customise-dashboard', [CenterController::class, 'customiseDashboard'])->name('center.dashboard.customise-dashboard');
 Route::post('customise-dashboard', [CenterController::class, 'updateCustomiseDashboard'])->name('center.dashboard.customise-dashboard');
 
+
+Route::get('logs-and-status', [CenterController::class, 'LogsAndStatus'])->name('center.logs-and-status');
+Route::post('center-update-password-duration', [CenterController::class, 'updatePasswordDuration'])->name('center.update.password.duration');
+
+
 Route::get('centre-statistics',function(){
     return view('center.dashboard.centre-statistics');
 })->name('center.dashboard.centre-statistics');
@@ -144,9 +149,9 @@ Route::get('masseurs-statistics',function(){
     return view('center.dashboard.masseurs-statistics');
 })->name('center.dashboard.masseurs-statistics');
 
-Route::get('logs-and-status',function(){
-    return view('center.dashboard.logs-and-status');
-})->name('center.dashboard.logs-and-status');
+// Route::get('logs-and-status',function(){
+//     return view('center.dashboard.logs-and-status');
+// })->name('center.dashboard.logs-and-status');
 
 
 
