@@ -9,6 +9,7 @@ use App\Models\MembershipPlan;
 use App\Models\PricingSummary;
 use App\Models\CommissionPlaybox;
 use App\Models\FeesSupportService;
+use App\Models\PricingFeeUpdateLog;
 use App\Http\Controllers\Controller;
 use App\Models\FeesConciergeService;
 use App\Models\VariablAgentOperator;
@@ -17,6 +18,7 @@ use App\Http\Controllers\BaseController;
 use App\Repositories\User\UserInterface;
 use App\Repositories\Escort\EscortInterface;
 use App\Repositories\Pricing\PricingInterface;
+use Database\Seeders\PricingFeeUpdateLogSeeder;
 
 class PricingsummariesController extends BaseController
 {
@@ -59,6 +61,9 @@ class PricingsummariesController extends BaseController
         {
             $feesConciergeService = FeesConciergeService::where('id',$request->id)
                     ->update(['amount'=>$request->amount,'service_type'=>$request->service_type,'frequency'=>$request->frequency]);
+
+            PricingFeeUpdateLog::where('fee_type','fees_concierge_services')->update(['last_updated_date'=>date('Y-m-d')]);
+                    
             if($feesConciergeService)
             return $this->successResponse('Updated Successfully');
             else
@@ -69,6 +74,8 @@ class PricingsummariesController extends BaseController
         if(isset($request->fee_support_services) && $request->fee_support_services=='fee_support_services')
         {
             $feesConciergeService = FeesSupportService::where('id',$request->id)->update(['amount'=>$request->amount]);
+            PricingFeeUpdateLog::where('fee_type','fees_support_services')->update(['last_updated_date'=>date('Y-m-d')]);
+
             if($feesConciergeService)
             return $this->successResponse('Updated Successfully');
             else
@@ -86,6 +93,8 @@ class PricingsummariesController extends BaseController
                                         'amount'=>$request->amount,
                                         'reward'=>$request->reward
                                     ]);
+             PricingFeeUpdateLog::where('fee_type','variabl_loyalty_programs')->update(['last_updated_date'=>date('Y-m-d')]);
+
             if($feesConciergeService)
             return $this->successResponse('Updated Successfully');
             else
@@ -101,6 +110,9 @@ class PricingsummariesController extends BaseController
                                         'discription'=>$request->discription,
                                         'percent'=>$request->percent,
                                     ]);
+
+            PricingFeeUpdateLog::where('fee_type','variabl_agent_operators')->update(['last_updated_date'=>date('Y-m-d')]);
+
             if($feesConciergeService)
             return $this->successResponse('Updated Successfully');
             else
@@ -116,6 +128,9 @@ class PricingsummariesController extends BaseController
                                         'amount'=>$request->amount,
                                         'amount_type'=>$request->amount_type,
                                     ]);
+
+            PricingFeeUpdateLog::where('fee_type','commission_playboxes')->update(['last_updated_date'=>date('Y-m-d')]);
+
             if($feesConciergeService)
             return $this->successResponse('Updated Successfully');
             else
@@ -187,6 +202,7 @@ class PricingsummariesController extends BaseController
         //$data->days = $request->days;
         $data->save();
        
+        PricingFeeUpdateLog::where('fee_type','pricing')->update(['last_updated_date'=>date('Y-m-d')]);
 
         return response()->json(compact('error','data'));
     }

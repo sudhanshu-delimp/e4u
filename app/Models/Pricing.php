@@ -17,16 +17,16 @@ class Pricing extends Model
     }
 
 
-    public function getPercentageAttribute($value)
-    {
+    // public function getPercentageAttribute($value)
+    // {
 
-        if($value=='0.00' || $value=="") {
+    //     if($value=='0.00' || $value=="") {
 
-             return 'N/A';
-        }
+    //          return 'N/A';
+    //     }
 
-        return (int) $value.'%';
+    //     return (int) $value.'%';
 
         
-    }
+    // }
 }
