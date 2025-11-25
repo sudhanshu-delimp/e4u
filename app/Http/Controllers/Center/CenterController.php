@@ -12,6 +12,7 @@ use App\Models\Service;
 use App\Models\Duration;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\MassageSetting;
 use App\Models\MembershipPlan;
 use App\Models\DashboardViewer;
 use App\Models\CenterNotification;
@@ -521,5 +522,8 @@ class CenterController extends Controller
         return view('center.dashboard.Community.pricing',compact('advertings', 'membership_types','states','no_of_members','fees_concierge_services','fees_support_services','variablLoyaltyProgram'));
     }
 
+
+
+   
 
 }

@@ -228,12 +228,15 @@ Route::get('/profile-info/edit-profile', function()
 })->name('center.profile-info.edit-profile');
 
 
-Route::get('/notifications-and-features', function()
-{
-	return view('center.my-account.notifications-and-features');
-})->name('centre.notifications-and-features');
+// Route::get('/notifications-and-features', function()
+// {
+// 	return view('center.my-account.notifications-and-features');
+// })->name('centre.notifications-and-features');
 
-Route::post('/update-notifications-and-features',[CenterProfileInformationController ::class, 'updateNotificationsFeatures'] )->name('centre.update.notifications-and-features');
+
+Route::get('notifications-and-features', [CenterProfileInformationController::class, 'massageSettings'])->name('centre.notifications-and-features');
+
+Route::post('notifications-and-features',[CenterProfileInformationController ::class, 'updateNotificationsAndFeatures'] )->name('centre.notifications-and-features');
 
 
 Route::get('view-archives',function(){

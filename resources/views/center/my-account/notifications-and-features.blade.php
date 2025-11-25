@@ -46,7 +46,7 @@
                     <div class="col-md-12" id="profile_and_tour_options">
 
                         <form class="v-form-design" id="profile_notification_options"
-                            action="{{route('centre.update.notifications-and-features')}}" method="POST">
+                            action="{{route('centre.notifications-and-features')}}" method="POST">
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-md-12">

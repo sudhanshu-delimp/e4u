@@ -643,12 +643,47 @@ class CenterProfileInformationController extends Controller
         return [$type, 'attatchment/'.$str];
     }
 
-    public function updateNotificationsFeatures(Request $request)
+   
+
+
+     public function massageSettings(Request $request)
     {
-        if(auth()->user()){
-            User::where('id',auth()->user()->id)->update(['idle_preference_time'=> $request->idle_time]);
+          return view('center.my-account.notifications-and-features');   
+    }
+
+
+    public function updateNotificationsAndFeatures(Request $request)
+    {
+
+        $user = auth()->user();
+        $data = [
+                'features_viewer_notifications_forward_v_alerts' => $request->features_viewer_notifications_forward_v_alerts ?? 0,
+                'features_allow_viewers_to_ask_you_a_question' => $request->features_allow_viewers_to_ask_you_a_question ?? 0,
+                'features_allow_viewers_to_send_you_a_text_message' => $request->features_allow_viewers_to_send_you_a_text_message ?? 0,
+
+                'auto_recharge_no' => $request->auto_recharge_no ?? 0,
+                'auto_recharge_500' => $request->auto_recharge_500 ?? 0,
+                'auto_recharge_1000' => $request->auto_recharge_1000 ?? 0,
+                'auto_recharge_1500' => $request->auto_recharge_1500 ?? 0,
+
+                'agent_receive_communications' => $request->agent_receive_communications ?? 0,
+                'agent_send_communications' => $request->agent_send_communications ?? 0,
+
+                'alert_notification_email' => $request->alert_notification_email ?? 0,
+                'alert_notification_text' => $request->alert_notification_text ?? 0,
+
+                'idle_preference_time' => $request->idle_preference_time,
+                'twofa' => $request->twofa,
+
+        ];
+
+        $setting = $user->massage_settings;
+        if ($setting) {
+            $setting->update($data);
+        } else {
+            $user->massage_settings()->create(array_merge($data, ['user_id' => $user->id]));
         }
- 
-        return redirect()->back()->with('success','Features updated successfully.');
+
+        return $this->successResponse('Notification settings updated successfully!');
     }
 }
