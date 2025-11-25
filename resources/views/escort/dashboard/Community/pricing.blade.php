@@ -96,6 +96,12 @@ padding: 2px 8px 2px 8px !important;
                                                     </thead>
                                                     <tbody>
                                                                 @foreach($advertings as $adverting)
+
+                                                                  @if($adverting['id']== 5)
+                                                                        @continue
+                                                                    @endif
+
+
                                                                 <tr role="row">
                                                                     <td>{!! $adverting['memberships']['name'] !!}</td>
                                                                     <td>{{ period_days($adverting['days']) }}</td>
