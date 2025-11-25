@@ -709,18 +709,25 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Reportings"
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Reports"
                 aria-expanded="false" aria-controls="collapseTwo">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/reportings.png') }}">
-                <span>Reporting </span>
+                    src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
+                <span>Reports </span>
             </a>
-            <div id="Reportings" class="collapse @if (request()->is('*registrations-reports*') ||
+
+            <div id="Reports" class="collapse @if (request()->is('*credit*') ||
+                    request()->is('*agent-requests*') ||
+                    request()->is('*num*') ||
+                    request()->is('*transaction-summary*') ||
+                    request()->is('*advertiser-suspensions*') ||
+                    request()->is('*registrations-reports*') ||
                     request()->is('*advertiser-reports*') ||
-                    request()->is('*advertiser-reviews*')) show @endif;"
+                    request()->is('*advertiser-reviews*'))
+                    show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="nav-link collapsed" href="{{ route('admin.registrations-reports', ['from' => 'sidebar']) }}">
+                     <a class="nav-link collapsed" href="{{ route('admin.registrations-reports', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/registration-reports.png') }}">
                         <span
@@ -735,31 +742,14 @@
                     </a>
 
 
-                    {{--  --}}
+                    
                     <a class="nav-link collapsed" href="{{ route('admin.advertiser-reviews') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/add-reviews.png') }}">
                         <span style="{{ request()->is('*advertiser-reviews*') ? 'color: #e5365a;' : '' }}">Advertiser
                             Reviews</span>
                     </a>
-                </div>
-            </div>
-        </li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Reports"
-                aria-expanded="false" aria-controls="collapseTwo">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
-                <span>Reports </span>
-            </a>
-            <div id="Reports" class="collapse @if (request()->is('*credit*') ||
-                    request()->is('*agent-requests*') ||
-                    request()->is('*num*') ||
-                    request()->is('*transaction-summary*') ||
-                    request()->is('*advertiser-suspensions*')) show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-                <div class="py-0 collapse-inner rounded mb-2">
                     <a class="nav-link collapsed" href="{{ route('admin.agent-requests', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/agent-request.png') }}">
