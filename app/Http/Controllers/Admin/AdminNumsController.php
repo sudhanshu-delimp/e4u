@@ -25,7 +25,7 @@ class AdminNumsController extends Controller
 
     public function showReportOnDashboardAjax(Request $request)
     {
-        $nums = Num::with(['state','user:id,member_id,name'])->orderBy('updated_at','desc')->get();
+        $nums = Num::with(['state','user:id,member_id,name'])->orderBy('incident_date','desc')->get();
 
         $timeZone = config('escorts.profile.states')[Auth::user()->state_id] ?? 'UTC';
 

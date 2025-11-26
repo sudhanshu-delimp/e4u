@@ -253,11 +253,11 @@
                 processing: false,
                 serverSide: false,
                 pageLength: 10,
+                order: [[3, "desc"]],
                 lengthMenu: [
                     [10, 20, 50, 100],
                     [10, 20, 50, 100]
                 ],
-                order: [[5, "asc"]],
                 ordering: true,
                 columnDefs: [
                     { targets: 5, type: "status" },
@@ -315,19 +315,20 @@
                 const tr = $(this).closest('tr');
                 const row = table.row(tr);
 
-                if (row.child.isShown()) {
-                    // Close the details
-                    row.child.hide();
-                    tr.removeClass('shown');
-                    $(this).removeClass('open');
-                } else {
-                    // Open the details
-                    console.log(row.data());
-                    
-                    row.child(format(row.data())).show();
-                    tr.addClass('shown');
-                    $(this).addClass('open');
-                }
+                row.child(format(row.data())).show();
+                tr.addClass('shown');
+                $(this).addClass('open');
+            });
+
+            // CLOSE BUTTON HANDLER (only closes, no toggle)
+            $(document).on('click', '.close_report_btn', function (e) {
+                e.preventDefault();
+
+                const tr = $(this).closest('tr').parent();
+                const row = table.row(tr);
+
+                tr.removeClass('shown');
+                $(this).closest('tr').hide()
             });
 
             function formatDate(dateString) {
@@ -342,6 +343,9 @@
             function format(data) {
                 return `
                     <div class="details-content p-3 bg-light border rounded">
+                        <div class="mb-3 d-flex justify-content-end">
+                            <button class="btn-sm btn-cancel-modal close_report_btn" type="button"> Close</button>
+                        </div>
                         <table class="table mb-0">
                             <tbody>
                                 <tr>
