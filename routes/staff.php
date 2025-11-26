@@ -12,6 +12,10 @@ use App\Http\Controllers\Staff\EscortController as DataTableController;
 use App\Http\Controllers\Staff\PDF\AgentPdfController;
 use App\Http\Controllers\Staff\VisitorController;
 use App\Http\Controllers\Staff\GlobalMonitoringLoggedInController;
+use App\Http\Controllers\Staff\ReportingController;
+use App\Http\Controllers\Staff\SupportTicketsController;
+use App\Http\Controllers\Staff\CenterNotificationController;
+use App\Http\Controllers\Agent\AgentRequestController;
 
 Route::get('/', [StaffController::class, 'index'])->name('staff.dashboard');
 Route::get('/update-account', [StaffController::class, 'edit'])->name('staff.account.edit');
@@ -21,6 +25,8 @@ Route::post('/change-password', [StaffController::class, 'updatePassword'])->nam
 Route::get('/upload-avatar', [StaffController::class, 'uploadAvatar'])->name('staff.profile.avatar');
 Route::post('upload-avatar/{id}',[StaffController::class,'storeMyAvatar'])->name('staff.save.avatar');
 Route::post('remove-avatar',[StaffController::class,'removeMyAvatar'])->name('staff.avatar.remove');
+
+Route::get('staff/dataTable', [AgentRequestController::class, 'dataTable'])->name('staff.dataTable');
 
 /**Global monitoring */
 Route::get('escort-listings',[GlobalMonitoringController::class,'escortListing'])->name('staff.escort-listings');
@@ -71,3 +77,31 @@ Route::get('/view-staff/{id}',[StaffController::class,'viewStaff'])->name('staff
 Route::post('/approve-staff-account',[StaffController::class,'approve_staff_account'])->name('staff.approve_staff_account');
 Route::post('/print-staff',[StaffController::class,'printStaffDetails'])->name('staff.print_staff');
 
+Route::get('get_registration_report', [ReportingController::class, 'getRegistrationReport'])->name('staff.get_registration_report');
+Route::get('registrations-reports',[ReportingController::class, 'userRegistrationReport'])->name('staff.registrations-reports');
+
+/**Support ticket */
+Route::post('submit_ticket', [SupportTicketsController::class,'submit_ticket'])->name('staff.support-ticket.create');
+Route::get('support_tickets',[SupportTicketsController ::class, 'index'])->name('staff.support-ticket.list');
+Route::get('support_tickets/dataTable', [SupportTicketsController::class, 'dataTable'])->name('staff.support-ticket.dataTable');
+Route::get('support_tickets/conversations/{id?}', [SupportTicketsController::class, 'conversations'])->name('staff.support-ticket.conversations');
+Route::post('support_tickets/save_message', [SupportTicketsController::class, 'save_message'])->name('staff.support-ticket.saveMessage');
+Route::put('support_tickets/status/{id}/{statusId}', [SupportTicketsController::class, 'status_update'])->name('staff.support-ticket.status.update');
+
+// Notification system for admin
+
+Route::get('notifications/centres/list', [CenterNotificationController::class, 'index'])->name('staff.centres.notifications.index');
+//Route::post('/list', [AdminMakeNotificationController::class, 'list'])->name('admin_make_notifications.list');
+Route::post('/notifications/centres/store', [CenterNotificationController::class, 'store'])->name('staff.centres.notifications.store');
+Route::get('/notifications/centres/{id}', [CenterNotificationController::class, 'show'])->name('staff.centres.notifications.show');
+Route::post('/notifications/centres/{id}/remove', [CenterNotificationController::class, 'updateStatus'])->name('staff.centres.notifications.remove');
+Route::get('/notifications/centres/pdf-download/{id}', [CenterNotificationController::class, 'pdfDownload'])->name('staff.centres.pdf.download');
+Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('staff.send-notiification');
+
+Route::get('reports/transaction-summary',function(){
+    return view('admin.reports.transaction-summary');
+})->name('staff.transaction-summary');
+
+Route::get('reports/agent-requests',function(){
+    return view('staff.reports.agent-requests');
+})->name('staff.agent-requests');

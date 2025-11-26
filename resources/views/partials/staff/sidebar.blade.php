@@ -117,6 +117,39 @@
             </div>
         </div>
     </li>
+            <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Reports"
+                aria-expanded="false" aria-controls="collapseTwo">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                    src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
+                <span>Reports </span>
+            </a>
+            <div id="Reports" class="collapse @if (request()->is('*credit*') ||
+                    request()->is('*agent-requests*') ||
+                    request()->is('*num*') ||
+                    request()->is('*transaction-summary*') ||
+                    request()->is('*advertiser-suspensions*')) show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-0 collapse-inner rounded mb-2">
+                    <a class="nav-link collapsed" href="{{ route('staff.agent-requests', ['from' => 'sidebar']) }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
+                        <span style="{{ request()->is('*agent-requests*') ? 'color: #e5365a;' : '' }}">Agent
+                            Requests</span>
+                    </a>
+                    
+                </div>
+            </div>
+        </li>
+         <li class="nav-item">
+  
+            <a class="nav-link" href="{{ route('staff.support-ticket.list', ['from' => 'sidebar']) }}">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                    src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+                <span>Support Tickets </span>
+            </a>
+        </li>
+
         <li
             style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
         </li>
@@ -171,11 +204,7 @@
                             <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                             <span style="{{ request()->segment(3) == 'staff' ? 'color: #e5365a;' : '' }}">Manage Staff</span>
                         </a>
-                       {{-- 
-                        <a class="collapse-item" href="{{ route('admin.manage-suppliers') }}">
-                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
-                            <span style="{{ request()->segment(3) == 'manage-suppliers' ? 'color: #e5365a;' : '' }}">Manage Suppliers</span>
-                        </a> --}}
+                      
                     </div>
 
                 </div> 

@@ -13,14 +13,18 @@ $position = $positions[$postionKey] ?? "";
     {{-- logged in user data --}}
     <div class="topbar-logged-in-user-data d-flex">
         <div class="d-user-info">
-            <div class="gap-b escort_header_top_menu"
-                style="display: grid; grid-template-columns: 1fr 1fr; font-size: 14px;">
+            <div class="escort_header_top_menu"
+                style="font-size: 14px;">
                 <span>
                     <b>Welcome back : </b><span class="user-values">{{ auth()->user()->name }}</span> <span
                         class="separator">|</span>
                 </span>
                 <span>
                     <b>Membership ID : </b><span class="user-values">{{ auth()->user()->member_id }}</span> <span
+                        class="separator">|</span>
+                </span>
+                <span>
+                    <b>Position : </b><span class="user-values" >{{ $position}}</span> <span
                         class="separator"></span>
                 </span>
             </div>
