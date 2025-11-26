@@ -15,15 +15,18 @@ Route::get('/annual-report', [ShareholderController::class, 'annualReport'])->na
 Route::get('/directors', [ShareholderController::class, 'directors'])->name('shareholder.directors');
 Route::get('/portfolio', [ShareholderController::class, 'portfolio'])->name('shareholder.portfolio');
 Route::get('/contact-us', [ShareholderController::class, 'contactUs'])->name('shareholder.contact-us');
+Route::get('/annual-profit-and-loss', [ShareholderController::class, 'annualProfitloss'])->name('shareholder.annual-profit-and-loss');
+Route::get('/balance-sheet', [ShareholderController::class, 'balanceSheet'])->name('shareholder.balance-sheet');
 
 // Shareholders
 Route::get('/shareholder-notices', [ShareholderController::class, 'shareholderNotices'])->name('shareholder.shareholder-notices');
 Route::get('/newsletter', [ShareholderController::class, 'newsletter'])->name('shareholder.newsletter');
 
-// registrations
+// E4U Information
 Route::get('/registrations', [ShareholderController::class, 'registrations'])->name('shareholder.registrations');
 Route::get('/revenue', [ShareholderController::class, 'revenue'])->name('shareholder.revenue');
-
+Route::get('/escort-statistics', [ShareholderController::class, 'escortStatistics'])->name('shareholder.escort-statistics');
+Route::get('/massage-centre-statistics', [ShareholderController::class, 'massageStatistics'])->name('shareholder.massage-centre-statistics');
 
 // Global Monitoring
 Route::get('/escort-listings', [ShareholderController::class, 'escortListing'])->name('shareholder.escort-listings');
@@ -31,8 +34,6 @@ Route::get('/massage-centre-listings', [ShareholderController::class, 'massageLi
 Route::get('/pin-up-listing', [ShareholderController::class, 'pinUplisting'])->name('shareholder.pin-up-listing');
 
 // Shareholder Documents
-Route::get('/annual-profit-and-loss', [ShareholderController::class, 'annualProfitloss'])->name('shareholder.annual-profit-and-loss');
-Route::get('/balance-sheet', [ShareholderController::class, 'balanceSheet'])->name('shareholder.balance-sheet');
 Route::get('/constitution', [ShareholderController::class, 'constitution'])->name('shareholder.constitution');
 Route::get('/shareholder-minutes', [ShareholderController::class, 'shareholderMinutes'])->name('shareholder.shareholder-minutes');
 Route::get('/shareholder-updates', [ShareholderController::class, 'shareholderUpdates'])->name('shareholder.shareholder-updates');
@@ -41,11 +42,6 @@ Route::get('/shareholder-updates', [ShareholderController::class, 'shareholderUp
 Route::get('/overview', [ShareholderController::class, 'overview'])->name('shareholder.overview');
 Route::get('/shareholders', [ShareholderController::class, 'shareholders'])->name('shareholder.shareholders');
 Route::get('/share-value', [ShareholderController::class, 'shareValue'])->name('shareholder.share-value');
-
-// Statistics 
-Route::get('/escort-statistics', [ShareholderController::class, 'escortStatistics'])->name('shareholder.escort-statistics');
-Route::get('/massage-centre-statistics', [ShareholderController::class, 'massageStatistics'])->name('shareholder.massage-centre-statistics');
-
 
 // Subsidiaries
 Route::get('/overview-and-portfolio', [ShareholderController::class, 'overviewPortfolio'])->name('shareholder.overview-and-portfolio');
