@@ -358,7 +358,7 @@
 
                                         <div class="col-12 align-items-center">
                                             <div class="dropdown custom_total_list">
-                                                <a href="#" class="js-link d-flex justify-content-between align-items-center">Total Listings : <span>{{array_sum($memberTotalCount)}}</span> <i class="fa fa-angle-down"></i></a>
+                                                <a href="#" class="js-link"><span>Total Listings : {{array_sum($memberTotalCount)}}</span> <i class="fa fa-angle-down"></i></a>
                                                 <ul class="js-dropdown-list">
                                                     <li class="active">Total Listings : <span>{{array_sum($memberTotalCount)}}</span></li>
                                                     <li>View Platinum Listings : <span>{{ $memberTotalCount[1] }}</span></li>
