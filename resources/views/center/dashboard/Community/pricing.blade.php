@@ -16,6 +16,8 @@
     .list-sec .table td, .table th{
     border: 1px solid #0c233d;
     }
+        
+
 </style>
 @endsection
 @section('content')
@@ -111,19 +113,27 @@
                                         </div>
                                         <div class="card border-0 mb-0 pb-0">
                                             <div class="card-body border-0 p-0 mt-2">
-                                                <div class="card border-0 p-0 mb-0">
+                                                <div class="card border-0 p-0 mb-0 notes_adv">
                                                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                                    <ol class="mb-0" type="1">
-                                                        <li>
-                                                            Discount only applies:
-                                                        </li>
+                                                <!-- <ol class="mb-0" type="1">
+                                                    <li>
+                                                        Discount only applies:
                                                         <ol type="a" class="custom--substyle">
                                                             <li>to a single transaction; and</li>
                                                             <li>from day 22.</li>
                                                         </ol>
-                                                        <li>Pay by the day available.</li>
-                                                        
-                                                    </ol>
+                                                    </li>
+                                                    <li>Pay by the day available.</li>
+                                                </ol> -->
+
+                                                    <div class="notes" style="margin-left: 10px;">
+                                                    
+                                                        <p>1. Discount only applies:</p>
+                                                        <p style="margin-left: 30px;">(a) to a single transaction; and</p>
+                                                        <p style="margin-left: 30px;">(b) from day 22.</p>
+
+                                                        <p>2. Pay by the day available.</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -138,25 +148,32 @@
                                                 <table id="reckoner" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                         <tr role="row">
-                                                            <th class="sorting_disabled" rowspan="1" colspan="5" style="width: 212px;" aria-label="Fees">
-                                                                <p style="padding-left: 100px;"><b>Profile / Tour Ready Reckoner</b></p>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
+                                                                <p style="padding-left: 100px;"><b>Profile Ready Reckoner</b></p>
                                                             </th>
-                                                            <th>
+                                                            <th class="text-right">
                                                                 <button type="button" class="border-0 px-5 py-3 bg-second font-weight-bold" id="add-new-row">Add</button>
+                                                                <button type="button" class="border-0 px-5 py-3 bg-second font-weight-bold ml-2" id="reset-reckoner-mc">Reset</button>
                                                             </th>
                                                         </tr>
                                                         <tr role="row" class="custom--row text-center">
                                                             
                                                         
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Profile Name">
+                                                            <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Profile Name">
                                                                 Start Date
                                                             </th>
 
-                                                             <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Profile Name">
+                                                             <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Profile Name">
                                                                 End Date
                                                             </th>
 
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Date Created">
+                                                             <th class="sorting_disabled text-center rowspan="1" colspan="1"  aria-label="Profile Name">
+                                                                Number of days
+                                                            </th>
+
+                                                            
+
+                                                            <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Date Created">
                                                                 Membership Type
                                                             </th>
 
@@ -164,13 +181,13 @@
                                                             Location
                                                             </th> -->
 
-                                                             <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Profile Name">
+                                                             <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Profile Name">
                                                                     Number of Masseurs
                                                             </th>
                                                     
                                                             <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Status">Fee</th>
                                                             
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Status"></th>
+                                                            <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Status">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody> </tbody>
@@ -549,7 +566,7 @@
        <div class="modal-header">
          <h5 class="modal-title text-white">
            <img src="{{ asset('assets/dashboard/img/add-profile.png') }}" class="custompopicon"> 
-           Profile / Tour Ready Reckoner
+           Profile Ready Reckoner
          </h5>
          <button type="button" class="close" data-dismiss="modal">
            <span aria-hidden="true">
@@ -840,6 +857,7 @@
                
                 <td class="text-center">${startFormatted}</td>
                 <td class="text-center">${endFormatted}</td>
+                <td class="text-center">${days}</td>
                 <td class="text-center">${membershipName}</td>
                 <td class="text-center">${members}</td>
                 <td class="text-right">
@@ -866,7 +884,7 @@
         if (rows.length === 0) {
             $('#reckoner tbody').html(`
                 <tr class="blank-row">
-                    <td colspan="5" class="text-center text-muted">No Profile Added.</td>
+                    <td colspan="7" class="text-center text-muted">No Profile Added.</td>
                 </tr>
             `);
             $('#reckoner tfoot').hide();
@@ -882,7 +900,7 @@
 
         $('#reckoner tfoot').html(`
             <tr class="custom-last-row">
-                <td colspan="5" class="text-right font-weight-bold">Total Fees:</td>
+                <td colspan="6" class="text-right font-weight-bold">Total Fees:</td>
                 <td  class="font-weight-bold text-center">$${total.toFixed(2)}</td>
             </tr>
         `).show();
@@ -900,7 +918,7 @@
         if ($('#reckoner tbody tr').not('.blank-row').length === 0) {
             $('#reckoner tbody').html(`
                 <tr class="blank-row">
-                    <td colspan="6" class="text-center text-muted">No Profile Added.</td>
+                    <td colspan="7" class="text-center text-muted">No Profile Added.</td>
                 </tr>
             `);
             $('#reckoner tfoot').hide();
@@ -908,6 +926,39 @@
             updateTotal();
         }
     })();
+
+
+    $('#reset-reckoner-mc').on('click', function () {
+        resetReckoner();
+    });
+
+    function resetReckoner() {
+    
+    $('#reckoner tbody').html(`
+        <tr class="blank-row">
+            <td colspan="7" class="text-center text-muted">No Profile Added.</td>
+        </tr>
+    `);
+
+    // Hide footer totals
+    $('#reckoner tfoot').hide().empty();
+
+    // Reset form fields
+    $('#membershipModal form')[0].reset();
+    $('#start_date, #end_date').removeAttr('min');
+
+    // Reset date pickers → set today's date
+    const today = new Date();
+    const y = today.getFullYear();
+    const m = String(today.getMonth() + 1).padStart(2, '0');
+    const d = String(today.getDate()).padStart(2, '0');
+    const todayStr = `${y}-${m}-${d}`;
+
+    $('#start_date').val(todayStr).attr('min', todayStr);
+    $('#end_date').val(todayStr).attr('min', todayStr);
+
+   
+}
     
 
 });   
