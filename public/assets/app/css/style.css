@@ -5223,6 +5223,7 @@ i.fa.fa-heart-o{
         .small-images {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 50%;
             grid-gap: 10px;
         }
         
