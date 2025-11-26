@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Visitor;
@@ -14,7 +14,7 @@ class VisitorController extends Controller
     {
         [$visitors,$serverTime] = $this->getAllVisitors();
 
-        return view('admin.visitors',['visitors'=>$visitors,'serverTime'=>$serverTime]);
+        return view('staff.visitors',['visitors'=>$visitors,'serverTime'=>$serverTime]);
     }
 
     public function getVisitorsByAjax()

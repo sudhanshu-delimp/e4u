@@ -36,7 +36,7 @@ class GlobalMonitoringController extends Controller
     {
         $uptimeString = $this->getAppUptime();
 
-        return view('admin.massage-centre-listings', ['type' => 'current','uptimeString'=>$uptimeString]);
+        return view('staff.massage-centre-listings', ['type' => 'current','uptimeString'=>$uptimeString]);
     }
 
     public function getAppUptime()
@@ -168,205 +168,9 @@ class GlobalMonitoringController extends Controller
             ->make(true);
     }
 
-    // public function dataTableListingAjaxMassage($type = NULL, $callbyFunc = false)
-    // {
-
-    //     $search = request()->get('search')['value'];
-    //     // $user_id = auth()->user()->id;
-    //     $ascDesc = 'DESC';
-    //     $recordTotal = 0;
-    //     $dataTableData = [];
-
-    //     $result = Escort::with([
-    //         'user',
-    //         'purchase' => function ($query) use ($type, $ascDesc) {
-    //             if ($type == 'past') {
-    //                 $query->where('end_date', '<', date('Y-m-d'));
-    //                 $ascDesc = 'DESC';
-    //             } else {
-    //                 $query->where('end_date', '>=', date('Y-m-d'));
-    //             }
-
-    //             $query->orderBy('start_date', $ascDesc);
-    //         },
-    //         'Brb' => function ($query) {
-    //             $query->where('brb_time', '>', date('Y-m-d H:i:s'))
-    //                 ->where('active', 'Y')
-    //                 ->orderBy('brb_time', 'desc');
-    //         }
-    //     ])
-    //         ->whereHas('purchase')
-    //         ->where('profile_name', '!=', null);
-
-    //         //dd($result);
-
-    //     if ($search) {
-    //         $result = $result->where(function ($query) use ($search) {
-    //             $query->where('profile_name', 'LIKE', "%{$search}%")
-    //                 ->orWhereHas('user', function ($q) use ($search) {
-    //                     $q->where('member_id', 'LIKE', "%{$search}%");
-    //                 });
-    //         });
-    //     }
-
-    //     $result = $result->get()->toArray();
-
-    //     // For count
-    //     $resultNoLImit = Escort::with(['user', 'purchase' => function ($query2) use ($type, $ascDesc) {
-    //         if ($type == 'past') {
-    //             $query2->where('end_date', '<', date('Y-m-d'));
-    //             $ascDesc = 'DESC';
-    //         } else {
-    //             $query2->where('end_date', '>=', date('Y-m-d'));
-    //         }
-    //         $query2->orderBy('start_date', $ascDesc);
-    //     }])
-    //         ->whereHas('purchase')
-    //         ->with([
-    //             'Brb' => function ($query2) {
-    //                 $query2->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc');
-    //             }
-    //         ])
-    //         ->where('profile_name', '!=', null);
-
-    //     if ($search) {
-    //         $resultNoLImit = $resultNoLImit->where(function ($query2) use ($search) {
-    //             $query2->where('id', 'like', "%{$search}%")
-    //                 ->orWhere('profile_name', 'LIKE', "%{$search}%")
-    //                 ->orWhere('name', 'LIKE', "%{$search}%");
-    //         });
-    //     }
-    //     $resultNoLImit = $resultNoLImit->get();
-    //     foreach ($resultNoLImit as $escort2) {
-    //         if ($escort2['purchase']) {
-
-    //             foreach ($escort2['purchase'] as $purchase2) {
-    //                 $recordTotal++;
-    //             }
-    //         }
-    //     }
-
-    //     $i = 1;
-
-    //     foreach ($result as $escort) {
-    //         if ($escort['purchase']) {
-    //             // $recordTotal++;
-    //             foreach ($escort['purchase'] as $purchase) {
-    //                 $daysDiff = 0;
-    //                 $brb = $escort['profile_name'];
-    //                 $totalAmount = 0;
-    //                 if (isset($escort['brb'][0]['brb_time'])) {
-    //                     $brb =
-    //                         '<span id="brb_' .
-    //                         $escort['id'] .
-    //                         '" >' .
-    //                         $escort['profile_name'] .
-    //                         ' <sup
-    //                                         title="Brb at ' .
-    //                         date(
-    //                             'd-m-Y h:i A',
-    //                             strtotime($escort['brb'][0]['brb_time']),
-    //                         ) .
-    //                         '"
-    //                                         class="brb_icon">BRB</sup></span>';
-    //                 }
-    //                 if (!empty($purchase['start_date'])) {
-    //                     $daysDiff = Carbon::parse(
-    //                         $purchase['end_date'],
-    //                     )->diffInDays(Carbon::parse($purchase['start_date']));
-    //                     if ($purchase['start_date'] == $purchase['end_date']) {
-    //                         $daysDiff = 1;
-    //                     }
-    //                     [$discount, $rate] = calculateTatalFee(
-    //                         $purchase['membership'],
-    //                         $daysDiff,
-    //                     );
-    //                     $totalAmount = $rate;
-    //                     $totalAmount -= $discount;
-    //                     $totalAmount = formatIndianCurrency($totalAmount);
-    //                 }
-    //                 //dd($escort['user']['member_id']);
-    //                 $memberId = isset($escort['user']['member_id']) ? $escort['user']['member_id'] : '';
-    //                 $dataTableData[] = [
-    //                     //'sl_no' => $i++,
-
-    //                     'id' => $escort['id'],
-    //                     'total_record' => intval($recordTotal),
-    //                     'server_time' => now()->format('h:i:s A'),
-    //                     'member_id' => $memberId,
-    //                     'member' => '-',
-    //                     //  'city' => config(
-    //                     //     "escorts.profile.states.$escort[state_id].stateName",
-    //                     // ),
-    //                     'city' =>
-    //                     config(
-    //                         "escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName",
-    //                     ),
-    //                     'profile_name' => $escort['profile_name'] ? $brb : 'NA',
-    //                     //'city' =>
-    //                     // config(
-    //                     //     "escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName",
-    //                     // ) .
-    //                     //     '<br>' .
-    //                     //     config("escorts.profile.states.$escort[state_id].stateName"),
-
-    //                     'masseurs' => '-',
-    //                     'start_date' => date(
-    //                         'd-m-Y',
-    //                         strtotime($purchase['start_date']),
-    //                     ),
-    //                     'end_date' => date('d-m-Y', strtotime($purchase['end_date'])),
-    //                     'days' => $daysDiff,
-    //                     // 'membership' => $purchase['membership'] ? getMembershipType($purchase['membership']) : "NA",
-    //                     // 'fee' => $totalAmount,
-    //                     'left_days' => Carbon::parse($purchase['end_date'])->diffInDays(Carbon::now()),
-    //                     'fee' => $totalAmount,
-
-    //                 ];
-    //             }
-    //         }
-    //     }
-    //     // print_r($dataTableData);die;
-    //     $data = array(
-    //         "draw"            => intval(request()->input('draw')),
-    //         "recordsTotal"    => intval($recordTotal),
-    //         "recordsFiltered" => intval($recordTotal),
-    //         "data"            => $dataTableData
-    //     );
-
-    //     $actionButtons = `<div class="dropdown no-arrow ml-3">
-    //                                 <input type="hidden" class="tortalRecords" value="` . $recordTotal . `">
-    //                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-    //                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    //                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-    //                                 </a>
-    //                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-    //                                     aria-labelledby="dropdownMenuLink" style="">
-    //                                     <a class="dropdown-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#view-listing" href="#">View Listing <i class="fa fa-eye text-dark"
-    //                                             style="color: var(--peach);" ></i></a>
-    //                                 </div>
-    //                             </div>`;
-
-    //     return DataTables::of($dataTableData)
-    //         ->addColumn('member_id', fn($row) => $row['member_id'])
-    //         ->addColumn('member', fn($row) => $row['member'])
-    //         ->addColumn('listing', fn($row) => $row['city'])
-    //         ->addColumn('profile_name', fn($row) => $row['profile_name'])
-    //         ->addColumn('masseurs', fn($row) => $row['masseurs'])
-    //         ->addColumn('start_date', fn($row) => $row['start_date'])
-    //         ->addColumn('end_date', fn($row) => $row['end_date'])
-    //         ->addColumn('days', fn($row) => $row['days'])
-    //         ->addColumn('left_days', fn($row) => Carbon::parse($row['end_date'])->diffInDays(Carbon::now()))
-    //         ->addColumn('action', fn($row) => $actionButtons)
-    //         ->rawColumns(['action']) // if you're returning HTML
-    //         ->make(true);
-    // }
-
     public function dataTableSingleListingAjax($id)
     {
         $escorts = MassageProfile::where('id', $id)->with('user')->first();
-
-        // center-profile/7
         $profileurl = route('center.profile.description',$id);
 
         $dataTableData = [];
@@ -429,7 +233,7 @@ class GlobalMonitoringController extends Controller
     {
         $uptimeString = $this->getAppUptime();
 
-        return view('admin.escort-listings', ['type' => 'current','uptimeString'=>$uptimeString]);
+        return view('staff.escort-listings', ['type' => 'current','uptimeString'=>$uptimeString]);
     }
 
     public function dataTableEscortListingAjax($type = NULL)

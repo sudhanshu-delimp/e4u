@@ -12,10 +12,34 @@ use DataTables;
 
 class GlobalMonitoringLoggedInController extends Controller
 {
+    protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+
+            $user = auth()->user();   // works here
+
+            // Now do everything that needs user data
+            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+            $addAccess = staffPageAccessPermission($securityLevel, 'add');
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+            return $next($request);
+        });
+    }
     function index()
     {
         # get users who are online but inactive for more than 6 hours
-        $activeUsers = LoginAttempt::where('type', 1)
+        $activeUsers = LoginAttempt::where('type', 6)
             ->where('online', 'yes')
             ->get();
 
@@ -30,7 +54,7 @@ class GlobalMonitoringLoggedInController extends Controller
             }
         }
 
-        return view('admin.logged-in-users');
+        return view('staff.logged-in-users');
     }
 
     public function getLoggedInUserDataTableListingAjax($type = NULL, $callbyFunc = false)
@@ -79,37 +103,12 @@ class GlobalMonitoringLoggedInController extends Controller
             ->addColumn('ip_adress', fn($row) => $row->ip_address ?? '-')
             ->addColumn('platform', fn($row) => $row->device ?? '-')
             ->addColumn('idle_preference_time', function($row){
-                if($row->user->type == 1){
+                if($row->user->type == 6){
                     return '-';
                 }
                 return $row->user->idle_preference_time ?? '30';
             })
-            // ->addColumn('idle_time', function ($row) {
-            //     if($row->user->type == 1){
-            //         return '-- : --';
-            //     }
-            //     $idlePref = $row->user->idle_preference_time ?? 30;
-
-            //     // difference in seconds from last activity
-            //     $diffInSeconds = Carbon::now()->diffInSeconds($row->updated_at);
-
-            //     //dd($row->updated_at, Carbon::now(), $diffInSeconds);
-
-            //     if ($diffInSeconds > ($idlePref * 60)) {
-            //         // how long user has been idle after preference time
-            //         $idleSeconds = $diffInSeconds - ($idlePref * 60);
-
-            //         // format into mm:ss
-            //         $minutes = floor($idleSeconds / 60);
-            //         $seconds = $idleSeconds % 60;
-
-                    
-
-            //         return sprintf("%02d:%02d", $minutes, $seconds);
-            //     }
-
-            //     return "00:00"; // not yet idle
-            // })
+            
             ->addColumn('page', fn($row) => $row->page ?? '-')
             ->addColumn('action', function ($row) {
                 $status = $row->user->status == 'Suspended' ? 'Active' : 'Suspend';
@@ -122,11 +121,12 @@ class GlobalMonitoringLoggedInController extends Controller
                                     </a>
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink" style="">
-                                        <a class="viewLoggedUserDetails dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-user-type="' . $row->user->type . '" data-user-id="' . $row->user_id . '"> <i class="fa fa-eye"></i> View Account </a>
-                                                <div class="dropdown-divider"></div>
-                                        <a class="suspendLoggedUser dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-user-id="' . $row->user_id . '" data-status="'.$row->user->status.'"> <i class="fa fa-'.$icon.'"></i> '.$status.' </a>
-                                    </div>
-                                </div>';
+                                        <a class="viewLoggedUserDetails dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-user-type="' . $row->user->type . '" data-user-id="' . $row->user_id . '"> <i class="fa fa-eye"></i> View Account</a>';
+                if($this->editAccessEnabled) {               
+                $actionButtons .= '<div class="dropdown-divider"></div>
+                                        <a class="suspendLoggedUser dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-user-id="' . $row->user_id . '" data-status="'.$row->user->status.'"> <i class="fa fa-'.$icon.'"></i> '.$status.' </a>';
+                }
+                $actionButtons .= '</div></div>';
 
                 return $actionButtons;
             })
@@ -171,7 +171,7 @@ class GlobalMonitoringLoggedInController extends Controller
         ];
 
 
-        return view('admin.prints_file.logged_in_user_report',['userData'=>$userData]);
+        return view('staff.prints_file.logged_in_user_report',['userData'=>$userData]);
         
     }
 
@@ -250,6 +250,12 @@ class GlobalMonitoringLoggedInController extends Controller
                     $userDetails = User::where('id', $userId)
                         ->with(['loginAttempts','referByAgent','referByMassageCenter'])->first();
                     break;
+                  case 6:
+                    # agent...
+
+                    $userDetails = User::where('id', $userId)
+                        ->with(['loginAttempts','staff_detail'])->first();
+                    break;    
                 
                 default:
                     # misslaneious...

@@ -1,4 +1,9 @@
 <!-- Topbar -->
+@php
+$positions = config('staff.position');
+$postionKey = auth()->user()->staff_detail->position;
+$position = $positions[$postionKey] ?? "";
+@endphp
 <nav
     class="db-custom-topbar navbar justify-navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 ">
     <!-- Sidebar Toggle (Topbar) -->
@@ -72,6 +77,10 @@
                 <a class="dropdown-item" href="#">
                     <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border "></i>
                     Member ID: {{ auth()->user()->member_id }}
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="fas fa-user-shield fa-sm fa-fw mr-2 saptate_by_border "></i>
+                   Position: {{ $position }}
                 </a>
                 <a class="dropdown-item" href="#">
                     <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>

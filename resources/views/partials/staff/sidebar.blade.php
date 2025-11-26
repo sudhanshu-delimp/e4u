@@ -1,3 +1,7 @@
+@php
+    $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+    $sidebar = staffPageAccessPermission( $securityLevel, 'sidebar'); 
+@endphp
 <!-- Sidebar -->
 <ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
     <!-- Sidebar - Brand -->
@@ -18,6 +22,57 @@
                 style="{{ $_SERVER['REQUEST_URI'] == '/staff-dashboard' ? 'color: #e5365a;' : '' }}">Dashboard</span>
         </a>
     </li>
+
+    <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Monitoring"
+                aria-expanded="false" aria-controls="collapseMonitoring">
+                <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
+                <span>Global Monitoring </span>
+            </a>
+            <div id="Monitoring" class="collapse @if (request()->is('*global-monitoring*') ||
+                    request()->is('*logged-in-users*') ||
+                    request()->is('*escort-listings*') ||
+                    request()->is('*massage-centre-listings*') ||
+                    request()->is('*visitors*') ||
+                    request()->is('*pinup-listings*')) show @endif">
+                <div class="py-0 collapse-inner rounded mb-2">
+                    
+                    <a class="collapse-item" href="{{ route('staff.escort-listings', ['from' => 'sidebar']) }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png') }}">
+                        <span style="{{ request()->is('*escort-listings*') ? 'color: #e5365a;' : '' }}">Escort
+                            Listings</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('staff.massage-centre-listings', ['from' => 'sidebar']) }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png') }}">
+                        <span
+                            style="{{ request()->is('*massage-centre-listings*') ? 'color: #e5365a;' : '' }}">Massage
+                            Centre Listings</span>
+                    </a>
+                    <a class="collapse-item" href="{{ route('staff.pin-up-listings', ['from' => 'sidebar']) }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/visitors.png') }}">
+                        <span style="{{ request()->is('*pinup-listings*') ? 'color: #e5365a;' : '' }}">Pin Up
+                            Listings</span>
+                    </a>
+                    <a class="collapse-item" href="{{ route('staff.logged-in-users', ['from' => 'sidebar']) }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/login-user.png') }}">
+                        <span style="{{ request()->is('*logged-in-users*') ? 'color: #e5365a;' : '' }}">Users Logged
+                            In</span>
+                    </a>
+                    <a class="collapse-item" href="{{ route('staff.visitors') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/visitors.png') }}">
+                        <span style="{{ request()->is('*visitors*') ? 'color: #e5365a;' : '' }}">Visitors</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+
+       
     <!-- Divider -->
     <!-- Heading -->
     <!-- Nav Item - Pages Collapse Menu -->
@@ -62,10 +117,10 @@
             </div>
         </div>
     </li>
-     <li
+        <li
             style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
         </li>
-
+        @if(isset($sidebar['management']['yesNo']) && $sidebar['management']['yesNo'] == 'yes')
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Management"
                 aria-expanded="false" aria-controls="Management">
@@ -87,7 +142,7 @@
         
                 <div class="py-0 collapse-inner rounded mb-2">
 
-                <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
+                     <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
                        data-target="#manageAgentMenu" aria-expanded="false" aria-controls="manageAgentMenu">
                         <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
                         <span>Agents </span>
@@ -102,9 +157,33 @@
                         </a>
                        
                     </div>
-                    </div> 
-             </div>        
+
+                    <!-- Manage People -->
+                    <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
+                       data-target="#managePeopleMenu" aria-expanded="false" aria-controls="managePeopleMenu">
+                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
+                        <span>Manage People</span>
+                    </a>
+                    <div id="managePeopleMenu"
+                         class="collapse @if(in_array(request()->segment(3), ['staff','manage-suppliers'])) show @endif pl-3"
+                         style="margin-left: 10px;">
+                        <a class="collapse-item" href="{{ route('staff.staff') }}">
+                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span style="{{ request()->segment(3) == 'staff' ? 'color: #e5365a;' : '' }}">Manage Staff</span>
+                        </a>
+                       {{-- 
+                        <a class="collapse-item" href="{{ route('admin.manage-suppliers') }}">
+                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span style="{{ request()->segment(3) == 'manage-suppliers' ? 'color: #e5365a;' : '' }}">Manage Suppliers</span>
+                        </a> --}}
+                    </div>
+
+                </div> 
+             
+             
+                </div>        
         </li>
+        @endif
     
 </ul>
 <!-- End of Sidebar -->
