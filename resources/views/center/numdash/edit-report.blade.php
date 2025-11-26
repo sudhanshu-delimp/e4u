@@ -1,4 +1,4 @@
-@extends('layouts.escort')
+@extends('layouts.center')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
@@ -182,7 +182,7 @@
         if (form) {
             $("#submit").hide();
             $(".spinner-border").attr('hidden', false);
-            var url = "{{route('escort.update-my-reports')}}";
+            var url = "{{route('center.update-my-reports')}}";
             var data = new FormData(form[0]);
             $.ajax({
                 method: 'POST',

@@ -68,46 +68,46 @@
           </ol>
         </div>
       </div>
-    </div>
-  </div>
+    </div> 
+  </div> 
 
   <div class="col-md-12">
-          <div class="stats-container">
-              <div class="stat-card-wrapper">
-                  <div class="stat-card">
-                      <div class="stat-top">
-                          <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
-                          <div class="stat-label">Today</div>
-                      </div>
-                      <div class="stat-number">0</div>
-                  </div>
+    <div class="stats-container">
+        <div class="stat-card-wrapper">
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
+                    <div class="stat-label">Today</div>
+                </div>
+                <div class="stat-number today_report">0</div>
+            </div>
 
-                  <div class="stat-card">
-                      <div class="stat-top">
-                          <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
-                          <div class="stat-label">This Month</div>
-                      </div>
-                      <div class="stat-number">0</div>
-                  </div>
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
+                    <div class="stat-label">This Month</div>
+                </div>
+                <div class="stat-number month_report">0</div>
+            </div>
 
-                  <div class="stat-card">
-                      <div class="stat-top">
-                          <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
-                          <div class="stat-label">This Year</div>
-                      </div>
-                      <div class="stat-number">0</div>
-                  </div>
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="stat-label">This Year</div>
+                </div>
+                <div class="stat-number year_report">0</div>
+            </div>
 
-                  <div class="stat-card">
-                      <div class="stat-top">
-                          <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-                          <div class="stat-label">All Time</div>
-                      </div>
-                      <div class="stat-number">0</div>
-                  </div>
-              </div>
-          </div>
-      </div>
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="stat-label">All Time</div>
+                </div>
+                <div class="stat-number all_time_report">0</div>
+            </div>
+        </div>
+    </div>
+  </div>
 
     <!-- DataTable -->
     <div class="col-md-12">
@@ -116,7 +116,6 @@
           <thead class="bg-first">
             <tr>
               <th>REF</th>
-              <th>Status</th>
               <th>Mobile</th>
               <th>Incident Type</th>
               <th>Incident Date </th>
@@ -125,27 +124,28 @@
             </tr>
           </thead>
           <tbody>
-            @for ($i = 1; $i <= 10; $i++)
-              <tr class="data-row">
-                <td>#{{ $i }}</td>
-                <td>Done</td>
-                <td>0450954036</td>
-                <td>Fake</td>
-                <td>14-05-2025</td>
-                <td>WA - Perth</td>
-                <td><div class="dropdown no-arrow"> 
-                  <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> 
-                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-pen"></i> Edit</a>
-                  </div></div></td>
-              </tr>
-            @endfor
+             @foreach ($nums as $num)
+                  <tr class="data-row">
+                      <td>#{{ $num->id }}</td>
+                      <td>{{ $num->offender_mobile }}</td>
+                      <td>{{ $num->incident_nature }}</td>
+                      <td>{{ $num->incident_date }}</td>
+                      <td>{{ $num->state ? $num->state->iso2 : '' }} - {{ $num->state ? $num->state->name : '' }}
+                      </td>
+                      <td class="text-center">
+                          <a href="javascript:void(0);" class="toggle-details"
+                              data-target="details-{{ $num->id }}">
+                              <i class="fa fa-search" data-toggle="tooltip" title="View"></i>
+                          </a>
+                      </td>
+                  </tr>
+              @endforeach
           </tbody>
         </table>
       </div>
     </div>
   </div>
+</div>
 </div>
 @endsection
 
@@ -160,45 +160,76 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 <script>
-  $(document).ready(function () {
+ $(document).ready(function () {
     // Initialize DataTable
-    var table = $('#myReportTable').DataTable({
-      language: {
-        search: "Search: _INPUT_",
-        searchPlaceholder: "Search by Mobile...",
-        lengthMenu: "Show _MENU_ entries",
-        zeroRecords: "No matching records found",
-        info: "Showing _START_ to _END_ of _TOTAL_ entries",
-        infoEmpty: "No entries available",
-        infoFiltered: "(filtered from _MAX_ total entries)"
-      },
-      paging: true,
-      processing: false,
-      serverSide: false,
-      pageLength: 5,
-      lengthMenu: [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
-      ordering: true,
-      initComplete: function() {
-                    if ($('#returnToReportBtn').length === 0) {
-                        $('.dataTables_filter').append(
-                            '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
-                        );
-                    }
-                    $('#returnToReportBtn').on('click', function() {
-                        var table = $('#myReportTable').DataTable();
-                        table.search('').draw();
-                    });
-                },	
-				
- "language": {
-                    "zeroRecords": "There is no record of the search criteria you entered.",
-                    searchPlaceholder: "Search by ID or Profile Name"
+     var table = $('#myReportTable').DataTable({
+            language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Mobile...",
+                lengthMenu: "Show _MENU_ entries",
+                zeroRecords: "No matching records found",
+                info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                infoEmpty: "No entries available",
+                infoFiltered: "(filtered from _MAX_ total entries)"
+            },
+            "language": {
+                "zeroRecords": "No Record Found!",
+                searchPlaceholder: "Search by Mobile..."
+            },
+            paging: true,
+            processing: false,
+            serverSide: false,
+            pageLength: 10,
+            lengthMenu: [
+                [10, 20, 50, 100],
+                [10, 20, 50, 100]
+            ],
+            ordering: true,
+            columnDefs: [{
+                    targets: 5,
+                    orderable: false
+                } // Action column
+            ],
+            ajax: {
+                url: "{{ route('center.my-reports') }}",
+                type: "GET",
+                dataSrc: function (json) {
+                    console.log("Received Data:", json); // ✅ Debug here
+                    $(".today_report").text(json.today);
+                    $(".month_report").text(json.this_month);
+                    $(".year_report").text(json.this_year);
+                    $(".all_time_report").text(json.all_time);
+                    return json.data; // ✅ Return the data array for DataTables to render
+                }
+            },
+            columns: [{
+                    data: 'ref',
+                    name: 'ref'
                 },
-
-      columnDefs: [
-        { targets: 6, orderable: false } // Action column
-      ]
-    });
+                {
+                    data: 'offender_mobile',
+                    name: 'offender_mobile'
+                },
+                {
+                    data: 'incident_nature',
+                    name: 'incident_nature'
+                },
+                {
+                    data: 'incident_date',
+                    name: 'incident_date'
+                },
+                {
+                    data: 'location',
+                    name: 'location'
+                },
+                {
+                    data: 'actions',
+                    name: 'actions',
+                    orderable: false,
+                    searchable: false
+                }
+            ]
+        });
 
     // Toggle expandable rows
     $('body').on('click', '.toggle-details', function () {

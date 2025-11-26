@@ -147,6 +147,31 @@
                                     <a href="{{ route('profile.description', $escort->id) }}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}" class="h6 text-danger">Read More</a>
                                 @endif
                     </p>
+                    {{-- social-media icon --}}
+                    <div class="social_media_icons">
+                        <div class="social_media_wrapper">
+                            <div class="silver_icon ec_playbox_icon">
+                                <a href="{{ url('playbox') }}" target="_blank"><img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="logo"></a>
+                                <div class="custom-tooltip">I don't have any Playbox.</div>
+                            </div> 
+                            <div class="d-flex justify-content-between gap-10">
+                                {{-- <div class="silver_icon">
+                                    <a href="" target="_blank"><img src="{{ asset('assets/app/img/facebook.png') }}" alt="logo"></a>
+                                </div>
+                                <div class="silver_icon">
+                                    <a href="" target="_blank"><img src="{{ asset('assets/app/img/instagram.png') }}" alt="logo"></a>
+                                </div> --}}
+                                <div class="silver_icon">
+                                    <a href="https://x.com/NMugs32853" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" alt="logo"></a>
+                                </div>                                     
+                                 
+                            </div>
+                            
+                        </div>
+                         <a href="{{ route('profile.description', $escort->id) }}?list&brb={{ isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : '' }}"
+                                class="silver_view_profile">View Profile</a>
+                    </div>
+                    {{-- end --}}
                 </div>
                 
             </div>

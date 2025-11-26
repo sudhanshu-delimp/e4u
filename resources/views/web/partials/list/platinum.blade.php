@@ -197,14 +197,25 @@
                         </div>
                         <div class="col pr-1 all-escort-view-profile-btn">
                             {{-- social-media icon --}}
-                            <div class="social_media_icons">
-                                {{-- <div class="s_icon">
-                                    <a href="" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                </div><div class="s_icon">
-                                    <a href="" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                </div> --}}
-                                <div class="s_icon">
-                                    <a href="https://x.com/NMugs32853" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo"></a>
+                            <div class="social_media_icons">                               
+                               <div class="social_media_wrapper">
+                                    <div class="s_icon ec_playbox_icon">
+                                        <a href="{{ url('playbox') }}" target="_blank"><img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="logo"></a>
+                                        <div class="custom-tooltip">I don't have any Playbox.</div>
+                                    </div> 
+                                    <div class="d-flex justify-content-between gap-10">
+                                        {{-- <div class="s_icon">
+                                            <a href="" target="_blank"><img src="{{ asset('assets/app/img/facebook.png') }}" alt="logo"></a>
+                                          </div>
+                                            <div class="s_icon">
+                                              <a href="" target="_blank"><img src="{{ asset('assets/app/img/instagram.png') }}" alt="logo"></a>
+                                            </div>  --}}
+                                        <div class="s_icon">
+                                            <a href="https://x.com/NMugs32853" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" alt="logo"></a>
+                                        </div>                                     
+                                          
+                                    </div>
+                                   
                                 </div>
                             </div>
                             <a  href="{{ route('profile.description',$escort->id)}}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}" class="btn btn_for_profile_list_view min_width_hundredpresent custom-view-profile" style="float: right;">View Profile</a>

@@ -1,27 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Escort;
+namespace App\Http\Controllers\Center;
 
 use App\Http\Controllers\Controller;
 use App\Mail\nums\num_confirmation_email;
 use App\Models\Num;
-use App\Models\State;
 use Carbon\Carbon;
-use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use DataTables;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+use DataTables;
 
-class NumController extends Controller
+class CenterNumController extends Controller
 {
     public function addReport()
     {
         $states = config('escorts.profile.states');
 
-        return view('escort.dashboard.UglyMugsRegister.add-report',['states' => $states]);
+        return view('center.numdash.add-report',['states' => $states]);
     }
 
     public function storeReport(Request $request)
@@ -67,7 +65,7 @@ class NumController extends Controller
 
         $body = [
             'ref' => '#'.$num->id,
-            'name' => Auth::user()->name ?? 'UserID',
+            'name' => Auth::user()->name ?? 'User',
             'member_id' => Auth::user()->member_id ?? 'MemberID',
             'report_date' => now()->setTimezone($timeZone['timeZone'])->format('d-m-Y'),
             'subject' => 'Confirmation of New Report',
@@ -124,7 +122,7 @@ class NumController extends Controller
 
         }
 
-        return view('escort.dashboard.UglyMugsRegister.numdashboard',['nums'=>$nums]);
+        return view('center.numdash.numdashboard',['nums'=>$nums]);
     }
 
     public function showMyReportByAjax(Request $request)
@@ -183,7 +181,7 @@ class NumController extends Controller
                   <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> 
                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 edit_report" href="'.route('escort.edit-my-reports',$row->id).'" data-id="'.$row->id.'"> <i class="fa fa-pen"></i> Edit</a>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 edit_report" href="'.route('center.edit-my-reports',$row->id).'" data-id="'.$row->id.'"> <i class="fa fa-pen"></i> Edit</a>
                   </div></div>';
                 })
                 ->rawColumns(['ref','actions']) // only 'action' needs HTML rendering
@@ -192,7 +190,7 @@ class NumController extends Controller
 
         }
 
-        return view('escort.dashboard.UglyMugsRegister.my-reports',['nums'=>$nums, 'counts'=>$counts]);
+        return view('center.numdash.my-reports',['nums'=>$nums, 'counts'=>$counts]);
     }
 
     public function editMyReport(Request $request, $id)
@@ -200,7 +198,7 @@ class NumController extends Controller
         $states = config('escorts.profile.states');
         $num = Num::where('id', $id)->where('user_id', Auth::user()->id)->with('state')->first();
 
-        return view('escort.dashboard.UglyMugsRegister.edit-report',['num' => $num, 'states' => $states]);
+        return view('center.numdash.edit-report',['num' => $num, 'states' => $states]);
     }  
 
     public function updateMyReportByAjax(Request $request)
@@ -245,7 +243,7 @@ class NumController extends Controller
             'data'    => $num
         ]);
 
-        return view('escort.dashboard.UglyMugsRegister.edit-report',['num' => $num, 'states' => $states]);
+        return view('center.numdash.edit-report',['num' => $num, 'states' => $states]);
 
-    }   
+    }
 }

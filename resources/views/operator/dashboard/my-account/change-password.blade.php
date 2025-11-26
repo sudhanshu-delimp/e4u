@@ -140,9 +140,8 @@
                </div>
                
                <div class="pt-1">
-                <i id="emailHelp">You will be notified of your impending password expiry by Text or Email, according to your
-                preference setting. The notification will be sent 5 days and then 24 hours prior to expiry,
-                otherwise you will be notified by the Browser on the day your password has expired.</i>
+                <i id="emailHelp">If you select to be notified of your impending password expiry by Text or Email, you will receive a notification 24 hours prior to expiry date.
+</i>
               </div>
             </div>
              <button type="submit" class="opr-common-btn mt-4" name="submit">Save</button>

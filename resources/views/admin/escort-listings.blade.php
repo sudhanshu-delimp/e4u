@@ -151,7 +151,7 @@
                         </tr>
                     </tfoot>
                     
-                </table>
+                </table> 
             </div>
        </div>
     </div>
@@ -315,39 +315,25 @@ CKEDITOR.replace('editor1', {
                 dataSrc: function(json) {
                     // var totalRows = json.data.length; 
                     var totalRows = json.recordsTotal || json.recordsFiltered; 
-                    console.log(json, );
-                    //buildCustomPagination(json.recordsTotal, 3, 1);
-                    // buildCustomPagination(json.recordsTotal, json.per_page, json.current_page);
 
-                    $(".totalListing").text(json.recordsTotal);
-                    $(".platinumListing").text(json.platinumTotal);
-                    $(".goldListing").text(json.goldTotal);
-                    $(".silverListing").text(json.silverTotal);
+                    $(".totalListing").text(json.membershipCounts.total);
+                    $(".platinumListing").text(json.membershipCounts.platinum);
+                    $(".goldListing").text(json.membershipCounts.gold);
+                    $(".silverListing").text(json.membershipCounts.silver);
 
                     return json.data;
                 }
             },
-             drawCallback: function (settings) {
-                // Move dynamic elements below .timer_section
-                const $info = $('#escort_listings_info');
-                const $paginate = $('#escort_listings_paginate');
-                const $timerSection = $('.customPaginationContainer');
-
-                if ($info.length && $paginate.length && $timerSection.length) {
-                    $info.appendTo($timerSection);
-                    $paginate.appendTo($timerSection);
-                }
-            },
             columns: [
                 { data: 'member_id', name: 'member_id' },
-                { data: 'member', name: 'member' },
-                { data: 'listing', name: 'listing' },
-                { data: 'profile_name', name: 'profile_name' },
-                { data: 'type', name: 'type', orderable: false  },
-                { data: 'start_date', name: 'start_date', orderable: false  },
-                { data: 'end_date', name: 'end_date', orderable: false  },
-                { data: 'days', name: 'days' , orderable: false },
-                { data: 'left_days', name: 'left_days',orderable: false  },
+                { data: 'stage_name', name: 'stage_name' },
+                { data: 'state_name', name: 'state_name' },
+                { data: 'pro_name', name: 'pro_name' },
+                { data: 'membership', name: 'membership', orderable: false  },
+                { data: 'start_date_formatted', name: 'start_date', orderable: false  },
+                { data: 'end_date_formatted', name: 'end_date', orderable: false  },
+                { data: 'days_number', name: 'days_number' , orderable: false },
+                { data: 'days_left', name: 'days_left',orderable: false  },
                 { data: 'action', name: 'action', orderable: false }
             ],
             columnDefs: [

@@ -664,4 +664,15 @@ class Escort extends Model
     {
         return $this->hasMany(TourProfile::class,'escort_id');
     }
+
+    public function getDaysNumberAttribute()
+    {
+        return Carbon::parse($this->start_date)
+              ->diffInDays(Carbon::parse($this->end_date))+1;
+    }
+    public function getDaysLeftAttribute()
+    {
+        return Carbon::parse(now())
+              ->diffInDays(Carbon::parse($this->end_date))+1;
+    }
 }
