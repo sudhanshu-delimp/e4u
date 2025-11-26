@@ -72,7 +72,8 @@
                 <span>Blackbox Tech Pty Ltd</span>
             </a>
             <div id="Blackbox" class="collapse 
-            @if (request()->segment(2) == 'annual-report' ||
+            @if (request()->segment(2) == 'annual-profit-and-loss' ||
+                    request()->segment(2) == 'balance-sheet' || request()->segment(2) == 'annual-report' ||
                     request()->segment(2) == 'directors' ||
                     request()->segment(2) == 'portfolio' ||
                     request()->segment(2) == 'contact-us') show @endif;"
@@ -85,7 +86,23 @@
                             style="{{ request()->segment(2) == 'annual-report' ? 'color: #ff3c5f;' : '' }}">
                             Annual Report</span>
                     </a>
+                    <a class="collapse-item" href="{{ route('shareholder.annual-profit-and-loss') }}">
+                        <img 
+                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'annual-profit-and-loss' ? 'color: #ff3c5f;' : '' }}">
+                            Annual Profit & Loss</span>
+                    </a>
 
+                    <a class="collapse-item" href="{{ route('shareholder.balance-sheet') }}">
+                        <img 
+                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'balance-sheet' ? 'color: #ff3c5f;' : '' }}">
+                           Balance Sheet</span>
+                    </a>
+
+                    
                     <a class="collapse-item" href="{{ route('shareholder.directors', ['from' => 'sidebar']) }}">
                         <img 
                             src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
@@ -157,9 +174,28 @@
                 <span>E4U Information</span>
             </a>
             <div id="E4uInformation" class="collapse @if (request()->segment(2) == 'registrations' ||
-                    request()->segment(2) == 'revenue') show @endif;"
+                    request()->segment(2) == 'revenue' ||
+                    request()->segment(2) == 'escort-statistics' || request()->segment(2) == 'massage-centre-statistics') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
+                    
+
+                     <a class="collapse-item" href="{{ route('shareholder.escort-statistics', ['from' => 'sidebar']) }}">
+                        <img 
+                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'escort-statistics' ? 'color: #ff3c5f;' : '' }}">
+                           Escort Statistics</span>
+                    </a>
+
+                    
+                    <a class="collapse-item" href="{{ route('shareholder.massage-centre-statistics', ['from' => 'sidebar']) }}">
+                        <img 
+                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'massage-centre-statistics' ? 'color: #ff3c5f;' : '' }}">
+                           Massage Centre Statistics</span>
+                    </a>
                     <a class="collapse-item" href="{{ route('shareholder.registrations', ['from' => 'sidebar']) }}">
                         <img 
                             src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
@@ -231,29 +267,12 @@
                 <img src="{{ asset('assets/dashboard/img/menu-icon/profit.png') }}">
                 <span>Shareholder Documents</span>
             </a>
-            <div id="Shareholderdoc" class="collapse @if (request()->segment(2) == 'annual-profit-and-loss' ||
-                    request()->segment(2) == 'balance-sheet' || 
+            <div id="Shareholderdoc" class="collapse @if (
                     request()->segment(2) == 'constitution' ||
                     request()->segment(2) == 'shareholder-minutes' ||
                     request()->segment(2) == 'shareholder-updates') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
-                    <a class="collapse-item" href="{{ route('shareholder.annual-profit-and-loss') }}">
-                        <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                        <span
-                            style="{{ request()->segment(2) == 'annual-profit-and-loss' ? 'color: #ff3c5f;' : '' }}">
-                            Annual Profit & Loss</span>
-                    </a>
-
-                    <a class="collapse-item" href="{{ route('shareholder.balance-sheet') }}">
-                        <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                        <span
-                            style="{{ request()->segment(2) == 'balance-sheet' ? 'color: #ff3c5f;' : '' }}">
-                           Balance Sheet</span>
-                    </a>
-
                     
                     <a class="collapse-item" href="{{ route('shareholder.constitution') }}">
                         <img 
@@ -323,40 +342,6 @@
         </li>
         {{-- end --}}
 
-           {{----------------------------- Statistics  ------------------------------}}        
-         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Statistics"
-                aria-expanded="true" aria-controls="Statistics">
-                
-                <img src="{{ asset('assets/dashboard/img/menu-icon/statistic.png') }}">
-                <span>Statistics </span>
-            </a>
-            <div id="Statistics" class="collapse @if (request()->segment(2) == 'escort-statistics' ||
-                    request()->segment(2) == 'massage-centre-statistics') show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
-                    
-
-                    <a class="collapse-item" href="{{ route('shareholder.escort-statistics', ['from' => 'sidebar']) }}">
-                        <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                        <span
-                            style="{{ request()->segment(2) == 'escort-statistics' ? 'color: #ff3c5f;' : '' }}">
-                           Escort Statistics</span>
-                    </a>
-
-                    
-                    <a class="collapse-item" href="{{ route('shareholder.massage-centre-statistics', ['from' => 'sidebar']) }}">
-                        <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                        <span
-                            style="{{ request()->segment(2) == 'massage-centre-statistics' ? 'color: #ff3c5f;' : '' }}">
-                           Massage Centre Statistics</span>
-                    </a>
-                </div>
-            </div>
-        </li>
-        {{-- end --}}
 
          {{----------------------------- Subsidiaries ------------------------------}}        
          <li class="nav-item">

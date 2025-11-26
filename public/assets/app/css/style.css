@@ -6155,6 +6155,7 @@ i.fa.fa-heart-o{
         .search_filters_inside select {
             border: 1px solid #90a0b7;
             background: transparent;
+            outline: 1px;
         }
         
         .custom--password .custom--eye {
@@ -6180,7 +6181,7 @@ i.fa.fa-heart-o{
         }
         
         .custom--service-tag .grid_list_part {
-            margin: 0;
+            margin: 10px 0px 0px;
         }
         
         .custom--service-tag .grid_list_icon_box {
@@ -6189,7 +6190,77 @@ i.fa.fa-heart-o{
             padding: 10px !important;
             height: 45px;
             position: relative;
-            top: 10px;
+            top: -1px;
+        }
+        
+        .custom_total_list.dropdown {
+            border: 1px solid #5d6d7e;
+            width: 18em;
+            border-radius: 3px;
+            color: var(--blue--text);
+            text-decoration: none;
+            position: relative;
+            z-index: 9;
+        }
+        
+        .custom_total_list .js-dropdown-list {
+            display: none;
+            position: absolute;
+            border: 1px solid #5d6d7e;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 3px;
+        }
+        
+        .custom_total_list.dropdown ul {
+            padding: 0px;
+            margin: 0px;
+        }
+        
+        .custom_total_list.dropdown ul li {
+            list-style: none;
+            padding: 5px 9px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .custom_total_list.dropdown ul li:hover {
+            background-color: #056cdc;
+            color: #fff;
+        }
+        
+        .custom_total_list.dropdown ul li {
+            color: var(--blue--text);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 0px;
+        }
+        
+        .custom_total_list.dropdown>a {
+            text-decoration: none;
+            color: var(--blue--text) !important;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        
+        .custom_total_list.dropdown>a i {
+            font-size: 24px !important;
+        }
+        
+        .custom_total_list.dropdown ul li a {
+            text-decoration: none;
+            color: var(--blue--text) !important;
+        }
+        
+        #tipcrousal .carousel-inner {
+            height: 40px !important;
         }
         
         .custom--service-tag .grid_list_icon_box svg {
