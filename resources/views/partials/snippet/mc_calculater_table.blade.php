@@ -5,10 +5,10 @@
                                                 <table id="reckoner_mc" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                         <tr role="row">
-                                                            <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="5" style="width: 212px;" aria-label="Fees">
                                                                 <p style="padding-left: 100px;"><b>Profile Ready Reckoner</b></p>
                                                             </th>
-                                                            <th class="text-right">
+                                                            <th class="text-right" colspan="2" >
                                                                 <button type="button" class="border-0 px-5 py-3 bg-second font-weight-bold ml-8" id="add-new-row-mc">Add</button>
                                                                  <button type="button" class="border-0 px-5 py-3 bg-second font-weight-bold ml-2" id="reset-reckoner-mc">Reset</button>
                                                             </th>
@@ -40,9 +40,9 @@
                                                                     Number of Masseurs
                                                             </th>
                                                     
-                                                            <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Status">Fee</th>
+                                                            <th  class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Status">Fee</th>
                                                             
-                                                            <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Status">Action</th>
+                                                            <th   class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Status">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody> </tbody>

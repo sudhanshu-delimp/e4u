@@ -148,10 +148,10 @@
                                                 <table id="reckoner" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                         <tr role="row">
-                                                            <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="5" style="width: 212px;" aria-label="Fees">
                                                                 <p style="padding-left: 100px;"><b>Profile Ready Reckoner</b></p>
                                                             </th>
-                                                            <th class="text-right">
+                                                            <th class="text-right" colspan="2">
                                                                 <button type="button" class="border-0 px-5 py-3 bg-second font-weight-bold" id="add-new-row">Add</button>
                                                                 <button type="button" class="border-0 px-5 py-3 bg-second font-weight-bold ml-2" id="reset-reckoner-mc">Reset</button>
                                                             </th>
@@ -860,13 +860,13 @@
                 <td class="text-center">${days}</td>
                 <td class="text-center">${membershipName}</td>
                 <td class="text-center">${members}</td>
-                <td class="text-right">
+                <td class="text-center">
                     <input type="hidden" class="row-fee" value="${fee}">
-                    ${fee}
+                    $${fee}
                 </td>
 
                 <td class="text-center">
-                    <button type="button" class="btn btn-danger btn-sm remove-row">Remove</button>
+                    <button type="button" class=" btn-danger btn-sm remove-row">Remove</button>
                 </td>
             </tr>
         `;
