@@ -359,38 +359,7 @@
 
 
 
-    <div class="row mt-4"> 
-        <div class="col-lg-12 mb-2">
-            <h4 class="font-weight-bold" style="color: var(--blue--text);">Monitoring
-            </h4>
-        </div>
-        <!-- Monitoring -->
-        <div class="col-md-6 mb-4">
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead style="background-color: #0C223D; color: #ffffff;">
-                <tr><th colspan="3" class="text-center">My Advertisers Online</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="icon-col"><i class="fas fa-map-marker-alt"></i></td>
-                  <td>In my Territory
-                </td>
-                  <td class="text-center">15</td>
-                </tr>
-                <tr>
-                  <td class="icon-col"><i class="fas fa-globe"></i></td>
-                  <td>Outside my Territory
-                </td>
-                  <td class="text-center">15</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      
-       
-    </div>
+
 </div> 
 
 

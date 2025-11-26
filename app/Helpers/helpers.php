@@ -4,17 +4,19 @@
  * Custom helper functions
  */
 
+use Carbon\Carbon;
 use App\Models\City;
+use App\Models\User;
+use App\Models\State;
 use App\Models\Escort;
 use App\Models\Country;
-use App\Models\State;
 use App\Models\EscortMedia;
-use App\Models\EscortStatistics;
-use Illuminate\Support\Facades\Cache;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use App\Models\EscortStatistics;
+
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
 if (!function_exists('calculateTotalFee')) {
@@ -627,6 +629,20 @@ if (!function_exists('period_days')) {
         }
     }
 
+}
+
+//need Agent ka total advartiser 
+if(!function_exists('getAgentTotalAdvertisers')){
+    function getAgentTotalAdvertisers(){
+        $total_advertisers = 0;
+        try {
+            $total_advertisers = User::where('assigned_agent_id', auth()->user()->id)->where('is_agent_assign', '1')->count();
+        } catch (\Exception $e) {
+         
+        }
+        
+        return $total_advertisers;
+    }
 }
 
     

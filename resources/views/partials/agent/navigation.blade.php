@@ -14,10 +14,16 @@
                                     <b>Welcome back :  </b><span class="user-values">{{auth()->user()->business_name}}</span> <span class="separator">|</span> 
                                 </span>
                                 <span>
-                                    <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator"></span>
+                                    <b>Membership ID :  </b><span class="user-values" style="padding-left: 10%">{{auth()->user()->member_id }}</span> <span class="separator"></span>
                                 </span>
                                 <span>
-                                    <b>Home State :  </b><span class="user-values" style="padding-left: 10%">{{auth()->user()->home_state  }} </span>
+                                    <b>Home State :  </b>
+                                    <span class="user-values" style="padding-left: 9%">{{auth()->user()->home_state  }} </span>
+                                    <span class="separator" style="padding-left: 26%">|</span>
+                                </span>
+                                
+                                <span>
+                                    <b>Total Advertisers :  </b><span class="user-values" style="padding-left: 5%">{{getAgentTotalAdvertisers()  }} </span>
                                 </span>
 
                             </div>
