@@ -90,6 +90,8 @@
         return parseDisplayDate(endText);
     }
 
+    
+
     // When modal opens, set start_date & end_date min = lastEnd + 1 day
     $('#membershipModal').on('show.bs.modal', function () {
         const lastEnd = getLastRowEndDate();

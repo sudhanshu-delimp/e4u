@@ -357,6 +357,7 @@ class CenterController extends Controller
         $fees_concierge_services = FeesConciergeService::all();
         $fees_support_services = FeesSupportService::all();
         $variablLoyaltyProgram = VariablLoyaltyProgram::all();
+        
 
 
         return view('center.dashboard.Community.pricing',compact('advertings', 'membership_types','states','no_of_members','fees_concierge_services','fees_support_services','variablLoyaltyProgram'));

@@ -24,6 +24,7 @@ use App\Models\PasswordHistory;
 use Illuminate\Http\JsonResponse;
 use App\Models\FeesSupportService;
 use Illuminate\Support\Facades\DB;
+use App\Models\PricingFeeUpdateLog;
 use App\Traits\DataTablePagination;
 use App\Http\Controllers\Controller;
 use App\Models\FeesConciergeService;
@@ -881,23 +882,17 @@ class EscortController extends Controller
 
       public function showPricingsummary() {
         
-        // $states = config('escorts.profile.states');
-        // $advertings= config('agent.advertising');
-         //$membership_types = config('agent.membership_types');
-        // $no_of_members = config('agent.no_of_members');
-       
-
-
         $states = config('escorts.profile.states');
         $membership_types = MembershipPlan::where('is_for_calculater','1')->get()->toArray();
         $no_of_members = config('agent.no_of_members');
         $advertings = Pricing::with('memberships')->get()->toArray();
-
-       
+        $pricing_log = PricingFeeUpdateLog::get()->toArray();
 
         $fees_concierge_services = FeesConciergeService::all();
         $fees_support_services = FeesSupportService::all();
         $variablLoyaltyProgram = VariablLoyaltyProgram::all();
+
+        // dd($pricing_log);
 
         
         return view('escort.dashboard.Community.pricing',compact('advertings', 'membership_types','states','no_of_members','fees_concierge_services','fees_support_services','variablLoyaltyProgram'));

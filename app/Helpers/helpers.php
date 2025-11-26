@@ -4,17 +4,18 @@
  * Custom helper functions
  */
 
+use Carbon\Carbon;
 use App\Models\City;
+use App\Models\State;
 use App\Models\Escort;
 use App\Models\Country;
-use App\Models\State;
 use App\Models\EscortMedia;
-use App\Models\EscortStatistics;
-use Illuminate\Support\Facades\Cache;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use App\Models\EscortStatistics;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -686,6 +687,35 @@ if (!function_exists('period_days')) {
         }
     }
 
+
+
+     
+
 }
+
+
+if (!function_exists('last_updated_price')) {
+    function last_updated_price($type)
+    {
+        switch ($type) {
+            case 'pricing':
+            case 'fees_concierge_services':
+            case 'fees_support_services':
+            case 'variabl_agent_operators':
+            case 'variabl_loyalty_programs':
+
+                $date = DB::table('pricing_fee_update_logs')
+                    ->where('fee_type', $type)
+                    ->value('last_updated_date');
+
+                return $date ? \Carbon\Carbon::parse($date)->format('d-m-Y') : null;
+
+            default:
+                return null;
+        }
+    }
+}
+
+
 
     
