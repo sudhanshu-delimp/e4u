@@ -6547,6 +6547,14 @@ span.card_tit {
     font-size: 13px;
 }
 
+.card_tit {
+    display: inline-block;
+    width: 14ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .img-title-sec i {
     font-size: 14px;
     position: absolute;

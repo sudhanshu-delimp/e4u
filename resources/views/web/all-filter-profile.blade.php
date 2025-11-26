@@ -351,15 +351,20 @@
                                         </div>
                                     </div>
                                     <!-- accordien end here -->
+                                    
                                     <!-- Grid View -->
 
-                                    <div class="row grid_list_part" id="prosud aa" style="display: block;">
+                                    <div class="row grid_list_part " id="prosud aa" style="display: block;">
 
                                         <div class="col-12 align-items-center">
-                                            <div class="total--list">
-                                                <strong>Total Listings:</strong>
-                                                <span>{{array_sum($memberTotalCount)}}</span>
-                                             </div>
+                                            <div class="dropdown custom_total_list">
+                                                <a href="#" class="js-link"><span>Total Listings : {{array_sum($memberTotalCount)}}</span> <i class="fa fa-angle-down"></i></a>
+                                                <ul class="js-dropdown-list">
+                                                    <li>View Platinum Listings : <span>{{ $memberTotalCount[1] }}</span></li>
+                                                    <li>View Gold Listings : <span>{{ $memberTotalCount[2] }}</span></li>
+                                                    <li>View Silver Listings : <span>{{ $memberTotalCount[3] }}</span></li>
+                                                </ul>
+                                            </div>
                                             <div class="grid_list_icon_box display_inline_block grid--btn"
                                                 data-toggle="modal1" data-target="#" data-url="grid-escort-list">
                                                 <a href="#" class="{{$viewType == 'grid' ? 'active' : ''}}" id="grid-modal" data-toggle="tooltip">
@@ -982,6 +987,25 @@
 @endsection
 @push('scripts')
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+    <script>
+        $(function() {
+            var list = $('.js-dropdown-list');
+            var link = $('.js-link');
+            link.click(function(e) {
+                e.preventDefault();
+                list.slideToggle(200);
+            });
+            list.find('li').click(function() {
+                var text = $(this).html();
+                var icon = '<i class="fa fa-angle-down"></i>';
+                link.html(text+icon);
+                list.slideToggle(200);
+                if (text === '* Reset') {
+                link.html('Select one option'+icon);
+                }
+            });
+            });
+    </script>
     <script>
         // save logged user details on escord dashboard on page load
         document.addEventListener("DOMContentLoaded", function () {
