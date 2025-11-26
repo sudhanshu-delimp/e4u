@@ -6259,6 +6259,11 @@ i.fa.fa-heart-o{
             color: var(--blue--text) !important;
         }
         
+        .custom_total_list.dropdown ul li.active {
+            background-color: #056cdc;
+            color: #fff;
+        }
+        
         #tipcrousal .carousel-inner {
             height: 40px !important;
         }

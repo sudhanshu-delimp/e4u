@@ -358,8 +358,9 @@
 
                                         <div class="col-12 align-items-center">
                                             <div class="dropdown custom_total_list">
-                                                <a href="#" class="js-link"><span>Total Listings : {{array_sum($memberTotalCount)}}</span> <i class="fa fa-angle-down"></i></a>
+                                                <a href="#" class="js-link d-flex justify-content-between align-items-center">Total Listings : <span>{{array_sum($memberTotalCount)}}</span> <i class="fa fa-angle-down"></i></a>
                                                 <ul class="js-dropdown-list">
+                                                    <li class="active">Total Listings : <span>{{array_sum($memberTotalCount)}}</span></li>
                                                     <li>View Platinum Listings : <span>{{ $memberTotalCount[1] }}</span></li>
                                                     <li>View Gold Listings : <span>{{ $memberTotalCount[2] }}</span></li>
                                                     <li>View Silver Listings : <span>{{ $memberTotalCount[3] }}</span></li>
@@ -988,24 +989,36 @@
 @push('scripts')
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script>
-        $(function() {
-            var list = $('.js-dropdown-list');
-            var link = $('.js-link');
-            link.click(function(e) {
-                e.preventDefault();
-                list.slideToggle(200);
-            });
-            list.find('li').click(function() {
-                var text = $(this).html();
-                var icon = '<i class="fa fa-angle-down"></i>';
-                link.html(text+icon);
-                list.slideToggle(200);
-                if (text === '* Reset') {
-                link.html('Select one option'+icon);
-                }
-            });
-            });
-    </script>
+    $(function() {
+        var list = $('.js-dropdown-list');
+        var link = $('.js-link');
+
+        link.click(function(e) {
+            e.preventDefault();
+            list.slideToggle(200);
+        });
+
+        list.find('li').click(function() {
+            // Remove active from all li
+            list.find('li').removeClass('active');
+
+            // Add active to clicked li
+            $(this).addClass('active');
+
+            // Set text in the link
+            var text = $(this).html();
+            var icon = '<i class="fa fa-angle-down"></i>';
+            link.html(text + icon);
+
+            list.slideToggle(200);
+
+            if (text === '* Reset') {
+                link.html('Select one option' + icon);
+            }
+        });
+    });
+</script>
+
     <script>
         // save logged user details on escord dashboard on page load
         document.addEventListener("DOMContentLoaded", function () {
