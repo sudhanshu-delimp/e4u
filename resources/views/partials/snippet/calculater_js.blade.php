@@ -231,9 +231,9 @@
                 <td class="text-center">${days}</td>
                 <td class="text-center">${membershipName}</td>
                 <td class="text-center">${members}</td>
-                <td class="text-right">
+                <td class="text-center">
                     <input type="hidden" class="row-fee" value="${fee}">
-                    ${fee}
+                    $${fee}
                 </td>
               
                 <td class="text-center">
