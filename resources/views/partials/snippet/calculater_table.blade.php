@@ -8,27 +8,29 @@
                                                             <th class="sorting_disabled" rowspan="1" colspan="7" style="width: 212px;" aria-label="Fees">
                                                                 <p style="padding-left: 100px;"><b>Profile / Tour Ready Reckoner</b></p>
                                                             </th>
-                                                            <th>
+                                                            <th class="text-right">
                                                                 <button type="button" class="border-0 px-5 py-3 bg-second font-weight-bold" id="add-new-row">Add</button>
+                                                                <button type="button" class="border-0 px-5 py-3 bg-second font-weight-bold ml-2" id="reset-reckoner">Reset</button>
                                                             </th>
                                                         </tr>
                                                         <tr role="row" class="custom--row text-left">
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Profile Name">
+                                                            <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Profile Name">
                                                             Location
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Profile Name">
+                                                            <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Profile Name">
                                                                 Start Date
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Profile Name">
+                                                            <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Profile Name">
                                                                 End Date
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Date Created">
+                                                             <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Status">Number of Days</th>
+                                                            <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Date Created">
                                                                 Membership Type
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Subscription Status">Profiles</th>
+                                                            <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Subscription Status">Profiles</th>
                                                             <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Status">Fee</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Status">Days</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Status"></th>
+                                                           
+                                                            <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Status">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

@@ -152,7 +152,7 @@ padding: 2px 8px 2px 8px !important;
                                         @include('partials.snippet.calculater_table')
 
 
-                                        <div class="mt-5">
+                                        <div class="mt-2">
                                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                             <ol class="mb-0" type="1">
                                                 <li>
@@ -165,6 +165,16 @@ padding: 2px 8px 2px 8px !important;
                                                     excess of 21 days.</li>
                                             </ol>
                                         </div>
+
+
+
+                                         @include('partials.snippet.mc_calculater_table')
+
+
+
+
+
+
                                     </div>
                                 </div>
                             </div>
@@ -421,7 +431,7 @@ padding: 2px 8px 2px 8px !important;
                                             </div>
                                         </div> --}}
 
-                                        <div class="mt-5">
+                                        <div class="mt-2">
                                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                             <ol class="mb-0" type="1">
                                                 <li>
@@ -460,6 +470,7 @@ padding: 2px 8px 2px 8px !important;
 
 
 @include('partials.snippet.calculater_modal')
+@include('partials.snippet.mc_calculater_popup')
 
 
 
@@ -475,6 +486,7 @@ padding: 2px 8px 2px 8px !important;
 
 
 @include('partials.snippet.calculater_js')
+@include('partials.snippet.calculater_mc_js')
 
 @endpush
 
