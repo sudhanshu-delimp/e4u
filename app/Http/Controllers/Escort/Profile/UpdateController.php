@@ -743,15 +743,23 @@ class UpdateController extends AppController
         }
 
         $escortImages = EscortGallery::where(['escort_id'=>$id,'type'=>'0'])->get();
-        foreach ($escortImages as $escortImage) {
-            if (isset($media_arr[$escortImage->position])) {
-                $escortImage->escort_media_id = $media_arr[$escortImage->position]['escort_media_id'];
-                $escortImage->updated_at = date('Y-m-d H:i:s');
-                $escortImage->save();
-                unset($media_arr[$escortImage->position]);
+        if($escortImages->count() > 0){
+            foreach ($escortImages as $escortImage) {
+                if (isset($media_arr[$escortImage->position])) {
+                    $escortImage->escort_media_id = $media_arr[$escortImage->position]['escort_media_id'];
+                    $escortImage->updated_at = date('Y-m-d H:i:s');
+                    $escortImage->save();
+                    unset($media_arr[$escortImage->position]);
+                }
+            }
+            if(count($media_arr) > 0){
+                EscortGallery::insert($media_arr);
             }
         }
-        return response()->json(compact('error'));
+        else{
+            EscortGallery::insert($media_arr);
+        }
+        return response()->json(compact('media_arr'));
     }
 
     public function saveProfileVideo(Request $request, $id = null){
