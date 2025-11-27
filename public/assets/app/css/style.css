@@ -6272,6 +6272,7 @@ i.fa.fa-heart-o{
         .custom_total_list .js-link.selected-item {
             font-weight: 500;
             font-size: 14px;
+            color: #90a0b7;
         }
         
         .custom_total_list .js-link .firts-text {
