@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 if (!function_exists('old_calculateTotalFee')) {
-    function old_calculateTotalFee($plan=0, $days=0)
+    function old_calculateTotalFee($plan = 0, $days = 0)
     {
         $dis_rate = 0;
         if ($plan == 1) {
@@ -64,8 +64,8 @@ if (!function_exists('old_calculateTotalFee')) {
             $total_rate = ($above_day * $rate + $days_21);
             $total_dis = $above_day * $dis_rate;
         }
-         $total_amount = $total_rate;
-         $total_amount -= $total_dis;
+        $total_amount = $total_rate;
+        $total_amount -= $total_dis;
         return [$total_dis, $total_rate, $total_amount];
     }
 }
@@ -89,19 +89,17 @@ if (!function_exists('calculateTotalFee')) {
             return [$total_discount, $total_rate, $total_rate];
         }
 
-        
+
         $normalDays   = $discount_day;
         $discountDays = $days - $discount_day;
 
         if ($pricing->day == 1) {  // frequency 
             $total_rate  = ($normalDays * $normalRate) + ($discountDays * $discountRate);
-
         } elseif ($pricing->day == 2) {  // frequency 
             $normalWeeks   = ceil($normalDays / 7);
             $discountWeeks = ceil($discountDays / 7);
 
             $total_rate  = ($normalWeeks * $normalRate) + ($discountWeeks * $discountRate);
-
         } else {
             $total_rate = ($normalDays * $normalRate) + ($discountDays * $discountRate);
         }
@@ -186,7 +184,7 @@ if (!function_exists('getCountryList')) {
  * Get up time without crashing website
  */
 if (!function_exists('getAppUptime')) {
- function getAppUptime()
+    function getAppUptime()
     {
         $startTime = Cache::get('app_start_time');
         $str = '';
@@ -203,14 +201,14 @@ if (!function_exists('getAppUptime')) {
         $days = floor($diffInSeconds / 86400);
         $hours = floor(($diffInSeconds % 86400) / 3600);
         $minutes = floor(($diffInSeconds % 3600) / 60);
-        $str .= $days. ' days & '.$hours .' hours ' .$minutes. ' minutes';
+        $str .= $days . ' days & ' . $hours . ' hours ' . $minutes . ' minutes';
 
         return $str;
     }
 }
 
 if (!function_exists('getServertime')) {
- function getServertime()
+    function getServertime()
     {
         $serverTimeZone = Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A');
 
@@ -259,61 +257,58 @@ if (!function_exists('random_string')) {
 }
 
 if (!function_exists('calculateFee')) {
-    
-    function calculateFee($plan, $days) 
+
+    function calculateFee($plan, $days)
     {
         # Note : The rates:  Platinum $8, Gold $6, Silver $4 and Massage Centre $30
         # calculateFee($listing['membership'], $daysDiff);
 
-        $planInfo = [1 => "Platinum", 2=>"Gold", 3=>"Silver", 4=>"Free",5=>"massage"];
+        $planInfo = [1 => "Platinum", 2 => "Gold", 3 => "Silver", 4 => "Free", 5 => "massage"];
 
         $dis_rate = 0;
-        if($plan == 1 ) {
+        if ($plan == 1) {
             $actual_rate = 8;
-            if($days <= 21) {
+            if ($days <= 21) {
                 $rate = 8;
             } else {
                 $rate = 7.5;
                 $dis_rate = 0.5;
             }
-
-        } else if($plan == 2) {
+        } else if ($plan == 2) {
             $actual_rate = 6;
-            if($days <= 21) {
+            if ($days <= 21) {
                 $rate = 6;
             } else {
                 $rate = 5.7;
                 $dis_rate = 0.3;
             }
-        } else if($plan == 3) {
+        } else if ($plan == 3) {
             $actual_rate = 4;
-            if($days <= 21) {
+            if ($days <= 21) {
                 $rate = 4;
             } else {
                 $rate = 3.8;
                 $dis_rate = 0.2;
             }
-        } else if($plan == 5) {
+        } else if ($plan == 5) {
             $actual_rate = 30;
             $rate = 0;
             $dis_rate = 0;
-
         } else {
             $actual_rate = 0;
             $rate = 0;
             $dis_rate = 0;
         }
 
-        if($days !== null && $days <= 21) {
+        if ($days !== null && $days <= 21) {
             //$rate = $days*30/days;
-            $total_rate = $days*$rate;
+            $total_rate = $days * $rate;
             $total_dis = 0;
-
         } else {
-            $days_21 = 21*$actual_rate;
+            $days_21 = 21 * $actual_rate;
             $above_day = $days - 21;
-            $total_rate = ($above_day*$rate + $days_21);
-            $total_dis = $above_day*$dis_rate;
+            $total_rate = ($above_day * $rate + $days_21);
+            $total_dis = $above_day * $dis_rate;
         }
 
         return [$total_dis, $total_rate];
@@ -321,7 +316,7 @@ if (!function_exists('calculateFee')) {
 }
 
 if (!function_exists('getRatingLabel')) {
-    
+
     function getRatingLabel($percentage)
     {
         if ($percentage >= 90) {
@@ -341,12 +336,12 @@ if (!function_exists('getRatingLabel')) {
 }
 
 if (!function_exists('getEscortTimezone')) {
-    
+
     function getEscortTimezone($escort)
     {
         # get timezone of escort
         $escortTimezone = config('app.escort_server_timezone');
-        if($escort && $escort->state_id && $escort->city_id){
+        if ($escort && $escort->state_id && $escort->city_id) {
             $escortTimezone = config('escorts.profile.states')[$escort->state_id]['cities'][$escort->city_id]['timeZone'];
         }
 
@@ -356,24 +351,20 @@ if (!function_exists('getEscortTimezone')) {
 
 if (!function_exists('app_date_time_format')) {
 
-     function app_date_time_format($datetime)
-     {
+    function app_date_time_format($datetime)
+    {
         return \Carbon\Carbon::parse($datetime)->format('d M Y, h:i A');
-            
-     }
-     
+    }
 }
 
 if (!function_exists('convert_aus_date_time_format')) {
 
-     function convert_aus_date_time_format($datetime)
-     {
-        return \Carbon\Carbon::parse($datetime, 'UTC')  
-            ->setTimezone('Australia/Perth')            
-            ->format('d M Y, h:i A'); 
-            
-     }
-     
+    function convert_aus_date_time_format($datetime)
+    {
+        return \Carbon\Carbon::parse($datetime, 'UTC')
+            ->setTimezone('Australia/Perth')
+            ->format('d M Y, h:i A');
+    }
 }
 
 
@@ -384,13 +375,13 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
     {
         try {
             $apiKey = config('services.google_map.api_key'); // env('GOOGLE_MAPS_API_KEY');
-        
+
             // Get location details from Google Maps Reverse Geocoding
             $geoUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$lat},{$lng}&key={$apiKey}";
             $response = Http::get($geoUrl);
-        
+
             $state = 'Unknown';
-        
+
             if ($response->successful()) {
                 foreach ($response['results'][0]['address_components'] as $component) {
                     if (in_array('administrative_area_level_1', $component['types'])) {
@@ -400,20 +391,20 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
                 }
             }
 
-            $stateFromDb = State::where('name',$state)->first();
+            $stateFromDb = State::where('name', $state)->first();
 
             $stateCapital = config('escorts.profile.states')[$stateFromDb->id] ?? null;
 
             $timezone = $stateCapital ? $stateCapital['timeZone'] : "UTC";
 
-            $parms =[
+            $parms = [
                 'geo_state' => $state,
-                'state'=> $stateFromDb ? $stateFromDb->id : null,
-                'city'=> $stateCapital ? array_key_first($stateCapital['cities']) : null,
-                'home_state'=> auth()->user() ? auth()->user()->home_state : null,
-                'current_location'=> $stateFromDb->iso2,
-                'timezone'=> $timezone,
-                'current_time'=> now($timezone)->format('h:i A')
+                'state' => $stateFromDb ? $stateFromDb->id : null,
+                'city' => $stateCapital ? array_key_first($stateCapital['cities']) : null,
+                'home_state' => auth()->user() ? auth()->user()->home_state : null,
+                'current_location' => $stateFromDb->iso2,
+                'timezone' => $timezone,
+                'current_time' => now($timezone)->format('h:i A')
             ];
 
             return $parms;
@@ -421,38 +412,38 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
             $stateCapital = config('escorts.profile.states')[auth()->user()->state_id];
             $timezone = $stateCapital ? $stateCapital['timeZone'] : "UTC";
 
-            $parms =[
+            $parms = [
                 'geo_state' => $state,
-                'state'=>null,
-                'city'=>null,
-                'home_state'=> auth()->user()->home_state,
-                'current_location'=> auth()->user()->home_state,
-                'timezone'=> $timezone,
-                'current_time'=> now($timezone)->format('h:i A')
+                'state' => null,
+                'city' => null,
+                'home_state' => auth()->user()->home_state,
+                'current_location' => auth()->user()->home_state,
+                'timezone' => $timezone,
+                'current_time' => now($timezone)->format('h:i A')
             ];
 
             return $parms;
         }
-        
-    }     
+    }
 }
 
 if (!function_exists('getDefaultBannerTemplates')) {
-    function getBannerTemplates(){
-        return EscortMedia::where(['type'=>0,'position'=>9])
-        ->whereNull('user_id')
-        ->get();
+    function getBannerTemplates()
+    {
+        return EscortMedia::where(['type' => 0, 'position' => 9])
+            ->whereNull('user_id')
+            ->get();
     }
 }
 
 if (!function_exists('isGalleryTemplate')) {
-    function isGalleryTemplate($media_id=0){
-        $media = EscortMedia::where(['id'=>$media_id])->first();
-        if($media->template){
-            $template = EscortMedia::where(['user_id'=>NULL,'template'=>'1','path'=>$media->path])->first('id');
+    function isGalleryTemplate($media_id = 0)
+    {
+        $media = EscortMedia::where(['id' => $media_id])->first();
+        if ($media->template) {
+            $template = EscortMedia::where(['user_id' => NULL, 'template' => '1', 'path' => $media->path])->first('id');
             return $template->id;
-        }
-        else{
+        } else {
             return $media_id;
         }
     }
@@ -465,7 +456,7 @@ if (!function_exists('logErrorLocal')) {
             if ($error instanceof \Exception) {
                 Log::info($error->getMessage());
             } else {
-               Log::info($error);
+                Log::info($error);
             }
         }
     }
@@ -562,7 +553,7 @@ if (!function_exists('saving_escort_stats')) {
         }
 
         # --- Unique session key per escort per day ---
-        $sessionKey = "escort_id_{$escortId}_date_{$todayDateUnderscore}_".$profileViewType;
+        $sessionKey = "escort_id_{$escortId}_date_{$todayDateUnderscore}_" . $profileViewType;
 
         # Already profile viewed today?
         if (Session::get($sessionKey) === $sessionKey) {
@@ -575,7 +566,7 @@ if (!function_exists('saving_escort_stats')) {
 
         $field = [
             'profile_views_count' => $profileViewType == 'profile_views_count' ? 1 : 0,
-            'media_views_count' => $profileViewType == 'media_views_count' ? 1 : 0, 
+            'media_views_count' => $profileViewType == 'media_views_count' ? 1 : 0,
             'playbox_views_count' => $profileViewType == 'playbox_views_count' ? 1 : 0,
             'reviews_count' => $profileViewType == 'reviews_count' ? 1 : 0,
             'recommendation_count' => $profileViewType == 'recommendation_count' ? 1 : 0,
@@ -609,14 +600,14 @@ if (!function_exists('saving_escort_stats')) {
 
         return true;
     }
-     
 }
 
-function print_this($array,$die=false){
+function print_this($array, $die = false)
+{
     echo '<pre>';
     print_r($array);
     echo '</pre>';
-    if($die){
+    if ($die) {
         die;
     }
 }
@@ -651,31 +642,34 @@ if (!function_exists('showDateWithFormat')) {
     }
 }
 
-    function basicDateFormat($date){
-        if($date){
-            return \Carbon\Carbon::parse($date)->format('d-m-Y');
-        }else{
-            return '';
-        }   
+function basicDateFormat($date)
+{
+    if ($date) {
+        return \Carbon\Carbon::parse($date)->format('d-m-Y');
+    } else {
+        return '';
+    }
+}
+
+function formatLabelAttribute($label)
+{
+    if (empty($label)) {
+        return $label;
     }
 
-    function formatLabelAttribute($label){
-        if (empty($label)) {
-            return $label;
-        }
+    // Replace underscores with spaces (if any)
+    $label = str_replace('_', ' ', $label);
 
-        // Replace underscores with spaces (if any)
-        $label = str_replace('_', ' ', $label);
-
-        // Convert to Title Case
-        return Str::title(strtolower($label));  
-    }
+    // Convert to Title Case
+    return Str::title(strtolower($label));
+}
 
 
 
 if (!function_exists('period_days')) {
 
-    function period_days($day){
+    function period_days($day)
+    {
 
         switch ($day) {
             case 1:
@@ -688,11 +682,6 @@ if (!function_exists('period_days')) {
                 return "Per Service";
         }
     }
-
-
-
-     
-
 }
 
 
@@ -721,40 +710,64 @@ if (!function_exists('last_updated_price')) {
 
 
 //need Agent ka total advartiser 
-if(!function_exists('getAgentTotalAdvertisers')){
-    function getAgentTotalAdvertisers(){
+if (!function_exists('getAgentTotalAdvertisers')) {
+    function getAgentTotalAdvertisers()
+    {
         $total_advertisers = 0;
         try {
             $total_advertisers = User::where('assigned_agent_id', auth()->user()->id)->where('is_agent_assign', '1')->count();
         } catch (\Exception $e) {
-         
         }
-        
+
         return $total_advertisers;
     }
 }
 
-    
-if (!function_exists('staffPageAccessPermission')) 
-{
-     function staffPageAccessPermission($securityLevel = "0", $pageKey = "sidebar")
-     {
+
+if (!function_exists('staffPageAccessPermission')) {
+    function staffPageAccessPermission($securityLevel = "0", $pageKey = "sidebar")
+    {
         $pageAccess = config('staff.page_access');
-        if(isset($pageAccess[$securityLevel])){
+        if (isset($pageAccess[$securityLevel])) {
             $levelArray = $pageAccess[$securityLevel];
-            if(isset($levelArray[$pageKey])){
+            if (isset($levelArray[$pageKey])) {
                 return $levelArray[$pageKey];
             }
         }
-        return [];    
-     } 
+        return [];
+    }
 }
 
-if (!function_exists('accessDeniedMsg')) 
-{
-     function accessDeniedMsg()
-     {
+if (!function_exists('accessDeniedMsg')) {
+    function accessDeniedMsg()
+    {
         return config('staff.access_denied_msg');
-     }
+    }
 }
 
+if (!function_exists('getLoginRoute')) {
+    function getLoginRoute($userType = -1)
+    {
+        $loginLInk = "home";
+        if ($userType = 0) {
+            $loginLInk = 'viewer.login';
+        } else  if ($userType = 1) {
+            $loginLInk = 'admin.login';
+        } else  if ($userType = 2) {
+            $loginLInk = 'home';
+        } else  if ($userType = 3) {
+            $loginLInk = 'advertiser.login';
+        } else  if ($userType = 4) {
+            $loginLInk = 'advertiser.login';
+        } else  if ($userType = 5) {
+            $loginLInk = 'agent.login';
+        } else  if ($userType = 6) {
+            $loginLInk = 'staff.login';
+        } else  if ($userType = 7) {
+            $loginLInk = 'operator.login';
+        } else  if ($userType = 8) {
+            $loginLInk = 'shareholder.login';
+        }
+        return $loginLInk;
+    }
+}
