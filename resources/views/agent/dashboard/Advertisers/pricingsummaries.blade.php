@@ -66,7 +66,7 @@ padding: 2px 8px 2px 8px !important;
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-10">
                         <div id="accordion" class="myacording-design">
                             <div class="card">
                                 <div class="card-header">
