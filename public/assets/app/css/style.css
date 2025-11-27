@@ -6235,8 +6235,9 @@ i.fa.fa-heart-o{
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             margin-bottom: 0px;
+            font-weight: 500;
         }
         
         .custom_total_list.dropdown>a {
@@ -6262,6 +6263,16 @@ i.fa.fa-heart-o{
         .custom_total_list.dropdown ul li.active {
             background-color: #056cdc;
             color: #fff;
+        }
+        
+        .custom_total_list .js-link.selected-item {
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .custom_total_list .js-link .firts-text {
+            font-size: 16px;
+            font-weight: 700;
         }
         
         #tipcrousal .carousel-inner {
