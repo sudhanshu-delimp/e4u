@@ -67,7 +67,8 @@ class CreateDefaultAccountSettings
                {
                    ViewerSetting::create([
                         'user_id'=>$user['id'],
-                        'user_type'=>$user->type
+                        'user_type'=>$user->type,
+                        'idle_preference_time' => '60' 
                     ]);
                }
                ########### For Viewer ##########################
@@ -78,7 +79,8 @@ class CreateDefaultAccountSettings
                {
                    AgentSetting::create([
                         'user_id'=>$user['id'],
-                        'advertiser_email'=>'1',               
+                        'advertiser_email'=>'1',  
+                        'idle_preference_time' => '60'             
                     ]);
                }
 
@@ -88,7 +90,8 @@ class CreateDefaultAccountSettings
                if($user &&  $user->type=='4')
                {
                    MassageSetting::create([
-                        'user_id'=>$user['id'],             
+                        'user_id'=>$user['id'], 
+                        'idle_preference_time' => '60'            
                     ]);
                }
 
@@ -99,7 +102,8 @@ class CreateDefaultAccountSettings
                {
                    EscortSetting::create([
                         'user_id'=>$user['id'], 
-                        'subscriptions_state'=> '1'            
+                        'subscriptions_state'=> '1',
+                        'idle_preference_time' => '60'              
                     ]);
                }
 
