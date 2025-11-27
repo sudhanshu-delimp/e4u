@@ -461,22 +461,11 @@ padding: 2px 8px 2px 8px !important;
 
 
 
-
-
-
-
 @include('escort.dashboard.partials.playmates-modal')
-
-
-
 @include('partials.snippet.calculater_modal')
 @include('partials.snippet.mc_calculater_popup')
 
-
-
-
-
- @endsection
+@endsection
 
 
  @push('script')
