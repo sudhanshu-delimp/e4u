@@ -4,12 +4,12 @@
 @endsection
 
 
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 opr-console">
     {{-- Page Heading --}}
     <div class="row">
-        <div class="col-md-12 custom-heading-wrapper">
-            <h1 class="h1">Monthly Fee Reports</h1>
-            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+        <div class="col-md-12 operator-heading-wrapper">
+            <h1 class="h1">Monthly Report</h1>
+            <span class="oprhelpNote" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes" style="">
@@ -17,17 +17,24 @@
                     <p class="notes"><b>Notes:</b> </p>
                     <p></p>
                     <ol>
-                     <li>This report is a summary of the Operator’s Fee.</li>
-                     <li>Agent summary can be viewed here.</li>
-                        <li>Payment authorisation procedure must be followed, for Operator to be paid:
+                        <li>The following definitions are from the Agent Agreement and apply for the purpose of
+                            calculating the Fee:
                             <ol class="level-2">
-                                <li>if report is correct, change status to Paid.
+                                <li>Fees mean the fees calculated pursuant to Item 5 of Schedule 1 and payable
+                                    pursuant to clause 9.1.
                                 </li>
-                                <li>produce Payment Authorisation summary. Managing Director to sign off.
+                                <li>Monthly Report means the online report summarising all the activities for that
+                                    month for Signed Up Advertisers which the calculation of the Fees for that month
+                                    will be based on.
                                 </li>
-                                <li>Payment Authorisation summary processed (by accounts staff).</li>
                             </ol>
                         </li>
+                        <li>The Fees are paid to the Operator upon the Agent having approved them. Where there
+                            is a query raised by an Agent in respect of the Monthly Report, the Fee corresponding
+                            to the Query will be separated from the Report and remain in escrow until the query is
+                            resolved.
+                        </li>
+                        <li>Fees are inclusive of GST.</li>
                     </ol>
                 </div>
             </div>
@@ -41,16 +48,16 @@
             <div class="row">
                 <div class="col-md-12 mt-2">
                     <div id="table-sec" class="table-responsive-xl">
-                        <table class="table table_admin" id="AgentReportTable">
-                            <thead class="table-bg">
+                        <table class="table my_opr_table" id="AgentReportTable">
+                            <thead class="opr-table-bg">
                                 <tr>
                                     <th>Date Issued</th>
                                     <th>Billing Period</th>
+                                    <th>Agent ID</th>
                                     <th>Territory</th>
-                                    <th>Spend</th>
                                     <th>Fees</th>
                                     <th>Status</th>
-                                    <th>Date Approved</th>
+                                    <th>Date Agent Approved</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -58,12 +65,12 @@
                                 <tr>
                                     <td>01-11-2025</td>
                                     <td>01-10-25 to 31-10-25</td>
+                                    <td>A600025</td>
                                     <td>WA</td>
-                                    <td><div class="num_value">$ <span>1,250,900.00</span></div></td>
-                                    <td><div class="num_value">$ <span>25,018.00</span></div></td>
-                                    <td>Pending</td>
+                                    <td>$ 237.45</td>
+                                    <td>Agent Approved</td>
                                     <td>04-11-2025</td>
-                                    <td class="text-center">
+                                    <td>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button"
                                                 id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -104,7 +111,7 @@
 </div>
 {{-- Payment Authorisation --}}
 
-<div class="modal fade upload-modal" id="payAgentreport" tabindex="-1" role="dialog"
+<div class="modal fade opr-modal" id="payAgentreport" tabindex="-1" role="dialog"
     aria-labelledby="payAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -116,7 +123,7 @@
                 
                 <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/secure-payment.png') }}" class="custompopicon"> Payment Authorisation</h5>
                 <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                   <img src="{{ asset('assets/app/img/newcross.png')}}">
+                   <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
                 </a>
             </div>
             <!-- Body -->
@@ -124,7 +131,7 @@
 
                 <table class="w-100 table opr_modal_table">
                     <tr>
-                        <td style="font-weight: bold; color: #001f4d;">Operator ID: </td>
+                        <td style="font-weight: bold; color: #001f4d;">Agent ID:</td>
                         <td>A600025</td>
                         <td style="font-weight: bold; color: #001f4d;">Date:</td>
                         <td>01-10-25</td>
@@ -139,7 +146,7 @@
 
                 <p>
                     The Fee for the month is authorised for payment into the
-                    Operator’s nominated Bank Account.
+                    Operator’s nominated Bank Account for the Agent.
                 </p>
 
                 <p style="margin-top: 25px;">
@@ -151,11 +158,11 @@
 
                 <div style="text-align: center;">
 
-                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">
+                    <button type="button" class="opr-btn-common" data-dismiss="modal">
                         Close
                     </button>
 
-                    <button type="button" class="btn-success-modal">Print</button>
+                    <button type="button" class="opr-btn-common">Print</button>
                 </div>
             </div>
         </div>
@@ -166,7 +173,7 @@
 
 {{-- View Report --}}
 
-<div class="modal fade upload-modal" id="viewAgentreport" tabindex="-1" role="dialog"
+<div class="modal fade opr-modal" id="viewAgentreport" tabindex="-1" role="dialog"
     aria-labelledby="viewAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -175,16 +182,16 @@
                  
                 <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/report.png') }}" class="custompopicon">  Fee Report - Member ID A600025 (Period Ending: 31-10-25)</h5>
                 <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                   <img src="{{ asset('assets/app/img/newcross.png')}}">
+                   <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
                 </a>
             </div>
 
             <div class="modal-body">
 
-                <table class="table table-bordered mb-0 common_accordian_table">
-                    <thead class="table-bg modal-thaed">
+                <table class="table table-bordered mb-0 opr_accordian_table">
+                    <thead class="opr-table-bg modal-thaed">
                         <tr>
-                            <th>Agent ID</th>
+                            <th>Member ID</th>
                             <th>Name</th>
                             <th>Territory</th>
                             <th>Type</th>
@@ -199,7 +206,7 @@
                         <!-- ========= MEMBER 1 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1"
                             aria-expanded="false" aria-controls="details1">
-                            <td>A10044</td>
+                            <td>E612344</td>
                             <td class="opr_expand_arrow">Oxe Daisy <i class="fa fa-chevron-down"></i></td>
                             <td>WA</td>
                             <td></td>
@@ -258,7 +265,7 @@
                         <!-- ========= MEMBER 2 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details2"
                             aria-expanded="false" aria-controls="details2">
-                            <td>A20056</td>
+                            <td>E612351</td>
                             <td class="opr_expand_arrow">Rose Chaplin <i class="fa fa-chevron-down"></i></td>
                             <td>WA</td>
                             <td></td>
