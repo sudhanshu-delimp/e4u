@@ -4505,7 +4505,9 @@ i.fa.fa-heart-o{
             padding: 0px 82px;
         }
         /*footer end here */
-        
+        span.footer_text_color_white{
+            font-size: 15px;
+        }
         .footer_text_color_white p {
             font-size: 13px;
         }
@@ -5811,7 +5813,7 @@ i.fa.fa-heart-o{
         
         .custom--copyryt {
             display: flex;
-            gap: 10px;
+            gap: 7px;
             align-items: center;
         }
         
@@ -6094,7 +6096,7 @@ i.fa.fa-heart-o{
         }
         
         .custom--copyryt a.admin-login {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 400;
         }
         
