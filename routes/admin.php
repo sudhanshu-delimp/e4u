@@ -209,7 +209,7 @@ Route::post('advertiser-reviews-status',[AdvertiserReviewsController::class, 'up
 
 Route::get('get_registration_report', [ReportingController::class, 'getRegistrationReport'])->name('admin.get_registration_report');
 Route::get('registrations-reports',[ReportingController::class, 'userRegistrationReport'])->name('admin.registrations-reports');
-
+Route::post('change-user-status',[ReportingController::class, 'changeUserStatus'])->name('admin.change-user-status');
 // Route::get('registrations-reports',function(){
 //     return view('admin.reporting.registrations');
 // })->name('admin.registrations-reports');
