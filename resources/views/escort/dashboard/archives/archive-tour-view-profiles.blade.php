@@ -146,7 +146,6 @@
                         
                            <button type="button" class="btn btn-primary create-tour-sec nopermission" data-dismiss="modal" aria-label="Close">close</button>
                         </div>
-
                   </div>
                </div>
             </div>
@@ -162,6 +161,7 @@
                            <th>Start Date</th>
                            <th>End Date</th>
                            <th>Days</th>
+                           <th>Status</th>
                            <th>Action</th>
                         </tr>
                      </thead>
@@ -206,19 +206,16 @@
       ajax: {
          url: "{{ route('escort.tour.dataTable', $type) }}",
          data: function (d) {
-            d.search = d.search.value;
-            d.length = d.length;
-            d.start = d.start;
-            d.sort_by = d.columns[d.order[0].column].data;
-            d.sort_dir = d.order[0].dir;
+          
          }
       },
       columns: [
-         { data: 'id', name: 'ID' },
-         { data: 'name', name: 'Tour Name' },
-         { data: 'start_date', name: 'Start Date' },
-         { data: 'end_date', name: 'End Date' },
-         { data: 'days', name: 'Days' },
+         { data: 'id', name: 'id' },
+         { data: 'name', name: 'name' },
+         { data: 'start_date', name: 'start_date' , searchable: false },
+         { data: 'end_date', name: 'end_date' , searchable: false },
+         { data: 'days_number', name: 'days_number' , searchable: false },
+         { data: 'status', name: 'status' , orderable: false, searchable: false },
          { data: 'action', name: 'Action', orderable: false, searchable: false },
       ]
    });

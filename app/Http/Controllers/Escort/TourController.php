@@ -23,7 +23,6 @@ use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Repositories\Duration\DurationInterface;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Traits\ResizeImage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Escort\EscortMediaInterface;
@@ -128,75 +127,103 @@ class TourController extends Controller
         return response()->json(compact('status','escorts','id'), 200);
         //return response()->json(compact('find_tour'));
     }
-
-    public function TourDataTable(Request $request, $type = NULL)
-    {
-
-    $today = \Carbon\Carbon::today();
-    $user_id = auth()->user()->id;
-    $search = $request->get('search');
-    $sortBy = $request->get('sort_by', 'id');
-    $sortDir = $request->get('sort_dir', 'desc');
-    $length = $request->get('length', 10);
-    $start = $request->get('start', 0);
-    $query = \App\Models\Tour::with('locations');
-    $query->where('user_id', $user_id);
-    if ($type === 'current') {
-        $query->whereHas('latestLocation', fn($q) => 
-            $q->where('end_date', '>=', $today)
-        );
-    } elseif ($type === 'past') {
-        $query->whereHas('latestLocation', fn($q) => 
-         $q->where('end_date', '<', $today)
-        );
-    }
-
-    // Search by tour name
-    if ($search) {
-        $query->where('name', 'like', '%' . $search . '%');
-    }
-
-    $total = $query->count();
-    $tours = $query->orderBy($sortBy, $sortDir)
-    ->skip($start)
-    ->take($length)
-    ->get()
-    ->map(function ($tour, $index) {
-        $startDate = $tour->locations->min('start_date');
-        $endDate = $tour->locations->max('end_date');
-        $days = $startDate && $endDate ? \Carbon\Carbon::parse($startDate)->diffInDays(\Carbon\Carbon::parse($endDate)) + 1 : 0;
-        $is_checkout = $tour->tourPurchase->count();
-        $action = '<div class="dropdown no-arrow archive-dropdown">
-            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
-        if(empty($is_checkout)){
-            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('account.checkout_tour', $tour->id).'"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
-            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 tourDelete" href="'.route('escort.delete.tour', $tour->id).'"> <i class="fa fa-trash" ></i> Delete</a><div class="dropdown-divider"></div>';
-            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
+    public function TourDataTable(Request $request, $type = NULL){
+        $today = Carbon::today()->format('Y-m-d');
+        $conditions = [];
+        if ($type == 'current') {
+            $conditions[] = ['end_date','>=',$today];
+        } elseif ($type == 'past') {
+            $conditions[] = ['end_date','<',$today];
         }
-        else{
-            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
-        }
+        list($result, $count, $other) = $this->tour->paginatedList(
+            request()->get('start'),
+            request()->get('length'),
+            request()->get('order')[0]['column'],
+            request()->get('order')[0]['dir'],
+            request()->get('columns'),
+            request()->get('search')['value'],
+            auth()->user()->id,
+            $conditions
+        );
+
+        $data = array(
+            "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "other" => $other,
+            "data"            => $result
+        );
+
+        return response()->json($data);
+    }
+//     public function TourDataTable(Request $request, $type = NULL)
+//     {
+
+//     $today = \Carbon\Carbon::today();
+//     $user_id = auth()->user()->id;
+//     $search = $request->get('search');
+//     $sortBy = $request->get('sort_by', 'id');
+//     $sortDir = $request->get('sort_dir', 'desc');
+//     $length = $request->get('length', 10);
+//     $start = $request->get('start', 0);
+//     $query = \App\Models\Tour::with('locations');
+//     $query->where('user_id', $user_id);
+//     if ($type === 'current') {
+//         $query->whereHas('latestLocation', fn($q) => 
+//             $q->where('end_date', '>=', $today)
+//         );
+//     } elseif ($type === 'past') {
+//         $query->whereHas('latestLocation', fn($q) => 
+//          $q->where('end_date', '<', $today)
+//         );
+//     }
+
+//     // Search by tour name
+//     if ($search) {
+//         $query->where('name', 'like', '%' . $search . '%');
+//     }
+
+//     $total = $query->count();
+//     $tours = $query->orderBy($sortBy, $sortDir)
+//     ->skip($start)
+//     ->take($length)
+//     ->get()
+//     ->map(function ($tour, $index) {
+//         $startDate = $tour->locations->min('start_date');
+//         $endDate = $tour->locations->max('end_date');
+//         $days = $startDate && $endDate ? \Carbon\Carbon::parse($startDate)->diffInDays(\Carbon\Carbon::parse($endDate)) + 1 : 0;
+//         $is_checkout = $tour->tourPurchase->count();
+//         $action = '<div class="dropdown no-arrow archive-dropdown">
+//             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
+//             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
+//         if(empty($is_checkout)){
+//             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('account.checkout_tour', $tour->id).'"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
+//             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 tourDelete" href="'.route('escort.delete.tour', $tour->id).'"> <i class="fa fa-trash" ></i> Delete</a><div class="dropdown-divider"></div>';
+//             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
+//         }
+//         else{
+//             $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
+//         }
         
-        $action .= '</div></div>';
+//         $action .= '</div></div>';
 
-        return [
-            'id' => $tour->id,
-            'name' => $tour->name,
-            'start_date' => $startDate->format('d-m-Y'),
-            'end_date' => $endDate->format('d-m-Y'),
-            'days' => $days,
-            'action' => $action
-        ];
-    });
+//         return [
+//             'id' => $tour->id,
+//             'name' => $tour->name,
+//             'start_date' => $startDate->format('d-m-Y'),
+//             'end_date' => $endDate->format('d-m-Y'),
+//             'days' => $days,
+//             'action' => $action
+//         ];
+//     });
 
-return response()->json([
-    'data' => $tours,
-    'recordsTotal' => $total,
-    'recordsFiltered' => $total,
-]);
+// return response()->json([
+//     'data' => $tours,
+//     'recordsTotal' => $total,
+//     'recordsFiltered' => $total,
+// ]);
 
-    }
+//     }
 
 
 
@@ -818,6 +845,12 @@ return response()->json([
                     ]);
                 }
             }
+
+            // After saving all locations → Update Tour main dates
+            $tour->update([
+                'start_date' => $tour->locations()->min('start_date'),
+                'end_date' => $tour->locations()->max('end_date'),
+            ]);
             DB::commit();
             return response()->json([
                 'success' => true,
@@ -840,9 +873,6 @@ return response()->json([
     try {
         // Step 1: Update the tour basic info
         $tour = Tour::findOrFail($id);
-        $tour->update([
-            'name' => $request->tour_name,
-        ]);
 
         $existingLocationIds = [];
 
@@ -909,6 +939,12 @@ return response()->json([
                 $loc->profiles()->delete();
                 $loc->delete();
             });
+            
+        $tour->update([
+            'name' => $request->tour_name,
+            'start_date' => $tour->locations()->min('start_date'),
+            'end_date' => $tour->locations()->max('end_date'),
+        ]);    
 
         DB::commit();
 

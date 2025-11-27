@@ -5,7 +5,6 @@ namespace App\Repositories\Tour;
 use App\Repositories\BaseRepository;
 use App\Traits\DataTablePagination;
 use App\Models\Tour;
-use App\Models\TourLocation;
 
 use Carbon\Carbon;
 
@@ -215,5 +214,66 @@ class TourRepository extends BaseRepository implements TourInterface
             ->orWhere('phone',  'LIKE', "%{$str}%")
             ->get();
 	}
+
+
+    public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id = null, $conditions = [])
+    {
+        $order_field = $columns[$order_key]['name'];
+        $searchables = $this->getSearchableFields($columns);
+        $query = $this->model;
+
+        if($user_id){
+            $query = $query->where('user_id',$user_id);
+        }
+
+        if(count($conditions)>0){
+            $query->where($conditions);
+        }
+            
+        if($search) {
+            $query->where(function ($q) use ($searchables, $search) {
+                foreach ($searchables as $column) {
+                    $q->orWhere($column, 'LIKE', "%{$search}%");
+                }
+            });
+        }
+        if($order_field=='days_number'){
+            $query->orderByRaw("DATEDIFF(end_date, start_date) $dir");
+        } 
+        else {
+            $query->orderBy($order_field, $dir);
+        }
+        $mainQuery = $query->offset($start)->limit($limit);
+        $result = $this->modifyRecords($mainQuery->get(), $start);
+        $count =  $query->count();
+
+        return [$result, $count, [$query->toSql(),$query->getBindings()]];
+    }
+
+    protected function modifyRecords($result, $start)
+    {
+        $i = 1;
+        $today = Carbon::today()->format('d-m-Y');
+        foreach ($result as $key => $item) {
+            $item->days_number = $item->days_number;
+            $item->status = $item->start_date < $today ?'Current':'Upcoming';
+            $is_checkout = $item->tourPurchase->count();
+            $action = '<div class="dropdown no-arrow archive-dropdown">
+            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
+            if(empty($is_checkout)){
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('account.checkout_tour', $item->id).'"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 tourDelete" href="'.route('escort.delete.tour', $item->id).'"> <i class="fa fa-trash" ></i> Delete</a><div class="dropdown-divider"></div>';
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $item->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
+            }
+            else{
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
+            }
+            $action .= '</div></div>';
+            $item->action = $action;
+            $i++;
+        }
+        return $result;
+    }
 
 }
