@@ -1,0 +1,128 @@
+<?php
+
+namespace App\Http\Controllers\Staff;
+
+use App\Http\Controllers\Controller;
+use App\Models\Task;
+use Illuminate\Http\Request;
+use App\Repositories\Escort\EscortInterface;
+use App\Repositories\User\UserInterface;
+use Illuminate\Support\Facades\Auth;
+// use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
+
+class TaskController extends Controller
+{
+    public function fetchTask(Request $request)
+    {
+        $data = Task::orderByRaw("CASE 
+            WHEN status = 'inprogress' THEN 0 
+            WHEN status = 'open' THEN 1 
+            ELSE 2 
+        END")
+        ->orderByRaw("CASE 
+            WHEN priority = 'high' THEN 0 
+            WHEN priority = 'medium' THEN 1 
+            ELSE 2 
+        END")
+        ->orderByDesc('id') // then by newest
+        ->where('user_id',Auth::user()->id)
+        ->paginate(10); 
+
+        return response()->json([
+            'status' => true,
+            'data' => $data,
+            'task_name' => 'fetch_task'
+        ], 200, [
+            'Content-Type' => 'application/json',
+        ]);
+    }
+
+    public function addTask(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'task_priority' => 'required',
+            'description' => 'nullable'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $task = new Task();
+        $task->title = $request->title;
+        $task->priority = $request->task_priority;
+        $task->description = $request->description;
+        $task->status = 'open';
+        $task->user_id = Auth::user()->id;
+        $task->save();
+
+        return response()->json(['success' => true, 'task' => $task,'task_name' => 'add_task']);
+    }
+
+    public function editTask(Request $request)
+    {
+        $task = Task::where('user_id',Auth::user()->id)->findOrFail($request->id);
+        return response()->json(['success' => true, 'task' => $task,'task_name' => 'edit_task']);
+    }
+
+    public function updateTask(Request $request)
+    {
+        $task = Task::where('user_id',Auth::user()->id)->findOrFail($request->task_id);
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'task_priority' => 'required',
+            'description' => 'nullable',
+            'status' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $task->update([
+            'title'=>$request->title,
+            'priority'=>$request->task_priority,
+            'description'=>$request->description,
+            'status'=>$request->status,
+        ]);
+
+        return response()->json(['success' => true, 'task' => $task,'task_name' => 'update_task']);
+    }
+
+    public function statusTask(Request $request)
+    {
+        $task = Task::where('user_id',Auth::user()->id)->findOrFail($request->change_task_id);
+        $task->update([
+            'status'=>'completed',
+        ]);
+
+        return response()->json(['success' => true, 'task' => $task,'task_name' => 'complete_task']);
+    }
+
+    public function openTask(Request $request)
+    {
+        $openCount = Task::where('status', 'open')->where('user_id',Auth::user()->id)->count();
+        $inprogressCount = Task::where('status', 'inprogress')->where('user_id',Auth::user()->id)->count();
+        $completedCount = Task::where('status', 'completed')->where('user_id',Auth::user()->id)->count();
+
+        return response()->json([
+            'status' => true,
+            'data' => [
+                'open' => $openCount,
+                'inprogress' => $inprogressCount,
+                'completed' => $completedCount
+            ],
+            'task_name' => 'open'
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        Task::where('user_id',Auth::user()->id)->findOrFail($id)->delete();
+        return response()->json(['success' => true]);
+    }
+
+}

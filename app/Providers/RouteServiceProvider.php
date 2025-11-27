@@ -25,6 +25,7 @@ class RouteServiceProvider extends ServiceProvider
     public const Dashboard = '/dashboard';
 
     public const EscortList = '/all-escorts-list';
+    public const staffDashboard = '/staff-dashboard';
 
     /**
      * The controller namespace for the application.
@@ -92,6 +93,10 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('dev')
                 ->namespace('App\Http\Controllers\Dev')
                 ->group(base_path('routes/dev.php'));
+             Route::prefix('staff-dashboard')
+                ->middleware(['web', 'staff', 'HeaderInfo','TrackLoginUserInfo'])
+                ->namespace('App\Http\Controllers\Staff')
+                ->group(base_path('routes/staff.php'));    
         });
     }
 

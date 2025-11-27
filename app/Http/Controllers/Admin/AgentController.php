@@ -64,7 +64,7 @@ class AgentController extends BaseController
 
            if (!empty($search)) {
             $agent->where(function ($query) use ($search) {
-                $query->where('id', 'like', "%{$search}%")
+                $query->where('member_id', 'like', "%{$search}%")
                 ->orWhere('name', 'like', "%{$search}%")
                 ->orWhere('phone', 'like', "%{$search}%")
                 ->orWhere('email', 'like', "%{$search}%")

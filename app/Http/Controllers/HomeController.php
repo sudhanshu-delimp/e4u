@@ -104,6 +104,10 @@ class HomeController extends Controller
             case 5:
             return redirect()->route('agent.dashboard');
             break;
+            
+            case 6:
+                return redirect()->route('staff.dashboard');
+                break;
 
             default:
                 return back();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Agent;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +16,17 @@ class AgentDashboardController extends Controller
         $logAndStatus = $user->LoginStatus;
         $passwirdExpire = $user->account_setting;
         $passwordExpiryText = CheckExpireDate($passwirdExpire->password_expiry_days);
-    
-        return view('agent.dashboard.logs-and-status', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire')); 
+        //Get Advertisers Online count
+        $currentState = $user->state_id;
+        $basecQuery = User::select('users.id', 'users.state_id', 'users.email', 'login_attempts.user_id' , 'login_attempts.online', 'users.type')
+                        ->join('login_attempts', 'login_attempts.user_id', '=', 'users.id')
+                        ->where('login_attempts.online', 'yes')
+                        ->whereIn('users.type', ['3','4']);
+
+        $sameStateCount = (clone $basecQuery)->where('users.state_id', $currentState)->count();
+        $outsideStateCount  = (clone $basecQuery)->where('users.state_id', '!=', $currentState)->count();
+       
+        return view('agent.dashboard.logs-and-status', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire', 'sameStateCount', 'outsideStateCount')); 
     }
 
     public function updatePasswordDuration(UpdateEscortRequest $request)
