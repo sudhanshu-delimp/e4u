@@ -67,6 +67,30 @@ class TrackLastPageVisitMiddlware
                     ->withErrors(['message' => 'You have been logged out due to inactivity.']);
                 } 
             }
+            elseif(auth()->user()->type == 4)
+            {
+
+                $idle_preference_time = (auth()->user()->massage_settings && auth()->user()->massage_settings->idle_preference_time) ? auth()->user()->massage_settings->idle_preference_time : '60';
+
+                if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
+                auth()->logout();
+                return redirect()->route('advertiser.login')
+                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+                } 
+            }
+
+            elseif(auth()->user()->type == 3)
+            {
+
+                $idle_preference_time = (auth()->user()->escort_settings && auth()->user()->escort_settings->idle_preference_time) ? auth()->user()->escort_settings->idle_preference_time : '60';
+
+                if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
+                auth()->logout();
+                return redirect()->route('advertiser.login')
+                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+                } 
+            }
+
             elseif(auth()->user()->type == 0)
             {
 

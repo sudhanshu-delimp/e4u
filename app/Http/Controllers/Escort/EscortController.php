@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Escort;
 
-
+use App\Http\Controllers\BaseController;
 use Auth;
 use File;
 use FFMpeg;
@@ -40,7 +40,7 @@ use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Repositories\Purchase\PurchaseInterface;
 use App\Repositories\AttemptLogin\AttemptLoginRepository;
 
-class EscortController extends Controller
+class EscortController extends BaseController
 {
     use DataTablePagination;
     /**
@@ -789,10 +789,59 @@ class EscortController extends Controller
             return response()->json([ 'type' => 1,'message' => 'An error occurred while removing avatar. Please try again.' ], 500);
         }
     }
+
+
     public function notificationsFeatures()
     {
-        return view('escort.dashboard.profileNotifications');
+        $setting = User::with('escort_settings')->where('id', auth()->user()->id)->first();
+        return view('escort.dashboard.profileNotifications', compact('setting'));
     }
+
+    public function updateNotificationsFeatures(Request $request)
+    {
+        $user = auth()->user();
+
+        
+        $data = [
+                'features_viewer_notifications_forward_v_alerts' => $request->features_viewer_notifications_forward_v_alerts ?? '0',
+                'features_allow_viewers_to_ask_you_a_question' => $request->features_allow_viewers_to_ask_you_a_question ?? '0',
+                'features_allow_viewers_to_send_you_a_text_message' => $request->features_allow_viewers_to_send_you_a_text_message ?? '0',
+                'features_i_am_available_as_a_playmate' => $request->features_i_am_available_as_a_playmate ?? '0',
+
+                'auto_recharge_no' => $request->auto_recharge_no == '1' ? '1' : '0',
+                'auto_recharge_100' => $request->auto_recharge_100 == '1' ? '1' : '0',
+                'auto_recharge_250' => $request->auto_recharge_250 == '1' ? '1' : '0',
+                'auto_recharge_500' => $request->auto_recharge_500 == '1' ? '1' : '0',
+
+                'agent_receive_communications' => $request->agent_receive_communications ?? '0',
+                'agent_send_communications' => $request->agent_send_communications ?? '0',
+
+                'alert_notification_email' => $request->alert_notification_email ?? '0',
+                'alert_notification_text' => $request->alert_notification_text ?? '0',
+
+                'idle_preference_time' => $request->idle_preference_time ?? '60',
+
+                'twofa' => $request->twofa ?? '2',
+
+                'subscriptions_num' => $request->subscriptions_num ?? '0',
+                'subscriptions_state' => $request->subscriptions_state ?? null,
+
+        ];
+
+        $setting = $user->escort_settings;
+       
+        if ($setting) {
+            $setting->update($data);
+        } else {
+            $user->escort_settings()->create(array_merge($data, ['user_id' => $user->id]));
+        }
+
+        return $this->successResponse('Notification settings updated successfully!');
+    }
+
+
+       
+    
     public function getGeoLocationProfiles(Request $request){
         try {
             $response['success'] = false;

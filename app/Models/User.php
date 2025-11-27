@@ -5,6 +5,7 @@ namespace App\Models;
 use Exception;
 use App\Models\AgentDetail;
 use App\Models\AgentSetting;
+use App\Models\EscortSetting;
 use App\Models\ViewerSetting;
 use App\Models\AccountSetting;
 use App\Models\MassageSetting;
@@ -640,6 +641,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo(MassageSetting::class, 'id', 'user_id');
     }
+
+    public function escort_settings()
+    {
+        return $this->belongsTo(EscortSetting::class, 'id', 'user_id');
+    }
+
+    
 
     
 

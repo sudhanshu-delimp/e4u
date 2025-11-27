@@ -2,38 +2,40 @@
 
 namespace App\Http\Controllers\Center;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Service;
 use App\Models\Duration;
-use App\Repositories\Escort\EscortInterface;
-use App\Repositories\Escort\AvailabilityInterface;
-use App\Repositories\Service\ServiceInterface;
-use App\Repositories\User\UserInterface;
-use App\Http\Requests\Escort\StoreRequest;
-use App\Http\Requests\Escort\StoreServiceRequest;
-use App\Http\Requests\UpdateEscortRequest;
-use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
-use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
-use App\Http\Requests\Escort\UpdateRequestPolicy;
-use App\Http\Requests\Escort\UpdateRequestReadMore;
-use App\Http\Requests\Escort\UpdateRequestAbout;
-use App\Http\Requests\Escort\StoreRateRequest;
-use App\Http\Requests\Escort\StoreAvailabilityRequest;
-use App\Repositories\Duration\DurationInterface;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Traits\ResizeImage;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\MassageSetting;
+use App\Models\EscortCovidReport;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\BaseController;
+use App\Repositories\User\UserInterface;
+use App\Http\Requests\Escort\StoreRequest;
+use App\Http\Requests\UpdateEscortRequest;
+use App\Repositories\Escort\EscortInterface;
+use App\Http\Requests\Escort\StoreRateRequest;
+use App\Repositories\Service\ServiceInterface;
+use App\Http\Requests\Escort\UpdateRequestAbout;
+use App\Repositories\Duration\DurationInterface;
+use App\Http\Requests\Escort\StoreServiceRequest;
+use App\Http\Requests\Escort\UpdateRequestPolicy;
+use App\Repositories\Escort\AvailabilityInterface;
+use App\Http\Requests\Escort\UpdateRequestReadMore;
+use App\Http\Requests\Escort\StoreAvailabilityRequest;
+use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
 use App\Repositories\MassageProfile\MassageMediaInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
+use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
-use App\Models\EscortCovidReport;
-use App\Models\User;
 
 //use Illuminate\Http\Request;
 
-class CenterProfileInformationController extends Controller
+class CenterProfileInformationController extends BaseController
 {
     protected $escort;
     protected $massage_availability;
@@ -645,16 +647,18 @@ class CenterProfileInformationController extends Controller
 
    
 
-
-     public function massageSettings(Request $request)
+    public function massageSettings(Request $request)
     {
-          return view('center.my-account.notifications-and-features');   
+        $setting =MassageSetting::where('user_id', auth()->id())->first();
+
+        return view('center.my-account.notifications-and-features', compact('setting'));
     }
 
+    
 
     public function updateNotificationsAndFeatures(Request $request)
     {
-
+       
         $user = auth()->user();
         $data = [
                 'features_viewer_notifications_forward_v_alerts' => $request->features_viewer_notifications_forward_v_alerts ?? 0,
