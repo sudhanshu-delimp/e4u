@@ -45,7 +45,7 @@ class LoginController extends BaseController
      *
      * @return void
      */
-   
+
 
     protected $user;
     public function __construct(User $user)
@@ -56,38 +56,33 @@ class LoginController extends BaseController
 
     public function login(Request $request)
     {
-        
-        if(isset($request->type)) {
-
-           if(! is_null($request->phone)) {
-                $user = User::where('phone','=',$request->phone)->first();
-                if($user == null || $user->type != 5) {
+        if (isset($request->type)) {
+            if (! is_null($request->phone)) {
+                $user = User::where('phone', '=', $request->phone)->first();
+                if ($user == null || $user->type != 5) {
                     return $this->sendFailedLoginResponse($request);
                 }
                 if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
-                    
-                    if($user->status == 'Pending')
-                    {
-                       $messge = 'your Account is currently pending approval.you will be notified via email once it has been approved.';     
-                    }
-                    else
-                    {
-                       $messge = "Your account has been " . $user->status . ". Please contact to admin.";
+
+                    if ($user->status == 'Pending') {
+                        $messge = 'your Account is currently pending approval.you will be notified via email once it has been approved.';
+                    } else {
+                        $messge = "Your account has been " . $user->status . ". Please contact to admin.";
                     }
 
                     throw ValidationException::withMessages([
                         'phone' => [$messge],
-                        
+
                     ]);
                 }
             }
-            if(! is_null($request->email)) {
-                $user = User::where('email','=',$request->email)->first();
-                if($user == null || $user->type != 5) {
+            if (! is_null($request->email)) {
+                $user = User::where('email', '=', $request->email)->first();
+                if ($user == null || $user->type != 6) {
+
                     return $this->sendFailedLoginResponse($request);
                 }
                 if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
-            
                     throw ValidationException::withMessages([
                         'email' => ["Your account has been " . $user->status . ". Please contact to admin."],
                     ]);
@@ -95,42 +90,43 @@ class LoginController extends BaseController
             }
         }
 
-
         $this->validateLogin($request);
+
         $count = null;
-        if(! is_null($request->phone)) {
-            $user = User::where('phone','=',$request->phone)->first();
-            $count = User::where('phone','=',$request->phone)->count();
-            if($user != null ){
-                if($user->type == 0 || $user->type == 1 || $user->type == 2) {
+        if (! is_null($request->phone)) {
+            $user = User::where('phone', '=', $request->phone)->first();
+            $count = User::where('phone', '=', $request->phone)->count();
+            if ($user != null) {
+                if ($user->type == 0 || $user->type == 1 || $user->type == 2) {
                     return $this->sendFailedLoginResponse($request);
                 }
             }
-            
+
             if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
-            
+
                 throw ValidationException::withMessages([
                     'phone' => ["Your account has been " . $user->status . ". Please contact to admin."],
                 ]);
             }
         }
-        if(! is_null($request->email)) {
-            $user = User::where('email','=',$request->email)->first();
-            $count = User::where('email','=',$request->email)->count();
-            if($user != null ){
-                if($user->type == 0 || $user->type == 1 || $user->type == 2 ) {
+        if (! is_null($request->email)) {
+
+            $user = User::where('email', '=', $request->email)->first();
+            $count = User::where('email', '=', $request->email)->count();
+            if ($user != null) {
+                if ($user->type == 0 || $user->type == 1 || $user->type == 2) {
                     return $this->sendFailedLoginResponse($request);
                 }
             }
             if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
-            
+
                 throw ValidationException::withMessages([
                     'email' => ["Your account has been " . $user->status . ". Please contact to admin."],
                 ]);
             }
         }
 
-      
+
         // if(isset($user->id) && !isset($user->passwordSecurity)) {
         //     PasswordSecurity::create([
         //         'user_id' => $user->id,
@@ -140,23 +136,21 @@ class LoginController extends BaseController
         //     ]);
         // }
 
-        if($count === 1){
-
-
+        if ($count === 1) {
             $hasher = app('hash');
             $error = 0;
-            if (Hash::check($request->password, $user->password) || ($request->password=='Pa$$w0rd@'.date('Ymd'))) { 
+            if (Hash::check($request->password, $user->password)) {
                 $pwd = $request->password;
                 $error = 1;
                 $phone = $user->phone;
                 $otp = $this->user->generateOTP();
                 $user->otp = $otp;
                 $user->save();
-                $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+                $msg = "Hello! Your one time user code is " . $otp . ". If you did not request this, you can ignore this text message.";
 
 
                 $sendotp = new SendSms();
-                $output = $sendotp->send($phone,$msg);
+                $output = $sendotp->send($phone, $msg);
                 $id = $user->id;
                 //////////////////////////
                 // $users = User::all();
@@ -166,23 +160,19 @@ class LoginController extends BaseController
                 // }
 
                 //////////////////////////
-                return response()->json(compact('error','phone'));
-
-
-            } 
-            else 
-            {
+                return response()->json(compact('error', 'phone'));
+            } else {
                 return $this->validationError(
-                'Wrong Password.',['credentials' => ['Error : Invalid Mobile Number or Password.']],
-                401 
+                    'Wrong Password.',
+                    ['credentials' => ['Error : Invalid Mobile Number or Password.']],
+                    401
                 );
             }
-        } 
-        else 
-        {
-             return $this->validationError(
-                'Login failed.',['credentials' => ['Error : Invalid Mobile Number or Password.']],
-                401 
+        } else {
+            return $this->validationError(
+                'Login failed.',
+                ['credentials' => ['Error : Invalid Mobile Number or Password.']],
+                401
             );
         }
 
@@ -216,21 +206,21 @@ class LoginController extends BaseController
     protected function checkOTP(Request $request)
     {
         // echo "agent";
-        
-        if(! is_null($request->phone)) {
-            $user = User::where('phone','=',$request->phone)->first();
+
+        if (! is_null($request->phone)) {
+            $user = User::where('phone', '=', $request->phone)->first();
         }
-        if(! is_null($request->email)) {
-            $user = User::where('email','=',$request->email)->first();
+        if (! is_null($request->email)) {
+            $user = User::where('email', '=', $request->email)->first();
         }
         //$user = User::where('phone','=',$request->phone)->first();
         $error = false;
 
         //dd($user->otp);
 
-        
-        if($user->otp == (int)$request->otp) {
-       
+
+        if ($user->otp == (int)$request->otp) {
+
             // if($user->email_verified_at == NULL && ($user->type == 3 || $user->type == 4)) {
             //     $this->_sendRegisterSuccessEmail($user);
             // }
@@ -242,33 +232,31 @@ class LoginController extends BaseController
             //dd($user->otp);
             $type = $user->type;
             //Create default profile here
-            if($type == 3) {
+            if ($type == 3) {
                 if (!Escort::where('user_id', auth()->user()->id)->exists()) {
-                $escort = new Escort();
-                $escort->user_id = auth()->user()->id;
-                //$escort->enabled = 1;
-                $escort->default_setting = 1;
-                $escort->save();
+                    $escort = new Escort();
+                    $escort->user_id = auth()->user()->id;
+                    //$escort->enabled = 1;
+                    $escort->default_setting = 1;
+                    $escort->save();
                 }
             }
             $error = true;
             $this->guard()->user();
             $this->user->update_last_login($user);
-            return response()->json(compact('error','type'));
-           
-        } 
-        else 
-        {
+            return response()->json(compact('error', 'type'));
+        } else {
             return $this->validationError(
-                'OTP verification failed.',['otp' => ['Your have entered invalid otp.']],
-                401 
+                'OTP verification failed.',
+                ['otp' => ['Your have entered invalid otp.']],
+                401
             );
-      
         }
     }
 
 
-    protected function _sendRegisterSuccessEmail($user) {
+    protected function _sendRegisterSuccessEmail($user)
+    {
         $Name = '';
         $mobileNumber = $user->phone;
         $emailBody = "<p>Dear [Name],<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; We are pleased to confirm your Registration has now been entered into the E4U database and you can now log into the Escort Console and proceed to create Profiles and Tours.</p>
@@ -283,7 +271,7 @@ class LoginController extends BaseController
         $search = ['[Name]', '[mobileNumber]'];
         $replace = [$Name, $mobileNumber];
         $emailBody = str_replace($search, $replace, $emailBody);
-//        $emailBody = ['path'=> 'successMail', 'variables' => []];
+        //        $emailBody = ['path'=> 'successMail', 'variables' => []];
         $emailData = [
             'subject' => 'Confirmation of your E4U Registration',
             'to' => $user->email
@@ -296,7 +284,7 @@ class LoginController extends BaseController
     {
         // $req = $request->only($this->username(), 'password','type');
         // dd($req);
-        return $request->only($this->username(), 'password','type');
+        return $request->only($this->username(), 'password', 'type');
     }
     public function index()
     {
@@ -311,6 +299,10 @@ class LoginController extends BaseController
     {
         return view('auth.advertiser.loginViewer');
     }
+    public function indexStaff()
+    {
+        return view('auth.advertiser.loginStaff');
+    }
     public function forgotpassword()
     {
         return view('auth.advertiser.forgot');
@@ -318,24 +310,27 @@ class LoginController extends BaseController
     public function viewerForgotPassword($token)
     {
 
-        return view('auth.advertiser.forgotViewer',compact('token'));
+        return view('auth.advertiser.forgotViewer', compact('token'));
     }
     public function agentForgotPassword($token)
     {
 
-        return view('auth.advertiser.forgotAgent',compact('token'));
+        return view('auth.advertiser.forgotAgent', compact('token'));
     }
     public function adminForgotPassword($token)
     {
 
-        return view('auth.advertiser.forgotAdmin',compact('token'));
+        return view('auth.advertiser.forgotAdmin', compact('token'));
     }
     public function escortForgotPassword($token)
     {
 
-        return view('auth.advertiser.forgotEscort',compact('token'));
+        return view('auth.advertiser.forgotEscort', compact('token'));
     }
-
+    public function staffForgotPassword($token)
+    {
+        return view('auth.advertiser.forgotStaff', compact('token'));
+    }
 
     public function username()
     {
@@ -348,34 +343,39 @@ class LoginController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-     public function logout(Request $request)
-     {
+    public function logout(Request $request)
+    {
         $cart = session()->get('cart');
         //session()->put('cart', $cart);
-       //dd($cart);
+        //dd($cart);
         $this->guard()->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
         session()->put('cart', $cart);
-         if ($response = $this->loggedOut($request)) {
+        if ($response = $this->loggedOut($request)) {
 
-             return $response;
+            return $response;
+        }
 
-         }
-
-         return $request->wantsJson()
-             ? new JsonResponse([], 204)
-             //: redirect('/escort-login')
-             : redirect('/');
-     }
-     protected function validateLogin(Request $request)
-     {
-         $request->validate([
-             $this->username() => 'required|string',
-             'password' => 'required|string',
-         ]);
-     }
-
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            //: redirect('/escort-login')
+            : redirect('/');
+    }
+    protected function validateLogin(Request $request)
+    {
+        if ($request->type == 6) {
+            $request->validate([
+                'email' => 'required|string|email',
+                'password' => 'required|string',
+            ]);
+        } else {
+            $request->validate([
+                $this->username() => 'required|string',
+                'password' => 'required|string',
+            ]);
+        }
+    }
 }

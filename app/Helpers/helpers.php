@@ -735,3 +735,26 @@ if(!function_exists('getAgentTotalAdvertisers')){
 }
 
     
+if (!function_exists('staffPageAccessPermission')) 
+{
+     function staffPageAccessPermission($securityLevel = "0", $pageKey = "sidebar")
+     {
+        $pageAccess = config('staff.page_access');
+        if(isset($pageAccess[$securityLevel])){
+            $levelArray = $pageAccess[$securityLevel];
+            if(isset($levelArray[$pageKey])){
+                return $levelArray[$pageKey];
+            }
+        }
+        return [];    
+     } 
+}
+
+if (!function_exists('accessDeniedMsg')) 
+{
+     function accessDeniedMsg()
+     {
+        return config('staff.access_denied_msg');
+     }
+}
+

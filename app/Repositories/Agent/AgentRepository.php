@@ -123,9 +123,10 @@ class AgentRepository extends BaseRepository implements AgentInterface
                 {
                     $agentData['enabled'] = 1;
                     $agentData['status'] = 2;
-                    $agentData['type'] = 5;
+                    $agentData['type'] = "5";
                     $message = 'New agent added successfully';
                     $user = User::create($agentData);
+                    //Log::info("Agent add/upd".json_encode( $user));
 
                     $userDataForEvent = [
                         'id' => $user->id,
