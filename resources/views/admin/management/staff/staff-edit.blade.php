@@ -104,8 +104,8 @@
                     <option value="{{ $skey }}" {{ $staff->city_id == $skey ? 'selected' : '' }}>
                         {{ $city }}</option>
                 @endforeach
-                <span class="text-danger error-location"></span>
             </select>
+             <span class="text-danger error-location"></span>
         </div>
         <div class="col-6 mb-3">
             <input type="text" name="commenced_date" id="commenced_date" class="form-control rounded-0"
