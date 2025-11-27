@@ -4505,9 +4505,11 @@ i.fa.fa-heart-o{
             padding: 0px 82px;
         }
         /*footer end here */
-        span.footer_text_color_white{
+        
+        span.footer_text_color_white {
             font-size: 15px;
         }
+        
         .footer_text_color_white p {
             font-size: 13px;
         }
@@ -6232,7 +6234,7 @@ i.fa.fa-heart-o{
         }
         
         .custom_total_list.dropdown ul li {
-            color: var(--blue--text);
+            color: #90a0b7;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -6244,7 +6246,7 @@ i.fa.fa-heart-o{
         
         .custom_total_list.dropdown>a {
             text-decoration: none;
-            color: var(--blue--text) !important;
+            color: var(--blue--text);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -6275,6 +6277,7 @@ i.fa.fa-heart-o{
         .custom_total_list .js-link .firts-text {
             font-size: 16px;
             font-weight: 700;
+            color: var(--blue--text);
         }
         
         #tipcrousal .carousel-inner {

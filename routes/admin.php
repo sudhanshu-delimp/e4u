@@ -219,9 +219,13 @@ Route::get('management/dashboard',function(){
     return view('admin.management.management');
 })->name('admin.management');
 
-Route::get('management/commission-statements',function(){
-    return view('admin.management.operator.commission-statements');
-})->name('admin.commission-statements');
+Route::get('management/monthly-fee-reports',function(){
+    return view('admin.management.operator.monthly-fee-reports');
+})->name('admin.monthly-fee-reports');
+
+Route::get('management/agents-monthly-report',function(){
+    return view('admin.management.agents.agents-monthly-report');
+})->name('admin.agents-monthly-report');
 
 Route::get('management/commission-summary',function(){
     return view('admin.management.operator.commission-summary');
