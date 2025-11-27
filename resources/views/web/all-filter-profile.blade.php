@@ -360,10 +360,10 @@
                                             <div class="dropdown custom_total_list">
                                                 <a href="#" class="js-link"><span>Total Listings : {{array_sum($memberTotalCount)}}</span> <i class="fa fa-angle-down"></i></a>
                                                 <ul class="js-dropdown-list">
-                                                    <li class="active">Total Listings : <span>{{array_sum($memberTotalCount)}}</span></li>
-                                                    <li>View Platinum Listings : <span>{{ $memberTotalCount[1] }}</span></li>
-                                                    <li>View Gold Listings : <span>{{ $memberTotalCount[2] }}</span></li>
-                                                    <li>View Silver Listings : <span>{{ $memberTotalCount[3] }}</span></li>
+                                                    <li class="active"><span class="firts-text"> Total Listings : </span> <span class="firts-text">{{array_sum($memberTotalCount)}}</span></li>
+                                                    <li><span>View Platinum Listings : </span> <span>{{ $memberTotalCount[1] }}</span></li>
+                                                    <li><span>View Gold Listings : </span> <span>{{ $memberTotalCount[2] }}</span></li>
+                                                    <li><span>View Silver Listings : </span> <span>{{ $memberTotalCount[3] }}</span></li>
                                                 </ul>
                                             </div>
                                             <div class="grid_list_icon_box display_inline_block grid--btn"
@@ -989,34 +989,38 @@
 @push('scripts')
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script>
-    $(function() {
-        var list = $('.js-dropdown-list');
-        var link = $('.js-link');
+    $(function () {
+    var list = $('.js-dropdown-list');
+    var link = $('.js-link');
 
-        link.click(function(e) {
-            e.preventDefault();
-            list.slideToggle(200);
-        });
-
-        list.find('li').click(function() {
-            // Remove active from all li
-            list.find('li').removeClass('active');
-
-            // Add active to clicked li
-            $(this).addClass('active');
-
-            // Set text in the link
-            var text = $(this).html();
-            var icon = '<i class="fa fa-angle-down"></i>';
-            link.html(text + icon);
-
-            list.slideToggle(200);
-
-            if (text === '* Reset') {
-                link.html('Select one option' + icon);
-            }
-        });
+    link.click(function (e) {
+        e.preventDefault();
+        list.slideToggle(200);
     });
+
+    list.find('li').click(function () {
+
+        list.find('li').removeClass('active');
+        $(this).addClass('active');
+
+        var text = $(this).html();
+        var icon = '<i class="fa fa-angle-down"></i>';
+
+        // Add class to the parent A
+        link.addClass('selected-item');
+
+        // Put selected text inside the A
+        link.html(text + icon);
+        
+        list.slideToggle(200);
+
+        if (text === '* Reset') {
+            link.removeClass('selected-item');
+            link.html('Select one option' + icon);
+        }
+    });
+});
+
 </script>
 
     <script>
