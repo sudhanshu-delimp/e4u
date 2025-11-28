@@ -378,11 +378,19 @@
                                         <div class="col-12 align-items-center">
                                             <div class="dropdown custom_total_list">
                                                 <span class="js-link {{ $memberTitleClass }}">
-                                                    <span id="selectedListing">
+                                                    <div id="selectedListing" class="d-flex justify-content-between" style="width: calc(100% - 20px); gap: 5px;">
+                                                        <span id="">
 
-                                                        {{$memberTitle}} : {{ $memberTotalCountSum }}
-                                                        
-                                                    </span>
+                                                            {{$memberTitle}} : 
+                                                            
+                                                        </span>
+                                                        <span >
+
+                                                            {{ $memberTotalCountSum }}
+                                                            
+                                                        </span>
+                                                    </div>
+                                                    
                                                     <i class="fa fa-angle-down"></i>
                                                 </span>
 
