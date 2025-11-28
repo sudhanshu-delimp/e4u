@@ -358,14 +358,69 @@
 
                                         <div class="col-12 align-items-center">
                                             <div class="dropdown custom_total_list">
-                                                <a href="#" class="js-link"><span>Total Listings : {{array_sum($memberTotalCount)}}</span> <i class="fa fa-angle-down"></i></a>
+                                                <a href="#" class="js-link">
+                                                    <span id="selectedListing">
+                                                        @php
+                                                            //dd($memberTotalCount);
+                                                            $memberTitle = 'Total Listings';
+                                                            $memberTotalCountSum = array_sum($memberTotalCount);
+
+                                                            if(request('membership_type') == '1'){
+                                                                $memberTotalCountSum = $memberTotalCount[1];
+                                                                $memberTitle = 'Platinum Listings';
+                                                            } elseif(request('membership_type') == '2'){
+                                                                $memberTotalCountSum = $memberTotalCount[2];
+                                                                $memberTitle = 'Gold Listings';
+                                                            } elseif(request('membership_type') == '3'){
+                                                                $memberTotalCountSum = $memberTotalCount[3];    
+                                                                $memberTitle = 'Silver Listings';    
+                                                            }
+                                                        @endphp
+
+                                                        {{$memberTitle}} : {{ $memberTotalCountSum }}
+                                                        
+                                                    </span>
+                                                    <i class="fa fa-angle-down"></i>
+                                                </a>
+
                                                 <ul class="js-dropdown-list">
-                                                    <li class="active"><span class="firts-text"> Total Listings : </span> <span class="firts-text">{{array_sum($memberTotalCount)}}</span></li>
-                                                    <li><span>View Platinum Listings : </span> <span>{{ $memberTotalCount[1] }}</span></li>
-                                                    <li><span>View Gold Listings : </span> <span>{{ $memberTotalCount[2] }}</span></li>
-                                                    <li><span>View Silver Listings : </span> <span>{{ $memberTotalCount[3] }}</span></li>
+
+                                                    <!-- All Listings -->
+                                                    <li class="{{ !request()->has('membership_type') || request('membership_type') == '' ? 'active' : '' }}">
+                                                        <a href="{{ request()->fullUrlWithQuery(['membership_type' => null]) }}">
+                                                            <span class="firts-text">Total Listings :</span>
+                                                            <span class="firts-text">{{ array_sum($memberTotalCount) }}</span>
+                                                        </a>
+                                                    </li>
+
+                                                    <!-- Platinum -->
+                                                    <li class="{{ request('membership_type') == '1' ? 'active' : '' }}">
+                                                        <a href="{{ request()->fullUrlWithQuery(['membership_type' => '1']) }}">
+                                                            <span>View Platinum Listings :</span>
+                                                            <span>{{ $memberTotalCount[1] }}</span>
+                                                        </a>
+                                                    </li>
+
+                                                    <!-- Gold -->
+                                                    <li class="{{ request('membership_type') == '2' ? 'active' : '' }}">
+                                                        <a href="{{ request()->fullUrlWithQuery(['membership_type' => '2']) }}">
+                                                            <span>View Gold Listings :</span>
+                                                            <span>{{ $memberTotalCount[2] }}</span>
+                                                        </a>
+                                                    </li>
+
+                                                    <!-- Silver -->
+                                                    <li class="{{ request('membership_type') == '3' ? 'active' : '' }}">
+                                                        <a href="{{ request()->fullUrlWithQuery(['membership_type' => '3']) }}">
+                                                            <span>View Silver Listings :</span>
+                                                            <span>{{ $memberTotalCount[3] }}</span>
+                                                        </a>
+                                                    </li>
+
                                                 </ul>
                                             </div>
+
+
                                             <div class="grid_list_icon_box display_inline_block grid--btn"
                                                 data-toggle="modal1" data-target="#" data-url="grid-escort-list">
                                                 <a href="#" class="{{$viewType == 'grid' ? 'active' : ''}}" id="grid-modal" data-toggle="tooltip">
