@@ -112,7 +112,7 @@
 
             <div class="col-lg-12">
                 <div class="table-responsive custom-badge">
-                    <table class="table" id="RegistrationsReportTable" style="width: 100%">
+                    <table class="table" id="RegistrationsReportTable">
                         <thead class="table-bg">
                             <tr>
                                 <th>Ref</th>
