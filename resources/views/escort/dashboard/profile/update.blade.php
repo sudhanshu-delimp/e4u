@@ -704,13 +704,9 @@ $loginAccount = auth()->user();
 
                 var form = $(this);
 
-                let dynamic_image = checkProfileDynamicMedia();
-                    if (dynamic_image < 8) {
-                        Swal.fire('Media',
-                            'Please attach media to this profile from the Media Repository or upload a new file (All are mendatory)',
-                            'warning');
+                if(!checkProfileDynamicMedia()){
                         return false;
-                    }
+                }
 
                 if (form.parsley().isValid()) {
                     $('#mediaProfileBtn').prop('disabled', true);
@@ -1093,14 +1089,37 @@ $loginAccount = auth()->user();
 
         function checkProfileDynamicMedia() {
             let dynamic_image = 0;
-            document.querySelectorAll('.profile-gallery').forEach(img => {
-                let src = img.getAttribute('src');
-                let basename = src.substring(src.lastIndexOf('/') + 1);
-                if (!['img-12.png', 'img-11.png', 'img-13.png', 'upload-thum-1.png', 'frame_final.png','upload-3.png'].includes(basename)) {
-                    dynamic_image++
+            let imageSlots = document.querySelectorAll('.profile-gallery');
+            let thumbnailSlot = imageSlots.item(0);
+            let bannerSlot = imageSlots[imageSlots.length - 1];
+            if(['img-11.png','upload-thum-1.png'].includes(thumbnailSlot.getAttribute('src').substring(thumbnailSlot.getAttribute('src').lastIndexOf('/') + 1))){
+                Swal.fire('Media',
+                    'Please attach media to this Profile from the Media Repository or upload a new file (Thumbnail is mendatory)',
+                    'warning');
+                return dynamic_image;
+            }
+            if(['img-13.png','upload-3.png'].includes(bannerSlot.getAttribute('src').substring(bannerSlot.getAttribute('src').lastIndexOf('/') + 1))){
+                Swal.fire('Media',
+                    'Please attach media to this Profile from the Media Repository or upload a new file (Banner is mendatory)',
+                    'warning');
+                return dynamic_image;
+            }
+            else{
+                imageSlots.forEach(img => {
+                    let src = img.getAttribute('src');
+                    let basename = src.substring(src.lastIndexOf('/') + 1);
+                    if (!['img-12.png', 'img-11.png', 'img-13.png', 'upload-thum-1.png', 'frame_final.png','upload-3.png'].includes(basename)) {
+                     dynamic_image++
+                    }
+                });
+                if (dynamic_image < 5) {
+                    dynamic_image = 0;
+                    Swal.fire('Media',
+                    'Please attach media to this Profile from the Media Repository or upload a new file (Atleast 5 are mendatory including Thumbnail and Banner)',
+                    'warning');
                 }
-            });
-            return dynamic_image;
+                return dynamic_image;
+            }
         }
 
         function checkProfileDynamicMediaVideo() {
@@ -1653,14 +1672,9 @@ $loginAccount = auth()->user();
             $("#" + id).addClass('active');
             switch (id) {
                 case 'profile-tab': {
-                    let dynamic_image = checkProfileDynamicMedia();
-                    if (dynamic_image < 8) {
-                        Swal.fire('Media',
-                            'Please attach media to this profile from the Media Repository or upload a new file (All are mendatory)',
-                            'warning');
+                    if(!checkProfileDynamicMedia()){
                         return false;
                     }
-
                     if(!validateWhoAmIContent()){
                         return false;
                     }

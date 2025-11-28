@@ -6205,6 +6205,8 @@ i.fa.fa-heart-o{
             text-decoration: none;
             position: relative;
             z-index: 9;
+            height: 46px;
+            line-height: 35px;
         }
         
         .custom_total_list .js-dropdown-list {
@@ -6221,11 +6223,18 @@ i.fa.fa-heart-o{
             margin: 0px;
         }
         
+        .custom_total_list.dropdown .js-link i {
+            color: #90A0B7;
+            font-weight: 600;
+        }
+        
         .custom_total_list.dropdown ul li {
             list-style: none;
             padding: 5px 9px;
             font-size: 16px;
             font-weight: 500;
+            margin-bottom: 0px;
+            ;
         }
         
         .custom_total_list.dropdown ul li:hover {
@@ -6236,7 +6245,7 @@ i.fa.fa-heart-o{
             color: #fff;
         }
         
-        .custom_total_list.dropdown ul li {
+        .custom_total_list.dropdown ul li .membership_list {
             color: #90a0b7;
             display: flex;
             justify-content: space-between;
@@ -6247,13 +6256,13 @@ i.fa.fa-heart-o{
             font-weight: 500;
         }
         
-        .custom_total_list.dropdown>a {
+        .custom_total_list.dropdown>span {
             text-decoration: none;
             color: var(--blue--text);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            padding: 5px;
             font-size: 16px;
             font-weight: 700;
         }
@@ -6275,9 +6284,10 @@ i.fa.fa-heart-o{
             color: #fff;
         }
         
+        .custom_total_list .js-link.selected-item,
         .custom_total_list .js-link.selected-item a {
             font-weight: 500;
-            font-size: 14px;
+            font-size: 15px;
             color: #90a0b7;
             text-decoration: none;
         }
