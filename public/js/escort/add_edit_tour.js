@@ -289,7 +289,6 @@ function updateProfileButtonState(locationGroup) {
             });
             return;
         }
-        console.log("Collected Form Data:", formData);
         // return false;
         // Example: Submit via AJAX
         fetch(`${account_save_tour_route}`, {
@@ -309,7 +308,7 @@ function updateProfileButtonState(locationGroup) {
                 icon: 'success',
                 confirmButtonText: "OK"
             }).then(() => {
-                location.assign(`${window.App.baseUrl}escort-dashboard/list-tour/past`);
+                location.assign(`${window.App.baseUrl}escort-dashboard/list-tour/current`);
             });
         } else {
             Swal.fire({
