@@ -1094,13 +1094,13 @@ $loginAccount = auth()->user();
             let bannerSlot = imageSlots[imageSlots.length - 1];
             if(['img-11.png','upload-thum-1.png'].includes(thumbnailSlot.getAttribute('src').substring(thumbnailSlot.getAttribute('src').lastIndexOf('/') + 1))){
                 Swal.fire('Media',
-                    'Please attach media to this profile from the Media Repository or upload a new file (Thumbnail is mendatory)',
+                    'Please attach media to this Profile from the Media Repository or upload a new file (Thumbnail is mendatory)',
                     'warning');
                 return dynamic_image;
             }
             if(['img-13.png','upload-3.png'].includes(bannerSlot.getAttribute('src').substring(bannerSlot.getAttribute('src').lastIndexOf('/') + 1))){
                 Swal.fire('Media',
-                    'Please attach media to this profile from the Media Repository or upload a new file (Banner is mendatory)',
+                    'Please attach media to this Profile from the Media Repository or upload a new file (Banner is mendatory)',
                     'warning');
                 return dynamic_image;
             }
@@ -1115,7 +1115,7 @@ $loginAccount = auth()->user();
                 if (dynamic_image < 5) {
                     dynamic_image = 0;
                     Swal.fire('Media',
-                    'Please attach media to this profile from the Media Repository or upload a new file (Atleast 5 are mendatory including Thumbnail and Banner)',
+                    'Please attach media to this Profile from the Media Repository or upload a new file (Atleast 5 are mendatory including Thumbnail and Banner)',
                     'warning');
                 }
                 return dynamic_image;
