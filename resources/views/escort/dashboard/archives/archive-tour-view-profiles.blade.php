@@ -215,7 +215,7 @@
          { data: 'start_date', name: 'start_date' , searchable: false },
          { data: 'end_date', name: 'end_date' , searchable: false },
          { data: 'days_number', name: 'days_number' , searchable: false },
-         { data: 'status', name: 'status' , orderable: false, searchable: false },
+         { data: 'status', name: 'status' , orderable: false, searchable: false, visible: '{{$type == "past"?false:true}}'},
          { data: 'action', name: 'Action', orderable: false, searchable: false },
       ]
    });
