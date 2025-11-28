@@ -145,6 +145,9 @@ class TourRepository extends BaseRepository implements TourInterface
                 }
             });
         }
+
+        $count =  $query->count();
+        
         if($order_field=='days_number'){
             $query->orderByRaw("DATEDIFF(end_date, start_date) $dir");
         } 
@@ -153,7 +156,7 @@ class TourRepository extends BaseRepository implements TourInterface
         }
         $mainQuery = $query->offset($start)->limit($limit);
         $result = $this->modifyRecords($mainQuery->get(), $start);
-        $count =  $query->count();
+        
 
         return [$result, $count, [$query->toSql(),$query->getBindings()]];
     }
