@@ -167,7 +167,7 @@ class TourRepository extends BaseRepository implements TourInterface
         $today = Carbon::today()->format('d-m-Y');
         foreach ($result as $key => $item) {
             $item->days_number = $item->days_number;
-            $item->status = $item->start_date < $today ?'Current':'Upcoming';
+            $item->status = $item->start_date <= $today ?'Current':'Upcoming';
             $is_checkout = $item->tourPurchase->count();
             $action = '<div class="dropdown no-arrow archive-dropdown">
             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
