@@ -356,38 +356,41 @@
 
                                     <div class="row grid_list_part " id="prosud aa" style="display: block;">
 
+                                        @php
+                                            $memberTitle = 'Total Listings';
+                                            $memberTotalCountSum = array_sum($memberTotalCount);
+                                            $memberTitleClass = '';
+                                            
+                                            if(request('membership_type') == '1'){
+                                                $memberTotalCountSum = $memberTotalCount[1];
+                                                $memberTitle = 'View Platinum Listings';
+                                                $memberTitleClass = 'selected-item';
+                                            } elseif(request('membership_type') == '2'){
+                                                $memberTotalCountSum = $memberTotalCount[2];
+                                                $memberTitle = 'View Gold Listings';
+                                                $memberTitleClass = 'selected-item';
+                                            } elseif(request('membership_type') == '3'){
+                                                $memberTotalCountSum = $memberTotalCount[3];    
+                                                $memberTitle = 'View Silver Listings';    
+                                                $memberTitleClass = 'selected-item';    
+                                            }
+                                        @endphp
                                         <div class="col-12 align-items-center">
                                             <div class="dropdown custom_total_list">
-                                                <a href="#" class="js-link">
+                                                <span class="js-link {{ $memberTitleClass }}">
                                                     <span id="selectedListing">
-                                                        @php
-                                                            //dd($memberTotalCount);
-                                                            $memberTitle = 'Total Listings';
-                                                            $memberTotalCountSum = array_sum($memberTotalCount);
-                                                            
-                                                            if(request('membership_type') == '1'){
-                                                                $memberTotalCountSum = $memberTotalCount[1];
-                                                                $memberTitle = 'View Platinum Listings';
-                                                            } elseif(request('membership_type') == '2'){
-                                                                $memberTotalCountSum = $memberTotalCount[2];
-                                                                $memberTitle = 'View Gold Listings';
-                                                            } elseif(request('membership_type') == '3'){
-                                                                $memberTotalCountSum = $memberTotalCount[3];    
-                                                                $memberTitle = 'View Silver Listings';    
-                                                            }
-                                                        @endphp
 
                                                         {{$memberTitle}} : {{ $memberTotalCountSum }}
                                                         
                                                     </span>
                                                     <i class="fa fa-angle-down"></i>
-                                                </a>
+                                                </span>
 
                                                 <ul class="js-dropdown-list">
 
                                                     <!-- All Listings -->
                                                     <li class="{{ !request()->has('membership_type') || request('membership_type') == '' ? 'active' : '' }}">
-                                                        <a href="{{ request()->fullUrlWithQuery(['membership_type' => null]) }}">
+                                                        <a  class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => null]) }}">
                                                             <span class="firts-text">Total Listings :</span>
                                                             <span class="firts-text">{{ array_sum($memberTotalCount) }}</span>
                                                         </a>
@@ -395,7 +398,7 @@
 
                                                     <!-- Platinum -->
                                                     <li class="{{ request('membership_type') == '1' ? 'active' : '' }}">
-                                                        <a href="{{ request()->fullUrlWithQuery(['membership_type' => '1']) }}">
+                                                        <a class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '1']) }}">
                                                             <span>View Platinum Listings :</span>
                                                             <span>{{ $memberTotalCount[1] }}</span>
                                                         </a>
@@ -403,7 +406,7 @@
 
                                                     <!-- Gold -->
                                                     <li class="{{ request('membership_type') == '2' ? 'active' : '' }}">
-                                                        <a href="{{ request()->fullUrlWithQuery(['membership_type' => '2']) }}">
+                                                        <a class="membership_list" class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '2']) }}">
                                                             <span>View Gold Listings :</span>
                                                             <span>{{ $memberTotalCount[2] }}</span>
                                                         </a>
@@ -411,7 +414,7 @@
 
                                                     <!-- Silver -->
                                                     <li class="{{ request('membership_type') == '3' ? 'active' : '' }}">
-                                                        <a href="{{ request()->fullUrlWithQuery(['membership_type' => '3']) }}">
+                                                        <a class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '3']) }}">
                                                             <span>View Silver Listings :</span>
                                                             <span>{{ $memberTotalCount[3] }}</span>
                                                         </a>
