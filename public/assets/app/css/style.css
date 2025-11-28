@@ -6230,6 +6230,9 @@ i.fa.fa-heart-o{
         
         .custom_total_list.dropdown ul li:hover {
             background-color: #056cdc;
+        }
+        
+        .custom_total_list.dropdown ul li:hover a {
             color: #fff;
         }
         
@@ -6260,19 +6263,23 @@ i.fa.fa-heart-o{
         }
         
         .custom_total_list.dropdown ul li a {
-            text-decoration: none;
-            color: var(--blue--text) !important;
+            text-decoration: none !important;
+            color: #90A0B7;
         }
         
         .custom_total_list.dropdown ul li.active {
             background-color: #056cdc;
+        }
+        
+        .custom_total_list.dropdown ul li.active a {
             color: #fff;
         }
         
-        .custom_total_list .js-link.selected-item {
+        .custom_total_list .js-link.selected-item a {
             font-weight: 500;
             font-size: 14px;
             color: #90a0b7;
+            text-decoration: none;
         }
         
         .custom_total_list .js-link .firts-text {

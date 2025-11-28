@@ -364,16 +364,16 @@
                                                             //dd($memberTotalCount);
                                                             $memberTitle = 'Total Listings';
                                                             $memberTotalCountSum = array_sum($memberTotalCount);
-
+                                                            
                                                             if(request('membership_type') == '1'){
                                                                 $memberTotalCountSum = $memberTotalCount[1];
-                                                                $memberTitle = 'Platinum Listings';
+                                                                $memberTitle = 'View Platinum Listings';
                                                             } elseif(request('membership_type') == '2'){
                                                                 $memberTotalCountSum = $memberTotalCount[2];
-                                                                $memberTitle = 'Gold Listings';
+                                                                $memberTitle = 'View Gold Listings';
                                                             } elseif(request('membership_type') == '3'){
                                                                 $memberTotalCountSum = $memberTotalCount[3];    
-                                                                $memberTitle = 'Silver Listings';    
+                                                                $memberTitle = 'View Silver Listings';    
                                                             }
                                                         @endphp
 
