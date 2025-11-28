@@ -6226,6 +6226,7 @@ i.fa.fa-heart-o{
             padding: 5px 9px;
             font-size: 16px;
             font-weight: 500;
+            margin-bottom: 0px;;
         }
         
         .custom_total_list.dropdown ul li:hover {
@@ -6236,7 +6237,7 @@ i.fa.fa-heart-o{
             color: #fff;
         }
         
-        .custom_total_list.dropdown ul li {
+        .custom_total_list.dropdown ul li .membership_list{
             color: #90a0b7;
             display: flex;
             justify-content: space-between;
@@ -6247,7 +6248,7 @@ i.fa.fa-heart-o{
             font-weight: 500;
         }
         
-        .custom_total_list.dropdown>a {
+        .custom_total_list.dropdown>span {
             text-decoration: none;
             color: var(--blue--text);
             display: flex;
@@ -6275,11 +6276,12 @@ i.fa.fa-heart-o{
             color: #fff;
         }
         
-        .custom_total_list .js-link.selected-item a {
+        .custom_total_list .js-link.selected-item, .custom_total_list .js-link.selected-item a {
             font-weight: 500;
             font-size: 14px;
             color: #90a0b7;
             text-decoration: none;
+
         }
         
         .custom_total_list .js-link .firts-text {
