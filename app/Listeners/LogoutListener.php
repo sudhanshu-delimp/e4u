@@ -30,6 +30,5 @@ class LogoutListener
     public function handle(Logout $event)
     {
         LoginAttempt::where('user_id', $event->user->id)->update(['online' => 'no']); 
-
     }
 }

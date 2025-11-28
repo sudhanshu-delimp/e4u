@@ -6543,6 +6543,73 @@ video::-webkit-media-controls-panel {
     transition: all 0.5s;
 }
 
+.table_admin tr th,
+tr td {
+    text-align: center;
+}
+
+.custom_admin_modal {
+    max-width: 900px;
+    width: 100%;
+}
+
+.custom_admin_modal .modal-body {
+    max-height: 400px;
+    overflow: auto;
+}
+
+.common_accordian_table td {
+    border: 0px;
+}
+
+.common_accordian_table .detail-row {
+    display: none;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+.common_accordian_table .detail-row.show {
+    display: table-row;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.common_accordian_table .opr_expand_arrow i {
+    transition: transform 0.3s ease;
+}
+
+.common_accordian_table .opr_expand_arrow i.rotated {
+    transform: rotate(180deg);
+}
+
+.common_accordian_table .accordion-toggle:hover {
+    background-color: #f9f9f9;
+}
+
+.common_accordian_table .opr_expand_arrow {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.accordion-toggle[aria-expanded="true"] .opr_expand_arrow i {
+    transform: rotate(180deg);
+}
+
+.opr_accordian_table .accordion-toggle {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.num_value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 span.card_tit {
     font-size: 13px;
 }

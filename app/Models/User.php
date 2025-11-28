@@ -100,6 +100,10 @@ class User extends Authenticatable
             '2' => 'Pending',
             '3' => 'Suspended',
             '4' => 'Blocked',
+            '5' => 'Registered',
+            '6' => 'On Hold',
+            '7' => 'Rejected',
+            '8' => 'Cancelled',
         ];
 
         return $map[$value] ?? 'Unknown';
