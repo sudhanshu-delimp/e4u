@@ -2,20 +2,25 @@
 
 namespace App\Repositories\AgentBank;
 
-use App\Repositories\BaseRepository;
-use App\Traits\DataTablePagination;
-use App\Models\AgentBankDetail;
+
+use Exception;
 use Carbon\Carbon;
-use DB;
+use App\Models\AgentBankDetail;
+use Illuminate\Support\Facades\DB;
+use App\Traits\DataTablePagination;
+use Illuminate\Support\Facades\Log;
+use App\Repositories\BaseRepository;
 
 class AgentBankDetailRepository extends BaseRepository implements AgentBankDetailInterface
 {
     use DataTablePagination;
     protected $agentBankDetail;
+    public $response = [];
 
     public function __construct(AgentBankDetail $agentBankDetail)
     {
         $this->model = $agentBankDetail;
+        $this->response = ['status' => false,'message' => ''];
     }
     public function limit($to,$from)
     {
@@ -43,12 +48,12 @@ class AgentBankDetailRepository extends BaseRepository implements AgentBankDetai
 		}
 
 		$result = $query->get();
-       //dd($result);
         $result = $this->modifyProperties($result,$start);
 		$count =  $this->model->where('user_id', $user_id)->get()->count();
+        $primary_account =  $this->model->where(['user_id'=> $user_id, 'state' => '1'])->get()->count();
 
 
-		return [$result, $count];
+		return [$result, $count,$primary_account];
 	}
 
     protected function modifyProperties($result,$start)
@@ -61,7 +66,7 @@ class AgentBankDetailRepository extends BaseRepository implements AgentBankDetai
             $item->bsb = $item->bsb ? $item->bsb : 'NA';
             $item->account_numbers = $item->account_number ?  str_pad(substr($item->account_number, -3), strlen($item->account_number), '*', STR_PAD_LEFT) : "NA";
             $item->states = $item->state == 1 ? "Primary Account" : "Secondary Account";
-            $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 editModal" href="#" data-id="'.$item->id.'" data-bank_name="'.$item->bank_name.'" data-bsb="'.$item->bsb.'" data-ac_number="'.$item->account_number.'" data-state="'.$item->state.'"data-url="bank_account/'.$item->id.'" data-toggle="modal" data-target="#commission-report" data-ac_name="'.$item->account_name.'" id="edit_'.$item->id.'"> <i class="fa fa-pen"></i> Edit</a> <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete_bankModal" href="delete-agent-bank/'.$item->id.'" data-id="'.$item->id.'" data-target="#delete_bnak"> <i class="fa fa-trash"></i> Delete </a></div></div>';
+            $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 editModal" href="#" data-id="'.$item->id.'" data-bank_name="'.$item->bank_name.'" data-bsb="'.$item->bsb.'" data-ac_number="'.$item->account_number.'" data-state="'.$item->state.'"data-url="bank_account/'.$item->id.'" data-toggle="modal"  data-ac_name="'.$item->account_name.'" id="edit_'.$item->id.'"> <i class="fa fa-pen"></i> Edit</a> <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete_bankModal" href="delete-agent-bank/'.$item->id.'" data-id="'.$item->id.'" data-target="#delete_bnak"> <i class="fa fa-trash"></i> Delete </a></div></div>';
             $i++;
 		}
         return $result;
@@ -83,5 +88,68 @@ class AgentBankDetailRepository extends BaseRepository implements AgentBankDetai
 		return $result;
 		// return ! $result ? $this->create($input) : $result->update($input);
 	}
+
+
+    public function saveAgentBankDetails($data)
+    {
+            try 
+            {
+                DB::beginTransaction();
+                if (isset($data['replace']) && $data['replace'] == 'yes') {
+                    AgentBankDetail::where('user_id', auth()->id())
+                        ->update(['state' => '2']);
+                }
+
+                AgentBankDetail::create($data);
+                DB::commit();
+                return [
+                    'status' => true,
+                    'message' => 'Bank details saved successfully.'
+                ];
+
+            } catch (Exception $e) {
+                DB::rollBack();
+                return [
+                    'status' => false,
+                    'message' => 'Error occurred while adding the bank detail'
+                ];
+            }
+    }
+
+
+    public function updateAgentBankDetails($data)
+    {
+
+         try 
+            {
+                DB::beginTransaction();
+                if(isset($data['replace']) && $data['replace']=='yes')
+                AgentBankDetail::where('user_id',auth()->user()->id)->update(['state'=>'2']);
+
+                $bank_id = $data['bankId'];
+                unset($data['replace']);
+                unset($data['bankId']);
+
+                AgentBankDetail::where(['user_id' => auth()->user()->id,'id' => $bank_id])->update($data);
+                DB::commit();
+                return [
+                    'status' => true,
+                    'message' => 'Bank details updated successfully.'
+                ];
+
+            } catch (Exception $e) {
+
+                Log::info($e->getMessage());
+                DB::rollBack();
+                return [
+                    'status' => false,
+                    'message' => 'Error occured while updating the bank detail'
+                ];
+            }
+
+       
+    }
+
+    
 
 }
