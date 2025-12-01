@@ -6543,11 +6543,10 @@ video::-webkit-media-controls-panel {
     transition: all 0.5s;
 }
 
-
-/* .table_admin tr th,
-tr td {
+.table_admin td,
+th {
     text-align: center;
-} */
+}
 
 .custom_admin_modal {
     max-width: 900px;
