@@ -17,6 +17,9 @@
     text-align: center;
     vertical-align: middle;
 }
+.dataTables_filter input[type="text"] {
+    width: 250px !important;
+}
     
     
 </style>
