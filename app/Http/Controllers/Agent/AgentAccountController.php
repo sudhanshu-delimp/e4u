@@ -199,19 +199,14 @@ class AgentAccountController extends BaseController
    
 
 
-    public function deleteAgentBank(StoreAgentBankDetailRequest $request , $id)
+    public function deleteAgentBank(Request $request)
     {
-
-        $error = false;
-        $bank = $this->agentBankDetail->find($id);
-        if($bank->state === 1) {
-            $error = true;
+        $deleted = $this->agentBankDetail->deleteAgentBankDetail($request->id);
+        if ($deleted['status']) {
+            return $this->successResponse($deleted['message']);
         } else {
-            $this->agentBankDetail->destroy($id);
+            return $this->validationError($deleted['message']);
         }
-
-        return response()->json(compact('error','id'));
-
 
     }
 
@@ -345,7 +340,7 @@ class AgentAccountController extends BaseController
     }
     public function BankDataTable()
     {
-        list($agentBankDetail, $count, $primary_account) = $this->agentBankDetail->paginatedByAgentBankDetail(
+        list($agentBankDetail, $count, $primary_account,$primary_bank_acc_id) = $this->agentBankDetail->paginatedByAgentBankDetail(
             request()->get('start'),
             request()->get('length'),
             request()->get('order')[0]['column'],
@@ -360,6 +355,7 @@ class AgentAccountController extends BaseController
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
             "primary_account" => intval($primary_account),
+            "primary_bank_acc_id" => intval($primary_bank_acc_id),
             "data"            => $agentBankDetail
         );
 

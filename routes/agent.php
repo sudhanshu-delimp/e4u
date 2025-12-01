@@ -230,7 +230,7 @@ Route::post('calculate-reckoner', [PricingsummariesController::class, 'calculate
 Route::get('bank_account',[AgentAccountController::class,'bankDetails'])->name('bank_account');
 Route::post('save-bank-details',[AgentAccountController::class,'saveBankDetails'])->name('agent.save.bank.details');
 Route::post('check-bank-otp',[AgentAccountController::class,'checkOTP'])->name('agent.checkOTP');
-Route::post('delete-agent-bank/{id}',[AgentAccountController::class,'deleteAgentBank']);
+Route::post('delete-agent-bank',[AgentAccountController::class,'deleteAgentBank'])->name('agent.delete-agent-bank');
 Route::get('bank-details',[AgentAccountController::class,'BankDataTable'])->name('agent.bankDetail.dataTable');
 
 Route::post('agent-state-name/{id}',[AgentController::class, 'nameByState'])->name('agent.stateId');

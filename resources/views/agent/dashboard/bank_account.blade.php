@@ -10,8 +10,13 @@
     width: auto !important;
     padding: 18px !important;
 }
+.swal2-cancel{
+    background-color: #ff3c5f !important;
+}
+    
     
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -51,7 +56,7 @@
                 <div class="col-md-12 mb-2">
                     <div class="card Summary">
                         <div class="card-body pb-0">
-                            <p><b>Agent Details</b> </p>
+                            <p class="banner-sub-heading">Agent Details</p>
                             <ul class="mb-2">
                                 <li><b style="color: #5D6D7E;">Name :</b>{{$user->business_name}}</li>
                                 <li><b style="color: #5D6D7E;">Contact :</b>{{$user->contact_person}}</li>
@@ -150,7 +155,7 @@
                   </div>
                   <div class="col-md-12 mb-3">
                      <div class="form-group">
-                           <button type="submit" class="btn-success-modal float-right">Save</button>
+                           <button type="submit" class="btn-success-modal float-right modal_form">Save</button>
                            <input type="hidden" name="replace" id="replace">
                      </div>
                   </div>
@@ -164,37 +169,12 @@
 
 
 
-<div class="modal programmatic" id="delete_bank" style="display: none">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-       <div class="modal-content custome_modal_max_width">
-          <div class="modal-header main_bg_color border-0">
-             {{-- 
-             <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5>
-             --}}
-             <span style="color:white"> <img src="{{ asset('assets/dashboard/img/remove-bank-account.png')}}" class="custompopicon"> Delete Bank Account</span>
-             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">
-             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-             </span>
-             </button>
-          </div>
-          <div class="modal-body">
-             <input type="hidden" id="previous" name="url">
-             <input type="hidden" id="label" name="label">
-             <input type="hidden" id="trigger-element">
-             <h3 class="my-3"><span id="Lname"></span> </h3>
-             <h3 class=""><span id="log"></span> </h3>
-             <div class="modal-footer">
-                <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close" id="close_change">Close</button>
-                <button type="button" class="btn-success-modal" id="save_change">Delete</button>
-             </div>
-          </div>
-       </div>
-    </div>
- </div>
 
 
-@endsection
+
+
+
+ @endsection
 @push('script')
 
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -205,6 +185,7 @@ $(function()
 
         var is_primary_bank_acc = 0;
         var primary_bank_acc_id = 0;
+        var previous_state = 0;
         $(document).on('submit', '#agent_bank', async function(e) {
 
             console.log('is_primary_bank_acc',is_primary_bank_acc);
@@ -253,151 +234,204 @@ $(function()
             if (!isValid) return false; 
 
             //////// Saving Conditions //////////////////////
-            if(is_primary_bank_acc!='1' && state=='2' && !bankId)
+            if(!bankId)
             {
+                if(is_primary_bank_acc!='1' && state=='2')
+                {
+                    Swal.fire({
+                        title: "You don't have any primary bank account.",
+                        text: "Do you want save it as primary bank account?",
+                        iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                        customClass: {
+                            icon: 'my-custom-icon'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: "Yes, save it as primary bank account",
+                        cancelButtonText: "No, save it as secondary bank account",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $("#state").val(1); 
+                            submitForm();
+                        } 
+                        else if (result.dismiss === Swal.DismissReason.cancel) {
+                            $("#state").val(2); 
+                            submitForm();
+                        }
+                    });
+                } 
+                else if(is_primary_bank_acc=='1' && state=='1')
+                {
+                    Swal.fire({
+                        title: "You already have primary bank account.",
+                        text: "Do you want replace it as primary bank account?",
+                        iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                        customClass: {
+                            icon: 'my-custom-icon'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: "Yes, replace it as primary bank account",
+                        cancelButtonText: "No, save it as secondary account",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $("#replace").val('yes'); 
+                            $("#state").val(1);  
+                        
+                            submitForm();
+                        } 
+                        else if (result.dismiss === Swal.DismissReason.cancel) {
+                            $("#replace").val('no'); 
+                            $("#state").val(2); 
+                            submitForm();
+                        }
+                    });
+                }
+                else if(is_primary_bank_acc=='1' && state=='2')
+                {
+                    Swal.fire({
+                        title: "",
+                        text: "Do you want save this bank account as secondary bank account?",
+                        iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                        customClass: {
+                            icon: 'my-custom-icon'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: "Yes, save it as secondary bank account",
+                        cancelButtonText: "Cancel",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $("#state").val(2);  
+                            submitForm();
+                        } 
+                        else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.close(); 
+                        }
+                    });
+                }
+                else if(is_primary_bank_acc=='0' && state=='1')
+                {
                 Swal.fire({
-                    title: "You don't have any primary bank account.",
-                    text: "Do you want save it as primary bank account?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, save it as primary bank account",
-                    cancelButtonText: "No, save it as secondary bank account",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $("#state").val(1); 
-                        submitForm();
-                    } 
-                    else if (result.dismiss === Swal.DismissReason.cancel) {
-                        $("#state").val(2); 
-                        submitForm();
-                    }
-                });
-            } 
-            else if(is_primary_bank_acc=='1' && state=='1' && !bankId)
+                        title: "",
+                        text: "Do you want save this bank account as primary bank account?",
+                        iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                        customClass: {
+                            icon: 'my-custom-icon'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: "Yes, save it as primary bank account",
+                        cancelButtonText: "Cancel",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $("#state").val(1);  
+                            submitForm();
+                        } 
+                        else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.close(); 
+                        }
+                    });  
+                }
+            }
+            else
             {
+                console.log('previous_state',previous_state);
+                console.log('is_primary_bank_acc',is_primary_bank_acc);
+                console.log('state',state);
+                
+                ////// Save at its normally ///////////
+                if(previous_state==state)
+                {
+
+                    Swal.fire({
+                        title: "",
+                        text: "Do you want update the bank account details ?",
+                        iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                        customClass: {
+                            icon: 'my-custom-icon'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: "Yes, update the bank account details",
+                        cancelButtonText: "Cancel",
+                    }).then((result) => {
+                        if (result.isConfirmed) { 
+                            submitForm();
+                        } 
+                        else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.close(); 
+                        }
+                    });
+                }
+                
+
+                //////// Updating as primary account //////////////////////
+                else if( (previous_state!=state) &&  is_primary_bank_acc=='0' && previous_state=='2' && state=='1')
+                {
                 Swal.fire({
-                    title: "You already have primary bank account.",
-                    text: "Do you want replace it as primary bank account?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, replace it as primary bank account",
-                    cancelButtonText: "No, save it as secondary account",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $("#replace").val('yes'); 
-                        $("#state").val(1);  
-                       
-                        submitForm();
-                    } 
-                    else if (result.dismiss === Swal.DismissReason.cancel) {
-                         $("#replace").val('no'); 
-                         $("#state").val(2); 
-                         submitForm();
-                    }
-                });
-            }
-            else if(is_primary_bank_acc=='1' && state=='2' && !bankId)
-            {
+                        title: "",
+                        text: "Do you want save this bank account as primary bank account?",
+                        iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                        customClass: {
+                            icon: 'my-custom-icon'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: "Yes, save it as primary bank account",
+                        cancelButtonText: "Cancel",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            submitForm();
+                        } 
+                        else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.close(); 
+                        }
+                    });  
+                }
+
+                else if( (previous_state!=state) &&  is_primary_bank_acc=='1' && previous_state=='2' && state=='1')
+                {
                 Swal.fire({
-                    title: "",
-                    text: "Do you want save this bank account as secondary bank account?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, save it as secondary bank account",
-                    cancelButtonText: "Cancel",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $("#state").val(2);  
-                        submitForm();
-                    } 
-                    else if (result.dismiss === Swal.DismissReason.cancel) {
-                        Swal.close(); 
-                    }
-                });
-            }
-            else if(is_primary_bank_acc=='0' && state=='1' && !bankId)
-            {
-               Swal.fire({
-                    title: "",
-                    text: "Do you want save this bank account as primary bank account?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, save it as primary bank account",
-                    cancelButtonText: "Cancel",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $("#state").val(1);  
-                        submitForm();
-                    } 
-                    else if (result.dismiss === Swal.DismissReason.cancel) {
-                        Swal.close(); 
-                    }
-                });  
-            }
+                        title: "",
+                        text: "Do you want save this bank account as primary bank account?",
+                        iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                        customClass: {
+                            icon: 'my-custom-icon'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: "Yes, save it as primary bank account",
+                        cancelButtonText: "Cancel",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $("#replace").val('yes');    
+                            submitForm();
+                        } 
+                        else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.close(); 
+                        }
+                    });  
+                }
 
-             //////// Updating Conditions //////////////////////
-            else if(bankId && is_primary_bank_acc=='0' && state=='1')
-            {
-               Swal.fire({
-                    title: "",
-                    text: "Do you want save this bank account as primary bank account?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, save it as primary bank account",
-                    cancelButtonText: "Cancel",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $("#state").val(1);  
-                        submitForm();
-                    } 
-                    else if (result.dismiss === Swal.DismissReason.cancel) {
-                        Swal.close(); 
-                    }
-                });  
-            }
-
-            else if(bankId && is_primary_bank_acc=='1' && state=='1')
-            {
-              Swal.fire({
-                    title: "You already have primary bank account.",
-                    text: "Do you want replace it as primary bank account?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, replace it as primary bank account",
-                    cancelButtonText: "Cancel",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $("#replace").val('yes'); 
-                        $("#state").val(1);  
-                       
-                        submitForm();
-                    } 
-                    else if (result.dismiss === Swal.DismissReason.cancel) {
-                         Swal.close();  
-                    }
-                });
-            }
-
-            else if(bankId  && state=='2')
-            {
-              Swal.fire({
-                    title: "",
-                    text: "Do you want update the bank account details ?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, save it as secondary bank account",
-                    cancelButtonText: "Cancel",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $("#state").val(2);  
-                        submitForm();
-                    } 
-                    else if (result.dismiss === Swal.DismissReason.cancel) {
-                        Swal.close(); 
-                    }
-                });
-            }
-               
+                //////// Updating as Secondry account //////////////////////
+                else if( (previous_state!=state) &&  is_primary_bank_acc=='1' && previous_state=='1' && state=='2')
+                {
+                Swal.fire({
+                        title: "This account is your primary account.",
+                        text: "Do you want replace it as secondry bank account?",
+                        iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                        customClass: {
+                            icon: 'my-custom-icon'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: "Yes, replace it as secondry bank account",
+                        cancelButtonText: "Cancel",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $("#replace").val('yes');                 
+                            submitForm();
+                        } 
+                        else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.close();  
+                        }
+                    });
+                }
+            }    
+           
         });
 
 
@@ -405,6 +439,31 @@ $(function()
         ///////// Data Table ////////////////
 
         var table = $('#bankAccountTable').DataTable({
+
+
+
+            "drawCallback": function(settings) {
+                var api = this.api();
+                var pageInfo = api.page.info();
+                console.log(pageInfo);
+
+              
+                if (pageInfo.pages < 1) {
+                    $(this).closest('.dataTables_wrapper').find('.dataTables_info').hide();
+                    $(this).closest('.dataTables_wrapper').find('.paging_simple_numbers').hide();
+                    $(this).closest('.dataTables_wrapper').find('.dataTables_length').hide();
+                    $(this).closest('.dataTables_wrapper').find('.dataTables_filter').hide();
+                    
+
+                    
+                } else {
+                    $(this).closest('.dataTables_wrapper').find('.dataTables_info').show();
+                    $(this).closest('.dataTables_wrapper').find('.paging_simple_numbers').show();
+                    $(this).closest('.dataTables_wrapper').find('.dataTables_length').show();
+                    $(this).closest('.dataTables_wrapper').find('.dataTables_filter').show();
+                }
+            },
+
         "language": {
          search: "_INPUT_",
         searchPlaceholder: "Search By Account Number",
@@ -443,7 +502,7 @@ $(function()
         is_primary_bank_acc = json.primary_account;
         primary_bank_acc_id = json.primary_bank_acc_id;
          console.log('is_primary_bank_acc',is_primary_bank_acc);
-         console.log('primary_account',json.primary_account)
+         console.log('primary_bank_acc_id',primary_bank_acc_id)
     });
 
     ////////// End Datatable /////////////////////
@@ -457,6 +516,8 @@ $(function()
         let bsb = $(this).data('bsb');
         let accountNumber = $(this).data('ac_number');
         let state = $(this).data('state');
+        previous_state  = state;
+        
 
        
         $('#bankId').val(id);
@@ -465,7 +526,7 @@ $(function()
         $('#bsb').val(bsb);
         $('#account_number').val(accountNumber);
         $('#state').val(state).change();
-        $('.btn-success-modal').text('Update Details');
+        $('.modal_form').text('Update Details');
 
         $('#commission-report').modal({
             backdrop: 'static',
@@ -477,7 +538,7 @@ $(function()
     $("#commission-modal").click(function(){
 
         $('#agent_bank')[0].reset();
-        $('.btn-success-modal').text('Save Details');
+        $('.modal_form').text('Save Details');
         $('#bankId').val('');
         $('#commission-report').modal({
             backdrop: 'static',
@@ -488,17 +549,42 @@ $(function()
         $("form").attr('autocomplete', 'off');
    })
 
+
+   $(document).on('click','.delete_bankModal', function(e){
+
+                e.preventDefault();
+                var id = $(this).data('id');
+                console.log('id',id);
+
+                Swal.fire({
+                title: "Delete Bank Account",
+                text: "Do you want to delete this bank account?",
+                imageUrl: "{{ asset('assets/dashboard/img/remove-bank-account.png')}}",
+                imageWidth: 60,
+                imageHeight: 60,
+                imageAlt: "Delete bank account",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it",
+                cancelButtonText: "Cancel"
+                }).then((result) => 
+                {
+                    if (result.isConfirmed) {
+                       
+                        deleteAccount(id);
+
+                    } 
+                    else if (result.dismiss === Swal.DismissReason.cancel) {
+                        Swal.close(); 
+                    }
+                 });  
+
+            })
+
+
+
+
 });
 
-
-
-
-
-
-  
-
-
-    
 
 
 function submitForm()
@@ -527,8 +613,8 @@ function submitForm()
                 table.draw();
                 if(data.status) 
                 {
-                   swal_success_popup(data.message);
-                  
+                    openMessageBox(data.message,'Bank Account');
+
                 }
                 else
                 {
@@ -542,206 +628,44 @@ function submitForm()
       })
 }
 
+function deleteAccount(id)
+{
+    swal_waiting_popup({'title':'Deleting Account...'});
+    var table = $("#bankAccountTable").DataTable();
+    $.ajax({
+        method: 'POST',
+        url: "{{ route('agent.delete-agent-bank') }}",
+        data: { id: id }, 
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(data) {
+            Swal.close();
+            table.draw();
+
+            if (data.status) {
+                openMessageBox(data.message, 'Delete Bank Account');
+            } else {
+                swal_error_popup(data.message);
+            }
+        },
+        error: function(xhr) {
+            Swal.close();
+            swal_error_popup(xhr.responseJSON?.errors || "Error occurred");
+        }
+    });
+}
 
 
+function openMessageBox(message,header)
+{
+    $('.comman_msg').html(message);
+    $("#comman_modal .custompopicon").attr("src", "{{ asset('assets/dashboard/img/remove-bank-account.png') }}");
+    $("#comman_modal #modal-title").text(header);
+    $("#comman_modal").modal('show'); 
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    $("#agent_bank").parsley({
-   
-//    });
-//    $("#SendBankOtp").parsley({
-   
-//    });
-
-  
-//    $("body").on('click','.editModal',function(){
-//         var button = $(event.relatedTarget);
-//         console.log(button.data('data-name'));
-//         var name = $(this).data('name');
-//         var id = $(this).data('id');
-//         console.log("hello",name);
-//         console.log("id",id);
-        
-//         $('#bank_name').val($(this).data('name'));
-//         // $('#bank_name option[value="'+name+'"]').attr('selected','selected');
-//        // $('#bank_name').attr('disabled',true)
-//         $("#commission-report").modal('show');   
-//    });
-    
-//    $('body').on ('show.bs.modal', '#commission-report', function(event){
-//         button = $(event.relatedTarget);
-       
-//         //$('.parsley-required').css('list-style-type', 'disc');
-//         $("form #agent_bank").attr('autocomplete', 'on');
-//         const bank = $(button).data('name');
-//         if($(button).data('target') == "#commission-report") {
-//             $('#bank_name').attr('disabled',true);
-//         } 
-        
-//         $('#bank_name').val($(button).data('bank_name'));
-//         $('#account_name').val($(button).data('ac_name'));
-//         $('#account_number').val($(button).data('ac_number'));
-//         $('#bsb').val($(button).data('bsb'));
-//         $('#state').val($(button).data('state'));
-//         $('#bankId').val($(button).data('id'));
-//         console.log("target = ", $(button).data('target'));
-//         //document.getElementById("bank_name").value = bank;
-//     });
-
-
-    // $('body').on('hidden.bs.modal','#commission-report', function() {
-    //     console.log("taasdasd");
-    //     $('#agent_bank')[0].reset();
-       
-    //     $('.parsley-required').html('');
-        
-    // });
-   
-
-    
-  
-
-//    $('body').on('hidden.bs.modal','#delete_bank', function() {
-//         console.log("delete-bank");
-//         // $('#delete_bank').reset();
-       
-//         // $("#previous").val('');
-//         $("#previous input:hidden").val(' ');
-        
-//     });
-//    $(document).on('click','.delete_bankModal', function(e){
-//        e.preventDefault();
-//        var $this = $(this);
-       
-//        $("#previous").val($this.attr('href'));
-//        console.log($this.attr('href'));
-//        $("#Lname").html("<p>Would you like to Delete?</p>");
-//        $('#delete_bank').modal('show');
-//         // $("#delete_bank").load(target, function() { 
-            
-//         // });   
-//    });
-
-
-//    $("body").on('click','#save_change',function(e){
-//            console.log("url==",$("#previous").val());
-//            var url = $("#previous").val();
-//            var table = $("#bankAccountTable").DataTable();
-//            $.ajax({
-//                    method: "POST",
-//                    url:url,
-//                    contentType: false,
-//                    processData: false,
-//                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-//                    success: function (data) {
-//                         console.log(data);
-//                         if(data.error == false) {
-//                             console.log("sdfjsdhfsjd",data);
-//                             table.draw();
-//                             $('#delete_bank').modal('hide');
-//                             $("#header_msg").html("Delete Profile");
-//                             $('.comman_msg').html("Deleted ");
-//                             $("#comman_modal").modal('show'); 
-                           
-//                         }
-//                         if(data.error == true) {
-//                             table.draw();
-//                             $('#delete_bank').modal('hide');
-//                             $('.comman_msg').html("Primary Account can not be deleted. ");
-//                             $("#header_msg").html("Delete Profile");
-//                             $("#comman_modal").modal('show'); 
-                           
-//                         }
-//                     }
-           
-//            })
-//        });
-
-
-
-
-// $(document).on('submit', '#agent_bank', async function(e) {
-
-//     var account_type = $('#state').val(); 
-
-
-
-//    if (await isConfirm({'action': 'Suspend','text':' Suspend This Account.'})) { 
-
-
-//     }
-
-// });
-   
-    //    $("body").on('submit','#agent_bank',function(e){
-    //      e.preventDefault();
-    //      console.log("bank id");
-    //      var form = $(this);
-    //      var url = form.attr('action');
-    //      var data = new FormData(form[0]);
-    //      $('#account_numberError').text('');
-    //      $.ajax({
-    //         method: form.attr('method'),
-    //         url: url,
-    //         data: data,
-    //         contentType: false,
-    //         processData: false,
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-    //         },
-    //         success:function(data)
-    //         {
-    //              console.log(data);
-    //              if(data.error == 0) 
-    //              {
-    //                 $('.comman_msg').html("Saved");
-    //                 $("#comman_modal").modal('show'); 
-    //                 $("#sendOtp_modal").modal('hide');
-    //                 table.draw();
-    //             }
-    //             if(data.error == 2) {
-    //                 $('.comman_msg').html("Please select primary account");
-    //                 $("#comman_modal").modal('show'); 
-    //                 $("#sendOtp_modal").modal('hide');
-    //                 table.draw();
-    //             }
-    //             if(data.error == 3) {
-    //                 $('.comman_msg').html("Primary account not updated");
-    //                 $("#comman_modal").modal('show'); 
-    //                 $("#sendOtp_modal").modal('hide');
-    //                 table.draw();
-    //             }
-
-    //         },
-    //         error: function(data){
-    //            console.log(data.responseJSON.errors);
-    //            console.log(data.responseJSON.errors.account_number);
-    //            $('#account_numberError').text(data.responseJSON.errors.account_number);
-    //         }
-            
-    //      })
-    //   })
-
-
-
-
-
-  
 
 </script>
 @endpush

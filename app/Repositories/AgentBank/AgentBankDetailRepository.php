@@ -28,33 +28,39 @@ class AgentBankDetailRepository extends BaseRepository implements AgentBankDetai
     }
 
     public function paginatedByAgentBankDetail($start, $limit, $order_key, $dir, $columns, $search = null, $user_id)
-	{
-
+    {
         $order = $this->getOrder($order_key);
+        $searchables = $this->getSearchableFields($columns);
+        
+        $baseQuery = $this->model->where('user_id', $user_id);
 
-		$searchables = $this->getSearchableFields($columns);
-        $query = $this->model
-			->where('user_id', $user_id)
-			->offset($start)
-		    ->limit($limit)
-		    ->orderBy('state',$dir);
+        if ($search) {
+            $baseQuery->where(function($q) use ($search, $searchables) {
+                foreach ($searchables as $column) {
+                    if (in_array($column, $this->getColumns())) {
+                        $q->orWhere($column, 'LIKE', "%{$search}%");
+                    }
+                }
+            });
+        }
 
-		if($search) {
-			foreach ($searchables as $column) {
-				if(in_array($column, $this->getColumns())) {
-					$query->orWhere($column, 'LIKE', "%{$search}%");
-				}
-			}
-		}
+        $count = $baseQuery->count();
 
-		$result = $query->get();
-        $result = $this->modifyProperties($result,$start);
-		$count =  $this->model->where('user_id', $user_id)->get()->count();
-        $primary_account =  $this->model->where(['user_id'=> $user_id, 'state' => '1'])->get()->count();
+        $result = $baseQuery
+            ->offset($start)
+            ->limit($limit)
+            ->orderBy('state', $dir)
+            ->get();
 
+        $result = $this->modifyProperties($result, $start);
 
-		return [$result, $count,$primary_account];
-	}
+       
+        $primaryBank = $this->model->where('user_id', $user_id)->where('state', 1)->first();
+        $primary_account = $primaryBank ? 1 : 0;
+        $primary_bank_acc_id = $primaryBank->id ?? null;
+
+        return [$result, $count, $primary_account, $primary_bank_acc_id];
+    }
 
     protected function modifyProperties($result,$start)
     {   $i = 1;
@@ -149,6 +155,47 @@ class AgentBankDetailRepository extends BaseRepository implements AgentBankDetai
 
        
     }
+
+
+    public function deleteAgentBankDetail($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $bank = $this->model->find($id);
+
+            if (!$bank) {
+                return [
+                    'status' => false,
+                    'message' => 'Bank account not found.'
+                ];
+            }
+
+            $deleted = $bank->delete(); 
+
+            if ($deleted) {
+                DB::commit();
+                return [
+                    'status' => true,
+                    'message' => 'Bank account deleted successfully.'
+                ];
+            } else {
+                DB::rollBack();
+                return [
+                    'status' => false,
+                    'message' => 'Error occurred while deleting the bank account.'
+                ];
+            }
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            return [
+                'status' => false,
+                'message' => 'Exception: ' . $e->getMessage()
+            ];
+        }
+    }
+
 
     
 
