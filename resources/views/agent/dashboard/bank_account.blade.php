@@ -17,8 +17,8 @@
     text-align: center;
     vertical-align: middle;
 }
-.dataTables_filter input[type="text"] {
-    width: 250px !important;
+.dataTables_wrapper .dataTables_filter label input {
+    width: 38% !important;
 }
     
     
