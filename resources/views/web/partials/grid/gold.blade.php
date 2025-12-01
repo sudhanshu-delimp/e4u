@@ -5,7 +5,7 @@
         : substr($escort->name, 0, 12);
 @endphp
 
-<div class="col-lg col-md-6 col-sm-6 mb-5">
+<div class="col-lg col-md-6 col-sm-6 mb-3">
     <div class="six_column_content_top d-flex justify-content-between mid_tit wish_span" style="z-index: 1;width: 90%;">
            
                  <div class="vrf-tooltip-wrap">

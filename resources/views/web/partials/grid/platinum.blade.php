@@ -3,7 +3,7 @@
     $escortName = ($escort->gender == 'Transgender') ? 'TS-' . $escort->name : $escort->name;
 @endphp
 
-<div class="col-lg col-md-6 col-sm-6 mb-5 brb--text">
+<div class="col-lg col-md-6 col-sm-6 mb-3 brb--text">
 
 <div class="five_column_content_top  d-flex justify-content-between wish_span" style="z-index: 1;width: 90%;">
             <div class="vrf-tooltip-wrap">

@@ -1880,7 +1880,7 @@
         }
         
         .fiter_btns {
-            padding: 18px 0px;
+            padding: 5px 0px;
         }
         
         .bgtransparent {
@@ -1965,10 +1965,10 @@
         }
         
         .selected_service_tag ul {
-            padding: 14px 0px;
+            padding: 5px 0px;
             display: flex;
             list-style: none;
-            gap: 20px;
+            gap: 7px;
             margin: 0px;
             flex-wrap: wrap;
         }
@@ -1979,7 +1979,7 @@
             gap: 9px;
             border: 1px solid;
             padding: 8px 10px;
-            border-radius: 12px;
+            border-radius: 3px;
             flex-wrap: wrap;
         }
         
@@ -2007,8 +2007,8 @@
         /*grid and list icon box end here*/
         
         .space_between_row {
-            padding-top: 25px;
-            padding-bottom: 30px;
+            padding-top: 10px;
+            padding-bottom: 15px;
         }
         
         .border_btm_of_row {
@@ -2444,7 +2444,7 @@ i.fa.fa-heart-o{
         }
         
         .space_between_row .bod_image {
-            margin-bottom: 38px;
+            margin-bottom: 20px;
         }
         /*span.bordertopp {
     width: 85%;
@@ -2514,7 +2514,7 @@ i.fa.fa-heart-o{
         }
         
         .manage_listview_margin_gold_section {
-            margin-top: 25px !important;
+            margin-top: 20px !important;
             margin-bottom: 25px !important;
         }
         
@@ -2525,10 +2525,9 @@ i.fa.fa-heart-o{
         .silver_listbx {
             margin: 9px 0 !important;
         }
-        
-        .silver_card {
-            padding: 2rem 0;
-        }
+        /* .silver_card {
+            padding-top: 10px;
+        } */
         
         .custom--contain {
             max-width: 1400px;
@@ -2638,7 +2637,7 @@ i.fa.fa-heart-o{
         }
         
         .list-view {
-            padding-top: 2px;
+            padding-top: 10px;
             position: relative;
         }
         
@@ -4949,7 +4948,7 @@ i.fa.fa-heart-o{
         }
         
         .custom-mb {
-            margin-bottom: 2rem;
+            margin-bottom: 20px;
         }
         
         .text {
@@ -5247,6 +5246,25 @@ i.fa.fa-heart-o{
             .gallery__item--lg,
             .small-images {
                 grid-column: 1;
+            }
+            .custom--service-tag {
+                flex-wrap: wrap;
+            }
+            .grid_list_part .col-12 {
+                flex-wrap: wrap;
+            }
+            .search_btn_profile {
+                width: 100%;
+            }
+            .custom_total_list.dropdown {
+                border: 1px solid #5d6d7e;
+                width: 16em !important;
+            }
+        }
+        
+        @media(max-width: 1024px) {
+            .ryt_srch_btn {
+                flex-wrap: wrap;
             }
         }
         /*     
@@ -6205,6 +6223,8 @@ i.fa.fa-heart-o{
             text-decoration: none;
             position: relative;
             z-index: 9;
+            height: 46px;
+            line-height: 35px;
         }
         
         .custom_total_list .js-dropdown-list {
@@ -6221,12 +6241,18 @@ i.fa.fa-heart-o{
             margin: 0px;
         }
         
+        .custom_total_list.dropdown .js-link i {
+            color: #90A0B7;
+            font-weight: 600;
+        }
+        
         .custom_total_list.dropdown ul li {
             list-style: none;
             padding: 5px 9px;
             font-size: 16px;
             font-weight: 500;
-            margin-bottom: 0px;;
+            margin-bottom: 0px;
+            ;
         }
         
         .custom_total_list.dropdown ul li:hover {
@@ -6237,7 +6263,7 @@ i.fa.fa-heart-o{
             color: #fff;
         }
         
-        .custom_total_list.dropdown ul li .membership_list{
+        .custom_total_list.dropdown ul li .membership_list {
             color: #90a0b7;
             display: flex;
             justify-content: space-between;
@@ -6254,7 +6280,7 @@ i.fa.fa-heart-o{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            padding: 5px;
             font-size: 16px;
             font-weight: 700;
         }
@@ -6276,12 +6302,12 @@ i.fa.fa-heart-o{
             color: #fff;
         }
         
-        .custom_total_list .js-link.selected-item, .custom_total_list .js-link.selected-item a {
+        .custom_total_list .js-link.selected-item,
+        .custom_total_list .js-link.selected-item a {
             font-weight: 500;
-            font-size: 14px;
+            font-size: 15px;
             color: #90a0b7;
             text-decoration: none;
-
         }
         
         .custom_total_list .js-link .firts-text {
@@ -6436,7 +6462,7 @@ i.fa.fa-heart-o{
         }
         
         img.twitter-x-logo {
-            max-width: 18px;
+            max-width: 30px;
         }
         
         .peach--text {

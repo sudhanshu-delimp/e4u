@@ -162,11 +162,11 @@
                 <div style="text-align: center;">
 
                  
-
                     <button type="button" class="btn-success-modal">Print</button>
+
                        <button type="button" class="btn-cancel-modal" data-dismiss="modal">
-                        Close
-                    </button>
+                            Close
+                       </button>
                 </div>
             </div>
         </div>
@@ -356,7 +356,10 @@
 @section('script')
 <!-- opr_accordian_table JS -->
 <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
+
+
 <script>
+    
     document.querySelectorAll('.accordion-toggle').forEach(toggle => {
         toggle.addEventListener('click', () => {
             const target = toggle.getAttribute('data-target').replace('#', '');

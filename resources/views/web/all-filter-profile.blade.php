@@ -378,7 +378,7 @@
                                         <div class="col-12 align-items-center">
                                             <div class="dropdown custom_total_list">
                                                 <span class="js-link {{ $memberTitleClass }}">
-                                                    <div id="selectedListing" class="d-flex justify-content-between" style="width: calc(100% - 20px); gap: 5px;">
+                                                    <div id="selectedListing" class="d-flex justify-content-between align-items-center" style="width: calc(100% - 20px); gap: 5px;">
                                                         <span id="">
 
                                                             {{$memberTitle}} : 
