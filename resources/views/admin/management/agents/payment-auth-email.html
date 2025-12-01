@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Authorisation</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 0;">
+
+    <div id="paymentPdf" style="background: #fff; max-width: 800px; margin: 40px auto; border: 1px solid #000; padding: 20px 30px;">
+
+        <!-- Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
+            <h2 style="margin: 0; font-size: 18px;">Payment Authorisation</h2>
+            <button onclick="window.print()" style="background: #0c223d; color: #fff; border: none; padding: 				6px 15px; font-weight: bold; cursor: pointer; border-radius: 4px;">Print</button>
+        </div>
+
+        <!-- Body -->
+        <div style="padding: 20px 10px; color: #000; font-size: 14px;">
+
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                <tr>
+                    <td style="padding: 6px 8px 6px 0px; font-weight: bold; width: 20%;">Agent ID:</td>
+                    <td style="padding: 6px 8px 6px 0px;">A600025</td>
+                    <td style="padding: 6px 8px 6px 0px; font-weight: bold;  width: 20%;">Date:</td>
+                    <td style="padding: 6px 8px 6px 0px;">01-11-2025</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6px 8px 6px 0px; font-weight: bold; ">Fee Total:</td>
+                    <td style="padding: 6px 8px 6px 0px;">$ 237.45</td>
+                    <td style="padding: 6px 8px 6px 0px; font-weight: bold; ">Month:</td>
+                    <td style="padding: 6px 8px 6px 0px;">Oct</td>
+                </tr>
+            </table>
+
+            <div style="margin-top: 10px; margin-bottom: 20px;">
+                The Fee for the month is authorised for payment into the Operator’s nominated Bank Account for the Agent.
+            </div>
+
+            <div style="margin-top: 30px;">
+                Managing Director:
+                <span style="display: inline-block; width: 250px; border-bottom: 1px solid gray;">&nbsp;</span>
+            </div>
+
+            <div style="margin-top: 50px; font-size: 14px;">
+                <hr style="margin-top: 30px; margin-bottom:30px;">
+                <p style="font-weight: bold; margin-bottom: 20px;">Office Use Only:</p>
+
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="padding: 5px 0;">EFT Date: ____ / ____ / ____</td>
+                        <td style="padding: 5px 0;">General Ledger: ______________________</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding-top: 10px;">Processed by: ______________________</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hide the print button when printing
+        window.onbeforeprint = () => {
+            document.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+        };
+        window.onafterprint = () => {
+            document.querySelectorAll('button').forEach(btn => btn.style.display = 'inline-block');
+        };
+    </script>
+
+</body>
+
+</html>

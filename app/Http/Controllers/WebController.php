@@ -302,6 +302,7 @@ class WebController extends Controller
             'playmate_status'=> request()->get('playmate_status') ,
             'lat_state'=> $lat_state ?? '' ,
             'lng_city'=> $lng_city ?? '' ,
+            'membership_type'=> request()->get('membership_type') ?? null,
         ];
 
         $radio_location_filter = session('radio_location_filter');
@@ -360,10 +361,21 @@ class WebController extends Controller
         $gold = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '2'),$str,$gender, $age, $location)->get();
         $silver = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '3'),$str,$gender, $age, $location)->get();
         $free = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '4'),$str,$gender, $age, $location)->get();
+
+        $memberTotalCount[1] =  $platinum->count();
+        $memberTotalCount[2] =  $gold->count();
+        $memberTotalCount[3] =  $silver->count();
+        $memberTotalCount[4] =  $free->count();
+
+        if(isset($str['membership_type']) && $str['membership_type'] != null){
+            $platinum = $platinum->where('membership', $str['membership_type']);
+            $gold = $gold->where('membership', $str['membership_type']);
+            $silver = $silver->where('membership', $str['membership_type']);
+            $free = $free->where('membership', $str['membership_type']);    
+        }
         
         $merged = $platinum->concat($gold)->concat($silver);
 
-        //dd($merged);
          $merged = $merged->map(function($item, $key) {
             //dd($item);
             # Add services with duration if exists
@@ -426,16 +438,6 @@ class WebController extends Controller
             //$item->star_rating = $lp;
             return $item;
         })->collect();
-        
-        // $platinum = $applyFilters(Escort::where('membership', '1'),$str)->get();
-        // $gold = $applyFilters(Escort::where('membership', '2'),$str)->get();
-        // $silver = $applyFilters(Escort::where('membership', '3'),$str)->get();
-        // $free = $applyFilters(Escort::where('membership', '4'),$str)->get();
-
-        $memberTotalCount[1] =  $platinum->count();
-        $memberTotalCount[2] =  $gold->count();
-        $memberTotalCount[3] =  $silver->count();
-        $memberTotalCount[4] =  $free->count();
 
         $merged = $platinum->concat($gold)->concat($silver)->concat($free);
        
@@ -458,7 +460,6 @@ class WebController extends Controller
         if(request()->get('view_type') == 'list'){
             $viewType = 'list';
         }
-        //dd($viewType);
 
         return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount','radio_location_filter','all_services_tag','viewType'));
     }

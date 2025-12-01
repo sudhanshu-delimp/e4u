@@ -119,13 +119,13 @@
                             Portfolio</span>
                     </a>
 
-                    <a class="collapse-item" href="{{ route('shareholder.contact-us') }}">
+                    {{-- <a class="collapse-item" href="{{ route('shareholder.contact-us') }}">
                         <img 
                             src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'contact-us' ? 'color: #ff3c5f;' : '' }}">
                             Contact Us</span>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </li>

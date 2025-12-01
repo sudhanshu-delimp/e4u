@@ -202,6 +202,7 @@
                 <option value="501" {{ (request()->get('price') == '501') ? 'selected' : '' }}>Over $ 500</option>
             </select>
         </div>
+        
         <div class="display_inline_block mb-1 mr-2">
             <select class="custome_form_control_border_radus padding_five_px with_eight_em" id="">
                 <option>All services</option>
@@ -214,16 +215,21 @@
             </select>
         </div>
         <div class="display_inline_block mb-1 mr-2">
-            {{-- <button type="button" class="btn verified_btn_bg_color verified_text_color" data-toggle="tooltip" title="">
-                <img src="{{ asset('assets/app/img/protected2.png')}}"> Verified
-            </button> --}}
-            <select class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                    id=""name="verify_list" title="Coming Soon" disabled>
-                                    <option value="all">All</option>
+                                <select class="custome_form_control_border_radus with_eight_em" 
+                                    id="playmate_status" name="playmate_status">
+                                    <option value="">Playmates</option>
+                                    <option value="with_playmates" {{ request()->get('playmate_status') == 'with_playmates' ? 'selected' : '' }}>With</option>
+                                    <option value="without_playmates" {{ request()->get('playmate_status') == 'without_playmates' ? 'selected' : '' }}>Without</option>
+                                </select>
+                            </div>
+        <div class="display_inline_block mb-1 mr-2">
+                                <select class="custome_form_control_border_radus padding_five_px with_eight_em"
+                                    id=""name="verify_list">
+                                    <option value="all">Verification</option>
                                     <option value="unverified">Unverified</option>
                                     <option value="verified">Verified</option>
                                 </select>
-        </div>
+                            </div>
         <div class="display_inline_block mb-1 mr-2">
             <button type="submit" class="btn reset_filter" data-toggle="tooltip" title="">
                 Apply Filters
@@ -286,6 +292,79 @@
                 <!-- Grid View -->
 
                 <div class="row grid_list_part" id="prosud" style="display: block;">
+                    {{-- @php
+                    $memberTitle = 'Total Listings';
+                    $memberTotalCountSum = array_sum($memberTotalCount);
+                    $memberTitleClass = '';
+                    
+                    if(request('membership_type') == '1'){
+                        $memberTotalCountSum = $memberTotalCount[1];
+                        $memberTitle = 'View Platinum Listings';
+                        $memberTitleClass = 'selected-item';
+                    } elseif(request('membership_type') == '2'){
+                        $memberTotalCountSum = $memberTotalCount[2];
+                        $memberTitle = 'View Gold Listings';
+                        $memberTitleClass = 'selected-item';
+                    } elseif(request('membership_type') == '3'){
+                        $memberTotalCountSum = $memberTotalCount[3];    
+                        $memberTitle = 'View Silver Listings';    
+                        $memberTitleClass = 'selected-item';    
+                    }
+                @endphp
+                    <div class="dropdown custom_total_list">
+                        <span class="js-link {{ $memberTitleClass }}">
+                            <div id="selectedListing" class="d-flex justify-content-between align-items-center" style="width: calc(100% - 20px); gap: 5px;">
+                                <span id="">
+
+                                    {{$memberTitle}} : 
+                                    
+                                </span>
+                                <span >
+
+                                    {{ $memberTotalCountSum }}
+                                    
+                                </span>
+                            </div>
+                            
+                            <i class="fa fa-angle-down"></i>
+                        </span>
+
+                        <ul class="js-dropdown-list">
+
+                            <!-- All Listings -->
+                            <li class="{{ !request()->has('membership_type') || request('membership_type') == '' ? 'active' : '' }}">
+                                <a  class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => null]) }}">
+                                    <span class="firts-text">Total Listings :</span>
+                                    <span class="firts-text">{{ array_sum($memberTotalCount) }}</span>
+                                </a>
+                            </li>
+
+                            <!-- Platinum -->
+                            <li class="{{ request('membership_type') == '1' ? 'active' : '' }}">
+                                <a class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '1']) }}">
+                                    <span>View Platinum Listings :</span>
+                                    <span>{{ $memberTotalCount[1] }}</span>
+                                </a>
+                            </li>
+
+                            <!-- Gold -->
+                            <li class="{{ request('membership_type') == '2' ? 'active' : '' }}">
+                                <a class="membership_list" class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '2']) }}">
+                                    <span>View Gold Listings :</span>
+                                    <span>{{ $memberTotalCount[2] }}</span>
+                                </a>
+                            </li>
+
+                            <!-- Silver -->
+                            <li class="{{ request('membership_type') == '3' ? 'active' : '' }}">
+                                <a class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '3']) }}">
+                                    <span>View Silver Listings :</span>
+                                    <span>{{ $memberTotalCount[3] }}</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div> --}}
 
                     <div class="col-12 align-items-center">
                         <div class="grid_list_icon_box display_inline_block grid--btn" data-toggle="modal1" data-target="#" data-url="grid-escort-list">
@@ -446,7 +525,7 @@
 
         </div>
 
-        <div class="otherliste" style="display: none;">
+        <div class="otherliste container" style="display: none;">
 
             <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block':'none'}}">
 
@@ -631,7 +710,40 @@
 @endsection
 @push('scripts')
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script>
+    $(function () {
+    var list = $('.js-dropdown-list');
+    var link = $('.js-link');
 
+    link.click(function (e) {
+        e.preventDefault();
+        list.slideToggle(200);
+    });
+
+    list.find('li').click(function () {
+
+        list.find('li').removeClass('active');
+        $(this).addClass('active');
+
+        var text = $(this).html();
+        var icon = '<i class="fa fa-angle-down"></i>';
+
+        // Add class to the parent A
+        link.addClass('selected-item');
+
+        // Put selected text inside the A
+        link.html(text + icon);
+        
+        list.slideToggle(200);
+
+        if (text === '* Reset') {
+            link.removeClass('selected-item');
+            link.html('Select one option' + icon);
+        }
+    });
+});
+
+</script>
 
 <script>
     /////////////click event ///////////////

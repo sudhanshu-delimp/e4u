@@ -4,7 +4,7 @@
         : substr($escort->name, 0, 12);
 @endphp
 
-<div class="col-lg col-md-6 col-sm-6 mb-5 brb--text">
+<div class="col-lg col-md-6 col-sm-6 mb-3 brb--text">
     <div class="seven_column_content_top d-flex justify-content-between mid_tit wish_span wish_span" style="z-index: 1;width: 90%;">
            {{-- <span>
             <img src="{{ asset('assets/img/e4u-verified-shield-dark.png') }}" class="" title="This Escort's Media has been verified by E4U" style="width: 12px;height: 12px;">

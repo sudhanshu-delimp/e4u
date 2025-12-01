@@ -4,12 +4,12 @@
 @endsection
 
 
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 opr-console">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     {{-- Page Heading --}}
     <div class="row">
-        <div class="col-md-12 operator-heading-wrapper">
-            <h1 class="h1">Monthly Report</h1>
-            <span class="oprhelpNote" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1">Monthly Fee Reports</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes" style="">
@@ -17,24 +17,17 @@
                     <p class="notes"><b>Notes:</b> </p>
                     <p></p>
                     <ol>
-                        <li>The following definitions are from the Agent Agreement and apply for the purpose of
-                            calculating the Fee:
+                     <li>This report is a summary of the Operator’s Fee.</li>
+                     <li>Agent summary can be viewed here.</li>
+                        <li>Payment authorisation procedure must be followed, for Operator to be paid:
                             <ol class="level-2">
-                                <li>Fees mean the fees calculated pursuant to Item 5 of Schedule 1 and payable
-                                    pursuant to clause 9.1.
+                                <li>if report is correct, change status to Paid.
                                 </li>
-                                <li>Monthly Report means the online report summarising all the activities for that
-                                    month for Signed Up Advertisers which the calculation of the Fees for that month
-                                    will be based on.
+                                <li>produce Payment Authorisation summary. Managing Director to sign off.
                                 </li>
+                                <li>Payment Authorisation summary processed (by accounts staff).</li>
                             </ol>
                         </li>
-                        <li>The Fees are paid to the Operator upon the Agent having approved them. Where there
-                            is a query raised by an Agent in respect of the Monthly Report, the Fee corresponding
-                            to the Query will be separated from the Report and remain in escrow until the query is
-                            resolved.
-                        </li>
-                        <li>Fees are inclusive of GST.</li>
                     </ol>
                 </div>
             </div>
@@ -48,16 +41,16 @@
             <div class="row">
                 <div class="col-md-12 mt-2">
                     <div id="table-sec" class="table-responsive-xl">
-                        <table class="table my_opr_table" id="AgentReportTable">
-                            <thead class="opr-table-bg">
+                        <table class="table table_admin" id="AgentReportTable">
+                            <thead class="table-bg">
                                 <tr>
                                     <th>Date Issued</th>
                                     <th>Billing Period</th>
-                                    <th>Agent ID</th>
                                     <th>Territory</th>
+                                    <th>Spend</th>
                                     <th>Fees</th>
                                     <th>Status</th>
-                                    <th>Date Agent Approved</th>
+                                    <th>Date Approved</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -65,12 +58,12 @@
                                 <tr>
                                     <td>01-11-2025</td>
                                     <td>01-10-25 to 31-10-25</td>
-                                    <td>A600025</td>
                                     <td>WA</td>
-                                    <td>$ 237.45</td>
-                                    <td>Agent Approved</td>
+                                    <td><div class="num_value">$ <span>1,250,900.00</span></div></td>
+                                    <td><div class="num_value">$ <span>25,018.00</span></div></td>
+                                    <td>Pending</td>
                                     <td>04-11-2025</td>
-                                    <td>
+                                    <td class="text-center">
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button"
                                                 id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -85,8 +78,8 @@
                                                     </a>
                                                     <a class="dropdown-item align-item-custom" data-toggle="modal"
                                                         data-target="#payAgentreport" href=""> <i
-                                                            class="fa fa-star" aria-hidden="true"></i>
-                                                        Pay</a>
+                                                            class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        Approve</a>
                                                     <div class="dropdown-divider"></div>
                                                 </div>
 
@@ -111,7 +104,7 @@
 </div>
 {{-- Payment Authorisation --}}
 
-<div class="modal fade opr-modal" id="payAgentreport" tabindex="-1" role="dialog"
+<div class="modal fade upload-modal" id="payAgentreport" tabindex="-1" role="dialog"
     aria-labelledby="payAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -121,9 +114,9 @@
 
             <div class="modal-header">
                 
-                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/secure-payment.png') }}" class="custompopicon"> Payment Authorisation</h5>
+                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/auth.png') }}" class="custompopicon"> Payment Authorisation</h5>
                 <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                   <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
+                   <img src="{{ asset('assets/app/img/newcross.png')}}">
                 </a>
             </div>
             <!-- Body -->
@@ -131,7 +124,7 @@
 
                 <table class="w-100 table opr_modal_table">
                     <tr>
-                        <td style="font-weight: bold; color: #001f4d;">Agent ID:</td>
+                        <td style="font-weight: bold; color: #001f4d;">Operator ID: </td>
                         <td>A600025</td>
                         <td style="font-weight: bold; color: #001f4d;">Date:</td>
                         <td>01-10-25</td>
@@ -146,7 +139,7 @@
 
                 <p>
                     The Fee for the month is authorised for payment into the
-                    Operator’s nominated Bank Account for the Agent.
+                    Operator’s nominated Bank Account.
                 </p>
 
                 <p style="margin-top: 25px;">
@@ -158,11 +151,12 @@
 
                 <div style="text-align: center;">
 
-                    <button type="button" class="opr-btn-common" data-dismiss="modal">
+                   
+
+                    <button type="button" class="btn-success-modal">Print</button>
+                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">
                         Close
                     </button>
-
-                    <button type="button" class="opr-btn-common">Print</button>
                 </div>
             </div>
         </div>
@@ -173,25 +167,25 @@
 
 {{-- View Report --}}
 
-<div class="modal fade opr-modal" id="viewAgentreport" tabindex="-1" role="dialog"
+<div class="modal fade upload-modal" id="viewAgentreport" tabindex="-1" role="dialog"
     aria-labelledby="viewAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-centered custom_admin_modal" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 
                  
-                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/report.png') }}" class="custompopicon">  Fee Report - Member ID A600025 (Period Ending: 31-10-25)</h5>
+                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}" class="custompopicon">  Fee Report by Agent (Period Ending: 31-10-25)</h5>
                 <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                   <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
+                   <img src="{{ asset('assets/app/img/newcross.png')}}">
                 </a>
             </div>
 
             <div class="modal-body">
 
-                <table class="table table-bordered mb-0 opr_accordian_table">
-                    <thead class="opr-table-bg modal-thaed">
+                <table class="table table-bordered mb-0 common_accordian_table">
+                    <thead class="table-bg modal-thaed">
                         <tr>
-                            <th>Member ID</th>
+                            <th>Agent ID</th>
                             <th>Name</th>
                             <th>Territory</th>
                             <th>Type</th>
@@ -206,24 +200,24 @@
                         <!-- ========= MEMBER 1 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1"
                             aria-expanded="false" aria-controls="details1">
-                            <td>E612344</td>
+                            <td>A10044</td>
                             <td class="opr_expand_arrow">Oxe Daisy <i class="fa fa-chevron-down"></i></td>
                             <td>WA</td>
                             <td></td>
                             <td>35</td>
-                            <td class="text-left">$683.00</td>
-                            <td class="text-left">$34.15</td>
+                            <td class="text-left"><div class="num_value">$<span>683.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>34.15</span></div></td>
                         </tr>
 
                         <!-- Detail rows -->
-                        <tr class="detail-row" data-group="details1">
+                         <tr class="detail-row" data-group="details1">
                             <td></td>
                             <td></td>
                             <td></td>
                             <td>P</td>
                             <td>22</td>
-                            <td class="text-left">$176.00</td>
-                            <td class="text-left">$8.80</td>
+                            <td class="text-left"><div class="num_value">$<span>176.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>8.80</span></div></td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td></td>
@@ -231,8 +225,8 @@
                             <td></td>
                             <td>G</td>
                             <td>4</td>
-                            <td class="text-left">$24.00</td>
-                            <td class="text-left">$1.20</td>
+                            <td class="text-left"><div class="num_value">$<span>24.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>1.20</span></div></td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td></td>
@@ -240,8 +234,8 @@
                             <td></td>
                             <td>S</td>
                             <td>2</td>
-                            <td class="text-left">$8.00</td>
-                            <td class="text-left">$0.40</td>
+                            <td class="text-left"><div class="num_value">$<span>8.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>0.40</span></div></td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td></td>
@@ -249,29 +243,28 @@
                             <td></td>
                             <td>PU</td>
                             <td>7</td>
-                            <td class="text-left">$475.00</td>
-                            <td class="text-left">$23.75</td>
+                            <td class="text-left"><div class="num_value">$<span>475.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>23.75</span></div></td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td colspan="4" class="text-right"><strong>Totals:</strong></td>
                             <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">35
                             </td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
-                                $683.00</td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
-                                $34.15</td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div></td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
+                                 <div class="num_value">$<span>34.15</div></td></td>
                         </tr>
 
                         <!-- ========= MEMBER 2 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details2"
                             aria-expanded="false" aria-controls="details2">
-                            <td>E612351</td>
+                            <td>A20056</td>
                             <td class="opr_expand_arrow">Rose Chaplin <i class="fa fa-chevron-down"></i></td>
                             <td>WA</td>
                             <td></td>
-                            <td>35</td>
-                            <td class="text-left">$683.00</td>
-                            <td class="text-left">$34.15</td>
+                            <td>35</td> <td class="text-left"><div class="num_value">$<span>683.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>34.15</div></td>
                         </tr>
 
                         <tr class="detail-row" data-group="details2">
@@ -280,8 +273,8 @@
                             <td></td>
                             <td>P</td>
                             <td>22</td>
-                            <td class="text-left">$176.00</td>
-                            <td class="text-left">$8.80</td>
+                            <td class="text-left"><div class="num_value">$<span>176.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>8.80</div></td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
                             <td></td>
@@ -289,8 +282,8 @@
                             <td></td>
                             <td>G</td>
                             <td>4</td>
-                            <td class="text-left">$24.00</td>
-                            <td class="text-left">$1.20</td>
+                            <td class="text-left"><div class="num_value">$<span>24.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>1.20</div></td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
                             <td></td>
@@ -298,8 +291,8 @@
                             <td></td>
                             <td>S</td>
                             <td>2</td>
-                            <td class="text-left">$8.00</td>
-                            <td class="text-left">$0.40</td>
+                            <td class="text-left"><div class="num_value">$<span>8.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>0.40</div></td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
                             <td></td>
@@ -307,17 +300,17 @@
                             <td></td>
                             <td>PU</td>
                             <td>7</td>
-                            <td class="text-left">$475.00</td>
-                            <td class="text-left">$23.75</td>
+                            <td class="text-left"><div class="num_value">$<span>475.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>23.75</div></td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td colspan="4" class="text-right"><strong>Totals:</strong></td>
                             <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">35
                             </td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
-                                $683.00</td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
-                                $34.15</td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div></td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
+                               <div class="num_value">$<span>34.15</div> </td>
                         </tr>
 
                     </tbody>
@@ -328,10 +321,10 @@
                             <td colspan="4" class="text-right"><strong>Totals:</strong></td>
                             <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">70
                             </td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
-                                $1,366.00</td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
-                                $68.30</td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>1,366.00</div></td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>68.30</div></td>
                         </tr>
 
                     </tfoot>
@@ -350,6 +343,7 @@
 @endsection
 @section('script')
 <!-- opr_accordian_table JS -->
+        <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
 <script>
     document.querySelectorAll('.accordion-toggle').forEach(toggle => {
         toggle.addEventListener('click', () => {

@@ -175,7 +175,7 @@
 
 <div class="modal fade opr-modal" id="viewAgentreport" tabindex="-1" role="dialog"
     aria-labelledby="viewAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-centered opr_custom_modal" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 
@@ -201,7 +201,7 @@
                         </tr>
                     </thead>
 
-                    <tbody id="accordionParent">
+                     <tbody id="accordionParent">
 
                         <!-- ========= MEMBER 1 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1"
@@ -211,8 +211,8 @@
                             <td>WA</td>
                             <td></td>
                             <td>35</td>
-                            <td class="text-left">$683.00</td>
-                            <td class="text-left">$34.15</td>
+                            <td class="text-left"><div class="num_value">$<span>683.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>34.15</span></div></td>
                         </tr>
 
                         <!-- Detail rows -->
@@ -222,8 +222,8 @@
                             <td></td>
                             <td>P</td>
                             <td>22</td>
-                            <td class="text-left">$176.00</td>
-                            <td class="text-left">$8.80</td>
+                            <td class="text-left"><div class="num_value">$<span>176.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>8.80</span></div></td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td></td>
@@ -231,8 +231,8 @@
                             <td></td>
                             <td>G</td>
                             <td>4</td>
-                            <td class="text-left">$24.00</td>
-                            <td class="text-left">$1.20</td>
+                            <td class="text-left"><div class="num_value">$<span>24.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>1.20</span></div></td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td></td>
@@ -240,8 +240,8 @@
                             <td></td>
                             <td>S</td>
                             <td>2</td>
-                            <td class="text-left">$8.00</td>
-                            <td class="text-left">$0.40</td>
+                            <td class="text-left"><div class="num_value">$<span>8.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>0.40</span></div></td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td></td>
@@ -249,17 +249,17 @@
                             <td></td>
                             <td>PU</td>
                             <td>7</td>
-                            <td class="text-left">$475.00</td>
-                            <td class="text-left">$23.75</td>
+                            <td class="text-left"><div class="num_value">$<span>475.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>23.75</span></div></td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td colspan="4" class="text-right"><strong>Totals:</strong></td>
                             <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">35
                             </td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
-                                $683.00</td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
-                                $34.15</td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div></td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
+                                 <div class="num_value">$<span>34.15</div></td></td>
                         </tr>
 
                         <!-- ========= MEMBER 2 ========= -->
@@ -270,8 +270,8 @@
                             <td>WA</td>
                             <td></td>
                             <td>35</td>
-                            <td class="text-left">$683.00</td>
-                            <td class="text-left">$34.15</td>
+                            <td class="text-left"><div class="num_value">$<span>683.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>34.15</div></td>
                         </tr>
 
                         <tr class="detail-row" data-group="details2">
@@ -280,8 +280,8 @@
                             <td></td>
                             <td>P</td>
                             <td>22</td>
-                            <td class="text-left">$176.00</td>
-                            <td class="text-left">$8.80</td>
+                            <td class="text-left"><div class="num_value">$<span>176.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>8.80</div></td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
                             <td></td>
@@ -289,8 +289,8 @@
                             <td></td>
                             <td>G</td>
                             <td>4</td>
-                            <td class="text-left">$24.00</td>
-                            <td class="text-left">$1.20</td>
+                            <td class="text-left"><div class="num_value">$<span>24.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>1.20</div></td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
                             <td></td>
@@ -298,8 +298,8 @@
                             <td></td>
                             <td>S</td>
                             <td>2</td>
-                            <td class="text-left">$8.00</td>
-                            <td class="text-left">$0.40</td>
+                            <td class="text-left"><div class="num_value">$<span>8.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>0.40</div></td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
                             <td></td>
@@ -307,31 +307,31 @@
                             <td></td>
                             <td>PU</td>
                             <td>7</td>
-                            <td class="text-left">$475.00</td>
-                            <td class="text-left">$23.75</td>
+                            <td class="text-left"><div class="num_value">$<span>475.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>23.75</div></td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td colspan="4" class="text-right"><strong>Totals:</strong></td>
                             <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">35
                             </td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
-                                $683.00</td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
-                                $34.15</td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div></td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
+                               <div class="num_value">$<span>34.15</div> </td>
                         </tr>
 
                     </tbody>
                     <tfoot>
-                        <!-- ========= MEMBER 2 ========= -->
-                        
+                         <!-- ========= MEMBER 2 ========= -->
+
                         <tr>
                             <td colspan="4" class="text-right"><strong>Totals:</strong></td>
                             <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">70
                             </td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
-                                $1,366.00</td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">
-                                $68.30</td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>1,366.00</div></td>
+                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>68.30</div></td>
                         </tr>
 
                     </tfoot>
