@@ -79,12 +79,12 @@
                         <table class="table" id="bankAccountTable">
                             <thead class="table-bg">
                                 <tr>
-                                    <th scope="col">Bank</th>
-                                    <th scope="col">Account Name</th>
-                                    <th scope="col">BSB</th>
-                                    <th scope="col">Account Number</th>
-                                    <th scope="col">State</th>
-                                    <th scope="col">Action</th>
+                                    <th class="text-center" scope="col">Bank</th>
+                                    <th class="text-center" scope="col">Account Name</th>
+                                    <th class="text-center" scope="col">BSB</th>
+                                    <th class="text-center" scope="col">Account Number</th>
+                                    <th class="text-center" scope="col">State</th>
+                                    <th class="text-center" scope="col">Action</th>
                                 </tr>
                             </thead>
                         </table>

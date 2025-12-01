@@ -54,7 +54,7 @@ class AgentBankDetailRepository extends BaseRepository implements AgentBankDetai
 
         $result = $this->modifyProperties($result, $start);
 
-       
+        // Primary account info (can stay separate)
         $primaryBank = $this->model->where('user_id', $user_id)->where('state', 1)->first();
         $primary_account = $primaryBank ? 1 : 0;
         $primary_bank_acc_id = $primaryBank->id ?? null;
