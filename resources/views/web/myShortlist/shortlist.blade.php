@@ -446,7 +446,7 @@
 
         </div>
 
-        <div class="otherliste" style="display: none;">
+        <div class="otherliste container" style="display: none;">
 
             <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block':'none'}}">
 
