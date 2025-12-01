@@ -1,9 +1,7 @@
 @extends('layouts.admin')
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 
-
-
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
     <style type="text/css">
         .parsley-errors-list {
             list-style: none;
@@ -13,6 +11,7 @@
         #cke_1_contents {
             height: 150px !important;
         }
+
         .paging_simple_numbers {
             margin-top: 18px;
         }
@@ -33,11 +32,12 @@
             line-height: 29px;
             color: #0C223D;
         }
-    .dropdown-menu-background-color {
-    color: #2e2f37;
-    text-decoration: none;
-    background-color: #eaecf4;
-}
+
+        .dropdown-menu-background-color {
+            color: #2e2f37;
+            text-decoration: none;
+            background-color: #eaecf4;
+        }
     </style>
 @endsection
 @section('content')
@@ -328,7 +328,8 @@
 
 
 @push('script')
-    <script type="text/javascript" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
     <script>
         var table = $("#RegistrationsReportTable").DataTable({
