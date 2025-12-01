@@ -246,14 +246,14 @@ $(function()
                 if(is_primary_bank_acc!='1' && state=='2')
                 {
                     Swal.fire({
-                        title: "You don't have any primary bank account.",
-                        text: "Do you want save it as primary bank account?",
+                        title: "You don't have any Primary bank account.",
+                        text: "Do you want save it as Primary bank account?",
                         iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
                         customClass: {
                             icon: 'my-custom-icon'
                         },
                         showCancelButton: true,
-                        confirmButtonText: "Yes, save it as primary bank account",
+                        confirmButtonText: "Yes, save it as Primary bank account",
                         cancelButtonText: "No, save it as secondary bank account",
                     }).then((result) => {
                         if (result.isConfirmed) {
@@ -269,14 +269,14 @@ $(function()
                 else if(is_primary_bank_acc=='1' && state=='1')
                 {
                     Swal.fire({
-                        title: "You already have primary bank account.",
-                        text: "Do you want replace it as primary bank account?",
+                        title: "You already have Primary bank account.",
+                        text: "Do you want replace it as Primary bank account?",
                         iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
                         customClass: {
                             icon: 'my-custom-icon'
                         },
                         showCancelButton: true,
-                        confirmButtonText: "Yes, replace it as primary bank account",
+                        confirmButtonText: "Yes, replace it as Primary bank account",
                         cancelButtonText: "No, save it as secondary account",
                     }).then((result) => {
                         if (result.isConfirmed) {
@@ -318,13 +318,13 @@ $(function()
                 {
                 Swal.fire({
                         title: "",
-                        text: "Do you want save this bank account as primary bank account?",
+                        text: "Do you want save this bank account as Primary bank account?",
                         iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
                         customClass: {
                             icon: 'my-custom-icon'
                         },
                         showCancelButton: true,
-                        confirmButtonText: "Yes, save it as primary bank account",
+                        confirmButtonText: "Yes, save it as Primary bank account",
                         cancelButtonText: "Cancel",
                     }).then((result) => {
                         if (result.isConfirmed) {
@@ -373,13 +373,13 @@ $(function()
                 {
                 Swal.fire({
                         title: "",
-                        text: "Do you want save this bank account as primary bank account?",
+                        text: "Do you want save this bank account as Primary bank account?",
                         iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
                         customClass: {
                             icon: 'my-custom-icon'
                         },
                         showCancelButton: true,
-                        confirmButtonText: "Yes, save it as primary bank account",
+                        confirmButtonText: "Yes, save it as Primary bank account",
                         cancelButtonText: "Cancel",
                     }).then((result) => {
                         if (result.isConfirmed) {
@@ -395,13 +395,13 @@ $(function()
                 {
                 Swal.fire({
                         title: "",
-                        text: "Do you want save this bank account as primary bank account?",
+                        text: "Do you want save this bank account as Primary bank account?",
                         iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
                         customClass: {
                             icon: 'my-custom-icon'
                         },
                         showCancelButton: true,
-                        confirmButtonText: "Yes, save it as primary bank account",
+                        confirmButtonText: "Yes, save it as Primary bank account",
                         cancelButtonText: "Cancel",
                     }).then((result) => {
                         if (result.isConfirmed) {
@@ -418,7 +418,7 @@ $(function()
                 else if( (previous_state!=state) &&  is_primary_bank_acc=='1' && previous_state=='1' && state=='2')
                 {
                 Swal.fire({
-                        title: "This account is your primary account.",
+                        title: "This account is your Primary account.",
                         text: "Do you want replace it as secondry bank account?",
                         iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
                         customClass: {
