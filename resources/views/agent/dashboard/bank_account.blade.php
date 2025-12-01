@@ -13,6 +13,10 @@
 .swal2-cancel{
     background-color: #ff3c5f !important;
 }
+#bankAccountTable tbody td {
+    text-align: center;
+    vertical-align: middle;
+}
     
     
 </style>
