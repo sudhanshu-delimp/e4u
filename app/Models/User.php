@@ -257,10 +257,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(PasswordSecurity::class);
     }
-    public function playmates()
+
+    public function playmateHistory()
     {
-        return $this->belongsToMany(Escort::class, 'playmates', 'user_id', 'playmate_id');
+        return $this->hasMany(PlaymateHistory::class);
     }
+
     public function getPlaymatesAttribute()
     {
         $this->loadMissing('listedEscorts.playmates');
@@ -270,6 +272,7 @@ class User extends Authenticatable
             ->sortBy('name')
             ->values();
     }
+
     public function getAddedByAttribute()
     {
         $this->loadMissing('listedEscorts.addedBy');

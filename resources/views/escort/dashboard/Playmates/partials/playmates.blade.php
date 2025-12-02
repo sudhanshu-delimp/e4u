@@ -183,17 +183,17 @@
             <div class="card-body active-play border-0 pt-0 mt-1 p-0">
                 <div class="mt-0">
                     <div class="col-lg-12 my-3">
-                        @if($user->playmates->count()>0)
+                        @if($user->playmateHistory->count()>0)
                         <h2 class="custom-head py-3">My Active Playmates</h2>
                         <ul class="results  mt-2 activePlaymate">
-                                @foreach($user->playmates as $escort)
-                                    <li id="rmlist_{{$escort->id}}" class="d_my_tooltip"><a
-                                            href="{{ route('profile.description',$escort->id)}}" target="_blank">
+                                @foreach($user->playmateHistory->unique('playmate_id') as $item)
+                                    <li id="rmlist_{{$item->id}}" class="d_my_tooltip playmate-{{$item->group_status}}"><a
+                                            href="{{ route('profile.description',$item->playmate->id)}}" target="_blank">
                                             <img
-                                                src="{{ $escort->DefaultImage ? asset($escort->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
-                                                class="img-profile rounded-circle playmats-img">{{$escort->user->member_id . ' - ' .$escort->name}}
+                                                src="{{ $item->playmate->DefaultImage ? asset($item->playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
+                                                class="img-profile rounded-circle playmats-img">{{$item->playmate->user->member_id . ' - ' .$item->playmate->name}}
                                         </a>
-                                        <span class="playmates_rmid" data-id="{{$escort->id}}">×</span>
+                                        <span class="playmates_rmid" data-id="{{$item->id}}">×</span>
                                         <small class="mytool-tip">Remove</small>
                                     </li>
                                 @endforeach

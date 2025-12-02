@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Escort\Profile;
 
 use App\Http\Controllers\Controller;
-use App\Models\Service;
-use App\Models\Duration;
 use App\Models\Playmate;
+use App\Models\PlaymateHistory;
 use App\Repositories\Escort\EscortInterface;
 use App\Repositories\Escort\AvailabilityInterface;
 use App\Repositories\Service\ServiceInterface;
@@ -23,15 +22,11 @@ use App\Models\Escort;
 use App\Repositories\Duration\DurationInterface;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Traits\ResizeImage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Escort\EscortMediaInterface;
 use App\Models\EscortCovidReport;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-//use Illuminate\Http\Request;
 
 class ProfileInformationController extends Controller
 {
@@ -79,7 +74,6 @@ class ProfileInformationController extends Controller
         if(!$escort = $this->escort->findDefault($user->id,1)) {
             $escort = $this->escort->make();
         }
-        echo '</pre>';
         list($service_one, $service_two, $service_three) = $this->service->findByCategory([1,2,3]);
         $durations = $this->duration->all();
         $availability = $escort->availability;
@@ -452,36 +446,35 @@ class ProfileInformationController extends Controller
         //return
     }
 
-    public function removePlaymate($playmateId)
+    public function removePlaymate($historyId)
     {
         $error = false;
         $message = 'Playmate removed successfully.';
 
         try {
             $user = auth()->user();
+            $item = PlaymateHistory::find($historyId);
             /**
-             * Get Login Escort All Profile Id those were attach with Playmate.
+             * Get Login User Profile's id those were attach with the removed Playmate.
              */
             $escortPorfileIdsWithPlaymate = $user->listedEscorts
-            ->filter(fn($escort) => $escort->playmates->contains($playmateId))
+            ->filter(fn($escort) => $escort->playmates->contains($item->playmate_id))
             ->pluck('id')
             ->toArray();
 
             /**
-             * Remove Playmate from Login Escort All Profile's Playlist.
+             * Remove Playmate from Login User's all Profile's Playmatelist.
              */
-            $user->listedEscorts->each(function ($escort) use ($playmateId) {
-                $escort->playmates()->detach($playmateId);
+            $user->listedEscorts->each(function ($escort) use ($item) {
+                $escort->playmates()->detach($item->playmate_id);
             });
 
             /**
-             * Remove Login Escort attached Profiles from Playmate Escort's all Profiles.
+             * Remove Login user attached Profiles from playmate escort Playmatelist.
              */
-            $otherEscortProfile = Escort::find($playmateId);
-            $otherUser = $otherEscortProfile->user;
-            $otherUser->listedEscorts->each(function ($escort) use ($escortPorfileIdsWithPlaymate) {
-                $escort->playmates()->detach($escortPorfileIdsWithPlaymate);
-            });
+            $otherEscortProfile = Escort::find($item->playmate_id);
+            $otherEscortProfile->playmates()->detach($escortPorfileIdsWithPlaymate);
+            $item->delete();
         } catch (\Exception $e) {
             $error = true;
             $message = 'Failed to remove playmate: ' . $e->getMessage();
