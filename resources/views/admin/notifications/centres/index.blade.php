@@ -489,7 +489,7 @@
                         rows.forEach(function(r) {
                             html += `
                                 <tr>
-                                    <th style="text-align:left; border: 1px solid #ccc; padding: 8px;">${r[0]}</th>
+                                    <th style="text-align:left; border: 1px solid #ccc; padding: 8px; width:190px;">${r[0]}</th>
                                     <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">${r[1] || ''}</td>
                                 </tr>
                             `;
