@@ -39,9 +39,9 @@
                                     id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false" href="{{ route('register') }}">Log in</a>
                                 <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
-                                    <a class="dropdown-item" href="{{ route('advertiser.login') }}">Advertiser</a>
-                                    <a class="dropdown-item" href="{{ route('viewer.login') }}">Viewer</a>
-                                    <a class="dropdown-item" href="{{ route('agent.login') }}">Agent</a>
+                                    <a class="dropdown-item" href="{{ route('admin.login') }}">Admin</a>
+                                    <a class="dropdown-item" href="{{ route('operator.login')}}">Operator</a>
+                                    <a class="dropdown-item" href="{{ route('shareholder.login')}}">Shareholder</a>
                                 </div>
                             </li>
                         </ul>
@@ -202,13 +202,13 @@
                         <div><a href="#" class="cook--seting">Cookie Settings</a></div> <span>|</span><a
                             class="admin-login" href="{{ route('notice.dmca') }}">DMCA Notices</a> <span>|</span><a
                             class="admin-login" href="{{ url('parent-control') }} ">Parent Control</a>
-                        @if (!auth()->user())
+                        {{-- @if (!auth()->user())
                             <span>|</span><a class="admin-login" href="{{ route('admin.login') }}">Admin Login</a>
                          <span>|</span><a class="admin-login" href="{{ route('operator.login')}}">Operator Login</a>
                          <span>|</span><a class="admin-login" href="{{ route('shareholder.login')}}">Shareholder Login</a>
                          <span>|</span><a class="admin-login" href="{{ route('staff.login') }}">Staff Login</a>
                          
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 manage_alments_in_ds text-right">
