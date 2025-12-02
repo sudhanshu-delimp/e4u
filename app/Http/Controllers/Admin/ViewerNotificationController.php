@@ -316,8 +316,6 @@ class ViewerNotificationController extends Controller
 
 
 
-
-
     public function pdfDownload($id)
     {
         try {

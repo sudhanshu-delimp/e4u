@@ -136,7 +136,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('admin.global') }}">
+                <a href="{{ route('admin.global.notification.index') }}">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/notifications.png') }}" class="my-svg-icons" alt="Notifications (Global)">
                     </div>

@@ -563,7 +563,7 @@
                
                 <div class="py-0 collapse-inner rounded mb-2">
                     {{-- global --}}
-                    <a href="{{ route('admin.global', ['from' => 'sidebar']) }}" class="collapse-item">
+                    <a href="{{ route('admin.global.notification.index') }}" class="collapse-item">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/g-notification.png') }}">
                         <span
                             style="{{ request()->segment(3) == 'global' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Global</span>
