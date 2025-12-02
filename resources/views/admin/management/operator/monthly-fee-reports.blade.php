@@ -195,136 +195,280 @@
                         </tr>
                     </thead>
 
+                   
                     <tbody id="accordionParent">
 
                         <!-- ========= MEMBER 1 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1"
                             aria-expanded="false" aria-controls="details1">
                             <td>A10044</td>
-                            <td class="opr_expand_arrow">Oxe Daisy <i class="fa fa-chevron-down"></i></td>
-                            <td>WA</td>
+                            <td class="opr_expand_arrow">Business 01 <i class="fa fa-chevron-down"></i></td>
+                            <td>ACT</td>
                             <td></td>
-                            <td>35</td>
-                            <td class="text-left"><div class="num_value">$<span>683.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>34.15</span></div></td>
+                            <td>65</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>1,583.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>79.15</span></div>
+                            </td>
                         </tr>
 
                         <!-- Detail rows -->
+                        <tr class="detail-row" data-group="details1">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>P</td>
+                            <td>22</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>176.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.80</span></div>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" data-group="details1">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>G</td>
+                            <td>4</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>24.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>1.20</span></div>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" data-group="details1">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>S</td>
+                            <td>2</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>0.40</span></div>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" data-group="details1">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>PU</td>
+                            <td>7</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>475.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>23.75</span></div>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" data-group="details1">
+                            <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
+                            <td style="border-top: 1px solid #444; font-weight:bold">35
+                            </td>
+                            <td
+                                style="border-top: 1px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div>
+                            </td>
+                            <td
+                                style="border-top: 1px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>34.00</div>
+                            </td>
+                            </td>
+                        </tr>
+                       
                          <tr class="detail-row" data-group="details1">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>P</td>
-                            <td>22</td>
-                            <td class="text-left"><div class="num_value">$<span>176.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>8.80</span></div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details1">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>G</td>
-                            <td>4</td>
-                            <td class="text-left"><div class="num_value">$<span>24.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>1.20</span></div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details1">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>S</td>
-                            <td>2</td>
-                            <td class="text-left"><div class="num_value">$<span>8.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>0.40</span></div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details1">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>PU</td>
-                            <td>7</td>
-                            <td class="text-left"><div class="num_value">$<span>475.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>23.75</span></div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details1">
-                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">35
+                            <td colspan="4" class="text-right">MC</td>
+                            <td>30
                             </td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>683.00</div></td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
-                                 <div class="num_value">$<span>34.15</div></td></td>
-                        </tr>
-
-                        <!-- ========= MEMBER 2 ========= -->
-                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#details2"
-                            aria-expanded="false" aria-controls="details2">
-                            <td>A20056</td>
-                            <td class="opr_expand_arrow">Rose Chaplin <i class="fa fa-chevron-down"></i></td>
-                            <td>WA</td>
-                            <td></td>
-                            <td>35</td> <td class="text-left"><div class="num_value">$<span>683.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>34.15</div></td>
-                        </tr>
-
-                        <tr class="detail-row" data-group="details2">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>P</td>
-                            <td>22</td>
-                            <td class="text-left"><div class="num_value">$<span>176.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>8.80</div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details2">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>G</td>
-                            <td>4</td>
-                            <td class="text-left"><div class="num_value">$<span>24.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>1.20</div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details2">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>S</td>
-                            <td>2</td>
-                            <td class="text-left"><div class="num_value">$<span>8.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>0.40</div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details2">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>PU</td>
-                            <td>7</td>
-                            <td class="text-left"><div class="num_value">$<span>475.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>23.75</div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details1">
-                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">35
+                            <td
+                                style="text-align:left;">
+                                <div class="num_value">$<span>900.00</div>
                             </td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>683.00</div></td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
-                               <div class="num_value">$<span>34.15</div> </td>
+                            <td
+                                style="text-align:left;">
+                                <div class="num_value">$<span>45.00</div>
+                            </td>
+                            </td>
+                        </tr>
+                         <tr class="detail-row" data-group="details1">
+                            <td colspan="4" class="text-right"><strong>Total:</strong></td>
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">65
+                            </td>
+                            <td
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>1,583.00</div>
+                            </td>
+                            <td
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>79.15</div>
+                            </td>
+                            </td>
+                        </tr>
+                        {{-- end Member 1 --}}
+                         {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
                         </tr>
 
-                    </tbody>
-                    <tfoot>
+
+
+
+
                         <!-- ========= MEMBER 2 ========= -->
                         
-                        <tr>
-                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">70
+                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#details2"
+                            aria-expanded="false" aria-controls="details2">
+                            <td>A10056</td>
+                            <td class="opr_expand_arrow">Business 02 <i class="fa fa-chevron-down"></i></td>
+                            <td>NSW</td>
+                            <td></td>
+                            <td>65</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>1,583.00</span></div>
                             </td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>1,366.00</div></td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>68.30</div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>79.15</span></div>
+                            </td>
+                        </tr>
+
+                        <!-- Detail rows -->
+                        <tr class="detail-row" data-group="details2">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>P</td>
+                            <td>22</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>176.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.80</span></div>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" data-group="details2">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>G</td>
+                            <td>4</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>24.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>1.20</span></div>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" data-group="details2">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>S</td>
+                            <td>2</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>0.40</span></div>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" data-group="details2">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>PU</td>
+                            <td>7</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>475.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>23.75</span></div>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" data-group="details2">
+                            <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
+                            <td style="border-top: 1px solid #444; font-weight:bold">35
+                            </td>
+                            <td
+                                style="border-top: 1px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div>
+                            </td>
+                            <td
+                                style="border-top: 1px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>34.00</div>
+                            </td>
+                            </td>
+                        </tr>
+                       
+                         <tr class="detail-row" data-group="details2">
+                            <td colspan="4" class="text-right">MC</td>
+                            <td>30
+                            </td>
+                            <td
+                                style="text-align:left;">
+                                <div class="num_value">$<span>900.00</div>
+                            </td>
+                            <td
+                                style="text-align:left;">
+                                <div class="num_value">$<span>45.00</div>
+                            </td>
+                            </td>
+                        </tr>
+                         <tr class="detail-row" data-group="details2">
+                            <td colspan="4" class="text-right"><strong>Total:</strong></td>
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">65
+                            </td>
+                            <td
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>1,583.00</div>
+                            </td>
+                            <td
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>79.15</div>
+                            </td>
+                            </td>
+                        </tr>
+                        {{-- end Member 2 --}}
+
+                         {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
+                        <tr>
+                            <td colspan="4" class="text-right"><strong>Total Agents:</strong></td>
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">135
+                            </td>
+                            <td
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>3,166.00</div>
+                            </td>
+                            <td
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>158.30</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <!-- ========= total ========= -->
+
+                        {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
+                        <tr>
+                            <td colspan="6" class="text-right"><strong>Operator Fee:</strong></td>
+                            
+                            <td
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>158.30</div>
+                            </td>
                         </tr>
 
                     </tfoot>
@@ -334,6 +478,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn-success-modal">Print</button>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
