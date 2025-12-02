@@ -6139,7 +6139,9 @@ span.image-title {
 .playmates_rmid {
     cursor: pointer;
 }
-
+.active-play li.playmate-inactive{
+    background-color: #c5c5c5 !important;
+}
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
     background: var(--blue--text) !important;
 }

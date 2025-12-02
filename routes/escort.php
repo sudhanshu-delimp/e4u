@@ -71,7 +71,7 @@ Route::get('/change-password', [EscortController::class, 'editPassword'])->name(
 Route::post('/change-password', [UserController::class, 'updatePassword'])->name('escort.update.password');
 Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('escort.update.password.expiry');
 
-//Route::get('/profile-information', [EscortController::class, 'ProfileInformation'])->name('escort.profile.information');
+
 Route::get('/notifications-features', [EscortController::class, 'notificationsFeatures'])->name('escort.profile.notifications');
 Route::post('/notifications-features', [EscortController::class, 'updateNotificationsFeatures'])->name('escort.profile.notifications');
 

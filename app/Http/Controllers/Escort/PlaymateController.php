@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Escort;
+use App\Models\PlaymateHistory;
 use App\Repositories\User\UserInterface;
 use App\Repositories\Escort\EscortInterface;
 
@@ -90,10 +91,16 @@ class PlaymateController extends Controller
         if($request->has('add_playmate')){
             $escort->playmates()->syncWithoutDetaching($request->add_playmate);
 
+            foreach($request->add_playmate as $playmateId){
+                $this->savePlaymateHistory($escort->id, $playmateId, $escort->user->id);
+            }
+
+
             foreach ($request->add_playmate as $playmateId) {//add profile to other escort profiles
                 $otherEscort = Escort::find($playmateId);
                 if ($otherEscort) {
                     $otherEscort->playmates()->syncWithoutDetaching($escort->id);
+                    $this->savePlaymateHistory($playmateId, $escort->id, $otherEscort->user->id);
                 }
             }
         }
@@ -102,6 +109,20 @@ class PlaymateController extends Controller
 
             $checkedIds = (!empty($request->update_playmate))?$request->update_playmate:[];
             $escort->playmates()->sync($checkedIds);
+
+            if(!empty($checkedIds)){
+                foreach($checkedIds as $playmateId){
+                    $this->savePlaymateHistory($escort->id, $playmateId, $escort->user->id);
+                }
+                
+                foreach ($request->update_playmate as $playmateId) {//add profile to other escort profiles
+                    $otherEscort = Escort::find($playmateId);
+                    if ($otherEscort) {
+                        $otherEscort->playmates()->syncWithoutDetaching($escort->id);
+                        $this->savePlaymateHistory($playmateId, $escort->id, $otherEscort->user->id);
+                    }
+                }
+            }
 
             $uncheckedIds = array_diff($playmateIds, $checkedIds);
             if(!empty($uncheckedIds)){//remove profile to other escort profiles
@@ -113,6 +134,22 @@ class PlaymateController extends Controller
                 }
             }
         }
+
+        
         return response()->json(compact('error'));
+    }
+
+    protected function savePlaymateHistory($escort_id, $playmate_id, $user_id){
+        PlaymateHistory::updateOrInsert(
+            [
+                'escort_id' => $escort_id,
+                'playmate_id' => $playmate_id,
+            ],
+            [
+                'user_id' => $user_id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
+        );
     }
 }
