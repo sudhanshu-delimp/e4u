@@ -20,21 +20,29 @@
                         <li>The following definitions are from the Agent Agreement and apply for the purpose of
                             calculating the Fee:
                             <ol class="level-2">
-                                <li>Fees mean the fees calculated pursuant to Item 5 of Schedule 1 and payable
+                                <li><b>Fees</b> mean the fees calculated pursuant to Item 5 of Schedule 1 and payable
                                     pursuant to clause 9.1.
                                 </li>
-                                <li>Monthly Report means the online report summarising all the activities for that
+                                <li> <b>Monthly Report</b> means the online report summarising all the activities for that
                                     month for Signed Up Advertisers which the calculation of the Fees for that month
                                     will be based on.
                                 </li>
                             </ol>
                         </li>
-                        <li>The Fees are paid to the Operator upon the Agent having approved them. Where there
-                            is a query raised by an Agent in respect of the Monthly Report, the Fee corresponding
-                            to the Query will be separated from the Report and remain in escrow until the query is
-                            resolved.
+                        <li>The Fees will be paid to the Agent within seven Business Days of the Agent Monthly
+                            Report having been approved, provided the Agent:
+                            <ol class="level-2">
+                                <li>has confirmed the correctness of the Monthly Report within three days; and
+                                </li>
+                                <li>where a query is raised in respect of the Monthly Report, the Fee corresponding
+                                    to the Query will be separated from the Report and remain in escrow until the query
+                                    is resolved (<b>Resolved Query</b>); and
+                                </li>
+                                <li>a Resolved Query will be included in the following Monthly Report.</li>
+                            </ol>
                         </li>
-                        <li>Fees are inclusive of GST.</li>
+                        <li>All Fees paid to the Agent under the Agent Agreement will be paid into your nominated
+                            Bank Account, as the Operator. Fees are inclusive of GST.</li>
                     </ol>
                 </div>
             </div>
@@ -51,13 +59,14 @@
                         <table class="table my_opr_table" id="AgentReportTable">
                             <thead class="opr-table-bg">
                                 <tr>
-                                    <th>Date Issued</th>
+                                    <th>Date</th>
                                     <th>Billing Period</th>
                                     <th>Agent ID</th>
                                     <th>Territory</th>
+                                    <th>Spend</th>
                                     <th>Fees</th>
                                     <th>Status</th>
-                                    <th>Date Agent Approved</th>
+                                    <th>Report Approved</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -67,7 +76,12 @@
                                     <td>01-10-25 to 31-10-25</td>
                                     <td>A600025</td>
                                     <td>WA</td>
-                                    <td>$ 237.45</td>
+                                    <td>
+                                        <div class="num_value">$<span>4,749.00</span></div>
+                                    </td>
+                                    <td>
+                                        <div class="num_value">$<span>237.45</span></div>
+                                    </td>
                                     <td>Agent Approved</td>
                                     <td>04-11-2025</td>
                                     <td>
@@ -83,11 +97,6 @@
                                                         class="dropdown-item align-item-custom toggle-massage-notification"
                                                         href="#" title="Click to disable notification">
                                                     </a>
-                                                    <a class="dropdown-item align-item-custom" data-toggle="modal"
-                                                        data-target="#payAgentreport" href=""> <i
-                                                            class="fa fa-star" aria-hidden="true"></i>
-                                                        Pay</a>
-                                                    <div class="dropdown-divider"></div>
                                                 </div>
 
                                                 <div class="custom-tooltip-container">
@@ -109,65 +118,6 @@
         </div>
     </div>
 </div>
-{{-- Payment Authorisation --}}
-
-<div class="modal fade opr-modal" id="payAgentreport" tabindex="-1" role="dialog"
-    aria-labelledby="payAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-        <div class="modal-content">
-
-            <!-- Header -->
-
-
-            <div class="modal-header">
-                
-                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/secure-payment.png') }}" class="custompopicon"> Payment Authorisation</h5>
-                <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                   <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
-                </a>
-            </div>
-            <!-- Body -->
-            <div class="modal-body" style="padding: 20px;">
-
-                <table class="w-100 table opr_modal_table">
-                    <tr>
-                        <td style="font-weight: bold; color: #001f4d;">Agent ID:</td>
-                        <td>A600025</td>
-                        <td style="font-weight: bold; color: #001f4d;">Date:</td>
-                        <td>01-10-25</td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; color: #001f4d;">Fee Total:</td>
-                        <td>$237.45</td>
-                        <td style="font-weight: bold; color: #001f4d;">Month:</td>
-                        <td>Oct</td>
-                    </tr>
-                </table>
-
-                <p>
-                    The Fee for the month is authorised for payment into the
-                    Operator’s nominated Bank Account for the Agent.
-                </p>
-
-                <p style="margin-top: 25px;">
-                    Managing Director: <span
-                        style="display: inline-block; border-bottom: 1px solid #000; width: 200px;"></span>
-                </p>
-
-                <hr style="margin: 20px 0;">
-
-                <div style="text-align: center;">
-
-                    <button type="button" class="opr-btn-common" data-dismiss="modal">
-                        Close
-                    </button>
-
-                    <button type="button" class="opr-btn-common">Print</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 {{-- end --}}
 
@@ -178,11 +128,12 @@
     <div class="modal-dialog modal-xl modal-dialog-centered opr_custom_modal" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                
-                 
-                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/report.png') }}" class="custompopicon">  Fee Report - Member ID A600025 (Period Ending: 31-10-25)</h5>
+
+
+                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/report.png') }}"
+                        class="custompopicon"> Fee Report (Period Ending: 31-10-25)</h5>
                 <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                   <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
+                    <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
                 </a>
             </div>
 
@@ -201,7 +152,7 @@
                         </tr>
                     </thead>
 
-                     <tbody id="accordionParent">
+                    <tbody id="accordionParent">
 
                         <!-- ========= MEMBER 1 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1"
@@ -211,8 +162,12 @@
                             <td>WA</td>
                             <td></td>
                             <td>35</td>
-                            <td class="text-left"><div class="num_value">$<span>683.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>34.15</span></div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>683.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>34.15</span></div>
+                            </td>
                         </tr>
 
                         <!-- Detail rows -->
@@ -222,8 +177,12 @@
                             <td></td>
                             <td>P</td>
                             <td>22</td>
-                            <td class="text-left"><div class="num_value">$<span>176.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>8.80</span></div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>176.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.80</span></div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td></td>
@@ -231,8 +190,12 @@
                             <td></td>
                             <td>G</td>
                             <td>4</td>
-                            <td class="text-left"><div class="num_value">$<span>24.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>1.20</span></div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>24.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>1.20</span></div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td></td>
@@ -240,8 +203,12 @@
                             <td></td>
                             <td>S</td>
                             <td>2</td>
-                            <td class="text-left"><div class="num_value">$<span>8.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>0.40</span></div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>0.40</span></div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td></td>
@@ -249,19 +216,32 @@
                             <td></td>
                             <td>PU</td>
                             <td>7</td>
-                            <td class="text-left"><div class="num_value">$<span>475.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>23.75</span></div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>475.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>23.75</span></div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">35
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">35
                             </td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>683.00</div></td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
-                                 <div class="num_value">$<span>34.15</div></td></td>
+                            <td
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div>
+                            </td>
+                            <td
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>34.15</div>
+                            </td>
+                            </td>
                         </tr>
-
+                        {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
                         <!-- ========= MEMBER 2 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details2"
                             aria-expanded="false" aria-controls="details2">
@@ -270,8 +250,12 @@
                             <td>WA</td>
                             <td></td>
                             <td>35</td>
-                            <td class="text-left"><div class="num_value">$<span>683.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>34.15</div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>683.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>34.15</div>
+                            </td>
                         </tr>
 
                         <tr class="detail-row" data-group="details2">
@@ -280,8 +264,12 @@
                             <td></td>
                             <td>P</td>
                             <td>22</td>
-                            <td class="text-left"><div class="num_value">$<span>176.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>8.80</div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>176.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.80</div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
                             <td></td>
@@ -289,8 +277,12 @@
                             <td></td>
                             <td>G</td>
                             <td>4</td>
-                            <td class="text-left"><div class="num_value">$<span>24.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>1.20</div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>24.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>1.20</div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
                             <td></td>
@@ -298,8 +290,12 @@
                             <td></td>
                             <td>S</td>
                             <td>2</td>
-                            <td class="text-left"><div class="num_value">$<span>8.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>0.40</div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>0.40</div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
                             <td></td>
@@ -307,31 +303,175 @@
                             <td></td>
                             <td>PU</td>
                             <td>7</td>
-                            <td class="text-left"><div class="num_value">$<span>475.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>23.75</div></td>
-                        </tr>
-                        <tr class="detail-row" data-group="details1">
-                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">35
+                            <td class="text-left">
+                                <div class="num_value">$<span>475.00</div>
                             </td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>683.00</div></td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
-                               <div class="num_value">$<span>34.15</div> </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>23.75</div>
+                            </td>
+                        </tr>
+                        {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
+                        <tr class="detail-row" data-group="details2">
+                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">35
+                            </td>
+                            <td
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div>
+                            </td>
+                            <td
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>34.15</div>
+                            </td>
+                        </tr>
+                        {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
+                        <tr>
+                            <td colspan="4" class="text-right"><strong>Total Escorts:</strong></td>
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">70
+                            </td>
+                            <td
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>1,366.00</div>
+                            </td>
+                            <td
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>68.30</div>
+                            </td>
+                        </tr>
+                        {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
+                        <!-- ========= MEMBER 3 ========= -->
+                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#details3"
+                            aria-expanded="false" aria-controls="details3">
+                            <td>M612380</td>
+                            <td class="opr_expand_arrow">Lin’s Massage <i class="fa fa-chevron-down"></i></td>
+                            <td>WA</td>
+                            <td></td>
+                            <td>35</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>683.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>34.15</div>
+                            </td>
                         </tr>
 
+                        <tr class="detail-row" data-group="details3">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>P</td>
+                            <td>22</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>176.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.80</div>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" data-group="details3">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>G</td>
+                            <td>4</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>24.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>1.20</div>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" data-group="details3">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>S</td>
+                            <td>2</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>0.40</div>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" data-group="details3">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>PU</td>
+                            <td>7</td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>475.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>23.75</div>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" data-group="details3">
+                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">35
+                            </td>
+                            <td
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div>
+                            </td>
+                            <td
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>34.15</div>
+                            </td>
+                        </tr>
+
+                        {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
+                        <tr>
+                            <td colspan="4" class="text-right"><strong>Total Massage Centres:</strong></td>
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">35
+                            </td>
+                            <td
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div>
+                            </td>
+                            <td
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>34.15</div>
+                            </td>
+                        </tr>
                     </tbody>
                     <tfoot>
-                         <!-- ========= MEMBER 2 ========= -->
+                        <!-- ========= total ========= -->
 
+                        {{-- space --}}
                         <tr>
-                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold">70
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
+                        <tr>
+                            <td colspan="4" class="text-right"><strong>Total Advertisers:</strong></td>
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">105
                             </td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>1,366.00</div></td>
-                            <td style="border-top: 1px solid #ccc; border-bottom:1px solid #ccc; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>68.30</div></td>
+                            <td
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>2,049.00</div>
+                            </td>
+                            <td
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>102.45</div>
+                            </td>
                         </tr>
 
                     </tfoot>
@@ -341,6 +481,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn-success-modal">Print</button>
+                <button type="button" class="btn-success-modal" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -369,7 +510,7 @@
 
             // Rotate arrow
             document.querySelectorAll('.accordion-toggle i').forEach(i => i.classList.remove(
-            'rotated'));
+                'rotated'));
             if (!isOpen) toggle.querySelector('i').classList.add('rotated');
         });
     });

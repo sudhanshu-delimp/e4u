@@ -901,8 +901,8 @@
                                 `<table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;"><tbody>`;
                             rows.forEach(function(r) {
                                 html += `
-                                        <tr>
-                                            <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>${r[0]}</strong></td>
+                                        <th>
+                                            <th style="text-align:left; border: 1px solid #ccc; padding: 8px;width:190px;">${r[0]}</th>
                                             <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">${r[1]}</td>
                                         </tr>
                                     `;

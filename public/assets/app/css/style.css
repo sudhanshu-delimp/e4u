@@ -6508,6 +6508,7 @@ i.fa.fa-heart-o{
         .custom--favourite:hover span.custom-heart-text {
             opacity: 1;
             visibility: visible;
+            text-wrap: nowrap;
         }
         
         .brb--listing .custom--favourite span.custom-heart-text {
