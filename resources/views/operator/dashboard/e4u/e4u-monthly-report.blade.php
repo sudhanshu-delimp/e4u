@@ -130,7 +130,7 @@
                         <!-- ========= MEMBER 1 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1"
                             aria-expanded="false" aria-controls="details1">
-                            <td>A10044</td>
+                            <td class="text-left">A10044</td>
                             <td class="opr_expand_arrow">Business 01 <i class="fa fa-chevron-down"></i></td>
                             <td>ACT</td>
                             <td></td>
@@ -253,7 +253,7 @@
                         
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details2"
                             aria-expanded="false" aria-controls="details2">
-                            <td>A10056</td>
+                            <td class="text-left">A10056</td>
                             <td class="opr_expand_arrow">Business 02 <i class="fa fa-chevron-down"></i></td>
                             <td>NSW</td>
                             <td></td>
@@ -406,7 +406,7 @@
 
 
             <div class="modal-footer">
-                <button type="button" class="btn-success-modal">Print</button>
+                {{-- <button type="button" class="btn-success-modal">Print</button> --}}
                 <button type="button" class="btn-success-modal" data-dismiss="modal">Close</button>
             </div>
         </div>

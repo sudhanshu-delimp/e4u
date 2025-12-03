@@ -9,7 +9,7 @@
    <div class="row">
        {{-- Page Heading   --}}
       <div class="custom-heading-wrapper col-lg-12">
-         <h1 class="h1">Monthly Fee Report</h1>
+         <h1 class="h1">Monthly Report</h1>
          <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
       </div>
       <div class="col-md-12 mb-4">
@@ -18,31 +18,27 @@
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
                   <li>
-                     The following definitions are from the Agent Agreement and apply for the purpose of calculating Commission:
-                     <ul class="pt-2 mt-1 list-new" style="">
-                        <li><b>Billing Period</b> means each billing period as provided for in clause 5.4 (monthly ending on the 27th on each month).</li>
-                        <li class="d-flex"> <span><b>Commission</b> means the total sum of commission, if any, which are earned by an Agent in a Billing Period in relation to all Users and calculated in accordance with clause 5 and the Commission Details (Second Schedule).</span></li>
-                        <li><b>Commission Report</b> means the summary of business activity of Users which have appointed the Agent.</li>
-                     </ul>
+                     The following definitions are from the Agent Agreement and apply for the purpose of calculating the Fee:
+                     <ol class="level-2">
+                        <li><b>Fees</b> mean the fees calculated pursuant to Item 5 of Schedule 1 and payable pursuant to clause 9.1.</li>
+                        <li><b>Monthly Report</b> means the online report summarising all the activities for that
+                           month for Signed Up Advertisers which the calculation of the Fees for that month
+                           will be based on.</li>
+                     </ol>
                   </li>
-                  <li class="mb-0">
-                     Commission will be paid to you within three (3) Business Days of the Commission Report having been provided to you, provided you have:
-                     <ul class="pt-2 mt-1 list-new">
-                        <li>Confirmed the correctness of the Commission Report within the 3 days; and</li>
-                        <li>There are no amendments you have requested;</li>
-                        <li class="d-flex">Where any amendments are made to the Commission Report, and the amendments are agreed to within three (3) Business days, then the amended Commission value will be paid within three (3) Business Days of the Commission Report; otherwise
-                        </li>
-                        <li class="d-flex">the amended Commission Report will be paid within seven (7) Business
-                           Days of the amended Commission Report having been agreed to by the
-                           Agent and E4U.
-                        </li>
-                     </ul>
+                  <li>
+                     The Fees will be paid to you, by the Operator, within seven Business Days of the
+                        Monthly Report having been approved by you, provided:
+                        <ol class="level-2">
+                           <li>you have confirmed the correctness of the Monthly Report within three days;</li>
+                           <li>where a query is raised in respect of the Monthly Report, the Fee corresponding
+                        to the Query will be separated from the Report and remain in escrow until the query
+                        is resolved (<b>Resolved Query</b>); and</li>
+                        <li>a Resolved Query will be included in the following Monthly Report.</li>
+                        </ol>
                   </li>
-                  <li class="mb-0">All Commission paid to you under the Agent Agreement will be paid into your
-                     nominated Bank Account. Commission is inclusive of GST.
-                  </li>
-                  <li class="mb-0">Any queries regarding Commission must be raised by logging a <a href="{{ url('submit_ticket') }}" class="termsandconditions_text_color custom_links_design">Support Ticket</a> with
-                     E4U.
+                  <li>All Fees paid to you under the Agent Agreement will be paid into your nominated Bank
+                        Account, by the Operator. Fees are inclusive of GST.
                   </li>
                </ol>
             </div>
@@ -54,26 +50,30 @@
       <div class="col-md-12">
          
          <div class="table-responsive-xl">
-            <table class="table" id="commissionStatementTable">
+            <table class="table table_admin" id="commissionStatementTable">
                <thead class="table-bg">
                   <tr>
-                     <th>Date</th>
+                     <th>Report Date</th>
                      <th>Billing Period</th>
                      <th>Agent ID</th>
                      <th>Territory</th>
-                     <th>Commission</th>
+                     <th>Spend</th>
+                     <th>Fees</th>
                      <th>Status</th>
+                     <th>Report Approved</th>
                      <th class="text-center">Action</th>
                   </tr>
                </thead>
                <tbody class="table-content">
                   <tr>
-                     <td>28-06-22</td>
-                     <td>28-05-22 to 27-06-22</td>
+                     <td>01-11-2025</td>
+                     <td>01-10-2025 to 31-10-2025 </td>
                      <td>A600025</td>
                      <td>WA</td>
-                     <td>$ 5,678.50</td>
+                     <td class="text-left"><div class="num_value">$<span>4,749.00</span></div></td>
+                     <td class="text-left"><div class="num_value">$<span>237.45</span></div></td>
                      <td>Approved</td>
+                     <td>01-11-2025</td>
                      <td>
                         <div class="dropdown no-arrow text-center">
                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -82,336 +82,341 @@
                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                               <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#"><i class="fa fa-check-circle"></i> Approve</a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#commission-report"> <i class="fa fa-eye"></i> View Report</a>
-                           </div>
-                        </div>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td>28-06-22</td>
-                     <td>28-05-22 to 27-06-22</td>
-                     <td>A600025</td>
-                     <td>WA</td>
-                     <td>$ 5,678.50</td>
-                     <td>Pending</td>
-                     <td>
-                        <div class="dropdown no-arrow text-center">
-                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                           </a>
-                           <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#"> <i class="fa fa-check-circle"></i> Approve</a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#"><i class="fa fa-search-minus"></i>
+ Query</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#commission-report"> <i class="fa fa-eye"></i> View Report</a>
                            </div>
                         </div>
                      </td>
                   </tr>
+                
                </tbody>
             </table>
             
          </div>
       </div>
-      <div class="col-md-12">
-         {{-- <div class="row">
-            <div class="col-md-9 pl-0">
-               <div id="accordion" class="myacording-design">
-                  <div class="card">
-                     <div class="card-header">
-                        <a class="card-link collapsed" data-toggle="collapse" href="#Abbreviations" aria-expanded="false">
-                        Notes
-                        </a>
-                     </div>
-                     <div id="Abbreviations" class="collapse" data-parent="#accordion" style="">
-                        <div class="card-body pb-0">
-                           <div class="accodien_manage_padding_content">
-                              
-                              <ol class="pl-3 mb-0">
-                                 <li>
-                                    The following definitions are from the Agent Agreement and apply for the purpose of calculating Commission:
-                                    <ul class="pt-2 mt-1 list-new" style="">
-                                       <li><b>Billing Period</b> means each billing period as provided for in clause 5.4 (monthly ending on the 27th on each month).</li>
-                                       <li class="d-flex"> <span><b>Commission</b> means the total sum of commission, if any, which are earned by an Agent in a Billing Period in relation to all Users and calculated in accordance with clause 5 and the Commission Details (Second Schedule).</span></li>
-                                       <li><b>Commission Report</b> means the summary of business activity of Users which have appointed the Agent.</li>
-                                    </ul>
-                                 </li>
-                                 <li class="mb-0">
-                                    Commission will be paid to you within three (3) Business Days of the Commission Report having been provided to you, provided you have:
-                                    <ul class="pt-2 mt-1 list-new">
-                                       <li>Confirmed the correctness of the Commission Report within the 3 days; and</li>
-                                       <li>There are no amendments you have requested;</li>
-                                       <li class="d-flex">Where any amendments are made to the Commission Report, and the amendments are agreed to within three (3) Business days, then the amended Commission value will be paid within three (3) Business Days of the Commission Report; otherwise
-                                       </li>
-                                       <li class="d-flex">the amended Commission Report will be paid within seven (7) Business
-                                          Days of the amended Commission Report having been agreed to by the
-                                          Agent and E4U.
-                                       </li>
-                                    </ul>
-                                 </li>
-                                 <li class="mb-0">All Commission paid to you under the Agent Agreement will be paid into your
-                                    nominated Bank Account. Commission is inclusive of GST.
-                                 </li>
-                                 <li class="mb-0">Any queries regarding Commission must be raised by logging a <a href="http://localhost/e4u/public/agent-dashboard/submitticket" class="termsandconditions_text_color custom_links_design">Support Ticket</a> with
-                                    E4U.
-                                 </li>
-                              </ol>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div> --}}
-      </div>
    </div>
   </div>
 </div>
-<div class="modal fade upload-modal" id="commission-report" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 886px !important;">
-      <div class="modal-content basic-modal">
-         <div class="modal-header">
-            <h5 class="modal-title" id="commission-report"><img src="{{ asset('assets/dashboard/img/set-commission.png')}}" class="custompopicon"> Commission Report (Period Ending 27-06-2022)</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-            </button>
-         </div>
-         <div class="modal-body pb-0">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="card mb-3">
-                     <div class="card-body pb-0">
-                        <p class="mb-1"><b>Notes</b> </p>
-                        <ol class="pl-3">
-                           <li style="font-size: 14px;">Membership levels: <span class="ml-4">P = Platinum</span>  <span class="ml-4">G = Gold</span>   <span class="ml-4">S = Silver</span>   <span class="ml-4">PU = Pin Up</span>   <span class="ml-4">F = Fixed daily rate</span>
-                           </li>
-                           <li class="mb-0" style="font-size: 14px;">Rates (Daily): <span class="ml-4"> P = $ 8.00 </span>  <span class="ml-4">G = $ 6.00</span>  <span class="ml-4"> S = $4.00 </span>  <span class="ml-4">F = $ 30.00  </span> 
-                             <span class="ml-4"> (Weekly):  PU = $ 475.00 </span>
-                           </li>
-                        </ol>
-                     </div>
-                  </div>
-               </div>
+
+
+
+{{-- View Report --}}
+
+<div class="modal fade upload-modal" id="commission-report" tabindex="-1" role="dialog"
+    aria-labelledby="commission-reportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-xl modal-dialog-centered custom_admin_modal" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+
+                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
+                        class="custompopicon"> Fee Report (Period Ending: 31-10-25)</h5>
+                <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                </a>
             </div>
-   <div class="table-responsive-xl">
-               <table class="table commission-table">
-                     <thead class="table-bg">
+
+            <div class="modal-body">
+
+                <table class="table table-bordered mb-0 common_accordian_table">
+                    <thead class="table-bg modal-thaed">
                         <tr>
-                           <th scope="col">Member ID</th>
-                           <th scope="col">Name</th>
-                           <th scope="col">Territory</th>
-                           <th scope="col">Level 1 <sup>(1)</sup></th>
-                           <th scope="col">Days</th>
-                           <th scope="col">Value <sup>(2)</sup></th>
-                           <th scope="col">Commission</th>
+                            <th>Member ID</th>
+                            <th>Name</th>
+                            <th>Territory</th>
+                            <th>Type</th>
+                            <th>Days</th>
+                            <th>Spend</th>
+                            <th>Fee</th>
                         </tr>
-                     </thead>
-                        <tbody class="table-content">
-                           <tr class="row-color">
-                              <td class="theme-color">E612344</td>
-                              <td class="theme-color">Oxe Daisy</td>
-                              <td class="theme-color">WA</td>
-                              <td class="theme-color">P</td>
-                              <td class="theme-color">22</td>
-                              <td class="theme-color">$ 176.00</td>
-                              <td class="theme-color">$ 8.80</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color">G</td>
-                              <td class="theme-color">4</td>
-                              <td class="theme-color">$ 24.00</td>
-                              <td class="theme-color">$ 1.20</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color">S</td>
-                              <td class="theme-color">2</td>
-                              <td class="theme-color">$ 8.00</td>
-                              <td class="theme-color">$ 0.40</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color">PU</td>
-                              <td class="theme-color">7</td>
-                              <td class="theme-color">$ 475.00</td>
-                              <td class="theme-color">$ 23.75</td>
-                           </tr>
-                           <tr class="commission-color">
-                              <td class="border-0" colspan="3"></td>
-                              <td colspan="1"><b>Totals</b></td>
-                              <td class="commission-border">35</td>
-                              <td class="commission-border">$ 683.00</td>
-                              <td class="commission-border">$ 34.15</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color">E612351</td>
-                              <td class="theme-color">Rose Chaplin</td>
-                              <td class="theme-color">WA</td>
-                              <td class="theme-color">P</td>
-                              <td class="theme-color">22</td>
-                              <td class="theme-color">$ 176.00</td>
-                              <td class="theme-color">$ 8.80</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color">G</td>
-                              <td class="theme-color">4</td>
-                              <td class="theme-color">$ 24.00</td>
-                              <td class="theme-color">$ 1.20</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color">S</td>
-                              <td class="theme-color">2</td>
-                              <td class="theme-color">$ 8.00</td>
-                              <td class="theme-color">$ 0.40</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color">PU</td>
-                              <td class="theme-color">7</td>
-                              <td class="theme-color">$ 475.00</td>
-                              <td class="theme-color">$ 23.75</td>
-                           </tr>
-                           <tr class="commission-color">
-                              <td class="border-0" colspan="3"></td>
-                              <td colspan="1"><b>Totals</b></td>
-                              <td class="commission-border">35</td>
-                              <td class="commission-border">$ 683.00</td>
-                              <td class="commission-border">$ 34.15</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color">E612366</td>
-                              <td class="theme-color">Marry Smith</td>
-                              <td class="theme-color">WA</td>
-                              <td class="theme-color">P</td>
-                              <td class="theme-color">22</td>
-                              <td class="theme-color">$ 176.00</td>
-                              <td class="theme-color">$ 8.80</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color">G</td>
-                              <td class="theme-color">4</td>
-                              <td class="theme-color">$ 24.00</td>
-                              <td class="theme-color">$ 1.20</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color">S</td>
-                              <td class="theme-color">2</td>
-                              <td class="theme-color">$ 8.00</td>
-                              <td class="theme-color">$ 0.40</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color"> </td>
-                              <td class="theme-color">PU</td>
-                              <td class="theme-color">7</td>
-                              <td class="theme-color">$ 475.00</td>
-                              <td class="theme-color">$ 23.75</td>
-                           </tr>
-                           <tr class="commission-color">
-                              <td class="border-0" colspan="3"></td>
-                              <td colspan="1"><b>Totals</b></td>
-                              <td class="commission-border">35</td>
-                              <td class="commission-border">$ 683.00</td>
-                              <td class="commission-border">$ 34.15</td>
-                           </tr>
-                           <tr class="commission-color">
-                              <td class="border-0" colspan="3"></td>
-                              <td class=" " colspan="1"><b>Total Escorts</b></td>
-                              <td class="commission-border commission-border-double">105</td>
-                              <td class="commission-border commission-border-double">$ 2,049.00</td>
-                              <td class="commission-border commission-border-double">$ 102.45</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color">M612380</td>
-                              <td class="theme-color">Lin’s Massage</td>
-                              <td class="theme-color">WA</td>
-                              <td class="theme-color">F</td>
-                              <td class="theme-color">30</td>
-                              <td class="theme-color">$ 900.00</td>
-                              <td class="theme-color">$ 45.00</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color">M612380</td>
-                              <td class="theme-color">Lin’s Massage</td>
-                              <td class="theme-color">WA</td>
-                              <td class="theme-color">F</td>
-                              <td class="theme-color">30</td>
-                              <td class="theme-color">$ 900.00 </td>
-                              <td class="theme-color">$ 45.00</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color">M612380</td>
-                              <td class="theme-color">Lin’s Massage</td>
-                              <td class="theme-color">WA</td>
-                              <td class="theme-color">F</td>
-                              <td class="theme-color">30</td>
-                              <td class="theme-color">$ 900.00</td>
-                              <td class="theme-color">$ 45.00</td>
-                           </tr>
-                           <tr class="row-color">
-                              <td class="theme-color">M612380</td>
-                              <td class="theme-color">Lin’s Massagey</td>
-                              <td class="theme-color">WA</td>
-                              <td class="theme-color">F</td>
-                              <td class="theme-color">30</td>
-                              <td class="theme-color">$ 900.00</td>
-                              <td class="theme-color">$ 45.00</td>
-                           </tr>
-                           <tr class="commission-color">
-                              <td class="border-0" colspan="3"></td>
-                              <td class=" " colspan="1"><b>Total Massage Centres:</b></td>
-                              <td class="commission-border commission-border-double">120</td>
-                              <td class="commission-border commission-border-double">$ 3,600.00</td>
-                              <td class="commission-border commission-border-double">$ 180.00</td>
-                           </tr>
-                           <tr class="commission-color">
-                              <td class="border-0" colspan="3"></td>
-                              <td class=" " colspan="1"><b>Total Advertisers:</b></td>
-                              <td class="commission-border commission-border-double">225</td>
-                              <td class="commission-border commission-border-double">$ 5,649.00</td>
-                              <td class="commission-border commission-border-double">$ 282.45</td>
-                           </tr>
-                        </tbody>
-                  </table>
-               </div>
+                    </thead>
+
+                    
+                     <tbody id="accordionParent">
+
+                        <!-- ========= MEMBER 1 ========= -->
+                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1"
+                            aria-expanded="false" aria-controls="details1">
+                            <td>E612344</td>
+                            <td class="opr_expand_arrow">Oxe Daisy <i class="fa fa-chevron-down"></i></td>
+                            <td>WA</td>
+                            <td></td>
+                            <td>35</td>
+                            <td class="text-left"><div class="num_value">$<span>683.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>34.15</span></div></td>
+                        </tr>
+
+                        <!-- Detail rows -->
+                        <tr class="detail-row" data-group="details1">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>P</td>
+                            <td>22</td>
+                            <td class="text-left"><div class="num_value">$<span>176.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>8.80</span></div></td>
+                        </tr>
+                        <tr class="detail-row" data-group="details1">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>G</td>
+                            <td>4</td>
+                            <td class="text-left"><div class="num_value">$<span>24.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>1.20</span></div></td>
+                        </tr>
+                        <tr class="detail-row" data-group="details1">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>S</td>
+                            <td>2</td>
+                            <td class="text-left"><div class="num_value">$<span>8.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>0.40</span></div></td>
+                        </tr>
+                        <tr class="detail-row" data-group="details1">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>PU</td>
+                            <td>7</td>
+                            <td class="text-left"><div class="num_value">$<span>475.00</span></div></td>
+                            <td class="text-left"><div class="num_value">$<span>23.75</span></div></td>
+                        </tr>
+                        <tr class="detail-row" data-group="details1">
+                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">35
+                            </td>
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div></td>
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                 <div class="num_value">$<span>34.15</div></td></td>
+                        </tr>
+                        {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
+                        <!-- ========= MEMBER 2 ========= -->
+                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#details2"
+                            aria-expanded="false" aria-controls="details2">
+                            <td>E612351</td>
+                            <td class="opr_expand_arrow">Rose Chaplin <i class="fa fa-chevron-down"></i></td>
+                            <td>WA</td>
+                            <td></td>
+                            <td>35</td>
+                            <td class="text-left"><div class="num_value">$<span>683.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>34.15</div></td>
+                        </tr>
+
+                        <tr class="detail-row" data-group="details2">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>P</td>
+                            <td>22</td>
+                            <td class="text-left"><div class="num_value">$<span>176.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>8.80</div></td>
+                        </tr>
+                        <tr class="detail-row" data-group="details2">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>G</td>
+                            <td>4</td>
+                            <td class="text-left"><div class="num_value">$<span>24.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>1.20</div></td>
+                        </tr>
+                        <tr class="detail-row" data-group="details2">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>S</td>
+                            <td>2</td>
+                            <td class="text-left"><div class="num_value">$<span>8.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>0.40</div></td>
+                        </tr>
+                        <tr class="detail-row" data-group="details2">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>PU</td>
+                            <td>7</td>
+                            <td class="text-left"><div class="num_value">$<span>475.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>23.75</div></td>
+                        </tr>
+
+                        {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
+                        <tr class="detail-row" data-group="details2">
+                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">35
+                            </td>
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div></td>
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                               <div class="num_value">$<span>34.15</div> </td>
+                        </tr>
+                        {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
+                        <tr>
+                            <td colspan="4" class="text-right"><strong>Total Escorts:</strong></td>
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">70
+                            </td>
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>1,366.00</div></td>
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>68.30</div></td>
+                        </tr>
+                        {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
+                        <!-- ========= MEMBER 3 ========= -->
+                        <tr class="accordion-toggle" data-toggle="collapse" data-target="#details3"
+                            aria-expanded="false" aria-controls="details3">
+                            <td>M612380</td>
+                            <td class="opr_expand_arrow">Lin’s Massage <i class="fa fa-chevron-down"></i></td>
+                            <td>WA</td>
+                            <td></td>
+                            <td>35</td>
+                            <td class="text-left"><div class="num_value">$<span>683.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>34.15</div></td>
+                        </tr>
+
+                        <tr class="detail-row" data-group="details3">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>P</td>
+                            <td>22</td>
+                            <td class="text-left"><div class="num_value">$<span>176.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>8.80</div></td>
+                        </tr>
+                        <tr class="detail-row" data-group="details3">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>G</td>
+                            <td>4</td>
+                            <td class="text-left"><div class="num_value">$<span>24.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>1.20</div></td>
+                        </tr>
+                        <tr class="detail-row" data-group="details3">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>S</td>
+                            <td>2</td>
+                            <td class="text-left"><div class="num_value">$<span>8.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>0.40</div></td>
+                        </tr>
+                        <tr class="detail-row" data-group="details3">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>PU</td>
+                            <td>7</td>
+                            <td class="text-left"><div class="num_value">$<span>475.00</div></td>
+                            <td class="text-left"><div class="num_value">$<span>23.75</div></td>
+                        </tr>
+                        <tr class="detail-row" data-group="details3">
+                            <td colspan="4" class="text-right"><strong>Totals:</strong></td>
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">35
+                            </td>
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div></td>
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                               <div class="num_value">$<span>34.15</div> </td>
+                        </tr>
+
+                         {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
+                        <tr>
+                            <td colspan="4" class="text-right"><strong>Total Massage Centres:</strong></td>
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">35
+                            </td>
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>683.00</div></td>
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>34.15</div></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                         <!-- ========= total ========= -->
+
+                         {{-- space --}}
+                        <tr>
+                            <td colspan="7" style="padding:10px"></td>
+                        </tr>
+                        {{-- end --}}
+                        <tr>
+                            <td colspan="4" class="text-right"><strong>Total Advertisers:</strong></td>
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">105
+                            </td>
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>2,049.00</div></td>
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>102.45</div></td>
+                        </tr>
+
+                    </tfoot>
+                </table>
             </div>
-            <div class="modal-footer pt-0">
-               <button type="button" class="btn-success-modal">Query</button>
-               <button type="button" class="btn-success-modal">Approve</button>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn-success-modal">Print</button>
+                <button type="button" class="btn-success-modal" data-dismiss="modal">Query</button>
+                <button type="button" class="btn-success-modal" data-dismiss="modal">Approve</button>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
+</div>
+
+{{-- end --}}
 @endsection
 @push('script')
 <!-- file upload plugin start here -->
-<!-- file upload plugin end here -->
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
+<script>
+    
+    document.querySelectorAll('.accordion-toggle').forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const target = toggle.getAttribute('data-target').replace('#', '');
+            const openGroup = document.querySelectorAll(`.detail-row[data-group="${target}"]`);
+            const isOpen = openGroup[0]?.classList.contains('show');
+
+            // Close all open groups
+            document.querySelectorAll('.detail-row.show').forEach(r => {
+                r.classList.remove('show');
+            });
+
+            // Open current group if not already open
+            if (!isOpen) {
+                openGroup.forEach(r => r.classList.add('show'));
+            }
+
+            // Rotate arrow
+            document.querySelectorAll('.accordion-toggle i').forEach(i => i.classList.remove(
+                'rotated'));
+            if (!isOpen) toggle.querySelector('i').classList.add('rotated');
+        });
+    });
+</script>
 <script>
    $(document).ready(function() {
        $('#commissionStatementTable').DataTable({
@@ -425,7 +430,11 @@
            lengthMenu: [10, 25, 50, 100],
            info: true,
            searching: true,
-           order: [[1, 'asc']]
+           order: [[1, 'asc']],
+           columnDefs: [{
+            targets: 8,
+            orderable: false
+        }]
        });
    });
    </script>
