@@ -24,6 +24,7 @@ use App\Http\Requests\Escort\UpdateRequestAbout;
 use App\Repositories\Duration\DurationInterface;
 use App\Http\Requests\Escort\StoreServiceRequest;
 use App\Http\Requests\Escort\UpdateRequestPolicy;
+use App\Repositories\Escort\EscortMediaInterface;
 use App\Repositories\Escort\AvailabilityInterface;
 use App\Http\Requests\Escort\UpdateRequestReadMore;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
@@ -43,13 +44,18 @@ class CenterProfileInformationController extends BaseController
     protected $duration;
     protected $user;
     protected $media;
+    protected $esc_media;
     protected $massage_profile;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(MassageProfileInterface $massage_profile, UserInterface $user,EscortInterface $escort, MassageAvailabilityInterface $massage_availability,  ServiceInterface $service, DurationInterface $duration, MassageMediaInterface $media)
+
+    
+
+
+    public function __construct(MassageProfileInterface $massage_profile, UserInterface $user, EscortMediaInterface $esc_media,  EscortInterface $escort, MassageAvailabilityInterface $massage_availability,  ServiceInterface $service, DurationInterface $duration, MassageMediaInterface $media)
     {
         $this->escort = $escort;
         $this->massage_availability = $massage_availability;
@@ -58,6 +64,7 @@ class CenterProfileInformationController extends BaseController
         $this->user = $user;
         $this->media = $media;
         $this->massage_profile = $massage_profile;
+        $this->esc_media = $esc_media;
     }
 
     // public function updateBasicProfile($id)
@@ -430,10 +437,12 @@ class CenterProfileInformationController extends BaseController
 
     public function galleries()
     {
-        $media = $this->media->findByUid(auth()->user()->id);
-        $path = $this->media;
+        // $media = $this->media->findByUid(auth()->user()->id);
+        // $path = $this->media;
         //dd($path->findByposition(auth()->user()->id,1)['path']);
         
+         $media = $this->esc_media->with_Or_withoutPosition(auth()->user()->id, []);
+         $path = $this->esc_media;
         return view('center.dashboard.archives.archive-view-photos',compact('path','media'));
     }
     public function defaultImages(Request $request)
