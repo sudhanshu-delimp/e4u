@@ -474,7 +474,11 @@ class ProfileInformationController extends Controller
              */
             $otherEscortProfile = Escort::find($item->playmate_id);
             $otherEscortProfile->playmates()->detach($escortPorfileIdsWithPlaymate);
-            $item->where('playmate_id',$item->playmate_id)->delete();
+
+            /**
+             * Remove records from the history table that matches user and playmate ids.
+             */
+            $item->where(['user_id'=>$item->user_id,'playmate_id'=>$item->playmate_id,])->delete();
         } catch (\Exception $e) {
             $error = true;
             $message = 'Failed to remove playmate: ' . $e->getMessage();
