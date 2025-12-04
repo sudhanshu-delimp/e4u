@@ -446,10 +446,11 @@
                     // Hide all conditionally visible fields initially
                     $('#scheduledSection, #noticeSection, #weeklyOptions, #monthlyOptions, #startyearlyOptions, #endyearlyOptions, #numberOfRecurring, #weekOptions').hide();
                     $('#currentDateField, #headingField, #startDateField, #endDateField, #contentField').show();
-                    if (type === 'Ad hoc') {
+                    if (type == 'Ad hoc') {
                         // All already shown, no extra fields
                         $("#numberOfRecurring").val('');
                         $("#member_id").val('');
+                        $('#scheduledSection').show();
                     } else if (type === 'Notice') {
                         // Notice: Also show member_id
                         $('#noticeSection').show();
