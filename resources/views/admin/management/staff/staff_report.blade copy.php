@@ -175,7 +175,7 @@
                 <h5 class="heading">Next of Kin (Emergency Contact)</h5>
                 <div class="info-grid">
                     <div class="info-item {{ $staff->staff_detail->kin_name == '' ? 'd-none' : '' }}">
-                        <label>Kin of Name</label>
+                        <label>Name of Kin</label>
                         <span class="account_member_id">{{ $staff->staff_detail->kin_name }}</span>
                     </div>
                     <div class="info-item {{ $staff->staff_detail->kin_relationship == '' ? 'd-none' : '' }}">

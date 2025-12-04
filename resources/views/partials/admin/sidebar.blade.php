@@ -1,3 +1,8 @@
+
+@php
+    $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+    $sidebar = staffPageAccessPermission( $securityLevel, 'sidebar'); 
+@endphp
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
     <!-- Sidebar - Brand -->
@@ -362,7 +367,7 @@
     @if (auth()->user() && auth()->user()->type == 1)
         <a class="sidebar-brand text-left" href="{{ route('home') }}">
             <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3" alt=""><br>
-            <span style="color:#FF3C5F;" class="font-weight-normal">Operations Console (Management)</span>
+            <span style="color:#FF3C5F;" class="font-weight-normal">OC (Management)</span>
         </a>
         <li class="nav-item active">
             <a class="nav-link" href="{{ route('admin.index') }}">
@@ -808,49 +813,7 @@
                 <span>Support Tickets </span>
             </a>
         </li>
-        <li
-            style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#myaccount"
-                aria-expanded="false" aria-controls="collapseTwo">
-                <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M8 0.720703C9.06087 0.720703 10.0783 1.14213 10.8284 1.89228C11.5786 2.64242 12 3.65984 12 4.7207C12 5.78157 11.5786 6.79899 10.8284 7.54913C10.0783 8.29928 9.06087 8.7207 8 8.7207C6.93913 8.7207 5.92172 8.29928 5.17157 7.54913C4.42143 6.79899 4 5.78157 4 4.7207C4 3.65984 4.42143 2.64242 5.17157 1.89228C5.92172 1.14213 6.93913 0.720703 8 0.720703ZM8 10.7207C12.42 10.7207 16 12.5107 16 14.7207V16.7207H0V14.7207C0 12.5107 3.58 10.7207 8 10.7207Z"
-                        fill="#C2CFE0"></path>
-                </svg>
-                <span>My Account </span>
-            </a>
-            <div id="myaccount" class="collapse @if (request()->segment(2) == 'update-account' ||
-                    request()->segment(2) == 'profile-informations' ||
-                    request()->segment(2) == 'change-password' ||
-                    request()->segment(2) == 'upload-my-avatar') show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-                <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="collapse-item" href="{{ route('admin.account.edit') }}">
-                        <img width="16" height="17" viewBox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
-                        <span style="{{ request()->segment(2) == 'update-account' ? 'color: #FF3C5F;' : '' }}">Edit
-                            my account..</span></a>
-                    {{-- <a class="collapse-item" href="{{ route('center.profile.information')}}">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png')}}">
-                <span style="{{request()->segment(2) == 'profile-informations' ? 'color: #FF3C5F;' : ''}}">Profile information</span></a> --}}
-                    <a class="collapse-item" href="{{ route('admin.change.password') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
-                        <span
-                            style="{{ request()->segment(2) == 'change-password' ? 'color: #FF3C5F;' : '' }}">Change
-                            password</span></a>
-                    <a class="collapse-item" href="{{ route('admin.profile.avatar') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
-                        <span
-                            style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #FF3C5F;' : '' }}">Upload
-                            my avatar</span></a>
-                </div>
-            </div>
-        </li>
+        
         {{-- <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;"></li> --}}
 
         {{-- <li class="nav-item">
@@ -928,10 +891,11 @@
                 </div>
             </div>
         </li> --}}
-        <li
+        
+@if(isset($sidebar['management']['yesNo']) && $sidebar['management']['yesNo'] == 'yes')
+<li
             style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
         </li>
-
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Management"
                 aria-expanded="false" aria-controls="Management">
@@ -1229,7 +1193,51 @@
                 </div>
             </div>
         </li>
-        
+        @endif
+
+        <li
+            style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#myaccount"
+                aria-expanded="false" aria-controls="collapseTwo">
+                <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M8 0.720703C9.06087 0.720703 10.0783 1.14213 10.8284 1.89228C11.5786 2.64242 12 3.65984 12 4.7207C12 5.78157 11.5786 6.79899 10.8284 7.54913C10.0783 8.29928 9.06087 8.7207 8 8.7207C6.93913 8.7207 5.92172 8.29928 5.17157 7.54913C4.42143 6.79899 4 5.78157 4 4.7207C4 3.65984 4.42143 2.64242 5.17157 1.89228C5.92172 1.14213 6.93913 0.720703 8 0.720703ZM8 10.7207C12.42 10.7207 16 12.5107 16 14.7207V16.7207H0V14.7207C0 12.5107 3.58 10.7207 8 10.7207Z"
+                        fill="#C2CFE0"></path>
+                </svg>
+                <span>My Account </span>
+            </a>
+            <div id="myaccount" class="collapse @if (request()->segment(2) == 'update-account' ||
+                    request()->segment(2) == 'profile-informations' ||
+                    request()->segment(2) == 'change-password' ||
+                    request()->segment(2) == 'upload-my-avatar') show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-0 collapse-inner rounded mb-2">
+                    <a class="collapse-item" href="{{ route('admin.account.edit') }}">
+                        <img width="16" height="17" viewBox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                        <span style="{{ request()->segment(2) == 'update-account' ? 'color: #FF3C5F;' : '' }}">Edit
+                            my account..</span></a>
+                    {{-- <a class="collapse-item" href="{{ route('center.profile.information')}}">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png')}}">
+                <span style="{{request()->segment(2) == 'profile-informations' ? 'color: #FF3C5F;' : ''}}">Profile information</span></a> --}}
+                    <a class="collapse-item" href="{{ route('admin.change.password') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'change-password' ? 'color: #FF3C5F;' : '' }}">Change
+                            password</span></a>
+                    <a class="collapse-item" href="{{ route('admin.profile.avatar') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #FF3C5F;' : '' }}">Upload
+                            my avatar</span></a>
+                </div>
+            </div>
+        </li>
     @endif
 </ul>
 

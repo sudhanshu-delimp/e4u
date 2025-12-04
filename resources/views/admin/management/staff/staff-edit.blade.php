@@ -45,7 +45,7 @@
 
         <div class="col-6 mb-3">
             <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0"
-                placeholder="Kin of Name" value="{{ $staff->staff_detail->kin_name }}">
+                placeholder="Name of Kin" value="{{ $staff->staff_detail->kin_name }}">
             <span class="text-danger error-kin_name"></span>
         </div>
         <div class="col-6 mb-3">
@@ -109,7 +109,7 @@
         </div>
         <div class="col-6 mb-3">
             <input type="text" name="commenced_date" id="commenced_date" class="form-control rounded-0"
-                placeholder="Commenced Date (DD/MM/YYYY)" onfocus="(this.type='date')"
+                placeholder="Commenced Date" onfocus="(this.type='date')"
                 onblur="if(this.value==''){this.type='text'}" value="{{ $staff->staff_detail->commenced_date }}">
             <span class="text-danger error-commenced_date"></span>
 

@@ -161,7 +161,7 @@
 
                             <div class="col-6 mb-3">
                                 <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0"
-                                    placeholder="Kin of Name">
+                                    placeholder="Name of Kin">
                                 <span class="text-danger error-kin_name"></span>
                             </div>
                             <div class="col-6 mb-3">
@@ -222,7 +222,7 @@
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" name="commenced_date" id="commenced_date"
-                                    class="form-control rounded-0" placeholder="Commenced Date (DD/MM/YYYY)"
+                                    class="form-control rounded-0" placeholder="Commenced Date"
                                     onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
                                 <span class="text-danger error-commenced_date"></span>
 
@@ -441,7 +441,7 @@
                 ],
 
                 order: [
-                    [1, 'desc']
+                    [1, 'DESC']
                 ],
                 lengthMenu: [
                     [10, 25, 50, 100],

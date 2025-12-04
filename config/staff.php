@@ -19,7 +19,7 @@ return [
         '3' => 'Staff',
         '4' => 'Developer',
     ],
-    'staff_role_type' => '6',
+    'staff_role_type' => '1',
     'staff_member_id_prefix' => 'S',
     'access_denied_msg' => env('ACCESS_DENIED_MSG','Access denied. You do not have permission to view this page'),
 
