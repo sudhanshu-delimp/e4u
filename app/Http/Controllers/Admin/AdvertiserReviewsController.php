@@ -12,6 +12,32 @@ use Illuminate\Support\Str;
 
 class AdvertiserReviewsController extends Controller
 {
+    protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    protected $sidebar;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+
+            $user = auth()->user();   // works here
+
+            // Now do everything that needs user data
+            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+            $addAccess = staffPageAccessPermission($securityLevel, 'add');
+            $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+            return $next($request);
+        });
+    }
     public function index(Request $request)
     {
         [$advertiserReports, $reports] = $this->getAdvertiserReviews();
@@ -47,6 +73,7 @@ class AdvertiserReviewsController extends Controller
                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                             aria-labelledby="dropdownMenuLink">';
 
+                if ($this->editAccessEnabled) {
                 // Pending option
                 if ($row->status !== 'pending') {
                     $statusActionHtml .= '
@@ -75,7 +102,7 @@ class AdvertiserReviewsController extends Controller
                         </a>
                         <div class="dropdown-divider"></div>';
                 }
-
+            }
                 // Always show View option
                 $statusActionHtml .= '
                         <a class="dropdown-item view_member_report d-flex justify-content-start gap-10 align-items-center"

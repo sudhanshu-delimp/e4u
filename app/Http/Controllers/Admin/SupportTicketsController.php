@@ -28,11 +28,33 @@ class SupportTicketsController extends AppController
         $this->SupportTickets = $support_tickets;
     }*/
 
-
+    protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    protected $sidebar;
     protected $notification;
     public function __construct()
     {
         $this->notification = new Notification;
+
+        $this->middleware(function ($request, $next) {
+
+            $user = auth()->user();   // works here
+
+            // Now do everything that needs user data
+            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+            $addAccess = staffPageAccessPermission($securityLevel, 'add');
+            $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+            return $next($request);
+        });
     }
 
     public function index()
@@ -159,7 +181,7 @@ class SupportTicketsController extends AppController
                                 <a class="dropdown-toggle" href="" role="button" class="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
-                                   
+                        if($this->editAccessEnabled) {
                                 if($item->status!='Active')
 
                                   {
@@ -199,7 +221,7 @@ class SupportTicketsController extends AppController
                                         </a> <div class="dropdown-divider"></div>';
                                     }
 
-
+                                }
                                     $dropdown .= '<a class="dropdown-item editTour view_ticket d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#conversation_modal"> <i class="fa fa-comments text-default"></i> History
                                         
                                         </a>';

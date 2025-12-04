@@ -15,11 +15,37 @@ class StaffController extends BaseController
 {
     protected $current_date_time;
     protected $staffRepo;
+    protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    protected $sidebar;
 
     public function __construct(StaffInterface $staffRepo)
     {
         $this->current_date_time = date('Y-m-d H:i:s');
         $this->staffRepo = $staffRepo;
+        $this->middleware(function ($request, $next) {
+
+            $user = auth()->user();   // works here
+
+            // Now do everything that needs user data
+            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+            $addAccess = staffPageAccessPermission($securityLevel, 'add');
+            $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+            if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
+                return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
+            }
+
+            return $next($request);
+        });
     }
 
     /**
@@ -137,6 +163,9 @@ class StaffController extends BaseController
         }
 
         switch ($order_key) {
+            case 0:
+                $staff->orderBy('member_id', $dir);
+                break;
             case 1:
                 $staff->orderBy('id', $dir);
                 break;
@@ -144,7 +173,7 @@ class StaffController extends BaseController
                 $staff->orderBy('name', $dir);
                 break;
             default:
-                $staff->orderBy('id', 'DESC')->orderBy('id', 'ASC');
+                $staff->orderBy('member_id', 'DESC');
                 break;
         }
 
@@ -168,7 +197,14 @@ class StaffController extends BaseController
                 $activate_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center active-account-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-check"></i> Activate</a><div class="dropdown-divider"></div>';
             $dropdown = '<div class="dropdown no-arrow ml-3">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item view-account-btn view-staff-btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '>  
-                <i class="fa fa-eye "></i> View Account</a> <div class="dropdown-divider"></div>' . $activate_html . $suspend_html . ' <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a></div></div>';
+                <i class="fa fa-eye "></i> View Account</a>';
+
+            if ($this->editAccessEnabled) {
+                $dropdown .= '<div class="dropdown-divider"></div>' . $activate_html . $suspend_html;
+                $dropdown .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
+            }
+            $dropdown .= '</div></div>';
+
             $item->action = $dropdown;
             $i++;
         }
@@ -250,6 +286,9 @@ class StaffController extends BaseController
 
     public function printStaffDetails(Request $request)
     {
+        if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
+            return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
+        }
         $userId  = $request->user_id;
         $staff = User::with('staff_detail')->where("id", $userId)->first();
         if ($staff) {

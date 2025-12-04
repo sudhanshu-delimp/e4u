@@ -381,7 +381,28 @@ class User extends Authenticatable
     public function generateMemberId()
     {
         if ($this->type == 1) {
-            return 'S' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+           // return 'S' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+            $staffPrefix = config('staff.staff_member_id_prefix');
+            //$memberId = $staffPrefix . $this->city_id . sprintf("%04d", $this->id);
+            $staff = User::select(['id', 'name', 'member_id'])
+                ->where('type', '1')
+                ->where('member_id', '!=', '')
+                ->where('member_id', '!=', 'S60001')
+                ->orderByDesc('id')
+                ->first();
+            if ($staff && !empty($staff->member_id)) {
+                $code = trim($staff->member_id);
+                $prefix = 'S';
+                preg_match('/\d+$/', $code, $numberMatch);
+                $number = isset($numberMatch[0]) ? (int)$numberMatch[0] : 0;
+                $length = strlen($numberMatch[0] ?? '00002');
+                // Increment and pad
+                $newCode = $prefix . str_pad($number + 1, $length, '0', STR_PAD_LEFT);
+                $memberId = $newCode;
+            } else {
+                $memberId = 'S60002';
+            }
+            return $memberId;
         }
         if ($this->type == 2) {
             return 'SU' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);

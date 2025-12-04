@@ -2,8 +2,7 @@
     @php
         $employmentStatuss = config('staff.employment_status');
         $employmentStatus = isset($employmentStatuss[$staff->staff_detail->employment_status])
-            ? $employmentStatuss[$staff->staff_detail->employment_status]
-            : '';
+            ? $employmentStatuss[$staff->staff_detail->employment_status] : '';
         $securityLevels = config('staff.security_level');
         $securityLevel = isset($securityLevels[$staff->staff_detail->security_level])
             ? $securityLevels[$staff->staff_detail->security_level]
@@ -52,7 +51,7 @@
         <table class="table table-bordered mb-3">
             <tbody>
                 <tr>
-                    <th width="40%">Kin of Name</th>
+                    <th width="40%">Name of Kin</th>
                     <td width="60%">{{ $staff->staff_detail->kin_name }}</td>
                 </tr>
                 <tr>

@@ -11,6 +11,13 @@
 </style>
 @stop
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+   $addAccess = staffPageAccessPermission($securityLevel, 'add');
+   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+@endphp
 <div id="wrapper">
    <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
@@ -35,8 +42,10 @@
             <div class="row">  
                <div class="col-md-12">
                   <div class="bothsearch-form mb-3">
+                     @if( $addAccessEnabled)
                      <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#createBlog">
                         Add Blog</button>
+                        @endif
                   </div>
                </div>
                <div class="col-md-12">
@@ -67,6 +76,7 @@
                                           <td class="theme-color">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy the thrill of being with that quite little girl</td>
                                           <td class="theme-color">09-06-2025</td>
                                           <td class="theme-color text-center">
+                                             @if($editAccessEnabled)
                                              <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -81,6 +91,7 @@
                                                    
                                                 </div>
                                              </div>
+                                             @endif
                                           </td>
                                        </tr>
                                     </tbody>
