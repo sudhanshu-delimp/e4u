@@ -139,6 +139,7 @@
               processing: false,
               serverSide: false,
               pageLength: 10,
+              order: [[3, "desc"]],
               lengthMenu: [
                   [10, 20, 50, 100],
                   [10, 20, 50, 100]
