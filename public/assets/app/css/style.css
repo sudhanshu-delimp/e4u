@@ -1955,12 +1955,16 @@
         }
         
         .selected_service_tag ul {
-            padding: 5px 0px;
+            padding: 0px;
             display: flex;
             list-style: none;
-            gap: 7px;
+            gap: 0px 7px;
             margin: 0px;
             flex-wrap: wrap;
+        }
+        
+        .selected_service_tag ul li {
+            margin: 7px 0px 0px;
         }
         
         .seleceted_service_text_and_icon {
@@ -3530,6 +3534,7 @@ i.fa.fa-heart-o{
         
         .seleceted_service_text_and_icon i {
             color: var(--peach);
+            cursor: pointer;
         }
         /* .search_filters_inside {
             padding: 15px;
