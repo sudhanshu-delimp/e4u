@@ -1201,6 +1201,10 @@
 
         });
 
+        $('.btn-search').on('click', function(){
+            $('.btn-search i').toggleClass('rotate-180');
+        })
+
     </script>
     <script>
         // $('#grid-modal').on('shown.bs.modal', function (e) {
