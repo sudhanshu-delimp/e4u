@@ -296,7 +296,7 @@
                                             <div class="row serve-row-one">
                                                 <div class="col-md-12 custom--service-tag">
                                                     <!-- accordien start here -->
-                                                    <div class="accordion-container-new">
+                                                    <div class="accordion-container-new mb-0">
                                                         <div class="set mb-0">
                                                             <a class=" py-lg-0 py-2"
                                                                 style="font-weight:500;display: flex; align-items: center;justify-content: space-between;font-size:22px;">
