@@ -41,14 +41,14 @@
 @endsection
 @section('content')
     <section class="">
-        <div class="container filter-contain mt-5">
+        <div class="container filter-contain mt-3">
 
             <div class="accordion custom_accordian" id="accordionExample">
                 <div class="card">
                     <div class="card-header all_filter_accordain" id="headingOne">
                         <h2 class="mb-0">
                             <button class="btn btn-block text-left btn-search" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch">
-                            Search Filters
+                            Find Escorts
                             <i class="fa fa-angle-down"></i>
                             </button>                        
                         </h2>
@@ -62,7 +62,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="custom-search-help mb-2">
-                                                    <h5 class="normal_heading mb-0">Search Filters</h5>
+                                                    <h5 class="normal_heading mb-0">Filters</h5>
                                                     <div class="display_inline_block helpquation">
                                                         <a href="#" data-toggle="modal" data-target="#forhelp">
                                                             Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
@@ -299,7 +299,7 @@
                                                     <div class="accordion-container-new">
                                                         <div class="set mb-0">
                                                             <a class=" py-lg-0 py-2"
-                                                                style="font-weight:500;display: flex; align-items: center;justify-content: space-between;">
+                                                                style="font-weight:500;display: flex; align-items: center;justify-content: space-between;font-size:22px;">
                                                                 Service Tags
                                                                 <i class="fa fa-angle-down"></i>
                                                             </a>
