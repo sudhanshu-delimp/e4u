@@ -6176,6 +6176,12 @@ i.fa.fa-heart-o{
             color: #0c223d;
             font-weight: 500;
             padding: 0px;
+            transition: 0.5s ease-in-out;
+        }
+        
+        .btn-search .rotate-180 {
+            transform: rotate(180deg);
+            transition: 0.5s ease-in-out;
         }
         
         .custom_accordian .card {
