@@ -128,19 +128,21 @@ class DashboardController extends BaseController
             $user = User::where('id', $data['user_id'])->first();
             $staff = $user->staff_detail;
             $staff->update([
-                'name' => $data['name'] ?? null,
-                'address' => $data['address'] ?? null,
-                'kin_name' => $data['kin_name'] ?? null,
-                'kin_relationship' => $data['kin_relationship'] ?? null,
-                'kin_mobile' => $data['kin_mobile'] ?? null,
-                'kin_email' => $data['kin_email'] ?? null,
-                'location' => $data['location'] ?? null,
-                'commenced_date' => $data['commenced_date'] ?? null,
-                'employment_status' => $data['employment_status'] ?? null,
-                'employment_agreement' => $data['employment_agreement'] ?? null,
-                'building_access_code' => $data['building_access_code'] ?? null,
-                'keys_issued' => $data['keys_issued'] ?? null,
-                'car_parking' => $data['car_parking'] ?? null,
+                'name' => $data['name'] ?? $staff->name,
+                'address' => $data['address'] ?? $staff->address,
+                'kin_name' => $data['kin_name'] ?? $staff->kin_name,
+                'kin_relationship' => $data['kin_relationship'] ?? $staff->kin_relationship,
+                'kin_mobile' => $data['kin_mobile'] ?? $staff->addkin_mobileress,
+                'kin_email' => $data['kin_email'] ?? $staff->kin_email,
+                'location' => $data['location'] ?? $staff->location,
+                'security_level' => $data['security_level'] ?? 3,
+                'position' => $data['security_level'] ?? 3,
+                'commenced_date' => $data['commenced_date'] ?? $staff->commenced_date,
+                'employment_status' => $data['employment_status'] ?? $staff->employment_status,
+                'employment_agreement' => $data['employment_agreement'] ?? $staff->employment_agreement,
+                'building_access_code' => $data['building_access_code'] ?? $staff->building_access_code,
+                'keys_issued' => $data['keys_issued'] ?? $staff->keys_issued,
+                'car_parking' => $data['car_parking'] ?? $staff->car_parking,
             ]);
             $error = false;
         }
@@ -339,7 +341,7 @@ class DashboardController extends BaseController
     public function staff_list()
     {
         if(!$this->viewAccessEnabled){
-            return response()->redirectTo('/staff-dashboard')->with('error', __(accessDeniedMsg()));
+            //return response()->redirectTo('/dashboard')->with('error', __(accessDeniedMsg()));
         }
         return view('admin.management.staff.staff');
     }

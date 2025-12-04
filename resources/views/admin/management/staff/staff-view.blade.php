@@ -2,8 +2,7 @@
     @php
         $employmentStatuss = config('staff.employment_status');
         $employmentStatus = isset($employmentStatuss[$staff->staff_detail->employment_status])
-            ? $employmentStatuss[$staff->staff_detail->employment_status]
-            : '';
+            ? $employmentStatuss[$staff->staff_detail->employment_status] : '';
         $securityLevels = config('staff.security_level');
         $securityLevel = isset($securityLevels[$staff->staff_detail->security_level])
             ? $securityLevels[$staff->staff_detail->security_level]

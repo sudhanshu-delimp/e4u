@@ -8,6 +8,25 @@
     </style>
 @stop
 @section('content')
+@php
+$securityLevels = config('staff.security_level');
+$securityLevel = isset($staff->staff_detail->security_level) ? $staff->staff_detail->security_level : '';
+$staffType = $staff->type;
+$genders = config('escorts.profile.genders');
+$genderName = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
+
+$securityLevelName = isset($securityLevels[$staff->staff_detail->security_level]) ? $securityLevels[$staff->staff_detail->security_level] : '';
+
+  $employmentStatuss = config('staff.employment_status');
+        $employmentStatus = isset($employmentStatuss[$staff->staff_detail->employment_status])
+            ? $employmentStatuss[$staff->staff_detail->employment_status] : '';
+$cities = config('escorts.profile.cities');
+$cityName = isset($cities[$staff->city_id]) ? $cities[$staff->city_id] : '';
+
+$positions = config('staff.position');
+$positionLabel = isset($positions[$staff->staff_detail->position]) ? $positions[$staff->staff_detail->position] : '';
+
+@endphp  
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
@@ -74,7 +93,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email" class="my-agent">Phone</label>
+                                                            <label for="email" class="my-agent">Mobile</label>
                                                             <input type="text" class="form-control rounded-0"
                                                                 placeholder="Phone" name="phone" id="phone"
                                                                 value="{{ $staff->phone }}">
@@ -86,17 +105,17 @@
                                                             <label for="email">Email</label>
                                                             <label
                                                                 class="form-control form-back">{{ $staff->email }}</label>
+                                                               
                                                             <input name="email" id="email" type="hidden"
                                                                 value="{{ $staff->email }}">
                                                             <span class="text-danger error-email"></span>
+                                                        
                                                         </div>
                                                     </div>
-
-
-
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email">Gender </label>
+                                                             @if($securityLevel == 1)
                                                             <select class="form-control" name="gender" id="gender">
                                                                 <option value="">Select Gender</option>
                                                                 @foreach (config('escorts.profile.genders') as $key => $gender)
@@ -106,6 +125,10 @@
                                                                 @endforeach
                                                             </select>
                                                             <span class="text-danger error-gender"></span>
+                                                            @else
+                                                            <label
+                                                                class="form-control form-back">{{ $genderName }}</label>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -179,8 +202,9 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Security Level</label>
-                                                            <select class="form-control rounded-0" name="security_level2"
-                                                                id="security_level_edit" disabled>
+                                                             @if($securityLevel == 1)
+                                                            <select class="form-control rounded-0" name="security_level"
+                                                                id="security_level_edit" >
                                                                 <option value="">Security Level</option>
                                                                 @foreach (config('staff.security_level') as $seckey => $secLevel)
                                                                     <option value="{{ $seckey }}"
@@ -190,11 +214,16 @@
                                                                 @endforeach
                                                             </select>
                                                             <span class="text-danger error-security_level"></span>
+                                                            @else
+                                                            <label
+                                                                class="form-control form-back">{{ $securityLevelName }}</label>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Position</label>
+                                                             @if($securityLevel == 1)
                                                             <select class="form-control rounded-0" name="position2"
                                                                 id="position_edit" disabled>
                                                                 <option value="">Position</option>
@@ -205,11 +234,16 @@
                                                                 @endforeach
                                                             </select>
                                                             <span class="text-danger error-position"></span>
+                                                            @else
+                                                            <label
+                                                                class="form-control form-back">{{ $positionLabel }}</label>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Location</label>
+                                                             @if($securityLevel == 1)
                                                             <select class="form-control rounded-0" name="location"
                                                                 id="location">
                                                                 <option value="">Select Location</option>
@@ -220,11 +254,17 @@
                                                                 @endforeach
                                                             </select>
                                                             <span class="text-danger error-location"></span>
+                                                            @else
+                                                            <label
+                                                                class="form-control form-back">{{ $cityName }}</label>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email" class="my-agent">Commenced Date
+                                                          
+                                                                 @if($securityLevel == 1)
+                                                                   <label for="email" class="my-agent">Commenced Date
                                                                 (DD/MM/YYYY)</label>
                                                             <input type="text" name="commenced_date"
                                                                 id="commenced_date" class="form-control rounded-0"
@@ -233,12 +273,18 @@
                                                                 onblur="if(this.value==''){this.type='text'}"
                                                                 value="{{ $staff->staff_detail->commenced_date }}">
                                                             <span class="text-danger error-commenced_date"></span>
+                                                            @else
+                                                              <label for="email" class="my-agent">Commenced Date</label>
+                                                            <label
+                                                                class="form-control form-back">{{ showDateWithFormat($staff->staff_detail->commenced_date)  }}</label>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Employment
                                                                 Status</label>
+                                                             @if($securityLevel == 1)
                                                             <select class="form-control rounded-0"
                                                                 name="employment_status" id="employment_status">
                                                                 <option value="">Select Employment Status</option>
@@ -250,12 +296,17 @@
                                                                 @endforeach
                                                             </select>
                                                             <span class="text-danger error-employment_status"></span>
+                                                            @else
+                                                            <label
+                                                                class="form-control form-back">{{ $employmentStatus }}</label>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Employment
                                                                 Agreement?</label>
+                                                             @if($securityLevel == 1)
                                                             <select class="form-control rounded-0"
                                                                 name="employment_agreement" id="employment_agreement">
                                                                 <option value="">Employment Agreement?</option>
@@ -269,6 +320,10 @@
                                                                 </option>
                                                             </select>
                                                             <span class="text-danger error-employment_agreement"></span>
+                                                            @else
+                                                            <label
+                                                                class="form-control form-back">{{ ucfirst($staff->staff_detail->employment_agreement) }}</label>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -287,6 +342,7 @@
                                                     <div class="form-group">
                                                         <label for="email" class="my-agent">Access Code
                                                             Provided?</label>
+                                                             @if($securityLevel == 1)
                                                         <select class="form-control rounded-0" name="building_access_code"
                                                             id="building_access_code">
                                                             <option value="">Access Code Provided?</option>
@@ -300,11 +356,16 @@
                                                             </option>
                                                         </select>
                                                         <span class="text-danger error-building_access_code"></span>
+                                                         @else
+                                                            <label
+                                                                class="form-control form-back">{{ ucfirst($staff->staff_detail->building_access_code) }}</label>
+                                                            @endif
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="email" class="my-agent">Key Provided?</label>
+                                                         @if($securityLevel == 1)
                                                         <select class="form-control rounded-0" name="keys_issued"
                                                             id="keys_issued">
                                                             <option value="">Key Provided?</option>
@@ -316,11 +377,16 @@
                                                                 No</option>
                                                         </select>
                                                         <span class="text-danger error-keys_issued"></span>
+                                                         @else
+                                                            <label
+                                                                class="form-control form-back">{{ ucfirst($staff->staff_detail->keys_issued) }}</label>
+                                                            @endif
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="email" class="my-agent">Car Park?</label>
+                                                         @if($securityLevel == 1)
                                                         <select class="form-control rounded-0" name="car_parking"
                                                             id="car_parking">
                                                             <option value="">Car Park?</option>
@@ -332,6 +398,10 @@
                                                                 No</option>
                                                         </select>
                                                         <span class="text-danger error-car_parking"></span>
+                                                         @else
+                                                            <label
+                                                                class="form-control form-back">{{ ucfirst($staff->staff_detail->car_parking) }}</label>
+                                                            @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -559,4 +629,15 @@
             }
         });
     </script>
+
+    <script>
+    $(document).ready(function() {
+        $("#security_level_edit").on("change", function() {
+            let level = $(this).val();
+            // Auto-select position = same value as security_level
+            $("#position_edit").val(level).trigger("change");
+            $("#position_edit").prop("disabled", true);
+        });
+    });
+</script>
 @endpush

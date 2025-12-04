@@ -41,7 +41,7 @@ class StaffController extends BaseController
             $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
 
             if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
-                return response()->redirectTo('/admin-dashboard/admin-login')->with('error', __(accessDeniedMsg()));
+                return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
             }
 
             return $next($request);
@@ -287,7 +287,7 @@ class StaffController extends BaseController
     public function printStaffDetails(Request $request)
     {
         if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
-            return response()->redirectTo('/admin-dashboard/admin-login')->with('error', __(accessDeniedMsg()));
+            return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
         }
         $userId  = $request->user_id;
         $staff = User::with('staff_detail')->where("id", $userId)->first();

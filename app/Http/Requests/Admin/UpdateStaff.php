@@ -27,6 +27,9 @@ class UpdateStaff extends FormRequest
         if(isset($request->user_id)) {
             $userId = $request->user_id;
         }
+        $authUser = auth()->user(); 
+        $securityLevel = isset($authUser->staff_detail->security_level) ? $authUser->staff_detail->security_level : 0;  
+        if( $securityLevel == 1){
         return [
             'name' => 'bail|required|string|max:100',
             'address' => 'bail|required|string|max:255',
@@ -40,13 +43,24 @@ class UpdateStaff extends FormRequest
             //'position' => 'bail|required|string|max:100',
             'location' => 'required',
             'commenced_date' => 'bail|required|string|max:100',
-            //'security_level' => 'bail|required',
+            'security_level' => 'bail|required',
             'employment_status' => 'bail|required',
             'employment_agreement' => 'bail|required|in:yes,no',
             'building_access_code' => 'bail|required|in:yes,no',
             'keys_issued' => 'bail|required|in:yes,no',
             'car_parking' => 'bail|required|in:yes,no',
         ];
+    }else {
+         return [
+            'name' => 'bail|required|string|max:100',
+            'address' => 'bail|required|string|max:255',
+            'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}",
+            'kin_name' => 'bail|required|string|max:100',
+            'kin_relationship' => 'bail|required|string|max:100',
+            'kin_mobile' => 'required||min:10|max:14',
+            'kin_email' => 'nullable|email:rfc,filter|max:100',
+        ];
+    }
     }
 
     public function messages()

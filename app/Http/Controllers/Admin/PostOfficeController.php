@@ -33,8 +33,8 @@ class PostOfficeController extends Controller
     }
     public function addPostOfficeReport()
     {
-         if ($this->addAccessEnabled == 'no') {
-                return response()->redirectTo('/admin-dashboard/admin-login')->with('error', __(accessDeniedMsg()));
+         if (!$this->addAccessEnabled) {
+                return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
             }
         return view('admin.post-office.reports');
     }
