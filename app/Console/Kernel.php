@@ -37,7 +37,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('passwords:send-expiry-notices')->dailyAt('10:00');
         $schedule->command('escort:send-listing-expiry-reminders')->dailyAt('16:00');
         $schedule->command('appointments:update-status')->everySixHours();
-        $schedule->command('center-notification:expire-check')->hourly();
+        $schedule->command('center-notification:expire-check')->dailyAt('00:00')->timezone('UTC');
         //$schedule->command('resetPassword')->daily();
     }
     // protected function schedule(Schedule $schedule)
