@@ -52,6 +52,7 @@
         <script src="{{ asset('assets/app/js/demo/chart-pie-demo.js') }}"></script>-->
         <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
         <script src="{{ asset('assets/js/common.js') }}"></script>
         <script>
             $(document).ready(function() {
@@ -79,23 +80,49 @@
 
                 })
 
-                 var initJsDatePicker = function(){
-                    $(".js_datepicker").attr('placeholder','DD-MM-YYYY');
-                    $(".js_datepicker").attr('autocomplete','off');
-                    $(".js_datepicker").datepicker({
+                //  var initJsDatePicker = function(){
+                //     $(".js_datepicker").attr('placeholder','DD-MM-YYYY');
+                //     $(".js_datepicker").attr('autocomplete','off');
+                //     $(".js_datepicker").datepicker({
+                //         dateFormat: "dd-mm-yy",
+                //         changeMonth: true,
+                //         changeYear: true,
+                //         showAnim: "slideDown",
+                //         constrainInput: false,
+                //         onSelect: function(dateText) {
+                //             const event = new Event('change', { bubbles: true });
+                //             this.dispatchEvent(event); 
+                //         }
+                //     });
+                // }
+                // initJsDatePicker();
+            });
+
+
+
+            var initJsDatePicker = function() {
+                var $inputs = $(".js_datepicker");
+                if ($inputs.length > 0) {
+                    $inputs.attr('placeholder','DD-MM-YYYY');
+                    $inputs.attr('autocomplete','off');
+                    $inputs.datepicker({
                         dateFormat: "dd-mm-yy",
                         changeMonth: true,
                         changeYear: true,
                         showAnim: "slideDown",
-                        constrainInput: false,
                         onSelect: function(dateText) {
-                            const event = new Event('change', { bubbles: true });
-                            this.dispatchEvent(event); // 👈 manually trigger change event
+                            $(this).trigger('change');
                         }
                     });
                 }
+            }
+
+            $(document).ready(function() {
                 initJsDatePicker();
             });
+
+
+
         </script>
         @stack('script')
         @section('script')

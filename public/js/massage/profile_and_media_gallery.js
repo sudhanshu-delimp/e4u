@@ -68,7 +68,7 @@ $(() => {
             e.preventDefault();
             $.ajax({
             type: "POST",
-            url:`/escort-dashboard/delete-photos/${$(this).attr('remove_media_id')}`,
+            url:`/center-dashboard/delete-photos/${$(this).attr('remove_media_id')}`,
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             beforeSend: function (){
                 $(".img_comman_msg").text('Deleting...');
@@ -90,7 +90,7 @@ $(() => {
         e.preventDefault();
         $.ajax({
         type: "POST",
-        url:`/escort-dashboard/delete-videos/${$(this).attr('remove_media_id')}`,
+        url:`/center-dashboard/delete-videos/${$(this).attr('remove_media_id')}`,
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         beforeSend: function (){
             $(".img_comman_msg").text('Deleting...');
@@ -309,7 +309,7 @@ function preview_image(event)
     var getAccountMediaGallery = function() {
         let activeGalleryTab = $(".js_gallery_category .nav-link.active").attr('data-type');
         return $.ajax({
-            url: `/escort-dashboard/get-account-media-gallery/${activeGalleryTab}`,
+            url: `/center-dashboard/get-account-media-gallery/${activeGalleryTab}`,
             type: "GET",
             dataType: "json"
         }).done(function (response) {
@@ -395,7 +395,7 @@ function preview_image(event)
     var setVideoToDefault = function(){
         $.ajax({
             type: 'POST',
-            url: `/escort-dashboard/default-videos`,
+            url: `/center-dashboard/default-videos`,
             data: {position:selectedVideoPosition,mediaId:selectedVideoId},
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             success : function (data) {
@@ -406,7 +406,7 @@ function preview_image(event)
 
     var getAccountVideoGallery = function() {
         return $.ajax({
-            url: `/escort-dashboard/get-account-video-gallery`,
+            url: `/center-dashboard/get-account-video-gallery`,
             type: "GET",
             dataType: "json"
         }).done(function (response) {
@@ -425,15 +425,20 @@ function preview_image(event)
     }
 
     var getAccountDefaultVideo = function() {
+
+        console.log(`(${window.App.baseUrl}`);
+
+        
         return $.ajax({
-            url: `/escort-dashboard/get-default-videos`,
+            url: `/center-dashboard/get-default-videos`,
             type: "GET",
             dataType: "json"
         }).done(function (response) {
             if (response.success) {
-                if(response.media.length > 0){
 
-                   
+                 
+
+                if(response.media.length > 0){
                     response.media.map((item,index)=>{
                         let target = $(".videoDroppable").eq(item.position - 1).find("video");
                         if (target.length) {
@@ -454,7 +459,7 @@ function preview_image(event)
 
     function getProfileDefaultVideo(){
         return $.ajax({
-            url: `/escort-dashboard/get-default-videos/${profileId}`,
+            url: `/center-dashboard/get-default-videos/${profileId}`,
             type: "GET",
             dataType: "json"
         }).done(function (response) {
@@ -550,7 +555,7 @@ async function uploadVideo() {
         formData.append("chunkIndex", i);
         formData.append("fileName", fileName);
 
-        await fetch("/escort-dashboard/upload-chunk", {
+        await fetch("/center-dashboard/upload-chunk", {
             method: "POST",
             headers: {
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
@@ -567,7 +572,7 @@ async function uploadVideo() {
     mergeData.append("fileName", fileName);
     mergeData.append("totalChunks", totalChunks);
 
-    await fetch("/escort-dashboard/merge-chunks", {
+    await fetch("/center-dashboard/merge-chunks", {
         method: "POST",     
         headers: {
             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content

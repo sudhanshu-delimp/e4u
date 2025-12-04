@@ -82,6 +82,9 @@
                     </div>
                     @php
                         $about = html_entity_decode(strip_tags($escort->about));
+                        $massage_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->massage_price:0;
+                        $incall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->incall_price:0;
+                        $outcall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price:0;
                     @endphp
                     <p class="pin-description text-justify">{{ $about }}</p>
                     <div class="row">
@@ -91,7 +94,7 @@
                                     class="mr-3 rounded-circle" style="width:40px;">
                                 <div class="media-body">
                                     <h4>Massage</h4>
-                                    <p class="mb-0">{{$escort->durations()->where('name','=','1 Hour')->first() ? $escort->durations()->where('name','=','1 Hour')->first()->pivot->massage_price : '' }} / hr</p>
+                                    <p class="mb-0">{{ $massage_price ? '$'. $massage_price.'/hr' : 'N/A' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +104,7 @@
                                     class="mr-3 rounded-circle" style="width:40px;">
                                 <div class="media-body">
                                     <h4>Incalls</h4>
-                                    <p class="mb-0">{{$escort->durations()->where('name','=','1 Hour')->first() ? $escort->durations()->where('name','=','1 Hour')->first()->pivot->incall_price : ''}} / hr</p>
+                                    <p class="mb-0">{{ $incall_price ? '$'. $incall_price.'/hr' : 'N/A' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +114,7 @@
                                     class="mr-3 rounded-circle" style="width:40px;">
                                 <div class="media-body">
                                     <h4>Outcalls</h4>
-                                    <p class="mb-0">{{$escort->durations()->where('name','=','1 Hour')->first() ? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price : ''}} / hr</p>
+                                    <p class="mb-0">{{ $outcall_price ? '$'. $outcall_price.'/hr' : 'N/A' }}</p>
                                 </div>
                             </div>
                         </div>
