@@ -86,7 +86,7 @@
                         <table class="table" id="bankAccountTable">
                             <thead class="table-bg">
                                 <tr>
-                                    <th class="text-center" scope="col">Bank</th>
+                                    <th class="text-center" style="width: 250px !important;" scope="col">Bank</th>
                                     <th class="text-center" scope="col">Account Name</th>
                                     <th class="text-center" scope="col">BSB</th>
                                     <th class="text-center" scope="col">Account Number</th>
@@ -246,8 +246,8 @@ $(function()
                 if(is_primary_bank_acc!='1' && state=='2')
                 {
                     Swal.fire({
-                        title: "You don't have any Primary bank account.",
-                        text: "Do you want save it as Primary bank account?",
+                        title: "You don't have a Primary bank account.",
+                        text: "Do you want to save it as Primary bank account?",
                         iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
                         customClass: {
                             icon: 'my-custom-icon'
@@ -296,7 +296,7 @@ $(function()
                 {
                     Swal.fire({
                         title: "",
-                        text: "Do you want save this bank account as secondary bank account?",
+                        text: "Do you want to save this bank account as secondary bank account?",
                         iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
                         customClass: {
                             icon: 'my-custom-icon'
@@ -318,7 +318,7 @@ $(function()
                 {
                 Swal.fire({
                         title: "",
-                        text: "Do you want save this bank account as Primary bank account?",
+                        text: "Do you want to save this bank account as Primary bank account?",
                         iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
                         customClass: {
                             icon: 'my-custom-icon'
@@ -373,7 +373,7 @@ $(function()
                 {
                 Swal.fire({
                         title: "",
-                        text: "Do you want save this bank account as Primary bank account?",
+                        text: "Do you want to save this bank account as Primary bank account?",
                         iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
                         customClass: {
                             icon: 'my-custom-icon'
@@ -395,7 +395,7 @@ $(function()
                 {
                 Swal.fire({
                         title: "",
-                        text: "Do you want save this bank account as Primary bank account?",
+                        text: "Do you want to save this bank account as Primary bank account?",
                         iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
                         customClass: {
                             icon: 'my-custom-icon'
