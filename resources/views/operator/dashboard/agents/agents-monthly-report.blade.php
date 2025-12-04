@@ -128,8 +128,6 @@
     <div class="modal-dialog modal-xl modal-dialog-centered opr_custom_modal" role="document">
         <div class="modal-content">
             <div class="modal-header">
-
-
                 <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/report.png') }}"
                         class="custompopicon"> Fee Report (Period Ending: 31-10-25)</h5>
                 <a href="" class="close" data-dismiss="modal" aria-label="Close">
