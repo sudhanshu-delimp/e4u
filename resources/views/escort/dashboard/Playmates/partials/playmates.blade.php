@@ -210,17 +210,138 @@
 @push('script')
 
 <script>
-    $("#playmate").on('click', function(e) {
-        let isAvailable = $(this).is(':checked')?1:0;
-        var url = "{{route('user.update.playmate')}}";
-        $.ajax({
-            method: "GET",
-            url: url,
-            data:{'available_playmate': isAvailable},
-            success: function (data) {
+    let playmateExist = $(".activePlaymate li").length;
+    $("#playmate").on('change', function(e) {
+        let checkbox = $(this);
+
+        // If playmate exists & user tries to uncheck it
+        if (playmateExist > 0 && !checkbox.is(':checked')) {
+            e.preventDefault();
+            checkbox.prop('checked', true); // revert back until confirmed
+
+            Swal.fire({
+                title: "My Playmates",
+                text: "If you disable Playmate, all active and inactive Playmates will be removed. Are you sure?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, disable it",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    checkbox.prop('checked', false); // now uncheck
+                    updatePlaymate(0);
+                    removeAllPlaymates();
+                }
+            });
+        } else {
+            // Normal update if checking or no playmate exists
+            let isAvailable = checkbox.is(':checked') ? 1 : 0;
+            updatePlaymate(isAvailable);
+        }
+    });
+
+
+    let removeAllPlaymates = function () {
+    let requests = []; // store all AJAX requests
+
+    Swal.fire({
+        title: 'Removing...',
+        text: 'Please wait while we remove all playmates.',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    $(".activePlaymate li .playmates_rmid").each(function () {
+        let playmateId = $(this).data("id");
+        let request = $.ajax({
+            method: "POST",
+            url: `{{ route('escort.remove.playmate', ':id') }}`.replace(':id', playmateId),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }).done(function (data) {
+            if (!data.error) {
+                $(`#rmlist_${playmateId}`).remove();
             }
         });
+
+        requests.push(request);
     });
+
+    // When all AJAX complete
+    $.when.apply($, requests).then(function () {
+        Swal.fire({
+            icon: 'success',
+            title: 'All removed!',
+            text: 'All playmates have been successfully removed.',
+            timer: 1500,
+            showConfirmButton: false
+        });
+    }).fail(function () {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: 'Failed to remove some playmates.'
+        });
+    });
+};
+
+    // let removeAllPlaymates = function(){
+    //     let playmateIds = [];
+    //     $(".activePlaymate li .playmates_rmid").each(function() {
+    //        $.ajax({
+    //         method: "POST",
+    //         url: `{{ route('escort.remove.playmate', ':id') }}`.replace(':id', $(this).data("id")),
+    //         headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         beforeSend: function () {
+    //             Swal.fire({
+    //                 title: 'Removing...',
+    //                 text: 'Please wait while we remove this playmate.',
+    //                 allowOutsideClick: false,
+    //                 didOpen: () => {
+    //                     Swal.showLoading();
+    //                 }
+    //             });
+    //         },
+    //         success: function (data) {
+    //             if (!data.error) {
+    //                 $(`#rmlist_${playmateId}`).remove();
+    //                 Swal.fire({
+    //                     icon: 'success',
+    //                     title: 'Removed!',
+    //                     text: data.message || 'Playmate removed successfully.',
+    //                     timer: 1500,
+    //                     showConfirmButton: false
+    //                 });
+    //             } else {
+    //                 Swal.fire({
+    //                     icon: 'error',
+    //                     title: 'Error!',
+    //                     text: data.message || 'Failed to remove playmate.'
+    //                 });
+    //             }
+    //         }
+    //        });
+    //     });
+    //     console.log(playmateIds);
+    // }
+
+    function updatePlaymate(isAvailable) {
+        $.ajax({
+            method: "GET",
+            url: "{{ route('user.update.playmate') }}",
+            data: {
+                'available_playmate': isAvailable
+            },
+            success: function(data) {
+                console.log("Playmate status updated");
+            }
+        });
+    }
 
     $('body').on('click', '.playmates_rmid', function(e) {
     e.preventDefault();
