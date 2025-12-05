@@ -42,7 +42,8 @@ class VisitorController extends Controller
         //Visitor::where('user_id', '!=', null)->delete();
 
         # Get all visitors
-        $visitors = Visitor::all();
+        // $visitors = Visitor::all();
+        $visitors = Visitor::where('user_id', null)->get();
 
          $serverTime = [
                 'upTime' => getAppUptime(),
