@@ -173,11 +173,11 @@
                                         </div>
 
                                         <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="fromDate" class="font-weight-medium mb-0">From</label>
+                                            <label for="fromDate" class="font-weight-medium mb-0">From:</label>
                                             <input type="date" class="form-control" id="fromDate" name="fromDate">
                                         </div>
                                         <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="toDate" class="font-weight-medium mb-0">To</label>
+                                            <label for="toDate" class="font-weight-medium mb-0">To:</label>
                                             <input type="date" class="form-control" id="toDate" name="toDate">
                                         </div>
                                     </div>
@@ -190,7 +190,7 @@
                                 <div class="modal-footer justify-content-center">
                                     <button type="button" class="btn-success-modal" data-dismiss="modal"
                                         id="close_change">View</button>
-                                    <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
+                                    <button type="button" class="btn-success-modal" id="save_change">Print</button>
                                 </div>
                             </div>
                         </div>
@@ -265,7 +265,7 @@
                                     <td style="text-align:center;">Location</td>
                                     <td style="text-align:center;">Start Date</td>
                                     <td style="text-align:center;">Finish Date</td>
-                                    <td style="text-align:center;">Membership Type </td>
+                                    <td style="">Membership Type </td>
                                     <td style="text-align:center;">Days</td>
                                     <td style="text-align:center;">Listing Fee</td>
                                 </tr>
@@ -276,7 +276,7 @@
                                     <td style="text-align:center;">WA</td>
                                     <td style="text-align:center;">01-01-2025</td>
                                     <td style="text-align:center;">15-01-2025</td>
-                                    <td style="text-align:center;">Platinum</td>
+                                    <td >Platinum</td>
                                     <td style="text-align:center;">15</td>
                                     <td style="text-align:right;"><div class="num_value">$<span>120.00</span></div></td>
                                 </tr>
@@ -284,7 +284,7 @@
                                     <td style="text-align:center;">SA</td>
                                     <td style="text-align:center;">16-01-2025</td>
                                     <td style="text-align:center;">28-01-2025</td>
-                                    <td style="text-align:center;">Platinum</td>
+                                    <td>Platinum</td>
                                     <td style="text-align:center;">12</td>
                                     <td style="text-align:right;"><div class="num_value">$<span>96.00</span></div></td>
                                 </tr>
@@ -292,7 +292,7 @@
                                     <td style="text-align:center;">Vic</td>
                                     <td style="text-align:center;">29-01-2025</td>
                                     <td style="text-align:center;">23-02-2025</td>
-                                    <td style="text-align:center;">Platinum</td>
+                                    <td>Platinum</td>
                                     <td style="text-align:center;">26</td>
                                     <td style="text-align:right;"><div class="num_value">$<span>208.00</span></div></td>
                                 </tr>
@@ -300,7 +300,7 @@
                                     <td style="text-align:center;">Vic</td>
                                     <td style="text-align:center;">29-01-2025</td>
                                     <td style="text-align:center;">23-02-2025</td>
-                                    <td style="text-align:center;">Gold</td>
+                                    <td>Gold</td>
                                     <td style="text-align:center;">26</td>
                                     <td style="text-align:right;"><div class="num_value">$<span>156.00</span></div></td>
                                 </tr>
@@ -308,7 +308,7 @@
                                     <td style="text-align:center;">Vic</td>
                                     <td style="text-align:center;">03-02-2025</td>
                                     <td style="text-align:center;">09-02-2025</td>
-                                    <td style="text-align:center;">Pin Up</td>
+                                    <td>Pin Up</td>
                                     <td style="text-align:center;">(1 week)</td>
                                     <td style="text-align:right;"><div class="num_value">$<span>475.00</span></div></td>
                                 </tr>
@@ -316,7 +316,7 @@
                                     <td style="text-align:center;">Tas</td>
                                     <td style="text-align:center;">24-02-2025</td>
                                     <td style="text-align:center;">05-03-2025</td>
-                                    <td style="text-align:center;">Gold</td>
+                                    <td>Gold</td>
                                     <td style="text-align:center;">10</td>
                                     <td style="text-align:right;"><div class="num_value">$<span>60.00</span></div></td>
                                 </tr>
@@ -324,7 +324,7 @@
                                     <td style="text-align:center;">NSW</td>
                                     <td style="text-align:center;">06-03-2025</td>
                                     <td style="text-align:center;">31-03-2025</td>
-                                    <td style="text-align:center;">Platinum</td>
+                                    <td>Platinum</td>
                                     <td style="text-align:center;">26</td>
                                     <td style="text-align:right;"><div class="num_value">$<span>208.00</span></div></td>
                                 </tr>
@@ -332,7 +332,7 @@
                                     <td style="text-align:center;">Qld</td>
                                     <td style="text-align:center;">01-04-2025</td>
                                     <td style="text-align:center;">15-04-2025</td>
-                                    <td style="text-align:center;">Platinum</td>
+                                    <td>Platinum</td>
                                     <td style="text-align:center;">15</td>
                                     <td style="text-align:right;"><div class="num_value">$<span>120.00</span></div></td>
                                 </tr>
@@ -352,7 +352,7 @@
                     <div class="modal-footer justify-content-center mt-3">
                         <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                             id="close_change">Ok</button>
-                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
+                        <button type="button" class="btn-success-modal" id="save_change">Print</button>
                     </div>
                 </div>
             </div>

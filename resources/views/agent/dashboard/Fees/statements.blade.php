@@ -64,7 +64,7 @@
                      <th class="text-center">Action</th>
                   </tr>
                </thead>
-               <tbody class="table-content">
+               <tbody>
                   <tr>
                      <td>01-11-2025</td>
                      <td>01-10-2025 to 31-10-2025 </td>
@@ -422,7 +422,7 @@
        $('#commissionStatementTable').DataTable({
            language: {
                search: "_INPUT_",
-               searchPlaceholder: "Search By Agent Id",
+               searchPlaceholder: "Search By Agent ID",
                sSearch: 'Search:'
            },
            paging: true,
