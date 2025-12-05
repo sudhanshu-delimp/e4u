@@ -143,8 +143,8 @@ if (auth()->check())
         $(document).on("click", ".expiry-password-close", function () {
           
             let expire = new Date();
-            //expire.setHours(expire.getHours() + 168);  
-            expire.setMinutes(expire.getMinutes() + 1);
+            expire.setHours(expire.getHours() + 168);  
+            //expire.setMinutes(expire.getMinutes() + 1);
             localStorage.setItem("popup_closed_until", expire.getTime());
             
         });
