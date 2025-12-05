@@ -201,7 +201,7 @@
                         <!-- ========= MEMBER 1 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1"
                             aria-expanded="false" aria-controls="details1">
-                            <td>A10044</td>
+                            <td class="text-left">A10044</td>
                             <td class="opr_expand_arrow">Business 01 <i class="fa fa-chevron-down"></i></td>
                             <td>ACT</td>
                             <td></td>
@@ -324,7 +324,7 @@
                         
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details2"
                             aria-expanded="false" aria-controls="details2">
-                            <td>A10056</td>
+                            <td class="text-left">A10056</td>
                             <td class="opr_expand_arrow">Business 02 <i class="fa fa-chevron-down"></i></td>
                             <td>NSW</td>
                             <td></td>
@@ -489,6 +489,10 @@
 @section('script')
 <!-- opr_accordian_table JS -->
         <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
+        
+
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
 <script>
     document.querySelectorAll('.accordion-toggle').forEach(toggle => {
         toggle.addEventListener('click', () => {

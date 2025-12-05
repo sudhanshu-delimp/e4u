@@ -214,7 +214,7 @@
 
     {{-- Current Location --}}
 
-    <div class="upload-modal modal programmatic" id="current_location">
+    <div class="upload-modal fade modal programmatic" id="current_location">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
