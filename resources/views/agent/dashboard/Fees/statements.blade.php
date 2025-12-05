@@ -1,6 +1,7 @@
 @extends('layouts.agent')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -139,7 +140,7 @@
                         <!-- ========= MEMBER 1 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1"
                             aria-expanded="false" aria-controls="details1">
-                            <td>E612344</td>
+                            <td class="text-left">E612344</td>
                             <td class="opr_expand_arrow">Oxe Daisy <i class="fa fa-chevron-down"></i></td>
                             <td>WA</td>
                             <td></td>
@@ -202,7 +203,7 @@
                         <!-- ========= MEMBER 2 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details2"
                             aria-expanded="false" aria-controls="details2">
-                            <td>E612351</td>
+                            <td class="text-left">E612351</td>
                             <td class="opr_expand_arrow">Rose Chaplin <i class="fa fa-chevron-down"></i></td>
                             <td>WA</td>
                             <td></td>
@@ -284,7 +285,7 @@
                         <!-- ========= MEMBER 3 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details3"
                             aria-expanded="false" aria-controls="details3">
-                            <td>M612380</td>
+                            <td class="text-left">M612380</td>
                             <td class="opr_expand_arrow">Lin’s Massage <i class="fa fa-chevron-down"></i></td>
                             <td>WA</td>
                             <td></td>
