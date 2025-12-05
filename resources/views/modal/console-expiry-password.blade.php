@@ -134,25 +134,28 @@ if (auth()->check())
 
         var passwordStrengthLevel = 0;
         var passwordsMatch = false;
+        var user_id = "{{ auth()->user()->id }}";
 
         $('#password-strength').css('display', 'none');
-        let closedUntil = localStorage.getItem("popup_closed_until");
-        
-       
-            
+
+    
+        let closedUntil = localStorage.getItem("popup_closed_until_" + user_id);
+        closedUntil = closedUntil ? parseInt(closedUntil) : null;
+        console.lo('closedUntil',closedUntil);
+
         $(document).on("click", ".expiry-password-close", function () {
-          
             let expire = new Date();
             expire.setHours(expire.getHours() + 168);  
             //expire.setMinutes(expire.getMinutes() + 1);
-            localStorage.setItem("popup_closed_until", expire.getTime());
+           localStorage.setItem("popup_closed_until_" + user_id, expire.getTime());
             
         });
-
-        
         if (!closedUntil || Date.now() > closedUntil) {
         $("#change_Password_Modal").modal({backdrop: 'static',keyboard: false});
         }
+
+
+        
 
         $(document).on('submit', 'form[name="change_Password_Modal"]', function(e) 
         {
