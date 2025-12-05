@@ -8332,6 +8332,10 @@ div#listings_wrapper .custom--common-table {
     max-width: 800px !important;
 }
 
+.modal_custom_listing {
+    max-width: 1000px !important;
+}
+
 .email-content .section-one {
     display: grid;
     grid-template-columns: 3fr 1fr;
