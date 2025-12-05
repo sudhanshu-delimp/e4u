@@ -35,3 +35,6 @@
 	Something went wrong
 </div>
 @endif
+@php
+    Session::forget(['success', 'error', 'warning', 'info']);
+@endphp

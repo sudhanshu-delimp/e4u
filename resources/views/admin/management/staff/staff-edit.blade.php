@@ -1,3 +1,8 @@
+@php
+$securityLevels = config('staff.security_level');
+$securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? $securityLevels[$staff->staff_detail->security_level] : '';
+@endphp            
+
 <form name="add_staff" id="edit_staff" method="POST" action="{{ route('admin.store-staff') }}"
     enctype="multipart/form-data">
     <div class="row">
@@ -45,7 +50,7 @@
 
         <div class="col-6 mb-3">
             <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0"
-                placeholder="Kin of Name" value="{{ $staff->staff_detail->kin_name }}">
+                placeholder="Name of Kin" value="{{ $staff->staff_detail->kin_name }}">
             <span class="text-danger error-kin_name"></span>
         </div>
         <div class="col-6 mb-3">
@@ -68,11 +73,6 @@
         <div class="col-12 my-2">
             <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
         </div>
-
-        {{-- <div class="col-6 mb-3">
-            <input type="text" name="position" id="position" class="form-control rounded-0" placeholder="Position"  value="{{$staff->staff_detail->position}}">
-            <span class="text-danger error-position"></span>
-        </div> --}}
 
         <div class="col-6 mb-3">
             <select class="form-control rounded-0" name="security_level" id="security_level_edit">
@@ -109,7 +109,7 @@
         </div>
         <div class="col-6 mb-3">
             <input type="text" name="commenced_date" id="commenced_date" class="form-control rounded-0"
-                placeholder="Commenced Date (DD/MM/YYYY)" onfocus="(this.type='date')"
+                placeholder="Commenced Date" onfocus="(this.type='date')"
                 onblur="if(this.value==''){this.type='text'}" value="{{ $staff->staff_detail->commenced_date }}">
             <span class="text-danger error-commenced_date"></span>
 

@@ -13,8 +13,33 @@ use Barryvdh\Debugbar\Controllers\BaseController;
 
 class ReportingController extends BaseController
 {
+    protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    protected $sidebar;
 
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
 
+            $user = auth()->user();   // works here
+
+            // Now do everything that needs user data
+            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+            $addAccess = staffPageAccessPermission($securityLevel, 'add');
+            $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+            return $next($request);
+        });
+    }
+    
     public function userRegistrationReport(Request $request)
     {
         $todayCount = User::whereDate('created_at', Carbon::today())->count();
@@ -105,7 +130,7 @@ class ReportingController extends BaseController
             $dropdown = '<div class="dropdown no-arrow" data-current-status="' . (int) $item->getRawOriginal('status') . '">
                             <a class="dropdown-toggle" href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
-            
+            if ($this->editAccessEnabled) {  
                 if ($item->status != 'Active') {
                 $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
                                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Active</a>';
@@ -134,8 +159,10 @@ class ReportingController extends BaseController
             if ($item->status != 'Suspended') {
                 $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspended</a>';
             }
-            $dropdown .= ' <div class="dropdown-divider"></div><a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report" data-toggle="modal" data-target="#account-row-"' . $item->id . '" data-id="' . $item->id . '"  href="javascript:void(0)" ><i class="fa fa-eye mr-2"></i> View</a></div></div>';
 
+            $dropdown .= '<div class="dropdown-divider"></div>';
+        }
+            $dropdown .= '<a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report" data-toggle="modal" data-target="#account-row-"' . $item->id . '" data-id="' . $item->id . '"  href="javascript:void(0)" ><i class="fa fa-eye mr-2"></i> View</a></div></div>';
 
             $item->action = $dropdown;
             $i++;

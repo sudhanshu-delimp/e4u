@@ -14,12 +14,38 @@ use App\Repositories\Agent\AgentInterface;
 class AgentController extends BaseController
 {
     protected $current_date_time;
-     protected $agentRepo;
+    protected $agentRepo;
+    protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    protected $sidebar;
 
     public function __construct(AgentInterface $agentRepo)
     {
         $this->current_date_time = date('Y-m-d H:i:s');
         $this->agentRepo = $agentRepo;
+        $this->middleware(function ($request, $next) {
+
+            $user = auth()->user();   // works here
+
+            // Now do everything that needs user data
+            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+            $addAccess = staffPageAccessPermission($securityLevel, 'add');
+            $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+            if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
+                return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
+            }
+
+            return $next($request);
+        });
     }
 
 
@@ -206,7 +232,6 @@ class AgentController extends BaseController
 
     public function approve_agent_account(Request $request)
     {
-
         $data = $request->all();
         $resposne = $this->agentRepo->change_user_status($data);
         if($resposne['status'])
@@ -226,7 +251,10 @@ class AgentController extends BaseController
         return $this->validationError($resposne['message']);
     }
 
-
+    public function agent_monthly_report(Request $request)
+    {  
+        return view('admin.management.agents.agents-monthly-report');
+    }
     
 
     

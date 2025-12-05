@@ -8,6 +8,11 @@
 </style>
 @stop
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+@endphp
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
    <!-- Main Content -->
@@ -60,6 +65,7 @@
                          <td>E40161 04052025 04 003</td>
                          <td><span class="badge badge-warning">Pending</span></td>
                          <td class="text-center"> 
+                            @if($editAccessEnabled)
                             <div class="dropdown no-arrow">
                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -70,9 +76,9 @@
                                   <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#"> <i class="fa fa-pause-circle "></i> On Hold</a>
                                   <div class="dropdown-divider"></div>
                                   <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-toggle="modal" data-target="#active_req"> <i class="fa fa-check-circle "></i> Completed</a>
-                                  
                                </div>
                             </div>
+                            @endif
                          </td>
                       </tr>
                       <tr>
@@ -84,6 +90,7 @@
                          <td>E50167 03052025 05 002</td>
                          <td><span class="badge badge-secondary">On Hold</span></td>
                          <td class="text-center"> 
+                            @if($editAccessEnabled)
                             <div class="dropdown no-arrow">
                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -97,6 +104,7 @@
                                   
                                </div>
                             </div>
+                            @endif
                          </td>
                       </tr>
                       <tr>
@@ -108,6 +116,7 @@
                          <td>E60112 02052025 06 001</td>
                          <td><span class="badge badge-success">Completed</span></td>
                          <td class="text-center"> 
+                            @if($editAccessEnabled)
                             <div class="dropdown no-arrow">
                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -121,6 +130,7 @@
                                   
                                </div>
                             </div>
+                            @endif
                          </td>
                       </tr>
                    </tbody>

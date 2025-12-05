@@ -202,8 +202,8 @@
                         <div><a href="#" class="cook--seting">Cookie Settings</a></div> <span>|</span><a
                             class="admin-login" href="{{ route('notice.dmca') }}">DMCA Notices</a> <span>|</span><a
                             class="admin-login" href="{{ url('parent-control') }} ">Parent Control</a>
-                        {{-- @if (!auth()->user())
-                            <span>|</span><a class="admin-login" href="{{ route('admin.login') }}">Admin Login</a>
+                        {{--@if (!auth()->user())
+                            <span>|</span><a class="admin-login" href="{{ route('admin.login') }}">Management Login</a>
                          <span>|</span><a class="admin-login" href="{{ route('operator.login')}}">Operator Login</a>
                          <span>|</span><a class="admin-login" href="{{ route('shareholder.login')}}">Shareholder Login</a>
                          <span>|</span><a class="admin-login" href="{{ route('staff.login') }}">Staff Login</a>

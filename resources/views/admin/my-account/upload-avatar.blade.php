@@ -3,42 +3,44 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 <link rel="stylesheet" type="text/css" href="https://foliotek.github.io/Croppie/croppie.css">
 <style>
-   .swal-button {
-   background-color: #242a2c;
-   }
-   label.cabinet input.file{
-	position: relative;
-	height: 100%;
-	width: auto;
-	opacity: 0;
-	-moz-opacity: 0;
-  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
-  margin-top:-30px;
-}
+    .swal-button {
+        background-color: #242a2c;
+    }
 
-#upload-demo{
-	width: 250px;
-	height: 250px;
-  padding-bottom:25px;
-}
+    label.cabinet input.file {
+        position: relative;
+        height: 100%;
+        width: auto;
+        opacity: 0;
+        -moz-opacity: 0;
+        filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+        margin-top: -30px;
+    }
+
+    #upload-demo {
+        width: 250px;
+        height: 250px;
+        padding-bottom: 25px;
+    }
 </style>
 @stop
 @section('content')
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
-   <!-- Main Content -->
-   <div id="content">
+    <!-- Main Content -->
+    <div id="content">
         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content start here-->
+            {{-- Page Heading   --}}
             <div class="row">
-                <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1">Upload your avatar </h1>
-                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
+                <div class="custom-heading-wrapper col-lg-12">
+                    <h1 class="h1">Upload your avatar</h1>
+                    <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
                 </div>
-                <div class="mb-4 col-md-12">
-                    <div class="card collapse" id="notes">
+                <div class="col-md-12 my-2">
+                    <div class="card collapse" id="notes" style="">
                         <div class="card-body">
-                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                             <ol>
                                 <li>You don't have to have an avatar, it is entirely up to you.</li>
                                 <li>Your avatar will not be displayed publicly.</li>
@@ -47,33 +49,36 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            {{-- end --}}
+            <div class="row">
                 <div class="col-md-12" id="profile_and_tour_options">
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card border-0">
                                 <div class="card-body">
-                                    <h2 class="primery_color normal_heading font-weight-bold">File types</h2>
+                                    <h2 class="primery_color normal_heading">File types</h2>
                                     <p>When selecting your avatar, please be mindful of the following:</p>
                                     <ul>
                                         <li>Yes you can use a photo, but we do not recommend it</li>
-                                        <li>Acceptable formats include; .jpg, .gif or .png
-                                        .pdf, .psd, .tff, and .doc files are not compatible</li>
+                                        <li>Acceptable formats include; .jpg, .gif or .png .pdf, .psd, .tff, and .doc files are not compatible</li>
                                     </ul>
                                     <div class="row">
                                         <div class="col-lg-4 mt-4">
-                                            <h2 class="primery_color normal_heading font-weight-bold">Upload your avatar</h2>
-                                            <form id="my_avatar" action="{{ route('admin.save.avatar',auth()->user()->id)}}" method="POST" enctype="multipart/form-data">
+                                            <h2 class="primery_color normal_heading">Upload your avatar</h2>
+                                            <form id="my_avatar" action="{{ route('admin.save.avatar', auth()->user()->id)}}" method="POST" enctype="multipart/form-data">
                                                 <div class="file-upload">
                                                     <div class="image-upload-wrap">
-                                                        <input class="file-upload-input gambar item-img" name="avatar_img" type="file" onchange="readURL(this);" accept="image/*">
+                                                        <input class="file-upload-input gambar item-img" name="avatar_img" type='file' onchange="readURL(this);" accept="image/*" />
                                                         <div class="drag-text">
                                                             <h3>Drag and drop a file or select add Image</h3>
                                                         </div>
                                                     </div>
                                                     <div class="file-upload-content">
-                                                        <img class="file-upload-image item-img" src="#" alt="your image" id="item-img-output">
+                                                        <img class="file-upload-image item-img" src="#" alt="your image" id="item-img-output" />
                                                         <div class="image-title-wrap">
-                                                            
+
                                                             <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
                                                             <button type="submit" class="remove-image crop_image">Save <span class="image-title">Uploaded Image</span></button>
                                                         </div>
@@ -82,14 +87,14 @@
                                             </form>
                                         </div>
                                         <div class="col-lg-4 mt-4 current-avatar">
-                                            
-                                            <h2 class="primery_color normal_heading font-weight-bold">Current Avatar</h2><!-- <i class="fab fa-twitter delete_avatar"></i> -->
-                                            @if(auth()->user()->avatar_img)
+
+                                            <h2 class="primery_color normal_heading">Current Avatar</h2><!-- <i class="fab fa-twitter delete_avatar"></i> -->
+                                            @if(auth()->user()->hasUploadedAvatar())
                                             <button type="button" class="avatar close delete_avatar" aria-label="Close">
                                                 <span aria-hidden="true">×</span>
                                             </button>
                                             @endif
-                                            <img src="{{ !auth()->user()->avatar_img ? asset('assets/app/img/service-provider/Frame-408.png') :asset('avatars/'.auth()->user()->avatar_img) }}" alt="" class="img-rounded avatarName">
+                                           <img src="{{ !auth()->user()->avatar_img ? asset('avatars/default/staff_default.png') :asset('avatars/'.auth()->user()->avatar_img) }}" alt="" class="img-rounded avatarName">
                                         </div>
                                     </div>
                                 </div>
@@ -101,8 +106,8 @@
                             <div id="accordion" class="myacording-design mb-5">
                                 <div class="card">
                                     <div class="card-header">
-                                        <a class="card-link" data-toggle="collapse" href="#File_name" aria-expanded="true">
-                                        Additional Upload Information
+                                        <a class="card-link" data-toggle="collapse" href="#File_name" aria-expanded="false">
+                                            Additional Upload Information
                                         </a>
                                     </div>
                                     <div id="File_name" class="collapse" data-parent="#accordion" style="">
@@ -128,45 +133,76 @@
             </div>
             <!--middle content end here-->
         </div>
-   </div>
-   <!-- End of Main Content -->
-   <!-- Footer -->
-   <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-         <div class="copyright text-center my-auto">
-            <span> </span>
-         </div>
-      </div>
-   </footer>
-   <!-- End of Footer -->
+    </div>
+    <!-- End of Main Content -->
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span> </span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
 </div>
 <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
+    <i class="fas fa-angle-up"></i>
 </a>
 <div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/crop-image.png')}}" class="custompopicon">Crop Photo</h5>
+                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/crop-image.png') }}" class="custompopicon"> Crop Photo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                    
+
                 </button>
-                
+
             </div>
             <div class="modal-body">
                 <div id="upload-demo" class="center-block">
                     {{-- <div class="cr-boundary" aria-dropeffect="none">
                         <img src="{{ asset('assets/app/img/service-provider/Frame-408.png')}}" alt="" class="img-rounded" >
-                    </div>
-                    <div class="cr-slider-wrap"><input class="cr-slider" type="range" step="0.0001" aria-label="zoom" min="0.0000" max="1.5000" aria-valuenow="0.0913"></div> --}}
                 </div>
+                <div class="cr-slider-wrap"><input class="cr-slider" type="range" step="0.0001" aria-label="zoom" min="0.0000" max="1.5000" aria-valuenow="0.0913"></div> --}}
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
-                <button type="button" id="cropImageBtn" class="btn-success-modal">Crop</button>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+            <button type="button" id="cropImageBtn" class="btn-success-modal">Crop</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal" id="conformation_modal" style="display: none">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color border-0">
+                <h5 class="modal-title text-white">
+                    <img src="{{ asset('assets/dashboard/img/remove-image.png') }}" class="custompopicon" id="modal-icon">
+                    <span style="color:white" id="modal-title">Remove Avatar</span>
+                </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                    <span id="comman_str">Are you sure you want to delete your avatar?</span>
+                    <!-- <span class="comman_msg"></span> -->
+                </h1>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button type="submit" class="btn-success-modal" id="confirmDelete" data-dismiss="modal" id="close">Yes</button>
+                <button type="submit" class="btn-cancel-modal" id="cancelDelete" data-dismiss="modal" id="close">NO</button>
             </div>
         </div>
     </div>
@@ -181,18 +217,17 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript">
     $('#userProfile').parsley({
-    
+
     });
-    
-    
-    
+
+
+
     $('#userProfile').on('submit', function(e) {
         e.preventDefault();
-    
+
         var form = $(this);
-    
         if (form.parsley().isValid()) {
-    
+
             var url = form.attr('action');
             var data = new FormData(form[0]);
             $.ajax({
@@ -214,7 +249,7 @@
                             position: 'top-right', // Change it to false to disable loader
                             loaderBg: '#9EC600' // To change the background
                         });
-    
+
                     } else {
                         $.toast({
                             heading: 'Error',
@@ -224,288 +259,286 @@
                             position: 'top-right', // Change it to false to disable loader
                             loaderBg: '#9EC600' // To change the background
                         });
-    
+
                     }
                 },
-    
+
             });
         }
     });
-    $('#city').select2({
-        allowClear: true,
-        placeholder :'Select City',
-        createTag: function(params) {
-            var term = $.trim(params.term);
-    
-            if (term === '') {
-                return null;
-            }
-            return {
-                id: term,
-                text: term,
-                newTag: false // add additional parameters
-            }
-        },
-        tags: false,
-        minimumInputLength: 2,
-        tokenSeparators: [','],
-        ajax: {
-            url: "{{ route('city.list') }}",
-            dataType: "json",
-            type: "GET",
-            data: function(params) {
-                console.log(params);
-                var queryParameters = {
-                    query: params.term,
-                    state_id: $('#state').val()
-                }
-                return queryParameters;
-            },
-            processResults: function(data) {
-                return {
-                    results: $.map(data, function(item) {
-    
-                        return {
-                            text: item.name,
-                            id: item.id
-                        }
-                    })
-                };
-            }
-        }
-    });
-    
-    $('#state').select2({
-        allowClear: true,
-        placeholder :'Select State',
-        createTag: function(params) {
-            var term = $.trim(params.term);
-    
-            if (term === '') {
-                return null;
-            }
-            return {
-                id: term,
-                text: term,
-                newTag: false // add additional parameters
-            }
-        },
-        tags: false,
-        minimumInputLength: 2,
-        tokenSeparators: [','],
-        ajax: {
-            url: "{{ route('state.list') }}",
-            dataType: "json",
-            type: "GET",
-            data: function(params) {
-                console.log(params);
-                var queryParameters = {
-                    query: params.term,
-                    country_id: $('#country').val()
-                }
-                return queryParameters;
-            },
-            processResults: function(data) {
-                return {
-                    results: $.map(data, function(item) {
-    
-                        return {
-                            text: item.name,
-                            id: item.id
-                        }
-                    })
-                };
-            }
-        }
-    });
-    
-    
-    $('#country').on('change', function(e) {
-        if($(this).val()) {
-            $('#state').prop('disabled', false);
-            $('#state').select2('open');
-        } else {
-            $('#state').prop('disabled', true);
-        }
-    });
-    
-    $('#state').on('change', function(e) {
-        if($(this).val()) {
-            $('#city').prop('disabled', false);
-            $('#city').select2('open');
-        } else {
-            $('#city').prop('disabled', true);
-        }
-    });
-    
-    
+
+
 </script>
+
+
+
 <script>
-    // function readURL(input) {
-    // if (input.files && input.files[0]) {
-    
-    // var reader = new FileReader();
-    
-    // reader.onload = function(e) {
-    //   $('.image-upload-wrap').hide();
-    
-    //   $('.file-upload-image').attr('src', e.target.result);
-    //   $('.file-upload-content').show();
-    
-    //   $('.image-title').html(input.files[0].name);
-    // };
-    
-    // reader.readAsDataURL(input.files[0]);
-    
-    // } else {
-    // removeUpload();
-    // }
-    // }
-    
     function removeUpload() {
         $('.file-upload-input').replaceWith($('.file-upload-input').clone());
         $('.file-upload-content').hide();
         $('.image-upload-wrap').show();
-        }
-        $('.image-upload-wrap').bind('dragover', function () {
-            $('.image-upload-wrap').addClass('image-dropping');
-        });
-        $('.image-upload-wrap').bind('dragleave', function () {
-            $('.image-upload-wrap').removeClass('image-dropping');
-        });
-
-        $(".gambar").attr("src");
-        var $uploadCrop,
+    }
+    $('.image-upload-wrap').bind('dragover', function() {
+        $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function() {
+        $('.image-upload-wrap').removeClass('image-dropping');
+    });
+    $(".gambar").attr("src");
+    var $uploadCrop,
         tempFilename,
         rawImg,
         imageId;
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('.upload-demo').addClass('ready');
-                    $('#cropImagePop').modal('show');
-                    rawImg = e.target.result;
-                    
-                }
-                reader.readAsDataURL(input.files[0]);
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('.upload-demo').addClass('ready');
+                $('#cropImagePop').modal('show');
+                rawImg = e.target.result;
+
             }
-            else {
-                removeUpload();
-            }
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            removeUpload();
         }
-    
+    }
+    $uploadCrop = $('#upload-demo').croppie({
+        viewport: {
+            width: 150,
+            height: 200,
+        },
+        enforceBoundary: false,
+        enableExif: true
+    });
 
-        $uploadCrop = $('#upload-demo').croppie({
-            viewport: {
+    $('#cropImagePop').on('shown.bs.modal', function() {
+        // alert('Shown pop');
+        $uploadCrop.croppie('bind', {
+            url: rawImg
+        }).then(function() {
+            console.log('1jQuery bind complete');
+        });
+    });
+
+    $('#cropImageBtn').on('click', function(ev) {
+        $uploadCrop.croppie('result', {
+            type: 'base64',
+            format: 'jpeg',
+            size: {
                 width: 150,
-                height: 200,
-            },
-            enforceBoundary: false,
-            enableExif: true
-        });
+                height: 200
+            }
+        }).then(function(resp) {
+            $('.file-upload-content').show();
+            $('#item-img-output').attr('src', resp);
+            //$('.file-upload-image').attr('src', e.target.result);
 
-        $('#cropImagePop').on('shown.bs.modal', function(){
-            // alert('Shown pop');
-            $uploadCrop.croppie('bind', {
-                url: rawImg
-            }).then(function(){
-                console.log( '1jQuery bind complete');
-            });
+            $('#cropImagePop').modal('hide');
         });
+    });
 
-        $('#cropImageBtn').on('click', function (ev) {
-            $uploadCrop.croppie('result', {
-                type: 'base64',
-                format: 'jpeg',
-                size: {width: 150, height: 200}
-            }).then(function (resp) { 
-                $('.file-upload-content').show();
-                $('#item-img-output').attr('src', resp);
-                //$('.file-upload-image').attr('src', e.target.result);
-            
-                $('#cropImagePop').modal('hide');
-            });
-        });
 
-    $("#my_avatar").on('submit',function(e){
+    function getBase64SizeBytes(base64) {
+        try {
+            if (!base64 || base64.indexOf(',') === -1) return 0;
+            var b64 = base64.split(',')[1];
+            var padding = (b64.match(/=+$/) || [''])[0].length;
+            return Math.floor((b64.length * 3) / 4) - padding;
+        } catch (e) { return 0; }
+    }
+
+
+    //SHS
+
+    $("#my_avatar").on('submit', function(e) {
         e.preventDefault();
-        
         var form = $(this);
+        $("#modal-title").text("Upload Your Avatar");
+        $("#modal-icon").attr("src", "/assets/dashboard/img/upload-photos.png");
         var src = $("#item-img-output").attr('src');
-        var url = form.attr('action');
-        //console.log("hii"+ src);
-        var data = new FormData($('#my_avatar')[0]);
 
-        
-        data.append('src',src);
+
+        // Client-side 2MB check before sending AJAX
+        var maxBytes = 2 * 1024 * 1024;
+        var inputEl = $('.file-upload-input')[0];
+        var oversize = false;
+        if (inputEl && inputEl.files && inputEl.files[0]) {
+            oversize = inputEl.files[0].size > maxBytes;
+        } else if (src && src.indexOf('data:image/') === 0) {
+            oversize = getBase64SizeBytes(src) > maxBytes;  
+        }
+        if (oversize) {
+            $('.comman_msg').text('Image must be 2MB or less.');
+            $("#comman_modal").modal('show');
+            try {
+                removeUpload();
+            } catch (e) {}
+            return false;
+        }
+
+
+        var url = form.attr('action');
+        var data = new FormData($('#my_avatar')[0]);
+        data.append('src', src);
         $.ajax({
-                method: form.attr('method'),
-                url:url,
-                data:data,
-                contentType: false,
-                processData: false,
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                success: function (data) {
-                    console.log(data);
-                    if(data.type == 0){
-                        var msg = "Saved";
-                        var url = "{{asset('avatars/name')}}";
-                        url = url.replace('name',data.avatarName);
-                        $('.comman_msg').text(msg);
-                        //$("#my_account_modal").show();
-                        $("#comman_modal").modal('show');
-                        $(".avatarName").attr('src',url);
-                        $(".file-upload-content").hide();
-                        
-                        
-                        
+            method: form.attr('method'),
+            url: url,
+            data: data,
+            contentType: false,
+            processData: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(data) {
+
+                if (data.type == 0) {
+                    var msg = "Avatar uploaded successfully!";
+                    var url = "{{asset('avatars/name')}}";
+                    url = url.replace('name', data.avatarName);
+                    $('.comman_msg').text(msg);
+                    //$("#my_account_modal").show();
+                    $("#comman_modal").modal('show');
+                    $(".avatarName").attr('src', url);
+                    $(".file-upload-content").hide();
+
+                    // Show the delete button since avatar is now uploaded
+                    if ($(".delete_avatar").length === 0) {
+                        $(".current-avatar h2").after(`<button type="button" class="avatar close delete_avatar" aria-label="Close"><span aria-hidden="true">×</span></button>`);
                     } else {
-                        var msg = "Sumthing wrong...";
-                        $('.comman_msg').text(msg);
-                        //$("#my_account_modal").show();
-                        $("#comman_modal").modal('show');
-                        location.reload();
+                        $(".delete_avatar").show();
+                    }
+                } else {
+                    errorModuleShow(data);
+                }
+            },
+            error: function(data) {
+                errorModuleShow(data);
+            }
+        });
+    });
+
+
+    function errorModuleShow(data = null) {
+        var msg = "";
+        try {
+            var resp = null;
+            if (data && data.responseJSON) {
+                resp = data.responseJSON;
+            } else if (data && data.responseText) {
+                try {
+                    resp = JSON.parse(data.responseText);
+                } catch (e) {}
+            } else {
+                resp = data;
+            }
+
+            if (resp) {
+                if (typeof resp === 'string') {
+                    msg = resp;
+                } else if (resp.message) {
+                    msg = resp.message;
+                } else if (resp.errors) {
+                    var errors = resp.errors;
+                    var first = null;
+                    if (Array.isArray(errors)) {
+                        first = errors[0];
+                    } else if (errors.src) {
+                        first = Array.isArray(errors.src) ? errors.src[0] : errors.src;
+                    } else if (errors.avatar_img) {
+                        first = Array.isArray(errors.avatar_img) ? errors.avatar_img[0] : errors.avatar_img;
+                    } else if (errors.file) {
+                        first = Array.isArray(errors.file) ? errors.file[0] : errors.file;
+                    }
+                    if (first) msg = first;
+                }
+            }
+        } catch (e) {}
+
+        $('.comman_msg').text(msg);
+        $("#comman_modal").modal('show');
+        $(".delete_avatar").hide();
+    }
+
+
+    $('#confirmDelete').on('click', function(e) {
+        e.preventDefault();
+
+        try {
+            // Show loading state on delete button
+            var deleteBtn = $(".delete_avatar");
+            var originalText = deleteBtn.html();
+            deleteBtn.html('<i class="fas fa-spinner fa-spin"></i>');
+            deleteBtn.prop('disabled', true);
+
+            $.ajax({
+                method: 'POST',
+                url: "{{ route('admin.avatar.remove') }}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    try {
+                        if (data.type == 0) {
+                            // Update avatar image to default
+                            $(".avatarName").attr('src', data.img);
+                           // var imgurl = "{{asset('assets/app/img/service-provider/Frame-408.png')}}";
+                           // $(".avatarName").attr('src', imgurl);
+
+                            // Hide delete button
+                            $(".delete_avatar").hide();
+                        } else {
+                            // Error - show error message
+                            showErrorMessage(data.message || "Something went wrong. Please try again.");
+                        }
+                    } catch (error) {
+                        showErrorMessage("Error processing server response. Please try again.");
                     }
                 },
-                error: function (data) {
-                    $.toast({
-                        heading: 'Error!',
-                        text: data.responseJSON.message,
-                        icon: 'error',
-                        loader: true,
-                        position: 'top-right',      // Change it to false to disable loader
-                        loaderBg: '#9EC600'  // To change the background
-                    });
-                    
+                error: function(xhr, status, error) {
+                    let errorMsg = "Error occurred while removing avatar.";
+                    showErrorMessage(errorMsg);
+                },
+                complete: function() {
+                    try {
+                        // Reset button state
+                        deleteBtn.html(originalText);
+                        deleteBtn.prop('disabled', false);
+                    } catch (error) {
+                        console.error('Error resetting button state:', error);
+                    }
                 }
             });
-    });
-    $(".delete_avatar").click(function()
-    {
-        $.post({
-                    type: 'POST',
-                    url: "{{ route('center.avatar.remove') }}",
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                }).done(function (data) {
-                    if(data.type == 0) {
-                        $('.Lname').html("Saved");
-                        $("#my_account_modal").modal('show');
-                        console.log("Oops..");
-                    } else {
-                        $('.Lname').html("Removed");
-                       // $("#my_account_modal").modal('show');
-                        $("#my_account_modal").show();
-                        console.log("ok");
-                    }
-                });
-       
+        } catch (error) {
+            console.error('Error in confirmDelete click handler:', error);
+            showErrorMessage("An unexpected error occurred. Please try again.");
+
+            // Reset button state
+            var deleteBtn = $(".delete_avatar");
+            deleteBtn.html('×');
+            deleteBtn.prop('disabled', false);
+        }
     });
 
-    $("#close").click(function()
-    {
-        $("#my_account_modal").hide();
-        location.reload();
+    $('#cancelDelete').on('click', function() {
+        // Just close the modal - no action needed
+        $("#conformation_modal").modal('hide');
+    });
+
+    // Function to show error message
+    function showErrorMessage(message) {
+        $("#modal-title").text("Error");
+        $("#modal-icon").attr("src", "/assets/dashboard/img/remove-image.png");
+        $('.comman_msg').text(message);
+
+        // Show modal
+        $("#comman_modal").modal('show');
+    }
+
+    // Bind delete avatar event to show confirmation modal
+    $(document).on('click', '.delete_avatar', function() {
+        $("#conformation_modal").modal('show');
     });
 </script>
 @endpush
