@@ -419,13 +419,13 @@ $(function()
                 {
                 Swal.fire({
                         title: "This account is your Primary account.",
-                        text: "Do you want to replace it as secondry bank account?",
+                        text: "Do you want to replace it as Secondry bank account?",
                         iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
                         customClass: {
                             icon: 'my-custom-icon'
                         },
                         showCancelButton: true,
-                        confirmButtonText: "Yes, replace it as secondry bank account",
+                        confirmButtonText: "Yes, replace it as Secondry bank account",
                         cancelButtonText: "Cancel",
                     }).then((result) => {
                         if (result.isConfirmed) {
