@@ -141,7 +141,7 @@ if (auth()->check())
     
         let closedUntil = localStorage.getItem("popup_closed_until_" + user_id);
         closedUntil = closedUntil ? parseInt(closedUntil) : null;
-        console.lo('closedUntil',closedUntil);
+        console.log('closedUntil',closedUntil);
 
         $(document).on("click", ".expiry-password-close", function () {
             let expire = new Date();
