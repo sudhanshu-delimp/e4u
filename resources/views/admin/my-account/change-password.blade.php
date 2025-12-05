@@ -96,7 +96,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group position-relative">
                                             <label for="current_password">Current password</label>
-                                            <input type="password" class="form-control" value="{{ old('password') }}" name="password" id="passwordN" placeholder="Current password" data-parsley-required-message="Current password is required" required>
+                                            <input type="password" class="form-control" value="{{ old('password') }}" name="current_password" id="passwordN" placeholder="Current password" data-parsley-required-message="Current password is required" required>
                                             <span class="toggle-password" toggle="#passwordN">
                                                 <i class="fa fa-eye"></i>
                                             </span>
@@ -297,53 +297,6 @@
     });
 
 
-    // $('#userProfile').on('submit', function(e) {
-    //   e.preventDefault();
-
-    //   var form = $(this);
-
-    //   if (form.parsley().isValid()) {
-
-    //     var url = form.attr('action');
-    //     var data = new FormData(form[0]);
-    //     $.ajax({
-    //       method: form.attr('method'),
-    //       url: url,
-    //       data: data,
-    //       contentType: false,
-    //       processData: false,
-    //       headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //       },
-    //       success: function(data) {
-    //         console.log(data);
-    //         if (data.error == true) {
-    //           $.toast({
-    //             heading: 'Success',
-    //             text: 'Details successfully saved',
-    //             icon: 'success',
-    //             loader: true,
-    //                           position: 'top-right', // Change it to false to disable loader
-    //                           loaderBg: '#9EC600' // To change the background
-    //                         });
-    //                         location.reload();
-
-    //         } else {
-    //           $.toast({
-    //             heading: 'Error',
-    //             text: 'Records Not update',
-    //             icon: 'error',
-    //             loader: true,
-    //                           position: 'top-right', // Change it to false to disable loader
-    //                           loaderBg: '#9EC600' // To change the background
-    //                         });
-
-    //         }
-    //       },
-
-    //     });
-    //   }
-    // });
 </script>
 
 @endpush

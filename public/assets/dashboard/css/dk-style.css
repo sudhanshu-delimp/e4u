@@ -6562,6 +6562,11 @@ th {
     overflow: auto;
 }
 
+.common_accordian_table td,
+th {
+    text-align: center
+}
+
 .common_accordian_table td {
     border: 0px;
 }
@@ -8330,6 +8335,10 @@ div#listings_wrapper .custom--common-table {
 
 .modal-dialog-custom {
     max-width: 800px !important;
+}
+
+.modal_custom_listing {
+    max-width: 1000px !important;
 }
 
 .email-content .section-one {

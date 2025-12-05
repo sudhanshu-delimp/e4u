@@ -1,4 +1,4 @@
-@extends('layouts.escort')
+@extends('layouts.escort') 
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <style type="text/css">
@@ -10,6 +10,12 @@
 #SetPinModal .modal-dialog {
   max-width: 450px !important;   
   margin: auto;
+}
+
+.payer-lable {
+    
+    display: inline-block;
+    width: 25%;
 }
 
 #SetPinModal .modal-content {
@@ -90,8 +96,7 @@
                   <li>You can set up, update and add additional bank accounts by clicking the 'Add
                      New' button. SMS 2FA authentification is applied for any changes to your Bank
                      Account details, including the initial setup.</li>
-                  <li>To display your Bank Account details to a client, select from the Action options
-                     ‘EFT Client’, enter your PIN number, and your bank account details will display.</li>
+                  <li>To display your Bank Account details, enter your PIN number.</li>
                </ol>
             </div>
          </div>
@@ -258,7 +263,7 @@
          <div class="modal-header main_bg_color border-0">
 
             <h5 class="modal-title text-white"><img src="/assets/dashboard/img/remove-bank-account.png" class="custompopicon" alt="cross"> Delete Bank Account</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <button class="close" type="button" data-dismiss="modal0" aria-label="Close">
                <span aria-hidden="true">
                   <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                </span>
@@ -373,7 +378,7 @@
 {{-- EFT Instructions for Payer [X] --}}
 <div class="modal fade upload-modal" id="EFTInstructions" tabindex="-1" role="dialog"
          aria-labelledby="escortProfileMissingLabel" aria-hidden="true" data-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-dialog-centered"  role="document">
          <div class="modal-content">
 
             <div class="modal-header">
@@ -415,6 +420,129 @@
       </div>
 </div>
 {{-- End Modal --}}
+
+{{-- enter pin modal to see your bank details --}}
+<div class="modal fade upload-modal" id="EnterPinModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+   <div class="modal-dialog modal-dialog-centered"  style="max-width: 500px;" role="document">
+     <div class="modal-content">
+      <div class="modal-header justify-content-center text-center">
+         <!-- Title -->
+         <h5 class=""><b>Enter your PIN</b> <br><small>(4 digits)</small></h5>
+      </div>
+ 
+       <div class="modal-body text-center p-0">
+         <!-- PIN Display -->
+         <div id="pinDisplay" class="pin-display mb-3">
+           [numbers appear as typed]
+         </div>
+ 
+         <!-- Keypad -->
+         <div class="pin-keypad mx-auto mb-3">
+           <div class="keypad-row">
+             <button class="key input_value">1</button>
+             <button class="key input_value">2</button>
+             <button class="key input_value">3</button>
+           </div>
+           <div class="keypad-row">
+             <button class="key input_value">4</button>
+             <button class="key input_value">5</button>
+             <button class="key input_value">6</button>
+           </div>
+           <div class="keypad-row">
+             <button class="key input_value">7</button>
+             <button class="key input_value">8</button>
+             <button class="key input_value">9</button>
+           </div>
+           <div class="keypad-row">
+             <button class="key" id="clear">⌫</button>
+             <button class="key input_value">0</button>
+             <button class="key" id="pinok">OK</button>
+           </div>
+         </div>
+ 
+         <!-- Footer Buttons -->
+         {{-- <div class="d-flex justify-content-center mb-3">
+           <button type="button" class="btn-cancel-modal mr-3">Clear</button>
+           <button type="button" class="btn-success-modal">Confirm</button>
+         </div> --}}
+ 
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+{{-- end modal --}}
+
+{{-- instruction payer  modal to see your bank details --}}
+<div class="modal fade upload-modal" id="InstructionPayerModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+   <div class="modal-dialog modal-dialog-centered" style="max-width: 500px;" role="document">
+     <div class="modal-content">
+      <div class="modal-header">
+            <h5 class="modal-title"><img src="/assets/dashboard/img/add-new-account.png" class="custompopicon" alt="cross"> Instructions for Payer</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true"><img src="http://127.0.0.1:8000/assets/app/img/newcross.png" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+      {{-- <div class="modal-header justify-content-between ">
+         <!-- Title -->
+         <h5 class=""><b>Instructions for Payer </b></h5>
+      </div> --}}
+ 
+       <div class="modal-body">
+         <ol class="text-left">
+            <li class="pl-3">EFT your payment to this bank account:
+               <ul class="text-left list-unstyled instruction-list">
+                  <li><span class="payer-lable">BSB:</span> <span class="font-weight-bold">123 445</span></li>
+                  <li><span class="payer-lable">A/c Number:</span> <span class="font-weight-bold">123-1235</span></li>
+               </ul>
+            </li>
+            <li class="pl-3">Please email your payment receipt to:
+               <ul class="text-left list-unstyled ">
+                  <li><a href="#">Escort email</a></li>
+               </ul>
+            </li>
+         </ol>
+         <!-- PIN Display -->
+         {{-- <div id="pinDisplay" class="pin-display mb-3">
+           [numbers appear as typed]
+         </div> --}}
+ 
+         <!-- Keypad -->
+         <div class="pin-keypad mx-auto mb-3">
+           {{-- <div class="keypad-row">
+             <button class="key input_value">1</button>
+             <button class="key input_value">2</button>
+             <button class="key input_value">3</button>
+           </div>
+           <div class="keypad-row">
+             <button class="key input_value">4</button>
+             <button class="key input_value">5</button>
+             <button class="key input_value">6</button>
+           </div>
+           <div class="keypad-row">
+             <button class="key input_value">7</button>
+             <button class="key input_value">8</button>
+             <button class="key input_value">9</button>
+           </div>
+           <div class="keypad-row">
+             <button class="key" id="clear">⌫</button>
+             <button class="key input_value">0</button>
+             <button class="key" id="pinok">OK</button>
+           </div> --}}
+         </div>
+ 
+         <!-- Footer Buttons -->
+         <div class="d-flex justify-content-center mb-3">
+            {{-- <button type="button" class="btn-cancel-modal mr-3">Close</button> --}}
+            <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
+         </div>
+ 
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+{{-- end modal --}}
 
 {{-- set pin --}}
 <div class="modal fade upload-modal" id="SetPinModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
@@ -477,6 +605,9 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
    $(document).ready(function(){
+
+      $('#EnterPinModal').modal('show');
+
       let fClick = true;
       $('.input_value').click(function(){
          let inputValue = $(this).text();
@@ -494,6 +625,18 @@
             alert('Your Pin Set');
             $('#pinDisplay').text(' ');
          });
+      $("#pinok").click(function(){
+          let pin = $('#pinDisplay').text();
+
+         if (pin === "1234") {  
+            $('#EnterPinModal').modal('hide'); // correct PIN → allow closing
+            $('#InstructionPayerModal').modal('show');
+            $('#pinDisplay').text(' ');
+         } else {
+            alert("Incorrect PIN");
+         }
+         
+      });
    })
 </script>
 <script>
@@ -656,11 +799,13 @@
                   $("#otp").val('');
                   $("#sendOtp_modal").modal('show'); //
                   $("#commission-report").modal('hide');
+                  console.log('jitednera submit out' );
                   $("body").on("submit", "#SendBankOtp", function(e) {
                      e.preventDefault();
                      var form = $(this);
 
-
+                     console.log('jitednera submit in' );
+                     
                      // var url = form.attr('action');
                      var url = "{{ route('escort.checkOTP')}}";
 
@@ -683,9 +828,18 @@
                         success: function(data) {
                            console.log(data);
 
+                           $("#modal-title").text('New Bank Account added Confirmation');
                            if (data.error == 0) {
-                              $('.comman_msg').html("Saved");
+                              let textMsg = `<p class="text-left p-2">
+                                 Bank Account [Account number] has been added to your list
+                                 of Bank Accounts as a [Primary or Secondary] account.</br></br>
+                                 You can edit the details by clicking the 'Action' link.</br></br>
+                                 The default PIN is [1234] which you can reset by clicking the
+                                 Change PIN button.
+                              </p>`;
+                              $('.comman_msg').html(textMsg);
                               $("#comman_modal").modal('show');
+                              
                               $("#sendOtp_modal").modal('hide');
                               table.draw();
                            }

@@ -143,6 +143,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Staff\StaffInterface',
             'App\Repositories\Staff\StaffRepository'
         );
+        $this->app->bind(
+            'App\Repositories\Admin\AdminInterface',
+            'App\Repositories\Admin\AdminRepository'
+        );
     }
 
     /**

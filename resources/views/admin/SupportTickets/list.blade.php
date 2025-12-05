@@ -35,6 +35,14 @@
 </style>
 @endsection
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+   $addAccess = staffPageAccessPermission($securityLevel, 'add');
+   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+@endphp
+
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="row">
             <div class="d-sm-flex align-items-center justify-content-between col-md-12">
@@ -110,6 +118,7 @@
                     </div>
                 </div>
                 <div class="reply-wrapper p-3">
+                    @if($editAccessEnabled)
                     <form id="sendMessage">
                        <div class="reply-message-box">
                         <textarea class="messageBox" name="message" id="message" rows="4" required></textarea>
@@ -117,6 +126,7 @@
                         <button class="btn-cancel-modal py-3" id="submit_message">Send</button>
                        </div>
                     </form>
+                    @endif
                 </div>
             </div>
         </div>

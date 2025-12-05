@@ -1,384 +1,643 @@
 @extends('layouts.admin')
 @section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
-<style>
-    .swal-button {
-    background-color: #242a2c;
-    }
-</style>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
+    <style>
+        .swal-button {
+            background-color: #242a2c;
+        }
+    </style>
 @stop
 @section('content')
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-    <!-- Main Content -->
-    <div id="content">
-        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-            <!--middle content start here-->
-            <!--middle content end here-->
-            <div class="row">
-                <div class="custom-heading-wrapper col-md-12">                    
-                    <h1 class="h1">My Account  </h1>
-                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
-                </div>
-                <div class="mb-4 col-md-12">
-                    <div class="card collapse" id="notes">
-                      <div class="card-body">
-                          <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                          <ol>
-                            <li>Your Advertiser's Profile Information will pre-populate any Massage Profile you create</li>
-                            <li>Select your preferred method of contact by a Viewer for your Massage Profiles</li>
-                          </ol>
-                      </div>
+@php
+$securityLevels = config('staff.security_level');
+$securityLevel = isset($staff->staff_detail->security_level) ? $staff->staff_detail->security_level : '';
+$staffType = $staff->type;
+$genders = config('escorts.profile.genders');
+$genderName = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
+
+$securityLevelName = isset($securityLevels[$staff->staff_detail->security_level]) ? $securityLevels[$staff->staff_detail->security_level] : '';
+
+  $employmentStatuss = config('staff.employment_status');
+        $employmentStatus = isset($employmentStatuss[$staff->staff_detail->employment_status])
+            ? $employmentStatuss[$staff->staff_detail->employment_status] : '';
+$cities = config('escorts.profile.cities');
+$cityName = isset($cities[$staff->city_id]) ? $cities[$staff->city_id] : '';
+
+$positions = config('staff.position');
+$positionLabel = isset($positions[$staff->staff_detail->position]) ? $positions[$staff->staff_detail->position] : '';
+
+@endphp  
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+                <!--middle content start here-->
+                <!--middle content end here-->
+                <div class="row">
+                    <div class="custom-heading-wrapper col-md-12">
+                        <h1 class="h1">My Account </h1>
+                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                            style="font-size:16px"><b>Help?</b> </span>
                     </div>
-                </div>
-                
-                <!-- ALERT MESSAGE -->
-                <div class="col-md-12 mb-3">
-                  <div id="formAlert" class="alert d-none rounded" role="alert"></div>
-                </div>
-                <div class="col-md-12 mb-5">
-                    <div id="accordion" class="myacording-design">
-                        <div class="card">
-                            <div class="card-header">
-                                <a class="card-link collapsed" data-toggle="collapse" href="#about_me" aria-expanded="false">
-                                About us
-                                </a>
+                    <div class="mb-4 col-md-12">
+                        <div class="card collapse" id="notes">
+                            <div class="card-body">
+                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                {{-- <ol>
+                            <li></li>
+                          </ol> --}}
                             </div>
-                            <div id="about_me" class="collapse" data-parent="#accordion" style="">
-                                <div class="card-body">
-                                    <form id="userProfile" class="v-form-design" action="{{ route('admin.account.update',[$escort->id])}}" method="POST">
+                        </div>
+                    </div>
+
+                    <!-- ALERT MESSAGE -->
+                    <div class="col-md-12 mb-3">
+                        <div id="formAlert" class="alert d-none rounded" role="alert"></div>
+                    </div>
+                    <div class="col-md-12 mb-5">
+                        <div id="accordion" class="myacording-design">
+                            <div class="card">
+
+                                <div class="card-body" style="border: none;margin-top: 0px;padding-top: 0px;">
+                                    <form id="userProfile" class="v-form-design"
+                                        action="{{ route('admin.account.update', [$staff->id]) }}" method="POST">
                                         @csrf
+                                        <!-- Start Personal Details -->
+                                        <input type="hidden" name="user_id" value="{{ $staff->id }}">
+                                        <div class="row">
+                                            <div class=" mb-3 w-100">
+                                                <h5 class="border-bottom pb-1 text-blue-primary">Personal Details</h5>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-10 px-0">
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                          <label for="email" class="my-agent">Display name </label>
-                                                            <input type="text" class="form-control" placeholder=" " name="name" aria-describedby="emailHelp" value="{{ $escort->name }}">
+                                                            <label for="email" class="my-agent">Full name</label>
+                                                            <input type="text" class="form-control" placeholder=" "
+                                                                name="name" aria-describedby="emailHelp"
+                                                                value="{{ $staff->name }}">
+                                                            <span class="text-danger error-name"></span>
                                                         </div>
                                                     </div>
-                                                    {{-- <div class="col-md-6">
+                                                    <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email">Your address</label>
-                                                            <input type="text" class="form-control" placeholder=" " name="" aria-describedby="emailHelp" value="">
+                                                            <label for="email" class="my-agent">Address</label>
+                                                            <input type="text" class="form-control rounded-0"
+                                                                placeholder="Address" name="address" id="address"
+                                                                value="{{ $staff->staff_detail->address }}">
+                                                            <span class="text-danger error-address"></span>
                                                         </div>
-                                                    </div> --}}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Mobile</label>
+                                                            <input type="text" class="form-control rounded-0"
+                                                                placeholder="Phone" name="phone" id="phone"
+                                                                value="{{ $staff->phone }}">
+                                                            <span class="text-danger error-phone"></span>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email">Email</label>
-                                                            <label class="form-control form-back">{{ $escort->email }}</label>
+                                                            <label
+                                                                class="form-control form-back">{{ $staff->email }}</label>
+                                                               
+                                                            <input name="email" id="email" type="hidden"
+                                                                value="{{ $staff->email }}">
+                                                            <span class="text-danger error-email"></span>
+                                                        
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email">Gender </label>
+                                                             @if($securityLevel == 1)
+                                                            <select class="form-control" name="gender" id="gender">
+                                                                <option value="">Select Gender</option>
+                                                                @foreach (config('escorts.profile.genders') as $key => $gender)
+                                                                    <option value="{{ $key }}"
+                                                                        {{ $staff->gender == $key ? 'selected' : '' }}>
+                                                                        {{ $gender }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span class="text-danger error-gender"></span>
+                                                            @else
+                                                            <label
+                                                                class="form-control form-back">{{ $genderName }}</label>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Personal Details -->
 
-                                                            {{-- <input type="text" class="form-control" placeholder=" " name="email" aria-describedby="emailHelp" value="{{ $escort->email }}"> --}}
-                                                            <input type="hidden"  value="{{ $escort->email }}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                           <label for="email">Gender </label>
-                                                            <select class="form-control" name="gender">
-                                                              @foreach(config('escorts.profile.genders') as $key => $gender)
-                                                                  <option value="{{$key}}" {{$key == $escort->gender ? 'selected' : ''}}>{{$gender}}</option>
-                                                              @endforeach
-                                                              </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="email">Mobile</label>
-                                                            <span class="form-control form-back">{{ $escort->phone }}</span>
-                                                            {{-- <input type="text" class="form-control" placeholder=" " name="phone" aria-describedby="emailHelp" value="{{ $escort->phone }}"> --}}
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="Gender" class="my-agent">Home State <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"></label>
-                                                            <label  class="form-control form-back" placeholder="Western Australia" aria-describedby="emailHelp" id="stateNew" name="state_id" value="{{$escort->state_id}}">
-                                                              {{ $escort->state_id ? config('escorts.profile.states')[$escort->state_id]['stateName'] : ''}}
-                                                          </label>
-                                                            {{-- <select class="form-control" name="state_id">
-                                                            @foreach(config('escorts.profile.states') as $key => $state)
-                                                                <option value="{{$key}}" {{$key == $escort->state_id ? 'selected' : ''}}>{{$state['stateName']}}</option>
-                                                            @endforeach
-                                                            </select> --}}
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <input type="submit" value="save" class="btn btn-primary shadow-none float-right" name="submit">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="card">
-                            <div class="card-header">
-                                <a class="card-link collapsed" data-toggle="collapse" href="#profile_and_tour_options" aria-expanded="false">
-                                Profile contact options
-                                </a>
-                            </div>
-                            <div id="profile_and_tour_options" class="collapse" data-parent="#accordion" style="">
-                                <div class="card-body">
-                                    <form class="v-form-design">
+                                        <!-- Start Next of Kin -->
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="email">How can Viewers contact me</label>
-                                                    <div class="switch-sec">
-                                                        <label class="switch">
-                                                        <input type="checkbox" checked="">
-                                                        <span class="slider round"></span>
-                                                        </label>
+                                            <div class=" mb-3 w-100">
+                                                <h5 class="border-bottom pb-1 text-blue-primary">Next of Kin (Emergency
+                                                    Contact)</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10 px-0">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Kin of Name</label>
+                                                            <input type="text" name="kin_name" id="kin_name"
+                                                                class="form-control rounded-0" placeholder="Kin of Name"
+                                                                value="{{ $staff->staff_detail->kin_name }}">
+                                                            <span class="text-danger error-kin_name"></span>
+                                                        </div>
                                                     </div>
-                                                    <div class="pt-1"><i>When creating a Massage Profile, your Profile settings are by default set to your My Account information. You can over ride those settings in the Profile creator, or disable them here.
-                                                        </i>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Relationship</label>
+                                                            <input type="text" name="kin_relationship"
+                                                                id="kin_relationship" class="form-control rounded-0"
+                                                                placeholder="Relationship"
+                                                                value="{{ $staff->staff_detail->kin_relationship }}">
+                                                            <span class="text-danger error-kin_relationship"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="email">How can Viewers contact us</label><br>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" id="Method_Message" value="option1">
-                                                        <label class="form-check-label" for="Method_Message">Call us</label>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Mobile</label>
+                                                            <input type="text" name="kin_mobile" id="kin_mobile"
+                                                                class="form-control rounded-0" placeholder="Mobile"
+                                                                value="{{ $staff->staff_detail->kin_mobile }}">
+                                                            <span class="text-danger error-kin_mobile"></span>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
-                                                        <label class="form-check-label" for="Method_Text">Text us</label>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Email
+                                                                (optional)</label>
+                                                            <input type="email" name="kin_email"
+                                                                class="form-control rounded-0"
+                                                                placeholder="Email (optional)"
+                                                                value="{{ $staff->staff_detail->kin_email }}">
+                                                            <span class="text-danger error-kin_email"></span>
+                                                        </div>
                                                     </div>
-                                                    <div class="pt-1"><i>You can select both options if you want.</i></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <input type="submit" value="Save Contact Options" class="btn btn-primary shadow-none float-right" name="submit">
+                                        <!-- End Next of Kin -->
+
+                                        <!-- Start Other Details -->
+                                        <div class="row">
+                                            <div class=" mb-3 w-100">
+                                                <h5 class="border-bottom pb-1 text-blue-primary">Other Details</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10 px-0">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Security Level</label>
+                                                             @if($securityLevel == 1)
+                                                            <select class="form-control rounded-0" name="security_level"
+                                                                id="security_level_edit" >
+                                                                <option value="">Security Level</option>
+                                                                @foreach (config('staff.security_level') as $seckey => $secLevel)
+                                                                    <option value="{{ $seckey }}"
+                                                                        {{ $staff->staff_detail->security_level == $seckey ? 'selected' : '' }}>
+                                                                        {{ $secLevel }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span class="text-danger error-security_level"></span>
+                                                            @else
+                                                            <label
+                                                                class="form-control form-back">{{ $securityLevelName }}</label>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Position</label>
+                                                             @if($securityLevel == 1)
+                                                            <select class="form-control rounded-0" name="position2"
+                                                                id="position_edit" disabled>
+                                                                <option value="">Position</option>
+                                                                @foreach (config('staff.position') as $pkey => $position)
+                                                                    <option value="{{ $pkey }}"
+                                                                        {{ $staff->staff_detail->position == $pkey ? 'selected' : '' }}>
+                                                                        {{ $position }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span class="text-danger error-position"></span>
+                                                            @else
+                                                            <label
+                                                                class="form-control form-back">{{ $positionLabel }}</label>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Location</label>
+                                                             @if($securityLevel == 1)
+                                                            <select class="form-control rounded-0" name="location"
+                                                                id="location">
+                                                                <option value="">Select Location</option>
+                                                                @foreach (config('escorts.profile.cities') as $skey => $city)
+                                                                    <option value="{{ $skey }}"
+                                                                        {{ $staff->city_id == $skey ? 'selected' : '' }}>
+                                                                        {{ $city }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span class="text-danger error-location"></span>
+                                                            @else
+                                                            <label
+                                                                class="form-control form-back">{{ $cityName }}</label>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                          
+                                                                 @if($securityLevel == 1)
+                                                                   <label for="email" class="my-agent">Commenced Date
+                                                                (DD/MM/YYYY)</label>
+                                                            <input type="text" name="commenced_date"
+                                                                id="commenced_date" class="form-control rounded-0"
+                                                                placeholder="Commenced Date (DD/MM/YYYY)"
+                                                                onfocus="(this.type='date')"
+                                                                onblur="if(this.value==''){this.type='text'}"
+                                                                value="{{ $staff->staff_detail->commenced_date }}">
+                                                            <span class="text-danger error-commenced_date"></span>
+                                                            @else
+                                                              <label for="email" class="my-agent">Commenced Date</label>
+                                                            <label
+                                                                class="form-control form-back">{{ showDateWithFormat($staff->staff_detail->commenced_date)  }}</label>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Employment
+                                                                Status</label>
+                                                             @if($securityLevel == 1)
+                                                            <select class="form-control rounded-0"
+                                                                name="employment_status" id="employment_status">
+                                                                <option value="">Select Employment Status</option>
+                                                                @foreach (config('staff.employment_status') as $empkey => $empStatus)
+                                                                    <option value="{{ $empkey }}"
+                                                                        {{ $staff->staff_detail->employment_status == $empkey ? 'selected' : '' }}>
+                                                                        {{ $empStatus }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span class="text-danger error-employment_status"></span>
+                                                            @else
+                                                            <label
+                                                                class="form-control form-back">{{ $employmentStatus }}</label>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Employment
+                                                                Agreement?</label>
+                                                             @if($securityLevel == 1)
+                                                            <select class="form-control rounded-0"
+                                                                name="employment_agreement" id="employment_agreement">
+                                                                <option value="">Employment Agreement?</option>
+                                                                <option value="yes"
+                                                                    {{ $staff->staff_detail->employment_agreement == 'yes' ? 'selected' : '' }}>
+                                                                    Yes
+                                                                </option>
+                                                                <option value="no"
+                                                                    {{ $staff->staff_detail->employment_agreement == 'no' ? 'selected' : '' }}>
+                                                                    No
+                                                                </option>
+                                                            </select>
+                                                            <span class="text-danger error-employment_agreement"></span>
+                                                            @else
+                                                            <label
+                                                                class="form-control form-back">{{ ucfirst($staff->staff_detail->employment_agreement) }}</label>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Other Details -->
+                                        <!-- StartBuilding Security -->
+                                        <div class="row">
+                                            <div class=" mb-3 w-100">
+                                                <h5 class="border-bottom pb-1 text-blue-primary">Building Security</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10 px-0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="email" class="my-agent">Access Code
+                                                            Provided?</label>
+                                                             @if($securityLevel == 1)
+                                                        <select class="form-control rounded-0" name="building_access_code"
+                                                            id="building_access_code">
+                                                            <option value="">Access Code Provided?</option>
+                                                            <option value="yes"
+                                                                {{ $staff->staff_detail->building_access_code == 'yes' ? 'selected' : '' }}>
+                                                                Yes
+                                                            </option>
+                                                            <option value="no"
+                                                                {{ $staff->staff_detail->building_access_code == 'no' ? 'selected' : '' }}>
+                                                                No
+                                                            </option>
+                                                        </select>
+                                                        <span class="text-danger error-building_access_code"></span>
+                                                         @else
+                                                            <label
+                                                                class="form-control form-back">{{ ucfirst($staff->staff_detail->building_access_code) }}</label>
+                                                            @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="email" class="my-agent">Key Provided?</label>
+                                                         @if($securityLevel == 1)
+                                                        <select class="form-control rounded-0" name="keys_issued"
+                                                            id="keys_issued">
+                                                            <option value="">Key Provided?</option>
+                                                            <option value="yes"
+                                                                {{ $staff->staff_detail->keys_issued == 'yes' ? 'selected' : '' }}>
+                                                                Yes</option>
+                                                            <option value="no"
+                                                                {{ $staff->staff_detail->keys_issued == 'no' ? 'selected' : '' }}>
+                                                                No</option>
+                                                        </select>
+                                                        <span class="text-danger error-keys_issued"></span>
+                                                         @else
+                                                            <label
+                                                                class="form-control form-back">{{ ucfirst($staff->staff_detail->keys_issued) }}</label>
+                                                            @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="email" class="my-agent">Car Park?</label>
+                                                         @if($securityLevel == 1)
+                                                        <select class="form-control rounded-0" name="car_parking"
+                                                            id="car_parking">
+                                                            <option value="">Car Park?</option>
+                                                            <option value="yes"
+                                                                {{ $staff->staff_detail->car_parking == 'yes' ? 'selected' : '' }}>
+                                                                Yes</option>
+                                                            <option value="no"
+                                                                {{ $staff->staff_detail->car_parking == 'no' ? 'selected' : '' }}>
+                                                                No</option>
+                                                        </select>
+                                                        <span class="text-danger error-car_parking"></span>
+                                                         @else
+                                                            <label
+                                                                class="form-control form-back">{{ ucfirst($staff->staff_detail->car_parking) }}</label>
+                                                            @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- End Building Security -->
+                                            <input type="submit" value="save"
+                                                class="btn btn-primary shadow-none float-right" name="submit">
                                     </form>
                                 </div>
                             </div>
-                        </div> --}}
-                      </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- End of Main Content -->
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span> </span>
+        <!-- End of Main Content -->
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span> </span>
+                </div>
             </div>
-        </div>
-    </footer>
-    <!-- End of Footer -->
-</div>
-<!-- End of Content Wrapper -->
-</div>
-<!-- End of Page Wrapper -->
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
-</a>
+        </footer>
+        <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 @endsection
 @push('script')
-<!-- file upload plugin start here -->
-<!-- file upload plugin end here -->
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-<script type="text/javascript">
-    $('#userProfile').parsley({
-    
-    });
-    // new
-    $('#userProfile').on('submit', function(e) {
-      e.preventDefault();
+    <!-- file upload plugin start here -->
+    <!-- file upload plugin end here -->
+    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+    <script type="text/javascript">
+        $('#userProfile').parsley({
 
-      var form = $(this);
-
-      if (form.parsley().isValid()) {
-
-        var url = form.attr('action');
-        var data = new FormData(form[0]);
-
-        $.ajax({
-          method: form.attr('method'),
-          url: url,
-          data: data,
-          contentType: false,
-          processData: false,
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          success: function(data) {
-            var alertBox = $('#formAlert');
-
-            if (!data.error) {
-              alertBox
-                .removeClass('d-none alert-danger')
-                .addClass('alert-success')
-                .html('Preference updated successfully.');
-            } else {
-              alertBox
-                .removeClass('d-none alert-success')
-                .addClass('alert-danger')
-                .html('Oops... something went wrong. Please try again.');
-            }
-
-            // Optional: Auto-hide after 4 seconds
-            setTimeout(function() {
-              alertBox.addClass('d-none');
-            }, 10000);
-          },
         });
-      }
-    });
-    // end
+        // new
+        $('#userProfile').on('submit', function(e) {
+            e.preventDefault();
 
-    // old 
-    // $('#userProfile').on('submit', function(e) {
-    //   e.preventDefault();
-    
-    //   var form = $(this);
-    
-    //   if (form.parsley().isValid()) {
-    
-    //     var url = form.attr('action');
-    //     var data = new FormData(form[0]);
-    //     $.ajax({
-    //       method: form.attr('method'),
-    //       url: url,
-    //       data: data,
-    //       contentType: false,
-    //       processData: false,
-    //       headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //       },
-    //       success: function(data) {
-    //         if (!data.error) {
-    //           $('.Lname').html("Saved");
-    //           //$("#my_account_modal").modal('show');
-    //           $("#my_account_modal").show();
-    //           //
-    //         } else {
-    //           $('.Lname').html("Oops.. sumthing wrong Please try again");
-    //           $("#my_account_modal").show();
-    
-    //         }
-    //       },
-    
-    //     });
-    //   }
-    // });
-    $("#close").click(function()
-      {
-          $("#my_account_modal").hide();
-          location.reload();
-      });
-    $('#city').select2({
-      allowClear: true,
-      placeholder :'Select City',
-      createTag: function(params) {
-        var term = $.trim(params.term);
-    
-        if (term === '') {
-          return null;
-        }
-        return {
-          id: term,
-          text: term,
-                  newTag: false // add additional parameters
+            var form = $(this);
+
+            if (form.parsley().isValid()) {
+
+                var url = form.attr('action');
+                var data = new FormData(form[0]);
+                $('span.text-danger').text('');
+
+                swal_waiting_popup({
+                    'title': 'Saving Staff Details'
+                });
+
+                $.ajax({
+                    method: form.attr('method'),
+                    url: url,
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        var alertBox = $('#formAlert');
+                        var notes = $('#notes');
+                        $('span.text-danger').text('');
+                        if (!data.error) {
+                            Swal.close();
+                            alertBox
+                                .removeClass('d-none alert-danger')
+                                .addClass('alert-success')
+                                .html('Your details have been updated successfully.');
+                            $('html, body').animate({
+                                scrollTop: notes.offset()
+                                    .top // Get the top offset of the target div
+                            }, 500);
+                        } else {
+                            alertBox
+                                .removeClass('d-none alert-success')
+                                .addClass('alert-danger')
+                                .html('Error occured while updating data.');
+                        }
+
+                        // Optional: Auto-hide after 4 seconds
+                        setTimeout(function() {
+                            alertBox.addClass('d-none');
+                        }, 10000);
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        console.log(xhr);
+                        if (xhr.status === 422) {
+                            $('span.text-danger').text('');
+                            let errors = xhr.responseJSON.errors;
+                            $.each(errors, function(field, messages) {
+                                $('.error-' + field).text(messages[0]);
+                            });
+                        } else {
+                            alertBox
+                                .removeClass('d-none alert-success')
+                                .addClass('alert-danger')
+                                .html('Oops... something went wrong. Please try again.');
+                        }
+                    },
+                });
+            }
+        });
+
+        $("#close").click(function() {
+            $("#my_account_modal").hide();
+            location.reload();
+        });
+        $('#city').select2({
+            allowClear: true,
+            placeholder: 'Select City',
+            createTag: function(params) {
+                var term = $.trim(params.term);
+
+                if (term === '') {
+                    return null;
                 }
-              },
-              tags: false,
-              minimumInputLength: 2,
-              tokenSeparators: [','],
-              ajax: {
+                return {
+                    id: term,
+                    text: term,
+                    newTag: false // add additional parameters
+                }
+            },
+            tags: false,
+            minimumInputLength: 2,
+            tokenSeparators: [','],
+            ajax: {
                 url: "{{ route('city.list') }}",
                 dataType: "json",
                 type: "GET",
                 data: function(params) {
-                  console.log(params);
-                  var queryParameters = {
-                    query: params.term,
-                    state_id: $('#state').val()
-                  }
-                  return queryParameters;
+                    console.log(params);
+                    var queryParameters = {
+                        query: params.term,
+                        state_id: $('#state').val()
+                    }
+                    return queryParameters;
                 },
                 processResults: function(data) {
-                  return {
-                    results: $.map(data, function(item) {
-    
-                      return {
-                        text: item.name,
-                        id: item.id
-                      }
-                    })
-                  };
+                    return {
+                        results: $.map(data, function(item) {
+
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        })
+                    };
                 }
-              }
-            });
-    
-    $('#state').select2({
-      allowClear: true,
-      placeholder :'Select State',
-      createTag: function(params) {
-        var term = $.trim(params.term);
-    
-        if (term === '') {
-          return null;
-        }
-        return {
-          id: term,
-          text: term,
-                  newTag: false // add additional parameters
+            }
+        });
+
+        $('#state').select2({
+            allowClear: true,
+            placeholder: 'Select State',
+            createTag: function(params) {
+                var term = $.trim(params.term);
+
+                if (term === '') {
+                    return null;
                 }
-              },
-              tags: false,
-              minimumInputLength: 2,
-              tokenSeparators: [','],
-              ajax: {
+                return {
+                    id: term,
+                    text: term,
+                    newTag: false // add additional parameters
+                }
+            },
+            tags: false,
+            minimumInputLength: 2,
+            tokenSeparators: [','],
+            ajax: {
                 url: "{{ route('state.list') }}",
                 dataType: "json",
                 type: "GET",
                 data: function(params) {
-                  console.log(params);
-                  var queryParameters = {
-                    query: params.term,
-                    country_id: $('#country').val()
-                  }
-                  return queryParameters;
+                    console.log(params);
+                    var queryParameters = {
+                        query: params.term,
+                        country_id: $('#country').val()
+                    }
+                    return queryParameters;
                 },
                 processResults: function(data) {
-                  return {
-                    results: $.map(data, function(item) {
-    
-                      return {
-                        text: item.name,
-                        id: item.id
-                      }
-                    })
-                  };
+                    return {
+                        results: $.map(data, function(item) {
+
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        })
+                    };
                 }
-              }
-            });
-    
-    
-    $('#country').on('change', function(e) {
-      if($(this).val()) {
-        $('#state').prop('disabled', false);
-        $('#state').select2('open');
-      } else {
-        $('#state').prop('disabled', true);
-      }
+            }
+        });
+
+
+        $('#country').on('change', function(e) {
+            if ($(this).val()) {
+                $('#state').prop('disabled', false);
+                $('#state').select2('open');
+            } else {
+                $('#state').prop('disabled', true);
+            }
+        });
+
+        $('#state').on('change', function(e) {
+            if ($(this).val()) {
+                $('#city').prop('disabled', false);
+                $('#city').select2('open');
+            } else {
+                $('#city').prop('disabled', true);
+            }
+        });
+    </script>
+
+    <script>
+    $(document).ready(function() {
+        $("#security_level_edit").on("change", function() {
+            let level = $(this).val();
+            // Auto-select position = same value as security_level
+            $("#position_edit").val(level).trigger("change");
+            $("#position_edit").prop("disabled", true);
+        });
     });
-    
-    $('#state').on('change', function(e) {
-      if($(this).val()) {
-        $('#city').prop('disabled', false);
-        $('#city').select2('open');
-      } else {
-        $('#city').prop('disabled', true);
-      }
-    });
-    
-    
 </script>
 @endpush

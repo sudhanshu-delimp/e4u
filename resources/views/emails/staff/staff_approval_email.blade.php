@@ -44,7 +44,7 @@
                   </tr>
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Login url:</td>
-                    <td style="padding: 10px 0px 10px 10px">{{route('staff.login')}}</td>
+                    <td style="padding: 10px 0px 10px 10px">{{route('admin.login')}}</td>
                   </tr>
                 </table>
                 <p style="font-size: 15px; margin-top: 20px;">

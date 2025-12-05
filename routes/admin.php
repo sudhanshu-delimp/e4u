@@ -28,7 +28,7 @@ use App\Http\Controllers\Admin\PostOfficeController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {  
-    Route::get('/admin-login', 'DashboardController@index')->name('admin.index');
+    Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
 });
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
 Route::post('/update-account', [DashboardController::class, 'update'])->name('admin.account.update');
@@ -223,9 +223,7 @@ Route::get('management/monthly-fee-reports',function(){
     return view('admin.management.operator.monthly-fee-reports');
 })->name('admin.monthly-fee-reports');
 
-Route::get('management/agents-monthly-report',function(){
-    return view('admin.management.agents.agents-monthly-report');
-})->name('admin.agents-monthly-report');
+
 
 Route::get('management/commission-summary',function(){
     return view('admin.management.operator.commission-summary');
@@ -244,7 +242,7 @@ Route::get('management/profile',function(){
     return view('admin.management.statistics.profile');
 })->name('admin.profile');
 
-Route::get('/admin-dashboard/management/statistics/num',function(){
+Route::get('/management/statistics/num',function(){
     return view('admin.management.statistics.num');
 })->name('admin.num');
 
@@ -333,6 +331,8 @@ Route::post('/active-agent-account',[AgentController::class,'activate_user'])->n
 
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');
 
+Route::get('management/agents-monthly-report',[AgentController::class,'agent_monthly_report'])->name('admin.agents-monthly-report');
+
 
 //Centres Notification system for admin
 
@@ -370,3 +370,162 @@ Route::post('/notifications/viewer/{id}/update', [ViewerNotificationController::
 
 ################### PDF ###################
 Route::post('/generate-agent-info-pdf', [AgentPdfController::class, 'generate_agent_info_pdf'])->name('admin.generate-agent-info-pdf');
+
+Route::get('admin-dashboard/alerts/new', function(){
+        return view('admin.alerts.new');
+    })->name('new');
+
+    
+Route::get('/management/email-management',function(){
+    return view('admin.management.email-management');
+})->name('email-management');
+  
+Route::get('admin-dashboard/management/sim-management',function(){
+    return view('admin.management.sim-management');
+})->name('sim-management');
+
+
+Route::get('/support/pricing',function(){
+    return view('admin.support.pricing');
+})->name('pricing');
+
+Route::get('/support/abbreviations',function(){
+    return view('admin.support.abbreviations');
+})->name('abbreviations');
+
+Route::get('/support/classification-laws',function(){
+    return view('admin.support.classification-laws');
+})->name('classification-laws');
+
+Route::get('/support/laws',function(){
+    return view('admin.support.laws');
+})->name('laws');
+
+Route::get('/support/post',function(){
+    return view('admin.support.post');
+})->name('post');
+
+Route::get('/website/global-notifications',function(){
+    return view('admin.website.global-notifications');
+})->name('global-notifications');
+
+Route::get('/website/maintenance',function(){
+    return view('admin.website.maintenance');
+})->name('maintenance');
+
+Route::get('/Analytics/publicpages',function(){
+    return view('admin.Analytics.publicpages');
+})->name('publicpages');
+
+// Route::get('/Analytics/consoles',function(){
+//     return view('admin.Analytics.consoles');
+// })->name('consoles');
+
+Route::get('/Concierge/email-service-request',function(){
+    return view('admin.Concierge.email-service-request');
+})->name('email-service-request');
+
+Route::get('/Concierge/mobile-sim-request',function(){
+    return view('admin.Concierge.mobile-sim-request');
+})->name('mobile-sim-request');
+
+Route::get('/Concierge/product-request',function(){
+    return view('admin.Concierge.product-request');
+})->name('product-request');
+
+Route::get('/Concierge/visa-migration-request',function(){
+    return view('admin.Concierge.visa-migration-request');
+})->name('visa-migration-request');
+
+Route::get('/reporting/email-request',function(){
+    return view('admin.reporting.email-request');
+})->name('admin.email-request');
+
+Route::get('/reporting/mobile-request',function(){
+    return view('admin.reporting.mobile-request');
+})->name('admin.mobile-request');
+
+Route::get('/reporting/admin-product-request',function(){
+    return view('admin.reporting.admin-product-request');
+})->name('admin.admin-product-request');
+
+Route::get('/reporting/punterbox-report',function(){
+    return view('admin.reporting.punterbox-report');
+})->name('admin.punterbox-report');
+
+Route::get('/management/competitor-database',function(){
+    return view('admin.management.competitor-database');
+})->name('admin.competitor-database');
+
+Route::get('/management/memberships',function(){
+    return view('admin.management.memberships');
+})->name('admin.memberships');
+
+Route::get('/reports/credit',function(){
+    return view('admin.reports.credit');
+})->name('admin.credit');
+
+
+
+Route::get('/management/statistics/listings',function(){
+    return view('admin.management.statistics.listings');
+})->name('admin.listings');
+
+
+Route::get('/management/legbox-report',function(){
+    return view('admin.management.legbox-report');
+})->name('admin.legbox-report');
+
+Route::get('/management/logs-staff',function(){
+    return view('admin.management.logs-staff');
+})->name('admin.logs-staff');
+
+/* Route::get('/management/staff',function(){
+    return view('admin.management.staff');
+})->name('admin.staff'); */
+
+
+
+Route::get('/management/email-management',function(){
+    return view('admin.management.email-management');
+})->name('admin.email-management');
+
+Route::get('/management/marketing-templates-agents',function(){
+    return view('admin.management.marketing-templates-agents');
+})->name('admin.marketing-templates-agents');
+
+Route::get('/management/marketing-templates-e4u',function(){
+    return view('admin.management.marketing-templates-e4u');
+})->name('admin.marketing-templates-e4u');
+
+Route::get('/management/post-office',function(){
+    return view('admin.management.post-office');
+})->name('admin.post-office');
+
+
+Route::get('/notifications/global',function(){
+    return view('admin.notifications.global');
+})->name('admin.global');
+
+
+// Route::get('/notifications/agents',function(){
+//     return view('admin.notifications.agents');
+// })->name('admin.agents');
+
+// Route::get('/notifications/viewers',function(){
+//     return view('admin.notifications.viewers');
+// })->name('admin.viewers');
+
+
+Route::get('/notifications/escorts',function(){
+    return view('admin.notifications.escorts');
+})->name('admin.escorts');
+
+Route::get('/blog',function(){
+    return view('admin.blog');
+})->name('admin.blog');
+
+
+Route::get('/management/punterbox-reports',function(){
+    return view('admin.management.punterbox-report');
+})->name('admin.punterbox-reports');

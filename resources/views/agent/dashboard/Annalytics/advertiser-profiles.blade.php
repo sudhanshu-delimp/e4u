@@ -43,11 +43,11 @@
                                 <div class="card-body">
                                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                                     <ol>
-                                        <li>This report provides information associated with all of your Profiles (excluding
-                                            Tours).</li>
-                                        <li>It is a summary of the Listed Profiles and revenue (Commission) you have derived
-                                            from
-                                            the profiles, Escort and Massage Centres.</li>
+                                        <li>This report provides information associated with all of your Profiles (excluding Tours).</li>
+                                        <li>
+                                            It is a summary of the Listed Profiles and revenue (Fees) you have derived from the
+                                            Profiles, Escort and Massage Centres.
+                                        </li>
                                     </ol>
                                 </div>
                             </div>
@@ -72,22 +72,22 @@
                                             <th class="text-center">End Date</th>
                                             <th class="text-center">Total Days</th>
                                             <th class="text-center">Pin Up</th>
-                                            <th class="text-center">Fee</th>
-                                            <th class="text-center">Commission</th>
+                                            <th class="text-center">Listing Fee</th>
+                                            <th class="text-center">Agent’s Fee</th>
                                             <th scope="col" class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>E60165</td>
-                                            <td class="text-center">Jane</td>
+                                            <td>Jane</td>
                                             <td class="text-center">0438 028 728</td>
                                             <td class="text-center">01-01-2025</td>
                                             <td class="text-center">15-04-2025</td>
                                             <td class="text-center">104</td>
                                             <td class="text-center">Yes</td>
-                                            <td class="text-center" > <span class="font-weight-bold">$</span> 1,443.00</td>
-                                            <td class="text-center"> <span class="font-weight-bold">$</span> 72.15</td>
+                                            <td class="text-center"><div class="num_value">$<span>1,443.00</span></div></td>
+                                            <td class="text-center"> <div class="num_value">$<span>72.15</span></div></td>
                                             <td class="text-center">
                                                 <div class="dropdown no-arrow">
                                                     <a class="dropdown-toggle" href="#" role="button"
@@ -132,12 +132,12 @@
     @include('agent.dashboard.partials.playmates-modal')
     <!-- Print Profile Report Modal -->
 
-    <div class="modal programmatic" id="printReport">
+    <div class="modal fade programmatic" id="printReport">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
                     <h5 class="modal-title text-white">
-                        <img src="{{ asset('assets/dashboard/img/profile-report.png') }}" class="custompopicon"
+                        <img src="{{ asset('assets/dashboard/img/admin-report.png') }}" class="custompopicon"
                             alt="cross">
                         Profile Report
                     </h5>
@@ -184,11 +184,11 @@
                                         </div>
 
                                         <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="fromDate" class="font-weight-medium mb-0">From</label>
+                                            <label for="fromDate" class="font-weight-medium mb-0">From: </label>
                                             <input type="date" class="form-control" id="fromDate" name="fromDate">
                                         </div>
                                         <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="toDate" class="font-weight-medium mb-0">To</label>
+                                            <label for="toDate" class="font-weight-medium mb-0">To:</label>
                                             <input type="date" class="form-control" id="toDate" name="toDate">
                                         </div>
                                     </div>
@@ -201,7 +201,7 @@
                                 <div class="modal-footer justify-content-center">
                                     <button type="button" class="btn-success-modal" data-dismiss="modal"
                                         id="close_change">View</button>
-                                    <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
+                                    <button type="button" class="btn-success-modal" id="save_change">Print</button>
                                 </div>
                             </div>
                         </div>
@@ -214,7 +214,7 @@
 
     {{-- Current Location --}}
 
-    <div class="upload-modal modal programmatic" id="current_location">
+    <div class="upload-modal fade modal programmatic" id="current_location">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
@@ -235,6 +235,8 @@
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                                     id="close_change">Ok</button>
+                                    <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
+                                    id="close_change">Send Message</button>
                             </div>
                         </div>
                     </div>
@@ -255,7 +257,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="activity_summary"><img
                             src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Activity
-                        Summary - Member ID </h5>
+                        Summary - E60165 </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -326,7 +328,7 @@
                     <div class="modal-footer justify-content-center mt-3">
                         <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                             id="close_change">Ok</button>
-                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
+                        <button type="button" class="btn-success-modal" id="save_change">Print</button>
                     </div>
                 </div>
             </div>
@@ -338,13 +340,13 @@
 
     {{-- profile_summary --}}
     <div class="modal fade upload-modal bd-example-modal-lg" id="profile_summary" tabindex="-1" role="dialog"
-        aria-labelledby="profile_summaryLabel" aria-hidden="true">
+        aria-labelledby="profile_summaryLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
             <div class="modal-content basic-modal modal-lg">
                 <div class="modal-header">
                     <h5 class="modal-title" id="profile_summary"><img
                             src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Profile
-                        Summary - Member ID</h5>
+                        Summary - E60165</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -362,7 +364,7 @@
                                     <td style="text-align:center;">Start Date</td>
                                     <td style="text-align:center;">Finish Date</td>
                                     <td style="text-align:center;">Days</td>
-                                    <td style="text-align:center;">Fee</td>
+                                    <td style="text-align:center;">Listing Fee</td>
                                 </tr>
                             </thead>
 
@@ -438,7 +440,7 @@
                     <div class="modal-footer justify-content-center mt-3">
                         <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                             id="close_change">Ok</button>
-                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
+                        <button type="button" class="btn-success-modal" id="save_change">Print</button>
                     </div>
                 </div>
             </div>
@@ -456,7 +458,7 @@
         var table = $('#advProfileSummaryTable').DataTable({
             language: {
                 search: "_INPUT_",
-                searchPlaceholder: "Search By Member Id",
+                searchPlaceholder: "Search By Member ID",
                 sSearch: 'Search:'
             },
             processing: false,
@@ -465,7 +467,11 @@
             order: [0, 'asc'],
             searchable: false,
             searching: true,
-            bStateSave: true
+            bStateSave: true,
+        columnDefs: [{
+            targets: 9,
+            orderable: false
+        }]
         });
     </script>
 @endpush

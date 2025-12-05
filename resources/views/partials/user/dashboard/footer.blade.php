@@ -233,6 +233,6 @@
                 }
                 initJsDatePicker();
             </script> 
-         @include('modal.change-password')
+         
     </body>
 </html>

@@ -260,7 +260,7 @@
                 console.log(window.App);
 
             </script> 
-           @include('modal.change-password')
+          
 
     </body>
 </html>

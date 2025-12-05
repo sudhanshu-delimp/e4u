@@ -223,6 +223,8 @@
         </div>
         <!--middle content end here-->
     </div>
+
+@include('modal.console-expiry-password')
 @endsection
 @push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>

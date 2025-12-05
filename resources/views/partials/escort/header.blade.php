@@ -92,6 +92,19 @@
             list-style: none;
             counter-increment: list;
         }
+
+    .toogle_eye_form_wrap{
+    position: relative;
+    }
+    .toogle-eye-password {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 2;
+    color: #6c757d;
+    }
+
     </style>
     @section('style')
 

@@ -1021,7 +1021,7 @@ class WebController extends Controller
 
         $backToSearchButton = session('search_escort_filters_url');
 
-        if(session('is_shortlisted_profile') == true){
+        if(session('is_shortlisted_profile') == true && session('cart') == true){
             $cartKeys = array_keys(session('cart'));
             if (count($cartKeys) > 0) {
                 sort($cartKeys); // Sort the array in ascending order

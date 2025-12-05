@@ -45,6 +45,21 @@
     <link rel="stylesheet" href="{{asset('assets/app/css/jquery-ui.css')}}"> 
     <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
 
+     <style>
+    .toogle_eye_form_wrap{
+    position: relative;
+    }
+    .toogle-eye-password {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 2;
+    color: #6c757d;
+    }
+ </style>
+ 
+
     @section('style')
     @show
 </head>
