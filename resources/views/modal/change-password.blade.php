@@ -16,9 +16,11 @@ if (auth()->check())
 
             if($user->type==5)
             $open_pop_up = $user?->account_setting?->is_first_login === "1";
+
             if($user->type==6)
             $open_pop_up = $user?->account_setting?->is_first_login === "1";
-         if($user->type==1)
+
+            if($user->type==1)
             $open_pop_up = $user?->account_setting?->is_first_login === "1";
 
 
@@ -38,17 +40,8 @@ if (auth()->check())
             if( $user->type==5)
             $submit_url  = 'agent.update-password';
 
-            if( $user->type==3)
-            $submit_url  = 'escort.update-password';
-
-            if( $user->type==4)
-            $submit_url  = 'center.update-password';
-
-            if( $user->type=='0')
-            $submit_url  = 'update-password';
-         if( $user->type==6)
-            $submit_url  = 'staff.update-password';
-         if( $user->type==1)
+    
+            if( $user->type==1)
             $submit_url  = 'admin.change.password';
     
 }

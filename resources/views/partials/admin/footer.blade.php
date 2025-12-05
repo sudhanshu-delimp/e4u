@@ -84,10 +84,10 @@
 
         @section('script')
         @show
-
         @stack('script')
 
-  @include('modal.change-password')
-        </body>
 
-        </html>
+      
+  
+</body>
+</html>

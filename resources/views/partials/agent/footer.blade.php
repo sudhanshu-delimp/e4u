@@ -268,11 +268,6 @@
         });
 
 
-
-         
-
-
-        </script>    
-         @include('modal.change-password')
+        </script>  
         </body>
         </html>

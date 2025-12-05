@@ -1009,6 +1009,10 @@
             </div>
         </div>
     </div>
+
+
+@include('modal.console-expiry-password')
+
 @endsection
 @section('style')
     <style>
