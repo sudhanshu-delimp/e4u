@@ -226,8 +226,8 @@ display: contents;
             ],
             columnDefs: [
                 { width: "4%", targets: 0 },  // First column
-                { width: "16%", targets: 1 },   // Third column
-                { width: "5%", targets: 2 },   // Third column 
+                { width: "15%", targets: 1 },   // Third column
+                { width: "12%", targets: 2 },   // Third column 
                 { width: "8%", targets: 4 },   
                 { width: "10%", targets: 5 },   
                 { width: "10%", targets: 6 },   

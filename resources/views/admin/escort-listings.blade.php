@@ -76,19 +76,6 @@
         </div>
     </div>
             <div class="row my-3">
-                {{-- <div class="col-lg-4 col-md-12 col-sm-12">
-                    <form class="search-form-bg navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="search-form-bg-i form-control border-0 small"
-                               style="font-size: 13px;" placeholder="Search by Member ID & Profile Name..  " id="customSearch" aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn-right-icon" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div> --}}
                 <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 20px;">
                   
                     <div class="total_listing">
@@ -184,78 +171,6 @@
    </div>
 </div>
 <!-- end -->
-
-{{-- <div class="modal fade upload-modal" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="view-listingLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content basic-modal">
-            <div class="modal-header">
-                <h5 class="modal-title" id="view-listing"><img src="{{ asset('assets/app/img/data-listing.png')}}" alt="alert" style="width:29px;">
-                    Listing
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
-                            class="img-fluid img_resize_in_smscreen"></span>
-                </button>
-            </div>
-            <div class="modal-body pb-0">
-                <form>
-                    <div class="row">
-                        <div class="col-12 mb-3">
-                            <div id="listingModalContent">
-                                <iframe src="" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>
-                            {{-- <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-                                <tbody>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Member ID</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_member_id">M60178</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Member</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_member">Lins Massage</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Listing</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_listing">Perth</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Profile Name</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_profile_name">Perth 01</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Masseurs</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_masseurs">4</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Listed Date</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_listed_date">23-05-2025</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>De-listed Date</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_de_listed">17-06-2025</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Days</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_day">14</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Days Left</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_day_left">15</td>
-                                    </tr>
-                                </tbody>
-                            </table> 
-
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- <div class="modal-footer pb-4 mb-2">
-                <button type="button" class="btn btn-primary">Publish</button>
-            </div> -->
-        </div>
-    </div>
-</div> --}}
 <script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
 <script>
 CKEDITOR.replace('editor1', {
@@ -338,8 +253,8 @@ CKEDITOR.replace('editor1', {
             ],
             columnDefs: [
                 { width: "4%", targets: 0 },  // First column
-                { width: "15%", targets: 1 },   // Third column
-                { width: "5%", targets: 2 },   // Third column 
+                { width: "12%", targets: 1 },   // Third column
+                { width: "15%", targets: 2 },   // Third column 
                 { width: "8%", targets: 4 },   
                 { width: "11%", targets: 5 },   
                 { width: "11%", targets: 6 },   
