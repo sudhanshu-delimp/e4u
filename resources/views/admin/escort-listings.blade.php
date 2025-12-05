@@ -155,8 +155,8 @@
 
 
 <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-      <div class="modal-content basic-modal modal-lg">
+   <div class="modal-dialog modal-dialog-centered modal_custom_listing" role="document">
+      <div class="modal-content basic-modal">
          <div class="modal-header">
             <h5 class="modal-title" id="emailReport"><img src="{{ asset('assets/dashboard/img/view-listing.png')}}" class="custompopicon">  Listing</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
