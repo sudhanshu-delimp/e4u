@@ -45,8 +45,7 @@
                                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                                     <ol>
                                         <li>This report provides information associated with Tours.</li>
-                                        <li>It is a summary of the Tour and revenue (Commission) you have derived from the
-                                            Tour.</li>
+                                        <li>It is a summary of the Tour and revenue (Fees) you have derived from the Tour.</li>
                                     </ol>
                                 </div>
                             </div>
@@ -63,8 +62,7 @@
                                 <table class="table w-100" id="advProfileSummaryTable">
                                     <thead class="table-bg">
                                         <tr>
-                                            <th>Member ID 
-                                            </th>
+                                            <th>Member ID</th>
                                             <th class="text-center">Name</th>
                                             <th class="text-center">Mobile</th>
                                             <th class="text-center">Number of Locations</th>
@@ -72,23 +70,23 @@
                                             <th class="text-center">End Date</th>
                                             <th class="text-center">Total Days</th>
                                             <th class="text-center">Pin Up</th>
-                                            <th class="text-center">Fee</th>
-                                            <th class="text-center">Commission</th>
+                                            <th class="text-center">Listing Fee</th>
+                                            <th class="text-center">Agent’s Fee</th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>E60165</td>
-                                            <td class="text-center">Jane</td>
+                                            <td>Jane</td>
                                             <td class="text-center">0438 028 728</td>
                                             <td class="text-center">6</td>
                                             <td class="text-center">01-01-2025</td>
                                             <td class="text-center">15-04-2025</td>
                                             <td class="text-center">104</td>
                                             <td class="text-center">Yes</td>
-                                            <td class="text-center"> <span class="font-weight-bold">$</span> 1,443.00</td>
-                                            <td class="text-center"> <span class="font-weight-bold">$</span> 72.15</td>
+                                            <td class="text-center"><div class="num_value">$<span>1,443.00</span></div></td>
+                                            <td class="text-center"> <div class="num_value">$<span>72.15</span></div></td>
                                             <td class="text-center">
                                                 <div class="dropdown no-arrow">
                                                     <a class="dropdown-toggle" href="#" role="button"
@@ -128,12 +126,12 @@
     @include('agent.dashboard.partials.playmates-modal')
     <!-- Print Tour Report Modal -->
 
-    <div class="modal programmatic" id="printReport">
+    <div class="modal fade programmatic" id="printReport">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
                     <h5 class="modal-title text-white">
-                        <img src="{{ asset('assets/dashboard/img/travel.png') }}" class="custompopicon" alt="cross">
+                        <img src="{{ asset('assets/dashboard/img/admin-report.png') }}" class="custompopicon" alt="cross">
                         Tour Report
                     </h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -205,13 +203,13 @@
 
     {{-- Current Location --}}
 
-    <div class="upload-modal modal programmatic" id="current_location">
+    <div class="upload-modal fade modal programmatic" id="current_location">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
 
                     <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/map.png') }}"
-                            class="custompopicon" alt="cross">Current Location</h5>
+                            class="custompopicon" alt="cross">Current Location - E60165</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -226,6 +224,8 @@
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                                     id="close_change">Ok</button>
+                                    <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
+                                    id="close_change">Send Message</button>
                             </div>
                         </div>
                     </div>
@@ -242,13 +242,13 @@
 
     {{-- tour_summary --}}
     <div class="modal fade upload-modal bd-example-modal-lg" id="tour_summary" tabindex="-1" role="dialog"
-        aria-labelledby="tour_summaryLabel" aria-hidden="true">
+        aria-labelledby="tour_summaryLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
             <div class="modal-content basic-modal modal-lg">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tour_summary"><img
                             src="{{ asset('assets/dashboard/img/tour-summary.png') }}" class="custompopicon">Tour Summary
-                        - Member ID</h5>
+                        - E60165</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -267,7 +267,7 @@
                                     <td style="text-align:center;">Finish Date</td>
                                     <td style="text-align:center;">Membership Type </td>
                                     <td style="text-align:center;">Days</td>
-                                    <td style="text-align:center;">Fee</td>
+                                    <td style="text-align:center;">Listing Fee</td>
                                 </tr>
                             </thead>
 
@@ -278,7 +278,7 @@
                                     <td style="text-align:center;">15-01-2025</td>
                                     <td style="text-align:center;">Platinum</td>
                                     <td style="text-align:center;">15</td>
-                                    <td style="text-align:right;">$ 120.00</td>
+                                    <td style="text-align:right;"><div class="num_value">$<span>120.00</span></div></td>
                                 </tr>
                                 <tr style="background:#f9f9f9;">
                                     <td style="text-align:center;">SA</td>
@@ -286,7 +286,7 @@
                                     <td style="text-align:center;">28-01-2025</td>
                                     <td style="text-align:center;">Platinum</td>
                                     <td style="text-align:center;">12</td>
-                                    <td style="text-align:right;">$ 96.00</td>
+                                    <td style="text-align:right;"><div class="num_value">$<span>96.00</span></div></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center;">Vic</td>
@@ -294,7 +294,7 @@
                                     <td style="text-align:center;">23-02-2025</td>
                                     <td style="text-align:center;">Platinum</td>
                                     <td style="text-align:center;">26</td>
-                                    <td style="text-align:right;">$ 208.00</td>
+                                    <td style="text-align:right;"><div class="num_value">$<span>208.00</span></div></td>
                                 </tr>
                                 <tr style="background:#f9f9f9;">
                                     <td style="text-align:center;">Vic</td>
@@ -302,7 +302,7 @@
                                     <td style="text-align:center;">23-02-2025</td>
                                     <td style="text-align:center;">Gold</td>
                                     <td style="text-align:center;">26</td>
-                                    <td style="text-align:right;">$ 156.00</td>
+                                    <td style="text-align:right;"><div class="num_value">$<span>156.00</span></div></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center;">Vic</td>
@@ -310,7 +310,7 @@
                                     <td style="text-align:center;">09-02-2025</td>
                                     <td style="text-align:center;">Pin Up</td>
                                     <td style="text-align:center;">(1 week)</td>
-                                    <td style="text-align:right;">$ 475.00</td>
+                                    <td style="text-align:right;"><div class="num_value">$<span>475.00</span></div></td>
                                 </tr>
                                 <tr style="background:#f9f9f9;">
                                     <td style="text-align:center;">Tas</td>
@@ -318,7 +318,7 @@
                                     <td style="text-align:center;">05-03-2025</td>
                                     <td style="text-align:center;">Gold</td>
                                     <td style="text-align:center;">10</td>
-                                    <td style="text-align:right;">$ 60.00</td>
+                                    <td style="text-align:right;"><div class="num_value">$<span>60.00</span></div></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align:center;">NSW</td>
@@ -326,7 +326,7 @@
                                     <td style="text-align:center;">31-03-2025</td>
                                     <td style="text-align:center;">Platinum</td>
                                     <td style="text-align:center;">26</td>
-                                    <td style="text-align:right;">$ 208.00</td>
+                                    <td style="text-align:right;"><div class="num_value">$<span>208.00</span></div></td>
                                 </tr>
                                 <tr style="background:#f9f9f9;">
                                     <td style="text-align:center;">Qld</td>
@@ -334,7 +334,7 @@
                                     <td style="text-align:center;">15-04-2025</td>
                                     <td style="text-align:center;">Platinum</td>
                                     <td style="text-align:center;">15</td>
-                                    <td style="text-align:right;">$ 120.00</td>
+                                    <td style="text-align:right;"><div class="num_value">$<span>120.00</span></div></td>
                                 </tr>
                                 <tr style="font-weight:bold;">
                                     <td colspan="4" style="
@@ -342,7 +342,7 @@
                                                                             <td style="
                                             border-top: 1px solid; border-bottom: 1px solid; text-align:center;">104</td>
                                                                             <td style="
-                                            border-top: 1px solid; border-bottom: 1px solid; text-align:right;">$ 1,443.00</td>
+                                            border-top: 1px solid; border-bottom: 1px solid; text-align:right;"><div class="num_value">$<span>1,443.00</span></div></td>
                                 </tr>
                             </tbody>
 
@@ -370,7 +370,7 @@
         var table = $('#advProfileSummaryTable').DataTable({
             language: {
                 search: "_INPUT_",
-                searchPlaceholder: "Search By Member Id",
+                searchPlaceholder: "Search By Member ID",
                 sSearch: 'Search:'
             },
             processing: false,
@@ -379,7 +379,12 @@
             order: [0, 'asc'],
             searchable: false,
             searching: true,
-            bStateSave: true
+            bStateSave: true,
+            
+        columnDefs: [{
+            targets: 10,
+            orderable: false
+        }]
         });
     </script>
 @endpush
