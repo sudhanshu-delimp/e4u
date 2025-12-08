@@ -775,6 +775,27 @@ if (!function_exists('getLoginRoute')) {
     }
 }
 
+if (!function_exists('formatPhone')) {
+    function formatPhone($number)
+    {
+        if($number == null || empty($number)) {
+            return $number;
+        }   
+        // Remove anything that is not a digit
+        $digits = preg_replace('/\D/', '', $number);
+
+        // Format: 4 digits + space + 3 digits + space + 3 digits
+        if (strlen($digits) === 10) {
+            return substr($digits, 0, 4) . ' ' .
+                   substr($digits, 4, 3) . ' ' .
+                   substr($digits, 7, 3);
+        }
+
+        // If not 10 digits, return original number
+        return $number;
+    }
+}
+
 
 if (!function_exists('sendLoginOtpEmail')) 
 {

@@ -1,7 +1,7 @@
 <!-- Topbar -->
 @php
 $positions = config('staff.position');
-$postionKey = auth()->user()->staff_detail->position;
+$postionKey = auth()->user()->staff_detail?->position;
 $position = $positions[$postionKey] ?? "";
 @endphp
 <nav
