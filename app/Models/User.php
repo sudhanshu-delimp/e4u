@@ -712,8 +712,15 @@ class User extends Authenticatable
                 sendLoginOtpEmail($otp, $user);
             }
 
-            if ($settings->twofa == '2' && $user->phone != "") {
+            else if ($settings->twofa == '2' && $user->phone != "") {
                 sendLoginOtpSms($otp, $user);
+            }
+            else
+            {
+                if($user->type=='0')
+                sendLoginOtpEmail($otp, $user);
+                else
+                sendLoginOtpSms($otp, $user);   
             }
     }
 
