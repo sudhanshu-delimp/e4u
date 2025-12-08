@@ -7,19 +7,22 @@
 use Carbon\Carbon;
 use App\Models\City;
 use App\Models\User;
+use App\Sms\SendSms;
 use App\Models\State;
 use App\Models\Escort;
 use App\Models\Country;
+use App\Mail\LoginOtpMail;
 use App\Models\EscortMedia;
+use Illuminate\Support\Str;
+
 use Illuminate\Http\Request;
 use App\Models\EscortStatistics;
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 
 if (!function_exists('old_calculateTotalFee')) {
     function old_calculateTotalFee($plan = 0, $days = 0)
@@ -769,5 +772,65 @@ if (!function_exists('getLoginRoute')) {
             $loginLInk = 'shareholder.login';
         }
         return $loginLInk;
+    }
+}
+
+
+if (!function_exists('sendLoginOtpEmail')) 
+{
+    function sendLoginOtpEmail($otp, $user)
+    {
+
+        Log::info('sendLoginOtpEmail');
+
+        if(isset($user->email) && $user->email!="")
+        {
+            
+            try 
+            {
+                    if($user && $user->type=='5')
+                    $username = $user->business_name;
+                    else
+                    $username = $user->name;
+
+                    $data = [
+                        'username' => $username,
+                        'otp'      => $otp,
+                        'member_id'      => $user->member_id,
+                    ];
+
+                    Mail::send('emails.login_otp', $data, function ($message) use ($user) {
+                        $message->to($user->email)
+                                ->subject('Login Otp');
+                    });
+
+                    return true;
+            } 
+
+            catch (Exception $e) {
+               logErrorLocal($e);
+            }
+        }
+
+    }
+}
+
+
+if (!function_exists('sendLoginOtpSms')) 
+{
+    function sendLoginOtpSms($otp, $user)
+    {
+        if(isset($user->phone) && $user->phone!="")
+        {
+
+            if($user && $user->type=='5')
+            $username = $user->business_name;
+            else
+            $username = $user->name;
+
+            $msg = "Hello ".$username.", your one-time login OTP is ".$otp.".If you didn’t request this, please ignore this message.";
+            $sendotp = new SendSms();
+            $output = $sendotp->send_otp_sms($user->phone,$msg);
+        }      
     }
 }

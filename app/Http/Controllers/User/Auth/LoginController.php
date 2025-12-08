@@ -120,10 +120,12 @@ class LoginController extends Controller
                 }
             }
 
-            $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
-            $sendotp = new SendSms();
-            $output = $sendotp->send($phone,$msg);
-            $id = $user->id;
+            $this->user->sendOtpNotification($user->id,$otp);
+
+            // $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+            // $sendotp = new SendSms();
+            // $output = $sendotp->send($phone,$msg);
+            // $id = $user->id;
             return response()->json(compact('error','phone','path','show_id'));
         } 
         else {

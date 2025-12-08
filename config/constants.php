@@ -9,6 +9,9 @@ return [
     'socket_url' => (env('APP_ENV') === 'production' ? 'https' : 'http') . '://' .env('SOCKET_HOST').':'.env('SOCKET_PORT'),
 
 
+
+
+
     'NotificationIcon' => [
         'general' => '<i class="fas fas fa-comments text-white"></i>',
         'agent_accept' => '<i class="fas fa-file-alt text-white"></i>',
@@ -19,7 +22,19 @@ return [
         
     ],
 
+    'twilio' => [
+        'sid'   => env('TWILIO_SID'),
+        'token' => env('TWILIO_TOKEN'),
+        'from'  => env('TWILIO_FROM'),
+    ],
+
+     'sms_api' => [
+        'key'   => env('SMS_API_KEY'),
+        'secret' => env('SMS_API_SECRET'),
+    ],
  
+
+    
 
     'dashboard_viewer' => [
 

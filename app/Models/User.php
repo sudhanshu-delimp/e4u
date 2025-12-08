@@ -689,7 +689,35 @@ class User extends Authenticatable
         $otp = '123456';
         //$otp = mt_rand(1000,9999);
         return $otp;
+      
     }
+
+    public function sendOtpNotification($user_id,$otp)
+    {
+            $user = User::where('id',$user_id)->first();
+
+            if ($user->type == '0') {
+                $settings = $user->viewer_settings;
+            } elseif ($user->type == '3') {
+                $settings = $user->escort_settings;
+            } else {
+                return;
+            }
+
+            if (!isset($settings->twofa)) {
+                return;
+            }
+
+            if ($settings->twofa == '1' && $user->email != "") {
+                sendLoginOtpEmail($otp, $user);
+            }
+
+            if ($settings->twofa == '2' && $user->phone != "") {
+                sendLoginOtpSms($otp, $user);
+            }
+    }
+
+    
 
 
     public function update_last_login($user)

@@ -342,7 +342,7 @@
                 {
                     $('body').on("click","#resendOtpSubmit",function(){
                         $("#loginFormViewer").submit();
-                        $('#senderror').html("<p class='text-center text-success mt-4'> Your verification code has been resend to your nominated preference. "+data.phone+"</p>");
+                        $('#senderror').html("<p class='text-center text-success mt-4'> Your verification code has been re-sent to your selected contact method (email or mobile).</p>");
                     });
 
 
