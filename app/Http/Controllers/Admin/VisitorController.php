@@ -39,11 +39,9 @@ class VisitorController extends Controller
         $threshold = now('UTC')->subMinutes(5);
 
         Visitor::where('updated_at', '<=', $threshold)->delete();
-        //Visitor::where('user_id', '!=', null)->delete();
 
         # Get all visitors
-        //$visitors = Visitor::all();
-        $visitors = Visitor::where('user_id', null)->get();
+        $visitors = Visitor::where('user_type', 'guest')->get();
 
          $serverTime = [
                 'upTime' => getAppUptime(),
