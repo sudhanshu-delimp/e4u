@@ -208,6 +208,8 @@ class ViewerNotificationController extends Controller
                     case 'monthly':
                         $monthStartDay = (int) $request->start_day_monthly;
                         $monthEndDay = (int) $request->end_day_monthly;
+                        $data['start_day'] = $monthStartDay;
+                        $data['end_day'] = $monthEndDay;
                         $numRecurring = $data['num_recurring'];
 
                         // Prefer UI start_date if available, else current date
@@ -358,6 +360,8 @@ class ViewerNotificationController extends Controller
     {
         try {
             $notification = ViewerNotification::findOrFail($id);
+            $notification->current_day = basicDateFormat($notification->current_day);
+           
             return success_response($notification, 'Notification saved successfully');
         } catch (\Exception $e) {
             return error_response('Failed to create notification: ' . $e->getMessage(), 500);

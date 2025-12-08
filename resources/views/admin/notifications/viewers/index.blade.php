@@ -121,7 +121,7 @@
                             <div class="col-12 mb-3" id="typeField">
                                 <label class="label" for="type">Type</label>
                                 <select id="type" class="form-control" name="type">
-                                    <option value="Ad hoc" selected>Ad hoc</option>
+                                    <option value="Ad hoc">Ad hoc</option>
                                     <option value="Scheduled">Scheduled</option>
                                     <option value="Notice">Notice</option>
                                 </select>
@@ -146,7 +146,7 @@
                             <!-- Scheduled Section -->
                             <div id="scheduledSection" style="display:none;" class="col-12 mb-3">
                                 <div class="row">
-                                    <div class="form-group col-12">
+                                    <div class="form-group col-12" >
                                         <label class="label" for="scheduleType">Recurring Type</label>
                                         <select id="scheduleType" class="form-control rounded-0" name="recurring_type">
                                             <option value="">Select Type</option>
@@ -274,7 +274,7 @@
                             <!-- Content -->
                             <div class="col-12 mb-3" id="contentField">
                                 <label class="label" for="content">Content</label>
-                                <textarea id="content" name="content" class="form-control" required placeholder="up to 250 characters..."
+                                <textarea id="contents" name="content" class="form-control" required placeholder="up to 250 characters..."
                                     maxlength="250" data-parsley-required="true">
 
                                 </textarea>
@@ -292,6 +292,7 @@
     </div>
 
     <!-- Edit of Content Wrapper -->
+    {{--
     <div class="modal fade upload-modal" id="editNotification" tabindex="-1" role="dialog"
         aria-labelledby="editNotification" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -338,7 +339,8 @@
             </div>
         </div>
     </div>
-     <!-- Edit of Content Wrapper -->
+    --}}
+    <!-- Edit of Content Wrapper -->
 
     <div class="modal fade upload-modal " id="view-listing" tabindex="-1" role="dialog"
         aria-labelledby="view-listingLabel" aria-hidden="true">
@@ -376,7 +378,7 @@
         </div>
     </div>
 
-    
+
 
     <!-- open success popup -->
     <div class="modal fade upload-modal" id="successModal" tabindex="-1" role="dialog"
@@ -414,12 +416,11 @@
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
         data-pdf-download="{{ route('admin.viewer.pdf.download', ['id' => '__ID__']) }}"
         data-viewer-notification-status="{{ route('admin.viewer.notifications.status', ['id' => '__ID__']) }}"
-        data-viewer-notification-edit="{{route('admin.viewer.notifications.edit', ['id' => '__ID__'])}}"
-        data-viewer-notification-update="{{route('admin.viewer.notifications.update', ['id' => '__ID__'])}}"
-        data-viewer-notification-index="{{route('admin.viewer.notification.index')}}"
-        data-viewer-notification-store="{{route('admin.viewer.notification.store')}}"
-        data-viewer-notification-show="{{route('admin.viewer.notifications.show', ['id' => '__ID__'])}}"
-        >
+        data-viewer-notification-edit="{{ route('admin.viewer.notifications.edit', ['id' => '__ID__']) }}"
+        data-viewer-notification-update="{{ route('admin.viewer.notifications.update', ['id' => '__ID__']) }}"
+        data-viewer-notification-index="{{ route('admin.viewer.notification.index') }}"
+        data-viewer-notification-store="{{ route('admin.viewer.notification.store') }}"
+        data-viewer-notification-show="{{ route('admin.viewer.notifications.show', ['id' => '__ID__']) }}">
 
         <!-- End of Page Wrapper -->
         <!-- Scroll to Top Button-->
@@ -444,17 +445,20 @@
                 function toggleFields() {
                     var type = $('#type').val();
                     // Hide all conditionally visible fields initially
-                    $('#scheduledSection, #noticeSection, #weeklyOptions, #monthlyOptions, #startyearlyOptions, #endyearlyOptions, #numberOfRecurring, #weekOptions').hide();
+                    $('#scheduledSection, #noticeSection, #weeklyOptions, #monthlyOptions, #startyearlyOptions, #endyearlyOptions, #numberOfRecurring, #weekOptions')
+                        .hide();
                     $('#currentDateField, #headingField, #startDateField, #endDateField, #contentField').show();
                     if (type == 'Ad hoc') {
                         // All already shown, no extra fields
                         $("#numberOfRecurring").val('');
                         $("#member_id").val('');
-                        $('#scheduledSection').show();
+                        $('#scheduledSection').hide();
+                        //$('#scheduleType').hide();
                     } else if (type === 'Notice') {
                         // Notice: Also show member_id
                         $('#noticeSection').show();
                         $("#numberOfRecurring").val('');
+                        $('#scheduledSection').hide();
                     } else if (type === 'Scheduled') {
                         // Show Schedule Type dropdown
                         $('#scheduledSection, #numberOfRecurring').show();
@@ -462,14 +466,26 @@
 
                         // Reset input fields
                         $('#member_id, #start_date, #end_date').val('');
-    
+
                     }
+                }
+
+                // Track if we're in edit mode
+                let isEditMode = false;
+
+                //Reset and initialize form - used for create new notification
+                function resetAndInitializeForm() {
+                    $('#createNotificationForm')[0].reset();
+                    $('#type').val('Ad hoc').trigger('change');
                 }
 
                 //after open Agent Create Nitification modal reset fields
                 $('#createNotification').on('shown.bs.modal', function() {
-                    $('#createNotificationForm')[0].reset();
-                    toggleFields();
+                    // Only reset if not editing
+                    if (!isEditMode) {
+                        resetAndInitializeForm();
+                    }
+                    isEditMode = false; // Reset flag after modal shown
                 });
 
                 // On schedule type change, show related fields
@@ -516,7 +532,7 @@
                     }
                 });
 
-                $('#type').change(toggleFields);
+                $('#type').on('change', toggleFields);
                 toggleFields();
 
                 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
@@ -684,350 +700,373 @@
                     return day;
                 }
 
-            });
-        </script>
+
+                const mmRoot = $('#manage-route');
+                endpoint = {
+                    csrf_token: mmRoot.data('scrf-token'),
+                    success_image: mmRoot.data('success-image'),
+                    error_image: mmRoot.data('error-image'),
+                    pdf_download: mmRoot.data('pdf-download'),
+                    viewer_notification_status: mmRoot.data('viewer-notification-status'),
+                    viewer_notification_edit: mmRoot.data('viewer-notification-edit'),
+                    viewer_notification_update: mmRoot.data('viewer-notification-update'),
+                    viewer_notification_index: mmRoot.data('viewer-notification-index'),
+                    viewer_notification_store: mmRoot.data('viewer-notification-store'),
+                    viewer_notification_show: mmRoot.data('viewer-notification-show'),
+                }
 
 
+                function urlFor(tpl, id) {
+                    return (tpl || '').replace('__ID__', id);
+                }
 
-        <script>
-            const mmRoot = $('#manage-route');
-            endpoint = {
-                csrf_token: mmRoot.data('scrf-token'),
-                success_image: mmRoot.data('success-image'),
-                error_image: mmRoot.data('error-image'),
-                pdf_download: mmRoot.data('pdf-download'),
-                viewer_notification_status: mmRoot.data('viewer-notification-status'),
-                viewer_notification_edit: mmRoot.data('viewer-notification-edit'),
-                viewer_notification_update: mmRoot.data('viewer-notification-update'),
-                viewer_notification_index: mmRoot.data('viewer-notification-index'),
-                viewer_notification_store: mmRoot.data('viewer-notification-store'),
-                viewer_notification_show: mmRoot.data('viewer-notification-show'),
-            }
-
-
-            function urlFor(tpl, id) {
-                return (tpl || '').replace('__ID__', id);
-            }
-
-            function ensureParsleyAndSubmit(form) {
-                function proceed() {
-                    try {
-                        if ($.fn.parsley) {
-                            var instance = form.parsley();
-                            if (!instance.isValid()) {
-                                instance.validate();
-                                return;
+                function ensureParsleyAndSubmit(form) {
+                    function proceed() {
+                        try {
+                            if ($.fn.parsley) {
+                                var instance = form.parsley();
+                                if (!instance.isValid()) {
+                                    instance.validate();
+                                    return;
+                                }
                             }
+                        } catch (e) {
+                            // ignore and continue with submit
                         }
-                    } catch (e) {
-                        // ignore and continue with submit
+
+                        let formData = form.serialize();
+
+                        $.ajax({
+                            url: endpoint.viewer_notification_store,
+                            type: "POST",
+                            _token: endpoint.csrf_token,
+                            data: formData,
+                            success: function(response) {
+                                if (response.status === true) {
+                                    $('#createNotification').modal('hide');
+                                    let msg = response.message ? response.message : 'Saved successfully';
+                                    $("#image_icon").attr("src", endpoint.success_image);
+                                    $('#success_task_title').text('Success');
+                                    $('#success_msg').text(msg);
+                                    form[0].reset();
+                                    $('#successModal').modal('show');
+                                    setTimeout(function() {
+                                        $('#successModal').modal('hide');
+                                        table.ajax.reload(null, false);
+                                    }, 1200);
+                                }
+
+                            },
+                            error: function(xhr) {
+                                let msg = 'Something went wrong';
+                                if (xhr.responseJSON && xhr.responseJSON.message) {
+                                    msg = xhr.responseJSON.message;
+                                }
+                                $("#image_icon").attr("src", endpoint.error_image);
+                                $('#success_task_title').text('Error');
+                                $('#success_msg').text(msg);
+                                $('#successModal').modal('show');
+                            }
+                        });
                     }
 
-                    let formData = form.serialize();
+                    if (!$.fn.parsley) {
+                        $.getScript('https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js')
+                            .done(function() {
+                                proceed();
+                            })
+                            .fail(function() {
+                                proceed();
+                            });
+                    } else {
+                        proceed();
+                    }
+                }
 
-                    $.ajax({
-                        url: endpoint.viewer_notification_store,
-                        type: "POST",
-                        _token: endpoint.csrf_token,
-                        data: formData,
-                        success: function(response) {
-                            if (response.status === true) {
-                                $('#createNotification').modal('hide');
-                                let msg = response.message ? response.message : 'Saved successfully';
-                                $("#image_icon").attr("src", endpoint.success_image);
-                                $('#success_task_title').text('Success');
-                                $('#success_msg').text(msg);
-                                form[0].reset();
-                                $('#successModal').modal('show');
-                                setTimeout(function() {
-                                    $('#successModal').modal('hide');
-                                    table.ajax.reload(null, false);
-                                }, 1200);
+                $('#createNotificationForm').on('submit', function(e) {
+                    e.preventDefault();
+                    var form = $(this);
+                    ensureParsleyAndSubmit(form);
+                });
+
+                var table = $("#agentNotificationTable").DataTable({
+                    language: {
+                        search: "Search: _INPUT_",
+                        searchPlaceholder: "Search by Ref..."
+                    },
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: endpoint.viewer_notification_index,
+                        type: 'GET'
+                    },
+                    columns: [{ // 👇 New column for row index
+                            data: null,
+                            name: 'row_index',
+                            orderable: false,
+                            searchable: false,
+                            render: function(data, type, row, meta) {
+                                // meta.row starts from 0
+                                let idNumber = meta.row + meta.settings._iDisplayStart + 1;
+                                // Format like #00001
+                                return '#' + idNumber.toString().padStart(5, '0');
                             }
-
                         },
-                        error: function(xhr) {
-                            let msg = 'Something went wrong';
-                            if (xhr.responseJSON && xhr.responseJSON.message) {
-                                msg = xhr.responseJSON.message;
-                            }
-                            $("#image_icon").attr("src", endpoint.error_image);
-                            $('#success_task_title').text('Error');
-                            $('#success_msg').text(msg);
-                            $('#successModal').modal('show');
-                        }
-                    });
-                }
+                        {
+                            data: 'start_date',
+                            name: 'start_date'
+                        },
+                        {
+                            data: 'end_date',
+                            name: 'end_date'
+                        },
+                        {
+                            data: 'type',
+                            name: 'type'
+                        },
+                        {
+                            data: 'status',
+                            name: 'status'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            searchable: false,
+                            className: 'text-center'
+                        },
+                    ],
+                    order: [],
+                    lengthMenu: [
+                        [10, 25, 50, 100],
+                        [10, 25, 50, 100]
+                    ],
+                    pageLength: 10
+                });
 
-                if (!$.fn.parsley) {
-                    $.getScript('https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js')
-                        .done(function() {
-                            proceed();
-                        })
-                        .fail(function() {
-                            proceed();
-                        });
-                } else {
-                    proceed();
-                }
-            }
+                // Event delegation for dynamic action buttons
+                $(document).on('click', '.js-view', function(e) {
+                    e.preventDefault();
+                    const id = $(this).data('id');
+                    const container = $('#listingModalContent');
+                    container.html('<div class="text-center py-3">Loading...</div>');
+                    $.ajax({
+                        url: endpoint.viewer_notification_show.replace('__ID__', id),
+                        type: 'GET',
+                        success: function(response) {
 
-            $('#createNotificationForm').on('submit', function(e) {
-                e.preventDefault();
-                var form = $(this);
-                ensureParsleyAndSubmit(form);
-            });
-
-            var table = $("#agentNotificationTable").DataTable({
-                language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Ref..."
-                },
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: endpoint.viewer_notification_index,
-                    type: 'GET'
-                },
-                columns: [{ // 👇 New column for row index
-                        data: null,
-                        name: 'row_index',
-                        orderable: false,
-                        searchable: false,
-                        render: function(data, type, row, meta) {
-                            // meta.row starts from 0
-                            let idNumber = meta.row + meta.settings._iDisplayStart + 1;
-                            // Format like #00001
-                            return '#' + idNumber.toString().padStart(5, '0');
-                        }
-                    },
-                    {
-                        data: 'start_date',
-                        name: 'start_date'
-                    },
-                    {
-                        data: 'end_date',
-                        name: 'end_date'
-                    },
-                    {
-                        data: 'type',
-                        name: 'type'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        className: 'text-center'
-                    },
-                ],
-                order: [],
-                lengthMenu: [
-                    [10, 25, 50, 100],
-                    [10, 25, 50, 100]
-                ],
-                pageLength: 10
-            });
-
-            // Event delegation for dynamic action buttons
-            $(document).on('click', '.js-view', function(e) {
-                e.preventDefault();
-                const id = $(this).data('id');
-                const container = $('#listingModalContent');
-                container.html('<div class="text-center py-3">Loading...</div>');
-                $.ajax({
-                    url: endpoint.viewer_notification_show.replace('__ID__', id),
-                    type: 'GET',
-                    success: function(response) {
-
-                        if (response.success === true || response.status === true) {
-                            const d = response.data || response;
-                            const rows = [
-                                ['Ref', d.ref || ''],
-                                ['Heading', d.heading || ''],
-                                ['Type', d.type || ''],
-                                ['Recurring Type', d.recurring_type || ''],
-                                ['Recurring Range', d.recurring_range || ''],
-                                ['Number of Recurring', d.num_recurring || ''],
-                                ['Status', d.status || 'N/A'],
-                                ['Member ID', d.member_id || ''],
-                                ['Start Date', d.start_date || ''],
-                                ['Finish Date', d.end_date || ''],
-                                ['Content', (d.content || '')]
-                            ];
+                            if (response.success === true || response.status === true) {
+                                const d = response.data || response;
+                                const rows = [
+                                    ['Ref', d.ref || ''],
+                                    ['Heading', d.heading || ''],
+                                    ['Type', d.type || ''],
+                                    ['Recurring Type', d.recurring_type || ''],
+                                    ['Recurring Range', d.recurring_range || ''],
+                                    ['Number of Recurring', d.num_recurring || ''],
+                                    ['Status', d.status || 'N/A'],
+                                    ['Member ID', d.member_id || ''],
+                                    ['Start Date', d.start_date || ''],
+                                    ['Finish Date', d.end_date || ''],
+                                    ['Content', (d.content || '')]
+                                ];
 
 
-                            let html =
-                                `<table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;"><tbody>`;
-                            rows.forEach(function(r) {
-                                html += `
+                                let html =
+                                    `<table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;"><tbody>`;
+                                rows.forEach(function(r) {
+                                    html += `
                                         <tr>
                                             <th style="text-align:left; border: 1px solid #ccc; padding: 8px; width:190px;">${r[0]}</th>
                                             <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">${r[1]}</td>
                                         </tr>
                                     `;
-                            });
-                            html += '</tbody></table>';
+                                });
+                                html += '</tbody></table>';
 
-                            container.html(html);
-                            $('#pdf-download').attr('data-notification-id', id);
-                            $('#view-listing').modal('show');
-                        } else {
-                            container.html('<div class="text-danger">Failed to load details.</div>');
+                                container.html(html);
+                                $('#pdf-download').attr('data-notification-id', id);
+                                $('#view-listing').modal('show');
+                            } else {
+                                container.html(
+                                    '<div class="text-danger">Failed to load details.</div>');
+                            }
+                        },
+                        error: function() {
+                            container.html(
+                            '<div class="text-danger">Failed to load details.</div>');
                         }
-                    },
-                    error: function() {
-                        container.html('<div class="text-danger">Failed to load details.</div>');
-                    }
+                    });
                 });
-            });
 
 
-            $(document).on('click', '.js-print', function(e) {
-                e.preventDefault();
-                const id = $(this).data('id');
-                // Implement print logic
-            });
+                $(document).on('click', '.js-print', function(e) {
+                    e.preventDefault();
+                    const id = $(this).data('id');
+                    // Implement print logic
+                });
 
-            $(document).on('click', '.js-suspend, .js-publish, .js-remove', function(e) {
-                e.preventDefault();
-                const id = $(this).data('id');
-                let status = '';
-                let confirmMsg = '';
-                if ($(this).hasClass('js-suspend')) {
-                    status = 'Suspended';
-                    confirmMsg = 'Are you sure you want to suspend this notification?';
-                } else if ($(this).hasClass('js-publish')) {
-                    status = 'Published';
-                    confirmMsg = 'Are you sure you want to publish this notification?';
-                } else if ($(this).hasClass('js-remove')) {
-                    status = 'Removed';
-                    confirmMsg = 'Are you sure you want to remove this notification?';
+                $(document).on('click', '.js-suspend, .js-publish, .js-remove', function(e) {
+                    e.preventDefault();
+                    const id = $(this).data('id');
+                    let status = '';
+                    let confirmMsg = '';
+                    if ($(this).hasClass('js-suspend')) {
+                        status = 'Suspended';
+                        confirmMsg = 'Are you sure you want to suspend this notification?';
+                    } else if ($(this).hasClass('js-publish')) {
+                        status = 'Published';
+                        confirmMsg = 'Are you sure you want to publish this notification?';
+                    } else if ($(this).hasClass('js-remove')) {
+                        status = 'Removed';
+                        confirmMsg = 'Are you sure you want to remove this notification?';
+                    }
+
+                    const modal = $('#successModal');
+                    const body = $('#success_form_html');
+                    const img = $('#image_icon');
+                    $('#success_task_title').text('Confirmation');
+                    img.attr('src', endpoint.error_image);
+                    body.html(
+                        `<h4>${confirmMsg}</h4><div class="d-flex justify-content-center gap-10 mt-3"><button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button><button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button></div>`
+                    );
+                    modal.modal('show');
+                    body.off('click', '#confirmRemove').on('click', '#confirmRemove', function() {
+                        $(this).prop('disabled', true);
+                        $.ajax({
+                            url: endpoint.viewer_notification_status.replace('__ID__', id),
+                            type: 'POST',
+                            data: {
+                                _token: endpoint.csrf_token,
+                                status: status
+                            },
+                            success: function(response) {
+                                $('#success_task_title').text('Success');
+                                $('#image_icon').attr('src', endpoint.success_image);
+                                $('#success_form_html').html('<h4>' + (response.message ||
+                                        'Status updated successfully') +
+                                    '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                );
+                                setTimeout(function() {
+                                    modal.modal('hide');
+                                    table.ajax.reload(null, false);
+                                }, 1000);
+                            },
+                            error: function(xhr) {
+                                let msg = 'Something went wrong';
+                                if (xhr.responseJSON && xhr.responseJSON.message) {
+                                    msg = xhr.responseJSON.message;
+                                }
+                                $('#success_task_title').text('Error');
+                                $('#image_icon').attr('src', endpoint.error_image);
+                                $('#success_form_html').html('<h4>' + msg +
+                                    '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                );
+                            }
+                        });
+                    });
+                });
+
+                // Redirect new page and generate pdf
+                $('#pdf-download').on('click', function() {
+                    var notificationId = $(this).attr('data-notification-id');
+                    var encodedId = btoa(String(notificationId));
+                    var url = urlFor(endpoint.pdf_download, encodedId);
+                    window.open(url, '_blank');
+
+                });
+
+                //Populate fields based on notification data (used for both create and edit)
+                function populateNotificationFields(n) {
+                    
+                    $('#notificationId').val(n.id || '');
+                    $('#current_day').val(n.current_day || '');
+                    $('#heading').val(n.heading || '');
+                    $('#contents').val(n.content || '');
+                    $('#start_date').val(n.start_date || '');
+                    $('#end_date').val(n.end_date || '');
+                    $('#member_id').val(n.member_id || '');
+                    $('#recurring').val(n.recurring || '');
+                    
+                    // Set type and trigger change to show related fields
+                    $('#type').val(n.type);
+                  
+                    $('#type').trigger('change');
+                    // Handle Scheduled specific fields
+                    if (n.type === 'Scheduled' && n.recurring_type) {
+                        $('#scheduleType').val(n.recurring_type);
+                        setTimeout(function() {
+                            $('#scheduleType').trigger('change');
+                            populateScheduleFields(n);
+                        }, 100);
+                    }
                 }
 
-                const modal = $('#successModal');
-                const body = $('#success_form_html');
-                const img = $('#image_icon');
-                $('#success_task_title').text('Confirmation');
-                img.attr('src', endpoint.error_image);
-                body.html(
-                    `<h4>${confirmMsg}</h4><div class="d-flex justify-content-center gap-10 mt-3"><button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button><button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button></div>`
-                );
-                modal.modal('show');
-                body.off('click', '#confirmRemove').on('click', '#confirmRemove', function() {
-                    $(this).prop('disabled', true);
-                    $.ajax({
-                        url: endpoint.viewer_notification_status.replace('__ID__', id),
-                        type: 'POST',
-                        data: {
-                            _token: endpoint.csrf_token,
-                            status: status
-                        },
-                        success: function(response) {
-                            $('#success_task_title').text('Success');
-                            $('#image_icon').attr('src', endpoint.success_image);
-                            $('#success_form_html').html('<h4>' + (response.message ||
-                                    'Status updated successfully') +
-                                '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
-                            );
+                //Populate schedule-specific fields (yearly, monthly, weekly, forever)
+                function populateScheduleFields(n) {
+            
+                    if (n.recurring_type === 'yearly') {
+                        if (n.start_month) {
+                            $('#startFirstMonth').val(n.start_month);
+                            populateDays('#startFirstDate', n.start_month);
+                            populateDays('#endSecondDay', n.end_month);
                             setTimeout(function() {
-                                modal.modal('hide');
-                                table.ajax.reload(null, false);
-                            }, 1000);
-                        },
-                        error: function(xhr) {
-                            let msg = 'Something went wrong';
-                            if (xhr.responseJSON && xhr.responseJSON.message) {
-                                msg = xhr.responseJSON.message;
-                            }
-                            $('#success_task_title').text('Error');
-                            $('#image_icon').attr('src', endpoint.error_image);
-                            $('#success_form_html').html('<h4>' + msg +
-                                '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
-                            );
+                                $('#startFirstDate').val(n.start_month || '');
+                                $('#endSecondDay').val(n.end_month || '');
+                                $('#recurring').val(n.num_recurring || '');
+                                
+                            }, 50);
                         }
-                    });
-                });
-            });
-
-            // Redirect new page and generate pdf
-            $('#pdf-download').on('click', function() {
-                var notificationId = $(this).attr('data-notification-id');
-                var encodedId = btoa(String(notificationId));
-                var url = urlFor(endpoint.pdf_download, encodedId);
-                window.open(url, '_blank');
-
-            });
-
-            //edit Agent moduel
-            $(document).on('click', '.js-edit', function(e) {
-                e.preventDefault();
-                let id = $(this).data('id');
-                $('#currentDateField, #startDateField, #typeField, #endDateField,  #scheduledSection, #noticeSection, #weeklyOptions, #monthlyOptions, #startyearlyOptions, #endyearlyOptions, #numberOfRecurring, #weekOptions').hide();
-               
-                $.ajax({
-                    url: endpoint.viewer_notification_edit.replace('__ID__', id),
-                    type: 'GET',
-                    success: function(response) {
-                        $('#editNotification').modal('show');
-                        $('#editNotificationForm')[0].reset();
-                        if (response.status === true) {
-                            let n = response.data;
-                            $('#edit_notification_id').val(n.id);
-                            $('#edit_heading').val(n.heading);
-                            $('#edit_content').val(n.content);
-                        }
-                    },
-                    error: function() {
-                        container.html('<div class="text-danger">Failed to load details.</div>');
+                        
+                    } else if (n.recurring_type === 'monthly') {
+                        console.log(n, 'nmonthly');
+                        populateTypeMonthDate('#monthWiseStartDate', totalDays);
+                        populateTypeMonthDate('#monthWiseEndDate', totalDays);
+                        setTimeout(function() {
+                            $('#monthWiseStartDate').val(n.start_day || '');
+                            $('#monthWiseEndDate').val(n.end_day || '');
+                             $('#recurring').val(n.num_recurring || '');
+                        }, 50);
+                    } else if (n.recurring_type === 'weekly') {
+                        populateTypeWeekDate('#weekWiseStartDate');
+                        populateTypeWeekDate('#weekWiseEndDate');
+                        setTimeout(function() {
+                            $('#weekWiseStartDate').val(n.start_day || '');
+                            $('#weekWiseEndDate').val(n.end_day || '');
+                             $('#recurring').val(n.num_recurring || '');
+                        }, 50);
                     }
-                });
-            });
+                }
 
-            //update Agent Notification Module
-            $("#editNotificationForm").on('submit', function(e){
-                e.preventDefault();
-                let id = $("#edit_notification_id").val();
-                let form = $(this);
-                let formData = form.serialize();
-                 $.ajax({
-                        url: endpoint.viewer_notification_update.replace('__ID__', id),
-                        type: "POST",
-                        _token: endpoint.csrf_token,
-                        data: formData,
+                //edit Agent moduel
+                $(document).on('click', '.js-edit', function(e) {
+                    e.preventDefault();
+                    let id = $(this).data('id');
+                    $.ajax({
+                        url: endpoint.viewer_notification_edit.replace('__ID__', id),
+                        type: 'GET',
                         success: function(response) {
-                            if (response.status === true) {
-                                $('#editNotification').modal('hide');
-                                let msg = response.message ? response.message : 'Saved successfully';
-
-                                $("#image_icon").attr("src", endpoint.success_image);
-                                $('#success_task_title').text('Success');
-                                $('#success_msg').text(msg);
-                                form[0].reset();
-                                $('#successModal').modal('show');
-                                setTimeout(function() {
-                                    $('#successModal').modal('hide');
-                                    table.ajax.reload(null, false);
-                                }, 1200);
+                            if (response.status === true && response.data) {
+                                let n = response.data;
+                                // Set edit mode flag BEFORE showing modal
+                                isEditMode = true;
+                                // Store the id to indicate we're editing
+                                $('#notificationId').val(n.id || '');
+                                // Clear UI visibility first
+                                $('#scheduledSection, #noticeSection, #weeklyOptions, #monthlyOptions, #startyearlyOptions, #endyearlyOptions, #numberOfRecurring, #weekOptions').hide();
+                                // Then populate with edit data
+                                populateNotificationFields(n);
+                                // Show modal
+                                $('#createNotification').modal('show');
                             }
-
                         },
-                        error: function(xhr) {
-                            let msg = 'Something went wrong';
-                            if (xhr.responseJSON && xhr.responseJSON.message) {
-                                msg = xhr.responseJSON.message;
-                            }
-                            $("#image_icon").attr("src", endpoint.error_image);
-                            $('#success_task_title').text('Error');
-                            $('#success_msg').text(msg);
-                            $('#successModal').modal('show');
+                        error: function() {
+                            alert('Failed to load details.');
                         }
                     });
+                });
 
-            })
+
+            });
         </script>
     @endpush
