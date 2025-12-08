@@ -32,7 +32,7 @@
         <tr>
             <td style="padding: 30px;">
               
-              <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{  $username }},</p>
+              <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{ $username ?: 'member' }},,</p>
               <p style="font-size: 16px; margin: 20px 0 15px 0;">Your one time password for login: <strong>{{ $otp }}</strong></p>
             
                 <p style="font-size: 15px; margin-top: 20px;">

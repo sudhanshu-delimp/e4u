@@ -700,19 +700,13 @@ class User extends Authenticatable
                 $settings = $user->viewer_settings;
             } elseif ($user->type == '3') {
                 $settings = $user->escort_settings;
-            } else {
-                return;
-            }
-
-            if (!isset($settings->twofa)) {
-                return;
-            }
-
-            if ($settings->twofa == '1' && $user->email != "") {
+            } 
+            
+            if (isset($settings->twofa) && ($settings->twofa == '1' && $user->email != "")) {
                 sendLoginOtpEmail($otp, $user);
             }
 
-            else if ($settings->twofa == '2' && $user->phone != "") {
+            else if(isset($settings->twofa) &&  ($settings->twofa == '2' && $user->phone != "")) {
                 sendLoginOtpSms($otp, $user);
             }
             else
