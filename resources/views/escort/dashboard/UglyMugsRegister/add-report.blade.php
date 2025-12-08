@@ -31,14 +31,14 @@
                      <p><b>Notes:</b> </p>
                      <ol>
                         <li>
-                          The NUM register (NUM) is a free service to all Escorts. You can use the NUM service
+                          The NUM register (<b>NUM</b>) is a free service to all Escorts. You can use the NUM service
                           at any time.
                         </li>
                         <li>
                           Complete the form to add an incident to the NUM. When completing the form please
                           ensure all of the details are correct and you have selected the correct option under
-                          <strong>Incident Nature</strong> to describe the incident as well as for Rating. Please ensure your report
-                          complies with the <strong><a href="{{ route('escort.code-of-conduct') }}" class="custom_links_design">Code of Conduct</a></strong>.
+                          Incident Nature to describe the incident as well as for Rating. Please ensure your report
+                          complies with the <a href="{{ route('escort.code-of-conduct') }}" class="custom_links_design">Code of Conduct</a>.
                         </li>
                         <li>
                           The NUM is a closed publication for Escorts only. Each entry contains personal reports,
@@ -120,7 +120,7 @@
       
                   <div class="form-group">
                       <label class="required">Offender's Mobile</label>
-                      <input type="number" class="form-control" min="8" name="offender_mobile" placeholder="No spaces or any other characters - just numbers">
+                      <input type="text" class="form-control" min="8" name="offender_mobile" placeholder="No spaces or any other characters - just numbers">
                   </div>
       
                   <div class="form-group">
@@ -156,8 +156,8 @@
                   <div class="form-group">
                       <label class="required d-block">Rating</label>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" checked type="radio" name="rating" value="Do Not Book" id="rate1">
-                          <label class="form-check-label" for="rate1">Do Not book</label>
+                          <input class="form-check-input" type="radio" name="rating" value="Do Not Book" id="rate1">
+                          <label class="form-check-label" for="rate1">Do not book</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
                           <input class="form-check-input" type="radio" name="rating" value="Exercise Caution" id="rate2">
@@ -170,7 +170,9 @@
                   </div>
       
                   <button type="submit" class="save_profile_btn">Add Report</button>
-                  <small class="d-block mt-2">Your report will remain <em>Pending</em> until approved by our Operations team.</small>
+                 <div class="mt-2">
+                     <small>Your report will remain <i style="color: #6c757d">Pending</i>  until approved by our Operations team.</small>
+                 </div>
               </form>
             </div>
          </div>
