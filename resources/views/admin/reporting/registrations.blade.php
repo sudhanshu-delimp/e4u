@@ -116,6 +116,7 @@
                         <thead class="table-bg">
                             <tr>
                                 <th>Ref</th>
+                                <th>Date</th>
                                 <th>Member ID</th>
                                 <th>Mobile</th>
                                 <th>Home State</th>
@@ -363,12 +364,20 @@
                     defaultContent: 'NA'
                 },
                 {
+                    data: 'registration_date',
+                    name: 'registration_date',
+                    searchable: true,
+                    orderable: true,
+                    defaultContent: 'NA'
+                },
+                {
                     data: 'member_id',
                     name: 'member_id',
                     searchable: true,
                     orderable: true,
                     defaultContent: 'NA'
                 },
+                
                 {
                     data: 'phone',
                     name: 'phone',
@@ -407,7 +416,7 @@
             ],
 
             order: [
-                [1, 'desc']
+                [0, 'desc']
             ],
             lengthMenu: [
                 [10, 25, 50, 100],
@@ -508,7 +517,9 @@
                             <tr><th>Email</th><td>${rowData.email ? rowData.email : 'NA'}</td></tr>
                             <tr><th>Home State</th><td>${rowData.territory ? rowData.territory : 'NA'}</td></tr>
                             <tr><th>Agent ID</th><td>${rowData.referred_by_agent_id ? rowData.referred_by_agent_id : '--'}</td></tr>
-                            <tr><th>Status</th><td>${rowData.status ? rowData.status : 'NA'}</td></tr>`;
+                            <tr><th>Status</th><td>${rowData.status ? rowData.status : 'NA'}</td></tr>
+                            <tr><th>Date</th><td>${rowData.registration_date ? rowData.registration_date : 'NA'}</td></tr>`;
+                            
 
             if (rowData.status === 'Rejected' && rowData.rejection_reason) {
                 modal_html += `<tr><th>Rejection Reason</th><td>${rowData.rejection_reason}</td></tr>`;

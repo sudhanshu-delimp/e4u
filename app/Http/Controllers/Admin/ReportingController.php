@@ -49,8 +49,7 @@ class ReportingController extends BaseController
 
     public function registration_data_pagination($start, $limit, $order_key, $dir)
     {
-        $agent = User::query();
-
+        $agent = User::query()->where('status', 1);
         $search = request()->input('search.value');
 
         if (!empty($search)) {
@@ -70,24 +69,26 @@ class ReportingController extends BaseController
             case 0:
                 $agent->orderBy('id', $dir);
                 break;
-
             case 1:
+                $agent->orderBy('created_at', $dir);
+                break;
+            case 2:
                 $agent->orderBy('member_id', $dir);
                 break;
-
-            case 2:
+            
+            case 3:
                 $agent->orderBy('phone', $dir);
                 break;
 
-            case 3:
+            case 4:
                 $agent->orderBy('state_id', $dir);
                 break;
 
-            case 4:
+            case 5:
                 $agent->orderBy('referred_by_agent_id', $dir);
                 break;
 
-            case 5:
+            case 6:
                 $agent->orderBy('status', $dir);
                 break;
 
@@ -101,7 +102,9 @@ class ReportingController extends BaseController
         $i = 1;
 
         foreach ($agents as $key => $item) {
+           
             $item->territory = isset($item->state->iso2) ? $item->state->iso2 :  '---';
+
             $dropdown = '<div class="dropdown no-arrow" data-current-status="' . (int) $item->getRawOriginal('status') . '">
                             <a class="dropdown-toggle" href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
@@ -138,6 +141,7 @@ class ReportingController extends BaseController
 
 
             $item->action = $dropdown;
+            $item->registration_date = isset($item->created_at) ? showDateWithFormat($item->created_at) :  '---';
             $i++;
         }
 
