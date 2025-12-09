@@ -23,7 +23,7 @@
 }
 .toggle-details.open i {
   transform: rotate(90deg);
-  color: #007bff;
+  color: #ff3c5f;
 }
 .tooltip-inner {
   background-color: #000 !important;
@@ -62,7 +62,7 @@
             </li>
             <li>
               New Reports when created or edited, are listed here. The status of the new Report
-              remains as <strong>Pending</strong> and is not available to other Members until approved and
+              remains as <i style="color:#000">Pending</i> and is not available to other Members until approved and
               published.
             </li>
           </ol>
@@ -162,18 +162,10 @@
   $(document).ready(function () {
     // Initialize DataTable
      var table = $('#myReportTable').DataTable({
-            language: {
-                search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Mobile...",
-                lengthMenu: "Show _MENU_ entries",
-                zeroRecords: "No matching records found",
-                info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                infoEmpty: "No entries available",
-                infoFiltered: "(filtered from _MAX_ total entries)"
-            },
+            
             "language": {
                 "zeroRecords": "No Record Found!",
-                searchPlaceholder: "Search by Mobile..."
+                searchPlaceholder: "Search by Mobile"
             },
             paging: true,
             processing: false,

@@ -1005,7 +1005,7 @@
 
                         </div>
 
-                        {{-- <!-- CMS -->
+                    <!-- CMS -->
                     <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
                        data-target="#CMSMenu" aria-expanded="false" aria-controls="CMSMenu">
                         <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/cms.png') }}">
@@ -1021,7 +1021,7 @@
                             <span style="{{ request()->segment(3) == 'email-templates' ? 'color: #FF3C5F;' : '' }}">Email Templates</span>
                         </a>
 
-                    </div> --}}
+                    </div>
                         {{-- end --}}
                         <!-- Concierge -->
                         <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
@@ -1070,7 +1070,7 @@
                             <a class="collapse-item" href="{{ route('admin.staff') }}">
                                 <img width="16" height="17"
                                     src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span style="{{ request()->segment(3) == 'staff' ? 'color: #FF3C5F;' : '' }}">Manage
+                                <span style="{{ request()->segment(3) == 'staff' ? 'color: #FF3C5F;' : '' }}">
                                     Staff</span>
                             </a>
                             <!-- <a class="collapse-item" href="{{ route('admin.agent') }}">
@@ -1081,7 +1081,7 @@
                                 <img width="16" height="17"
                                     src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'manage-suppliers' ? 'color: #FF3C5F;' : '' }}">Manage
+                                    style="{{ request()->segment(3) == 'manage-suppliers' ? 'color: #FF3C5F;' : '' }}">
                                     Suppliers</span>
                             </a>
                         </div>
@@ -1315,13 +1315,13 @@
 
 
 
-                        <a class="collapse-item" href="{{ route('admin.post-office') }}">
+                          {{--<a class="collapse-item" href="{{ route('admin.post-office') }}">
                             <img width="16" height="17"
                                 src="{{ asset('assets/dashboard/img/menu-icon/postoffice.png') }}">
                             <span style="{{ request()->segment(3) == 'post-office' ? 'color: #FF3C5F;' : '' }}">Post
                                 Office</span>
 
-                            {{-- <a class="collapse-item" href="#"> <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/agent-reg.png') }}"> <span>Agent Registrations</span></a> --}}
+                           <a class="collapse-item" href="#"> <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/agent-reg.png') }}"> <span>Agent Registrations</span></a> --}}
 
                             {{-- <a class="collapse-item" href="{{ route('admin.competitor-database') }}">
                         <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/competitor.png') }}">

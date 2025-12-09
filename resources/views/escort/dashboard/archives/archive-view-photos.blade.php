@@ -431,7 +431,7 @@
                 </a>
                 </li>
             </ul>
-               <div class="modalPopup" style="max-height: 500px; overflow-y:scroll;">
+               <div class="modalPopup" style="max-height: 350px; overflow:auto;">
                     
                     <div class="tab-content mt-3">
                         <!-- Tab panes -->
@@ -467,6 +467,94 @@
                                 @endif
                             </div>
                         </div>
+
+                         {{-- Issko remove nahi karna hai Bhai Log --}}
+                                <!-- Templates Tab -->
+                                    <div class="tab-pane fade d-none" id="default" role="tabpanel" aria-labelledby="default-tab">
+
+                                        <!-- Nested Tabs (Static) -->
+                                        <ul class="sub-nav-tabs nav nav-tabs mt-3">
+                                            <li class="nav-item">
+                                                <a class="sub-nav nav-link active" data-toggle="tab" href="#bdsm">BDSM</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="sub-nav nav-link" data-toggle="tab" href="#lingerie">Lingerie</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="sub-nav nav-link" data-toggle="tab" href="#passive">Passive</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="sub-nav nav-link" data-toggle="tab" href="#sheets">Sheets</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="sub-nav nav-link" data-toggle="tab" href="#subtle">Subtle</a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content mt-3">
+
+                                            <!-- GROUP 1 STATIC -->
+                                            <div class="tab-pane fade show active" id="bdsm">
+                                                <div class="modal-tab">
+                                                    <div class="item2">
+                                                        <img src="{{ asset('escorts/images/template/banner/bdsm/BDSM-Banner01.jpg') }}" class="img-thumbnail defult-image select_image" alt="bdsm">
+                                                    </div> 
+                                                     {{-- @php
+                                                        $bannerTemplates = getBannerTemplates();
+                                                    @endphp
+                                                        @if (!empty($bannerTemplates))
+                                                            @foreach ($bannerTemplates as $keyId => $image)
+                                                                <div class="item2">
+                                                                    <img src="{{ asset($image->path) }}"
+                                                                        data-id="{{ $image->id }}"
+                                                                        data-position="{{ $image->position ? $image->position : '' }}"
+                                                                        class="img-thumbnail defult-image select_image">
+                                                                </div>
+                                                            @endforeach
+                                                        @endif --}}
+                                                </div>
+                                            </div>
+
+                                            <!-- GROUP 2 STATIC -->
+                                            <div class="tab-pane fade" id="lingerie">
+                                                <div class="modal-tab">
+                                                    <div class="item2">
+                                                        <img src="{{ asset('escorts/images/template/banner/lingerie/Lingerie-Banner01.png') }}" class="img-thumbnail defult-image select_image" alt="lingerie">
+                                                    </div> 
+                                                </div>
+                                            </div>
+
+                                            <!-- GROUP 3 STATIC -->
+                                            <div class="tab-pane fade" id="passive">
+                                                <div class="modal-tab">
+                                                    <div class="item2">
+                                                        <img src="{{ asset('escorts/images/template/banner/passive/Passive-Banner01.jpg') }}" class="img-thumbnail defult-image select_image" alt="passive">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- GROUP 4 STATIC -->
+                                            <div class="tab-pane fade" id="sheets">
+                                                <div class="modal-tab">
+                                                    <div class="item2">
+                                                         <img src="{{ asset('escorts/images/template/banner/sheets/Sheets-Banner01.jpg') }}" class="img-thumbnail defult-image select_image" alt="sheets">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- GROUP 5 STATIC -->
+                                            <div class="tab-pane fade" id="subtle">
+                                                <div class="modal-tab">
+                                                    <div class="item2">
+                                                         <img src="{{ asset('escorts/images/template/banner/subtle/Subtle-Banner01.png') }}" class="img-thumbnail defult-image select_image" alt="subtle">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    {{-- end --}}
                     </div>    
                </div>
            </div>
@@ -486,7 +574,7 @@
                </button>
            </div>
            <div class="modal-body">
-               <div id="pinup_modal_container" class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll; grid-template-columns: 1fr 1fr 1fr;">
+               <div id="pinup_modal_container" class="grid-container modalPopup" style="max-height: 350px; overflow:auto; grid-template-columns: 1fr 1fr 1fr;">
                   
                    @foreach($media  as $keyId => $image)
                        @if(in_array($image->position, [10]))

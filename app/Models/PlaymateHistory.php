@@ -46,8 +46,8 @@ class PlaymateHistory extends Model
             ->where('escort_id', $this->escort_id)
             ->where('playmate_id', $this->playmate_id)
             ->exists() 
-            ? 'active' 
-            : 'inactive';
+            ? 'Listed' 
+            : 'Unlisted';
     }
 
     public function getGroupStatusAttribute()
