@@ -36,7 +36,7 @@
             <!-- My Playmates -->
             <div class="col-md-12 mb-4">
                 <div class="table-responsive-xl">
-                  <table class="table table-bordered" id="playmateListTable" style="border: none;">
+                  <table class="table table-bordered" id="playmateListTable_2" style="border: none;">
                     <thead style="background-color: #0C223D; color: #ffffff;">
                       <tr>
                         <th class="text-left">Playmate</th>
@@ -45,7 +45,17 @@
                         <th class="text-center">Action</th>
                       </tr>
                     </thead>
-                   
+                   <body>
+                    <tr role="row" class="odd">
+                        <td class="sorting_1">Kendra | E20118</td>
+                        <td>Uttar Pradesh</td>
+                        <td>Unlisted</td>
+                        <td><div class="dropdown no-arrow archive-dropdown">
+                        <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="https://e4udev2.perth-cake1.powerwebhosting.com.au/escort-dashboard/create-tour/28"> <i class="fa fa-eye "></i> View</a></div></div>
+                    </td>
+                </tr>
+                   </body>
                   </table>
                 </div>
               </div>
