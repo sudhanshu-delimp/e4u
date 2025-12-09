@@ -274,6 +274,9 @@ class ViewerNotificationController extends Controller
 
             if ($isUpdate) {
                 $notification = ViewerNotification::findOrFail($request->notificationId);
+                if($data['end_date'] > date('Y-m-d')){
+                    $data['status'] = 'Published';
+                }
                 $notification->update($data);
                 return success_response($notification, 'Notification updated successfully');
             } else {

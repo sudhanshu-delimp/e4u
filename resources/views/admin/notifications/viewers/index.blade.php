@@ -684,6 +684,7 @@
                 //Type Week wise event
                 // Loop for append week list 
                 function populateTypeWeekDate(selectId) {
+                     $(selectId).empty();
                     for (i = 1; i <= 7; i++) {
                         $(selectId).append(`<option value="${i}">${i}</option>`);
                     }
@@ -1014,8 +1015,10 @@
                             populateDays('#startFirstDate', n.start_month);
                             populateDays('#endSecondDay', n.end_month);
                             setTimeout(function() {
-                                $('#startFirstDate').val(n.start_month || '');
-                                $('#endSecondDay').val(n.end_month || '');
+                                $('#startFirstMonth').val(n.start_month || '');
+                                $('#endSecondMonth').val(n.end_month || '');
+                                $('#startFirstDate').val(n.start_day || '');
+                                $('#endSecondDay').val(n.end_day || '');
                                 $('#recurring').val(n.num_recurring || '');
                                 
                             }, 50);
