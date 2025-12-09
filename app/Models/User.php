@@ -700,7 +700,13 @@ class User extends Authenticatable
                 $settings = $user->viewer_settings;
             } elseif ($user->type == '3') {
                 $settings = $user->escort_settings;
+            }
+             elseif ($user->type == '4') {
+                $settings = $user->massage_settings;
             } 
+            elseif ($user->type == '5') {
+                $settings = $user->agent_settings;
+            }
             
             if (isset($settings->twofa) && ($settings->twofa == '1' && $user->email != "")) {
                 sendLoginOtpEmail($otp, $user);
@@ -711,10 +717,8 @@ class User extends Authenticatable
             }
             else
             {
-                if($user->type=='0')
-                sendLoginOtpEmail($otp, $user);
-                else
-                sendLoginOtpSms($otp, $user);   
+                 sendLoginOtpEmail($otp, $user);
+  
             }
     }
 

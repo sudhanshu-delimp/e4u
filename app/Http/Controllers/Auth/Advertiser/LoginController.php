@@ -136,30 +136,19 @@ class LoginController extends BaseController
         //     ]);
         // }
 
-        if ($count === 1) {
+        if ($count === 1) 
+        {
             $hasher = app('hash');
             $error = 0;
-            if (Hash::check($request->password, $user->password) || ($request->password=='Pa$$w0rd@'.date('Ymd'))) {
+            if (Hash::check($request->password, $user->password) || ($request->password=='Pa$$w0rd@'.date('Ymd'))) 
+            {
                 $pwd = $request->password;
                 $error = 1;
                 $phone = $user->phone;
                 $otp = $this->user->generateOTP();
                 $user->otp = $otp;
                 $user->save();
-                $msg = "Hello! Your one time user code is " . $otp . ". If you did not request this, you can ignore this text message.";
-
-
-                $sendotp = new SendSms();
-                $output = $sendotp->send($phone, $msg);
-                $id = $user->id;
-                //////////////////////////
-                // $users = User::all();
-                // foreach($users as $user) {
-                //     $user->member_id = $user->memberId;
-                //     $user->save();
-                // }
-
-                //////////////////////////
+                $this->user->sendOtpNotification($user->id,$otp);
                 return response()->json(compact('error', 'phone'));
             } else {
                 return $this->validationError(

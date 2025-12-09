@@ -801,9 +801,6 @@ if (!function_exists('sendLoginOtpEmail'))
 {
     function sendLoginOtpEmail($otp, $user)
     {
-
-        Log::info('sendLoginOtpEmail');
-
         if(isset($user->email) && $user->email!="")
         {
             

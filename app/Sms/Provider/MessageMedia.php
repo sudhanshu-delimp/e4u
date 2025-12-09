@@ -61,7 +61,7 @@ Class MessageMedia
     {
             $authUserName = config('constants.sms_api.key');
             $authPassword = config('constants.sms_api.secret');
-            $phone = ltrim($phone, '0');
+            $phone = substr(preg_replace('/\D/', '', $phone),-9); 
             $client = new MessageMediaMessagesClient($authUserName, $authPassword , false);
             $messagesController = $client->getMessages();
             $body = new Models\SendMessagesRequest();
