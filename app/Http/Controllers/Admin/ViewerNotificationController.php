@@ -156,8 +156,8 @@ class ViewerNotificationController extends Controller
 
     public function store(Request $request)
     {
-
         try {
+            $isUpdate = !empty($request->notificationId);
             $data = [
                 'current_day' => Carbon::createFromFormat('d-m-Y', $request->current_day)->toDateString(),
                 'heading' => $request->heading,
@@ -181,23 +181,14 @@ class ViewerNotificationController extends Controller
                         $data['end_day'] = $request->end_day_week;
                         $weekStartDay = (int) $request->start_day_week;
                         $weekEndDay = (int) $request->end_day_week;
-                        //$numRecurring = $data['num_recurring'];
                         $numRecurring = $request->recurring;
-                        // Get Sunday of this week as base date
                         $startDate = Carbon::today()->startOfWeek(Carbon::SUNDAY);
-
-                        // Calculate start_date by adding (start_day_week - 1) days to Sunday
                         $actualStartDate = $startDate->copy()->addDays($weekStartDay - 1);
                         $data['start_date'] = $actualStartDate->toDateString();
-
-
-
                         $dates = [];
-                        // Calculate exact dates for each recurrence week
                         for ($weekIndex = 0; $weekIndex < $numRecurring; $weekIndex++) {
                             $weekStartDate = $startDate->copy()->addWeeks($weekIndex);
                             for ($day = $weekStartDay; $day <= $weekEndDay; $day++) {
-                                // day 1 means week start day, so add ($day - 1)
                                 $date = $weekStartDate->copy()->addDays($day - 1);
                                 $dates[] = $date->toDateString();
                             }
@@ -211,31 +202,22 @@ class ViewerNotificationController extends Controller
                         $data['start_day'] = $monthStartDay;
                         $data['end_day'] = $monthEndDay;
                         $numRecurring = $data['num_recurring'];
-
-                        // Prefer UI start_date if available, else current date
                         $baseDate = isset($request->start_date) ? Carbon::parse($request->start_date) : Carbon::now();
-
-                        // Create startDate with start_day (with day validation)
                         $startDateDay = min($monthStartDay, $baseDate->daysInMonth);
                         $startDate = $baseDate->copy()->startOfMonth()->day($startDateDay);
-
                         $dates = [];
                         for ($monthIndex = 0; $monthIndex < $numRecurring; $monthIndex++) {
-                            $monthStartDate = $startDate->copy()->addMonthsNoOverflow($monthIndex); // safer month addition
+                            $monthStartDate = $startDate->copy()->addMonthsNoOverflow($monthIndex);
                             for ($day = $monthStartDay; $day <= $monthEndDay; $day++) {
-                                // Validate day exists in month
                                 if ($monthStartDate->copy()->day($day)->month == $monthStartDate->month) {
                                     $dates[] = $monthStartDate->copy()->day($day)->toDateString();
                                 }
                             }
                         }
                         $data['scheduled_days'] = implode(',', $dates);
-
-                        // Calculate end_date as last day in series (without subDay)
                         $lastMonthDate = $startDate->copy()->addMonthsNoOverflow($numRecurring - 1);
                         $endDayValid = min($monthEndDay, $lastMonthDate->daysInMonth);
                         $data['end_date'] = $lastMonthDate->copy()->day($endDayValid)->toDateString();
-
                         $data['start_date'] = $startDate->toDateString();
                         break;
                     case 'yearly':
@@ -244,63 +226,44 @@ class ViewerNotificationController extends Controller
                         $endMonth = (int) $request->end_month_yearly;
                         $endDay = (int) $request->end_day_yearly;
                         $numRecurring = $data['num_recurring'];
-
-                        // Parse base startDate: agar UI se start_date nahi to current year ka use karo
                         $baseYear = isset($request->start_date) ? Carbon::parse($request->start_date)->year : Carbon::now()->year;
-
-                        // Set start date properly with startMonth, startDay & base year
                         $startDate = Carbon::create($baseYear, $startMonth, min($startDay, Carbon::create($baseYear, $startMonth)->daysInMonth));
                         $data['start_date'] = $startDate->toDateString();
-
                         $dates = [];
                         for ($yearIndex = 0; $yearIndex < $numRecurring; $yearIndex++) {
                             $currentYear = $baseYear + $yearIndex;
-
-                            // Create start and end date for this year (day validation)
                             $carbonStart = Carbon::create($currentYear, $startMonth, min($startDay, Carbon::create($currentYear, $startMonth)->daysInMonth));
                             $carbonEnd = Carbon::create($currentYear, $endMonth, min($endDay, Carbon::create($currentYear, $endMonth)->daysInMonth));
-
-                            // If end month is smaller than start month, consider year wrap
                             if ($endMonth < $startMonth) {
-                                // Count till Dec 31 of currentYear then from Jan 1 of nextYear till end date
                                 $decEnd = Carbon::create($currentYear, 12, 31);
                                 $janStartNext = Carbon::create($currentYear + 1, 1, 1);
                                 $janEndNext = Carbon::create($currentYear + 1, $endMonth, min($endDay, Carbon::create($currentYear + 1, $endMonth)->daysInMonth));
-
-                                // Dates from start to Dec 31 currentYear
                                 while ($carbonStart->lessThanOrEqualTo($decEnd)) {
                                     $dates[] = $carbonStart->toDateString();
                                     $carbonStart->addDay();
                                 }
-                                // Dates from Jan 1 nextYear to end date
                                 $carbonStart = $janStartNext;
                                 while ($carbonStart->lessThanOrEqualTo($janEndNext)) {
                                     $dates[] = $carbonStart->toDateString();
                                     $carbonStart->addDay();
                                 }
                             } else {
-                                // Normal same year range
                                 while ($carbonStart->lessThanOrEqualTo($carbonEnd)) {
                                     $dates[] = $carbonStart->toDateString();
                                     $carbonStart->addDay();
                                 }
                             }
                         }
-
                         $data['scheduled_days'] = implode(',', $dates);
-
                         $data['start_month'] = $startMonth;
                         $data['start_day'] = $startDay;
                         $data['end_month'] = $endMonth;
                         $data['end_day'] = $endDay;
-
-                        // Calculate yearly end_date properly as last date of last recurring year range
                         $lastYear = $baseYear + $numRecurring - 1;
                         $endDateYear = $lastYear;
                         $endDateMonth = $endMonth;
                         $endDateDay = min($endDay, Carbon::create($lastYear, $endMonth)->daysInMonth);
                         $data['end_date'] = Carbon::create($endDateYear, $endDateMonth, $endDateDay)->toDateString();
-
                         break;
                     case 'forever':
                         $data['scheduled_days'] = null;
@@ -309,10 +272,16 @@ class ViewerNotificationController extends Controller
                 }
             }
 
-            $notification = ViewerNotification::create($data);
-            return success_response($notification, 'Notification saved successfully');
+            if ($isUpdate) {
+                $notification = ViewerNotification::findOrFail($request->notificationId);
+                $notification->update($data);
+                return success_response($notification, 'Notification updated successfully');
+            } else {
+                $notification = ViewerNotification::create($data);
+                return success_response($notification, 'Notification saved successfully');
+            }
         } catch (\Exception $e) {
-            return error_response('Failed to create notification: ' . $e->getMessage(), 500);
+            return error_response('Failed to create/update notification: ' . $e->getMessage(), 500);
         }
     }
 

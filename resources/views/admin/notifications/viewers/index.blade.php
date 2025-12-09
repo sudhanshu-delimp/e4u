@@ -631,6 +631,7 @@
                 $("#startFirstMonth").change();
 
                 function populateTypeMonthDate(selectDate, totalDays) {
+                    $(selectDate).empty(); // Clear existing options first
                     for (i = 1; i <= totalDays; i++) {
                         $(selectDate).append(`<option value="${i}">${i}</option>`);
                     }
