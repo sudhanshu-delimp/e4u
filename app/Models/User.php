@@ -476,13 +476,6 @@ class User extends Authenticatable
             }
         });
 
-        static::created(function ($user) {
-              \App\Models\StaffSetting::create([
-                  'user_id' => $user->id, 
-                  'idle_preference_time' => '30',
-                  'twofa' => '2',
-              ]);
-          });
     }
 
     public function escorts()
