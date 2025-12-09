@@ -10,19 +10,18 @@
     <div class="topbar-logged-in-user-data operator-topbar-userdata d-flex">
 
         <div class="d-user-info">
-            <div class="operator_header_top_menu">
+            <div class="common_top_menu">
                 <span>
-                    <b>Welcome back : </b><span class="user-values">Operator</span> <span
-                        class="separator">|</span>
+                    <b>Welcome back : </b><span class="user-values">Operator</span>
                 </span>
                 <span>
+                    <span class="separator">|</span>
                     <b>Membership ID : </b><span class="user-values">OP123456</span>
                
                 </span>
                 <span>
                     <b>Home State : </b>
-                    <span style="padding-left:8%" class="user-values"
-                       > Perth escort Services</span>
+                    <span class="user-values"> Perth escort Services</span>
                 </span>
 
             </div>

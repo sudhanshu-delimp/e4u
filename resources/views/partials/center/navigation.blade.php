@@ -11,7 +11,7 @@
                             <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
                         </div> --}}
                         <div class="d-user-info">
-                           <div class="escort_header_top_menu" style="display: grid; grid-template-columns: 1fr 1fr; font-size: 14px;">
+                           <div class="common_top_menu">
                             <span>
                                 <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name ? substr(auth()->user()->name, 0, 15) : '--' }}</span>  
                             </span>
@@ -19,11 +19,11 @@
                                 <span class="separator">|</span><b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> 
                             </span>
                             <span>
-                                <b>Home State :  </b><span class="user-values" style="padding-left: 10%;">{{auth()->user()->home_state  }} </span>
+                                <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
                             </span>
                             <span>
                                 <span class="separator">|</span><b>My Agent :  </b>
-                                <span class="user-values" style="padding-left: 15%;">
+                                <span class="user-values">
 
                                     @if(auth()->user()->my_agent)
                                     {{ Str::title(auth()->user()->my_agent->name) }}
@@ -33,7 +33,7 @@
                                     
                                 
                                 </span>
-                        </span>
+                            </span>
                            </div>
                            <div class="gap-b">
                            
