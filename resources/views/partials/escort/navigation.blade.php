@@ -16,10 +16,10 @@
                         <b>Welcome back :  </b><span class="user-values">{{\Illuminate\Support\Str::limit(auth()->user()->name, 12, '..') }}</span>  
                     </span>
                     <span>
-                        <span class="separator">|</span> <b>Membership ID :  </b><span class="user-values" style="padding-left: 4%;">{{auth()->user()->member_id }}</span> 
+                        <span class="separator">|</span> <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> 
                     </span>
                     <span>
-                        <span class="separator">|</span> <b>My Agent :  </b><span class="user-values" style="padding-left: 13%;">
+                        <span class="separator">|</span> <b>My Agent :  </b><span class="user-values">
                             @if(auth()->user()->my_agent)
                                 {{  \Illuminate\Support\Str::limit(Str::title(auth()->user()->my_agent->name), 8, '..') }}
                             @else
@@ -29,7 +29,7 @@
                     </span>
 
                      <span>
-                        <b>Home State :  </b><span class="user-values resident_home_state" style="margin-left:11%">--</span> 
+                        <b>Home State :  </b><span class="user-values resident_home_state">--</span> 
                     </span>
                     <span>
                         <span class="separator">|</span> <b>Current Location :  </b><span class="user-values live_current_location">--</span> 
