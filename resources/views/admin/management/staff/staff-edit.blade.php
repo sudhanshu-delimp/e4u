@@ -2,7 +2,11 @@
 $securityLevels = config('staff.security_level');
 $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? $securityLevels[$staff->staff_detail->security_level] : '';
 @endphp            
-
+<style>
+    .form-group *:not(h6) {
+    color: #C2CFE0 !important;
+}
+</style>
 <form name="add_staff" id="edit_staff" method="POST" action="{{ route('admin.store-staff') }}"
     enctype="multipart/form-data">
     <div class="row">
@@ -167,8 +171,57 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
             </select>
             <span class="text-danger error-car_parking"></span>
         </div>
-
     </div>
+            
+        <div class="form-group">
+            <h6 class="border-bottom pb-1 text-blue-primary">Idle Time Preference</h6>
+
+            @php
+                $setting = $staff->staff_setting ?? null;
+            @endphp
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="idle_preference_time" id="edit_idle_preference_time_15" value="15" {{ $setting && $setting->idle_preference_time === "15" ? 'checked' : '' }}>
+                <label class="form-check-label" for="edit_idle_preference_time_15">15 minutes</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="idle_preference_time" id="edit_idle_preference_time_30" value="30" {{ $setting && $setting->idle_preference_time === "30" ? 'checked' : '' }}>
+                <label class="form-check-label" for="edit_idle_preference_time_30">30 minutes</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="idle_preference_time" id="edit_idle_preference_time_60" value="60" {{ $setting && $setting->idle_preference_time === "60" ? 'checked' : '' }}>
+                <label class="form-check-label" for="edit_idle_preference_time_60">60 minutes</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="idle_preference_time" id="edit_idle_preference_time_never" value="" {{ $setting && $setting->idle_preference_time === null ? 'checked' : '' }}>
+                <label class="form-check-label" for="edit_idle_preference_time_never">Never</label>
+            </div>
+
+            <div class="pt-1">
+                <i>Set the Idle time before you are logged out of your Console.</i>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h6 class="border-bottom pb-1 text-blue-primary">2FA Authentication</h6>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="twofa" id="edit_twofa_1" value="1" {{ $staff->staff_setting && $staff->staff_setting->twofa == 1 ? 'checked' : 'checked' }} >
+                <label class="form-check-label" for="edit_twofa_1">Email</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="twofa" id="edit_twofa_2" value="2" {{ $staff->staff_setting && $staff->staff_setting->twofa == 2 ? 'checked' : '' }}>
+                <label class="form-check-label" for="edit_twofa_2">Text</label>
+            </div>
+
+            <div class="pt-1" >
+                <i>How your authentication code will be sent to you.</i>
+            </div>
+        </div>
     @php
         $update_button =
             $staff->status === 'Pending'

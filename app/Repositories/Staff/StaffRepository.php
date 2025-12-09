@@ -6,6 +6,7 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Staff;
+use App\Models\StaffSetting;
 use App\Models\AccountSetting;
 use App\Events\StaffRegistered;
 use App\Mail\StaffApprovalEmail;
@@ -19,12 +20,14 @@ use App\Repositories\Staff\StaffInterface;
 class StaffRepository extends BaseRepository implements StaffInterface
 {
     protected $staff;
+    protected $staff_setting;
     protected $setting;
     public $user_model;
     public $response = [];
 
-    public function __construct(Staff $staff, User $user_model,  AccountSetting $setting)
+    public function __construct(Staff $staff, User $user_model,  AccountSetting $setting, StaffSetting $staff_setting)
     {
+        $this->staff_setting = $staff_setting;
         $this->staff = $staff;
         $this->setting = $setting;
         $this->user_model = $user_model;
@@ -77,7 +80,7 @@ class StaffRepository extends BaseRepository implements StaffInterface
                     'email' => $data['email'] ?? null,
                     //'state_id' => $data['location'] ?? null,
                     'city_id' => $data['location'] ?? null,
-                    'gender' => $data['gender'] ?? null,
+                    'gender' => $data['gender'] ?? null,  
                 ];
 
                 if (isset($data['user_id']) && (!empty($data['user_id']))) {
@@ -115,13 +118,20 @@ class StaffRepository extends BaseRepository implements StaffInterface
                     'commenced_date' => $data['commenced_date'] ?? null,
                     'security_level' => $data['security_level'] ?? null,
                     //'position' => $data['position'] ?? null,
-                     'position' => $data['security_level'] ?? null,
+                    'position' => $data['security_level'] ?? null,
                     'employment_status' => $data['employment_status'] ?? null,
                     'employment_agreement' => $data['employment_agreement'] ?? null,
                     'building_access_code' => $data['building_access_code'] ?? null,
                     'keys_issued' => $data['keys_issued'] ?? null,
                     'car_parking' => $data['car_parking'] ?? null,
+                    'idle_preference_time' => $data['idle_preference_time'] ?? null,
+                    'twofa' => $data['twofa'] ?? null,
                 ]);
+
+                $staffSetting = \App\Models\StaffSetting::firstOrNew(['user_id' => $user->id]);
+                $staffSetting->idle_preference_time = $data['idle_preference_time'] ?? null;
+                $staffSetting->twofa = $data['twofa'] ?? '2';
+                $staffSetting->save();
 
                 $this->response = ['status' => true, 'message' => $message];
                 return $this->response;

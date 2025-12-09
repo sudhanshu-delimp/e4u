@@ -280,46 +280,53 @@
                             <span class="text-danger error-car_parking"></span>
                         </div>
                     </div>
+                    <div class="form-group" style="color: #C2CFE0;">
+                        <h3 class="h3">Idle Time Preference</h3>
+                        
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="idle_preference_time" id="idle_preference_time_15" value="15">
+                                <label class="form-check-label" for="idle_preference_time_15">15 minutes</label>
+                            </div>
 
-                    <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="idle_preference_time" id="idle_preference_time_30" value="30" checked="">
+                                
+                                <label class="form-check-label" for="idle_preference_time_30">30 minutes</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="idle_preference_time" id="idle_preference_time_60" value="60">
+                                <label class="form-check-label" for="idle_preference_time_60">60 minutes</label>
+                            </div>
+
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" type="radio" name="idle_preference_time" id="idle_preference_time_never" value=""  >
+                                <label class="form-check-label" for="idle_preference_time_never">Never</label>
+                            </div>
+
+                        <div class="pt-1" >
+                            <i style="color: #C2CFE0;">Set the Idle time before you are logged out of your Console.</i>
+                        </div>
+                    </div>
+                    <div class="form-group" style="color: #C2CFE0;">
                         <h6 class="border-bottom pb-1 text-blue-primary">2FA Authentication</h6>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="twofa" id="auth_1" value="1">
-                            <label class="form-check-label" for="auth_1">Email</label>
+                            <input class="form-check-input" type="radio" name="twofa" id="twofa_1" value="1" checked="">
+                            <label class="form-check-label" for="twofa_1">Email</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="twofa" id="auth_2" value="2">
+                            <input class="form-check-input" type="radio" name="twofa" id="twofa_2" value="2" >
 
-                            <label class="form-check-label" for="auth_2">Text</label>
+                            <label class="form-check-label" for="twofa_2">Text</label>
                         </div>
 
-                        <div class="pt-1">
-                            <i>How your authentication code will be sent to you.</i>
+                        <div class="pt-1" >
+                            <i style="color: #C2CFE0;">How your authentication code will be sent to you.</i>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <h6 class="border-bottom pb-1 text-blue-primary">Subscriptions</h6>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="subscriptions_num" id="num" value="1">
-
-                            <label class="form-check-label" for="num">NUM</label>
-                        </div>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="subscriptions_state" id="sub_1" value="1">
-
-                            <label class="form-check-label" for="sub_1">Home State</label>
-                        </div>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="subscriptions_state" id="sub_2" value="2">
-                            <label class="form-check-label" for="sub_2">Australia wide</label>
-                        </div>
-                    </div>
                     <div class="modal-footer p-0 pl-2 pb-4">
                         <button type="submit" class="btn-success-modal mr-3">Save</button>
                     </div>

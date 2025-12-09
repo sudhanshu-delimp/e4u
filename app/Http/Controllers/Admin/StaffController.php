@@ -9,6 +9,7 @@ use Laravel\Ui\Presets\React;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Staff\AddNewStaff;
+use App\Models\Staff;
 use App\Repositories\Staff\StaffInterface;
 
 class StaffController extends BaseController
@@ -70,7 +71,7 @@ class StaffController extends BaseController
      */
     public function editStaff($id)
     {
-        $staff = User::with('staff_detail')->where("id", $id)->first();
+        $staff = User::with('staff_detail','staff_setting')->where("id", $id)->first();
         if ($staff) {
             return view('admin.management.staff.staff-edit', compact('staff'));
         } else {
