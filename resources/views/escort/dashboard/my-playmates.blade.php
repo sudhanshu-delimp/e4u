@@ -40,6 +40,7 @@
                     <thead style="background-color: #0C223D; color: #ffffff;">
                       <tr>
                         <th class="text-left">Playmate</th>
+                        <th class="text-left">Profile</th>
                         <th class="text-left">Current Location</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Action</th>
@@ -47,7 +48,33 @@
                     </thead>
                    <body>
                     <tr role="row" class="odd">
-                        <td class="sorting_1">Kendra | E20118</td>
+                        <td class="sorting_1">
+                            <div class="playmate_group">
+                                <div class="playmate_col">
+                                    <div class="playmate_avatart">
+                                        <img src="{{ asset('avatars/default/default_escort.png') }}">
+                                        <span class="playmate_tooltip">Member ID</span>
+                                    </div>
+                                    <div class="playmate_link">
+                                        <a href=""> Kendra </a>
+                                        <span class="playmate_tooltip">Click here to view Playmate details.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="sorting_1">
+                            <div class="playmate_group">
+                                <div class="playmate_col">
+                                    <div class="playmate_avatart">
+                                        <img src="{{ asset('avatars/default/default_escort.png') }}">
+                                    </div>
+                                    <div class="playmate_link">
+                                        <a href=""> Kendra </a>
+                                        <span class="playmate_tooltip">Click here to view you Profile details.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                         <td>Uttar Pradesh</td>
                         <td>Unlisted</td>
                         <td><div class="dropdown no-arrow archive-dropdown">
