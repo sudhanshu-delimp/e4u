@@ -88,10 +88,8 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createNotification">
-                        <img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create
-                        Notification
-                    </h5>
+                    <img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon">
+                    <h5 class="modal-title" id="createNotificationTitle">Create Notification </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -106,6 +104,7 @@
                             <!-- Auto-generated Date (readonly) -->
                             <div class="col-12 mb-3" id="currentDateField">
                                 <label class="label" for="currentDate">Current Day</label>
+                                <input type="hidden" id="notificationId" name="notificationId" >
                                 <input type="text" class="form-control rounded-0" name="current_day" id="current_day"
                                     value="<?php echo date('d-m-Y'); ?>" data-parsley-required="true" />
                             </div>
@@ -282,7 +281,7 @@
 
                         </div>
                         <div class="modal-footer pr-3">
-                            <button type="submit" class="btn-success-modal">Save</button>
+                            <button type="submit" id="createNotificationSubmit" class="btn-success-modal">Save</button>
                         </div>
                     </form>
                 </div>
@@ -476,6 +475,9 @@
                 //Reset and initialize form - used for create new notification
                 function resetAndInitializeForm() {
                     $('#createNotificationForm')[0].reset();
+                    $('#notificationId').val('');
+                    $('#createNotificationTitle').text('Create Notification');
+                    $('#createNotificationSubmit').text('Save');
                     $('#type').val('Ad hoc').trigger('change');
                 }
 
@@ -1019,7 +1021,6 @@
                         }
                         
                     } else if (n.recurring_type === 'monthly') {
-                        console.log(n, 'nmonthly');
                         populateTypeMonthDate('#monthWiseStartDate', totalDays);
                         populateTypeMonthDate('#monthWiseEndDate', totalDays);
                         setTimeout(function() {
@@ -1056,6 +1057,10 @@
                                 $('#scheduledSection, #noticeSection, #weeklyOptions, #monthlyOptions, #startyearlyOptions, #endyearlyOptions, #numberOfRecurring, #weekOptions').hide();
                                 // Then populate with edit data
                                 populateNotificationFields(n);
+                                //Change madal title
+                                $('#createNotificationTitle').text('Edit Notification');
+                                //change submit button text
+                                $('#createNotificationSubmit').text('Update');
                                 // Show modal
                                 $('#createNotification').modal('show');
                             }
