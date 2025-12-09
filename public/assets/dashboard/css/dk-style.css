@@ -8948,6 +8948,25 @@ td {
 .escort_header_top_menu {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    font-size: 14px;
+}
+
+.common_top_menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+}
+
+.d-user-info span b {
+    width: 125px;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.d-user-info .user-values {
+    width: max-content;
+    display: inline-block;
     font-size: 14px;
 }
 

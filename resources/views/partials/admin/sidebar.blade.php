@@ -1,5 +1,5 @@
 @php
-   $securityLevel = isset(auth()->user()->staff_detail->security_level)
+    $securityLevel = isset(auth()->user()->staff_detail->security_level)
         ? auth()->user()->staff_detail->security_level
         : 0;
     $sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
@@ -7,11 +7,11 @@
     $ocLavel = 'Management';
     if ($securityLevel == 2) {
         $ocLavel = 'Admin';
-    } else if ($securityLevel == 3) {
+    } elseif ($securityLevel == 3) {
         $ocLavel = 'Admin';
-    } else if ($securityLevel == 4) {
+    } elseif ($securityLevel == 4) {
         $ocLavel = 'Developer';
-    } 
+    }
 @endphp
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
@@ -47,13 +47,6 @@
                 <span>Global Monitoring </span>
             </a>
         </li>
-        {{-- <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.accounting-reports') }}">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/book.png') }}">
-                <span>Accounting Reports </span>
-            </a>
-        </li> --}}
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('new') }}">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
@@ -99,14 +92,6 @@
                 </div>
             </div>
         </li>
-        {{-- <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Billing"
-                aria-expanded="false" aria-controls="collapseTwo">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
-                <span>Billing (Support Services) </span>
-            </a>
-        </li> --}}
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Concierge"
                 aria-expanded="false" aria-controls="collapseTwo">
@@ -172,26 +157,25 @@
                 <span>Database </span>
             </a>
             <!-- database
-        <div id="collapseTwo" class=" collapse @if (request()->segment(3) == 'escorts') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-            <div class="py-0 collapse-inner rounded mb-2">
-                <a class="collapse-item" href="{{ route('admin.e4u-database.escorts') }}">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/escort.png') }}">
-                <span style="{{ request()->segment(3) == 'escorts' ? 'color: #FF3C5F;' : '' }}">Manage New Profiles</span></a>
-                <a class="collapse-item" href="#">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/media.png') }}">
-                <span style="">Media Verification</span></a>
-                <a class="collapse-item" href="#">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/Migration.png') }}">
-                <span style="">Pin-Up Management</span></a>
-                <a class="collapse-item" href="#">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/agent.png') }}">
-                <span style="">Agent List</span></a>
-                <a class="collapse-item" href="#">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/contact-daata.png') }}">
-                <span style="">User List</span></a>
-            </div>
-        </div>
-        -->
+            <div id="collapseTwo" class=" collapse @if (request()->segment(3) == 'escorts') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-0 collapse-inner rounded mb-2">
+                    <a class="collapse-item" href="{{ route('admin.e4u-database.escorts') }}">
+                    <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/escort.png') }}">
+                    <span style="{{ request()->segment(3) == 'escorts' ? 'color: #FF3C5F;' : '' }}">Manage New Profiles</span></a>
+                    <a class="collapse-item" href="#">
+                    <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/media.png') }}">
+                    <span style="">Media Verification</span></a>
+                    <a class="collapse-item" href="#">
+                    <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/Migration.png') }}">
+                    <span style="">Pin-Up Management</span></a>
+                    <a class="collapse-item" href="#">
+                    <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/agent.png') }}">
+                    <span style="">Agent List</span></a>
+                    <a class="collapse-item" href="#">
+                    <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/contact-daata.png') }}">
+                    <span style="">User List</span></a>
+                </div>
+            </div> -->
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.reporting') }}">
@@ -302,7 +286,6 @@
             </div>
         </li>
         <li class="nav-item">
-            {{--        <a class="nav-link" href="{{ route('admin.support-tickets')}}"> --}}
             <a class="nav-link" href="{{ route('admin.support-ticket.list') }}">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
@@ -404,13 +387,6 @@
                     request()->is('*visitors*') ||
                     request()->is('*pinup-listings*')) show @endif">
                 <div class="py-0 collapse-inner rounded mb-2">
-                    {{-- <a class="collapse-item" href="{{ route('admin.global-monitoring') }}">
-
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/globe.png') }}">
-                        <span style="{{ request()->is('*global-monitoring*') ? 'color: #FF3C5F;' : '' }}">Global
-                            Monitoring</span>
-                    </a> --}}
                     <a class="collapse-item" href="{{ route('admin.escort-listings', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png') }}">
@@ -446,485 +422,344 @@
                 </div>
             </div>
         </li>
+        
 
-        <li
-            style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
-        </li>
+          <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;"></li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Analytics"
-                aria-expanded="false" aria-controls="collapseTwo">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
-                <span>Analytics</span>
-            </a>
-            <div id="Analytics" class="collapse @if (request()->segment(3) == 'publicpages' || request()->segment(3) == 'consoles') show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-                <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="collapse-item" href="{{ route('publicpages') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/advertiser.png') }}">
-                        <span style="{{ request()->segment(3) == 'publicpages' ? 'color: #FF3C5F;' : '' }}">Public
-                            Pages</span>
-                    </a>
-                    <a class="collapse-item" href="{{ route('consoles') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/console.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'consoles' ? 'color: #FF3C5F;' : '' }}">Consoles</span>
-                    </a>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Administration"
+                    aria-expanded="false" aria-controls="Administration">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/administration.png') }}">
+                    <span>Administration</span>
+                </a>
+
+                <div id="Administration"
+                    class="collapse @if (in_array(request()->segment(3), [
+                        'email-management','sim-management',
+                        'publicpages','consoles',
+                        'email-service-request','mobile-sim-request','product-request','visa-migration-request',
+                        'manage-email','manage-sim',
+                        'global','agents','viewer','escorts','centres',
+                        'reports','send-reports',
+                        'new','blog',
+                        'credit','agent-requests','num','transaction-summary','advertiser-suspensions',
+                        'registrations-reports','advertiser-reports','advertiser-reviews','support_tickets'
+                    ])) show @endif"
+                    aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+
+                    <div class="py-0 collapse-inner rounded mb-2">
+
+                        {{-- Analytics --}}
+                        <a class="nav-link collapsed collapsed" href="#" data-toggle="collapse"
+                        data-target="#Analytics" aria-expanded="false" aria-controls="Analytics">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
+                            <span>Analytics</span>
+                        </a>
+                        <div id="Analytics" class="collapse @if (request()->segment(3) == 'publicpages' || request()->segment(3) == 'consoles') show @endif;">
+                            <div class="py-0 collapse-inner rounded mb-2">
+                                <a class="collapse-item" href="{{ route('publicpages') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/advertiser.png') }}">
+                                    <span style="{{ request()->segment(3) == 'publicpages' ? 'color: #FF3C5F;' : '' }}">Public
+                                        Pages</span>
+                                </a>
+                                <a class="collapse-item" href="{{ route('consoles') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/console.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'consoles' ? 'color: #FF3C5F;' : '' }}">Consoles</span>
+                                </a>
+                            </div>
+                        </div>
+                        {{-- end Analytics --}}
+
+                    {{-- Concierge --}}
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Concierge"
+                            aria-expanded="false" aria-controls="collapseTwo">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                src="{{ asset('assets/dashboard/img/menu-icon/package-variant-closed.png') }}">
+                            <span>Concierge</span>
+                        </a>
+                        <div id="Concierge" class="collapse @if (request()->segment(3) == 'email-service-request' ||
+                                request()->segment(3) == 'mobile-sim-request' ||
+                                request()->segment(3) == 'product-request' ||
+                                request()->segment(3) == 'visa-migration-request') show @endif;"
+                             style="">
+                            <div class="py-0 collapse-inner rounded mb-2">
+                                <a class="collapse-item" href="{{ route('email-service-request') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'email-service-request' ? 'color: #FF3C5F;' : '' }}">Email
+                                        Requests</span>
+                                </a>
+                                <a class="collapse-item" href="{{ route('mobile-sim-request') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/cellphone-text.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'mobile-sim-request' ? 'color: #FF3C5F;' : '' }}">SIM
+                                        Requests</span>
+                                </a>
+                                <a class="collapse-item" href="{{ route('product-request') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'product-request' ? 'color: #FF3C5F;' : '' }}">Product
+                                        Orders</span>
+                                </a>
+                                <a class="collapse-item" href="{{ route('visa-migration-request') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/Migration.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'visa-migration-request' ? 'color: #FF3C5F;' : '' }}">Visa
+                                        Migration Request</span>
+                                </a>
+                            </div>
+                        </div>
+                    {{-- end Concierge --}}
+
+                        {{-- Database --}}
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Database"
+                            aria-expanded="false" aria-controls="collapseTwo">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                src="{{ asset('assets/dashboard/img/menu-icon/admin-database.png') }}">
+                            <span>Database</span>
+                        </a>
+                        <div id="Database" class="collapse @if (request()->segment(3) == 'manage-email' || request()->segment(3) == 'manage-sim') show @endif;"
+                            style="">
+                            <div class="py-0 collapse-inner rounded mb-2">
+                                <a class="collapse-item" href="{{ route('manage-email') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                    <span style="{{ request()->segment(3) == 'manage-email' ? 'color: #FF3C5F;' : '' }}">Manage
+                                        Emails</span>
+                                </a>
+
+                                <a class="collapse-item" href="{{ route('manage-sim') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/add-sim-list.png') }}">
+                                    <span style="{{ request()->segment(3) == 'manage-sim' ? 'color: #FF3C5F;' : '' }}">Manage
+                                        SIMs</span>
+                                </a>
+                            </div>
+                        </div>
+                        {{-- Database --}}
+
+                        {{-- logs --}}
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#logs"
+                            aria-expanded="false" aria-controls="Website">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+                            <span>logs </span>
+                        </a>
+                        {{-- end --}}
+                    
+                    <!-- Notification -->
+
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#notification"
+                            aria-expanded="false" aria-controls="notification">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                src="{{ asset('assets/dashboard/img/menu-icon/global-notification.png') }}">
+                            <span>Notifications<!----></span>
+                        </a>
+                        <div id="notification" class=" collapse  @if (request()->segment(3) == 'global' ||
+                                request()->segment(3) == 'agents' ||
+                                request()->segment(3) == 'viewer' ||
+                                request()->segment(3) == 'escorts' ||
+                                request()->segment(3) == 'centres') show @endif;">
+
+                            <div class="py-0 collapse-inner rounded mb-2">
+                                {{-- global --}}
+                                <a href="{{ route('admin.global', ['from' => 'sidebar']) }}" class="collapse-item">
+                                    <img src="{{ asset('assets/dashboard/img/menu-icon/g-notification.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'global' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Global</span>
+                                </a>
+                                {{-- agents --}}
+
+                                <a href="{{ route('admin.agent.notifications.index') }}" class="collapse-item">
+                                    <img src="{{ asset('assets/dashboard/img/menu-icon/agent.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'agents' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Agents</span>
+                                </a>
+
+                                {{-- centres --}}
+                                <a href="{{ route('admin.centres.notifications.index') }}" class="collapse-item">
+                                    <img src="{{ asset('assets/dashboard/img/menu-icon/c-notification.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'centres' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Massage
+                                        Centres</span>
+                                </a>
+
+                                {{-- escorts --}}
+                                <a href="{{ route('admin.escorts') }}" class="collapse-item">
+                                    <img src="{{ asset('assets/dashboard/img/menu-icon/e-notification.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'escorts' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Escorts</span>
+                                </a>
+
+                                {{-- viewers --}}
+                                <a href="{{ route('admin.viewer.notification.index') }}" class="collapse-item">
+                                    <img src="{{ asset('assets/dashboard/img/menu-icon/v-notification.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'viewer' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Viewers</span>
+                                </a>
+
+
+                            </div>
+                        </div>
+                    <!-- end -->
+
+                    <!-- post Office -->
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#PostOffice"
+                            aria-expanded="false" aria-controls="PostOffice">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                src="{{ asset('assets/dashboard/img/menu-icon/post-office.png') }}">
+                            <span>Post Office</span>
+                        </a>
+                        <div id="PostOffice" class=" collapse  @if (request()->segment(3) == 'reports' || request()->segment(3) == 'send-reports') show @endif;"
+                           >
+                            <div class="py-0 collapse-inner rounded mb-2">
+                                <a href="{{ route('admin.send-reports') }}" class="collapse-item">
+                                    <img src="{{ asset('assets/dashboard/img/menu-icon/email-report.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'send-reports' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">New</span>
+                                </a>
+                                <a href="{{ route('admin.reports') }}" class="collapse-item">
+                                    <img src="{{ asset('assets/dashboard/img/menu-icon/email-report.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'reports' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Reports</span>
+                                </a>
+
+                            </div>
+                        </div>
+                    <!-- end -->
+
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Publications"
+                            aria-expanded="false" aria-controls="collapseTwo">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                src="{{ asset('assets/dashboard/img/menu-icon/publication.png') }}">
+                            <span>Publications</span>
+                        </a>
+                        <div id="Publications" class="collapse @if (request()->is('*new*') || request()->is('*blog*')) show @endif;"
+                            >
+                            <div class="py-0 collapse-inner rounded mb-2">
+                                <a class="nav-link collapsed" href="{{ route('new') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/alert.png') }}">
+                                    <span style="{{ request()->is('*new*') ? 'color: #FF3C5F;' : '' }}">Alerts</span>
+                                </a>
+                                <a class="nav-link collapsed" href="{{ route('admin.blog') }}">
+                                    <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="64px" height="64px"
+                                        viewBox="0 0 512 512" xml:space="preserve" fill="#000000">
+
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                        <g id="SVGRepo_iconCarrier">
+                                            <style type="text/css">
+                                                .st0 {
+                                                    fill: #ffffffcc;
+                                                }
+                                            </style>
+                                            <g>
+                                                <path class="st0"
+                                                    d="M421.073,221.719c-0.578,11.719-9.469,26.188-23.797,40.094v183.25c-0.016,4.719-1.875,8.719-5.016,11.844 c-3.156,3.063-7.25,4.875-12.063,4.906H81.558c-4.781-0.031-8.891-1.844-12.047-4.906c-3.141-3.125-4.984-7.125-5-11.844V152.219 c0.016-4.703,1.859-8.719,5-11.844c3.156-3.063,7.266-4.875,12.047-4.906h158.609c12.828-16.844,27.781-34.094,44.719-49.906 c0.078-0.094,0.141-0.188,0.219-0.281H81.558c-18.75-0.016-35.984,7.531-48.25,19.594c-12.328,12.063-20.016,28.938-20,47.344 v292.844c-0.016,18.406,7.672,35.313,20,47.344C45.573,504.469,62.808,512,81.558,512h298.641c18.781,0,36.016-7.531,48.281-19.594 c12.297-12.031,20-28.938,19.984-47.344V203.469c0,0-0.125-0.156-0.328-0.313C440.37,209.813,431.323,216.156,421.073,221.719z" />
+                                                <path class="st0"
+                                                    d="M498.058,0c0,0-15.688,23.438-118.156,58.109C275.417,93.469,211.104,237.313,211.104,237.313 c-15.484,29.469-76.688,151.906-76.688,151.906c-16.859,31.625,14.031,50.313,32.156,17.656 c34.734-62.688,57.156-119.969,109.969-121.594c77.047-2.375,129.734-69.656,113.156-66.531c-21.813,9.5-69.906,0.719-41.578-3.656 c68-5.453,109.906-56.563,96.25-60.031c-24.109,9.281-46.594,0.469-51-2.188C513.386,138.281,498.058,0,498.058,0z" />
+                                            </g>
+                                        </g>
+
+                                    </svg>
+                                    <span style="{{ request()->is('*blog*') ? 'color: #FF3C5F;' : '' }}">Blog</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Reports"
+                            aria-expanded="false" aria-controls="collapseTwo">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
+                            <span>Reports </span>
+                        </a>
+
+
+
+                        <div id="Reports" class="collapse @if (request()->is('*credit*') ||
+                                request()->is('*agent-requests*') ||
+                                request()->is('*num*') ||
+                                request()->is('*transaction-summary*') ||
+                                request()->is('*advertiser-suspensions*') ||
+                                request()->is('*registrations-reports*') ||
+                                request()->is('*advertiser-reports*') ||
+                                request()->is('*advertiser-reviews*')) show @endif;">
+                            <div class="py-0 collapse-inner rounded mb-2">
+                                <a class="nav-link collapsed" href="{{ route('admin.agent-requests', ['from' => 'sidebar']) }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/agent-request.png') }}">
+                                    <span style="{{ request()->is('*agent-requests*') ? 'color: #FF3C5F;' : '' }}">Agent
+                                        Requests</span>
+                                </a>
+                                <a class="nav-link collapsed"
+                                    href="{{ route('admin.registrations-reports', ['from' => 'sidebar']) }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/registration-reports.png') }}">
+                                    <span
+                                        style="{{ request()->is('*registrations-reports*') ? 'color: #FF3C5F;' : '' }}">Registrations</span>
+                                </a>
+
+                                <a class="nav-link collapsed" href="{{ route('admin.advertiser-reports') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/advertiser-reports.png') }}">
+                                    <span style="{{ request()->is('*advertiser-reports*') ? 'color: #FF3C5F;' : '' }}">Advertiser
+                                        Reports</span>
+                                </a>
+                                <a class="nav-link collapsed" href="{{ route('admin.advertiser-reviews') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/add-reviews.png') }}">
+                                    <span style="{{ request()->is('*advertiser-reviews*') ? 'color: #FF3C5F;' : '' }}">Advertiser
+                                        Reviews</span>
+                                </a>
+                                <a class="nav-link collapsed" href="{{ route('admin.credit') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/credits.png') }}">
+                                    <span style="{{ request()->is('*credit*') ? 'color: #FF3C5F;' : '' }}">Credits</span>
+                                </a>
+
+                                <a class="nav-link collapsed" href="{{ route('admin.num') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png') }}">
+                                    <span style="{{ request()->is('*num*') ? 'color: #FF3C5F;' : '' }}">NUM</span>
+                                </a>
+                                <a class="nav-link collapsed"
+                                    href="{{ route('admin.transaction-summary', ['from' => 'sidebar']) }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/transaction-summary.png') }}">
+                                    <span
+                                        style="{{ request()->is('*transaction-summary*') ? 'color: #FF3C5F;' : '' }}">Transaction
+                                        Summary</span>
+                                </a>
+                                <a class="nav-link collapsed" href="{{ route('admin.advertiser-suspensions') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/profile-suspensions.png') }}">
+                                    <span
+                                        style="{{ request()->is('*advertiser-suspensions*') ? 'color: #FF3C5F;' : '' }}">Advertiser
+                                        Suspensions</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <a class="nav-link" href="{{ route('admin.support-ticket.list', ['from' => 'sidebar']) }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}" >
+                            <span style="{{ request()->segment(3) == 'support_tickets' ? 'color: #FF3C5F;' : '' }}">Support Tickets </span>
+                        </a>
+                        
+                    </div>
                 </div>
-            </div>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Concierge"
-                aria-expanded="false" aria-controls="collapseTwo">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/package-variant-closed.png') }}">
-                <span>Concierge</span>
-            </a>
-            <div id="Concierge" class="collapse @if (request()->segment(3) == 'email-service-request' ||
-                    request()->segment(3) == 'mobile-sim-request' ||
-                    request()->segment(3) == 'product-request' ||
-                    request()->segment(3) == 'visa-migration-request') show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-                <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="collapse-item" href="{{ route('email-service-request') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'email-service-request' ? 'color: #FF3C5F;' : '' }}">Email
-                            Requests</span>
-                    </a>
-                    <a class="collapse-item" href="{{ route('mobile-sim-request') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/cellphone-text.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'mobile-sim-request' ? 'color: #FF3C5F;' : '' }}">SIM
-                            Requests</span>
-                    </a>
-                    <a class="collapse-item" href="{{ route('product-request') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'product-request' ? 'color: #FF3C5F;' : '' }}">Product
-                            Orders</span>
-                    </a>
-                    <a class="collapse-item" href="{{ route('visa-migration-request') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/Migration.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'visa-migration-request' ? 'color: #FF3C5F;' : '' }}">Visa
-                            Migration Request</span>
-                    </a>
-                </div>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Database"
-                aria-expanded="false" aria-controls="collapseTwo">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/admin-database.png') }}">
-                <span>Database</span>
-            </a>
-            <div id="Database" class="collapse @if (request()->segment(3) == 'manage-email' || request()->segment(3) == 'manage-sim') show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-                <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="collapse-item" href="{{ route('manage-email') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
-                        <span style="{{ request()->segment(3) == 'manage-email' ? 'color: #FF3C5F;' : '' }}">Manage
-                            Emails</span>
-                    </a>
-
-                    <a class="collapse-item" href="{{ route('manage-sim') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/add-sim-list.png') }}">
-                        <span style="{{ request()->segment(3) == 'manage-sim' ? 'color: #FF3C5F;' : '' }}">Manage
-                            SIMs</span>
-                    </a>
-                </div>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#logs"
-                aria-expanded="false" aria-controls="Website">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-                <span>logs </span>
-            </a>
-
-            {{-- <div id="logs" class=" collapse  @if (request()->segment(3) == ' ') show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-                <div class="py-0 collapse-inner rounded mb-2">
-                </div>
-            </div> --}}
-        </li>
-        <!-- Notification -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#notification"
-                aria-expanded="false" aria-controls="notification">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/global-notification.png') }}">
-                <span>Notifications<!----></span>
-            </a>
-            <div id="notification" class=" collapse  @if (request()->segment(3) == 'global' ||
-                    request()->segment(3) == 'agents' ||
-                    request()->segment(3) == 'viewer' ||
-                    request()->segment(3) == 'escorts' ||
-                    request()->segment(3) == 'centres') show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-
-                <div class="py-0 collapse-inner rounded mb-2">
-                    {{-- global --}}
-                    <a href="{{ route('admin.global', ['from' => 'sidebar']) }}" class="collapse-item">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/g-notification.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'global' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Global</span>
-                    </a>
-                    {{-- agents --}}
-
-                    <a href="{{ route('admin.agent.notifications.index') }}" class="collapse-item">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/agent.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'agents' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Agents</span>
-                    </a>
-
-                    {{-- centres --}}
-                    <a href="{{ route('admin.centres.notifications.index') }}" class="collapse-item">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/c-notification.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'centres' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Massage
-                            Centres</span>
-                    </a>
-
-                    {{-- escorts --}}
-                    <a href="{{ route('admin.escorts') }}" class="collapse-item">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/e-notification.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'escorts' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Escorts</span>
-                    </a>
-
-                    {{-- viewers --}}
-                    <a href="{{ route('admin.viewer.notification.index') }}" class="collapse-item">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/v-notification.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'viewer' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Viewers</span>
-                    </a>
-
-
-                </div>
-            </div>
-        </li>
-        <!-- end -->
-
-        <!-- post Office -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#PostOffice"
-                aria-expanded="false" aria-controls="PostOffice">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/post-office.png') }}">
-                <span>Post Office</span>
-            </a>
-            {{-- <div id="PostOffice" class=" collapse  @if (request()->segment(3) == 'newpost') show @endif;"
-        aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-        <div class="py-0 collapse-inner rounded mb-2">
-            <a href="#" class="collapse-item">
-                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
-                <svg width="15px" height="15px" viewBox="0 0 32 32" version="1.1"
-                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#ffffffcc"
-                    style="margin-right: 15px;">
-
-                    <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
-
-                    <g id="SVGRepo_iconCarrier">
-                        <title>new</title>
-                        <defs> </defs>
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="none"
-                            fill-rule="evenodd" sketch:type="MSPage">
-                            <g id="Icon-Set" sketch:type="MSLayerGroup"
-                                transform="translate(-516.000000, -99.000000)" fill="#ffffffcc">
-                                <path
-                                    d="M527.786,122.02 L522.414,125.273 C521.925,125.501 521.485,125.029 521.713,124.571 L524.965,119.195 L527.786,122.02 L527.786,122.02 Z M537.239,106.222 L540.776,109.712 L529.536,120.959 C528.22,119.641 526.397,117.817 526.024,117.444 L537.239,106.222 L537.239,106.222 Z M540.776,102.683 C541.164,102.294 541.793,102.294 542.182,102.683 L544.289,104.791 C544.677,105.18 544.677,105.809 544.289,106.197 L542.182,108.306 L538.719,104.74 L540.776,102.683 L540.776,102.683 Z M524.11,117.068 L519.81,125.773 C519.449,126.754 520.233,127.632 521.213,127.177 L529.912,122.874 C530.287,122.801 530.651,122.655 530.941,122.365 L546.396,106.899 C547.172,106.124 547.172,104.864 546.396,104.088 L542.884,100.573 C542.107,99.797 540.85,99.797 540.074,100.573 L524.619,116.038 C524.328,116.329 524.184,116.693 524.11,117.068 L524.11,117.068 Z M546,111 L546,127 C546,128.099 544.914,129.012 543.817,129.012 L519.974,129.012 C518.877,129.012 517.987,128.122 517.987,127.023 L517.987,103.165 C517.987,102.066 518.902,101 520,101 L536,101 L536,99 L520,99 C517.806,99 516,100.969 516,103.165 L516,127.023 C516,129.22 517.779,131 519.974,131 L543.817,131 C546.012,131 548,129.196 548,127 L548,111 L546,111 L546,111 Z"
-                                    id="new" sketch:type="MSShapeGroup"> </path>
-                            </g>
-                        </g>
-                    </g>
-
-                </svg>
-                <span
-                    style="{{ request()->segment(3) == 'newpost' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">New</span>
-            </a>
-        </div>
-    </div> --}}
-            <div id="PostOffice" class=" collapse  @if (request()->segment(3) == 'reports' || request()->segment(3) == 'send-reports') show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-                <div class="py-0 collapse-inner rounded mb-2">
-                    <a href="{{ route('admin.send-reports') }}" class="collapse-item">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/email-report.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'send-reports' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">New</span>
-                    </a>
-                    <a href="{{ route('admin.reports') }}" class="collapse-item">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/email-report.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'reports' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Reports</span>
-                    </a>
-
-                </div>
-            </div>
-        </li>
-        <!-- end -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Publications"
-                aria-expanded="false" aria-controls="collapseTwo">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/publication.png') }}">
-                <span>Publications</span>
-            </a>
-            <div id="Publications" class="collapse @if (request()->is('*new*') || request()->is('*blog*')) show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-                <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="nav-link collapsed" href="{{ route('new') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/alert.png') }}">
-                        <span style="{{ request()->is('*new*') ? 'color: #FF3C5F;' : '' }}">Alerts</span>
-                    </a>
-                    <a class="nav-link collapsed" href="{{ route('admin.blog') }}">
-                        <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" width="64px" height="64px"
-                            viewBox="0 0 512 512" xml:space="preserve" fill="#000000">
-
-                            <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
-
-                            <g id="SVGRepo_iconCarrier">
-                                <style type="text/css">
-                                    .st0 {
-                                        fill: #ffffffcc;
-                                    }
-                                </style>
-                                <g>
-                                    <path class="st0"
-                                        d="M421.073,221.719c-0.578,11.719-9.469,26.188-23.797,40.094v183.25c-0.016,4.719-1.875,8.719-5.016,11.844 c-3.156,3.063-7.25,4.875-12.063,4.906H81.558c-4.781-0.031-8.891-1.844-12.047-4.906c-3.141-3.125-4.984-7.125-5-11.844V152.219 c0.016-4.703,1.859-8.719,5-11.844c3.156-3.063,7.266-4.875,12.047-4.906h158.609c12.828-16.844,27.781-34.094,44.719-49.906 c0.078-0.094,0.141-0.188,0.219-0.281H81.558c-18.75-0.016-35.984,7.531-48.25,19.594c-12.328,12.063-20.016,28.938-20,47.344 v292.844c-0.016,18.406,7.672,35.313,20,47.344C45.573,504.469,62.808,512,81.558,512h298.641c18.781,0,36.016-7.531,48.281-19.594 c12.297-12.031,20-28.938,19.984-47.344V203.469c0,0-0.125-0.156-0.328-0.313C440.37,209.813,431.323,216.156,421.073,221.719z" />
-                                    <path class="st0"
-                                        d="M498.058,0c0,0-15.688,23.438-118.156,58.109C275.417,93.469,211.104,237.313,211.104,237.313 c-15.484,29.469-76.688,151.906-76.688,151.906c-16.859,31.625,14.031,50.313,32.156,17.656 c34.734-62.688,57.156-119.969,109.969-121.594c77.047-2.375,129.734-69.656,113.156-66.531c-21.813,9.5-69.906,0.719-41.578-3.656 c68-5.453,109.906-56.563,96.25-60.031c-24.109,9.281-46.594,0.469-51-2.188C513.386,138.281,498.058,0,498.058,0z" />
-                                </g>
-                            </g>
-
-                        </svg>
-                        <span style="{{ request()->is('*blog*') ? 'color: #FF3C5F;' : '' }}">Blog</span>
-                    </a>
-                </div>
-            </div>
-
-
-
-        </li>
-
-        {{-- <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Reportings"
-                aria-expanded="false" aria-controls="collapseTwo">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/reportings.png') }}">
-                <span>Reporting </span>
-            </a>
-            <div id="Reportings" class="collapse @if (request()->is('*registrations-reports*') || request()->is('*advertiser-reports*') || request()->is('*advertiser-reviews*')) show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-                <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="nav-link collapsed" href="{{ route('admin.registrations-reports', ['from' => 'sidebar']) }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/registration-reports.png') }}">
-                        <span
-                            style="{{ request()->is('*registrations-reports*') ? 'color: #FF3C5F;' : '' }}">Registrations</span>
-                    </a>
-
-                    <a class="nav-link collapsed" href="{{ route('admin.advertiser-reports') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/advertiser-reports.png') }}">
-                        <span style="{{ request()->is('*advertiser-reports*') ? 'color: #FF3C5F;' : '' }}">Advertiser
-                            Reports</span>
-                    </a>
-                    <a class="nav-link collapsed" href="{{ route('admin.advertiser-reviews') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/add-reviews.png') }}">
-                        <span style="{{ request()->is('*advertiser-reviews*') ? 'color: #FF3C5F;' : '' }}">Advertiser
-                            Reviews</span>
-                    </a>
-                </div>
-            </div>
-        </li> --}}
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Reports"
-                aria-expanded="false" aria-controls="collapseTwo">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
-                <span>Reports </span>
-            </a>
-
-
-
-            <div id="Reports" class="collapse @if (request()->is('*credit*') ||
-                    request()->is('*agent-requests*') ||
-                    request()->is('*num*') ||
-                    request()->is('*transaction-summary*') ||
-                    request()->is('*advertiser-suspensions*') ||
-                    request()->is('*registrations-reports*') ||
-                    request()->is('*advertiser-reports*') ||
-                    request()->is('*advertiser-reviews*')) show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-                <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="nav-link collapsed" href="{{ route('admin.agent-requests', ['from' => 'sidebar']) }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/agent-request.png') }}">
-                        <span style="{{ request()->is('*agent-requests*') ? 'color: #FF3C5F;' : '' }}">Agent
-                            Requests</span>
-                    </a>
-                    <a class="nav-link collapsed"
-                        href="{{ route('admin.registrations-reports', ['from' => 'sidebar']) }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/registration-reports.png') }}">
-                        <span
-                            style="{{ request()->is('*registrations-reports*') ? 'color: #FF3C5F;' : '' }}">Registrations</span>
-                    </a>
-
-                    <a class="nav-link collapsed" href="{{ route('admin.advertiser-reports') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/advertiser-reports.png') }}">
-                        <span style="{{ request()->is('*advertiser-reports*') ? 'color: #FF3C5F;' : '' }}">Advertiser
-                            Reports</span>
-                    </a>
-                    <a class="nav-link collapsed" href="{{ route('admin.advertiser-reviews') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/add-reviews.png') }}">
-                        <span style="{{ request()->is('*advertiser-reviews*') ? 'color: #FF3C5F;' : '' }}">Advertiser
-                            Reviews</span>
-                    </a>
-                    <a class="nav-link collapsed" href="{{ route('admin.credit') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/credits.png') }}">
-                        <span style="{{ request()->is('*credit*') ? 'color: #FF3C5F;' : '' }}">Credits</span>
-                    </a>
-
-                    <a class="nav-link collapsed" href="{{ route('admin.num') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png') }}">
-                        <span style="{{ request()->is('*num*') ? 'color: #FF3C5F;' : '' }}">NUM</span>
-                    </a>
-                    <a class="nav-link collapsed"
-                        href="{{ route('admin.transaction-summary', ['from' => 'sidebar']) }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/transaction-summary.png') }}">
-                        <span
-                            style="{{ request()->is('*transaction-summary*') ? 'color: #FF3C5F;' : '' }}">Transaction
-                            Summary</span>
-                    </a>
-                    <a class="nav-link collapsed" href="{{ route('admin.advertiser-suspensions') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/profile-suspensions.png') }}">
-                        <span
-                            style="{{ request()->is('*advertiser-suspensions*') ? 'color: #FF3C5F;' : '' }}">Advertiser
-                            Suspensions</span>
-                    </a>
-                </div>
-            </div>
-        </li>
-
-        <li class="nav-item">
-            {{-- <a class="nav-link" href="{{ route('admin.support-tickets') }}"> --}}
-            <a class="nav-link" href="{{ route('admin.support-ticket.list', ['from' => 'sidebar']) }}">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-                <span>Support Tickets </span>
-            </a>
-        </li>
-
-        {{-- <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;"></li> --}}
-
-        {{-- <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.accounting-reports') }}">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/book.png') }}">
-                <span>Accounting Reports </span>
-            </a>
-            <div id="accounting-reports" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style=""
-                class="collapse">
-                <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="collapse-item" href="#">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/front-desk.png') }}">
-                        <span>Concierge Services</span></a>
-                    <a class="collapse-item" href="#">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/revenue.png') }}">
-                        <span>Revenue (Whole)</span></a>
-                    <a class="collapse-item" href="#">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/view.png') }}">
-                        <span>Sales (Whole)</span></a>
-                </div>
-            </div>
-        </li>
-
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Billing"
-                aria-expanded="false" aria-controls="collapseTwo">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
-                <span>Billing (Support Services) </span>
-            </a>
-        </li>
-       
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#logs"
-                aria-expanded="false" aria-controls="Website">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-                <span>logs </span>
-            </a>
-            <div id="logs" class=" collapse  @if (request()->segment(3) == ' ') show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-                <div class="py-0 collapse-inner rounded mb-2">
-                </div>
-            </div>
-        </li> --}}
-
-        {{-- 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Website"
-                aria-expanded="false" aria-controls="Website">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/e4ucms.png') }}">
-                <span>Website </span>
-            </a>
-            <div id="Website" class=" collapse  @if (request()->segment(3) == 'maintenance' || request()->segment(3) == 'global-notifications') show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-                <div class="py-0 collapse-inner rounded mb-2">
-                    <a href="{{ route('maintenance') }}" class="collapse-item">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/contact-setting.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'maintenance' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Maintenance</span>
-                    </a>
-                    <a class="collapse-item" href="{{ route('global-notifications') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'global-notifications' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Global
-                            Notifications</span>
-                    </a>
-                </div>
-            </div>
-        </li> --}}
+            </li>
 
         @if (isset($sidebar['management']['yesNo']) && $sidebar['management']['yesNo'] == 'yes')
             <li
@@ -942,10 +777,8 @@
                 <div id="Management" class="collapse @if (in_array(request()->segment(3), [
                         'email-management',
                         'sim-management',
-                        'logs-staff',
                         'marketing-templates-e4u',
                         'marketing-templates-agents',
-                        'post-office',
                         'set-fees',
                         'manage-user',
                         'memberships',
@@ -1005,23 +838,26 @@
 
                         </div>
 
-                    <!-- CMS -->
-                    <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
-                       data-target="#CMSMenu" aria-expanded="false" aria-controls="CMSMenu">
-                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/cms.png') }}">
-                        <span>CMS</span>
-                    </a>
-                    <div id="CMSMenu"
-                         class="collapse @if (in_array(request()->segment(3), ['email-templates'])) show @endif pl-3"
-                         style="margin-left: 10px;">
-                           
-        
-                        <a class="collapse-item" href="{{route('admin.email-templates')}}">
-                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                            <span style="{{ request()->segment(3) == 'email-templates' ? 'color: #FF3C5F;' : '' }}">Email Templates</span>
+                        <!-- CMS -->
+                        <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
+                            data-target="#CMSMenu" aria-expanded="false" aria-controls="CMSMenu">
+                            <img width="16" height="17"
+                                src="{{ asset('assets/dashboard/img/menu-icon/cms.png') }}">
+                            <span>CMS</span>
                         </a>
+                        <div id="CMSMenu" class="collapse @if (in_array(request()->segment(3), ['email-templates'])) show @endif pl-3"
+                            style="margin-left: 10px;">
 
-                    </div>
+
+                            <a class="collapse-item" href="{{ route('admin.email-templates') }}">
+                                <img width="16" height="17"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'email-templates' ? 'color: #FF3C5F;' : '' }}">Email
+                                    Templates</span>
+                            </a>
+
+                        </div>
                         {{-- end --}}
                         <!-- Concierge -->
                         <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
@@ -1050,12 +886,6 @@
                         </div>
                         {{-- end --}}
 
-                        {{-- 
-                     <a class="collapse-item" href="{{route('admin.management')}}">
-                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/web-manage.png') }}">
-                        <span style="{{ request()->segment(3) == 'dashboard' ? 'color: #FF3C5F;' : '' }}">Management</span>
-                    </a>
-                     --}}
 
                         <!-- Manage People -->
                         <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
@@ -1304,31 +1134,6 @@
                             </a>
 
                         </div>
-
-
-                        <a class="collapse-item" href="{{ route('admin.logs-staff') }}">
-                            <img width="16" height="17"
-                                src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
-                            <span style="{{ request()->segment(3) == 'logs-staff' ? 'color: #FF3C5F;' : '' }}">Logs
-                                - Staff</span>
-                        </a>
-
-
-
-                          {{--<a class="collapse-item" href="{{ route('admin.post-office') }}">
-                            <img width="16" height="17"
-                                src="{{ asset('assets/dashboard/img/menu-icon/postoffice.png') }}">
-                            <span style="{{ request()->segment(3) == 'post-office' ? 'color: #FF3C5F;' : '' }}">Post
-                                Office</span>
-
-                           <a class="collapse-item" href="#"> <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/agent-reg.png') }}"> <span>Agent Registrations</span></a> --}}
-
-                            {{-- <a class="collapse-item" href="{{ route('admin.competitor-database') }}">
-                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/competitor.png') }}">
-                        <span style="{{ request()->segment(3) == 'competitor-database' ? 'color: #FF3C5F;' : '' }}">Competitor Database</span>
-                    </a>
-        
-                    <a class="collapse-item" href="#"> <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/web-manage.png') }}"> <span>Website Management</span></a> --}}
                     </div>
                 </div>
             </li>
@@ -1337,6 +1142,7 @@
         <li
             style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
         </li>
+
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#myaccount"
                 aria-expanded="false" aria-controls="collapseTwo">
@@ -1359,9 +1165,6 @@
                             src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                         <span style="{{ request()->segment(2) == 'update-account' ? 'color: #FF3C5F;' : '' }}">Edit
                             my account..</span></a>
-                    {{-- <a class="collapse-item" href="{{ route('center.profile.information')}}">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png')}}">
-                <span style="{{request()->segment(2) == 'profile-informations' ? 'color: #FF3C5F;' : ''}}">Profile information</span></a> --}}
                     <a class="collapse-item" href="{{ route('admin.change.password') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
@@ -1377,6 +1180,7 @@
                 </div>
             </div>
         </li>
+
     @endif
 </ul>
 

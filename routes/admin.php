@@ -190,14 +190,14 @@ Route::get('cms/email-templates',function(){
 
 
 # Advertiser report section
-Route::get('advertiser-reports',[AdvertiserReportContoller::class, 'index'])->name('admin.advertiser-reports');
+Route::get('reports/advertiser-reports',[AdvertiserReportContoller::class, 'index'])->name('admin.advertiser-reports');
 Route::get('advertiser-reports-ajax',[AdvertiserReportContoller::class, 'getReportByAjax'])->name('admin.advertiser-reports.ajax');
 Route::get('member-single-escort-reports-ajax',[AdvertiserReportContoller::class, 'getSingleMemberEscortReport'])->name('admin.single-member-reports.ajax');
 Route::get('print-single-escort-reports',[AdvertiserReportContoller::class, 'printSingleMemberEscortReport'])->name('admin.print.single-member-reports');
 Route::post('advertiser-report-status',[AdvertiserReportContoller::class, 'updateMemberReportStatus'])->name('admin.advertiser.report-status');
 
 # Advertiser reviews section
-Route::get('advertiser-reviews',[AdvertiserReviewsController::class, 'index'])->name('admin.advertiser-reviews');
+Route::get('reports/advertiser-reviews',[AdvertiserReviewsController::class, 'index'])->name('admin.advertiser-reviews');
 Route::get('advertiser-reviews-ajax',[AdvertiserReviewsController::class, 'getReviewsByAjax'])->name('admin.advertiser-reviews.ajax');
 Route::get('member-single-escort-reviews-ajax',[AdvertiserReviewsController::class, 'getSingleMemberEscortReviews'])->name('admin.single-member-reviews.ajax');
 Route::get('print-single-reviews',[AdvertiserReviewsController::class, 'printSingleMemberEscortReviews'])->name('admin.print.single-member-reviews');
@@ -208,7 +208,7 @@ Route::post('advertiser-reviews-status',[AdvertiserReviewsController::class, 'up
 // })->name('admin.advertiser-reviews');
 
 Route::get('get_registration_report', [ReportingController::class, 'getRegistrationReport'])->name('admin.get_registration_report');
-Route::get('registrations-reports',[ReportingController::class, 'userRegistrationReport'])->name('admin.registrations-reports');
+Route::get('reports/registrations-reports',[ReportingController::class, 'userRegistrationReport'])->name('admin.registrations-reports');
 Route::post('change-user-status',[ReportingController::class, 'changeUserStatus'])->name('admin.change-user-status');
 // Route::get('registrations-reports',function(){
 //     return view('admin.reporting.registrations');
@@ -291,7 +291,7 @@ Route::get('reports/agent-requests',function(){
 Route::get('/post-office/reports',[PostOfficeController::class,'addPostOfficeReport'])->name('admin.reports');
 Route::get('/post-office/send-reports',[PostOfficeController::class,'listingPostOfficeReport'])->name('admin.send-reports');
 
-Route::get('reports-num',[AdminNumsController::class,'index'])->name('admin.num');
+Route::get('reports/num',[AdminNumsController::class,'index'])->name('admin.num');
 Route::get('reports-num-ajax',[AdminNumsController::class,'showReportOnDashboardAjax'])->name('admin.num.ajax');
 Route::post('reports-num-status',[AdminNumsController::class,'updateStatus'])->name('admin.num.status.ajax');
 Route::get('reports-num-email',[AdminNumsController::class,'viewReport'])->name('admin.num.status.email');
@@ -371,7 +371,7 @@ Route::post('/notifications/viewer/{id}/update', [ViewerNotificationController::
 ################### PDF ###################
 Route::post('/generate-agent-info-pdf', [AgentPdfController::class, 'generate_agent_info_pdf'])->name('admin.generate-agent-info-pdf');
 
-Route::get('admin-dashboard/alerts/new', function(){
+Route::get('publications/new', function(){
         return view('admin.alerts.new');
     })->name('new');
 
@@ -521,7 +521,7 @@ Route::get('/notifications/escorts',function(){
     return view('admin.notifications.escorts');
 })->name('admin.escorts');
 
-Route::get('/blog',function(){
+Route::get('publications/blog',function(){
     return view('admin.blog');
 })->name('admin.blog');
 
