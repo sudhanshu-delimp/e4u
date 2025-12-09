@@ -128,24 +128,26 @@ class TourController extends Controller
         //return response()->json(compact('find_tour'));
     }
     public function TourDataTable(Request $request, $type = NULL){
-        $today = Carbon::today()->format('Y-m-d');
-        $conditions = [];
-        if ($type == 'current') {
-            $conditions[] = ['end_date','>=',$today];
-        } elseif ($type == 'past') {
-            $conditions[] = ['end_date','<',$today];
-        }
-        list($result, $count, $other) = $this->tour->paginatedList(
-            request()->get('start'),
-            request()->get('length'),
-            request()->get('order')[0]['column'],
-            request()->get('order')[0]['dir'],
-            request()->get('columns'),
-            request()->get('search')['value'],
-            auth()->user()->id,
-            $conditions
-        );
-
+        // $today = Carbon::today()->format('Y-m-d');
+        // $conditions = [];
+        // if ($type == 'current') {
+        //     $conditions[] = ['end_date','>=',$today];
+        // } elseif ($type == 'past') {
+        //     $conditions[] = ['end_date','<',$today];
+        // }
+        // list($result, $count, $other) = $this->tour->paginatedList(
+        //     request()->get('start'),
+        //     request()->get('length'),
+        //     request()->get('order')[0]['column'],
+        //     request()->get('order')[0]['dir'],
+        //     request()->get('columns'),
+        //     request()->get('search')['value'],
+        //     auth()->user()->id,
+        //     $conditions
+        // );
+        $count = 1;
+        $other = 1;
+        $result = [];
         $data = array(
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),
