@@ -387,9 +387,7 @@ Route::get('code-of-conduct',function(){
 })->name('escort.code-of-conduct');
 
 Route::get('/my-playmates',[MyPlaymatesContoller::class,'index'])->name('escort.dashboard.my-playmates');
-Route::get('/my-user-playmates-ajax',[MyPlaymatesContoller::class,'dashboardUserPlaymatesListAjax'])->name('escort.get.user-playmates-by-ajax');
-Route::post('/my-playmates-ajax',[MyPlaymatesContoller::class,'getPlaymatesDataByAjax'])->name('escort.get.my-playmates-by-ajax');
-Route::post('/remove-my-playmates-ajax',[MyPlaymatesContoller::class,'removePlaymatesByAjax'])->name('escort.remove.my-playmates-by-ajax');
+Route::post('/my-playmates',[MyPlaymatesContoller::class, 'MyPlaymateDataTable'])->name('escort.dashboard.my-playmates');
 
 Route::get('home-state/',[EscortController::class, 'homeState'])->name('escort.home-state');
 Route::post('add-playmate/{id}',[ProfileInformationController::class, 'savePlaymate'])->name('escort.add.playmate');
