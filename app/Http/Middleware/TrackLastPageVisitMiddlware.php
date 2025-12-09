@@ -50,7 +50,7 @@ class TrackLastPageVisitMiddlware
             }
 
             $lastActivity = AttemptLogin::where('user_id', auth()->user()->id)
-            ->where('email', '!=', 'admin@e4u.com.au')
+            // ->where('email', '!=', 'admin@e4u.com.au')
             ->value('updated_at');
 
 
@@ -91,19 +91,6 @@ class TrackLastPageVisitMiddlware
                 } 
             }
 
-             elseif(auth()->user()->type == 6)
-            {
-                $idle_preference_time = (auth()->user()->staff_setting && auth()->user()->staff_setting->idle_preference_time) ? auth()->user()->staff_setting->idle_preference_time : '60';
-                if($idle_preference_time != null){
-                    if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
-                        auth()->logout();
-                        return redirect()->route('admin.login')
-                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
-                    } 
-                }
-                
-            }
-
             elseif(auth()->user()->type == 0)
             {
 
@@ -116,12 +103,15 @@ class TrackLastPageVisitMiddlware
             }
             else
             {
-                if ($lastActivity && now()->diffInMinutes($lastActivity) > (int)auth()->user()->idle_preference_time) {
-                auth()->logout();
+                $idle_preference_time =  (int) auth()->user()->staff_setting->idle_preference_time;
+                if ($lastActivity && $idle_preference_time !== null) {
 
-                return redirect()->route('/')
-                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
-                }
+                    if (now()->diffInSeconds($lastActivity) > ($idle_preference_time * 60)) {
+                        auth()->logout();
+                        return redirect('/')
+                            ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+                    }
+                } 
             }
 
 
