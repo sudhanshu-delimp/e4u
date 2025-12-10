@@ -2,12 +2,9 @@
 @section('style')
 @stop
 @section('content')
-<!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
-   <!-- Main Content -->
    <div id="content">
       <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-         <!--middle content-->
          <div class="row">
             <div class="custom-heading-wrapper col-md-12">
                <h1 class="h1">Shareholder Templates</h1>
@@ -25,14 +22,8 @@
             </div>
          </div>
       </div>
-      <!--middle content end here-->
    </div>
-</div>   
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
-</a>
-
+</div>
 @endsection
 @push('script')
 @endpush

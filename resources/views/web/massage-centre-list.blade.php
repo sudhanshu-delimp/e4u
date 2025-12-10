@@ -49,264 +49,286 @@
 @endsection
 @section('content')
     <section class="">
-        <div class="container filter-contain">
-            <div class="search_filters">
-                <div class="search_filters_inside">
-                    <form method="" action="">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="custom-search-help mb-2 ">
-                                    <h5 class="normal_heading mb-0">Search Filters</h5>
-                                    <div class="display_inline_block helpquation">
-                                        <a href="#" data-toggle="modal" data-target="#forhelp"
-                                            >
-                                            Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every 15 minutes. </span>
-                            </div>
-                            <div class="col-md-8 ryt_srch_btn">
-                                <div class="display_inline_block">
-                                    <div class="d-flex flex-column gap-2" style="width:105px;">
-                                        <div class="d-flex align-items-start" style="padding-top: 2px;"
-                                            >
-                                            <input type="radio" name="locationByRadio" checked="checked"
-                                                value="your_location" id="yourLocation">
-                                            <label for="yourLocation"
-                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
-                                                Your Location
-                                            </label>
+        <div class="container filter-contain mt-3">
+            
+
+            <div class="accordion custom_accordian" id="accordionExample">
+                <div class="card">
+                    <div class="card-header all_filter_accordain" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-block text-left btn-search" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch">
+                           Find Massage Centre
+                            <i class="fa fa-angle-down"></i>
+                            </button>                        
+                        </h2>
+                    </div>
+
+                    <div id="collapseSearch" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div class="search_filters">
+                                <div class="search_filters_inside">
+                                    <form method="" action="">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="custom-search-help mb-2 ">
+                                                    <h5 class="normal_heading mb-0">Filters</h5>
+                                                    <div class="display_inline_block helpquation">
+                                                        <a href="#" data-toggle="modal" data-target="#forhelp"
+                                                            >
+                                                            Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every 15 minutes. </span>
+                                            </div>
+                                            <div class="col-md-8 ryt_srch_btn">
+                                                <div class="display_inline_block">
+                                                    <div class="d-flex flex-column gap-2" style="width:105px;">
+                                                        <div class="d-flex align-items-start" style="padding-top: 2px;"
+                                                            >
+                                                            <input type="radio" name="locationByRadio" checked="checked"
+                                                                value="your_location" id="yourLocation">
+                                                            <label for="yourLocation"
+                                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
+                                                                Your Location
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="d-flex align-items-start">
+                                                            <input type="radio" name="locationByRadio" value="australia" id="australia">
+                                                            <label for="australia"
+                                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
+                                                                Australia
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="display_inline_block">
+                                                    <div
+                                                        class="input-group custome_form_control managefilter_search_btn_style rounded search_btn_profile custom_search_btn_profile">
+
+                                                        <!-- Hidden input to hold selected search type -->
+                                                        <input type="hidden" name="search_by_radio" id="search_by_radio" value="0">
+
+                                                        <!-- Search input -->
+                                                        <input type="search" name="name" class="form-control remove_border_btm rounded"
+                                                            placeholder="Search by Member ID or Name" aria-label="Search"
+                                                            aria-describedby="search-addon" value="">
+
+                                                        <!-- Search button -->
+                                                        <button
+                                                            class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn"
+                                                            id="search-addon" type="submit">
+                                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="display_inline_block   item_dis">
+                                                    <span class="item-head">Display item</span>
+                                                    <select class="custome_form_control_border_radus padding_five_px" name="limit">
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="75">75</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                    <div class="display_inline_block custom-refreshbuton">
+                                                        <div class="margin_btn_reset">
+                                                            <input type="hidden" name="apply_pagination_rule" id="apply_pagination_rule"
+                                                                value="0">
+                                                            <button type="submit"
+                                                                class="btn reset_filter filter-tooltip-wrap apply_pagination_button"
+                                                                data-toggle="tooltip" title="" id="">
+                                                                <span class="filter-tooltip">Apply Change</span>
+                                                                <i class="fa fa-repeat" aria-hidden="true"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="display_inline_block">
+                                                    <div class="margin_btn_reset">
+                                                        <button type="button" class="btn reset_filter filter-tooltip-wrap" id="v_wishlist">
+                                                            <a href="{{ route('find.massage.centre') }}"
+                                                                class="text-decoration-none">
+                                                                <div class="d-flex align-items-center justify-content-center gap-5">
+                                                                    <i class="fa fa-list" aria-hidden="true" style="line-height: 23px;"></i>
+                                                                    <span class="badge badge-pill badge-danger" id="session_count">0</span>
+                                                                </div>
+                                                                <span class="filter-tooltip">View Shortlist</span>
+                                                            </a>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="display_inline_block mb-1">
+                                                    <a type="submit" href="{{ route('web.massage-show-list') }}" class="btn reset_filter "
+                                                        data-toggle="tooltip" title="">
+                                                        Clear Shortlist
+                                                    </a>
+                                                </div>
+
+                                            </div>
                                         </div>
-
-                                        <div class="d-flex align-items-start">
-                                            <input type="radio" name="locationByRadio" value="australia" id="australia">
-                                            <label for="australia"
-                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
-                                                Australia
-                                            </label>
+                                        <div class="fiter_btns slect__btn_tab pb-2">
+                                            <div class="display_inline_block mb-1 mr-2">
+                                                <select class="custome_form_control_border_radus padding_five_px" id=""
+                                                    name="city">
+                                                    <option value="" selected>All Cities</option>
+                                                    @foreach (@config('escorts.profile.cities') as $key => $city)
+                                                        <option value="{{ $key }}"
+                                                            {{ request()->get('city') == $key ? 'selected' : '' }}>{{ $city }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="display_inline_block mb-1 mr-2">
+                                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
+                                                    name="premises">
+                                                    @foreach (@config('escorts.profile.premises') as $key => $value)
+                                                        <option value="{{ $key }}"
+                                                            {{ request()->get('premises') == $key ? 'selected' : '' }}>{{ $value }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="display_inline_block mb-1 mr-2">
+                                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
+                                                    name="masseur_types">
+                                                    @foreach (@config('escorts.profile.masseur-types') as $key => $value)
+                                                        <option value="{{ $key }}"
+                                                            {{ request()->get('masseur_types') == $key ? 'selected' : '' }}>
+                                                            {{ $value }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="display_inline_block mb-1 mr-2">
+                                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
+                                                    name="age">
+                                                    <option value="" selected>All Ages</option>
+                                                    <option value="18-25"{{ request()->get('age') == '18-25' ? 'selected' : '' }}>18 -
+                                                        25</option>
+                                                    <option value="26-35"{{ request()->get('age') == '26-35' ? 'selected' : '' }}>26 -
+                                                        35</option>
+                                                    <option value="36-45"{{ request()->get('age') == '36-45' ? 'selected' : '' }}>36 -
+                                                        45</option>
+                                                    <option value="46-80"{{ request()->get('age') == '46-80' ? 'selected' : '' }}>Over
+                                                        45</option>
+                                                </select>
+                                            </div>
+                                            <div class="display_inline_block mb-1 mr-2">
+                                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
+                                                    name="prices" value="{{ request()->get('prices') }}">
+                                                    @foreach (@config('escorts.profile.prices') as $key => $value)
+                                                        <option value="{{ $key }}"
+                                                            {{ request()->get('prices') == $key ? 'selected' : '' }}>{{ $value }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="display_inline_block mb-1 mr-2">
+                                                <select class="custome_form_control_border_radus padding_five_px with_eight_em"
+                                                    id="" name="massage_services">
+                                                    <option value="">All Massage Services</option>
+                                                    @foreach (@config('escorts.profile.massage-services') as $key => $value)
+                                                        <option value="{{ $key }}"
+                                                            {{ request()->get('massage_services') == $key ? 'selected' : '' }}>
+                                                            {{ $value }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="display_inline_block mb-1 mr-2">
+                                                <select class="custome_form_control_border_radus padding_five_px with_eight_em"
+                                                    id=""name="other_services">
+                                                    <option value="">All Other Service Types</option>
+                                                    @foreach (@config('escorts.profile.other-services') as $key => $value)
+                                                        <option value="{{ $key }}"
+                                                            {{ request()->get('other_services') == $key ? 'selected' : '' }}>
+                                                            {{ $value }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="display_inline_block mb-1 mr-2">
+                                                <select class="custome_form_control_border_radus padding_five_px with_eight_em"
+                                                    id="verification"name="verification">
+                                                    <option value="all">Verification</option>
+                                                    <option value="unverified">Unverified</option>
+                                                    <option value="verified">Verified</option>
+                                                </select>
+                                            </div>
+                                            <div class="display_inline_block mb-1">
+                                                <button type="submit" class="btn reset_filter">
+                                                    Apply Filters
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div class="display_inline_block">
-                                    <div
-                                        class="input-group custome_form_control managefilter_search_btn_style rounded search_btn_profile custom_search_btn_profile">
-
-                                        <!-- Hidden input to hold selected search type -->
-                                        <input type="hidden" name="search_by_radio" id="search_by_radio" value="0">
-
-                                        <!-- Search input -->
-                                        <input type="search" name="name" class="form-control remove_border_btm rounded"
-                                            placeholder="Search by Member ID or Name" aria-label="Search"
-                                            aria-describedby="search-addon" value="">
-
-                                        <!-- Search button -->
-                                        <button
-                                            class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn"
-                                            id="search-addon" type="submit">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="display_inline_block   item_dis">
-                                    <span class="item-head">Display item</span>
-                                    <select class="custome_form_control_border_radus padding_five_px" name="limit">
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="75">75</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                    <div class="display_inline_block custom-refreshbuton">
-                                        <div class="margin_btn_reset">
-                                            <input type="hidden" name="apply_pagination_rule" id="apply_pagination_rule"
-                                                value="0">
-                                            <button type="submit"
-                                                class="btn reset_filter filter-tooltip-wrap apply_pagination_button"
-                                                data-toggle="tooltip" title="" id="">
-                                                <span class="filter-tooltip">Apply Change</span>
-                                                <i class="fa fa-repeat" aria-hidden="true"></i>
+                                        {{-- <div class="row pr-3" style="float: right;">
+                                        <div class="display_inline_block mb-1 mr-2">
+                                            <button type="button" class="btn verified_btn_bg_color verified_text_color" data-toggle="tooltip" title="View Verified Photos only">
+                                            <img src="{{ asset('assets/img/e4u-verified-dark.png')}}">
                                             </button>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="display_inline_block">
-                                    <div class="margin_btn_reset">
-                                        <button type="button" class="btn reset_filter filter-tooltip-wrap" id="v_wishlist">
-                                            <a href="{{ route('find.massage.centre') }}"
-                                                class="text-decoration-none">
-                                                <div class="d-flex align-items-center justify-content-center gap-5">
-                                                    <i class="fa fa-list" aria-hidden="true"></i>
-                                                    <span class="badge badge-pill badge-danger" id="session_count">0</span>
+                                        <div class="display_inline_block mb-1 mr-2">
+                                            <button type="submit" class="btn reset_filter" data-toggle="tooltip" title="Apply filters - Search
+                                                ">
+                                            Apply Filters
+                                            </button>
+                                        </div>
+                                    </div> --}}
+
+                                    </form>
+                                    <div class="row grid_list_part p-0 m-0">
+                                        <div class="col-12 custom--service-tag mc_tags d-flex justify-content-between align-items-center">
+                                            <div class="total--list">
+                                                <strong>Total Listings:</strong>
+                                                <span>{{count($escorts)}}</span>
+                                            </div>
+                                            <div>
+                                                <div class="grid_list_icon_box display_inline_block grid--btn" data-toggle="modal1"
+                                                    data-target="#" data-url="grid-escort-list">
+                                                    <a href="#" class="active" id="grid-modal">
+                                                    <span class="custom-toltip">Grid View</span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                        viewBox="0 0 30 30" fill="none">
+                                                        <path
+                                                            d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z"
+                                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                        <path
+                                                            d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z"
+                                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                        <path
+                                                            d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z"
+                                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                        <path
+                                                            d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z"
+                                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg>
+                                                    </a>
                                                 </div>
-                                                <span class="filter-tooltip">View Shortlist</span>
-                                            </a>
-                                        </button>
+                                                <div class="grid_list_icon_box display_inline_block list-btn">
+                                                    <a href="#" id="grid-list">
+                                                        <span class="custom-toltip">List View</span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24"
+                                                            viewBox="0 0 27 24" fill="none">
+                                                            <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
+                                                                stroke="#0C223D" stroke-width="3" stroke-linecap="round"
+                                                                stroke-linejoin="round" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="display_inline_block mb-1">
-                                    <a type="submit" href="{{ route('web.massage-show-list') }}" class="btn reset_filter "
-                                        data-toggle="tooltip" title="">
-                                        Clear Shortlist
-                                    </a>
-                                </div>
-
                             </div>
-                        </div>
-                        <div class="fiter_btns slect__btn_tab pb-2">
-                            <div class="display_inline_block mb-1 mr-2">
-                                <select class="custome_form_control_border_radus padding_five_px" id=""
-                                    name="city">
-                                    <option value="" selected>All Cities</option>
-                                    @foreach (@config('escorts.profile.cities') as $key => $city)
-                                        <option value="{{ $key }}"
-                                            {{ request()->get('city') == $key ? 'selected' : '' }}>{{ $city }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="display_inline_block mb-1 mr-2">
-                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
-                                    name="premises">
-                                    @foreach (@config('escorts.profile.premises') as $key => $value)
-                                        <option value="{{ $key }}"
-                                            {{ request()->get('premises') == $key ? 'selected' : '' }}>{{ $value }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="display_inline_block mb-1 mr-2">
-                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
-                                    name="masseur_types">
-                                    @foreach (@config('escorts.profile.masseur-types') as $key => $value)
-                                        <option value="{{ $key }}"
-                                            {{ request()->get('masseur_types') == $key ? 'selected' : '' }}>
-                                            {{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="display_inline_block mb-1 mr-2">
-                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
-                                    name="age">
-                                    <option value="" selected>All Ages</option>
-                                    <option value="18-25"{{ request()->get('age') == '18-25' ? 'selected' : '' }}>18 -
-                                        25</option>
-                                    <option value="26-35"{{ request()->get('age') == '26-35' ? 'selected' : '' }}>26 -
-                                        35</option>
-                                    <option value="36-45"{{ request()->get('age') == '36-45' ? 'selected' : '' }}>36 -
-                                        45</option>
-                                    <option value="46-80"{{ request()->get('age') == '46-80' ? 'selected' : '' }}>Over
-                                        45</option>
-                                </select>
-                            </div>
-                            <div class="display_inline_block mb-1 mr-2">
-                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
-                                    name="prices" value="{{ request()->get('prices') }}">
-                                    @foreach (@config('escorts.profile.prices') as $key => $value)
-                                        <option value="{{ $key }}"
-                                            {{ request()->get('prices') == $key ? 'selected' : '' }}>{{ $value }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="display_inline_block mb-1 mr-2">
-                                <select class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                    id="" name="massage_services">
-                                    <option value="">All Massage Services</option>
-                                    @foreach (@config('escorts.profile.massage-services') as $key => $value)
-                                        <option value="{{ $key }}"
-                                            {{ request()->get('massage_services') == $key ? 'selected' : '' }}>
-                                            {{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="display_inline_block mb-1 mr-2">
-                                <select class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                    id=""name="other_services">
-                                    <option value="">All Other Service Types</option>
-                                    @foreach (@config('escorts.profile.other-services') as $key => $value)
-                                        <option value="{{ $key }}"
-                                            {{ request()->get('other_services') == $key ? 'selected' : '' }}>
-                                            {{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="display_inline_block mb-1 mr-2">
-                                 <select class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                    id=""name="other_services" title="Coming Soon" disabled>
-                                    <option value="all">All</option>
-                                    <option value="unverified">Unverified</option>
-                                    <option value="verified">Verified</option>
-                                </select>
-                            </div>
-                            <div class="display_inline_block mb-1">
-                                <button type="submit" class="btn reset_filter">
-                                    Apply Filters
-                                </button>
-                            </div>
-                        </div>
-                        {{-- <div class="row pr-3" style="float: right;">
-                        <div class="display_inline_block mb-1 mr-2">
-                            <button type="button" class="btn verified_btn_bg_color verified_text_color" data-toggle="tooltip" title="View Verified Photos only">
-                            <img src="{{ asset('assets/img/e4u-verified-dark.png')}}">
-                            </button>
-                        </div>
-                        <div class="display_inline_block mb-1 mr-2">
-                            <button type="submit" class="btn reset_filter" data-toggle="tooltip" title="Apply filters - Search
-                                ">
-                            Apply Filters
-                            </button>
-                        </div>
-                    </div> --}}
-
-                    </form>
-                    <div class="row grid_list_part p-0 m-0">
-                        <div class="col-12 custom--service-tag mb-3">
-                            <div class="total--list">
-                                <strong>Total Listings:</strong>
-                                <span>{{count($escorts)}}</span>
-                            </div>
-                            <div class="grid_list_icon_box display_inline_block grid--btn" data-toggle="modal1"
-                                data-target="#" data-url="grid-escort-list">
-                                <a href="#" class="active" id="grid-modal">
-                                    <span class="custom-toltip">Grid View</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                        viewBox="0 0 30 30" fill="none">
-                                        <path
-                                            d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z"
-                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <path
-                                            d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z"
-                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <path
-                                            d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z"
-                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <path
-                                            d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z"
-                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </a>
-                            </div>
-                            <div class="grid_list_icon_box display_inline_block list-btn">
-                                <a href="#" id="grid-list">
-                                    <span class="custom-toltip">List View</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24"
-                                        viewBox="0 0 27 24" fill="none">
-                                        <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
-                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </a>
-                            </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
+            
             <!-- ================     service provider start here     ========================= -->
 
             {{-- <div class="modal defult-modal" id="forhelp"> --}}
@@ -527,6 +549,34 @@
     </section>
 @endsection
 @push('scripts')
+<script>
+      document.addEventListener("DOMContentLoaded", function () {
+
+            // Restore after refresh
+            let opened = sessionStorage.getItem("accordionOpen");
+            if (opened === "collapseSearch") {
+                document.getElementById("collapseSearch").classList.add("show");
+            }
+
+            // When user clicks the accordion
+            document.querySelector('[data-target="#collapseSearch"]').addEventListener("click", function () {
+
+                let isOpen = document.getElementById("collapseSearch").classList.contains("show");
+
+                if (!isOpen) {
+                    sessionStorage.setItem("accordionOpen", "collapseSearch");
+                } else {
+                    sessionStorage.removeItem("accordionOpen");
+                }
+            });
+
+        });
+
+        $('.btn-search').on('click', function(){
+            $('.btn-search i').toggleClass('rotate-180');
+        })
+
+    </script>
     <script>
         $('#grid-modal').on('click', function() {
 
