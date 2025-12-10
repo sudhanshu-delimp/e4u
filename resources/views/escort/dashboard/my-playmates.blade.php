@@ -36,7 +36,7 @@
             <!-- My Playmates -->
             <div class="col-md-12 mb-4">
                 <div class="table-responsive-xl">
-                  <table class="table table-bordered" id="playmateListTable_2" style="border: none;">
+                  <table class="table table-bordered" id="playmateListTable" style="border: none;">
                     <thead style="background-color: #0C223D; color: #ffffff;">
                       <tr>
                         <th class="text-left">Playmate</th>
@@ -47,41 +47,7 @@
                       </tr>
                     </thead>
                    <body>
-                    <tr role="row" class="odd">
-                        <td class="sorting_1">
-                            <div class="playmate_group">
-                                <div class="playmate_col">
-                                    <div class="playmate_avatart">
-                                        <img src="{{ asset('avatars/default/default_escort.png') }}">
-                                        <span class="playmate_tooltip">Member ID</span>
-                                    </div>
-                                    <div class="playmate_link">
-                                        <a href=""> Kendra </a>
-                                        <span class="playmate_tooltip">Click here to view Playmate details.</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="sorting_1">
-                            <div class="playmate_group">
-                                <div class="playmate_col">
-                                    <div class="playmate_avatart">
-                                        <img src="{{ asset('avatars/default/default_escort.png') }}">
-                                    </div>
-                                    <div class="playmate_link">
-                                        <a href=""> Kendra </a>
-                                        <span class="playmate_tooltip">Click here to view you Profile details.</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>Uttar Pradesh</td>
-                        <td>Unlisted</td>
-                        <td><div class="dropdown no-arrow archive-dropdown">
-                        <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="https://e4udev2.perth-cake1.powerwebhosting.com.au/escort-dashboard/create-tour/28"> <i class="fa fa-eye "></i> View</a></div></div>
-                    </td>
-                </tr>
+                   
                    </body>
                   </table>
                 </div>
@@ -101,7 +67,7 @@
         processing: true,
         "language": {
             "zeroRecords": "There is no record of the search criteria you entered.",
-            searchPlaceholder: "Search by ID or Profile Name"
+            searchPlaceholder: "Search by Playmate Name"
             },
         initComplete: function() {
             if ($('#returnToReportBtn').length === 0) {
@@ -123,10 +89,11 @@
             }
         },
         columns: [
-            { data: 'stage_name', name: 'id' },
-            { data: 'current_location', name: 'current_location' },
-            { data: 'status', name: 'status' , orderable: false, searchable: false},
-            { data: 'action', name: 'Action', orderable: false, searchable: false },
+            { data: 'playmate_stage_name', name: 'name'},
+            { data: 'profile_stage_name', name: 'name', orderable: false, searchable: false},
+            { data: 'current_location', name: 'current_location', searchable: false },
+            { data: 'status', name: 'status' , orderable: false, searchable: false, className: 'text-center'},
+            { data: 'action', name: 'Action', orderable: false, searchable: false, className: 'text-center' },
         ]
         });
 
