@@ -101,7 +101,7 @@ class TrackLastPageVisitMiddlware
                     ->withErrors(['message' => 'You have been logged out due to inactivity.']);
                 } 
             }
-            else
+             elseif(auth()->user()->type == 1)
             {
                 $idle_preference_time =  (auth()->user()->staff_setting && auth()->user()->staff_setting->idle_preference_time) ? auth()->user()->staff_setting : '60';
                 if ($lastActivity && $idle_preference_time !== null) {
