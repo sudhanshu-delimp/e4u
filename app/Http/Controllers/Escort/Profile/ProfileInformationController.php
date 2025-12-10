@@ -26,6 +26,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Escort\EscortMediaInterface;
 use App\Models\EscortCovidReport;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileInformationController extends Controller
@@ -163,12 +164,21 @@ class ProfileInformationController extends Controller
     }
     public function storeSocialsLink(Request $request)
     {
-        //dd($request->social_links);
         $input = [
             'social_links'=>$request->social_links,
-            //'default_setting' => 1
         ];
-
+        $user = User::findOrFail(auth()->id());
+        $profile_creator = $user->profile_creator ?? [];
+       
+        if (!in_array('3', $profile_creator)) {
+           if (empty($profile_creator)) {
+                $profile_creator[] = '3';
+            } else {
+                $profile_creator[] = '3';
+            }
+        } 
+        $user->profile_creator = $profile_creator;
+        $user->save();
 
         $error=true;
         //if($data = $this->escort->updateOrCreate($input, auth()->user()->id,1)) {

@@ -213,17 +213,24 @@
     <div class="custom-tooltip">I don't have any Playbox.</div>
 </div>
                 <ul class="profile_page_social_profiles">
+               
                     @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
-                    <li class="selected-from-profile">
-                        <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
-                        <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/facebook.png" class="twitter-x-logo" alt="logo"></a>
-                    </li>
-                    <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/instagram.png" class="twitter-x-logo" alt="logo"></a></li>
-                    <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo"></a></li>
+                        @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
+                            <li class="selected-from-profile">
+                                <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
+                                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/facebook.png" class="twitter-x-logo" alt="logo"></a>
+                            </li>
+                        @endif
+                        @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
+                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/instagram.png" class="twitter-x-logo" alt="logo"></a></li>
+                        @endif
+                        @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
+                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo"></a></li>
+                        @else
+                            <li class="by-default"><a href="https://x.com/Escorts46919U/" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" ></a></li>
+                        @endif
                     @else
-                    
-                    
-                    <li class="by-default"><a href="https://x.com/Escorts46919U/" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" ></a></li>
+                        <li class="by-default"><a href="https://x.com/Escorts46919U/" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" ></a></li>
                     @endif
                 </ul>
 
