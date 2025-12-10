@@ -103,25 +103,25 @@ class TrackLastPageVisitMiddlware
             }
             else
             {
-                $idle_preference_time =  (int) auth()->user()->staff_setting->idle_preference_time;
+                $idle_preference_time =  (auth()->user()->staff_setting && auth()->user()->staff_setting->idle_preference_time) ? auth()->user()->staff_setting : '60';
                 if ($lastActivity && $idle_preference_time !== null) {
 
                     if (now()->diffInSeconds($lastActivity) > ($idle_preference_time * 60)) {
                         auth()->logout();
-                        return redirect('/')
+                        return redirect()->route('admin.login')
                             ->withErrors(['message' => 'You have been logged out due to inactivity.']);
                     }
                 } 
             }
 
 
-            # logout user if their idle time is more than their preference time
-            if ($lastActivity && now()->diffInMinutes($lastActivity) > (int)auth()->user()->idle_preference_time) {
-                auth()->logout();
+            // # logout user if their idle time is more than their preference time
+            // if ($lastActivity && now()->diffInMinutes($lastActivity) > (int)auth()->user()->idle_preference_time) {
+            //     auth()->logout();
 
-                return redirect()->route('/')
-                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
-            }
+            //     return redirect()->route('/')
+            //         ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+            // }
 
             # Update activity timestamp
             AttemptLogin::where('user_id', auth()->user()->id)
