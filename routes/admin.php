@@ -490,13 +490,29 @@ Route::get('/management/email-management',function(){
     return view('admin.management.email-management');
 })->name('admin.email-management');
 
-Route::get('/management/marketing-templates-agents',function(){
-    return view('admin.management.marketing-templates-agents');
-})->name('admin.marketing-templates-agents');
+Route::get('/management/advertiser-templates',function(){
+    return view('admin.management.cms.advertiser-templates');
+})->name('admin.advertiser-templates');
 
-Route::get('/management/marketing-templates-e4u',function(){
-    return view('admin.management.marketing-templates-e4u');
-})->name('admin.marketing-templates-e4u');
+Route::get('/management/operator-templates',function(){
+    return view('admin.management.cms.operator-templates');
+})->name('admin.operator-templates');
+
+Route::get('/management/agent-templates',function(){
+    return view('admin.management.cms.agent-templates');
+})->name('admin.agent-templates');
+
+Route::get('/management/shareholder-templates',function(){
+    return view('admin.management.cms.shareholder-templates');
+})->name('admin.shareholder-templates');
+
+Route::get('/management/viewer-templates',function(){
+    return view('admin.management.cms.viewer-templates');
+})->name('admin.viewer-templates');
+
+Route::get('/management/e4u-templates',function(){
+    return view('admin.management.cms.e4u-templates');
+})->name('admin.e4u-templates');
 
 Route::get('/management/post-office',function(){
     return view('admin.management.post-office');
