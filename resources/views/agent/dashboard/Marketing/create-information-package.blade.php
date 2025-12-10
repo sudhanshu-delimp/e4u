@@ -311,18 +311,20 @@
                 search: "Search: _INPUT_",
                 searchPlaceholder: "Search by Post Code"
             },
-            processing: false,
-            serverSide: false,
+            info: true,
             paging: true,
             lengthChange: true,
             searching: true,
             bStateSave: true,
-            ordering: false,
-            lengthMenu: [
+                lengthMenu: [
                 [10, 25, 50, 100],
                 [10, 25, 50, 100]
             ],
-            pageLength: 10
+            pageLength: 10,
+            columnDefs: [{
+                targets: 4,
+                orderable: false
+            }]
         });
       });
         </script>
