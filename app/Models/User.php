@@ -702,15 +702,21 @@ class User extends Authenticatable
 
             if ($user->type == '0') {
                 $settings = $user->viewer_settings;
-            } elseif ($user->type == '3') {
+            } 
+            elseif ($user->type == '1') {
+                $settings = $user->staff_setting;
+            }
+            elseif ($user->type == '3') {
                 $settings = $user->escort_settings;
             }
-             elseif ($user->type == '4') {
+            elseif ($user->type == '4') {
                 $settings = $user->massage_settings;
             } 
             elseif ($user->type == '5') {
                 $settings = $user->agent_settings;
             }
+
+           
             
             if (isset($settings->twofa) && ($settings->twofa == '1' && $user->email != "")) {
                 sendLoginOtpEmail($otp, $user);
