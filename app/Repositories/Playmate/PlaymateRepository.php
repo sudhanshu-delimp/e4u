@@ -105,7 +105,7 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
             </div>
             </div>";
             $item->profile_stage_name = $profileColumn;
-            $item->current_location = config('escorts.profile.states')[$item->user->current_state_id]['stateName'];
+            $item->current_location = config('escorts.profile.states')[$item->playmate->user->current_state_id]['stateName'];
             $item->status = $item->status;
             $action = '<div class="dropdown no-arrow archive-dropdown">
             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
