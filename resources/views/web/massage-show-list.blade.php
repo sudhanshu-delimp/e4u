@@ -239,8 +239,8 @@
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
                                                 <select class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                                    id=""name="other_services" title="Coming Soon" disabled>
-                                                    <option value="all">All</option>
+                                                    id="verification"name="verification">
+                                                    <option value="all">Verification</option>
                                                     <option value="unverified">Unverified</option>
                                                     <option value="verified">Verified</option>
                                                 </select>
