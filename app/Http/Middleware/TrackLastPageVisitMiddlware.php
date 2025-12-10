@@ -108,6 +108,7 @@ class TrackLastPageVisitMiddlware
                     $idle_preference_time =  (auth()->user()->staff_setting && auth()->user()->staff_setting->idle_preference_time) ? auth()->user()->staff_setting->idle_preference_time : '60';
                     
                     if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
+                         auth()->logout();
                         return redirect()->route('admin.login')->withErrors(['message' => 'You have been logged out due to inactivity.']);
                         
                     } 

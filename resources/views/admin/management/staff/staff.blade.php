@@ -2,6 +2,7 @@
 @section('style')
 @stop
 @section('content')
+
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
     <!-- Main Content -->
@@ -135,8 +136,7 @@
                             <span class="text-danger error-address"></span>
                         </div>
                         <div class="col-6 mb-3">
-                            <input type="text" class="form-control rounded-0" placeholder="Phone" name="phone"
-                                id="phone">
+                            <input type="tel" maxlength="10" autocomplete="off"  class="form-control rounded-0" placeholder="Phone" name="phone" id="phone" oninput="this.value = this.value.replace(/\D/g,'');">   
                             <span class="text-danger error-phone"></span>
                         </div>
                         <div class="col-6 mb-3">
@@ -170,8 +170,8 @@
                             <span class="text-danger error-kin_relationship"></span>
                         </div>
                         <div class="col-6 mb-3">
-                            <input type="text" name="kin_mobile" id="kin_mobile" class="form-control rounded-0"
-                                placeholder="Mobile">
+                            <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile" class="form-control rounded-0 no-arrow"
+                                placeholder="Mobile"  autocomplete="off" oninput="this.value = this.value.replace(/\D/g,'');">
                             <span class="text-danger error-kin_mobile"></span>
                         </div>
                         <div class="col-6 mb-3">
