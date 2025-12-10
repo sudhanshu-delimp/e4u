@@ -443,7 +443,7 @@
                         'reports','send-reports',
                         'new','blog',
                         'credit','agent-requests','num','transaction-summary','advertiser-suspensions',
-                        'registrations-reports','advertiser-reports','advertiser-reviews','support_tickets'
+                        'registrations-reports','advertiser-reports','advertiser-reviews','support_tickets','application','revision','security'
                     ])) show @endif"
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
@@ -553,6 +553,28 @@
                                 src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
                             <span>logs </span>
                         </a>
+                        <div id="logs" class="collapse @if (request()->segment(3) == 'application' || request()->segment(3) == 'revision' || request()->segment(3) == 'security') show @endif;"
+                            style="">
+                            <div class="py-0 collapse-inner rounded mb-2">
+                                <a class="collapse-item" href="{{ route('admin.application') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                    <span style="{{ request()->segment(3) == 'application' ? 'color: #FF3C5F;' : '' }}">Application</span>
+                                </a>
+
+                                <a class="collapse-item" href="{{ route('admin.revision') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                    <span style="{{ request()->segment(3) == 'revision' ? 'color: #FF3C5F;' : '' }}">Revision</span>
+                                </a>
+
+                                <a class="collapse-item" href="{{ route('admin.security') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                    <span style="{{ request()->segment(3) == 'security' ? 'color: #FF3C5F;' : '' }}">Security</span>
+                                </a>
+                            </div>
+                        </div>
                         {{-- end --}}
                     
                     <!-- Notification -->

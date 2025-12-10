@@ -6239,6 +6239,10 @@ i.fa.fa-heart-o{
             top: -1px;
         }
         
+        .custom--service-tag.mc_tags .grid_list_icon_box {
+            top: 3px;
+        }
+        
         .custom_total_list.dropdown {
             border: 1px solid #5d6d7e;
             width: 18em;

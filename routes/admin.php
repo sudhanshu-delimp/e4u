@@ -484,6 +484,17 @@ Route::get('/management/logs-staff',function(){
     return view('admin.management.staff');
 })->name('admin.staff'); */
 
+Route::get('/management/application',function(){
+    return view('admin.management.logs.application');
+})->name('admin.application');
+
+Route::get('/management/revision',function(){
+    return view('admin.management.logs.revision');
+})->name('admin.revision');
+
+Route::get('/management/security',function(){
+    return view('admin.management.logs.security');
+})->name('admin.security');
 
 
 Route::get('/management/email-management',function(){
