@@ -6,6 +6,18 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
     .form-group *:not(h6) {
     color: #C2CFE0 !important;
 }
+
+/* Chrome, Safari, Edge, Opera */
+.no-arrow::-webkit-inner-spin-button,
+.no-arrow::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.no-arrow {
+    -moz-appearance: textfield;
+}
 </style>
 <form name="add_staff" id="edit_staff" method="POST" action="{{ route('admin.store-staff') }}"
     enctype="multipart/form-data">
@@ -27,13 +39,13 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
             <span class="text-danger error-address"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Phone" name="phone" id="phone"
-                value="{{ $staff->phone }}">
+            <input  type="tel" maxlength="10" class="form-control rounded-0" placeholder="Phone" name="phone" id="phone"
+                value="{{ $staff->phone }}" oninput="this.value = this.value.replace(/\D/g,'');" autocomplete="off">
             <span class="text-danger error-phone"></span>
         </div>
         <div class="col-6 mb-3">
             <input type="email" class="form-control rounded-0" placeholder="Private Email" name="email"
-                id="email" value="{{ $staff->email }}">
+                id="email" value="{{ $staff->email }}" >
             <span class="text-danger error-email"></span>
         </div>
         <div class="col-6 mb-3">
@@ -63,8 +75,8 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
             <span class="text-danger error-kin_relationship"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" name="kin_mobile" id="kin_mobile" class="form-control rounded-0" placeholder="Mobile"
-                value="{{ $staff->staff_detail->kin_mobile }}">
+            <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile" class="form-control rounded-0" placeholder="Mobile"
+                value="{{ $staff->staff_detail->kin_mobile }}" autocomplete="off" oninput="this.value = this.value.replace(/\D/g,'');">
             <span class="text-danger error-kin_mobile"></span>
         </div>
         <div class="col-6 mb-3">
