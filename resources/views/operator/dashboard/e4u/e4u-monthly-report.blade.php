@@ -212,7 +212,8 @@
                         </tr>
                        
                          <tr class="detail-row" data-group="details1">
-                            <td colspan="4" class="text-right">MC</td>
+                            <td colspan="3"></td>
+                            <td class="text-center">MC</td>
                             <td>30
                             </td>
                             <td
@@ -335,7 +336,8 @@
                         </tr>
                        
                          <tr class="detail-row" data-group="details2">
-                            <td colspan="4" class="text-right">MC</td>
+                            <td colspan="3"></td>
+                            <td class="text-center">MC</td>
                             <td>30
                             </td>
                             <td
