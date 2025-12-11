@@ -48,7 +48,7 @@
      </div>
     <div class="col-md-12">        
         <div class="table-responsive membership--inner">
-            <table class="table table-bordered" id="transactionSummaryTable">
+            <table class="table" id="transactionSummaryTable">
                  <thead class="table-bg">
                    <tr>
                     <th>Ref</th>
