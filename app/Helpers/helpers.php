@@ -465,6 +465,17 @@ if (!function_exists('logErrorLocal')) {
     }
 }
 
+if (!function_exists('log_info')) {
+    function log_info($message)
+    {
+        if (is_array($message)) {
+            Log::info(json_encode($message));
+        } else {
+            Log::info($message);
+        }
+    }
+}
+
 if (!function_exists('CheckExpireDate')) {
     function CheckExpireDate($data)
     {
@@ -801,6 +812,8 @@ if (!function_exists('sendLoginOtpEmail'))
 {
     function sendLoginOtpEmail($otp, $user)
     {
+        log_info('sendLoginOtpEmail');
+
         if(isset($user->email) && $user->email!="")
         {
             
@@ -838,6 +851,7 @@ if (!function_exists('sendLoginOtpSms'))
 {
     function sendLoginOtpSms($otp, $user)
     {
+         log_info('sendLoginOtpSms');
         if(isset($user->phone) && $user->phone!="")
         {
 

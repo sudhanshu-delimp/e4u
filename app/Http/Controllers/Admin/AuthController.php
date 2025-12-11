@@ -87,10 +87,13 @@ class AuthController extends Controller
                 $otp = $this->user->generateOTP();
                 $user->otp = $otp;
                 $user->save();
-                $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
-                $sendotp = new SendSms();
-                $output = $sendotp->send($phone,$msg);
-                $id = $user->id;
+               
+                // $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+                // $sendotp = new SendSms();
+                // $output = $sendotp->send($phone,$msg);
+                // $id = $user->id;
+
+                 $this->user->sendOtpNotification($user->id,$otp);
                 //TODO:: Don't send otp in the response object so remove from bellow
                 return response()->json(compact('error','phone','otp'));
 
