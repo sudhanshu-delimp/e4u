@@ -69,8 +69,8 @@
                                        </tr>
                                     </thead>
                                     <tbody class="table-content">
-                                       <tr class="row-color">
-                                          <td class="theme-color">EB101101</td>
+                                       <tr>
+                                          <td class="theme-color">EB1101</td>
                                           <td class="theme-color"><img src="{{ asset('assets/app/img/blog-9.png')}}" alt="blog images" class="blog-img-admin"/></td>
                                           <td class="theme-color">Legal Statement</td>
                                           <td class="theme-color">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy the thrill of being with that quite little girl</td>
@@ -307,7 +307,7 @@
       var table = $("#BlogListTable").DataTable({
       language: {
          search: "Search: _INPUT_",
-         searchPlaceholder: "Search by Date..."
+         searchPlaceholder: "Search by ID or Title"
       },
       info: true,
       paging: true,
@@ -316,7 +316,12 @@
       bStateSave: true,
       order: [[1, 'desc']],
       lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10
+      pageLength: 10,
+
+        columnDefs: [{
+            targets: 5,
+            orderable: false
+        }]
    });
 
  </script>

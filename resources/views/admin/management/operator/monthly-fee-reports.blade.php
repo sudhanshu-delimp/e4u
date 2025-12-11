@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-md-12 mt-2">
                     <div id="table-sec" class="table-responsive-xl">
-                        <table class="table table_admin" id="AgentReportTable">
+                        <table class="table" id="AgentReportTable">
                             <thead class="table-bg">
                                 <tr>
                                     <th>Date Issued</th>
@@ -76,6 +76,7 @@
                                                         class="dropdown-item align-item-custom toggle-massage-notification"
                                                         href="#" title="Click to disable notification">
                                                     </a>
+                                                     <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item align-item-custom" data-toggle="modal"
                                                         data-target="#payAgentreport" href=""> <i
                                                             class="fa fa-check-circle" aria-hidden="true"></i>
@@ -524,7 +525,7 @@
     var table = $("#AgentReportTable").DataTable({
         language: {
             search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Agent ID"
+            searchPlaceholder: "Search by Territory"
         },
         info: true,
         paging: true,
@@ -540,10 +541,17 @@
         ],
         pageLength: 10,
 
-        columnDefs: [{
-            targets: 7,
-            orderable: false
-        }]
+
+           columns: [
+               { data: 'date_issued', name: 'date_issued', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'billing_period', name: 'billing_period', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'spand', name: 'spand', searchable: true, orderable:false ,defaultContent: 'NA'},
+               { data: 'fees', name: 'fees', searchable: true, orderable:true,defaultContent: 'NA' },
+               { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'date_approved', name: 'date_approved', searchable: true, orderable:true,defaultContent: 'NA' },
+               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+           ],
     });
 </script>
 @endsection

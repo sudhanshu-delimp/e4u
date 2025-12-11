@@ -24,9 +24,9 @@ table td,th{
  .paging_simple_numbers{
     margin-top: 18px;
  }
- .dataTables_info{
+ /* .dataTables_info{
     margin-top: 18px;
- }
+ } */
 .table-report-info tr td{
     border: 0;
 }
@@ -523,7 +523,7 @@ $(document).ready(function() {
         var table = $('#'+tableId).DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Member ID..."
+                searchPlaceholder: "Search by Member ID"
             },
             processing: true,
             serverSide: true,
@@ -548,7 +548,7 @@ $(document).ready(function() {
                 { data: 'mobile', name: 'mobile' },
                 { data: 'home_state', name: 'home_state' },
                 { data: 'status', name: 'status'},
-                { data: 'action', name: 'action', orderable: false }
+                { data: 'action', name: 'action', orderable: false, class: 'text-center' }
             ]
         });
     }

@@ -4,12 +4,6 @@
    td,
    th {
        vertical-align: middle !important;
-       text-align: center;
-   }
-   .table-bg tr th{
-       font-weight: bold !important;
-       padding: 10px ;
-
    }
    #agentRequestreportTable td {
     white-space: normal !important;
@@ -21,7 +15,7 @@
 }
 .d_request_agent_modal td{
 
-   padding: 0px;
+   /* padding: 0px; */
 }
 .dataTables_processing{   
    position: absolute;
@@ -30,7 +24,7 @@
    transform: translate(-50%, -50%);
 }
 </style>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"> --}}
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -71,16 +65,14 @@
             </div>
            </div>
         <div class="table-responsive-xl membership--inner">
-            <table class="table table-bordered text-center" id="agentRequestreportTable">
-                 <thead id="table-sec" class="table-bg">
+            <table class="table" id="agentRequestreportTable">
+                 <thead class="table-bg">
                    <tr>
                     <th>Ref</th>
                     <th>Request Date</th>
                     <th>Member ID</th>
                     <th>Mobile</th>
                     <th>Home State</th>
-                    <!-- <th>Agents ID</th>
-                    <th>Mobiles</th> -->
                     <th>Status</th>
                     <th>Accepted Date</th>
                     <th>Action</th>
@@ -111,15 +103,6 @@
 <script>
    $(document).ready(function() {
       var table = $("#agentRequestreportTable").DataTable({
-       language: {
-               search: "Search: _INPUT_",
-               searchPlaceholder: "Search by Member ID or Agent ID...",
-               lengthMenu: "Show _MENU_ entries",
-               zeroRecords: "No matching records found",
-               info: "Showing _START_ to _END_ of _TOTAL_ entries",
-               infoEmpty: "No entries available",
-               infoFiltered: "(filtered from _MAX_ total entries)"
-         },
         processing: true,
         serverSide: true,
         lengthChange: true,
@@ -142,7 +125,7 @@
             { data: 'country_code', name: 'country_code', orderable: true, defaultContent: 'NA' },
             { data: 'view_status', name: 'view_status', orderable: false, defaultContent: 'NA' },
             { data: 'accepted_date', name: 'accepted_date', orderable: false, defaultContent: 'NA' },
-            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
+            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA', class: 'text-center' },
         ],
 
         
@@ -152,7 +135,7 @@
     });
 
     $('#agentRequestreportTable').on('init.dt', function () {
-    $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by Member ID or Agent ID...');
+    $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by Member ID');
     });
 
     table.on('xhr.dt', function (e, settings, json, xhr) {

@@ -71,11 +71,11 @@
                                     </tr>
                                  </thead>
                                  <tbody class="table-content">
-                                    <tr class="row-color">
-                                       <td class="theme-color"><b>Escorts</b></td>
-                                       <td class="theme-color">12:57 pm 12-06-2022</td>
+                                    <tr>
+                                       <td >Escorts</td>
+                                       <td >12:57 pm 12-06-2022</td>
                                        <td class="welcome_text_color"><a href="#"><span class="theme-text-color"><b>View</b></span></a></td>
-                                       <td>
+                                       <td class="text-center">
                                           <div class="dropdown no-arrow ml-3">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -88,11 +88,11 @@
                                           </div>
                                        </td>
                                     </tr>
-                                    <tr class="row-color">
-                                       <td class="theme-color"><b>Massage Centre</b></td>
-                                       <td class="theme-color">12:57 pm 12-06-2022</td>
+                                    <tr>
+                                       <td >Massage Centre</td>
+                                       <td >12:57 pm 12-06-2022</td>
                                        <td class="welcome_text_color"><a href="#"><span class="theme-text-color"><b>View</b></span></a></td>
-                                       <td>
+                                       <td  class="text-center">
                                           <div class="dropdown no-arrow ml-3">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -105,11 +105,11 @@
                                           </div>
                                        </td>
                                     </tr>
-                                    <tr class="row-color">
-                                       <td class="theme-color"><b>Viewer</b></td>
-                                       <td class="theme-color">12:57 pm 12-06-2022</td>
+                                    <tr>
+                                       <td >Viewer</td>
+                                       <td >12:57 pm 12-06-2022</td>
                                        <td class="welcome_text_color"><a href="#"><span class="theme-text-color"><b>View</b></span></a></td>
-                                       <td>
+                                       <td  class="text-center">
                                           <div class="dropdown no-arrow ml-3">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -122,11 +122,11 @@
                                           </div>
                                        </td>
                                     </tr>
-                                    <tr class="row-color">
-                                       <td class="theme-color"><b>Agent</b></td>
-                                       <td class="theme-color">12:57 pm 12-06-2022</td>
+                                    <tr>
+                                       <td >Agent</td>
+                                       <td >12:57 pm 12-06-2022</td>
                                        <td class="welcome_text_color"><a href="#"><span class="theme-text-color"><b>View</b></span></a></td>
-                                       <td>
+                                       <td  class="text-center">
                                           <div class="dropdown no-arrow ml-3">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -139,11 +139,11 @@
                                           </div>
                                        </td>
                                     </tr>
-                                    <tr class="row-color">
-                                       <td class="theme-color"><b>Operations - Staff</b></td>
-                                       <td class="theme-color">12:57 pm 12-06-2022</td>
+                                    <tr>
+                                       <td >Operations - Staff</td>
+                                       <td >12:57 pm 12-06-2022</td>
                                        <td class="welcome_text_color"><a href="#"><span class="theme-text-color"><b>View</b></span></a></td>
-                                       <td>
+                                       <td  class="text-center">
                                           <div class="dropdown no-arrow ml-3">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -156,11 +156,11 @@
                                           </div>
                                        </td>
                                     </tr>
-                                    <tr class="row-color">
-                                       <td class="theme-color"><b>Operations - Management</b></td>
-                                       <td class="theme-color">12:57 pm 12-06-2022</td>
+                                    <tr>
+                                       <td >Operations - Management</td>
+                                       <td >12:57 pm 12-06-2022</td>
                                        <td class="welcome_text_color"><a href="#"><span class="theme-text-color"><b>View</b></span></a></td>
-                                       <td>
+                                       <td  class="text-center">
                                           <div class="dropdown no-arrow ml-3">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -283,7 +283,7 @@
    $("#securityDatatable").DataTable({
        "language": {
            search: "_INPUT_",
-        searchPlaceholder: "Search by Member ID...",
+        searchPlaceholder: "Search by Member ID",
        },
        info: true,
        bLengthChange: true,
@@ -308,7 +308,7 @@
            { data: 'location', name: 'location', searchable: true, orderable:false, defaultContent: 'NA' },
            { data: 'sLevel', name: 'sLevel', searchable: true, orderable:false, defaultContent: 'NA' },
            { data: 'status', name: 'status', searchable: true, orderable:false, defaultContent: 'NA' },
-           { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
+           { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' }
        ],
        aoColumnDefs:[
 
@@ -323,7 +323,7 @@
    $("#accessTable").DataTable({
       "language": {
          search: "_INPUT_",
-      searchPlaceholder: "Search by Member ID...",
+      searchPlaceholder: "Search by Member ID",
 
       },
 
@@ -336,6 +336,12 @@
       searchable:true,
       searching:true,
       bStateSave: true,
+       columns: [
+           { data: 'memberId', id: 'memberId', searchable: true, orderable:false,defaultContent: 'NA' },
+           { data: 'name', name: 'name', searchable: true, orderable:false,defaultContent: 'NA' },
+           { data: 'status', name: 'status', searchable: true, orderable:false, defaultContent: 'NA' },
+           { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' }
+       ],
 
    });
 

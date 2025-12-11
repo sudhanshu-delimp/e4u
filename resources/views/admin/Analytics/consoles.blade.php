@@ -66,7 +66,7 @@
    $("#consoleDatatable").DataTable({
     language: {
        search: "Search: _INPUT_",
-       searchPlaceholder: "Search by Member Id or Name"
+       searchPlaceholder: "Search by Member ID or Profile Name"
     },
       info: true,
       bLengthChange: true,
@@ -86,12 +86,12 @@
       },
       columns: [
          { data: 'member_id', id: 'member_id', searchable: true, orderable:true,defaultContent: 'NA' },
-         { data: 'name', name: 'name', searchable: true, orderable:false,defaultContent: 'NA' },
-         { data: 'usertype', name: 'usertype', searchable: true, orderable:false ,defaultContent: 'NA'},
-         { data: 'location', name: 'location', searchable: true, orderable:false, defaultContent: 'NA' },
+         { data: 'name', name: 'name', searchable: true, orderable:true,defaultContent: 'NA' },
+         { data: 'usertype', name: 'usertype', searchable: true, orderable:true ,defaultContent: 'NA'},
+         { data: 'location', name: 'location', searchable: true, orderable:true, defaultContent: 'NA' },
          //{ data: 'sLevel', name: 'sLevel', searchable: true, orderable:false, defaultContent: 'NA' },
          //{ data: 'status', name: 'status', searchable: true, orderable:false, defaultContent: 'NA' },
-         { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
+         { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', className: 'text-center', },
       ],
       aoColumnDefs:[
                      

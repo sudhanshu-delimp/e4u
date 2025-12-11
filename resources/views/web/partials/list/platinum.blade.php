@@ -204,16 +204,32 @@
                                         <div class="custom-tooltip">I don't have any Playbox.</div>
                                     </div> 
                                     <div class="d-flex justify-content-between gap-10">
-                                        {{-- <div class="s_icon">
-                                            <a href="" target="_blank"><img src="{{ asset('assets/app/img/facebook.png') }}" alt="logo"></a>
-                                          </div>
+                                        @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
+                                            @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
+                                                <div class="s_icon">
+                                                    <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank"><img src="{{ asset('assets/app/img/facebook.png') }}" alt="logo"></a>
+                                                </div>
+                                            @endif
+                                            @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
+                                                <div class="s_icon">
+                                                        <a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{ asset('assets/app/img/instagram.png') }}" alt="logo"></a>
+                                                </div>
+                                            @endif
+                                            @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
+                                                <div class="s_icon">
+                                                    <a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" alt="logo"></a>
+                                                </div>
+                                            @else
                                             <div class="s_icon">
-                                              <a href="" target="_blank"><img src="{{ asset('assets/app/img/instagram.png') }}" alt="logo"></a>
-                                            </div>  --}}
-                                        <div class="s_icon">
-                                            <a href="https://x.com/NMugs32853" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" alt="logo"></a>
-                                        </div>                                     
-                                          
+                                                <a href="https://x.com/NMugs32853" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" alt="logo"></a>
+                                            </div> 
+                                            
+                                            @endif    
+                                        @else
+                                            <div class="s_icon">
+                                                <a href="https://x.com/NMugs32853" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" alt="logo"></a>
+                                            </div>                                     
+                                        @endif
                                     </div>
                                    
                                 </div>

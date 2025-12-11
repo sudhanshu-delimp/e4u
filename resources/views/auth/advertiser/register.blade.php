@@ -87,11 +87,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="mobileno">Mobile Number</label>
-                                <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp"
+                                <input type="tel" maxlength="10" class="form-control" id="mobileno" aria-describedby="emailHelp"
                                        name="phone" data-parsley-maxlength="10" required placeholder="Mobile Number"
                                        data-parsley-required-message="Your mobile number is required"
                                        value="{{ old('phone') }}" data-parsley-type="digits"
-                                       data-parsley-type-message="Enter only mobile numbers">
+                                       data-parsley-type-message="Enter only mobile numbers" autocomplete="off" oninput="this.value = this.value.replace(/\D/g,'');">
                                 <span id="phone-errors"></span>
                                 <div class="termsandconditions_text_color">
                                     @error('phone')

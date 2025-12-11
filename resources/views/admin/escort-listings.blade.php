@@ -213,7 +213,7 @@ CKEDITOR.replace('editor1', {
             var table = $('#escort_listings').DataTable({
                 language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Member ID..."
+                searchPlaceholder: "Search by Member ID or Profile Name"
             },   
             autoWidth: false,
             info: true,

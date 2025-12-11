@@ -223,12 +223,7 @@
       var table = $("#agent_data_table").DataTable({
       language: {
       search: "Search: _INPUT_",
-      searchPlaceholder: "Search by Agent ID...",
-      lengthMenu: "Show _MENU_ entries",
-      zeroRecords: "No matching records found",
-      info: "Showing _START_ to _END_ of _TOTAL_ entries",
-      infoEmpty: "No entries available",
-      infoFiltered: "(filtered from _MAX_ total entries)"
+      searchPlaceholder: "Search by Agent ID",
       },
 
       processing: true,

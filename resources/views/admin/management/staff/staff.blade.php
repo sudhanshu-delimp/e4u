@@ -388,7 +388,7 @@
         var table = $("#staff_data_table").DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Staff ID...",
+                searchPlaceholder: "Search by Staff ID",
                 lengthMenu: "Show _MENU_ entries",
                 zeroRecords: "No matching records found",
                 info: "Showing _START_ to _END_ of _TOTAL_ entries",

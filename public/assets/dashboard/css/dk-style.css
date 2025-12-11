@@ -315,6 +315,11 @@ span.menu-active {
     justify-content: flex-end;
 }
 
+.table {
+    color: #333 !important;
+    font-size: 14px;
+}
+
 .table-bg {
     background: #0C223D
 }
@@ -3946,7 +3951,8 @@ ol.custom--substyle li:before {
     transition: 0.3s;
 }
 
-.fa-ellipsis {
+.fa-ellipsis,
+.fa-ellipsis-v {
     transform: rotate(90deg)
 }
 
@@ -8435,12 +8441,16 @@ div#listings_wrapper .custom--common-table {
     font-weight: bold;
 }
 
+.modal-body.d_request_agent_modal th {
+    padding: 10px;
+    text-align: center;
+}
+
 .membership--inner th {
     padding-top: 0;
     padding-bottom: 0;
     background: #0C223D;
     color: #fff;
-    padding: 10px !important;
     font-size: 14px;
 }
 
@@ -8454,13 +8464,8 @@ div#listings_wrapper .custom--common-table {
     font-size: 13px;
 }
 
-.membership--inner th {
-    text-align: center !important;
-}
-
 .membership--inner td {
     font-size: 14px;
-    color: #000;
 }
 
 .custom-serve-date {
