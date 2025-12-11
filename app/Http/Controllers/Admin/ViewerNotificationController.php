@@ -61,15 +61,25 @@ class ViewerNotificationController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $actions = [];
-                    // Example: you can add your own business logic for action buttons
-                    if (($row->status ?? null) === 'Published') {
+                    $status = $row->status ?? null;
+
+                    // If published -> offer suspend
+                    if ($status === 'Published') {
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspend</a>';
-                    } elseif (in_array($row->status ?? null, ['Suspended'])) {
+                    }
+
+                    // If suspended -> offer publish and remove
+                    if ($status === 'Suspended') {
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
-                    } elseif (($row->status == 'Completed') || ($row->status == 'Suspended')) {
-                        
-                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
-                    } 
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                    }
+
+                    // If completed -> offer remove
+                    if ($status === 'Completed') {
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                    }
+
+                    // Common actions
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-edit" data-id="' . $row->id . '"><i class="fa fa-fw fa-edit"></i> Edit</a>';
 
