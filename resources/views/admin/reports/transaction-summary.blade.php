@@ -68,7 +68,7 @@
                      <td>E40125</td>
                      <td>Listing</td>
                      <td>25-07-2025</td>
-                     <td>$ 80.00</td>
+                     <td><div class="num_value">$<span>80.00</span></div></td>
                      <td>1235 1258 4123 xxxx</td>
                      <td class="text-center">
                         <div class="dropdown no-arrow">
