@@ -4,7 +4,6 @@
    td,
    th {
        vertical-align: middle !important;
-       text-align: center;
    }
    #transactionSummaryTable td {
     white-space: normal !important;
@@ -49,7 +48,7 @@
      </div>
     <div class="col-md-12">        
         <div class="table-responsive membership--inner">
-            <table class="table table-bordered text-center" id="transactionSummaryTable">
+            <table class="table table-bordered" id="transactionSummaryTable">
                  <thead class="table-bg">
                    <tr>
                     <th>Ref</th>
@@ -59,7 +58,7 @@
                     <th>Transaction Date</th>
                     <th>Transaction Value</th>
                     <th>Card</th>
-                    <th class="text-center">Action</th>
+                    <th>Action</th>
                    </tr>
                 </thead>
                 <tbody>
@@ -173,7 +172,7 @@
     var table = $("#transactionSummaryTable").DataTable({
          language: {
             search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID..."
+            searchPlaceholder: "Search by Member ID"
          },
         processing: true,
         serverSide: false,
@@ -183,7 +182,17 @@
         bStateSave: true,
         order: [[1, 'desc']],
         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-        pageLength: 10,
+        pageLength: 10,         
+         columns: [
+               { data: 'ref', name: 'ref' },
+               { data: 'member_id', name: 'member_id' },
+               { data: 'completed_by', name: 'completed_by' },
+               { data: 'service_type', name: 'service_type' },
+               { data: 'transaction_date', name: 'transaction_date' },
+               { data: 'transaction_value', name: 'transaction_value' },
+               { data: 'card', name: 'card' },
+               { data: 'action', name: 'action', orderable: false, class:'text-center' }
+         ]
     });
 });
 

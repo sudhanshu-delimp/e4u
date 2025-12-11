@@ -21,10 +21,10 @@
         .paging_simple_numbers {
             margin-top: 18px;
         }
-
+/* 
         .dataTables_info {
             margin-top: 18px;
-        }
+        } */
 
         .table-report-info tr td {
             border: 0;
@@ -537,7 +537,7 @@
         var table = $('#'+tableId).DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Escort ID..."
+                searchPlaceholder: "Search by Escort ID"
             },
 
             processing: true,
@@ -572,7 +572,7 @@
                     searchable: false
                 },
                 // { data: 'review', name: 'review'},
-                { data: 'action', name: 'action', orderable: false }
+                { data: 'action', name: 'action', orderable: false, class:'text-center' }
             ]
         });
     }

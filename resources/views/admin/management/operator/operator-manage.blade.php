@@ -109,11 +109,19 @@ $(document).ready(function () {
         responsive: true,
         language: {
             search: "Search:",
-            searchPlaceholder: "Search by Staff ID or Name..."
+            searchPlaceholder: "Search by ID"
         },
-        columnDefs: [
-            { orderable: false, targets: -1 } // Disable ordering on Action column
-        ],
+      columns: [
+               { data: 'id', name: 'id' },
+               { data: 'operator', name: 'operator' },
+               { data: 'territory', name: 'territory' },
+               { data: 'contact', name: 'contact' },
+               { data: 'email', name: 'email' },
+               { data: 'agents', name: 'agents' },
+               { data: 'last_login', name: 'last_login' },
+               { data: 'status', name: 'status' },
+               { data: 'action', name: 'action', orderable: false, class:'text-center' }
+         ],
         drawCallback: function(settings) {
             const $info = $('#OperatorTable_info');
             const $paginate = $('#OperatorTable_paginate');

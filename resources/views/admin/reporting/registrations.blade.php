@@ -16,9 +16,9 @@
             margin-top: 18px;
         }
 
-        .dataTables_info {
+        /* .dataTables_info {
             margin-top: 18px;
-        }
+        } */
 
         .table-report-info tr td {
             border: 0;
@@ -121,7 +121,7 @@
                                 <th>Home State</th>
                                 <th>Agent ID</th>
                                 <th>Status</th>
-                                <th class="text-center">Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -335,12 +335,7 @@
         var table = $("#RegistrationsReportTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Member ID...",
-                lengthMenu: "Show _MENU_ entries",
-                zeroRecords: "No matching records found",
-                info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                infoEmpty: "No entries available",
-                infoFiltered: "(filtered from _MAX_ total entries)"
+                searchPlaceholder: "Search by Member ID",
             },
 
             processing: true,
@@ -402,7 +397,8 @@
                     name: 'action',
                     searchable: false,
                     orderable: false,
-                    defaultContent: 'NA'
+                    defaultContent: 'NA',
+                    class:'text-center'
                 },
             ],
 

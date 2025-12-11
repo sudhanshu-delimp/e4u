@@ -220,7 +220,7 @@ display: contents;
         var visitorTable = $('#visitorTable').DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Date..."
+                searchPlaceholder: "Search by Date"
             },
             processing: true,
             serverSide: true,

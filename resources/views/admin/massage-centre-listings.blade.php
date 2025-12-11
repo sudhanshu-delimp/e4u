@@ -172,7 +172,7 @@ display: contents;
             var table = $('#listings').DataTable({
                 language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Member ID..."
+                searchPlaceholder: "Search by Member ID or Profile Name"
             },
             processing: true,
             serverSide: true,

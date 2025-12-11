@@ -780,7 +780,7 @@
             var table = $("#agentNotificationTable").DataTable({
                 language: {
                     search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Ref..."
+                    searchPlaceholder: "Search by Ref"
                 },
                 processing: true,
                 serverSide: true,

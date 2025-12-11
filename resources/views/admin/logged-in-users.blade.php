@@ -317,7 +317,7 @@
             var table = $('#listings').DataTable({
                 language: {
                     search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Member ID or Name"
+                    searchPlaceholder: "Search by Member ID"
                 },
                 processing: true,
                 serverSide: true,
