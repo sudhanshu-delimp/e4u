@@ -67,6 +67,7 @@ class ViewerNotificationController extends Controller
                     } elseif (in_array($row->status ?? null, ['Suspended'])) {
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
                     } elseif (($row->status == 'Completed') || ($row->status == 'Suspended')) {
+                        
                          $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
                     } 
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
