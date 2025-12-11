@@ -27,6 +27,15 @@ class ViewerNotificationController extends Controller
                 ->addColumn('ref', function ($row) {
                     return sprintf('#%05d', $row->id);
                 })
+                ->filterColumn('ref', function ($query, $keyword) {
+                    $digits = ltrim($keyword, '#0');
+                    if ($digits !== '') {
+                        $query->where('id', 'like', "%{$digits}%");
+                    }
+                })
+                // ->orderColumn('ref', function ($query, $order) {
+                //     $query->orderBy('id', $order);
+                // })
                 ->editColumn('start_date', function ($row) {
                     return basicDateFormat($row->start_date);
                 })
@@ -73,7 +82,7 @@ class ViewerNotificationController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action', 'start_date', 'end_date'])
+                ->rawColumns(['action', 'start_date', 'end_date', 'ref'])
                 ->make(true);
         }
         return view('admin.notifications.viewers.index');
@@ -275,7 +284,10 @@ class ViewerNotificationController extends Controller
             if ($isUpdate) {
                 $notification = ViewerNotification::findOrFail($request->notificationId);
                 if($data['end_date'] > date('Y-m-d')){
-                    $data['status'] = 'Published';
+                    if($notification->status == 'Completed'){
+                        $data['status'] = 'Published';
+                    }
+                    
                 }
                 $notification->update($data);
                 return success_response($notification, 'Notification updated successfully');

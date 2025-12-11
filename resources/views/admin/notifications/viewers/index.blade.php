@@ -804,17 +804,24 @@
                         url: endpoint.viewer_notification_index,
                         type: 'GET'
                     },
-                    columns: [{ // 👇 New column for row index
-                            data: null,
-                            name: 'row_index',
-                            orderable: false,
-                            searchable: false,
-                            render: function(data, type, row, meta) {
-                                // meta.row starts from 0
-                                let idNumber = meta.row + meta.settings._iDisplayStart + 1;
-                                // Format like #00001
-                                return '#' + idNumber.toString().padStart(5, '0');
-                            }
+                    columns: [
+                        // { 
+                        //     data: null,
+                        //     name: 'row_index',
+                        //     orderable: false,
+                        //     searchable: true,
+                        //     render: function(data, type, row, meta) {
+                        //         // meta.row starts from 0
+                        //         let idNumber = meta.row + meta.settings._iDisplayStart + 1;
+                        //         // Format like #00001
+                        //         return '#' + idNumber.toString().padStart(5, '0');
+                        //     }
+                        // },
+                         { 
+                            data: 'ref',
+                            name: 'ref',
+                           // searchable: true,
+                            //orderable: true
                         },
                         {
                             data: 'start_date',
