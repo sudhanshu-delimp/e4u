@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="col-md-12 mt-2">
                     <div id="table-sec" class="table-responsive-xl">
-                        <table class="table table_admin" id="AgentReportTable">
+                        <table class="table" id="AgentReportTable">
                             <thead class="table-bg">
                                 <tr>
                                     <th>Date Issued</th>
@@ -83,7 +83,7 @@
                                                 <div class="custom-tooltip-container"><a
                                                         class="dropdown-item align-item-custom toggle-massage-notification"
                                                         href="#" title="Click to disable notification">
-                                                    </a>
+                                                    </a> <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item align-item-custom" data-toggle="modal"
                                                         data-target="#payAgentreport" href=""> <i
                                                             class="fa fa-star" aria-hidden="true"></i>
@@ -513,10 +513,16 @@
         ],
         pageLength: 10,
 
-        columnDefs: [{
-            targets: 7,
-            orderable: false
-        }]
+           columns: [
+               { data: 'date_issued', name: 'date_issued', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'billing_period', name: 'billing_period', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'agent_id', name: 'agent_id', searchable: true, orderable:false ,defaultContent: 'NA'},
+               { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'fees', name: 'fees', searchable: true, orderable:true,defaultContent: 'NA' },
+               { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'date_agent_approved', name: 'date_agent_approved', searchable: true, orderable:true,defaultContent: 'NA' },
+               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+           ],
     });
 </script>
 @endsection

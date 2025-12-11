@@ -209,7 +209,7 @@
                { data: 'member_id', name: 'member_id', searchable: true, orderable:false ,defaultContent: 'NA'},
                { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'subject', name: 'start_date', searchable: true, orderable:true,defaultContent: 'NA' },
-               { data: 'created_on', name: 'date_created', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'created_on', name: 'created_on', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
            ],
