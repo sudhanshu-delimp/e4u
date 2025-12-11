@@ -524,7 +524,7 @@
     var table = $("#AgentReportTable").DataTable({
         language: {
             search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Agent ID"
+            searchPlaceholder: "Search by Territory"
         },
         info: true,
         paging: true,

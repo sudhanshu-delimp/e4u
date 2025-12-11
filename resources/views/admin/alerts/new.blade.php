@@ -68,8 +68,8 @@
                   </tr>
                </thead>
                <tbody class="table-content">
-                  <tr class="row-color">
-                     <td width="10%" class="theme-color">REF1001010</td>
+                  <tr>
+                     <td width="10%" class="theme-color">REF1010</td>
                      <td class="theme-color">12-31-2022</td>
                      <td class="theme-color">New Frature</td>
                      <td class="theme-color">Published</td>
@@ -104,7 +104,7 @@
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
       </button>
-   </div>
+      </div>
       <div class="modal-body pb-0">
             <form>
                <div class="row">
@@ -192,7 +192,7 @@
       var table = $("#AlertTable").DataTable({
       language: {
          search: "Search: _INPUT_",
-         searchPlaceholder: "Search by Ref No..."
+         searchPlaceholder: "Search by Ref"
       },
       info: true,
       paging: true,
@@ -201,7 +201,12 @@
       bStateSave: true,
       order: [[1, 'desc']],
       lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10
+      pageLength: 10,
+
+        columnDefs: [{
+            targets: 4,
+            orderable: false
+        }]
    });
 
  </script>

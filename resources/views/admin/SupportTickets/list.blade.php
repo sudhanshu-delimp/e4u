@@ -29,9 +29,9 @@
     #supportTicketsTable_info{
         float: left;
     }
-    #supportTicketsTable td  {
+    /* #supportTicketsTable td  {
           text-align: center;
-    }
+    } */
 </style>
 @endsection
 @section('content')
@@ -75,7 +75,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box-body table-responsive custom-tabale-layout">
-                    <table class="table table-hover" id="supportTicketsTable">
+                    <table class="table" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                             <tr>
                                 <th> ID</th>
@@ -208,13 +208,10 @@
                { data: 'ref_number', name: 'ref_number', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'member_id', name: 'member_id', searchable: true, orderable:false ,defaultContent: 'NA'},
                { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
-              // { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
-              // { data: 'service_type', name: 'service_type', searchable: false, orderable:true ,defaultContent: 'NA'},
                { data: 'subject', name: 'start_date', searchable: true, orderable:true,defaultContent: 'NA' },
-               // { data: 'message', name: 'enabled', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'created_on', name: 'date_created', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
+               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
            ],
            order: [6, 'desc'],
        });

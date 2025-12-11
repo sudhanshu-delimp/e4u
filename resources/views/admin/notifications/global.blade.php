@@ -70,7 +70,7 @@
                                        </tr>
                                     </thead>
                                     <tbody class="table-content">
-                                       <tr class="row-color">
+                                       <tr >
                                           <td class="theme-color">Maintenance</td>
                                           <td class="theme-color">08-06-2025</td>
                                           <td class="theme-color">09-06-2025</td>
@@ -184,17 +184,6 @@
 <a class="scroll-to-top rounded" href="#page-top">
 <i class="fas fa-angle-up"></i>
 </a>
-<script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
-<script>
-   CKEDITOR.replace('editor1', {
-      fullPage: true,
-      extraPlugins: 'docprops',
-      // Disable content filtering because if you use full page mode, you probably
-      // want to  freely enter any HTML content in source mode without any limitations.
-      allowedContent: true,
-      height: 320
-   });
-</script>
 <script>
    function toggleFields() {
        const type = document.getElementById("type").value;
@@ -214,7 +203,7 @@
       var table = $("#globalNotificationTable").DataTable({
       language: {
          search: "Search: _INPUT_",
-         searchPlaceholder: "Search by Ref..."
+         searchPlaceholder: "Search by Ref"
       },
       info: true,
       paging: true,
@@ -223,7 +212,12 @@
       bStateSave: true,
       order: [[1, 'desc']],
       lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10
+      pageLength: 10,
+
+        columnDefs: [{
+            targets: 6,
+            orderable: false
+        }]
    });
 
  </script>

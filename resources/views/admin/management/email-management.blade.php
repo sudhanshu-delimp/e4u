@@ -75,11 +75,11 @@
                                  <th>Member ID</th>
                                  <th>Term</th>
                                  <th>Status</th>
-                                 <th class="text-center">Action</th>
+                                 <th>Action</th>
                               </tr>
                            </thead>
                            <tbody class="table-content">
-                              <tr class="row-color">
+                              <tr>
                                  <td>ax.email</td>
                                  <td><a href="maleto:julie@e4u.com.au">julie@e4u.com.au</a></td>
                                  <td><a href="maleto:julie.1996@gmail.com">julie.1996@gmail.com</a></td>
@@ -88,7 +88,7 @@
                                  <td>12 months</td>
                                  <td>Active</td>
                                  <td>
-                                    <div class="dropdown no-arrow text-center" >
+                                    <div class="dropdown no-arrow" >
                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
@@ -313,6 +313,7 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
 <script>
   $(document).ready(function() {
             let isHidden = false;
@@ -354,11 +355,12 @@
             });
         });
 </script>
+
 <script>
-   var table = $("#profileStatisticTable").DataTable({
+   var table = $("#EmailManageTable").DataTable({
     language: {
         search: "Search: _INPUT_",
-        searchPlaceholder: "Search by Name..."
+        searchPlaceholder: "Search by Member ID"
     },
     info: true,
     paging: true,
@@ -367,7 +369,17 @@
     bStateSave: true,
     order: [[1, 'desc']],
     lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10
+    pageLength: 10,        
+         columns: [
+               { data: 'server', name: 'server' },
+               { data: 'email_Account', name: 'email_Account' },
+               { data: 'notification_address', name: 'notification_address' },
+               { data: 'activation_date', name: 'activation_date' },
+               { data: 'member_id', name: 'member_id' },
+               { data: 'term', name: 'term' },
+               { data: 'status', name: 'status' },
+               { data: 'action', name: 'action', orderable: false, class:'text-center' }
+         ]
 });
 
  </script>

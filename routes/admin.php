@@ -380,7 +380,7 @@ Route::get('/management/email-management',function(){
     return view('admin.management.email-management');
 })->name('email-management');
   
-Route::get('admin-dashboard/management/sim-management',function(){
+Route::get('/management/sim-management',function(){
     return view('admin.management.sim-management');
 })->name('sim-management');
 

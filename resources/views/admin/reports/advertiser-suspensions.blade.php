@@ -4,7 +4,6 @@
    td,
    th {
        vertical-align: middle !important;
-       text-align: center;
    }
    #transactionSummaryTable td {
     white-space: normal !important;
@@ -39,7 +38,7 @@
      </div>
     <div class="col-md-12">        
         <div class="table-responsive membership--inner">
-            <table class="table table-bordered text-center" id="advertiserSuspenstionTable">
+            <table class="table" id="advertiserSuspenstionTable">
                  <thead class="table-bg">
                    <tr>
                     <th>ID</th>
@@ -48,7 +47,7 @@
                     <th>End Date</th>
                     <th>Days</th>
                     <th>Location</th>
-                    <th class="text-center">Action</th>
+                    <th>Action</th>
                    </tr>
                 </thead>
                 <tbody>
@@ -150,7 +149,7 @@
       var table = $('#advertiserSuspenstionTable').DataTable({
             language: {
             search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID..."
+            searchPlaceholder: "Search by Member ID"
          },   
          info: true,
          lengthChange: true,
@@ -178,7 +177,7 @@
                { data: 'end_date', name: 'end_date' },
                { data: 'days', name: 'days' },
                { data: 'location', name: 'location' },
-               { data: 'action', name: 'action', orderable: false }
+               { data: 'action', name: 'action', orderable: false, class:'text-center' }
          ]
       });
    }
