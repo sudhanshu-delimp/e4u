@@ -43,7 +43,7 @@
                         <input type="hidden" name="escort_id" value="{{ request()->get('legboxId')}}">
                         <div class="form-group">
                           <label for="mobileno">Mobile Number</label>
-                          <input type="txt" data-parsley-maxlength="10" required class="form-control" name="phone" id="mobileno" aria-describedby="emailHelp" placeholder="Mobile Number" data-parsley-required-message="Your mobile number is required" value="{{ old('phone') }}" data-parsley-type="digits" data-parsley-type-message="Enter only mobile numbers">
+                          <input type="tel" autocomplete="off" oninput="this.value = this.value.replace(/\D/g,'');"  maxlength="10" data-parsley-maxlength="10" required class="form-control" name="phone" id="mobileno" aria-describedby="emailHelp" placeholder="Mobile Number" data-parsley-required-message="Your mobile number is required" value="{{ old('phone') }}" data-parsley-type="digits" data-parsley-type-message="Enter only mobile numbers">
                           <span id="phone-errors"></span>
                           <div class="termsandconditions_text_color">
                               @error('phone')
