@@ -856,12 +856,12 @@
 
                         </div>
 
-                        <!-- CMS -->
+                        <!-- CMS Templates -->
                         <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
                             data-target="#CMSMenu" aria-expanded="false" aria-controls="CMSMenu">
                             <img width="16" height="17"
                                 src="{{ asset('assets/dashboard/img/menu-icon/cms.png') }}">
-                            <span>CMS</span>
+                            <span>CMS Templates</span>
                         </a>
                         <div id="CMSMenu" class="collapse @if (in_array(request()->segment(3), 
                         ['advertiser-templates', 'e4u-templates', 'agent-templates', 'operator-templates', 'shareholder-templates', 'viewer-templates'])) 
@@ -874,42 +874,42 @@
                                 <img width="16" height="17"
                                     src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'advertiser-templates' ? 'color: #FF3C5F;' : '' }}">Advertiser Templates</span>
+                                    style="{{ request()->segment(3) == 'advertiser-templates' ? 'color: #FF3C5F;' : '' }}">Advertiser</span>
                             </a>
 
                              <a class="collapse-item" href="{{ route('admin.agent-templates') }}">
                                 <img width="16" height="17"
                                     src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'agent-templates' ? 'color: #FF3C5F;' : '' }}">Agent Templates</span>
+                                    style="{{ request()->segment(3) == 'agent-templates' ? 'color: #FF3C5F;' : '' }}">Agent</span>
                             </a>
 
                             <a class="collapse-item" href="{{ route('admin.e4u-templates') }}">
                                 <img width="16" height="17"
                                     src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'e4u-templates' ? 'color: #FF3C5F;' : '' }}">E4U Templates</span>
+                                    style="{{ request()->segment(3) == 'e4u-templates' ? 'color: #FF3C5F;' : '' }}">E4U</span>
                             </a>
 
                             <a class="collapse-item" href="{{ route('admin.operator-templates') }}">
                                 <img width="16" height="17"
                                     src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'operator-templates' ? 'color: #FF3C5F;' : '' }}">Operator Templates</span>
+                                    style="{{ request()->segment(3) == 'operator-templates' ? 'color: #FF3C5F;' : '' }}">Operator</span>
                             </a>
 
                             <a class="collapse-item" href="{{ route('admin.shareholder-templates') }}">
                                 <img width="16" height="17"
                                     src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'shareholder-templates' ? 'color: #FF3C5F;' : '' }}">Shareholder Templates</span>
+                                    style="{{ request()->segment(3) == 'shareholder-templates' ? 'color: #FF3C5F;' : '' }}">Shareholder</span>
                             </a>
                             
                             <a class="collapse-item" href="{{ route('admin.viewer-templates') }}">
                                 <img width="16" height="17"
                                     src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'viewer-templates' ? 'color: #FF3C5F;' : '' }}">Viewer Templates</span>
+                                    style="{{ request()->segment(3) == 'viewer-templates' ? 'color: #FF3C5F;' : '' }}">Viewer</span>
                             </a>
 
 
