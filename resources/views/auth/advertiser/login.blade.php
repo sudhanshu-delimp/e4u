@@ -68,7 +68,12 @@
                     </form>
                </div>
                <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2">
+                @if(config('constants.app_env')!='local')
                   <img src="{{ asset('assets/app/img/login-profile/escort-login.png')}}" class="img-fluid">
+                @else
+                <img  class="img-fluid" src="{{ asset('assets/app/img/local_img/escort-login.png') }}" class="img-fluid">
+                @endif
+                
                </div>
             </div>
          </section>

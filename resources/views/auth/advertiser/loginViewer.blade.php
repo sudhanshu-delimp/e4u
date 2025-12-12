@@ -78,7 +78,13 @@
                     </form>
                </div>
                <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2">
-                  <img src="{{ asset('assets/app/img/login-profile/viver-login.png')}}" class="img-fluid">
+
+                @if(config('constants.app_env')!='local')
+                <img src="{{ asset('assets/app/img/login-profile/viver-login.png')}}" class="img-fluid">
+                @else
+                <img src="{{ asset('assets/app/img/local_img/viver-login.png') }}" class="img-fluid">
+                @endif
+                      
                </div>
             </div>
          </section>
