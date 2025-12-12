@@ -39,10 +39,10 @@
                   <table class="table table-bordered" id="playmateListTable" style="border: none;">
                     <thead style="background-color: #0C223D; color: #ffffff;">
                       <tr>
-                        <th class="text-left">Playmate</th>
+                        <th class="text-left">Playmates</th>
                         <th class="text-left">Profile</th>
-                        <th class="text-left">Current Location</th>
-                        <th class="text-center">Status</th>
+                        {{-- <th class="text-left">Current Location</th> --}}
+                        {{-- <th class="text-center">Status</th> --}}
                         <th class="text-center">Action</th>
                       </tr>
                     </thead>
@@ -89,10 +89,10 @@
             }
         },
         columns: [
-            { data: 'playmate_stage_name', name: 'name'},
-            { data: 'profile_stage_name', name: 'name', orderable: false, searchable: false},
-            { data: 'current_location', name: 'current_location', searchable: false },
-            { data: 'status', name: 'status' , orderable: false, searchable: false, className: 'text-center'},
+            { data: 'playmates', name: 'id'},
+            { data: 'profile_stage_name', name: 'id', orderable: false, searchable: false},
+           // { data: 'current_location', name: 'current_location', searchable: false },
+           // { data: 'status', name: 'status' , orderable: false, searchable: false, className: 'text-center'},
             { data: 'action', name: 'Action', orderable: false, searchable: false, className: 'text-center' },
         ]
         });

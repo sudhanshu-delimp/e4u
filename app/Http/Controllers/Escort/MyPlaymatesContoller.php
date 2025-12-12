@@ -22,7 +22,7 @@ class MyPlaymatesContoller extends Controller
 
     public function MyPlaymateDataTable(Request $request){
         $conditions = [];
-        list($result, $count, $other) = $this->playmate->paginatedList(
+        list($result, $count, $other) = $this->playmate->paginatedGroupedList(
             request()->get('start'),
             request()->get('length'),
             request()->get('order')[0]['column'],
