@@ -42,11 +42,11 @@
                                     <tr>
                                     <th>Agent ID</th>
                                     <th>Agent</th>
-                                    <th>Territory</th>
+                                    <th style="width: 7%">Territory</th>
                                     <th>Mobile</th>
                                     <th>Email</th>
-                                    <th>Clients</th>
-                                    <th>Last Login</th>
+                                    <th style="width: 4%">Clients</th>
+                                    <th style="width: 13%">Last Login</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                     </tr>
@@ -118,7 +118,7 @@
       { data: 'no_of_client', name: 'no_of_client', searchable: true, orderable:false,defaultContent: 'NA' },
       { data: 'last_login', name: 'last_login', searchable: false, orderable:false,defaultContent: 'NA' },
       { data: 'status', name: 'status', searchable: false, orderable:false,defaultContent: 'NA' },
-      { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
+      { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
       ],
 
       order: [[1, 'desc']],
