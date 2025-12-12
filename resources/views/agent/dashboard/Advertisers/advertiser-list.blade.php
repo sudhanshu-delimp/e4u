@@ -67,7 +67,7 @@
             <div class="row">
                <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="table-responsive">
-                  <table class="table table-bordered text-center" id="myAdvertisersList">
+                  <table class="table" id="myAdvertisersList">
                      <thead class="table-bg">
                         <tr>
                            <th>Member ID</th>
@@ -113,7 +113,9 @@
              <textarea class="form-control" rows="3"></textarea>
            </div>
          </form>
+         <div class="modal-footer">
          <button type="button" class="btn-success-modal m-0">Save</button>
+         </div>
        </div>
        
      </div>
@@ -354,7 +356,7 @@ $(document).ready(function() {
    var table = $("#myAdvertisersList").DataTable({
       language: {
          search: "Search: _INPUT_",
-         searchPlaceholder: "Search by Member ID"
+         searchPlaceholder: "Search by Member ID or Profile Name"
         
       },
       processing: true,
@@ -384,7 +386,7 @@ $(document).ready(function() {
             data: 'action',
             name: 'action',
             orderable: false,
-            searchable: false,
+            searchable: false,class:'text-center',
             render: function(data, type, row) {
                return `
                 <div class="dropdown no-arrow archive-dropdown text-center">

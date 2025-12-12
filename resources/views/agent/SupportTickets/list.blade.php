@@ -62,7 +62,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box-body table-responsive">
-                    <table class="table table-hover" id="supportTicketsTable">
+                    <table class="table" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                         <tr>
                             <th>Ticket ID </th>
@@ -164,7 +164,7 @@
             { data: 'created_on', name: 'created_on', orderable: true, defaultContent: 'NA' },
             { data: 'file', name: 'file', orderable: true, defaultContent: 'No Documents' },
             { data: 'status_mod', name: 'status_mod', orderable: true, defaultContent: 'NA' },
-            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
+            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA', class:'text-center' },
         ],
 
         order: [[6, 'desc']], // Default sort by created_on descending

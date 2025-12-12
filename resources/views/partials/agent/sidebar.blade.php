@@ -91,7 +91,7 @@
         <div id="Escorts" class="collapse @if (request()->segment(3) == 'new-requests' ||
                 request()->segment(3) == 'history-requests' ||
                 request()->segment(2) == 'advertiser-list' ||
-                request()->segment(2) == 'pricingsummaries') show @endif;" aria-labelledby="headingTwo"
+                request()->segment(2) == 'calculate-reckoner') show @endif;" aria-labelledby="headingTwo"
             data-parent="#accordionSidebar">
             <div class="py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('agent.new-requests') }}">
@@ -131,7 +131,7 @@
                             fill="#C2CFE0" />
                     </svg>
                     <span class="pl-3"
-                        style="{{ request()->segment(2) == 'pricingsummaries' ? 'color: #e5365a;' : '' }}">Pricing
+                        style="{{ request()->segment(2) == 'calculate-reckoner' ? 'color: #e5365a;' : '' }}">Pricing
                         Summary</span>
                 </a>
             </div>
@@ -146,17 +146,17 @@
 
             <span>Fees</span>
         </a>
-        <div id="Fees" class="collapse @if (request()->segment(3) == 'statements' || request()->segment(3) == 'summary' || request()->segment(3) == 'my-income') show @endif;"
+        <div id="Fees" class="collapse @if (request()->segment(3) == 'monthly-report' || request()->segment(3) == 'summary' || request()->segment(3) == 'my-income') show @endif;"
             data-parent="#accordionSidebar" class="collapse" style="">
 
             <div class="py-0 collapse-inner rounded mb-2">
 
 
-                <a class="collapse-item" href="{{ route('Fees.statements') }}">
+                <a class="collapse-item" href="{{ route('Fees.monthly-report') }}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
                     <span
-                        style="{{ request()->segment(3) == 'statements' ? 'color: #e5365a;' : '' }}">Monthly Report</span>
+                        style="{{ request()->segment(3) == 'monthly-report' ? 'color: #e5365a;' : '' }}">Monthly Report</span>
                 </a>
 
                 <a class="collapse-item" href="{{ route('Fees.summary') }}">
@@ -187,7 +187,7 @@
         <div id="marketing" class=" collapse  @if (request()->segment(3) == 'create-information-package' || request()->segment(3) == 'create-prospect' || request()->segment(3) == 'database-centers' || request()->segment(3) == 'saved-reports') show @endif;"
             aria-labelledby="headingten" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
-                <a class="collapse-item" href="{{ route('agent.database-centers') }}">
+                <a class="collapse-item" href="{{ route('agent.database-centers', ['from' => 'sidebar']) }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/data-center.png') }}">
                     <span style="{{ request()->segment(3) == 'database-centers' ? 'color: #e5365a;' : '' }}">Database (Centres)</span>
                 </a>

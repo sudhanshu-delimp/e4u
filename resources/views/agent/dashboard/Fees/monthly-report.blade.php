@@ -51,7 +51,7 @@
       <div class="col-md-12">
          
          <div class="table-responsive-xl">
-            <table class="table table_admin" id="commissionStatementTable">
+            <table class="table " id="commissionStatementTable">
                <thead class="table-bg">
                   <tr>
                      <th>Report Date</th>
@@ -62,7 +62,7 @@
                      <th>Fees</th>
                      <th>Status</th>
                      <th>Report Approved</th>
-                     <th class="text-center">Action</th>
+                     <th>Action</th>
                   </tr>
                </thead>
                <tbody>
@@ -76,7 +76,7 @@
                      <td>Approved</td>
                      <td>01-11-2025</td>
                      <td>
-                        <div class="dropdown no-arrow text-center">
+                        <div class="dropdown no-arrow">
                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                            </a>
@@ -84,7 +84,7 @@
                               <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#"><i class="fa fa-check-circle"></i> Approve</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#"><i class="fa fa-search-minus"></i>
- Query</a>
+                                    Query</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#commission-report"> <i class="fa fa-eye"></i> View Report</a>
                            </div>
@@ -432,10 +432,17 @@
            info: true,
            searching: true,
            order: [[1, 'asc']],
-           columnDefs: [{
-            targets: 8,
-            orderable: false
-        }]
+            columns: [
+            { data: 'report_date', name: 'report_date', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'billing_period', name: 'billing_period', searchable: true, orderable:false ,defaultContent: 'NA'},
+            { data: 'agent_id', name: 'agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'spend', name: 'spend', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'fee', name: 'fee', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
+            { data: 'report_approved', name: 'report_approved', searchable: false, orderable:true,defaultContent: 'NA' },
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+            ],
        });
    });
    </script>

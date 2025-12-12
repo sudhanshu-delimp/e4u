@@ -64,31 +64,31 @@
                                 <table class="table" id="advProfileSummaryTable">
                                     <thead class="table-bg">
                                         <tr>
-                                            <th scope="col">Member ID
+                                            <th>Member ID
                                             </th>
-                                            <th class="text-center">Name</th>
-                                            <th class="text-center">Mobile</th>
-                                            <th class="text-center">Start Date</th>
-                                            <th class="text-center">End Date</th>
-                                            <th class="text-center">Total Days</th>
-                                            <th class="text-center">Pin Up</th>
-                                            <th class="text-center">Listing Fee</th>
-                                            <th class="text-center">Agent’s Fee</th>
-                                            <th scope="col" class="text-center">Action</th>
+                                            <th>Name</th>
+                                            <th>Mobile</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Total Days</th>
+                                            <th>Pin Up</th>
+                                            <th>Listing Fee</th>
+                                            <th>Agent’s Fee</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>E60165</td>
                                             <td>Jane</td>
-                                            <td class="text-center">0438 028 728</td>
-                                            <td class="text-center">01-01-2025</td>
-                                            <td class="text-center">15-04-2025</td>
-                                            <td class="text-center">104</td>
-                                            <td class="text-center">Yes</td>
-                                            <td class="text-center"><div class="num_value">$<span>1,443.00</span></div></td>
-                                            <td class="text-center"> <div class="num_value">$<span>72.15</span></div></td>
-                                            <td class="text-center">
+                                            <td>0438 028 728</td>
+                                            <td>01-01-2025</td>
+                                            <td>15-04-2025</td>
+                                            <td>104</td>
+                                            <td>Yes</td>
+                                            <td><div class="num_value">$<span>1,443.00</span></div></td>
+                                            <td> <div class="num_value">$<span>72.15</span></div></td>
+                                            <td>
                                                 <div class="dropdown no-arrow">
                                                     <a class="dropdown-toggle" href="#" role="button"
                                                         id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -231,7 +231,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h4 class="text-center">The current Location for Name is: <b>Location</b></h4>
+                            <h4>The current Location for Name is: <b>Location</b></h4>
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                                     id="close_change">Ok</button>
@@ -468,10 +468,18 @@
             searchable: false,
             searching: true,
             bStateSave: true,
-        columnDefs: [{
-            targets: 9,
-            orderable: false
-        }]
+         columns: [
+            { data: 'member_id', name: 'member_id', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'mobile', name: 'mobile', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'start_date', name: 'start_date', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'end_date', name: 'end_date', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'total_day', name: 'total_day', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'pinup', name: 'pinup', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'listing_fee', name: 'listing_fee', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'agent_fee', name: 'agent_fee', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+            ],
         });
     </script>
 @endpush
