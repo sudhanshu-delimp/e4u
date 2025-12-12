@@ -30,7 +30,12 @@
         <div class="row align-items-center">
             <div class="col-md-5 js_pinup_profile">
                 <div href="#" class="tip mb-2 d_custom_home_img">
+
+                    @if(config('constants.app_env')!='local')
                     <img style="" class="img-fluid" src="{{ asset('assets/app/img/home/home-demo.png') }}">
+                    @else
+                     <img style="" class="img-fluid" src="{{ asset('assets/app/img/local_img/home-demo.png') }}">
+                    @endif
                 </div>
             </div>
             <div class="col-md-7">

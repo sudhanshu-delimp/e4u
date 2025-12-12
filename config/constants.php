@@ -32,10 +32,14 @@ return [
         'key'   => env('SMS_API_KEY'),
         'secret' => env('SMS_API_SECRET'),
     ],
+
+
+    
+    
  
 
     
-
+    'app_env' => env('APP_ENV'),
     'dashboard_viewer' => [
 
             'escort' => [
