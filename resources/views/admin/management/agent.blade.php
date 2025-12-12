@@ -40,18 +40,18 @@
                               </div>
                            </div>
                            <div class="table-responsive-xl">
-                              <table class="table mb-3" id="agent_data_table">
+                              <table class="table mb-3 display nowrap" id="agent_data_table">
                                  <thead class="table-bg">
                                     <tr>
-                                    <th scope="col">Agent ID</th>
-                                    <th scope="col">Agent</th>
-                                    <th scope="col">Territory</th>
-                                    <th scope="col">Mobile</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Total Clients</th>
-                                    <th scope="col">Last Login</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
+                                    <th>Agent ID</th>
+                                    <th>Agent</th>
+                                    <th>Territory</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
+                                    <th>Clients</th>
+                                    <th>Last Login</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                     </tr>
                                  </thead>
                                  <tbody class="table-content">
@@ -231,6 +231,7 @@
       lengthChange: true,
       searchable:false,
       bStateSave: false,
+      scroll: true,
 
       ajax: {
       url: "{{ route('admin.agent_list_data_table') }}",
@@ -244,9 +245,9 @@
       { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
       { data: 'phone', name: 'phone', searchable: true, orderable:true ,defaultContent: 'NA'},
       { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
-      { data: 'no_of_client', name: 'no_of_client', searchable: true, orderable:true,defaultContent: 'NA' },
-      { data: 'last_login', name: 'last_login', searchable: false, orderable:true,defaultContent: 'NA' },
-      { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
+      { data: 'no_of_client', name: 'no_of_client', searchable: true, orderable:false,defaultContent: 'NA' },
+      { data: 'last_login', name: 'last_login', searchable: false, orderable:false,defaultContent: 'NA' },
+      { data: 'status', name: 'status', searchable: false, orderable:false,defaultContent: 'NA' },
       { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
       ],
 
