@@ -59,8 +59,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box-body table-responsive-xl">
-                    <table class="table table-hover" id="supportTicketsTable">
-                        <thead id="table-sec" class="table-bg">
+                    <table class="table" id="supportTicketsTable">
+                        <thead class="table-bg">
                         <tr>
                             <th>Ticket ID</th>
                             <th>Department</th>
@@ -158,7 +158,7 @@
             { data: 'created_on', name: 'created_on', searchable: false, orderable:true,defaultContent: 'NA' },
             { data: 'file', name: 'file', orderable: true, defaultContent: 'No Documents' },
             { data: 'status_mod', name: 'status_mod', orderable: true, defaultContent: 'NA' },
-            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
+            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA', class:'text-center' },
             { data: 'id', name: 'id', visible: false,searchable: false }
            ],
            order: [6, 'desc'],
