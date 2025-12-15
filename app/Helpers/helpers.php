@@ -906,9 +906,8 @@ if (!function_exists('sendLoginOtpSms'))
 if (!function_exists('removeSpaceFromString')) 
 {
     function removeSpaceFromString($number) {
-       $clean = preg_replace('/\D/', '', $number);
-       return $clean;
-
+      $number = trim((string) $number);
+      return preg_replace('/[^\p{N}]/u', '', $number);
     }
 }
 

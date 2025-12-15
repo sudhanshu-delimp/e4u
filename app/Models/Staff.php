@@ -22,6 +22,19 @@ class Staff extends Model
         return $this->hasOne('App\Models\StaffSetting', 'staff_id');
     }
 
+    public function getPhoneAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
+
+    public function setPhoneAttribute($value)
+    {
+    
+        $clean = removeSpaceFromString($value);
+        $this->attributes['phone'] = $clean;
+    }
+
+
     protected static function boot()
     {
           parent::boot();

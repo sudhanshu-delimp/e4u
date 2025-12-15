@@ -243,10 +243,10 @@
     @endif
 
 
-     setInterval(function () {
+    setInterval(function () {
     table.ajax.reload(null, false); 
     }, 15000);
-    
+
 
 });
 
