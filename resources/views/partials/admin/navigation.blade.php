@@ -77,30 +77,29 @@ $position = $positions[$postionKey] ?? "";
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                 aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border "></i>
+                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                     Member ID: {{ auth()->user()->member_id }}
                 </a>
                 <a class="dropdown-item" href="#">
-                    <i class="fas fa-user-shield fa-sm fa-fw mr-2 saptate_by_border "></i>
+                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                    Position: {{ $position }}
                 </a>
                 <a class="dropdown-item" href="#">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
+                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                     User Name: {{ auth()->user()->name }}
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('admin.account.edit') }}">
-                    <img class="mr-2 ml-1 pr-1" style="filter: brightness(0) invert(0.2);width:25px;"
-                        src="{{ asset('assets/dashboard/img/menu-icon/edit-my-account.png') }}">
+                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
                     Edit My Account
                 </a>
                 <a class="dropdown-item" href="{{ route('admin.change.password') }}">
-                    <img class="mr-2 ml-1 pr-1" src="{{ asset('assets/dashboard/img/menu-icon/changePassword.png') }}">
+                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
                     Change Password
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/logout.png') }}" alt="">
+                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                     Logout
                 </a>
             </div>
