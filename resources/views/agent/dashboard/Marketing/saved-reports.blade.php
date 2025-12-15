@@ -85,7 +85,7 @@
             <th>Location</th>
             <th>Download</th>
             <th>Status</th>
-            <th class="text-center">Action</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -96,7 +96,7 @@
             <td>Western Australia</td>
             <td><a href="download.pdf">22072025_6152</a></td>
             <td>Pending</td>
-            <td class="text-center">
+            <td>
                <div class="dropdown no-arrow">
                    <a class="dropdown-toggle" href="#" role="button"
                        id="dropdownMenuLink" data-toggle="dropdown"
@@ -151,7 +151,16 @@
     bStateSave: true,
     ordering: false,
     lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10
+    pageLength: 10,
+            columns: [
+            { data: 'report-date', name: 'report-date', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'post_code', name: 'post_code', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'suburb', name: 'suburb', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'location', name: 'location', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'download', name: 'download', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'status', name: 'status', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+            ],
   });
 
   // Show filter options

@@ -431,9 +431,9 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
 }
 
 if (!function_exists('getDefaultBannerTemplates')) {
-    function getBannerTemplates()
+    function getBannerTemplates($group=0)
     {
-        return EscortMedia::where(['type' => 0, 'position' => 9])
+        return EscortMedia::where(['type' => 0, 'banner_group' => strval($group), 'position' => 9])
             ->whereNull('user_id')
             ->get();
     }

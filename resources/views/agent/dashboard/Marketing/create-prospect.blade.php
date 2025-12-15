@@ -134,12 +134,12 @@
                         <table class="table" id="previewTable">
                             <thead class="bg-first">
                                 <tr>
-                                    <th class="text-center">ID</th>
-                                    <th class="text-center">Business Name</th>
-                                    <th class="text-center">Address</th>
-                                    <th class="text-center">Post Code</th>
-                                    <th class="text-center">Mobile</th>
-                                    <th class="text-center">Business No.</th>
+                                    <th>ID</th>
+                                    <th>Business Name</th>
+                                    <th>Address</th>
+                                    <th>Post Code</th>
+                                    <th>Mobile</th>
+                                    <th>Business No.</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -154,12 +154,12 @@
                         <table class="table" id="reportsTable">
                             <thead class="bg-first">
                                 <tr>
-                                    <th class="text-center">ID</th>
-                                    <th class="text-center">Date</th>
-                                    <th class="text-center">Post Code</th>
-                                    <th class="text-center">Listings</th>
-                                    <th class="text-center">Merged</th>
-                                    <th class="text-center">Action</th>
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Post Code</th>
+                                    <th>Listings</th>
+                                    <th>Merged</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -252,7 +252,7 @@
                             <thead class="bg-first">
                                 <!-- Table Headings -->
                                 <tr>
-                                    <td style="text-align:center;">ID</td>
+                                    <td>ID</td>
                                     <td>Business Name</td>
                                     <td>Address</td>
                                     <td>Post Code</td>
@@ -264,7 +264,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-center">369</td>
+                                    <td>369</td>
                                     <td>Body Heat Massage</td>
                                     <td>62 Gordon Rd East Osborne Park</td>
                                     <td>6000</td>
@@ -275,7 +275,7 @@
 
                                 </tr>
                                 <tr>
-                                    <td class="text-center">256</td>
+                                    <td>256</td>
                                     <td>Healthland</td>
                                     <td>510 Murray St Perth</td>
                                     <td>6000</td>
@@ -286,7 +286,7 @@
 
                                 </tr>
                                 <tr>
-                                    <td class="text-center">147</td>
+                                    <td>147</td>
                                     <td>Esquire Spa and Massage</td>
                                     <td>11 Aberdeen St Perth</td>
                                     <td>6000</td>
@@ -321,7 +321,7 @@
             var table = $("#previewTable").DataTable({
                 language: {
                     search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Post Code"
+                    searchPlaceholder: "Search by ID or Post Code"
                 },
                 processing: false,
                 serverSide: false,
@@ -334,13 +334,21 @@
                     [10, 25, 50, 100],
                     [10, 25, 50, 100]
                 ],
-                pageLength: 10
+                pageLength: 10,
+            columns: [
+            { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'date_generated', name: 'date_generated', searchable: true, orderable:false ,defaultContent: 'NA'},
+            { data: 'post_code', name: 'post_code', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'listings', name: 'listings', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'merged', name: 'merged', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+            ],
             });
 
             var table = $("#reportsTable").DataTable({
                 language: {
                     search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Post Code"
+                    searchPlaceholder: "Search by ID or Post Code"
                 },
                 processing: false,
                 serverSide: false,
@@ -353,7 +361,15 @@
                     [10, 25, 50, 100],
                     [10, 25, 50, 100]
                 ],
-                pageLength: 10
+                pageLength: 10,
+            columns: [
+            { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'date_generated', name: 'date_generated', searchable: true, orderable:false ,defaultContent: 'NA'},
+            { data: 'post_code', name: 'post_code', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'listings', name: 'listings', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'merged', name: 'merged', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'bussiness_no', name: 'bussiness_no', searchable: false, orderable:false, defaultContent: 'NA',},
+            ],
             });
         });
     </script>
@@ -392,12 +408,12 @@
                 let tbody = $('#reportsTable tbody').empty();
                 reports.forEach(rep => {
                     tbody.append(`<tr>
-                    <td class="text-center">${rep.id}</td>
-                    <td class="text-center">${rep.date}</td>
-                    <td class="text-center">${rep.postcode}</td>
-                    <td class="text-center">${rep.listings.length}</td>
-                    <td class="text-center">${rep.merged ? 'Yes' : 'No'}</td>
-                    <td class="text-center" class="text-center">
+                    <td>${rep.id}</td>
+                    <td>${rep.date}</td>
+                    <td>${rep.postcode}</td>
+                    <td>${rep.listings.length}</td>
+                    <td>${rep.merged ? 'Yes' : 'No'}</td>
+                    <td>
                           <div class="dropdown no-arrow">
                               <a class="dropdown-toggle" href="#" role="button"
                                   id="dropdownMenuLink" data-toggle="dropdown"
@@ -457,8 +473,8 @@
                 let tbody = $('#previewTable tbody').empty();
                 data.forEach(d => {
                     tbody.append(`<tr>
-        <td class="text-center">${d.id}</td>
-        <td>${d.name}</td><td>${d.address}</td><td class="text-center">${d.postcode}</td><td class="text-center">${d.mobile}</td><td class="text-center">${d.business}</td>
+        <td>${d.id}</td>
+        <td>${d.name}</td><td>${d.address}</td><td>${d.postcode}</td><td>${d.mobile}</td><td>${d.business}</td>
       </tr>`);
                 });
                 $('#previewCard').removeClass('d-none');

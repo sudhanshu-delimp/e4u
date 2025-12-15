@@ -63,7 +63,11 @@
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
-                                                        
+                                                        <tr role="row">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
+                                                                <p><b>Advertising Fees</b></p>
+                                                            </th>
+                                                        </tr>
                                                         <tr role="row" class="custom--row">
                                                             <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 212px;" aria-label="
                                                                 Profile Name">Membership Type
@@ -482,7 +486,11 @@
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
-                                                    
+                                                     <tr role="row">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
+                                                                <p><b>Loyalty Program</b></p>
+                                                            </th>
+                                                        </tr>
                                                     <tr role="row" class="custom--row">
                                                         <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
                                                             Type

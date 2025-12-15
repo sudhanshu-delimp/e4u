@@ -683,29 +683,11 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <!-- default Banner Tab -->
-                                <div class="tab-pane fade" id="default" role="tabpanel"
-                                    aria-labelledby="default-tab">
-                                    @php
-                                        $bannerTemplates = getBannerTemplates();
-                                    @endphp
-                                    <div class="modal-tab">
-                                        @if (!empty($bannerTemplates))
-                                            @foreach ($bannerTemplates as $keyId => $image)
-                                                <div class="item2">
-                                                    <img src="{{ asset($image->path) }}"
-                                                        data-id="{{ $image->id }}"
-                                                        data-position="{{ $image->position ? $image->position : '' }}"
-                                                        class="img-thumbnail defult-image select_image">
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                    </div>
-                                </div>
+                               
 
                                 {{-- Issko remove nahi karna hai Bhai Log --}}
                                 <!-- Templates Tab -->
-                                    <div class="tab-pane fade dnone" id="default" role="tabpanel" aria-labelledby="default-tab">
+                                    <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
 
                                         <!-- Nested Tabs (Static) -->
                                         <ul class="sub-nav-tabs nav nav-tabs mt-3">
@@ -730,59 +712,81 @@
 
                                             <!-- GROUP 1 STATIC -->
                                             <div class="tab-pane fade show active" id="bdsm">
+                                                @php  
+                                                    $bannerTemplates = getBannerTemplates(1);
+                                                @endphp
                                                 <div class="modal-tab">
-                                                    <div class="item2">
-                                                        <img src="{{ asset('escorts/images/template/banner/bdsm/BDSM-Banner01.jpg') }}" class="img-thumbnail defult-image select_image" alt="bdsm">
-                                                    </div> 
-                                                     {{-- @php
-                                                        $bannerTemplates = getBannerTemplates();
-                                                    @endphp
-                                                        @if (!empty($bannerTemplates))
-                                                            @foreach ($bannerTemplates as $keyId => $image)
-                                                                <div class="item2">
-                                                                    <img src="{{ asset($image->path) }}"
-                                                                        data-id="{{ $image->id }}"
-                                                                        data-position="{{ $image->position ? $image->position : '' }}"
-                                                                        class="img-thumbnail defult-image select_image">
-                                                                </div>
-                                                            @endforeach
-                                                        @endif --}}
+                                                @if(!empty($bannerTemplates))
+                                                    @foreach($bannerTemplates as $keyId => $image)
+                                                        <div class="item2">
+                                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                        </div>
+                                                    @endforeach
+                                                @endif
                                                 </div>
                                             </div>
 
                                             <!-- GROUP 2 STATIC -->
                                             <div class="tab-pane fade" id="lingerie">
+                                                @php  
+                                                    $bannerTemplates = getBannerTemplates(2);
+                                                @endphp
                                                 <div class="modal-tab">
-                                                    <div class="item2">
-                                                        <img src="{{ asset('escorts/images/template/banner/lingerie/Lingerie-Banner01.png') }}" class="img-thumbnail defult-image select_image" alt="lingerie">
-                                                    </div> 
+                                                @if(!empty($bannerTemplates))
+                                                    @foreach($bannerTemplates as $keyId => $image)
+                                                        <div class="item2">
+                                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                        </div>
+                                                    @endforeach
+                                                @endif
                                                 </div>
                                             </div>
 
                                             <!-- GROUP 3 STATIC -->
                                             <div class="tab-pane fade" id="passive">
+                                                @php  
+                                                    $bannerTemplates = getBannerTemplates(3);
+                                                @endphp
                                                 <div class="modal-tab">
-                                                    <div class="item2">
-                                                        <img src="{{ asset('escorts/images/template/banner/passive/Passive-Banner01.jpg') }}" class="img-thumbnail defult-image select_image" alt="passive">
-                                                    </div>
+                                                @if(!empty($bannerTemplates))
+                                                    @foreach($bannerTemplates as $keyId => $image)
+                                                        <div class="item2">
+                                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                        </div>
+                                                    @endforeach
+                                                @endif
                                                 </div>
                                             </div>
 
                                             <!-- GROUP 4 STATIC -->
                                             <div class="tab-pane fade" id="sheets">
+                                                @php  
+                                                    $bannerTemplates = getBannerTemplates(4);
+                                                @endphp
                                                 <div class="modal-tab">
-                                                    <div class="item2">
-                                                         <img src="{{ asset('escorts/images/template/banner/sheets/Sheets-Banner01.jpg') }}" class="img-thumbnail defult-image select_image" alt="sheets">
-                                                    </div>
+                                                @if(!empty($bannerTemplates))
+                                                    @foreach($bannerTemplates as $keyId => $image)
+                                                        <div class="item2">
+                                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                        </div>
+                                                    @endforeach
+                                                @endif
                                                 </div>
                                             </div>
 
                                             <!-- GROUP 5 STATIC -->
                                             <div class="tab-pane fade" id="subtle">
+                                                @php  
+                                                    $bannerTemplates = getBannerTemplates(5);
+                                                @endphp
                                                 <div class="modal-tab">
-                                                    <div class="item2">
-                                                         <img src="{{ asset('escorts/images/template/banner/subtle/Subtle-Banner01.png') }}" class="img-thumbnail defult-image select_image" alt="subtle">
-                                                    </div>
+                                                @if(!empty($bannerTemplates))
+                                                    @foreach($bannerTemplates as $keyId => $image)
+                                                        <div class="item2">
+                                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                        </div>
+                                                    @endforeach
+                                                @endif
                                                 </div>
                                             </div>
 

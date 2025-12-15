@@ -166,7 +166,7 @@
                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/list.png') }}">
                                     List Advertisers
                                 </a>
-                                <a class="dropdown-item" href="{{ route('Fees.statements') }}">
+                                <a class="dropdown-item" href="{{ route('Fees.monthly-report') }}">
                                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/report.png') }}">
                                     Monthly Report
                                 </a>

@@ -6148,8 +6148,8 @@ li.parsley-required {
 }
 
 #logoutModal button {
-    padding: 3px 10px;
-    border-radius: 0;
+    /* padding: 3px 10px;
+    border-radius: 0; */
 }
 
 span.image-title {

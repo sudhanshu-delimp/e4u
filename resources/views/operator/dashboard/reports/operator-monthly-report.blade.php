@@ -8,7 +8,7 @@
     {{-- Page Heading --}}
     <div class="row">
         <div class="col-md-12 operator-heading-wrapper">
-            <h1 class="h1">Monthly Report</h1>
+            <h1 class="h1">Operator Monthly Report</h1>
             <span class="oprhelpNote" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
         <div class="col-md-12 mb-4">
@@ -117,9 +117,9 @@
                         <tr>
                             <th>Agent ID</th>
                             <th>Name</th>
-                            <th>Territory</th>
-                            <th>Type</th>
-                            <th>Days</th>
+                            <th class="text-center">Territory</th>
+                            <th class="text-center">Type</th>
+                            <th class="text-center">Days</th>
                             <th>Spend</th>
                             <th>Fee</th>
                         </tr>
@@ -132,9 +132,9 @@
                             aria-expanded="false" aria-controls="details1">
                             <td class="text-left">A10044</td>
                             <td class="opr_expand_arrow">Business 01 <i class="fa fa-chevron-down"></i></td>
-                            <td>ACT</td>
+                            <td class="text-center">ACT</td>
                             <td></td>
-                            <td>65</td>
+                            <td class="text-center">65</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>1,583.00</span></div>
                             </td>
@@ -148,8 +148,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>P</td>
-                            <td>22</td>
+                            <td class="text-center">P</td>
+                            <td class="text-center">22</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>176.00</span></div>
                             </td>
@@ -161,8 +161,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>G</td>
-                            <td>4</td>
+                            <td class="text-center">G</td>
+                            <td class="text-center">4</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>24.00</span></div>
                             </td>
@@ -174,8 +174,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>S</td>
-                            <td>2</td>
+                            <td class="text-center">S</td>
+                            <td class="text-center">2</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>8.00</span></div>
                             </td>
@@ -187,8 +187,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>PU</td>
-                            <td>7</td>
+                            <td class="text-center">PU</td>
+                            <td class="text-center">7</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>475.00</span></div>
                             </td>
@@ -198,7 +198,7 @@
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
-                            <td style="border-top: 1px solid #444; font-weight:bold">35
+                            <td style="border-top: 1px solid #444; font-weight:bold; text-align:center">35
                             </td>
                             <td
                                 style="border-top: 1px solid #444; font-weight:bold; text-align:left;">
@@ -214,7 +214,7 @@
                          <tr class="detail-row" data-group="details1">
                             <td colspan="3"></td>
                             <td class="text-center">MC</td>
-                            <td>30
+                            <td class="text-center">30
                             </td>
                             <td
                                 style="text-align:left;">
@@ -228,7 +228,7 @@
                         </tr>
                          <tr class="detail-row" data-group="details1">
                             <td colspan="4" class="text-right"><strong>Total:</strong></td>
-                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">65
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:center;">65
                             </td>
                             <td
                                 style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
@@ -256,9 +256,9 @@
                             aria-expanded="false" aria-controls="details2">
                             <td class="text-left">A10056</td>
                             <td class="opr_expand_arrow">Business 02 <i class="fa fa-chevron-down"></i></td>
-                            <td>NSW</td>
+                            <td class="text-center">NSW</td>
                             <td></td>
-                            <td>65</td>
+                            <td class="text-center">65</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>1,583.00</span></div>
                             </td>
@@ -272,8 +272,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>P</td>
-                            <td>22</td>
+                            <td class="text-center">P</td>
+                            <td class="text-center">22</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>176.00</span></div>
                             </td>
@@ -285,8 +285,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>G</td>
-                            <td>4</td>
+                            <td class="text-center">G</td>
+                            <td class="text-center">4</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>24.00</span></div>
                             </td>
@@ -298,8 +298,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>S</td>
-                            <td>2</td>
+                            <td class="text-center">S</td>
+                            <td class="text-center">2</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>8.00</span></div>
                             </td>
@@ -311,8 +311,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>PU</td>
-                            <td>7</td>
+                            <td class="text-center">PU</td>
+                            <td class="text-center">7</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>475.00</span></div>
                             </td>
@@ -322,7 +322,7 @@
                         </tr>
                         <tr class="detail-row" data-group="details2">
                             <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
-                            <td style="border-top: 1px solid #444; font-weight:bold">35
+                            <td style="border-top: 1px solid #444; font-weight:bold; text-align:center;">35
                             </td>
                             <td
                                 style="border-top: 1px solid #444; font-weight:bold; text-align:left;">
@@ -338,7 +338,7 @@
                          <tr class="detail-row" data-group="details2">
                             <td colspan="3"></td>
                             <td class="text-center">MC</td>
-                            <td>30
+                            <td class="text-center">30
                             </td>
                             <td
                                 style="text-align:left;">
@@ -352,7 +352,7 @@
                         </tr>
                          <tr class="detail-row" data-group="details2">
                             <td colspan="4" class="text-right"><strong>Total:</strong></td>
-                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">65
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:center;">65
                             </td>
                             <td
                                 style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
@@ -373,7 +373,7 @@
                         {{-- end --}}
                         <tr>
                             <td colspan="4" class="text-right"><strong>Total Agents:</strong></td>
-                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">135
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">135
                             </td>
                             <td
                                 style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
@@ -463,10 +463,10 @@
             [10, 25, 50, 100]
         ],
         pageLength: 10,
-
         columnDefs: [{
             targets: 7,
-            orderable: false
+            orderable: false,
+            class:'text-center'
         }]
     });
 </script>

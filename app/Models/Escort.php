@@ -505,6 +505,14 @@ class Escort extends Model
         ->whereDoesntHave('activeSuspendProfile');
     }
 
+    public function playmateHistory()
+    {
+        return $this->hasMany(
+            PlaymateHistory::class,
+            'escort_id',
+        );
+    }
+
     public function addedBy()
     {
         return $this->belongsToMany(

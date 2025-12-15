@@ -53,20 +53,20 @@
                   <thead class="bg-first">
                      
                     <tr>
-                        <th class="text-center">ID</th>
+                        <th>ID</th>
                         <th>Date Generated</th>
-                        <th class="text-center">Post Code</th>
-                        <th class="text-center">Listings</th>
-                        <th class="text-center">Action</th>
+                        <th>Post Code</th>
+                        <th>Listings</th>
+                        <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                      <tr>
-                        <td class="text-center">105</td>
+                        <td>105</td>
                         <td>15-12-2025</td>
-                        <td class="text-center">6000 - 6004</td>
-                        <td class="text-center">35</td>
-                        <td class="text-center" class="text-center">
+                        <td>6000 - 6004</td>
+                        <td>35</td>
+                        <td>
                            <div class="dropdown no-arrow">
                                <a class="dropdown-toggle" href="#" role="button"
                                    id="dropdownMenuLink" data-toggle="dropdown"
@@ -181,7 +181,7 @@
                             </thead>
                             <tbody>
                               <tr>
-                                <td class="text-center">369</td>
+                                <td>369</td>
                                 <td>Body Heat Massage</td>
                                 <td>62 Gordon Rd East Osborne Park</td>
                                 <td>6000</td>
@@ -192,7 +192,7 @@
                                 
                               </tr>
                               <tr>
-                                <td class="text-center">256</td>
+                                <td>256</td>
                                 <td>Healthland</td>
                                 <td>510 Murray St Perth</td>
                                 <td>6000</td>
@@ -203,7 +203,7 @@
                                 
                               </tr>
                               <tr>
-                                <td class="text-center">147</td>
+                                <td>147</td>
                                 <td>Esquire Spa and Massage</td>
                                 <td>11 Aberdeen St Perth</td>
                                 <td>6000</td>
@@ -309,7 +309,7 @@
         var table = $("#infoPackTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Post Code"
+                searchPlaceholder: "Search by ID or Post Code"
             },
             info: true,
             paging: true,
@@ -321,10 +321,13 @@
                 [10, 25, 50, 100]
             ],
             pageLength: 10,
-            columnDefs: [{
-                targets: 4,
-                orderable: false
-            }]
+            columns: [
+            { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'date_generated', name: 'date_generated', searchable: true, orderable:false ,defaultContent: 'NA'},
+            { data: 'post_code', name: 'post_code', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'listings', name: 'listings', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+            ],
         });
       });
         </script>

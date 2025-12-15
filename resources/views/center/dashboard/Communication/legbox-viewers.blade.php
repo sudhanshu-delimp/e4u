@@ -88,7 +88,7 @@ communicate with you, while logged onto the Website.</li>
             </div>
          </div>
          <div class="table-responsive list-sec">
-            <table class="table table-bordered table-hover mb-0" id="legboxNotificationTable" style="width: 100%;">
+            <table class="table w-100" id="legboxNotificationTable">
                <thead>
                   <tr>
                      <th>Viewer ID</th>
@@ -102,31 +102,6 @@ communicate with you, while logged onto the Website.</li>
                   </tr>
                </thead>
                <tbody>
-                  {{-- <tr>
-                     <td>V60587</td>
-                     <td>Western Australia</td>
-                     <td>Yes</td>
-                     <td>Text</td>
-                     <td>0438 028 728</td>
-                     <td>
-                        <label class="slider-switch">
-                        <input type="checkbox" checked="">
-                        <span class="slider-slider"></span>
-                        </label>
-                     </td>
-                     <td>
-                        <div class="dropdown no-arrow">
-                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                           </a>
-                           <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-phone-slash"></i> Disable Contact</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-bell-slash"></i> Disable Notifications</a>
-                           </div>
-                        </div>
-                     </td>
-                  </tr> --}}
                   <tr class="text-center">
                     <td colspan="7" class="text-center"><h5>No Record Found!</h5></td></tr>
                </tbody>
@@ -194,12 +169,7 @@ $(document).ready(function() {
                 responsive: false,
                 language: {
                     search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by ID or Name...",
-                    lengthMenu: "Show _MENU_ entries",
-                    zeroRecords: "No matching records found",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                    infoEmpty: "No entries available",
-                    infoFiltered: "(filtered from _MAX_ total entries)"
+                    searchPlaceholder: "Search by Viewer ID"
                 },
                 paging: true,
                 searchable: true,
