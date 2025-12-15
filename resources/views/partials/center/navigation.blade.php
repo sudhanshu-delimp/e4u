@@ -188,7 +188,7 @@
 
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('center.account.edit')}}">
-                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
                                     Edit my account
                                 </a>
 

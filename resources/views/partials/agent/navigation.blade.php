@@ -144,7 +144,7 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
-                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}"> 
                                     Member ID: {{auth()->user()->member_id }}
                                 </a>
                                 <a class="dropdown-item" href="#">
@@ -153,7 +153,7 @@
                                 </a>
                                         <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('agent.account.edit') }}">
-                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
                                     Edit My Account
                                 </a>
                                 <a class="dropdown-item" href="{{ route('agent.change.password') }}">
