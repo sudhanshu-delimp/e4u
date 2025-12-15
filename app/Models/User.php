@@ -12,6 +12,7 @@ use App\Models\MassageSetting;
 use App\Models\AgentBankDetail;
 use App\Models\PasswordSecurity;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use App\Models\ViewerNotificationSetting;
@@ -77,6 +78,20 @@ class User extends Authenticatable
         'online',
         'member_id',
     ];
+
+
+    public function getPhoneAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
+
+    public function setPhoneAttribute($value)
+    {
+    
+        $clean = removeSpaceFromString($value);
+        $this->attributes['phone'] = $clean;
+    }
+
 
     public function getTypeAttribute($value)
     {

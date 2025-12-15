@@ -866,3 +866,50 @@ if (!function_exists('sendLoginOtpSms'))
         }      
     }
 }
+
+
+    if (!function_exists('formatMobileNumber')) 
+    {
+        function formatMobileNumber($number) 
+        {
+            
+
+            $number = preg_replace('/\D/', '', $number);
+            $length = strlen($number);
+
+            // If 4 or fewer digits → return as is
+            if ($length <= 4) {
+                return $number;
+            }
+
+            // First 4 digits
+            $part1 = substr($number, 0, 4);
+            $remaining = substr($number, 4);
+
+            // Split remaining into groups of 3, last can be 1 or 2 digits
+            $groups = [];
+
+            while (strlen($remaining) > 3) {
+                $groups[] = substr($remaining, 0, 3);
+                $remaining = substr($remaining, 3);
+            }
+
+            // Add last 1–3 digit remainder
+            if (strlen($remaining) > 0) {
+                $groups[] = $remaining;
+            }
+
+            return $part1 . ' ' . implode(' ', $groups);
+        }
+    }
+
+if (!function_exists('removeSpaceFromString')) 
+{
+    function removeSpaceFromString($number) {
+       $clean = preg_replace('/\D/', '', $number);
+       return $clean;
+
+    }
+}
+
+

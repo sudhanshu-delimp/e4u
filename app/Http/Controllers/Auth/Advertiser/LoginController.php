@@ -196,8 +196,8 @@ class LoginController extends BaseController
     {
         // echo "agent";
 
-        if (! is_null($request->phone)) {
-            $user = User::where('phone', '=', $request->phone)->first();
+        if (! is_null(removeSpaceFromString($request->phone))) {
+            $user = User::where('phone', '=', removeSpaceFromString($request->phone))->first();
         }
         if (! is_null($request->email)) {
             $user = User::where('email', '=', $request->email)->first();
@@ -207,6 +207,8 @@ class LoginController extends BaseController
 
         //dd($user->otp);
 
+
+      
 
         if ($user->otp == (int)$request->otp) {
 

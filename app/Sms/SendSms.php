@@ -18,8 +18,12 @@ class SendSms {
     {
         try 
         {
-            $send = new MessageMedia();
-            return $send->sendMessages($phone, $text);
+            if(config('constants.app_env')!='local')
+            {
+                $send = new MessageMedia();
+                return $send->sendMessages($phone, $text);
+            }
+            
         } 
         catch (Exception $e) {
             logErrorLocal($e);
