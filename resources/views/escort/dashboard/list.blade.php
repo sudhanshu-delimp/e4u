@@ -379,14 +379,14 @@
                         </span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body ">
                     <input type="hidden" id="current" name="current">
                     <input type="hidden" id="previous" name="previous">
                     <input type="hidden" id="label" name="label">
                     <input type="hidden" id="trigger-element">
-                    <h3 class=""><span id="Lname"></span> </h3>
-                    <h3 class=""><span id="log"></span> </h3>
-                    <div class="modal-footer">
+                    <h5 class="popu_heading_style mb-0 mt-4 text-center"><span id="Lname"></span> </h5>
+                    <h5 class="popu_heading_style mb-0 mt-4 text-center"><span id="log"></span> </h5>
+                    <div class="modal-footer justify-content-center">
                         <button type="button" class="btn-cancel-modal" data-dismiss="modal"
                             value="close" id="close_change">Close</button>
                         <button type="button" class="btn-success-modal"
