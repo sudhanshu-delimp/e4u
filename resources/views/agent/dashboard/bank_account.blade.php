@@ -14,13 +14,14 @@
     background-color: #ff3c5f !important;
 }
 #bankAccountTable tbody td {
-    text-align: center;
     vertical-align: middle;
 }
 .dataTables_wrapper .dataTables_filter label input {
     width: 38% !important;
 }
-    
+#bankAccountTable .fa-ellipsis{
+    transform: rotate(0deg)
+}   
     
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -86,12 +87,12 @@
                         <table class="table" id="bankAccountTable">
                             <thead class="table-bg">
                                 <tr>
-                                    <th class="text-center" style="width: 250px !important;" scope="col">Bank</th>
-                                    <th class="text-center" scope="col">Account Name</th>
-                                    <th class="text-center" scope="col">BSB</th>
-                                    <th class="text-center" scope="col">Account Number</th>
-                                    <th class="text-center" scope="col">State</th>
-                                    <th class="text-center" scope="col">Action</th>
+                                    <th style="width: 250px !important;">Bank</th>
+                                    <th>Account Name</th>
+                                    <th>BSB</th>
+                                    <th>Account Number</th>
+                                    <th>State</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                         </table>
@@ -499,7 +500,7 @@ $(function()
             { data: 'bsb', name: 'bsb', searchable: true, orderable:false,defaultContent: 'NA' },
             { data: 'account_numbers', name: 'account_numbers', searchable: true, orderable:false,defaultContent: 'NA' },
             { data: 'states', name: 'states', searchable: true, orderable:false,defaultContent: 'NA' },
-            { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
+            { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
         ]
     });  
 

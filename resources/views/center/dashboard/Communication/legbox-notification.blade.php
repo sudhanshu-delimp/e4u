@@ -42,9 +42,9 @@
           </div>
 
           <!-- Notifications Table -->
-          <div class="table-responsive list-sec">
-            <table class="table table-bordered table-hover" id="legboxNotificationTable">
-              <thead>
+          <div class="table-responsive">
+            <table class="table" id="legboxNotificationTable">
+              <thead class="table-bg">
                 <tr>
                   <th>Ref</th>
                   <th>Start</th>
@@ -61,69 +61,6 @@
                   <td>09-06-2025</td>
                   <td>Adhoc</td>
                   <td>Published</td>
-                  <td class="action-icons">
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-trash"></i> Remove</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-eye"></i> View</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-print"></i> Print</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>124</td>
-                  <td>30-05-2025</td>
-                  <td>05-06-2025</td>
-                  <td>Template</td>
-                  <td>Published</td>
-                  <td class="action-icons">
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-trash"></i> Remove</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-eye"></i> View</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-print"></i> Print</a>
-                        </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>123</td>
-                  <td>30-04-2025</td>
-                  <td>05-05-2025</td>
-                  <td>Template</td>
-                  <td>Completed</td>
-                  <td class="action-icons">
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-trash"></i> Remove</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-eye"></i> View</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-print"></i> Print</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>122</td>
-                  <td>18-05-2025</td>
-                  <td>18-05-2025</td>
-                  <td>Notice</td>
-                  <td>Removed</td>
                   <td class="action-icons">
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -222,7 +159,7 @@
    var table = $("#legboxNotificationTable").DataTable({
     language: {
         search: "Search: _INPUT_",
-        searchPlaceholder: "Search by Ref No..."
+        searchPlaceholder: "Search by Ref"
     },
     info: true,
     paging: true,
@@ -231,7 +168,15 @@
     bStateSave: true,
     order: [[1, 'desc']],
     lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10
+    pageLength: 10,
+         columns: [
+            { data: 'ref', name: 'ref', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'start', name: 'start', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'finish', name: 'finish', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'type', name: 'type', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'status', name: 'status', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+            ]
 });
 
  </script>

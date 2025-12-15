@@ -40,7 +40,7 @@ padding: 2px 8px 2px 8px !important;
                 <!--middle content-->
                 <div class="row">
                     <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1"> Pricing summary</h1>
+                        <h1 class="h1">Pricing summary</h1>
                             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
 
                     </div>

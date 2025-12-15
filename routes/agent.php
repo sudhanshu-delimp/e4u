@@ -164,9 +164,9 @@ Route::get('forms',function(){
     return view('agent.dashboard.Marketing.create-information-package');
 })->name('marketing.create-information-package');
 
-    Route::get('Fees/statements',function(){
-    return view('agent.dashboard.Fees.statements');
-})->name('Fees.statements');
+    Route::get('Fees/monthly-report',function(){
+    return view('agent.dashboard.Fees.monthly-report');
+})->name('Fees.monthly-report');
 
     Route::get('Fees/summary',function(){
     return view('agent.dashboard.Fees.summary');
