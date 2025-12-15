@@ -1050,14 +1050,14 @@
                                     src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'set-fees' ? 'color: #FF3C5F;' : '' }}">Fees
-                                    & Variables - Users</span>
+                                    & Variables</span>
                             </a>
                             <a class="collapse-item" href="{{ route('admin.management.allUser') }}">
                                 <img width="16" height="17"
                                     src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'All-user' ? 'color: #FF3C5F;' : '' }}">Security
-                                    & Access Levels</span>
+                                    & Access</span>
                             </a>
 
                         </div>

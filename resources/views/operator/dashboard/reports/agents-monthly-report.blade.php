@@ -8,7 +8,7 @@
     {{-- Page Heading --}}
     <div class="row">
         <div class="col-md-12 operator-heading-wrapper">
-            <h1 class="h1">Monthly Report</h1>
+            <h1 class="h1">Agents Monthly Report</h1>
             <span class="oprhelpNote" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
         <div class="col-md-12 mb-4">
@@ -142,9 +142,9 @@
                         <tr>
                             <th>Member ID</th>
                             <th>Name</th>
-                            <th>Territory</th>
-                            <th>Type</th>
-                            <th>Days</th>
+                           <th class="text-center">Territory</th>
+                            <th class="text-center">Type</th>
+                            <th class="text-center">Days</th>
                             <th>Spend</th>
                             <th>Fee</th>
                         </tr>
@@ -157,9 +157,9 @@
                             aria-expanded="false" aria-controls="details1">
                             <td class="text-left">E612344</td>
                             <td class="opr_expand_arrow">Oxe Daisy <i class="fa fa-chevron-down"></i></td>
-                            <td>WA</td>
+                            <td class="text-center">WA</td>
                             <td></td>
-                            <td>35</td>
+                            <td class="text-center">35</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>683.00</span></div>
                             </td>
@@ -173,8 +173,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>P</td>
-                            <td>22</td>
+                            <td  class="text-center">P</td>
+                            <td class="text-center">22</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>176.00</span></div>
                             </td>
@@ -186,8 +186,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>G</td>
-                            <td>4</td>
+                            <td class="text-center">G</td>
+                            <td class="text-center">4</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>24.00</span></div>
                             </td>
@@ -199,8 +199,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>S</td>
-                            <td>2</td>
+                            <td class="text-center">S</td>
+                            <td class="text-center">2</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>8.00</span></div>
                             </td>
@@ -212,8 +212,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>PU</td>
-                            <td>7</td>
+                            <td class="text-center">PU</td>
+                            <td class="text-center">7</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>475.00</span></div>
                             </td>
@@ -223,14 +223,14 @@
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">35
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:center;">35
                             </td>
                             <td
-                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold;">
                                 <div class="num_value">$<span>683.00</div>
                             </td>
                             <td
-                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold;">
                                 <div class="num_value">$<span>34.15</div>
                             </td>
                             </td>
@@ -245,9 +245,9 @@
                             aria-expanded="false" aria-controls="details2">
                             <td class="text-left">E612351</td>
                             <td class="opr_expand_arrow">Rose Chaplin <i class="fa fa-chevron-down"></i></td>
-                            <td>WA</td>
+                            <td class="text-center">WA</td>
                             <td></td>
-                            <td>35</td>
+                            <td class="text-center">35</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>683.00</div>
                             </td>
@@ -260,8 +260,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>P</td>
-                            <td>22</td>
+                            <td class="text-center">P</td>
+                            <td class="text-center">22</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>176.00</div>
                             </td>
@@ -273,8 +273,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>G</td>
-                            <td>4</td>
+                            <td class="text-center">G</td>
+                            <td class="text-center">4</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>24.00</div>
                             </td>
@@ -286,8 +286,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>S</td>
-                            <td>2</td>
+                            <td class="text-center">S</td>
+                            <td class="text-center">2</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>8.00</div>
                             </td>
@@ -299,8 +299,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>PU</td>
-                            <td>7</td>
+                            <td class="text-center">PU</td>
+                            <td class="text-center">7</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>475.00</div>
                             </td>
@@ -315,14 +315,14 @@
                         {{-- end --}}
                         <tr class="detail-row" data-group="details2">
                             <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">35
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:center;">35
                             </td>
                             <td
-                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold;">
                                 <div class="num_value">$<span>683.00</div>
                             </td>
                             <td
-                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold;">
                                 <div class="num_value">$<span>34.15</div>
                             </td>
                         </tr>
@@ -333,14 +333,14 @@
                         {{-- end --}}
                         <tr>
                             <td colspan="4" class="text-right"><strong>Total Escorts:</strong></td>
-                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">70
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center">70
                             </td>
                             <td
-                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;">
                                 <div class="num_value">$<span>1,366.00</div>
                             </td>
                             <td
-                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;">
                                 <div class="num_value">$<span>68.30</div>
                             </td>
                         </tr>
@@ -354,9 +354,9 @@
                             aria-expanded="false" aria-controls="details3">
                             <td class="text-left">M612380</td>
                             <td class="opr_expand_arrow">Lin’s Massage <i class="fa fa-chevron-down"></i></td>
-                            <td>WA</td>
+                            <td class="text-center">WA</td>
                             <td></td>
-                            <td>35</td>
+                            <td class="text-center">35</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>683.00</div>
                             </td>
@@ -369,8 +369,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>P</td>
-                            <td>22</td>
+                            <td class="text-center">P</td>
+                            <td class="text-center">22</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>176.00</div>
                             </td>
@@ -382,8 +382,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>G</td>
-                            <td>4</td>
+                            <td class="text-center">G</td>
+                            <td class="text-center">4</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>24.00</div>
                             </td>
@@ -395,8 +395,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>S</td>
-                            <td>2</td>
+                            <td class="text-center">S</td>
+                            <td class="text-center">2</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>8.00</div>
                             </td>
@@ -408,8 +408,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>PU</td>
-                            <td>7</td>
+                            <td class="text-center">PU</td>
+                            <td class="text-center">7</td>
                             <td class="text-left">
                                 <div class="num_value">$<span>475.00</div>
                             </td>
@@ -419,14 +419,14 @@
                         </tr>
                         <tr class="detail-row" data-group="details3">
                             <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">35
+                            <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:center;">35
                             </td>
                             <td
-                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold;">
                                 <div class="num_value">$<span>683.00</div>
                             </td>
                             <td
-                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
+                                style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold;">
                                 <div class="num_value">$<span>34.15</div>
                             </td>
                         </tr>
@@ -438,14 +438,14 @@
                         {{-- end --}}
                         <tr>
                             <td colspan="4" class="text-right"><strong>Total Massage Centres:</strong></td>
-                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">35
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">35
                             </td>
                             <td
-                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;">
                                 <div class="num_value">$<span>683.00</div>
                             </td>
                             <td
-                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;">
                                 <div class="num_value">$<span>34.15</div>
                             </td>
                         </tr>
@@ -460,14 +460,14 @@
                         {{-- end --}}
                         <tr>
                             <td colspan="4" class="text-right"><strong>Total Advertisers:</strong></td>
-                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">105
+                            <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center">105
                             </td>
                             <td
-                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;">
                                 <div class="num_value">$<span>2,049.00</div>
                             </td>
                             <td
-                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;">
                                 <div class="num_value">$<span>102.45</div>
                             </td>
                         </tr>
@@ -533,10 +533,10 @@
             [10, 25, 50, 100]
         ],
         pageLength: 10,
-
         columnDefs: [{
-            targets: 7,
-            orderable: false
+            targets: 8,
+            orderable: false,
+            class:'text-center'
         }]
     });
 </script>

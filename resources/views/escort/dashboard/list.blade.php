@@ -218,7 +218,7 @@
                       <div class="form-group row">
                         <div class="col-lg-12">
                           <p class="mb-1"><b>Notes:</b></p>
-                          <ol class="pl-4">
+                          <ol class="pl-4 text-justify">
                             <li>The Fee is calculated according to the Membership Type.</li>
                             <li>You agree to your Card being debited the Fee.</li>
                             <li>Details of this transaction can be viewed in the Transaction Summary.</li>
@@ -232,7 +232,7 @@
               </div>
       
               <div class="modal-footer" style="text-align: center; display: block;">
-                <button type="submit" class="btn-success-modal">Proceed</button>
+                <button type="submit" class="btn-success-modal">Proceed to Payment</button>
               </div>
             </div>
           </form>
@@ -338,7 +338,7 @@
                                         <div class="form-group row">
                                             <div class="col-lg-12">
                                                 <p class="mb-1"><b>Notes:</b></p>
-                                                <ol class="pl-4">
+                                                <ol class="pl-4 text-justify">
                                                     <li> Use this feature to review and
                                                         make changes to your Profiles. Any changes you make to a Profile
                                                         will be applied to the

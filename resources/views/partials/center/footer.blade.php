@@ -37,8 +37,12 @@
                         </span>
                         </button>
                     </div>
-                    <div class="modal-body bodytext">Are you sure that you want to logout?</div>
-                    <div class="modal-footer">
+                    <div class="modal-body text-center">
+                        <h5 class="popu_heading_style mb-0 mt-4">
+                                Are you sure that you want to logout?
+                        </h5>
+                    </div>
+                    <div class="modal-footer justify-content-center">
                         <button class="btn-cancel-modal btncancel" type="button" data-dismiss="modal">Cancel</button>
                         <form id="modalform" method="POST" action="{{ route('advertiser.logout') }}">
                             @csrf

@@ -85,11 +85,6 @@
         font-weight: 600;
     }
     
-    .my_opr_table th,
-    td {
-        text-align: center;
-    }
-    
     .image-upload-wrap {
         border: 2px dashed var(--color-teal-dark);
     }
