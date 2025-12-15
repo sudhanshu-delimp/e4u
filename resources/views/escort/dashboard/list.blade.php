@@ -781,7 +781,7 @@
         $(document).on('click', '.delete-center', function(e) {
             e.preventDefault();
             var $this = $(this);
-            $("#Lname").html("<p>Would you like to Delete?</p>");
+            $("#Lname").html("Would you like to Delete?");
 
             $('#delete_profile').modal('show');
 
