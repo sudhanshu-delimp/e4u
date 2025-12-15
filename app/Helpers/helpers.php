@@ -908,7 +908,6 @@ if (!function_exists('removeSpaceFromString'))
     function removeSpaceFromString($number) {
        $clean = preg_replace('/\D/', '', $number);
        return $clean;
-
     }
 }
 
