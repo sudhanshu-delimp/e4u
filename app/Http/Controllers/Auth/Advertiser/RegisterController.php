@@ -100,7 +100,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'state_id' => $data['state_id'],
             'type' => $data['type'],
-            'referred_by_agent_id' => $this->getAgentIdIfExist($data),
+            //'referred_by_agent_id' => $this->getAgentIdIfExist($data),
+            'referred_by_agent_id' => $data['agent_id'],
             'password' => Hash::make($data['password']),
             'enabled' => 1,
             'viewer_contact_type' => ["2"],
@@ -117,7 +118,6 @@ class RegisterController extends Controller
      */
     public function register(StoreAdvertiserRegisterRequest $request)
     {
-
         $password = $request->password;
         $user = $this->create($request->all());
         $userDataForEvent = [
@@ -158,6 +158,11 @@ class RegisterController extends Controller
             $pwd = $user->password;
             $otp = $this->user->generateOTP();
             $user->otp = $otp;
+            if(!empty($request->agent_id)) {
+                $user->assigned_agent_id = $user->id;
+                $user->agent_assign_date = date('Y-m-d H:i:s');
+                $user->is_agent_assign = '1';
+            }
             $user->member_id = $user->memberId;
             $user->save();
 
