@@ -14,8 +14,9 @@ class ViewerController extends Controller
         $state = config('escorts.profile.states')[$user->state_id]['stateName'] ?? '';
         $logAndStatus = $user->LoginStatus;
         $passwirdExpire = $user->account_setting;
+        $getLastLoginTime = getUserWiseLastLoginTime($user);
         $passwordExpiryText = CheckExpireDate($passwirdExpire->password_expiry_days);
-       return view('user.dashboard.logs-and-statistics', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire'));
+       return view('user.dashboard.logs-and-statistics', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire', 'getLastLoginTime'));
     }
 
     public function updatePasswordDuration(Request $request){
