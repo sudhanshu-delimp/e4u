@@ -185,7 +185,7 @@
                         @endif
                 </div>
                 <div class="profile_page_name_and_phno px-3">
-                <p>{{$escort->city->name}} - {{ preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $escort->phone)) }}</p>
+                <p>{{$escort->city->name}} - {{  $escort->phone }}</p>
 
 
                     
@@ -1137,7 +1137,7 @@
             <p class="profile_description_contect_pera">
                 <b><i>Hi {{ $escortName }}, I found you on Escorts4U ...</i></b>
                 @php
-                    $formattedNumber = preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $number));
+                    $formattedNumber = $escort->phone;
                     $contactTypes = $escort->contact != null ? $escort->contact : '';
                 @endphp
 
