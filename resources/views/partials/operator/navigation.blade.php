@@ -133,7 +133,7 @@
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('operator.edit-my-account') }}">
-                   <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-user.png') }}">
+                   <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-profile.png') }}">
                     Edit My Account
                 </a>
                 <a class="dropdown-item" href="{{ route('operator.change-password') }}">

@@ -370,7 +370,15 @@ Route::post('/notifications/viewer/{id}/update', [ViewerNotificationController::
 
 ################### PDF ###################
 Route::post('/generate-agent-info-pdf', [AgentPdfController::class, 'generate_agent_info_pdf'])->name('admin.generate-agent-info-pdf');
-
+  
+Route::get('/management/credits',function(){
+    return view('admin.management.reports.credits');
+})->name('admin.credits');
+  
+Route::get('/management/revenue',function(){
+    return view('admin.management.reports.revenue');
+})->name('admin.revenue');
+  
 Route::get('publications/new', function(){
         return view('admin.alerts.new');
     })->name('new');

@@ -3,9 +3,7 @@ $securityLevels = config('staff.security_level');
 $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? $securityLevels[$staff->staff_detail->security_level] : '';
 @endphp            
 <style>
-    .form-group *:not(h6) {
-    color: #C2CFE0 !important;
-}
+
 
 /* Chrome, Safari, Edge, Opera */
 .no-arrow::-webkit-inner-spin-button,
@@ -21,7 +19,7 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
 </style>
 <form name="add_staff" id="edit_staff" method="POST" action="{{ route('admin.store-staff') }}"
     enctype="multipart/form-data">
-    <div class="row">
+    <div class="row" style="max-height: 500px; overflow:auto;">
         <!-- Section: Personal Details -->
         <div class="col-12 my-2">
             <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
@@ -183,7 +181,8 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
             </select>
             <span class="text-danger error-car_parking"></span>
         </div>
-    </div>
+        <div class="col-12">
+            
             
         <div class="form-group">
             <h6 class="border-bottom pb-1 text-blue-primary">Idle Time Preference</h6>
@@ -213,7 +212,7 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
             </div>
 
             <div class="pt-1">
-                <i>Set the Idle time before you are logged out of your Console.</i>
+                <i style="font-size:12px;">Set the Idle time before you are logged out of your Console.</i>
             </div>
         </div>
 
@@ -230,10 +229,12 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
                 <label class="form-check-label" for="edit_twofa_2">Text</label>
             </div>
 
-            <div class="pt-1" >
+            <div class="pt-1" style="font-size:12px;">
                 <i>How your authentication code will be sent to you.</i>
             </div>
         </div>
+        </div>
+    </div>
     @php
         $update_button =
             $staff->status === 'Pending'
@@ -242,7 +243,7 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
                     '>Approve</button>'
                 : '';
     @endphp
-    <div class="modal-footer p-0 pl-2 pb-4">
+    <div class="modal-footer p-0">
         {!! $update_button !!}
         <button type="submit" class="btn-success-modal mr-3">Save</button>
     </div>

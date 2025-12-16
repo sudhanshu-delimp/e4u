@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 @section('style')
+<style>
+</style>
 @stop
 @section('content')
 
@@ -38,7 +40,7 @@
 
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="bothsearch-form" style="gap: 10px;">
-                                                <button type="button" class="btn-common mr-0" data-toggle="modal"
+                                                <button type="button" class="btn-common" data-toggle="modal"
                                                     data-target="#addStaffnew">Add New Staff Member</button>
                                             </div>
                                         </div>
@@ -109,8 +111,7 @@
         <div class="modal-content basic-modal">
             <div class="modal-header">
                 <h5 class="modal-title" id="addStaffnewTitle"><img
-                        src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon"> Add New Staff
-                    Member</h5>
+                        src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon"> Add New Staff Member</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                             class="img-fluid img_resize_in_smscreen"></span>
@@ -119,7 +120,7 @@
             <div class="modal-body">
                 <form name="add_staff" id="add_staff" method="POST" action="{{ route('admin.add-staff') }}"
                     enctype="multipart/form-data">
-                    <div class="row">
+                    <div class="row" style="max-height: 500px; overflow:auto;">
                         <!-- Section: Personal Details -->
                         <div class="col-12 my-2">
                             <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
@@ -279,9 +280,10 @@
                             </select>
                             <span class="text-danger error-car_parking"></span>
                         </div>
-                    </div>
-                    <div class="form-group" style="color: #C2CFE0;">
-                        <h3 class="h3">Idle Time Preference</h3>
+                        <div class="col-12">
+                            
+                    <div class="form-group">
+                        <h6 class="border-bottom pb-1 text-blue-primary">Idle Time Preference</h6>
                         
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="idle_preference_time" id="idle_preference_time_15" value="15">
@@ -305,10 +307,10 @@
                             </div>
 
                         <div class="pt-1" >
-                            <i style="color: #C2CFE0;">Set the Idle time before you are logged out of your Console.</i>
+                            <i style="color: #6e707e; font-size:12px;">Set the Idle time before you are logged out of your Console.</i>
                         </div>
                     </div>
-                    <div class="form-group" style="color: #C2CFE0;">
+                    <div class="form-group">
                         <h6 class="border-bottom pb-1 text-blue-primary">2FA Authentication</h6>
 
                         <div class="form-check form-check-inline">
@@ -323,11 +325,13 @@
                         </div>
 
                         <div class="pt-1" >
-                            <i style="color: #C2CFE0;">How your authentication code will be sent to you.</i>
+                            <i style="color: #6e707e; font-size:12px;">How your authentication code will be sent to you.</i>
+                        </div>
+                    </div>
                         </div>
                     </div>
 
-                    <div class="modal-footer p-0 pl-2 pb-4">
+                    <div class="modal-footer p-0">
                         <button type="submit" class="btn-success-modal mr-3">Save</button>
                     </div>
                 </form>
@@ -345,7 +349,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="editStaffnewTitle"><img
                         src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">Edit Staff
-                    Member</h5>
+                    Member </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                             class="img-fluid img_resize_in_smscreen"></span>

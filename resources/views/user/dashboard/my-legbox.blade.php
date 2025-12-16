@@ -97,25 +97,25 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table id="escortCenterlegboxTable" class="table table-bordered display escortCenterlegboxTableClass" width="100%">
+                    <table id="escortCenterlegboxTable" class="table  display escortCenterlegboxTableClass" width="100%">
                         <thead class="bg-first">
                             <tr>
-                                <th class="text-left" style="background-color: #0c223d;">Escort's Member ID</th>
-                                <th class="text-left">Location</th>
-                                <th class="text-left">Stage Name</th>
-                                <th class="text-left">Gender</th>
-                                <th class="text-left">Rating</th>
-                                <th class="text-center">Notifications
+                                <th>Escort's Member ID</th>
+                                <th>Location</th>
+                                <th>Stage Name</th>
+                                <th>Gender</th>
+                                <th>Rating</th>
+                                <th>Notifications
                                     Enabled</th>
-                                <th class="text-center">Contact
+                                <th>Contact
                                     Enabled</th>
-                                <th class="text-center">Contact
+                                <th>Contact
                                     Method</th>
-                                <th class="text-center">Escort <br>
+                                <th>Escort <br>
                                     Communication</th>
-                                <th class="text-center" style="background-color: #0c223d;">Block Escort</th>
+                                <th>Block Escort</th>
 
-                                <th class="text-center" style="background-color: #0c223d;">Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -136,7 +136,7 @@
                <div><span id="totalMassageList">1</span></div>
             </div>
          </div>
-         <table id="massagelistTable" class="table table-bordered">
+         <table id="massagelistTable" class="table">
             <thead class="bg-first">
                <tr>
                   <th>Massage Member ID</th>
@@ -160,7 +160,7 @@
                   <td>Yes</td>
                   <td>Phone</td>
                   <td>WhatsApp Only</td>
-                  <td class="text-center">
+                  <td>
                      <div class="dropdown no-arrow text-center">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-v text-gray-400"></i>
@@ -585,12 +585,7 @@
                 responsive: false,
                 language: {
                     search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by ID or Stage Name...",
-                    lengthMenu: "Show _MENU_ entries",
-                    zeroRecords: "No matching records found",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                    infoEmpty: "No entries available",
-                    infoFiltered: "(filtered from _MAX_ total entries)"
+                    searchPlaceholder: "Search by Member ID or Stage Name",
                 },
                 paging: true,
                 searchable: true,
@@ -628,7 +623,7 @@
                         }
                     },
                     { data: 'is_blocked', name: 'is_blocked',orderable: true, searchable: false },                       // 9
-                    { data: 'action', name: 'action', orderable: false, searchable: false } // 10
+                    { data: 'action', name: 'action', orderable: false, searchable: false, class:'text-center' } // 10
                 ],
                 columnDefs: [
                     {
@@ -914,7 +909,7 @@
                         { data: 'is_enabled_contact', name: 'is_enabled_contact' },       // 6
                         { data: 'contact_method', name: 'contact_method' },               // 7
                         { data: 'massage_communication', name: 'massage_communication' },                    // 9
-                        { data: 'action', name: 'action', orderable: false, searchable: false } // 10
+                        { data: 'action', name: 'action', orderable: false, searchable: false,class:'text-center' } // 10
                     ]
             });
 
