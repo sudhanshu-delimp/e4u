@@ -376,7 +376,7 @@ $(document).ready(function() {
       columns: [
          { data: 'member_id', name: 'member_id', orderable: true, defaultContent: '' },
          { data: 'name', name: 'name', orderable: true, defaultContent: '' },
-         { data: 'mobile', name: 'mobile', orderable: true, defaultContent: '' },
+         { data: 'phone', name: 'phone', orderable: true, defaultContent: '' },
          { data: 'email', name: 'email', orderable: true, defaultContent: '' },
          { data: 'joined_date', name: 'joined_date', orderable: true, defaultContent: '' },
          { data: 'appointed_date', name: 'appointed_date', orderable: true, defaultContent: '' },
