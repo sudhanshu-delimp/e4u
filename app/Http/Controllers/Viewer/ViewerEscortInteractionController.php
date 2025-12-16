@@ -198,9 +198,9 @@ class ViewerEscortInteractionController extends Controller
                     $isEnabledNotificationByEscort = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->first();
 
                     if($isEnabledNotificationByEscort != null){
-                        $status = $isEnabledNotificationByEscort->escort_disabled_notification == 0 ? 'Yes' : 'No';
+                        $status = $isEnabledNotificationByEscort->escort_disabled_notification == 0 ? 'Enabled' : 'Disabled';
                     }else{
-                        $status = 'Yes';
+                        $status = 'Enabled';
                     }
                     
                     return $status;
@@ -209,9 +209,9 @@ class ViewerEscortInteractionController extends Controller
                     $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->first();
 
                     if($escortViewerInteractions != null){
-                        $status = $escortViewerInteractions && $escortViewerInteractions->escort_disabled_contact == 0 ? 'Yes' : 'No';
+                        $status = $escortViewerInteractions && $escortViewerInteractions->escort_disabled_contact == 0 ? 'Enabled' : 'Disabled';
                     }else{
-                        $status = 'Yes';
+                        $status = 'Enabled';
                     }
                     
                     return $status;
