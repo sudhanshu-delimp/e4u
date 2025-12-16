@@ -97,24 +97,19 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table id="escortCenterlegboxTable" class="table  display escortCenterlegboxTableClass" width="100%">
+                    <table id="escortCenterlegboxTable" class="table  display escortCenterlegboxTableClass w-100">
                         <thead class="bg-first">
                             <tr>
-                                <th>Escort's Member ID</th>
+                                <th>Member ID</th>
                                 <th>Location</th>
                                 <th>Stage Name</th>
                                 <th>Gender</th>
                                 <th>Rating</th>
-                                <th>Notifications
-                                    Enabled</th>
-                                <th>Contact
-                                    Enabled</th>
-                                <th>Contact
-                                    Method</th>
-                                <th>Escort <br>
-                                    Communication</th>
-                                <th>Block Escort</th>
-
+                                <th>Notifications</th>
+                                <th>Contact</th>
+                                <th>Method</th>
+                                <th>Mobile</th>
+                                <th>Block</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -136,80 +131,22 @@
                <div><span id="totalMassageList">1</span></div>
             </div>
          </div>
-         <table id="massagelistTable" class="table">
+         <table id="massagelistTable" class="table w-100">
             <thead class="bg-first">
                <tr>
-                  <th>Massage Member ID</th>
+                  <th>Member ID</th>
                   <th>Location</th>
                   <th>Business Name</th>
                   <th>Open Now</th>
                   <th>Rating</th>
-                  <th>Contact Enabled</th>
-                  <th>Contact Method</th>
-                  <th>Massage Centre Communication</th>
+                  <th>Contact</th>
+                  <th>Method</th>
+                  <th>Mobile</th>
                   <th>Action</th>
                </tr>
             </thead>
             <tbody>
-               <tr>
-                  <td>MC001</td>
-                  <td>Delhi</td>
-                  <td>Urban Spa</td>
-                  <td>Yes</td>
-                  <td>4.5</td>
-                  <td>Yes</td>
-                  <td>Phone</td>
-                  <td>WhatsApp Only</td>
-                  <td>
-                     <div class="dropdown no-arrow text-center">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v text-gray-400"></i>
-                        </a>
-                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink1">
-                           <div class="custom-tooltip-container">
-                              <a class="dropdown-item align-item-custom toggle-contact" href="#" title="Click to disable contact" data-toggle="modal" data-target="#massageProfileModal"> 
-                              <i class="fa fa-phone-slash me-1"></i> 
-                              <span>Disable Contact</span>
-                              </a>
-                              <span class="tooltip-text">Viewer can’t contact this escort again</span>
-                              <div class="dropdown-divider"></div>
-                           </div>
-                           <div class="custom-tooltip-container">
-                              <a class="dropdown-item align-item-custom toggle-notification" href="#" title="Click to disable notification" data-toggle="modal" data-target="#notificationProfileModal"> 
-                              <i class="fa fa-bell-slash me-1"></i> 
-                              <span>Disable Notifications</span>
-                              </a>
-                              <span class="tooltip-text">Viewer will not get notifications from this escort</span>
-                              <div class="dropdown-divider"></div>
-                           </div>
-                           <div class="custom-tooltip-container">
-                              <a class="dropdown-item align-item-custom escortRating" href="#" title="Rate" data-toggle="modal" data-target="#rateProfileModal"> 
-                              <i class="fa fa-star"></i> 
-                              Rate
-                              </a>
-                              <span class="tooltip-text">Rate this Escort</span>
-                              <div class="dropdown-divider"></div>
-                           </div>
-                           <div class="custom-tooltip-container">
-                              <a class="dropdown-item align-item-custom escortProfileRemove" href="#" data-toggle="modal" data-toggle="modal" data-target="#removeProfileModal"> 
-                              <i class="fa fa-trash"></i> 
-                              Remove
-                              </a>
-                              <span class="tooltip-text">Viewer can’t contact this escort again</span>
-                              <div class="dropdown-divider"></div>
-                           </div>
-                           <div class="custom-tooltip-container">
-                              <a class="dropdown-item align-item-custom escortProfileView" href="#" data-toggle="modal" data-target="#viewProfileModal"> 
-                              <i class="fa fa-eye"></i> 
-                              View
-                              </a>
-                              <span class="tooltip-text">View the Escort’s Profile</span>
-                           </div>
-                        </div>
-                     </div>
-                  </td>
-               </tr>
-               <!-- Add more static rows as needed -->
+             
             </tbody>
          </table>
       </div>
@@ -469,46 +406,6 @@
     </div>
     {{-- End Modal --}}
 
-    {{-- Escort Profile Not Found Modal --}}
-    {{-- <div class="modal fade upload-modal" id="escortProfileMissingModal" tabindex="-1" role="dialog"
-        aria-labelledby="escortProfileMissingLabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <img src="{{ asset('assets/dashboard/img/not-allowed.png') }}"
-                            style="width:45px; padding-right:10px;">
-                        <span class="text-white">Profile Not Found</span>
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
-                </div>
-
-                <div class="modal-body pb-0 agent-tour">
-                    <div class="row">
-                        <div class="col-md-12 mb-3 text-center">
-                            <p class="mb-0">This Escort does not presently have any Listed Profiles.</p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <div class="form-group d-flex align-items-center justify-content-end">
-                                <button type="button" class="btn-success-modal " data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div> --}}
-
 
 
     <div class="modal fade upload-modal bd-example-modal-lg" id="escortProfileMissingModal" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
@@ -604,7 +501,7 @@
                 },
                 columns: [
                     { data: 'escort_id', name: 'escort_id' },                         // 0
-                    { data: 'location', name: 'location' },                        // 2
+                    { data: 'location', name: 'location' },                        // 1
                     { data: 'name', name: 'name' },                        // 2
                     { data: 'gender', name: 'gender' },                               // 3
                     { data: 'rating_label', name: 'rating_label' },                   // 4
