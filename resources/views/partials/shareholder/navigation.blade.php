@@ -40,7 +40,7 @@
     <!-- Topbar Navbar -->
     <div class="navbar-nav ">
         {{-- Nav Item - Search visible all screen not only xs --}}
-        <form class="form-inline navbar-search form-inline-custom" style="width: 14rem;">
+        <form class="form-inline navbar-search form-inline-custom d-none" style="width: 14rem;">
             <div class="input-group " style="border: 1px solid #D6D7E3; border-radius: 7px;">
                 <div class="input-group-append">
                     <button class="btn" type="button">
