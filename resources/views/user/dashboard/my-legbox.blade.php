@@ -102,13 +102,13 @@
                             <tr>
                                 <th>Member ID</th>
                                 <th>Location</th>
-                                <th>Stage Name</th>
+                                <th style="width: 95px;">Stage Name</th>
                                 <th>Gender</th>
                                 <th>Rating</th>
                                 <th>Notifications</th>
                                 <th>Contact</th>
                                 <th>Method</th>
-                                <th>Mobile</th>
+                                <th style="width:80px">Mobile</th>
                                 <th>Block</th>
                                 <th>Action</th>
                             </tr>

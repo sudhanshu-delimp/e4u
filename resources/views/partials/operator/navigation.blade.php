@@ -35,7 +35,7 @@
 
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
 
-        <form class="form-inline form-inline-custom navbar-search custom-nav-search opr-itmes" style="width: 23rem;">
+        <form class="form-inline form-inline-custom navbar-search custom-nav-search opr-itmes d-none" style="width: 23rem;">
             <div class="input-group dk-border-radius">
                 <div class="input-group-append">
                     <button class="btn" type="button">
