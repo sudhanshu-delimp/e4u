@@ -511,13 +511,8 @@
                     {
                         data: 'escort_communication',
                         name: 'escort_communication',
-                        orderable: true,
-                        render: function (data, type, row) {
-                            if (!data) return '';
-                            let str = String(data); 
-                            // Har 12 characters ke baad line break
-                            return str.replace(/(.{12})/g, '$1<br>');
-                        }
+                        orderable: true
+                        
                     },
                     { data: 'is_blocked', name: 'is_blocked',orderable: true, searchable: false },                       // 9
                     { data: 'action', name: 'action', orderable: false, searchable: false, class:'text-center' } // 10
