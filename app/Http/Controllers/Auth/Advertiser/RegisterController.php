@@ -85,7 +85,7 @@ class RegisterController extends Controller
 
     protected function getAgentIdIfExist($data){
         if ($data['agent_id']) {
-            $agent = User::where('member_id', $data['agent_id'])->where('type', 5)->first();
+            $agent = User::where('member_id', $data['agent_id'])->where('type', '5')->first();
             return $agent ? $agent->member_id : null;
         }else{
             return null;
@@ -159,7 +159,8 @@ class RegisterController extends Controller
             $otp = $this->user->generateOTP();
             $user->otp = $otp;
             if(!empty($request->agent_id)) {
-                $user->assigned_agent_id = $user->id;
+                $agent = User::where('member_id', $request->agent_id)->where('type', '5')->first();
+                $user->assigned_agent_id = $agent->id;
                 $user->agent_assign_date = date('Y-m-d H:i:s');
                 $user->is_agent_assign = '1';
             }
