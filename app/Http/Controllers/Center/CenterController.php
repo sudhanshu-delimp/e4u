@@ -324,8 +324,9 @@ class CenterController extends Controller
         $state = config('escorts.profile.states')[$user->state_id]['stateName'] ?? '';
         $logAndStatus = $user->LoginStatus;
         $passwirdExpire = $user->account_setting;
+        $getLastLoginTime = getUserWiseLastLoginTime($user);
         $passwordExpiryText = CheckExpireDate($passwirdExpire->password_expiry_days);
-        return view('center.dashboard.logs-and-status',compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire'));
+        return view('center.dashboard.logs-and-status',compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire', 'getLastLoginTime'));
     }
 
     public function updatePasswordDuration(UpdateEscortRequest $request)
