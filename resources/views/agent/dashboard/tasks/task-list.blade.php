@@ -11,6 +11,9 @@
             width: clamp(50%, 8vw, 100%) !important;
 
         }
+        .table-responsive{
+            overflow: visible;
+        }
         @media (max-width:1024px){
             
             .task-1{
@@ -96,9 +99,9 @@
                         </div>
                     </div>
                     <div class="card-body p-0 Dash-table task_table">
-                        <div class="table-full-width table-responsive">
+                        <div class="table-responsive">
                             <table class="table table-bordered " >
-                                <thead style="background-color: #0C223D; color: #ffffff;">
+                                <thead class="bg-first">
                                     <tr>
                                         <th>Task</th>
                                         <th class="text-center">Status</th>
