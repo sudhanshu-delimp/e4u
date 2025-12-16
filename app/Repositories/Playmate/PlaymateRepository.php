@@ -13,15 +13,15 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
     {
         $this->model = $playmate;
     }
-
-    public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id = null, $conditions = [])
+    
+    public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $escort_id = null, $conditions = [])
     {
         $order_field = $columns[$order_key]['name'];
         $searchables = $this->getSearchableFields($columns);
         $query = $this->model::with('playmate','escort');
 
-        if($user_id){
-            $query = $query->where('user_id',$user_id);
+        if($escort_id){
+            $query = $query->where('escort_id',$escort_id);
         }
 
         if(count($conditions)>0){
@@ -100,7 +100,7 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
             $action = '<div class="dropdown no-arrow archive-dropdown">
             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
-                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('profile.description',$item->playmate->id).'"  target="_blank"> <i class="fa fa-eye " ></i> View</a>'; 
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 trash-playmate" id="cdTour" href="#" data-id="'.$item->id.'"> <i class="fa fa-trash " ></i> Remove</a>'; 
            
             $action .= '</div></div>';
             $item->action = $action;
@@ -126,7 +126,7 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
             $query->where(function ($query) use ($searchables, $search) {
 
                 // Search in playmate relation
-                $query->whereHas('playmate', function ($subQuery) use ($searchables, $search) {
+                $query->whereHas('escort', function ($subQuery) use ($searchables, $search) {
                     $subQuery->where(function ($q) use ($searchables, $search) {
                         foreach ($searchables as $column) {
             
@@ -146,7 +146,7 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
         
         if (in_array($order_field,['name'])) {
             $query->orderBy(
-                Escort::select("{$order_field}")->whereColumn('escorts.id', 'playmate_history.playmate_id')->limit(1),$dir
+                Escort::select("{$order_field}")->whereColumn('escorts.id', 'playmate_history.escort_id')->limit(1),$dir
             );
         }
         else {
@@ -176,9 +176,8 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
             $item->profile_stage_name = $profileColumn;
             $action = '<div class="dropdown no-arrow archive-dropdown">
             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
-                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('profile.description',$item->escort->id).'"  target="_blank"> <i class="fa fa-eye " ></i> View</a>'; 
-           
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'; 
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#playmates_listings" data-escort-id="'.$item->escort->id.'"> <i class="fa fa-eye " ></i> Playmates List</a>'; 
             $action .= '</div></div>';
             $item->action = $action;
         }
@@ -188,8 +187,9 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
     public function getPlaymates($escort_id){
         $escort = Escort::find($escort_id);
         $playmateColumn = "<div class='d-flex justify-content-start gap-10 align-items-center flex-wrap'>";
-        if($escort->playmateHistory->count() > 0){
-            foreach($escort->playmateHistory as $history){
+        $items = $escort->playmateHistory->where('is_deleted','0');
+        if($items->count() > 0){
+            foreach($items as $history){
             $playmateImage = $history->playmate->DefaultImage ? asset($history->playmate->DefaultImage) : asset('avatars/default/default_escort.png');
             $playmateColumn .= "<div class='playmate_group'>
             <div class='playmate_col'>
@@ -207,5 +207,18 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
         }
         $playmateColumn .= "</div>";
         return $playmateColumn;
+    }
+
+    public function trashPlaymateHistory(int $escortId, int $playmateId): void
+    {
+        $this->model::where(function ($q) use ($escortId, $playmateId) {
+                $q->where('escort_id', $escortId)
+                ->where('playmate_id', $playmateId);
+            })
+            ->orWhere(function ($q) use ($escortId, $playmateId) {
+                $q->where('escort_id', $playmateId)
+                ->where('playmate_id', $escortId);
+            })
+            ->update(['is_deleted' => '1']);
     }
 }

@@ -147,6 +147,7 @@ class PlaymateController extends Controller
             ],
             [
                 'user_id' => $user_id,
+                'is_deleted' => '0',
                 'created_at' => now(),
                 'updated_at' => now()
             ]
