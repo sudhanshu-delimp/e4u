@@ -6143,6 +6143,27 @@ li.parsley-required {
     font-size: small;
 }
 
+.view_staff_details td {
+    padding: 5px .75rem !important;
+}
+
+.view_staff_details th {
+    padding: 5px .75rem !important;
+    font-weight: bold;
+}
+
+.modal .form-control::placeholder {
+    color: #6e707e !important;
+}
+
+.modal select {
+    color: #6e707e !important;
+}
+
+.modal .form-check-label {
+    color: #6e707e !important;
+}
+
 #parsley-id-multiple-type {
     margin-left: 0.5rem;
 }
