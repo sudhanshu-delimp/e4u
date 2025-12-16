@@ -17,7 +17,9 @@
         .paging_simple_numbers {
             margin-top: 18px;
         }
-
+.table-responsive{
+            overflow: visible;
+        }
         /* .dataTables_info {
                 margin-top: 18px;
             } */
