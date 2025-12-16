@@ -731,8 +731,7 @@ class User extends Authenticatable
                 $settings = $user->agent_settings;
             }
 
-           
-            
+     
             if (isset($settings->twofa) && ($settings->twofa == '1' && $user->email != "")) {
                 sendLoginOtpEmail($otp, $user);
             }
@@ -742,8 +741,7 @@ class User extends Authenticatable
             }
             else
             {
-                 sendLoginOtpEmail($otp, $user);
-  
+                sendLoginOtpSms($otp, $user);
             }
     }
 

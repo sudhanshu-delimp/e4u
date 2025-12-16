@@ -44,4 +44,30 @@ class GetCurrentUserGeolocationController extends Controller
             'data' => $result
         ]);
     }
+
+
+    public function getCurrentState(Request $request)
+    {
+        $lat = $request->input('data.lat');
+        $lng = $request->input('data.lng');
+        $result = getRealTimeGeolocationOfUsers($lat, $lng);
+       if(isset($result['state']))
+       {
+            return response()->json([
+                'status' => true,
+                'data' => $result
+            ]);
+       }
+       else
+       {
+            return response()->json([
+                'status' => false,
+                'data' => []
+            ]);
+       }
+
+
+        
+    }
+
 }

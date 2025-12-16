@@ -467,6 +467,47 @@
     });
 
 
+        $(document).ready(function () {
+         var selectedLocation = {
+                lat : '',
+                lng : '',
+                tiemzone : ''
+            }
+
+            navigator.geolocation.getCurrentPosition(async function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                selectedLocation.lat = latitude;
+                selectedLocation.lng = longitude;
+                getCurrentState(selectedLocation);
+             });
+
+
+               function getCurrentState(data) {
+                $.ajax({
+                    url: '{{ route("user.current.state") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        data: data
+                    },
+                    success: function (response) {
+
+                        if (response?.data?.state == null) {
+                            alert('Your location not found');
+                        }
+                        else
+                        {
+                            console.log('response.data.state',response.data.state);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error in location filter:', error);
+                    }
+                });
+            }
+
+        })
        
 
 </script>

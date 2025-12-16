@@ -22,6 +22,15 @@
                                 <span>
                                     <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
                                 </span>
+
+                                <span>
+                                    <span class="separator">|</span> <b>Current Location :  </b><span class="user-values live_current_location">--</span> 
+                                </span>
+                                
+                                <span>
+                                    <span class="separator">|</span>  <b>Location time :  </b><span class="user-values live_current_time">00:00 AM</span>
+                                </span>
+
                            </div>
                         </div>
                     </div>
