@@ -15,6 +15,7 @@ class AgentDashboardController extends Controller
         $state = config('escorts.profile.states')[$user->state_id]['stateName'] ?? '';
         $logAndStatus = $user->LoginStatus;
         $passwirdExpire = $user->account_setting;
+        $getLastLoginTime = getUserWiseLastLoginTime($user);
         $passwordExpiryText = CheckExpireDate($passwirdExpire->password_expiry_days);
         //Get Advertisers Online count
         $currentState = $user->state_id;
@@ -26,7 +27,7 @@ class AgentDashboardController extends Controller
         $sameStateCount = (clone $basecQuery)->where('users.state_id', $currentState)->count();
         $outsideStateCount  = (clone $basecQuery)->where('users.state_id', '!=', $currentState)->count();
        
-        return view('agent.dashboard.logs-and-status', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire', 'sameStateCount', 'outsideStateCount')); 
+        return view('agent.dashboard.logs-and-status', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire', 'sameStateCount', 'outsideStateCount', 'getLastLoginTime')); 
     }
 
     public function updatePasswordDuration(UpdateEscortRequest $request)
