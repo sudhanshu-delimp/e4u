@@ -72,38 +72,38 @@
                     </div>
                 </div>
                 <div class="table-responsive custom-responsive">
-                    <table id="viewerTable" class="table table-bordered custom--newtable" width="100%">
+                    <table id="viewerTable" class="table custom--newtable" width="100%">
                         <thead class="bg-first">
                             <tr>
-                                <th class="text-left">Viewer ID </th>
-                                <th class="text-left">Home State</th>
-                                <th class="text-left">Profile ID</th>
-                                <th class="text-center">Notifications
+                                <th>Viewer ID </th>
+                                <th>Home State</th>
+                                <th>Profile ID</th>
+                                <th>Notifications
                                     Enabled</th>
-                                <th class="text-center">Contact
+                                <th>Contact
                                     Enabled</th>
-                                <th class="text-center">Contact
+                                <th>Contact
                                     Method</th>
-                                <th class="text-center">Viewer
+                                <th>Viewer
                                     Communication</th>
-                                <th class="text-center">My Playbox
+                                <th>My Playbox
                                     Subscription</th>
-                                <th class="text-center">Block
+                                <th>Block
                                     Viewer</th>
-                                <th class="text-center remove--icon">Action</th>
+                                <th class="remove--icon">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
 
-                                <td class="text-center">V60587</td>
-                                <td class="text-center">Western Australia</td>
-                                <td class="text-center">Yes or No </td>
-                                <td class="text-center">Yes</td>
-                                <td class="text-center">Text</td>
+                                <td>V60587</td>
+                                <td>Western Australia</td>
+                                <td>Yes or No </td>
+                                <td>Yes</td>
+                                <td>Text</td>
                                 <td>0438 028 728</td>
-                                <td class="text-center">Yes</td>
-                                <td class="text-center">
+                                <td>Yes</td>
+                                <td>
 
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" id="customSwitch1">
@@ -112,7 +112,7 @@
 
                                 </td>
 
-                                <td class="theme-color text-center bg-white">
+                                <td class="theme-color bg-white">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -134,21 +134,21 @@
                             </tr>
                             <tr>
 
-                                <td class="text-center">V30789</td>
-                                <td class="text-center">Victoria</td>
-                                <td class="text-center">Yes or No</td>
-                                <td class="text-center">Yes</td>
-                                <td class="text-center">Text</td>
+                                <td>V30789</td>
+                                <td>Victoria</td>
+                                <td>Yes or No</td>
+                                <td>Yes</td>
+                                <td>Text</td>
                                 <td>viewer@gmail.com </td>
-                                <td class="text-center">Yes</td>
-                                <td class="text-center">
+                                <td>Yes</td>
+                                <td>
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" id="customSwitch2">
                                         <label class="custom-control-label" for="customSwitch2"></label>
                                     </div>
                                 </td>
 
-                                <td class="theme-color text-center bg-white">
+                                <td class="theme-color bg-white">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -268,7 +268,7 @@
                     { data: 'viewer_comm', name: 'viewer_comm' }, // 5
                     { data: 'playbox_subscription', name: 'playbox_subscription' },       // 6
                     { data: 'block_viewer', name: 'block_viewer' },                       // 9
-                    { data: 'action', name: 'action', orderable: false, searchable: false } // 10
+                    { data: 'action', name: 'action', orderable: false, searchable: false, class:'text-center' } // 10
                 ],
                
                 autoWidth: false

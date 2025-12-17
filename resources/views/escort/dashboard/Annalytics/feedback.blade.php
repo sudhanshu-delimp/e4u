@@ -39,8 +39,7 @@
             <div class="col-lg-12">                
                 <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">                  
                     
-                    <!-- Card Start -->
-                    <div class="col-md-3 mb-3">
+                    <div class="col-lg-12 card-list-wrapper"> 
                         <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                             <div class="statistics-text">
                                 <div class="statistics-label">Reviews Today
@@ -51,11 +50,7 @@
                                 <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
                             </div>
                         </div>
-                    </div>
-                    <!-- Card End --> 
                     
-                    <!-- Card Start -->
-                    <div class="col-md-3 mb-3">
                         <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                             <div class="statistics-text">
                                 <div class="statistics-label">Reviews This Week
@@ -66,10 +61,7 @@
                                 <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
                             </div>
                         </div>
-                    </div>
-                    <!-- Card End -->
-                    <!-- Card Start -->
-                    <div class="col-md-3 mb-3">
+                    
                         <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                             <div class="statistics-text">
                                 <div class="statistics-label"> Year to Date
@@ -81,15 +73,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Card End -->
-                    {{-- blank card--}}
-                    <div class="col-md-3">
-                        
-                    </div>
-                    {{-- end --}}
-                    
-                    <!-- Card Start -->
-                    <div class="col-md-3 mb-3">
+                    <div class="col-lg-12 card-list-wrapper"> 
                         <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                             <div class="statistics-text">
                                 <div class="statistics-label">Recommendations Today
@@ -100,11 +84,7 @@
                                 <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
                             </div>
                         </div>
-                    </div>
-                    <!-- Card End --> 
                     
-                    <!-- Card Start -->
-                    <div class="col-md-3 mb-3">
                         <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                             <div class="statistics-text">
                                 <div class="statistics-label">Recommendations This Week
@@ -115,10 +95,7 @@
                                 <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
                             </div>
                         </div>
-                    </div>
-                    <!-- Card End -->
-                    <!-- Card Start -->
-                    <div class="col-md-3 mb-3">
+                    
                         <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                             <div class="statistics-text">
                                 <div class="statistics-label"> Year to Date
