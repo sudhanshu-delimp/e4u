@@ -730,6 +730,7 @@ Route::post('/resend-otp', [App\Http\Controllers\User\Auth\RegisterController::c
 
 Route::post('/get-geolocation-data', [GetCurrentUserGeolocationController::class, 'getRealTimeGeo'])->name('user.current.location');
 Route::post('/get-current-state', [GetCurrentUserGeolocationController::class, 'getCurrentState'])->name('user.current.state');
+Route::get('/get_current_location_time', [GetCurrentUserGeolocationController::class, 'get_current_location_time'])->name('user.get_current_location_time');
 
 
 

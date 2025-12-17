@@ -84,9 +84,23 @@ class GetCurrentUserGeolocationController extends Controller
                 'data' => []
             ]);
        }
+    }
 
+    public function get_current_location_time(Request $request)
+    {
+        if(auth()->user()->current_state_id &&  auth()->user()->current_state_id!="")
+        {
+            
+            $current_state_id = auth()->user()->current_state_id;
+            $stateAbbr = config("escorts.profile.states.$current_state_id.stateAbbr");
+            $timeZone  = config("escorts.profile.states.$current_state_id.timeZone");
+            return ['current_state' => $stateAbbr, 'time_zone' => $timeZone];
+        }
+        else
+        {
+            return ['current_state' => 'NA', 'time_zone' => 'NA'];
+        }
 
-        
     }
 
 }
