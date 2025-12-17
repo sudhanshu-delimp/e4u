@@ -1237,7 +1237,10 @@
         let view1 = $('.footer_view_type_one').attr('href');
         let view2 = $('.footer_view_type_two').attr('href');
 
-        let viewType = localStorage.getItem('profileViewType') || 'grid';
+        //let viewType = localStorage.getItem('profileViewType') || 'grid';
+
+        let viewType = '{{ $viewType }}';
+        console.log(viewType);
 
         // Define functions for grid and list view logic
         function showGridView() {
