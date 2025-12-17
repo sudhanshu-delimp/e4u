@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAdvertiserRegisterRequest extends FormRequest
@@ -24,10 +26,25 @@ class StoreAdvertiserRegisterRequest extends FormRequest
     public function rules()
     {
         return [
+            'agent_id' => [
+            'nullable',
+            Rule::exists('users', 'member_id')
+                ->where(function ($query) {
+                    $query->where('status', '1')
+                          ->where('type', '5');
+                }),
+        ],
             'phone' => 'required|unique:users',
             'email' => 'required|unique:users',
             'password' => 'required',
             'type' => 'required|in:3,4,5',
         ];
     }
+
+    public function messages()
+{
+    return [
+        'agent_id.exists' => 'This agent id is invalid or not active',
+    ];
+}
 }
