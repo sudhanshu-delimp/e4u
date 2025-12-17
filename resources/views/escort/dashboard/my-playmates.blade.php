@@ -204,7 +204,7 @@
                         if (response.success === true) {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Removed',
+                                title: 'Removed!',
                                 text: response.message,
                                 timer: 1500,
                                 showConfirmButton: false
