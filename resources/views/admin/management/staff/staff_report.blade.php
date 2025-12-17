@@ -128,6 +128,18 @@
             $gender = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
             $cities = config('escorts.profile.cities');
             $city = isset($cities[$staff->city_id]) ? $cities[$staff->city_id] : '';
+
+                 $setting = $staff->staff_setting??null;
+        $idle_preference_times = config('staff.idle_preference_time');
+        $idle_preference_time = "";
+         $twofa = "";
+        if(isset( $setting) && (isset($setting->idle_preference_time) || $setting->idle_preference_time === null)) {
+            $idle_preference_time = isset($idle_preference_times[(string)$setting->idle_preference_time]) ? $idle_preference_times[$setting->idle_preference_time] : "";
+        }
+        $twofas = config('staff.twofa');
+        if(isset( $setting) && isset($setting->twofa)) {
+        $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
+        }
         @endphp
         <div class="col-md-12  my-2" id="printArea">
             <div class="my-account-card">
@@ -250,6 +262,22 @@
                             </tr>
                         </tbody>
                     </table>
+
+                   
+               
+                <table class="table table-bordered mb-3">
+                    <tbody>
+                        <tr>
+                            <th width="40%">Idle Time Preference</th>
+                            <td width="60%">{{$idle_preference_time}}</td>
+                        </tr>
+                        <tr>
+                            <th width="40%">2FA Authentication</th>
+                            <td width="60%">{{ $twofa }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+           
                 </div>
         </div>
     </div>

@@ -115,7 +115,7 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
         $query = $this->model::select('escort_id')->groupBy('escort_id');
 
         if($user_id){
-            $query = $query->where('user_id',$user_id);
+            $query = $query->where('user_id',$user_id)->whereHas('escort.playmates');
         }
 
         if(count($conditions)>0){
@@ -124,16 +124,13 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
             
         if($search) {
             $query->where(function ($query) use ($searchables, $search) {
-
                 // Search in playmate relation
                 $query->whereHas('escort', function ($subQuery) use ($searchables, $search) {
                     $subQuery->where(function ($q) use ($searchables, $search) {
                         foreach ($searchables as $column) {
-            
                             if (in_array($column, ['playmate_stage_name', 'profile_stage_name'])) {
                                 $column = 'name';
                             }
-            
                             $q->orWhere($column, 'LIKE', "%{$search}%");
                         }
                     });

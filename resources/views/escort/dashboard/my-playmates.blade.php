@@ -174,8 +174,8 @@
             let obj = $(this);
             let playmateHistoryId = obj.data('id');
             Swal.fire({
-                title: 'Are you sure?',
-                text: 'This playmate will be removed',
+                title: 'Are you sure you want to remove this Playmate?',
+                text: "This action will remove both Profiles from each other's Playmate lists.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, remove it',
@@ -204,7 +204,7 @@
                         if (response.success === true) {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Removed',
+                                title: 'Removed!',
                                 text: response.message,
                                 timer: 1500,
                                 showConfirmButton: false

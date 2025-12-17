@@ -124,8 +124,8 @@ class StaffRepository extends BaseRepository implements StaffInterface
                     'building_access_code' => $data['building_access_code'] ?? null,
                     'keys_issued' => $data['keys_issued'] ?? null,
                     'car_parking' => $data['car_parking'] ?? null,
-                    'idle_preference_time' => $data['idle_preference_time'] ?? null,
-                    'twofa' => $data['twofa'] ?? null,
+                    //'idle_preference_time' => $data['idle_preference_time'] ?? null,
+                   // 'twofa' => $data['twofa'] ?? null,
                 ]);
 
                 $staffSetting = \App\Models\StaffSetting::firstOrNew(['user_id' => $user->id]);
