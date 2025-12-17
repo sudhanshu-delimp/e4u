@@ -1,4 +1,40 @@
-@extends('layouts.center')
+@extends('layouts.center')@section('style')
+    <style>
+        .toggle-task-form {
+            font-size: 16px;
+            /* color: #007bff; */
+            display: inline-block;
+            margin: 20px 0px;
+        }
+        .table-responsive{
+            overflow: visible;
+        }
+        .task-1{
+            width: clamp(50%, 8vw, 100%) !important;
+
+        }
+        @media (max-width:1024px){
+            
+            .task-1{
+                width: clamp(50%, 40vw, 100%) !important;
+
+            }
+        }
+        .agent-tour .card {
+            padding: 5px 12px !important;
+        }
+        .page-item:hover .fa {
+            color: white !important;
+        }
+
+        .page-item:hover .page-link {
+            color: white;
+        }
+        .btn-primary {
+            border-color: unset !important;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         

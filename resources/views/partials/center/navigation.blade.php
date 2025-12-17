@@ -21,19 +21,17 @@
                             <span>
                                 <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
                             </span>
-                            <span>
-                                <span class="separator">|</span><b>My Agent :  </b>
-                                <span class="user-values">
+                        <span>
+                            <span class="separator">|</span> <b>My Agent : </b>
+                                @if(auth()->user()->my_agent)<span class="user-values" style="margin-left: -6px;" title="My Agent ID : {{ auth()->user()->my_agent->member_id }}">{{ Str::title(auth()->user()->my_agent->business_name) }} </span>
+                                @else
+                                <span class="user-values" title="">
+                                    <a href="{{url('/escort-dashboard/escort-agency-request') }}" class="request-active"> Request one</a>
+                                    </span>
+                                @endif
+                       
+                        </span>
 
-                                    @if(auth()->user()->my_agent)
-                                    {{ Str::title(auth()->user()->my_agent->name) }}
-                                    @else
-                                        <a href="{{url('/center-dashboard/agent-request') }}" class="request-active"> Request one</a>
-                                    @endif
-                                    
-                                
-                                </span>
-                            </span>
                            </div>
                            <div class="gap-b">
                            
@@ -65,7 +63,7 @@
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
 
-                        <form class="form-inline navbar-search form-inline-custom" style="width: 22rem;">
+                        <form class="form-inline navbar-search form-inline-custom d-none" style="width: 22rem;">
                             <div class="input-group dk-border-radius">
                                 <div class="input-group-append">
                                     <button class="btn" type="button">
@@ -172,7 +170,8 @@
                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                         
                                         @if(auth()->user()->my_agent)
-                                           My Agent ID :   {{ auth()->user()->my_agent->member_id }}
+                                          <span class="user-values" title="My Agent : {{ auth()->user()->my_agent->business_name }}">
+                                        My Agent ID :  {{ auth()->user()->my_agent->member_id }}</span>
                                         @else
                                            My Agent ID : <span style="color:var(--peach)" class="request-active"> Request one</span>
                                         @endif

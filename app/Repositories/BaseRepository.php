@@ -78,4 +78,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
     {
         $this->model->where('id', $id)->delete();
     }
+
+    public function updateWithCondition(array $condition, array $data)
+	{
+		return $this->model->where($condition)->update($data);
+	}
 }

@@ -53,7 +53,7 @@
                 <div class="card collapse" id="notes" style="">
                    <div class="card-body">
                       <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                      <p></p>
+                    
                       <ol>
                             <li>All of your Tours are listed here for a twelve month period. To view at Tour that is older than 12 months, <a href="{{url('escort-dashboard/list-tour/past')}}" class="custom_links_design">click here</a>.</li>
                             <li>There are multiple functions available to you by clicking Action.
@@ -67,15 +67,15 @@
         <div class="row mt-2">
             <div class="col-lg-12 mb-4">
                 <div class="table-responsive">
-                    <table class="table table-bordered " id="tourScheduleTable">
-                        <thead style="background-color: #0C223D; color: #ffffff;">
+                    <table class="table" id="tourScheduleTable">
+                        <thead class="bg-first">
                         
-                        <tr class="text-center">
-                            <th class="text-left">Location</th>
+                        <tr>
+                            <th>Location</th>
                             <th>Tour Name</th>
                             <th>Days</th>
-                            <th>Commencing</th>
-                            <th>Completing</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -349,12 +349,12 @@
                     { data: 'start_date', name: 'start_date' },
                     { data: 'end_date', name: 'end_date' },
                     { data: 'status_badge', name: 'status_badge', orderable: false, searchable: false },
-                    { data: 'actions', name: 'actions', orderable: false, searchable: false }
+                    { data: 'actions', name: 'actions', orderable: false, searchable: false, class:'text-center' }
                 ],
                 columnDefs: [
-                    { targets: [0], className: 'task-color ' }, // ✅ applies to these columns
-                    { targets: [1, 2, 3, 4], className: 'task-color text-center' }, // ✅ applies to these columns
-                    { targets: [5, 6], className: 'theme-color text-center text-light' } // ✅ applies to status & action columns
+                    { targets: [0], className: 'task-color ' }, 
+                    { targets: [1, 2, 3, 4], className: 'task-color' },
+                    { targets: [5, 6], className: 'theme-color text-light' }
                 ]
             });
 
