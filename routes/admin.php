@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\VisitorController;
 use App\Http\Controllers\Admin\AdminNumsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ReportingController;
+use App\Http\Controllers\Admin\PostOfficeController;
 use App\Http\Controllers\Admin\PDF\AgentPdfController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Admin\SupportTicketsController;
@@ -19,12 +20,12 @@ use App\Http\Controllers\Admin\AdvertiserReviewsController;
 use App\Http\Controllers\Admin\AgentNotificationController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\CenterNotificationController;
+use App\Http\Controllers\Admin\GlobalNotificationController;
 use App\Http\Controllers\Admin\ViewerNotificationController;
 use App\Http\Controllers\Admin\AdminMakeNotificationController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
-use App\Http\Controllers\Admin\PostOfficeController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {  
@@ -366,6 +367,20 @@ Route::get('/notifications/viewer/pdf-download/{id}', [ViewerNotificationControl
 Route::get('/notifications/viewer/{id}/edit', [ViewerNotificationController::class, 'edit'])->name('admin.viewer.notifications.edit');
 Route::post('/notifications/viewer/{id}/update', [ViewerNotificationController::class, 'update'])->name('admin.viewer.notifications.update');
 
+//Global Notification system for admin
+
+Route::get('notifications/global/list', [GlobalNotificationController::class, 'index'])->name('admin.global.notification.index');
+Route::post('/notifications/global/store', [GlobalNotificationController::class, 'store'])->name('admin.global.notification.store');
+Route::get('/notifications/global/{id}', [GlobalNotificationController::class, 'show'])->name('admin.global.notifications.show');
+Route::post('/notifications/global/{id}/suspend', [GlobalNotificationController::class, 'updateStatus'])->name('admin.global.notifications.suspend');
+Route::post('/notifications/global/{id}/status', [GlobalNotificationController::class, 'changeStatus'])->name('admin.global.notifications.status');
+Route::get('/notifications/global/pdf-download/{id}', [GlobalNotificationController::class, 'pdfDownload'])->name('admin.global.pdf.download');
+Route::get('/notifications/global/{id}/edit', [GlobalNotificationController::class, 'edit'])->name('admin.global.notifications.edit');
+Route::post('/notifications/global/{id}/update', [GlobalNotificationController::class, 'update'])->name('admin.global.notifications.update');
+
+// Route::get('/admin-dashboard/notifications/global',function(){
+//     return view('admin.notifications.global');
+// })->name('admin.global');
 
 
 ################### PDF ###################
@@ -538,9 +553,9 @@ Route::get('/management/post-office',function(){
 })->name('admin.post-office');
 
 
-Route::get('/notifications/global',function(){
-    return view('admin.notifications.global');
-})->name('admin.global');
+// Route::get('/notifications/global',function(){
+//     return view('admin.notifications.global');
+// })->name('admin.global');
 
 
 // Route::get('/notifications/agents',function(){
