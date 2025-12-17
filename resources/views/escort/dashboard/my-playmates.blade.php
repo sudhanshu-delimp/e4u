@@ -175,7 +175,7 @@
             let playmateHistoryId = obj.data('id');
             Swal.fire({
                 title: 'Are you sure you want to remove this Playmate?',
-                text: 'This action will remove both Profiles from each other’s Playmate lists.',
+                text: "This action will remove both Profiles from each other's Playmate lists.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, remove it',
