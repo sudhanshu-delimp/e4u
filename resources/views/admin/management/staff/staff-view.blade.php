@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" >
     @php
         $employmentStatuss = config('staff.employment_status');
         $employmentStatus = isset($employmentStatuss[$staff->staff_detail->employment_status])
@@ -23,97 +23,120 @@
         $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
         }
     @endphp
-    <!-- Section: Personal Details -->
-    <div class="col-12 my-2">
-        <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
-        <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <th width="40%">Member ID</th>
-                    <td width="60%">{{ $staff->member_id }}</td>
-                </tr>
-                <tr>
-                    <th width="40%">Full Name</th>
-                    <td width="60%">{{ $staff->name }}</td>
-                </tr>
-                <tr>
-                    <th>Address</th>
-                    <td> {{ $staff->staff_detail->address }}</td>
-                </tr>
-                <tr>
-                    <th>Phone</th>
-                    <td>{{ $staff->phone }}</td>
-                </tr>
-                <tr>
-                    <th>Private Email</th>
-                    <td>{{ $staff->email }}</td>
-                </tr>
-                <tr>
-                    <th>Gender</th>
-                    <td>{{ $gender }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <!-- Next of Kin Section -->
-    <div class="col-12 my-2">
-        <h6 class="border-bottom pb-1 text-blue-primary">Next of Kin (Emergency Contact)</h6>
+    <div class="col-12 view_staff_details" style="max-height: 600px; overflow:auto;">
+         <div class="row">
+            <!-- Section: Personal Details -->
+            <div class="col-12 my-2">
+                <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th width="40%">Member ID</th>
+                            <td width="60%">{{ $staff->member_id }}</td>
+                        </tr>
+                        <tr>
+                            <th width="40%">Full Name</th>
+                            <td width="60%">{{ $staff->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td> {{ $staff->staff_detail->address }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone</th>
+                            <td>{{ $staff->phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Private Email</th>
+                            <td>{{ $staff->email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Gender</th>
+                            <td>{{ $gender }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Next of Kin Section -->
+            <div class="col-12 my-2">
+                <h6 class="border-bottom pb-1 text-blue-primary">Next of Kin (Emergency Contact)</h6>
 
-        <table class="table table-bordered mb-3">
-            <tbody>
-                <tr>
-                    <th width="40%">Name of Kin</th>
-                    <td width="60%">{{ $staff->staff_detail->kin_name }}</td>
-                </tr>
-                <tr>
-                    <th>Relationship</th>
-                    <td> {{ $staff->staff_detail->kin_relationship }}</td>
-                </tr>
-                <tr>
-                    <th>Mobile</th>
-                    <td>{{ $staff->staff_detail->kin_mobile }}</td>
-                </tr>
-                <tr>
-                    <th>Email (optional)</th>
-                    <td>{{ $staff->staff_detail->kin_email }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <!-- Section: Other Details -->
-    <div class="col-12 my-2">
-        <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
+                <table class="table table-bordered mb-3">
+                    <tbody>
+                        <tr>
+                            <th width="40%">Name of Kin</th>
+                            <td width="60%">{{ $staff->staff_detail->kin_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Relationship</th>
+                            <td> {{ $staff->staff_detail->kin_relationship }}</td>
+                        </tr>
+                        <tr>
+                            <th>Mobile</th>
+                            <td>{{ $staff->staff_detail->kin_mobile }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email (optional)</th>
+                            <td>{{ $staff->staff_detail->kin_email }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section: Other Details -->
+            <div class="col-12 my-2">
+                <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
 
-        <table class="table table-bordered mb-3">
-            <tbody>
-                <tr>
-                    <th>Security Level</th>
-                    <td>{{ $securityLevel }}</td>
-                </tr>
-                <tr>
-                    <th width="40%">Position</th>
-                    <td width="60%">{{ $staff->staff_detail->position($staff->staff_detail->position) }}</td>
-                </tr>
-                <tr>
-                    <th>Location</th>
-                    <td> {{ $city }}</td>
-                </tr>
-                <tr>
-                    <th>Commenced Date</th>
-                    <td>{{showDateWithFormat($staff->staff_detail->commenced_date, "d/m/Y")}}</td>
-                </tr>
-                
-                <tr>
-                    <th>Employment Status</th>
-                    <td>{{ $employmentStatus }}</td>
-                </tr>
-                <tr>
-                    <th>Employment Agreement</th>
-                    <td>{{ ucfirst($staff->staff_detail->employment_agreement) }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                <table class="table table-bordered mb-3">
+                    <tbody>
+                        <tr>
+                            <th>Security Level</th>
+                            <td>{{ $securityLevel }}</td>
+                        </tr>
+                        <tr>
+                            <th width="40%">Position</th>
+                            <td width="60%">{{ $staff->staff_detail->position($staff->staff_detail->position) }}</td>
+                        </tr>
+                        <tr>
+                            <th>Location</th>
+                            <td> {{ $city }}</td>
+                        </tr>
+                        <tr>
+                            <th>Commenced Date</th>
+                            <td>{{showDateWithFormat($staff->staff_detail->commenced_date, "d/m/Y")}}</td>
+                        </tr>
+                        
+                        <tr>
+                            <th>Employment Status</th>
+                            <td>{{ $employmentStatus }}</td>
+                        </tr>
+                        <tr>
+                            <th>Employment Agreement</th>
+                            <td>{{ ucfirst($staff->staff_detail->employment_agreement) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section: Building Security -->
+            <div class="col-12 my-2">
+                <h6 class="border-bottom pb-1 text-blue-primary">Building Security</h6>
+                <table class="table table-bordered mb-3">
+                    <tbody>
+                        <tr>
+                            <th width="40%">Building Security</th>
+                            <td width="60%">{{ ucfirst($staff->staff_detail->building_access_code) }}</td>
+                        </tr>
+                        <tr>
+                            <th>Key Provided?</th>
+                            <td> {{ ucfirst($staff->staff_detail->keys_issued) }}</td>
+                        </tr>
+                        <tr>
+                            <th>Car Park?</th>
+                            <td>{{ ucfirst($staff->staff_detail->car_parking) }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
     <!-- Section: Building Security -->
     <div class="col-12 my-2">
         <h6 class="border-bottom pb-1 text-blue-primary">Building Security</h6>
@@ -131,7 +154,6 @@
                     <th>Car Park?</th>
                     <td>{{ ucfirst($staff->staff_detail->car_parking) }}</td>
                 </tr>
-
             </tbody>
         </table>
          </div>
