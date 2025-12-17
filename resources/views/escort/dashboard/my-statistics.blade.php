@@ -47,15 +47,15 @@ h5 {
         {{-- end --}}
 
         {{-- first row --}}
-        <div class="col-lg-12">                
+        <div class="col-lg-12 card-wrapper">                
             <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">                  
                 <div class="col-lg-12">
                     <h4 class="font-weight-bold" style="color: var(--blue--text);">My Statistics 
                     </h4>
                 </div>
                 <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                 <div class="col-lg-12 card-list-wrapper">
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Profile Views Today</div>
                             <div class="statistics-value">{{$myStatistics['mystatistics_profile_views_today']}}</div>
@@ -64,11 +64,10 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/view-profile.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End -->
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <!-- Card End -->
+                    <!-- Card Start -->
+               
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Media Views Today
                             </div>
@@ -78,11 +77,10 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/media-view.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End -->
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <!-- Card End -->
+                    <!-- Card Start -->
+               
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Recommendations This Week
                             </div>
@@ -92,11 +90,10 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End -->
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <!-- Card End -->
+                    <!-- Card Start -->
+               
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Reviews Posted This Week
                             </div>
@@ -106,22 +103,21 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End -->
+                    <!-- Card End -->
+                 </div>
             </div>
         </div>
         {{-- end --}}
         
         {{-- second row --}}
-        <div class="col-lg-12">                
+        <div class="col-lg-12 card-wrapper">                
             <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">                  
                 <div class="col-lg-12">
                     <h4 class="font-weight-bold" style="color: var(--blue--text);">Critical Information
                     </h4>
                 </div>
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                 <div class="col-lg-12 card-list-wrapper">
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Profiles Currently Posted
                             </div>
@@ -131,12 +127,8 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End --> 
-                
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+              
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Upcoming Profiles
                             </div>
@@ -146,11 +138,8 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/followers.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End -->
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+              
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">My Playbox Subscriptions
                             </div>
@@ -160,22 +149,21 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/likes.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End -->
+                 </div>    
             </div>
         </div>
         {{-- end --}}
         
         {{-- third row --}}
-        <div class="col-lg-12">                
+        <div class="col-lg-12 card-wrapper">                
             <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">                  
                 <div class="col-lg-12">
                     <h4 class="font-weight-bold" style="color: var(--blue--text);">Profile Statistics
                     </h4>
                 </div>
                 <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                 <div class="col-lg-12 card-list-wrapper">
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Profile Views Today
                             </div>
@@ -185,12 +173,8 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/view-profile.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End --> 
                 
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Profile Views This Week
                             </div>
@@ -200,11 +184,8 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/view-profile-time.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End -->
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label"> Year to Date
                             </div>
@@ -214,17 +195,10 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End -->
-                {{-- blank card--}}
-                <div class="col-md-3">
-                    
-                </div>
-                {{-- end --}}
+              
                 
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+              
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Playbox Views Today
                             </div>
@@ -234,12 +208,8 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/likes.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End --> 
                 
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Playbox Views This Week
                             </div>
@@ -249,11 +219,8 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/likes.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End -->
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label"> Year to Date
                             </div>
@@ -272,15 +239,14 @@ h5 {
         
         
         {{-- fourth row --}}
-        <div class="col-lg-12">                
+        <div class="col-lg-12 card-wrapper">                
             <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">                  
                 <div class="col-lg-12">
                     <h4 class="font-weight-bold" style="color: var(--blue--text);">Media Statistics
                     </h4>
                 </div>
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="col-lg-12 card-list-wrapper">
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Media Views Today
                             </div>
@@ -290,12 +256,9 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/media-view.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End --> 
                 
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Media Views This Weeks
                             </div>
@@ -305,11 +268,8 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/media-view.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End -->
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Year to Date
                             </div>
@@ -326,15 +286,14 @@ h5 {
         {{-- end --}}
         
         {{-- third row --}}
-        <div class="col-lg-12">                
+        <div class="col-lg-12 card-wrapper">                
             <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">                  
                 <div class="col-lg-12">
                     <h4 class="font-weight-bold" style="color: var(--blue--text);">Feedback
                     </h4>
                 </div>
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                 <div class="col-lg-12 card-list-wrapper">
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Reviews Today
                             </div>
@@ -344,12 +303,8 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End --> 
-                
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Reviews This Week
                             </div>
@@ -359,11 +314,7 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End -->
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label"> Year to Date
                             </div>
@@ -373,17 +324,8 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End -->
-                {{-- blank card--}}
-                <div class="col-md-3">
-                    
-                </div>
-                {{-- end --}}
-                
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Recommendations Today
                             </div>
@@ -393,12 +335,9 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End --> 
                 
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Recommendations This Week
                             </div>
@@ -408,11 +347,8 @@ h5 {
                             <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
                         </div>
                     </div>
-                </div>
-                <!-- Card End -->
-                <!-- Card Start -->
-                <div class="col-md-3 mb-3">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               
+                    <div class="statistics-card shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label"> Year to Date
                             </div>

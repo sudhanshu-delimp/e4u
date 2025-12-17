@@ -40,8 +40,8 @@
                 <div class="row mb-5">
 
                     <div class="col-md-12">
-                        <div class="table-responsive-xl">
-                            <table class="table table-hover">
+                        <div class="table-responsive">
+                            <table class="table w-100">
                                 <thead class="table-bg">
                                     <tr>
                                         <th colspan="3" class="text-center">My Viewers</th>
@@ -51,7 +51,7 @@
                                 <tbody class="table-content">
                                     <tr>
 
-                                        <td class="text-center font-weight-bold">State</td>
+                                        <td class="font-weight-bold">State</td>
 
                                         <td class="text-center font-weight-bold">Viewers</td>
                                         <td class="text-center font-weight-bold">Notifications</td>
@@ -117,40 +117,40 @@
                     </div>
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table id="sendNotificationTable" class="table table-hover display" width="100%">
+                            <table id="sendNotificationTable" class="table display" width="100%">
                                 <thead class="table-bg">
                                     <tr>
-                                        <th class="text-center">
+                                        <th>
                                             <div class="ckbox">
                                                 <input type="checkbox" id="checkbox1">
                                             </div>
                                         </th>
-                                        <th class="text-center">Viewer Name</th>
-                                        <th class="text-center">Tagged</th>
-                                        <th class="text-center">
+                                        <th>Viewer Name</th>
+                                        <th>Tagged</th>
+                                        <th>
                                             Home State
 
                                         </th>
 
-                                        <th class="text-center">Contact Method</th>
-                                        <th class="text-center">Notification</th>
-                                        <th class="text-center">Block Viewer</th>
+                                        <th>Contact Method</th>
+                                        <th>Notification</th>
+                                        <th>Block Viewer</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-content">
                                     <tr>
-                                        <td class="text-center">
+                                        <td>
                                             <div class="ckbox">
                                                 <input type="checkbox" id="checkbox1">
                                             </div>
                                         </td>
-                                        <td class="text-center"><img src="{{ asset('assets/app/img/profile-img.png') }}"
+                                        <td><img src="{{ asset('assets/app/img/profile-img.png') }}"
                                                 class="img-profile rounded-circle playmats-img ">Skusta clee</td>
-                                        <td class="text-center">10-10-2025</td>
-                                        <td class="text-center">SA</td>
-                                        <td class="text-center">Email</td>
-                                        <td class="text-center">By email</td>
-                                        <td class="text-center">
+                                        <td>10-10-2025</td>
+                                        <td>SA</td>
+                                        <td>Email</td>
+                                        <td>By email</td>
+                                        <td>    
                                             <div class="custom-control custom-switch">
                                                 <input type="checkbox" class="custom-control-input" id="customSwitch_1">
                                                 <label class="custom-control-label" for="customSwitch_1"></label>
@@ -158,18 +158,18 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-center">
+                                        <td>
                                             <div class="ckbox">
                                                 <input type="checkbox" id="checkbox1">
                                             </div>
                                         </td>
-                                        <td class="text-center"><img src="{{ asset('assets/app/img/profile-img.png') }}"
+                                        <td><img src="{{ asset('assets/app/img/profile-img.png') }}"
                                                 class="img-profile rounded-circle playmats-img ">Johny Bravo</td>
-                                        <td class="text-center">11-10-20254</td>
-                                        <td class="text-center">WA</td>
-                                        <td class="text-center">Mobile</td>
-                                        <td class="text-center">Mobile</td>
-                                        <td class="text-center">
+                                        <td>11-10-20254</td>
+                                        <td>WA</td>
+                                        <td>Mobile</td>
+                                        <td>Mobile</td>
+                                        <td>
                                             <div class="custom-control custom-switch">
                                                 <input type="checkbox" class="custom-control-input" id="customSwitch_2">
                                                 <label class="custom-control-label" for="customSwitch_2"></label>
@@ -334,9 +334,22 @@
                 },
                 "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
-                    searchPlaceholder: "Search by Viewer Name or Member ID"
+                    searchPlaceholder: "Search by Viewer Name"
                 },
-                paging: true
+                paging: true,
+                columns: [
+                    { data: 'check', name: 'check' },
+                    { data: 'name', name: 'name' },
+                    { data: 'tagged', name: 'tagged', orderable: true },
+                    { 
+                        data: 'home_state', name: 'home_state',
+                        orderable: true,
+                        searchable: false
+                    },
+                    { data: 'contact_method', name: 'contact_method', orderable: true},
+                    { data: 'notification', name: 'notification', orderable: true },
+                    { data: 'block', name: 'block', orderable: true, class:'text-center' }
+                ]
             });
         });
     </script>

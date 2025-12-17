@@ -4,7 +4,6 @@
    td,
    th {
        vertical-align: middle !important;
-       text-align: center;
    }
    #transactionSummaryTable td {
     white-space: normal !important;
@@ -44,7 +43,7 @@
    <div class="row">      
     <div class="col-md-12">        
         <div class="membership--inner">
-            <table class="table table-bordered text-center" id="transactionSummaryTable">
+            <table class="table" id="transactionSummaryTable">
                  <thead class="table-bg">
                    <tr>
                     <th>Ref</th>
@@ -200,7 +199,7 @@
 
          // ✅ Disable sorting on Action column (change the target index as needed)
          columnDefs: [
-            { targets: 6, orderable: false } // 5 = 6th column (0-based index)
+            { targets: 6, orderable: false,class:'text-center' } // 5 = 6th column (0-based index)
          ]
       });
    });

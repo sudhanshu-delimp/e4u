@@ -39,8 +39,7 @@
             <div class="col-lg-12">                
                 <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">                  
                     
-                    <!-- Card Start -->
-                    <div class="col-md-3 mb-3">
+                    <div class="col-lg-12 card-list-wrapper"> 
                         <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                             <div class="statistics-text">
                                 <div class="statistics-label">Profiles Currently Posted
@@ -51,11 +50,7 @@
                                 <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
                             </div>
                         </div>
-                    </div>
-                    <!-- Card End --> 
                     
-                    <!-- Card Start -->
-                    <div class="col-md-3 mb-3">
                         <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                             <div class="statistics-text">
                                 <div class="statistics-label">Upcoming Profiles
@@ -66,10 +61,7 @@
                                 <img src="{{ asset('assets/dashboard/img/followers.png') }}" alt="icon">
                             </div>
                         </div>
-                    </div>
-                    <!-- Card End -->
-                    <!-- Card Start -->
-                    <div class="col-md-3 mb-3">
+                    
                         <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                             <div class="statistics-text">
                                 <div class="statistics-label">My Playbox Subscriptions
