@@ -47,15 +47,14 @@
   <!-- Page Heading -->
   
         
-  <div class="col-lg-12">                
+  <div class="col-lg-12 card-wrapper">                
     <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">                  
         <div class="col-lg-12">
             <h4 class="font-weight-bold" style="color: var(--blue--text);">My Statistics
             </h4>
         </div>
-        <!-- Card Start -->
-        <div class="col-md-3 mb-3">
-            <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+        <div class="col-lg-12 card-list-wrapper">
+            <div class="statistics-card  shadow-sm">
                 <div class="statistics-text">
                     <div class="statistics-label">My Legbox</div>
                     <div class="statistics-value">25</div>
@@ -64,11 +63,8 @@
                     <img src="{{ asset('assets/dashboard/img/my-legbox.png') }}" alt="icon">
                 </div>
             </div>
-        </div>
-        <!-- Card End -->
-        <!-- Card Start -->
-        <div class="col-md-3 mb-3">
-            <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+        
+            <div class="statistics-card  shadow-sm">
                 <div class="statistics-text">
                     <div class="statistics-label">Notes
                     </div>
@@ -78,11 +74,8 @@
                     <img src="{{ asset('assets/dashboard/img/notes.png') }}" alt="icon">
                 </div>
             </div>
-        </div>
-        <!-- Card End -->
-        <!-- Card Start -->
-        <div class="col-md-3 mb-3">
-            <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+        
+            <div class="statistics-card  shadow-sm">
                 <div class="statistics-text">
                     <div class="statistics-label">Reviews Posted
                     </div>
@@ -92,11 +85,8 @@
                     <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
                 </div>
             </div>
-        </div>
-        <!-- Card End -->
-        <!-- Card Start -->
-        <div class="col-md-3 mb-3">
-            <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+        
+            <div class="statistics-card  shadow-sm">
                 <div class="statistics-text">
                     <div class="statistics-label">E4U Reports
                     </div>
@@ -106,11 +96,8 @@
                     <img src="{{ asset('assets/dashboard/img/e4u-report.png') }}" alt="icon">
                 </div>
             </div>
-        </div>
-        <!-- Card End -->
-        <!-- Card Start -->
-        <div class="col-md-3 mb-3">
-          <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+        
+          <div class="statistics-card  shadow-sm">
               <div class="statistics-text">
                   <div class="statistics-label">Punterbox Reports
                   </div>
@@ -123,6 +110,7 @@
       </div>
       <!-- Card End -->
     </div>
+</div>
 </div>
 @endsection
 @push('script')
