@@ -665,6 +665,16 @@ function basicDateFormat($date)
     }
 }
 
+function sqlDateFormat($date)
+{
+    if ($date) {
+        return \Carbon\Carbon::parse($date)->format('Y-m-d');
+    } else {
+        return '';
+    }
+}
+
+
 function formatLabelAttribute($label)
 {
     if (empty($label)) {
