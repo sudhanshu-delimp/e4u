@@ -33,7 +33,7 @@
 
      {{-- end --}}
     {{-- 1st row --}}
-    <div class="col-lg-12">                
+    <div class="col-lg-12 card-wrapper">                
         <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;"> 
            {{-- 1st --}}
             <div class="col-lg-12">

@@ -29,7 +29,7 @@
    </div>
 
       {{-- 1st row --}}
-      <div class="col-lg-12">                
+      <div class="col-lg-12 card-wrapper">                
          <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;"> 
             {{-- 1st --}}
              <div class="col-lg-12">
@@ -38,10 +38,9 @@
              </div>
              <!-- Card Start -->
              <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                 <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                 <div class="statistics-card shadow-sm">
                      <div class="statistics-text">
-                         <div class="statistics-label font-weight-bold">New today
-                        </div>
+                         <div class="statistics-label font-weight-bold">New today</div>
                          <div class="statistics-value">4</div>
                      </div>
                      <div class="statistics-icon">
@@ -52,7 +51,7 @@
              <!-- Card End -->
              <!-- Card Start -->
              <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                 <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                 <div class="statistics-card shadow-sm">
                      <div class="statistics-text">
                          <div class="statistics-label font-weight-bold">New this week
                          </div>
@@ -66,7 +65,7 @@
              <!-- Card End -->
              <!-- Card Start -->
              <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                 <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                 <div class="statistics-card shadow-sm">
                      <div class="statistics-text">
                          <div class="statistics-label font-weight-bold">New this month
                          </div>
@@ -80,7 +79,7 @@
              <!-- Card End -->
              <!-- Card Start -->
              <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                 <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                 <div class="statistics-card shadow-sm">
                      <div class="statistics-text">
                          <div class="statistics-label font-weight-bold">Total
                          </div>
@@ -100,7 +99,7 @@
             </div>
             <!-- Card Start -->
             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-card shadow-sm">
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New today
                        </div>
@@ -114,7 +113,7 @@
             <!-- Card End -->
             <!-- Card Start -->
             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-card shadow-sm">
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New this week
                         </div>
@@ -128,7 +127,7 @@
             <!-- Card End -->
             <!-- Card Start -->
             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-card shadow-sm">
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New this month
                         </div>
@@ -142,7 +141,7 @@
             <!-- Card End -->
             <!-- Card Start -->
             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-card shadow-sm">
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">Total
                         </div>
@@ -164,7 +163,7 @@
             </div>
             <!-- Card Start -->
             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-card shadow-sm">
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New today
                        </div>
@@ -178,7 +177,7 @@
             <!-- Card End -->
             <!-- Card Start -->
             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-card shadow-sm">
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New this week
                         </div>
@@ -192,7 +191,7 @@
             <!-- Card End -->
             <!-- Card Start -->
             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-card shadow-sm">
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New this month
                         </div>
@@ -206,7 +205,7 @@
             <!-- Card End -->
             <!-- Card Start -->
             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-card shadow-sm">
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">Total
                         </div>
@@ -224,7 +223,7 @@
 
 
       {{-- 2nd row --}}
-      <div class="col-lg-12">                
+      <div class="col-lg-12 card-wrapper">                
         <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;"> 
            {{-- 1st --}}
             <div class="col-lg-12">
@@ -233,7 +232,7 @@
             </div>
             <!-- Card Start -->
             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-card shadow-sm">
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New today
                        </div>
@@ -247,7 +246,7 @@
             <!-- Card End -->
             <!-- Card Start -->
             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-card shadow-sm">
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New this week
                         </div>
@@ -261,7 +260,7 @@
             <!-- Card End -->
             <!-- Card Start -->
             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-card shadow-sm">
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New this month
                         </div>
@@ -275,7 +274,7 @@
             <!-- Card End -->
             <!-- Card Start -->
             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-card shadow-sm">
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">Total
                         </div>
@@ -295,7 +294,7 @@
            </div>
            <!-- Card Start -->
            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               <div class="statistics-card shadow-sm">
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">New today
                       </div>
@@ -309,7 +308,7 @@
            <!-- Card End -->
            <!-- Card Start -->
            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               <div class="statistics-card shadow-sm">
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">New this week
                        </div>
@@ -323,7 +322,7 @@
            <!-- Card End -->
            <!-- Card Start -->
            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               <div class="statistics-card shadow-sm">
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">New this month
                        </div>
@@ -337,7 +336,7 @@
            <!-- Card End -->
            <!-- Card Start -->
            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               <div class="statistics-card shadow-sm">
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">Total
                        </div>
@@ -359,7 +358,7 @@
            </div>
            <!-- Card Start -->
            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               <div class="statistics-card shadow-sm">
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">New today
                       </div>
@@ -373,7 +372,7 @@
            <!-- Card End -->
            <!-- Card Start -->
            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               <div class="statistics-card shadow-sm">
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">New this week
                        </div>
@@ -387,7 +386,7 @@
            <!-- Card End -->
            <!-- Card Start -->
            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               <div class="statistics-card shadow-sm">
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">New this month
                        </div>
@@ -401,7 +400,7 @@
            <!-- Card End -->
            <!-- Card Start -->
            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
-               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+               <div class="statistics-card shadow-sm">
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">Total
                        </div>
