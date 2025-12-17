@@ -777,4 +777,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(User::class, 'assigned_agent_id');
     }
+
+
+    public function lastLoginTime()
+    {
+        return $this->hasOne(AccountSetting::class,  'user_id', 'id');
+    }
 }

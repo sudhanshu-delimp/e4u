@@ -14,12 +14,13 @@ class EscortDashboardController extends Controller
         $user = Auth::user();
         $state = config('escorts.profile.states')[$user->state_id]['stateName'] ?? '';
         $logAndStatus = $user->LoginStatus;
+       
+        $getLastLoginTime = getUserWiseLastLoginTime($user);
         $passwirdExpire = $user->account_setting;
-       $passwordExpiryText = CheckExpireDate($passwirdExpire->password_expiry_days);
-      
-        
-        return view('escort.dashboard.logs-and-status', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire'));
+        $passwordExpiryText = CheckExpireDate($passwirdExpire->password_expiry_days);
+        return view('escort.dashboard.logs-and-status', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire', 'getLastLoginTime'));
     }
+
 
     public function updatePasswordDuration(UpdateEscortRequest $request)
     {   $user = Auth::user();

@@ -431,7 +431,7 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
 }
 
 if (!function_exists('getDefaultBannerTemplates')) {
-    function getBannerTemplates($group=0)
+    function getBannerTemplates($group = 0)
     {
         return EscortMedia::where(['type' => 0, 'banner_group' => strval($group), 'position' => 9])
             ->whereNull('user_id')
@@ -789,17 +789,17 @@ if (!function_exists('getLoginRoute')) {
 if (!function_exists('formatPhone')) {
     function formatPhone($number)
     {
-        if($number == null || empty($number)) {
+        if ($number == null || empty($number)) {
             return $number;
-        }   
+        }
         // Remove anything that is not a digit
         $digits = preg_replace('/\D/', '', $number);
 
         // Format: 4 digits + space + 3 digits + space + 3 digits
         if (strlen($digits) === 10) {
             return substr($digits, 0, 4) . ' ' .
-                   substr($digits, 4, 3) . ' ' .
-                   substr($digits, 7, 3);
+                substr($digits, 4, 3) . ' ' .
+                substr($digits, 7, 3);
         }
 
         // If not 10 digits, return original number
@@ -808,107 +808,113 @@ if (!function_exists('formatPhone')) {
 }
 
 
-if (!function_exists('sendLoginOtpEmail')) 
-{
+if (!function_exists('sendLoginOtpEmail')) {
     function sendLoginOtpEmail($otp, $user)
     {
         log_info('sendLoginOtpEmail');
 
-        if(isset($user->email) && $user->email!="")
-        {
-            
-            try 
-            {
-                    if($user && $user->type=='5')
+        if (isset($user->email) && $user->email != "") {
+
+            try {
+                if ($user && $user->type == '5')
                     $username = $user->business_name;
-                    else
+                else
                     $username = $user->name;
 
-                    $data = [
-                        'username' => $username,
-                        'otp'      => $otp,
-                        'member_id'      => $user->member_id,
-                    ];
+                $data = [
+                    'username' => $username,
+                    'otp'      => $otp,
+                    'member_id'      => $user->member_id,
+                ];
 
-                    Mail::send('emails.login_otp', $data, function ($message) use ($user) {
-                        $message->to($user->email)
-                                ->subject('Login Otp');
-                    });
+                Mail::send('emails.login_otp', $data, function ($message) use ($user) {
+                    $message->to($user->email)
+                        ->subject('Login Otp');
+                });
 
-                    return true;
-            } 
-
-            catch (Exception $e) {
-               logErrorLocal($e);
+                return true;
+            } catch (Exception $e) {
+                logErrorLocal($e);
             }
         }
-
     }
 }
 
 
-if (!function_exists('sendLoginOtpSms')) 
-{
+if (!function_exists('sendLoginOtpSms')) {
     function sendLoginOtpSms($otp, $user)
     {
-         log_info('sendLoginOtpSms');
-        if(isset($user->phone) && $user->phone!="")
-        {
+        log_info('sendLoginOtpSms');
+        if (isset($user->phone) && $user->phone != "") {
 
-            if($user && $user->type=='5')
-            $username = $user->business_name;
+            if ($user && $user->type == '5')
+                $username = $user->business_name;
             else
-            $username = $user->name;
+                $username = $user->name;
 
-            $msg = "Hello ".$username.", your one-time login OTP is ".$otp.".If you didn’t request this, please ignore this message.";
+            $msg = "Hello " . $username . ", your one-time login OTP is " . $otp . ".If you didn’t request this, please ignore this message.";
             $sendotp = new SendSms();
-            $output = $sendotp->send_otp_sms($user->phone,$msg);
-        }      
-    }
-}
-
-
-    if (!function_exists('formatMobileNumber')) 
-    {
-        function formatMobileNumber($number) 
-        {
-            
-
-            $number = preg_replace('/\D/', '', $number);
-            $length = strlen($number);
-
-            // If 4 or fewer digits → return as is
-            if ($length <= 4) {
-                return $number;
-            }
-
-            // First 4 digits
-            $part1 = substr($number, 0, 4);
-            $remaining = substr($number, 4);
-
-            // Split remaining into groups of 3, last can be 1 or 2 digits
-            $groups = [];
-
-            while (strlen($remaining) > 3) {
-                $groups[] = substr($remaining, 0, 3);
-                $remaining = substr($remaining, 3);
-            }
-
-            // Add last 1–3 digit remainder
-            if (strlen($remaining) > 0) {
-                $groups[] = $remaining;
-            }
-
-            return $part1 . ' ' . implode(' ', $groups);
+            $output = $sendotp->send_otp_sms($user->phone, $msg);
         }
     }
-
-if (!function_exists('removeSpaceFromString')) 
-{
-    function removeSpaceFromString($number) {
-      $number = trim((string) $number);
-      return preg_replace('/[^\p{N}]/u', '', $number);
-    }
 }
 
 
+if (!function_exists('formatMobileNumber')) {
+    function formatMobileNumber($number)
+    {
+
+
+        $number = preg_replace('/\D/', '', $number);
+        $length = strlen($number);
+
+        // If 4 or fewer digits → return as is
+        if ($length <= 4) {
+            return $number;
+        }
+
+        // First 4 digits
+        $part1 = substr($number, 0, 4);
+        $remaining = substr($number, 4);
+
+        // Split remaining into groups of 3, last can be 1 or 2 digits
+        $groups = [];
+
+        while (strlen($remaining) > 3) {
+            $groups[] = substr($remaining, 0, 3);
+            $remaining = substr($remaining, 3);
+        }
+
+        // Add last 1–3 digit remainder
+        if (strlen($remaining) > 0) {
+            $groups[] = $remaining;
+        }
+
+        return $part1 . ' ' . implode(' ', $groups);
+    }
+}
+
+if (!function_exists('removeSpaceFromString')) {
+    function removeSpaceFromString($number)
+    {
+        $number = trim((string) $number);
+        return preg_replace('/[^\p{N}]/u', '', $number);
+    }
+}
+
+if (!function_exists('getUserWiseLastLoginTime')) {
+    function getUserWiseLastLoginTime($user)
+    {
+        $timeZone = config('app.escort_server_timezone');
+        if ($user && $user->state_id) {
+            $timeZone = config('escorts.profile.states')[$user->state_id]['timeZone'];
+        }
+        $lastLoginTime = $user->lastLoginTime->updated_at;
+        if ($user->lastLoginTime) {
+            $lastLoginTime = Carbon::parse($lastLoginTime, 'UTC')
+                ->setTimezone($timeZone)
+                ->format('Y-m-d h:i:s A');
+        }
+        return $lastLoginTime;
+    }
+}

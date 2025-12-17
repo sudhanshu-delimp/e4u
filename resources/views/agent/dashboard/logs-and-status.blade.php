@@ -51,7 +51,7 @@
                                     <td class="icon-col"><i class="fas fa-clock"></i></td>
                                     <td>Last login</td>
                                     <td class="text-center" colspan="2">
-                                        {{ $logAndStatus->updated_at->format('d-m-Y | h:i:s A') ?? '' }}
+                                        {{ $getLastLoginTime ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>
