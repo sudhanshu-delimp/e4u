@@ -43,7 +43,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
      <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{asset('assets/app/css/jquery-ui.css')}}"> 
-    <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
+    
 
      <style>
     .toogle_eye_form_wrap{
