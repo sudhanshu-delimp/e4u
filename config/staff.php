@@ -57,6 +57,18 @@ return [
         ]
     ],
 
+    'idle_preference_time' => [
+        '15' => '15 minutes',
+        '30' => '30 minutes',
+        '60' => '60 minutes',
+        '' => 'Never',
+    ],
+
+    'twofa' => [
+        '1' => 'Email',
+        '2' => 'Text',
+    ],
+
     "admin_management_url_endpoint" => [
         'email-management',
         'sim-management',
