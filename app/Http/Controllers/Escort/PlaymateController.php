@@ -69,6 +69,7 @@ class PlaymateController extends Controller
                 }
             }    
             $response['success'] = true;
+            $response['count'] = $escorts->count();
             $response['escorts'] = $escorts;
             
             $response['playmates_container_html'] = view('escort.dashboard.profile.partials.playmates_container',compact('searchValue','escorts'))->render();

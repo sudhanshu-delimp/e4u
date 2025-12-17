@@ -1,28 +1,6 @@
 $(() => {
-    var getAvailablePlaymates = function(searchValue=''){
-        let escortId = window.App.escortId;
-        return $.ajax({
-            url: `${window.App.baseUrl}escort-dashboard/available-playmates`,
-            type: "POST",
-            headers: {
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
-            },
-            dataType: "json",
-            data:{escortId,stateId,searchValue},
-            beforeSend: function () {
-                $(".playmates-card-grid").html(`<div class="alert alert-info">Please wait a moment while we find your available Playmates.</div>`);
-            },
-        }).done(function (response) {
-            if (response.success) {
-                $(".playmates-card-grid").html(response.playmates_container_html);
-            }
-        }).fail(function (xhr, status, error) {
-            console.error("Error:", error);
-        });
-    }
-    
-    let stateId = $("#state_id").val();
-    if(stateId && $(".playmates-card-grid").length > 0){
+    window.App.stateId = $("#state_id").val();
+    if(window.App.stateId && $(".playmates-card-grid").length > 0){
         getAvailablePlaymates();
     }
     
@@ -84,4 +62,27 @@ $(() => {
 });
 
 
-
+var getAvailablePlaymates = function(searchValue=''){
+    let escortId = window.App.escortId;
+    let stateId = window.App.stateId;
+    return $.ajax({
+        url: `${window.App.baseUrl}escort-dashboard/available-playmates`,
+        type: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+        },
+        dataType: "json",
+        data:{escortId,stateId,searchValue},
+        beforeSend: function () {
+            $(".playmates-card-grid").html(`<div class="alert alert-info">Please wait a moment while we find your available Playmates.</div>`);
+        },
+    }).done(function (response) {
+        console.log(response);
+        if (response.success) {
+            $(".playmates-card-grid").html(response.playmates_container_html);
+            $("#profileSearch").val('');
+        }
+    }).fail(function (xhr, status, error) {
+        console.error("Error:", error);
+    });
+}

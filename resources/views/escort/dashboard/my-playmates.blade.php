@@ -54,54 +54,100 @@
         <div class="modal fade upload-modal" id="playmates_listings" tabindex="-1" role="dialog" aria-labelledby="extendProfileTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
-                  <div class="modal-header">
+                    <div class="modal-header">
                     <h5 class="modal-title">
-                      <img src="/assets/app/img/profile-30.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
-                      Playmates
+                        <img src="/assets/app/img/profile-30.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
+                        Playmates List
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">
+                        <span aria-hidden="true">
                         <img id="modal_close_extend" src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                      </span>
+                        </span>
                     </button>
-                  </div>
-          
-                  <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12 mb-4">
-                            <div class="table-responsive-xl">
-                              <table class="table" id="playmateListModalTable" style="border: none;">
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 mb-4">
+                                <div class="table-responsive-xl">
+                                <table class="table" id="playmateListModalTable" style="border: none;">
                                 <thead style="background-color: #0C223D; color: #ffffff;">
-                                  <tr>
+                                    <tr>
                                     <th class="text-left">Playmates</th>
                                     <th class="text-center">Current Location</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
-                                  </tr>
+                                    </tr>
                                 </thead>
-                               <body>
-                               
-                               </body>
-                              </table>
+                                <body>
+                                
+                                </body>
+                                </table>
                             </div>
-                          </div>
+                        </div>
                     </div>
                     </div>
-                  </div>
-          
-                  <div class="modal-footer" style="text-align: center; display: block;">
-                    
-                  </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: center; display: block;"></div>
                 </div>
             </div>
-          </div>
+        </div>
+
+        <div class="modal fade upload-modal" id="playmates_operations" tabindex="-1" role="dialog" aria-labelledby="extendProfileTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+                    <div class="modal-header">
+                    <h5 class="modal-title">
+                        <img src="/assets/app/img/profile-30.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
+                        Add Playmates
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                        <img id="modal_close_extend" src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="profileSearch"></label>
+                                        <input type="text" class="form-control" id="profileSearch" placeholder="Search Member ID to add Playmate to the Profile...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form id="myplaymates" action="#" method="Post">
+                                @csrf
+                                <div class="col-lg-12">
+                                    <div class="playmates-card-grid">
+                                            
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <button id="my_playmates" type="submit" class="save_profile_btn">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: center; display: block;">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
 @endsection
 @section('style')
   
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script src="{{ asset('js/escort/profile_playmate.js') }}"></script>
     <script>
+        window.App = window.App || {};
         var table; 
         $(document).ready(function () {
             table = $('#playmateListTable').DataTable({
@@ -233,6 +279,17 @@
                     }
                 });
             });
+        });
+
+        $('#playmates_operations').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget);
+            let escortId   = button.data('escort-id');
+            let stateId   = button.data('state-id');
+            window.App.escortId = escortId;
+            window.App.stateId = stateId;
+            let storePlaymateUrl = "{{ route('escort.store.playmates', ':escortId') }}";
+            $("#myplaymates").attr('action',storePlaymateUrl.replace(':escortId', escortId));
+            getAvailablePlaymates();
         });
     </script>
 @endsection
