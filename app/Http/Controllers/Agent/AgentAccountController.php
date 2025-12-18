@@ -338,7 +338,7 @@ class AgentAccountController extends BaseController
 
         return response()->json(compact('template', 'message'));
     }
-    public function BankDataTable()
+    public function BankDataTable() 
     {
         list($agentBankDetail, $count, $primary_account,$primary_bank_acc_id) = $this->agentBankDetail->paginatedByAgentBankDetail(
             request()->get('start'),

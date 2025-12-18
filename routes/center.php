@@ -15,6 +15,7 @@ use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\UpdateController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Center\CenterProfileInformationController;
+use App\Http\Controllers\Center\MassageCenterAccountController;
 use App\Http\Controllers\Center\MassageViewerInteractionController;
 
 
@@ -223,10 +224,7 @@ Route::get('media-centre/photos', function()
 
 
 // add Media center Route
-Route::get('bookkeeping', function()
-{
-	return view('center.dashboard.bookkeeping');
-})->name('center.bookkeeping');
+Route::get('bookkeeping', [MassageCenterAccountController::class,'index'])->name('center.bookkeeping');
 
 Route::get('/profile-info/edit-profile', function()
 {
