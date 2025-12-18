@@ -924,7 +924,7 @@ if (!function_exists('getUserWiseLastLoginTime')) {
         if ($user->lastLoginTime) {
             $lastLoginTime = Carbon::parse($lastLoginTime, 'UTC')
                 ->setTimezone($timeZone)
-                ->format('Y-m-d h:i:s A');
+                ->format('d-m-Y h:i:s A');
         }
         return $lastLoginTime;
     }
