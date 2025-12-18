@@ -40,7 +40,7 @@
                               </div>
                            </div>
                            <div class="table-responsive-xl">
-                              <table class="table mb-3" id="ManageSupplierTable">
+                              <table class="table mb-3 w-100" id="ManageSupplierTable">
                                  <thead class="table-bg">
                                     <tr>
                                     <th scope="col">Merchant ID</th>
