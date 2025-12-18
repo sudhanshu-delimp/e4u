@@ -56,7 +56,7 @@
                 <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
                     <div class="modal-header">
                     <h5 class="modal-title">
-                        <img src="/assets/app/img/profile-30.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
+                        <img src="{{ asset('assets/app/img/playmate-30.png') }}" class="custompopicon" alt="extend" style="margin-right: 10px;">
                         Playmates List
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -98,7 +98,7 @@
                 <div class="modal-content" style="width: 700px;position: absolute;top: 30px;">
                     <div class="modal-header">
                     <h5 class="modal-title">
-                        <img src="/assets/app/img/profile-30.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
+                        <img src="{{asset('assets/app/img/playmate-30.png')}}" class="custompopicon" alt="extend" style="margin-right: 10px;">
                         Add Playmates
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -220,13 +220,12 @@
             let obj = $(this);
             let playmateHistoryId = obj.data('id');
             Swal.fire({
-                title: 'Are you sure you want to remove this Playmate?',
-                text: "This action will remove both Profiles from each other's Playmate lists.",
+                title: 'My Playmates',
+                text: "Are you sure you want to remove this Playmate? Both Profiles will be removed from each other's Playmate lists.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, remove it',
-                cancelButtonText: 'Cancel',
-                reverseButtons: true
+                cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (!result.isConfirmed) return;
                     $.ajax({

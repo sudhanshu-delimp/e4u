@@ -351,53 +351,62 @@
     const url = `{{ route('escort.remove.playmate', ':id') }}`.replace(':id', playmateId);
 
     // Optionally disable button to prevent multiple clicks
-    $btn.prop('disabled', true);
-
-    $.ajax({
-        method: "POST",
-        url: url,
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        beforeSend: function () {
-            Swal.fire({
-                title: 'Removing...',
-                text: 'Please wait while we remove this playmate.',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-        },
-        success: function (data) {
-            if (!data.error) {
-                $(`#rmlist_${playmateId}`).remove();
+    Swal.fire({
+        title: 'My Playmates',
+        text: "Are you sure you want to remove this Playmate?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove it',
+        cancelButtonText: 'Cancel',
+    }).then((result) => {
+        if (!result.isConfirmed) return;
+        $btn.prop('disabled', true);
+        $.ajax({
+            method: "POST",
+            url: url,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function () {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Removed!',
-                    text: data.message || 'Playmate removed successfully.',
-                    timer: 1500,
-                    showConfirmButton: false
+                    title: 'Removing...',
+                    text: 'Please wait while we remove this playmate.',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
                 });
-            } else {
+            },
+            success: function (data) {
+                if (!data.error) {
+                    $(`#rmlist_${playmateId}`).remove();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Removed!',
+                        text: data.message || 'Playmate removed successfully.',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: data.message || 'Failed to remove playmate.'
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                Swal.close();
                 Swal.fire({
                     icon: 'error',
                     title: 'Error!',
-                    text: data.message || 'Failed to remove playmate.'
+                    text: 'Something went wrong. Please try again.'
                 });
+            },
+            complete: function() {
+                $btn.prop('disabled', false); // re-enable button
             }
-        },
-        error: function(xhr, status, error) {
-            Swal.close();
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'Something went wrong. Please try again.'
-            });
-        },
-        complete: function() {
-            $btn.prop('disabled', false); // re-enable button
-        }
+        });
     });
 }); 
 </script>
