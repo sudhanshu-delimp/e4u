@@ -8783,8 +8783,10 @@ td {
 
 .stat-card-wrapper .stat-card .stat-top .stat-icon {
     background-color: var(--blue--text);
-    width: 35px;
-    height: 35px;
+    max-width: 45px;
+    min-width: 45px;
+    width: 100%;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;

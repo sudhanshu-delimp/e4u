@@ -163,7 +163,7 @@
 
                                 @if(!auth()->user()->my_agent)
                                 
-                                <a class="dropdown-item" href="{{url('/center-dashboard/agent-request') }}">
+                                <a class="dropdown-item" href="{{ route('agent-request') }}">
                                 @else
                                  <a class="dropdown-item" href="#">   
                                 @endif    
