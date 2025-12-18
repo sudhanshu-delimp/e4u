@@ -501,8 +501,8 @@ class WebController extends Controller
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
 
      
-         $viewType =  'list';
-         if(auth()->user()->viewer_settings)
+         $viewType =  'grid';
+         if (auth()->check() && auth()->user()->viewer_settings) 
          {
                 $viewType  =  auth()->user()->viewer_settings->listings_preferences_view === '1' ? 'grid' : 'list';
          }
