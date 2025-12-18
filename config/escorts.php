@@ -820,4 +820,5 @@ return [
 		'admin'=>'admin@e4u.com.au',
 	],
 	'poli_payment_authorization_code' =>base64_encode(env('POLI_PAYMENT_ID').':'.env('POLI_PAYMENT_CODE')),
+	'current_location' => env('CURRENT_LOCATION')
 ];

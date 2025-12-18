@@ -19,13 +19,16 @@
                         <span class="separator">|</span> <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> 
                     </span>
                     <span>
-                        <span class="separator">|</span> <b>My Agent :  </b><span class="user-values">
+                        <span class="separator">|</span> <b>My Agent :  </b>
                             @if(auth()->user()->my_agent)
-                                {{  \Illuminate\Support\Str::limit(Str::title(auth()->user()->my_agent->name), 8, '..') }}
+                            <span class="user-values" title="My Agent ID : {{ auth()->user()->my_agent->member_id }}">
+                                {{  \Illuminate\Support\Str::limit(Str::title(auth()->user()->my_agent->business_name), 12, '..') }}  </span>
                             @else
+                            <span class="user-values" title="">
                                 <a href="{{url('/escort-dashboard/escort-agency-request') }}" class="request-active"> Request one</a>
+                                 </span>
                             @endif
-                        </span>
+                       
                     </span>
 
                      <span>
@@ -47,7 +50,7 @@
         <!-- Topbar Navbar -->
         <div class="navbar-nav ">
             {{-- Nav Item - Search visible all screen not only xs --}}
-                <form class="form-inline navbar-search form-inline-custom" style="width: 14rem;">
+                <form class="form-inline navbar-search form-inline-custom d-none" style="width: 14rem;">
                     <div class="input-group " style="border: 1px solid #D6D7E3; border-radius: 7px;">
                         <div class="input-group-append">
                             <button class="btn" type="button">
@@ -157,7 +160,8 @@
                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                         
                                         @if(auth()->user()->my_agent)
-                                        My Agent :  {{ auth()->user()->my_agent->member_id }}
+                                         <span class="user-values" title="My Agent : {{ auth()->user()->my_agent->business_name }}">
+                                        My Agent ID :  {{ auth()->user()->my_agent->member_id }}</span>
                                         @else
                                            My Agent ID : <span class="request-active"> Request one</span>
                                         @endif

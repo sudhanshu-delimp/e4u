@@ -457,17 +457,18 @@
                         </a>
                         <div id="Analytics" class="collapse @if (request()->segment(3) == 'publicpages' || request()->segment(3) == 'consoles') show @endif;">
                             <div class="py-0 collapse-inner rounded mb-2">
-                                <a class="collapse-item" href="{{ route('publicpages') }}">
-                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                                        src="{{ asset('assets/dashboard/img/menu-icon/advertiser.png') }}">
-                                    <span style="{{ request()->segment(3) == 'publicpages' ? 'color: #FF3C5F;' : '' }}">Public
-                                        Pages</span>
-                                </a>
+                                
                                 <a class="collapse-item" href="{{ route('consoles') }}">
                                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                         src="{{ asset('assets/dashboard/img/menu-icon/console.png') }}">
                                     <span
                                         style="{{ request()->segment(3) == 'consoles' ? 'color: #FF3C5F;' : '' }}">Consoles</span>
+                                </a>
+                                <a class="collapse-item" href="{{ route('publicpages') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/advertiser.png') }}">
+                                    <span style="{{ request()->segment(3) == 'publicpages' ? 'color: #FF3C5F;' : '' }}">Public
+                                        Pages</span>
                                 </a>
                             </div>
                         </div>
@@ -563,7 +564,7 @@
 
                             <div class="py-0 collapse-inner rounded mb-2">
                                 {{-- global --}}
-                                <a href="{{ route('admin.global', ['from' => 'sidebar']) }}" class="collapse-item">
+                                <a href="{{ route('admin.global.notification.index') }}" class="collapse-item">
                                     <img src="{{ asset('assets/dashboard/img/menu-icon/g-notification.png') }}">
                                     <span
                                         style="{{ request()->segment(3) == 'global' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Global</span>
@@ -809,18 +810,20 @@
                         <div id="manageAgentMenu"
                             class="collapse @if (in_array(request()->segment(3), ['agent', 'agents-monthly-report'])) show @endif pl-3"
                             style="margin-left: 10px;">
+                            
+                            <a class="collapse-item" href="{{ route('admin.agent') }}">
+                                <img width="16" height="17"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <span style="{{ request()->segment(3) == 'agent' ? 'color: #FF3C5F;' : '' }}">Manage
+                                    Agents</span>
+                            </a>
+
                             <a class="collapse-item" href="{{ route('admin.agents-monthly-report') }}">
                                 <img width="16" height="17"
                                     src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'agents-monthly-report' ? 'color: #FF3C5F;' : '' }}">Monthly
                                     Report</span>
-                            </a>
-                            <a class="collapse-item" href="{{ route('admin.agent') }}">
-                                <img width="16" height="17"
-                                    src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span style="{{ request()->segment(3) == 'agent' ? 'color: #FF3C5F;' : '' }}">Manage
-                                    Agents</span>
                             </a>
 
                         </div>

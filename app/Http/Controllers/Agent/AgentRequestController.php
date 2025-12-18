@@ -37,7 +37,8 @@ class AgentRequestController extends Controller
 
            
             $agent_users = User::where('state_id', auth()->user()->state_id)
-                ->where('type', 5)
+                ->where('type', '5')
+                ->where('status', '1')
                 ->pluck('id')
                 ->unique()
                 ->toArray();
@@ -301,12 +302,14 @@ class AgentRequestController extends Controller
 
                     User::where('id', $advertiser->advertiser_user_id)
                             ->where(function ($query) {
-                            $query->where('type', 3)
-                            ->orWhere('type', 4);
+                            $query->where('type', '3')
+                            ->orWhere('type', '4');
                             })
                             ->update([
                                 'is_agent_assign' => '1',
-                                'assigned_agent_id' => auth()->id()
+                                'agent_assign_date' => date('Y-m-d H:i:s'),
+                                'assigned_agent_id' => auth()->id(),
+                                'referred_by_agent_id' => auth()->user()->member_id
                     ]);
 
                         ######### Send Notification ################

@@ -74,6 +74,7 @@
                                 <button type="submit" id="submit_button" class="btn site_btn_primary">Login</button>
                            </div>
                        </div>
+                       <input type="hidden" name="current_state_id" id="current_state_id">
                        <p class="mb-0 mynote"><b>Note:</b> Login is undertaken with 2FA authentification</p>
                     </form>
                </div>
@@ -127,6 +128,7 @@
                             <button type="submit" class="btn main_bg_color site_btn_primary" id="sendSubmit">Send</button>
                             <p class="pt-2">Not received your code? <a href="#" class="termsandconditions_text_color">Resend Code</a></p>
                         </div>
+                        
                     </form>
                 </div>
             </div>
@@ -498,7 +500,9 @@
                         }
                         else
                         {
-                            console.log('response.data.state',response.data.state);
+                             console.log('response.data.state',response.data.state);
+                             $('#current_state_id').val(response.data.state);
+                           
                         }
                     },
                     error: function (xhr, status, error) {

@@ -86,9 +86,9 @@
                         <tr>
                             <th >Ref</th>
                             <th >Date</th>
-                            <th class="text-center">Rating</th>
-                            <th class="text-center" style="width: 100px;">Status</th>
-                            <th class="text-center">Action</th>
+                            <th>Rating</th>
+                            <th style="width: 100px;">Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -251,7 +251,7 @@
                     orderable: false,
                     searchable: false
                 },
-                { data: 'action', name: 'action', orderable: false }
+                { data: 'action', name: 'action', orderable: false, class:'text-center' }
             ]
         });
 

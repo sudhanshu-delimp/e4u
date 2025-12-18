@@ -7,6 +7,9 @@
             display: inline-block;
             margin: 20px 0px;
         }
+        .table-responsive{
+            overflow: visible;
+        }
         .task-1{
             width: clamp(50%, 8vw, 100%) !important;
 
@@ -115,9 +118,9 @@
                         </div> --}}
                         {{-- $tasks --}}
                         <div class="card-body p-0 Dash-table task_table">
-                            <div class="table-full-width table-responsive">
-                                <table class="table table-bordered " >
-                                    <thead style="background-color: #0C223D; color: #ffffff;">
+                            <div class="table-responsive">
+                                <table class="table" >
+                                    <thead class="bg-first">
                                         <tr>
                                             <th>Task</th>
                                             <th class="text-center">Status</th>
@@ -126,63 +129,6 @@
                                     </thead>
                                     <tbody id="taskList">
                                         
-                                        {{-- @foreach ($tasks as $task)
-
-                                            @php
-                                                
-                                                $taskBadgeColor = '#f6c23e ';
-                                                if($task->status === 'inprogress'){
-                                                    $taskBadgeColor = '#4e73df ';
-                                                }
-
-                                                if($task->status === 'completed'){
-                                                    $taskBadgeColor = '#1cc88a';
-                                                }
-
-                                                $priorityColor = 'text-high';
-                                                if($task->priority === 'medium'){
-                                                    $priorityColor = 'text-medium';
-                                                }
-                                                if($task->priority === 'low'){
-                                                    $priorityColor = 'text-low';
-                                                }
-                                                $checkboxId = 'task_checkbox_' . $task->id;
-                                            @endphp
-                                            <tr>
-                                                <td class="border-0 pl-0 pr-0">
-                                                    <div class="form-check m-0 p-0">
-                                                        <label class="form-check-label" for="{{ $checkboxId }}">
-                                                            <input class="form-check-input" id="{{ $checkboxId }}" type="checkbox" value="">
-                                                            <span class="form-check-sign"></span>
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td class="border-0 pl-0 task-color">
-                                                    <label for="{{ $checkboxId }}" class="mb-0 cursor-pointer">
-                                                    <i
-                                                        class="fas fa-circle {{$priorityColor}} taski mr-2"></i>{{Str::title($task->title)}}
-                                                    </label></td>
-                                                <td class="td-actions text-left border-0 ">
-                                                    <span class="badge badge-danger-lighten task-1" style="background: {{$taskBadgeColor}}; padding:5px 10px; max-width:120px; width:100%;">{{Str::title($task->status)}}</span>
-                                                </td>
-                                                <td class="theme-color  pr-0 bg-white" style="border: none;">
-                                                    <div class="dropdown no-arrow">
-                                                        <a class="dropdown-toggle" href="#" role="button"
-                                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i
-                                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                        </a>
-                                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                            aria-labelledby="dropdownMenuLink" style="">
-                                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                                data-target="#new-ban">Delete</a>
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach --}}
                                         
                                     </tbody>
                                 </table>
@@ -263,7 +209,9 @@
     
 @endsection
 @section('script')
+
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script>
         $(document).ready(function() {
 

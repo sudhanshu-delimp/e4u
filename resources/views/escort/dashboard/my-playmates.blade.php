@@ -36,13 +36,11 @@
             <!-- My Playmates -->
             <div class="col-md-12 mb-4">
                 <div class="table-responsive-xl">
-                  <table class="table table-bordered" id="playmateListTable" style="border: none;">
+                  <table class="table" id="playmateListTable" style="border: none;">
                     <thead style="background-color: #0C223D; color: #ffffff;">
                       <tr>
-                        <th class="text-left">Playmates</th>
                         <th class="text-left">Profile</th>
-                        {{-- <th class="text-left">Current Location</th> --}}
-                        {{-- <th class="text-center">Status</th> --}}
+                        <th class="text-left">Playmates</th>
                         <th class="text-center">Action</th>
                       </tr>
                     </thead>
@@ -53,6 +51,50 @@
                 </div>
               </div>
         </div>
+        <div class="modal fade upload-modal" id="playmates_listings" tabindex="-1" role="dialog" aria-labelledby="extendProfileTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+                  <div class="modal-header">
+                    <h5 class="modal-title">
+                      <img src="/assets/app/img/profile-30.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
+                      Playmates
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">
+                        <img id="modal_close_extend" src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                      </span>
+                    </button>
+                  </div>
+          
+                  <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <div class="table-responsive-xl">
+                              <table class="table" id="playmateListModalTable" style="border: none;">
+                                <thead style="background-color: #0C223D; color: #ffffff;">
+                                  <tr>
+                                    <th class="text-left">Playmates</th>
+                                    <th class="text-center">Current Location</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Action</th>
+                                  </tr>
+                                </thead>
+                               <body>
+                               
+                               </body>
+                              </table>
+                            </div>
+                          </div>
+                    </div>
+                    </div>
+                  </div>
+          
+                  <div class="modal-footer" style="text-align: center; display: block;">
+                    
+                  </div>
+                </div>
+            </div>
+          </div>
 @endsection
 @section('style')
   
@@ -60,45 +102,137 @@
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script>
-    var table; 
-    $(document).ready(function () {
-    table = $('#playmateListTable').DataTable({
-        serverSide: true,
-        processing: true,
-        "language": {
-            "zeroRecords": "There is no record of the search criteria you entered.",
-            searchPlaceholder: "Search by Playmate Name"
-            },
-        initComplete: function() {
-            if ($('#returnToReportBtn').length === 0) {
-            $('.dataTables_filter').append(
-                    '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
-            );
-            }
-            $('#returnToReportBtn').on('click', function() {
-            var table = $('#sailorTable').DataTable();
-            table.search('').draw();
-            });
-        },
-                
-        ajax: {
-            url: "{{ route('escort.dashboard.my-playmates') }}",
-            type: "POST",
-            data: function (d) {
-            
-            }
-        },
-        columns: [
-            { data: 'playmates', name: 'id'},
-            { data: 'profile_stage_name', name: 'id', orderable: false, searchable: false},
-           // { data: 'current_location', name: 'current_location', searchable: false },
-           // { data: 'status', name: 'status' , orderable: false, searchable: false, className: 'text-center'},
-            { data: 'action', name: 'Action', orderable: false, searchable: false, className: 'text-center' },
-        ]
+        var table; 
+        $(document).ready(function () {
+            table = $('#playmateListTable').DataTable({
+                serverSide: true,
+                processing: true,
+                "language": {
+                    "zeroRecords": "There is no record of the search criteria you entered.",
+                    searchPlaceholder: "Search by Profile Name"
+                    },
+                initComplete: function() {
+                    if ($('#returnToReportBtn').length === 0) {
+                    $('.dataTables_filter').append(
+                            '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+                    );
+                    }
+                    $('#returnToReportBtn').on('click', function() {
+                        var table = $('#playmateListTable').DataTable();
+                        table.search('').draw();
+                    });
+                },
+                        
+                ajax: {
+                    url: "{{ route('escort.dashboard.my-playmates') }}",
+                    type: "POST",
+                    data: function (d) {
+                    
+                    }
+                },
+                columns: [
+                    { data: 'profile_stage_name', name: 'name'},
+                    { data: 'playmates',orderable: false, searchable: false},
+                    { data: 'action', name: 'Action', orderable: false, searchable: false, className: 'text-center' },
+                ]
+                });
+
+                // Add placeholder to search input
+                $('#sailorTable_filter input').attr('placeholder', 'Search by ID or Tour Name');
         });
 
-        // Add placeholder to search input
-        $('#sailorTable_filter input').attr('placeholder', 'Search by ID or Tour Name');
-    });
+        let playmateTable;
+        $('#playmates_listings').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget);
+            let escortId   = button.data('escort-id');
+            if ($.fn.DataTable.isDataTable('#playmateListModalTable')) {
+                playmateTable.destroy();
+                $('#playmateListModalTable body').empty();
+            }
+            playmateTable = $('#playmateListModalTable').DataTable({
+            processing: true,
+            serverSide: true,
+            lengthChange: false,
+            searching: false,
+            ajax: {
+                url: "{{ route('escort.dashboard.get-playmate-listings') }}",
+                type: "POST",
+                data: function (d) {
+                    d.escort_id = escortId;
+                }
+            },
+            columns: [
+                { data: 'playmate_stage_name', name:'name'},
+                { data: 'current_location', orderable: false, className: 'text-center'},
+                { data: 'status', orderable: false, className: 'text-center'},
+                { data: 'action', orderable: false, className: 'text-center'}
+            ]
+            });
+        });
+
+        $(document).on('click', '.trash-playmate', function () {
+            let obj = $(this);
+            let playmateHistoryId = obj.data('id');
+            Swal.fire({
+                title: 'Are you sure you want to remove this Playmate?',
+                text: "This action will remove both Profiles from each other's Playmate lists.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, remove it',
+                cancelButtonText: 'Cancel',
+                reverseButtons: true
+            }).then((result) => {
+                if (!result.isConfirmed) return;
+                    $.ajax({
+                    url: "{{ route('escort.dashboard.trash-playmate-history') }}",
+                    type: "POST",
+                    data: {playmateHistoryId},
+                    beforeSend: function () {
+                        Swal.fire({
+                            title: 'Please wait...',
+                            text: 'Removing...',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+                    },
+
+                    success: function (response) {
+                        Swal.close();
+                        if (response.success === true) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Removed!',
+                                text: response.message,
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                            playmateTable.draw();
+                            table.draw();
+                        } else {
+                            Swal.fire('Error', response.message || 'Something went wrong', 'error');
+                        }
+                    },
+
+                    error: function (xhr) {
+                        Swal.close();
+                        if (xhr.status === 422) {
+                            let errors = xhr.responseJSON.errors;
+                            let firstError = Object.values(errors)[0][0];
+                            Swal.fire('Validation Error', firstError, 'warning');
+                        }
+                        else if (xhr.status === 500) {
+                            console.log('xhr', xhr);
+                            Swal.fire('Server Error', xhr.statusText, 'error');
+                        }
+                        else {
+                            Swal.fire('Network Error', 'Check your internet connection', 'error');
+                        }
+                    }
+                });
+            });
+        });
     </script>
 @endsection

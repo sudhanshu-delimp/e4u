@@ -11,8 +11,19 @@
         $gender = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
         $cities = config('escorts.profile.cities');
         $city = isset($cities[$staff->city_id]) ? $cities[$staff->city_id] : '';
+        $setting = $staff->staff_setting??null;
+        $idle_preference_times = config('staff.idle_preference_time');
+        $idle_preference_time = "";
+         $twofa = "";
+        if(isset( $setting) && (isset($setting->idle_preference_time) || $setting->idle_preference_time === null)) {
+            $idle_preference_time = isset($idle_preference_times[(string)$setting->idle_preference_time]) ? $idle_preference_times[$setting->idle_preference_time] : "";
+        }
+        $twofas = config('staff.twofa');
+        if(isset( $setting) && isset($setting->twofa)) {
+        $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
+        }
     @endphp
-    <div class="col-12 view_staff_details" style="max-height: 500px; overflow:auto;">
+    <div class="col-12 view_staff_details" style="max-height: 600px; overflow:auto;">
          <div class="row">
             <!-- Section: Personal Details -->
             <div class="col-12 my-2">
@@ -125,18 +136,50 @@
 
                     </tbody>
                 </table>
-                
             </div>
+    <!-- Section: Building Security -->
+    <div class="col-12 my-2">
+        <h6 class="border-bottom pb-1 text-blue-primary">Building Security</h6>
+        <table class="table table-bordered mb-3">
+            <tbody>
+                <tr>
+                    <th width="40%">Building Security</th>
+                    <td width="60%">{{ ucfirst($staff->staff_detail->building_access_code) }}</td>
+                </tr>
+                <tr>
+                    <th>Key Provided?</th>
+                    <td> {{ ucfirst($staff->staff_detail->keys_issued) }}</td>
+                </tr>
+                <tr>
+                    <th>Car Park?</th>
+                    <td>{{ ucfirst($staff->staff_detail->car_parking) }}</td>
+                </tr>
+            </tbody>
+        </table>
          </div>
-    </div>
-   
-    <div class="col-12 my-2 text-right">
-        <form action="{{ route('admin.print_staff') }}" method="post">
-            {{ csrf_field() }}
-            <input name="user_id" type="hidden" id="user_print_id" class="user_print_id"
-                value="{{ $staff->id }}">
-            <button type="submit" class="print-btn m-0">🖨️ Print Report</button>
-            <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
-        </form>
+        <div class="col-12 my-2">
+               
+                <table class="table table-bordered mb-3">
+                    <tbody>
+                        <tr>
+                            <th width="40%">Idle Time Preference</th>
+                            <td width="60%">{{$idle_preference_time}}</td>
+                        </tr>
+                        <tr>
+                            <th width="40%">2FA Authentication</th>
+                            <td width="60%">{{ $twofa }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <div class="col-12 my-2 text-right">
+            <form action="{{ route('admin.print_staff') }}" method="post">
+                {{ csrf_field() }}
+                <input name="user_id" type="hidden" id="user_print_id" class="user_print_id"
+                    value="{{ $staff->id }}">
+                <button type="submit" class="print-btn m-0">🖨️ Print Report</button>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
+            </form>
+        </div>
     </div>
 </div>

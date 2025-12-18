@@ -171,8 +171,11 @@
                             <div class="form-group">
                                 <label for="conformPassword">Referred by Agent (Agent ID)</label>
                                 <input type="txt" class="form-control" id="agent_id" name="agent_id" placeholder="Enter Agent ID">
-                                <div class="termsandconditions_text_color">
-                                    <!-- error sms here -->
+                                <span id="agent_id-errors"></span>
+                               <div class="termsandconditions_text_color">
+                                    @error('agent_id')
+                                    <strong>{{ $message }}</strong>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row">
@@ -566,6 +569,7 @@
                 var formData = new FormData($("#escort_registration")[0]);
                 var token = $('input[name="_token"]').attr('value');
                 swal_waiting_popup({'title' : 'Your registration is currently being processed.'});
+                $('#agent_id-errors').html('');
                 $.ajax({
                     url: url,
                     type: 'POST',
@@ -675,6 +679,9 @@
                             }
                             if (key === "email") {
                                 $('#email-errors').html('<div class="alert alert-danger">' + data.responseJSON.errors.email + '</div>');
+                            }
+                            if (key === "agent_id") {
+                                $('#agent_id-errors').html('<div class="alert alert-danger">' + data.responseJSON.errors.agent_id + '</div>');
                             }
                             // errorsHtml = '<div class="alert alert-danger"><ul>';
                             // errorsHtml += '<li>' + value + '</li>'; //showing only the first error.

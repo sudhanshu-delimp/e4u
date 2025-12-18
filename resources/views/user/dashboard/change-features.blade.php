@@ -28,7 +28,7 @@
                         <li>Use this feature to enable and disable your feature preferences.</li>
                         <li>Please note that for an Advertiser to participate in any of these features, they must
                             have enabled the corresponding feature in their preference settings.</li>
-                        <li>Note also the default setting for 2FA authentification.</li>
+                        
                     </ol>
                 </div>
                 </div>
@@ -119,7 +119,7 @@
 
             <!-- Interests -->
             <div class="form-group">
-                <h3 class="h3">What are your interests?</h3>
+                <h3 class="h3" style="text-transform: unset;">What are Your Interests?</h3>
 
                 <div class="custom-control custom-switch">
                     <input class="custom-control-input" id="interest_female" type="checkbox"
@@ -156,7 +156,7 @@
                     <label class="custom-control-label" for="interest_couples">Couples</label>
                 </div>
 
-                <div class="pt-1"><i>By selecting a particular interest, we can refine your Escorts View page.</i></div>
+                <div class="pt-1"><i>By selecting a particular interest, we can refine your Escort Listings View page.</i></div>
             </div>
 
         </div>

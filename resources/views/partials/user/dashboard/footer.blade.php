@@ -240,7 +240,40 @@
 
             $(document).ready(function() {
                 initJsDatePicker();
+                get_current_location_time();
+                setInterval(updateTime, 1000);
+
             });
+
+           function get_current_location_time() {
+                $.ajax({
+                    url: '{{ route("user.get_current_location_time") }}',
+                    method: 'GET',
+                    success: function (response) {
+                        $(".live_current_location").text(response.current_state);
+                        localStorage.setItem('time_zone', response.time_zone);
+                        updateTime();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error in location filter:', error);
+                    }
+                });
+            }
+
+            function updateTime() 
+            {
+                let timeZone = localStorage.getItem('time_zone');
+                const now = new Date();
+                const options = {
+                    timeZone: timeZone,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                };
+
+                const time = new Intl.DateTimeFormat('en-US', options).format(new Date());
+                $(".live_current_time").html(`${time}`);
+            }
 </script> 
          
     </body>

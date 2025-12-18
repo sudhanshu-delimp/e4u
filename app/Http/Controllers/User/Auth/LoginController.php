@@ -87,8 +87,13 @@ class LoginController extends Controller
             $otp = $this->user->generateOTP();
             $user->otp = $otp;
             $path = $request->path;
-            $user->save();
 
+            if(isset($request->current_state_id) && $request->current_state_id!="")
+            {
+                 $user->current_state_id = $request->current_state_id;
+            }
+
+            $user->save();
 
             if(! is_null($request->escort_id)) 
             {

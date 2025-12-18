@@ -11,7 +11,7 @@
                             <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
                         </div> --}}
                         <div class="d-user-info">
-                           <div class="common_top_menu">
+                           <div class="escort_header_top_menu">
                                 <span>
                                     <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name }}</span>  
                                 </span>
@@ -19,16 +19,16 @@
                                     <span class="separator">|</span>
                                     <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span>
                                 </span>
-                                <span>
+                                <span><span class="separator">|</span>
                                     <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
                                 </span>
 
                                 <span>
-                                    <span class="separator">|</span> <b>Current Location :  </b><span class="user-values live_current_location">--</span> 
+                                     <b>Current Location :  </b><span class="user-values live_current_location"></span> 
                                 </span>
                                 
-                                <span>
-                                    <span class="separator">|</span>  <b>Location time :  </b><span class="user-values live_current_time">00:00 AM</span>
+                                <span><span class="separator">|</span>
+                                    <b>Location time :  </b><span class="user-values live_current_time"></span>
                                 </span>
 
                            </div>
@@ -54,7 +54,7 @@
                     <div class="navbar-nav">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <form class="form-inline navbar-search form-inline-custom" style="width: 22rem;">
+                        <form class="form-inline navbar-search form-inline-custom d-none" style="width: 22rem;">
                             <div class="input-group dk-border-radius">
                                 <div class="input-group-append">
                                     <button class="btn" type="button">
