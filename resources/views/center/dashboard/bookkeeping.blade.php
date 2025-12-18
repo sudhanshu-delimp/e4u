@@ -146,7 +146,7 @@
                                 </div>
                              </div>
                              <div id="bankAccountTable_processing" class="dataTables_processing" style="display: none;">Processing...</div>
-                             <table class="table dataTable no-footer" id="bankAccountTable" role="grid" aria-describedby="bankAccountTable_info" style="width: 1434px;">
+                             <table class="table w-100" id="bankAccountTable" role="grid" aria-describedby="bankAccountTable_info" style="width: 1434px;">
                                 <thead class="table-bg">
                                    <tr role="row">
                                       <th scope="col" class="sorting" tabindex="0" aria-controls="bankAccountTable" rowspan="1" colspan="1" aria-label="Bank: activate to sort column ascending" style="width: 170px;">Bank</th>

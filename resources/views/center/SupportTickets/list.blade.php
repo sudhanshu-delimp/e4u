@@ -58,8 +58,8 @@
     
         <div class="row">
             <div class="col-md-12">
-                <div class="table-responsive-xl">
-                    <table class="table" id="supportTicketsTable">
+                <div class="table-responsive">
+                    <table class="table w-100" id="supportTicketsTable">
                         <thead class="table-bg">
                             <tr>
                                 <th>Ticket ID</th>
