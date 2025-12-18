@@ -1005,11 +1005,11 @@ var fee_support_services = $("#fee_support_services").DataTable({
                                                 <div class="row">
                                                    <div class="col-6 mb-3">
                                                       <label>Fee</label>
-                                                      <input type="text" name="fee" class="form-control rounded-0" value="${(rowData.fee  ? rowData.fee : '')}" readonly>
+                                                      <input type="text" name="fee" class="form-control rounded-0" value="${(rowData.fee  ? rowData.fee : '')}">
                                                    </div>
                                                    <div class="col-6 mb-3">
                                                       <label>Rate</label>
-                                                      <input type="text" name="frequency" class="form-control rounded-0" value="${(rowData.frequency ? rowData.frequency : '')}" readonly>
+                                                      <input type="text" name="frequency" class="form-control rounded-0" value="${(rowData.frequency ? rowData.frequency : '')}">
                                                    </div>
                                                    <div class="col-6 mb-3">
                                                       <label>Amount</label>
