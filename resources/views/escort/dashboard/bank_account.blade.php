@@ -1,6 +1,6 @@
 @extends('layouts.escort') 
 @section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style type="text/css">
    .parsley-errors-list {
       /* color: red; */
@@ -73,10 +73,31 @@
   font-weight: bold;
 }
 
+
+   .shake {
+      animation: shake 0.3s;
+      border: 2px solid red;
+      color: red;
+   }
+
+   @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+   }
+   .wrong_pin_hide_details{
+      filter: blur(3px);
+   }
+   .parsley-errors-list{
+      padding-left: 0px !important;
+   }
+
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 wrong_pin_hide_details">
    <!--middle content end here-->
    <div class="row">
       <div class="col-md-12 custom-heading-wrapper">
@@ -107,8 +128,8 @@
       <div class="col-lg-12 col-md-12 col-sm-12">
 
          <div class="bothsearch-form d-flex gap-20">
-            <button type="button" class="create-tour-sec dctour" data-toggle="modal"  data-target="#payid">PayID</button>
-            <button type="button" class="create-tour-sec dctour" data-toggle="modal"  data-target="#SetPinModal">Change PIN</button>
+            {{-- <button type="button" class="create-tour-sec dctour" data-toggle="modal"  data-target="#payid">PayID</button> --}}
+            <button type="button" class="create-tour-sec dctour" id="change_pin_modal">Change PIN</button>
             <button type="button" class="create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New Account</button>
          </div>
       </div>
@@ -125,7 +146,7 @@
                      <th scope="col">BSB</th>
                      <th scope="col">Account Number</th>
                      <th scope="col">Account Status</th>
-                     <th scope="col" class="text-center">Action</th>
+                     <th scope="col" >Action</th>
                   </tr>
                </thead>
             </table>
@@ -145,7 +166,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title"><img src="/assets/dashboard/img/add-new-account.png" class="custompopicon" alt="cross"> Add New Account</h5>
+            <h5 class="modal-title"><img src="/assets/dashboard/img/add-new-account.png" class="custompopicon" alt="cross"> <span class="commission_report_title">Add New Account</span> </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -197,7 +218,7 @@
                   </div>
                   <div class="col-md-12 mb-3">
                      <div class="form-group">
-                        <button type="submit" class="btn-success-modal float-right">Save</button>
+                        <button type="submit" class="btn-success-modal float-right save_button">Save</button>
                      </div>
                   </div>
                </div>
@@ -250,6 +271,7 @@
                <div id="senderror"></div>
             </div>
             <div class="modal-footer forgot_pass pt-0 pb-4 justify-content-center">
+               <input type="hidden" value="0" name="change_pin_active" id="change_pin_active">
                {{-- <button type="submit" class="btn main_bg_color site_btn_primary" id="sendOtpSubmit">Send</button> --}}
                <p class="pt-2">Not received your code? <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a></p>
             </div>
@@ -269,13 +291,13 @@
                </span>
             </button>
          </div>
-         <div class="modal-body">
+         <div class="modal-body text-center">
             <input type="hidden" id="previous" name="url">
             <input type="hidden" id="label" name="label">
             <input type="hidden" id="trigger-element">
-            <h3 class="mb-2 mt-3"><span id="Lname"></span> </h3>
+            <h5 class="mb-2 mt-3"><span id="Lname"></span> </h5>
             <h3 class="mb-4 mt-2"><span id="log"></span> </h3>
-            <div class="modal-footer">
+            <div class="modal-footer justify-content-center">
                <button type="button" class="btn-success-modal" data-dismiss="modal" value="close" id="close_change">Close</button>
                <button type="button" class="btn-cancel-modal" id="save_change">Delete</button>
             </div>
@@ -430,11 +452,14 @@
          <h5 class=""><b>Enter your PIN</b> <br><small>(4 digits)</small></h5>
       </div>
  
-       <div class="modal-body text-center p-0">
+       <div class="modal-body text-center p-0" >
          <!-- PIN Display -->
-         <div id="pinDisplay" class="pin-display mb-3">
-           [numbers appear as typed]
+         <div class="overflow-hidden">
+            <div id="pinDisplay" class="pin-display mb-3">
+            Numbers appear as typed
+            </div>
          </div>
+         
  
          <!-- Keypad -->
          <div class="pin-keypad mx-auto mb-3">
@@ -492,8 +517,8 @@
          <ol class="text-left">
             <li class="pl-3">EFT your payment to this bank account:
                <ul class="text-left list-unstyled instruction-list">
-                  <li><span class="payer-lable">BSB:</span> <span class="font-weight-bold">123 445</span></li>
-                  <li><span class="payer-lable">A/c Number:</span> <span class="font-weight-bold">123-1235</span></li>
+                  <li><span class="payer-lable">BSB: </span> <span class="font-weight-bold primary_bsb"> 123 445</span></li>
+                  <li><span class="payer-lable">A/C Number: </span> <span class="font-weight-bold primary_acc_no"> 123-1235</span></li>
                </ul>
             </li>
             <li class="pl-3">Please email your payment receipt to:
@@ -555,39 +580,39 @@
  
        <div class="modal-body text-center p-0">
          <!-- PIN Display -->
-         <div id="pinDisplay" class="pin-display mb-3">
-           [numbers appear as typed]
+         <div id="pinDisplaySet" class="pin-display mb-3">
+           Nnumbers appear as typed
          </div>
  
          <!-- Keypad -->
          <div class="pin-keypad mx-auto mb-3">
            <div class="keypad-row">
-             <button class="key input_value">1</button>
-             <button class="key input_value">2</button>
-             <button class="key input_value">3</button>
+             <button class="key input_value_pin">1</button>
+             <button class="key input_value_pin">2</button>
+             <button class="key input_value_pin">3</button>
            </div>
            <div class="keypad-row">
-             <button class="key input_value">4</button>
-             <button class="key input_value">5</button>
-             <button class="key input_value">6</button>
+             <button class="key input_value_pin">4</button>
+             <button class="key input_value_pin">5</button>
+             <button class="key input_value_pin">6</button>
            </div>
            <div class="keypad-row">
-             <button class="key input_value">7</button>
-             <button class="key input_value">8</button>
-             <button class="key input_value">9</button>
+             <button class="key input_value_pin">7</button>
+             <button class="key input_value_pin">8</button>
+             <button class="key input_value_pin">9</button>
            </div>
            <div class="keypad-row">
-             <button class="key" id="clear">⌫</button>
-             <button class="key input_value">0</button>
+             <button class="key" id="clearSetPin">⌫</button>
+             <button class="key input_value_pin">0</button>
              <button class="key" id="ok">OK</button>
            </div>
          </div>
  
          <!-- Footer Buttons -->
-         <div class="d-flex justify-content-center mb-3">
-           <button type="button" class="btn-cancel-modal mr-3">Clear</button>
-           <button type="button" class="btn-success-modal">Save</button>
-         </div>
+         {{-- <div class="d-flex justify-content-center mb-3">
+           <button type="button" class="btn-cancel-modal mr-3 clear_at_once">Clear</button>
+           <button type="button" class="btn-success-modal save_new_pin">Save</button>
+         </div> --}}
  
        </div>
      </div>
@@ -600,8 +625,6 @@
 <!-- file upload plugin start here -->
 <!-- file upload plugin end here -->
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
    $(document).ready(function(){
@@ -609,34 +632,114 @@
       $('#EnterPinModal').modal('show');
 
       let fClick = true;
-      $('.input_value').click(function(){
-         let inputValue = $(this).text();
-         if(fClick){
-            $('#pinDisplay').empty();
-               fClick = false;            
-         }
-         $('#pinDisplay').append(inputValue);
-         
-      });
-      $('#clear').click(function(){
-         $('#pinDisplay').text(' ');
-      });
-         $("#ok").click(function(){
-            alert('Your Pin Set');
-            $('#pinDisplay').text(' ');
-         });
-      $("#pinok").click(function(){
-          let pin = $('#pinDisplay').text();
+      let fClick2 = true;
 
-         if (pin === "1234") {  
-            $('#EnterPinModal').modal('hide'); // correct PIN → allow closing
-            $('#InstructionPayerModal').modal('show');
-            $('#pinDisplay').text(' ');
-         } else {
-            alert("Incorrect PIN");
+      // For pinDisplay
+      $('.input_value').click(function () {
+         const inputValue = $(this).text();
+         const el = $('#pinDisplay');
+
+         // Clear default text on first click
+         if (fClick) {
+            el.text('');
+            fClick = false;
          }
-         
+
+         let text = el.text();
+
+         // Prevent more than 4 digits
+         if (text.length >= 4) return;
+
+         el.text(text + inputValue);
       });
+
+      // For pinDisplaySet
+      $('.input_value_pin').click(function () {
+         const inputValue = $(this).text();
+         const el2 = $('#pinDisplaySet');
+
+         
+         
+
+         // Clear default text on first click
+         if (fClick2) {
+            el2.text('');
+            fClick2 = false;
+         }
+
+         let text2 = el2.text();
+
+         // Prevent more than 4 digits
+         if (text2.length >= 4) return;
+
+         el2.text(text2 + inputValue);
+      });
+
+      $('#clear').click(function(){
+         let el = $('#pinDisplay');
+         let el2 = $('#pinDisplaySet');
+         let text = el.text();
+         let text2 = el2.text();
+         if (text.length > 0) {
+            el.text(text.slice(0, -1));
+         }
+
+         if (text2.length > 0) {
+            el2.text(text2.slice(0, -1));
+         }
+      });
+
+      $('#clearSetPin').click(function(){
+         let el2 = $('#pinDisplaySet');
+         let text2 = el2.text();
+
+         if (text2.length > 0) {
+            el2.text(text2.slice(0, -1));
+         }
+      });
+
+      $('.clear_at_once').click(function(){
+         let el2 = $('#pinDisplaySet');
+         let text2 = el2.text('');
+      });
+
+      $("#ok").click(function(){
+         const pinDisplay = $('#pinDisplaySet');
+         const textEl = document.getElementById("pinDisplaySet");
+         let pin = pinDisplay.text().trim();
+         let url = "{{ route('escort.update.bank.pin') }}";
+         
+         updateBankPinByAjax(url, pin);
+      });
+         
+      $("#pinok").click(function () {
+         const pinDisplay = $('#pinDisplay');
+         const textEl = document.getElementById("pinDisplay");
+         let pin = pinDisplay.text().trim();
+
+         let existingPin = "{{ auth()->user()->user_bank_pin }}";
+
+         if (pin === existingPin) {
+            $('#EnterPinModal').modal('hide');
+            $('#InstructionPayerModal').modal('show');
+            pinDisplay.text('');
+            $(".container-fluid").removeClass("wrong_pin_hide_details");
+         } 
+         else {
+            const storedPin = localStorage.getItem('original_pin') || pin;
+            //console.log();
+            
+            $(".container-fluid").addClass("wrong_pin_hide_details");
+            textEl.classList.add("shake");
+            pinDisplay.text('Enter your correct PIN');
+
+            setTimeout(() => {
+                  textEl.classList.remove("shake");
+                  pinDisplay.text(pin); // ✅ restore original PIN
+            }, 300);
+         }
+      });
+
    })
 </script>
 <script>
@@ -654,35 +757,57 @@
       $("form").attr('autocomplete', 'off');
    })
 
-   $('body').on('show.bs.modal', '#commission-report', function(event) {
-      button = $(event.relatedTarget);
+   $(function() {
+      var is_primary_bank_acc = 0;
+      var primary_bank_acc_id = 0;
+      var previous_state = 0;
 
-      //$('.parsley-required').css('list-style-type', 'disc');
-      $("form #escort_bank").attr('autocomplete', 'on');
-      const bank = $(button).data('name');
-      if ($(button).data('target') == "#commission-report") {
-         $('#bank_name').attr('disabled', true);
-      }
+      var primary_bank_ac_no = '';
+      var primary_bank_bsb = '';
+      var isBankAccountChanged = false;
 
-      $('#bank_name').val($(button).data('bank_name'));
-      $('#account_name').val($(button).data('ac_name'));
-      $('#account_number').val($(button).data('ac_number'));
-      $('#bsb').val($(button).data('bsb'));
-      $('#state').val($(button).data('state'));
-      $('#bankId').val($(button).data('id'));
-      console.log("target = ", $(button).data('target'));
-      //document.getElementById("bank_name").value = bank;
-   });
-   $('body').on('hidden.bs.modal', '#commission-report', function() {
-      console.log("taasdasd");
-      $('#escort_bank')[0].reset();
+      $(document).on('click', '#commission-modal', function() {
+         $(".commission_report_title").text('Add New Bank Account');
+         $(".save_button").text('Save');
+         $("#bankId").val('');
+         isBankAccountChanged = false;
+      });
 
-      $('.parsley-required').html('');
+      $(document).on('click', '.editModal', function() {
+         let id = $(this).data('id');
+         let bank = $(this).data('bank_name');
+         let accountName = $(this).data('ac_name');
+         let bsb = ($(this).data('bsb')).replaceAll('-', '');
+         let accountNumber = $(this).data('ac_number');
+         let state = $(this).data('state');
+         previous_state  = state;
+         isBankAccountChanged = true;
+         
+         $('#bankId').val(id);
+         $('#bank_name').val(bank).change(); 
+         $('#account_name').val(accountName);
+         $('#bsb').val(bsb);
+         $('#account_number').val(accountNumber);
+         $('#state').val(state).change();
+         $('.modal_form').text('Update Details');
 
-   });
+         $(".commission_report_title").text('Edit Bank Account');
+         $(".save_button").text('Update');
 
+         $('#commission-report').modal({
+            backdrop: 'static',
+            keyboard: false
+         });
+      });
 
-   $(document).ready(function() {
+      $('body').on('hidden.bs.modal', '#commission-report', function() {
+         console.log("taasdasd");
+         $('#escort_bank')[0].reset();
+
+         $('.parsley-required').html('');
+
+      });
+
       var table = $('#bankAccountTable').DataTable({
          language: {
             search: "_INPUT_",
@@ -699,7 +824,7 @@
          bStateSave: false,
          "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
-                     searchPlaceholder: "Search by Account Number"
+                     searchPlaceholder: "Search by Account Name"
                 },
          ajax: {
             url: "{{ route('escort.bankDetail.dataTable') }}",
@@ -769,20 +894,257 @@
             });
          }
       });
-   });
 
-   $(function() {
-      //   $.ajaxSetup({
-      //      headers:
-      //      { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-      //   });
+      table.on('xhr.dt', function () {
+         var json = table.ajax.json();
+         is_primary_bank_acc = json.primary_account;
+         primary_bank_acc_id = json.primary_bank_acc_id;
+
+         primary_bank_ac_no = json.primary_bank_ac_no != 0 ? json.primary_bank_ac_no : 'N/A';
+         primary_bank_bsb = json.primary_bank_bsb != 0 ? json.primary_bank_bsb : 'N/A';
+            console.log('is_primary_bank_acc',is_primary_bank_acc);
+            console.log('primary_bank_acc_id',primary_bank_acc_id)
+
+            $('.primary_acc_no').text(primary_bank_ac_no);
+            $('.primary_bsb').text(primary_bank_bsb);
+      });
+
       $("body").on('submit', '#escort_bank', function(e) {
          e.preventDefault();
-         console.log("bank id");
+
+         let isValid = true;
+         $("#replace").val(''); 
+         var state  = ($("#state").val()).toString();
+         var bankId  = $("#bankId").val();
          var form = $(this);
          var url = form.attr('action');
          var data = new FormData(form[0]);
          $('#account_numberError').text('');
+
+         console.log(bankId, is_primary_bank_acc, state, previous_state  );
+
+         is_primary_bank_acc = is_primary_bank_acc.toString();
+         
+
+         //////// Saving Conditions //////////////////////
+         if(bankId == '')
+         {
+               if((is_primary_bank_acc != '1' || is_primary_bank_acc != 1) && state == '2')
+               {
+                  Swal.fire({
+                     title: "You don't have a Primary bank account.",
+                     text: "Do you want to save it as Primary bank account?",
+                     iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                     customClass: {
+                           icon: 'my-custom-icon'
+                     },
+                     showCancelButton: true,
+                     confirmButtonText: "Yes, save it as Primary bank account",
+                     cancelButtonText: "No, save it as Secondary bank account",
+                  }).then((result) => {
+                     if (result.isConfirmed) {
+                           $("#state").val(1); 
+                           //submitForm();
+                           submitFormByAjax(form, url, data, table)
+                           return true;
+                     } 
+                     else if (result.dismiss === Swal.DismissReason.cancel) {
+                           $("#state").val(2); 
+                           //submitForm();
+
+                     }
+                  });
+               } 
+               else if((is_primary_bank_acc == '1' || is_primary_bank_acc == 1) && state == '1')
+               {
+                  Swal.fire({
+                     title: "You already have Primary bank account.",
+                     text: "Do you want to replace it as Primary bank account?",
+                     iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                     customClass: {
+                           icon: 'my-custom-icon'
+                     },
+                     showCancelButton: true,
+                     confirmButtonText: "Yes, replace it as Primary bank account",
+                     cancelButtonText: "No, save it as Secondary account",
+                  }).then((result) => {
+                     if (result.isConfirmed) {
+                           $("#replace").val('yes'); 
+                           $("#state").val(1);  
+                           submitFormByAjax(form, url, data, table)
+                           return true;
+                     
+                           //submitForm();
+                     } 
+                     else if (result.dismiss === Swal.DismissReason.cancel) {
+                           $("#replace").val('no'); 
+                           $("#state").val(2); 
+                           //submitForm();
+                           submitFormByAjax(form, url, data, table)
+                           return true;
+                     }
+                  });
+               }
+               else if((is_primary_bank_acc == '1' || is_primary_bank_acc == 1) && state == '2')
+               {
+                  Swal.fire({
+                     title: "",
+                     text: "Do you want to save this bank account as Secondary bank account?",
+                     iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                     customClass: {
+                           icon: 'my-custom-icon'
+                     },
+                     showCancelButton: true,
+                     confirmButtonText: "Yes, save it as Secondary bank account",
+                     cancelButtonText: "Cancel",
+                  }).then((result) => {
+                     if (result.isConfirmed) {
+                           $("#state").val(2);  
+                           submitFormByAjax(form, url, data, table)
+                           return true;
+                           //submitForm();
+                     } 
+                     else if (result.dismiss === Swal.DismissReason.cancel) {
+                           Swal.close(); 
+                     }
+                  });
+               }
+               else if(is_primary_bank_acc=='0' && state=='1')
+               {
+               Swal.fire({
+                     title: "",
+                     text: "Do you want to save this bank account as Primary bank account?",
+                     iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                     customClass: {
+                           icon: 'my-custom-icon'
+                     },
+                     showCancelButton: true,
+                     confirmButtonText: "Yes, save it as Primary bank account",
+                     cancelButtonText: "Cancel",
+                  }).then((result) => {
+                     if (result.isConfirmed) {
+                           $("#state").val(1);  
+                           //submitForm();
+                           submitFormByAjax(form, url, data, table)
+                           return true;
+                     } 
+                     else if (result.dismiss === Swal.DismissReason.cancel) {
+                           Swal.close(); 
+                     }
+                  });  
+               }
+         }
+         else
+         {
+               
+               ////// Save at its normally ///////////
+               if(previous_state==state)
+               {
+
+                  Swal.fire({
+                     title: "",
+                     text: "Do you want update the bank account details ?",
+                     iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                     customClass: {
+                           icon: 'my-custom-icon'
+                     },
+                     showCancelButton: true,
+                     confirmButtonText: "Yes, update the bank account details",
+                     cancelButtonText: "Cancel",
+                  }).then((result) => {
+                     if (result.isConfirmed) { 
+                           //submitForm();
+                           submitFormByAjax(form, url, data, table)
+                           return true;
+                     } 
+                     else if (result.dismiss === Swal.DismissReason.cancel) {
+                           Swal.close(); 
+                     }
+                  });
+               }
+               
+
+               //////// Updating as primary account //////////////////////
+               else if( (previous_state!=state) &&  is_primary_bank_acc=='0' && previous_state=='2' && state=='1')
+               {
+               Swal.fire({
+                     title: "",
+                     text: "Do you want to save this bank account as Primary bank account?",
+                     iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                     customClass: {
+                           icon: 'my-custom-icon'
+                     },
+                     showCancelButton: true,
+                     confirmButtonText: "Yes, save it as Primary bank account",
+                     cancelButtonText: "Cancel",
+                  }).then((result) => {
+                     if (result.isConfirmed) {
+                           //submitForm();
+                           submitFormByAjax(form, url, data, table)
+                           return true;
+                     } 
+                     else if (result.dismiss === Swal.DismissReason.cancel) {
+                           Swal.close(); 
+                     }
+                  });  
+               }
+
+               else if( (previous_state!=state) &&  is_primary_bank_acc=='1' && previous_state=='2' && state=='1')
+               {
+               Swal.fire({
+                     title: "",
+                     text: "Do you want to save this bank account as Primary bank account?",
+                     iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                     customClass: {
+                           icon: 'my-custom-icon'
+                     },
+                     showCancelButton: true,
+                     confirmButtonText: "Yes, save it as Primary bank account",
+                     cancelButtonText: "Cancel",
+                  }).then((result) => {
+                     if (result.isConfirmed) {
+                           $("#replace").val('yes');    
+                           //submitForm();
+                           submitFormByAjax(form, url, data, table)
+                           return true;
+                     } 
+                     else if (result.dismiss === Swal.DismissReason.cancel) {
+                           Swal.close(); 
+                     }
+                  });  
+               }
+
+               //////// Updating as Secondry account //////////////////////
+               else if( (previous_state!=state) &&  is_primary_bank_acc=='1' && previous_state=='1' && state=='2')
+               {
+               Swal.fire({
+                     title: "This account is your Primary account.",
+                     text: "Do you want to replace it as Secondry bank account?",
+                     iconHtml: '<i class="fa-solid fa-circle-exclamation"></i>',
+                     customClass: {
+                           icon: 'my-custom-icon'
+                     },
+                     showCancelButton: true,
+                     confirmButtonText: "Yes, replace it as Secondry bank account",
+                     cancelButtonText: "Cancel",
+                  }).then((result) => {
+                     if (result.isConfirmed) {
+                           $("#replace").val('yes');                 
+                           //submitForm();
+                           submitFormByAjax(form, url, data, table)
+                           return true;
+                     } 
+                     else if (result.dismiss === Swal.DismissReason.cancel) {
+                           Swal.close();  
+                     }
+                  });
+               }
+         }  
+         
+      })
+
+      function submitFormByAjax(form, url, data, table) 
+      {
          $.ajax({
             method: form.attr('method'),
             url: url,
@@ -799,77 +1161,89 @@
                   $("#otp").val('');
                   $("#sendOtp_modal").modal('show'); //
                   $("#commission-report").modal('hide');
-                  console.log('jitednera submit out' );
-                  $("body").on("submit", "#SendBankOtp", function(e) {
-                     e.preventDefault();
-                     var form = $(this);
-
-                     console.log('jitednera submit in' );
+                  // $("body").on("submit", "#SendBankOtp", function(e) {
+                  //    e.preventDefault();
+                  //    var form = $(this);
                      
-                     // var url = form.attr('action');
-                     var url = "{{ route('escort.checkOTP')}}";
+                  //    // var url = form.attr('action');
+                  //    var url = "{{ route('escort.checkOTP')}}";
 
-                     var data = new FormData($('#SendBankOtp')[0]);
-                     var phone = data.phone;
-                     //data.append("phone",phone );
-                     console.log("url=" + url);
-                     var token = $('input[name="_token"]').attr('value');
+                  //    var data = new FormData($('#SendBankOtp')[0]);
+                  //    var phone = data.phone;
+                  //    //data.append("phone",phone );
+                  //    console.log("url=" + url);
+                  //    var token = $('input[name="_token"]').attr('value');
 
-                     $.ajax({
-                        url: url,
-                        type: 'POST',
-                        data: data,
-                        dataType: "JSON",
-                        contentType: false,
-                        processData: false,
-                        headers: {
-                           'X-CSRF-Token': token
-                        },
-                        success: function(data) {
-                           console.log(data);
+                  //    $.ajax({
+                  //       url: url,
+                  //       type: 'POST',
+                  //       data: data,
+                  //       dataType: "JSON",
+                  //       contentType: false,
+                  //       processData: false,
+                  //       headers: {
+                  //          'X-CSRF-Token': token
+                  //       },
+                  //       success: function(data) {
 
-                           $("#modal-title").text('New Bank Account added Confirmation');
-                           if (data.error == 0) {
-                              let textMsg = `<p class="text-left p-2">
-                                 Bank Account [Account number] has been added to your list
-                                 of Bank Accounts as a [Primary or Secondary] account.</br></br>
-                                 You can edit the details by clicking the 'Action' link.</br></br>
-                                 The default PIN is [1234] which you can reset by clicking the
-                                 Change PIN button.
-                              </p>`;
-                              $('.comman_msg').html(textMsg);
-                              $("#comman_modal").modal('show');
+                  //          if(isBankAccountChanged){
+                  //             $("#modal-title").text('Bank Account Update Confirmation');
+                  //             $('.comman_msg').html('<h5>Your bank account details have been successfully updated.</h5>');
+                  //             $("#comman_modal").modal('show');
                               
-                              $("#sendOtp_modal").modal('hide');
-                              table.draw();
-                           }
-                           if (data.error == 2) {
-                              $('.comman_msg').html("Please select primary account");
-                              $("#comman_modal").modal('show');
-                              $("#sendOtp_modal").modal('hide');
-                              table.draw();
-                           }
-                           if (data.error == 3) {
-                              $('.comman_msg').html("Primary account not updated");
-                              $("#comman_modal").modal('show');
-                              $("#sendOtp_modal").modal('hide');
-                              table.draw();
-                           }
-                        },
-                        error: function(data) {
+                  //             $("#sendOtp_modal").modal('hide');
 
-                           console.log("error otp: ", data.responseJSON.errors);
-                           $.each(data.responseJSON.errors, function(key, value) {
-                              errorsHtml = '<div class="alert alert-danger"><ul>';
-                              errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
-                           });
+                  //          }else{
+                  //             let bankState = data.bank_data.state == 1 ? 'Primary' : 'Secondary';
+                  //             let account_number = data.bank_data.account_number;
+                              
 
-                           errorsHtml += '</ul></di>';
-                           $('#senderror').html(errorsHtml);
-                        }
-                     });
+                  //             $("#modal-title").text('New Bank Account added Confirmation');
+                  //             if (data.error == 0) {
+                  //                let textMsg = `<p class="text-left p-2">
+                  //                   Bank Account `+account_number+` has been added to your list
+                  //                   of Bank Accounts as a `+bankState+` account.</br></br>
+                  //                   You can edit the details by clicking the 'Action' link.</br></br>
+                  //                   The default PIN is 1234 which you can reset by clicking the
+                  //                   Change PIN button.
+                  //                </p>`;
+                  //                $('.comman_msg').html(textMsg);
+                  //                $("#comman_modal").modal('show');
+                                 
+                  //                $("#sendOtp_modal").modal('hide');
+                                 
+                  //                //table.draw();
+                  //             }
+                  //             if (data.error == 2) {
+                  //                $('.comman_msg').html("Please select primary account");
+                  //                $("#comman_modal").modal('show');
+                  //                $("#sendOtp_modal").modal('hide');
+                  //                //table.draw();
+                  //             }
+                  //             if (data.error == 3) {
+                  //                $('.comman_msg').html("You can't update the primary account.");
+                  //                $("#comman_modal").modal('show');
+                  //                $("#sendOtp_modal").modal('hide');
+                  //                //table.draw();
+                  //             }
+                  //          }
 
-                  });
+                  //          table.draw();
+                  //       },
+                  //       error: function(data) {
+
+                  //          console.log("error otp: ", data.responseJSON.errors);
+                  //          $.each(data.responseJSON.errors, function(key, value) {
+                  //             errorsHtml = '<div class="alert alert-danger"><ul>';
+                  //             errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
+                  //          });
+
+                  //          errorsHtml += '</ul></di>';
+                  //          $('#senderror').html(errorsHtml);
+                  //       }
+                  //    });
+
+                  // });
                   //}
                   // $('.comman_msg').html("Saved");
                   // $("#comman_modal").modal('show');
@@ -887,15 +1261,169 @@
             }
 
          })
-      })
+      }
+
+      $(document).on('click', "#change_pin_modal", function(e){
+         console.log('2fa ');
+         
+         $("#sendOtp_modal").modal('show');
+         $("#change_pin_active").val('1');
+         // data-toggle="modal"  data-target="#SetPinModal"
+      });
+
+      function sendOtpPin(params) 
+      {
+         var url = "{{ route('escort.checkOTP')}}";
+         var token = $('input[name="_token"]').attr('value');
+
+         $.ajax({
+            url: url,
+            type: 'POST',
+            data: data,
+            dataType: "JSON",
+            contentType: false,
+            processData: false,
+            headers: {
+               'X-CSRF-Token': token
+            },
+            success: function(data) {
+               console.log('data');
+               console.log(data);
+               
+               
+            },
+            error: function(data) {
+
+               console.log("error otp: ", data.responseJSON.errors);
+               
+            }
+         });   
+      }
+
+      $("body").on("click", "#sendOtpSubmit", function(e) {
+         e.preventDefault();
+
+         let form = $("#SendBankOtp")[0];
+         let data = new FormData(form);
+         
+         var url = "{{ route('escort.checkOTP')}}";
+
+         var phone = data.phone;
+         console.log("url=" + url);
+         var token = $('input[name="_token"]').attr('value');
+
+         $.ajax({
+            url: url,
+            type: 'POST',
+            data: data,
+            dataType: "JSON",
+            contentType: false,
+            processData: false,
+            headers: {
+               'X-CSRF-Token': token
+            },
+            success: function(data) {
+
+               if(isBankAccountChanged){
+                  $("#modal-title").text('Bank Account Update Confirmation');
+                  $('.comman_msg').html('<h5>Your bank account details have been successfully updated.</h5>');
+                  $("#comman_modal").modal('show');
+                  
+                  $("#sendOtp_modal").modal('hide');
+
+               }else{
+                  let bankState = data.bank_data.state == 1 ? 'Primary' : 'Secondary';
+                  let account_number = data.bank_data.account_number;
+                  
+
+                  $("#modal-title").text('New Bank Account added Confirmation');
+                  if (data.error == 0) {
+                     let textMsg = `<p class="text-left p-2">
+                        Bank Account `+account_number+` has been added to your list
+                        of Bank Accounts as a `+bankState+` account.</br></br>
+                        You can edit the details by clicking the 'Action' link.</br></br>
+                        The default PIN is 1234 which you can reset by clicking the
+                        Change PIN button.
+                     </p>`;
+                     $('.comman_msg').html(textMsg);
+                     $("#comman_modal").modal('show');
+                     
+                     $("#sendOtp_modal").modal('hide');
+                     
+                     //table.draw();
+                  }
+                  if (data.error == 2) {
+                     $('.comman_msg').html("Please select primary account");
+                     $("#comman_modal").modal('show');
+                     $("#sendOtp_modal").modal('hide');
+                     //table.draw();
+                  }
+                  if (data.error == 3) {
+                     $('.comman_msg').html("You can't update the primary account.");
+                     $("#comman_modal").modal('show');
+                     $("#sendOtp_modal").modal('hide');
+                     //table.draw();
+                  }
+               }
+
+               table.draw();
+            },
+            error: function(data) {
+
+               console.log("error otp: ", data.responseJSON.errors);
+               $.each(data.responseJSON.errors, function(key, value) {
+                  errorsHtml = '<div class="alert alert-danger"><ul>';
+                  errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
+               });
+
+               errorsHtml += '</ul></di>';
+               $('#senderror').html(errorsHtml);
+            }
+         });
+
+      });
 
    });
 
-   $('body').on('hidden.bs.modal', '#delete_bank', function() {
-      console.log("delete-bank");
-      // $('#delete_bank').reset();
+   
 
-      // $("#previous").val('');
+   function updateBankPinByAjax(url, data) 
+   {
+         $.ajax({
+            method: "POST",
+            url: url,
+            data: {'user_bank_pin': data},
+            dataType: "JSON",
+            headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            success: function(data) {
+               console.log(data);
+               if (data.error == false) {
+                  $("#SetPinModal").modal('hide');
+                  $("#modal-title").text("Pin Update Confirmation");
+                  let textMsg = `<h5 class="text-center">
+                                 `+data.message+`
+                              </h5>`;
+                  $('.comman_msg').html(textMsg);
+                  $("#comman_modal").modal('show');
+                  
+                  
+               } else {
+                  console.log(data);
+               }
+
+            },
+            error: function(data) {
+               console.log(data.responseJSON.errors);
+               console.log(data.responseJSON.errors.account_number);
+               $('#account_numberError').text(data.responseJSON.errors.account_number);
+            }
+
+         })
+   }
+
+   $('body').on('hidden.bs.modal', '#delete_bank', function() {
       $("#previous input:hidden").val(' ');
 
    });
@@ -905,12 +1433,10 @@
 
       $("#previous").val($this.attr('href'));
       console.log($this.attr('href'));
-      $("#Lname").html("<p>Would you like to Delete?</p>");
+      $("#Lname").html("Are you sure you want to delete this bank account?");
       $('#delete_bank').modal('show');
-      // $("#delete_bank").load(target, function() {
-
-      // });
    });
+
    $("body").on('click', '#save_change', function(e) {
       console.log("url==", $("#previous").val());
       var url = $("#previous").val();
@@ -930,8 +1456,9 @@
                table.draw();
                $('#delete_bank').modal('hide');
                $("#header_msg").html("Delete Profile");
-               $('.comman_msg').html("Deleted ");
+               $('.comman_msg').html("The bank account has been successfully deleted.");
                $("#comman_modal").modal('show');
+               $("#modal-title").text('Delete Bank Account Confirmation');
 
             }
             if (data.error == true) {
@@ -940,6 +1467,7 @@
                $('.comman_msg').html("Primary Account can not be deleted. ");
                $("#header_msg").html("Delete Profile");
                $("#comman_modal").modal('show');
+               $("#modal-title").text('Delete Bank Account Confirmation');
 
             }
          }
