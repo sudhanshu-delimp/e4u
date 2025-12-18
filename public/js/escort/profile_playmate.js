@@ -77,7 +77,6 @@ var getAvailablePlaymates = function(searchValue=''){
             $(".playmates-card-grid").html(`<div class="alert alert-info">Please wait a moment while we find your available Playmates.</div>`);
         },
     }).done(function (response) {
-        console.log(response);
         if (response.success) {
             $(".playmates-card-grid").html(response.playmates_container_html);
             $("#profileSearch").val('');

@@ -10164,7 +10164,11 @@ button:disabled {
     grid-template-columns: repeat(5, minmax(180px, 1fr));
     gap: 10px;
 }
-
+.playmate_modal_cards .playmates-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(210px, 1fr));
+    gap: 10px;
+}
 .playmates-card-grid .card-img-top {
     height: 180px;
     width: 100%;

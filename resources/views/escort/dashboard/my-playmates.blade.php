@@ -35,8 +35,8 @@
         <div class="row my-2">
             <!-- My Playmates -->
             <div class="col-md-12 mb-4">
-                <div class="table-responsive-xl">
-                  <table class="table" id="playmateListTable" style="border: none;">
+                <div class="table-responsive">
+                  <table class="table w-100" id="playmateListTable" style="border: none;">
                     <thead style="background-color: #0C223D; color: #ffffff;">
                       <tr>
                         <th class="text-left">Profile</th>
@@ -69,8 +69,8 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12 mb-4">
-                                <div class="table-responsive-xl">
-                                <table class="table" id="playmateListModalTable" style="border: none;">
+                                <div class="table-responsive">
+                                <table class="table w-100" id="playmateListModalTable" style="border: none;">
                                 <thead style="background-color: #0C223D; color: #ffffff;">
                                     <tr>
                                     <th class="text-left">Playmates</th>
@@ -95,7 +95,7 @@
 
         <div class="modal fade upload-modal" id="playmates_operations" tabindex="-1" role="dialog" aria-labelledby="extendProfileTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+                <div class="modal-content" style="width: 700px;position: absolute;top: 30px;">
                     <div class="modal-header">
                     <h5 class="modal-title">
                         <img src="/assets/app/img/profile-30.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
@@ -108,7 +108,7 @@
                     </button>
                     </div>
 
-                    <div class="modal-body">
+                    <div class="modal-body playmate_modal_cards">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -125,7 +125,7 @@
                                             
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 mt-4">
                                     <button id="my_playmates" type="submit" class="save_profile_btn">Update</button>
                                 </div>
                             </form>
@@ -290,6 +290,10 @@
             let storePlaymateUrl = "{{ route('escort.store.playmates', ':escortId') }}";
             $("#myplaymates").attr('action',storePlaymateUrl.replace(':escortId', escortId));
             getAvailablePlaymates();
+        });
+
+        $('#playmates_operations').on('hide.bs.modal', function (event) {
+            table.draw();
         });
     </script>
 @endsection
