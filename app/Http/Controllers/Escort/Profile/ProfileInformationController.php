@@ -28,6 +28,7 @@ use App\Repositories\Escort\EscortMediaInterface;
 use App\Models\EscortCovidReport;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\Playmate\PlaymateInterface;
 
 class ProfileInformationController extends Controller
 {
@@ -37,12 +38,13 @@ class ProfileInformationController extends Controller
     protected $duration;
     protected $user;
     protected $media;
+    protected $playmateHistory;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(UserInterface $user, EscortInterface $escort, AvailabilityInterface $availability,  ServiceInterface $service, DurationInterface $duration, EscortMediaInterface $media)
+    public function __construct(UserInterface $user, EscortInterface $escort, AvailabilityInterface $availability,  ServiceInterface $service, DurationInterface $duration, EscortMediaInterface $media,  PlaymateInterface $playmateHistory)
     {
         $this->escort = $escort;
         $this->availability = $availability;
@@ -50,6 +52,7 @@ class ProfileInformationController extends Controller
         $this->duration = $duration;
         $this->user = $user;
         $this->media = $media;
+        $this->playmateHistory = $playmateHistory;
     }
 
     // public function updateBasicProfile($id)
@@ -488,7 +491,12 @@ class ProfileInformationController extends Controller
             /**
              * Remove records from the history table that matches user and playmate ids.
              */
-            $item->where(['user_id'=>$item->user_id,'playmate_id'=>$item->playmate_id,])->delete();
+            if(!empty($escortPorfileIdsWithPlaymate)){
+                foreach($escortPorfileIdsWithPlaymate as $escortId){
+                    $this->playmateHistory->trashPlaymateHistory($escortId, $item->playmate_id);
+                }
+            }
+            $item->where(['user_id'=>$item->user_id,'playmate_id'=>$item->playmate_id])->delete();
         } catch (\Exception $e) {
             $error = true;
             $message = 'Failed to remove playmate: ' . $e->getMessage();

@@ -61,9 +61,12 @@ class PlaymateController extends Controller
                     $veryFirstEscortProfileWithPlaymate = $user->listedEscorts()
                     ->join('escort_playmate', 'escorts.id', '=', 'escort_playmate.escort_id')
                     ->orderBy('escort_playmate.created_at', 'asc')
-                    ->first()->escort_id;
-                    $escortProfile = Escort::find($veryFirstEscortProfileWithPlaymate);
-                    $escorts = $escortProfile->playmates()->get();
+                    ->first();
+                    
+                    if(!empty($veryFirstEscortProfileWithPlaymate)){
+                        $escortProfile = Escort::find($veryFirstEscortProfileWithPlaymate->escort_id);
+                        $escorts = $escortProfile->playmates()->get();
+                    }
                 }
                 else{
                     $escorts->map(function($escort) {

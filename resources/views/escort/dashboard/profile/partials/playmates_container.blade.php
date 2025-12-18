@@ -18,6 +18,8 @@
             </div>
         </div>
     @endforeach
+@elseif ($searchValue)
+<div class="alert alert-info">The Member ID you have searched is not available.  Please check the Member ID is correct and they have a current Listed Profile.</div>
 @else
-    <div class="alert alert-info">The Member ID you have searched is not available.  Please check the Member ID is correct and they have a current Listed Profile.</div>
+<div class="alert alert-info">Your Playmate list is empty.</div>
 @endif

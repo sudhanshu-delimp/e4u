@@ -288,48 +288,7 @@
     });
 };
 
-    // let removeAllPlaymates = function(){
-    //     let playmateIds = [];
-    //     $(".activePlaymate li .playmates_rmid").each(function() {
-    //        $.ajax({
-    //         method: "POST",
-    //         url: `{{ route('escort.remove.playmate', ':id') }}`.replace(':id', $(this).data("id")),
-    //         headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },
-    //         beforeSend: function () {
-    //             Swal.fire({
-    //                 title: 'Removing...',
-    //                 text: 'Please wait while we remove this playmate.',
-    //                 allowOutsideClick: false,
-    //                 didOpen: () => {
-    //                     Swal.showLoading();
-    //                 }
-    //             });
-    //         },
-    //         success: function (data) {
-    //             if (!data.error) {
-    //                 $(`#rmlist_${playmateId}`).remove();
-    //                 Swal.fire({
-    //                     icon: 'success',
-    //                     title: 'Removed!',
-    //                     text: data.message || 'Playmate removed successfully.',
-    //                     timer: 1500,
-    //                     showConfirmButton: false
-    //                 });
-    //             } else {
-    //                 Swal.fire({
-    //                     icon: 'error',
-    //                     title: 'Error!',
-    //                     text: data.message || 'Failed to remove playmate.'
-    //                 });
-    //             }
-    //         }
-    //        });
-    //     });
-    //     console.log(playmateIds);
-    // }
-
+    
     function updatePlaymate(isAvailable) {
         $.ajax({
             method: "GET",
