@@ -79,7 +79,9 @@ var getAvailablePlaymates = function(searchValue=''){
     }).done(function (response) {
         if (response.success) {
             $(".playmates-card-grid").html(response.playmates_container_html);
-            $("#profileSearch").val('');
+            if(response.escorts.length>0){
+                $("#profileSearch").val('');
+            }   
         }
     }).fail(function (xhr, status, error) {
         console.error("Error:", error);
