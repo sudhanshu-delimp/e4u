@@ -184,7 +184,6 @@
                 <div class="mt-0">
                     <div class="col-lg-12 my-3">
                         @if($user->playmateHistory->count()>0)
-                        <h2 class="custom-head py-3">My Active Playmates</h2>
                         <ul class="results  mt-2 activePlaymate">
                                 @foreach($user->playmateHistory->unique('playmate_id') as $item)
                                     <li id="rmlist_{{$item->id}}" class="d_my_tooltip playmate-{{$item->group_status}}"><a
