@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div class="table-responsive-xl">
-                                        <table class="table mb-3" id="staff_data_table">
+                                        <table class="table mb-3 w-100" id="staff_data_table">
                                             <thead class="table-bg">
                                                 <tr>
                                                     <th scope="col">Staff ID</th>
