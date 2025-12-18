@@ -11,15 +11,19 @@ use App\Models\Escort;
 use App\Models\PlaymateHistory;
 use App\Repositories\User\UserInterface;
 use App\Repositories\Escort\EscortInterface;
+use App\Repositories\Playmate\PlaymateInterface;
 
 class PlaymateController extends Controller
 {
     protected $escort;
     protected $user;
-    public function __construct(EscortInterface $escort, UserInterface $user)
+    protected $playmateHistory;
+
+    public function __construct(EscortInterface $escort, UserInterface $user, PlaymateInterface $playmateHistory)
     {
         $this->escort = $escort;
         $this->user = $user;
+        $this->playmateHistory = $playmateHistory;
     }
 
     public function getAvailablePlaymates(Request $request){
@@ -69,6 +73,7 @@ class PlaymateController extends Controller
                 }
             }    
             $response['success'] = true;
+            $response['count'] = $escorts->count();
             $response['escorts'] = $escorts;
             
             $response['playmates_container_html'] = view('escort.dashboard.profile.partials.playmates_container',compact('searchValue','escorts'))->render();
@@ -130,6 +135,7 @@ class PlaymateController extends Controller
                     $otherEscort = Escort::find($playmateId);
                     if ($otherEscort) {
                         $otherEscort->playmates()->detach($escortId);
+                        $this->playmateHistory->trashPlaymateHistory($escortId, $playmateId);
                     }
                 }
             }
