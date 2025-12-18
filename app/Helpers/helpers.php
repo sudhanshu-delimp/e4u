@@ -916,14 +916,15 @@ if (!function_exists('getUserWiseLastLoginTime')) {
     function getUserWiseLastLoginTime($user)
     {
         $timeZone = config('app.escort_server_timezone');
-        if ($user && $user->state_id) {
-            $timeZone = config('escorts.profile.states')[$user->state_id]['timeZone'];
+        $stateId = $user->current_state_id ? $user->current_state_id : $user->state_id;
+        if ($stateId) {
+            $timeZone = config('escorts.profile.states')[$stateId]['timeZone'];
         }
         $lastLoginTime = $user->lastLoginTime->updated_at;
         if ($user->lastLoginTime) {
             $lastLoginTime = Carbon::parse($lastLoginTime, 'UTC')
                 ->setTimezone($timeZone)
-                ->format('Y-m-d h:i:s A');
+                ->format('d-m-Y h:i:s A');
         }
         return $lastLoginTime;
     }

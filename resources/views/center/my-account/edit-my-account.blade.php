@@ -302,8 +302,8 @@
                                             <button type="button" class="btn-common" data-toggle="modal"
                                                 data-target="#add_center">Add Centre</button>
                                         </div>
-                                        <div class="table-responsive-xl">
-                                            <table class="table mb-3" id="add_centre_table">
+                                        <div class="table-responsive">
+                                            <table class="table mb-3 w-100" id="other_centre_table">
                                                 <thead class="table-bg">
                                                     <tr>
                                                         <th colspan="1" style="width: 75px;">Member ID</th>
@@ -944,34 +944,44 @@
 
 @endsection
 @push('script')
+<script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     </script>
-
     <script>
-        $(document).ready(function () {
-    $("#add_centre_table").DataTable({
+    var table = $("#other_centre_table").DataTable({
         language: {
             search: "Search: _INPUT_",
             searchPlaceholder: "Search by Member ID"
         },
+        info: true,
         paging: true,
         lengthChange: true,
         searching: true,
-        info: true,
-        ordering: false, // disable sorting if you want
         bStateSave: true,
-        pageLength: 10,
+        order: [
+            [1, 'desc']
+        ],
         lengthMenu: [
             [10, 25, 50, 100],
             [10, 25, 50, 100]
-        ]
-    });
-});
+        ],
+        pageLength: 10,
 
-    </script>
+           columns: [
+               { data: 'member_ID', name: 'member_ID', searchable: true, orderable:true, defaultContent: 'NA'},
+               { data: 'display_name', name: 'display_name', searchable: true, orderable:true, defaultContent: 'NA'},
+               { data: 'entity_name', name: 'entity_name', searchable: true, orderable:true, defaultContent: 'NA'},
+               { data: 'address', name: 'address', searchable: true, orderable:true, defaultContent: 'NA'},
+               { data: 'business_no', name: 'business_no', searchable: true, orderable:true, defaultContent: 'NA' },
+               { data: 'mobile_no', name: 'mobile_no', searchable: true, orderable:true, defaultContent: 'NA' },
+               { data: 'email', name: 'email', searchable: true, orderable:true, defaultContent: 'NA' },
+               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+           ],
+    });
+</script>
     <script type="text/javascript">
         $('#userProfile').parsley({
 

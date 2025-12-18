@@ -157,13 +157,47 @@
     @endif
 @endsection 
 @push('script')
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/src/extra/validator/comparison.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>  
 <script src="{{ asset('assets/dashboard/vendor/ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+
+<script>
+    var table = $("#sailorTable").DataTable({
+        language: {
+            search: "Search: _INPUT_",
+            searchPlaceholder: "Search by Profile Name"
+        },
+        info: true,
+        paging: true,
+        lengthChange: true,
+        searching: true,
+        bStateSave: true,
+        order: [
+            [1, 'desc']
+        ],
+        lengthMenu: [
+            [10, 25, 50, 100],
+            [10, 25, 50, 100]
+        ],
+        pageLength: 10,
+
+           columns: [
+               { data: 'profile', name: 'profile', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'available_time', name: 'available_time', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'available_days', name: 'available_days', searchable: true, orderable:false ,defaultContent: 'NA'},
+               { data: 'nationality', name: 'nationality', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'ethnicity', name: 'ethnicity', searchable: true, orderable:true,defaultContent: 'NA' },
+               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+           ],
+    });
+</script>
+
 <script>
         // var textarea = document.getElementById('editor1');
         // let editor = CKEDITOR.replace(textarea);

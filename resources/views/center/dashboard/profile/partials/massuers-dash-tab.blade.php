@@ -26,13 +26,11 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="table-responsive pt-3 list-sec" id="sailorTableArea">
-                    <table id="sailorTable" class="table table-striped" width="100%">
-                        <thead>
+                <div class="table-responsive pt-3" id="sailorTableArea">
+                    <table id="sailorTable" class="table" width="100%">
+                        <thead class="bg-first">
                             <tr>
-                                <th>Profile <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 20px;">
-                                        <path d="M13.6139 15.125L10.4473 11.9583H12.8223V4.04167H10.4473L13.6139 0.875L16.7806 4.04167H14.4056V11.9583H16.7806L13.6139 15.125ZM0.947266 13.5417V11.9583H8.86393V13.5417H0.947266ZM0.947266 8.79167V7.20833H6.48893V8.79167H0.947266ZM0.947266 4.04167V2.45833H4.11393V4.04167H0.947266Z" fill="white"></path>
-                                    </svg></th>
+                                <th>Profile</th>
                                 <th>Available Time</th>
                                 <th>Available Days</th>
                                 <th>Nationality</th>
@@ -51,13 +49,13 @@
                                
                                 <td>
                                     <div class="edit_option">
-                                        <div class="dropdown no-arrow archive-dropdown">
+                                        <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
                                                 <a class="dropdown-item d-flex justify-content-start gap-10" href="#"><i class="fa fa-fw fa-pen"></i> Edit </a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item d-flex justify-content-start gap-10" href="#"><i class="fa fa-fw fa-trash"></i> Remove </a>
-                                                <!-- <a class="dropdown-item d-flex justify-content-start gap-10" href="#">Duplicate <i class="fa fa-fw fa-clone"></i> </a> --> 
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -302,16 +300,12 @@
                                                 <input type="checkbox" id="checkbox1">
                                             </div>
                                         </th>
-                                        <th>Profile
-                                            <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 20px;">
-                                                <path d="M13.6139 15.125L10.4473 11.9583H12.8223V4.04167H10.4473L13.6139 0.875L16.7806 4.04167H14.4056V11.9583H16.7806L13.6139 15.125ZM0.947266 13.5417V11.9583H8.86393V13.5417H0.947266ZM0.947266 8.79167V7.20833H6.48893V8.79167H0.947266ZM0.947266 4.04167V2.45833H4.11393V4.04167H0.947266Z" fill="white"></path>
-                                            </svg>
-                                        </th>
+                                        <th>Profile</th>
                                         <th>Available Time</th>
                                         <th>Available Days</th>
                                         <th>Ethnicity</th>
                                         <th>Nationality</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -328,7 +322,7 @@
                                         <td>Australian</td>
                                         <td>Thai</td>
                                     
-                                        <td>
+                                        <td class="text-center">
                                             <div class="dropdown no-arrow archive-dropdown">
                                                 <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
@@ -355,7 +349,7 @@
                                         <td>Australian</td>
                                         <td>Thai</td>
                                     
-                                        <td>
+                                        <td class="text-center">
                                             <div class="dropdown no-arrow archive-dropdown">
                                                 <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">

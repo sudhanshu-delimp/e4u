@@ -704,10 +704,6 @@ Route::get('/admin-dashboard/notifications/escorts',function(){
     return view('admin.notifications.escorts');
 })->name('admin.escorts');
 
-Route::get('/admin-dashboard/blog',function(){
-    return view('admin.blog');
-})->name('admin.blog');
-
 
 Route::get('/admin-dashboard/management/punterbox-reports',function(){
     return view('admin.management.punterbox-report');

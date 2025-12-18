@@ -394,11 +394,6 @@ Route::get('/management/revenue',function(){
     return view('admin.management.reports.revenue');
 })->name('admin.revenue');
   
-Route::get('publications/new', function(){
-        return view('admin.alerts.new');
-    })->name('new');
-
-    
 Route::get('/management/email-management',function(){
     return view('admin.management.email-management');
 })->name('email-management');
@@ -571,11 +566,15 @@ Route::get('/notifications/escorts',function(){
     return view('admin.notifications.escorts');
 })->name('admin.escorts');
 
-Route::get('publications/blog',function(){
-    return view('admin.blog');
+Route::get('/publications/blog',function(){
+    return view('admin.publications.blog');
 })->name('admin.blog');
 
+Route::get('publications/alerts', function(){
+        return view('admin.publications.alerts');
+    })->name('admin.alerts');
 
+    
 Route::get('/management/punterbox-reports',function(){
     return view('admin.management.punterbox-report');
 })->name('admin.punterbox-reports');
