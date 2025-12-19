@@ -197,7 +197,10 @@ class LoginController extends BaseController
         // echo "agent";
 
         if (! is_null(removeSpaceFromString($request->phone))) {
-            $user = User::where('phone', '=', removeSpaceFromString($request->phone))->first();
+
+            $mobile_num = removeSpaceFromString($request->phone);
+            $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$mobile_num])->first();
+            //$user = User::where('phone', '=', removeSpaceFromString($request->phone))->first();
         }
         if (! is_null($request->email)) {
             $user = User::where('email', '=', $request->email)->first();
