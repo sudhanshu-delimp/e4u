@@ -74,7 +74,7 @@ class ReportingController extends BaseController
 
     public function registration_data_pagination($start, $limit, $order_key, $dir)
     {
-        $agent = User::query()->where('status', 1);
+        $agent = User::query();
         $search = request()->input('search.value');
 
         if (!empty($search)) {
