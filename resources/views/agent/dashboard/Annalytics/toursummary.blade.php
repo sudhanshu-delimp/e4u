@@ -127,7 +127,7 @@
     <!-- Print Tour Report Modal -->
 
     <div class="modal fade programmatic" id="printReport">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
                     <h5 class="modal-title text-white">
@@ -146,7 +146,7 @@
                             <div class="col-lg-12">
                                 <!-- Report Type -->
                                 <div class="form-group mb-4">
-                                    <div class="d-flex align-items-center gap-20">
+                                    <div class="d-flex align-items-center flex-wrap gap-20">
                                         <p class="mb-0 font-weight-bold">Report Type:</p>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="reportType" id="reportAll"
@@ -160,12 +160,11 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
-                                    <p class="mb-0 font-weight-bold">Period:</p>
-                                    <div class="d-flex align-items-center gap-20">
-
-                                        <!-- Entire Radio -->
+                                    <div class="d-flex align-items-center flex-wrap gap-20">
+                                        <p class="mb-0 font-weight-bold" style="min-width: 100px">Period:</p>
+                                        <div class="d-flex align-items-center flex-wrap gap-20">
+                                            <!-- Entire Radio -->
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="period"
                                                 id="periodEntire" value="entire">
@@ -173,15 +172,17 @@
                                         </div>
 
                                         <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="fromDate" class="font-weight-medium mb-0">From:</label>
+                                            <label for="fromDate" class="form-check-label">From: </label>
                                             <input type="date" class="form-control" id="fromDate" name="fromDate">
                                         </div>
                                         <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="toDate" class="font-weight-medium mb-0">To:</label>
+                                            <label for="toDate" class="form-check-label">To:</label>
                                             <input type="date" class="form-control" id="toDate" name="toDate">
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
+
 
 
 
@@ -219,8 +220,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <h4>The current Location for Name is: <b>Location</b></h4>
+                        <div class="col-lg-12 text-center">
+                            <h5 class="popu_heading_style my-1">The current Location for Name is: <b>Location</b></h5>
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                                     id="close_change">Ok</button>
@@ -256,7 +257,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive tour_summary">
-                        <table cellpadding="8" cellspacing="0" width="100%"
+                        <table cellpadding="8" cellspacing="0" class="w-100 table"
                             style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
 
                             <thead>

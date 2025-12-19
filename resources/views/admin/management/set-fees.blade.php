@@ -715,7 +715,7 @@ $(document).ready(function(){
       var concierge_services = $("#concierge_services").DataTable({
       language: {
       search: "Search: _INPUT_",
-      searchPlaceholder: "Search by Fee Type...",
+      searchPlaceholder: "Search by Fee Type",
       lengthMenu: "Show _MENU_ entries",
       zeroRecords: "No matching records found",
       info: "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -952,7 +952,7 @@ $(document).ready(function(){
 var fee_support_services = $("#fee_support_services").DataTable({
       language: {
       search: "Search: _INPUT_",
-      searchPlaceholder: "Search by Fee...",
+      searchPlaceholder: "Search by Fee",
       lengthMenu: "Show _MENU_ entries",
       zeroRecords: "No matching records found",
       info: "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -1063,7 +1063,7 @@ var fee_support_services = $("#fee_support_services").DataTable({
 var loyalty_program_advertisers = $("#loyalty_program_advertisers").DataTable({
       language: {
       search: "Search: _INPUT_",
-      searchPlaceholder: "Search By Type...",
+      searchPlaceholder: "Search By Type",
       lengthMenu: "Show _MENU_ entries",
       zeroRecords: "No matching records found",
       info: "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -1203,7 +1203,7 @@ var loyalty_program_advertisers = $("#loyalty_program_advertisers").DataTable({
 var agent_operator_fees = $("#agent_operator_fees").DataTable({
       language: {
       search: "Search: _INPUT_",
-      searchPlaceholder: "Search by Rate...",
+      searchPlaceholder: "Search by Rate",
       lengthMenu: "Show _MENU_ entries",
       zeroRecords: "No matching records found",
       info: "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -1333,7 +1333,7 @@ var agent_operator_fees = $("#agent_operator_fees").DataTable({
 var commision_playbox_fees = $("#commision_playbox_fees").DataTable({
       language: {
       search: "Search: _INPUT_",
-      searchPlaceholder: "Search by Description...",
+      searchPlaceholder: "Search by Description",
       lengthMenu: "Show _MENU_ entries",
       zeroRecords: "No matching records found",
       info: "Showing _START_ to _END_ of _TOTAL_ entries",

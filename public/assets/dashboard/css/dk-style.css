@@ -8504,8 +8504,7 @@ div#listings_wrapper .custom--common-table {
     max-width: 800px !important;
 }
 
-.modal-dialog-custom .profile_summary,
-.modal-dialog-custom .tour_summary {
+.modal-dialog-custom .profile_summary {
     max-height: 400px;
     overflow: auto;
 }
@@ -10244,6 +10243,12 @@ button:disabled {
 .playmates-card-grid {
     display: grid;
     grid-template-columns: repeat(5, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+.playmate_modal_cards .playmates-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(210px, 1fr));
     gap: 10px;
 }
 

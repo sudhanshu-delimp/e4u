@@ -35,8 +35,8 @@
         <div class="row my-2">
             <!-- My Playmates -->
             <div class="col-md-12 mb-4">
-                <div class="table-responsive-xl">
-                  <table class="table" id="playmateListTable" style="border: none;">
+                <div class="table-responsive">
+                  <table class="table w-100" id="playmateListTable" style="border: none;">
                     <thead style="background-color: #0C223D; color: #ffffff;">
                       <tr>
                         <th class="text-left">Profile</th>
@@ -54,54 +54,100 @@
         <div class="modal fade upload-modal" id="playmates_listings" tabindex="-1" role="dialog" aria-labelledby="extendProfileTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
-                  <div class="modal-header">
+                    <div class="modal-header">
                     <h5 class="modal-title">
-                      <img src="/assets/app/img/profile-30.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
-                      Playmates
+                        <img src="{{ asset('assets/app/img/playmate-30.png') }}" class="custompopicon" alt="extend" style="margin-right: 10px;">
+                        Playmates List
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">
+                        <span aria-hidden="true">
                         <img id="modal_close_extend" src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                      </span>
+                        </span>
                     </button>
-                  </div>
-          
-                  <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12 mb-4">
-                            <div class="table-responsive-xl">
-                              <table class="table" id="playmateListModalTable" style="border: none;">
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 mb-4">
+                                <div class="table-responsive">
+                                <table class="table w-100" id="playmateListModalTable" style="border: none;">
                                 <thead style="background-color: #0C223D; color: #ffffff;">
-                                  <tr>
+                                    <tr>
                                     <th class="text-left">Playmates</th>
                                     <th class="text-center">Current Location</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
-                                  </tr>
+                                    </tr>
                                 </thead>
-                               <body>
-                               
-                               </body>
-                              </table>
+                                <body>
+                                
+                                </body>
+                                </table>
                             </div>
-                          </div>
+                        </div>
                     </div>
                     </div>
-                  </div>
-          
-                  <div class="modal-footer" style="text-align: center; display: block;">
-                    
-                  </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: center; display: block;"></div>
                 </div>
             </div>
-          </div>
+        </div>
+
+        <div class="modal fade upload-modal" id="playmates_operations" tabindex="-1" role="dialog" aria-labelledby="extendProfileTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="width: 700px;position: absolute;top: 30px;">
+                    <div class="modal-header">
+                    <h5 class="modal-title">
+                        <img src="{{asset('assets/app/img/playmate-30.png')}}" class="custompopicon" alt="extend" style="margin-right: 10px;">
+                        Add Playmates
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                        <img id="modal_close_extend" src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                    </div>
+
+                    <div class="modal-body playmate_modal_cards">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="profileSearch"></label>
+                                        <input type="text" class="form-control" id="profileSearch" placeholder="Search Member ID to locate your Playmate (eg E10111)...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form id="myplaymates" action="#" method="Post">
+                                @csrf
+                                <div class="col-lg-12">
+                                    <div class="playmates-card-grid">
+                                            
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mt-4 text-right">
+                                    <button id="my_playmates" type="submit" class="save_profile_btn">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: center; display: block;">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
 @endsection
 @section('style')
   
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script src="{{ asset('js/escort/profile_playmate.js') }}"></script>
     <script>
+        window.App = window.App || {};
         var table; 
         $(document).ready(function () {
             table = $('#playmateListTable').DataTable({
@@ -174,13 +220,12 @@
             let obj = $(this);
             let playmateHistoryId = obj.data('id');
             Swal.fire({
-                title: 'Are you sure you want to remove this Playmate?',
-                text: "This action will remove both Profiles from each other's Playmate lists.",
+                title: 'My Playmates',
+                text: "Are you sure you want to remove this Playmate? Both Profiles will be removed from each other's Playmate lists.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, remove it',
-                cancelButtonText: 'Cancel',
-                reverseButtons: true
+                cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (!result.isConfirmed) return;
                     $.ajax({
@@ -233,6 +278,21 @@
                     }
                 });
             });
+        });
+
+        $('#playmates_operations').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget);
+            let escortId   = button.data('escort-id');
+            let stateId   = button.data('state-id');
+            window.App.escortId = escortId;
+            window.App.stateId = stateId;
+            let storePlaymateUrl = "{{ route('escort.store.playmates', ':escortId') }}";
+            $("#myplaymates").attr('action',storePlaymateUrl.replace(':escortId', escortId));
+            getAvailablePlaymates();
+        });
+
+        $('#playmates_operations').on('hide.bs.modal', function (event) {
+            table.draw();
         });
     </script>
 @endsection

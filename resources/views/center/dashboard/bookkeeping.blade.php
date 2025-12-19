@@ -123,6 +123,126 @@
     </style>
 @endsection
 @section('content')
+<<<<<<< HEAD
+<div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+                <!--middle content end here-->
+                <div class="row">
+                   <div class="col-md-12 custom-heading-wrapper">
+                      <h1 class="h1">My Bank Account</h1>
+                      <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+             
+                   </div>
+             
+                   <div class="col-md-12 mb-4 collapse" id="notes">
+                      <div class="card">
+                         <div class="card-body">
+                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                            <ol>
+                               <li>Use this feature for displaying your Bank Account details for an Electronic
+                                  Funds Transfer (<b>EFT</b>). By using this feature for an EFT payment, you remove
+                                  the risk of having your bank account app open.</li>
+                               <li>You can set up, update and add additional bank accounts by clicking the 'Add
+                                  New' button. SMS 2FA authentification is applied for any changes to your Bank
+                                  Account details, including the initial setup.</li>
+                               <li>To display your Bank Account details to a client, select from the Action options
+                                  ‘EFT Client’, enter your PIN number, and your bank account details will display.</li>
+                            </ol>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             
+                <div class="row mb-2">
+                   <div class="col-lg-12 col-md-12 col-sm-12">
+             
+                      <div class="bothsearch-form d-flex justify-content-end gap-20">
+                         <button type="button" class="create-tour-sec dctour" data-toggle="modal"  data-target="#payid">PayID</button>
+                         <button type="button" class="create-tour-sec dctour" data-toggle="modal"  data-target="#SetPinModal">Change PIN</button>
+                         <button type="button" class="create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report">Add New Account</button>
+                      </div>
+                   </div>
+                </div>
+             
+                <div class="row">
+                    <div class="col-md-12 mt-2">
+                       <div id="" class="table-responsive-xl">
+                          <div id="bankAccountTable_wrapper" class="dataTables_wrapper no-footer">
+                             <div class="datatable-topbar">
+                                <div id="bankAccountTable_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="Search by Account Number" aria-controls="bankAccountTable"></label><button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button></div>
+                                <div class="dataTables_length" id="bankAccountTable_length">
+                                   <label>
+                                      Show 
+                                      <select name="bankAccountTable_length" aria-controls="bankAccountTable" class="">
+                                         <option value="10">10</option>
+                                         <option value="25">25</option>
+                                         <option value="50">50</option>
+                                         <option value="100">100</option>
+                                      </select>
+                                      entries
+                                   </label>
+                                </div>
+                             </div>
+                             <div id="bankAccountTable_processing" class="dataTables_processing" style="display: none;">Processing...</div>
+                             <table class="table w-100" id="bankAccountTable" role="grid" aria-describedby="bankAccountTable_info" style="width: 1434px;">
+                                <thead class="table-bg">
+                                   <tr role="row">
+                                      <th scope="col" class="sorting" tabindex="0" aria-controls="bankAccountTable" rowspan="1" colspan="1" aria-label="Bank: activate to sort column ascending" style="width: 170px;">Bank</th>
+                                      <th scope="col" class="sorting_asc" tabindex="0" aria-controls="bankAccountTable" rowspan="1" colspan="1" style="width: 255px;" aria-sort="ascending" aria-label="Account Name: activate to sort column descending">Account Name</th>
+                                      <th scope="col" class="sorting" tabindex="0" aria-controls="bankAccountTable" rowspan="1" colspan="1" style="width: 202px;" aria-label="BSB: activate to sort column ascending">BSB</th>
+                                      <th scope="col" class="sorting" tabindex="0" aria-controls="bankAccountTable" rowspan="1" colspan="1" style="width: 259px;" aria-label="Account Number: activate to sort column ascending">Account Number</th>
+                                      <th scope="col" class="sorting" tabindex="0" aria-controls="bankAccountTable" rowspan="1" colspan="1" style="width: 235px;" aria-label="Account Status: activate to sort column ascending">Account Status</th>
+                                      <th scope="col" class="text-center sorting_disabled" rowspan="1" colspan="1" style="width: 79px;" aria-label="Action">Action</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                   <tr role="row" class="odd">
+                                      <td>AMP Bank</td>
+                                      <td class="sorting_1">2134564321345321234</td>
+                                      <td>123453213453234</td>
+                                      <td>234543245321345</td>
+                                      <td>Primary Account</td>
+                                      <td>
+                                         <div class="dropdown no-arrow text-center">
+                                            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> 
+                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                               <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start editModal" href="#" data-id="22" data-bank_name="AMP Bank" data-bsb="123453213453234" data-ac_number="234543245321345" data-state="1" data-url="bank_account/22" data-toggle="modal" data-target="#commission-report" data-ac_name="2134564321345321234" id="edit_22"> <i class="fa fa-pen "></i> Edit</a> 
+                                               <div class="dropdown-divider"></div>
+                                               <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start delete_bankModal" href="#" data-id="22" data-target="#delete_bnak"> <i class="fa fa-trash "></i> Delete </a>
+                                               <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start eftClientOption" href="#" data-bank="AMP Bank">
+                                            <i class="fa fa-credit-card"></i> EFT Client
+                                            </a>
+                                            </div>
+                                         </div>
+                                      </td>
+                                   </tr>
+                                   <tr role="row" class="even">
+                                      <td>Adelaide Bank</td>
+                                      <td class="sorting_1">12345678789</td>
+                                      <td>2342343223</td>
+                                      <td>234242234324234430</td>
+                                      <td>Secondary Account</td>
+                                      <td>
+                                         <div class="dropdown no-arrow text-center">
+                                            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> 
+                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                               <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start editModal" href="#" data-id="18" data-bank_name="Adelaide Bank" data-bsb="2342343223" data-ac_number="234242234324234433" data-state="2" data-url="bank_account/18" data-toggle="modal" data-target="#commission-report" data-ac_name="12345678789" id="edit_18"> <i class="fa fa-pen "></i> Edit</a> 
+                                               <div class="dropdown-divider"></div>
+                                               <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start delete_bankModal" href="#" data-id="18" data-target="#delete_bnak"> <i class="fa fa-trash "></i> Delete </a>
+                                            </div>
+                                         </div>
+                                      </td>
+                                   </tr>
+                                </tbody>
+                             </table>
+                             <div class="dataTables_info" id="bankAccountTable_info" role="status" aria-live="polite">Showing 1 to 2 of 2 entries</div>
+                             <div class="dataTables_paginate paging_simple_numbers" id="bankAccountTable_paginate"><a class="paginate_button previous disabled" aria-controls="bankAccountTable" data-dt-idx="0" tabindex="0" id="bankAccountTable_previous">Previous</a><span><a class="paginate_button current" aria-controls="bankAccountTable" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="bankAccountTable" data-dt-idx="2" tabindex="0" id="bankAccountTable_next">Next</a></div>
+                          </div>
+                       </div>
+=======
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 wrong_pin_hide_details">
         <!--middle content end here-->
         <div class="row">
@@ -146,6 +266,7 @@
                             <li>To display your Bank Account details to a client, select from the Action options
                                 ‘EFT Client’, enter your PIN number, and your bank account details will display.</li>
                         </ol>
+>>>>>>> e20d9abe1d2ffe7c562e929ef4b7324e5eb2db30
                     </div>
                 </div>
             </div>

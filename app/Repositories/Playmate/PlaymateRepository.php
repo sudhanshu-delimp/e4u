@@ -174,7 +174,8 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
             $action = '<div class="dropdown no-arrow archive-dropdown">
             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'; 
-                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#playmates_listings" data-escort-id="'.$item->escort->id.'"> <i class="fa fa-eye " ></i> Playmates List</a>'; 
+            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#playmates_operations" data-escort-id="'.$item->escort->id.'"  data-state-id="'.$item->escort->state_id.'"> <i class="fa fa-plus" ></i> Add Playmates</a>';     
+            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#playmates_listings" data-escort-id="'.$item->escort->id.'"> <i class="fa fa-eye" ></i> Playmates List</a>'; 
             $action .= '</div></div>';
             $item->action = $action;
         }

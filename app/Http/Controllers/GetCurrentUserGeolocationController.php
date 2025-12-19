@@ -88,12 +88,12 @@ class GetCurrentUserGeolocationController extends Controller
 
     public function get_current_location_time(Request $request)
     {
-        if(auth()->user()->current_state_id &&  auth()->user()->current_state_id!="")
+        $user = Auth::user();
+        $stateId = $user->current_state_id ? $user->current_state_id : $user->state_id;
+        if($stateId)
         {
-            
-            $current_state_id = auth()->user()->current_state_id;
-            $stateAbbr = config("escorts.profile.states.$current_state_id.stateAbbr");
-            $timeZone  = config("escorts.profile.states.$current_state_id.timeZone");
+            $stateAbbr = config("escorts.profile.states.$stateId.stateAbbr");
+            $timeZone  = config("escorts.profile.states.$stateId.timeZone");
             return ['current_state' => $stateAbbr, 'time_zone' => $timeZone];
         }
         else
