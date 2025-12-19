@@ -16,7 +16,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
-                    <a href="#"><img src="{{ asset('assets/app/img/logo.png') }}" class="img-fluid"
+                    <a href="#" class="footer_logo"><img src="{{ asset('assets/app/img/logo.png') }}" 
                             alt="logo"></a>
                 </div>
                 <div class="col-md-6">

@@ -6,7 +6,7 @@
       <img src="{{ asset('assets/app/img/logo.svg') }} " alt="">
       </a> -->
     <a class="sidebar-brand text-left pb-3" href="{{ route('home') }}">
-        <img src="{{ asset('assets/app/img/logo.svg') }}" class=" " alt=""><br>
+        <img src="{{ asset('assets/app/img/logo.svg') }}" class=" e4u_logo" alt=""><br>
 
     </a>
     <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-4">Viewer Console</span>

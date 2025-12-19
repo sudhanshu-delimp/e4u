@@ -4,7 +4,7 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand text-left pb-0" href="{{ route('home') }}">
-        <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3" alt="">
+        <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3 e4u_logo" alt="">
     </a>
      <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-4">Massage Centre Console</span>
     <!-- Divider -->
