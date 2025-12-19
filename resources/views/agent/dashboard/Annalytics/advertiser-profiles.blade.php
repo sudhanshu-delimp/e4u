@@ -60,12 +60,11 @@
                                 <button class="btn-common mr-0" type="button" data-target="#printReport"
                                     data-toggle="modal">Print Report</button>
                             </div>
-                            <div class="table-responsive-xl">
-                                <table class="table" id="advProfileSummaryTable">
+                            <div class="table-responsive">
+                                <table class="table w-100" id="advProfileSummaryTable">
                                     <thead class="table-bg">
                                         <tr>
-                                            <th>Member ID
-                                            </th>
+                                            <th>Member ID</th>
                                             <th>Name</th>
                                             <th>Mobile</th>
                                             <th>Start Date</th>
@@ -132,8 +131,9 @@
     @include('agent.dashboard.partials.playmates-modal')
     <!-- Print Profile Report Modal -->
 
-    <div class="modal fade programmatic" id="printReport">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade programmatic" id="printReport" tabindex="-1" role="dialog"
+        aria-labelledby="printReport" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
                     <h5 class="modal-title text-white">
@@ -153,8 +153,8 @@
                             <div class="col-lg-12">
                                 <!-- Report Type -->
                                 <div class="form-group mb-4">
-                                    <div class="d-flex align-items-center gap-20">
-                                        <p class="mb-2 font-weight-bold">Report Type:</p>
+                                    <div class="d-flex align-items-center flex-wrap gap-20">
+                                        <p class="mb-2 font-weight-bold" style="min-width: 100px">Report Type:</p>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="reportType"
                                                 id="reportAll" value="all">
@@ -173,10 +173,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <p class="mb-0 font-weight-bold">Period:</p>
-                                    <div class="d-flex align-items-center gap-20">
-
-                                        <!-- Entire Radio -->
+                                   
+                                    <div class="d-flex align-items-center flex-wrap gap-20">
+                                        <p class="mb-0 font-weight-bold" style="min-width: 100px">Period:</p>
+                                        <div class="d-flex align-items-center flex-wrap gap-20">
+                                            <!-- Entire Radio -->
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="period"
                                                 id="periodEntire" value="entire">
@@ -184,12 +185,13 @@
                                         </div>
 
                                         <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="fromDate" class="font-weight-medium mb-0">From: </label>
+                                            <label for="fromDate" class="form-check-label">From: </label>
                                             <input type="date" class="form-control" id="fromDate" name="fromDate">
                                         </div>
                                         <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="toDate" class="font-weight-medium mb-0">To:</label>
+                                            <label for="toDate" class="form-check-label">To:</label>
                                             <input type="date" class="form-control" id="toDate" name="toDate">
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -214,13 +216,14 @@
 
     {{-- Current Location --}}
 
-    <div class="upload-modal fade modal programmatic" id="current_location">
+    <div class="upload-modal fade modal programmatic" id="current_location" tabindex="-1" role="dialog"
+        aria-labelledby="current_location" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
 
                     <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/map.png') }}"
-                            class="custompopicon" alt="cross">Current Location</h5>
+                            class="custompopicon" alt="cross">Current Location - E60165</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -230,13 +233,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <h4>The current Location for Name is: <b>Location</b></h4>
+                        <div class="col-lg-12 text-center">
+                            <h5 class="popu_heading_style my-1">
+                                The current Location for Name is: <b>Location</b>
+                            </h5>
                             <div class="modal-footer justify-content-center">
-                                <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
-                                    id="close_change">Ok</button>
-                                    <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
-                                    id="close_change">Send Message</button>
+                                <button type="button" class="btn-success-modal">Ok</button>
+                                <button type="button" class="btn-success-modal" data-dismiss="modal">Send Message</button>
                             </div>
                         </div>
                     </div>
@@ -251,7 +254,7 @@
     {{-- activity_summary --}}
 
     <div class="modal fade upload-modal bd-example-modal-lg" id="activity_summary" tabindex="-1" role="dialog"
-        aria-labelledby="activity_summaryLabel" aria-hidden="true">
+        aria-labelledby="activity_summaryLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
             <div class="modal-content basic-modal modal-lg">
                 <div class="modal-header">
@@ -364,7 +367,7 @@
                                     <td style="text-align:center;">Start Date</td>
                                     <td style="text-align:center;">Finish Date</td>
                                     <td style="text-align:center;">Days</td>
-                                    <td style="text-align:center;">Listing Fee</td>
+                                    <td style="text-align:center; width:110px">Listing Fee</td>
                                 </tr>
                             </thead>
 
@@ -375,7 +378,7 @@
                                     <td style="text-align:center;">01-01-2025</td>
                                     <td style="text-align:center;">15-04-2025</td>
                                     <td style="text-align:center;">104</td>
-                                    <td style="text-align:right;">$ 3,120.00</td>
+                                    <td style="text-align:right;"><div class="num_value">$<span>3,120.00 </span></div></td>
                                 </tr>
 
                                 <!-- Sub Rows -->

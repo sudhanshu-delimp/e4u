@@ -113,7 +113,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="profileSearch"></label>
-                                        <input type="text" class="form-control" id="profileSearch" placeholder="Search Member ID to add Playmate to the Profile...">
+                                        <input type="text" class="form-control" id="profileSearch" placeholder="Search Member ID to locate your Playmate (eg E10111)...">
                                 </div>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                                             
                                     </div>
                                 </div>
-                                <div class="col-lg-12 mt-4">
+                                <div class="col-lg-12 mt-4 text-right">
                                     <button id="my_playmates" type="submit" class="save_profile_btn">Update</button>
                                 </div>
                             </form>
