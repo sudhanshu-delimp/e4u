@@ -47,6 +47,10 @@
                             </div>
                         </div>
                     </div>
+                      <!-- Page Heading -->
+                    <div class="col-md-12">
+                                <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
+                    </div>
 
                     <div class="col-md-6 mb-5">
                         <!-- Change Password Form -->
@@ -215,15 +219,14 @@
                             $('input[type=password]').each(function() {
                                 $(this).val('');
                             });
-
-                            swal_success_popup(data.message);
+                            showGlobalAlert(data.message, "success");
                             // Reload page after 3 seconds to reflect changes
                             setTimeout(function() {
                                 location.reload();
                             }, 3000);
                         } else {
                             // Show error using the message from server
-                            swal_error_popup(data.message);
+                            showGlobalAlert(data.message, "error");
                         }
                     },
                     error: function(xhr) {
@@ -242,9 +245,7 @@
                                 // Not JSON, keep the generic message
                             }
                         }
-
-                        swal_error_popup(errorMsg);
-
+                        showGlobalAlert(errorMsg, "error");
                         // Show validation errors (e.g., Laravel validation)
                         if (xhr.responseJSON && xhr.responseJSON.errors) {
                             let errorsHtml = '<ul>';
@@ -281,7 +282,7 @@
                     success: function(data) {
                         //  console.log(data.message, 'data');
                         if (data.status === true) {
-                            swal_success_popup(data.message);
+                            //swal_success_popup(data.message);
                             showGlobalAlert(data.message, "success");
                             $("#resetPasswordDate").modal('hide');
                             $('#passwordExpiryText').html(data.data.text);
@@ -299,7 +300,8 @@
                                 if (res.message) {
                                     errorMsg = res.message;
                                 }
-                                swal_error_popup(errorMsg);
+                                showGlobalAlert(errorMsg, "error");
+                                
                             } catch (e) {
                                 // Not JSON, keep the generic message
                             }
