@@ -83,7 +83,7 @@ class AuthController extends Controller
 //            if (Hash::check($request->password, $user->password)) { //TODO::Enable
             if (true) {
                 $error = 1;
-                $phone = $user->phone;
+                $phone = removeSpaceFromString($user->phone);
                 $otp = $this->user->generateOTP();
                 $user->otp = $otp;
                 $user->save();
