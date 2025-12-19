@@ -4799,6 +4799,10 @@ white-space: nowrap;
     border-color: #2C3E50 !important;
 }
 
+.sidebar-brand .e4u_logo {
+    width: 50%;
+}
+
 .sidebar .sidebar-brand {
     height: auto;
 }
