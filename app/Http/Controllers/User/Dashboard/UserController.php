@@ -309,7 +309,7 @@ class UserController extends Controller
     {
         try {
 
-            if ((int) Auth::id() !== (int) $id) {
+            if ((int) FacadesAuth::id() !== (int) $id) {
                 return response()->json(['type' => 1, 'message' => 'Unauthorized'], 403);
             }
 
@@ -329,7 +329,7 @@ class UserController extends Controller
                 File::makeDirectory($dir, 0755, true);
             }
 
-            $avatarOwner = Auth::id();
+            $avatarOwner = FacadesAuth::id();
             $avatarName = time() . '-' . $avatarOwner . '.' . $extension;
             $fullPath = $dir . DIRECTORY_SEPARATOR . $avatarName;
             if (File::put($fullPath, $binary) === false) {
