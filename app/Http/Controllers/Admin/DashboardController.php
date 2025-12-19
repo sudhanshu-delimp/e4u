@@ -117,7 +117,7 @@ class DashboardController extends BaseController
         $data = [
             'name' => $request->name,
             'gender' => $request->gender,
-            'phone' =>  $request->phone,
+            'phone' =>  removeSpaceFromString($request->phone),
             'city_id' =>  $request->location,
             'gender' =>  $request->gender,
         ];

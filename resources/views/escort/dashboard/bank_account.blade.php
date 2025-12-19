@@ -644,6 +644,7 @@
 
       let fClick = true;
       let fClick2 = true;
+      let isEftClient = false;
 
       // For pinDisplay
       $('.input_value').click(function () {
@@ -722,7 +723,11 @@
          
          updateBankPinByAjax(url, pin);
       });
-         
+        
+      $(document).on('click' , '.eftClientOption' , function(){
+         isEftClient = true;
+      });
+
       $("#pinok").click(function () {
          const pinDisplay = $('#pinDisplay');
          const textEl = document.getElementById("pinDisplay");
@@ -732,7 +737,12 @@
 
          if (pin === existingPin) {
             $('#EnterPinModal').modal('hide');
-            $('#InstructionPayerModal').modal('show');
+            if(isEftClient){
+               // 
+            }else{
+               $('#InstructionPayerModal').modal('show');
+            }
+
             pinDisplay.text('');
             $(".container-fluid").removeClass("wrong_pin_hide_details");
          } 
@@ -1464,8 +1474,9 @@
                                  `+data.message+`
                               </h5>`;
                   $('.comman_msg').html(textMsg);
-                  $("#comman_modal").modal('show');
-                  
+                 setTimeout(() => {
+                    $("#comman_modal").modal('show');
+                  }, 200);
                   
                } else {
                   console.log(data);
