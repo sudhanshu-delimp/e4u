@@ -58,7 +58,11 @@ class LoginController extends BaseController
     {
         if (isset($request->type)) {
             if (! is_null($request->phone)) {
-                $user = User::where('phone', '=', $request->phone)->first();
+
+                 $mobile_num = removeSpaceFromString($request->phone);
+                 $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$mobile_num])->first();
+
+                //$user = User::where('phone', '=', $request->phone)->first();
                 if ($user == null || $user->type != 5) {
                     return $this->sendFailedLoginResponse($request);
                 }
@@ -93,9 +97,14 @@ class LoginController extends BaseController
         $this->validateLogin($request);
 
         $count = null;
-        if (! is_null($request->phone)) {
-            $user = User::where('phone', '=', $request->phone)->first();
-            $count = User::where('phone', '=', $request->phone)->count();
+        if (! is_null($request->phone)) 
+        {
+            $mobile_num = removeSpaceFromString($request->phone);
+            $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$mobile_num])->first();
+            $count  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$mobile_num])->count();
+
+            // $user = User::where('phone', '=', $request->phone)->first();
+            // $count = User::where('phone', '=', $request->phone)->count();
             if ($user != null) {
                 if ($user->type == 0 || $user->type == 1 || $user->type == 2) {
                     return $this->sendFailedLoginResponse($request);
@@ -144,7 +153,7 @@ class LoginController extends BaseController
             {
                 $pwd = $request->password;
                 $error = 1;
-                $phone = $user->phone;
+                $phone = removeSpaceFromString($user->phone);
                 $otp = $this->user->generateOTP();
                 $user->otp = $otp;
                 $user->save();
