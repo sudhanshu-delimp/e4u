@@ -28,6 +28,11 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
+            </div>
+        </div>
 
         <div class="row mt-4">
 
@@ -75,7 +80,7 @@
                 </div>
                 <!-- Monitoring -->
                 <div class="col-md-6 mb-4">
-                  {{-- <h4 class="font-weight-bold" style="color: var(--blue--text);">Monitoring
+                    {{-- <h4 class="font-weight-bold" style="color: var(--blue--text);">Monitoring
                             </h4> --}}
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -89,13 +94,13 @@
                                     <td class="icon-col"><i class="fas fa-map-marker-alt"></i></td>
                                     <td>In my Territory
                                     </td>
-                                    <td class="text-center">{{$sameStateCount}}</td>
+                                    <td class="text-center">{{ $sameStateCount }}</td>
                                 </tr>
                                 <tr>
                                     <td class="icon-col"><i class="fas fa-globe"></i></td>
                                     <td>Outside my Territory
                                     </td>
-                                    <td class="text-center">{{$outsideStateCount}}</td>
+                                    <td class="text-center">{{ $outsideStateCount }}</td>
                                 </tr>
                             </tbody>
                         </table>

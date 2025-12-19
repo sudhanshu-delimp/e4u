@@ -254,15 +254,16 @@
                             $('input[type=password]').each(function() {
                                 $(this).val('');
                             });
-
-                            swal_success_popup(data.message);
+                            showGlobalAlert(data.message, "success");
+                            //swal_success_popup(data.message);
                             // Reload page after 3 seconds to reflect changes
                             setTimeout(function() {
                                 location.reload();
                             }, 3000);
                         } else {
                             // Show error using the message from server
-                            swal_error_popup(data.message);
+                            showGlobalAlert(data.message, "error");
+                           
                         }
                     },
                     error: function(xhr) {
@@ -283,6 +284,7 @@
                         }
 
                         swal_error_popup(errorMsg);
+                        showGlobalAlert(errorMsg, "error");
                     }
                 });
             }
@@ -311,8 +313,8 @@
                             $('input[type=password]').each(function() {
                                 $(this).val('');
                             });
-
-                            swal_success_popup(data.message);
+                            showGlobalAlert(data.message, "success");
+                           // swal_success_popup(data.message);
                             setTimeout(function() {
                                 location.reload();
                             }, 3000);
