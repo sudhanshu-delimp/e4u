@@ -4721,6 +4721,10 @@ i.fa.fa-heart-o{
             line-height: 24px;
         }
         
+        .forgot_pass .label_margin_zero_for_login img {
+            width: 150px;
+        }
+        
         .like_img {
             cursor: pointer;
             background: #0d223d;
