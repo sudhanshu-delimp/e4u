@@ -129,15 +129,15 @@
                             <!-- Start Date -->
                             <div class="col-12 mb-3 date_show_hide" id="startDateField">
                                 <label class="label" for="startDateField">Start Date</label>
-                                <input type="date" name="start_date" id="start_date" placeholder="Start Date"
-                                    class="form-control rounded-0" />
+                                <input type="text" name="start_date" id="start_date" placeholder="Start Date"
+                                    class="form-control rounded-0 js_datepicker" />
                             </div>
 
                             <!-- Finish Date -->
                             <div class="col-12 mb-3 date_show_hide" id="endDateField">
                                 <label class="label" for="endDateField">End Date</label>
-                                <input type="date" name="end_date" id="end_date" placeholder="Finish Date"
-                                    class="form-control rounded-0" />
+                                <input type="text" name="end_date" id="end_date" placeholder="Finish Date"
+                                    class="form-control rounded-0 js_datepicker" />
                             </div>
 
 

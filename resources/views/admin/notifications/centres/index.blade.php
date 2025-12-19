@@ -117,8 +117,8 @@
                             <!-- Start Date -->
                             <div class="col-12 mb-3">
                                 <label class="label">Start Date</label>
-                                <input type="date" name="start_date" id="start_date" placeholder="Start Date"
-                                    class="form-control rounded-0" min="{{ \Carbon\Carbon::now()->format('d-m-Y') }}"
+                                <input type="text" name="start_date" id="start_date" placeholder="Start Date"
+                                    class="form-control rounded-0 js_datepicker"
                                     required />
 
                             </div>
@@ -126,8 +126,8 @@
                             <!-- Finish Date -->
                             <div class="col-12 mb-3">
                                 <label class="label">End Date</label>
-                                <input type="date" name="end_date" id="end_date" placeholder="End Date"
-                                    class="form-control rounded-0" min="{{ \Carbon\Carbon::now()->format('d-m-Y') }}"
+                                <input type="text" name="end_date" id="end_date" placeholder="End Date"
+                                    class="form-control rounded-0 js_datepicker" 
                                     required />
 
                             </div>
@@ -397,10 +397,6 @@
             $('#createNotificationForm')[0].reset();
             $('#edit_notification_id').val('');
             $('#submitBtn').text('Save');
-            $('#current_date').prop('readonly', false);
-            $('#start_date').prop('readonly', false);
-            $('#end_date').prop('readonly', false);
-            $('#type').prop('disabled', false);
             // Reset modal title
             $(this).find('h5.modal-title').html(
                 '<img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create Notification'
@@ -421,7 +417,8 @@
                 url: "{{ route('admin.centres.notifications.index') }}",
                 type: 'GET'
             },
-            columns: [{
+            columns: [
+                {
                     data: 'ref',
                     name: 'ref'
                 },
@@ -583,16 +580,8 @@
             const container = $('#listingModalContent');
             container.html('<div class="text-center py-3">Loading...</div>');
             $('#createNotificationForm')[0].reset();
-            // $('#edit_notification_id').val(id);
+             $('#edit_notification_id').val(id);
             $('#submitBtn').text('Save');
-            $('#current_date').prop('readonly', true);
-            $('#start_date').prop('readonly', true);
-            $('#end_date').prop('readonly', true);
-            $('#type').prop('disabled', true);
-            // Reset modal title
-            $(this).find('h5.modal-title').html(
-                '<img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create Notification'
-            );
 
             $.ajax({
                 url: endpoint.center_notification_edit.replace('__ID__', id),
@@ -616,10 +605,6 @@
                             $('#member_id').val(n.member_id);
                         }
 
-                        // Make date fields readonly in edit mode
-                        ['#current_date', '#start_date', '#end_date'].forEach(id => $(id).prop(
-                            'readonly', true));
-                        $('#type').prop('disabled', true);
                         // Change button text to Update
                         $('#submitBtn').text('Update');
 

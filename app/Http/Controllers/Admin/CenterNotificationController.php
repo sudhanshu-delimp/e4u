@@ -27,6 +27,12 @@ class CenterNotificationController extends Controller
                 ->addColumn('ref', function ($row) {
                     return sprintf('#%05d', $row->id);
                 })
+                ->filterColumn('ref', function ($query, $keyword) {
+                    $digits = ltrim($keyword, '#0');
+                    if ($digits !== '') {
+                        $query->where('id', 'like', "%{$digits}%");
+                    }
+                })
                 ->editColumn('start_date', function ($row) {
                     return basicDateFormat($row['start_date']);
                 })
@@ -53,13 +59,25 @@ class CenterNotificationController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $actions = [];
-                    // Example: you can add your own business logic for action buttons
-                    if (($row->status ?? null) === 'Published') {
-                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspended</a>';
-                    } elseif (in_array($row->status ?? null, ['Suspended'])) {
+                    $status = $row->status ?? null;
+
+                    // If published -> offer suspend
+                    if ($status === 'Published') {
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspend</a>';
+                    }
+
+                    // If suspended -> offer publish and remove
+                    if ($status === 'Suspended') {
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
                     }
+
+                    // If completed -> offer remove
+                    if ($status === 'Completed') {
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                    }
+
+                    // Common actions
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-edit" data-id="' . $row->id . '"><i class="fa fa-fw fa-edit"></i> Edit</a>';
 
@@ -134,17 +152,37 @@ class CenterNotificationController extends Controller
     public function store(Request $request)
     {
         $data =  $request->only(['heading', 'start_date', 'end_date', 'type', 'content', 'member_id', 'template_name', 'edit_notification_id']);
-        $start = Carbon::parse($data['start_date']);
-        $end =  Carbon::parse($data['end_date']);
+        $start = sqlDateFormat($data['start_date']);
+        $end =  sqlDateFormat($data['end_date']);
+        $data['start_date'] = $start;
+        $data['end_date'] = $end;
         //Check condition 
         $notificationId = $request->edit_notification_id;
 
         if ($notificationId) {
-            //dd($request->content);
+
             $update = CenterNotification::find($notificationId);
             $update->heading = $request->heading;
             $update->content = $data['content'];
             $update->template_name = $request->template_name;
+            $update->start_date = sqlDateFormat($data['start_date']);
+            $update->end_date = sqlDateFormat($data['end_date']);
+            $update->type = $request->type;
+
+            /* Reset all type-based fields */
+            $update->content       = null;
+            $update->template_name = null;
+            $update->member_id     = null;
+
+            if($request->type == 'Ad hoc'){
+                $update->content = $request->content;
+            }elseif($request->type == 'Template'){
+                $update->template_name = $request->template_name;
+            }elseif($request->type == 'Notice'){
+                $update->member_id = $request->member_id;
+                $update->content = $request->content;
+            }
+      
             $update->save();
             return success_response($data, 'Notification update successfully!!');
         }
@@ -199,10 +237,10 @@ class CenterNotificationController extends Controller
     {
         try {
             $notification = CenterNotification::findOrFail($id);
+            $notification->start_date = basicDateFormat($notification->start_date);
+            $notification->end_date = basicDateFormat($notification->start_date);
             // Return raw date format for edit form
             $notificationData = $notification->toArray();
-            //$notificationData['start_date'] = basicDateFormat($notification->start_date);
-            //$notificationData['end_date'] = basicDateFormat($notification->end_date);
             return success_response($notificationData, 'Notification view');
         } catch (\Exception $e) {
             return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);
