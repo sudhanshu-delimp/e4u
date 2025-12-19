@@ -102,7 +102,7 @@
                         </tr>
                         <tr>
                             <th>Commenced Date</th>
-                            <td>{{showDateWithFormat($staff->staff_detail->commenced_date, "d/m/Y")}}</td>
+                            <td>{{showDateWithFormat($staff->staff_detail->commenced_date, "d-m-Y")}}</td>
                         </tr>
                         
                         <tr>
@@ -137,26 +137,7 @@
                     </tbody>
                 </table>
             </div>
-    <!-- Section: Building Security -->
-    <div class="col-12 my-2">
-        <h6 class="border-bottom pb-1 text-blue-primary">Building Security</h6>
-        <table class="table table-bordered mb-3">
-            <tbody>
-                <tr>
-                    <th width="40%">Building Security</th>
-                    <td width="60%">{{ ucfirst($staff->staff_detail->building_access_code) }}</td>
-                </tr>
-                <tr>
-                    <th>Key Provided?</th>
-                    <td> {{ ucfirst($staff->staff_detail->keys_issued) }}</td>
-                </tr>
-                <tr>
-                    <th>Car Park?</th>
-                    <td>{{ ucfirst($staff->staff_detail->car_parking) }}</td>
-                </tr>
-            </tbody>
-        </table>
-         </div>
+
         <div class="col-12 my-2">
                
                 <table class="table table-bordered mb-3">

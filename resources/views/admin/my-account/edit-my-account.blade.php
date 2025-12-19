@@ -118,7 +118,7 @@ $positionLabel = isset($positions[$staff->staff_detail->position]) ? $positions[
                                                              @if($securityLevel == 1)
                                                             <select class="form-control" name="gender" id="gender">
                                                                 <option value="">Select Gender</option>
-                                                                @foreach (config('escorts.profile.genders') as $key => $gender)
+                                                                @foreach (config('staff.genders') as $key => $gender)
                                                                     <option value="{{ $key }}"
                                                                         {{ $staff->gender == $key ? 'selected' : '' }}>
                                                                         {{ $gender }}</option>

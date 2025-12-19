@@ -294,7 +294,7 @@
 
                   <!-- Agreement Details -->
                   <div class="col-12 my-2">
-                     <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
+                     <h6 class="pb-1 text-blue-primary">Agreement Details</h6>
                   </div>
                   <div class="col-6 mb-3">
                      <input type="date" class="form-control rounded-0" value="2023-12-01">
@@ -305,7 +305,7 @@
 
                   <!-- Bank Account -->
                   <div class="col-12 my-2">
-                     <h6 class="border-bottom pb-1 text-blue-primary">Bank Account</h6>
+                     <h6 class="pb-1 text-blue-primary">Bank Account</h6>
                   </div>
                   <div class="col-6 mb-3">
                      <input type="text" class="form-control rounded-0" placeholder="Bank" value="ANZ">
