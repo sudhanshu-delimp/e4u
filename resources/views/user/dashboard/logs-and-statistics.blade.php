@@ -33,8 +33,10 @@
             </div>
         </div>
         <!-- Page Heading -->
-        <div class="col-md-12">
-            <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
+            </div>
         </div>
         <div class="row mt-2">
 
@@ -82,78 +84,82 @@
             @endif
         </div>
     </div>
-{{--reset password expiry date modal  --}}
-<div class="modal fade upload-modal" id="resetPasswordDate" tabindex="-1" role="dialog" aria-labelledby="resetPasswordDatelabel"
-    aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    <img src="{{ asset('assets/dashboard/img/reset-password.png')}}" class="custompopicon">
-                    <span class="text-white">Reset Password Expiry</span>
-                </h5>
+    {{-- reset password expiry date modal  --}}
+    <div class="modal fade upload-modal" id="resetPasswordDate" tabindex="-1" role="dialog"
+        aria-labelledby="resetPasswordDatelabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <img src="{{ asset('assets/dashboard/img/reset-password.png') }}" class="custompopicon">
+                        <span class="text-white">Reset Password Expiry</span>
+                    </h5>
 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                            class="img-fluid img_resize_in_smscreen"></span>
-                </button>
-            </div>
-            
-            <div class="modal-body pb-0 agent-tour">
-                <form method="POST" id="passwordExpiry"  action="{{route('user.update.password.duration')}}" novalidate> 
-                    @csrf
-                    <!-- Password Expiry Options -->
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <label class="label">Password Expiry</label><br>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="password_expiry" id="expiry_never"  value="never" @if($passwirdExpire['password_expiry_days'] == 'never') checked @endif>
-                                <label class="form-check-label" for="expiry_never">Never</label>
-                            </div>
+                <div class="modal-body pb-0 agent-tour">
+                    <form method="POST" id="passwordExpiry" action="{{ route('user.update.password.duration') }}"
+                        novalidate>
+                        @csrf
+                        <!-- Password Expiry Options -->
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="label">Password Expiry</label><br>
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="password_expiry" id="expiry_30" value="30" @if($passwirdExpire['password_expiry_days'] == '30') checked @endif>
-                                <label class="form-check-label" for="expiry_30">Renew every 30 days</label>
-                            </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="password_expiry" id="expiry_never"
+                                        value="never" @if ($passwirdExpire['password_expiry_days'] == 'never') checked @endif>
+                                    <label class="form-check-label" for="expiry_never">Never</label>
+                                </div>
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="password_expiry" id="expiry_60" value="60" @if($passwirdExpire['password_expiry_days'] == '60') checked @endif>
-                                <label class="form-check-label" for="expiry_60">Renew every 60 days</label>
-                            </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="password_expiry" id="expiry_30"
+                                        value="30" @if ($passwirdExpire['password_expiry_days'] == '30') checked @endif>
+                                    <label class="form-check-label" for="expiry_30">Renew every 30 days</label>
+                                </div>
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="password_expiry" id="expiry_90" value="90" @if($passwirdExpire['password_expiry_days'] == '90') checked @endif>
-                                <label class="form-check-label" for="expiry_90">Renew every 90 days</label>
-                            </div>
-                            <hr>
-                            <small class="text-muted">
-                                Unless you set your preferred Password Expiry, by default your password will renew every 30 days.
-                            </small>
-                        </div>
-                    </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="password_expiry" id="expiry_60"
+                                        value="60" @if ($passwirdExpire['password_expiry_days'] == '60') checked @endif>
+                                    <label class="form-check-label" for="expiry_60">Renew every 60 days</label>
+                                </div>
 
-                    <!-- Save Button -->
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <div class="form-group">
-                                <button type="submit" class="btn-success-modal float-right ml-2" id="save_button">Save</button>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="password_expiry" id="expiry_90"
+                                        value="90" @if ($passwirdExpire['password_expiry_days'] == '90') checked @endif>
+                                    <label class="form-check-label" for="expiry_90">Renew every 90 days</label>
+                                </div>
+                                <hr>
+                                <small class="text-muted">
+                                    Unless you set your preferred Password Expiry, by default your password will renew every
+                                    30 days.
+                                </small>
                             </div>
                         </div>
-                    </div>
-                </form>
 
+                        <!-- Save Button -->
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <button type="submit" class="btn-success-modal float-right ml-2"
+                                        id="save_button">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
-{{-- end --}}
+    {{-- end --}}
 @endsection
 @section('script')
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/for_multiple_console/logs_and_status_blade.js') }}"></script>
-
-
-
+    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/for_multiple_console/logs_and_status_blade.js') }}"></script>
 @endsection
