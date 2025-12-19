@@ -3,46 +3,42 @@
 namespace App\Http\Controllers\Center;
 
 use App\Http\Controllers\Controller;
+use App\Models\MassageProfile;
 use App\Models\User;
+use App\Repositories\MassageBank\MassageBankDetailInterface;
+use App\Repositories\MassageCenter\MassageCenterInterface;
+use App\Repositories\Message\MessageInterface;
+use App\Repositories\User\UserInterface;
 use App\Sms\SendSms;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class MassageCenterAccountController extends Controller
 {
+    use AuthenticatesUsers;
+    protected $massageCenter;
+    protected $user;
+    protected $massageBankDetail;
+
+    public function __construct( UserInterface $user, MassageBankDetailInterface $massageBankDetail)
+    {
+        //$this->massageCenter = $massageCenter;
+        $this->user = $user;
+        $this->massageBankDetail = $massageBankDetail;
+
+    }
+
     public function index()
     {
         return view('center.dashboard.bookkeeping');
-    }
-
-    public function dataTable()
-    {
-
-        list($escort, $count) = $this->escort->paginatedByEscortId(
-            request()->get('start'),
-            request()->get('length'),
-            request()->get('order')[0]['column'],
-            request()->get('order')[0]['dir'],
-            request()->get('columns'),
-            request()->get('search')['value'],
-            auth()->user()->id,
-        );
-
-        $data = array(
-            "draw"            => intval(request()->input('draw')),
-            "recordsTotal"    => intval($count),
-            "recordsFiltered" => intval($count),
-            "data"            => $escort
-        );
-
-        return response()->json($data);
     }
 
     public function generateOTP(){
         $otp = mt_rand(1000,9999);
         return $otp;
     }
-    public function saveBankDetails(StoreEscortBankDetailRequest $request ,$id = null)
+    public function saveBankDetails(Request $request ,$id = null)
     {
         //dd($request->all());
         $value = $request->all();
@@ -61,22 +57,22 @@ class MassageCenterAccountController extends Controller
         return response()->json(compact('error','phone','otp'));
 
     }
-    public function deleteEscortBank(StoreEscortBankDetailRequest $request , $id)
+    public function deleteEscortBank(Request $request , $id)
     {
 
         $error = false;
-        $bank = $this->escortBankDetail->find($id);
+        $bank = $this->massageBankDetail->find($id);
         if($bank->state === 1) {
             $error = true;
         } else {
-            $this->escortBankDetail->destroy($id);
+            $this->massageBankDetail->destroy($id);
         }
 
         return response()->json(compact('error','id'));
 
 
     }
-    public function checkOTP(StoreEscortBankDetailRequest $request)
+    public function checkOTP(Request $request)
     {
 
         $data = $request->session()->all();
@@ -101,39 +97,41 @@ class MassageCenterAccountController extends Controller
                 'user_id' => auth()->user()->id,
             ];
 
+            //dd($bank_data);
 
-            // dd($bank_data);
+
+            // dd($bank_data, $request->session()->has('bankId'), $data['state'], $this->massageBankDetail->findByState(auth()->user()->id));
             if($request->session()->has('bankId')) {
                 // dd("bnak id");
                 $id = $data['bankId'];
-                $bankId = $this->escortBankDetail->find($id);
+                $bankId = $this->massageBankDetail->find($id);
 
                 unset($bank_data['bank_name']);
                 if($bankId->state == 2 && $bankId->state == $data['state']) {
                     $error = 0;
                     //dd($bank_data);
-                    $this->escortBankDetail->store($bank_data, $id);
+                    $this->massageBankDetail->store($bank_data, $id);
                 }
                 else if($bankId->state == 1 && $bankId->state == $data['state']) {
                     $error = 3; // Primary account not updated
                     //dd($bank_data);
-                    //$this->escortBankDetail->store($bank_data, $id);
+                    //$this->massageBankDetail->store($bank_data, $id);
                 }
                 else if($bankId->state == 2 && $data['state'] == 1) {
                     $error = 0;
                     //dd($bank_data);
-                    $this->escortBankDetail->store($bank_data, $id);
-                    $this->escortBankDetail->updatebyState(auth()->user()->id, $id);
+                    $this->massageBankDetail->store($bank_data, $id);
+                    $this->massageBankDetail->updatebyState(auth()->user()->id, $id);
                 } else {
                     $error = 3; // Primary account not updated
                 }
 
-                // if($this->escortBankDetail->findByState(auth()->user()->id) != 0 && $data['state'] == 2) {
+                // if($this->massageBankDetail->findByState(auth()->user()->id) != 0 && $data['state'] == 2) {
                 //     $error = 3; // Primary account not updated
                 // } else {
                 //     $error = 0;
                 //     //dd($bank_data);
-                //     $this->escortBankDetail->store($bank_data, $id);$this->escortBankDetail->updatebyState(auth()->user()->id, $id);
+                //     $this->massageBankDetail->store($bank_data, $id);$this->massageBankDetail->updatebyState(auth()->user()->id, $id);
                 //     $request->session()->flash('status', 'Task was successful!');
                 // }
 
@@ -141,34 +139,39 @@ class MassageCenterAccountController extends Controller
 
             } else {
                 $id = null;
-                if($this->escortBankDetail->findByState(auth()->user()->id) == 0 && $data['state'] == 1){
-                    $bankdata = $this->escortBankDetail->store($bank_data, $id);
+                
+                if($this->massageBankDetail->findByState(auth()->user()->id) == 0 && $data['state'] == 1){
+                    $bankdata = $this->massageBankDetail->store($bank_data, $id);
+                    //dd($bankdata, $bank_data, $id);
+
                     $id = $bankdata->id;
-                    $this->escortBankDetail->updatebyState(auth()->user()->id, $id);
+                    $this->massageBankDetail->updatebyState(auth()->user()->id, $id);
                     $error = 0;
-                } else if($this->escortBankDetail->findByState(auth()->user()->id) == 0 && $data['state'] == 2) {
+                } else if($this->massageBankDetail->findByState(auth()->user()->id) == 0 && $data['state'] == 2) {
                     $error = 2;// please select primary account
 
-                } else if($this->escortBankDetail->findByState(auth()->user()->id) != 0 && $data['state'] == 2) {
+                } else if($this->massageBankDetail->findByState(auth()->user()->id) != 0 && $data['state'] == 2) {
                     $error = 0;
                     $id = null;
-                    $bankdata = $this->escortBankDetail->store($bank_data, $id);
+                    $bankdata = $this->massageBankDetail->store($bank_data, $id);
                 } else {
                     $error = 0;
                     $id = null;
-                    $bankdata = $this->escortBankDetail->store($bank_data, $id);
+                    //dd($bank_data, $id);
+                    $bankdata = $this->massageBankDetail->store($bank_data, $id);
+                    dd($bankdata, $bank_data, $id);
                     $bid = $bankdata->id;
-                    $this->escortBankDetail->updatebyState(auth()->user()->id, $bid);
+                    $this->massageBankDetail->updatebyState(auth()->user()->id, $bid);
 
                 }
 
                 // dd();
-                // $bankdata = $this->escortBankDetail->store($bank_data, $id);
+                // $bankdata = $this->massageBankDetail->store($bank_data, $id);
                 // $error = false;
 
                 // if($data['state'] == 1) {
                 //     $id = $bankdata->id;
-                //     $this->escortBankDetail->updatebyState(auth()->user()->id, $id);
+                //     $this->massageBankDetail->updatebyState(auth()->user()->id, $id);
                 // }
             }
             $request->session()->flash('status', 'Task was successful!');
@@ -207,7 +210,7 @@ class MassageCenterAccountController extends Controller
 
     public function BankDataTable() 
     {
-        list($escortBankDetail, $count, $primary_account,$primary_bank_acc_id, $bankDetails) = $this->escortBankDetail->paginatedByEscortBankDetail(
+        list($massageBankDetail, $count, $primary_account,$primary_bank_acc_id, $bankDetails) = $this->massageBankDetail->paginatedBymassageBankDetail(
             request()->get('start'),
             request()->get('length'),
             request()->get('order')[0]['column'],
@@ -225,7 +228,7 @@ class MassageCenterAccountController extends Controller
             "primary_bank_acc_id" => intval($primary_bank_acc_id),
             "primary_bank_bsb" => $bankDetails['primary_bank_bsb'],
             "primary_bank_ac_no" => $bankDetails['primary_bank_ac_no'],
-            "data"            => $escortBankDetail
+            "data"            => $massageBankDetail
         );
 
         return response()->json($data);

@@ -81,6 +81,16 @@
             color: red;
         }
 
+        .otp-error {
+            border: 1px solid red !important;
+            box-shadow: 0 0 0 0.15rem rgba(255, 0, 0, 0.25);
+        }
+        
+        #otpError{
+            color:red;
+            font-size: 13px;
+        }
+
         @keyframes shake {
             0% {
                 transform: translateX(0);
@@ -194,7 +204,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 escort-tour">
-                    <form id="escort_bank" method="post" action="{{ route('escort.save.bank.details') }}">
+                    <form id="massage_bank" method="post" action="{{ route('massage.save.bank.details') }}">
                         @csrf
                         <input type="hidden" name="bankId" value="" id="bankId">
                         <div class="row">
@@ -297,6 +307,7 @@
                                     data-parsley-required-message="One Time Password is required">
                                 <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
                             </div>
+                            <span id="otpError" class="d-none"></span>
                             {{-- <input type="password" maxlength="4"  required class="form-control" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required"> --}}
                             <div class="termsandconditions_text_color">
                                 @error('opt')
@@ -762,7 +773,7 @@
                 const pinDisplay = $('#pinDisplaySet');
                 const textEl = document.getElementById("pinDisplaySet");
                 let pin = pinDisplay.text().trim();
-                let url = "{{ route('escort.update.bank.pin') }}";
+                let url = "{{ route('massage.update.bank.pin') }}";
 
                 updateBankPinByAjax(url, pin);
             });
@@ -797,7 +808,7 @@
         })
     </script>
     <script>
-        $("#escort_bank").parsley({
+        $("#massage_bank").parsley({
 
         });
         $("#SendBankOtp").parsley({
@@ -856,7 +867,7 @@
 
             $('body').on('hidden.bs.modal', '#commission-report', function() {
                 console.log("taasdasd");
-                $('#escort_bank')[0].reset();
+                $('#massage_bank')[0].reset();
 
                 $('.parsley-required').html('');
 
@@ -881,7 +892,7 @@
                     searchPlaceholder: "Search by Account Name"
                 },
                 ajax: {
-                    url: "{{ route('escort.bankDetail.dataTable') }}",
+                    url: "{{ route('massage.bankDetail.dataTable') }}",
                     data: function(d) {
                         d.type = 'player';
                     }
@@ -963,7 +974,7 @@
                 $('.primary_bsb').text(primary_bank_bsb);
             });
 
-            $("body").on('submit', '#escort_bank', function(e) {
+            $("body").on('submit', '#massage_bank', function(e) {
                 e.preventDefault();
 
                 let isValid = true;
@@ -1198,7 +1209,7 @@
                             //    var form = $(this);
 
                             //    // var url = form.attr('action');
-                            //    var url = "{{ route('escort.checkOTP') }}";
+                            //    var url = "{{ route('massage.checkOTP') }}";
 
                             //    var data = new FormData($('#SendBankOtp')[0]);
                             //    var phone = data.phone;
@@ -1295,13 +1306,33 @@
                 })
             }
 
+            function showOtpError() {
+                $('#otp').addClass('otp-error').focus();
+                $('#otpError').removeClass('d-none');
+                $('#otpError').html('One time password is required.');
+            }  
+        
+            $('#otp').on('input', function () {
+                $('#otpError').html('');
+                $(this).removeClass('otp-error');
+                if (!$('#otp').val().trim()) {
+                    showOtpError();
+                    return false;
+                }
+            });
+
             $("body").on("click", "#sendOtpSubmit", function(e) {
                 e.preventDefault();
+
+                if (!$('#otp').val().trim()) {
+                    showOtpError();
+                    return false;
+                }
 
                 let form = $("#SendBankOtp")[0];
                 let data = new FormData(form);
 
-                var url = "{{ route('escort.checkOTP') }}";
+                var url = "{{ route('massage.checkOTP') }}";
 
                 var phone = data.phone;
                 console.log("url=" + url);
