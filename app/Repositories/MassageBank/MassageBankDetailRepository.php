@@ -77,7 +77,19 @@ class MassageBankDetailRepository extends BaseRepository implements MassageBankD
             $item->account_numbers = $item->account_number ?  str_pad(substr($item->account_number, -3), strlen($item->account_number), '*', STR_PAD_LEFT) : "NA";
             // $item->account_numbers = $item->account_number;
             $item->states = $item->state == 1 ? "Primary Account" : "Secondary Account";
-            $item->action = '<div class="dropdown no-arrow text-center"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"><a class="dropdown-item d-flex align-items-center gap-10 justify-content-start editModal" href="#" data-id="'.$item->id.'" data-bank_name="'.$item->bank_name.'" data-bsb="'.$item->bsb.'" data-ac_number="'.$item->account_number.'" data-state="'.$item->state.'"data-url="bank_account/'.$item->id.'" data-toggle="modal" data-target="#commission-report" data-ac_name="'.$item->account_name.'" id="edit_'.$item->id.'"> <i class="fa fa-pen "></i> Edit</a> <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 justify-content-start delete_bankModal" href="delete-escort-bank/'.$item->id.'" data-id="'.$item->id.'" data-target="#delete_bnak"> <i class="fa fa-trash "></i></i> Delete </a></div></div>';
+            $item->action = '<div class="dropdown no-arrow text-center"> 
+            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
+             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+             <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start editModal" href="#" data-id="'.$item->id.'" data-bank_name="'.$item->bank_name.'" data-bsb="'.$item->bsb.'" data-ac_number="'.$item->account_number.'" data-state="'.$item->state.'"data-url="bank_account/'.$item->id.'" data-toggle="modal" data-target="#commission-report" data-ac_name="'.$item->account_name.'" id="edit_'.$item->id.'"> <i class="fa fa-pen "></i> Edit</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start delete_bankModal" href="delete-escort-bank/'.$item->id.'" data-id="'.$item->id.'" data-target="#delete_bnak"> <i class="fa fa-trash "></i></i> Delete </a>
+              <div class="dropdown-divider"></div>
+                <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start eftClientOption" href="javascript:void(0)" data-bank="AMP Bank" data-id="'.$item->id.'" >
+                <i class="fa fa-credit-card"></i> EFT Client
+                </a>
+              </div>
+              
+              </div>';
             $i++;
 		}
         return $result;

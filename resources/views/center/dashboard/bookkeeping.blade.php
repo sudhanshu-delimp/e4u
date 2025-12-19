@@ -79,6 +79,15 @@
       border: 2px solid red;
       color: red;
    }
+    .otp-error {
+      border: 1px solid red !important;
+      box-shadow: 0 0 0 0.15rem rgba(255, 0, 0, 0.25);
+   }
+ 
+   #otpError{
+      color:red;
+      font-size: 13px;
+   }
 
    @keyframes shake {
       0% { transform: translateX(0); }
@@ -128,7 +137,7 @@
       <div class="col-lg-12 col-md-12 col-sm-12">
 
          <div class="bothsearch-form d-flex gap-20">
-            {{-- <button type="button" class="create-tour-sec dctour" data-toggle="modal"  data-target="#payid">PayID</button> --}}
+            <button type="button" class="create-tour-sec dctour" data-toggle="modal"  data-target="#payid">PayID</button>
             <button type="button" class="create-tour-sec dctour" id="change_pin_modal">Change PIN</button>
             <button type="button" class="create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New Account</button>
          </div>
@@ -260,6 +269,7 @@
                      <input type="password" maxlength="4" required class="form-control w-75" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required">
                      <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
                   </div>
+                  <span id="otpError" class="d-none"></span>
                   {{-- <input type="password" maxlength="4"  required class="form-control" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required"> --}}
                   <div class="termsandconditions_text_color">
                      @error('opt')
@@ -534,26 +544,7 @@
  
          <!-- Keypad -->
          <div class="pin-keypad mx-auto mb-3">
-           {{-- <div class="keypad-row">
-             <button class="key input_value">1</button>
-             <button class="key input_value">2</button>
-             <button class="key input_value">3</button>
-           </div>
-           <div class="keypad-row">
-             <button class="key input_value">4</button>
-             <button class="key input_value">5</button>
-             <button class="key input_value">6</button>
-           </div>
-           <div class="keypad-row">
-             <button class="key input_value">7</button>
-             <button class="key input_value">8</button>
-             <button class="key input_value">9</button>
-           </div>
-           <div class="keypad-row">
-             <button class="key" id="clear">⌫</button>
-             <button class="key input_value">0</button>
-             <button class="key" id="pinok">OK</button>
-           </div> --}}
+           
          </div>
  
          <!-- Footer Buttons -->
@@ -633,6 +624,8 @@
 
       let fClick = true;
       let fClick2 = true;
+      var isClickEft = false;
+      var eftAccountId = 0;
 
       // For pinDisplay
       $('.input_value').click(function () {
@@ -721,7 +714,15 @@
 
          if (pin === existingPin) {
             $('#EnterPinModal').modal('hide');
-            $('#InstructionPayerModal').modal('show');
+            if(isClickEft == true){
+                // show eft bank details
+                $('#InstructionPayerModal').modal('hide');
+                let eftBankAccountId =  eftAccountId;
+                // use ajax here
+            }else{
+                $('#InstructionPayerModal').modal('show');
+            }
+            
             pinDisplay.text('');
             $(".container-fluid").removeClass("wrong_pin_hide_details");
          } 
@@ -738,6 +739,11 @@
                   pinDisplay.text(pin); // ✅ restore original PIN
             }, 300);
          }
+      });
+
+      $(document).on('click','.eftClientOption', function () {
+        $('#EnterPinModal').modal('show');
+        isClickEft =  true;
       });
 
    })
@@ -1161,94 +1167,7 @@
                   $("#otp").val('');
                   $("#sendOtp_modal").modal('show'); //
                   $("#commission-report").modal('hide');
-                  // $("body").on("submit", "#SendBankOtp", function(e) {
-                  //    e.preventDefault();
-                  //    var form = $(this);
-                     
-                  //    // var url = form.attr('action');
-                  //    var url = "{{ route('massage.checkOTP')}}";
-
-                  //    var data = new FormData($('#SendBankOtp')[0]);
-                  //    var phone = data.phone;
-                  //    //data.append("phone",phone );
-                  //    console.log("url=" + url);
-                  //    var token = $('input[name="_token"]').attr('value');
-
-                  //    $.ajax({
-                  //       url: url,
-                  //       type: 'POST',
-                  //       data: data,
-                  //       dataType: "JSON",
-                  //       contentType: false,
-                  //       processData: false,
-                  //       headers: {
-                  //          'X-CSRF-Token': token
-                  //       },
-                  //       success: function(data) {
-
-                  //          if(isBankAccountChanged){
-                  //             $("#modal-title").text('Bank Account Update Confirmation');
-                  //             $('.comman_msg').html('<h5>Your bank account details have been successfully updated.</h5>');
-                  //             $("#comman_modal").modal('show');
-                              
-                  //             $("#sendOtp_modal").modal('hide');
-
-                  //          }else{
-                  //             let bankState = data.bank_data.state == 1 ? 'Primary' : 'Secondary';
-                  //             let account_number = data.bank_data.account_number;
-                              
-
-                  //             $("#modal-title").text('New Bank Account added Confirmation');
-                  //             if (data.error == 0) {
-                  //                let textMsg = `<p class="text-left p-2">
-                  //                   Bank Account `+account_number+` has been added to your list
-                  //                   of Bank Accounts as a `+bankState+` account.</br></br>
-                  //                   You can edit the details by clicking the 'Action' link.</br></br>
-                  //                   The default PIN is 1234 which you can reset by clicking the
-                  //                   Change PIN button.
-                  //                </p>`;
-                  //                $('.comman_msg').html(textMsg);
-                  //                $("#comman_modal").modal('show');
-                                 
-                  //                $("#sendOtp_modal").modal('hide');
-                                 
-                  //                //table.draw();
-                  //             }
-                  //             if (data.error == 2) {
-                  //                $('.comman_msg').html("Please select primary account");
-                  //                $("#comman_modal").modal('show');
-                  //                $("#sendOtp_modal").modal('hide');
-                  //                //table.draw();
-                  //             }
-                  //             if (data.error == 3) {
-                  //                $('.comman_msg').html("You can't update the primary account.");
-                  //                $("#comman_modal").modal('show');
-                  //                $("#sendOtp_modal").modal('hide');
-                  //                //table.draw();
-                  //             }
-                  //          }
-
-                  //          table.draw();
-                  //       },
-                  //       error: function(data) {
-
-                  //          console.log("error otp: ", data.responseJSON.errors);
-                  //          $.each(data.responseJSON.errors, function(key, value) {
-                  //             errorsHtml = '<div class="alert alert-danger"><ul>';
-                  //             errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
-                  //          });
-
-                  //          errorsHtml += '</ul></di>';
-                  //          $('#senderror').html(errorsHtml);
-                  //       }
-                  //    });
-
-                  // });
-                  //}
-                  // $('.comman_msg').html("Saved");
-                  // $("#comman_modal").modal('show');
-
-                  //window.location.reload();
+                  
                } else {
                   console.log(data);
                }
@@ -1300,8 +1219,28 @@
          });   
       }
 
+    function showOtpError() {
+         $('#otp').addClass('otp-error').focus();
+         $('#otpError').removeClass('d-none');
+         $('#otpError').html('One time password is required.');
+      }  
+ 
+      $('#otp').on('input', function () {
+         $('#otpError').html('');
+         $(this).removeClass('otp-error');
+          if (!$('#otp').val().trim()) {
+            showOtpError();
+            return false;
+         }
+      });
+
       $("body").on("click", "#sendOtpSubmit", function(e) {
-         e.preventDefault();
+        e.preventDefault();
+
+        if (!$('#otp').val().trim()) {
+            showOtpError();
+            return false;
+         }
 
          let form = $("#SendBankOtp")[0];
          let data = new FormData(form);
@@ -1323,6 +1262,22 @@
                'X-CSRF-Token': token
             },
             success: function(data) {
+
+                if(data.changePin == '1' || data.changePin == '0'){
+                    if(data.changePin == '1'){
+                        $('#sendOtp_modal').modal('hide');
+                        $("#SetPinModal").modal('show');
+                        $('#otp').val('');
+                    }else{
+                        Swal.fire({
+                            icon: "error",
+                            title: "Invalid OTP",
+                            text: "The OTP you entered is incorrect. Please try again.",
+                        });
+                        $('#otp').val('');
+                    }
+                    $("#change_pin_active").val('0');
+                }
 
                if(isBankAccountChanged){
                   $("#modal-title").text('Bank Account Update Confirmation');
@@ -1406,7 +1361,10 @@
                                  `+data.message+`
                               </h5>`;
                   $('.comman_msg').html(textMsg);
-                  $("#comman_modal").modal('show');
+                  setTimeout(() => {
+                    $("#comman_modal").modal('show');
+                  }, 200);
+                  
                   
                   
                } else {

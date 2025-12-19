@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Center;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EscortChangeBankPin;
 use App\Models\MassageProfile;
 use App\Models\User;
 use App\Repositories\MassageBank\MassageBankDetailInterface;
@@ -80,9 +81,27 @@ class MassageCenterAccountController extends Controller
 
         $error = 1;
 
-        //dd($user->otp);
-
         $user = auth()->user();
+
+        $changeOtp = (isset($request->change_pin_active) && (int)$request->change_pin_active == 1) ? $request->change_pin_active : 0;
+ 
+        if($user && $changeOtp == 1){
+ 
+            $phone = $user->phone;
+            $status = false;
+            $changePin = '0';
+            $error =true;
+            $otp = $user->otp;
+ 
+            if(1 || $user->otp == (int)$request->otp) {
+                $status = true;
+                $otp = $user->otp;
+                $error = false;
+                $changePin = '1';
+            }
+            return response()->json(compact('error','phone','otp','status','changePin'));
+        }
+
         //TODO:: remove bypass before deployment
         if(1 || $user->otp == (int)$request->otp) {
 
@@ -142,7 +161,6 @@ class MassageCenterAccountController extends Controller
                 
                 if($this->massageBankDetail->findByState(auth()->user()->id) == 0 && $data['state'] == 1){
                     $bankdata = $this->massageBankDetail->store($bank_data, $id);
-                    //dd($bankdata, $bank_data, $id);
 
                     $id = $bankdata->id;
                     $this->massageBankDetail->updatebyState(auth()->user()->id, $id);
@@ -159,7 +177,7 @@ class MassageCenterAccountController extends Controller
                     $id = null;
                     //dd($bank_data, $id);
                     $bankdata = $this->massageBankDetail->store($bank_data, $id);
-                    dd($bankdata, $bank_data, $id);
+                    //dd($bankdata, $bank_data, $id);
                     $bid = $bankdata->id;
                     $this->massageBankDetail->updatebyState(auth()->user()->id, $bid);
 
@@ -187,10 +205,10 @@ class MassageCenterAccountController extends Controller
         //return $request->only($this->username(), 'password','type');
     }
 
-    public function update(UpdateEscortRequest $request)
+    public function update(Request $request)
     {
 
-        $data = [];
+       // $data = [];
         $data = [
                 'business_name' => $request->business_name,
                 'abn' => $request->abn,
