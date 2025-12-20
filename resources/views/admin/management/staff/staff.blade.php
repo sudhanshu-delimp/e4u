@@ -53,10 +53,10 @@
                                                     <th scope="col">Staff Member</th>
                                                     <th scope="col">Level</th>
                                                     <th scope="col">Position</th>
-                                                    <th scope="col">Mobile</th>
+                                                    <th scope="col" style="width: 84px;">Mobile</th>
                                                     <th scope="col">Email</th>
                                                     <th scope="col">Logins</th>
-                                                    <th scope="col" style="width: 160px;">Last Login</th>
+                                                    <th scope="col" style="width: 126px;">Last Login</th>
                                                     <th scope="col">Status</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
