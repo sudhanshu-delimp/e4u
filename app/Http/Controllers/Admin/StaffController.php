@@ -203,7 +203,7 @@ class StaffController extends BaseController
                 <i class="fa fa-eye "></i> View Account</a>';
 
             if ($this->editAccessEnabled) {
-                if(auth()->user()->my_agent->member_id != $item->member_id) {
+                if(auth()->user()->member_id != $item->member_id) {
                     $dropdown .= '<div class="dropdown-divider"></div>' . $activate_html . $suspend_html;
                     $dropdown .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
                 }
