@@ -115,11 +115,11 @@ class DashboardController extends BaseController
     {
         $data = [];
         $data = [
-            'name' => $request->name,
-            'gender' => $request->gender,
-            'phone' =>  removeSpaceFromString($request->phone),
-            'city_id' =>  $request->location,
-            'gender' =>  $request->gender,
+            //'name' => $request->name,
+            //'gender' => $request->gender,
+            'phone' =>  $request->phone,
+            //'city_id' =>  $request->location,
+            //'gender' =>  $request->gender,
         ];
 
         $error = true;
@@ -128,21 +128,21 @@ class DashboardController extends BaseController
             $user = User::where('id', $data['user_id'])->first();
             $staff = $user->staff_detail;
             $staff->update([
-                'name' => $data['name'] ?? $staff->name,
+                //'name' => $data['name'] ?? $staff->name,
                 'address' => $data['address'] ?? $staff->address,
                 'kin_name' => $data['kin_name'] ?? $staff->kin_name,
                 'kin_relationship' => $data['kin_relationship'] ?? $staff->kin_relationship,
                 'kin_mobile' => $data['kin_mobile'] ?? $staff->addkin_mobileress,
                 'kin_email' => $data['kin_email'] ?? $staff->kin_email,
-                'location' => $data['location'] ?? $staff->location,
-                'security_level' => $data['security_level'] ?? 3,
-                'position' => $data['security_level'] ?? 3,
-                'commenced_date' => $data['commenced_date'] ?? $staff->commenced_date,
-                'employment_status' => $data['employment_status'] ?? $staff->employment_status,
-                'employment_agreement' => $data['employment_agreement'] ?? $staff->employment_agreement,
-                'building_access_code' => $data['building_access_code'] ?? $staff->building_access_code,
-                'keys_issued' => $data['keys_issued'] ?? $staff->keys_issued,
-                'car_parking' => $data['car_parking'] ?? $staff->car_parking,
+                //'location' => $data['location'] ?? $staff->location,
+                //'security_level' => $data['security_level'] ?? 3,
+                //'position' => $data['security_level'] ?? 3,
+                //'commenced_date' => $data['commenced_date'] ?? $staff->commenced_date,
+                //'employment_status' => $data['employment_status'] ?? $staff->employment_status,
+                //'employment_agreement' => $data['employment_agreement'] ?? $staff->employment_agreement,
+                //'building_access_code' => $data['building_access_code'] ?? $staff->building_access_code,
+                //'keys_issued' => $data['keys_issued'] ?? $staff->keys_issued,
+                //'car_parking' => $data['car_parking'] ?? $staff->car_parking,
             ]);
             $error = false;
         }

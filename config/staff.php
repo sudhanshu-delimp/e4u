@@ -105,4 +105,8 @@ return [
         'subsidiaries-annual-profit-and-loss',
         'updates'
     ],
+    'genders' => [
+			'6' => 'Female',
+			'1' => 'Male',
+		],
 ];
