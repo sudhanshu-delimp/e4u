@@ -11,6 +11,7 @@ use App\Http\Requests\StoreEscortRequest;
 use App\Http\Requests\UpdateEscortRequest;
 use App\Http\Requests\StoreEscortBankDetailRequest;
 use App\Mail\EscortChangeBankPin;
+use App\Models\EscortBankDetail;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
@@ -553,6 +554,33 @@ class EscortAccountController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Failed to update bank PIN.'
+        ]);
+    }
+
+
+    public function getEftBankDetails(Request $request)
+    {
+ 
+        if (auth()->check() && isset($request->bank_id) && !empty($request->bank_id)) {
+            $EscortBank = EscortBankDetail::where('id', (int)$request->bank_id)->first();
+ 
+            $EscortBank->bsb = $EscortBank->bsb ? formatAccountNumber($EscortBank->bsb) : 'NA';
+ 
+            $EscortBank->account_number = $EscortBank->account_number ?  formatAccountNumber($EscortBank->account_number) : "NA";
+ 
+            return response()->json([
+                'error' => false,
+                'message' => 'Bank details fetched successfully.',
+                'type' => 'eft',
+                'eft_bank' => $EscortBank,
+            ]);
+        }
+       
+        return response()->json([
+            'error' => true,
+            'message' => 'Failed to fetch bank details.',
+            'type' => 'eft',
+            'eft_bank' => null,
         ]);
     }
 }

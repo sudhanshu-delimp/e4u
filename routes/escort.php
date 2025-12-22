@@ -43,7 +43,7 @@ Route::post('check-bank-otp',[EscortAccountController::class,'checkOTP'])->name(
 Route::post('delete-escort-bank/{id}',[EscortAccountController::class,'deleteEscortBank']);
 Route::post('update-bank-pin',[EscortAccountController::class,'updateBankPin'])->name('escort.update.bank.pin');
 Route::post('send-otp-for-pin-change',[EscortAccountController::class,'sendOtpForPinChange'])->name('escort.sendOtpForPinChange');
-
+Route::post('get-ef-bank-details',[EscortAccountController::class,'getEftBankDetails'])->name('escort.get.eft.bank.details');
 //END
 
 
