@@ -125,13 +125,16 @@
                 <div class="py-0 collapse-inner rounded mb-2">
 
                     {{-- Analytics --}}
-                    <a class="nav-link collapsed collapsed" href="#" data-toggle="collapse"
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse"
                         data-target="#Analytics" aria-expanded="false" aria-controls="Analytics">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
                         <span>Analytics</span>
                     </a>
-                    <div id="Analytics" class="collapse @if (request()->segment(3) == 'publicpages' || request()->segment(3) == 'consoles') show @endif;">
+
+                    <div id="Analytics" class="collapse 
+                        @if (request()->segment(3) == 'publicpages' || request()->segment(3) == 'consoles') show @endif;">
+                        
                         <div class="py-0 collapse-inner rounded mb-2">
 
                             <a class="collapse-item" href="{{ route('consoles') }}">
@@ -198,7 +201,7 @@
 
                     {{-- Database --}}
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Database"
-                        aria-expanded="false" aria-controls="collapseTwo">
+                        aria-expanded="false" aria-controls="Database">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/admin-database.png') }}">
                         <span>Database</span>
@@ -308,7 +311,7 @@
                     <!-- end -->
 
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Publications"
-                        aria-expanded="false" aria-controls="collapseTwo">
+                        aria-expanded="false" aria-controls="Publications">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/publication.png') }}">
                         <span>Publications</span>
@@ -352,7 +355,7 @@
                     </div>
 
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Reports"
-                        aria-expanded="false" aria-controls="collapseTwo">
+                        aria-expanded="false" aria-controls="Reports">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                         <span>Reports </span>
