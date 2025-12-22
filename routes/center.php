@@ -120,6 +120,15 @@ Route::get('logs-and-status', [CenterController::class, 'LogsAndStatus'])->name(
 Route::post('center-update-password-duration', [CenterController::class, 'updatePasswordDuration'])->name('center.update.password.duration');
 
 
+//USED CONFIRM
+//****Bank Account*****/
+Route::get('bank_account',[MassageCenterAccountController::class,'bankDetails'])->name('massage.bank_account');
+Route::post('save-bank-details',[MassageCenterAccountController::class,'saveBankDetails'])->name('massage.save.bank.details');
+Route::get('bank-details',[MassageCenterAccountController::class,'BankDataTable'])->name('massage.bankDetail.dataTable');
+Route::post('check-bank-otp',[MassageCenterAccountController::class,'checkOTP'])->name('massage.checkOTP');
+Route::post('delete-massage-bank/{id}',[MassageCenterAccountController::class,'deleteMassageBank']);
+Route::post('update-bank-pin',[MassageCenterAccountController::class,'updateBankPin'])->name('massage.update.bank.pin');
+
 Route::get('centre-statistics',function(){
     return view('center.dashboard.centre-statistics');
 })->name('center.dashboard.centre-statistics');

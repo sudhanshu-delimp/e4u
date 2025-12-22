@@ -737,11 +737,11 @@ class User extends Authenticatable
             }
 
             else if(isset($settings->twofa) &&  ($settings->twofa == '2' && $user->phone != "")) {
-                sendLoginOtpSms($otp, $user);
+                //sendLoginOtpSms($otp, $user);
             }
             else
             {
-                sendLoginOtpSms($otp, $user);
+                //sendLoginOtpSms($otp, $user);
             }
     }
 

@@ -49,7 +49,7 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
         <div class="col-6 mb-3">
             <select class="form-control" name="gender" id="gender">
                 <option value="">Select Gender</option>
-                @foreach (config('escorts.profile.genders') as $key => $gender)
+                @foreach (config('staff.genders') as $key => $gender)
                     <option value="{{ $key }}" {{ $staff->gender == $key ? 'selected' : '' }}>
                         {{ $gender }}</option>
                 @endforeach
@@ -122,9 +122,8 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
              <span class="text-danger error-location"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" name="commenced_date" id="commenced_date" class="form-control rounded-0"
-                placeholder="Commenced Date" onfocus="(this.type='date')"
-                onblur="if(this.value==''){this.type='text'}" value="{{ $staff->staff_detail->commenced_date }}">
+            <input type="date" name="commenced_date" id="commenced_date" class="form-control rounded-0"
+                placeholder="Commenced Date"  value="{{ $staff->staff_detail->commenced_date }}">
             <span class="text-danger error-commenced_date"></span>
 
         </div>
@@ -211,9 +210,9 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
                 <label class="form-check-label" for="edit_idle_preference_time_never">Never</label>
             </div>
 
-            <div class="pt-1">
+           {{--  <div class="pt-1">
                 <i style="font-size:12px;">Set the Idle time before you are logged out of your Console.</i>
-            </div>
+            </div> --}}
         </div>
 
         <div class="form-group">
@@ -229,9 +228,9 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
                 <label class="form-check-label" for="edit_twofa_2">Text</label>
             </div>
 
-            <div class="pt-1" style="font-size:12px;">
+            {{-- <div class="pt-1" style="font-size:12px;">
                 <i>How your authentication code will be sent to you.</i>
-            </div>
+            </div> --}}
         </div>
         </div>
     </div>

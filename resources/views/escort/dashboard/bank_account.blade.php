@@ -94,6 +94,16 @@
       padding-left: 0px !important;
    }
 
+   .otp-error {
+      border: 1px solid red !important;
+      box-shadow: 0 0 0 0.15rem rgba(255, 0, 0, 0.25);
+   }
+
+   #otpError{
+      color:red;
+      font-size: 13px;
+   }
+
 </style>
 @endsection
 @section('content')
@@ -257,9 +267,10 @@
                      </li>
                   </ol>
                   <div class="d-flex align-items-center justify-content-between gap-10">
-                     <input type="password" maxlength="4" required class="form-control w-75" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required">
+                     <input type="password" maxlength="4" class="form-control w-75" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required" required>
                      <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
                   </div>
+                  <span id="otpError" class="d-none"></span>
                   {{-- <input type="password" maxlength="4"  required class="form-control" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required"> --}}
                   <div class="termsandconditions_text_color">
                      @error('opt')
@@ -633,6 +644,7 @@
 
       let fClick = true;
       let fClick2 = true;
+      let isEftClient = false;
 
       // For pinDisplay
       $('.input_value').click(function () {
@@ -711,7 +723,11 @@
          
          updateBankPinByAjax(url, pin);
       });
-         
+        
+      $(document).on('click' , '.eftClientOption' , function(){
+         isEftClient = true;
+      });
+
       $("#pinok").click(function () {
          const pinDisplay = $('#pinDisplay');
          const textEl = document.getElementById("pinDisplay");
@@ -721,7 +737,12 @@
 
          if (pin === existingPin) {
             $('#EnterPinModal').modal('hide');
-            $('#InstructionPayerModal').modal('show');
+            if(isEftClient){
+               // 
+            }else{
+               $('#InstructionPayerModal').modal('show');
+            }
+
             pinDisplay.text('');
             $(".container-fluid").removeClass("wrong_pin_hide_details");
          } 
@@ -801,7 +822,6 @@
       });
 
       $('body').on('hidden.bs.modal', '#commission-report', function() {
-         console.log("taasdasd");
          $('#escort_bank')[0].reset();
 
          $('.parsley-required').html('');
@@ -1264,11 +1284,28 @@
       }
 
       $(document).on('click', "#change_pin_modal", function(e){
-         console.log('2fa ');
-         
-         $("#sendOtp_modal").modal('show');
-         $("#change_pin_active").val('1');
-         // data-toggle="modal"  data-target="#SetPinModal"
+         var token = $('input[name="_token"]').attr('value');
+         $.ajax({
+            url: "{{route('escort.sendOtpForPinChange')}}",
+            type: 'POST',
+           
+            dataType: "JSON",
+           
+            headers: {
+               'X-CSRF-Token': token
+            },
+            success: function(data) {
+               if(data.status){
+                  $("#sendOtp_modal").modal('show');
+                  $("#change_pin_active").val('1'); 
+               }
+            },
+            error: function(data) {
+
+               console.log("error otp: ", data.responseJSON.errors);
+               
+            }
+         }); 
       });
 
       function sendOtpPin(params) 
@@ -1299,19 +1336,35 @@
             }
          });   
       }
+      function showOtpError() {
+         $('#otp').addClass('otp-error').focus();
+         $('#otpError').removeClass('d-none');
+         $('#otpError').html('One time password is required.');
+      }  
+
+      $('#otp').on('input', function () {
+         $('#otpError').html('');
+         $(this).removeClass('otp-error');
+          if (!$('#otp').val().trim()) {
+            showOtpError();
+            return false;
+         }
+      });
 
       $("body").on("click", "#sendOtpSubmit", function(e) {
          e.preventDefault();
-
+         if (!$('#otp').val().trim()) {
+            showOtpError();
+            return false;
+         }
          let form = $("#SendBankOtp")[0];
          let data = new FormData(form);
          
          var url = "{{ route('escort.checkOTP')}}";
-
+         
          var phone = data.phone;
-         console.log("url=" + url);
          var token = $('input[name="_token"]').attr('value');
-
+         
          $.ajax({
             url: url,
             type: 'POST',
@@ -1323,6 +1376,21 @@
                'X-CSRF-Token': token
             },
             success: function(data) {
+               if(data.changePin == '1' || data.changePin == '0'){
+                  if(data.changePin == '1'){
+                     $('#sendOtp_modal').modal('hide');
+                     $("#SetPinModal").modal('show');
+                     $('#otp').val('');
+                  }else{
+                      Swal.fire({
+                        icon: "error",
+                        title: "Invalid OTP",
+                        text: "The OTP you entered is incorrect. Please try again.",
+                     });
+                     $('#otp').val('');
+                  }
+                $("#change_pin_active").val('0'); 
+               }
 
                if(isBankAccountChanged){
                   $("#modal-title").text('Bank Account Update Confirmation');
@@ -1406,8 +1474,9 @@
                                  `+data.message+`
                               </h5>`;
                   $('.comman_msg').html(textMsg);
-                  $("#comman_modal").modal('show');
-                  
+                 setTimeout(() => {
+                    $("#comman_modal").modal('show');
+                  }, 200);
                   
                } else {
                   console.log(data);
@@ -1474,5 +1543,30 @@
 
       })
    });
+
+   $(document).on('click', "#resendOtpSubmit", function(e){
+         var token = $('input[name="_token"]').attr('value');
+         $.ajax({
+            url: "{{route('escort.sendOtpForPinChange')}}",
+            type: 'POST',
+           
+            dataType: "JSON",
+           
+            headers: {
+               'X-CSRF-Token': token
+            },
+            success: function(data) {
+               if(data.status){
+                  $("#change_pin_active").val('1'); 
+               }
+            },
+            error: function(data) {
+
+               console.log("error otp: ", data.responseJSON.errors);
+               
+            }
+         }); 
+      });
+
 </script>
 @endpush

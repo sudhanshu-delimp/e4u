@@ -18,7 +18,7 @@
 
     @if (auth()->user() && auth()->user()->type == 1)
         <a class="sidebar-brand text-left" href="{{ route('home') }}">
-            <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3" alt=""><br>
+            <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3 e4u_logo" alt=""><br>
             <span style="color:#FF3C5F;" class="font-weight-normal">OC ({{ $ocLavel }})</span>
         </a>
         <li class="nav-item active">

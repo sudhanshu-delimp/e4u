@@ -151,7 +151,7 @@
                                        <span class="form-control form-back">                                                         
 
                              @if(auth()->user()->my_agent)
-                                {{  \Illuminate\Support\Str::limit(Str::title(auth()->user()->my_agent->name), 8, '..') }}
+                               {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}
                             @else
                                 <a href="{{url('/escort-dashboard/escort-agency-request') }}" class="request-active"> Request one</a>
                             @endif

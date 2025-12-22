@@ -45,18 +45,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="table-responsive-xl">
+                                    <div class="table-responsive">
                                         <table class="table mb-3 w-100" id="staff_data_table">
                                             <thead class="table-bg">
                                                 <tr>
-                                                    <th scope="col">Staff ID</th>
+                                                    <th scope="col">ID</th>
                                                     <th scope="col">Staff Member</th>
-                                                    <th scope="col">Security Level</th>
+                                                    <th scope="col">Level</th>
                                                     <th scope="col">Position</th>
-                                                    <th scope="col">Mobile</th>
+                                                    <th scope="col" style="width: 86px;">Mobile</th>
                                                     <th scope="col">Email</th>
-                                                    <th scope="col">Total Logins</th>
-                                                    <th scope="col">Last Login</th>
+                                                    <th scope="col">Logins</th>
+                                                    <th scope="col" style="width: 150px;">Last Login</th>
                                                     <th scope="col">Status</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
@@ -148,7 +148,7 @@
                         <div class="col-6 mb-3">
                             <select class="form-control" name="gender" id="gender">
                                 <option value="">Select Gender</option>
-                                @foreach (config('escorts.profile.genders') as $key => $gender)
+                                @foreach (config('staff.genders') as $key => $gender)
                                 <option value="{{ $key }}">{{ $gender }}</option>
                                 @endforeach
                             </select>
@@ -291,7 +291,7 @@
                             </div>
 
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="idle_preference_time" id="idle_preference_time_30" value="30" checked="">
+                                <input class="form-check-input" type="radio" name="idle_preference_time" id="idle_preference_time_30" value="30" >
                                 
                                 <label class="form-check-label" for="idle_preference_time_30">30 minutes</label>
                             </div>
@@ -306,9 +306,9 @@
                                 <label class="form-check-label" for="idle_preference_time_never">Never</label>
                             </div>
 
-                        <div class="pt-1" >
+                       {{--  <div class="pt-1" >
                             <i style="color: #6e707e; font-size:12px;">Set the Idle time before you are logged out of your Console.</i>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="form-group">
                         <h6 class="border-bottom pb-1 text-blue-primary">2FA Authentication</h6>
@@ -324,9 +324,9 @@
                             <label class="form-check-label" for="twofa_2">Text</label>
                         </div>
 
-                        <div class="pt-1" >
+                       {{--  <div class="pt-1" >
                             <i style="color: #6e707e; font-size:12px;">How your authentication code will be sent to you.</i>
-                        </div>
+                        </div> --}}
                     </div>
                         </div>
                     </div>

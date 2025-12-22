@@ -192,17 +192,21 @@ class StaffController extends BaseController
             $item->position = isset($item->staff_detail->position) ? $item->staff_detail->position($item->staff_detail->position) : 'NA';
             $suspend_html = "";
             $activate_html = "";
-            if ($item->status != 'Suspended')
+            if ($item->status != 'Suspended'){
                 $suspend_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-ban"></i> Suspend</a><div class="dropdown-divider"></div>';
-            if ($item->status == 'Suspended')
+            }
+            if ($item->status == 'Suspended'){
                 $activate_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center active-account-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-check"></i> Activate</a><div class="dropdown-divider"></div>';
+            }
             $dropdown = '<div class="dropdown no-arrow ml-3">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item view-account-btn view-staff-btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '>  
                 <i class="fa fa-eye "></i> View Account</a>';
 
             if ($this->editAccessEnabled) {
-                $dropdown .= '<div class="dropdown-divider"></div>' . $activate_html . $suspend_html;
-                $dropdown .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
+                if(auth()->user()->member_id != $item->member_id) {
+                    $dropdown .= '<div class="dropdown-divider"></div>' . $activate_html . $suspend_html;
+                    $dropdown .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
+                }
             }
             $dropdown .= '</div></div>';
 

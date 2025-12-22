@@ -19,6 +19,7 @@ use App\Models\PasswordSecurity;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Auth;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -141,6 +142,34 @@ class EscortAccountController extends Controller
         return view('escort.dashboard.bank_account',compact('user'));
     }
 
+    public function sendOtpForPinChange(Request $request ){
+       try{
+        $user = auth()->user();
+        if($user){
+            $phone = $user->phone;
+            $user->otp = $this->generateOTP();
+            $user->save();
+            $error = false;
+            $user = auth()->user();
+            
+            $otp = $user->otp;
+            $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+            $sendotp = new SendSms();
+            $output = $sendotp->send($phone,$msg);
+            $user_id = $user->id;
+            return response()->json([
+                'status' => $output,
+                'message' => "Hello! Your one-time user code has been sent successfully. You can ignore this text message.",
+            ]);
+        }
+       }catch(Exception $e){
+         return response()->json([
+                'status' => 500,
+                'message' => $e->getMessage(),
+            ]);
+       }
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -223,34 +252,23 @@ class EscortAccountController extends Controller
         $data = $request->session()->all();
         $user = auth()->user();
         
-        $changeOtp = isset($request->change_pin_active) ? $request->change_pin_active : '0';
+        $changeOtp = (isset($request->change_pin_active) && (int)$request->change_pin_active == 1) ? $request->change_pin_active : 0;
 
-        if($user && $changeOtp == '1'){
+        if($user && $changeOtp == 1){
 
             $phone = $user->phone;
-            if($user->otp == null){
-                $user->otp = $this->generateOTP();
-                $user->save();
-                $error = false;
-                $user = auth()->user();
-                
-                $otp = $user->otp;
-                $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
-                $sendotp = new SendSms();
-                $output = $sendotp->send($phone,$msg);
-                $user_id = $user->id;
-            }
-
             $status = false;
             $changePin = '0';
+            $error =true;
+            $otp = $user->otp;
 
             if(1 || $user->otp == (int)$request->otp) {
                 $status = true;
+                $otp = $user->otp;
+                $error = false;
                 $changePin = '1';
             }
-
             return response()->json(compact('error','phone','otp','status','changePin'));
-
             // return response()->json([
             //     'status' => $status,
             //     'change_pin_active' => $changePin,
