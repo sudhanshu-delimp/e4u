@@ -13,9 +13,9 @@
     span.select2.select2-container.select2-container--default > span.selection > span {
     height: 52px !important;
     }
-    .list-sec .table td, .table th{
+    /* .list-sec .table td, .table th{
     border: 1px solid #0c233d;
-    }
+    } */
 
 .remove-row{
 padding: 2px 8px 2px 8px !important;
