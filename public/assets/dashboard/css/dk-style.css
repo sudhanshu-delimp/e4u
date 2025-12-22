@@ -1902,6 +1902,10 @@ color: #B9B9B9;
     border-radius: 4px;
 }
 
+.forgot_pass .label_margin_zero_for_login img {
+    width: 150px;
+}
+
 .otp-verify-btn {
     font-family: Poppins;
     font-size: 17px;
