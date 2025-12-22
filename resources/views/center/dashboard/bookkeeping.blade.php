@@ -560,6 +560,61 @@
  
 {{-- end modal --}}
 
+{{-- eft modal popup start here --}}
+
+ <div class="modal fade upload-modal show" id="viewEftBankdetails" tabindex="-1" role="dialog"
+        aria-labelledby="editStaffnewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewStaffnewTitle"><img
+                            src="{{ asset('assets/dashboard/img/add-new-account.png') }}" class="custompopicon">Bank Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-content" id="modalViewStaffContent">
+ 
+                        <div class="col-12 my-2">
+                            <h6 class="border-bottom pb-1 text-blue-primary">Bank Details</h6>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th width="40%">Bank</th>
+                                        <td width="60%" class="eftBankName">123</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="40%">Account Name</th>
+                                        <td width="60%" class="eftAccountName">Shiv</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="40%">BSB</th>
+                                        <td width="60%" class="eftBSBName">255642561</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Account Number</th>
+                                        <td class="eftAccountNumber"> Xyz</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Account Status</th>
+                                        <td class="eftAccountStatus">444444444444</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                     <div class="modal-footer justify-content-center p-0">
+                            <button type="button" class="btn-success-modal" data-dismiss="modal">Ok</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{{-- eft modal popup end here --}}
+
 {{-- set pin --}}
 <div class="modal fade upload-modal" id="SetPinModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
    <div class="modal-dialog modal-dialog-centered" role="document">
@@ -704,6 +759,42 @@
          
          updateBankPinByAjax(url, pin);
       });
+
+      function sendGlobalAjaxRequest(params,formData) 
+      {
+         url = params.url;
+         actionMethod = params.method;
+         var token = $('input[name="_token"]').attr('value');
+
+         $.ajax({
+            url: url,
+            type: actionMethod,
+            data: formData,
+            dataType: "JSON",
+            headers: {
+               'X-CSRF-Token': token
+            },
+            success: function(data) {
+               console.log('data jiten ');
+               console.log(data, data.eft_bank);
+               if(data.error == false && data.type == 'eft'){
+                  $('.eftBankName').text(data.eft_bank.bank_name);
+                  $('.eftAccountName').text(data.eft_bank.account_name);
+                  $('.eftBSBName').text(data.eft_bank.bsb);
+                  $('.eftAccountNumber').text(data.eft_bank.account_number);
+                  $('.eftAccountStatus').text(data.eft_bank.state == 1 ? 'Primary Account' : 'Secondary Account');
+
+                  $("#viewEftBankdetails").modal('show');
+               }
+               
+            },
+            error: function(data) {
+
+               console.log("error otp: ", data.responseJSON.errors);
+               
+            }
+         });   
+      }
          
       $("#pinok").click(function () {
          const pinDisplay = $('#pinDisplay');
@@ -718,7 +809,19 @@
                 // show eft bank details
                 $('#InstructionPayerModal').modal('hide');
                 let eftBankAccountId =  eftAccountId;
-                // use ajax here
+                
+                var params = {
+                     'url': "{{ route('massage.get.eft.bank.details') }}",
+                     'method': 'POST',
+                };
+
+                var data = {
+                    'bank_id': eftBankAccountId,
+                    'type': 'eft',
+                };
+
+                sendGlobalAjaxRequest(params,data);
+
             }else{
                 $('#InstructionPayerModal').modal('show');
             }
@@ -728,7 +831,6 @@
          } 
          else {
             const storedPin = localStorage.getItem('original_pin') || pin;
-            //console.log();
             
             $(".container-fluid").addClass("wrong_pin_hide_details");
             textEl.classList.add("shake");
@@ -743,6 +845,7 @@
 
       $(document).on('click','.eftClientOption', function () {
         $('#EnterPinModal').modal('show');
+         eftAccountId = $(this).data('id');
         isClickEft =  true;
       });
 
@@ -757,7 +860,6 @@
    });
 
    $("#commission-modal").click(function() {
-      console.log("hello");
       $("#commission-report").modal('show');
       $('#bank_name').attr('disabled', false);
       $("form").attr('autocomplete', 'off');
@@ -783,7 +885,8 @@
          let id = $(this).data('id');
          let bank = $(this).data('bank_name');
          let accountName = $(this).data('ac_name');
-         let bsb = ($(this).data('bsb')).replaceAll('-', '');
+         let bsb = ($(this).data('bsb'));
+         // let bsb = ($(this).data('bsb')).replaceAll('-', '');
          let accountNumber = $(this).data('ac_number');
          let state = $(this).data('state');
          previous_state  = state;
@@ -807,7 +910,6 @@
       });
 
       $('body').on('hidden.bs.modal', '#commission-report', function() {
-         console.log("taasdasd");
          $('#massage_bank')[0].reset();
 
          $('.parsley-required').html('');
@@ -830,7 +932,7 @@
          bStateSave: false,
          "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
-                     searchPlaceholder: "Search by Account Name"
+                     searchPlaceholder: "Search by Account Number"
                 },
          ajax: {
             url: "{{ route('massage.bankDetail.dataTable') }}",
@@ -908,8 +1010,6 @@
 
          primary_bank_ac_no = json.primary_bank_ac_no != 0 ? json.primary_bank_ac_no : 'N/A';
          primary_bank_bsb = json.primary_bank_bsb != 0 ? json.primary_bank_bsb : 'N/A';
-            console.log('is_primary_bank_acc',is_primary_bank_acc);
-            console.log('primary_bank_acc_id',primary_bank_acc_id)
 
             $('.primary_acc_no').text(primary_bank_ac_no);
             $('.primary_bsb').text(primary_bank_bsb);
@@ -926,8 +1026,6 @@
          var url = form.attr('action');
          var data = new FormData(form[0]);
          $('#account_numberError').text('');
-
-         console.log(bankId, is_primary_bank_acc, state, previous_state  );
 
          is_primary_bank_acc = is_primary_bank_acc.toString();
          
@@ -1161,7 +1259,7 @@
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             success: function(data) {
-               console.log(data);
+               
                if (data.error == false) {
                   // if(data.id != null) {
                   $("#otp").val('');
@@ -1169,7 +1267,7 @@
                   $("#commission-report").modal('hide');
                   
                } else {
-                  console.log(data);
+                  
                }
 
             },
@@ -1183,7 +1281,6 @@
       }
 
       $(document).on('click', "#change_pin_modal", function(e){
-         console.log('2fa ');
          
          $("#sendOtp_modal").modal('show');
          $("#change_pin_active").val('1');
@@ -1206,8 +1303,6 @@
                'X-CSRF-Token': token
             },
             success: function(data) {
-               console.log('data');
-               console.log(data);
                
                
             },
@@ -1218,6 +1313,8 @@
             }
          });   
       }
+
+      
 
     function showOtpError() {
          $('#otp').addClass('otp-error').focus();
@@ -1248,7 +1345,6 @@
          var url = "{{ route('massage.checkOTP')}}";
 
          var phone = data.phone;
-         console.log("url=" + url);
          var token = $('input[name="_token"]').attr('value');
 
          $.ajax({
@@ -1262,6 +1358,7 @@
                'X-CSRF-Token': token
             },
             success: function(data) {
+               
 
                 if(data.changePin == '1' || data.changePin == '0'){
                     if(data.changePin == '1'){
@@ -1279,7 +1376,7 @@
                     $("#change_pin_active").val('0');
                 }
 
-               if(isBankAccountChanged){
+               if(isBankAccountChanged && data.error != 3){
                   $("#modal-title").text('Bank Account Update Confirmation');
                   $('.comman_msg').html('<h5>Your bank account details have been successfully updated.</h5>');
                   $("#comman_modal").modal('show');
@@ -1353,7 +1450,6 @@
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             success: function(data) {
-               console.log(data);
                if (data.error == false) {
                   $("#SetPinModal").modal('hide');
                   $("#modal-title").text("Pin Update Confirmation");
@@ -1408,9 +1504,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
          },
          success: function(data) {
-            console.log(data);
             if (data.error == false) {
-               console.log("sdfjsdhfsjd", data);
                table.draw();
                $('#delete_bank').modal('hide');
                $("#header_msg").html("Delete Profile");

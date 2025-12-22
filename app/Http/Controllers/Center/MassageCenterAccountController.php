@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Center;
 
 use App\Http\Controllers\Controller;
 use App\Mail\EscortChangeBankPin;
+use App\Models\MassageBankDetail;
 use App\Models\MassageProfile;
 use App\Models\User;
 use App\Repositories\MassageBank\MassageBankDetailInterface;
@@ -118,7 +119,7 @@ class MassageCenterAccountController extends Controller
             //dd($bank_data);
 
 
-            // dd($bank_data, $request->session()->has('bankId'), $data['state'], $this->massageBankDetail->findByState(auth()->user()->id));
+            // dd($bank_data, $request->session()->has('bankId'), $data['state'], $this->massageBankDetail->findByState(auth()->user()->id), $this->massageBankDetail->find($data['bankId']));
             if($request->session()->has('bankId')) {
                 // dd("bnak id");
                 $id = $data['bankId'];
@@ -143,17 +144,6 @@ class MassageCenterAccountController extends Controller
                 } else {
                     $error = 3; // Primary account not updated
                 }
-
-                // if($this->massageBankDetail->findByState(auth()->user()->id) != 0 && $data['state'] == 2) {
-                //     $error = 3; // Primary account not updated
-                // } else {
-                //     $error = 0;
-                //     //dd($bank_data);
-                //     $this->massageBankDetail->store($bank_data, $id);$this->massageBankDetail->updatebyState(auth()->user()->id, $id);
-                //     $request->session()->flash('status', 'Task was successful!');
-                // }
-
-
 
             } else {
                 $id = null;
@@ -258,7 +248,6 @@ class MassageCenterAccountController extends Controller
             User::where('id', auth()->user()->id)
                 ->update([
                     'user_bank_pin' => $request->user_bank_pin
-                    // 'user_bank_pin' => Hash::make($request->user_bank_pin)
                 ]);
 
             $body = [
@@ -270,6 +259,10 @@ class MassageCenterAccountController extends Controller
 
             Mail::to(auth()->user()->email)->queue(new EscortChangeBankPin($body));
 
+            $msg = "Your PIN Number has been reset to: " . $request->user_bank_pin . " Do not disclose your PIN to anyone else.";
+            $sendotp = new SendSms();
+            $output = $sendotp->send(auth()->user()->phone,$msg);
+
             return response()->json([
                 'error' => false,
                 'message' => 'Your PIN has been changed successfully.'
@@ -279,6 +272,33 @@ class MassageCenterAccountController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Failed to update bank PIN.'
+        ]);
+    }
+
+    public function getEftBankDetails(Request $request)
+    {
+
+        if (auth()->check() && isset($request->bank_id) && !empty($request->bank_id)) {
+           
+            $massageBank = MassageBankDetail::where('id', (int)$request->bank_id)->first();
+
+            $massageBank->bsb = $massageBank->bsb ? formatAccountNumber($massageBank->bsb) : 'NA';
+
+            $massageBank->account_number = $massageBank->account_number ?  formatAccountNumber($massageBank->account_number) : "NA";
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Bank details fetched successfully.',
+                'type' => 'eft',
+                'eft_bank' => $massageBank,
+            ]);
+        }
+        
+        return response()->json([
+            'error' => true,
+            'message' => 'Failed to fetch bank details.',
+            'type' => 'eft',
+            'eft_bank' => null,
         ]);
     }
 }

@@ -128,6 +128,7 @@ Route::get('bank-details',[MassageCenterAccountController::class,'BankDataTable'
 Route::post('check-bank-otp',[MassageCenterAccountController::class,'checkOTP'])->name('massage.checkOTP');
 Route::post('delete-massage-bank/{id}',[MassageCenterAccountController::class,'deleteMassageBank']);
 Route::post('update-bank-pin',[MassageCenterAccountController::class,'updateBankPin'])->name('massage.update.bank.pin');
+Route::post('get-eft-bank-details',[MassageCenterAccountController::class,'getEftBankDetails'])->name('massage.get.eft.bank.details');
 
 Route::get('centre-statistics',function(){
     return view('center.dashboard.centre-statistics');
