@@ -185,7 +185,7 @@
 
 
                                                                     @if (auth()->user()->my_agent)
-                                                                        {{ auth()->user()->my_agent->member_id }}
+                                                                        {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}
                                                                     @else
                                                                         <a
                                                                             href="{{ url('/center-dashboard/agent-request') }}">

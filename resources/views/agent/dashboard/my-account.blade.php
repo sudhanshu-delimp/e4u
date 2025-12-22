@@ -116,7 +116,7 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="mobileno">Mobile</label>
-                                       <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp" name="phone" data-parsley-maxlength="10" required  placeholder="Mobile Number" data-parsley-required-message="Your mobile number is required" value="{{ $user->phone }}" data-parsley-type="digits" data-parsley-type-message="Enter only mobile numbers" >
+                                       <input type="txt" class="form-control" id="mobileno" aria-describedby="emailHelp" name="phone" data-parsley-maxlength="12" required  placeholder="Mobile Number" data-parsley-required-message="Your mobile number is required" value="{{ $user->phone }}" disabled data-parsley-pattern="^[0-9 ]+$" data-parsley-type-message="Enter only mobile numbers" >
                                        <span id="phone-errors"></span> 
                                        <div class="termsandconditions_text_color">
                                           @error('phone')

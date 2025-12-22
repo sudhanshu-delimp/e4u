@@ -295,7 +295,7 @@
          <div class="modal-header main_bg_color border-0">
 
             <h5 class="modal-title text-white"><img src="/assets/dashboard/img/remove-bank-account.png" class="custompopicon" alt="cross"> Delete Bank Account</h5>
-            <button class="close" type="button" data-dismiss="modal0" aria-label="Close">
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">
                   <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                </span>

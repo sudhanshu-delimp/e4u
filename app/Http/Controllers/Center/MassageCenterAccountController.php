@@ -58,9 +58,8 @@ class MassageCenterAccountController extends Controller
         return response()->json(compact('error','phone','otp'));
 
     }
-    public function deleteEscortBank(Request $request , $id)
+    public function deleteMassageBank(Request $request , $id)
     {
-
         $error = false;
         $bank = $this->massageBankDetail->find($id);
         if($bank->state === 1) {
