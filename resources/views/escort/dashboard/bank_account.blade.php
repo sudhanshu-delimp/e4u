@@ -104,6 +104,11 @@
       font-size: 13px;
    }
 
+   span.payid_class {
+      width: 35%;
+      display: inline-block;
+   }
+
 </style>
 @endsection
 @section('content')
@@ -138,7 +143,7 @@
       <div class="col-lg-12 col-md-12 col-sm-12">
 
          <div class="bothsearch-form d-flex gap-20">
-            <button type="button" class="create-tour-sec dctour" data-toggle="modal"  data-target="#payid">PayID</button> 
+            <button type="button" class="create-tour-sec dctour pay-id-modal" data-toggle="modal">PayID</button> 
             <button type="button" class="create-tour-sec dctour" id="change_pin_modal">Change PIN</button>
             <button type="button" class="create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New Account</button>
          </div>
@@ -367,7 +372,7 @@
 {{-- PayID for Payer [X] --}}
 <div class="modal fade upload-modal" id="AddPayId" tabindex="-1" role="dialog"
          aria-labelledby="escortProfileMissingLabel" aria-hidden="true" data-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 550px;">
          <div class="modal-content">
 
             <div class="modal-header">
@@ -384,11 +389,11 @@
 
             <div class="modal-body pb-0 agent-tour">
                   <div class="row">
-                     <div class="col-md-12 my-4">
+                   <div class="col-md-12 my-4">
                         <ol class="pl-3">
-                           <li class="pl-3">My PayID number is: <span class="font-weight-bold">1234567890</span></li>                           
+                           <li class="pl-3"><span class="payid_class">My PayID number is:</span>  <span class="font-weight-bold">{{ auth()->user()->pay_id_no }}</span></li>                          
                            
-                           <li class="pl-3">Account name: <span>XYZ65464</span></li>
+                           <li class="pl-3"><span class="payid_class">Account name:</span>  <span class="font-weight-bold">{{ auth()->user()->pay_id_name }}</span></li>
                         </ol>
                         <p>Thank you for your payment.</p>
                      </div>
@@ -452,6 +457,8 @@
          </div>
       </div>
 </div>
+
+
 {{-- End Modal --}}
 
 {{-- enter pin modal to see your bank details --}}
@@ -508,6 +515,7 @@
  </div>
  
 {{-- end modal --}}
+
 
 {{-- instruction payer  modal to see your bank details --}}
 <div class="modal fade upload-modal" id="InstructionPayerModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
@@ -592,7 +600,7 @@
        <div class="modal-body text-center p-0">
          <!-- PIN Display -->
          <div id="pinDisplaySet" class="pin-display mb-3">
-           Nnumbers appear as typed
+           Numbers appear as typed
          </div>
  
          <!-- Keypad -->
@@ -687,8 +695,8 @@
  
 {{-- eft modal popup end here --}}
 
-
 @endsection
+
 @push('script')
 <!-- file upload plugin start here -->
 <!-- file upload plugin end here -->
@@ -702,6 +710,8 @@
       let fClick = true;
       let fClick2 = true;
       let isEftClient = false;
+      var eftAccountId = 0;
+      let isPayIDClicked = false;
 
       // For pinDisplay
       $('.input_value').click(function () {
@@ -782,10 +792,18 @@
       });
         
       $(document).on('click' , '.eftClientOption' , function(){
-         eftAccountId = $(this).data('d-id');
-         isEftClient = true;
+            eftAccountId = $(this).data('d-id');
+            isEftClient = true;
+            isPayIDClicked = false;
       });
 
+      $(document).on('click' , '.pay-id-modal' , function(){
+            isPayIDClicked = true;
+            isEftClient = false;
+            $('#EnterPinModal').modal('show');
+      });
+
+      
       $("#pinok").click(function () {
          const pinDisplay = $('#pinDisplay');
          const textEl = document.getElementById("pinDisplay");
@@ -810,7 +828,10 @@
  
                 sendGlobalAjaxRequest(params,data);
  
-            }else{
+            }else if(isPayIDClicked){
+                  $('#AddPayId').modal('show');
+            }
+            else{
                $('#InstructionPayerModal').modal('show');
             }
 
@@ -1476,13 +1497,14 @@
                   if(data.changePin == '1'){
                      $('#sendOtp_modal').modal('hide');
                      $("#SetPinModal").modal('show');
+                     $('#pinDisplaySet').html('');
                      $('#otp').val('');
                   }else{
                       Swal.fire({
                         icon: "error",
                         title: "Invalid OTP",
                         text: "The OTP you entered is incorrect. Please try again.",
-                     });
+                    });
                      $('#otp').val('');
                   }
                 $("#change_pin_active").val('0'); 

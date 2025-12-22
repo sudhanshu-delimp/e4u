@@ -249,7 +249,7 @@ class CenterController extends Controller
     }
     public function update(UpdateEscortRequest $request)
     {
-        //dd($request->all());
+        //dd($request->all());  // "payID_name" => "5386363869" "paID_no" => "8998"
         $data = [];
         $data = [
             'name' => $request->name,
@@ -261,6 +261,8 @@ class CenterController extends Controller
             // 'state_id'=>$request->state_id,
             // 'email'=>$request->email ? $request->email : null,
             //'social_links'=>$request->social_links,
+            'pay_id_name'=>$request->payID_name,
+            'pay_id_no'=>$request->paID_no,
         ];
 
         $error = true;

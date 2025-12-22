@@ -1007,10 +1007,14 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
+                        const modalElement = document.getElementById('comman_modal');
+                        const modal = new bootstrap.Modal(modalElement);
                         if (!data.error) {
                             var msg = "Saved";
                             $('.comman_msg').html(msg);
-                            $("#comman_modal").modal('show');
+                            //$("#comman_modal").modal('show');
+                            
+                            modal.show();
                             //$("#my_account_modal").show();
 
                             //
@@ -1018,7 +1022,8 @@
                             $('.Lname').html("Oops.. sumthing wrong Please try again");
                             var msg = "Oops.. sumthing wrong Please try again";
                             $('.comman_msg').html(msg);
-                            $("#comman_modal").modal('show');
+                            //$("#comman_modal").modal('show');
+                            modal.show();
 
                         }
                     },

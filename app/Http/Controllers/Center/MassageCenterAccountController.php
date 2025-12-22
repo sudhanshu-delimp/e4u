@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Center;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EscortChangeBankPin;
+use App\Models\MassageBankDetail;
 use App\Models\MassageProfile;
 use App\Models\User;
 use App\Repositories\MassageBank\MassageBankDetailInterface;
@@ -57,9 +59,8 @@ class MassageCenterAccountController extends Controller
         return response()->json(compact('error','phone','otp'));
 
     }
-    public function deleteEscortBank(Request $request , $id)
+    public function deleteMassageBank(Request $request , $id)
     {
-
         $error = false;
         $bank = $this->massageBankDetail->find($id);
         if($bank->state === 1) {
@@ -80,9 +81,27 @@ class MassageCenterAccountController extends Controller
 
         $error = 1;
 
-        //dd($user->otp);
-
         $user = auth()->user();
+
+        $changeOtp = (isset($request->change_pin_active) && (int)$request->change_pin_active == 1) ? $request->change_pin_active : 0;
+ 
+        if($user && $changeOtp == 1){
+ 
+            $phone = $user->phone;
+            $status = false;
+            $changePin = '0';
+            $error =true;
+            $otp = $user->otp;
+ 
+            if(1 || $user->otp == (int)$request->otp) {
+                $status = true;
+                $otp = $user->otp;
+                $error = false;
+                $changePin = '1';
+            }
+            return response()->json(compact('error','phone','otp','status','changePin'));
+        }
+
         //TODO:: remove bypass before deployment
         if(1 || $user->otp == (int)$request->otp) {
 
@@ -100,7 +119,7 @@ class MassageCenterAccountController extends Controller
             //dd($bank_data);
 
 
-            // dd($bank_data, $request->session()->has('bankId'), $data['state'], $this->massageBankDetail->findByState(auth()->user()->id));
+            // dd($bank_data, $request->session()->has('bankId'), $data['state'], $this->massageBankDetail->findByState(auth()->user()->id), $this->massageBankDetail->find($data['bankId']));
             if($request->session()->has('bankId')) {
                 // dd("bnak id");
                 $id = $data['bankId'];
@@ -126,23 +145,11 @@ class MassageCenterAccountController extends Controller
                     $error = 3; // Primary account not updated
                 }
 
-                // if($this->massageBankDetail->findByState(auth()->user()->id) != 0 && $data['state'] == 2) {
-                //     $error = 3; // Primary account not updated
-                // } else {
-                //     $error = 0;
-                //     //dd($bank_data);
-                //     $this->massageBankDetail->store($bank_data, $id);$this->massageBankDetail->updatebyState(auth()->user()->id, $id);
-                //     $request->session()->flash('status', 'Task was successful!');
-                // }
-
-
-
             } else {
                 $id = null;
                 
                 if($this->massageBankDetail->findByState(auth()->user()->id) == 0 && $data['state'] == 1){
                     $bankdata = $this->massageBankDetail->store($bank_data, $id);
-                    //dd($bankdata, $bank_data, $id);
 
                     $id = $bankdata->id;
                     $this->massageBankDetail->updatebyState(auth()->user()->id, $id);
@@ -159,7 +166,7 @@ class MassageCenterAccountController extends Controller
                     $id = null;
                     //dd($bank_data, $id);
                     $bankdata = $this->massageBankDetail->store($bank_data, $id);
-                    dd($bankdata, $bank_data, $id);
+                    //dd($bankdata, $bank_data, $id);
                     $bid = $bankdata->id;
                     $this->massageBankDetail->updatebyState(auth()->user()->id, $bid);
 
@@ -187,10 +194,10 @@ class MassageCenterAccountController extends Controller
         //return $request->only($this->username(), 'password','type');
     }
 
-    public function update(UpdateEscortRequest $request)
+    public function update(Request $request)
     {
 
-        $data = [];
+       // $data = [];
         $data = [
                 'business_name' => $request->business_name,
                 'abn' => $request->abn,
@@ -241,7 +248,6 @@ class MassageCenterAccountController extends Controller
             User::where('id', auth()->user()->id)
                 ->update([
                     'user_bank_pin' => $request->user_bank_pin
-                    // 'user_bank_pin' => Hash::make($request->user_bank_pin)
                 ]);
 
             $body = [
@@ -253,6 +259,10 @@ class MassageCenterAccountController extends Controller
 
             Mail::to(auth()->user()->email)->queue(new EscortChangeBankPin($body));
 
+            $msg = "Your PIN Number has been reset to: " . $request->user_bank_pin . " Do not disclose your PIN to anyone else.";
+            $sendotp = new SendSms();
+            $output = $sendotp->send(auth()->user()->phone,$msg);
+
             return response()->json([
                 'error' => false,
                 'message' => 'Your PIN has been changed successfully.'
@@ -262,6 +272,33 @@ class MassageCenterAccountController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Failed to update bank PIN.'
+        ]);
+    }
+
+    public function getEftBankDetails(Request $request)
+    {
+
+        if (auth()->check() && isset($request->bank_id) && !empty($request->bank_id)) {
+           
+            $massageBank = MassageBankDetail::where('id', (int)$request->bank_id)->first();
+
+            $massageBank->bsb = $massageBank->bsb ? formatAccountNumber($massageBank->bsb) : 'NA';
+
+            $massageBank->account_number = $massageBank->account_number ?  formatAccountNumber($massageBank->account_number) : "NA";
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Bank details fetched successfully.',
+                'type' => 'eft',
+                'eft_bank' => $massageBank,
+            ]);
+        }
+        
+        return response()->json([
+            'error' => true,
+            'message' => 'Failed to fetch bank details.',
+            'type' => 'eft',
+            'eft_bank' => null,
         ]);
     }
 }
