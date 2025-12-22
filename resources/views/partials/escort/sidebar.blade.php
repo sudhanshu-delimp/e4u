@@ -397,7 +397,7 @@
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Management">
-            <img src="{{ asset('assets/dashboard/img/menu-icon/administration.png') }}">
+            <img src="{{ asset('assets/dashboard/img/menu-icon/management.png') }}">
             <span>Management</span>
         </a>
 
