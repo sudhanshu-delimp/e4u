@@ -206,7 +206,7 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
             </div>
 
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="idle_preference_time" id="edit_idle_preference_time_never" value="" {{ $setting && $setting->idle_preference_time === null ? 'checked' : '' }}>
+                <input class="form-check-input" type="radio" name="idle_preference_time" id="edit_idle_preference_time_never" value="{{config('staff.idle_vever_minute')}}" {{ $setting && $setting->idle_preference_time === config('staff.idle_vever_minute') ? 'checked' : '' }}>
                 <label class="form-check-label" for="edit_idle_preference_time_never">Never</label>
             </div>
 
