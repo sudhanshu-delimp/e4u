@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Center;
 
 use App\Http\Controllers\Controller;
 use App\Mail\EscortChangeBankPin;
+use App\Mail\sendBookeepingMassageBankPaymentReceipt;
 use App\Models\MassageBankDetail;
 use App\Models\MassageProfile;
 use App\Models\User;
@@ -296,6 +297,33 @@ class MassageCenterAccountController extends Controller
             'message' => 'Failed to fetch bank details.',
             'type' => 'eft',
             'eft_bank' => null,
+        ]);
+    }
+
+    public function sendPaymentReceiptCenter(Request $request)
+    {
+        if (auth()->check() && isset($request->bsb) && !empty($request->bsb)) {
+            $body = [
+                'name' => auth()->user()->name,
+                'member_id' => auth()->user()->member_id,
+                'bsb' => $request->bsb,
+                'account_number' => $request->account_number,
+                'subject' => 'Bank payment receipt',
+            ];
+
+            Mail::to(auth()->user()->email)->queue(new sendBookeepingMassageBankPaymentReceipt($body));
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Bank payment receipt sent successfully.',
+                'type' => 'payment_receipt',
+            ]);
+        }
+        
+        return response()->json([
+            'error' => true,
+            'message' => 'Failed to send bank payment receipt details.',
+            'type' => 'payment_receipt'
         ]);
     }
 }

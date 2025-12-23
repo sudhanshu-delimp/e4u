@@ -413,7 +413,7 @@ Account details, including the initial setup.</li>
 {{-- End Modal --}}
 
 {{-- EFT Instructions for Payer [X] --}}
-<div class="modal fade upload-modal" id="EFTInstructions" tabindex="-1" role="dialog"
+{{-- <div class="modal fade upload-modal" id="EFTInstructions" tabindex="-1" role="dialog"
          aria-labelledby="escortProfileMissingLabel" aria-hidden="true" data-backdrop="static">
       <div class="modal-dialog modal-dialog-centered"  role="document">
          <div class="modal-content">
@@ -438,7 +438,7 @@ Account details, including the initial setup.</li>
                               <p class="pl-3 d-flex justify-content-start"><span class="w-25">BSB:</span> <span class="font-weight-bold">123 445</span></p>
                               <p class="pl-3 d-flex justify-content-start"><span class="w-25">A/c Number:</span> <span class="font-weight-bold">123-1235</span></p>
                            <li class="pl-3">Please email your payment receipt to:</li><p class="pl-3">
-                              <a href="mailto:{{ auth()->user()->email }}">Escort Email</a>
+                              <a href="mailto:{{ auth()->user()->email }}">Center Email</a>
                            </p>
                         </ol>
                         <p>Thank you for your payment.</p>
@@ -456,7 +456,7 @@ Account details, including the initial setup.</li>
 
          </div>
       </div>
-</div>
+</div> --}}
 {{-- End Modal --}}
 
 {{-- enter pin modal to see your bank details --}}
@@ -539,7 +539,7 @@ Account details, including the initial setup.</li>
             </li>
             <li class="pl-3">Please email your payment receipt to:
                <ul class="text-left list-unstyled ">
-                  <li><a href="mailto:{{ auth()->user()->email }}">Escort email</a></li>
+                  <li><a href="javascript:void(0)" id="sendMailToEscort">Center Email</a></li>
                </ul>
             </li>
          </ol>
@@ -565,6 +565,33 @@ Account details, including the initial setup.</li>
  </div>
  
 {{-- end modal --}}
+
+{{-- SEND PAYMENT RECEIPT CONFIRM MODAL--}}
+ 
+<div class="modal programmatic" id="paymentReceiptConfirm" style="display: none">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content custome_modal_max_width">
+         <div class="modal-header main_bg_color border-0">
+ 
+            <h5 class="modal-title text-white"><img src="/assets/dashboard/img/remove-bank-account.png" class="custompopicon" alt="cross"> Confirmation</h5>
+            <button class="close" type="button" data-dismiss="modal0" aria-label="Close">
+               <span aria-hidden="true">
+                  <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+               </span>
+            </button>
+         </div>
+ 
+         <div class="modal-body text-center">
+            <h5 class="mb-2 mt-3"><span id="Lname">Are you sure you want to send the payment receipt?</span> </h5>
+            <div class="modal-footer justify-content-center">
+               <button type="button" class="btn-cancel-modal" id="sendBankPaymentReceiptBtn">Send</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+ 
+{{--END PAYMENT RECEIPT CONFIRM MODAL--}}
 
 {{-- eft modal popup start here --}}
 
@@ -793,6 +820,12 @@ Account details, including the initial setup.</li>
 
                   $("#viewEftBankdetails").modal('show');
                }
+
+               if(data.error == false && data.type == 'payment_receipt'){
+                   $("#modal-title").text('Bank Payment Receipt');
+                  $('.comman_msg').html("The payment receipt has been sent successfully.");
+                  $("#comman_modal").modal('show');
+               }
                
             },
             error: function(data) {
@@ -802,6 +835,32 @@ Account details, including the initial setup.</li>
             }
          });   
       }
+
+      $(document).on('click', "#sendMailToEscort", function(e){
+         $('#InstructionPayerModal').modal('hide');
+         $('#paymentReceiptConfirm').modal('show');  
+      });
+ 
+   $(document).on('click', "#sendBankPaymentReceiptBtn", function(e){
+      $('#InstructionPayerModal').modal('hide');
+      $('#paymentReceiptConfirm').modal('show');
+
+         var params = {
+            'url': "{{ route('center.send-payment-receipt-center') }}",
+            'method': 'POST',
+         };
+
+         var data = {
+            'bsb': $('.primary_bsb').text(),
+            'account_number': $('.primary_acc_no').text(),
+            'type': 'payment_receipt',
+         };
+
+         console.log(params, data);
+         
+         sendGlobalAjaxRequest(params,data);
+         $('#paymentReceiptConfirm').modal('hide');
+   });
          
       $("#pinok").click(function () {
          const pinDisplay = $('#pinDisplay');
@@ -1543,5 +1602,7 @@ Account details, including the initial setup.</li>
 
       })
    });
+
+   
 </script>
 @endpush
