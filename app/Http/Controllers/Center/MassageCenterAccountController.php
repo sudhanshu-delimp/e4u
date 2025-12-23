@@ -93,7 +93,7 @@ class MassageCenterAccountController extends Controller
             $error =true;
             $otp = $user->otp;
  
-            if(1 || $user->otp == (int)$request->otp) {
+            if($user->otp == (int)$request->otp) {
                 $status = true;
                 $otp = $user->otp;
                 $error = false;
@@ -103,7 +103,7 @@ class MassageCenterAccountController extends Controller
         }
 
         //TODO:: remove bypass before deployment
-        if(1 || $user->otp == (int)$request->otp) {
+        if($user->otp == (int)$request->otp) {
 
             $user->otp = null;
             $user->save();
@@ -116,10 +116,7 @@ class MassageCenterAccountController extends Controller
                 'user_id' => auth()->user()->id,
             ];
 
-            //dd($bank_data);
-
-
-            // dd($bank_data, $request->session()->has('bankId'), $data['state'], $this->massageBankDetail->findByState(auth()->user()->id), $this->massageBankDetail->find($data['bankId']));
+           
             if($request->session()->has('bankId')) {
                 // dd("bnak id");
                 $id = $data['bankId'];
