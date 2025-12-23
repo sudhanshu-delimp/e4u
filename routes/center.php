@@ -443,7 +443,7 @@ Route::get('profiles-centre',function(){
     return view('center.dashboard.HowisDone.profiles-centre');
 })->name('center.profiles-centre');
 
-Route::get('media-centre',function(){
+Route::get('media_centre',function(){
     return view('center.dashboard.HowisDone.media-centre');
 })->name('center.media-centre');
 

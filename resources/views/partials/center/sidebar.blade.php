@@ -20,11 +20,6 @@
             <span>Dashboard</span></a>
     </li>
 
-    <!-- Divider -->
-
-    <!-- Heading -->
-
-    <!-- Nav Item - Pages Collapse Menu -->
     {{-- My Account --}}
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -78,24 +73,6 @@
                     <span style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #e5365a;' : '' }}">Upload my
                         avatar</span></a>
 
-                {{-- <a class="collapse-item" href="{{ route('escort.profile.information')}}">
-                            <img width="16" height="17" viewBox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-
-                        <span style="{{request()->segment(2) == 'profile-informations' ? 'color: #e5365a;' : ''}}">Profile information</span></a>
-                    <a class="collapse-item" href="{{ route('escort.change.password')}}">
-                        <img width="16" height="17" viewBox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
-
-                        <span style="{{request()->segment(2) == 'change-password' ? 'color: #e5365a;' : ''}}">Change password</span></a>
-                    <a class="collapse-item" href="{{route('escort.profile.notifications')}}">
-                        <img width="16" height="17" viewBox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
-
-                        <span style="{{request()->segment(2) == 'notifications-features' ? 'color: #e5365a;' : ''}}">Notifications & Features</span></a>
-                    <a class="collapse-item" href="{{route('escort.profile.avatar')}}">
-                        <img width="16" height="17" viewBox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
-
-                        <span style="{{request()->segment(2) == 'upload-my-avatar' ? 'color: #e5365a;' : ''}}">Upload my avatar</span></a> --}}
-
-
             </div>
         </div>
     </li>
@@ -103,7 +80,6 @@
     <li
         style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
     </li>
-
 
     <li class="nav-item">
 
@@ -121,13 +97,13 @@
             <div class="collapse-inner">
 
                 {{-- Listings --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ManagementListings">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ProfileListings">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/pachive.png') }}">
 
                     <span>Listings</span>
                 </a>
-                <div id="ManagementListings"
+                <div id="ProfileListings"
                     class="collapse 
                     @if (in_array(request()->segment(3), ['add-listing', 'current', 'past'])) show @endif"
                     data-parent="#ProfileManagement">
@@ -154,12 +130,12 @@
 
                 {{-- Profile --}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"
-                    data-target="#ManagementProfile">
+                    data-target="#ManageProfile">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/add-profile-centre.png') }}">
                     <span>Profile</span>
                 </a>
 
-                <div id="ManagementProfile"
+                <div id="ManageProfile"
                     class="collapse
                     @if (in_array(request()->segment(2), ['create-profile', 'list'])) show @endif"
                     data-parent="#ProfileManagement">
@@ -243,10 +219,6 @@
     </li>
     {{-- Listings --}}
 
-
-
-
-
    {{-- devider --}}
     <li
         style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
@@ -255,17 +227,14 @@
     <li class="nav-item">
 
         {{-- Administration --}}
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Administration">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#AdminTab">
             <img src="{{ asset('assets/dashboard/img/menu-icon/management.png') }}">
             <span>Administration</span>
         </a>
 
-        <div id="Administration" class="collapse
-                @if (in_array(request()->segment(3), ['add-listing', 'current', 'past', 'new-listing', 'archives-listing', 'videos']) ||
+        <div id="AdminTab" class="collapse
+                @if (in_array(request()->segment(3), []) ||
                         in_array(request()->segment(2), [
-                            'create-profile',
-                            'list',
-                            'archive-view-photos',
                             'profiles-tours',
                             'social-media',
                             'bookkeeping',
@@ -288,7 +257,7 @@
                             'profile-information',
                             'listings',
                             'profiles-centre',
-                            'media-centre',
+                            'media_centre',
                             'profiles-masseurs',
                             'media-masseurs',
                             'num-dashboard',
@@ -310,7 +279,7 @@
                 <div id="CenterAnalytics"
                     class="collapse
                         @if (in_array(request()->segment(2), ['profiles-tours', 'social-media'])) show @endif"
-                    data-parent="#Administration">
+                    data-parent="#AdminTab">
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
@@ -353,7 +322,7 @@
                                 'viewer-notes',
                                 'legbox-viewers',
                             ])) show @endif"
-                    data-parent="#Administration">
+                    data-parent="#AdminTab">
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
@@ -395,7 +364,7 @@
                 <div id="CenterCommunity"
                     class="collapse
                         @if (in_array(request()->segment(2), ['Community', 'help', 'laws', 'pricing'])) show @endif"
-                    data-parent="#Administration">
+                    data-parent="#AdminTab">
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
@@ -443,7 +412,7 @@
                                 'travel',
                                 'visa',
                             ])) show @endif"
-                    data-parent="#Administration">
+                    data-parent="#AdminTab">
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
@@ -501,11 +470,11 @@
                                 'profile-information',
                                 'listings',
                                 'profiles-centre',
-                                'media-centre',
+                                'media_centre',
                                 'profiles-masseurs',
                                 'media-masseurs',
                             ])) show @endif"
-                    data-parent="#Administration">
+                    data-parent="#AdminTab">
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
@@ -533,7 +502,7 @@
                             <span>Profiles Centre</span>
                         </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'media-centre' ? 'menu-active' : '' }}"
+                        <a class="collapse-item {{ request()->segment(2) == 'media_centre' ? 'menu-active' : '' }}"
                             href="{{ route('center.media-centre') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/media-24.png') }}">
                             <span>Media Centre</span>
@@ -564,7 +533,7 @@
                 <div id="CenterNUM"
                     class="collapse
                         @if (in_array(request()->segment(2), ['num-dashboard', 'add-report', 'my-reports', 'num-tips'])) show @endif"
-                    data-parent="#Administration">
+                    data-parent="#AdminTab">
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
@@ -608,7 +577,7 @@
                 <div id="SupportTickets"
                     class="collapse
                         @if (in_array(request()->segment(2), ['ticket-list']) || request()->segment(1) == 'submit_ticket') show @endif"
-                    data-parent="#Administration">
+                    data-parent="#AdminTab">
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
