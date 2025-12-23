@@ -127,11 +127,10 @@
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
                <ol>
                   <li>Use this feature for displaying your Bank Account details for an Electronic
-                     Funds Transfer (<b>EFT</b>). By using this feature for an EFT payment, you remove
-                     the risk of having your bank account app open.</li>
-                  <li>You can set up, update and add additional bank accounts by clicking the 'Add
-                     New' button. SMS 2FA authentification is applied for any changes to your Bank
-                     Account details, including the initial setup.</li>
+                     Funds Transfer <b>(EFT) </b>. By using this feature for an EFT payment, you
+                     remove the risk of having your bank account app open.</li>
+                  <li>You can set up, update and add additional bank accounts by clicking the
+                     'Add New' button. SMS 2FA authentication is applied for any changes to Close your Bank Account details, including the initial setup.</li>
                   <li>To display your Bank Account details, enter your PIN number.</li>
                </ol>
             </div>
@@ -439,7 +438,7 @@
                               <p class="pl-3 d-flex justify-content-start"><span class="w-25">BSB:</span> <span class="font-weight-bold">123 445</span></p>
                               <p class="pl-3 d-flex justify-content-start"><span class="w-25">A/c Number:</span> <span class="font-weight-bold">123-1235</span></p>
                            <li class="pl-3">Please email your payment receipt to:</li>
-                           <p class="pl-3"><a href="#">Escort email</a></p>
+                           <p class="pl-3"><a href="#" id="">Escort email</a></p>
                         </ol>
                         <p>Thank you for your payment.</p>
                      </div>
@@ -542,7 +541,7 @@
             </li>
             <li class="pl-3">Please email your payment receipt to:
                <ul class="text-left list-unstyled ">
-                  <li><a href="#">Escort email</a></li>
+                  <li><a href="javascript:void(0)" id="sendMailToEscort">Escort email</a></li>
                </ul>
             </li>
          </ol>
@@ -695,6 +694,33 @@
  
 {{-- eft modal popup end here --}}
 
+
+{{-- SEND PAYMENT RECEIPT CONFIRM MODAL--}}
+
+<div class="modal programmatic" id="paymentReceiptConfirm" style="display: none">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content custome_modal_max_width">
+         <div class="modal-header main_bg_color border-0">
+
+            <h5 class="modal-title text-white"><img src="/assets/dashboard/img/remove-bank-account.png" class="custompopicon" alt="cross"> Confirmation</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">
+                  <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+               </span>
+            </button>
+         </div>
+
+         <div class="modal-body text-center">
+            <h5 class="mb-2 mt-3"><span id="Lname">Are you sure you want to send the payment receipt?</span> </h5>
+            <div class="modal-footer justify-content-center">
+               <button type="button" class="btn-cancel-modal" id="sendBankPaymentReceiptBtn">Send</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+{{--END PAYMENT RECEIPT CONFIRM MODAL--}}
 @endsection
 
 @push('script')
@@ -861,7 +887,7 @@
          url = params.url;
          actionMethod = params.method;
          var token = $('input[name="_token"]').attr('value');
- 
+         
          $.ajax({
             url: url,
             type: actionMethod,
@@ -878,6 +904,11 @@
                   $('.eftAccountNumber').text(data.eft_bank.account_number);
                   $('.eftAccountStatus').text(data.eft_bank.state == 1 ? 'Primary Account' : 'Secondary Account');
                   $("#viewEftBankdetails").modal('show');
+               }
+               if(data.error == false && data.type == 'payment_receipt'){
+                   $("#modal-title").text('Bank Payment Receipt');
+                  $('.comman_msg').html("The payment receipt has been sent successfully.");
+                  $("#comman_modal").modal('show');
                }
                
             },
@@ -1050,6 +1081,7 @@
            
          $('.primary_acc_no').text(primary_bank_ac_no);
          $('.primary_bsb').text(primary_bank_bsb);
+         $('#eftAccountId').val(json.primary_bank_acc_id);
       });
 
       $("body").on('submit', '#escort_bank', function(e) {
@@ -1679,6 +1711,30 @@
             }
          }); 
       });
+
+       $(document).on('click', "#sendMailToEscort", function(e){
+         $('#InstructionPayerModal').modal('hide');
+         $('#paymentReceiptConfirm').modal('show');   
+      });
+
+      $(document).on('click', "#sendBankPaymentReceiptBtn", function(e){
+         $('#InstructionPayerModal').modal('hide');
+         $('#paymentReceiptConfirm').modal('show');
+   
+            var params = {
+                     'url': "{{ route('escort.send-payment-receipt-escort') }}",
+                     'method': 'POST',
+                };
+ 
+                var data = {
+                    'bsb': $('.primary_bsb').text(),
+                    'account_number': $('.primary_acc_no').text(),
+                    'type': 'payment_receipt',
+                };
+                $('#paymentReceiptConfirm').modal('hide');
+                sendGlobalAjaxRequest(params,data);
+      });
+      
 
 </script>
 @endpush

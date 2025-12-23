@@ -11,6 +11,7 @@ use App\Http\Requests\StoreEscortRequest;
 use App\Http\Requests\UpdateEscortRequest;
 use App\Http\Requests\StoreEscortBankDetailRequest;
 use App\Mail\EscortChangeBankPin;
+use App\Mail\sendBookeepingEscortBankPaymentReceipt;
 use App\Models\EscortBankDetail;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
@@ -544,7 +545,10 @@ class EscortAccountController extends Controller
             ];
 
             Mail::to(auth()->user()->email)->queue(new EscortChangeBankPin($body));
-
+            $msg = "Your PIN Number has been reset to: " . $request->user_bank_pin . " Do not disclose your PIN to anyone else.";
+            $sendotp = new SendSms();
+            $output = $sendotp->send(auth()->user()->phone,$msg);
+           
             return response()->json([
                 'error' => false,
                 'message' => 'Your PIN has been changed successfully.'
@@ -581,6 +585,33 @@ class EscortAccountController extends Controller
             'message' => 'Failed to fetch bank details.',
             'type' => 'eft',
             'eft_bank' => null,
+        ]);
+    }
+
+    public function sendPaymentReceiptEscort(Request $request){
+
+        if (auth()->check() && isset($request->bsb) && !empty($request->bsb)) {
+            $body = [
+                'name' => auth()->user()->name,
+                'member_id' => auth()->user()->member_id,
+                'bsb' => $request->bsb,
+                'account_number' => $request->account_number,
+                'subject' => 'Bank payment receipt',
+            ];
+ 
+            Mail::to(auth()->user()->email)->queue(new sendBookeepingEscortBankPaymentReceipt($body));
+ 
+            return response()->json([
+                'error' => false,
+                'message' => 'Bank payment receipt sent successfully.',
+                'type' => 'payment_receipt',
+            ]);
+        }
+       
+        return response()->json([
+            'error' => true,
+            'message' => 'Failed to send bank payment receipt details.',
+            'type' => 'payment_receipt'
         ]);
     }
 }

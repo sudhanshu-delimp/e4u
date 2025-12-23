@@ -44,6 +44,8 @@ Route::post('delete-escort-bank/{id}',[EscortAccountController::class,'deleteEsc
 Route::post('update-bank-pin',[EscortAccountController::class,'updateBankPin'])->name('escort.update.bank.pin');
 Route::post('send-otp-for-pin-change',[EscortAccountController::class,'sendOtpForPinChange'])->name('escort.sendOtpForPinChange');
 Route::post('get-ef-bank-details',[EscortAccountController::class,'getEftBankDetails'])->name('escort.get.eft.bank.details');
+Route::post('/send-payment-receipt-escort', [EscortAccountController::class, 'sendPaymentReceiptEscort'])->name('escort.send-payment-receipt-escort');
+ 
 //END
 
 
