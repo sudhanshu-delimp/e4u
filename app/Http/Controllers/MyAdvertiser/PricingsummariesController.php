@@ -73,7 +73,7 @@ class PricingsummariesController extends BaseController
 
         if(isset($request->fee_support_services) && $request->fee_support_services=='fee_support_services')
         {
-            $feesConciergeService = FeesSupportService::where('id',$request->id)->update(['amount'=>$request->amount]);
+            $feesConciergeService = FeesSupportService::where('id',$request->id)->update(['amount'=>$request->amount,'frequency' => $request->frequency,'fee' => $request->fee]);
             PricingFeeUpdateLog::where('fee_type','fees_support_services')->update(['last_updated_date'=>date('Y-m-d')]);
 
             if($feesConciergeService)

@@ -198,14 +198,21 @@ class WebController extends Controller
                 $query->where('city_id','=',$str['city_id']);
             }
 
-            if(isset($str['interest']) && $str['interest'] != null )
-            {
-                $query->whereIn('gender', json_decode($str['interest']));
-            }
+           
         
             if($str['gender'] != null)
             {
                 $query->where('gender','=',$str['gender']);
+            }
+            else
+            {
+                if (!empty($str['interest'])) 
+                {
+                    $interests = array_unique($str['interest']);
+                    if (is_array($interests)) {
+                        $query->whereIn('gender', $interests);
+                    }
+                }
             }
 
             if(!empty($str['age']) )
@@ -255,8 +262,26 @@ class WebController extends Controller
         $userInterest = null;
         if(auth()->user() && auth()->user()->type == 0) {
             $user_type = auth()->user();
-            $userInterest = auth()->user()->interest;
+            if(auth()->user()->viewer_settings)
+            {
+                if(auth()->user()->viewer_settings->interests_with_male)
+                $userInterest['gender'][] = 1;
+
+                if(auth()->user()->viewer_settings->interests_with_female)
+                $userInterest['gender'][] = 2;
+
+                if(auth()->user()->viewer_settings->interests_with_trans)
+                $userInterest['gender'][] = 3;
+
+                if(auth()->user()->viewer_settings->interests_with_cross_dresser)
+                $userInterest['gender'][] = 4;
+
+                if(auth()->user()->viewer_settings->interests_with_couples)
+                $userInterest['gender'][] = 2;
+            }
         }
+
+        
 
         $userLocation = null;
         if($request->lat != '' && $request->lng != ''){
@@ -267,22 +292,38 @@ class WebController extends Controller
         }
 
         $paramData = [];
-        if($userInterest && $userInterest->interests){
-            //$cityParameterExist = request()->has('city');
-            $genderParameterExist = request()->has('gender');
-            $paramData['interest'] = $genderParameterExist ? null : $userInterest->interests;
-            $paramData['gender'] = $genderParameterExist ? null : (($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 ) ? json_decode($userInterest->interests)[0] : null);
-            $stateCapital = config('escorts.profile.states')[$user_type->state_id] ?? null;
-            
-            $userLocation['city'] = $stateCapital ? array_key_first($stateCapital['cities']) : null;
-            $userLocation['state'] = $user_type->state_id;
-            
-        }else{
+
+        if(isset($userInterest['gender'])  && (!empty($userInterest['gender'])))
+        {
+            $paramData['interest'] = $userInterest['gender'];
+            $paramData['city_id'] = null;
+            $paramData['gender'] = null;  
+        }
+        else
+        {
             $paramData['interest'] = null;
             $paramData['city_id'] = null;
-            $paramData['gender'] = null;
-           // session(['radio_location_filter' => false]);
+            $paramData['gender'] = null;  
         }
+
+
+       
+        // if($userInterest && $userInterest->interests){
+        //     //$cityParameterExist = request()->has('city');
+        //     $genderParameterExist = request()->has('gender');
+        //     $paramData['interest'] = $genderParameterExist ? null : $userInterest->interests;
+        //     $paramData['gender'] = $genderParameterExist ? null : (($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 ) ? json_decode($userInterest->interests)[0] : null);
+        //     $stateCapital = config('escorts.profile.states')[$user_type->state_id] ?? null;
+            
+        //     $userLocation['city'] = $stateCapital ? array_key_first($stateCapital['cities']) : null;
+        //     $userLocation['state'] = $user_type->state_id;
+            
+        // }else{
+        //     $paramData['interest'] = null;
+        //     $paramData['city_id'] = null;
+        //     $paramData['gender'] = null;
+        //    // session(['radio_location_filter' => false]);
+        // }
 
         $params = $str  = [
             'string' => request()->get('name'),
@@ -302,6 +343,7 @@ class WebController extends Controller
             'playmate_status'=> request()->get('playmate_status') ,
             'lat_state'=> $lat_state ?? '' ,
             'lng_city'=> $lng_city ?? '' ,
+            'membership_type'=> request()->get('membership_type') ?? null,
         ];
 
         $radio_location_filter = session('radio_location_filter');
@@ -355,15 +397,30 @@ class WebController extends Controller
         $perPage  = $limit;
         //$perPage  = 4;
 
+
+      
+
+
         
         $platinum = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '1'),$str,$gender, $age, $location)->get();
         $gold = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '2'),$str,$gender, $age, $location)->get();
         $silver = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '3'),$str,$gender, $age, $location)->get();
         $free = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '4'),$str,$gender, $age, $location)->get();
+
+        $memberTotalCount[1] =  $platinum->count();
+        $memberTotalCount[2] =  $gold->count();
+        $memberTotalCount[3] =  $silver->count();
+        $memberTotalCount[4] =  $free->count();
+
+        if(isset($str['membership_type']) && $str['membership_type'] != null){
+            $platinum = $platinum->where('membership', $str['membership_type']);
+            $gold = $gold->where('membership', $str['membership_type']);
+            $silver = $silver->where('membership', $str['membership_type']);
+            $free = $free->where('membership', $str['membership_type']);    
+        }
         
         $merged = $platinum->concat($gold)->concat($silver);
 
-        //dd($merged);
          $merged = $merged->map(function($item, $key) {
             //dd($item);
             # Add services with duration if exists
@@ -426,16 +483,6 @@ class WebController extends Controller
             //$item->star_rating = $lp;
             return $item;
         })->collect();
-        
-        // $platinum = $applyFilters(Escort::where('membership', '1'),$str)->get();
-        // $gold = $applyFilters(Escort::where('membership', '2'),$str)->get();
-        // $silver = $applyFilters(Escort::where('membership', '3'),$str)->get();
-        // $free = $applyFilters(Escort::where('membership', '4'),$str)->get();
-
-        $memberTotalCount[1] =  $platinum->count();
-        $memberTotalCount[2] =  $gold->count();
-        $memberTotalCount[3] =  $silver->count();
-        $memberTotalCount[4] =  $free->count();
 
         $merged = $platinum->concat($gold)->concat($silver)->concat($free);
        
@@ -453,12 +500,12 @@ class WebController extends Controller
         
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
 
-        // we are not ue View type UI side 
-        $viewType = 'grid';
-        if(request()->get('view_type') == 'list'){
-            $viewType = 'list';
-        }
-        //dd($viewType);
+     
+         $viewType =  'grid';
+         if (auth()->check() && auth()->user()->viewer_settings) 
+         {
+                $viewType  =  auth()->user()->viewer_settings->listings_preferences_view === '1' ? 'grid' : 'list';
+         }
 
         return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount','radio_location_filter','all_services_tag','viewType'));
     }
@@ -1020,7 +1067,7 @@ class WebController extends Controller
 
         $backToSearchButton = session('search_escort_filters_url');
 
-        if(session('is_shortlisted_profile') == true){
+        if(session('is_shortlisted_profile') == true && session('cart') == true){
             $cartKeys = array_keys(session('cart'));
             if (count($cartKeys) > 0) {
                 sort($cartKeys); // Sort the array in ascending order

@@ -16,8 +16,12 @@
                         </span>
                         </button>
                     </div>
-                    <div class="modal-body bodytext">Are you sure that you want to logout?</div>
-                    <div class="modal-footer">
+                      <div class="modal-body text-center">
+                        <h5 class="popu_heading_style mb-0 mt-4">
+                                Are you sure that you want to logout?
+                        </h5>
+                    </div>
+                    <div class="modal-footer justify-content-center">
                         <button class="btn-cancel-modal btncancel" type="button" data-dismiss="modal">Cancel</button>
                         <form id="modalform" method="POST" action="{{ route('advertiser.logout') }}">
                             @csrf
@@ -37,6 +41,7 @@
         <script src="{{ asset('assets/dashboard/vendor/ckeditor/ckeditor.js') }}"></script>
         <!-- Custom scripts for all pages-->
         <script src="{{ asset('assets/dashboard/js/sb-admin-2.min.js') }}"></script>
+        <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
         <script src="{{ asset('assets/js/common.js') }}"></script>
         <!-- Page level plugins -->
         
@@ -215,24 +220,61 @@
         </script>
 
         <script>
-                
-                 var initJsDatePicker = function(){
-                    $(".js_datepicker").attr('placeholder','DD-MM-YYYY');
-                    $(".js_datepicker").attr('autocomplete','off');
-                    $(".js_datepicker").datepicker({
+
+            var initJsDatePicker = function() {
+                var $inputs = $(".js_datepicker");
+                if ($inputs.length > 0) {
+                    $inputs.attr('placeholder','DD-MM-YYYY');
+                    $inputs.attr('autocomplete','off');
+                    $inputs.datepicker({
                         dateFormat: "dd-mm-yy",
                         changeMonth: true,
                         changeYear: true,
                         showAnim: "slideDown",
-                        constrainInput: false,
                         onSelect: function(dateText) {
-                            const event = new Event('change', { bubbles: true });
-                            this.dispatchEvent(event); // 👈 manually trigger change event
+                            $(this).trigger('change');
                         }
                     });
                 }
+            }
+
+            $(document).ready(function() {
                 initJsDatePicker();
-            </script> 
-         @include('modal.change-password')
+                get_current_location_time();
+                setInterval(updateTime, 1000);
+
+            });
+
+           function get_current_location_time() {
+                $.ajax({
+                    url: '{{ route("user.get_current_location_time") }}',
+                    method: 'GET',
+                    success: function (response) {
+                        $(".live_current_location").text(response.current_state);
+                        localStorage.setItem('time_zone', response.time_zone);
+                        updateTime();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error in location filter:', error);
+                    }
+                });
+            }
+
+            function updateTime() 
+            {
+                let timeZone = localStorage.getItem('time_zone');
+                const now = new Date();
+                const options = {
+                    timeZone: timeZone,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                };
+
+                const time = new Intl.DateTimeFormat('en-US', options).format(new Date());
+                $(".live_current_time").html(`${time}`);
+            }
+</script> 
+         
     </body>
 </html>

@@ -22,6 +22,19 @@ class Escort extends Model
 
     protected $dates = ['start_date', 'end_date'];
 
+
+    public function getPhoneAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
+
+    public function setPhoneAttribute($value)
+    {
+    
+        $clean = removeSpaceFromString($value);
+        $this->attributes['phone'] = $clean;
+    }
+
     public function setStartDateAttribute($value)
     {
         if (empty($value)) {
@@ -490,6 +503,14 @@ class Escort extends Model
             'playmate_id'
         )->withTimestamps()
         ->whereDoesntHave('activeSuspendProfile');
+    }
+
+    public function playmateHistory()
+    {
+        return $this->hasMany(
+            PlaymateHistory::class,
+            'escort_id',
+        );
     }
 
     public function addedBy()

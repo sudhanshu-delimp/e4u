@@ -207,7 +207,7 @@ function showCheckboxes() {
    var table = $("#massage-profile").DataTable({
     language: {
         search: "Search: _INPUT_",
-        searchPlaceholder: "Search by Name..."
+        searchPlaceholder: "Search by Profile Name"
     },
     info: true,
     paging: true,
@@ -216,7 +216,19 @@ function showCheckboxes() {
     bStateSave: true,
     order: [[1, 'desc']],
     lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10
+    pageLength: 10,
+         columns: [
+            { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'created', name: 'created', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'mobile', name: 'mobile', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'email', name: 'email', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'stage_name', name: 'stage_name', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'available', name: 'available', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'status', name: 'status', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+            ],
+
 });
 
  </script>

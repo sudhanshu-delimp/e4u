@@ -218,7 +218,7 @@
                       <div class="form-group row">
                         <div class="col-lg-12">
                           <p class="mb-1"><b>Notes:</b></p>
-                          <ol class="pl-4">
+                          <ol class="pl-4 text-justify">
                             <li>The Fee is calculated according to the Membership Type.</li>
                             <li>You agree to your Card being debited the Fee.</li>
                             <li>Details of this transaction can be viewed in the Transaction Summary.</li>
@@ -232,7 +232,7 @@
               </div>
       
               <div class="modal-footer" style="text-align: center; display: block;">
-                <button type="submit" class="btn-success-modal">Proceed</button>
+                <button type="submit" class="btn-success-modal">Proceed to Payment</button>
               </div>
             </div>
           </form>
@@ -338,7 +338,7 @@
                                         <div class="form-group row">
                                             <div class="col-lg-12">
                                                 <p class="mb-1"><b>Notes:</b></p>
-                                                <ol class="pl-4">
+                                                <ol class="pl-4 text-justify">
                                                     <li> Use this feature to review and
                                                         make changes to your Profiles. Any changes you make to a Profile
                                                         will be applied to the
@@ -379,14 +379,14 @@
                         </span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body ">
                     <input type="hidden" id="current" name="current">
                     <input type="hidden" id="previous" name="previous">
                     <input type="hidden" id="label" name="label">
                     <input type="hidden" id="trigger-element">
-                    <h3 class=""><span id="Lname"></span> </h3>
-                    <h3 class=""><span id="log"></span> </h3>
-                    <div class="modal-footer">
+                    <h5 class="popu_heading_style mb-0 mt-4 text-center"><span id="Lname"></span> </h5>
+                    <h5 class="popu_heading_style mb-0 mt-4 text-center"><span id="log"></span> </h5>
+                    <div class="modal-footer justify-content-center">
                         <button type="button" class="btn-cancel-modal" data-dismiss="modal"
                             value="close" id="close_change">Close</button>
                         <button type="button" class="btn-success-modal"
@@ -781,7 +781,7 @@
         $(document).on('click', '.delete-center', function(e) {
             e.preventDefault();
             var $this = $(this);
-            $("#Lname").html("<p>Would you like to Delete?</p>");
+            $("#Lname").html("Would you like to Delete?");
 
             $('#delete_profile').modal('show');
 

@@ -128,6 +128,18 @@
             $gender = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
             $cities = config('escorts.profile.cities');
             $city = isset($cities[$staff->city_id]) ? $cities[$staff->city_id] : '';
+
+                 $setting = $staff->staff_setting??null;
+        $idle_preference_times = config('staff.idle_preference_time');
+        $idle_preference_time = "";
+         $twofa = "";
+        if(isset( $setting) && (isset($setting->idle_preference_time) || $setting->idle_preference_time === null)) {
+            $idle_preference_time = isset($idle_preference_times[(string)$setting->idle_preference_time]) ? $idle_preference_times[$setting->idle_preference_time] : "";
+        }
+        $twofas = config('staff.twofa');
+        if(isset( $setting) && isset($setting->twofa)) {
+        $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
+        }
         @endphp
         <div class="col-md-12  my-2" id="printArea">
             <div class="my-account-card">
@@ -141,7 +153,7 @@
                     </form>
                 </div>
 
-                <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
+                <h6 class=" pb-1 text-blue-primary">Personal Details</h6>
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
@@ -173,12 +185,12 @@
 
                 <!-- Next of Kin Section -->
               
-                    <h6 class="border-bottom pb-1 text-blue-primary">Next of Kin (Emergency Contact)</h6>
+                    <h6 class=" pb-1 text-blue-primary">Next of Kin (Emergency Contact)</h6>
 
                     <table class="table table-bordered mb-3">
                         <tbody>
                             <tr>
-                                <th width="40%">Kin of Name</th>
+                                <th width="40%">Name of Kin</th>
                                 <td width="60%">{{ $staff->staff_detail->kin_name }}</td>
                             </tr>
                             <tr>
@@ -198,7 +210,7 @@
             
                 <!-- Section: Other Details -->
                
-                    <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
+                    <h6 class="pb-1 text-blue-primary">Other Details</h6>
 
                     <table class="table table-bordered mb-3">
                         <tbody>
@@ -217,7 +229,7 @@
                             </tr>
                             <tr>
                                 <th>Commenced Date</th>
-                                <td>{{ showDateWithFormat($staff->staff_detail->commenced_date, 'd/m/Y') }}</td>
+                                <td>{{ showDateWithFormat($staff->staff_detail->commenced_date, 'd-m-Y') }}</td>
                             </tr>
 
                             <tr>
@@ -233,7 +245,7 @@
             
                 <!-- Section: Building Security -->
              
-                    <h6 class="border-bottom pb-1 text-blue-primary">Building Security</h6>
+                    <h6 class="pb-1 text-blue-primary">Building Security</h6>
                     <table class="table table-bordered mb-3">
                         <tbody>
                             <tr>
@@ -250,6 +262,22 @@
                             </tr>
                         </tbody>
                     </table>
+
+                   
+               
+                <table class="table table-bordered mb-3">
+                    <tbody>
+                        <tr>
+                            <th width="40%">Idle Time Preference</th>
+                            <td width="60%">{{$idle_preference_time}}</td>
+                        </tr>
+                        <tr>
+                            <th width="40%">2FA Authentication</th>
+                            <td width="60%">{{ $twofa }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+           
                 </div>
         </div>
     </div>

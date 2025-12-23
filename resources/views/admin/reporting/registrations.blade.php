@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
-
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
 
     <style type="text/css">
         .parsley-errors-list {
@@ -13,13 +13,16 @@
         #cke_1_contents {
             height: 150px !important;
         }
+
         .paging_simple_numbers {
             margin-top: 18px;
         }
-
-        .dataTables_info {
-            margin-top: 18px;
+.table-responsive{
+            overflow: visible;
         }
+        /* .dataTables_info {
+                margin-top: 18px;
+            } */
 
         .table-report-info tr td {
             border: 0;
@@ -33,11 +36,12 @@
             line-height: 29px;
             color: #0C223D;
         }
-    .dropdown-menu-background-color {
-    color: #2e2f37;
-    text-decoration: none;
-    background-color: #eaecf4;
-}
+
+        .dropdown-menu-background-color {
+            color: #2e2f37;
+            text-decoration: none;
+            background-color: #eaecf4;
+        }
     </style>
 @endsection
 @section('content')
@@ -110,18 +114,19 @@
                 </div>
             </div>
 
-            <div class="col-lg-12">
+            <div class="col-sm-12 col-md-12 col-lg-12 ">
                 <div class="table-responsive custom-badge">
-                    <table class="table" id="RegistrationsReportTable" style="width: 100%">
+                    <table class="table" id="RegistrationsReportTable">
                         <thead class="table-bg">
                             <tr>
                                 <th>Ref</th>
+                                <th>Date</th>
                                 <th>Member ID</th>
                                 <th>Mobile</th>
                                 <th>Home State</th>
                                 <th>Agent ID</th>
                                 <th>Status</th>
-                                <th class="text-center">Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -170,8 +175,8 @@
                 <div class="modal-footer justify-content-center border-0 pb-4">
 
                     <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal"
-                        aria-label="Close">Yes</button> <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                        aria-label="Close">No</button>
+                        aria-label="Close">Yes</button> <button type="button" class="btn-cancel-modal"
+                        data-dismiss="modal" aria-label="Close">No</button>
                 </div>
             </div>
         </div>
@@ -328,18 +333,13 @@
 
 
 @push('script')
-    <script type="text/javascript" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    {{-- <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script> --}}
 
     <script>
         var table = $("#RegistrationsReportTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Member ID...",
-                lengthMenu: "Show _MENU_ entries",
-                zeroRecords: "No matching records found",
-                info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                infoEmpty: "No entries available",
-                infoFiltered: "(filtered from _MAX_ total entries)"
+                searchPlaceholder: "Search by Member ID",
             },
 
             processing: true,
@@ -362,12 +362,20 @@
                     defaultContent: 'NA'
                 },
                 {
+                    data: 'registration_date',
+                    name: 'registration_date',
+                    searchable: true,
+                    orderable: true,
+                    defaultContent: 'NA'
+                },
+                {
                     data: 'member_id',
                     name: 'member_id',
                     searchable: true,
                     orderable: true,
                     defaultContent: 'NA'
                 },
+                
                 {
                     data: 'phone',
                     name: 'phone',
@@ -401,12 +409,13 @@
                     name: 'action',
                     searchable: false,
                     orderable: false,
-                    defaultContent: 'NA'
+                    defaultContent: 'NA',
+                    class: 'text-center'
                 },
             ],
 
             order: [
-                [1, 'desc']
+                [0, 'desc']
             ],
             lengthMenu: [
                 [10, 25, 50, 100],
@@ -511,19 +520,19 @@
                             <tr><th>Date</th><td>${rowData.registration_date ? rowData.registration_date : 'NA'}</td></tr>`;
                             
 
-            if (rowData.status === 'Rejected' && rowData.rejection_reason) {
-                modal_html += `<tr><th>Rejection Reason</th><td>${rowData.rejection_reason}</td></tr>`;
-            }
+                                        if (rowData.status === 'Rejected' && rowData.rejection_reason) {
+                                            modal_html += `<tr><th>Rejection Reason</th><td>${rowData.rejection_reason}</td></tr>`;
+                                        }
 
-            modal_html += `</table>
-    <div class="d-flex justify-content-end mb-2">
-        <button type="button" class="btn-cancel-modal ml-2" data-dismiss="modal" aria-label="Close">Close</button>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-</div>`;
+                                        modal_html += `</table>
+                                <div class="d-flex justify-content-end mb-2">
+                                    <button type="button" class="btn-cancel-modal ml-2" data-dismiss="modal" aria-label="Close">Close</button>
+                                </div>
+                                </div>
+                                </div>
+                                </div>
+                                </div>
+                            </div>`;
 
             $('#viewMemberdetails').html(modal_html);
             $('#viewMemberdetails').modal('show');

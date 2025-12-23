@@ -25,11 +25,22 @@ class AdvertiserAgentRequest extends Model
         'comments'
     ];
 
-     public function user()
+    public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id');
     }
 
+    public function getMobileNumberAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
+
+    public function setMobileNumberAttribute($value)
+    {
+    
+        $clean = removeSpaceFromString($value);
+        $this->attributes['mobile_number'] = $clean;
+    }
 
   
 

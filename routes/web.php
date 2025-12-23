@@ -686,9 +686,9 @@ Route::get('/admin-dashboard/management/post-office',function(){
 })->name('admin.post-office');
 
 
-Route::get('/admin-dashboard/notifications/global',function(){
-    return view('admin.notifications.global');
-})->name('admin.global');
+// Route::get('/admin-dashboard/notifications/global',function(){
+//     return view('admin.notifications.global');
+// })->name('admin.global');
 
 
 // Route::get('/admin-dashboard/notifications/agents',function(){
@@ -703,10 +703,6 @@ Route::get('/admin-dashboard/notifications/global',function(){
 Route::get('/admin-dashboard/notifications/escorts',function(){
     return view('admin.notifications.escorts');
 })->name('admin.escorts');
-
-Route::get('/admin-dashboard/blog',function(){
-    return view('admin.blog');
-})->name('admin.blog');
 
 
 Route::get('/admin-dashboard/management/punterbox-reports',function(){
@@ -729,6 +725,8 @@ Route::get('/admin-dashboard/management/punterbox-reports',function(){
 Route::post('/resend-otp', [App\Http\Controllers\User\Auth\RegisterController::class,'resendOtp'])->name('web.resend.otp');
 
 Route::post('/get-geolocation-data', [GetCurrentUserGeolocationController::class, 'getRealTimeGeo'])->name('user.current.location');
+Route::post('/get-current-state', [GetCurrentUserGeolocationController::class, 'getCurrentState'])->name('user.current.state');
+Route::get('/get_current_location_time', [GetCurrentUserGeolocationController::class, 'get_current_location_time'])->name('user.get_current_location_time');
 
 
 
@@ -751,3 +749,11 @@ Route::get('/check-sms-status', [DemoController::class, 'checkMessageStatus']);
 
 Route::post('/save-user-loggged-details', [WebController::class, 'userLoggedDetailStore'])->name('user.log-details');
 Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('update-password');
+
+
+
+
+Route::get('/testscript', function(){
+     $num = removeSpaceFromString('456464 645644 4444');
+    echo  $num ;
+});

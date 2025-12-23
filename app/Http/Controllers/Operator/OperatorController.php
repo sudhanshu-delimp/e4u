@@ -29,10 +29,10 @@ class OperatorController extends Controller
         return view('operator.dashboard.my-account.bank-account');
     }
     public function agentMonthlyreport(){
-        return view('operator.dashboard.agents.agents-monthly-report');
+        return view('operator.dashboard.reports.agents-monthly-report');
     }
     public function e4uMonthlyreport(){
-        return view('operator.dashboard.e4u.e4u-monthly-report');
+        return view('operator.dashboard.reports.operator-monthly-report');
     }
     /**
      * Show the form for creating a new resource.

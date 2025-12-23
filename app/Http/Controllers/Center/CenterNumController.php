@@ -94,9 +94,12 @@ class CenterNumController extends Controller
 
         if($request->ajax()){
 
-           return DataTables::of($nums)
+           return DataTables::of($nums) // formatPhone
                 ->addColumn('ref', fn($row) => '#' . $row->id)
-                ->addColumn('offender_mobile', fn($row) => $row->offender_mobile)
+                ->addColumn('offender_mobile', function($row) {
+                        return formatPhone($row->offender_mobile);
+                    })
+                // ->addColumn('offender_mobile', fn($row) => $row->offender_mobile)
                 ->addColumn('incident_nature', fn($row) => formatLabelAttribute($row->incident_nature))
                 ->addColumn('status', fn($row) => formatLabelAttribute($row->status))
                 ->addColumn('rating', fn($row) => formatLabelAttribute($row->rating))
@@ -160,7 +163,9 @@ class CenterNumController extends Controller
 
            return DataTables::of($nums)
                 ->addColumn('ref', fn($row) => '#' . $row->id)
-                ->addColumn('offender_mobile', fn($row) => $row->offender_mobile)
+                ->addColumn('offender_mobile', function($row) {
+                        return formatPhone($row->offender_mobile);
+                    })
                 ->addColumn('incident_nature', fn($row) => formatLabelAttribute($row->incident_nature))
                 ->addColumn('status', fn($row) => formatLabelAttribute($row->status))
                 ->addColumn('rating', fn($row) => formatLabelAttribute($row->rating))

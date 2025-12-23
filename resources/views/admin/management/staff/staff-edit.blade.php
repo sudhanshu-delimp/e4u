@@ -1,6 +1,25 @@
+@php
+$securityLevels = config('staff.security_level');
+$securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? $securityLevels[$staff->staff_detail->security_level] : '';
+@endphp            
+<style>
+
+
+/* Chrome, Safari, Edge, Opera */
+.no-arrow::-webkit-inner-spin-button,
+.no-arrow::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.no-arrow {
+    -moz-appearance: textfield;
+}
+</style>
 <form name="add_staff" id="edit_staff" method="POST" action="{{ route('admin.store-staff') }}"
     enctype="multipart/form-data">
-    <div class="row">
+    <div class="row" style="max-height: 500px; overflow:auto;">
         <!-- Section: Personal Details -->
         <div class="col-12 my-2">
             <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
@@ -18,19 +37,19 @@
             <span class="text-danger error-address"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Phone" name="phone" id="phone"
-                value="{{ $staff->phone }}">
+            <input  type="tel" maxlength="10" class="form-control rounded-0" placeholder="Phone" name="phone" id="phone"
+                value="{{ $staff->phone }}" oninput="this.value = this.value.replace(/\D/g,'');" autocomplete="off">
             <span class="text-danger error-phone"></span>
         </div>
         <div class="col-6 mb-3">
             <input type="email" class="form-control rounded-0" placeholder="Private Email" name="email"
-                id="email" value="{{ $staff->email }}">
+                id="email" value="{{ $staff->email }}" >
             <span class="text-danger error-email"></span>
         </div>
         <div class="col-6 mb-3">
             <select class="form-control" name="gender" id="gender">
                 <option value="">Select Gender</option>
-                @foreach (config('escorts.profile.genders') as $key => $gender)
+                @foreach (config('staff.genders') as $key => $gender)
                     <option value="{{ $key }}" {{ $staff->gender == $key ? 'selected' : '' }}>
                         {{ $gender }}</option>
                 @endforeach
@@ -45,7 +64,7 @@
 
         <div class="col-6 mb-3">
             <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0"
-                placeholder="Kin of Name" value="{{ $staff->staff_detail->kin_name }}">
+                placeholder="Name of Kin" value="{{ $staff->staff_detail->kin_name }}">
             <span class="text-danger error-kin_name"></span>
         </div>
         <div class="col-6 mb-3">
@@ -54,8 +73,8 @@
             <span class="text-danger error-kin_relationship"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" name="kin_mobile" id="kin_mobile" class="form-control rounded-0" placeholder="Mobile"
-                value="{{ $staff->staff_detail->kin_mobile }}">
+            <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile" class="form-control rounded-0" placeholder="Mobile"
+                value="{{ $staff->staff_detail->kin_mobile }}" autocomplete="off" oninput="this.value = this.value.replace(/\D/g,'');">
             <span class="text-danger error-kin_mobile"></span>
         </div>
         <div class="col-6 mb-3">
@@ -68,11 +87,6 @@
         <div class="col-12 my-2">
             <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
         </div>
-
-        {{-- <div class="col-6 mb-3">
-            <input type="text" name="position" id="position" class="form-control rounded-0" placeholder="Position"  value="{{$staff->staff_detail->position}}">
-            <span class="text-danger error-position"></span>
-        </div> --}}
 
         <div class="col-6 mb-3">
             <select class="form-control rounded-0" name="security_level" id="security_level_edit">
@@ -108,9 +122,8 @@
              <span class="text-danger error-location"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" name="commenced_date" id="commenced_date" class="form-control rounded-0"
-                placeholder="Commenced Date (DD/MM/YYYY)" onfocus="(this.type='date')"
-                onblur="if(this.value==''){this.type='text'}" value="{{ $staff->staff_detail->commenced_date }}">
+            <input type="date" name="commenced_date" id="commenced_date" class="form-control rounded-0"
+                placeholder="Commenced Date"  value="{{ $staff->staff_detail->commenced_date }}">
             <span class="text-danger error-commenced_date"></span>
 
         </div>
@@ -167,7 +180,59 @@
             </select>
             <span class="text-danger error-car_parking"></span>
         </div>
+        <div class="col-12">
+            
+            
+        <div class="form-group">
+            <h6 class="border-bottom pb-1 text-blue-primary">Idle Time Preference</h6>
 
+            @php
+                $setting = $staff->staff_setting ?? null;
+            @endphp
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="idle_preference_time" id="edit_idle_preference_time_15" value="15" {{ $setting && $setting->idle_preference_time === "15" ? 'checked' : '' }}>
+                <label class="form-check-label" for="edit_idle_preference_time_15">15 minutes</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="idle_preference_time" id="edit_idle_preference_time_30" value="30" {{ $setting && $setting->idle_preference_time === "30" ? 'checked' : '' }}>
+                <label class="form-check-label" for="edit_idle_preference_time_30">30 minutes</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="idle_preference_time" id="edit_idle_preference_time_60" value="60" {{ $setting && $setting->idle_preference_time === "60" ? 'checked' : '' }}>
+                <label class="form-check-label" for="edit_idle_preference_time_60">60 minutes</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="idle_preference_time" id="edit_idle_preference_time_never" value="" {{ $setting && $setting->idle_preference_time === null ? 'checked' : '' }}>
+                <label class="form-check-label" for="edit_idle_preference_time_never">Never</label>
+            </div>
+
+           {{--  <div class="pt-1">
+                <i style="font-size:12px;">Set the Idle time before you are logged out of your Console.</i>
+            </div> --}}
+        </div>
+
+        <div class="form-group">
+            <h6 class="border-bottom pb-1 text-blue-primary">2FA Authentication</h6>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="twofa" id="edit_twofa_1" value="1" {{ $staff->staff_setting && $staff->staff_setting->twofa == 1 ? 'checked' : 'checked' }} >
+                <label class="form-check-label" for="edit_twofa_1">Email</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="twofa" id="edit_twofa_2" value="2" {{ $staff->staff_setting && $staff->staff_setting->twofa == 2 ? 'checked' : '' }}>
+                <label class="form-check-label" for="edit_twofa_2">Text</label>
+            </div>
+
+            {{-- <div class="pt-1" style="font-size:12px;">
+                <i>How your authentication code will be sent to you.</i>
+            </div> --}}
+        </div>
+        </div>
     </div>
     @php
         $update_button =
@@ -177,7 +242,7 @@
                     '>Approve</button>'
                 : '';
     @endphp
-    <div class="modal-footer p-0 pl-2 pb-4">
+    <div class="modal-footer p-0">
         {!! $update_button !!}
         <button type="submit" class="btn-success-modal mr-3">Save</button>
     </div>

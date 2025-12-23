@@ -45,7 +45,7 @@ class AgentController extends BaseController
     public function agent_list(Request $request)
     {
         if(!$this->viewAccessEnabled){
-            return response()->redirectTo('/staff-dashboard')->with('error', __(accessDeniedMsg()));
+            return response()->redirectTo('/dashboard')->with('error', __(accessDeniedMsg()));
         }
         return view('staff.management.agent');
     }

@@ -58,29 +58,26 @@
     
         <div class="row">
             <div class="col-md-12">
-                <div class="box-body table-responsive-xl">
-                    <table class="table table-hover" id="supportTicketsTable">
-                        <thead id="table-sec" class="table-bg">
-                        <tr>
-                            <th>Ticket ID</th>
-                            <th>Department</th>
-                            <th>Priority</th>
-                            <th>Service Type</th>
-                            <th>Subject</th>
-                            <th>Date Created</th>
-                            <th>Document</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
+                <div class="table-responsive">
+                    <table class="table w-100" id="supportTicketsTable">
+                        <thead class="table-bg">
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>Department</th>
+                                <th>Priority</th>
+                                <th>Service Type</th>
+                                <th>Subject</th>
+                                <th>Date Created</th>
+                                <th>Document</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
                         </thead>
                     </table>
-                    <div>
-                    </div>
                 </div>
             </div>
         </div>
 </div>
-
 
 
 <div class="modal fade upload-modal" id="conversation_modal" tabindex="-1" role="dialog"
@@ -122,6 +119,7 @@
 @endsection
 @push('script')
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
 <script>
     var ticketId = 0;
     $.ajaxSetup({
@@ -154,12 +152,12 @@
             { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'service_type', name: 'service_type', searchable: false, orderable:true ,defaultContent: 'NA'},
-            { data: 'subject', name: 'start_date', searchable: true, orderable:true,defaultContent: 'NA' },
+            { data: 'subject', name: 'subject', searchable: true, orderable:true,defaultContent: 'NA' },
             { data: 'created_on', name: 'created_on', searchable: false, orderable:true,defaultContent: 'NA' },
             { data: 'file', name: 'file', orderable: true, defaultContent: 'No Documents' },
             { data: 'status_mod', name: 'status_mod', orderable: true, defaultContent: 'NA' },
-            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
-            { data: 'id', name: 'id', visible: false,searchable: false }
+            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA', class:'text-center' },
+            // { data: 'id', name: 'id', visible: false,searchable: false }
            ],
            order: [6, 'desc'],
        });

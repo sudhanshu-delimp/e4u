@@ -9,21 +9,24 @@
                     <div class="topbar-logged-in-user-data d-flex">
                        
                         <div class="d-user-info">
-                            <div class="gap-b escort_header_top_menu" style="display: grid; grid-template-columns: 1fr 1fr; font-size: 14px;">
+                            <div class="common_top_menu">
                                 <span>
-                                    <b>Welcome back :  </b><span class="user-values">{{auth()->user()->business_name}}</span> <span class="separator">|</span> 
-                                </span>
-                                <span>
-                                    <b>Membership ID :  </b><span class="user-values" style="padding-left: 10%">{{auth()->user()->member_id }}</span> <span class="separator"></span>
-                                </span>
-                                <span>
-                                    <b>Home State :  </b>
-                                    <span class="user-values" style="padding-left: 9%">{{auth()->user()->home_state  }} </span>
-                                    <span class="separator" style="padding-left: 26%">|</span>
+                                    <b>Welcome back :  </b><span class="user-values">{{auth()->user()->business_name}}</span>  
                                 </span>
                                 
                                 <span>
-                                    <b>Total Advertisers :  </b><span class="user-values" style="padding-left: 5%">{{getAgentTotalAdvertisers()  }} </span>
+                                    <span class="separator">|</span>
+                                    <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span>
+                                </span>
+
+                                <span>
+                                    <b>Home State :  </b>
+                                    <span class="user-values">{{auth()->user()->home_state  }} </span>
+                                </span>
+                                
+                                <span>
+                                    <span class="separator">|</span>
+                                    <b>Total Advertisers :  </b><span class="user-values">{{getAgentTotalAdvertisers()  }} </span>
                                 </span>
 
                             </div>
@@ -51,7 +54,7 @@
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
 
-                        <form  class="form-inline form-inline-custom navbar-search custom-nav-search" style="width: 23rem;">
+                        <form  class="form-inline form-inline-custom navbar-search custom-nav-search d-none" style="width: 23rem;">
                             <div class="input-group dk-border-radius">
                                 <div class="input-group-append">
                                     <button class="btn" type="button">
@@ -141,7 +144,7 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
-                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}"> 
                                     Member ID: {{auth()->user()->member_id }}
                                 </a>
                                 <a class="dropdown-item" href="#">
@@ -150,7 +153,7 @@
                                 </a>
                                         <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('agent.account.edit') }}">
-                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
                                     Edit My Account
                                 </a>
                                 <a class="dropdown-item" href="{{ route('agent.change.password') }}">
@@ -163,7 +166,7 @@
                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/list.png') }}">
                                     List Advertisers
                                 </a>
-                                <a class="dropdown-item" href="{{ route('Fees.statements') }}">
+                                <a class="dropdown-item" href="{{ route('Fees.monthly-report') }}">
                                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/report.png') }}">
                                     Monthly Report
                                 </a>

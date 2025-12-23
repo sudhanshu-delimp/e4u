@@ -2,38 +2,41 @@
 
 namespace App\Http\Controllers\Center;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Service;
 use App\Models\Duration;
-use App\Repositories\Escort\EscortInterface;
-use App\Repositories\Escort\AvailabilityInterface;
-use App\Repositories\Service\ServiceInterface;
-use App\Repositories\User\UserInterface;
-use App\Http\Requests\Escort\StoreRequest;
-use App\Http\Requests\Escort\StoreServiceRequest;
-use App\Http\Requests\UpdateEscortRequest;
-use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
-use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
-use App\Http\Requests\Escort\UpdateRequestPolicy;
-use App\Http\Requests\Escort\UpdateRequestReadMore;
-use App\Http\Requests\Escort\UpdateRequestAbout;
-use App\Http\Requests\Escort\StoreRateRequest;
-use App\Http\Requests\Escort\StoreAvailabilityRequest;
-use App\Repositories\Duration\DurationInterface;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Traits\ResizeImage;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\MassageSetting;
+use App\Models\EscortCovidReport;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\BaseController;
+use App\Repositories\User\UserInterface;
+use App\Http\Requests\Escort\StoreRequest;
+use App\Http\Requests\UpdateEscortRequest;
+use App\Repositories\Escort\EscortInterface;
+use App\Http\Requests\Escort\StoreRateRequest;
+use App\Repositories\Service\ServiceInterface;
+use App\Http\Requests\Escort\UpdateRequestAbout;
+use App\Repositories\Duration\DurationInterface;
+use App\Http\Requests\Escort\StoreServiceRequest;
+use App\Http\Requests\Escort\UpdateRequestPolicy;
+use App\Repositories\Escort\EscortMediaInterface;
+use App\Repositories\Escort\AvailabilityInterface;
+use App\Http\Requests\Escort\UpdateRequestReadMore;
+use App\Http\Requests\Escort\StoreAvailabilityRequest;
+use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
 use App\Repositories\MassageProfile\MassageMediaInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
+use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
-use App\Models\EscortCovidReport;
-use App\Models\User;
 
 //use Illuminate\Http\Request;
 
-class CenterProfileInformationController extends Controller
+class CenterProfileInformationController extends BaseController
 {
     protected $escort;
     protected $massage_availability;
@@ -41,13 +44,18 @@ class CenterProfileInformationController extends Controller
     protected $duration;
     protected $user;
     protected $media;
+    protected $esc_media;
     protected $massage_profile;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(MassageProfileInterface $massage_profile, UserInterface $user,EscortInterface $escort, MassageAvailabilityInterface $massage_availability,  ServiceInterface $service, DurationInterface $duration, MassageMediaInterface $media)
+
+    
+
+
+    public function __construct(MassageProfileInterface $massage_profile, UserInterface $user, EscortMediaInterface $esc_media,  EscortInterface $escort, MassageAvailabilityInterface $massage_availability,  ServiceInterface $service, DurationInterface $duration, MassageMediaInterface $media)
     {
         $this->escort = $escort;
         $this->massage_availability = $massage_availability;
@@ -56,6 +64,7 @@ class CenterProfileInformationController extends Controller
         $this->user = $user;
         $this->media = $media;
         $this->massage_profile = $massage_profile;
+        $this->esc_media = $esc_media;
     }
 
     // public function updateBasicProfile($id)
@@ -428,10 +437,12 @@ class CenterProfileInformationController extends Controller
 
     public function galleries()
     {
-        $media = $this->media->findByUid(auth()->user()->id);
-        $path = $this->media;
+        // $media = $this->media->findByUid(auth()->user()->id);
+        // $path = $this->media;
         //dd($path->findByposition(auth()->user()->id,1)['path']);
         
+         $media = $this->esc_media->with_Or_withoutPosition(auth()->user()->id, []);
+         $path = $this->esc_media;
         return view('center.dashboard.archives.archive-view-photos',compact('path','media'));
     }
     public function defaultImages(Request $request)
@@ -645,16 +656,18 @@ class CenterProfileInformationController extends Controller
 
    
 
-
-     public function massageSettings(Request $request)
+    public function massageSettings(Request $request)
     {
-          return view('center.my-account.notifications-and-features');   
+        $setting =MassageSetting::where('user_id', auth()->id())->first();
+
+        return view('center.my-account.notifications-and-features', compact('setting'));
     }
 
+    
 
     public function updateNotificationsAndFeatures(Request $request)
     {
-
+       
         $user = auth()->user();
         $data = [
                 'features_viewer_notifications_forward_v_alerts' => $request->features_viewer_notifications_forward_v_alerts ?? 0,

@@ -32,11 +32,20 @@
                             <li>Use this feature to change your Password and to set up your Password preferences.</li>
                             <li>Your Password, unless you change the settings, will by default expire every 30 days. You
                                 will be notified before the expiry date.</li>
+
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
+            </div>
+        </div>
+
+
+
         <div class="row">
             <div class="col-md-12 mb-5">
                 <form class="v-form-design" id="userProfile" action="{{ route('user.update.password') }}" method="POST">
@@ -169,7 +178,6 @@
     </div>
 @endsection
 @push('script')
-
     <!-- file upload plugin end here -->
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
@@ -193,7 +201,7 @@
         });
     </script>
 
- <script type="text/javascript">
+    <script type="text/javascript">
         $('#userProfile').parsley({
 
         });
@@ -233,15 +241,16 @@
                             $('input[type=password]').each(function() {
                                 $(this).val('');
                             });
-
-                            swal_success_popup(data.message);
+                            showGlobalAlert(data.message, 'success');
+                            //swal_success_popup(data.message);
                             // Reload page after 3 seconds to reflect changes
                             setTimeout(function() {
                                 location.reload();
                             }, 3000);
                         } else {
                             // Show error using the message from server
-                            swal_error_popup(data.message);
+                            //swal_error_popup(data.message);
+                            showGlobalAlert(data.message, 'error');
                         }
                     },
                     error: function(xhr) {
@@ -261,7 +270,8 @@
                             }
                         }
 
-                        swal_error_popup(errorMsg);
+                        //swal_error_popup(errorMsg);
+                        showGlobalAlert(errorMsg, 'error');
                     }
                 });
             }
@@ -290,13 +300,12 @@
                             $('input[type=password]').each(function() {
                                 $(this).val('');
                             });
-
-                            swal_success_popup(data.message);
+                            showGlobalAlert(data.message, 'success');
                             setTimeout(function() {
                                 location.reload();
                             }, 3000);
                         } else {
-                            swal_error_popup(data.message);
+                            showGlobalAlert(data.message, 'danger');
                         }
                     },
                     error: function(data) {

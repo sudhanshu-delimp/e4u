@@ -37,7 +37,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="table-responsive-xl list-sec" id="myTableArea">
+                            <div class="table-responsive-xl">
                                 <table id="ListTable" class="table">
                                     <thead class="table-bg">
                                         <tr>
@@ -90,36 +90,36 @@
                         data: 'key',
                         name: 'key',
                         searchable: true,
-                        orderable: false,
+                        orderable: true,
                         defaultContent: 'NA'
                     },
                     {
                         data: 'name',
                         name: 'name',
                         searchable: true,
-                        orderable: false,
+                        orderable: true,
                         defaultContent: 'NA'
                     },
                     {
                         data: 'phone_number',
                         name: 'phone_number',
                         searchable: true,
-                        orderable: false,
+                        orderable: true,
                         defaultContent: 'NA'
                     },
                     {
                         data: 'location',
                         name: 'location',
                         searchable: true,
-                        orderable: false,
+                        orderable: true,
                         defaultContent: 'NA'
                     },
-                    // { data: 'country_code', name: 'country_code', searchable: true, orderable:false,defaultContent: 'NA' },
+                    // { data: 'country_code', name: 'country_code', searchable: true, orderable:true,defaultContent: 'NA' },
                     {
                         data: 'start_date_parsed',
                         name: 'start_date_parsed',
                         searchable: true,
-                        orderable: false,
+                        orderable: true,
                         defaultContent: 'NA'
                     },
                     // { data: 'joined', name: 'joined', searchable: true, orderable:false,defaultContent: 'NA' },
@@ -128,7 +128,8 @@
                         name: 'edit',
                         searchable: false,
                         orderable: false,
-                        defaultContent: 'NA'
+                        defaultContent: 'NA',
+                        class: 'text-center'
                     },
                 ]
             });

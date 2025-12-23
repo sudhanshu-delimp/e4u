@@ -74,11 +74,18 @@
                                 <button type="submit" id="submit_button" class="btn site_btn_primary">Login</button>
                            </div>
                        </div>
+                       <input type="hidden" name="current_state_id" id="current_state_id">
                        <p class="mb-0 mynote"><b>Note:</b> Login is undertaken with 2FA authentification</p>
                     </form>
                </div>
                <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2">
-                  <img src="{{ asset('assets/app/img/login-profile/viver-login.png')}}" class="img-fluid">
+
+                @if(config('constants.app_env')!='local')
+                <img src="{{ asset('assets/app/img/login-profile/viver-login.png')}}" class="img-fluid">
+                @else
+                <img src="{{ asset('assets/app/img/local_img/viver-login.png') }}" class="img-fluid">
+                @endif
+                      
                </div>
             </div>
          </section>
@@ -121,6 +128,7 @@
                             <button type="submit" class="btn main_bg_color site_btn_primary" id="sendSubmit">Send</button>
                             <p class="pt-2">Not received your code? <a href="#" class="termsandconditions_text_color">Resend Code</a></p>
                         </div>
+                        
                     </form>
                 </div>
             </div>
@@ -342,7 +350,7 @@
                 {
                     $('body').on("click","#resendOtpSubmit",function(){
                         $("#loginFormViewer").submit();
-                        $('#senderror').html("<p class='text-center text-success mt-4'> Your verification code has been resend to your nominated preference. "+data.phone+"</p>");
+                        $('#senderror').html("<p class='text-center text-success mt-4'> Your verification code has been re-sent to your selected contact method (email or mobile).</p>");
                     });
 
 
@@ -461,6 +469,49 @@
     });
 
 
+        $(document).ready(function () {
+         var selectedLocation = {
+                lat : '',
+                lng : '',
+                tiemzone : ''
+            }
+
+            navigator.geolocation.getCurrentPosition(async function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                selectedLocation.lat = latitude;
+                selectedLocation.lng = longitude;
+                getCurrentState(selectedLocation);
+             });
+
+
+               function getCurrentState(data) {
+                $.ajax({
+                    url: '{{ route("user.current.state") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        data: data
+                    },
+                    success: function (response) {
+
+                        if (response?.data?.state == null) {
+                            alert('Your location not found');
+                        }
+                        else
+                        {
+                             console.log('response.data.state',response.data.state);
+                             $('#current_state_id').val(response.data.state);
+                           
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error in location filter:', error);
+                    }
+                });
+            }
+
+        })
        
 
 </script>

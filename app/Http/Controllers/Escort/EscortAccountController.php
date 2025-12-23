@@ -10,13 +10,19 @@ use App\Repositories\EscortBank\EscortBankDetailInterface;
 use App\Http\Requests\StoreEscortRequest;
 use App\Http\Requests\UpdateEscortRequest;
 use App\Http\Requests\StoreEscortBankDetailRequest;
+use App\Mail\EscortChangeBankPin;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\Sms\SendSms;
 use App\Models\PasswordSecurity;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Auth;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
 class EscortAccountController extends Controller
 {
     /**
@@ -136,6 +142,34 @@ class EscortAccountController extends Controller
         return view('escort.dashboard.bank_account',compact('user'));
     }
 
+    public function sendOtpForPinChange(Request $request ){
+       try{
+        $user = auth()->user();
+        if($user){
+            $phone = $user->phone;
+            $user->otp = $this->generateOTP();
+            $user->save();
+            $error = false;
+            $user = auth()->user();
+            
+            $otp = $user->otp;
+            $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+            $sendotp = new SendSms();
+            $output = $sendotp->send($phone,$msg);
+            $user_id = $user->id;
+            return response()->json([
+                'status' => $output,
+                'message' => "Hello! Your one-time user code has been sent successfully. You can ignore this text message.",
+            ]);
+        }
+       }catch(Exception $e){
+         return response()->json([
+                'status' => 500,
+                'message' => $e->getMessage(),
+            ]);
+       }
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -216,13 +250,36 @@ class EscortAccountController extends Controller
     {
 
         $data = $request->session()->all();
-        //dd($data);
+        $user = auth()->user();
+        
+        $changeOtp = (isset($request->change_pin_active) && (int)$request->change_pin_active == 1) ? $request->change_pin_active : 0;
+
+        if($user && $changeOtp == 1){
+
+            $phone = $user->phone;
+            $status = false;
+            $changePin = '0';
+            $error =true;
+            $otp = $user->otp;
+
+            if(1 || $user->otp == (int)$request->otp) {
+                $status = true;
+                $otp = $user->otp;
+                $error = false;
+                $changePin = '1';
+            }
+            return response()->json(compact('error','phone','otp','status','changePin'));
+            // return response()->json([
+            //     'status' => $status,
+            //     'change_pin_active' => $changePin,
+            // ]);
+        }
 
         $error = 1;
 
         //dd($user->otp);
 
-        $user = auth()->user();
+        
         //TODO:: remove bypass before deployment
         if(1 || $user->otp == (int)$request->otp) {
 
@@ -238,7 +295,7 @@ class EscortAccountController extends Controller
             ];
 
 
-            //dd($bank_data);
+            // dd($bank_data);
             if($request->session()->has('bankId')) {
                 // dd("bnak id");
                 $id = $data['bankId'];
@@ -331,10 +388,6 @@ class EscortAccountController extends Controller
                 'contact_person' => $request->contact_person,
                 'email2' => $request->email2,
                 'contact_type' => $request->contact_type,
-                // 'city_id'=>$request->city_id,
-                // 'country_id'=>$request->country_id,
-                // 'state_id'=>$request->state_id,
-                // business_name ,abn ,business_address ,business_number,contact_person,email2
         ];
 
         $error = true;
@@ -446,9 +499,9 @@ class EscortAccountController extends Controller
 
         return response()->json(compact('template', 'message'));
     }
-    public function BankDataTable()
+    public function BankDataTable() 
     {
-        list($escortBankDetail, $count) = $this->escortBankDetail->paginatedByEscortBankDetail(
+        list($escortBankDetail, $count, $primary_account,$primary_bank_acc_id, $bankDetails) = $this->escortBankDetail->paginatedByEscortBankDetail(
             request()->get('start'),
             request()->get('length'),
             request()->get('order')[0]['column'],
@@ -462,9 +515,44 @@ class EscortAccountController extends Controller
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
+            "primary_account" => intval($primary_account),
+            "primary_bank_acc_id" => intval($primary_bank_acc_id),
+            "primary_bank_bsb" => $bankDetails['primary_bank_bsb'],
+            "primary_bank_ac_no" => $bankDetails['primary_bank_ac_no'],
             "data"            => $escortBankDetail
         );
 
         return response()->json($data);
+    }
+
+    public function updateBankPin(Request $request)
+    {
+        if (auth()->check()) {
+
+            User::where('id', auth()->user()->id)
+                ->update([
+                    'user_bank_pin' => $request->user_bank_pin
+                    // 'user_bank_pin' => Hash::make($request->user_bank_pin)
+                ]);
+
+            $body = [
+                'name' => auth()->user()->name,
+                'member_id' => auth()->user()->member_id,
+                'pin' => $request->user_bank_pin,
+                'subject' => 'Change Pin',
+            ];
+
+            Mail::to(auth()->user()->email)->queue(new EscortChangeBankPin($body));
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Your PIN has been changed successfully.'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Failed to update bank PIN.'
+        ]);
     }
 }

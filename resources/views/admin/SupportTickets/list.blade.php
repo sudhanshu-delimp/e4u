@@ -29,12 +29,20 @@
     #supportTicketsTable_info{
         float: left;
     }
-    #supportTicketsTable td  {
+    /* #supportTicketsTable td  {
           text-align: center;
-    }
+    } */
 </style>
 @endsection
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+   $addAccess = staffPageAccessPermission($securityLevel, 'add');
+   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+@endphp
+
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="row">
             <div class="d-sm-flex align-items-center justify-content-between col-md-12">
@@ -67,7 +75,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box-body table-responsive custom-tabale-layout">
-                    <table class="table table-hover" id="supportTicketsTable">
+                    <table class="table" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                             <tr>
                                 <th> ID</th>
@@ -110,6 +118,7 @@
                     </div>
                 </div>
                 <div class="reply-wrapper p-3">
+                    @if($editAccessEnabled)
                     <form id="sendMessage">
                        <div class="reply-message-box">
                         <textarea class="messageBox" name="message" id="message" rows="4" required></textarea>
@@ -117,6 +126,7 @@
                         <button class="btn-cancel-modal py-3" id="submit_message">Send</button>
                        </div>
                     </form>
+                    @endif
                 </div>
             </div>
         </div>
@@ -198,13 +208,10 @@
                { data: 'ref_number', name: 'ref_number', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'member_id', name: 'member_id', searchable: true, orderable:false ,defaultContent: 'NA'},
                { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
-              // { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
-              // { data: 'service_type', name: 'service_type', searchable: false, orderable:true ,defaultContent: 'NA'},
                { data: 'subject', name: 'start_date', searchable: true, orderable:true,defaultContent: 'NA' },
-               // { data: 'message', name: 'enabled', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'created_on', name: 'date_created', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'created_on', name: 'created_on', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
+               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
            ],
            order: [6, 'desc'],
        });

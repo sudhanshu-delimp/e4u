@@ -8,6 +8,11 @@
 </style>
 @stop
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+@endphp
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
    <!-- Main Content -->
@@ -83,7 +88,8 @@
                            <td>E60125</a></td>
                            <td>12 months</td>
                            <td><span class="badge badge-warning">Available</span></td>
-                           <td class="text-center"> 
+                           <td class="text-center">
+                               @if($editAccessEnabled) 
                               <div class="dropdown no-arrow">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                  <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -98,6 +104,7 @@
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-toggle="modal" data-target="#reject_popup"> <i class="fa fa-fw fa-ban"></i> Deactivate </a>
                                  </div>
                               </div>
+                               @endif
                            </td>
                         </tr>
                       
@@ -259,7 +266,7 @@
       var table = $("#EmailRequestTable").DataTable({
       language: {
          search: "Search: _INPUT_",
-         searchPlaceholder: "Search by Member ID..."
+         searchPlaceholder: "Search by Member ID"
       },
       info: true,
       paging: true,
@@ -268,7 +275,12 @@
       bStateSave: true,
       order: [[1, 'desc']],
       lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10
+      pageLength: 10,
+
+        columnDefs: [{
+            targets: 7,
+            orderable: false
+        }]
    });
 
  </script>

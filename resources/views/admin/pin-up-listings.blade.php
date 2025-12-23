@@ -134,7 +134,7 @@ $(document).ready(function () {
     table = $("#pinUpListingTable").DataTable({
         language: {
             search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID or Location"
+            searchPlaceholder: "Search by Member ID or Profile Name"
         },
         processing: true,
         serverSide: true,

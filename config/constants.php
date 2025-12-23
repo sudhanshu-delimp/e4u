@@ -5,7 +5,11 @@ return [
     'escort_default_icon' => 'avatars/default/default_escort.png',
     'viewer_default_icon' => 'avatars/default/need_image.png',
     'agent_default_icon' => 'avatars/default/need_image.png',
+    'staff_default_icon' => 'avatars/default/staff_default.png',
     'socket_url' => (env('APP_ENV') === 'production' ? 'https' : 'http') . '://' .env('SOCKET_HOST').':'.env('SOCKET_PORT'),
+
+
+
 
 
     'NotificationIcon' => [
@@ -18,8 +22,24 @@ return [
         
     ],
 
+    'twilio' => [
+        'sid'   => env('TWILIO_SID'),
+        'token' => env('TWILIO_TOKEN'),
+        'from'  => env('TWILIO_FROM'),
+    ],
+
+     'sms_api' => [
+        'key'   => env('SMS_API_KEY'),
+        'secret' => env('SMS_API_SECRET'),
+    ],
+
+
+    
+    
  
 
+    
+    'app_env' => env('APP_ENV'),
     'dashboard_viewer' => [
 
             'escort' => [
@@ -64,7 +84,7 @@ return [
                                 'name'  =>  'Media Views',
                                 'text'  =>  'View a complete summary of your Media Views.',
                                 'icon'  =>  'boxicon/center/media-views-today.png',
-                                'link'  =>   'center-dashboard/archive-view-photos',
+                                'link'  =>   '#',
                             ],
 
                             [

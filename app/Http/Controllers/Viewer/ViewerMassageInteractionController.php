@@ -228,7 +228,7 @@ class ViewerMassageInteractionController extends Controller
                     return $rateText;
                 })
                 ->addColumn('is_enabled_contact', function ($row){
-                    return ($row->messageViewerInteraction && $row->messageViewerInteraction->massage_disabled_contact == 1) ? 'No' : 'Yes';
+                    return ($row->messageViewerInteraction && $row->messageViewerInteraction->massage_disabled_contact == 1) ? 'Disabled' : 'Enabled';
                 })
                 ->addColumn('contact_method', function ($row) {
 

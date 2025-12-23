@@ -2,17 +2,20 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Center\MediaController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Center\CenterController;
 use App\Http\Controllers\Escort\EscortController;
+use App\Http\Controllers\Center\CenterNumController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
-use App\Http\Controllers\Center\CenterNumController;
 use App\Http\Controllers\Center\PolyPaymentController;
+use App\Http\Controllers\Escort\EscortGalleryController;
 use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\UpdateController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Center\CenterProfileInformationController;
+use App\Http\Controllers\Center\MassageCenterAccountController;
 use App\Http\Controllers\Center\MassageViewerInteractionController;
 
 
@@ -117,6 +120,16 @@ Route::get('logs-and-status', [CenterController::class, 'LogsAndStatus'])->name(
 Route::post('center-update-password-duration', [CenterController::class, 'updatePasswordDuration'])->name('center.update.password.duration');
 
 
+//USED CONFIRM
+//****Bank Account*****/
+Route::get('bank_account',[MassageCenterAccountController::class,'bankDetails'])->name('massage.bank_account');
+Route::post('save-bank-details',[MassageCenterAccountController::class,'saveBankDetails'])->name('massage.save.bank.details');
+Route::get('bank-details',[MassageCenterAccountController::class,'BankDataTable'])->name('massage.bankDetail.dataTable');
+Route::post('check-bank-otp',[MassageCenterAccountController::class,'checkOTP'])->name('massage.checkOTP');
+Route::post('delete-massage-bank/{id}',[MassageCenterAccountController::class,'deleteMassageBank']);
+Route::post('update-bank-pin',[MassageCenterAccountController::class,'updateBankPin'])->name('massage.update.bank.pin');
+Route::post('get-eft-bank-details',[MassageCenterAccountController::class,'getEftBankDetails'])->name('massage.get.eft.bank.details');
+
 Route::get('centre-statistics',function(){
     return view('center.dashboard.centre-statistics');
 })->name('center.dashboard.centre-statistics');
@@ -217,16 +230,11 @@ Route::get('media-centre/photos', function()
 {
 	return view('center.dashboard.media-centre.photos');
 })->name('center.photos');
-Route::get('media-centre/videos', function()
-{
-	return view('center.dashboard.media-centre.videos');
-})->name('center.videos');
+
+
 
 // add Media center Route
-Route::get('bookkeeping', function()
-{
-	return view('center.dashboard.bookkeeping');
-})->name('center.bookkeeping');
+Route::get('bookkeeping', [MassageCenterAccountController::class,'index'])->name('center.bookkeeping');
 
 Route::get('/profile-info/edit-profile', function()
 {
@@ -239,9 +247,19 @@ Route::get('/profile-info/edit-profile', function()
 // 	return view('center.my-account.notifications-and-features');
 // })->name('centre.notifications-and-features');
 
+// Route::get('media-centre/videos', function()
+// {
+// 	return view('center.dashboard.media-centre.videos');
+// })->name('center.videos');
+
+
+############ Media Videos ########################
+Route::get('media-centre/videos', [MediaController::class, 'videoGalleries'])->name('center.videos');
+Route::post('upload-chunk', [EscortGalleryController::class, 'uploadChunk'])->name('gallery.uploadChunk');
+Route::post('merge-chunks', [EscortGalleryController::class, 'mergeChunks'])->name('gallery.mergeChunks');
+############ End Media Videos ########################
 
 Route::get('notifications-and-features', [CenterProfileInformationController::class, 'massageSettings'])->name('centre.notifications-and-features');
-
 Route::post('notifications-and-features',[CenterProfileInformationController ::class, 'updateNotificationsAndFeatures'] )->name('centre.notifications-and-features');
 
 
@@ -268,11 +286,27 @@ Route::get('archive-tour-profiles',function(){
     return view('center.dashboard.archives.archive-tour-profiles');
 })->name('cen.archive-tour-profiles');
 
+Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('center.update-password');
+
+
+
+
+// Route::post('default_photos', [CenterProfileInformationController ::class, 'defaultImages'])->name('center.default.images');
+// Route::post('get-default-photos', [CenterProfileInformationController ::class, 'getDefaultImages'])->name('center.get.default.images');
+// Route::post('delete-photos/{id}', [CenterProfileInformationController ::class, 'ImagesDelete'])->name('center.delete.gallery');
 Route::get('archive-view-photos', [CenterProfileInformationController ::class, 'galleries'])->name('cen.archive-view-photos');
-Route::post('default_photos', [CenterProfileInformationController ::class, 'defaultImages'])->name('center.default.images');
-Route::post('get-default-photos', [CenterProfileInformationController ::class, 'getDefaultImages'])->name('center.get.default.images');
-Route::post('delete-photos/{id}', [CenterProfileInformationController ::class, 'ImagesDelete'])->name('center.delete.gallery');
- Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('center.update-password');
+Route::get('archive-view-videos',[EscortGalleryController ::class, 'videoGalleries'])->name('center.archive-view-videos');
+Route::get('get-account-media-gallery/{category?}',[EscortGalleryController ::class, 'getAccountMediaGallery'])->name('center.account.gallery');
+Route::post('upload-galleries',[EscortGalleryController::class,'uploadGallery'])->name('center.upload.gallery');
+Route::post('upload-videos-galleries',[EscortGalleryController::class,'uploadVideosGaller'])->name('center.upload.videos.gallery');
+Route::post('default_photos', [EscortGalleryController ::class, 'defaultImages'])->name('center.default.images');
+Route::post('default-videos', [EscortGalleryController ::class, 'defaultVideos'])->name('center.default.video');
+Route::get('get-default-videos/{id?}', [EscortGalleryController ::class, 'getDefaultVideos'])->name('center.get.default.vedios');
+Route::post('get-default-photos', [EscortGalleryController ::class, 'getDefaultImages'])->name('center.get.default.images');
+Route::post('delete-photos/{id}', [EscortGalleryController ::class, 'ImagesDelete'])->name('center.delete.gallery');
+Route::post('delete-videos/{id}', [EscortGalleryController ::class, 'videosDelete'])->name('center.delete.vedio.gallery');
+Route::get('get-account-video-gallery',[EscortGalleryController ::class, 'getAccountVideoGallery'])->name('center.account.video_gallery');
+
 
  Route::get('pricing', [CenterController ::class, 'pricing'])->name('center.dashboard.Community.pricing');
  Route::post('calculate-reckoner', [PricingsummariesController::class, 'calculate'])->name('centre.reckoner-calculate');
@@ -281,9 +315,9 @@ Route::post('delete-photos/{id}', [CenterProfileInformationController ::class, '
 //     return view('center.dashboard.archives.archive-view-photos');
 // })->name('cen.archive-view-photos');
 
-Route::get('archive-view-videos',function(){
-    return view('center.dashboard.archives.archive-view-videos');
-})->name('cen.archive-view-videos');
+// Route::get('archive-view-videos',function(){
+//     return view('center.dashboard.archives.archive-view-videos');
+// })->name('cen.archive-view-videos');
 
 Route::get('register-for-pin-up',function(){
     return view('center.dashboard.registerPinup.register-pin-up');

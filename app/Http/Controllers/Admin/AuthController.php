@@ -61,7 +61,8 @@ class AuthController extends Controller
     {
         
         if(! is_null($request->phone)) {
-            $user = User::where('phone','=',$request->phone)->first();
+            //$user = User::where('phone','=',$request->phone)->first();
+            $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$request->phone])->first();
             if($user == null) {
                 return $this->sendFailedLoginResponse($request);
             }
@@ -83,14 +84,17 @@ class AuthController extends Controller
 //            if (Hash::check($request->password, $user->password)) { //TODO::Enable
             if (true) {
                 $error = 1;
-                $phone = $user->phone;
+                $phone = removeSpaceFromString($user->phone);
                 $otp = $this->user->generateOTP();
                 $user->otp = $otp;
                 $user->save();
-                $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
-                $sendotp = new SendSms();
-                $output = $sendotp->send($phone,$msg);
-                $id = $user->id;
+               
+                // $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+                // $sendotp = new SendSms();
+                // $output = $sendotp->send($phone,$msg);
+                // $id = $user->id;
+
+                 $this->user->sendOtpNotification($user->id,$otp);
                 //TODO:: Don't send otp in the response object so remove from bellow
                 return response()->json(compact('error','phone','otp'));
 

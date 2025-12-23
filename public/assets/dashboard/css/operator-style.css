@@ -17,14 +17,6 @@
         color: var(--color-teal-dark);
     }
     
-    .modal-thaed tr th {
-        padding: 7px !important;
-    }
-    
-    .modal-thaed tr t8 {
-        padding: 7px !important;
-    }
-    
     .opr-modal .modal-title {
         font-size: 16px;
     }
@@ -93,13 +85,18 @@
         font-weight: 600;
     }
     
-    .my_opr_table th,
-    td {
-        text-align: center;
-    }
-    
     .image-upload-wrap {
         border: 2px dashed var(--color-teal-dark);
+    }
+    
+    .opr_custom_modal {
+        max-width: 900px;
+        width: 100%;
+    }
+    
+    .opr_custom_modal .modal-body {
+        max-height: 400px;
+        overflow: auto;
     }
     
     .custom_links_design {

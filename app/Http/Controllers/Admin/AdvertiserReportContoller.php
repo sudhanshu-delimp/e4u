@@ -12,6 +12,32 @@ use DataTables;
 
 class AdvertiserReportContoller extends Controller
 {
+    protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    protected $sidebar;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+
+            $user = auth()->user();   // works here
+
+            // Now do everything that needs user data
+            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+            $addAccess = staffPageAccessPermission($securityLevel, 'add');
+            $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+            return $next($request);
+        });
+    }
     public function index(Request $request)
     {
         [$advertiserReports, $reports] = $this->getAdvertiserReports();
@@ -29,7 +55,7 @@ class AdvertiserReportContoller extends Controller
         $advertiserReports = ReportEscortProfile::with('escort.user')
             ->orderByRaw("CASE WHEN report_status = 'pending' THEN 1 WHEN report_status = 'resolved' THEN 2 END")
             ->orderBy('updated_at', 'desc');
-            
+
         return DataTables::of($advertiserReports)
             ->addColumn('ref', fn($row) => $row->id . ($row->escort->id ?? ''))
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
@@ -38,22 +64,24 @@ class AdvertiserReportContoller extends Controller
             ->addColumn('home_state', fn($row) => $row->escort->user->home_state ?? '-')
             ->addColumn('status', fn($row) => $row->report_status == 'pending' ? 'Current' : 'Resolved')
             ->addColumn('action', function ($row) {
-                $statusActionHtml = '
+                $statusActionHtml = '';
+                if ($this->editAccessEnabled) {
+                    $statusActionHtml = '
                     <a title="Mark status as current" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
                     data-toggle="modal" data-target="#confirm-popup" 
-                    data-id="'.$row->id.'" data-val="pending" href="#">
+                    data-id="' . $row->id . '" data-val="pending" href="#">
                     <i class="fa fa-hourglass-half text-dark"></i> Current
                     </a>';
 
-                if ($row->report_status == 'pending') {
-                    $statusActionHtml = '
+                    if ($row->report_status == 'pending') {
+                        $statusActionHtml = '
                         <a title="Mark status as resolved" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
                         data-toggle="modal" data-target="#confirm-popup" 
-                        data-id="'.$row->id.'" data-val="resolved" href="#">
+                        data-id="' . $row->id . '" data-val="resolved" href="#">
                         <i class="fa fa-check-circle text-dark"></i> Resolved
                         </a>';
+                    }
                 }
-
                 return '
                     <div class="dropdown no-arrow ml-3">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -62,10 +90,10 @@ class AdvertiserReportContoller extends Controller
                         </a>
                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                             aria-labelledby="dropdownMenuLink">
-                            '.$statusActionHtml.'
+                            ' . $statusActionHtml . '
                             <div class="dropdown-divider"></div>
                             <a class="view_member_report dropdown-item d-flex justify-content-start gap-10 align-items-center" 
-                            href="#" data-id="'.$row->id.'">
+                            href="#" data-id="' . $row->id . '">
                             <i class="fa fa-eye text-dark"></i> View
                             </a>
                         </div>
@@ -130,7 +158,7 @@ class AdvertiserReportContoller extends Controller
                 ])
                 ->first();
 
-                
+
             if ($report) {
                 $report->formatted_created_at = $report->created_at->format('d-m-Y');
                 $report->escort->user->state_id = $report->escort->user->home_state;
@@ -172,7 +200,6 @@ class AdvertiserReportContoller extends Controller
 
             return view('admin.prints_file.advertiser_report_print', ['report' => $report]);
         }
-
     }
 
     public function updateMemberReportStatus(Request $request)

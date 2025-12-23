@@ -27,7 +27,7 @@
 
         .toggle-details.open i {
             transform: rotate(90deg);
-            color: #007bff;
+            color: #ff3c5f;
         }
 
         .tooltip-inner {
@@ -58,17 +58,18 @@
                     <div class="card-body">
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b></p>
                         <ol>
-                            <li>The National Ugly Mugs register (<strong>NUM</strong>) is a free service to all Escorts. You can use
-the NUM service at any time. Your details, when you undertake a search, are kept
-confidential.</li>
+                            <li>The National Ugly Mugs register (<b>NUM</b>) is a free service to all Escorts. You
+                                can use
+                                the NUM service at any time. Your details, when you undertake a search, are kept
+                                confidential.</li>
                             <li>You can only search for an offender by their mobile number. Search your next booking
-by their mobile number itself, e.g. 0400123456. Do not include any prefixes, e.g. +61
-or spaces.</li>
+                                by their mobile number itself, e.g. 0400123456. Do not include any prefixes, e.g. +61
+                                or spaces.</li>
                             <li>E4U makes no claims:
                                 <ol class="level-2">
                                     <li>as to the accuracy or legitimacy of the allegations contained in a Report; and</li>
                                     <li>nor do we investigate the authenticity of the Reports (provided in confidence
-by Escorts)</li>
+                                        by Escorts)</li>
                                 </ol>
                             </li>
                         </ol>
@@ -80,7 +81,7 @@ by Escorts)</li>
         <!-- DataTable -->
         <div class="col-md-12">
             <div class="table-responsive">
-                <table id="myReportTable" class="table display nowrap" width="100%">
+                <table id="myReportTable" class="table display nowrap num_table" width="100%">
                     <thead class="bg-first">
                         <tr>
                             <th>REF</th>
@@ -105,12 +106,12 @@ by Escorts)</li>
                                         data-target="details-{{ $num->id }}">
                                         <i class="fa fa-search" data-toggle="tooltip" title="View"></i>
                                     </a> --}}
-                                     <a href="javascript:void(0);" class="toggle-details">
-                                        <i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="View"></i>
+                                    <a href="javascript:void(0);" class="toggle-details">
+                                        <i class="fa fa-search" data-toggle="tooltip" data-placement="top"
+                                            title="View"></i>
                                     </a>
                                 </td>
                             </tr>
-                            
                         @endforeach
                     </tbody>
                 </table>
@@ -134,18 +135,10 @@ by Escorts)</li>
         $(document).ready(function() {
             // Initialize DataTable
             var table = $('#myReportTable').DataTable({
-                language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Mobile...",
-                    lengthMenu: "Show _MENU_ entries",
-                    zeroRecords: "No matching records found",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                    infoEmpty: "No entries available",
-                    infoFiltered: "(filtered from _MAX_ total entries)"
-                },
+                
                 "language": {
                     "zeroRecords": "No Record Found!",
-                    searchPlaceholder: "Search by Mobile..."
+                    searchPlaceholder: "Search by Mobile"
                 },
                 paging: true,
                 processing: false,
@@ -209,7 +202,7 @@ by Escorts)</li>
                 } else {
                     // Open the details
                     console.log(row.data());
-                    
+
                     row.child(format(row.data())).show();
                     tr.addClass('shown');
                     $(this).addClass('open');
@@ -227,8 +220,8 @@ by Escorts)</li>
 
             function format(data) {
                 return `
-                    <div class="details-content p-3 bg-light border rounded">
-                        <table class="table mb-0">
+                    <div class="details-content p-3">
+                        <table class="table mb-0 num_view_table">
                             <tbody>
                                 <tr>
                                     <th>Ref:</th>

@@ -5,7 +5,6 @@ namespace App\Repositories\Tour;
 use App\Repositories\BaseRepository;
 use App\Traits\DataTablePagination;
 use App\Models\Tour;
-use App\Models\TourLocation;
 
 use Carbon\Carbon;
 
@@ -21,8 +20,6 @@ class TourRepository extends BaseRepository implements TourInterface
 
     public function paginated($start, $limit, $order_key, $dir, $columns, $search = null,$user_id, $conditions = NULL)
 	{
-        //$date = Carbon::now();
-
 		$order = $this->getOrder($order_key);
 		$searchables = $this->getSearchableFields($columns);
 
@@ -126,94 +123,68 @@ class TourRepository extends BaseRepository implements TourInterface
         return $result;
     }
 
-    public function paginatedAgentEscort($start, $limit, $order_key, $dir, $columns, $search = null)
-	{
-        $date = Carbon::now();
-		$order = $this->getOrder($order_key);
-		$searchables = $this->getSearchableFields($columns);
 
-		$query = $this->model
-           ->offset($start)
-		    ->limit($limit)
-		    ->orderBy($order,$dir);
-
-		if($search) {
-			foreach ($searchables as $column) {
-				if(in_array($column, $this->getColumns())) {
-					$query->orWhere($column, 'LIKE', "%{$search}%");
-				}
-			}
-		}
-
-		$result = $query->get();
-		$result = $this->modifyProperties1($result);
-		$count =  $this->model->count();
-
-		return [$result, $count];
-	}
-
-    public function paginatedAgentTyeEscort($start, $limit, $order_key, $dir, $columns, $search = null, $user)
-	{
-        $date = Carbon::now();
-		$order = $this->getOrder($order_key);
-		$searchables = $this->getSearchableFields($columns);
-
-		$query = $user->agentEscorts()
-            ->where('type', 3)
-            ->offset($start)
-		    ->limit($limit)
-		    ->orderBy($order,$dir);
-
-		if($search) {
-			foreach ($searchables as $column) {
-				if(in_array($column, $this->getColumns())) {
-					$query->orWhere($column, 'LIKE', "%{$search}%");
-				}
-			}
-		}
-
-		$result = $query->get();
-		$result = $this->modifyPropertiesTypeEscort($result);
-		$count =  $this->model->count();
-
-		return [$result, $count];
-	}
-
-    protected function modifyPropertiesTypeEscort($result)
+    public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id = null, $conditions = [])
     {
+        $order_field = $columns[$order_key]['name'];
+        $searchables = $this->getSearchableFields($columns);
+        $query = $this->model;
 
-
-        foreach($result as $key => $item) {
-            $item->name = $item->name ? $item->name : null;
-            $item->phone = $item->phone ? $item->phone : null;
-            $item->gender = $item->gender ? $item->gender : 'Other';
-            $item->plan_type = $item->plan_type ? $item->plan_type : null;
-            $item->home_state ='NA';
-            $item->age = $item->age ? $item->age : null;
-            //$item->email = $item->email ? $item->email : null;
-            $item->vaccine = "Vaccinated, up to date";
-            //$item->time = Carbon::parse($item->created_at)->format('d M Y');
-            $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"> <a class="dropdown-item" href="/escort-profile/'.$item->id.'" data-id="'.$item->id.'">Edit Escort Profile <img src="../assets/app/img/pencil.png" style="float: right;"></a> <div class="dropdown-divider"></div><a class="dropdown-item delete-center" href="delete-profile/'.$item->id.'" data-id="'.$item->id.'">Delete <img src="../assets/app/img/delete.png" style="float: right;"></a> <div class="dropdown-divider"></div></div></div>';
+        if($user_id){
+            $query = $query->where('user_id',$user_id);
         }
 
+        if(count($conditions)>0){
+            $query->where($conditions);
+        }
+            
+        if($search) {
+            $query->where(function ($q) use ($searchables, $search) {
+                foreach ($searchables as $column) {
+                    $q->orWhere($column, 'LIKE', "%{$search}%");
+                }
+            });
+        }
+
+        $count =  $query->count();
+        
+        if($order_field=='days_number'){
+            $query->orderByRaw("DATEDIFF(end_date, start_date) $dir");
+        } 
+        else {
+            $query->orderBy($order_field, $dir);
+        }
+        $mainQuery = $query->offset($start)->limit($limit);
+        $result = $this->modifyRecords($mainQuery->get(), $start);
+        
+
+        return [$result, $count, [$query->toSql(),$query->getBindings()]];
+    }
+
+    protected function modifyRecords($result, $start)
+    {
+        $i = 1;
+        $today = Carbon::today()->format('d-m-Y');
+        foreach ($result as $key => $item) {
+            $item->days_number = $item->days_number;
+            $item->status = $item->start_date <= $today ?'Current':'Upcoming';
+            $is_checkout = $item->tourPurchase->count();
+            $action = '<div class="dropdown no-arrow archive-dropdown">
+            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
+            if(empty($is_checkout)){
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('account.checkout_tour', $item->id).'"> <i class="fa fa-location-arrow " ></i> Checkout</a><div class="dropdown-divider"></div>';
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 tourDelete" href="'.route('escort.delete.tour', $item->id).'"> <i class="fa fa-trash" ></i> Delete</a><div class="dropdown-divider"></div>';
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $item->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
+            }
+            else{
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
+            }
+            $action .= '</div></div>';
+            $item->action = $action;
+            $i++;
+        }
         return $result;
     }
-
-
-    public function findEscort()
-    {
-        return $this->model->where('type', 3)->get();
-    }
-
-    public function search($agent_id, $str = null)
-	{
-        $agent = $this->model->find($agent_id);
-
-        return $agent->agentEscorts()
-            ->orWhere('name',  'LIKE', "%{$str}%")
-            ->orWhere('users.id',  '=', "{$str}")
-            ->orWhere('phone',  'LIKE', "%{$str}%")
-            ->get();
-	}
 
 }

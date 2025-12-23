@@ -93,7 +93,7 @@
                                 <th>Incident Date</th>
                                 <th>Incident Location</th>
                                 <th>Status</th>
-                                <th class="text-center">Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -108,6 +108,7 @@
                               <div class="dropdown no-arrow">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                  <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+
                                  </a>
                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
 
@@ -136,7 +137,7 @@
 
         {{-- confirm modal --}}
     <div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel"
-    aria-hidden="true">
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header border-0">
@@ -236,18 +237,10 @@
             // });
             // Initialize DataTable
             var table = $('#myReportListTable').DataTable({
-                language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Mobile...",
-                    lengthMenu: "Show _MENU_ entries",
-                    zeroRecords: "No matching records found",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                    infoEmpty: "No entries available",
-                    infoFiltered: "(filtered from _MAX_ total entries)"
-                },
+               
                 "language": {
                     "zeroRecords": "No Record Found!",
-                    searchPlaceholder: "Search by member_id..."
+                    searchPlaceholder: "Search by Member ID"
                 },
                 paging: true,
                 processing: false,
@@ -303,7 +296,8 @@
                         data: 'actions',
                         name: 'actions',
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        class: 'text-center'
                     }
                 ]
             });

@@ -135,7 +135,7 @@
             {{-- box start --}}
             <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('center.dashboard.manage-media') }}">
+                    <a href="{{ route('cen.archive-view-photos') }}">
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/boxicon/center/manage-media.png') }}"
                                 alt="Manage Media">
@@ -347,6 +347,9 @@
             </div>
         </div>
     </div>
+
+@include('modal.console-expiry-password')
+
 @endsection
 @section('script')
     <script>

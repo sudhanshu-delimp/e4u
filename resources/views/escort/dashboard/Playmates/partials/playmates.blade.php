@@ -183,17 +183,16 @@
             <div class="card-body active-play border-0 pt-0 mt-1 p-0">
                 <div class="mt-0">
                     <div class="col-lg-12 my-3">
-                        @if($user->playmates->count()>0)
-                        <h2 class="custom-head py-3">My Active Playmates</h2>
+                        @if($user->playmateHistory->count()>0)
                         <ul class="results  mt-2 activePlaymate">
-                                @foreach($user->playmates as $escort)
-                                    <li id="rmlist_{{$escort->id}}" class="d_my_tooltip"><a
-                                            href="{{ route('profile.description',$escort->id)}}" target="_blank">
+                                @foreach($user->playmateHistory->unique('playmate_id') as $item)
+                                    <li id="rmlist_{{$item->id}}" class="d_my_tooltip playmate-{{$item->group_status}}"><a
+                                            href="{{ route('profile.description',$item->playmate->id)}}" target="_blank">
                                             <img
-                                                src="{{ $escort->DefaultImage ? asset($escort->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
-                                                class="img-profile rounded-circle playmats-img">{{$escort->user->member_id . ' - ' .$escort->name}}
+                                                src="{{ $item->playmate->DefaultImage ? asset($item->playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
+                                                class="img-profile rounded-circle playmats-img">{{$item->playmate->user->member_id . ' - ' .$item->playmate->name}}
                                         </a>
-                                        <span class="playmates_rmid" data-id="{{$escort->id}}">×</span>
+                                        <span class="playmates_rmid" data-id="{{$item->id}}">×</span>
                                         <small class="mytool-tip">Remove</small>
                                     </li>
                                 @endforeach
@@ -210,17 +209,97 @@
 @push('script')
 
 <script>
-    $("#playmate").on('click', function(e) {
-        let isAvailable = $(this).is(':checked')?1:0;
-        var url = "{{route('user.update.playmate')}}";
-        $.ajax({
-            method: "GET",
-            url: url,
-            data:{'available_playmate': isAvailable},
-            success: function (data) {
+    let playmateExist = $(".activePlaymate li").length;
+    $("#playmate").on('change', function(e) {
+        let checkbox = $(this);
+
+        // If playmate exists & user tries to uncheck it
+        if (playmateExist > 0 && !checkbox.is(':checked')) {
+            e.preventDefault();
+            checkbox.prop('checked', true); // revert back until confirmed
+
+            Swal.fire({
+                title: "My Playmates",
+                text: "If you disable Playmate, all active and inactive Playmates will be removed. Are you sure?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, disable it",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    checkbox.prop('checked', false); // now uncheck
+                    updatePlaymate(0);
+                    removeAllPlaymates();
+                }
+            });
+        } else {
+            // Normal update if checking or no playmate exists
+            let isAvailable = checkbox.is(':checked') ? 1 : 0;
+            updatePlaymate(isAvailable);
+        }
+    });
+
+
+    let removeAllPlaymates = function () {
+    let requests = []; // store all AJAX requests
+
+    Swal.fire({
+        title: 'Removing...',
+        text: 'Please wait while we remove all playmates.',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    $(".activePlaymate li .playmates_rmid").each(function () {
+        let playmateId = $(this).data("id");
+        let request = $.ajax({
+            method: "POST",
+            url: `{{ route('escort.remove.playmate', ':id') }}`.replace(':id', playmateId),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }).done(function (data) {
+            if (!data.error) {
+                $(`#rmlist_${playmateId}`).remove();
             }
         });
+
+        requests.push(request);
     });
+
+    // When all AJAX complete
+    $.when.apply($, requests).then(function () {
+        Swal.fire({
+            icon: 'success',
+            title: 'All removed!',
+            text: 'All playmates have been successfully removed.',
+            timer: 1500,
+            showConfirmButton: false
+        });
+    }).fail(function () {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: 'Failed to remove some playmates.'
+        });
+    });
+};
+
+    
+    function updatePlaymate(isAvailable) {
+        $.ajax({
+            method: "GET",
+            url: "{{ route('user.update.playmate') }}",
+            data: {
+                'available_playmate': isAvailable
+            },
+            success: function(data) {
+                console.log("Playmate status updated");
+            }
+        });
+    }
 
     $('body').on('click', '.playmates_rmid', function(e) {
     e.preventDefault();
@@ -230,53 +309,62 @@
     const url = `{{ route('escort.remove.playmate', ':id') }}`.replace(':id', playmateId);
 
     // Optionally disable button to prevent multiple clicks
-    $btn.prop('disabled', true);
-
-    $.ajax({
-        method: "POST",
-        url: url,
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        beforeSend: function () {
-            Swal.fire({
-                title: 'Removing...',
-                text: 'Please wait while we remove this playmate.',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-        },
-        success: function (data) {
-            if (!data.error) {
-                $(`#rmlist_${playmateId}`).remove();
+    Swal.fire({
+        title: 'My Playmates',
+        text: "Are you sure you want to remove this Playmate?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove it',
+        cancelButtonText: 'Cancel',
+    }).then((result) => {
+        if (!result.isConfirmed) return;
+        $btn.prop('disabled', true);
+        $.ajax({
+            method: "POST",
+            url: url,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function () {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Removed!',
-                    text: data.message || 'Playmate removed successfully.',
-                    timer: 1500,
-                    showConfirmButton: false
+                    title: 'Removing...',
+                    text: 'Please wait while we remove this playmate.',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
                 });
-            } else {
+            },
+            success: function (data) {
+                if (!data.error) {
+                    $(`#rmlist_${playmateId}`).remove();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Removed!',
+                        text: data.message || 'Playmate removed successfully.',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: data.message || 'Failed to remove playmate.'
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                Swal.close();
                 Swal.fire({
                     icon: 'error',
                     title: 'Error!',
-                    text: data.message || 'Failed to remove playmate.'
+                    text: 'Something went wrong. Please try again.'
                 });
+            },
+            complete: function() {
+                $btn.prop('disabled', false); // re-enable button
             }
-        },
-        error: function(xhr, status, error) {
-            Swal.close();
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'Something went wrong. Please try again.'
-            });
-        },
-        complete: function() {
-            $btn.prop('disabled', false); // re-enable button
-        }
+        });
     });
 }); 
 </script>

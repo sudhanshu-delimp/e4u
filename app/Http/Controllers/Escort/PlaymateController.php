@@ -8,17 +8,22 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Escort;
+use App\Models\PlaymateHistory;
 use App\Repositories\User\UserInterface;
 use App\Repositories\Escort\EscortInterface;
+use App\Repositories\Playmate\PlaymateInterface;
 
 class PlaymateController extends Controller
 {
     protected $escort;
     protected $user;
-    public function __construct(EscortInterface $escort, UserInterface $user)
+    protected $playmateHistory;
+
+    public function __construct(EscortInterface $escort, UserInterface $user, PlaymateInterface $playmateHistory)
     {
         $this->escort = $escort;
         $this->user = $user;
+        $this->playmateHistory = $playmateHistory;
     }
 
     public function getAvailablePlaymates(Request $request){
@@ -56,9 +61,12 @@ class PlaymateController extends Controller
                     $veryFirstEscortProfileWithPlaymate = $user->listedEscorts()
                     ->join('escort_playmate', 'escorts.id', '=', 'escort_playmate.escort_id')
                     ->orderBy('escort_playmate.created_at', 'asc')
-                    ->first()->escort_id;
-                    $escortProfile = Escort::find($veryFirstEscortProfileWithPlaymate);
-                    $escorts = $escortProfile->playmates()->get();
+                    ->first();
+                    
+                    if(!empty($veryFirstEscortProfileWithPlaymate)){
+                        $escortProfile = Escort::find($veryFirstEscortProfileWithPlaymate->escort_id);
+                        $escorts = $escortProfile->playmates()->get();
+                    }
                 }
                 else{
                     $escorts->map(function($escort) {
@@ -68,6 +76,7 @@ class PlaymateController extends Controller
                 }
             }    
             $response['success'] = true;
+            $response['count'] = $escorts->count();
             $response['escorts'] = $escorts;
             
             $response['playmates_container_html'] = view('escort.dashboard.profile.partials.playmates_container',compact('searchValue','escorts'))->render();
@@ -90,10 +99,16 @@ class PlaymateController extends Controller
         if($request->has('add_playmate')){
             $escort->playmates()->syncWithoutDetaching($request->add_playmate);
 
+            foreach($request->add_playmate as $playmateId){
+                $this->savePlaymateHistory($escort->id, $playmateId, $escort->user->id);
+            }
+
+
             foreach ($request->add_playmate as $playmateId) {//add profile to other escort profiles
                 $otherEscort = Escort::find($playmateId);
                 if ($otherEscort) {
                     $otherEscort->playmates()->syncWithoutDetaching($escort->id);
+                    $this->savePlaymateHistory($playmateId, $escort->id, $otherEscort->user->id);
                 }
             }
         }
@@ -103,16 +118,48 @@ class PlaymateController extends Controller
             $checkedIds = (!empty($request->update_playmate))?$request->update_playmate:[];
             $escort->playmates()->sync($checkedIds);
 
+            if(!empty($checkedIds)){
+                foreach($checkedIds as $playmateId){
+                    $this->savePlaymateHistory($escort->id, $playmateId, $escort->user->id);
+                }
+                
+                foreach ($request->update_playmate as $playmateId) {//add profile to other escort profiles
+                    $otherEscort = Escort::find($playmateId);
+                    if ($otherEscort) {
+                        $otherEscort->playmates()->syncWithoutDetaching($escort->id);
+                        $this->savePlaymateHistory($playmateId, $escort->id, $otherEscort->user->id);
+                    }
+                }
+            }
+
             $uncheckedIds = array_diff($playmateIds, $checkedIds);
             if(!empty($uncheckedIds)){//remove profile to other escort profiles
                 foreach ($uncheckedIds as $playmateId) {
                     $otherEscort = Escort::find($playmateId);
                     if ($otherEscort) {
                         $otherEscort->playmates()->detach($escortId);
+                        $this->playmateHistory->trashPlaymateHistory($escortId, $playmateId);
                     }
                 }
             }
         }
+
+        
         return response()->json(compact('error'));
+    }
+
+    protected function savePlaymateHistory($escort_id, $playmate_id, $user_id){
+        PlaymateHistory::updateOrInsert(
+            [
+                'escort_id' => $escort_id,
+                'playmate_id' => $playmate_id,
+            ],
+            [
+                'user_id' => $user_id,
+                'is_deleted' => '0',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
+        );
     }
 }

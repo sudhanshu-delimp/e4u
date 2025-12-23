@@ -53,6 +53,7 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
                     });
                 }
             });
+        $count =  $query->count();    
         if (in_array($order_field,['profile_name','name'])) {
             $query->orderBy(
                 Escort::select("{$order_field}")->whereColumn('escorts.id', 'purchase.escort_id')->limit(1),$dir
@@ -66,7 +67,7 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
         }
         $mainQuery = $query->offset($start)->limit($limit);
         $result = $this->modifyEscorts($mainQuery->get(), $start);
-        $count =  $query->count();
+        
 
         return [$result, $count];
     }

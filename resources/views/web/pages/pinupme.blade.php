@@ -82,6 +82,9 @@
                     </div>
                     @php
                         $about = html_entity_decode(strip_tags($escort->about));
+                        $massage_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->massage_price:0;
+                        $incall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->incall_price:0;
+                        $outcall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price:0;
                     @endphp
                     <p class="pin-description text-justify">{{ $about }}</p>
                     <div class="row">
@@ -91,7 +94,7 @@
                                     class="mr-3 rounded-circle" style="width:40px;">
                                 <div class="media-body">
                                     <h4>Massage</h4>
-                                    <p class="mb-0">{{$escort->durations()->where('name','=','1 Hour')->first() ? $escort->durations()->where('name','=','1 Hour')->first()->pivot->massage_price : '' }} / hr</p>
+                                    <p class="mb-0">{{ $massage_price ? '$'. $massage_price.'/hr' : 'N/A' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +104,7 @@
                                     class="mr-3 rounded-circle" style="width:40px;">
                                 <div class="media-body">
                                     <h4>Incalls</h4>
-                                    <p class="mb-0">{{$escort->durations()->where('name','=','1 Hour')->first() ? $escort->durations()->where('name','=','1 Hour')->first()->pivot->incall_price : ''}} / hr</p>
+                                    <p class="mb-0">{{ $incall_price ? '$'. $incall_price.'/hr' : 'N/A' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -111,25 +114,31 @@
                                     class="mr-3 rounded-circle" style="width:40px;">
                                 <div class="media-body">
                                     <h4>Outcalls</h4>
-                                    <p class="mb-0">{{$escort->durations()->where('name','=','1 Hour')->first() ? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price : ''}} / hr</p>
+                                    <p class="mb-0">{{ $outcall_price ? '$'. $outcall_price.'/hr' : 'N/A' }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row social-and-view custom-pin-social-row">
                         <div class="col-md-6 align-self-center">
-                            @if(!empty($user->social_links))
-                            <ul class="d-flex list-unstyled pl-0 mb-0 custom--socialpin">
-                                @if(!empty($user->social_links['facebook']))
-                                    <li><a href="{{$user->social_links['facebook']}}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                @endif
-                                @if(!empty($user->social_links['insta']))
-                                    <li><a href="{{$user->social_links['insta']}}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                @endif
-                                @if(!empty($user->social_links['twitter']))
-                                    <li><a href="{{$user->social_links['twitter']}}" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo"></a></li>
-                                @endif
-                            </ul>
+                            @if(!empty($user->profile_creator) && in_array(3,$user->profile_creator))
+                                <ul class="d-flex list-unstyled pl-0 mb-0 custom--socialpin">
+                                    @if($user->social_links && $escort->user->social_links['facebook'] !== null)
+                                        <li><a href="{{$user->social_links['facebook']}}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                    @endif
+                                    @if($user->social_links && $user->social_links['insta'] !== null)
+                                        <li><a href="{{$user->social_links['insta']}}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                    @endif
+                                    @if($user->social_links && $user->social_links['twitter'] !== null)
+                                        <li><a href="{{$user->social_links['twitter']}}" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo"></a></li>
+                                    @else
+                                        <li><a href="https://x.com/NMugs32853" class="by-default" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo"></a></li>
+                                    @endif
+                                </ul>
+                                @else
+                                    <ul class="d-flex list-unstyled pl-0 mb-0 custom--socialpin">
+                                        <li><a href="https://x.com/NMugs32853" class="by-default" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo"></a></li>
+                                    </ul>
                             @endif
                         </div>
                         <div class="custom-playbox"><a href="/playbox"><img

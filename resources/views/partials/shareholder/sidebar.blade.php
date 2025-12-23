@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
     <!-- Sidebar - Brand -->
         <a class="sidebar-brand text-left pb-3" href="{{ route('home') }}">
-            <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3" alt="E4u Logo">
+            <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3 e4u_logo" alt="E4u Logo">
         </a>
 
         <span class="sidebar-console-head">Shareholder Console</span>
@@ -119,13 +119,13 @@
                             Portfolio</span>
                     </a>
 
-                    <a class="collapse-item" href="{{ route('shareholder.contact-us') }}">
+                    {{-- <a class="collapse-item" href="{{ route('shareholder.contact-us') }}">
                         <img 
                             src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'contact-us' ? 'color: #ff3c5f;' : '' }}">
                             Contact Us</span>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </li>

@@ -40,7 +40,7 @@
                               </div>
                            </div>
                            <div class="table-responsive-xl">
-                              <table class="table mb-3" id="ManageSupplierTable">
+                              <table class="table mb-3 w-100" id="ManageSupplierTable">
                                  <thead class="table-bg">
                                     <tr>
                                     <th scope="col">Merchant ID</th>
@@ -49,7 +49,7 @@
                                     <th scope="col">Mobile</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col" class="text-center">Action</th>
+                                    <th scope="col">Action</th>
                                     </tr>
                                  </thead>
                                  <tbody class="table-content">
@@ -60,7 +60,7 @@
                                           <td>0438 028 728</td>
                                           <td>info@condomma.com.au</td>
                                           <td>Pending</td>
-                                          <td class="text-center">
+                                          <td>
                                              <div class="dropdown no-arrow">
                                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                      <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -78,9 +78,9 @@
                                  </tbody>
                                  <tfoot class="bg-first">
                                     <tr>
-                                        <th colspan="2" class="text-left">Server time: <span>[10:23:51 am]</span></th>
-                                        <th colspan="3" class="text-center">Refresh time:<span> [seconds]</span></th>
-                                        <th colspan="2" class="text-right">Up time: <span>[214 days & 09 hours 12 minutes]</span></th>
+                                        <th colspan="2" class="text-left">Server time: <span>10:23:51 am</span></th>
+                                        <th colspan="3" class="text-center">Refresh time:<span>seconds</span></th>
+                                        <th colspan="2" class="text-right">Up time: <span>214 days & 09 hours 12 minutes</span></th>
                                     </tr>
                                 </tfoot>
                               </table>
@@ -430,7 +430,7 @@
       var table = $("#ManageSupplierTable").DataTable({
       language: {
          search: "Search: _INPUT_",
-         searchPlaceholder: "Search by Merchant ID..."
+         searchPlaceholder: "Search by Merchant ID"
       },
       info: true,
       paging: true,
@@ -439,7 +439,16 @@
       bStateSave: true,
       order: [[1, 'desc']],
       lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10
+      pageLength: 10,
+      columns: [
+               { data: 'merchant_id', name: 'merchant_id' },
+               { data: 'merchant', name: 'merchant' },
+               { data: 'location', name: 'location' },
+               { data: 'mobile', name: 'mobile' },
+               { data: 'email', name: 'email' },
+               { data: 'status', name: 'status' },
+               { data: 'action', name: 'action', orderable: false, class:'text-center' }
+         ]
    });
 
  </script>

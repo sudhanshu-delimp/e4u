@@ -24,7 +24,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.5') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.6') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css') }}" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -42,8 +42,23 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css') }}">--}}
     <meta name="csrf-token" content="{{ csrf_token() }}" />
      <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{asset('assets/app/css/jquery-ui.css')}}">
-    <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('assets/app/css/jquery-ui.css')}}"> 
+    
+
+     <style>
+    .toogle_eye_form_wrap{
+    position: relative;
+    }
+    .toogle-eye-password {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 2;
+    color: #6c757d;
+    }
+ </style>
+ 
 
     @section('style')
     @show

@@ -13,7 +13,7 @@
             <div id="content">
 
                 @include('partials.admin.navigation')
-
+		            <div>@include('flash-message')</div>
                 @yield('content')
 
             </div>
@@ -65,6 +65,9 @@
             </div>
         </div>
     </div>
+
+
+    
 
     
 @include('partials.admin.footer')

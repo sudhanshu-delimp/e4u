@@ -5,12 +5,14 @@ namespace App\Models;
 use Exception;
 use App\Models\AgentDetail;
 use App\Models\AgentSetting;
+use App\Models\EscortSetting;
 use App\Models\ViewerSetting;
 use App\Models\AccountSetting;
 use App\Models\MassageSetting;
 use App\Models\AgentBankDetail;
 use App\Models\PasswordSecurity;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use App\Models\ViewerNotificationSetting;
@@ -76,6 +78,20 @@ class User extends Authenticatable
         'online',
         'member_id',
     ];
+
+
+    public function getPhoneAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
+
+    public function setPhoneAttribute($value)
+    {
+    
+        $clean = removeSpaceFromString($value);
+        $this->attributes['phone'] = $clean;
+    }
+
 
     public function getTypeAttribute($value)
     {
@@ -256,10 +272,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(PasswordSecurity::class);
     }
-    public function playmates()
+
+    public function playmateHistory()
     {
-        return $this->belongsToMany(Escort::class, 'playmates', 'user_id', 'playmate_id');
+        return $this->hasMany(PlaymateHistory::class);
     }
+
     public function getPlaymatesAttribute()
     {
         $this->loadMissing('listedEscorts.playmates');
@@ -269,6 +287,7 @@ class User extends Authenticatable
             ->sortBy('name')
             ->values();
     }
+
     public function getAddedByAttribute()
     {
         $this->loadMissing('listedEscorts.addedBy');
@@ -377,7 +396,28 @@ class User extends Authenticatable
     public function generateMemberId()
     {
         if ($this->type == 1) {
-            return 'S' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+           // return 'S' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+            $staffPrefix = config('staff.staff_member_id_prefix');
+            //$memberId = $staffPrefix . $this->city_id . sprintf("%04d", $this->id);
+            $staff = User::select(['id', 'name', 'member_id'])
+                ->where('type', '1')
+                ->where('member_id', '!=', '')
+                ->where('member_id', '!=', 'S60001')
+                ->orderByDesc('id')
+                ->first();
+            if ($staff && !empty($staff->member_id)) {
+                $code = trim($staff->member_id);
+                $prefix = 'S';
+                preg_match('/\d+$/', $code, $numberMatch);
+                $number = isset($numberMatch[0]) ? (int)$numberMatch[0] : 0;
+                $length = strlen($numberMatch[0] ?? '00002');
+                // Increment and pad
+                $newCode = $prefix . str_pad($number + 1, $length, '0', STR_PAD_LEFT);
+                $memberId = $newCode;
+            } else {
+                $memberId = 'S60002';
+            }
+            return $memberId;
         }
         if ($this->type == 2) {
             return 'SU' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
@@ -450,6 +490,7 @@ class User extends Authenticatable
                 }
             }
         });
+
     }
 
     public function escorts()
@@ -645,6 +686,16 @@ class User extends Authenticatable
         return $this->belongsTo(MassageSetting::class, 'id', 'user_id');
     }
 
+    public function escort_settings()
+    {
+        return $this->belongsTo(EscortSetting::class, 'id', 'user_id');
+    }
+
+      public function staff_setting()
+    {
+        return $this->belongsTo(StaffSetting::class, 'id', 'user_id');
+    }
+
     
 
     public function staff_detail()
@@ -657,7 +708,44 @@ class User extends Authenticatable
         $otp = '123456';
         //$otp = mt_rand(1000,9999);
         return $otp;
+      
     }
+
+    public function sendOtpNotification($user_id,$otp)
+    {
+            $user = User::where('id',$user_id)->first();
+
+            if ($user->type == '0') {
+                $settings = $user->viewer_settings;
+            } 
+            elseif ($user->type == '1') {
+                $settings = $user->staff_setting;
+            }
+            elseif ($user->type == '3') {
+                $settings = $user->escort_settings;
+            }
+            elseif ($user->type == '4') {
+                $settings = $user->massage_settings;
+            } 
+            elseif ($user->type == '5') {
+                $settings = $user->agent_settings;
+            }
+
+     
+            if (isset($settings->twofa) && ($settings->twofa == '1' && $user->email != "")) {
+                sendLoginOtpEmail($otp, $user);
+            }
+
+            else if(isset($settings->twofa) &&  ($settings->twofa == '2' && $user->phone != "")) {
+                //sendLoginOtpSms($otp, $user);
+            }
+            else
+            {
+                //sendLoginOtpSms($otp, $user);
+            }
+    }
+
+    
 
 
     public function update_last_login($user)
@@ -688,5 +776,11 @@ class User extends Authenticatable
     public function referrals()
     {
         return $this->hasMany(User::class, 'assigned_agent_id');
+    }
+
+
+    public function lastLoginTime()
+    {
+        return $this->hasOne(AccountSetting::class,  'user_id', 'id');
     }
 }

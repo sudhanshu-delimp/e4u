@@ -23,7 +23,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.5') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.6') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload-ui.css') }}" />
@@ -92,6 +92,19 @@
             list-style: none;
             counter-increment: list;
         }
+
+    .toogle_eye_form_wrap{
+    position: relative;
+    }
+    .toogle-eye-password {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 2;
+    color: #6c757d;
+    }
+
     </style>
     @section('style')
 

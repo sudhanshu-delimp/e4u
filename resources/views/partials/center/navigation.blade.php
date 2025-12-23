@@ -11,7 +11,7 @@
                             <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
                         </div> --}}
                         <div class="d-user-info">
-                           <div class="escort_header_top_menu" style="display: grid; grid-template-columns: 1fr 1fr; font-size: 14px;">
+                           <div class="common_top_menu">
                             <span>
                                 <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name ? substr(auth()->user()->name, 0, 15) : '--' }}</span>  
                             </span>
@@ -19,21 +19,19 @@
                                 <span class="separator">|</span><b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> 
                             </span>
                             <span>
-                                <b>Home State :  </b><span class="user-values" style="padding-left: 10%;">{{auth()->user()->home_state  }} </span>
+                                <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
                             </span>
-                            <span>
-                                <span class="separator">|</span><b>My Agent :  </b>
-                                <span class="user-values" style="padding-left: 15%;">
-
-                                    @if(auth()->user()->my_agent)
-                                    {{ Str::title(auth()->user()->my_agent->name) }}
-                                    @else
-                                        <a href="{{url('/center-dashboard/agent-request') }}" class="request-active"> Request one</a>
-                                    @endif
-                                    
-                                
-                                </span>
+                        <span>
+                            <span class="separator">|</span> <b>My Agent : </b>
+                                @if(auth()->user()->my_agent)<span class="user-values" style="margin-left: -6px;" title="My Agent ID : {{ auth()->user()->my_agent->member_id }}">{{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}} </span>
+                                @else
+                                <span class="user-values" title="">
+                                    <a href="{{url('/escort-dashboard/escort-agency-request') }}" class="request-active"> Request one</a>
+                                    </span>
+                                @endif
+                       
                         </span>
+
                            </div>
                            <div class="gap-b">
                            
@@ -65,7 +63,7 @@
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
 
-                        <form class="form-inline navbar-search form-inline-custom" style="width: 22rem;">
+                        <form class="form-inline navbar-search form-inline-custom d-none" style="width: 22rem;">
                             <div class="input-group dk-border-radius">
                                 <div class="input-group-append">
                                     <button class="btn" type="button">
@@ -165,14 +163,15 @@
 
                                 @if(!auth()->user()->my_agent)
                                 
-                                <a class="dropdown-item" href="{{url('/center-dashboard/agent-request') }}">
+                                <a class="dropdown-item" href="{{ route('agent-request') }}">
                                 @else
                                  <a class="dropdown-item" href="#">   
                                 @endif    
                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                         
                                         @if(auth()->user()->my_agent)
-                                           My Agent ID :   {{ auth()->user()->my_agent->member_id }}
+                                          <span class="user-values" title="My Agent : {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}">
+                                        My Agent ID :  {{ auth()->user()->my_agent->member_id }}</span>
                                         @else
                                            My Agent ID : <span style="color:var(--peach)" class="request-active"> Request one</span>
                                         @endif
@@ -188,7 +187,7 @@
 
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('center.account.edit')}}">
-                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
                                     Edit my account
                                 </a>
 

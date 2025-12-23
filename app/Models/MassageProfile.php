@@ -51,7 +51,10 @@ class MassageProfile extends Model
     {
         return $this->belongsTo('App\Models\Country','nationality_id');
     }
-
+    public function getPhoneAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
 
     public function state()
     {

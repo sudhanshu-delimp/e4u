@@ -6,6 +6,7 @@ use App\Models\Escort;
 use App\Models\Purchase;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use App\Repositories\Playmate\PlaymateInterface;
 
 class DisableEscortProfile extends Command
 {
@@ -28,9 +29,12 @@ class DisableEscortProfile extends Command
      *
      * @return void
      */
-    public function __construct()
+    protected $playmateHistory;
+
+    public function __construct(PlaymateInterface $playmateHistory)
     {
         parent::__construct();
+        $this->playmateHistory = $playmateHistory;
     }
 
     /**
@@ -51,6 +55,9 @@ class DisableEscortProfile extends Command
                 $purchase->update(['status' => 'expire']);
                 $escort = $purchase->escort;
                 if ($escort) {
+                    foreach ($escort->playmates as $playmate) {
+                        $this->playmateHistory->trashPlaymateHistory($escort->id,$playmate->id);
+                    }
                     /**
                      * Detach all playmates this escort added
                      */

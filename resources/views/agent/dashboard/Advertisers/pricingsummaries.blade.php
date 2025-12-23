@@ -15,7 +15,7 @@
     height: 52px !important;
     }
     .list-sec .table td, .table th{
-    border: 1px solid #0c233d;
+    /* border: 1px solid #0c233d; */
     }
 .remove-row{
 padding: 2px 8px 2px 8px !important;
@@ -40,7 +40,7 @@ padding: 2px 8px 2px 8px !important;
                 <!--middle content-->
                 <div class="row">
                     <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1"> Pricing summary</h1>
+                        <h1 class="h1">Pricing summary</h1>
                             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
 
                     </div>
@@ -66,7 +66,7 @@ padding: 2px 8px 2px 8px !important;
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-10">
                         <div id="accordion" class="myacording-design">
                             <div class="card">
                                 <div class="card-header">
@@ -388,7 +388,7 @@ padding: 2px 8px 2px 8px !important;
                                         <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 {{--                                                        <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
-                                                <table id="myTable price-sec" class="table table-bordered table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                <table id="myTable price-sec" class="table dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">                                                           
                                                         
                                                         <tr role="row" class="custom--row">
@@ -461,22 +461,11 @@ padding: 2px 8px 2px 8px !important;
 
 
 
-
-
-
-
 @include('escort.dashboard.partials.playmates-modal')
-
-
-
 @include('partials.snippet.calculater_modal')
 @include('partials.snippet.mc_calculater_popup')
 
-
-
-
-
- @endsection
+@endsection
 
 
  @push('script')

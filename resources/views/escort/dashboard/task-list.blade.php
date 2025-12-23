@@ -7,6 +7,9 @@
             display: inline-block;
             margin: 20px 0px;
         }
+        .table-responsive{
+            overflow: visible;
+        }
         .task-1{
             width: clamp(50%, 8vw, 100%) !important;
 
@@ -63,137 +66,80 @@
             </div>
         </div>
         <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-12 p-0">
-                <!-- Card Body -->
-                <div class="card-body">
-                    <div class="mb-2 row">
-                        <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10">
-                            <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-10">
-                                <div class="total_listing">
-                                    <div><span>In Progress Task : </span></div>
-                                    <div><span class="totalInprogressTask">03</span></div>
+            <div class="row">
+                <div class="col-lg-12 p-0">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="mb-2 row">
+                            <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10">
+                                <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-10">
+                                    <div class="total_listing">
+                                        <div><span>In Progress Task : </span></div>
+                                        <div><span class="totalInprogressTask">03</span></div>
+                                    </div>
+                                    <div class="total_listing">
+                                        <div><span>Open Task : </span></div>
+                                        <div><span class="totalOpenTask">11</span></div>
+                                    </div>
+                                    <div class="total_listing">
+                                        <div><span>Completed Task : </span></div>
+                                        <div><span class="totalCompletedTask">11</span></div>
+                                    </div>
                                 </div>
-                                <div class="total_listing">
-                                    <div><span>Open Task : </span></div>
-                                    <div><span class="totalOpenTask">11</span></div>
-                                </div>
-                                <div class="total_listing">
-                                    <div><span>Completed Task : </span></div>
-                                    <div><span class="totalCompletedTask">11</span></div>
-                                </div>
-                            </div>
-                            
-                            {{-- <button type="submit" id="edit_task" name="submit"
-                                class="btn btn-sm btn-primary shadow-none create-tour-sec">Edit Task</button>
-                                <button type="submit" id="complete_task" name="submit"
-                                class="btn btn-sm btn-primary shadow-none create-tour-sec">Complete Task</button>--}}
-                            {{-- <button type="submit" id="view_task" name="submit"
-                                class="btn btn-sm btn-primary shadow-none create-tour-sec">View Task</button> --}}
-                            {{-- <button type="submit" id="open_task" name="submit"
-                                class="btn btn-sm btn-primary shadow-none create-tour-sec">Open Task</button> --}}
-                            <div class="text-center small d-flex justify-content-end align-items-center gap-10 flex-wrap">
                                 
-                                <span class="mr-2 text-uppercase font-weight-bold">Importance:</span>
-                                <span class="d-flex justify-content-start gap-5 align-items-center">High <i class="fas fa-circle text-high mr-2"></i></span>
-                                <span class="d-flex justify-content-start gap-5 align-items-center">Medium  <i class="fas fa-circle text-medium mr-2"></i></span>
-                               
-                                <span class="d-flex justify-content-start gap-5 align-items-center">Low <i class="fas fa-circle text-low"></i></span>
-                                <button type="submit" id="new_task" name="submit"
-                                class="btn btn-sm btn-primary shadow-none create-tour-sec">New Task</button>
+                                {{-- <button type="submit" id="edit_task" name="submit"
+                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">Edit Task</button>
+                                    <button type="submit" id="complete_task" name="submit"
+                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">Complete Task</button>--}}
+                                {{-- <button type="submit" id="view_task" name="submit"
+                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">View Task</button> --}}
+                                {{-- <button type="submit" id="open_task" name="submit"
+                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">Open Task</button> --}}
+                                <div class="text-center small d-flex justify-content-end align-items-center gap-10 flex-wrap">
+                                    
+                                    <span class="mr-2 text-uppercase font-weight-bold">Importance:</span>
+                                    <span class="d-flex justify-content-start gap-5 align-items-center">High <i class="fas fa-circle text-high mr-2"></i></span>
+                                    <span class="d-flex justify-content-start gap-5 align-items-center">Medium  <i class="fas fa-circle text-medium mr-2"></i></span>
+                                
+                                    <span class="d-flex justify-content-start gap-5 align-items-center">Low <i class="fas fa-circle text-low"></i></span>
+                                    <button type="submit" id="new_task" name="submit"
+                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">New Task</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {{-- <div class="d-flex align-items-center mt-4 justify-content-between">
-                        <label class="font-weight-bold mb-0">Task</label>
-                        <div class="text-center ">
-                            <label class="font-weight-bold mb-0" style="margin-left: 220px;">Status</label>
-                        </div>
-                        <div class="text-center">
-                            <label class="font-weight-bold mb-0" style="margin-right: 35px">Action</label>
-                        </div>
-                    </div> --}}
-                    {{-- $tasks --}}
-                    <div class="card-body p-0 Dash-table task_table">
-                        <div class="table-full-width table-responsive">
-                            <table class="table table-bordered " >
-                                <thead style="background-color: #0C223D; color: #ffffff;">
-                                    <tr>
-                                        <th>Task</th>
-                                        <th class="text-center">Status</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="taskList">
-                                    
-                                    {{-- @foreach ($tasks as $task)
-
-                                        @php
-                                            
-                                            $taskBadgeColor = '#f6c23e ';
-                                            if($task->status === 'inprogress'){
-                                                $taskBadgeColor = '#4e73df ';
-                                            }
-
-                                            if($task->status === 'completed'){
-                                                $taskBadgeColor = '#1cc88a';
-                                            }
-
-                                            $priorityColor = 'text-high';
-                                            if($task->priority === 'medium'){
-                                                $priorityColor = 'text-medium';
-                                            }
-                                            if($task->priority === 'low'){
-                                                $priorityColor = 'text-low';
-                                            }
-                                            $checkboxId = 'task_checkbox_' . $task->id;
-                                        @endphp
+                        {{-- <div class="d-flex align-items-center mt-4 justify-content-between">
+                            <label class="font-weight-bold mb-0">Task</label>
+                            <div class="text-center ">
+                                <label class="font-weight-bold mb-0" style="margin-left: 220px;">Status</label>
+                            </div>
+                            <div class="text-center">
+                                <label class="font-weight-bold mb-0" style="margin-right: 35px">Action</label>
+                            </div>
+                        </div> --}}
+                        {{-- $tasks --}}
+                        <div class="card-body p-0 Dash-table task_table">
+                            <div class="table-responsive">
+                                <table class="table" >
+                                    <thead class="bg-first">
                                         <tr>
-                                            <td class="border-0 pl-0 pr-0">
-                                                <div class="form-check m-0 p-0">
-                                                    <label class="form-check-label" for="{{ $checkboxId }}">
-                                                        <input class="form-check-input" id="{{ $checkboxId }}" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="border-0 pl-0 task-color">
-                                                <label for="{{ $checkboxId }}" class="mb-0 cursor-pointer">
-                                                <i
-                                                    class="fas fa-circle {{$priorityColor}} taski mr-2"></i>{{Str::title($task->title)}}
-                                                </label></td>
-                                            <td class="td-actions text-left border-0 ">
-                                                <span class="badge badge-danger-lighten task-1" style="background: {{$taskBadgeColor}}; padding:5px 10px; max-width:120px; width:100%;">{{Str::title($task->status)}}</span>
-                                            </td>
-                                            <td class="theme-color  pr-0 bg-white" style="border: none;">
-                                                <div class="dropdown no-arrow">
-                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i
-                                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                    </a>
-                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                        aria-labelledby="dropdownMenuLink" style="">
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban">Delete</a>
-                                                        
-                                                    </div>
-                                                </div>
-                                            </td>
+                                            <th>Task</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
-                                    @endforeach --}}
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="d-flex justify-content-end mt-4 custome_paginator">
-                            {{-- {!! $tasks->links() !!} --}}
+                                    </thead>
+                                    <tbody id="taskList">
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="d-flex justify-content-end mt-4 custome_paginator">
+                                {{-- {!! $tasks->links() !!} --}}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>  
 
     <!-- open tour section button -->
@@ -260,9 +206,12 @@
             </div>
         </div>
     </div>
+    
 @endsection
 @section('script')
+
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script>
         $(document).ready(function() {
 

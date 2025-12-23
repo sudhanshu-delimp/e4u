@@ -41,9 +41,8 @@ Route::post('save-bank-details',[EscortAccountController::class,'saveBankDetails
 Route::get('bank-details',[EscortAccountController::class,'BankDataTable'])->name('escort.bankDetail.dataTable');
 Route::post('check-bank-otp',[EscortAccountController::class,'checkOTP'])->name('escort.checkOTP');
 Route::post('delete-escort-bank/{id}',[EscortAccountController::class,'deleteEscortBank']);
-
-
-
+Route::post('update-bank-pin',[EscortAccountController::class,'updateBankPin'])->name('escort.update.bank.pin');
+Route::post('send-otp-for-pin-change',[EscortAccountController::class,'sendOtpForPinChange'])->name('escort.sendOtpForPinChange');
 
 //END
 
@@ -71,8 +70,11 @@ Route::get('/change-password', [EscortController::class, 'editPassword'])->name(
 Route::post('/change-password', [UserController::class, 'updatePassword'])->name('escort.update.password');
 Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('escort.update.password.expiry');
 
-//Route::get('/profile-information', [EscortController::class, 'ProfileInformation'])->name('escort.profile.information');
+
 Route::get('/notifications-features', [EscortController::class, 'notificationsFeatures'])->name('escort.profile.notifications');
+Route::post('/notifications-features', [EscortController::class, 'updateNotificationsFeatures'])->name('escort.profile.notifications');
+
+
 Route::get('/upload-my-avatar', [EscortController::class, 'uploadAvatar'])->name('escort.profile.avatar');
 
 Route::get('profile/{id}',[UpdateController::class,'updateProfile'])->name('escort.update.profile');
@@ -384,9 +386,9 @@ Route::get('code-of-conduct',function(){
 })->name('escort.code-of-conduct');
 
 Route::get('/my-playmates',[MyPlaymatesContoller::class,'index'])->name('escort.dashboard.my-playmates');
-Route::get('/my-user-playmates-ajax',[MyPlaymatesContoller::class,'dashboardUserPlaymatesListAjax'])->name('escort.get.user-playmates-by-ajax');
-Route::post('/my-playmates-ajax',[MyPlaymatesContoller::class,'getPlaymatesDataByAjax'])->name('escort.get.my-playmates-by-ajax');
-Route::post('/remove-my-playmates-ajax',[MyPlaymatesContoller::class,'removePlaymatesByAjax'])->name('escort.remove.my-playmates-by-ajax');
+Route::post('/my-playmates',[MyPlaymatesContoller::class, 'myPlaymateDataTable'])->name('escort.dashboard.my-playmates');
+Route::post('/get-playmate-listings',[MyPlaymatesContoller::class, 'getPlaymateListingsDataTable'])->name('escort.dashboard.get-playmate-listings');
+Route::post('/trash-playmate-history',[MyPlaymatesContoller::class, 'trashPlaymateHistory'])->name('escort.dashboard.trash-playmate-history');
 
 Route::get('home-state/',[EscortController::class, 'homeState'])->name('escort.home-state');
 Route::post('add-playmate/{id}',[ProfileInformationController::class, 'savePlaymate'])->name('escort.add.playmate');

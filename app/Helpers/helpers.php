@@ -7,19 +7,22 @@
 use Carbon\Carbon;
 use App\Models\City;
 use App\Models\User;
+use App\Sms\SendSms;
 use App\Models\State;
 use App\Models\Escort;
 use App\Models\Country;
+use App\Mail\LoginOtpMail;
 use App\Models\EscortMedia;
+use Illuminate\Support\Str;
+
 use Illuminate\Http\Request;
 use App\Models\EscortStatistics;
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 
 if (!function_exists('old_calculateTotalFee')) {
     function old_calculateTotalFee($plan = 0, $days = 0)
@@ -428,9 +431,9 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
 }
 
 if (!function_exists('getDefaultBannerTemplates')) {
-    function getBannerTemplates()
+    function getBannerTemplates($group = 0)
     {
-        return EscortMedia::where(['type' => 0, 'position' => 9])
+        return EscortMedia::where(['type' => 0, 'banner_group' => strval($group), 'position' => 9])
             ->whereNull('user_id')
             ->get();
     }
@@ -458,6 +461,17 @@ if (!function_exists('logErrorLocal')) {
             } else {
                 Log::info($error);
             }
+        }
+    }
+}
+
+if (!function_exists('log_info')) {
+    function log_info($message)
+    {
+        if (is_array($message)) {
+            Log::info(json_encode($message));
+        } else {
+            Log::info($message);
         }
     }
 }
@@ -651,6 +665,16 @@ function basicDateFormat($date)
     }
 }
 
+function sqlDateFormat($date)
+{
+    if ($date) {
+        return \Carbon\Carbon::parse($date)->format('Y-m-d');
+    } else {
+        return '';
+    }
+}
+
+
 function formatLabelAttribute($label)
 {
     if (empty($label)) {
@@ -769,5 +793,184 @@ if (!function_exists('getLoginRoute')) {
             $loginLInk = 'shareholder.login';
         }
         return $loginLInk;
+    }
+}
+
+if (!function_exists('formatPhone')) {
+    function formatPhone($number)
+    {
+        if ($number == null || empty($number)) {
+            return $number;
+        }
+        // Remove anything that is not a digit
+        $digits = preg_replace('/\D/', '', $number);
+
+        // Format: 4 digits + space + 3 digits + space + 3 digits
+        if (strlen($digits) === 10) {
+            return substr($digits, 0, 4) . ' ' .
+                substr($digits, 4, 3) . ' ' .
+                substr($digits, 7, 3);
+        }
+
+        // If not 10 digits, return original number
+        return $number;
+    }
+}
+
+
+if (!function_exists('sendLoginOtpEmail')) {
+    function sendLoginOtpEmail($otp, $user)
+    {
+        log_info('sendLoginOtpEmail');
+
+        if (isset($user->email) && $user->email != "") {
+
+            try {
+                if ($user && $user->type == '5')
+                    $username = $user->business_name;
+                else
+                    $username = $user->name;
+
+                $data = [
+                    'username' => $username,
+                    'otp'      => $otp,
+                    'member_id'      => $user->member_id,
+                ];
+
+                Mail::send('emails.login_otp', $data, function ($message) use ($user) {
+                    $message->to($user->email)
+                        ->subject('Login Otp');
+                });
+
+                return true;
+            } catch (Exception $e) {
+                logErrorLocal($e);
+            }
+        }
+    }
+}
+
+
+if (!function_exists('sendLoginOtpSms')) {
+    function sendLoginOtpSms($otp, $user)
+    {
+        log_info('sendLoginOtpSms');
+        if (isset($user->phone) && $user->phone != "") {
+
+            if ($user && $user->type == '5')
+                $username = $user->business_name;
+            else
+                $username = $user->name;
+
+            $msg = "Hello " . $username . ", your one-time login OTP is " . $otp . ".If you didn’t request this, please ignore this message.";
+            $sendotp = new SendSms();
+            $output = $sendotp->send_otp_sms($user->phone, $msg);
+        }
+    }
+}
+
+
+if (!function_exists('formatMobileNumber')) {
+    function formatMobileNumber($number)
+    {
+
+
+        $number = preg_replace('/\D/', '', $number);
+        $length = strlen($number);
+
+        // If 4 or fewer digits → return as is
+        if ($length <= 4) {
+            return $number;
+        }
+
+        // First 4 digits
+        $part1 = substr($number, 0, 4);
+        $remaining = substr($number, 4);
+
+        // Split remaining into groups of 3, last can be 1 or 2 digits
+        $groups = [];
+
+        while (strlen($remaining) > 3) {
+            $groups[] = substr($remaining, 0, 3);
+            $remaining = substr($remaining, 3);
+        }
+
+        // Add last 1–3 digit remainder
+        if (strlen($remaining) > 0) {
+            $groups[] = $remaining;
+        }
+
+        return $part1 . ' ' . implode(' ', $groups);
+    }
+}
+
+if (!function_exists('removeSpaceFromString')) {
+    function removeSpaceFromString($number)
+    {
+        $number = trim((string) $number);
+        return preg_replace('/[^\p{N}]/u', '', $number);
+    }
+}
+
+if (!function_exists('getUserWiseLastLoginTime')) {
+    function getUserWiseLastLoginTime($user)
+    {
+        $timeZone = config('app.escort_server_timezone');
+        $stateId = $user->current_state_id ? $user->current_state_id : $user->state_id;
+        if ($stateId) {
+            $timeZone = config('escorts.profile.states')[$stateId]['timeZone'];
+        }
+        $lastLoginTime = $user->lastLoginTime->updated_at;
+        if ($user->lastLoginTime) {
+            $lastLoginTime = Carbon::parse($lastLoginTime, 'UTC')
+                ->setTimezone($timeZone)
+                ->format('d-m-Y h:i:s A');
+        }
+        return $lastLoginTime;
+    }
+}
+
+if (!function_exists('formatAccountNumber')) {
+    function formatAccountNumber($number)
+    {
+        if (empty($number)) {
+            return $number;
+        }
+
+        // Remove non-digits
+        $digits = preg_replace('/\D/', '', $number);
+        $length = strlen($digits);
+
+        //  Rule based on digit length
+        switch ($length) {
+
+            case 6:
+                // 123456 → 123-456
+                return substr($digits, 0, 3) . '-' . substr($digits, 3, 3);
+
+            case 7:
+                // 1234567 → 123-4567
+                return substr($digits, 0, 3) . '-' . substr($digits, 3, 4);
+
+            case 8:
+                // 12345678 → 1234-5678
+                return substr($digits, 0, 4) . '-' . substr($digits, 4, 4);
+
+            case 9:
+                // 123456789 → 123-456-789
+                return substr($digits, 0, 3) . '-' .
+                    substr($digits, 3, 3) . '-' .
+                    substr($digits, 6, 3);
+
+            case 10:
+                // 1234567890 → 1234-567-890
+                return substr($digits, 0, 4) . '-' .
+                    substr($digits, 4, 3) . '-' .
+                    substr($digits, 7, 3);
+
+            default:
+                // Fallback (return as-is)
+                return $number;
+        }
     }
 }

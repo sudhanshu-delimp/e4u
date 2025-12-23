@@ -516,15 +516,25 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $collection = $collection->where('city_id', '=', $str['city_id']);
         }
 
-        if (isset($str['interest']) && $str['interest'] != null) // $params['interest']
-        {
-            $collection = $collection->whereIn('gender', json_decode($str['interest']));
-        }
+        // if (isset($str['interest']) && $str['interest'] != null) // $params['interest']
+        // {
+        //     $collection = $collection->whereIn('gender', json_decode($str['interest']));
+        // }
 
         if ($str['gender'] != null) {
 
             $collection = $collection->where('gender', '=', $str['gender']);
             //->orWhere('name','LIKE','%'.$str)
+        }
+        else
+        {
+           
+            if (!empty($str['interest'])) {
+                $interests = array_unique($str['interest']);
+                if (is_array($interests)) {
+                  $collection = $collection->whereIn('gender', $interests);
+                }
+            }
         }
 
         if (!empty($str['age'])) {

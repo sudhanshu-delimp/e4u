@@ -37,8 +37,12 @@
                         </span>
                         </button>
                     </div>
-                    <div class="modal-body bodytext">Are you sure that you want to logout?</div>
-                    <div class="modal-footer">
+                    <div class="modal-body text-center">
+                        <h5 class="popu_heading_style mb-0 mt-4">
+                                Are you sure that you want to logout?
+                        </h5>
+                    </div>
+                    <div class="modal-footer justify-content-center">
                         <button class="btn-cancel-modal btncancel" type="button" data-dismiss="modal">Cancel</button>
                         <form id="modalform" method="POST" action="{{ route('advertiser.logout') }}">
                             @csrf
@@ -63,6 +67,7 @@
         <!--<script src="{{ asset('assets/app/js/demo/chart-area-demo.js') }}"></script>
         <script src="{{ asset('assets/app/js/demo/chart-pie-demo.js') }}"></script>-->
         <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
+         <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
         <script>
             jQuery.browser = {};
             (function () {
@@ -228,24 +233,38 @@
         </script>  
 <script>
                 
-                 var initJsDatePicker = function(){
-                    $(".js_datepicker").attr('placeholder','DD-MM-YYYY');
-                    $(".js_datepicker").attr('autocomplete','off');
-                    $(".js_datepicker").datepicker({
+                var initJsDatePicker = function() {
+                var $inputs = $(".js_datepicker");
+                if ($inputs.length > 0) {
+                    $inputs.attr('placeholder','DD-MM-YYYY');
+                    $inputs.attr('autocomplete','off');
+                    $inputs.datepicker({
                         dateFormat: "dd-mm-yy",
                         changeMonth: true,
                         changeYear: true,
                         showAnim: "slideDown",
-                        constrainInput: false,
                         onSelect: function(dateText) {
-                            const event = new Event('change', { bubbles: true });
-                            this.dispatchEvent(event); // 👈 manually trigger change event
+                            $(this).trigger('change');
                         }
                     });
                 }
+            }
+
+            $(document).ready(function() {
                 initJsDatePicker();
+            });
+
+
+
+                window.App = {
+                    userId: {{ auth()->id() }},
+                    csrfToken: "{{ csrf_token() }}",
+                    baseUrl: "{{ asset('') }}"
+                };
+                console.log(window.App);
+
             </script> 
-           @include('modal.change-password')
+          
 
     </body>
 </html>

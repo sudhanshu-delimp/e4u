@@ -249,7 +249,7 @@ class CenterController extends Controller
     }
     public function update(UpdateEscortRequest $request)
     {
-        //dd($request->all());
+        //dd($request->all());  // "payID_name" => "5386363869" "paID_no" => "8998"
         $data = [];
         $data = [
             'name' => $request->name,
@@ -261,6 +261,8 @@ class CenterController extends Controller
             // 'state_id'=>$request->state_id,
             // 'email'=>$request->email ? $request->email : null,
             //'social_links'=>$request->social_links,
+            'pay_id_name'=>$request->payID_name,
+            'pay_id_no'=>$request->paID_no,
         ];
 
         $error = true;
@@ -324,8 +326,9 @@ class CenterController extends Controller
         $state = config('escorts.profile.states')[$user->state_id]['stateName'] ?? '';
         $logAndStatus = $user->LoginStatus;
         $passwirdExpire = $user->account_setting;
+        $getLastLoginTime = getUserWiseLastLoginTime($user);
         $passwordExpiryText = CheckExpireDate($passwirdExpire->password_expiry_days);
-        return view('center.dashboard.logs-and-status',compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire'));
+        return view('center.dashboard.logs-and-status',compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire', 'getLastLoginTime'));
     }
 
     public function updatePasswordDuration(UpdateEscortRequest $request)
@@ -364,7 +367,7 @@ class CenterController extends Controller
     }
 
 
-
+    
    
 
 }

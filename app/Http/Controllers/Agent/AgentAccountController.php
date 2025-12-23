@@ -115,12 +115,7 @@ class AgentAccountController extends BaseController
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Escort  $escort
-     * @return \Illuminate\Http\Response
-     */
+   
     public function edit()
     {
         $user = User::with('agent_detail')->where('id',auth()->user()->id)->first();
@@ -143,188 +138,79 @@ class AgentAccountController extends BaseController
         return view('agent.dashboard.bank_account',compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateEscortRequest  $request
-     * @param  \App\Models\Escort  $escort
-     * @return \Illuminate\Http\Response
-     */
+   
+
     public function generateOTP(){
         $otp = mt_rand(1000,9999);
         return $otp;
     }
-    public function saveBankDetails(StoreAgentBankDetailRequest $request ,$id = null)
+
+
+    // public function saveBankDetails(StoreAgentBankDetailRequest $request ,$id = null)
+    // {
+    //     $value = $request->all();
+    //     session($value);
+    //     $error = false;
+    //     $user = auth()->user();
+    //     $phone = $user->phone;
+    //     $otp = $this->generateOTP();
+    //     $user->otp = $otp;
+    //     $user->save();
+    //     $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+    //     $sendotp = new SendSms();
+    //     $output = $sendotp->send($phone,$msg);
+    //     $user_id = $user->id;
+
+    //     return response()->json(compact('error','phone','otp'));
+
+    //     // $data = [];
+    //     // $data = [
+    //     //         'bank_name' => $request->bank_name,
+    //     //         'bsb' => $request->bsb,
+    //     //         'account_name' => $request->account_name,
+    //     //         'account_number' => $request->account_number,
+    //     //         'state' => $request->state,
+    //     //         'user_id' => auth()->user()->id,
+    //     //     ];
+    //     // if(isset($request->bankId)) {
+    //     //     $id = $request->bankId;
+    //     //     $error = false;
+
+    //     //     $otp = $this->generateOTP();
+    //     //     $user->otp = $otp;
+    //     //     $user->save();
+    //     //     $msg = "Never tell anyone this code. Your E4U one time password code is: ".$otp;
+
+
+    //     //     $sendotp = new SendSms();
+    //     //     $output = $sendotp->send($phone,$msg);
+    //     //     $user_id = $user->id;
+
+    //     //     return response()->json(compact('error','phone','id','otp'));
+    //     // } else {
+    //     //     $id = null;
+    //     //     $this->agentBankDetail->store($data, $id);
+    //     //     $error = false;
+    //     // }
+
+
+    // }
+
+   
+
+
+    public function deleteAgentBank(Request $request)
     {
-        //dd($request->all());
-        $value = $request->all();
-        session($value);
-        $error = false;
-        $user = auth()->user();
-        $phone = $user->phone;
-        $otp = $this->generateOTP();
-        $user->otp = $otp;
-        $user->save();
-        $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
-        $sendotp = new SendSms();
-        $output = $sendotp->send($phone,$msg);
-        $user_id = $user->id;
-
-        return response()->json(compact('error','phone','otp'));
-
-        // $data = [];
-        // $data = [
-        //         'bank_name' => $request->bank_name,
-        //         'bsb' => $request->bsb,
-        //         'account_name' => $request->account_name,
-        //         'account_number' => $request->account_number,
-        //         'state' => $request->state,
-        //         'user_id' => auth()->user()->id,
-        //     ];
-        // if(isset($request->bankId)) {
-        //     $id = $request->bankId;
-        //     $error = false;
-
-        //     $otp = $this->generateOTP();
-        //     $user->otp = $otp;
-        //     $user->save();
-        //     $msg = "Never tell anyone this code. Your E4U one time password code is: ".$otp;
-
-
-        //     $sendotp = new SendSms();
-        //     $output = $sendotp->send($phone,$msg);
-        //     $user_id = $user->id;
-
-        //     return response()->json(compact('error','phone','id','otp'));
-        // } else {
-        //     $id = null;
-        //     $this->agentBankDetail->store($data, $id);
-        //     $error = false;
-        // }
-
-
-    }
-    public function deleteAgentBank(StoreAgentBankDetailRequest $request , $id)
-    {
-
-        $error = false;
-        $bank = $this->agentBankDetail->find($id);
-        if($bank->state === 1) {
-            $error = true;
+        $deleted = $this->agentBankDetail->deleteAgentBankDetail($request->id);
+        if ($deleted['status']) {
+            return $this->successResponse($deleted['message']);
         } else {
-            $this->agentBankDetail->destroy($id);
+            return $this->validationError($deleted['message']);
         }
 
-        return response()->json(compact('error','id'));
-
-
     }
-    public function checkOTP(StoreAgentBankDetailRequest $request)
-    {
-
-        $data = $request->session()->all();
-        //dd($data);
-
-        $error = 1;
-
-        //dd($user->otp);
-
-        $user = auth()->user();
-        if($user->otp == (int)$request->otp) {
-
-            $user->otp = null;
-            $user->save();
-            $bank_data = [
-                'bank_name' => $request->session()->exists('bank_name') ? $data['bank_name'] : '',
-                'bsb' => $data['bsb'],
-                'account_name' => $data['account_name'],
-                'account_number' => $data['account_number'],
-                'state' => $data['state'],
-                'user_id' => auth()->user()->id,
-            ];
 
 
-            //dd($bank_data);
-            if($request->session()->has('bankId')) {
-                // dd("bnak id");
-                $id = $data['bankId'];
-                $bankId = $this->agentBankDetail->find($id);
-
-                unset($bank_data['bank_name']);
-                if($bankId->state == 2 && $bankId->state == $data['state']) {
-                    $error = 0;
-                    //dd($bank_data);
-                    $this->agentBankDetail->store($bank_data, $id);
-                }
-                else if($bankId->state == 1 && $bankId->state == $data['state']) {
-                    $error = 3; // Primary account not updated
-                    //dd($bank_data);
-                    //$this->agentBankDetail->store($bank_data, $id);
-                }
-                else if($bankId->state == 2 && $data['state'] == 1) {
-                    $error = 0;
-                    //dd($bank_data);
-                    $this->agentBankDetail->store($bank_data, $id);
-                    $this->agentBankDetail->updatebyState(auth()->user()->id, $id);
-                } else {
-                    $error = 3; // Primary account not updated
-                }
-
-                // if($this->agentBankDetail->findByState(auth()->user()->id) != 0 && $data['state'] == 2) {
-                //     $error = 3; // Primary account not updated
-                // } else {
-                //     $error = 0;
-                //     //dd($bank_data);
-                //     $this->agentBankDetail->store($bank_data, $id);$this->agentBankDetail->updatebyState(auth()->user()->id, $id);
-                //     $request->session()->flash('status', 'Task was successful!');
-                // }
-
-
-
-            } else {
-                $id = null;
-                if($this->agentBankDetail->findByState(auth()->user()->id) == 0 && $data['state'] == 1){
-                    $bankdata = $this->agentBankDetail->store($bank_data, $id);
-                    $id = $bankdata->id;
-                    $this->agentBankDetail->updatebyState(auth()->user()->id, $id);
-                    $error = 0;
-                } else if($this->agentBankDetail->findByState(auth()->user()->id) == 0 && $data['state'] == 2) {
-                    $error = 2;// please select primary account
-
-                } else if($this->agentBankDetail->findByState(auth()->user()->id) != 0 && $data['state'] == 2) {
-                    $error = 0;
-                    $id = null;
-                    $bankdata = $this->agentBankDetail->store($bank_data, $id);
-                } else {
-                    $error = 0;
-                    $id = null;
-                    $bankdata = $this->agentBankDetail->store($bank_data, $id);
-                    $bid = $bankdata->id;
-                    $this->agentBankDetail->updatebyState(auth()->user()->id, $bid);
-
-                }
-
-                // dd();
-                // $bankdata = $this->agentBankDetail->store($bank_data, $id);
-                // $error = false;
-
-                // if($data['state'] == 1) {
-                //     $id = $bankdata->id;
-                //     $this->agentBankDetail->updatebyState(auth()->user()->id, $id);
-                // }
-            }
-            $request->session()->flash('status', 'Task was successful!');
-            return response()->json(compact('error','bank_data'));
-            //return $this->sendLoginResponse($request);
-        } else {
-
-            return $this->sendFailedLoginResponse($request);
-        }
-        // $req = $request->only($this->username(), 'password','type');
-        //$req = $request->only($this->username(), 'password','type');
-        // dd($req);
-        //return $request->only($this->username(), 'password','type');
-    }
     public function update(UpdateEscortRequest $request)
     {
 
@@ -452,9 +338,9 @@ class AgentAccountController extends BaseController
 
         return response()->json(compact('template', 'message'));
     }
-    public function BankDataTable()
+    public function BankDataTable() 
     {
-        list($agentBankDetail, $count) = $this->agentBankDetail->paginatedByAgentBankDetail(
+        list($agentBankDetail, $count, $primary_account,$primary_bank_acc_id) = $this->agentBankDetail->paginatedByAgentBankDetail(
             request()->get('start'),
             request()->get('length'),
             request()->get('order')[0]['column'],
@@ -468,6 +354,8 @@ class AgentAccountController extends BaseController
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
+            "primary_account" => intval($primary_account),
+            "primary_bank_acc_id" => intval($primary_bank_acc_id),
             "data"            => $agentBankDetail
         );
 
@@ -485,5 +373,50 @@ class AgentAccountController extends BaseController
         return $this->successResponse($resposne['message']);
         else
         return $this->validationError($resposne['message']);
+    }
+
+
+
+
+    public function saveBankDetails(StoreAgentBankDetailRequest $request ,$id = null)
+    {
+
+
+        if($request->bankId=="")
+         {
+             $data = [
+                'bank_name' => $request->bank_name,
+                'bsb' => $request->bsb,
+                'account_name' => $request->account_name,
+                'account_number' => $request->account_number,
+                'state' => $request->state,
+                'user_id' => auth()->user()->id,
+                'replace' => $request->replace,
+            ];
+            $resposne = $this->agentBankDetail->saveAgentBankDetails($data);
+         }
+        else
+        {
+             $data = [
+                'bank_name' => $request->bank_name,
+                'bsb' => $request->bsb,
+                'account_name' => $request->account_name,
+                'account_number' => $request->account_number,
+                'state' => $request->state,
+                'user_id' => auth()->user()->id,
+                'bankId' => $request->bankId,
+                'replace' => $request->replace,
+            ];
+           $resposne = $this->agentBankDetail->updateAgentBankDetails($data);
+        }
+           
+        
+        if($resposne['status'])
+        return $this->successResponse($resposne['message']);
+        else
+        return $this->validationError($resposne['message']);
+
+    
+
     }
 }

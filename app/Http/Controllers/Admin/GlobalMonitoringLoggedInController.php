@@ -123,8 +123,8 @@ class GlobalMonitoringLoggedInController extends Controller
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink" style="">
                                         <a class="viewLoggedUserDetails dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-user-type="' . $row->user->type . '" data-user-id="' . $row->user_id . '"> <i class="fa fa-eye"></i> View Account </a>
-                                                <div class="dropdown-divider"></div>
-                                        <a class="suspendLoggedUser dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-user-id="' . $row->user_id . '" data-status="'.$row->user->status.'"> <i class="fa fa-'.$icon.'"></i> '.$status.' </a>
+                                                <!--div class="dropdown-divider"></div>
+                                        <a class="suspendLoggedUser dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-user-id="' . $row->user_id . '" data-status="'.$row->user->status.'"> <i class="fa fa-'.$icon.'"></i> '.$status.' </a-->
                                     </div>
                                 </div>';
 

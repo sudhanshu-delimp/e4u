@@ -27,8 +27,17 @@ class AgentNotificationController extends Controller
                 ->addColumn('ref', function ($row) {
                     return sprintf('#%05d', $row->id);
                 })
+                ->filterColumn('ref', function ($query, $keyword) {
+                    $digits = ltrim($keyword, '#0');
+                    if ($digits !== '') {
+                        $query->where('id', 'like', "%{$digits}%");
+                    }
+                })
+                // ->orderColumn('ref', function ($query, $order) {
+                //     $query->orderBy('id', $order);
+                // })
                 ->editColumn('start_date', function ($row) {
-                     return basicDateFormat($row['start_date']);
+                    return basicDateFormat($row->start_date);
                 })
                 ->orderColumn('start_date', function ($query, $order) {
                     $query->orderBy('start_date', $order);
@@ -45,20 +54,32 @@ class AgentNotificationController extends Controller
                     $query->orderBy('type', $order);
                 })
                 ->editColumn('end_date', function ($row) {
-                    return basicDateFormat($row['end_date']);
+                    return $row->end_date ? basicDateFormat($row->end_date) : '';
                 })
                 ->orderColumn('end_date', function ($query, $order) {
                     $query->orderBy('end_date', $order);
                 })
                 ->addColumn('action', function ($row) {
                     $actions = [];
-                    // Example: you can add your own business logic for action buttons
-                    if (($row->status ?? null) === 'Published') {
+                    $status = $row->status ?? null;
+
+                    // If published -> offer suspend
+                    if ($status === 'Published') {
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspend</a>';
-                    } elseif (in_array($row->status ?? null, ['Suspended'])) {
+                    }
+
+                    // If suspended -> offer publish and remove
+                    if ($status === 'Suspended') {
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
                     }
+
+                    // If completed -> offer remove
+                    if ($status === 'Completed') {
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                    }
+
+                    // Common actions
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-edit" data-id="' . $row->id . '"><i class="fa fa-fw fa-edit"></i> Edit</a>';
 
@@ -73,7 +94,7 @@ class AgentNotificationController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action', 'start_date', 'end_date'])
+                ->rawColumns(['action', 'start_date', 'end_date', 'ref'])
                 ->make(true);
         }
         return view('admin.notifications.agents.index');
@@ -98,7 +119,7 @@ class AgentNotificationController extends Controller
     {
         try {
             $notification = AgentNotification::findOrFail($id);
-            $allowed = ['Published', 'Suspended', 'Suspended', 'Removed'];
+            $allowed = ['Published', 'Suspended', 'Removed'];
             $status = $request->input('status');
             if($status == 'Removed'){
                  $notification->delete();
@@ -158,14 +179,16 @@ class AgentNotificationController extends Controller
     {
 
         try {
+            $isUpdate = !empty($request->notificationId);
             $data = [
                 'current_day' => Carbon::createFromFormat('d-m-Y', $request->current_day)->toDateString(),
                 'heading' => $request->heading,
                 'type' => $request->type,
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
+                'start_date' => sqlDateFormat($request->start_date),
+                'end_date' => sqlDateFormat($request->end_date),
                 'content' => $request->content,
             ];
+            //dd($data);
 
             if ($request->type === 'Notice') {
                 $data['member_id'] = $request->member_id;
@@ -181,23 +204,14 @@ class AgentNotificationController extends Controller
                         $data['end_day'] = $request->end_day_week;
                         $weekStartDay = (int) $request->start_day_week;
                         $weekEndDay = (int) $request->end_day_week;
-                        //$numRecurring = $data['num_recurring'];
                         $numRecurring = $request->recurring;
-                        // Get Sunday of this week as base date
                         $startDate = Carbon::today()->startOfWeek(Carbon::SUNDAY);
-
-                        // Calculate start_date by adding (start_day_week - 1) days to Sunday
                         $actualStartDate = $startDate->copy()->addDays($weekStartDay - 1);
                         $data['start_date'] = $actualStartDate->toDateString();
-
-
-
                         $dates = [];
-                        // Calculate exact dates for each recurrence week
                         for ($weekIndex = 0; $weekIndex < $numRecurring; $weekIndex++) {
                             $weekStartDate = $startDate->copy()->addWeeks($weekIndex);
                             for ($day = $weekStartDay; $day <= $weekEndDay; $day++) {
-                                // day 1 means week start day, so add ($day - 1)
                                 $date = $weekStartDate->copy()->addDays($day - 1);
                                 $dates[] = $date->toDateString();
                             }
@@ -208,32 +222,25 @@ class AgentNotificationController extends Controller
                     case 'monthly':
                         $monthStartDay = (int) $request->start_day_monthly;
                         $monthEndDay = (int) $request->end_day_monthly;
+                        $data['start_day'] = $monthStartDay;
+                        $data['end_day'] = $monthEndDay;
                         $numRecurring = $data['num_recurring'];
-
-                        // Prefer UI start_date if available, else current date
                         $baseDate = isset($request->start_date) ? Carbon::parse($request->start_date) : Carbon::now();
-
-                        // Create startDate with start_day (with day validation)
                         $startDateDay = min($monthStartDay, $baseDate->daysInMonth);
                         $startDate = $baseDate->copy()->startOfMonth()->day($startDateDay);
-
                         $dates = [];
                         for ($monthIndex = 0; $monthIndex < $numRecurring; $monthIndex++) {
-                            $monthStartDate = $startDate->copy()->addMonthsNoOverflow($monthIndex); // safer month addition
+                            $monthStartDate = $startDate->copy()->addMonthsNoOverflow($monthIndex);
                             for ($day = $monthStartDay; $day <= $monthEndDay; $day++) {
-                                // Validate day exists in month
                                 if ($monthStartDate->copy()->day($day)->month == $monthStartDate->month) {
                                     $dates[] = $monthStartDate->copy()->day($day)->toDateString();
                                 }
                             }
                         }
                         $data['scheduled_days'] = implode(',', $dates);
-
-                        // Calculate end_date as last day in series (without subDay)
                         $lastMonthDate = $startDate->copy()->addMonthsNoOverflow($numRecurring - 1);
                         $endDayValid = min($monthEndDay, $lastMonthDate->daysInMonth);
                         $data['end_date'] = $lastMonthDate->copy()->day($endDayValid)->toDateString();
-
                         $data['start_date'] = $startDate->toDateString();
                         break;
                     case 'yearly':
@@ -242,63 +249,44 @@ class AgentNotificationController extends Controller
                         $endMonth = (int) $request->end_month_yearly;
                         $endDay = (int) $request->end_day_yearly;
                         $numRecurring = $data['num_recurring'];
-
-                        // Parse base startDate: agar UI se start_date nahi to current year ka use karo
                         $baseYear = isset($request->start_date) ? Carbon::parse($request->start_date)->year : Carbon::now()->year;
-
-                        // Set start date properly with startMonth, startDay & base year
                         $startDate = Carbon::create($baseYear, $startMonth, min($startDay, Carbon::create($baseYear, $startMonth)->daysInMonth));
                         $data['start_date'] = $startDate->toDateString();
-
                         $dates = [];
                         for ($yearIndex = 0; $yearIndex < $numRecurring; $yearIndex++) {
                             $currentYear = $baseYear + $yearIndex;
-
-                            // Create start and end date for this year (day validation)
                             $carbonStart = Carbon::create($currentYear, $startMonth, min($startDay, Carbon::create($currentYear, $startMonth)->daysInMonth));
                             $carbonEnd = Carbon::create($currentYear, $endMonth, min($endDay, Carbon::create($currentYear, $endMonth)->daysInMonth));
-
-                            // If end month is smaller than start month, consider year wrap
                             if ($endMonth < $startMonth) {
-                                // Count till Dec 31 of currentYear then from Jan 1 of nextYear till end date
                                 $decEnd = Carbon::create($currentYear, 12, 31);
                                 $janStartNext = Carbon::create($currentYear + 1, 1, 1);
                                 $janEndNext = Carbon::create($currentYear + 1, $endMonth, min($endDay, Carbon::create($currentYear + 1, $endMonth)->daysInMonth));
-
-                                // Dates from start to Dec 31 currentYear
                                 while ($carbonStart->lessThanOrEqualTo($decEnd)) {
                                     $dates[] = $carbonStart->toDateString();
                                     $carbonStart->addDay();
                                 }
-                                // Dates from Jan 1 nextYear to end date
                                 $carbonStart = $janStartNext;
                                 while ($carbonStart->lessThanOrEqualTo($janEndNext)) {
                                     $dates[] = $carbonStart->toDateString();
                                     $carbonStart->addDay();
                                 }
                             } else {
-                                // Normal same year range
                                 while ($carbonStart->lessThanOrEqualTo($carbonEnd)) {
                                     $dates[] = $carbonStart->toDateString();
                                     $carbonStart->addDay();
                                 }
                             }
                         }
-
                         $data['scheduled_days'] = implode(',', $dates);
-
                         $data['start_month'] = $startMonth;
                         $data['start_day'] = $startDay;
                         $data['end_month'] = $endMonth;
                         $data['end_day'] = $endDay;
-
-                        // Calculate yearly end_date properly as last date of last recurring year range
                         $lastYear = $baseYear + $numRecurring - 1;
                         $endDateYear = $lastYear;
                         $endDateMonth = $endMonth;
                         $endDateDay = min($endDay, Carbon::create($lastYear, $endMonth)->daysInMonth);
                         $data['end_date'] = Carbon::create($endDateYear, $endDateMonth, $endDateDay)->toDateString();
-
                         break;
                     case 'forever':
                         $data['scheduled_days'] = null;
@@ -307,7 +295,21 @@ class AgentNotificationController extends Controller
                 }
             }
 
-            $notification = AgentNotification::create($data);
+            if ($isUpdate) {
+                $notification = AgentNotification::findOrFail($request->notificationId);
+                if($data['end_date'] > date('Y-m-d')){
+                    if($notification->status == 'Completed'){
+                        $data['status'] = 'Published';
+                    }
+                    
+                }
+                $notification->update($data);
+                return success_response($notification, 'Notification updated successfully');
+            } else {
+                $notification = AgentNotification::create($data);
+                return success_response($notification, 'Notification saved successfully');
+            }
+
             return success_response($notification, 'Notification saved successfully');
         } catch (\Exception $e) {
             return error_response('Failed to create notification: ' . $e->getMessage(), 500);
@@ -340,8 +342,8 @@ class AgentNotificationController extends Controller
             $pdfDetail['heading'] = $data['heading'];
             $pdfDetail['type'] = $data['type'];
             $pdfDetail['status'] = $data['status'];
-            $pdfDetail['start_date'] = $data['start_date'] ? basicDateFormat($data['start_date']) : null;
-            $pdfDetail['end_date'] = $data['end_date'] ? basicDateFormat($data['end_date']) : null;
+            $pdfDetail['start_date'] = basicDateFormat($data['start_date']);
+            $pdfDetail['end_date'] = basicDateFormat($data['end_date']);
             $pdfDetail['member_id'] = $data['member_id'];
             $pdfDetail['recurring_type'] = $data['recurring_type'];
             $pdfDetail['recurring_range'] = $recurringRange;
@@ -357,7 +359,10 @@ class AgentNotificationController extends Controller
     public function edit($id){
         try{
             $notification = AgentNotification::findOrFail($id);
-             return success_response($notification, 'Notification saved successfully');
+            $notification->current_day = basicDateFormat($notification->current_day);
+            $notification->start_date = basicDateFormat($notification->start_date);
+            $notification->end_date = basicDateFormat($notification->end_date);
+            return success_response($notification, 'Notification saved successfully');
          } catch (\Exception $e) {
             return error_response('Failed to create notification: ' . $e->getMessage(), 500);
         }

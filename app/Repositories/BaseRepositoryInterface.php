@@ -55,4 +55,6 @@ interface BaseRepositoryInterface
      */
     public function destroy($model);
 
+    public function updateWithCondition(array $condition, array $data);
+
 }

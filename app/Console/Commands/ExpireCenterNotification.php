@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\Models\AgentNotification;
 use App\Models\CenterNotification;
+use App\Models\ViewerNotification;
 
 class ExpireCenterNotification extends Command
 {
@@ -40,12 +41,22 @@ class ExpireCenterNotification extends Command
      */
     public function handle()
     {
-        CenterNotification::where('finish_date', '<', now())->where('status', 'Published')->update(['status' => 'Completed']);
-        
         $today = Carbon::today()->toDateString();
+        CenterNotification::where('end_date', '<', $today)
+                    ->whereNotNull('end_date')
+                    ->where('status', 'Published')
+                    ->update(['status' => 'Completed']);
+        
+       
         AgentNotification::where('status', 'Published')
             ->whereNotNull('end_date')
             ->where('end_date', '<', $today)
+            ->update(['status' => 'Completed']);
+
+
+        ViewerNotification::where('end_date', '<', $today)
+            ->whereNotNull('end_date')
+            ->where('status', 'Published')
             ->update(['status' => 'Completed']);
 
     }

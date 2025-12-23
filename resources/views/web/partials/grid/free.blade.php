@@ -4,7 +4,7 @@
 @endphp
 
 
-<div class="col-lg col-md-6 col-sm-6 mb-2">
+<div class="col-lg col-md-6 col-sm-6 mb-3">
     <a href="{{ route('profile.description',[$escort->id, $escort->city_id, $escort->membership])}}?brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}">
         <div class="card card_box_style">
         @if($escort->latestActiveBrb)

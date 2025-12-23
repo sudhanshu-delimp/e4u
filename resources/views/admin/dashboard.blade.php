@@ -8,7 +8,7 @@
     <!-- Page Heading -->
     <div class="row">
         <div class="col-md-12 custom-heading-wrapper">
-            <h1 class="h1">Dashboard</h1>
+            <h1 class="h1">Dashboard </h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
         <div class="col-md-12 mb-4">
@@ -136,7 +136,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('admin.global') }}">
+                <a href="{{ route('admin.global.notification.index') }}">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/notifications.png') }}" class="my-svg-icons" alt="Notifications (Global)">
                     </div>
@@ -381,6 +381,7 @@
     <!--right side bar end-->
 </div>
 {{-- end --}}
+@include('modal.console-expiry-password')
 @endsection
 @section('script')
 <script>

@@ -17,4 +17,17 @@ class Agent extends Model
       return $this->belongsTo(AgentDetail::class,  'id','agent_id');  
     }
 
+
+    public function getPhoneAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
+
+    public function setPhoneAttribute($value)
+    {
+    
+        $clean = removeSpaceFromString($value);
+        $this->attributes['phone'] = $clean;
+    }
+
 }

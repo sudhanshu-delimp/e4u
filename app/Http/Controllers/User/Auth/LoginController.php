@@ -49,7 +49,10 @@ class LoginController extends Controller
         $show_id = null;
 
         if(! is_null($request->phone)) {
-            $user = User::where('phone','=',$request->phone)->first();
+
+            $mobile_num = removeSpaceFromString($request->phone);
+            $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$mobile_num])->first();
+            //$user = User::where('phone','=',$request->phone)->first();
             if($user == null || $user->type != 0) {
                 return $this->sendFailedLoginResponse($request);
             }
@@ -83,12 +86,17 @@ class LoginController extends Controller
         if (Hash::check($request->password, $user->password)) 
         {
             $error = 1;
-            $phone = $user->phone;
+            $phone = removeSpaceFromString($user->phone);
             $otp = $this->user->generateOTP();
             $user->otp = $otp;
             $path = $request->path;
-            $user->save();
 
+            if(isset($request->current_state_id) && $request->current_state_id!="")
+            {
+                 $user->current_state_id = $request->current_state_id;
+            }
+
+            $user->save();
 
             if(! is_null($request->escort_id)) 
             {
@@ -120,10 +128,12 @@ class LoginController extends Controller
                 }
             }
 
-            $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
-            $sendotp = new SendSms();
-            $output = $sendotp->send($phone,$msg);
-            $id = $user->id;
+            $this->user->sendOtpNotification($user->id,$otp);
+
+            // $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+            // $sendotp = new SendSms();
+            // $output = $sendotp->send($phone,$msg);
+            // $id = $user->id;
             return response()->json(compact('error','phone','path','show_id'));
         } 
         else {

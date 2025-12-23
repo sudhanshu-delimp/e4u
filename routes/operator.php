@@ -11,4 +11,4 @@ Route::get('/change-password', [OperatorController::class, 'changePassword'])->n
 Route::get('/upload-avatar', [OperatorController::class, 'uploadAvatar'])->name('operator.upload-avatar');
 Route::get('/bank-account', [OperatorController::class, 'bankAccount'])->name('operator.bank-account');
 Route::get('/agents-monthly-report', [OperatorController::class, 'agentMonthlyreport'])->name('operator.agents-monthly-report');
-Route::get('/e4u-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.e4u-monthly-report');
+Route::get('/operator-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.operator-monthly-report');

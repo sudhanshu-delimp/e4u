@@ -91,6 +91,36 @@
         </li>
         {{-- end --}}
 
+        {{----------------------------- Reports tab ------------------------------}}        
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Reports-Tab"
+            aria-expanded="true" aria-controls="Reports-Tab">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
+                <span>Reports</span>
+            </a>
+
+            <div id="Reports-Tab"
+                class="collapse @if( request()->segment(2) == 'agents-monthly-report' || request()->segment(2) == 'operator-monthly-report') show @endif"
+                aria-labelledby="headingProfile" data-parent="#accordionSidebar">
+
+                <div class="collapse-inner rounded mb-2">
+                    <a class="collapse-item" href="{{ route('operator.agents-monthly-report') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                         <span style="{{ request()->segment(2) == 'agents-monthly-report' ? 'color: #f5841f;' : '' }}">Agents Monthly</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('operator.operator-monthly-report') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'operator-monthly-report' ? 'color: #f5841f;' : '' }}">
+                            Operator Monthly</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        {{-- end --}}
+
+
         {{-- devider line --}}
         <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;"></li>
         {{-- end --}}
@@ -140,53 +170,6 @@
         </li>
         {{-- end --}}
 
-        {{----------------------------- Agents tab ------------------------------}}        
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Agents-Tab"
-            aria-expanded="true" aria-controls="Agents-Tab">
-                <img src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
-                <span>Agents</span>
-            </a>
-
-            <div id="Agents-Tab"
-                class="collapse @if( request()->segment(2) == 'agents-monthly-report') show @endif"
-                aria-labelledby="headingProfile" data-parent="#accordionSidebar">
-
-                <div class="collapse-inner rounded mb-2">
-                    <a class="collapse-item" href="{{ route('operator.agents-monthly-report') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                         <span style="{{ request()->segment(2) == 'agents-monthly-report' ? 'color: #f5841f;' : '' }}">Monthly Report</span>
-                    </a>
-                </div>
-            </div>
-        </li>
-        {{-- end --}}
-
-
         
-
-        {{----------------------------- E4u ------------------------------}}  
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                aria-expanded="true" aria-controls="collapseTwo">
-                
-                <img src="{{ asset('assets/dashboard/img/logo.svg') }}">
-                <span>E4U</span>
-            </a>
-            <div id="collapseTwo" class="collapse @if (request()->segment(2) == 'e4u-monthly-report') show @endif;"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="collapse-inner rounded pb-0 mb-0 pt-0">
-                    <a class="collapse-item" href="{{ route('operator.e4u-monthly-report') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                        <span
-                            style="{{ request()->segment(2) == 'e4u-monthly-report' ? 'color: #f5841f;' : '' }}">
-                            Monthly Report</span>
-                    </a>
-                    
-                </div>
-            </div>
-        </li>
-        {{-- end --}}
 </ul> 
 <!-- End of Sidebar -->

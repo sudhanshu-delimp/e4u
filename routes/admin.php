@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\VisitorController;
 use App\Http\Controllers\Admin\AdminNumsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ReportingController;
+use App\Http\Controllers\Admin\PostOfficeController;
 use App\Http\Controllers\Admin\PDF\AgentPdfController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Admin\SupportTicketsController;
@@ -19,16 +20,16 @@ use App\Http\Controllers\Admin\AdvertiserReviewsController;
 use App\Http\Controllers\Admin\AgentNotificationController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\CenterNotificationController;
+use App\Http\Controllers\Admin\GlobalNotificationController;
 use App\Http\Controllers\Admin\ViewerNotificationController;
 use App\Http\Controllers\Admin\AdminMakeNotificationController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
-use App\Http\Controllers\Admin\PostOfficeController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {  
-    Route::get('/admin-login', 'DashboardController@index')->name('admin.index');
+    Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
 });
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
 Route::post('/update-account', [DashboardController::class, 'update'])->name('admin.account.update');
@@ -190,14 +191,14 @@ Route::get('cms/email-templates',function(){
 
 
 # Advertiser report section
-Route::get('advertiser-reports',[AdvertiserReportContoller::class, 'index'])->name('admin.advertiser-reports');
+Route::get('reports/advertiser-reports',[AdvertiserReportContoller::class, 'index'])->name('admin.advertiser-reports');
 Route::get('advertiser-reports-ajax',[AdvertiserReportContoller::class, 'getReportByAjax'])->name('admin.advertiser-reports.ajax');
 Route::get('member-single-escort-reports-ajax',[AdvertiserReportContoller::class, 'getSingleMemberEscortReport'])->name('admin.single-member-reports.ajax');
 Route::get('print-single-escort-reports',[AdvertiserReportContoller::class, 'printSingleMemberEscortReport'])->name('admin.print.single-member-reports');
 Route::post('advertiser-report-status',[AdvertiserReportContoller::class, 'updateMemberReportStatus'])->name('admin.advertiser.report-status');
 
 # Advertiser reviews section
-Route::get('advertiser-reviews',[AdvertiserReviewsController::class, 'index'])->name('admin.advertiser-reviews');
+Route::get('reports/advertiser-reviews',[AdvertiserReviewsController::class, 'index'])->name('admin.advertiser-reviews');
 Route::get('advertiser-reviews-ajax',[AdvertiserReviewsController::class, 'getReviewsByAjax'])->name('admin.advertiser-reviews.ajax');
 Route::get('member-single-escort-reviews-ajax',[AdvertiserReviewsController::class, 'getSingleMemberEscortReviews'])->name('admin.single-member-reviews.ajax');
 Route::get('print-single-reviews',[AdvertiserReviewsController::class, 'printSingleMemberEscortReviews'])->name('admin.print.single-member-reviews');
@@ -208,7 +209,7 @@ Route::post('advertiser-reviews-status',[AdvertiserReviewsController::class, 'up
 // })->name('admin.advertiser-reviews');
 
 Route::get('get_registration_report', [ReportingController::class, 'getRegistrationReport'])->name('admin.get_registration_report');
-Route::get('registrations-reports',[ReportingController::class, 'userRegistrationReport'])->name('admin.registrations-reports');
+Route::get('reports/registrations-reports',[ReportingController::class, 'userRegistrationReport'])->name('admin.registrations-reports');
 Route::post('change-user-status',[ReportingController::class, 'changeUserStatus'])->name('admin.change-user-status');
 // Route::get('registrations-reports',function(){
 //     return view('admin.reporting.registrations');
@@ -219,9 +220,11 @@ Route::get('management/dashboard',function(){
     return view('admin.management.management');
 })->name('admin.management');
 
-Route::get('management/commission-statements',function(){
-    return view('admin.management.operator.commission-statements');
-})->name('admin.commission-statements');
+Route::get('management/monthly-fee-reports',function(){
+    return view('admin.management.operator.monthly-fee-reports');
+})->name('admin.monthly-fee-reports');
+
+
 
 Route::get('management/commission-summary',function(){
     return view('admin.management.operator.commission-summary');
@@ -240,7 +243,7 @@ Route::get('management/profile',function(){
     return view('admin.management.statistics.profile');
 })->name('admin.profile');
 
-Route::get('/admin-dashboard/management/statistics/num',function(){
+Route::get('/management/statistics/num',function(){
     return view('admin.management.statistics.num');
 })->name('admin.num');
 
@@ -289,7 +292,7 @@ Route::get('reports/agent-requests',function(){
 Route::get('/post-office/reports',[PostOfficeController::class,'addPostOfficeReport'])->name('admin.reports');
 Route::get('/post-office/send-reports',[PostOfficeController::class,'listingPostOfficeReport'])->name('admin.send-reports');
 
-Route::get('reports-num',[AdminNumsController::class,'index'])->name('admin.num');
+Route::get('reports/num',[AdminNumsController::class,'index'])->name('admin.num');
 Route::get('reports-num-ajax',[AdminNumsController::class,'showReportOnDashboardAjax'])->name('admin.num.ajax');
 Route::post('reports-num-status',[AdminNumsController::class,'updateStatus'])->name('admin.num.status.ajax');
 Route::get('reports-num-email',[AdminNumsController::class,'viewReport'])->name('admin.num.status.email');
@@ -329,6 +332,8 @@ Route::post('/active-agent-account',[AgentController::class,'activate_user'])->n
 
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');
 
+Route::get('management/agents-monthly-report',[AgentController::class,'agent_monthly_report'])->name('admin.agents-monthly-report');
+
 
 //Centres Notification system for admin
 
@@ -362,7 +367,214 @@ Route::get('/notifications/viewer/pdf-download/{id}', [ViewerNotificationControl
 Route::get('/notifications/viewer/{id}/edit', [ViewerNotificationController::class, 'edit'])->name('admin.viewer.notifications.edit');
 Route::post('/notifications/viewer/{id}/update', [ViewerNotificationController::class, 'update'])->name('admin.viewer.notifications.update');
 
+//Global Notification system for admin
+
+Route::get('notifications/global/list', [GlobalNotificationController::class, 'index'])->name('admin.global.notification.index');
+Route::post('/notifications/global/store', [GlobalNotificationController::class, 'store'])->name('admin.global.notification.store');
+Route::get('/notifications/global/{id}', [GlobalNotificationController::class, 'show'])->name('admin.global.notifications.show');
+Route::post('/notifications/global/{id}/suspend', [GlobalNotificationController::class, 'updateStatus'])->name('admin.global.notifications.suspend');
+Route::post('/notifications/global/{id}/status', [GlobalNotificationController::class, 'changeStatus'])->name('admin.global.notifications.status');
+Route::get('/notifications/global/pdf-download/{id}', [GlobalNotificationController::class, 'pdfDownload'])->name('admin.global.pdf.download');
+Route::get('/notifications/global/{id}/edit', [GlobalNotificationController::class, 'edit'])->name('admin.global.notifications.edit');
+Route::post('/notifications/global/{id}/update', [GlobalNotificationController::class, 'update'])->name('admin.global.notifications.update');
+
+// Route::get('/admin-dashboard/notifications/global',function(){
+//     return view('admin.notifications.global');
+// })->name('admin.global');
 
 
 ################### PDF ###################
 Route::post('/generate-agent-info-pdf', [AgentPdfController::class, 'generate_agent_info_pdf'])->name('admin.generate-agent-info-pdf');
+  
+Route::get('/management/credits',function(){
+    return view('admin.management.reports.credits');
+})->name('admin.credits');
+  
+Route::get('/management/revenue',function(){
+    return view('admin.management.reports.revenue');
+})->name('admin.revenue');
+  
+Route::get('/management/email-management',function(){
+    return view('admin.management.email-management');
+})->name('email-management');
+  
+Route::get('/management/sim-management',function(){
+    return view('admin.management.sim-management');
+})->name('sim-management');
+
+
+Route::get('/support/pricing',function(){
+    return view('admin.support.pricing');
+})->name('pricing');
+
+Route::get('/support/abbreviations',function(){
+    return view('admin.support.abbreviations');
+})->name('abbreviations');
+
+Route::get('/support/classification-laws',function(){
+    return view('admin.support.classification-laws');
+})->name('classification-laws');
+
+Route::get('/support/laws',function(){
+    return view('admin.support.laws');
+})->name('laws');
+
+Route::get('/support/post',function(){
+    return view('admin.support.post');
+})->name('post');
+
+Route::get('/website/global-notifications',function(){
+    return view('admin.website.global-notifications');
+})->name('global-notifications');
+
+Route::get('/website/maintenance',function(){
+    return view('admin.website.maintenance');
+})->name('maintenance');
+
+Route::get('/Analytics/publicpages',function(){
+    return view('admin.Analytics.publicpages');
+})->name('publicpages');
+
+// Route::get('/Analytics/consoles',function(){
+//     return view('admin.Analytics.consoles');
+// })->name('consoles');
+
+Route::get('/Concierge/email-service-request',function(){
+    return view('admin.Concierge.email-service-request');
+})->name('email-service-request');
+
+Route::get('/Concierge/mobile-sim-request',function(){
+    return view('admin.Concierge.mobile-sim-request');
+})->name('mobile-sim-request');
+
+Route::get('/Concierge/product-request',function(){
+    return view('admin.Concierge.product-request');
+})->name('product-request');
+
+Route::get('/Concierge/visa-migration-request',function(){
+    return view('admin.Concierge.visa-migration-request');
+})->name('visa-migration-request');
+
+Route::get('/reporting/email-request',function(){
+    return view('admin.reporting.email-request');
+})->name('admin.email-request');
+
+Route::get('/reporting/mobile-request',function(){
+    return view('admin.reporting.mobile-request');
+})->name('admin.mobile-request');
+
+Route::get('/reporting/admin-product-request',function(){
+    return view('admin.reporting.admin-product-request');
+})->name('admin.admin-product-request');
+
+Route::get('/reporting/punterbox-report',function(){
+    return view('admin.reporting.punterbox-report');
+})->name('admin.punterbox-report');
+
+Route::get('/management/competitor-database',function(){
+    return view('admin.management.competitor-database');
+})->name('admin.competitor-database');
+
+Route::get('/management/memberships',function(){
+    return view('admin.management.memberships');
+})->name('admin.memberships');
+
+Route::get('/reports/credit',function(){
+    return view('admin.reports.credit');
+})->name('admin.credit');
+
+
+
+Route::get('/management/statistics/listings',function(){
+    return view('admin.management.statistics.listings');
+})->name('admin.listings');
+
+
+Route::get('/management/legbox-report',function(){
+    return view('admin.management.legbox-report');
+})->name('admin.legbox-report');
+
+Route::get('/management/logs-staff',function(){
+    return view('admin.management.logs-staff');
+})->name('admin.logs-staff');
+
+/* Route::get('/management/staff',function(){
+    return view('admin.management.staff');
+})->name('admin.staff'); */
+
+Route::get('/management/application',function(){
+    return view('admin.management.logs.application');
+})->name('admin.application');
+
+Route::get('/management/revision',function(){
+    return view('admin.management.logs.revision');
+})->name('admin.revision');
+
+Route::get('/management/security',function(){
+    return view('admin.management.logs.security');
+})->name('admin.security');
+
+
+Route::get('/management/email-management',function(){
+    return view('admin.management.email-management');
+})->name('admin.email-management');
+
+Route::get('/management/advertiser-templates',function(){
+    return view('admin.management.cms.advertiser-templates');
+})->name('admin.advertiser-templates');
+
+Route::get('/management/operator-templates',function(){
+    return view('admin.management.cms.operator-templates');
+})->name('admin.operator-templates');
+
+Route::get('/management/agent-templates',function(){
+    return view('admin.management.cms.agent-templates');
+})->name('admin.agent-templates');
+
+Route::get('/management/shareholder-templates',function(){
+    return view('admin.management.cms.shareholder-templates');
+})->name('admin.shareholder-templates');
+
+Route::get('/management/viewer-templates',function(){
+    return view('admin.management.cms.viewer-templates');
+})->name('admin.viewer-templates');
+
+Route::get('/management/e4u-templates',function(){
+    return view('admin.management.cms.e4u-templates');
+})->name('admin.e4u-templates');
+
+Route::get('/management/post-office',function(){
+    return view('admin.management.post-office');
+})->name('admin.post-office');
+
+
+// Route::get('/notifications/global',function(){
+//     return view('admin.notifications.global');
+// })->name('admin.global');
+
+
+// Route::get('/notifications/agents',function(){
+//     return view('admin.notifications.agents');
+// })->name('admin.agents');
+
+// Route::get('/notifications/viewers',function(){
+//     return view('admin.notifications.viewers');
+// })->name('admin.viewers');
+
+
+Route::get('/notifications/escorts',function(){
+    return view('admin.notifications.escorts');
+})->name('admin.escorts');
+
+Route::get('/publications/blog',function(){
+    return view('admin.publications.blog');
+})->name('admin.blog');
+
+Route::get('publications/alerts', function(){
+        return view('admin.publications.alerts');
+    })->name('admin.alerts');
+
+    
+Route::get('/management/punterbox-reports',function(){
+    return view('admin.management.punterbox-report');
+})->name('admin.punterbox-reports');

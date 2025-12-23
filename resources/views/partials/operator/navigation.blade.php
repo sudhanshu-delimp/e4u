@@ -10,19 +10,18 @@
     <div class="topbar-logged-in-user-data operator-topbar-userdata d-flex">
 
         <div class="d-user-info">
-            <div class="operator_header_top_menu">
+            <div class="common_top_menu">
                 <span>
-                    <b>Welcome back : </b><span class="user-values">Operator</span> <span
-                        class="separator">|</span>
+                    <b>Welcome back : </b><span class="user-values">Operator</span>
                 </span>
                 <span>
+                    <span class="separator">|</span>
                     <b>Membership ID : </b><span class="user-values">OP123456</span>
                
                 </span>
                 <span>
                     <b>Home State : </b>
-                    <span style="padding-left:8%" class="user-values"
-                       > Perth escort Services</span>
+                    <span class="user-values"> Perth escort Services</span>
                 </span>
 
             </div>
@@ -36,7 +35,7 @@
 
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
 
-        <form class="form-inline form-inline-custom navbar-search custom-nav-search opr-itmes" style="width: 23rem;">
+        <form class="form-inline form-inline-custom navbar-search custom-nav-search opr-itmes d-none" style="width: 23rem;">
             <div class="input-group dk-border-radius">
                 <div class="input-group-append">
                     <button class="btn" type="button">
@@ -134,7 +133,7 @@
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('operator.edit-my-account') }}">
-                   <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-user.png') }}">
+                   <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-profile.png') }}">
                     Edit My Account
                 </a>
                 <a class="dropdown-item" href="{{ route('operator.change-password') }}">

@@ -28,6 +28,13 @@
                 </div>
             </div>
         </div>
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-md-12">
+                <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
+            </div>
+        </div>
+        
         <div class="row mt-4">
             <!-- Logs & Status -->
             @if ($logAndStatus)
@@ -49,7 +56,7 @@
                                     <td class="icon-col"><i class="fas fa-clock"></i></td>
                                     <td>Last login</td>
                                     <td class="text-center" colspan="2">
-                                        {{ $logAndStatus->updated_at->format('d-m-Y | h:i:s A') ?? '' }}
+                                        {{ $getLastLoginTime ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -148,8 +155,7 @@
     {{-- end --}}
 @endsection
 @section('script')
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script src="{{ asset('assets/js/common.js?v1') }}"></script>
-<script type="text/javascript" src="{{ asset('js/for_multiple_console/logs_and_status_blade.js') }}"></script>
-
+    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script src="{{ asset('assets/js/common.js?v1') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/for_multiple_console/logs_and_status_blade.js') }}"></script>
 @endsection

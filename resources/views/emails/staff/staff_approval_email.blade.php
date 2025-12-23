@@ -10,7 +10,6 @@
       <td align="center">
         <!-- Main container -->
         <table width="700" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
-
           <!-- Header with background and logo -->
           <tr>
             <td style="background-color:#0c223d; padding: 20px;">
@@ -28,16 +27,13 @@
               </table>
             </td>
           </tr>
-
           <!-- Content Padding -->
           <tr>
             <td style="padding: 30px;">
-              
               <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$staff['name']}},</p>
                 <p style="font-size: 16px; margin: 20px 0 15px 0;">Your Account has been approved.Your login credentials are :</p>
                 <!-- Details Table -->
                 <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
-                  
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Email Address :</td>
                     <td style="padding: 10px 0px 10px 10px">{{$staff['email'] ?? ''}}</td>
@@ -48,19 +44,15 @@
                   </tr>
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Login url:</td>
-                    <td style="padding: 10px 0px 10px 10px">{{ config('app.url')}}</td>
+                    <td style="padding: 10px 0px 10px 10px">{{route('admin.login')}}</td>
                   </tr>
-                  
                 </table>
-
-               
                 <p style="font-size: 15px; margin-top: 20px;">
                     Regards,<br>
                     <b>E4U - Operations</b>
                 </p>
             </td>
           </tr>
-
         </table>
 
         <!-- Footer -->
@@ -72,7 +64,6 @@
             </td>
           </tr>
         </table>
-
       </td>
     </tr>
   </table>

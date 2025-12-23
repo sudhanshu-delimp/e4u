@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MassageSetting extends Model
 {
+
+    protected $guarded = ['id'];
+    
     use HasFactory;
 }

@@ -63,7 +63,11 @@
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
-                                                        
+                                                        <tr role="row">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
+                                                                <p><b>Advertising Fees</b></p>
+                                                            </th>
+                                                        </tr>
                                                         <tr role="row" class="custom--row">
                                                             <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 212px;" aria-label="
                                                                 Profile Name">Membership Type
@@ -148,10 +152,10 @@
                                                 <table id="reckoner" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                         <tr role="row">
-                                                            <th class="sorting_disabled" rowspan="1" colspan="5" style="width: 212px;" aria-label="Fees">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="4" style="width: 212px;" aria-label="Fees">
                                                                 <p style="padding-left: 100px;"><b>Profile Ready Reckoner</b></p>
                                                             </th>
-                                                            <th class="text-right" colspan="2">
+                                                            <th class="text-right" colspan="3">
                                                                 <button type="button" class="border-0 px-5 py-3 bg-second font-weight-bold" id="add-new-row">Add</button>
                                                                 <button type="button" class="border-0 px-5 py-3 bg-second font-weight-bold ml-2" id="reset-reckoner-mc">Reset</button>
                                                             </th>
@@ -482,7 +486,11 @@
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
-                                                    
+                                                     <tr role="row">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
+                                                                <p><b>Loyalty Program</b></p>
+                                                            </th>
+                                                        </tr>
                                                     <tr role="row" class="custom--row">
                                                         <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
                                                             Type

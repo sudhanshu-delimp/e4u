@@ -432,6 +432,8 @@ function preview_image(event)
         }).done(function (response) {
             if (response.success) {
                 if(response.media.length > 0){
+
+                   
                     response.media.map((item,index)=>{
                         let target = $(".videoDroppable").eq(item.position - 1).find("video");
                         if (target.length) {

@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('style')
+
 @stop
 @section('content')
 <!-- Content Wrapper -->
@@ -27,10 +28,6 @@
          </div>
          <div class="row">
             <div class="col-md-12">
-               <div class="panel with-nav-tabs panel-warning">
-                  <div class="panel-body">
-                     <div class="tab-content">
-                        <div class="tab-pane fade active show" id="tab3warning">
                            <div class="row pb-3">
 
                               <div class="col-md-12 col-sm-12">
@@ -40,18 +37,18 @@
                               </div>
                            </div>
                            <div class="table-responsive-xl">
-                              <table class="table mb-3" id="agent_data_table">
+                              <table class="table mb-3 w-100" id="agent_data_table">
                                  <thead class="table-bg">
                                     <tr>
-                                    <th scope="col">Agent ID</th>
-                                    <th scope="col">Agent</th>
-                                    <th scope="col">Territory</th>
-                                    <th scope="col">Mobile</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Total Clients</th>
-                                    <th scope="col">Last Login</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
+                                    <th>Agent ID</th>
+                                    <th>Agent</th>
+                                    <th style="width: 7%">Territory</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
+                                    <th style="width: 4%">Clients</th>
+                                    <th style="width: 234px">Last Login</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                     </tr>
                                  </thead>
                                  <tbody class="table-content">
@@ -59,18 +56,7 @@
                                  </tbody>
                               </table>
                            </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
             </div>
-            <!-- <div class="col-sm-12 col-md-12 col-lg-12">
-               <div class="timer_section">
-                  <p>Server time: <span class="serverTime">{{ getServertime() }}</span></p>
-                  <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
-                  <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
-               </div>
-            </div> -->
          </div>
       </div>
       <!--middle content end here-->
@@ -90,121 +76,6 @@
 <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- add new Agent member popupform -->
-<!-- <div class="modal fade upload-modal" id="addStaffnew" tabindex="-1" role="dialog" aria-labelledby="addStaffnewLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content basic-modal">
-         <div class="modal-header">
-            <h5 class="modal-title" id="addStaffnew"> <img src="{{ asset('assets/dashboard/img/add-agent.png')}}" class="custompopicon"> Add New Agent</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-            </button>
-         </div>
-         <div class="modal-body">
-            <form>
-            <div class="row">
-              
-               <div class="col-12 my-2">
-                  <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
-               </div>
-
-               <div class="col-6 mb-3">
-                  <input type="text" class="form-control rounded-0" placeholder="Agent ID (Auto)" readonly>
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="text" class="form-control rounded-0" placeholder="Date Joined" readonly>
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="text" class="form-control rounded-0" placeholder="Business Name" required>
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="text" class="form-control rounded-0" placeholder="ABN" required>
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="text" class="form-control rounded-0" placeholder="Business Address" required>
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="text" class="form-control rounded-0" placeholder="Business Number" required>
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="text" class="form-control rounded-0" placeholder="Point of Contact" required>
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="text" class="form-control rounded-0" placeholder="Mobile" required>
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="email" class="form-control rounded-0" placeholder="Private Email" required>
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="email" class="form-control rounded-0" placeholder="E4U Email" required>
-               </div>
-               <div class="col-6 mb-3">
-                  <select class="form-control rounded-0" required>
-                    <option>Select Territory</option>
-                    <option>North</option>
-                    <option>South</option>
-                    <option>East</option>
-                    <option>West</option>
-                  </select>
-               </div>
-               <div class="col-12 mb-3 d-flex align-items-center justify-content-start gap-10 flex-wrap">
-                  <h6 class="mb-0 text-blue-primary">Method of Contact:</h6>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="contactText" value="text">
-                    <label class="form-check-label" for="contactText">Text</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="contactEmail" value="email">
-                    <label class="form-check-label" for="contactEmail">Email</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="contactCall" value="call">
-                    <label class="form-check-label" for="contactCall">Call Me</label>
-                  </div>
-               </div>
-
-              
-               <div class="col-12 my-2">
-                  <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="text"  class="form-control rounded-0"  required placeholder="Agreement Date (DD/MM/YYYY)" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="text" class="form-control rounded-0" placeholder="Term" required>
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="text" class="form-control rounded-0" placeholder="Option Period" required>
-               </div>
-               <div class="col-6 mb-3">
-                  <select class="form-control rounded-0" required>
-                    <option>Option Exercised?</option>
-                    <option>Yes</option>
-                    <option>No</option>
-                  </select>
-               </div>
-
-              
-               <div class="col-12 my-2">
-                  <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="number" step="0.01" class="form-control rounded-0" placeholder="Advertising Commission %" required>
-               </div>
-               <div class="col-6 mb-3">
-                  <input type="number" step="0.01" class="form-control rounded-0" placeholder="Massage Centre Commission %" required>
-               </div>
-
-            </div>
-            <div class="modal-footer p-0 pl-2 pb-4">
-               <button type="submit" class="btn-success-modal mr-2">Save</button>
-            </div>
-            </form>
-         </div>
-      </div>
-   </div>
-</div> 
- -->
  
 
 
@@ -223,12 +94,7 @@
       var table = $("#agent_data_table").DataTable({
       language: {
       search: "Search: _INPUT_",
-      searchPlaceholder: "Search by Agent ID...",
-      lengthMenu: "Show _MENU_ entries",
-      zeroRecords: "No matching records found",
-      info: "Showing _START_ to _END_ of _TOTAL_ entries",
-      infoEmpty: "No entries available",
-      infoFiltered: "(filtered from _MAX_ total entries)"
+      searchPlaceholder: "Search by Agent ID",
       },
 
       processing: true,
@@ -249,10 +115,10 @@
       { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
       { data: 'phone', name: 'phone', searchable: true, orderable:true ,defaultContent: 'NA'},
       { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
-      { data: 'no_of_client', name: 'no_of_client', searchable: true, orderable:true,defaultContent: 'NA' },
-      { data: 'last_login', name: 'last_login', searchable: false, orderable:true,defaultContent: 'NA' },
-      { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
-      { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
+      { data: 'no_of_client', name: 'no_of_client', searchable: true, orderable:false,defaultContent: 'NA' },
+      { data: 'last_login', name: 'last_login', searchable: false, orderable:false,defaultContent: 'NA' },
+      { data: 'status', name: 'status', searchable: false, orderable:false,defaultContent: 'NA' },
+      { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
       ],
 
       order: [[1, 'desc']],

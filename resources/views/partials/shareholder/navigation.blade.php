@@ -12,23 +12,22 @@
 
 
         <div class="d-user-info">
-            <div class="shareholder_header_top_menu">
+            <div class="common_top_menu">
                 <span>
                     <b>Welcome back : </b><span class="user-values">Wayne Primrose</span>
                 </span>
                 <span>
-                    <span class="separator">|</span> <b>Member ID : </b><span class="user-values"
-                        style="padding-left: 7%;">
-                        S60658
-                    </span>
+                    <span class="separator">|</span>
+                    <b>Member ID : </b><span class="user-values"> S60658 </span>
                 </span>
 
                 <span>
-                    <b>Shareholder : </b><span class="user-values resident_home_state" style="margin-left:8%">Waykar Pty
+                    <b>Shareholder : </b><span class="user-values resident_home_state">Waykar Pty
                         Ltd</span>
                 </span>
                 <span>
-                    <span class="separator">|</span> <b>Shareholding : </b><span
+                    <span class="separator">|</span>
+                    <b>Shareholding : </b><span
                         class="user-values live_current_location">18,500</span>
                 </span>
 
@@ -41,7 +40,7 @@
     <!-- Topbar Navbar -->
     <div class="navbar-nav ">
         {{-- Nav Item - Search visible all screen not only xs --}}
-        <form class="form-inline navbar-search form-inline-custom" style="width: 14rem;">
+        <form class="form-inline navbar-search form-inline-custom d-none" style="width: 14rem;">
             <div class="input-group " style="border: 1px solid #D6D7E3; border-radius: 7px;">
                 <div class="input-group-append">
                     <button class="btn" type="button">

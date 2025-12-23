@@ -50,7 +50,7 @@ class TrackLastPageVisitMiddlware
             }
 
             $lastActivity = AttemptLogin::where('user_id', auth()->user()->id)
-            ->where('email', '!=', 'admin@e4u.com.au')
+            // ->where('email', '!=', 'admin@e4u.com.au')
             ->value('updated_at');
 
 
@@ -67,6 +67,30 @@ class TrackLastPageVisitMiddlware
                     ->withErrors(['message' => 'You have been logged out due to inactivity.']);
                 } 
             }
+            elseif(auth()->user()->type == 4)
+            {
+
+                $idle_preference_time = (auth()->user()->massage_settings && auth()->user()->massage_settings->idle_preference_time) ? auth()->user()->massage_settings->idle_preference_time : '60';
+
+                if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
+                auth()->logout();
+                return redirect()->route('advertiser.login')
+                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+                } 
+            }
+
+            elseif(auth()->user()->type == 3)
+            {
+
+                $idle_preference_time = (auth()->user()->escort_settings && auth()->user()->escort_settings->idle_preference_time) ? auth()->user()->escort_settings->idle_preference_time : '60';
+
+                if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
+                auth()->logout();
+                return redirect()->route('advertiser.login')
+                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+                } 
+            }
+
             elseif(auth()->user()->type == 0)
             {
 
@@ -77,24 +101,29 @@ class TrackLastPageVisitMiddlware
                     ->withErrors(['message' => 'You have been logged out due to inactivity.']);
                 } 
             }
-            else
+             elseif(auth()->user()->type == 1)
             {
-                if ($lastActivity && now()->diffInMinutes($lastActivity) > (int)auth()->user()->idle_preference_time) {
-                auth()->logout();
-
-                return redirect()->route('/')
-                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+                if(auth()->user()->staff_setting && auth()->user()->staff_setting->idle_preference_time!==null)
+                {
+                    $idle_preference_time =  (auth()->user()->staff_setting && auth()->user()->staff_setting->idle_preference_time) ? auth()->user()->staff_setting->idle_preference_time : '60';
+                    
+                    if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
+                         auth()->logout();
+                        return redirect()->route('admin.login')->withErrors(['message' => 'You have been logged out due to inactivity.']);
+                        
+                    } 
                 }
+                
             }
 
 
-            # logout user if their idle time is more than their preference time
-            if ($lastActivity && now()->diffInMinutes($lastActivity) > (int)auth()->user()->idle_preference_time) {
-                auth()->logout();
+            // # logout user if their idle time is more than their preference time
+            // if ($lastActivity && now()->diffInMinutes($lastActivity) > (int)auth()->user()->idle_preference_time) {
+            //     auth()->logout();
 
-                return redirect()->route('/')
-                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
-            }
+            //     return redirect()->route('/')
+            //         ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+            // }
 
             # Update activity timestamp
             AttemptLogin::where('user_id', auth()->user()->id)

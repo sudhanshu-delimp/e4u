@@ -43,11 +43,11 @@
                                 <div class="card-body">
                                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                                     <ol>
-                                        <li>This report provides information associated with all of your Profiles (excluding
-                                            Tours).</li>
-                                        <li>It is a summary of the Listed Profiles and revenue (Commission) you have derived
-                                            from
-                                            the profiles, Escort and Massage Centres.</li>
+                                        <li>This report provides information associated with all of your Profiles (excluding Tours).</li>
+                                        <li>
+                                            It is a summary of the Listed Profiles and revenue (Fees) you have derived from the
+                                            Profiles, Escort and Massage Centres.
+                                        </li>
                                     </ol>
                                 </div>
                             </div>
@@ -60,35 +60,34 @@
                                 <button class="btn-common mr-0" type="button" data-target="#printReport"
                                     data-toggle="modal">Print Report</button>
                             </div>
-                            <div class="table-responsive-xl">
-                                <table class="table" id="advProfileSummaryTable">
+                            <div class="table-responsive">
+                                <table class="table w-100" id="advProfileSummaryTable">
                                     <thead class="table-bg">
                                         <tr>
-                                            <th scope="col">Member ID
-                                            </th>
-                                            <th class="text-center">Name</th>
-                                            <th class="text-center">Mobile</th>
-                                            <th class="text-center">Start Date</th>
-                                            <th class="text-center">End Date</th>
-                                            <th class="text-center">Total Days</th>
-                                            <th class="text-center">Pin Up</th>
-                                            <th class="text-center">Fee</th>
-                                            <th class="text-center">Commission</th>
-                                            <th scope="col" class="text-center">Action</th>
+                                            <th>Member ID</th>
+                                            <th>Name</th>
+                                            <th>Mobile</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Total Days</th>
+                                            <th>Pin Up</th>
+                                            <th>Listing Fee</th>
+                                            <th>Agent’s Fee</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>E60165</td>
-                                            <td class="text-center">Jane</td>
-                                            <td class="text-center">0438 028 728</td>
-                                            <td class="text-center">01-01-2025</td>
-                                            <td class="text-center">15-04-2025</td>
-                                            <td class="text-center">104</td>
-                                            <td class="text-center">Yes</td>
-                                            <td class="text-center" > <span class="font-weight-bold">$</span> 1,443.00</td>
-                                            <td class="text-center"> <span class="font-weight-bold">$</span> 72.15</td>
-                                            <td class="text-center">
+                                            <td>Jane</td>
+                                            <td>0438 028 728</td>
+                                            <td>01-01-2025</td>
+                                            <td>15-04-2025</td>
+                                            <td>104</td>
+                                            <td>Yes</td>
+                                            <td><div class="num_value">$<span>1,443.00</span></div></td>
+                                            <td> <div class="num_value">$<span>72.15</span></div></td>
+                                            <td>
                                                 <div class="dropdown no-arrow">
                                                     <a class="dropdown-toggle" href="#" role="button"
                                                         id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -132,12 +131,13 @@
     @include('agent.dashboard.partials.playmates-modal')
     <!-- Print Profile Report Modal -->
 
-    <div class="modal programmatic" id="printReport">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade programmatic" id="printReport" tabindex="-1" role="dialog"
+        aria-labelledby="printReport" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
                     <h5 class="modal-title text-white">
-                        <img src="{{ asset('assets/dashboard/img/profile-report.png') }}" class="custompopicon"
+                        <img src="{{ asset('assets/dashboard/img/admin-report.png') }}" class="custompopicon"
                             alt="cross">
                         Profile Report
                     </h5>
@@ -153,8 +153,8 @@
                             <div class="col-lg-12">
                                 <!-- Report Type -->
                                 <div class="form-group mb-4">
-                                    <div class="d-flex align-items-center gap-20">
-                                        <p class="mb-2 font-weight-bold">Report Type:</p>
+                                    <div class="d-flex align-items-center flex-wrap gap-20">
+                                        <p class="mb-2 font-weight-bold" style="min-width: 100px">Report Type:</p>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="reportType"
                                                 id="reportAll" value="all">
@@ -173,10 +173,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <p class="mb-0 font-weight-bold">Period:</p>
-                                    <div class="d-flex align-items-center gap-20">
-
-                                        <!-- Entire Radio -->
+                                   
+                                    <div class="d-flex align-items-center flex-wrap gap-20">
+                                        <p class="mb-0 font-weight-bold" style="min-width: 100px">Period:</p>
+                                        <div class="d-flex align-items-center flex-wrap gap-20">
+                                            <!-- Entire Radio -->
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="period"
                                                 id="periodEntire" value="entire">
@@ -184,12 +185,13 @@
                                         </div>
 
                                         <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="fromDate" class="font-weight-medium mb-0">From</label>
+                                            <label for="fromDate" class="form-check-label">From: </label>
                                             <input type="date" class="form-control" id="fromDate" name="fromDate">
                                         </div>
                                         <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="toDate" class="font-weight-medium mb-0">To</label>
+                                            <label for="toDate" class="form-check-label">To:</label>
                                             <input type="date" class="form-control" id="toDate" name="toDate">
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -201,7 +203,7 @@
                                 <div class="modal-footer justify-content-center">
                                     <button type="button" class="btn-success-modal" data-dismiss="modal"
                                         id="close_change">View</button>
-                                    <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
+                                    <button type="button" class="btn-success-modal" id="save_change">Print</button>
                                 </div>
                             </div>
                         </div>
@@ -214,13 +216,14 @@
 
     {{-- Current Location --}}
 
-    <div class="upload-modal modal programmatic" id="current_location">
+    <div class="upload-modal fade modal programmatic" id="current_location" tabindex="-1" role="dialog"
+        aria-labelledby="current_location" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
 
                     <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/map.png') }}"
-                            class="custompopicon" alt="cross">Current Location</h5>
+                            class="custompopicon" alt="cross">Current Location - E60165</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -230,11 +233,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <h4 class="text-center">The current Location for Name is: <b>Location</b></h4>
+                        <div class="col-lg-12 text-center">
+                            <h5 class="popu_heading_style my-1">
+                                The current Location for Name is: <b>Location</b>
+                            </h5>
                             <div class="modal-footer justify-content-center">
-                                <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
-                                    id="close_change">Ok</button>
+                                <button type="button" class="btn-success-modal">Ok</button>
+                                <button type="button" class="btn-success-modal" data-dismiss="modal">Send Message</button>
                             </div>
                         </div>
                     </div>
@@ -249,13 +254,13 @@
     {{-- activity_summary --}}
 
     <div class="modal fade upload-modal bd-example-modal-lg" id="activity_summary" tabindex="-1" role="dialog"
-        aria-labelledby="activity_summaryLabel" aria-hidden="true">
+        aria-labelledby="activity_summaryLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
             <div class="modal-content basic-modal modal-lg">
                 <div class="modal-header">
                     <h5 class="modal-title" id="activity_summary"><img
                             src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Activity
-                        Summary - Member ID </h5>
+                        Summary - E60165 </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -326,7 +331,7 @@
                     <div class="modal-footer justify-content-center mt-3">
                         <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                             id="close_change">Ok</button>
-                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
+                        <button type="button" class="btn-success-modal" id="save_change">Print</button>
                     </div>
                 </div>
             </div>
@@ -338,13 +343,13 @@
 
     {{-- profile_summary --}}
     <div class="modal fade upload-modal bd-example-modal-lg" id="profile_summary" tabindex="-1" role="dialog"
-        aria-labelledby="profile_summaryLabel" aria-hidden="true">
+        aria-labelledby="profile_summaryLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
             <div class="modal-content basic-modal modal-lg">
                 <div class="modal-header">
                     <h5 class="modal-title" id="profile_summary"><img
                             src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Profile
-                        Summary - Member ID</h5>
+                        Summary - E60165</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -362,7 +367,7 @@
                                     <td style="text-align:center;">Start Date</td>
                                     <td style="text-align:center;">Finish Date</td>
                                     <td style="text-align:center;">Days</td>
-                                    <td style="text-align:center;">Fee</td>
+                                    <td style="text-align:center; width:110px">Listing Fee</td>
                                 </tr>
                             </thead>
 
@@ -373,7 +378,7 @@
                                     <td style="text-align:center;">01-01-2025</td>
                                     <td style="text-align:center;">15-04-2025</td>
                                     <td style="text-align:center;">104</td>
-                                    <td style="text-align:right;">$ 3,120.00</td>
+                                    <td style="text-align:right;"><div class="num_value">$<span>3,120.00 </span></div></td>
                                 </tr>
 
                                 <!-- Sub Rows -->
@@ -438,7 +443,7 @@
                     <div class="modal-footer justify-content-center mt-3">
                         <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                             id="close_change">Ok</button>
-                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
+                        <button type="button" class="btn-success-modal" id="save_change">Print</button>
                     </div>
                 </div>
             </div>
@@ -456,7 +461,7 @@
         var table = $('#advProfileSummaryTable').DataTable({
             language: {
                 search: "_INPUT_",
-                searchPlaceholder: "Search By Member Id",
+                searchPlaceholder: "Search By Member ID",
                 sSearch: 'Search:'
             },
             processing: false,
@@ -465,7 +470,19 @@
             order: [0, 'asc'],
             searchable: false,
             searching: true,
-            bStateSave: true
+            bStateSave: true,
+         columns: [
+            { data: 'member_id', name: 'member_id', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'mobile', name: 'mobile', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'start_date', name: 'start_date', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'end_date', name: 'end_date', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'total_day', name: 'total_day', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'pinup', name: 'pinup', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'listing_fee', name: 'listing_fee', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'agent_fee', name: 'agent_fee', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+            ],
         });
     </script>
 @endpush

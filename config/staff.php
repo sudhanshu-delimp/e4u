@@ -19,9 +19,9 @@ return [
         '3' => 'Staff',
         '4' => 'Developer',
     ],
-    'staff_role_type' => '6',
+    'staff_role_type' => '1',
     'staff_member_id_prefix' => 'S',
-    'access_denied_msg' => env('ACCESS_DENIED_MSG','Access denied. You do not have permission to view this page'),
+    'access_denied_msg' => env('ACCESS_DENIED_MSG', 'Access denied. You do not have permission to view this page'),
 
     /**
      * Permission to access pages
@@ -55,5 +55,58 @@ return [
             "add" => ['yesNo' => 'no'],
             "delete" => ['yesNo' => 'no'],
         ]
-    ]
+    ],
+
+    'idle_preference_time' => [
+        '15' => '15 minutes',
+        '30' => '30 minutes',
+        '60' => '60 minutes',
+        '' => 'Never',
+    ],
+
+    'twofa' => [
+        '1' => 'Email',
+        '2' => 'Text',
+    ],
+
+    "admin_management_url_endpoint" => [
+        'email-management',
+        'sim-management',
+        'logs-staff',
+        'marketing-templates-e4u',
+        'marketing-templates-agents',
+        'post-office',
+        'set-fees',
+        'manage-user',
+        'memberships',
+        'legbox-report',
+        'agents-monthly-report',
+        'punterbox-reports',
+        'tours',
+        'staff',
+        'competitor-database',
+        'monthly-fee-reports',
+        'commission-summary',
+        'operator-manage',
+        'profile',
+        'agent',
+        'manage-suppliers',
+        'dashboard',
+        'All-user',
+        'email-templates',
+        'annual-report',
+        'minutes',
+        'annual-profit-and-loss',
+        'balance-sheet',
+        'constitution',
+        'newsletter',
+        'shareholder-notices',
+        'subsidiaries-balance-sheet',
+        'subsidiaries-annual-profit-and-loss',
+        'updates'
+    ],
+    'genders' => [
+			'6' => 'Female',
+			'1' => 'Male',
+		],
 ];
