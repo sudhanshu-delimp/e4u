@@ -241,20 +241,20 @@
 
     <li class="nav-item">
 
-    {{-- ADMINISTRATION --}}
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Administration">
+    {{-- Profile Management --}}
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ProfileManagement">
         <img src="{{ asset('assets/dashboard/img/menu-icon/administration.png') }}">
-        <span>Administration</span>
+        <span>Profile Management</span>
     </a>
 
-    <div id="Administration"
+    <div id="ProfileManagement"
         class="collapse
         @if (in_array(request()->segment(2), [
             'add-listing','listings',
             'profile','list',
             'create-tour','list-tour','create-profile',
             'archive-view-photos','archive-view-videos',
-            'archive-myplaybox'
+            'pricarchive-myplayboxing'
         ])) show @endif"
         data-parent="#accordionSidebar">
 
@@ -269,7 +269,7 @@
             <div id="AdminListings"
                 class="collapse
                 @if (in_array(request()->segment(2), ['add-listing','listings'])) show @endif"
-                data-parent="#Administration">
+                data-parent="#ProfileManagement">
 
                 <a class="collapse-item {{ request()->segment(2)=='add-listing' ? 'menu-active' : '' }}"
                    href="{{ route('escort.account.add-listing') }}">
@@ -299,7 +299,7 @@
             <div id="AdminProfiles"
                 class="collapse
                 @if (in_array(request()->segment(2), ['profile','list','create-profile'])) show @endif"
-                data-parent="#Administration">
+                data-parent="#ProfileManagement">
 
                 <a class="collapse-item {{ request()->segment(2)=='create-profile' ? 'menu-active' : '' }}"
                    href="{{ route('escort.profile') }}">
@@ -329,7 +329,7 @@
             <div id="AdminTours"
                 class="collapse
                 @if (in_array(request()->segment(2), ['create-tour','list-tour'])) show @endif"
-                data-parent="#Administration">
+                data-parent="#ProfileManagement">
 
                 <a class="collapse-item {{ request()->segment(2)=='create-tour' ? 'menu-active' : '' }}"
                    href="{{ url('escort-dashboard/create-tour') }}">
@@ -359,7 +359,7 @@
             <div id="AdminMedia"
                 class="collapse
                 @if (in_array(request()->segment(2), ['archive-view-photos','archive-view-videos'])) show @endif"
-                data-parent="#Administration">
+                data-parent="#ProfileManagement">
 
                 <a class="collapse-item {{ request()->segment(2)=='archive-view-photos' ? 'menu-active' : '' }}"
                    href="{{ route('escort.archive-view-photos') }}">
@@ -375,7 +375,7 @@
             </div>
 
             {{-- ===== MY PLAYBOX ===== --}}
-            <a class="nav-link collapsed {{ request()->segment(2)=='archive-myplaybox' ? 'menu-active' : '' }}"
+            <a class="nav-link collapsed {{ request()->segment(2)=='pricarchive-myplayboxing' ? 'menu-active' : '' }}"
                href="{{ route('escort.archive-myplaybox',['from'=>'sidebar']) }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}">
                 <span>My Playbox</span>
@@ -392,13 +392,13 @@
 
 
 
-    {{-- Management --}}
+    {{-- Administration --}}
 
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Management">
             <img src="{{ asset('assets/dashboard/img/menu-icon/management.png') }}">
-            <span>Management</span>
+            <span>Administration</span>
         </a>
 
         <div id="Management" class="collapse
@@ -746,7 +746,7 @@
                       @if (in_array(request()->segment(2), ['ticket-list', 'submit_ticket'])) show @endif"
                     data-parent="#Management">
 
-                    <a class="collapse-item {{ request()->segment(2)=='submit_ticket' ? 'menu-active' : '' }}" href="{{ url('submit_ticket') }}">
+                    <a class="collapse-item {{ request()->segment(2)=='submit_ticket' ? 'menu-active' : '' }}" href="{{ url('support_tickets/submit_ticket') }}">
                          <img src="{{ asset('assets/app/img/right-30.png') }}">
                          <span>Submit Ticket</span>
                         </a>
