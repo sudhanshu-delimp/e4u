@@ -440,7 +440,7 @@
                     'tours',
                     'ticket-list',
                     'submit_ticket',
-                ])) show @endif"
+                ]) || in_array(request()->segment(1), ['submit_ticket'])) show @endif"
             data-parent="#accordionSidebar">
 
             <div class="collapse-inner">
@@ -743,10 +743,10 @@
 
                 <div id="ManagementTickets"
                     class="collapse
-                      @if (in_array(request()->segment(2), ['ticket-list', 'submit_ticket'])) show @endif"
+                       @if (in_array(request()->segment(2), ['ticket-list']) || request()->segment(1) == 'submit_ticket') show @endif"
                     data-parent="#Management">
 
-                    <a class="collapse-item {{ request()->segment(2)=='submit_ticket' ? 'menu-active' : '' }}" href="{{ url('support_tickets/submit_ticket') }}">
+                    <a class="collapse-item {{ request()->segment(1)=='submit_ticket' ? 'menu-active' : '' }}" href="{{ url('submit_ticket') }}">
                          <img src="{{ asset('assets/app/img/right-30.png') }}">
                          <span>Submit Ticket</span>
                         </a>
