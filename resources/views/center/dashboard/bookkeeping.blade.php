@@ -574,7 +574,7 @@ Account details, including the initial setup.</li>
          <div class="modal-header main_bg_color border-0">
  
             <h5 class="modal-title text-white"><img src="/assets/dashboard/img/remove-bank-account.png" class="custompopicon" alt="cross"> Confirmation</h5>
-            <button class="close" type="button" data-dismiss="modal0" aria-label="Close">
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">
                   <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                </span>
@@ -949,6 +949,7 @@ Account details, including the initial setup.</li>
       var primary_bank_ac_no = '';
       var primary_bank_bsb = '';
       var isBankAccountChanged = false;
+      var isChangePin = false;
 
       $(document).on('click', '#commission-modal', function() {
          $(".commission_report_title").text('Add New Bank Account');
@@ -1360,6 +1361,8 @@ Account details, including the initial setup.</li>
          
          $("#sendOtp_modal").modal('show');
          $("#change_pin_active").val('1');
+         isChangePin = true;
+         isBankAccountChanged = false;
          // data-toggle="modal"  data-target="#SetPinModal"
       });
 
@@ -1448,8 +1451,9 @@ Account details, including the initial setup.</li>
                             text: "The OTP you entered is incorrect. Please try again.",
                         });
                         $('#otp').val('');
+                        $("#change_pin_active").val('1');
                     }
-                    $("#change_pin_active").val('0');
+                    //$("#change_pin_active").val('0');
                 }
 
                if(isBankAccountChanged && data.error != 3){

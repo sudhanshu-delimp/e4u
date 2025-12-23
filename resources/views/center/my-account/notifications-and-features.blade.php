@@ -284,14 +284,15 @@
                 processData: false,
                 success: function (response) {
                     Swal.close();
-                     $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`);
-                //      setTimeout(function() {
-                //      location.reload();
-                // }, 3000);
+                    swal_success_popup(response.message);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
                 },
                 error: function (xhr) {
                     console.log(xhr.responseJSON);
-                    alert("Something went wrong!");
+                    swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                    // alert("Something went wrong!");
                 }
             });
         });
