@@ -300,7 +300,7 @@
          <div class="modal-header main_bg_color border-0">
 
             <h5 class="modal-title text-white"><img src="/assets/dashboard/img/remove-bank-account.png" class="custompopicon" alt="cross"> Delete Bank Account</h5>
-            <button class="close" type="button" data-dismiss="modal0" aria-label="Close">
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">
                   <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                </span>
@@ -942,6 +942,7 @@
       var primary_bank_ac_no = '';
       var primary_bank_bsb = '';
       var isBankAccountChanged = false;
+      var isChangePin = false;
 
       $(document).on('click', '#commission-modal', function() {
          $(".commission_report_title").text('Add New Bank Account');
@@ -951,6 +952,8 @@
       });
 
       $(document).on('click', '.editModal', function() {
+         $("#change_pin_active").val('0');
+         isChangePin = false;
          let id = $(this).data('id');
          let bank = $(this).data('bank_name');
          let accountName = $(this).data('ac_name');
@@ -1436,9 +1439,11 @@
       }
 
       $(document).on('click', "#change_pin_modal", function(e){
+         isChangePin = true;
+         isBankAccountChanged = false;
          var token = $('input[name="_token"]').attr('value');
          $.ajax({
-            url: "{{route('escort.sendOtpForPinChange')}}",
+            url: "{{route('escort.send-otp-for-pin-change')}}",
             type: 'POST',
            
             dataType: "JSON",
@@ -1525,7 +1530,8 @@
                'X-CSRF-Token': token
             },
             success: function(data) {
-               if(data.changePin == '1' || data.changePin == '0'){
+               // $("#change_pin_active").val('0'); 
+               if((data.changePin == '1' || data.changePin == '0') ){
                   if(data.changePin == '1'){
                      $('#sendOtp_modal').modal('hide');
                      $("#SetPinModal").modal('show');
@@ -1537,9 +1543,12 @@
                         title: "Invalid OTP",
                         text: "The OTP you entered is incorrect. Please try again.",
                     });
-                     $('#otp').val('');
+                    $('#otp').val('');
+                    
+                     // $("#change_pin_active").val('1'); 
+                     //isBankAccountChanged = false;
+                     return true;
                   }
-                $("#change_pin_active").val('0'); 
                }
 
                if(isBankAccountChanged && data.error != 3){
@@ -1691,7 +1700,7 @@
    $(document).on('click', "#resendOtpSubmit", function(e){
          var token = $('input[name="_token"]').attr('value');
          $.ajax({
-            url: "{{route('escort.sendOtpForPinChange')}}",
+            url: "{{route('escort.send-otp-for-pin-change')}}",
             type: 'POST',
            
             dataType: "JSON",
