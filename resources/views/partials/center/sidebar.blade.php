@@ -109,7 +109,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pachive" aria-expanded="false" aria-controls="collapseTwo">
              <img src="{{ asset('assets/dashboard/img/menu-icon/add-profile-centre.png')}}">
-             <span >Profile Management</span>
+             <span >Profile</span>
         </a>
         <div id="pachive" class=" collapse  @if(request()->segment(2) == 'create-profile' || request()->segment(2) == 'profile' || request()->segment(2) == 'list' || request()->segment(2) == 'view-archives' || request()->segment(2) == 'archive-medias' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
@@ -128,6 +128,29 @@
                 <span style="{{request()->segment(2) == 'view-archives' || request()->segment(2) == 'archive-medias' || request()->segment(2) == 'archive-view-photos' ? 'color: #e5365a;' : ''}}">View Archives</span>
             </a> --}}
 
+            </div>
+        </div>
+    </li>
+    
+     {{-- Masseurs --}}
+     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#profilesMasseurs" aria-expanded="false" aria-controls="collapseTwo">
+            <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/masseur-profile.png')}}">
+
+             <span>Masseurs</span>
+        </a>
+        
+        <div id="profilesMasseurs" class="collapse @if(request()->segment(3) == 'archives-listing' || request()->segment(3) == 'new-listing') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="py-0 collapse-inner rounded mb-2">
+           
+            <a class="collapse-item" href="{{ route('center.new-listing') }}">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png')}}">
+                <span style="{{request()->segment(3) == 'new-listing' ? 'color: #e5365a;' : ''}}">New</span>
+            </a>
+            <a class="collapse-item" href="{{ route('center.archives-listing') }}">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png')}}">
+                <span style="{{request()->segment(3) == 'archives-listing' ? 'color: #e5365a;' : ''}}">Archives</span>
+            </a>
             </div>
         </div>
     </li>
@@ -153,33 +176,6 @@
         </div>
     </li>
 
-     {{-- Masseurs --}}
-     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#profilesMasseurs" aria-expanded="false" aria-controls="collapseTwo">
-            <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/masseur-profile.png')}}">
-
-             <span>Masseurs</span>
-        </a>
-        
-        <div id="profilesMasseurs" class="collapse @if(request()->segment(3) == 'archives-listing' || request()->segment(3) == 'new-listing') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="py-0 collapse-inner rounded mb-2">
-           
-            <a class="collapse-item" href="{{ route('center.new-listing') }}">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png')}}">
-                <span style="{{request()->segment(3) == 'new-listing' ? 'color: #e5365a;' : ''}}">New</span>
-            </a>
-            <a class="collapse-item" href="{{ route('center.archives-listing') }}">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png')}}">
-                <span style="{{request()->segment(3) == 'archives-listing' ? 'color: #e5365a;' : ''}}">Archives</span>
-            </a>
-            {{-- <a class="collapse-item" href="{{ route('center.past-profile') }}">
-            <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png')}}">
-            <span style="{{request()->segment(3) == 'past-profile' ? 'color: #e5365a;' : ''}}">Past</span>
-            </a> --}}
-            </div>
-        </div>
-    </li>
-    
     {{-- Media Masseurs --}}
     {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#mediaMasseurs" aria-expanded="false" aria-controls="collapseTwo">
