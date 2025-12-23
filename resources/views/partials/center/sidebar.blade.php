@@ -132,7 +132,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"
                     data-target="#ManageProfile">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/add-profile-centre.png') }}">
-                    <span>Profile</span>
+                    <span>Profiles</span>
                 </a>
 
                 <div id="ManageProfile"
