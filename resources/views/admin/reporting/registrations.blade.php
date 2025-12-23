@@ -390,7 +390,7 @@
                     defaultContent: '--'
                 },
                 {
-                    data: 'status',
+                    data: 'status_name',
                     name: 'status',
                     searchable: false,
                     orderable: true,
@@ -507,7 +507,9 @@
                             <tr><th>Email</th><td>${rowData.email ? rowData.email : 'NA'}</td></tr>
                             <tr><th>Home State</th><td>${rowData.territory ? rowData.territory : 'NA'}</td></tr>
                             <tr><th>Agent ID</th><td>${rowData.referred_by_agent_id ? rowData.referred_by_agent_id : '--'}</td></tr>
-                            <tr><th>Status</th><td>${rowData.status ? rowData.status : 'NA'}</td></tr>`;
+                            <tr><th>Status</th><td>${rowData.status ? rowData.status : 'NA'}</td></tr>
+                            <tr><th>Date</th><td>${rowData.registration_date ? rowData.registration_date : 'NA'}</td></tr>`;
+                            
 
             if (rowData.status === 'Rejected' && rowData.rejection_reason) {
                 modal_html += `<tr><th>Rejection Reason</th><td>${rowData.rejection_reason}</td></tr>`;
