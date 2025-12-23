@@ -968,6 +968,7 @@ Account details, including the initial setup.</li>
          let state = $(this).data('state');
          previous_state  = state;
          isBankAccountChanged = true;
+         $("#change_pin_active").val('0');
          
          $('#bankId').val(id);
          $('#bank_name').val(bank).change(); 
@@ -1357,13 +1358,33 @@ Account details, including the initial setup.</li>
          })
       }
 
-      $(document).on('click', "#change_pin_modal", function(e){
-         
-         $("#sendOtp_modal").modal('show');
-         $("#change_pin_active").val('1');
+      $(document).on('click', "#change_pin_modal", function(e)
+      {
          isChangePin = true;
          isBankAccountChanged = false;
-         // data-toggle="modal"  data-target="#SetPinModal"
+         var token = $('input[name="_token"]').attr('value');
+         $.ajax({
+            url: "{{route('center.send-otp-for-pin-change')}}",
+            type: 'POST',
+           
+            dataType: "JSON",
+           
+            headers: {
+               'X-CSRF-Token': token
+            },
+            success: function(data) {
+               if(data.status){
+                  $("#sendOtp_modal").modal('show');
+                  $("#change_pin_active").val('1');
+               }
+            },
+            error: function(data) {
+ 
+               console.log("error otp: ", data.responseJSON.errors);
+               
+            }
+         });
+
       });
 
       function sendOtpPin(params) 
@@ -1438,23 +1459,27 @@ Account details, including the initial setup.</li>
             },
             success: function(data) {
                
+               //$("#change_pin_active").val('0');
 
-                if(data.changePin == '1' || data.changePin == '0'){
-                    if(data.changePin == '1'){
-                        $('#sendOtp_modal').modal('hide');
-                        $("#SetPinModal").modal('show');
-                        $('#otp').val('');
-                    }else{
-                        Swal.fire({
-                            icon: "error",
-                            title: "Invalid OTP",
-                            text: "The OTP you entered is incorrect. Please try again.",
-                        });
-                        $('#otp').val('');
-                        $("#change_pin_active").val('1');
-                    }
-                    //$("#change_pin_active").val('0');
-                }
+               if(data.changePin == '1' || data.changePin == '0'){
+                  if(data.changePin == '1'){
+                     $('#sendOtp_modal').modal('hide');
+                     $("#SetPinModal").modal('show');
+                     $('#otp').val('');
+                  }else{
+                     Swal.fire({
+                           icon: "error",
+                           title: "Invalid OTP",
+                           text: "The OTP you entered is incorrect. Please try again.",
+                     });
+                     $('#otp').val('');
+                     // $("#change_pin_active").val('1');
+                     return true;
+                  }
+                  
+               }
+
+                
 
                if(isBankAccountChanged && data.error != 3){
                   $("#modal-title").text('Bank Account Update Confirmation');

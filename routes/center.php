@@ -132,6 +132,8 @@ Route::post('update-bank-pin',[MassageCenterAccountController::class,'updateBank
 Route::post('get-eft-bank-details',[MassageCenterAccountController::class,'getEftBankDetails'])->name('massage.get.eft.bank.details');
 Route::post('/send-payment-receipt-center', [MassageCenterAccountController::class, 'sendPaymentReceiptCenter'])->name('center.send-payment-receipt-center');
 
+Route::post('send-otp-for-pin-change',[MassageCenterAccountController::class,'sendOtpForPinChange'])->name('center.send-otp-for-pin-change');
+
 Route::get('centre-statistics',function(){
     return view('center.dashboard.centre-statistics');
 })->name('center.dashboard.centre-statistics');
