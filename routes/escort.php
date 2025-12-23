@@ -293,8 +293,8 @@ Route::get('get-user-review-details/{id}', [EscortReviewsController::class, "get
 Route::get('escort-agency-request',function(){
     return view('escort.dashboard.Communication.escort-agency-request');
 });
-Route::get('send-notofications',function(){
-    return view('escort.dashboard.Communication.send-notofications');
+Route::get('send-notifications',function(){
+    return view('escort.dashboard.Communication.send-notifications');
 });
 Route::get('viewer-notes',function(){
     return view('escort.dashboard.Communication.viewer-notes');
@@ -438,9 +438,9 @@ Route::get('my-information',function(){
     return view('escort.dashboard.HowDone.my-information');
 })->name('escort.my-information');
 
-Route::get('listings',function(){
+Route::get('listing',function(){
     return view('escort.dashboard.HowDone.listings');
-})->name('escort.listings');
+})->name('escort.listing');
 
 Route::get('media',function(){
     return view('escort.dashboard.HowDone.media');

@@ -1896,6 +1896,12 @@ color: #B9B9B9;
     background-color: var(--peach) !important;
 }
 
+.menu-active,
+.menu-active span {
+    color: #e5365a !important;
+    font-weight: 500;
+}
+
 .forgot_pass input {
     border: 1px solid #90A0B76E;
     padding: 24px;
