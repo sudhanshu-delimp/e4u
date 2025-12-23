@@ -100,8 +100,11 @@
 
             .container {
                 box-shadow: none;
-                border: 1px solid #ccc;
+                /* border: 1px solid #ccc; */
             }
+        }
+        @page{
+            size:A4;
         }
 
         .heading {
@@ -110,6 +113,7 @@
             font-weight: 600;
             line-height: 1px;
         }
+        .my-account-card{ margin: 25px auto;}
     </style>
 </head>
 

@@ -58,7 +58,7 @@ table td,th{
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
                     <ol>
-                        <li>Reports are a consolidation of reports on Advertisers (<b>Report</b>).</li>
+                        <li>Reports are a consolidation of reports on Advertisers <span style="font-weight:400;color: #555;">(</span><b>Report</b><span style="font-weight:400;color: #555;">)</span>.</li>
                         <li>When a Report has been made about an Advertiser, place the Advertiser status on
                         'Suspended' until the Report is resolved.</li>
                         <li>The Operations Team will assess the Report that has been made by the Viewer
