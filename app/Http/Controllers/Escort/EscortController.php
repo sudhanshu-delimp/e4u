@@ -512,6 +512,9 @@ class EscortController extends BaseController
             // 'state_id'=>$request->state_id,
            // 'email' => $request->email ? $request->email : null,
             //'social_links'=>$request->social_links,
+            'pay_id_name'=>$request->PayID_Name,
+            'pay_id_no'=>$request->PayID_NO,
+ 
         ];
 
         if(isset($request->gender) && $request->gender!="")

@@ -11,6 +11,8 @@ use App\Http\Requests\StoreEscortRequest;
 use App\Http\Requests\UpdateEscortRequest;
 use App\Http\Requests\StoreEscortBankDetailRequest;
 use App\Mail\EscortChangeBankPin;
+use App\Mail\sendBookeepingEscortBankPaymentReceipt;
+use App\Models\EscortBankDetail;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
@@ -246,102 +248,85 @@ class EscortAccountController extends Controller
 
 
     }
-    public function checkOTP(StoreEscortBankDetailRequest $request)
+   
+    public function checkOTP(Request $request)
     {
-
+ 
         $data = $request->session()->all();
+ 
+        $error = 1;
+ 
         $user = auth()->user();
-        
+ 
         $changeOtp = (isset($request->change_pin_active) && (int)$request->change_pin_active == 1) ? $request->change_pin_active : 0;
-
-        if($user && $changeOtp == 1){
-
-            $phone = $user->phone;
-            $status = false;
-            $changePin = '0';
-            $error =true;
-            $otp = $user->otp;
-
-            if(1 || $user->otp == (int)$request->otp) {
+ 
+        $phone = $user->phone;
+        $status = false;
+        $changePin = '0';
+        $error =true;
+        $otp = $user->otp;
+        $bank_data = [];
+ 
+        if(($user && $changeOtp == 1) || ($user->otp != (int)$request->otp)) {
+ 
+            if($user->otp == (int)$request->otp) {
                 $status = true;
                 $otp = $user->otp;
                 $error = false;
                 $changePin = '1';
             }
             return response()->json(compact('error','phone','otp','status','changePin'));
-            // return response()->json([
-            //     'status' => $status,
-            //     'change_pin_active' => $changePin,
-            // ]);
         }
-
-        $error = 1;
-
-        //dd($user->otp);
-
-        
+ 
         //TODO:: remove bypass before deployment
         if(1 || $user->otp == (int)$request->otp) {
-
-            $user->otp = null;
-            $user->save();
-            $bank_data = [
-                'bank_name' => $request->session()->exists('bank_name') ? $data['bank_name'] : '',
-                'bsb' => $data['bsb'],
-                'account_name' => $data['account_name'],
-                'account_number' => $data['account_number'],
-                'state' => $data['state'],
-                'user_id' => auth()->user()->id,
-            ];
-
-
-            // dd($bank_data);
+           
+            if($user->otp == (int)$request->otp) {
+                //$user->otp = null;
+                $user->save();
+                $changePin = '2';
+                $bank_data = [
+                    'bank_name' => $request->session()->exists('bank_name') ? $data['bank_name'] : '',
+                    'bsb' => $data['bsb'],
+                    'account_name' => $data['account_name'],
+                    'account_number' => $data['account_number'],
+                    'state' => $data['state'],
+                    'user_id' => auth()->user()->id,
+                ];
+            }
+           
             if($request->session()->has('bankId')) {
-                // dd("bnak id");
                 $id = $data['bankId'];
                 $bankId = $this->escortBankDetail->find($id);
-
-                unset($bank_data['bank_name']);
+ 
                 if($bankId->state == 2 && $bankId->state == $data['state']) {
                     $error = 0;
-                    //dd($bank_data);
                     $this->escortBankDetail->store($bank_data, $id);
                 }
                 else if($bankId->state == 1 && $bankId->state == $data['state']) {
-                    $error = 3; // Primary account not updated
-                    //dd($bank_data);
-                    //$this->escortBankDetail->store($bank_data, $id);
+                    $error = 3;
                 }
                 else if($bankId->state == 2 && $data['state'] == 1) {
                     $error = 0;
-                    //dd($bank_data);
                     $this->escortBankDetail->store($bank_data, $id);
                     $this->escortBankDetail->updatebyState(auth()->user()->id, $id);
                 } else {
                     $error = 3; // Primary account not updated
                 }
-
-                // if($this->escortBankDetail->findByState(auth()->user()->id) != 0 && $data['state'] == 2) {
-                //     $error = 3; // Primary account not updated
-                // } else {
-                //     $error = 0;
-                //     //dd($bank_data);
-                //     $this->escortBankDetail->store($bank_data, $id);$this->escortBankDetail->updatebyState(auth()->user()->id, $id);
-                //     $request->session()->flash('status', 'Task was successful!');
-                // }
-
-
-
+ 
             } else {
                 $id = null;
+                $changePin = '2';
+               
                 if($this->escortBankDetail->findByState(auth()->user()->id) == 0 && $data['state'] == 1){
                     $bankdata = $this->escortBankDetail->store($bank_data, $id);
+ 
                     $id = $bankdata->id;
                     $this->escortBankDetail->updatebyState(auth()->user()->id, $id);
                     $error = 0;
                 } else if($this->escortBankDetail->findByState(auth()->user()->id) == 0 && $data['state'] == 2) {
                     $error = 2;// please select primary account
-
+ 
                 } else if($this->escortBankDetail->findByState(auth()->user()->id) != 0 && $data['state'] == 2) {
                     $error = 0;
                     $id = null;
@@ -349,26 +334,28 @@ class EscortAccountController extends Controller
                 } else {
                     $error = 0;
                     $id = null;
+                    //dd($bank_data, $id);
                     $bankdata = $this->escortBankDetail->store($bank_data, $id);
+                    //dd($bankdata, $bank_data, $id);
                     $bid = $bankdata->id;
                     $this->escortBankDetail->updatebyState(auth()->user()->id, $bid);
-
+ 
                 }
-
+ 
                 // dd();
-                // $bankdata = $this->escortBankDetail->store($bank_data, $id);
+                // $bankdata = $this->massageBankDetail->store($bank_data, $id);
                 // $error = false;
-
+ 
                 // if($data['state'] == 1) {
                 //     $id = $bankdata->id;
-                //     $this->escortBankDetail->updatebyState(auth()->user()->id, $id);
+                //     $this->massageBankDetail->updatebyState(auth()->user()->id, $id);
                 // }
             }
             $request->session()->flash('status', 'Task was successful!');
-            return response()->json(compact('error','bank_data'));
+            return response()->json(compact('error','bank_data','changePin','otp'));
             //return $this->sendLoginResponse($request);
         } else {
-
+            //return response()->json(compact('error','phone','otp','status','changePin'));
             return $this->sendFailedLoginResponse($request);
         }
         // $req = $request->only($this->username(), 'password','type');
@@ -376,6 +363,7 @@ class EscortAccountController extends Controller
         // dd($req);
         //return $request->only($this->username(), 'password','type');
     }
+
     public function update(UpdateEscortRequest $request)
     {
 
@@ -543,7 +531,10 @@ class EscortAccountController extends Controller
             ];
 
             Mail::to(auth()->user()->email)->queue(new EscortChangeBankPin($body));
-
+            $msg = "Your PIN Number has been reset to: " . $request->user_bank_pin . " Do not disclose your PIN to anyone else.";
+            $sendotp = new SendSms();
+            $output = $sendotp->send(auth()->user()->phone,$msg);
+           
             return response()->json([
                 'error' => false,
                 'message' => 'Your PIN has been changed successfully.'
@@ -553,6 +544,60 @@ class EscortAccountController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Failed to update bank PIN.'
+        ]);
+    }
+
+
+    public function getEftBankDetails(Request $request)
+    {
+ 
+        if (auth()->check() && isset($request->bank_id) && !empty($request->bank_id)) {
+            $EscortBank = EscortBankDetail::where('id', (int)$request->bank_id)->first();
+ 
+            $EscortBank->bsb = $EscortBank->bsb ? formatAccountNumber($EscortBank->bsb) : 'NA';
+ 
+            $EscortBank->account_number = $EscortBank->account_number ?  formatAccountNumber($EscortBank->account_number) : "NA";
+ 
+            return response()->json([
+                'error' => false,
+                'message' => 'Bank details fetched successfully.',
+                'type' => 'eft',
+                'eft_bank' => $EscortBank,
+            ]);
+        }
+       
+        return response()->json([
+            'error' => true,
+            'message' => 'Failed to fetch bank details.',
+            'type' => 'eft',
+            'eft_bank' => null,
+        ]);
+    }
+
+    public function sendPaymentReceiptEscort(Request $request){
+
+        if (auth()->check() && isset($request->bsb) && !empty($request->bsb)) {
+            $body = [
+                'name' => auth()->user()->name,
+                'member_id' => auth()->user()->member_id,
+                'bsb' => $request->bsb,
+                'account_number' => $request->account_number,
+                'subject' => 'Bank payment receipt',
+            ];
+ 
+            Mail::to(auth()->user()->email)->queue(new sendBookeepingEscortBankPaymentReceipt($body));
+ 
+            return response()->json([
+                'error' => false,
+                'message' => 'Bank payment receipt sent successfully.',
+                'type' => 'payment_receipt',
+            ]);
+        }
+       
+        return response()->json([
+            'error' => true,
+            'message' => 'Failed to send bank payment receipt details.',
+            'type' => 'payment_receipt'
         ]);
     }
 }
