@@ -51,7 +51,7 @@
                               <th>End Date</th>
                               <th>Days</th>
                                  <th>Membership</th>
-                              <th>Fee Paid</th>
+                              <th style="width:70px">Fee Paid</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -64,7 +64,7 @@
                                         <td>15-11-2025</td>
                                         <td>5</td>
                                         <td>Platinum</td>
-                                        <td>$10009</td>
+                                        <td><div class="num_value">$<span>10009</span></div></td>
                                     </tr>
                         </tbody>
                   </table>
