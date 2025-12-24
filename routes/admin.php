@@ -372,8 +372,8 @@ Route::post('/notifications/viewer/{id}/update', [ViewerNotificationController::
 Route::get('notifications/global/list', [GlobalNotificationController::class, 'index'])->name('admin.global.notification.index');
 Route::post('/notifications/global/store', [GlobalNotificationController::class, 'store'])->name('admin.global.notification.store');
 Route::get('/notifications/global/{id}', [GlobalNotificationController::class, 'show'])->name('admin.global.notifications.show');
-Route::post('/notifications/global/{id}/suspend', [GlobalNotificationController::class, 'updateStatus'])->name('admin.global.notifications.suspend');
-Route::post('/notifications/global/{id}/status', [GlobalNotificationController::class, 'changeStatus'])->name('admin.global.notifications.status');
+Route::post('/notifications/global/{id}/suspend', [GlobalNotificationController::class, 'changeStatus'])->name('admin.global.notifications.suspend');
+Route::post('/notifications/global/{id}/status', [GlobalNotificationController::class, 'updateStatus'])->name('admin.global.notifications.status');
 Route::get('/notifications/global/pdf-download/{id}', [GlobalNotificationController::class, 'pdfDownload'])->name('admin.global.pdf.download');
 Route::get('/notifications/global/{id}/edit', [GlobalNotificationController::class, 'edit'])->name('admin.global.notifications.edit');
 Route::post('/notifications/global/{id}/update', [GlobalNotificationController::class, 'update'])->name('admin.global.notifications.update');
@@ -467,9 +467,9 @@ Route::get('/reporting/admin-product-request',function(){
     return view('admin.reporting.admin-product-request');
 })->name('admin.admin-product-request');
 
-Route::get('/reporting/punterbox-report',function(){
-    return view('admin.reporting.punterbox-report');
-})->name('admin.punterbox-report');
+Route::get('reports/punterbox',function(){
+    return view('admin.reports.punterbox');
+})->name('admin.punterbox');
 
 Route::get('/management/competitor-database',function(){
     return view('admin.management.competitor-database');
