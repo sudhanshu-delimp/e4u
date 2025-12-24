@@ -349,7 +349,9 @@
                             let msg = response.message ? response.message : 'Saved successfully';
                             $("#image_icon").attr("src", endpoint.success_image);
                             $('#success_task_title').text('Success');
-                            $('#success_msg').text(msg);
+                            $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                            );
                             form[0].reset();
                             $('#successModal').modal('show');
                             setTimeout(function() {
@@ -366,7 +368,9 @@
                         }
                         $("#image_icon").attr("src", endpoint.error_image);
                         $('#success_task_title').text('Error');
-                        $('#success_msg').text(msg);
+                        $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                        );
                         $('#successModal').modal('show');
                     }
                 });
@@ -465,7 +469,6 @@
                 url: endpoint.center_notification_show.replace('__ID__', id),
                 type: 'GET',
                 success: function(response) {
-                    console.log(response);
                     if (response.status === true) {
                         const d = response.data || {};
                         const rows = [
@@ -589,8 +592,6 @@
                 success: function(response) {
                     if (response.status === true) {
                         let n = response.data;
-                        console.log(n, 'n');
-
                         // Populate form fields
                         $('#edit_notification_id').val(n.id);
                         $('#heading').val(n.heading);

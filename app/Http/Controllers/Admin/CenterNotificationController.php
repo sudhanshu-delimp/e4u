@@ -238,7 +238,7 @@ class CenterNotificationController extends Controller
         try {
             $notification = CenterNotification::findOrFail($id);
             $notification->start_date = basicDateFormat($notification->start_date);
-            $notification->end_date = basicDateFormat($notification->start_date);
+            $notification->end_date = basicDateFormat($notification->end_date);
             // Return raw date format for edit form
             $notificationData = $notification->toArray();
             return success_response($notificationData, 'Notification view');
