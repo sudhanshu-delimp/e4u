@@ -921,6 +921,24 @@ if (!function_exists('removeSpaceFromString')) {
     }
 }
 
+if (!function_exists('formatStringTitleCase')) {
+    function formatStringTitleCase($string)
+    {
+        if (!$string) {
+            return null;
+        }
+
+        // Replace underscores with spaces
+        $string = str_replace('_', ' ', $string);
+
+        // Remove extra spaces
+        $string = trim(preg_replace('/\s+/', ' ', $string));
+
+        // Convert to Title Case
+        return ucwords(strtolower($string));
+    }
+}
+
 if (!function_exists('getUserWiseLastLoginTime')) {
     function getUserWiseLastLoginTime($user)
     {
