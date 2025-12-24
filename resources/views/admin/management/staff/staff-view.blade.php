@@ -154,7 +154,7 @@
                 </table>
             </div>
         <div class="col-12 my-2 text-right">
-            <form action="{{ route('admin.print_staff') }}" method="post">
+            <form action="{{ route('admin.print_staff') }}" method="post" target="_blank">
                 {{ csrf_field() }}
                 <input name="user_id" type="hidden" id="user_print_id" class="user_print_id"
                     value="{{ $staff->id }}">
