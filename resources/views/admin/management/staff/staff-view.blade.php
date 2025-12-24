@@ -15,7 +15,7 @@
         $idle_preference_times = config('staff.idle_preference_time');
         $idle_preference_time = "";
          $twofa = "";
-        if(isset( $setting) && (isset($setting->idle_preference_time) || $setting->idle_preference_time === null)) {
+        if(isset( $setting) && (isset($setting->idle_preference_time))) {
             $idle_preference_time = isset($idle_preference_times[(string)$setting->idle_preference_time]) ? $idle_preference_times[$setting->idle_preference_time] : "";
         }
         $twofas = config('staff.twofa');

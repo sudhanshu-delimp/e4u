@@ -310,7 +310,7 @@
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="idle_preference_time"
-                                            id="idle_preference_time_never" value="">
+                                            id="idle_preference_time_never" value="{{config('staff.idle_vever_minute')}}">
                                         <label class="form-check-label" for="idle_preference_time_never">Never</label>
                                     </div>
 

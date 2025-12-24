@@ -7,12 +7,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Member Report</title>
+
+ 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:ital,wght@0,200;0,400;1,200&display=swap"
+        href="https://fonts.googleapis.com/css2?family=wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
-    <link href="{{ asset('assets/app/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+ 
     <link href="{{ asset('assets/dashboard/vendor/file-upload/css/fill-profile-details.css') }}" rel="stylesheet"
         type="text/css">
 
@@ -26,21 +28,7 @@
             font-weight: bold
         }
 
-        .print-btn {
-            padding: 8px 14px;
-            background: #0d6efd;
-            border: none;
-            border-radius: 6px;
-            color: #fff;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
+       
 
         .info-item {
             background: #f8faff;
@@ -67,58 +55,34 @@
             display: none !important;
         }
 
-        .btn-cancel-modal {
-            background-color: #ff3c5f;
-            color: var(--white);
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            color: #fff;
-        }
-
-        .print-btn {
-            background-color: #0c223d;
-            color: var(--white);
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            color: #fff;
-        }
-
-        @media print {
-            body {
-                background: none;
-            }
-
-            .print-btn {
-                display: none;
-            }
-
-            .btn-cancel-modal {
-                display: none;
-            }
-
-            .container {
-                box-shadow: none;
-                /* border: 1px solid #ccc; */
-            }
-        }
-        @page{
-            size:A4;
-        }
-
         .heading {
             display: block;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 500;
             line-height: 1px;
         }
-        .my-account-card{ margin: 25px auto;}
+        @page {
+            size: A4;
+        }
+
+        /* Header */
+        
+        .page-number:before {
+            content: counter(page);
+        }
+        .my-account-card {
+            background-color: #fff;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            max-width: 100%;
+            margin: 0px auto !important;
+            padding: 0px !important;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
-<body onload="window.print()">
-    <div class="container">
+<body style="margin:0;width:100%">
+    <div class="container1">
         @php
             $employmentStatuss = config('staff.employment_status');
             $employmentStatus = isset($employmentStatuss[$staff->staff_detail->employment_status])
@@ -145,16 +109,11 @@
         $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
         }
         @endphp
-        <div class="col-md-12  my-2" id="printArea">
+        <div class="col-md-12 ">
             <div class="my-account-card">
                 <div class="card-head" style="display: flex; justify-content:space-between;align-items:center;">
                     <h2>Staff Member Repord</h2>
-                    <form>
-                        <button type="button" class="print-btn" onclick="window.print()"><span
-                                style="font-size: 12px;">🖨️</span>Print Report</button>
-                        <a href="{{ url()->previous() }}" class="btn-cancel-modal" id="cancel_print_report"
-                            style="text-decoration: none;">Close</a>
-                    </form>
+                   
                 </div>
 
                 <h6 class=" pb-1 text-blue-primary">Personal Details</h6>
