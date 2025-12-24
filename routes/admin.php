@@ -479,9 +479,9 @@ Route::get('/reporting/admin-product-request', function () {
     return view('admin.reporting.admin-product-request');
 })->name('admin.admin-product-request');
 
-Route::get('/reporting/punterbox-report', function () {
-    return view('admin.reporting.punterbox-report');
-})->name('admin.punterbox-report');
+Route::get('reports/punterbox',function(){
+    return view('admin.reports.punterbox');
+})->name('admin.punterbox');
 
 Route::get('/management/competitor-database', function () {
     return view('admin.management.competitor-database');
