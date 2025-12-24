@@ -23,11 +23,11 @@
         $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
         }
     @endphp
-    <div class="col-12 view_staff_details" style="max-height: 600px; overflow:auto;">
-         <div class="row">
+    <div class="col-12 view_staff_details">
+         <div class="row" style="max-height: 600px; overflow:auto;">
             <!-- Section: Personal Details -->
             <div class="col-12 my-2">
-                <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
+                <h6 class="text-blue-primary">Personal Details</h6>
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
@@ -59,7 +59,7 @@
             </div>
             <!-- Next of Kin Section -->
             <div class="col-12 my-2">
-                <h6 class="border-bottom pb-1 text-blue-primary">Next of Kin (Emergency Contact)</h6>
+                <h6 class="text-blue-primary">Next of Kin (Emergency Contact)</h6>
 
                 <table class="table table-bordered mb-3">
                     <tbody>
@@ -84,7 +84,7 @@
             </div>
             <!-- Section: Other Details -->
             <div class="col-12 my-2">
-                <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
+                <h6 class="text-blue-primary">Other Details</h6>
 
                 <table class="table table-bordered mb-3">
                     <tbody>
@@ -118,7 +118,7 @@
             </div>
             <!-- Section: Building Security -->
             <div class="col-12 my-2">
-                <h6 class="border-bottom pb-1 text-blue-primary">Building Security</h6>
+                <h6 class="text-blue-primary">Building Security</h6>
                 <table class="table table-bordered mb-3">
                     <tbody>
                         <tr>
@@ -138,7 +138,7 @@
                 </table>
             </div>
 
-        <div class="col-12 my-2">
+            <div class="col-12 my-2">
                
                 <table class="table table-bordered mb-3">
                     <tbody>
@@ -153,7 +153,9 @@
                     </tbody>
                 </table>
             </div>
-        <div class="col-12 my-2 text-right">
+         </div>    
+        <div class="row">
+            <div class="col-12 my-2 text-right">
             <form action="{{ route('admin.print_staff') }}" method="post">
                 {{ csrf_field() }}
                 <input name="user_id" type="hidden" id="user_print_id" class="user_print_id"
@@ -161,6 +163,7 @@
                 <button type="submit" class="print-btn m-0">🖨️ Print Report</button>
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
             </form>
+        </div>
         </div>
     </div>
 </div>
