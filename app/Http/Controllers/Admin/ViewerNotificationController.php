@@ -183,8 +183,8 @@ class ViewerNotificationController extends Controller
                 'current_day' => Carbon::createFromFormat('d-m-Y', $request->current_day)->toDateString(),
                 'heading' => $request->heading,
                 'type' => $request->type,
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
+                'start_date' => sqlDateFormat($request->start_date) ,
+                'end_date' => sqlDateFormat($request->end_date),
                 'content' => $request->content,
             ];
 
@@ -355,6 +355,8 @@ class ViewerNotificationController extends Controller
         try {
             $notification = ViewerNotification::findOrFail($id);
             $notification->current_day = basicDateFormat($notification->current_day);
+            $notification->start_date = basicDateFormat($notification->start_date);
+            $notification->end_date = basicDateFormat($notification->end_date);
            
             return success_response($notification, 'Notification saved successfully');
         } catch (\Exception $e) {

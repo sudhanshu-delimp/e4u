@@ -117,8 +117,8 @@
                             <!-- Start Date -->
                             <div class="col-12 mb-3">
                                 <label class="label">Start Date</label>
-                                <input type="date" name="start_date" id="start_date" placeholder="Start Date"
-                                    class="form-control rounded-0" min="{{ \Carbon\Carbon::now()->format('d-m-Y') }}"
+                                <input type="text" name="start_date" id="start_date" placeholder="Start Date"
+                                    class="form-control rounded-0 js_datepicker"
                                     required />
 
                             </div>
@@ -126,8 +126,8 @@
                             <!-- Finish Date -->
                             <div class="col-12 mb-3">
                                 <label class="label">End Date</label>
-                                <input type="date" name="end_date" id="end_date" placeholder="End Date"
-                                    class="form-control rounded-0" min="{{ \Carbon\Carbon::now()->format('d-m-Y') }}"
+                                <input type="text" name="end_date" id="end_date" placeholder="End Date"
+                                    class="form-control rounded-0 js_datepicker" 
                                     required />
 
                             </div>
@@ -349,7 +349,9 @@
                             let msg = response.message ? response.message : 'Saved successfully';
                             $("#image_icon").attr("src", endpoint.success_image);
                             $('#success_task_title').text('Success');
-                            $('#success_msg').text(msg);
+                            $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                            );
                             form[0].reset();
                             $('#successModal').modal('show');
                             setTimeout(function() {
@@ -366,7 +368,9 @@
                         }
                         $("#image_icon").attr("src", endpoint.error_image);
                         $('#success_task_title').text('Error');
-                        $('#success_msg').text(msg);
+                        $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                        );
                         $('#successModal').modal('show');
                     }
                 });
@@ -397,10 +401,6 @@
             $('#createNotificationForm')[0].reset();
             $('#edit_notification_id').val('');
             $('#submitBtn').text('Save');
-            $('#current_date').prop('readonly', false);
-            $('#start_date').prop('readonly', false);
-            $('#end_date').prop('readonly', false);
-            $('#type').prop('disabled', false);
             // Reset modal title
             $(this).find('h5.modal-title').html(
                 '<img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create Notification'
@@ -421,7 +421,8 @@
                 url: "{{ route('admin.centres.notifications.index') }}",
                 type: 'GET'
             },
-            columns: [{
+            columns: [
+                {
                     data: 'ref',
                     name: 'ref'
                 },
@@ -468,7 +469,6 @@
                 url: endpoint.center_notification_show.replace('__ID__', id),
                 type: 'GET',
                 success: function(response) {
-                    console.log(response);
                     if (response.status === true) {
                         const d = response.data || {};
                         const rows = [
@@ -583,16 +583,8 @@
             const container = $('#listingModalContent');
             container.html('<div class="text-center py-3">Loading...</div>');
             $('#createNotificationForm')[0].reset();
-            // $('#edit_notification_id').val(id);
+             $('#edit_notification_id').val(id);
             $('#submitBtn').text('Save');
-            $('#current_date').prop('readonly', true);
-            $('#start_date').prop('readonly', true);
-            $('#end_date').prop('readonly', true);
-            $('#type').prop('disabled', true);
-            // Reset modal title
-            $(this).find('h5.modal-title').html(
-                '<img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create Notification'
-            );
 
             $.ajax({
                 url: endpoint.center_notification_edit.replace('__ID__', id),
@@ -600,8 +592,6 @@
                 success: function(response) {
                     if (response.status === true) {
                         let n = response.data;
-                        console.log(n, 'n');
-
                         // Populate form fields
                         $('#edit_notification_id').val(n.id);
                         $('#heading').val(n.heading);
@@ -616,10 +606,6 @@
                             $('#member_id').val(n.member_id);
                         }
 
-                        // Make date fields readonly in edit mode
-                        ['#current_date', '#start_date', '#end_date'].forEach(id => $(id).prop(
-                            'readonly', true));
-                        $('#type').prop('disabled', true);
                         // Change button text to Update
                         $('#submitBtn').text('Update');
 

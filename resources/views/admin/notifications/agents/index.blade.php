@@ -907,7 +907,10 @@
                                     let msg = response.message ? response.message : 'Saved successfully';
                                     $("#image_icon").attr("src", endpoint.success_image);
                                     $('#success_task_title').text('Success');
-                                    $('#success_msg').text(msg);
+                                    //$('#success_msg').text(msg);
+                                    $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                                        '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                        );
                                     form[0].reset();
                                     $('#successModal').modal('show');
                                     setTimeout(function() {
@@ -924,7 +927,10 @@
                                 }
                                 $("#image_icon").attr("src", endpoint.error_image);
                                 $('#success_task_title').text('Error');
-                                $('#success_msg').text(msg);
+                                //$('#success_msg').text(msg);
+                                $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                                    '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                );
                                 $('#successModal').modal('show');
                             }
                         });
