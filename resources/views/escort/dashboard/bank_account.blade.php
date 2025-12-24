@@ -949,6 +949,7 @@
          $(".save_button").text('Save');
          $("#bankId").val('');
          isBankAccountChanged = false;
+         $("#change_pin_active").val('0');
       });
 
       $(document).on('click', '.editModal', function() {
