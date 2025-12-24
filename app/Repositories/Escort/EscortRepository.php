@@ -99,6 +99,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ->limit($limit)
             ->with([
                 'latestActivePinup',
+                'activeBumpup',
                 'activeUpcomingSuspend',
                 'brb' => function ($query) {
                     $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
@@ -159,6 +160,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->pro_name = $item->profile_name ? '<span id="brb_' . $item->id . '" >' . $item->profile_name : "NA";
             $item->city_name = $item->city ? $item->city->name : null;
             $item->state_name = $item->state ? $item->state->name : null;
+            $localTimeZone = getEscortTimezone($item);
             if ($item->enabled == 1) {
                 $item->enabled = "Active";
             } elseif ($item->enabled == 0) {
@@ -201,9 +203,9 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->action .= '</div>';
 
             $isExtended = $item->isListingExtended();
-
+            $isBumpUped = $item->activeBumpup;
             $item->is_extended = $isExtended->count;
-
+            $item->is_bumpup = !empty($isBumpUped)?true:false;
             $itemArray = $item->toArray();
            
 
@@ -251,6 +253,13 @@ class EscortRepository extends BaseRepository implements EscortInterface
             if($item->mainPurchase && $item->mainPurchase->tour_location_id!=null){
                 $item->pro_name .= '<sup class="tour_icon listing-tag-tooltip ml-1">Tour
                 <small class="listing-tag-tooltip-desc">Listed from ' . date("d-m-Y", strtotime($item->start_date)) . " to ".date("d-m-Y", strtotime($item->end_date)).'</small>
+                </sup>';
+                $item->tour = true;
+            }
+
+            if($item->is_bumpup){
+                $item->pro_name .= '<sup class="bumpup_icon listing-tag-tooltip ml-1">Bumped Up
+                <small class="listing-tag-tooltip-desc">From ' . getEscortLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A') . " to ".getEscortLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A').'</small>
                 </sup>';
                 $item->tour = true;
             }

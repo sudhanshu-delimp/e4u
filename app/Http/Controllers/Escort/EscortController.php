@@ -15,6 +15,7 @@ use App\Models\PinUps;
 use App\Models\Pricing;
 use App\Models\Purchase;
 use App\Models\EscortPinup;
+use App\Models\EscortBumpup;
 use Illuminate\Support\Str;
 use MongoDB\Driver\Session;
 use Illuminate\Http\Request;
@@ -945,5 +946,39 @@ class EscortController extends BaseController
 
         
         return view('escort.dashboard.Community.pricing',compact('advertings', 'membership_types','states','no_of_members','fees_concierge_services','fees_support_services','variablLoyaltyProgram'));
+    }
+
+    public function bumpup_register(Request $request){
+        try{
+            $escortId = $request->escort_id;
+            $escortDetail = getEscortDetail($escortId);
+            $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
+            $nowLocal = Carbon::now($profileTimezone);
+            $localStart = $nowLocal->copy();
+            $localEnd   = $nowLocal->copy()->addHours(24);
+            $utcStart = $localStart->copy()->setTimezone('UTC');
+            $utcEnd = $localEnd->copy()->setTimezone('UTC');
+
+            EscortBumpup::create([
+                'user_id' => auth()->user()->id,
+                'escort_id' => $escortDetail->id,
+                'start_date' => $localStart->format('Y-m-d'),
+                'end_date' => $localEnd->format('Y-m-d'),
+                'utc_start_time' => $utcStart,
+                'utc_end_time' => $utcEnd,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Profile ID '.$escortId.' has been Bumped Up.'
+            ]);
+        }
+        catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong while booking the Pinup.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

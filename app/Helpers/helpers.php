@@ -352,6 +352,15 @@ if (!function_exists('getEscortTimezone')) {
     }
 }
 
+if (!function_exists('getEscortLocalTime')) {
+
+    function getEscortLocalTime($utcTime, $localTimeZone)
+    {
+        return Carbon::parse($utcTime)->timezone($localTimeZone);
+    }
+}
+
+
 if (!function_exists('app_date_time_format')) {
 
     function app_date_time_format($datetime)
