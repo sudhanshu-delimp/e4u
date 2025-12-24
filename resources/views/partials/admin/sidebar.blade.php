@@ -107,7 +107,7 @@
                     'blog',
                     'credit',
                     'agent-requests',
-                    'num','punterbox',
+                    'num','punterbox','communications',
                     'transaction-summary',
                     'advertiser-suspensions',
                     'registrations-reports',
@@ -365,6 +365,7 @@
                             request()->is('*registrations-reports*') ||
                             request()->is('*advertiser-reports*') ||
                             request()->is('*punterbox*') ||
+                            request()->is('*communications*') ||
                             request()->is('*advertiser-reviews*')) show @endif;" data-parent="#Administration">
                         <div class="py-0 collapse-inner rounded mb-2">
 
@@ -390,12 +391,17 @@
                                 <span style="{{ request()->is('*agent-requests*') ? 'color: #FF3C5F;' : '' }}">Agent
                                     Requests</span>
                             </a>
-                            <a class="nav-link collapsed" href="{{ route('admin.credit') }}">
+                           
+                            <a class="nav-link collapsed" href="{{ route('admin.communications') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/communication.png') }}">
+                                <span style="{{ request()->is('*communications*') ? 'color: #FF3C5F;' : '' }}">communications</span>
+                            </a>
+                             <a class="nav-link collapsed" href="{{ route('admin.credit') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/credits.png') }}">
                                 <span style="{{ request()->is('*credit*') ? 'color: #FF3C5F;' : '' }}">Credits</span>
                             </a>
-
                             <a class="nav-link collapsed" href="{{ route('admin.num') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png') }}">

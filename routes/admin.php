@@ -471,6 +471,10 @@ Route::get('reports/punterbox',function(){
     return view('admin.reports.punterbox');
 })->name('admin.punterbox');
 
+Route::get('reports/communications',function(){
+    return view('admin.reports.communications');
+})->name('admin.communications');
+
 Route::get('/management/competitor-database',function(){
     return view('admin.management.competitor-database');
 })->name('admin.competitor-database');
