@@ -660,7 +660,7 @@ Account details, including the initial setup.</li>
        <div class="modal-body text-center p-0">
          <!-- PIN Display -->
          <div id="pinDisplaySet" class="pin-display mb-3">
-           Nnumbers appear as typed
+           Numbers appear as typed
          </div>
  
          <!-- Keypad -->
@@ -956,6 +956,7 @@ Account details, including the initial setup.</li>
          $(".save_button").text('Save');
          $("#bankId").val('');
          isBankAccountChanged = false;
+         $("#change_pin_active").val('0');
       });
 
       $(document).on('click', '.editModal', function() {
