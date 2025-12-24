@@ -15,7 +15,7 @@
 .payer-lable {
     
     display: inline-block;
-    width: 25%;
+    width: 30%;
 }
 
 #SetPinModal .modal-content {
@@ -88,6 +88,10 @@
       color:red;
       font-size: 13px;
    }
+   span.payid_class {
+      width: 35%;
+      display: inline-block;
+   }
 
    @keyframes shake {
       0% { transform: translateX(0); }
@@ -121,12 +125,13 @@
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
                <ol>
                   <li>Use this feature for displaying your Bank Account details for an Electronic
-                     Funds Transfer (<b>EFT</b>). By using this feature for an EFT payment, you remove
-                     the risk of having your bank account app open.</li>
+Funds Transfer <b>(EFT)</b>. By using this feature for an EFT payment, you remove
+the risk of having your bank account app open.</li>
                   <li>You can set up, update and add additional bank accounts by clicking the 'Add
-                     New' button. SMS 2FA authentification is applied for any changes to your Bank
-                     Account details, including the initial setup.</li>
-                  <li>To display your Bank Account details, enter your PIN number.</li>
+New' button. SMS 2FA authentication is applied for any changes to your Bank
+Account details, including the initial setup.</li>
+                  <li>To display your Bank Account details to a client, select from the Action options
+‘EFT Client’, enter your PIN number, and your bank account details will display.</li>
                </ol>
             </div>
          </div>
@@ -137,7 +142,7 @@
       <div class="col-lg-12 col-md-12 col-sm-12">
 
          <div class="bothsearch-form d-flex gap-20">
-            <button type="button" class="create-tour-sec dctour" data-toggle="modal"  data-target="#payid">PayID</button>
+            <button type="button" class="create-tour-sec dctour pay-id-modal" >PayID</button>
             <button type="button" class="create-tour-sec dctour" id="change_pin_modal">Change PIN</button>
             <button type="button" class="create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New Account</button>
          </div>
@@ -366,7 +371,7 @@
 {{-- PayID for Payer [X] --}}
 <div class="modal fade upload-modal" id="AddPayId" tabindex="-1" role="dialog"
          aria-labelledby="escortProfileMissingLabel" aria-hidden="true" data-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 550px;">
          <div class="modal-content">
 
             <div class="modal-header">
@@ -385,9 +390,9 @@
                   <div class="row">
                      <div class="col-md-12 my-4">
                         <ol class="pl-3">
-                           <li class="pl-3">My PayID number is: <span class="font-weight-bold">1234567890</span></li>                           
+                           <li class="pl-3"><span class="payid_class">My PayID number is:</span>  <span class="font-weight-bold">{{ auth()->user()->pay_id_no }}</span></li>                           
                            
-                           <li class="pl-3">Account name: <span>XYZ65464</span></li>
+                           <li class="pl-3"><span class="payid_class">Account name:</span>  <span class="font-weight-bold">{{ auth()->user()->pay_id_name }}</span></li>
                         </ol>
                         <p>Thank you for your payment.</p>
                      </div>
@@ -408,7 +413,7 @@
 {{-- End Modal --}}
 
 {{-- EFT Instructions for Payer [X] --}}
-<div class="modal fade upload-modal" id="EFTInstructions" tabindex="-1" role="dialog"
+{{-- <div class="modal fade upload-modal" id="EFTInstructions" tabindex="-1" role="dialog"
          aria-labelledby="escortProfileMissingLabel" aria-hidden="true" data-backdrop="static">
       <div class="modal-dialog modal-dialog-centered"  role="document">
          <div class="modal-content">
@@ -432,8 +437,9 @@
                            <li class="pl-3">EFT your payment to this bank account: </li>                           
                               <p class="pl-3 d-flex justify-content-start"><span class="w-25">BSB:</span> <span class="font-weight-bold">123 445</span></p>
                               <p class="pl-3 d-flex justify-content-start"><span class="w-25">A/c Number:</span> <span class="font-weight-bold">123-1235</span></p>
-                           <li class="pl-3">Please email your payment receipt to:</li>
-                           <p class="pl-3"><a href="#">Escort email</a></p>
+                           <li class="pl-3">Please email your payment receipt to:</li><p class="pl-3">
+                              <a href="mailto:{{ auth()->user()->email }}">Center Email</a>
+                           </p>
                         </ol>
                         <p>Thank you for your payment.</p>
                      </div>
@@ -450,7 +456,7 @@
 
          </div>
       </div>
-</div>
+</div> --}}
 {{-- End Modal --}}
 
 {{-- enter pin modal to see your bank details --}}
@@ -533,7 +539,7 @@
             </li>
             <li class="pl-3">Please email your payment receipt to:
                <ul class="text-left list-unstyled ">
-                  <li><a href="#">Escort email</a></li>
+                  <li><a href="javascript:void(0)" id="sendMailToEscort">Center Email</a></li>
                </ul>
             </li>
          </ol>
@@ -559,6 +565,33 @@
  </div>
  
 {{-- end modal --}}
+
+{{-- SEND PAYMENT RECEIPT CONFIRM MODAL--}}
+ 
+<div class="modal programmatic" id="paymentReceiptConfirm" style="display: none">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content custome_modal_max_width">
+         <div class="modal-header main_bg_color border-0">
+ 
+            <h5 class="modal-title text-white"><img src="/assets/dashboard/img/remove-bank-account.png" class="custompopicon" alt="cross"> Confirmation</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">
+                  <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+               </span>
+            </button>
+         </div>
+ 
+         <div class="modal-body text-center">
+            <h5 class="mb-2 mt-3"><span id="Lname">Are you sure you want to send the payment receipt?</span> </h5>
+            <div class="modal-footer justify-content-center">
+               <button type="button" class="btn-cancel-modal" id="sendBankPaymentReceiptBtn">Send</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+ 
+{{--END PAYMENT RECEIPT CONFIRM MODAL--}}
 
 {{-- eft modal popup start here --}}
 
@@ -679,8 +712,9 @@
 
       let fClick = true;
       let fClick2 = true;
-      var isClickEft = false;
-      var eftAccountId = 0;
+      let isClickEft = false;
+      let eftAccountId = 0;
+      let isPayIDClicked = false;
 
       // For pinDisplay
       $('.input_value').click(function () {
@@ -786,6 +820,12 @@
 
                   $("#viewEftBankdetails").modal('show');
                }
+
+               if(data.error == false && data.type == 'payment_receipt'){
+                   $("#modal-title").text('Bank Payment Receipt');
+                  $('.comman_msg').html("The payment receipt has been sent successfully.");
+                  $("#comman_modal").modal('show');
+               }
                
             },
             error: function(data) {
@@ -795,6 +835,32 @@
             }
          });   
       }
+
+      $(document).on('click', "#sendMailToEscort", function(e){
+         $('#InstructionPayerModal').modal('hide');
+         $('#paymentReceiptConfirm').modal('show');  
+      });
+ 
+   $(document).on('click', "#sendBankPaymentReceiptBtn", function(e){
+      $('#InstructionPayerModal').modal('hide');
+      $('#paymentReceiptConfirm').modal('show');
+
+         var params = {
+            'url': "{{ route('center.send-payment-receipt-center') }}",
+            'method': 'POST',
+         };
+
+         var data = {
+            'bsb': $('.primary_bsb').text(),
+            'account_number': $('.primary_acc_no').text(),
+            'type': 'payment_receipt',
+         };
+
+         console.log(params, data);
+         
+         sendGlobalAjaxRequest(params,data);
+         $('#paymentReceiptConfirm').modal('hide');
+   });
          
       $("#pinok").click(function () {
          const pinDisplay = $('#pinDisplay');
@@ -822,7 +888,10 @@
 
                 sendGlobalAjaxRequest(params,data);
 
-            }else{
+            }else if(isPayIDClicked){
+                  $('#AddPayId').modal('show');
+            }
+            else{
                 $('#InstructionPayerModal').modal('show');
             }
             
@@ -847,6 +916,13 @@
         $('#EnterPinModal').modal('show');
          eftAccountId = $(this).data('id');
         isClickEft =  true;
+        isPayIDClicked = false;
+      });
+ 
+      $(document).on('click' , '.pay-id-modal' , function(){
+            isPayIDClicked = true;
+            isClickEft = false;
+            $('#EnterPinModal').modal('show');
       });
 
    })
@@ -873,6 +949,7 @@
       var primary_bank_ac_no = '';
       var primary_bank_bsb = '';
       var isBankAccountChanged = false;
+      var isChangePin = false;
 
       $(document).on('click', '#commission-modal', function() {
          $(".commission_report_title").text('Add New Bank Account');
@@ -891,6 +968,7 @@
          let state = $(this).data('state');
          previous_state  = state;
          isBankAccountChanged = true;
+         $("#change_pin_active").val('0');
          
          $('#bankId').val(id);
          $('#bank_name').val(bank).change(); 
@@ -1280,11 +1358,33 @@
          })
       }
 
-      $(document).on('click', "#change_pin_modal", function(e){
-         
-         $("#sendOtp_modal").modal('show');
-         $("#change_pin_active").val('1');
-         // data-toggle="modal"  data-target="#SetPinModal"
+      $(document).on('click', "#change_pin_modal", function(e)
+      {
+         isChangePin = true;
+         isBankAccountChanged = false;
+         var token = $('input[name="_token"]').attr('value');
+         $.ajax({
+            url: "{{route('center.send-otp-for-pin-change')}}",
+            type: 'POST',
+           
+            dataType: "JSON",
+           
+            headers: {
+               'X-CSRF-Token': token
+            },
+            success: function(data) {
+               if(data.status){
+                  $("#sendOtp_modal").modal('show');
+                  $("#change_pin_active").val('1');
+               }
+            },
+            error: function(data) {
+ 
+               console.log("error otp: ", data.responseJSON.errors);
+               
+            }
+         });
+
       });
 
       function sendOtpPin(params) 
@@ -1359,22 +1459,27 @@
             },
             success: function(data) {
                
+               //$("#change_pin_active").val('0');
 
-                if(data.changePin == '1' || data.changePin == '0'){
-                    if(data.changePin == '1'){
-                        $('#sendOtp_modal').modal('hide');
-                        $("#SetPinModal").modal('show');
-                        $('#otp').val('');
-                    }else{
-                        Swal.fire({
-                            icon: "error",
-                            title: "Invalid OTP",
-                            text: "The OTP you entered is incorrect. Please try again.",
-                        });
-                        $('#otp').val('');
-                    }
-                    $("#change_pin_active").val('0');
-                }
+               if(data.changePin == '1' || data.changePin == '0'){
+                  if(data.changePin == '1'){
+                     $('#sendOtp_modal').modal('hide');
+                     $("#SetPinModal").modal('show');
+                     $('#otp').val('');
+                  }else{
+                     Swal.fire({
+                           icon: "error",
+                           title: "Invalid OTP",
+                           text: "The OTP you entered is incorrect. Please try again.",
+                     });
+                     $('#otp').val('');
+                     // $("#change_pin_active").val('1');
+                     return true;
+                  }
+                  
+               }
+
+                
 
                if(isBankAccountChanged && data.error != 3){
                   $("#modal-title").text('Bank Account Update Confirmation');
@@ -1526,5 +1631,7 @@
 
       })
    });
+
+   
 </script>
 @endpush
