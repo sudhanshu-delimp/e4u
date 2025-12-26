@@ -5,7 +5,7 @@
         <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
           <div class="modal-header">
             <h5 class="modal-title">
-              <img src="/assets/app/img/profile-30.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
+              <img src="/assets/app/img/bump-up.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
               Bump Up Profile
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
