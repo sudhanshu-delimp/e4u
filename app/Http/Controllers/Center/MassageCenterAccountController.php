@@ -277,9 +277,9 @@ class MassageCenterAccountController extends Controller
            
             $massageBank = MassageBankDetail::where('id', (int)$request->bank_id)->first();
 
-            $massageBank->bsb = $massageBank->bsb ? formatAccountNumber($massageBank->bsb) : 'NA';
+            $massageBank->bsb = $massageBank->bsb ? formatAccountNumber($massageBank->bsb,'bsb') : 'NA';
 
-            $massageBank->account_number = $massageBank->account_number ?  formatAccountNumber($massageBank->account_number) : "NA";
+            $massageBank->account_number = $massageBank->account_number ?  formatAccountNumber($massageBank->account_number,null) : "NA";
 
             return response()->json([
                 'error' => false,
