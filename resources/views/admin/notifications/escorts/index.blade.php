@@ -26,7 +26,7 @@
                 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                     <div class="row">
                         <div class="custom-heading-wrapper col-md-12">
-                            <h1 class="h1">Center Notifications</h1>
+                            <h1 class="h1">Escort Notifications</h1>
                             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                         </div>
                         <div class="col-md-12 mb-4">
@@ -34,8 +34,7 @@
                                 <div class="card-body">
                                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                     <ol>
-                                        <li>You can create a Notification, published at the top of the Massage Centre’s
-                                            Dashboard.</li>
+                                        <li>You can create a Notification, published at the top of the Escort’s Dashboard.</li>
                                     </ol>
                                 </div>
                             </div>
@@ -96,7 +95,7 @@
                 </div>
                 <div class="modal-body pb-0">
                     <form method="POST" id="createNotificationForm"
-                        action="{{ route('admin.centres.notifications.store') }}" data-parsley-validate>
+                        action="{{ route('admin.escort.notifications.store') }}" data-parsley-validate>
                         @csrf
                         <div class="row">
                             <!-- Auto-generated Date (readonly) -->
@@ -148,24 +147,14 @@
                                 <label class="label">Select Template</label>
                                 <select id="template_name" name="template_name" class="form-control rounded-0">
                                     <option value="">-- Choose a Template --</option>
-                                    <option value="Check out our Visa services. Go to Concierge and select- Visa.">Check
-                                        out our Visa services. Go to Concierge and select- Visa.</option>
-                                    <option value="Check out of Mobile SIM service. Go to Concierge and select - Visa.">
-                                        Check out of Mobile SIM service. Go to Concierge and select - Visa.</option>
-                                    <option
-                                        value="Did you know you can order product online? Go to Concierge and select - Product.">
-                                        Did you know you can order product online? Go to Concierge and select - Product.
-                                    </option>
-                                    <option
-                                        value="Discounts apply when you spend a certain amount with us. Check out our Loyalty Program.">
-                                        Discounts apply when you spend a certain amount with us. Check out our Loyalty
-                                        Program.</option>
-                                    <option value="Want to save on Fees, become an Influencer.">Want to save on Fees,
-                                        become an Influencer.</option>
-                                    <option
-                                        value="Need an email account? We can help you. Simply go to Concierge and select Email.">
-                                        Need an email account? We can help you. Simply go to Concierge and select Email.
-                                    </option>
+                                    <option value="Check out our Visa services. Go to Concierge and select- Visa.">Check out our Visa services. Go to Concierge and select- Visa.</option>
+                                    <option value="Check out of Mobile SIM service. Go to Concierge and select - Visa."> Check out of Mobile SIM service. Go to Concierge and select - Visa.</option>
+                                    <option value="Did you know you can order product online? Go to Concierge and select - Product.">Did you know you can order product online? Go to Concierge and select - Product. </option>
+                                    <option value="Discounts apply when you spend a certain amount with us. Check out our Loyalty Program."> Discounts apply when you spend a certain amount with us. Check out our Loyalty Program.</option>
+                                    <option value="Want to save on Fees, become an Influencer.">Want to save on Fees, become an Influencer.</option>
+                                    <option value="Need an email account? We can help you. Simply go to Concierge and select Email."> Need an email account? We can help you. Simply go to Concierge and select Email.</option>
+                                    <option value="Did you know you can book your flights online with us? Simply go to Concierge and select Travel.">Did you know you can book your flights online with us? Simply go to Concierge and select Travel.</option>
+                                    <option value="Did you know you can book your accommodation online with us? Simply go to Concierge and select Accommodation.">Did you know you can book your accommodation online with us? Simply go to Concierge and select Accommodation.</option>
                                 </select>
                             </div>
 
@@ -264,12 +253,13 @@
     <div id="manage-route" data-scrf-token="{{ csrf_token() }}"
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
-        data-pdf-download="{{ route('admin.centres.pdf.download', ['id' => '__ID__']) }}"
-        data-center-notification-status="{{ route('admin.centres.notifications.status', ['id' => '__ID__']) }}"
-        data-center-notification-edit="{{ route('admin.centres.notifications.edit', ['id' => '__ID__']) }}"
-        data-center-notification-update="{{ route('admin.centres.notifications.update', ['id' => '__ID__']) }}"
-        data-center-notification-store="{{ route('admin.centres.notifications.store') }}"
-        data-center-notification-show="{{route('admin.centres.notifications.show',['id' => '__ID__'])}}"
+        data-pdf-download="{{ route('admin.escort.pdf.download', ['id' => '__ID__']) }}"
+        data-escort-notification-status="{{ route('admin.escort.notifications.status', ['id' => '__ID__']) }}"
+        data-escort-notification-edit="{{ route('admin.escort.notifications.edit', ['id' => '__ID__']) }}"
+        data-escort-notification-update="{{ route('admin.escort.notifications.update', ['id' => '__ID__']) }}"
+        data-escort-notification-store="{{ route('admin.escort.notifications.store') }}"
+        data-escort-notification-show="{{route('admin.escort.notifications.show',['id' => '__ID__'])}}"
+        data-escort-notification-index="{{ route('admin.escort.notifications.index') }}"
         >
 
 
@@ -313,10 +303,11 @@
             success_image: mmRoot.data('success-image'),
             error_image: mmRoot.data('error-image'),
             pdf_download: mmRoot.data('pdf-download'),
-            center_notification_status: mmRoot.data('center-notification-status'),
-            center_notification_edit: mmRoot.data('center-notification-edit'),
-            center_notification_store: mmRoot.data('center-notification-store'),
-            center_notification_show: mmRoot.data('center-notification-show'),
+            escort_notification_status: mmRoot.data('escort-notification-status'),
+            escort_notification_edit: mmRoot.data('escort-notification-edit'),
+            escort_notification_store: mmRoot.data('escort-notification-store'),
+            escort_notification_show: mmRoot.data('escort-notification-show'),
+            escort_notification_index: mmRoot.data('escort-notification-index'),
         }
 
         function urlFor(tpl, id) {
@@ -339,7 +330,7 @@
 
                 let formData = form.serialize();
                 $.ajax({
-                    url: endpoint.center_notification_store,
+                    url: endpoint.escort_notification_store,
                     type: "POST",
                     _token: endpoint.csrf_token,
                     data: formData,
@@ -418,7 +409,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('admin.centres.notifications.index') }}",
+                url: endpoint.escort_notification_index,
                 type: 'GET'
             },
             columns: [
@@ -466,7 +457,7 @@
             const container = $('#listingModalContent');
             container.html('<div class="text-center py-3">Loading...</div>');
             $.ajax({
-                url: endpoint.center_notification_show.replace('__ID__', id),
+                url: endpoint.escort_notification_show.replace('__ID__', id),
                 type: 'GET',
                 success: function(response) {
                     if (response.status === true) {
@@ -544,7 +535,7 @@
             body.off('click', '#confirmRemove').on('click', '#confirmRemove', function() {
                 $(this).prop('disabled', true);
                 $.ajax({
-                    url: endpoint.center_notification_status.replace('__ID__', id),
+                    url: endpoint.escort_notification_status.replace('__ID__', id),
                     type: 'POST',
                     data: {
                         _token: endpoint.csrf_token,
@@ -587,7 +578,7 @@
             $('#submitBtn').text('Save');
 
             $.ajax({
-                url: endpoint.center_notification_edit.replace('__ID__', id),
+                url: endpoint.escort_notification_edit.replace('__ID__', id),
                 type: 'GET',
                 success: function(response) {
                     if (response.status === true) {

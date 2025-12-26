@@ -2,22 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\EscortNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\GlobalNotification;
-use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 
-class GlobalNotificationController extends Controller
+class EscortNotificationController extends Controller
 {
     public function index(Request $request)
     {
+
+
         if ($request->ajax()) {
-            $query = GlobalNotification::query();
+            $query = EscortNotification::query();
             $clientOrder = $request->input('order');
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
             }
+
+
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('ref', function ($row) {
@@ -88,17 +92,17 @@ class GlobalNotificationController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action', 'start_date', 'end_date', 'ref'])
+                ->rawColumns(['action', 'start_date', 'end_date'])
                 ->make(true);
         }
-        return view('admin.notifications.global.index');
-        // return view('admin.notifications.global');
+        return view('admin.notifications.escorts.index');
     }
 
     public function updateStatus(Request $request, $id)
     {
+
         try {
-            $notification = GlobalNotification::findOrFail($id);
+            $notification = EscortNotification::findOrFail($id);
             $status = $request->input('status');
             $allowedStatuses = ['Published', 'Suspended', 'Removed'];
 
@@ -122,13 +126,12 @@ class GlobalNotificationController extends Controller
         } catch (\Exception $e) {
             return error_response('Failed to update status: ' . $e->getMessage(), 500);
         }
-
     }
 
     public function show($id)
     {
         try {
-            $n = GlobalNotification::findOrFail($id);
+            $n = EscortNotification::findOrFail($id);
             return success_response([
                 'id' => $n->id,
                 'ref' => sprintf('#%05d', $n->id),
@@ -139,6 +142,7 @@ class GlobalNotificationController extends Controller
                 'status' => $n->status,
                 'content' => $n->content,
                 'template_name' => $n->template_name,
+                'member_id' => $n->member_id,
             ]);
         } catch (\Exception $e) {
             return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);
@@ -147,18 +151,17 @@ class GlobalNotificationController extends Controller
 
     public function store(Request $request)
     {
-        $data =  $request->only(['heading', 'start_date', 'end_date', 'type', 'content', 'template_name', 'edit_notification_id']);
+        $data =  $request->only(['heading', 'start_date', 'end_date', 'type', 'content', 'member_id', 'template_name', 'edit_notification_id']);
         $start = sqlDateFormat($data['start_date']);
         $end =  sqlDateFormat($data['end_date']);
+        $data['start_date'] = $start;
+        $data['end_date'] = $end;
         //Check condition 
         $notificationId = $request->edit_notification_id;
 
-        $data['start_date'] = $start;
-        $data['end_date'] = $end;
-
         if ($notificationId) {
-            //dd($request->content);
-            $update = GlobalNotification::find($notificationId);
+
+            $update = EscortNotification::find($notificationId);
             $update->heading = $request->heading;
             $update->content = $data['content'];
             $update->template_name = $request->template_name;
@@ -169,16 +172,21 @@ class GlobalNotificationController extends Controller
             /* Reset all type-based fields */
             $update->content       = null;
             $update->template_name = null;
+            $update->member_id     = null;
 
-            if ($data['type'] === 'Ad hoc') {
-                $update->content = $data['content'];
-            } elseif ($data['type'] === 'Template') {
-                $update->template_name = $data['template_name'];
+            if ($request->type == 'Ad hoc') {
+                $update->content = $request->content;
+            } elseif ($request->type == 'Template') {
+                $update->template_name = $request->template_name;
+            } elseif ($request->type == 'Notice') {
+                $update->member_id = $request->member_id;
+                $update->content = $request->content;
             }
+
             $update->save();
             return success_response($data, 'Notification update successfully!!');
         }
-        $query = GlobalNotification::where('status', '=', 'Published')->where(function ($q) use ($start, $end) {
+        $query = EscortNotification::where('status', '=', 'Published')->where(function ($q) use ($start, $end) {
             $q->whereBetween('start_date', [$start, $end])
                 ->orWhereBetween('end_date', [$start, $end])
                 ->orWhere(function ($q2) use ($start, $end) {
@@ -190,7 +198,7 @@ class GlobalNotificationController extends Controller
             return error_response('A Notification already exists in the selected date range!', 422);
         }
         try {
-            GlobalNotification::create($data);
+            EscortNotification::create($data);
             return success_response($data, 'Notification create successfully!!');
         } catch (\Exception $e) {
             return error_response('Failed to create notification: ' . $e->getMessage(), 500);
@@ -201,7 +209,7 @@ class GlobalNotificationController extends Controller
     {
         try {
             $decodedId = (int) base64_decode($id);
-            $data = GlobalNotification::find($decodedId);
+            $data = EscortNotification::find($decodedId);
             if (is_null($data)) {
                 abort(404); // Throws a NotFoundHttpException
             }
@@ -209,6 +217,7 @@ class GlobalNotificationController extends Controller
             $pdfDetail['heading'] = $data['heading'];
             $pdfDetail['type'] = $data['type'];
             $pdfDetail['status'] = $data['status'];
+            $pdfDetail['member_id'] = $data['member_id'];
             $pdfDetail['start_date'] = basicDateFormat($data['start_date']);
             $pdfDetail['end_date'] = basicDateFormat($data['end_date']);
             if ($data['type'] == 'Template') {
@@ -218,7 +227,7 @@ class GlobalNotificationController extends Controller
             }
 
 
-            return view('admin.notifications.global.global-notification-pdf-download', compact('pdfDetail'));
+            return view('admin.notifications.escorts.center-notification-pdf-download', compact('pdfDetail'));
         } catch (\Throwable $e) {
             abort(404);
         }
@@ -227,11 +236,10 @@ class GlobalNotificationController extends Controller
     public function edit($id)
     {
         try {
-            $notification = GlobalNotification::findOrFail($id);
+            $notification = EscortNotification::findOrFail($id);
+            $notification->start_date = basicDateFormat($notification->start_date);
+            $notification->end_date = basicDateFormat($notification->end_date);
             // Return raw date format for edit form
-           // $notificationData = $notification->toArray();
-            $notification['start_date'] = basicDateFormat($notification->start_date);
-            $notification['end_date'] = basicDateFormat($notification->end_date);
             $notificationData = $notification->toArray();
             return success_response($notificationData, 'Notification view');
         } catch (\Exception $e) {

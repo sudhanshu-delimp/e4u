@@ -139,23 +139,21 @@
         <button onclick="window.print()">Print Report</button>
     </div>
     <div class="row">
-        <div class="col-6"><strong>Ref:</strong>#{{$report->id }}{{$report->escort_id}}</div>
-        <div class="col-6"><strong>Date:</strong> {{$report->created_at->format('d-m-Y') }}</div>
+        <div class="col-6"><strong>Item No:</strong>#{{$report->id }}{{$report->escort_id}}</div>
+        <div class="col-6"><strong>Member ID:</strong> {{$report->escort->user->member_id}}</div>
     </div>
-
     <div class="row">
-        <div class="col-6"><strong>Advertiser ID:</strong> {{$report->escort->user->member_id}}</div>
-        <div class="col-6"><strong>Viewer ID:</strong> {{$report->escort_id}}</div>
-    </div>
-
-    <div class="row">
-        <div class="col-6"><strong>Mobile:</strong> {{$report->escort->user->phone}}</div>
-        <div class="col-6"><strong>Mobile:</strong> {{$report->viewer->phone}}</div>
-    </div>
-
-    <div class="row">
+        <div class="col-6"><strong>Report Type:</strong> {{formatStringTitleCase($report->report_tag)}}</div>
+        <div class="col-6"><strong>Advertiser ID:</strong> {{$report->escort->id}}</div>
         
-        <div class="col-6"><strong>Home State:</strong> {{$report->escort->user->home_state}}</div>
+    </div>
+    <div class="row">
+        <div class="col-6"><strong>Stage Name:</strong> {{$report->escort->name}}</div>
+        <div class="col-6"><strong>Date Created:</strong> {{$report->created_at->format('d-m-Y') }}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-6"><strong>Viewer ID:</strong> {{$report->escort_id}}</div>
         <div class="col-6"><strong>Status:</strong> {{$report->report_status == 'pending' ? 'Current' : 'Resolved'}}</div>
     </div>
 

@@ -42,42 +42,7 @@
     </div>
 </div>
 <!-- Page Heading -->
-<div class="row mt-2">  
-    <!-- Followers Online (Legbox) -->
-    <div class="col-md-6 mb-4">
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead style="background-color: #0C223D; color: #ffffff;">
-            <tr><th colspan="3" class="text-center">Escorts Online (Legbox)</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="icon-col"><i class="fas fa-map-marker-alt"></i></td>
-              <td>In my Location</td>
-              <td class="text-center">15</td>
-            </tr>
-            <tr>
-              <td class="icon-col"><i class="fas fa-globe"></i></td>
-              <td>Outside my Location</td>
-              <td class="text-center" style="border-bottom: 2px solid">15</td>
-            </tr>
-            <tr>
-              <td class="icon-col"><i class="fas fa-wifi"></i>
-              </td>
-              <td class="text-right font-weight-bold">Online : </td>
-              <td class="text-center font-weight-bold">30</td>
-            </tr>
-            <tr>
-              <td class="icon-col"><i class="fas fa-kiss-wink-heart"></i>
-
-              </td>
-              <td class="font-weight-bold">Total Legbox</td>
-              <td class="text-center font-weight-bold">30</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<div class="row mt-2"> 
   
     <!-- Logs & Status -->
     <div class="col-md-6 mb-4">

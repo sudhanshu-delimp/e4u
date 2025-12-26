@@ -58,12 +58,17 @@ class AdvertiserReportContoller extends Controller
 
         return DataTables::of($advertiserReports)
             ->addColumn('ref', fn($row) => $row->id . ($row->escort->id ?? ''))
-            ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
+            
             ->addColumn('member_id', fn($row) => $row->escort->user->member_id ?? '-')
-            ->addColumn('mobile', fn($row) => $row->escort->user->phone ?? '-')
-            ->addColumn('home_state', fn($row) => $row->escort->user->home_state ?? '-')
+            ->addColumn('report_type', fn($row) => formatStringTitleCase($row->report_tag) ?? '-')
+            // ->addColumn('mobile', fn($row) => $row->escort->user->phone ?? '-')
+            // ->addColumn('home_state', fn($row) => $row->escort->user->home_state ?? '-')
+            ->addColumn('advertiser_id', fn($row) => $row->escort->id ?? '-')
+            ->addColumn('stage_name', fn($row) => $row->escort->name ?? '-')
+            ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
             ->addColumn('status', fn($row) => $row->report_status == 'pending' ? 'Current' : 'Resolved')
             ->addColumn('action', function ($row) {
+                
                 $statusActionHtml = '';
                 if ($this->editAccessEnabled) {
                     $statusActionHtml = '
@@ -152,7 +157,7 @@ class AdvertiserReportContoller extends Controller
 
             $report = ReportEscortProfile::where('id', $request->report_id)
                 ->with([
-                    'escort:id,user_id,city_id,state_id',
+                    'escort:id,user_id,city_id,state_id,name',
                     'escort.user:id,member_id,phone,state_id,city_id',
                     'viewer:id,email,phone',
                 ])
@@ -192,11 +197,13 @@ class AdvertiserReportContoller extends Controller
 
             $report = ReportEscortProfile::where('id', $report_id)
                 ->with([
-                    'escort:id,user_id',
+                    'escort:id,user_id,name',
                     'escort.user:id,member_id,phone,state_id',
                     'viewer:id,email,phone'
                 ])
                 ->first();
+
+            $report->report_tag = formatStringTitleCase($report->report_tag);
 
             return view('admin.prints_file.advertiser_report_print', ['report' => $report]);
         }
