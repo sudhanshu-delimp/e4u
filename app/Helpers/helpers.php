@@ -958,10 +958,14 @@ if (!function_exists('getUserWiseLastLoginTime')) {
 }
 
 if (!function_exists('formatAccountNumber')) {
-    function formatAccountNumber($number)
+    function formatAccountNumber($number, $type = null)
     {
         if (empty($number)) {
             return $number;
+        }
+        $digiType = '-';
+        if($type !=  null){
+            $digiType =  ' ';
         }
 
         // Remove non-digits
@@ -973,26 +977,26 @@ if (!function_exists('formatAccountNumber')) {
 
             case 6:
                 // 123456 → 123-456
-                return substr($digits, 0, 3) . '-' . substr($digits, 3, 3);
+                return substr($digits, 0, 3) . $digiType . substr($digits, 3, 3);
 
             case 7:
                 // 1234567 → 123-4567
-                return substr($digits, 0, 3) . '-' . substr($digits, 3, 4);
+                return substr($digits, 0, 3) . $digiType . substr($digits, 3, 4);
 
             case 8:
                 // 12345678 → 1234-5678
-                return substr($digits, 0, 4) . '-' . substr($digits, 4, 4);
+                return substr($digits, 0, 4) . $digiType . substr($digits, 4, 4);
 
             case 9:
                 // 123456789 → 123-456-789
-                return substr($digits, 0, 3) . '-' .
-                    substr($digits, 3, 3) . '-' .
+                return substr($digits, 0, 3) . $digiType .
+                    substr($digits, 3, 3) . $digiType .
                     substr($digits, 6, 3);
 
             case 10:
                 // 1234567890 → 1234-567-890
-                return substr($digits, 0, 4) . '-' .
-                    substr($digits, 4, 3) . '-' .
+                return substr($digits, 0, 4) . $digiType .
+                    substr($digits, 4, 3) . $digiType .
                     substr($digits, 7, 3);
 
             default:

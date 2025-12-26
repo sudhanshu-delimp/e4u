@@ -39,7 +39,7 @@
          <div class="row mb-3">
            <div class="col-md-12">
                <div class="table-responsive custom-badge">
-                  <table class="table table-bordered" id="MobileRequestTable">
+                  <table class="table" id="MobileRequestTable">
                      <thead class="table-bg">
                         <tr>
                            <th>Ref</th>
@@ -209,7 +209,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
      <div class="modal-content custome_modal_max_width">
    <div class="modal-header">
-      <h5 class="modal-title" id="reject_popup"><img src="{{ asset('assets/dashboard/img/block.png')}}" alt="alert" class="custompopicon"> Rejected
+      <h5 class="modal-title" id="reject_popup"><img src="{{ asset('assets/dashboard/img/block.png')}}" alt="alert" class="custompopicon"> Deactivate SIM Account
       </h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
@@ -217,7 +217,7 @@
    </div>
       <div class="modal-body pb-0">
             <h5 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
-               E4U has rejected the Request.
+               Are you sure you want to deactivate account?
            </h5>
          </div>
          <div class="modal-footer pb-4 mb-2 justify-content-center">
