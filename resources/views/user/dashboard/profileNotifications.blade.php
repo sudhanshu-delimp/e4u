@@ -36,6 +36,9 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-12">
+            <div id="globalAlert"></div>
+        </div>
     </div>
     <div class="row">  
         
@@ -234,7 +237,8 @@
         let form = $('#notificationForm')[0];
         let formData = new FormData(form);
         let url = $('#notificationForm').attr('action');
-         swal_waiting_popup({'title':'Updating Settings'});
+        //  swal_waiting_popup({'title':'Updating Settings'});
+        $('#globalAlert').show();
          $.ajax({
                url: url,
                method: 'POST',
@@ -242,11 +246,20 @@
                contentType: false,
                processData: false, 
                success: function(response) {
-                     Swal.close();
-                     swal_success_popup(response.message);
+                //      Swal.close();
+                //      swal_success_popup(response.message);
+                //      setTimeout(function() {
+                //     location.reload();
+                // }, 2000);
+                Swal.close();
+                     $('#globalAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`);
                      setTimeout(function() {
-                    location.reload();
-                }, 2000);
+                        location.reload();
+                    }, 3000);
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
                },
                error: function(xhr) {
                      Swal.close();
