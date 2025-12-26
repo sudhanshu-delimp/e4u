@@ -73,6 +73,11 @@
   font-weight: bold;
 }
 
+   payer-lable {
+      
+      display: inline-block;
+      width: 30%;
+   }
 
    .shake {
       animation: shake 0.3s;
@@ -101,16 +106,77 @@
       100% { transform: translateX(0); }
    }
    .wrong_pin_hide_details{
-      filter: blur(3px);
+      /* filter: blur(3px); */
    }
    .parsley-errors-list{
       padding-left: 0px !important;
    }
 
+    .blurred {
+      filter: blur(3px) !important;
+      pointer-events: none;
+   }
+ 
+   .banking-modal-body {
+    padding: 30px;
+    font-family: 'Inter', sans-serif;
+}
+ 
+   .banking-title {
+      font-weight: 600;
+      font-size: 18px;
+   }
+   
+   .banking-subtitle {
+      font-size: 13px;
+      color: #6c757d;
+   }
+ 
+/* .banking-info-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-top: 15px;
+} */
+ 
+   .info-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items:center;
+      gap:75px;
+      padding: 10px 0;
+   }
+   
+   .info-row:last-child {
+      border-bottom: none;
+   }
+   
+   .label {
+      font-size: 16px;
+      color: #444;
+   }
+   
+   .value {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+   }
+   
+   .thank-text {
+      font-size: 14px;
+      color: #000;
+   }
+   
+   .banking-btn {
+      padding: 8px 28px;
+      border-radius: 25px;
+      font-size: 14px;
+   }
+
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 wrong_pin_hide_details">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 wrong_pin_hide_details bank-details-container">
    <!--middle content end here-->
    <div class="row">
       <div class="col-md-12 custom-heading-wrapper">
@@ -180,7 +246,7 @@ Account details, including the initial setup.</li>
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title"><img src="/assets/dashboard/img/add-new-account.png" class="custompopicon" alt="cross"> <span class="commission_report_title">Add New Account</span> </h5>
+            <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/add-new-account.png') }}" class="custompopicon" alt="cross"> <span class="commission_report_title">Add New Account</span> </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -299,7 +365,7 @@ Account details, including the initial setup.</li>
       <div class="modal-content custome_modal_max_width">
          <div class="modal-header main_bg_color border-0">
 
-            <h5 class="modal-title text-white"><img src="/assets/dashboard/img/remove-bank-account.png" class="custompopicon" alt="cross"> Delete Bank Account</h5>
+            <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/remove-bank-account.png') }}" class="custompopicon" alt="cross"> Delete Bank Account</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">
                   <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -376,7 +442,7 @@ Account details, including the initial setup.</li>
 
             <div class="modal-header">
                   <h5 class="modal-title">
-                     <img src="{{ asset('assets/dashboard/img/payer.png') }}" style="width:40px; padding-right:10px;" class="modal_title_img">PayID for Payer 
+                     <img src="{{ asset('assets/dashboard/img/payer.png') }}" style="width:40px; padding-right:10px;" class="modal_title_img">PayID for Member ID 
                   </h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">
@@ -386,7 +452,7 @@ Account details, including the initial setup.</li>
                   </button>
             </div>
 
-            <div class="modal-body pb-0 agent-tour">
+            {{-- <div class="modal-body pb-0 agent-tour">
                   <div class="row">
                      <div class="col-md-12 my-4">
                         <ol class="pl-3">
@@ -405,6 +471,37 @@ Account details, including the initial setup.</li>
                         </div>
                      </div>
                   </div>
+            </div> --}}
+            <div class="modal-body banking-modal-body">
+ 
+             
+ 
+               <div class="banking-info-card">
+                  <div class="info-row">
+                     <span class="label">1.&nbsp;&nbsp; PayID Number</span>
+                     <span class="value">
+                     {{ auth()->user()->pay_id_no ? formatAccountNumber(auth()->user()->pay_id_no ,null) : 'N/A' }}
+                     </span>
+                  </div>
+ 
+                  <div class="info-row">
+                     <span class="label">2.&nbsp;&nbsp; Account Name</span>
+                     <span class="value">
+                     {{ auth()->user()->pay_id_name ? auth()->user()->pay_id_name : 'N/A' }}
+                     </span>
+                  </div>
+               </div>
+ 
+                <p class="thank-text mt-3">
+                    Thank you for your payment.
+                </p>
+ 
+                <div class="text-center mt-4">
+                    <button type="button" class="btn-success-modal" data-dismiss="modal">
+                    Close
+                    </button>
+                </div>
+ 
             </div>
 
          </div>
@@ -463,10 +560,19 @@ Account details, including the initial setup.</li>
 <div class="modal fade upload-modal" id="EnterPinModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
    <div class="modal-dialog modal-dialog-centered"  style="max-width: 500px;" role="document">
      <div class="modal-content">
-      <div class="modal-header justify-content-center text-center">
+      {{-- <div class="modal-header justify-content-center text-center">
          <!-- Title -->
          <h5 class=""><b>Enter your PIN</b> <br><small>(4 digits)</small></h5>
-      </div>
+      </div> --}}
+      <div class="modal-header text-center justify-content-start">
+          <h5 class="modal-title">
+            <img src="{{asset('assets/dashboard/img/key-30.png')}}" class="custompopicon mr-0" alt="cross">
+            Enter your PIN (4 digits)
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true"><img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen closeMe"></span>
+            </button>
+        </div>
  
        <div class="modal-body text-center p-0" >
          <!-- PIN Display -->
@@ -519,9 +625,9 @@ Account details, including the initial setup.</li>
    <div class="modal-dialog modal-dialog-centered" style="max-width: 500px;" role="document">
      <div class="modal-content">
       <div class="modal-header">
-            <h5 class="modal-title"><img src="/assets/dashboard/img/add-new-account.png" class="custompopicon" alt="cross"> Instructions for Payer</h5>
+            <h5 class="modal-title"><img src="{{asset('assets/dashboard/img/add-new-account.png')}}" class="custompopicon" alt="cross"> Instructions for Payer</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true"><img src="http://127.0.0.1:8000/assets/app/img/newcross.png" class="img-fluid img_resize_in_smscreen"></span>
+               <span aria-hidden="true"><img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
          </div>
       {{-- <div class="modal-header justify-content-between ">
@@ -568,12 +674,12 @@ Account details, including the initial setup.</li>
 
 {{-- SEND PAYMENT RECEIPT CONFIRM MODAL--}}
  
-<div class="modal programmatic" id="paymentReceiptConfirm" style="display: none">
+<div class="modal fade programmatic" id="paymentReceiptConfirm" style="display: none">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content custome_modal_max_width">
          <div class="modal-header main_bg_color border-0">
  
-            <h5 class="modal-title text-white"><img src="/assets/dashboard/img/remove-bank-account.png" class="custompopicon" alt="cross"> Confirmation</h5>
+            <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/remove-bank-account.png') }}" class="custompopicon" alt="cross"> Confirmation</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">
                   <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -652,10 +758,19 @@ Account details, including the initial setup.</li>
 <div class="modal fade upload-modal" id="SetPinModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
    <div class="modal-dialog modal-dialog-centered" role="document">
      <div class="modal-content">
-      <div class="modal-header justify-content-center text-center">
+      {{-- <div class="modal-header justify-content-center text-center">
          <!-- Title -->
          <h5 class=""><b>Set your PIN</b> <br><small>(4 digits)</small></h5>
-      </div>
+      </div> --}}
+      <div class="modal-header text-center justify-content-start">
+          <h5 class="modal-title">
+            <img src="{{asset('assets/dashboard/img/key-30.png')}}" class="custompopicon mr-0" alt="cross">
+            Set your PIN (4 digits)
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true"><img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+        </div>
  
        <div class="modal-body text-center p-0">
          <!-- PIN Display -->
@@ -708,7 +823,7 @@ Account details, including the initial setup.</li>
 <script>
    $(document).ready(function(){
 
-      $('#EnterPinModal').modal('show');
+      //$('#EnterPinModal').modal('show');
 
       let fClick = true;
       let fClick2 = true;
@@ -812,13 +927,16 @@ Account details, including the initial setup.</li>
                console.log('data jiten ');
                console.log(data, data.eft_bank);
                if(data.error == false && data.type == 'eft'){
-                  $('.eftBankName').text(data.eft_bank.bank_name);
-                  $('.eftAccountName').text(data.eft_bank.account_name);
-                  $('.eftBSBName').text(data.eft_bank.bsb);
-                  $('.eftAccountNumber').text(data.eft_bank.account_number);
-                  $('.eftAccountStatus').text(data.eft_bank.state == 1 ? 'Primary Account' : 'Secondary Account');
+                  // $('.eftBankName').text(data.eft_bank.bank_name);
+                  // $('.eftAccountName').text(data.eft_bank.account_name);
+                  // $('.eftBSBName').text(data.eft_bank.bsb);
+                  // $('.eftAccountNumber').text(data.eft_bank.account_number);
+                  // $('.eftAccountStatus').text(data.eft_bank.state == 1 ? 'Primary Account' : 'Secondary Account');
 
-                  $("#viewEftBankdetails").modal('show');
+                  // $("#viewEftBankdetails").modal('show');
+                  $('.primary_bsb').text(data.eft_bank.bsb);
+                  $('.primary_acc_no').text(data.eft_bank.account_number);
+                  $("#InstructionPayerModal").modal('show');
                }
 
                if(data.error == false && data.type == 'payment_receipt'){
@@ -917,12 +1035,14 @@ Account details, including the initial setup.</li>
          eftAccountId = $(this).data('id');
         isClickEft =  true;
         isPayIDClicked = false;
+        $('.bank-details-container').addClass('blurred');
       });
  
       $(document).on('click' , '.pay-id-modal' , function(){
             isPayIDClicked = true;
             isClickEft = false;
             $('#EnterPinModal').modal('show');
+            $('.bank-details-container').addClass('blurred');
       });
 
    })
@@ -1633,6 +1753,22 @@ Account details, including the initial setup.</li>
       })
    });
 
+   function setSensitiveBlur() 
+   {
+      $('.bank-details-container').addClass('blurred');
+   }
+
+   $('#InstructionPayerModal, #AddPayId').on('shown.bs.modal', setSensitiveBlur);
+ 
+   function resetSensitiveBlur() {
+      $('.bank-details-container').removeClass('blurred');
+   }
+
+   $('#InstructionPayerModal, #AddPayId').on('hidden.bs.modal', resetSensitiveBlur);
+ 
+   $(document).on('click', '.closeMe', function () {
+      $('.bank-details-container').removeClass('blurred');
+   });
    
 </script>
 @endpush
