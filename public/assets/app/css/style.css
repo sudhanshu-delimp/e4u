@@ -349,6 +349,14 @@
             margin-bottom: 10px;
         }
         
+        .alert-custom {
+            color: #fff;
+            background-color: var(--peach);
+            border-color: var(--peach);
+            border-radius: 0 !important;
+            margin-bottom: 0px;
+        }
+        
         .v-list-location h2 {
             color: #FF3C5F;
             font-family: 'Poppins';

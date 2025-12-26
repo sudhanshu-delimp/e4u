@@ -1133,9 +1133,9 @@
             substr($from, 6));
             //dd($number);
             @endphp
-            <b>When texting me please say:</b>
+            <p class="font-weight-bold mb-0 mt-2">When texting me please say:</p>
             <p class="profile_description_contect_pera">
-                <b><i>Hi {{ $escortName }}, I found you on E4U ... </i></b> <br>
+                <b><i>Hi {{ $escortName }}, I found you on E4U ... </i></b>
                 @php
                     $formattedNumber = $escort->phone;
                     $contactTypes = $escort->contact != null ? $escort->contact : '';
