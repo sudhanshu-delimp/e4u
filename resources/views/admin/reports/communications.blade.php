@@ -141,7 +141,7 @@
                 <tr>
                 <td align="center" style="border:none;">
                     <!-- Main container -->
-                    <table width="700" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
 
                     <!-- Header with background and logo -->
                     <tr>
@@ -195,9 +195,9 @@
                     </table>
 
                     <!-- Footer -->
-                    <table width="700" cellpadding="0" cellspacing="0" style="background-color:#0c223d; padding: 15px 30px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0c223d; padding: 15px 30px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
                     <tr>
-                        <td>
+                        <td style="text-align: center;">
                         <em>This is an automatically generated email by the Escorts4u Operations Centre.<br>
                             &copy; Copyright 2024 Blackbox Tech Pty Ltd. All rights reserved.</em>
                         </td>
