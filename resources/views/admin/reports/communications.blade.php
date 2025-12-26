@@ -137,48 +137,76 @@
             </button>
          </div>
          <div class="modal-body">
-            <table border="1" cellpadding="10" cellspacing="0" width="100%" style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-                <!-- Header Row -->
-                <tr style="background-color: #0c223d; color: white;">
-                    <td colspan="5" style="font-weight: bold; text-align: center;">Post Office Report: date & time</td>
-                </tr>
-
-                <!-- Table Headings -->
-                <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
-                    <td style="text-align:center;">Date & Time</td>
-                    <td style="text-align:center;" >Member ID</td>
-                    <td style="text-align:center;" >Member</td>
-                    <td style="text-align:center;" >Subject</td>
-                    <td style="text-align:center;" >Result</td>
-                </tr>
-
-                <!-- Row 1 -->
+            <table width="100%" cellpadding="0" cellspacing="0" style="border: none">
                 <tr>
-                    <td style="text-align:center;">2025-06-09 8:36:54</td>
-                    <td style="text-align:center;">E60123</td>
-                    <td style="text-align:center;">Joy</td>
-                    <td style="text-align:center;">National Ugly Mugs Feature</td>
-                    <td style="color: green; font-weight: bold; text-align:center;">Sent</td>
-                </tr>
+                <td align="center" style="border:none;">
+                    <!-- Main container -->
+                    <table width="700" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
 
-                <!-- Row 2 -->
-                <tr>
-                    <td style="text-align:center;">2025-06-09 8:36:54</td>
-                    <td style="text-align:center;">E20158</td>
-                    <td style="text-align:center;">Mary</td>
-                    <td style="text-align:center;">National Ugly Mugs Feature</td>
-                    <td style="color: green; font-weight: bold;text-align:center;">Sent</td>
-                </tr>
+                    <!-- Header with background and logo -->
+                    <tr>
+                        <td style="background-color:#0c223d; padding: 20px;">
+                        <table width="100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                            <td style="text-align: left; border:none;">
+                                <img src="http://e4u.local/assets/app/img/logo.png" alt="E4U Logo" style="height: 50px;">
+                            </td>
+                            <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;border:none;">
+                            Communications
+                            </td>
+                            </tr>
+                        </table>
+                        </td>
+                    </tr>
 
-                <!-- Footer Row -->
-                <tr>
-                    <td colspan="4" style="background-color: #0c2340; color: white; font-weight: bold;">Sent: 156</td>
-                    <td style="background-color: #ff3c5f; text-align: center;">
-                        <a href="#" style="color: white; text-decoration: none; font-weight: bold;">Print Report</a>
-                    </td>
+                    <!-- Content Padding -->
+                    <tr>
+                        <td style="padding: 30px;">
+                        
+                        <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Attention Operations</b></p>
+                            <p style="font-size: 16px; margin: 20px 0 15px 0;">The following Agent Registration was made on the 2025-06-09 8:36:54. Details of the
+                            registration are:</p>
+                            <!-- Details Table -->
+                            <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
+                            
+                            
+                            <tr>
+                                <td style="font-weight: bold; padding: 10px 0px; border:none;">Date & Time:</td>
+                                <td style="padding: 10px 0px 10px 10px; border:none;">2025-06-09 8:36:54</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; padding: 10px 0px; border:none;">Recipient:</td>
+                                <td style="padding: 10px 0px 10px 10px; border:none;">Haka Goswami</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; padding: 10px 0px; border:none;">Subject:</td>
+                                <td style="padding: 10px 0px 10px 10px; border:none;">New Registration</td>
+                            </tr>
+                            </table>
+
+                            <!-- Closing -->
+                        <p style="font-size: 15px; margin-top: 20px;">
+                            Regards,<br>
+                            <b>E4U - Operations</b>
+                        </p>
+                        </td>
+                    </tr>
+
+                    </table>
+
+                    <!-- Footer -->
+                    <table width="700" cellpadding="0" cellspacing="0" style="background-color:#0c223d; padding: 15px 30px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
+                    <tr>
+                        <td>
+                        <em>This is an automatically generated email by the Escorts4u Operations Centre.<br>
+                            &copy; Copyright 2024 Blackbox Tech Pty Ltd. All rights reserved.</em>
+                        </td>
+                    </tr>
+                    </table>
+
+                </td>
                 </tr>
             </table>
-
          </div>
       </div>
    </div>
