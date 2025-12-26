@@ -85,7 +85,7 @@
                             <input class="form-check-input monday" type="radio"
                                 name="availability_time[monday]" id="monday_Closed"
                                 value="Closed" data-parsley-multiple="covidreport"
-                                checked="" availability_time_key="mon">
+                                 availability_time_key="mon">
                             <label class="form-check-label"
                                 for="monday_Closed">Closed</label>
                         </div>
@@ -164,7 +164,7 @@
                             <input class="form-check-input tuesday" type="radio"
                                 name="availability_time[tuesday]" id="tuesday_Closed"
                                 value="Closed" data-parsley-multiple="covidreport"
-                                checked="" availability_time_key="mon">
+                                 availability_time_key="mon">
                             <label class="form-check-label"
                                 for="tuesday_Closed">Closed</label>
                         </div>
@@ -244,7 +244,7 @@
                             <input class="form-check-input wednesday" type="radio"
                                 name="availability_time[wednesday]" id="wednesday_Closed"
                                 value="Closed" data-parsley-multiple="covidreport"
-                                checked="" availability_time_key="mon">
+                                 availability_time_key="mon">
                             <label class="form-check-label"
                                 for="wednesday_Closed">Closed</label>
                         </div>
@@ -323,7 +323,7 @@
                             <input class="form-check-input thursday" type="radio"
                                 name="availability_time[thursday]" id="thursday_Closed"
                                 value="Closed" data-parsley-multiple="covidreport"
-                                checked="" availability_time_key="mon">
+                                 availability_time_key="mon">
                             <label class="form-check-label"
                                 for="thursday_Closed">Closed</label>
                         </div>
@@ -402,7 +402,7 @@
                             <input class="form-check-input friday" type="radio"
                                 name="availability_time[friday]" id="friday_Closed"
                                 value="Closed" data-parsley-multiple="covidreport"
-                                checked="" availability_time_key="mon">
+                                 availability_time_key="mon">
                             <label class="form-check-label"
                                 for="friday_Closed">Closed</label>
                         </div>
@@ -481,7 +481,7 @@
                             <input class="form-check-input saturday" type="radio"
                                 name="availability_time[saturday]" id="saturday_Closed"
                                 value="Closed" data-parsley-multiple="covidreport"
-                                checked="" availability_time_key="mon">
+                                 availability_time_key="mon">
                             <label class="form-check-label"
                                 for="saturday_Closed">Closed</label>
                         </div>
@@ -547,20 +547,20 @@
                         <div class="form-check form-check-inline">
                             <input class="form-check-input sunday" type="radio"
                                 name="availability_time[sunday]" id="sunday_til_ate" value="til_ate"
-                                data-parsley-multiple="covidreport" availability_time_key="mon">
+                                 availability_time_key="mon">
                             <label class="form-check-label" for="sunday_til_ate">... Til late</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input sunday" type="radio"
                                 name="availability_time[sunday]" id="sunday_avail_24_hours"
-                                value="Available 24 hours" data-parsley-multiple="covidreport">
+                                value="Available 24 hours" >
                             <label class="form-check-label" for="sunday_avail_24_hours">Open 24 Hours</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input sunday" type="radio"
                                 name="availability_time[sunday]" id="sunday_Closed"
-                                value="Closed" data-parsley-multiple="covidreport"
-                                checked="" availability_time_key="mon">
+                                value="Closed" 
+                                 availability_time_key="mon">
                             <label class="form-check-label"
                                 for="sunday_Closed">Closed</label>
                         </div>
@@ -576,12 +576,12 @@
     <div class="tab_btm_btns_preview_and_next py-3">
         <div class="row pt-3 pb-3">
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 a_text_white_hover previous_bt_center_in_sm">
-                <a class="nex_sterp_btn btn_width_hundred"id="profile-tab" data-toggle="tab" href="#services" role="tab" aria-controls="home" aria-selected="true">
-                <i class="fas fa-arrow-left"></i>Previous Step</a>
+                <a class="prev_step_btn btn_width_hundred"  id="profile-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="home" aria-selected="true">
+                <i class="fas fa-arrow-left"></i>&nbsp;Previous Step</a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right a_text_white_hover previous_bt_center_in_sm">
                
-                <a class=" nex_sterp_btn" id="massuers-tab" data-toggle="tab" href="#massuers" role="tab" aria-controls="massuers" aria-selected="false">Next Step
+                <a class="nex_sterp_btn" id="massuers-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="massuers" aria-selected="false">Next Step
                 <i class="fas fa-arrow-right"></i>
                 </a>
             </div>

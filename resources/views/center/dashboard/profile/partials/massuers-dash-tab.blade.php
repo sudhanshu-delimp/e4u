@@ -100,8 +100,8 @@
     <div class="tab_btm_btns_preview_and_next">
         <div class="row py-3">
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 a_text_white_hover previous_bt_center_in_sm">
-                <a href="#available" class="nex_sterp_btn" id="contact-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">
-                <i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Previous Step</a>
+                <a href="javascript:void(0)" class="prev_step_btn" id="contact-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">
+                <i class="fas fa-arrow-left"></i>&nbsp;Previous Step</a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right a_text_white_hover previous_bt_center_in_sm">                
                 <a href="#" class="save_profile_btn">Preview Profile</a>                

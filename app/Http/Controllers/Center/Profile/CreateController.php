@@ -110,10 +110,24 @@ class CreateController extends Controller
     public function index($id = null)
     {
         $user = auth()->user();
-       
         if(!$escort = $this->massage_profile->findDefault($user->id,1)) {
             $escort = $this->massage_profile->make();
         }
+        else
+        {
+             $escort = $this->massage_profile->make();
+        }
+
+        // $user = auth()->user();
+        // if(!empty($user->profile_creator) && in_array(2,$user->profile_creator)) {
+        //     if(!$escort = $this->escort->findDefault($user->id,1)) {
+        //         $escort = $this->escort->make();
+        //     }
+        // } else {
+        //     $escort = $this->escort->make();
+        // }
+        $defaultServiceIds = $escort->services()->pluck('service_id')->toArray();
+        $profile = $escort;
 
         // if(!$escort = $user->escorts->where('user_id', $user->id)->where('completed', 1)->first()) {
 
@@ -134,8 +148,16 @@ class CreateController extends Controller
         $availability = $escort->availability;
         $service = $this->service;
 
+        $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
+        $path = $this->media;
+
+
+
+
+
+
         //return view('center.profile-info.create-profile',compact('escort','service','availability','service_one','service_two','service_three','durations'));
-        return view('center.dashboard.profile.update',compact('escort','service','availability','service_one','service_two','service_three','durations'));
+        return view('center.dashboard.profile.update',compact('escort','service','availability','service_one','service_two','service_three','durations','path','media'));
     }
 
     public function nextStep($id)

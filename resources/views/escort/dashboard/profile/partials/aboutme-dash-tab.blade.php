@@ -366,6 +366,8 @@
             </div>
         </div>
     </div>
+
+    
     <div class="about_me_drop_down_info profile-sec">
         @if (request()->segment(2) == 'profile' && request()->segment(3))
             <form id="myProfileMediaForm" name="myProfileMediaForm"

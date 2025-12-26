@@ -130,19 +130,19 @@
                             <div class="col-3">
                                 <div class="service_rate_dolor_symbol form-group">
                                     <span>$</span>
-                                    <input min="0" placeholder="0" type="number"  class="form-control form-control-sm select_tag_remove_box_sadow" id="massage_price" name="massage_price[]" value="{{ $escort->durationRate($duration->id, 'massage_price') }}" step=10 max=200>
+                                    <input min="0" placeholder="0" type="number"  class="form-control" id="massage_price" name="massage_price[]" value="{{ $escort->durationRate($duration->id, 'massage_price') }}" >
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="service_rate_dolor_symbol form-group">
                                     <span>$</span>
-                                    <input min="0" placeholder="0"  type="number"  class="form-control form-control-sm select_tag_remove_box_sadow" id="incall_price" name="incall_price[]" value="{{ $escort->durationRate($duration->id, 'incall_price') }}" step=10 max=200>
+                                    <input min="0" placeholder="0"  type="number"  class="form-control" id="incall_price" name="incall_price[]" value="{{ $escort->durationRate($duration->id, 'incall_price') }}" >
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="service_rate_dolor_symbol form-group">
                                     <span>$</span>
-                                    <input min="0" placeholder="0"  type="number"  class="form-control form-control-sm select_tag_remove_box_sadow" id="outcall_price" name="outcall_price[]" value="{{ $escort->durationRate($duration->id, 'outcall_price') }}" step=10 max=200>
+                                    <input min="0" placeholder="0"  type="number"  class="form-control" id="outcall_price" name="outcall_price[]" value="{{ $escort->durationRate($duration->id, 'outcall_price') }}" >
                                 </div>
                             </div>
                         </div>
@@ -153,14 +153,15 @@
             
         </div>
     </div>
+    
     <div class="tab_btm_btns_preview_and_next py-3">
         <div class="row pt-3 pb-3">
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 a_text_white_hover previous_bt_center_in_sm">
-                <a class="nex_sterp_btn btn_width_hundred" id="home-tab" data-toggle="tab" href="#aboutme" role="tab" aria-controls="home" aria-selected="true">
-                <i class="fas fa-arrow-left"></i>Previous Step</a>
+                <a class="prev_step_btn btn_width_hundred" id="home-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="home" aria-selected="true">
+                <i class="fas fa-arrow-left"></i> &nbsp; Previous Step</a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right a_text_white_hover previous_bt_center_in_sm">
-                <a class="nex_sterp_btn" id="contact-tab" data-toggle="tab" href="#available" role="tab" aria-controls="contact" aria-selected="false">
+                <a class="nex_sterp_btn" id="contact-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="contact" aria-selected="false">
                     Next Step <i class="fas fa-arrow-right"></i>
                 </a>
             </div>

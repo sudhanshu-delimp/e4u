@@ -196,8 +196,111 @@ function preview_image(event)
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+
+
+    $('#upload_photos').on('click', function (e) {
+    e.preventDefault();
+
+    console.log('mulitiImage new ===============');
+
+    let selectedImagesCount = parseInt(countSelectedImages());
+    let existingImagesCount = parseInt($("input[name='media_count']").val());
+
+    if ((existingImagesCount + selectedImagesCount) > 30) {
+        Swal.fire(
+            'Media',
+            "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>",
+            'error'
+        );
+        return false;
+    }
+
+    const form = $('#mulitiImage');
+    const url = form.attr('action');
+
+    console.log('url',url);
+
+    const formData = new FormData();
+
+    // 🔹 multiple images
+    allFiles.forEach((file) => {
+        formData.append('img[]', file);
+    });
+
+    // 🔹 banner
+    const bannerInput = document.getElementById('upload_banner');
+    if (bannerInput && bannerInput.files.length > 0) {
+        formData.append('banner', bannerInput.files[0]);
+    }
+
+    // 🔹 pinup
+    const pinupInput = document.getElementById('upload_pinup');
+    if (pinupInput && pinupInput.files.length > 0) {
+        formData.append('pinup', pinupInput.files[0]);
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: formData,
+        contentType: false,
+        processData: false,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+
+        beforeSend: function () {
+            Swal.fire({
+                title: 'Uploading...',
+                text: 'Please wait while we upload your files.',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+        },
+
+        success: function (data) {
+            if (data.status == 200) {
+                resetAddPhotoFrom(form);
+            } else if (data.status == 405) {
+                Swal.fire(
+                    'Media',
+                    "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>",
+                    'error'
+                );
+                $('#exampleModal').modal('hide');
+            } else {
+                Swal.fire('Media', 'Please choose at least one image', 'error');
+            }
+        },
+
+        error: function (xhr) {
+            if (xhr.status === 422) {
+                let messages = Object.values(xhr.responseJSON.errors)
+                    .flat()
+                    .join('<br>');
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    html: messages
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: xhr.statusText,
+                    text: xhr.responseJSON?.message || 'Something went wrong.'
+                });
+            }
+        }
+    });
+});
+
+
     
     $("body").on('submit','#mulitiImage',function(e){
+
+        console.log('mulitiImage===============');
         e.preventDefault();
         let selectedImagesCount = parseInt(countSelectedImages());
         let existingImagesCount = parseInt($("input[name='media_count']").val());
