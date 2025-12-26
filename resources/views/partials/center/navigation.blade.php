@@ -22,12 +22,10 @@
                                 <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
                             </span>
                         <span>
-                            <span class="separator">|</span> <b>My Agent : </b>
-                                @if(auth()->user()->my_agent)<span class="user-values" style="margin-left: -6px;" title="My Agent ID : {{ auth()->user()->my_agent->member_id }}">{{ Str::title(auth()->user()->my_agent->business_name) }} </span>
+                            <span class="separator">|</span><b>My Agent :</b>
+                                @if(auth()->user()->my_agent)<span class="user-values" title="My Agent ID : {{ auth()->user()->my_agent->member_id }}">{{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}</span>
                                 @else
-                                <span class="user-values" title="">
-                                    <a href="{{url('/escort-dashboard/escort-agency-request') }}" class="request-active"> Request one</a>
-                                    </span>
+                                <span class="user-values" title=""><a href="{{url('/escort-dashboard/escort-agency-request') }}" class="request-active">Request one</a></span>
                                 @endif
                        
                         </span>
@@ -170,7 +168,7 @@
                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
                                         
                                         @if(auth()->user()->my_agent)
-                                          <span class="user-values" title="My Agent : {{ auth()->user()->my_agent->business_name }}">
+                                          <span class="user-values" title="My Agent : {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}">
                                         My Agent ID :  {{ auth()->user()->my_agent->member_id }}</span>
                                         @else
                                            My Agent ID : <span style="color:var(--peach)" class="request-active"> Request one</span>

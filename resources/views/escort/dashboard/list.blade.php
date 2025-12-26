@@ -43,7 +43,8 @@
         #btn_suspend_profile,
         #btn_add_brb,
         #btn_extend_profile,
-        #btn_pinup_profile {
+        #btn_pinup_profile,
+        #btn_bumpup_profile {
             display: none;
         }
 
@@ -95,7 +96,9 @@
                                 <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                     data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
                                 <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
-                                </div>
+                                <button style="padding: 10px;" class="btn btn-info" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  </button>
+                                    
+                            </div>
                                 <div class="pinup-tooltip-wrapper">
                                     <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
                                         data-target="#pinup_profile" id="btn_pinup_profile" @if($activePinup) disabled title="" @endif>List Pin
@@ -397,6 +400,7 @@
         </div>
     </div>
     
+    
     @if ($type != 'past')
     @include('escort.dashboard.profile.modal.index')
     @endif
@@ -435,6 +439,8 @@
                     let records = settings.json;
                     let $select = $('#extendProfileId');
                     $select.empty();
+                    let $selectBumpUp = $('#bumpUpProfileId');
+                    $selectBumpUp.empty();
                     if (records.recordsTotal > 0) {
                         $select.append('<option value="">-- Select Profile --</option>');
                         $.each(records.data, function (i, item) {
@@ -450,8 +456,25 @@
                                 );
                             }
                         });
+
+                        $selectBumpUp.append('<option value="">-- Select Profile --</option>');
+                        $.each(records.data, function (i, item) {
+                            if(!item.is_bumpup && item.membership=='Platinum'){
+                                $selectBumpUp.append(
+                                    $('<option>', {
+                                    value: item.id,
+                                    text: `${item.id} - ${item.name} - ${item.state.name}`,
+                                    'data-start': item.start_date_formatted,
+                                    'data-end': item.end_date_formatted,
+                                    'data-membership':item.membership,
+                                    })
+                                );
+                            }
+                        });
                         $(".listingActionButtons button").show();
                     }
+                    
+                    
                 },
                 initComplete: function() {
                     if ($('#returnToReportBtn').length === 0) {
@@ -1200,4 +1223,5 @@
         
     </script>
     <script src="{{ asset('js/escort/pinup.js') }}"></script>
+    <script src="{{ asset('js/escort/bumpup.js') }}"></script>
 @endpush

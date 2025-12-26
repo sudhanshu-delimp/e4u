@@ -5,6 +5,14 @@
         .swal-button {
             background-color: #242a2c;
         }
+        .input_not_edit{
+            font-size: 13px !important;
+            color: #6e707e !important;
+            border-bottom: 1px solid #5D6D7E;
+            margin-bottom: 0px !important;
+    line-height: 19px;
+    background: #f2f2f2;
+        }
     </style>
 @stop
 @section('content')
@@ -25,6 +33,20 @@ $cityName = isset($cities[$staff->city_id]) ? $cities[$staff->city_id] : '';
 
 $positions = config('staff.position');
 $positionLabel = isset($positions[$staff->staff_detail->position]) ? $positions[$staff->staff_detail->position] : '';
+  $genders = config('escorts.profile.genders');
+$gender = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
+
+ $setting = $staff->staff_setting??null;
+$idle_preference_times = config('staff.idle_preference_time');
+$idle_preference_time = "";
+    $twofa = "";
+if(isset( $setting) && (isset($setting->idle_preference_time))) {
+    $idle_preference_time = isset($idle_preference_times[(string)$setting->idle_preference_time]) ? $idle_preference_times[$setting->idle_preference_time] : "";
+}
+$twofas = config('staff.twofa');
+if(isset( $setting) && isset($setting->twofa)) {
+$twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
+}
 
 @endphp  
     <!-- Content Wrapper -->
@@ -75,11 +97,8 @@ $positionLabel = isset($positions[$staff->staff_detail->position]) ? $positions[
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email" class="my-agent">Full name</label>
-                                                            <input type="text" class="form-control" placeholder=" "
-                                                                name="name" aria-describedby="emailHelp"
-                                                                value="{{ $staff->name }}">
-                                                            <span class="text-danger error-name"></span>
+                                                            <label for="name" class="my-agent">Full name</label>
+                                                            <p class="input_not_edit">{{$staff->name }}</p>   
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -103,32 +122,13 @@ $positionLabel = isset($positions[$staff->staff_detail->position]) ? $positions[
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email">Email</label>
-                                                            <label
-                                                                class="form-control form-back">{{ $staff->email }}</label>
-                                                               
-                                                            <input name="email" id="email" type="hidden"
-                                                                value="{{ $staff->email }}">
-                                                            <span class="text-danger error-email"></span>
-                                                        
+                                                            <p class="input_not_edit">{{$staff->email }}</p> 
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email">Gender </label>
-                                                             @if($securityLevel == 1)
-                                                            <select class="form-control" name="gender" id="gender">
-                                                                <option value="">Select Gender</option>
-                                                                @foreach (config('escorts.profile.genders') as $key => $gender)
-                                                                    <option value="{{ $key }}"
-                                                                        {{ $staff->gender == $key ? 'selected' : '' }}>
-                                                                        {{ $gender }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            <span class="text-danger error-gender"></span>
-                                                            @else
-                                                            <label
-                                                                class="form-control form-back">{{ $genderName }}</label>
-                                                            @endif
+                                                             <p class="input_not_edit">{{$gender }}</p> 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -202,128 +202,38 @@ $positionLabel = isset($positions[$staff->staff_detail->position]) ? $positions[
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Security Level</label>
-                                                             @if($securityLevel == 1)
-                                                            <select class="form-control rounded-0" name="security_level"
-                                                                id="security_level_edit" >
-                                                                <option value="">Security Level</option>
-                                                                @foreach (config('staff.security_level') as $seckey => $secLevel)
-                                                                    <option value="{{ $seckey }}"
-                                                                        {{ $staff->staff_detail->security_level == $seckey ? 'selected' : '' }}>
-                                                                        {{ $secLevel }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                            <span class="text-danger error-security_level"></span>
-                                                            @else
-                                                            <label
-                                                                class="form-control form-back">{{ $securityLevelName }}</label>
-                                                            @endif
+                                                            <p class="input_not_edit">{{$securityLevelName }}</p> 
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Position</label>
-                                                             @if($securityLevel == 1)
-                                                            <select class="form-control rounded-0" name="position2"
-                                                                id="position_edit" disabled>
-                                                                <option value="">Position</option>
-                                                                @foreach (config('staff.position') as $pkey => $position)
-                                                                    <option value="{{ $pkey }}"
-                                                                        {{ $staff->staff_detail->position == $pkey ? 'selected' : '' }}>
-                                                                        {{ $position }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            <span class="text-danger error-position"></span>
-                                                            @else
-                                                            <label
-                                                                class="form-control form-back">{{ $positionLabel }}</label>
-                                                            @endif
+                                                            <p class="input_not_edit">{{$positionLabel }}</p> 
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Location</label>
-                                                             @if($securityLevel == 1)
-                                                            <select class="form-control rounded-0" name="location"
-                                                                id="location">
-                                                                <option value="">Select Location</option>
-                                                                @foreach (config('escorts.profile.cities') as $skey => $city)
-                                                                    <option value="{{ $skey }}"
-                                                                        {{ $staff->city_id == $skey ? 'selected' : '' }}>
-                                                                        {{ $city }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            <span class="text-danger error-location"></span>
-                                                            @else
-                                                            <label
-                                                                class="form-control form-back">{{ $cityName }}</label>
-                                                            @endif
+                                                            <p class="input_not_edit">{{$cityName }}</p> 
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                          
-                                                                 @if($securityLevel == 1)
-                                                                   <label for="email" class="my-agent">Commenced Date
-                                                                (DD/MM/YYYY)</label>
-                                                            <input type="text" name="commenced_date"
-                                                                id="commenced_date" class="form-control rounded-0"
-                                                                placeholder="Commenced Date (DD/MM/YYYY)"
-                                                                onfocus="(this.type='date')"
-                                                                onblur="if(this.value==''){this.type='text'}"
-                                                                value="{{ $staff->staff_detail->commenced_date }}">
-                                                            <span class="text-danger error-commenced_date"></span>
-                                                            @else
-                                                              <label for="email" class="my-agent">Commenced Date</label>
-                                                            <label
-                                                                class="form-control form-back">{{ showDateWithFormat($staff->staff_detail->commenced_date)  }}</label>
-                                                            @endif
+                                                           <label for="email" class="my-agent">Commenced Date</label>
+                                                                
+                                                            <p class="input_not_edit">{{ showDateWithFormat($staff->staff_detail->commenced_date, "d-m-Y")  }}</p> 
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email" class="my-agent">Employment
-                                                                Status</label>
-                                                             @if($securityLevel == 1)
-                                                            <select class="form-control rounded-0"
-                                                                name="employment_status" id="employment_status">
-                                                                <option value="">Select Employment Status</option>
-                                                                @foreach (config('staff.employment_status') as $empkey => $empStatus)
-                                                                    <option value="{{ $empkey }}"
-                                                                        {{ $staff->staff_detail->employment_status == $empkey ? 'selected' : '' }}>
-                                                                        {{ $empStatus }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                            <span class="text-danger error-employment_status"></span>
-                                                            @else
-                                                            <label
-                                                                class="form-control form-back">{{ $employmentStatus }}</label>
-                                                            @endif
+                                                            <label for="email" class="my-agent">Employment Status</label>
+                                                            <p class="input_not_edit">{{$employmentStatus }}</p> 
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email" class="my-agent">Employment
-                                                                Agreement?</label>
-                                                             @if($securityLevel == 1)
-                                                            <select class="form-control rounded-0"
-                                                                name="employment_agreement" id="employment_agreement">
-                                                                <option value="">Employment Agreement?</option>
-                                                                <option value="yes"
-                                                                    {{ $staff->staff_detail->employment_agreement == 'yes' ? 'selected' : '' }}>
-                                                                    Yes
-                                                                </option>
-                                                                <option value="no"
-                                                                    {{ $staff->staff_detail->employment_agreement == 'no' ? 'selected' : '' }}>
-                                                                    No
-                                                                </option>
-                                                            </select>
-                                                            <span class="text-danger error-employment_agreement"></span>
-                                                            @else
-                                                            <label
-                                                                class="form-control form-back">{{ ucfirst($staff->staff_detail->employment_agreement) }}</label>
-                                                            @endif
+                                                            <label for="email" class="my-agent">Employment Agreement?</label>
+                                                             <p class="input_not_edit">{{ ucfirst($staff->staff_detail->employment_agreement) }}</p> 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -342,71 +252,51 @@ $positionLabel = isset($positions[$staff->staff_detail->position]) ? $positions[
                                                     <div class="form-group">
                                                         <label for="email" class="my-agent">Access Code
                                                             Provided?</label>
-                                                             @if($securityLevel == 1)
-                                                        <select class="form-control rounded-0" name="building_access_code"
-                                                            id="building_access_code">
-                                                            <option value="">Access Code Provided?</option>
-                                                            <option value="yes"
-                                                                {{ $staff->staff_detail->building_access_code == 'yes' ? 'selected' : '' }}>
-                                                                Yes
-                                                            </option>
-                                                            <option value="no"
-                                                                {{ $staff->staff_detail->building_access_code == 'no' ? 'selected' : '' }}>
-                                                                No
-                                                            </option>
-                                                        </select>
-                                                        <span class="text-danger error-building_access_code"></span>
-                                                         @else
-                                                            <label
-                                                                class="form-control form-back">{{ ucfirst($staff->staff_detail->building_access_code) }}</label>
-                                                            @endif
+                                                             
+                                                            <p class="input_not_edit">{{ ucfirst($staff->staff_detail->building_access_code) }}</p> 
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="email" class="my-agent">Key Provided?</label>
-                                                         @if($securityLevel == 1)
-                                                        <select class="form-control rounded-0" name="keys_issued"
-                                                            id="keys_issued">
-                                                            <option value="">Key Provided?</option>
-                                                            <option value="yes"
-                                                                {{ $staff->staff_detail->keys_issued == 'yes' ? 'selected' : '' }}>
-                                                                Yes</option>
-                                                            <option value="no"
-                                                                {{ $staff->staff_detail->keys_issued == 'no' ? 'selected' : '' }}>
-                                                                No</option>
-                                                        </select>
-                                                        <span class="text-danger error-keys_issued"></span>
-                                                         @else
-                                                            <label
-                                                                class="form-control form-back">{{ ucfirst($staff->staff_detail->keys_issued) }}</label>
-                                                            @endif
+                                                     
+                                                            <p class="input_not_edit">{{ ucfirst($staff->staff_detail->keys_issued) }}</p> 
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="email" class="my-agent">Car Park?</label>
-                                                         @if($securityLevel == 1)
-                                                        <select class="form-control rounded-0" name="car_parking"
-                                                            id="car_parking">
-                                                            <option value="">Car Park?</option>
-                                                            <option value="yes"
-                                                                {{ $staff->staff_detail->car_parking == 'yes' ? 'selected' : '' }}>
-                                                                Yes</option>
-                                                            <option value="no"
-                                                                {{ $staff->staff_detail->car_parking == 'no' ? 'selected' : '' }}>
-                                                                No</option>
-                                                        </select>
-                                                        <span class="text-danger error-car_parking"></span>
-                                                         @else
-                                                            <label
-                                                                class="form-control form-back">{{ ucfirst($staff->staff_detail->car_parking) }}</label>
-                                                            @endif
+                                                             <p class="input_not_edit">{{ ucfirst($staff->staff_detail->car_parking) }}</p> 
                                                     </div>
                                                 </div>
                                             </div>
-
+                                        </div>
                                             <!-- End Building Security -->
+
+                                                      <!-- Start 2FA -->
+                                  
+                                        <div class="col-md-10 px-0">
+                                            <p>&nbsp;</p>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="email" class="my-agent">Idle Time Preference</label>
+                                                              <p class="input_not_edit">{{$idle_preference_time }}</p> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10 px-0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="email" class="my-agent">2FA Authentication</label>
+                                                              <p class="input_not_edit">{{$twofa }}</p> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <!-- End 2FA -->
                                             <input type="submit" value="save"
                                                 class="btn btn-primary shadow-none float-right" name="submit">
                                     </form>

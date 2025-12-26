@@ -351,7 +351,7 @@
                                                     <!-- Grid View -->
 
                                                     <div class="row grid_list_part" id="prosud" style="display: block;">
-                                                        {{-- @php
+                                                         {{-- @php
                                                         $memberTitle = 'Total Listings';
                                                         $memberTotalCountSum = array_sum($memberTotalCount);
                                                         $memberTitleClass = '';
@@ -369,18 +369,20 @@
                                                             $memberTitle = 'View Silver Listings';    
                                                             $memberTitleClass = 'selected-item';    
                                                         }
-                                                        @endphp
+                                                        @endphp --}}
+                                                       
+                                                        <div class="col-12 align-items-center">
                                                         <div class="dropdown custom_total_list">
-                                                            <span class="js-link {{ $memberTitleClass }}">
+                                                            <span class="js-link  {{-- {{ $memberTitleClass }} --}}">
                                                                 <div id="selectedListing" class="d-flex justify-content-between align-items-center" style="width: calc(100% - 20px); gap: 5px;">
                                                                     <span id="">
-
-                                                                        {{$memberTitle}} : 
+                                                                        {{--  {{ $memberTitle }} : --}}
+                                                                        Total Listings :
                                                                         
                                                                     </span>
                                                                     <span >
-
-                                                                        {{ $memberTotalCountSum }}
+                                                                        {{-- {{ $memberTotalCountSum }} --}}
+                                                                       36
                                                                         
                                                                     </span>
                                                                 </div>
@@ -394,7 +396,8 @@
                                                                 <li class="{{ !request()->has('membership_type') || request('membership_type') == '' ? 'active' : '' }}">
                                                                     <a  class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => null]) }}">
                                                                         <span class="firts-text">Total Listings :</span>
-                                                                        <span class="firts-text">{{ array_sum($memberTotalCount) }}</span>
+                                                                        <span class="firts-text">36 {{-- {{ array_sum($memberTotalCount) }} --}} </span>
+                                                                        
                                                                     </a>
                                                                 </li>
 
@@ -402,7 +405,8 @@
                                                                 <li class="{{ request('membership_type') == '1' ? 'active' : '' }}">
                                                                     <a class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '1']) }}">
                                                                         <span>View Platinum Listings :</span>
-                                                                        <span>{{ $memberTotalCount[1] }}</span>
+                                                                        <span>10 {{-- {{ $memberTotalCount[1] }} --}}</span>
+                                                                         
                                                                     </a>
                                                                 </li>
 
@@ -410,7 +414,8 @@
                                                                 <li class="{{ request('membership_type') == '2' ? 'active' : '' }}">
                                                                     <a class="membership_list" class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '2']) }}">
                                                                         <span>View Gold Listings :</span>
-                                                                        <span>{{ $memberTotalCount[2] }}</span>
+                                                                        <span>20 {{-- {{ $memberTotalCount[2] }} --}}</span>
+                                                                        
                                                                     </a>
                                                                 </li>
 
@@ -418,14 +423,13 @@
                                                                 <li class="{{ request('membership_type') == '3' ? 'active' : '' }}">
                                                                     <a class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '3']) }}">
                                                                         <span>View Silver Listings :</span>
-                                                                        <span>{{ $memberTotalCount[3] }}</span>
+                                                                        <span>6 {{-- {{ $memberTotalCount[3] }} --}}</span>
                                                                     </a>
                                                                 </li>
 
                                                             </ul>
-                                                        </div> --}}
+                                                        </div>
 
-                                                        <div class="col-12 align-items-center">
                                                             <div class="grid_list_icon_box display_inline_block grid--btn"
                                                                 data-toggle="modal1" data-target="#" data-url="grid-escort-list">
                                                                 <a href="#" class="{{ $viewType == 'grid' ? 'active' : '' }}"

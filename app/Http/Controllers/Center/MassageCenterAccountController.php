@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Center;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EscortChangeBankPin;
+use App\Mail\sendBookeepingMassageBankPaymentReceipt;
+use App\Models\MassageBankDetail;
 use App\Models\MassageProfile;
 use App\Models\User;
 use App\Repositories\MassageBank\MassageBankDetailInterface;
@@ -57,9 +60,8 @@ class MassageCenterAccountController extends Controller
         return response()->json(compact('error','phone','otp'));
 
     }
-    public function deleteEscortBank(Request $request , $id)
+    public function deleteMassageBank(Request $request , $id)
     {
-
         $error = false;
         $bank = $this->massageBankDetail->find($id);
         if($bank->state === 1) {
@@ -76,73 +78,73 @@ class MassageCenterAccountController extends Controller
     {
 
         $data = $request->session()->all();
-        //dd($data);
 
         $error = 1;
 
-        //dd($user->otp);
-
         $user = auth()->user();
+
+        $changeOtp = (isset($request->change_pin_active) && (int)$request->change_pin_active == 1) ? $request->change_pin_active : 0;
+
+        $phone = $user->phone;
+        $status = false;
+        $changePin = '0';
+        $error =true;
+        $otp = $user->otp;
+        $bank_data = [];
+ 
+        if(($user && $changeOtp == 1) || ($user->otp != (int)$request->otp)) {
+ 
+            if($user->otp == (int)$request->otp) {
+                $status = true;
+                $otp = $user->otp;
+                $error = false;
+                $changePin = '1';
+            }
+            return response()->json(compact('error','phone','otp','status','changePin'));
+        }
+
         //TODO:: remove bypass before deployment
         if(1 || $user->otp == (int)$request->otp) {
-
-            $user->otp = null;
-            $user->save();
-            $bank_data = [
-                'bank_name' => $request->session()->exists('bank_name') ? $data['bank_name'] : '',
-                'bsb' => $data['bsb'],
-                'account_name' => $data['account_name'],
-                'account_number' => $data['account_number'],
-                'state' => $data['state'],
-                'user_id' => auth()->user()->id,
-            ];
-
-            //dd($bank_data);
-
-
-            // dd($bank_data, $request->session()->has('bankId'), $data['state'], $this->massageBankDetail->findByState(auth()->user()->id));
+            
+            if($user->otp == (int)$request->otp) {
+                //$user->otp = null;
+                $user->save();
+                $changePin = '2';
+                $bank_data = [
+                    'bank_name' => $request->session()->exists('bank_name') ? $data['bank_name'] : '',
+                    'bsb' => $data['bsb'],
+                    'account_name' => $data['account_name'],
+                    'account_number' => $data['account_number'],
+                    'state' => $data['state'],
+                    'user_id' => auth()->user()->id,
+                ];
+            }
+           
             if($request->session()->has('bankId')) {
-                // dd("bnak id");
                 $id = $data['bankId'];
                 $bankId = $this->massageBankDetail->find($id);
 
-                unset($bank_data['bank_name']);
                 if($bankId->state == 2 && $bankId->state == $data['state']) {
                     $error = 0;
-                    //dd($bank_data);
                     $this->massageBankDetail->store($bank_data, $id);
                 }
                 else if($bankId->state == 1 && $bankId->state == $data['state']) {
-                    $error = 3; // Primary account not updated
-                    //dd($bank_data);
-                    //$this->massageBankDetail->store($bank_data, $id);
+                    $error = 3; 
                 }
                 else if($bankId->state == 2 && $data['state'] == 1) {
                     $error = 0;
-                    //dd($bank_data);
                     $this->massageBankDetail->store($bank_data, $id);
                     $this->massageBankDetail->updatebyState(auth()->user()->id, $id);
                 } else {
                     $error = 3; // Primary account not updated
                 }
 
-                // if($this->massageBankDetail->findByState(auth()->user()->id) != 0 && $data['state'] == 2) {
-                //     $error = 3; // Primary account not updated
-                // } else {
-                //     $error = 0;
-                //     //dd($bank_data);
-                //     $this->massageBankDetail->store($bank_data, $id);$this->massageBankDetail->updatebyState(auth()->user()->id, $id);
-                //     $request->session()->flash('status', 'Task was successful!');
-                // }
-
-
-
             } else {
                 $id = null;
+                $changePin = '2';
                 
                 if($this->massageBankDetail->findByState(auth()->user()->id) == 0 && $data['state'] == 1){
                     $bankdata = $this->massageBankDetail->store($bank_data, $id);
-                    //dd($bankdata, $bank_data, $id);
 
                     $id = $bankdata->id;
                     $this->massageBankDetail->updatebyState(auth()->user()->id, $id);
@@ -159,7 +161,7 @@ class MassageCenterAccountController extends Controller
                     $id = null;
                     //dd($bank_data, $id);
                     $bankdata = $this->massageBankDetail->store($bank_data, $id);
-                    dd($bankdata, $bank_data, $id);
+                    //dd($bankdata, $bank_data, $id);
                     $bid = $bankdata->id;
                     $this->massageBankDetail->updatebyState(auth()->user()->id, $bid);
 
@@ -175,10 +177,10 @@ class MassageCenterAccountController extends Controller
                 // }
             }
             $request->session()->flash('status', 'Task was successful!');
-            return response()->json(compact('error','bank_data'));
+            return response()->json(compact('error','bank_data','changePin','otp'));
             //return $this->sendLoginResponse($request);
         } else {
-
+            //return response()->json(compact('error','phone','otp','status','changePin'));
             return $this->sendFailedLoginResponse($request);
         }
         // $req = $request->only($this->username(), 'password','type');
@@ -187,10 +189,10 @@ class MassageCenterAccountController extends Controller
         //return $request->only($this->username(), 'password','type');
     }
 
-    public function update(UpdateEscortRequest $request)
+    public function update(Request $request)
     {
 
-        $data = [];
+       // $data = [];
         $data = [
                 'business_name' => $request->business_name,
                 'abn' => $request->abn,
@@ -241,7 +243,6 @@ class MassageCenterAccountController extends Controller
             User::where('id', auth()->user()->id)
                 ->update([
                     'user_bank_pin' => $request->user_bank_pin
-                    // 'user_bank_pin' => Hash::make($request->user_bank_pin)
                 ]);
 
             $body = [
@@ -253,6 +254,10 @@ class MassageCenterAccountController extends Controller
 
             Mail::to(auth()->user()->email)->queue(new EscortChangeBankPin($body));
 
+            $msg = "Your PIN Number has been reset to: " . $request->user_bank_pin . " Do not disclose your PIN to anyone else.";
+            $sendotp = new SendSms();
+            $output = $sendotp->send(auth()->user()->phone,$msg);
+
             return response()->json([
                 'error' => false,
                 'message' => 'Your PIN has been changed successfully.'
@@ -263,5 +268,87 @@ class MassageCenterAccountController extends Controller
             'error' => true,
             'message' => 'Failed to update bank PIN.'
         ]);
+    }
+
+    public function getEftBankDetails(Request $request)
+    {
+
+        if (auth()->check() && isset($request->bank_id) && !empty($request->bank_id)) {
+           
+            $massageBank = MassageBankDetail::where('id', (int)$request->bank_id)->first();
+
+            $massageBank->bsb = $massageBank->bsb ? formatAccountNumber($massageBank->bsb) : 'NA';
+
+            $massageBank->account_number = $massageBank->account_number ?  formatAccountNumber($massageBank->account_number) : "NA";
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Bank details fetched successfully.',
+                'type' => 'eft',
+                'eft_bank' => $massageBank,
+            ]);
+        }
+        
+        return response()->json([
+            'error' => true,
+            'message' => 'Failed to fetch bank details.',
+            'type' => 'eft',
+            'eft_bank' => null,
+        ]);
+    }
+
+    public function sendPaymentReceiptCenter(Request $request)
+    {
+        if (auth()->check() && isset($request->bsb) && !empty($request->bsb)) {
+            $body = [
+                'name' => auth()->user()->name,
+                'member_id' => auth()->user()->member_id,
+                'bsb' => $request->bsb,
+                'account_number' => $request->account_number,
+                'subject' => 'Bank payment receipt',
+            ];
+
+            Mail::to(auth()->user()->email)->queue(new sendBookeepingMassageBankPaymentReceipt($body));
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Bank payment receipt sent successfully.',
+                'type' => 'payment_receipt',
+            ]);
+        }
+        
+        return response()->json([
+            'error' => true,
+            'message' => 'Failed to send bank payment receipt details.',
+            'type' => 'payment_receipt'
+        ]);
+    }
+
+    public function sendOtpForPinChange(Request $request ){
+       try{
+        $user = auth()->user();
+        if($user){
+            $phone = $user->phone;
+            $user->otp = $this->generateOTP();
+            $user->save();
+            $error = false;
+            $user = auth()->user();
+           
+            $otp = $user->otp;
+            $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+            $sendotp = new SendSms();
+            $output = $sendotp->send($phone,$msg);
+            $user_id = $user->id;
+            return response()->json([
+                'status' => $output,
+                'message' => "Hello! Your one-time user code has been sent successfully. You can ignore this text message.",
+            ]);
+        }
+       }catch(\Exception $e){
+         return response()->json([
+                'status' => 500,
+                'message' => $e->getMessage(),
+            ]);
+       }
     }
 }

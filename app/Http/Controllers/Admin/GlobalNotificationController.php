@@ -95,26 +95,34 @@ class GlobalNotificationController extends Controller
         // return view('admin.notifications.global');
     }
 
-    public function changeStatus(Request $request, $id)
+    public function updateStatus(Request $request, $id)
     {
         try {
             $notification = GlobalNotification::findOrFail($id);
-            $allowed = ['Published', 'Suspended', 'Suspended', 'Removed'];
             $status = $request->input('status');
-            if ($status == 'Removed') {
-                $notification->delete();
-                return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification delete Successfylly!!.');
+            $allowedStatuses = ['Published', 'Suspended', 'Removed'];
+
+            if (!in_array($status, $allowedStatuses)) {
+                return error_response('Invalid status', 422);
             }
 
-            if (!in_array($status, $allowed)) {
-                return response()->json(['success' => false, 'message' => 'Invalid status'], 422);
+            if ($status === 'Removed') {
+                $notification->delete();
+                return success_response(
+                    ['id' => $notification->id, 'status' => 'Removed'],
+                    'Notification deleted successfully.'
+                );
             }
-            $notification->status = $status;
-            $notification->save();
-            return success_response(['id' => $notification->id, 'status' => $notification->status], 'Status updated Successfully.');
+
+            $notification->update(['status' => $status]);
+            return success_response(
+                ['id' => $notification->id, 'status' => $status],
+                'Status updated successfully.'
+            );
         } catch (\Exception $e) {
             return error_response('Failed to update status: ' . $e->getMessage(), 500);
         }
+
     }
 
     public function show($id)
@@ -140,10 +148,13 @@ class GlobalNotificationController extends Controller
     public function store(Request $request)
     {
         $data =  $request->only(['heading', 'start_date', 'end_date', 'type', 'content', 'template_name', 'edit_notification_id']);
-        $start = Carbon::parse($data['start_date']);
-        $end =  Carbon::parse($data['end_date']);
+        $start = sqlDateFormat($data['start_date']);
+        $end =  sqlDateFormat($data['end_date']);
         //Check condition 
         $notificationId = $request->edit_notification_id;
+
+        $data['start_date'] = $start;
+        $data['end_date'] = $end;
 
         if ($notificationId) {
             //dd($request->content);
@@ -151,6 +162,19 @@ class GlobalNotificationController extends Controller
             $update->heading = $request->heading;
             $update->content = $data['content'];
             $update->template_name = $request->template_name;
+            $update->start_date = sqlDateFormat($data['start_date']);
+            $update->end_date = sqlDateFormat($data['end_date']);
+            $update->type = $request->type;
+
+            /* Reset all type-based fields */
+            $update->content       = null;
+            $update->template_name = null;
+
+            if ($data['type'] === 'Ad hoc') {
+                $update->content = $data['content'];
+            } elseif ($data['type'] === 'Template') {
+                $update->template_name = $data['template_name'];
+            }
             $update->save();
             return success_response($data, 'Notification update successfully!!');
         }
@@ -205,9 +229,10 @@ class GlobalNotificationController extends Controller
         try {
             $notification = GlobalNotification::findOrFail($id);
             // Return raw date format for edit form
+           // $notificationData = $notification->toArray();
+            $notification['start_date'] = basicDateFormat($notification->start_date);
+            $notification['end_date'] = basicDateFormat($notification->end_date);
             $notificationData = $notification->toArray();
-            //$notificationData['start_date'] = basicDateFormat($notification->start_date);
-            //$notificationData['end_date'] = basicDateFormat($notification->end_date);
             return success_response($notificationData, 'Notification view');
         } catch (\Exception $e) {
             return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);

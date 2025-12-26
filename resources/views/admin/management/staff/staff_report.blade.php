@@ -100,8 +100,11 @@
 
             .container {
                 box-shadow: none;
-                border: 1px solid #ccc;
+                /* border: 1px solid #ccc; */
             }
+        }
+        @page{
+            size:A4;
         }
 
         .heading {
@@ -110,6 +113,7 @@
             font-weight: 600;
             line-height: 1px;
         }
+        .my-account-card{ margin: 25px auto;}
     </style>
 </head>
 
@@ -133,7 +137,7 @@
         $idle_preference_times = config('staff.idle_preference_time');
         $idle_preference_time = "";
          $twofa = "";
-        if(isset( $setting) && (isset($setting->idle_preference_time) || $setting->idle_preference_time === null)) {
+        if(isset( $setting) && (isset($setting->idle_preference_time))) {
             $idle_preference_time = isset($idle_preference_times[(string)$setting->idle_preference_time]) ? $idle_preference_times[$setting->idle_preference_time] : "";
         }
         $twofas = config('staff.twofa');
@@ -153,7 +157,7 @@
                     </form>
                 </div>
 
-                <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
+                <h6 class=" pb-1 text-blue-primary">Personal Details</h6>
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
@@ -185,7 +189,7 @@
 
                 <!-- Next of Kin Section -->
               
-                    <h6 class="border-bottom pb-1 text-blue-primary">Next of Kin (Emergency Contact)</h6>
+                    <h6 class=" pb-1 text-blue-primary">Next of Kin (Emergency Contact)</h6>
 
                     <table class="table table-bordered mb-3">
                         <tbody>
@@ -210,7 +214,7 @@
             
                 <!-- Section: Other Details -->
                
-                    <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
+                    <h6 class="pb-1 text-blue-primary">Other Details</h6>
 
                     <table class="table table-bordered mb-3">
                         <tbody>
@@ -229,7 +233,7 @@
                             </tr>
                             <tr>
                                 <th>Commenced Date</th>
-                                <td>{{ showDateWithFormat($staff->staff_detail->commenced_date, 'd/m/Y') }}</td>
+                                <td>{{ showDateWithFormat($staff->staff_detail->commenced_date, 'd-m-Y') }}</td>
                             </tr>
 
                             <tr>
@@ -245,7 +249,7 @@
             
                 <!-- Section: Building Security -->
              
-                    <h6 class="border-bottom pb-1 text-blue-primary">Building Security</h6>
+                    <h6 class="pb-1 text-blue-primary">Building Security</h6>
                     <table class="table table-bordered mb-3">
                         <tbody>
                             <tr>

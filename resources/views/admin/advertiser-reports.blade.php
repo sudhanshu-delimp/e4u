@@ -58,7 +58,7 @@ table td,th{
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
                     <ol>
-                        <li>Reports are a consolidation of reports on Advertisers (<b>Report</b>).</li>
+                        <li>Reports are a consolidation of reports on Advertisers <span style="font-weight:400;color: #555;">(</span><b>Report</b><span style="font-weight:400;color: #555;">)</span>.</li>
                         <li>When a Report has been made about an Advertiser, place the Advertiser status on
                         'Suspended' until the Report is resolved.</li>
                         <li>The Operations Team will assess the Report that has been made by the Viewer
@@ -124,20 +124,33 @@ table td,th{
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">
-                            Ref
+                            Item No
 
                             </th>
-                            <th scope="col">
+                            {{-- <th scope="col">
                             Date
 
-                            </th>
+                            </th> --}}
                             <th scope="col">
                             Member ID
                             </th>
                             <th scope="col">
+                            Report Type
+                            </th>
+                            <th scope="col">
+                            Advertiser ID 
+                            </th>
+                            <th scope="col">
+                            Stage Name
+                            </th>
+                            <th scope="col">
+                            Date Created
+
+                            </th>
+                            {{-- <th scope="col">
                             Mobile
                             </th>
-                            <th scope="col">Home State</th>
+                            <th scope="col">Home State</th> --}}
                             <th scope="col">Status</th>
                             <th scope="col" class="text-center">Action</th>
                         </tr>
@@ -163,31 +176,42 @@ table td,th{
                             <table class="table border-0 table-report-info">
                               <tbody>
                                 <tr >
-                                  <th>Ref:</th>
+                                  <th>Item No:</th>
                                   <td class="report_ref">#30</td>
-                                  <th>Date:</th>
-                                  <td class="report_date">14-05-2025</td>
+                                  <th>Member ID:</th>
+                                  <td class="report_member_id">14-05-2025</td>
+                                  {{-- <th>Date:</th>
+                                  <td class="report_date">14-05-2025</td> --}}
                                 </tr>
                                 <tr>
+                                  <th>Report Type:</th>
+                                  <td class="report_type">14-05-2025</td>
                                   <th>Advertiser ID:</th>
-                                  <td class="report_member_id">14-05-2025</td>
-                                  <th>Viewer ID:</th>
-                                  <td class="report_viewer_id">14-05-2025</td>
+                                  <td class="report_advertiser_id">14-05-2025</td>
+                                  
+                                  {{-- <th>Viewer ID:</th>
+                                  <td class="report_viewer_id">14-05-2025</td> --}}
                                   {{-- <td class="report_escort_id">14-05-2025</td> --}}
                                   
                                 </tr>
                                 <tr>
-                                  <th>Mobile :</th>
-                                  <td class="report_mobile">WA - Perth</td>
-                                  <th>Mobile:</th>
-                                  <td class="report_viewer_mobile">Adrian Weinstein</td>
+                                  <th>Stage Name:</th>
+                                  <td class="report_stage_name">WA - Perth</td>
+                                  <th>Date Created:</th>
+                                  <td class="report_date">14-05-2025</td>
+                                  {{-- <th>Mobile :</th>
+                                  <td class="report_mobile">WA - Perth</td> --}}
+                                  {{-- <th>Mobile:</th>
+                                  <td class="report_viewer_mobile">Adrian Weinstein</td> --}}
                                   
                                 </tr>
                               
                                 <tr>
                                   
-                                  <th>Home State:</th>
-                                  <td  class="report_home_state">WA</td>
+                                  {{-- <th>Home State:</th>
+                                  <td  class="report_home_state">WA</td> --}}
+                                  <th>Viewer ID:</th>
+                                  <td class="report_viewer_id">14-05-2025</td>
                                   <th>Status:</th>
                                   <td colspan="3" class="report_status">Current</td>
                                 </tr>
@@ -507,6 +531,9 @@ $(document).ready(function() {
                     $(".report_comment").text(capitalizeFirstLetter(response.data.report_desc));
                     $(".report_mobile").text(response.data.escort.user.phone);
                     $(".report_viewer_mobile").text(response.data.viewer.phone);
+                    $(".report_stage_name").text(response.data.escort.name);
+                    $(".report_type").text(response.data.report_tag);
+                    $(".report_advertiser_id").text(response.data.escort_id);
                 }
             },
             error: function(xhr) {
@@ -543,10 +570,13 @@ $(document).ready(function() {
             },
             columns: [
                 { data: 'ref', name: 'ref' },
-                { data: 'date', name: 'date' },
                 { data: 'member_id', name: 'member_id' },
-                { data: 'mobile', name: 'mobile' },
-                { data: 'home_state', name: 'home_state' },
+                { data: 'report_type', name: 'report_type' },
+                { data: 'advertiser_id', name: 'advertiser_id' },
+                // { data: 'mobile', name: 'mobile' },
+                // { data: 'home_state', name: 'home_state' },
+                { data: 'stage_name', name: 'stage_name' },
+                { data: 'date', name: 'date' },
                 { data: 'status', name: 'status'},
                 { data: 'action', name: 'action', orderable: false, class: 'text-center' }
             ]

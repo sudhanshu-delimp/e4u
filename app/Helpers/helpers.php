@@ -352,6 +352,15 @@ if (!function_exists('getEscortTimezone')) {
     }
 }
 
+if (!function_exists('getEscortLocalTime')) {
+
+    function getEscortLocalTime($utcTime, $localTimeZone)
+    {
+        return Carbon::parse($utcTime)->timezone($localTimeZone);
+    }
+}
+
+
 if (!function_exists('app_date_time_format')) {
 
     function app_date_time_format($datetime)
@@ -909,6 +918,24 @@ if (!function_exists('removeSpaceFromString')) {
     {
         $number = trim((string) $number);
         return preg_replace('/[^\p{N}]/u', '', $number);
+    }
+}
+
+if (!function_exists('formatStringTitleCase')) {
+    function formatStringTitleCase($string)
+    {
+        if (!$string) {
+            return null;
+        }
+
+        // Replace underscores with spaces
+        $string = str_replace('_', ' ', $string);
+
+        // Remove extra spaces
+        $string = trim(preg_replace('/\s+/', ' ', $string));
+
+        // Convert to Title Case
+        return ucwords(strtolower($string));
     }
 }
 

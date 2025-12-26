@@ -59,7 +59,7 @@
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
-                            <li>Reviews are a consolidation of reviews on Advertisers (<b>Review</b>).</li>
+                            <li>Reviews are a consolidation of reviews on Advertisers <span style="font-weight:400;color: #555;">(</span><b>Review</b><span style="font-weight:400;color: #555;">)</span>.</li>
                             <li>When a Review has been made about an Advertiser, the Review remains pending
                                 until approved.</li>
                             <li>The Operations Team will assess the Review that has been made by the Viewer

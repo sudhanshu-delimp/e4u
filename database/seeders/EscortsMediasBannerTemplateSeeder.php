@@ -27,7 +27,7 @@ class EscortsMediasBannerTemplateSeeder extends Seeder
             [
                 'type'      => 0,
                 'banner_group'  => '1',
-                'path'      => 'escorts/images/template/banner/bdsm/BDSM-Banner01.jpg',
+                'path'      => 'escorts/images/template/banner/bdsm/BDSM-Banner05.jpg',
                 'template'     => '1',
                 'position' => 9,
                 'created_at'=> now(),

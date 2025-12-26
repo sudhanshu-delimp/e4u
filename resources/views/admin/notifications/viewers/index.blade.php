@@ -129,15 +129,15 @@
                             <!-- Start Date -->
                             <div class="col-12 mb-3 date_show_hide" id="startDateField">
                                 <label class="label" for="startDateField">Start Date</label>
-                                <input type="date" name="start_date" id="start_date" placeholder="Start Date"
-                                    class="form-control rounded-0" />
+                                <input type="text" name="start_date" id="start_date" placeholder="Start Date"
+                                    class="form-control rounded-0 js_datepicker" />
                             </div>
 
                             <!-- Finish Date -->
                             <div class="col-12 mb-3 date_show_hide" id="endDateField">
                                 <label class="label" for="endDateField">End Date</label>
-                                <input type="date" name="end_date" id="end_date" placeholder="Finish Date"
-                                    class="form-control rounded-0" />
+                                <input type="text" name="end_date" id="end_date" placeholder="Finish Date"
+                                    class="form-control rounded-0 js_datepicker" />
                             </div>
 
 
@@ -751,7 +751,9 @@
                                     let msg = response.message ? response.message : 'Saved successfully';
                                     $("#image_icon").attr("src", endpoint.success_image);
                                     $('#success_task_title').text('Success');
-                                    $('#success_msg').text(msg);
+                                    $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                                        '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                    );
                                     form[0].reset();
                                     $('#successModal').modal('show');
                                     setTimeout(function() {
@@ -768,7 +770,9 @@
                                 }
                                 $("#image_icon").attr("src", endpoint.error_image);
                                 $('#success_task_title').text('Error');
-                                $('#success_msg').text(msg);
+                                $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                                '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                );
                                 $('#successModal').modal('show');
                             }
                         });
@@ -805,23 +809,9 @@
                         type: 'GET'
                     },
                     columns: [
-                        // { 
-                        //     data: null,
-                        //     name: 'row_index',
-                        //     orderable: false,
-                        //     searchable: true,
-                        //     render: function(data, type, row, meta) {
-                        //         // meta.row starts from 0
-                        //         let idNumber = meta.row + meta.settings._iDisplayStart + 1;
-                        //         // Format like #00001
-                        //         return '#' + idNumber.toString().padStart(5, '0');
-                        //     }
-                        // },
                          { 
                             data: 'ref',
                             name: 'ref',
-                           // searchable: true,
-                            //orderable: true
                         },
                         {
                             data: 'start_date',

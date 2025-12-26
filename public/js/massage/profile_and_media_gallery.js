@@ -423,12 +423,13 @@ function preview_image(event)
                 $("#js_profile_media_gallery").html(response.gallery_container_html);
                 $("#gallery_modal_container").html(response.gallery_modal_container_html);
                 $("#banner_modal_container").html(response.banner_modal_container_html);
-                if($("#pinup_modal_container").length > 0){
-                    $("#pinup_modal_container").html(response.pinup_modal_container_html);
-                }
-                else{
-                    $(".js_gallery_category li:nth-child(3)").remove();
-                }
+                $(".js_gallery_category li:nth-child(3)").remove();
+                // if($("#pinup_modal_container").length > 0){
+                //     $("#pinup_modal_container").html(response.pinup_modal_container_html);
+                // }
+                // else{
+                //     $(".js_gallery_category li:nth-child(3)").remove();
+                // }
                 if (activePage && activeContainer && $(`#${activeContainer} img`).length > 0) {
                     $(`#${activePage}`).addClass('active');
                     $(`#${activeContainer}`).addClass('active');

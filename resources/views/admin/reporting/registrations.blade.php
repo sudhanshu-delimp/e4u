@@ -17,12 +17,14 @@
         .paging_simple_numbers {
             margin-top: 18px;
         }
-.table-responsive{
+
+        .table-responsive {
             overflow: visible;
         }
+
         /* .dataTables_info {
-                margin-top: 18px;
-            } */
+                    margin-top: 18px;
+                } */
 
         .table-report-info tr td {
             border: 0;
@@ -69,7 +71,8 @@
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
                             <li>Registrations is a consolidation of new registrations for Advertisers, Agents and
-                                Viewers (<b>Registration</b>).</li>
+                                Viewers <span style="font-weight:400;color: #555;">(</span><b>Registration</b><span
+                                    style="font-weight:400;color: #555;">)</span>.</li>
                             <li>The Operations Team can action a Registration.</li>
                         </ol>
 
@@ -201,7 +204,7 @@
 
                 <div class="modal-body pb-0 teop-text text-center">
                     <h6 class="popu_heading_style mt-2">
-                        <span class="Lname success-modal-text">We’re happy to inform you that your query has been <br>
+                        <span class="Lname success-modal-text">We're happy to inform you that your query has been <br>
                             successfully resolved.</span>
                     </h6>
 
@@ -313,7 +316,7 @@
                 </div>
 
                 <div class="modal-body pb-0 teop-text text-center">
-                    <h5 class="popu_heading_style mt-2">
+                    <h5 class="popu_heading_style mt-2" id="popu_heading_style">
                         Are you sure you want to perform this action.
                     </h5>
 
@@ -375,7 +378,7 @@
                     orderable: true,
                     defaultContent: 'NA'
                 },
-                
+
                 {
                     data: 'phone',
                     name: 'phone',
@@ -398,7 +401,7 @@
                     defaultContent: '--'
                 },
                 {
-                    data: 'status',
+                    data: 'status_name',
                     name: 'status',
                     searchable: false,
                     orderable: true,
@@ -452,7 +455,12 @@
 
             // Only add reject_reason if status = 7
             if (status == 7) {
-                data.reject_reason = $('.reject-reason').val();
+            var selectedReason = $('input[name="reject-reason"]:checked').val();
+             var reason = "You have breached the Terms & Conditions of this website";
+            if(selectedReason == 1) {
+                var reason = "You have previously been banned from this website";
+            }
+                data.reject_reason = reason;
             }
 
             $.ajax({
@@ -493,7 +501,8 @@
                 user_img = avatar_base + rowData.avatar_img;
 
 
-            var modal_html = `<div id="account-row-${requestId}" class="modal-dialog modal-dialog-centered" role="document">
+            var modal_html =
+                `<div id="account-row-${requestId}" class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="confirmationPopup">
@@ -516,15 +525,15 @@
                             <tr><th>Email</th><td>${rowData.email ? rowData.email : 'NA'}</td></tr>
                             <tr><th>Home State</th><td>${rowData.territory ? rowData.territory : 'NA'}</td></tr>
                             <tr><th>Agent ID</th><td>${rowData.referred_by_agent_id ? rowData.referred_by_agent_id : '--'}</td></tr>
-                            <tr><th>Status</th><td>${rowData.status ? rowData.status : 'NA'}</td></tr>
+                            <tr><th>Status</th><td>${rowData.status_name ? rowData.status_name : 'NA'}</td></tr>
                             <tr><th>Date</th><td>${rowData.registration_date ? rowData.registration_date : 'NA'}</td></tr>`;
-                            
 
-                                        if (rowData.status === 'Rejected' && rowData.rejection_reason) {
-                                            modal_html += `<tr><th>Rejection Reason</th><td>${rowData.rejection_reason}</td></tr>`;
-                                        }
 
-                                        modal_html += `</table>
+            if (rowData.status === 'Rejected' && rowData.rejection_reason) {
+                modal_html += `<tr><th>Rejection Reason</th><td>${rowData.rejection_reason}</td></tr>`;
+            }
+
+            modal_html += `</table>
                                 <div class="d-flex justify-content-end mb-2">
                                     <button type="button" class="btn-cancel-modal ml-2" data-dismiss="modal" aria-label="Close">Close</button>
                                 </div>
@@ -544,7 +553,7 @@
         ///////// reject reason modal //////////////////////////////
         $(document).on('click', '.reject-registration-btn', function(e) {
             var currentStatus = $(this).closest('.dropdown.no-arrow').data('current-status');
-
+            currentStatus = parseInt(currentStatus);
             if (currentStatus != 6) {
                 var requestId = $(this).data('id');
                 var modal_html = `<div id="account-row-${requestId}" class="modal-dialog modal-dialog-centered" role="document">
@@ -560,11 +569,21 @@
                                  <div class="modal-body pb-0">
                                        <div class="row">
                                           <div class="col-12">
-                                                
                                           <div class="card mb-3 p-3">
                                               <div class="row">
                                                 <div class="col-12 mb-12">
-                                                    <textarea class="form-control reject-reason" placeholder="Enter Reason"></textarea>
+                                                    <!--textarea class="form-control reject-reason2" placeholder="Enter Reason"></textarea-->
+                                                    <div class="form-group">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="reject-reason" id="reject-reason_1" value="1" >
+                                                        <label class="form-check-label" for="reject-reason_1">You have previously been banned from this website</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="reject-reason" id="reject-reason_2" value="2" checked="">
+                                                        <label class="form-check-label" for="reject-reason_2">You have breached
+the Terms & Conditions of this website</label>
+                                                    </div>
+                                                </div>
                                                 </div>
                                               </div>
                                                 <div class="d-flex justify-content-end  mt-2">
@@ -592,14 +611,15 @@
         $(document).on("click", ".confirm-reject-registration", function(e) {
             e.preventDefault();
 
-            var reason = $(".reject-reason").val().trim();
-
+           // var reason = $(".reject-reason").val().trim();
+            var selectedReason = $('input[name="reject-reason"]:checked').val();
+             
             // remove previous error
             $(".reject-reason-error").remove();
 
-            if (reason === "") {
-                $(".reject-reason").after(
-                    '<small class="text-danger reject-reason-error">Reason is required.</small>');
+            if (selectedReason === "") {
+                $("#reject-reason_2").after(
+                    '<small class="text-danger reject-reason-error">Please select the reason.</small>');
                 $("#reject-registration-confirm-popup").modal("hide");
                 return false;
             }

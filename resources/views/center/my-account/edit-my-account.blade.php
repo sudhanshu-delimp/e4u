@@ -185,7 +185,7 @@
 
 
                                                                     @if (auth()->user()->my_agent)
-                                                                        {{ auth()->user()->my_agent->member_id }}
+                                                                        {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}
                                                                     @else
                                                                         <a
                                                                             href="{{ url('/center-dashboard/agent-request') }}">
@@ -243,7 +243,7 @@
 
                                                                 </label>
                                                                 <input type="text" class="form-control"
-                                                                    name="payID_name"
+                                                                    name="payID_name" value="{{ $escort->pay_id_name ?? ''}}"
                                                                     placeholder="Insert your Bank Account name">
                                                             </div>
                                                         </div>
@@ -251,7 +251,7 @@
                                                             <div class="form-group">
                                                                 <label for="PayID Number">PayID Number</label>
                                                                 <input type="text" class="form-control" name="paID_no"
-                                                                    placeholder="Insert your PayID Number">
+                                                                    placeholder="Insert your PayID Number" value="{{ $escort->pay_id_no ?? ''}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1007,10 +1007,14 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
+                        const modalElement = document.getElementById('comman_modal');
+                        const modal = new bootstrap.Modal(modalElement);
                         if (!data.error) {
                             var msg = "Saved";
                             $('.comman_msg').html(msg);
-                            $("#comman_modal").modal('show');
+                            //$("#comman_modal").modal('show');
+                            
+                            modal.show();
                             //$("#my_account_modal").show();
 
                             //
@@ -1018,7 +1022,8 @@
                             $('.Lname').html("Oops.. sumthing wrong Please try again");
                             var msg = "Oops.. sumthing wrong Please try again";
                             $('.comman_msg').html(msg);
-                            $("#comman_modal").modal('show');
+                            //$("#comman_modal").modal('show');
+                            modal.show();
 
                         }
                     },

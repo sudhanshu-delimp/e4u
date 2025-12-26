@@ -15,7 +15,7 @@
         $idle_preference_times = config('staff.idle_preference_time');
         $idle_preference_time = "";
          $twofa = "";
-        if(isset( $setting) && (isset($setting->idle_preference_time) || $setting->idle_preference_time === null)) {
+        if(isset( $setting) && (isset($setting->idle_preference_time))) {
             $idle_preference_time = isset($idle_preference_times[(string)$setting->idle_preference_time]) ? $idle_preference_times[$setting->idle_preference_time] : "";
         }
         $twofas = config('staff.twofa');
@@ -23,11 +23,11 @@
         $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
         }
     @endphp
-    <div class="col-12 view_staff_details" style="max-height: 600px; overflow:auto;">
-         <div class="row">
+    <div class="col-12 view_staff_details">
+         <div class="row" style="max-height: 600px; overflow:auto;">
             <!-- Section: Personal Details -->
             <div class="col-12 my-2">
-                <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
+                <h6 class="text-blue-primary">Personal Details</h6>
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
@@ -59,7 +59,7 @@
             </div>
             <!-- Next of Kin Section -->
             <div class="col-12 my-2">
-                <h6 class="border-bottom pb-1 text-blue-primary">Next of Kin (Emergency Contact)</h6>
+                <h6 class="text-blue-primary">Next of Kin (Emergency Contact)</h6>
 
                 <table class="table table-bordered mb-3">
                     <tbody>
@@ -84,7 +84,7 @@
             </div>
             <!-- Section: Other Details -->
             <div class="col-12 my-2">
-                <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
+                <h6 class="text-blue-primary">Other Details</h6>
 
                 <table class="table table-bordered mb-3">
                     <tbody>
@@ -102,7 +102,7 @@
                         </tr>
                         <tr>
                             <th>Commenced Date</th>
-                            <td>{{showDateWithFormat($staff->staff_detail->commenced_date, "d/m/Y")}}</td>
+                            <td>{{showDateWithFormat($staff->staff_detail->commenced_date, "d-m-Y")}}</td>
                         </tr>
                         
                         <tr>
@@ -118,7 +118,7 @@
             </div>
             <!-- Section: Building Security -->
             <div class="col-12 my-2">
-                <h6 class="border-bottom pb-1 text-blue-primary">Building Security</h6>
+                <h6 class="text-blue-primary">Building Security</h6>
                 <table class="table table-bordered mb-3">
                     <tbody>
                         <tr>
@@ -137,27 +137,8 @@
                     </tbody>
                 </table>
             </div>
-    <!-- Section: Building Security -->
-    <div class="col-12 my-2">
-        <h6 class="border-bottom pb-1 text-blue-primary">Building Security</h6>
-        <table class="table table-bordered mb-3">
-            <tbody>
-                <tr>
-                    <th width="40%">Building Security</th>
-                    <td width="60%">{{ ucfirst($staff->staff_detail->building_access_code) }}</td>
-                </tr>
-                <tr>
-                    <th>Key Provided?</th>
-                    <td> {{ ucfirst($staff->staff_detail->keys_issued) }}</td>
-                </tr>
-                <tr>
-                    <th>Car Park?</th>
-                    <td>{{ ucfirst($staff->staff_detail->car_parking) }}</td>
-                </tr>
-            </tbody>
-        </table>
-         </div>
-        <div class="col-12 my-2">
+
+            <div class="col-12 my-2">
                
                 <table class="table table-bordered mb-3">
                     <tbody>
@@ -172,14 +153,17 @@
                     </tbody>
                 </table>
             </div>
-        <div class="col-12 my-2 text-right">
-            <form action="{{ route('admin.print_staff') }}" method="post">
+         </div>    
+        <div class="row">
+            <div class="col-12 my-2 text-right">
+            <form action="{{ route('admin.print_staff') }}" method="post" target="_blank">
                 {{ csrf_field() }}
                 <input name="user_id" type="hidden" id="user_print_id" class="user_print_id"
                     value="{{ $staff->id }}">
                 <button type="submit" class="print-btn m-0">🖨️ Print Report</button>
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
             </form>
+        </div>
         </div>
     </div>
 </div>

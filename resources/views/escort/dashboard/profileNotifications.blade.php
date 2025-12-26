@@ -313,9 +313,15 @@ $('#profile_notification_options').on('submit', function(e) {
         contentType: false,
          success: function(response) {
 
+                Swal.close();
+                swal_success_popup(response.message);
+                setTimeout(function() {
+                    location.reload();
+                }, 2000);
+
                 console.log(response);
-                     Swal.close();
-                     $('#globalAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`);
+                     //Swal.close();
+                    //  $('#globalAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`);
                     //  setTimeout(function() {
                     //  location.reload();
                     //   }, 3000);
@@ -323,7 +329,8 @@ $('#profile_notification_options').on('submit', function(e) {
                error: function(xhr) {
                      Swal.close();
                      console.log(xhr);
-                     $('#globalAlert').html(`<div id="commanAlert" class="alert rounded alert-error">Error : Something went wrong</div>`);
+                     swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                    //  $('#globalAlert').html(`<div id="commanAlert" class="alert rounded alert-error">Error : Something went wrong</div>`);
                }
     });
 });

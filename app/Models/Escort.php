@@ -696,4 +696,15 @@ class Escort extends Model
         return Carbon::parse(now())
               ->diffInDays(Carbon::parse($this->end_date))+1;
     }
+
+    public function bumpups()
+    {
+        return $this->hasMany(EscortBumpup::class, 'escort_id');
+    }
+
+    public function activeBumpup()
+    {
+        return $this->hasOne(EscortBumpup::class, 'escort_id')
+                    ->active();
+    }
 }
