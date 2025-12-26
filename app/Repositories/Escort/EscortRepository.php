@@ -232,10 +232,17 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 </sup>';
             }
 
-            if(!empty($item->activeUpcomingSuspend)){
-                $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">SUS
+            if(!empty($item->activeUpcomingSuspend) || $item->user->status == "Suspended"){
+                if($item->user->status == "Suspended"){
+                       $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
+                <small class="listing-tag-tooltip-desc">Your membership has been Suspended due to a Report</small>
+                </sup>';
+                } else {
+                    $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
                 <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($item->activeUpcomingSuspend->start_date)) . " to ".date("d-m-Y", strtotime($item->activeUpcomingSuspend->end_date)).'</small>
                 </sup>';
+                
+            }
             }
             
             if($isExtended->count){
