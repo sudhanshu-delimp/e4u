@@ -94,7 +94,21 @@ class WebController extends Controller
                 $query = $query->whereNotIn('id',$blockedProfileForViewersIds);
             }
         }
+        $query->with(['currentActivePinup','activeBumpup']);
 
+        $query->withMax(['activeBumpup as bump_start' => function ($q) {
+            $q->select('utc_start_time');
+        }], 'utc_start_time')
+        ->orderByRaw('bump_start IS NULL')
+        ->orderByDesc('bump_start');
+
+        $query->withMax(['currentActivePinup as pinup_start' => function ($q) {
+            $q->select('utc_start_time');
+        }], 'utc_start_time')
+        ->orderByRaw('pinup_start IS NULL')
+        ->orderByDesc('pinup_start');
+        
+        $query->orderBy('utc_start_time','desc');
         # Search escort by search button on the bases on radio button with search icon
         if(isset($str['search_by_radio']) && ($str['search_by_radio'] == '1' || $str['search_by_radio'] == 1))
         {
@@ -124,7 +138,6 @@ class WebController extends Controller
             {
                 $query->where('state_id','=',$str['lat_state']);
             }
-
             return $query;
         }
 
@@ -418,7 +431,6 @@ class WebController extends Controller
             $silver = $silver->where('membership', $str['membership_type']);
             $free = $free->where('membership', $str['membership_type']);    
         }
-        
         $merged = $platinum->concat($gold)->concat($silver);
 
          $merged = $merged->map(function($item, $key) {
