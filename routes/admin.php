@@ -398,12 +398,16 @@ Route::post('/notifications/escort/{id}/update', [EscortNotificationController::
 ################### PDF ###################
 Route::post('/generate-agent-info-pdf', [AgentPdfController::class, 'generate_agent_info_pdf'])->name('admin.generate-agent-info-pdf');
 
+Route::get('/management/influencer', function () {
+    return view('admin.management.reports.influencer');
+})->name('admin.influencer');
+
 Route::get('/management/credits', function () {
-    return view('admin.management.reports.credits');
+    return view('admin.management.reporting.credits');
 })->name('admin.credits');
 
 Route::get('/management/revenue', function () {
-    return view('admin.management.reports.revenue');
+    return view('admin.management.reporting.revenue');
 })->name('admin.revenue');
 
 Route::get('/management/email-management', function () {
