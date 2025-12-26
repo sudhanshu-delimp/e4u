@@ -2,7 +2,7 @@
          <nav class="navbar navbar-expand-lg navbar-light blue_and_white_nav_blue_in_small">
          <div class="container-fluid manage_header_padding">
             <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ asset('assets/app/img/logo.png') }}" class="d-inline-block align-top w-100" alt="">
+            <img src="{{ asset('assets/app/img/logo.png') }}" class="d-inline-block align-top w-100" alt="" style="height: 63px">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

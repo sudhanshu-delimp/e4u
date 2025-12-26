@@ -260,7 +260,8 @@ $(document).ready(function() {
         let form = $('#notification_setting')[0];
         let formData = new FormData(form);
         let url = $('#notification_setting').attr('action');
-         swal_waiting_popup({'title':'Updating Settings'});
+        //  swal_waiting_popup({'title':'Updating Settings'});
+        $('#globalAlert').show();
          $.ajax({
                url: url,
                method: 'POST',
@@ -271,8 +272,12 @@ $(document).ready(function() {
                      Swal.close();
                      $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`);
                      setTimeout(function() {
-                     location.reload();
-                }, 3000);
+                        location.reload();
+                    }, 3000);
+                  window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
                },
                error: function(xhr) {
                      Swal.close();
