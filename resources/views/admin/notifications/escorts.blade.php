@@ -148,22 +148,14 @@
                         <select id="templateList" class="form-control rounded-0">
                            <option value="">-- Choose a Template --</option>
                            <option selected disabled>Select Template</option>
-                        <option value="t1">Check out our Visa services. Go to Concierge and select
-                           - Visa.</option>
-                       <option value="t2">Check out of Mobile SIM service. Go to Concierge and
-                        select - Visa.</option>
-                       <option value="t3">Did you know you can order product online? Go to
-                        Concierge and select - Product.</option>
-                       <option value="t4">Discounts apply when you spend a certain amount with
-                        us. Check out our Loyalty Program.</option>
+                        <option value="t1">Check out our Visa services. Go to Concierge and select- Visa.</option>
+                       <option value="t2">Check out of Mobile SIM service. Go to Concierge and select - Visa.</option>
+                       <option value="t3">Did you know you can order product online? Go to Concierge and select - Product.</option>
+                       <option value="t4">Discounts apply when you spend a certain amount with us. Check out our Loyalty Program.</option>
                        <option value="t5">Want to save on Fees, become an Influencer.</option>
-                       <option value="t6">Need an email account? We can help you. Simply go to
-                        Concierge and select Email.</option>
-                       <option value="t7">Did you know you can book your flights online with us?
-                        Simply go to Concierge and select Travel.</option>
-                       <option value="t8">Did you know you can book your accommodation online
-                        with us? Simply go to Concierge and select
-                        Accommodation.</option>
+                       <option value="t6">Need an email account? We can help you. Simply go to Concierge and select Email.</option>
+                       <option value="t7">Did you know you can book your flights online with us? Simply go to Concierge and select Travel.</option>
+                       <option value="t8">Did you know you can book your accommodation online with us? Simply go to Concierge and select Accommodation.</option>
                         
                         </select>
                   </div>
