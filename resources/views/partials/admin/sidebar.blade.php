@@ -99,7 +99,7 @@
                     'global',
                     'agents',
                     'viewer',
-                    'escorts',
+                    'escort',
                     'centres',
                     'agents-guidelines',
                     'viewers-guidelines',
@@ -288,7 +288,7 @@
                     <div id="notification" class=" collapse  @if (request()->segment(3) == 'global' ||
                             request()->segment(3) == 'agents' ||
                             request()->segment(3) == 'viewer' ||
-                            request()->segment(3) == 'escorts' ||
+                            request()->segment(3) == 'escort' ||
                             request()->segment(3) == 'centres') show @endif;" data-parent="#Administration">
 
                         <div class="py-0 collapse-inner rounded mb-2">
@@ -307,10 +307,11 @@
                             </a>
 
                             {{-- escorts --}}
-                            <a href="{{ route('admin.escorts') }}" class="collapse-item">
+
+                            <a href="{{ route('admin.escort.notifications.index') }}" class="collapse-item">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/e-notification.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'escorts' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Escorts</span>
+                                    style="{{ request()->segment(3) == 'escort' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Escorts {{request()->segment(3)}}</span>
                             </a>
                             {{-- centres --}}
                             <a href="{{ route('admin.centres.notifications.index') }}" class="collapse-item">

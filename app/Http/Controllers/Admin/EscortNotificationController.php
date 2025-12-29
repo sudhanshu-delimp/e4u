@@ -159,6 +159,12 @@ class EscortNotificationController extends Controller
         //Check condition 
         $notificationId = $request->edit_notification_id;
 
+        //check date range for update
+        $dateRange = $this->chckDateRange($start, $end);
+        if($dateRange){
+            return error_response('A Notification already exists in the selected date range!', 422);
+        }
+
         if ($notificationId) {
 
             $update = EscortNotification::find($notificationId);
@@ -186,23 +192,15 @@ class EscortNotificationController extends Controller
             $update->save();
             return success_response($data, 'Notification update successfully!!');
         }
-        $query = EscortNotification::where('status', '=', 'Published')->where(function ($q) use ($start, $end) {
-            $q->whereBetween('start_date', [$start, $end])
-                ->orWhereBetween('end_date', [$start, $end])
-                ->orWhere(function ($q2) use ($start, $end) {
-                    $q2->where('start_date', '<=', $start)
-                        ->where('end_date', '>=', $end);
-                });
-        });
-        if ($query->exists()) {
-            return error_response('A Notification already exists in the selected date range!', 422);
-        }
-        try {
+
+
+         try {
             EscortNotification::create($data);
             return success_response($data, 'Notification create successfully!!');
         } catch (\Exception $e) {
             return error_response('Failed to create notification: ' . $e->getMessage(), 500);
         }
+       
     }
 
     public function pdfDownload($id)
@@ -244,6 +242,24 @@ class EscortNotificationController extends Controller
             return success_response($notificationData, 'Notification view');
         } catch (\Exception $e) {
             return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);
+        }
+    }
+
+    public function chckDateRange($start, $end)
+    {
+        $query = EscortNotification::where('status', '=', 'Published')->where(function ($q) use ($start, $end) {
+            $q->whereBetween('start_date', [$start, $end])
+                ->orWhereBetween('end_date', [$start, $end])
+                ->orWhere(function ($q2) use ($start, $end) {
+                    $q2->where('start_date', '<=', $start)
+                        ->where('end_date', '>=', $end);
+                });
+        });
+
+        if ($query->exists()) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

@@ -609,9 +609,9 @@ Route::get('/management/post-office', function () {
 // })->name('admin.viewers');
 
 
-Route::get('/notifications/escorts', function () {
-    return view('admin.notifications.escorts');
-})->name('admin.escorts');
+// Route::get('/notifications/escorts', function () {
+//     return view('admin.notifications.escorts');
+// })->name('admin.escorts');
 
 Route::get('/publications/blog', function () {
     return view('admin.publications.blog');

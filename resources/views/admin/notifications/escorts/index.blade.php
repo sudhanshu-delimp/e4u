@@ -101,8 +101,8 @@
                             <!-- Auto-generated Date (readonly) -->
                             <div class="col-12 mb-3">
                                 <label class="label">Current Date</label>
-                                <input type="date" id="current_date" class="form-control rounded-0"
-                                    value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  />
+                                <input type="text" id="current_date" class="form-control rounded-0"
+                                    value="{{ \Carbon\Carbon::now()->format('d-m-Y') }}"  />
                             </div>
 
                             <!-- Heading Field -->
