@@ -66,7 +66,7 @@ class AdvertiserReportContoller extends Controller
             ->addColumn('advertiser_id', fn($row) => $row->escort->id ?? '-')
             ->addColumn('stage_name', fn($row) => $row->escort->name ?? '-')
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
-            ->addColumn('status', fn($row) => $row->report_status == 'pending' ? 'Current' : 'Resolved')
+            ->addColumn('status', fn($row) => $row->report_status == 'pending' ? 'Active' : 'Resolved')
             ->addColumn('action', function ($row) {
                 
                 $statusActionHtml = '';
@@ -84,8 +84,23 @@ class AdvertiserReportContoller extends Controller
                         data-toggle="modal" data-target="#confirm-popup" 
                         data-id="' . $row->id . '" data-val="resolved" href="#">
                         <i class="fa fa-check-circle text-dark"></i> Resolved
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a title="Mark status as In Progress" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
+                        data-toggle="modal" data-target="#confirm-popup" 
+                        data-id="' . $row->id . '" data-val="inprogress" href="#">
+                        <i class="fa fa-sync-alt text-dark"></i> In Progress
                         </a>';
                     }
+
+                    // if ($row->report_status == 'resolved') {
+                    //     $statusActionHtml += '
+                    //     <a title="Mark status as resolved" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
+                    //     data-toggle="modal" data-target="#confirm-popup" 
+                    //     data-id="' . $row->id . '" data-val="inprogress" href="#">
+                    //     <i class="fa fa-check-circle text-dark"></i> In Progress
+                    //     </a>';
+                    // }
                 }
                 return '
                     <div class="dropdown no-arrow ml-3">

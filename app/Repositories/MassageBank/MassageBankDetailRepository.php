@@ -56,8 +56,8 @@ class MassageBankDetailRepository extends BaseRepository implements MassageBankD
         $primaryBank = $this->model->where('user_id', $user_id)->where('state', 1)->first();
         $primary_account = $primaryBank ? 1 : 0;
         $primary_bank_acc_id = ($primaryBank && $primaryBank->id) ? $primaryBank->id : null;
-        $bankDetails['primary_bank_bsb'] = ($primaryBank && $primaryBank->bsb) ? formatAccountNumber($primaryBank->bsb) : 'N/A';
-        $bankDetails['primary_bank_ac_no'] = ($primaryBank && $primaryBank->account_number) ? formatAccountNumber($primaryBank->account_number) : 'N/A';
+        $bankDetails['primary_bank_bsb'] = ($primaryBank && $primaryBank->bsb) ? formatAccountNumber($primaryBank->bsb,'bsb') : 'N/A';
+        $bankDetails['primary_bank_ac_no'] = ($primaryBank && $primaryBank->account_number) ? formatAccountNumber($primaryBank->account_number,null) : 'N/A';
 
 		return [$result, $count, $primary_account,$primary_bank_acc_id,$bankDetails];
 	}
@@ -73,7 +73,7 @@ class MassageBankDetailRepository extends BaseRepository implements MassageBankD
             $ac = $item->account_number ? $item->account_number : "NA";
             $acBsb = $item->bsb ? $item->bsb : "NA";
             
-            $item->bsb = $item->bsb ? formatAccountNumber($item->bsb) : 'NA';
+            $item->bsb = $item->bsb ? formatAccountNumber($item->bsb,'bsb') : 'NA';
             $item->account_numbers = $item->account_number ?  str_pad(substr($item->account_number, -3), strlen($item->account_number), '*', STR_PAD_LEFT) : "NA";
             // $item->account_numbers = $item->account_number;
             $item->states = $item->state == 1 ? "Primary Account" : "Secondary Account";

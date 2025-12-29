@@ -279,6 +279,33 @@ Route::get('database/manage-sim', function () {
     return view('admin.database.manage-sim');
 })->name('manage-sim');
 
+// Guidelines
+
+Route::get('guidelines/agents-guidelines', function () {
+    return view('admin.guidelines.agents-guidelines');
+})->name('admin.agents-guidelines');
+
+Route::get('guidelines/escorts-guidelines', function () {
+    return view('admin.guidelines.escorts-guidelines');
+})->name('admin.escorts-guidelines');
+
+Route::get('guidelines/viewers-guidelines', function () {
+    return view('admin.guidelines.viewer-guidelines');
+})->name('admin.viewers-guidelines');
+
+Route::get('guidelines/massage-centres-guidelines', function () {
+    return view('admin.guidelines.massage-centres-guidelines');
+})->name('admin.massage-centres-guidelines');
+
+Route::get('guidelines/operator-guidelines', function () {
+    return view('admin.guidelines.operator-guidelines');
+})->name('admin.operator-guidelines');
+
+Route::get('guidelines/shareholders-guidelines', function () {
+    return view('admin.guidelines.shareholders-guidelines');
+})->name('admin.shareholders-guidelines');
+
+
 
 Route::get('reports/agent-requests', function () {
     return view('admin.reports.agent-requests');
@@ -398,12 +425,16 @@ Route::post('/notifications/escort/{id}/update', [EscortNotificationController::
 ################### PDF ###################
 Route::post('/generate-agent-info-pdf', [AgentPdfController::class, 'generate_agent_info_pdf'])->name('admin.generate-agent-info-pdf');
 
+Route::get('/management/influencer', function () {
+    return view('admin.management.reports.influencer');
+})->name('admin.influencer');
+
 Route::get('/management/credits', function () {
-    return view('admin.management.reports.credits');
+    return view('admin.management.reporting.credits');
 })->name('admin.credits');
 
 Route::get('/management/revenue', function () {
-    return view('admin.management.reports.revenue');
+    return view('admin.management.reporting.revenue');
 })->name('admin.revenue');
 
 Route::get('/management/email-management', function () {
