@@ -42,7 +42,7 @@ class TrackLastPageVisitMiddlware
         {
 
             # if user is suspended or blocked then logout the console
-            if (auth()->user()->status == 'Suspended' || auth()->user()->status == 3 || auth()->user()->status == 'Blocked' || auth()->user()->status == 4) {
+            if (auth()->user()->status == 'Blocked' || auth()->user()->status == 4) {
                 auth()->logout();
 
                 return redirect()->route('/')

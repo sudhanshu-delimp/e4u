@@ -75,7 +75,7 @@ class ReportingController extends BaseController
     public function registration_data_pagination($start, $limit, $order_key, $dir)
     {
         $agent = User::query()
-            ->whereIn('type', [3, 4, 5, 7, 8])
+            ->whereIn('type', ['3', '4', '5', '7', '8'])
             ->orderByRaw("
         CASE 
             WHEN status = 6 THEN 1

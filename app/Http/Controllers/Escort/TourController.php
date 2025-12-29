@@ -94,6 +94,10 @@ class TourController extends Controller
     }
     public function createTour($id = null)
     {
+        $user = auth()->user();
+        if($user->status == "Suspended"){
+             return redirect()->route('escort.dashboard')->with('info', config('common.access_denied_suspended_msg'));
+        }
         // $escort = $this->escort->FindByUsers(auth()->user()->id);
         // $escorts = $escort->whereNotNull('state_id')->where('default_setting',0)->unique('state_id');
 
