@@ -99,13 +99,8 @@
                     'global',
                     'agents',
                     'viewer',
-<<<<<<< HEAD
-                    'escorts',
-                    'centres','shareholders',
-=======
                     'escort',
-                    'centres',
->>>>>>> d9938661e7eaf4d460793deae13b300cd5e890a2
+                    'centres','shareholders',
                     'agents-guidelines',
                     'viewers-guidelines',
                     'escorts-guidelines',
@@ -293,12 +288,8 @@
                     <div id="notification" class=" collapse  @if (request()->segment(3) == 'global' ||
                             request()->segment(3) == 'agents' ||
                             request()->segment(3) == 'viewer' ||
-<<<<<<< HEAD
-                            request()->segment(3) == 'escorts' ||
-                             request()->segment(3) == 'shareholders' ||
-=======
                             request()->segment(3) == 'escort' ||
->>>>>>> d9938661e7eaf4d460793deae13b300cd5e890a2
+                             request()->segment(3) == 'shareholders' ||
                             request()->segment(3) == 'centres') show @endif;" data-parent="#Administration">
 
                         <div class="py-0 collapse-inner rounded mb-2">
