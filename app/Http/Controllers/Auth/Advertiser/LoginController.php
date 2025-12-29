@@ -119,8 +119,12 @@ class LoginController extends BaseController
                     return $this->sendFailedLoginResponse($request);
                 }
             }
-
-            if ($user != null && $user->status && in_array($user->status, ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled'])) {
+            
+            $userStatus = ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled', 'Suspended'];
+            if($user->type == 3 || $user->type == 4) {
+                $userStatus = ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled'];
+            }
+            if ($user != null && $user->status && in_array($user->status, $userStatus)) {
                  if ($user->status == 'Pending') {
                         $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';
                     } else if ($user->status == 'On Hold') {
