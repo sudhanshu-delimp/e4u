@@ -11,6 +11,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\Staff\AddNewStaff;
 use App\Models\Staff;
 use App\Repositories\Staff\StaffInterface;
+use PDF;
 
 class StaffController extends BaseController
 {
@@ -71,7 +72,7 @@ class StaffController extends BaseController
      */
     public function editStaff($id)
     {
-        $staff = User::with('staff_detail','staff_setting')->where("id", $id)->first();
+        $staff = User::with('staff_detail', 'staff_setting')->where("id", $id)->first();
         if ($staff) {
             return view('admin.management.staff.staff-edit', compact('staff'));
         } else {
@@ -192,17 +193,21 @@ class StaffController extends BaseController
             $item->position = isset($item->staff_detail->position) ? $item->staff_detail->position($item->staff_detail->position) : 'NA';
             $suspend_html = "";
             $activate_html = "";
-            if ($item->status != 'Suspended')
+            if ($item->status != 'Suspended') {
                 $suspend_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-ban"></i> Suspend</a><div class="dropdown-divider"></div>';
-            if ($item->status == 'Suspended')
+            }
+            if ($item->status == 'Suspended') {
                 $activate_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center active-account-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-check"></i> Activate</a><div class="dropdown-divider"></div>';
+            }
             $dropdown = '<div class="dropdown no-arrow ml-3">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item view-account-btn view-staff-btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '>  
                 <i class="fa fa-eye "></i> View Account</a>';
 
             if ($this->editAccessEnabled) {
-                $dropdown .= '<div class="dropdown-divider"></div>' . $activate_html . $suspend_html;
-                $dropdown .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
+                if (auth()->user()->member_id != $item->member_id) {
+                    $dropdown .= '<div class="dropdown-divider"></div>' . $activate_html . $suspend_html;
+                    $dropdown .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
+                }
             }
             $dropdown .= '</div></div>';
 
@@ -293,7 +298,12 @@ class StaffController extends BaseController
         $userId  = $request->user_id;
         $staff = User::with('staff_detail')->where("id", $userId)->first();
         if ($staff) {
-            return view('admin.management.staff.staff_report', ['staff' => $staff]);
+            //return view('admin.management.staff.staff_report', ['staff' => $staff]);
+            $pdf = PDF::loadView(
+                'admin.management.staff.staff_report_pdf',
+                ['staff' => $staff]
+            )->setOption(['isRemoteEnabled' => true]);
+            return $pdf->stream('staff_report.pdf');
         } else {
             return response()->json(['status' => 'error', 'message' => 'Staff ID is required.'], 400);
         }

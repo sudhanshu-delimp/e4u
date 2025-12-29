@@ -24,11 +24,11 @@
                                 </span>
 
                                 <span>
-                                     <b>Current Location :  </b><span class="user-values live_current_location">--</span> 
+                                     <b>Current Location :  </b><span class="user-values live_current_location"></span> 
                                 </span>
                                 
                                 <span><span class="separator">|</span>
-                                    <b>Location time :  </b><span class="user-values live_current_time">00:00 AM</span>
+                                    <b>Location time :  </b><span class="user-values live_current_time"></span>
                                 </span>
 
                            </div>

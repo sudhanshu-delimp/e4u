@@ -115,7 +115,7 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
         $query = $this->model::select('escort_id')->groupBy('escort_id');
 
         if($user_id){
-            $query = $query->where('user_id',$user_id);
+            $query = $query->where('user_id',$user_id)->whereHas('escort.playmates');
         }
 
         if(count($conditions)>0){
@@ -124,16 +124,13 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
             
         if($search) {
             $query->where(function ($query) use ($searchables, $search) {
-
                 // Search in playmate relation
                 $query->whereHas('escort', function ($subQuery) use ($searchables, $search) {
                     $subQuery->where(function ($q) use ($searchables, $search) {
                         foreach ($searchables as $column) {
-            
                             if (in_array($column, ['playmate_stage_name', 'profile_stage_name'])) {
                                 $column = 'name';
                             }
-            
                             $q->orWhere($column, 'LIKE', "%{$search}%");
                         }
                     });
@@ -177,7 +174,8 @@ class PlaymateRepository  extends BaseRepository implements PlaymateInterface
             $action = '<div class="dropdown no-arrow archive-dropdown">
             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'; 
-                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#playmates_listings" data-escort-id="'.$item->escort->id.'"> <i class="fa fa-eye " ></i> Playmates List</a>'; 
+            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#playmates_operations" data-escort-id="'.$item->escort->id.'"  data-state-id="'.$item->escort->state_id.'"> <i class="fa fa-plus" ></i> Add Playmates</a>';     
+            $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#playmates_listings" data-escort-id="'.$item->escort->id.'"> <i class="fa fa-eye" ></i> Playmates List</a>'; 
             $action .= '</div></div>';
             $item->action = $action;
         }

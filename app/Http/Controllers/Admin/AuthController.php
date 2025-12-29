@@ -61,7 +61,8 @@ class AuthController extends Controller
     {
         
         if(! is_null($request->phone)) {
-            $user = User::where('phone','=',$request->phone)->first();
+            //$user = User::where('phone','=',$request->phone)->first();
+            $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$request->phone])->first();
             if($user == null) {
                 return $this->sendFailedLoginResponse($request);
             }
@@ -83,7 +84,7 @@ class AuthController extends Controller
 //            if (Hash::check($request->password, $user->password)) { //TODO::Enable
             if (true) {
                 $error = 1;
-                $phone = $user->phone;
+                $phone = removeSpaceFromString($user->phone);
                 $otp = $this->user->generateOTP();
                 $user->otp = $otp;
                 $user->save();

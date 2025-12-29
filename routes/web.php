@@ -704,10 +704,6 @@ Route::get('/admin-dashboard/notifications/escorts',function(){
     return view('admin.notifications.escorts');
 })->name('admin.escorts');
 
-Route::get('/admin-dashboard/blog',function(){
-    return view('admin.blog');
-})->name('admin.blog');
-
 
 Route::get('/admin-dashboard/management/punterbox-reports',function(){
     return view('admin.management.punterbox-report');
@@ -730,6 +726,7 @@ Route::post('/resend-otp', [App\Http\Controllers\User\Auth\RegisterController::c
 
 Route::post('/get-geolocation-data', [GetCurrentUserGeolocationController::class, 'getRealTimeGeo'])->name('user.current.location');
 Route::post('/get-current-state', [GetCurrentUserGeolocationController::class, 'getCurrentState'])->name('user.current.state');
+Route::get('/get_current_location_time', [GetCurrentUserGeolocationController::class, 'get_current_location_time'])->name('user.get_current_location_time');
 
 
 

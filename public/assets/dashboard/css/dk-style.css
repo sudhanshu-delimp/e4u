@@ -1896,10 +1896,20 @@ color: #B9B9B9;
     background-color: var(--peach) !important;
 }
 
+.menu-active,
+.menu-active span {
+    color: #e5365a !important;
+    font-weight: 500;
+}
+
 .forgot_pass input {
     border: 1px solid #90A0B76E;
     padding: 24px;
     border-radius: 4px;
+}
+
+.forgot_pass .label_margin_zero_for_login img {
+    width: 150px;
 }
 
 .otp-verify-btn {
@@ -4797,6 +4807,10 @@ white-space: nowrap;
     color: #fff;
     background-color: #2C3E50 !important;
     border-color: #2C3E50 !important;
+}
+
+.sidebar-brand .e4u_logo {
+    width: 50%;
 }
 
 .sidebar .sidebar-brand {
@@ -8504,8 +8518,7 @@ div#listings_wrapper .custom--common-table {
     max-width: 800px !important;
 }
 
-.modal-dialog-custom .profile_summary,
-.modal-dialog-custom .tour_summary {
+.modal-dialog-custom .profile_summary {
     max-height: 400px;
     overflow: auto;
 }
@@ -8783,8 +8796,10 @@ td {
 
 .stat-card-wrapper .stat-card .stat-top .stat-icon {
     background-color: var(--blue--text);
-    width: 35px;
-    height: 35px;
+    max-width: 45px;
+    min-width: 45px;
+    width: 100%;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9339,7 +9354,8 @@ border-top: 5px solid var(--peach);
 
 .my-spend-box .esc-name {
     color: #747474;
-    font-size: 14px;
+    font-size: 12px;
+    margin-bottom: 0;
 }
 
 .my-spend-box .chart-img {
@@ -9364,7 +9380,7 @@ border-top: 5px solid var(--peach);
 }
 
 .my-spend-box .user-type-text {
-    font-size: 18px;
+    font-size: 16px;
     color: var(--blue--text);
 }
 
@@ -9379,9 +9395,9 @@ border-top: 5px solid var(--peach);
 }
 
 .my-spend-box .amount-text {
-    font-size: 25px;
+    font-size: 16px;
     font-weight: 700;
-    color: var(--blue--text);
+    color: var(--peach);
 }
 
 .playmate-avatar {
@@ -9394,19 +9410,54 @@ border-top: 5px solid var(--peach);
     margin-left: 0;
 }
 
+.top-adv-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.my-spend-box .adv-summary-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.my-spend-box .lft {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+.my-spend-box .lft h5 {
+    font-weight: bold;
+    color: var(--blue--text);
+    margin-bottom: 0px;
+    font-size: 16px;
+}
+
+.my-spend-box .lft .esc-name {
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
 .my-spend-box .spend-icons {
-    background-color: var(--peach);
+    background-color: var(--blue--text);
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    max-width: 45px;
+    min-width: 45px;
+    width: 100%;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--blue--text) !important;
+    color: var(--peach) !important;
 }
 
 .my-spend-box .spend-icons i {
-    color: var(--blue--text) !important;
+    color: var(--peach) !important;
 }
 
 .playmate-avatar img {
@@ -9422,34 +9473,77 @@ border-top: 5px solid var(--peach);
     background-color: var(--peach) !important;
 }
 
+.card-wrapper h4 {
+    font-size: 20px;
+}
+
+.card-list-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+@media (max-width: 1560px) {
+    .card-list-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .card-list-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .card-list-wrapper {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
 .statistics-card {
     border-radius: 5px;
-    padding: 35px 20px;
+    padding: 16px;
     margin: 10px 0px;
     background-color: #fff;
     border: 1px solid #0c223d40;
     color: var(--blue--text) !important;
-    max-height: 120px;
     width: 100%;
+    min-width: 250px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+}
+
+.statistics-text {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    align-items: center;
 }
 
 .statistics-text .statistics-label {
     font-size: 16px;
-    color: #6c757d;
-    font-weight: 500;
+    font-weight: bold;
+    color: var(--blue--text);
 }
 
 .statistics-text .statistics-value {
-    font-size: 25px;
+    font-size: 16px;
     font-weight: 700;
-    color: var(--blue--text) !important;
+    color: var(--peach) !important;
 }
 
 .statistics-icon {
-    background-color: var(--peach);
+    background-color: var(--blue--text);
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    max-width: 45px;
+    min-width: 45px;
+    width: 100%;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9457,8 +9551,9 @@ border-top: 5px solid var(--peach);
 }
 
 .statistics-icon img {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
+    filter: invert(34%) sepia(53%) saturate(7480%) hue-rotate(338deg) brightness(100%) contrast(101%);
 }
 
 
@@ -9891,7 +9986,7 @@ border-top: 5px solid var(--peach);
 
 .suspend_icon {
     color: white;
-    background-color: #2653d4;
+    background-color: #4e73df;
     border-radius: 15%;
     padding: 0 5px;
 }
@@ -9913,6 +10008,13 @@ border-top: 5px solid var(--peach);
 .playmate_icon {
     color: white;
     background-color: #c81c1c;
+    border-radius: 15%;
+    padding: 0 5px;
+}
+
+.bumpup_icon {
+    color: white;
+    background-color: #2c9faf;
     border-radius: 15%;
     padding: 0 5px;
 }
@@ -10162,6 +10264,12 @@ button:disabled {
 .playmates-card-grid {
     display: grid;
     grid-template-columns: repeat(5, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+.playmate_modal_cards .playmates-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(210px, 1fr));
     gap: 10px;
 }
 

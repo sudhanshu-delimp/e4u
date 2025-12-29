@@ -21,7 +21,7 @@ $('#passwordExpiry').on('submit', function (e) {
             success: function (data) {
               //  console.log(data.message, 'data');
                 if (data.status === true) {
-                    swal_success_popup(data.message);
+                    //swal_success_popup(data.message);
                     showGlobalAlert(data.message, "success");
                     $("#resetPasswordDate").modal('hide');
                     $('#passwordExpiryText').html(data.data.text);

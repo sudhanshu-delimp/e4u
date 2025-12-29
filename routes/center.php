@@ -15,6 +15,7 @@ use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\UpdateController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Center\CenterProfileInformationController;
+use App\Http\Controllers\Center\MassageCenterAccountController;
 use App\Http\Controllers\Center\MassageViewerInteractionController;
 
 
@@ -42,6 +43,7 @@ Route::post('upload-avatar/{id}',[CenterController::class,'storeMyAvatar'])->nam
 Route::post('remove-avatar',[CenterController::class,'removeMyAvatar'])->name('center.avatar.remove');
 Route::get('/update-account', [CenterController::class, 'edit'])->name('center.account.edit');
 Route::post('/update-account', [CenterController::class, 'update'])->name('center.account.update');
+
 //Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
 //Route::post('settings-information',[CenterProfileInformationController::class,'storeAboutMe'])->name('center.settings.about.me');
 // Route::get('/my-account/change-password', function()
@@ -118,6 +120,19 @@ Route::post('customise-dashboard', [CenterController::class, 'updateCustomiseDas
 Route::get('logs-and-status', [CenterController::class, 'LogsAndStatus'])->name('center.logs-and-status');
 Route::post('center-update-password-duration', [CenterController::class, 'updatePasswordDuration'])->name('center.update.password.duration');
 
+
+//USED CONFIRM
+//****Bank Account*****/
+Route::get('bank_account',[MassageCenterAccountController::class,'bankDetails'])->name('massage.bank_account');
+Route::post('save-bank-details',[MassageCenterAccountController::class,'saveBankDetails'])->name('massage.save.bank.details');
+Route::get('bank-details',[MassageCenterAccountController::class,'BankDataTable'])->name('massage.bankDetail.dataTable');
+Route::post('check-bank-otp',[MassageCenterAccountController::class,'checkOTP'])->name('massage.checkOTP');
+Route::post('delete-massage-bank/{id}',[MassageCenterAccountController::class,'deleteMassageBank']);
+Route::post('update-bank-pin',[MassageCenterAccountController::class,'updateBankPin'])->name('massage.update.bank.pin');
+Route::post('get-eft-bank-details',[MassageCenterAccountController::class,'getEftBankDetails'])->name('massage.get.eft.bank.details');
+Route::post('/send-payment-receipt-center', [MassageCenterAccountController::class, 'sendPaymentReceiptCenter'])->name('center.send-payment-receipt-center');
+
+Route::post('send-otp-for-pin-change',[MassageCenterAccountController::class,'sendOtpForPinChange'])->name('center.send-otp-for-pin-change');
 
 Route::get('centre-statistics',function(){
     return view('center.dashboard.centre-statistics');
@@ -223,10 +238,7 @@ Route::get('media-centre/photos', function()
 
 
 // add Media center Route
-Route::get('bookkeeping', function()
-{
-	return view('center.dashboard.bookkeeping');
-})->name('center.bookkeeping');
+Route::get('bookkeeping', [MassageCenterAccountController::class,'index'])->name('center.bookkeeping');
 
 Route::get('/profile-info/edit-profile', function()
 {
@@ -435,7 +447,7 @@ Route::get('profiles-centre',function(){
     return view('center.dashboard.HowisDone.profiles-centre');
 })->name('center.profiles-centre');
 
-Route::get('media-centre',function(){
+Route::get('media_centre',function(){
     return view('center.dashboard.HowisDone.media-centre');
 })->name('center.media-centre');
 

@@ -304,7 +304,8 @@ $('#profile_notification_options').on('submit', function(e) {
     let formData = new FormData(this);
 
 
-    swal_waiting_popup({'title':'Updating Settings'});
+    //swal_waiting_popup({'title':'Updating Settings'});
+    $('#globalAlert').show();
     $.ajax({
         type: "POST",
         url: $(this).attr('action'),
@@ -313,17 +314,28 @@ $('#profile_notification_options').on('submit', function(e) {
         contentType: false,
          success: function(response) {
 
+                Swal.close();
+                // swal_success_popup(response.message);
+                // setTimeout(function() {
+                //     location.reload();
+                // }, 2000);
+
                 console.log(response);
                      Swal.close();
                      $('#globalAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`);
-                    //  setTimeout(function() {
-                    //  location.reload();
-                    //   }, 3000);
+                     setTimeout(function() {
+                        location.reload();
+                    }, 3000);
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
                },
                error: function(xhr) {
                      Swal.close();
                      console.log(xhr);
-                     $('#globalAlert').html(`<div id="commanAlert" class="alert rounded alert-error">Error : Something went wrong</div>`);
+                     swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                    //  $('#globalAlert').html(`<div id="commanAlert" class="alert rounded alert-error">Error : Something went wrong</div>`);
                }
     });
 });

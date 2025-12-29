@@ -246,7 +246,6 @@
     table.ajax.reload(null, false); 
     }, 15000);
 
-
 });
 
 

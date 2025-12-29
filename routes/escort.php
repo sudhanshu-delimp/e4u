@@ -41,10 +41,11 @@ Route::post('save-bank-details',[EscortAccountController::class,'saveBankDetails
 Route::get('bank-details',[EscortAccountController::class,'BankDataTable'])->name('escort.bankDetail.dataTable');
 Route::post('check-bank-otp',[EscortAccountController::class,'checkOTP'])->name('escort.checkOTP');
 Route::post('delete-escort-bank/{id}',[EscortAccountController::class,'deleteEscortBank']);
-
-
-
-
+Route::post('update-bank-pin',[EscortAccountController::class,'updateBankPin'])->name('escort.update.bank.pin');
+Route::post('send-otp-for-pin-change',[EscortAccountController::class,'sendOtpForPinChange'])->name('escort.send-otp-for-pin-change');
+Route::post('get-ef-bank-details',[EscortAccountController::class,'getEftBankDetails'])->name('escort.get.eft.bank.details');
+Route::post('/send-payment-receipt-escort', [EscortAccountController::class, 'sendPaymentReceiptEscort'])->name('escort.send-payment-receipt-escort');
+ 
 //END
 
 
@@ -54,6 +55,7 @@ Route::get('/', [EscortController::class, 'index'])->name('escort.dashboard');
 Route::get('/list/{type}', [EscortController::class, 'escortList'])->name('escort.list');
 Route::get('/pinup-available-weeks/{escort}', [PinUpsController::class, 'pinup_available_weeks'])->name('escort.pinup_available_weeks');
 Route::post('/pinup-register', [PinUpsController::class, 'register'])->name('pinup.register');
+Route::post('/bumpup-register', [EscortController::class, 'bumpup_register'])->name('escort.bumpup_register');
 Route::get('/pinup-summary/{escort}', [PinUpsController::class, 'pinupSummary'])->name('escort.pinup_summary');
 Route::get('/list/data-table/{type?}', [EscortController::class, 'dataTable'])->name('escort.list.dataTable');
 Route::get('/list/data-table-listing/{type?}', [EscortController::class, 'dataTableListing'])->name('escort.list.dataTableListing');
@@ -294,8 +296,8 @@ Route::get('get-user-review-details/{id}', [EscortReviewsController::class, "get
 Route::get('escort-agency-request',function(){
     return view('escort.dashboard.Communication.escort-agency-request');
 });
-Route::get('send-notofications',function(){
-    return view('escort.dashboard.Communication.send-notofications');
+Route::get('send-notifications',function(){
+    return view('escort.dashboard.Communication.send-notifications');
 });
 Route::get('viewer-notes',function(){
     return view('escort.dashboard.Communication.viewer-notes');
@@ -439,9 +441,9 @@ Route::get('my-information',function(){
     return view('escort.dashboard.HowDone.my-information');
 })->name('escort.my-information');
 
-Route::get('listings',function(){
+Route::get('listing',function(){
     return view('escort.dashboard.HowDone.listings');
-})->name('escort.listings');
+})->name('escort.listing');
 
 Route::get('media',function(){
     return view('escort.dashboard.HowDone.media');

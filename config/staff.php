@@ -57,6 +57,18 @@ return [
         ]
     ],
 
+    'idle_preference_time' => [
+        '15' => '15 minutes',
+        '30' => '30 minutes',
+        '60' => '60 minutes',
+        '99999999' => 'Never',
+    ],
+
+    'twofa' => [
+        '1' => 'Email',
+        '2' => 'Text',
+    ],
+
     "admin_management_url_endpoint" => [
         'email-management',
         'sim-management',
@@ -93,4 +105,9 @@ return [
         'subsidiaries-annual-profit-and-loss',
         'updates'
     ],
+    'genders' => [
+			'6' => 'Female',
+			'1' => 'Male',
+		],
+    'idle_vever_minute' => '99999999',
 ];

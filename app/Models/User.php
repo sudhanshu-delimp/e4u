@@ -432,13 +432,13 @@ class User extends Authenticatable
             return 'A' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
         if ($this->type == 4) {
-            return 'M' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id) . ':001';
+            return 'M' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
         if ($this->type == 9) {
-            return 'UP' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id) . ':001';
+            return 'UP' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
         if ($this->type == 10) {
-            return 'DL' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id) . ':001';
+            return 'DL' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
         if ($this->type == 6) {
             $staffPrefix = config('staff.staff_member_id_prefix');
@@ -737,11 +737,11 @@ class User extends Authenticatable
             }
 
             else if(isset($settings->twofa) &&  ($settings->twofa == '2' && $user->phone != "")) {
-                sendLoginOtpSms($otp, $user);
+                //sendLoginOtpSms($otp, $user);
             }
             else
             {
-                sendLoginOtpSms($otp, $user);
+                //sendLoginOtpSms($otp, $user);
             }
     }
 

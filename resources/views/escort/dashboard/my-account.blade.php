@@ -151,7 +151,7 @@
                                        <span class="form-control form-back">                                                         
 
                              @if(auth()->user()->my_agent)
-                                {{  \Illuminate\Support\Str::limit(Str::title(auth()->user()->my_agent->name), 8, '..') }}
+                               {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}
                             @else
                                 <a href="{{url('/escort-dashboard/escort-agency-request') }}" class="request-active"> Request one</a>
                             @endif
@@ -189,13 +189,13 @@
                                        <span class="tooltip-text">Complete this information if you use PayID with your clients.</span>
                                           
                                        </label>
-                                       <input type="text" class="form-control" name="PayID_Name" placeholder="Insert your Bank Account name" aria-describedby="Help">
+                                       <input type="text" class="form-control" name="PayID_Name" placeholder="Insert your Bank Account name" aria-describedby="Help" value="{{ $escort->pay_id_name ?? ''}}">
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="PayID Number">PayID Number</label>
-                                       <input type="text" class="form-control" name="PayID_NO" placeholder="Insert your PayID Number" aria-describedby="Help">
+                                       <input type="text" class="form-control" name="PayID_NO" placeholder="Insert your PayID Number" aria-describedby="Help" value="{{ $escort->pay_id_no ?? ''}}">
                                     </div>
                                  </div>
                                  {{-- end --}}

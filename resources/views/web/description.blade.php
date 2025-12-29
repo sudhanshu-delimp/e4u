@@ -1133,9 +1133,9 @@
             substr($from, 6));
             //dd($number);
             @endphp
-            <b>When texting me please say:</b>
+            <p class="font-weight-bold mb-0 mt-2">When texting me please say:</p>
             <p class="profile_description_contect_pera">
-                <b><i>Hi {{ $escortName }}, I found you on Escorts4U ...</i></b>
+                <b><i>Hi {{ $escortName }}, I found you on E4U ... </i></b>
                 @php
                     $formattedNumber = $escort->phone;
                     $contactTypes = $escort->contact != null ? $escort->contact : '';
@@ -1503,8 +1503,10 @@
                         <div class="col">
                             <ol>
                                 <li>Only report if you had direct contact with the Escort.</li>
-                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended Only genuine reports will be considered.</li>
-                                <li>The Escort’s Member ID will automatically attach to this report.</li>
+                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended. Only
+genuine reports will be considered.</li>
+                                <li>The Advertisers Membership Number will automatically attach to this report.</li>
+                                <li>You will receive a notification when this report has been resolved.</li>
                             </ol>
                         </div>
                     </div>

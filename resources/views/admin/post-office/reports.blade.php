@@ -114,7 +114,7 @@
             <table border="1" cellpadding="10" cellspacing="0" width="100%" style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
                 <!-- Header Row -->
                 <tr style="background-color: #0c223d; color: white;">
-                    <td colspan="5" style="font-weight: bold; text-align: center;">Post Office Report: [date & time]</td>
+                    <td colspan="5" style="font-weight: bold; text-align: center;">Post Office Report: date & time</td>
                 </tr>
 
                 <!-- Table Headings -->

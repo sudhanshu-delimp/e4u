@@ -352,6 +352,15 @@ if (!function_exists('getEscortTimezone')) {
     }
 }
 
+if (!function_exists('getEscortLocalTime')) {
+
+    function getEscortLocalTime($utcTime, $localTimeZone)
+    {
+        return Carbon::parse($utcTime)->timezone($localTimeZone);
+    }
+}
+
+
 if (!function_exists('app_date_time_format')) {
 
     function app_date_time_format($datetime)
@@ -665,6 +674,16 @@ function basicDateFormat($date)
     }
 }
 
+function sqlDateFormat($date)
+{
+    if ($date) {
+        return \Carbon\Carbon::parse($date)->format('Y-m-d');
+    } else {
+        return '';
+    }
+}
+
+
 function formatLabelAttribute($label)
 {
     if (empty($label)) {
@@ -902,19 +921,87 @@ if (!function_exists('removeSpaceFromString')) {
     }
 }
 
+if (!function_exists('formatStringTitleCase')) {
+    function formatStringTitleCase($string)
+    {
+        if (!$string) {
+            return null;
+        }
+
+        // Replace underscores with spaces
+        $string = str_replace('_', ' ', $string);
+
+        // Remove extra spaces
+        $string = trim(preg_replace('/\s+/', ' ', $string));
+
+        // Convert to Title Case
+        return ucwords(strtolower($string));
+    }
+}
+
 if (!function_exists('getUserWiseLastLoginTime')) {
     function getUserWiseLastLoginTime($user)
     {
         $timeZone = config('app.escort_server_timezone');
-        if ($user && $user->state_id) {
-            $timeZone = config('escorts.profile.states')[$user->state_id]['timeZone'];
+        $stateId = $user->current_state_id ? $user->current_state_id : $user->state_id;
+        if ($stateId) {
+            $timeZone = config('escorts.profile.states')[$stateId]['timeZone'];
         }
         $lastLoginTime = $user->lastLoginTime->updated_at;
         if ($user->lastLoginTime) {
             $lastLoginTime = Carbon::parse($lastLoginTime, 'UTC')
                 ->setTimezone($timeZone)
-                ->format('Y-m-d h:i:s A');
+                ->format('d-m-Y h:i:s A');
         }
         return $lastLoginTime;
+    }
+}
+
+if (!function_exists('formatAccountNumber')) {
+    function formatAccountNumber($number, $type = null)
+    {
+        if (empty($number)) {
+            return $number;
+        }
+        $digiType = '-';
+        if($type !=  null){
+            $digiType =  ' ';
+        }
+
+        // Remove non-digits
+        $digits = preg_replace('/\D/', '', $number);
+        $length = strlen($digits);
+
+        //  Rule based on digit length
+        switch ($length) {
+
+            case 6:
+                // 123456 → 123-456
+                return substr($digits, 0, 3) . $digiType . substr($digits, 3, 3);
+
+            case 7:
+                // 1234567 → 123-4567
+                return substr($digits, 0, 3) . $digiType . substr($digits, 3, 4);
+
+            case 8:
+                // 12345678 → 1234-5678
+                return substr($digits, 0, 4) . $digiType . substr($digits, 4, 4);
+
+            case 9:
+                // 123456789 → 123-456-789
+                return substr($digits, 0, 3) . $digiType .
+                    substr($digits, 3, 3) . $digiType .
+                    substr($digits, 6, 3);
+
+            case 10:
+                // 1234567890 → 1234-567-890
+                return substr($digits, 0, 4) . $digiType .
+                    substr($digits, 4, 3) . $digiType .
+                    substr($digits, 7, 3);
+
+            default:
+                // Fallback (return as-is)
+                return $number;
+        }
     }
 }

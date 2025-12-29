@@ -84,7 +84,7 @@ return [
                                 'name'  =>  'Media Views',
                                 'text'  =>  'View a complete summary of your Media Views.',
                                 'icon'  =>  'boxicon/center/media-views-today.png',
-                                'link'  =>   'center-dashboard/archive-view-photos',
+                                'link'  =>   '#',
                             ],
 
                             [

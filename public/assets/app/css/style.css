@@ -349,6 +349,14 @@
             margin-bottom: 10px;
         }
         
+        .alert-custom {
+            color: #fff;
+            background-color: var(--peach);
+            border-color: var(--peach);
+            border-radius: 0 !important;
+            margin-bottom: 0px;
+        }
+        
         .v-list-location h2 {
             color: #FF3C5F;
             font-family: 'Poppins';
@@ -4719,6 +4727,10 @@ i.fa.fa-heart-o{
             color: #FF3C5F;
             font-weight: 400;
             line-height: 24px;
+        }
+        
+        .forgot_pass .label_margin_zero_for_login img {
+            width: 150px;
         }
         
         .like_img {

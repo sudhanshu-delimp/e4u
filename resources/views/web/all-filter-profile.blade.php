@@ -1022,7 +1022,7 @@
     </div>
 </section> --}}
     <!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
-    <div class="modal hh" id="my_legbox" style="display: none">
+    <div class="modal fade hh" id="my_legbox" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
@@ -1052,7 +1052,7 @@
             </div>
         </div>
     </div>
-    <div class="modal hh" id="add_wishlist" style="display: none">
+    <div class="modal fade hh" id="add_wishlist" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
@@ -1237,7 +1237,10 @@
         let view1 = $('.footer_view_type_one').attr('href');
         let view2 = $('.footer_view_type_two').attr('href');
 
-        let viewType = localStorage.getItem('profileViewType') || 'grid';
+        //let viewType = localStorage.getItem('profileViewType') || 'grid';
+
+        let viewType = '{{ $viewType }}';
+        console.log(viewType);
 
         // Define functions for grid and list view logic
         function showGridView() {

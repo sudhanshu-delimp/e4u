@@ -15,7 +15,7 @@ class CreateStaffSettingsTable extends Migration
               $table->integer('user_id')->unsigned();
 
             // Idle time preference
-           $table->enum('idle_preference_time', ['15', '30', '60'])
+           $table->enum('idle_preference_time', ['15', '30', '60', '99999999'])
             ->nullable()
             ->default('30');
 

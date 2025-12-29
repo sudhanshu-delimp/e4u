@@ -39,7 +39,7 @@ class ReportingController extends BaseController
             return $next($request);
         });
     }
-    
+
     public function userRegistrationReport(Request $request)
     {
         $todayCount = User::whereDate('created_at', Carbon::today())->count();
@@ -74,7 +74,15 @@ class ReportingController extends BaseController
 
     public function registration_data_pagination($start, $limit, $order_key, $dir)
     {
-        $agent = User::query()->where('status', 1);
+        $agent = User::query()
+            ->whereIn('type', [3, 4, 5, 7, 8])
+            ->orderByRaw("
+        CASE 
+            WHEN status = 6 THEN 1
+            WHEN status = 3 THEN 2
+            ELSE 3
+        END
+    ");
         $search = request()->input('search.value');
 
         if (!empty($search)) {
@@ -100,7 +108,7 @@ class ReportingController extends BaseController
             case 2:
                 $agent->orderBy('member_id', $dir);
                 break;
-            
+
             case 3:
                 $agent->orderBy('phone', $dir);
                 break;
@@ -118,7 +126,7 @@ class ReportingController extends BaseController
                 break;
 
             default:
-                $agent->orderBy('id', 'DESC');
+                $agent->orderBy('created_at', 'DESC');
                 break;
         }
 
@@ -127,44 +135,91 @@ class ReportingController extends BaseController
         $i = 1;
 
         foreach ($agents as $key => $item) {
-           
+
             $item->territory = isset($item->state->iso2) ? $item->state->iso2 :  '---';
 
-            $dropdown = '<div class="dropdown no-arrow" data-current-status="' . (int) $item->getRawOriginal('status') . '">
-                            <a class="dropdown-toggle" href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
-                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
-            if ($this->editAccessEnabled) {  
-                if ($item->status != 'Active') {
-                $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
+            $dropdown = '<div class="dropdown no-arrow" data-current-status="' . (int) $item->getRawOriginal('status') . '"><a class="dropdown-toggle" href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
+            $item->status_name = ($item->status == 'Active') ? "Registered" : $item->status;
+            //$item->status_name = $item->status;
+            if ($this->editAccessEnabled) {
+                /* if ($item->status != 'Active') {
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
                                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Active</a>';
-            }
-            if ($item->status != 'On Hold') {
-                $dropdown .= '<div class="dropdown-divider"></div>
+                }
+                if ($item->status != 'On Hold') {
+                    $dropdown .= '<div class="dropdown-divider"></div>
                 <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal" data-status-num="6" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-pause-circle"></i> On Hold</a>';
-            }
-            if ($item->status != 'Registered') {
-                $dropdown .= '<div class="dropdown-divider"></div>
+                }
+                if ($item->status != 'Registered') {
+                    $dropdown .= '<div class="dropdown-divider"></div>
             <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal" data-status-num="5" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-check-circle "></i> Registered</a>';
-            }
-            if ($item->status != 'Rejected') {
-                $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '"
+                }
+                if ($item->status != 'Rejected') {
+                    $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '"
                                                  href="#">
                                                 <i class="fa fa-times-circle "></i> Rejected
                                             </a>';
-            }
-            if ($item->status != 'Cancelled') {
-                $dropdown .= '<div class="dropdown-divider"></div>
+                }
+                if ($item->status != 'Cancelled') {
+                    $dropdown .= '<div class="dropdown-divider"></div>
             <a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancelled</a>';
-            }
-            if ($item->status != 'Suspended') {
-                $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspended</a>';
-            }
+                }
+                if ($item->status != 'Suspended') {
+                    $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspended</a>';
+                } */
+                if ($item->status == 'Active') {
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
+                data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
+                    $dropdown .= '<div class="dropdown-divider"></div>
+                <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal" data-status-num="6" data-user-id="' . $item->id . '"
+                data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-pause-circle"></i> On Hold</a>';
 
-            $dropdown .= '<div class="dropdown-divider"></div>';
-        }
+                    $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
+                    $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspended</a>';
+                }
+
+
+
+                if ($item->status == 'On Hold') {
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
+                data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
+
+                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
+                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Reinstate</a>';
+
+                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
+                }
+
+                if ($item->status == 'Suspended') {
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
+                data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
+
+                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
+                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Reinstate</a>';
+
+                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
+                }
+
+                if ($item->status == 'Cancelled') {
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
+                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Reinstate</a>';
+                }
+
+                if ($item->status == 'Rejected') {
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
+                data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
+
+                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
+                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Reinstate</a>';
+
+                    $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspended</a>';
+                }
+
+                $dropdown .= '<div class="dropdown-divider"></div>';
+            }
             $dropdown .= '<a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report" data-toggle="modal" data-target="#account-row-"' . $item->id . '" data-id="' . $item->id . '"  href="javascript:void(0)" ><i class="fa fa-eye mr-2"></i> View</a></div></div>';
 
             $item->action = $dropdown;

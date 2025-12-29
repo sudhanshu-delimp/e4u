@@ -4,7 +4,6 @@
    td,
    th {
        vertical-align: middle !important;
-       text-align: center;
    }
    #transactionSummaryTable td {
     white-space: normal !important;
@@ -44,7 +43,7 @@
    <div class="row">      
     <div class="col-md-12">        
         <div class="membership--inner">
-            <table class="table table-bordered text-center" id="transactionSummaryTable">
+            <table class="table" id="transactionSummaryTable">
                  <thead class="table-bg">
                    <tr>
                     <th>Ref</th>
@@ -53,7 +52,7 @@
                     <th>Transaction Value</th>
                     <th>Card</th>
                     <th>Completed By</th>
-                    <th>Action</th>
+                    <th class="text-center">Action</th>
                    </tr>
                 </thead>
                 <tbody>
@@ -64,7 +63,7 @@
                      <td><span>$</span> 80.00</td>
                      <td>E40125</td>
                      <td>1235 1258 4123 xxxx</td>
-                     <td>
+                     <td class="text-center">
                         <div class="dropdown no-arrow">
                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -198,10 +197,15 @@
          pageLength: 10,
          ajax: "{{ route('escort.bankDetail.dataTable') }}",
 
-         // ✅ Disable sorting on Action column (change the target index as needed)
-         columnDefs: [
-            { targets: 6, orderable: false } // 5 = 6th column (0-based index)
-         ]
+         columns: [
+               { data: 'ref', name: 'ref', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'service', name: 'service', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 't_date', name: 't_date', searchable: true, orderable:false ,defaultContent: 'NA'},
+               { data: 't_value', name: 't_value', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'card', name: 'card', searchable: true, orderable:true,defaultContent: 'NA' },
+               { data: 'completed_by', name: 'completed_by', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+           ],
       });
    });
 </script>

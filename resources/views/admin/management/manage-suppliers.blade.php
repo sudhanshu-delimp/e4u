@@ -40,7 +40,7 @@
                               </div>
                            </div>
                            <div class="table-responsive-xl">
-                              <table class="table mb-3" id="ManageSupplierTable">
+                              <table class="table mb-3 w-100" id="ManageSupplierTable">
                                  <thead class="table-bg">
                                     <tr>
                                     <th scope="col">Merchant ID</th>
@@ -352,9 +352,9 @@
          </div>
 
          <!-- Body -->
-         <div class="modal-body pb-0 custom-merchant-modal">
+         <div class="modal-body pb-0">
             <div class="row">
-               <div class="col-12">
+               <div class="col-12 custom-merchant-modal" >
                   
                   <div class="card mb-3 p-3">
                      <!-- Avatar + Name -->
@@ -364,7 +364,7 @@
                      </div>
 
                      <!-- Merchant Details -->
-                     <h6 class="border-bottom pb-1 text-blue-primary">Merchant Details</h6>
+                     <h6 class=" text-blue-primary">Merchant Details</h6>
                      <table class="table table-bordered mb-3">
                         <tr><th>Merchant ID</th><td>M10001</td></tr>
                         <tr><th>Date Appointed</th><td>2024-03-01</td></tr>
@@ -379,14 +379,14 @@
                      </table>
 
                      <!-- Agreement Details -->
-                     <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
+                     <h6 class=" text-blue-primary">Agreement Details</h6>
                      <table class="table table-bordered mb-3">
                         <tr><th>Agreement Date</th><td>2023-12-01</td></tr>
                         <tr><th>Term</th><td>12 Months</td></tr>
                      </table>
 
                      <!-- Bank Account -->
-                     <h6 class="border-bottom pb-1 text-blue-primary">Bank Account</h6>
+                     <h6 class=" text-blue-primary">Bank Account</h6>
                      <table class="table table-bordered mb-3">
                         <tr><th>Bank</th><td>ANZ</td></tr>
                         <tr><th>Account Name</th><td>Wayne Primrose</td></tr>
@@ -394,8 +394,14 @@
                         <tr><th>Account Number</th><td>987654321</td></tr>
                      </table>
 
-                     <!-- Footer Buttons -->
-                     <div class="d-flex justify-content-end mb-2">
+                     
+                  </div>
+                  
+
+               </div>
+               <div class="col-lg-12">
+                  <!-- Footer Buttons -->
+                     <div class="d-flex justify-content-end my-2">
                         <button class="btn-success-modal d-block mr-2" onclick="window.print();">
                            <i class="fa fa-print text-white"></i> Print
                         </button>
@@ -403,9 +409,6 @@
                            Close
                         </button>
                      </div>
-                  </div>
-                  
-
                </div>
                
             </div>
