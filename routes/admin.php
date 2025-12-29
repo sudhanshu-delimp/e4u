@@ -417,10 +417,13 @@ Route::get('/notifications/escort/{id}/edit', [EscortNotificationController::cla
 Route::post('/notifications/escort/{id}/update', [EscortNotificationController::class, 'update'])->name('admin.escort.notifications.update');
 
 
+Route::get('/notifications/shareholders',function(){
+    return view('admin.notifications.shareholders.index');
+})->name('admin.shareholders');
+
 // Route::get('/admin-dashboard/notifications/global',function(){
 //     return view('admin.notifications.global');
 // })->name('admin.global');
-
 
 ################### PDF ###################
 Route::post('/generate-agent-info-pdf', [AgentPdfController::class, 'generate_agent_info_pdf'])->name('admin.generate-agent-info-pdf');

@@ -100,7 +100,7 @@
                     'agents',
                     'viewer',
                     'escorts',
-                    'centres',
+                    'centres','shareholders',
                     'agents-guidelines',
                     'viewers-guidelines',
                     'escorts-guidelines',
@@ -289,6 +289,7 @@
                             request()->segment(3) == 'agents' ||
                             request()->segment(3) == 'viewer' ||
                             request()->segment(3) == 'escorts' ||
+                             request()->segment(3) == 'shareholders' ||
                             request()->segment(3) == 'centres') show @endif;" data-parent="#Administration">
 
                         <div class="py-0 collapse-inner rounded mb-2">
@@ -319,7 +320,11 @@
                                     style="{{ request()->segment(3) == 'centres' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Massage
                                     Centres</span>
                             </a>
-
+                            {{-- centres --}}
+                            <a href="{{ route('admin.shareholders') }}" class="collapse-item">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/c-notification.png') }}">
+                                <span style="{{ request()->segment(3) == 'shareholders' ? 'color: #FF3C5F;' : '' }}">Shareholders</span>
+                            </a>
 
                             {{-- viewers --}}
                             <a href="{{ route('admin.viewer.notification.index') }}" class="collapse-item">
