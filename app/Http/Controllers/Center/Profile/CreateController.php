@@ -118,6 +118,7 @@ class CreateController extends Controller
              $escort = $this->massage_profile->make();
         }
 
+        $massage_profile = $escort;
         // $user = auth()->user();
         // if(!empty($user->profile_creator) && in_array(2,$user->profile_creator)) {
         //     if(!$escort = $this->escort->findDefault($user->id,1)) {
@@ -157,7 +158,7 @@ class CreateController extends Controller
 
 
         //return view('center.profile-info.create-profile',compact('escort','service','availability','service_one','service_two','service_three','durations'));
-        return view('center.dashboard.profile.update',compact('escort','service','availability','service_one','service_two','service_three','durations','path','media'));
+        return view('center.dashboard.profile.update',compact('escort','service','availability','service_one','service_two','service_three','durations','path','media','massage_profile'));
     }
 
     public function nextStep($id)

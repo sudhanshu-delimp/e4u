@@ -1,8 +1,3 @@
-
-
-
-
-
 CKEDITOR.editorConfig = function(config) {
             config.toolbarGroups = [{
                     name: 'clipboard',
@@ -89,6 +84,8 @@ CKEDITOR.editorConfig = function(config) {
             });
         };
 
+
+      
 
 
 function setDefaults() {
@@ -572,7 +569,7 @@ function initDragDrop() {
            let is_true = true;
 
              if (hasError) {
-                 swal_error_warning('Our Open Time',`Please fill time or select an availability option for the following days:\n ${errorDays.join(', ')}`)
+                 swal_error_warning('Our Open Time','Please select a time range or choose an availability option for each day.')
                  is_true = false;
             }
 
@@ -582,42 +579,78 @@ function initDragDrop() {
 
         function validateAvailability() 
         {
-            const dayMap = {
-            monday: 'mon',
-            tuesday: 'tue',
-            wednesday: 'wed',
-            thursday: 'thur',
-            friday: 'fri',
-            saturday: 'sat',
-            sunday: 'sun'
-            };
 
-            let hasError = false;
-            let errorDays = [];
+                let isFormValid = true;
+                $('.profile_time_availibility .parent-row').each(function () {
 
-            Object.entries(dayMap).forEach(([fullDay, shortKey]) => {
+                        let row = $(this);
 
-                  console.log('fullDay',fullDay);
-                  console.log('shortKey',shortKey);
+                        let fromHH   = row.find('select[name$="_hh_from"]').val();
+                        let fromAMPM = row.find('select[name$="_time_from"]').val();
+                        let toHH     = row.find('select[name$="_hh_to"]').val();
+                        let toAMPM   = row.find('select[name$="_time_to"]').val();
 
-            const fromTime = document.querySelector(`[name="${shortKey}_hh_from"]`)?.value || '';
-            const fromAMPM = document.querySelector(`[name="${shortKey}_time_from"]`)?.value || '';
-            const radioSelected = document.querySelector(`input[name="availability_time[${fullDay}]"]:checked`);
+                        let timeSelected = fromHH && fromAMPM && toHH && toAMPM;
+                        let radioSelected = row.find('input[type="radio"]:checked').length > 0;
 
-            console.log('fullDay',fullDay);
-            console.log('shortKey',shortKey);
-            console.log('fromTime',fromTime);
-            console.log('fromAMPM',fromAMPM);
+                        if (!timeSelected && !radioSelected) {
+                            isFormValid = false;
+                            row.addClass('border border-danger p-2');
+                            return false;
+                        } else {
+                            row.removeClass('border border-danger p-2');
+                        }
+                    });
 
-            if ((fromTime === '' || fromAMPM === '') && !radioSelected) {
-                hasError = true;
-                errorDays.push(fullDay.charAt(0).toUpperCase() + fullDay.slice(1));
-            }
-            });
+                console.log('isFormValid',isFormValid)
 
-            console.log('hasError',hasError);
+                if (!isFormValid) {
+                return true;
+                }
 
-            return hasError;
+                return false;
         }
 
+
+        $('.profile_time_availibility').on('change', 'select', function () {
+
+            let row = $(this).closest('.parent-row');
+
+          
+            let hasTimeValue = false;
+
+            row.find('select').each(function () {
+                if ($(this).val()) {
+                    hasTimeValue = true;
+                }
+            });
+
+            if (hasTimeValue) {
+                row.find('input[type="radio"]').prop('checked', false);
+            }
+        });
+
+
+        $('.profile_time_availibility').on('change', 'input[type="radio"]', function () {
+            let row = $(this).closest('.parent-row');
+            row.find('select').val('');
+        });
+
        
+        $(function(e) {
+
+                $('.resetdays').click(function(){
+                    var p_element = $(this);
+                    var id = $(this).attr('id');
+                    var element_class = p_element.attr('data-day');
+                    console.log("select."+element_class);
+                    $('select.'+element_class).prop('selectedIndex',0);
+                    $('select.'+element_class).attr('disabled', false)
+                    //$('input[name="covidreport"]').removeAttr('checked');
+                    //var ch = $(" input[name='mytime[]']:checked").val();
+                    var ch = $('input.'+element_class+":checked").val();
+                    $('input.'+element_class+":checked").prop('checked', false);
+                    console.log(ch);
+                
+                }); 
+        }); 

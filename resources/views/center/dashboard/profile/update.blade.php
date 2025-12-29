@@ -338,7 +338,8 @@ var updatePosition = 0;
             {
 
                 if(!validateThirdTab())
-                 return false;    
+                 return false; 
+            
             }
 
 

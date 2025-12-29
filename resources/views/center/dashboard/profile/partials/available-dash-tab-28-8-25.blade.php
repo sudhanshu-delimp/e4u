@@ -22,7 +22,7 @@
                                         <div class="form-check form-check-inline">
                                             
                                             <label class="col-0 pr-5" for="exampleFormControlSelect1">Monday:</label>
-                            <input type="hidden" value="monday">
+                                                <input type="hidden" value="monday">
                                         </div>
                                         
                                     </div>

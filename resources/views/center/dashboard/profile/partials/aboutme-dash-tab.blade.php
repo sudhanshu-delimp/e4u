@@ -1009,7 +1009,7 @@ textarea {
                                  <div class="form-group business-field">
                                     <label for="exampleFormControlSelect1">
                                     Shower</label>
-                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="" name="shower" required="">
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="" name="shower">
                                        <option value="" selected="">-- Not Set --</option>
                                        @foreach(config('escorts.profile.Shower') as $key =>$Type)
                                        <option value="{{$key}}" {{ ($escort->shower == $key)? 'selected' : ''}} >{{$Type}}</option>
