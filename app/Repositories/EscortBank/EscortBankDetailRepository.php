@@ -57,8 +57,8 @@ class EscortBankDetailRepository extends BaseRepository implements EscortBankDet
         $primaryBank = $this->model->where('user_id', $user_id)->where('state', 1)->first();
         $primary_account = $primaryBank ? 1 : 0;
         $primary_bank_acc_id = $primaryBank->id ?? null;
-        $bankDetails['primary_bank_bsb'] = $primaryBank->bsb ? formatAccountNumber($primaryBank->bsb) : 'N/A';
-        $bankDetails['primary_bank_ac_no'] = $primaryBank->account_number ? formatAccountNumber($primaryBank->account_number) : 'N/A';
+        $bankDetails['primary_bank_bsb'] = $primaryBank->bsb ? formatAccountNumber($primaryBank->bsb ,'bsb') : 'N/A';
+        $bankDetails['primary_bank_ac_no'] = $primaryBank->account_number ? formatAccountNumber($primaryBank->account_number ,null) : 'N/A';
 
 		return [$result, $count, $primary_account,$primary_bank_acc_id,$bankDetails];
 	}
@@ -72,7 +72,7 @@ class EscortBankDetailRepository extends BaseRepository implements EscortBankDet
             $item->account_name = $item->account_name ? $item->account_name : "NA";
             $ac = $item->account_number ? $item->account_number : "NA";
             $acBsb = $item->bsb ? $item->bsb : "NA";
-            $item->bsb = $item->bsb ? formatAccountNumber($item->bsb) : 'NA';
+            $item->bsb = $item->bsb ? formatAccountNumber($item->bsb ,'bsb') : 'NA';
 
             $item->account_numbers = $item->account_number ?  str_pad(substr($item->account_number, -3), strlen($item->account_number), '*', STR_PAD_LEFT) : "NA";
             // $item->account_numbers = $item->account_number;

@@ -17,8 +17,10 @@ use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 use App\Models\EscortStatistics;
+use App\Models\GlobalNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
@@ -958,10 +960,14 @@ if (!function_exists('getUserWiseLastLoginTime')) {
 }
 
 if (!function_exists('formatAccountNumber')) {
-    function formatAccountNumber($number)
+    function formatAccountNumber($number, $type = null)
     {
         if (empty($number)) {
             return $number;
+        }
+        $digiType = '-';
+        if($type !=  null){
+            $digiType =  ' ';
         }
 
         // Remove non-digits
@@ -973,31 +979,58 @@ if (!function_exists('formatAccountNumber')) {
 
             case 6:
                 // 123456 → 123-456
-                return substr($digits, 0, 3) . '-' . substr($digits, 3, 3);
+                return substr($digits, 0, 3) . $digiType . substr($digits, 3, 3);
 
             case 7:
                 // 1234567 → 123-4567
-                return substr($digits, 0, 3) . '-' . substr($digits, 3, 4);
+                return substr($digits, 0, 3) . $digiType . substr($digits, 3, 4);
 
             case 8:
                 // 12345678 → 1234-5678
-                return substr($digits, 0, 4) . '-' . substr($digits, 4, 4);
+                return substr($digits, 0, 4) . $digiType . substr($digits, 4, 4);
 
             case 9:
                 // 123456789 → 123-456-789
-                return substr($digits, 0, 3) . '-' .
-                    substr($digits, 3, 3) . '-' .
+                return substr($digits, 0, 3) . $digiType .
+                    substr($digits, 3, 3) . $digiType .
                     substr($digits, 6, 3);
 
             case 10:
                 // 1234567890 → 1234-567-890
-                return substr($digits, 0, 4) . '-' .
-                    substr($digits, 4, 3) . '-' .
+                return substr($digits, 0, 4) . $digiType .
+                    substr($digits, 4, 3) . $digiType .
                     substr($digits, 7, 3);
 
             default:
                 // Fallback (return as-is)
                 return $number;
         }
+    }
+}
+
+
+if(!function_exists('global_notifications')){
+    function global_notifications(){
+        $today = Carbon::today();
+        $todayDate = $today->toDateString();
+        $notifications = GlobalNotification::where('status', 'Published')->where(function ($query) use ($todayDate) {
+            // Adhoc notifications valid for today
+            $query->where('type', 'Ad hoc')
+                ->where('start_date', '<=', $todayDate)
+                ->where('end_date', '>=', $todayDate);
+
+            // Notice notifications valid for today with matching member_id
+            $query->orWhere(function ($q) use ($todayDate) {
+                $q->where('type', 'Template')
+                    ->where('start_date', '<=', $todayDate)
+                    ->where('end_date', '>=', $todayDate);
+            });
+
+
+        })->orderBy('created_at', 'desc')
+            ->select('id', 'heading', 'content', 'template_name')
+            ->get();
+
+        return $notifications;
     }
 }

@@ -554,9 +554,9 @@ class EscortAccountController extends Controller
         if (auth()->check() && isset($request->bank_id) && !empty($request->bank_id)) {
             $EscortBank = EscortBankDetail::where('id', (int)$request->bank_id)->first();
  
-            $EscortBank->bsb = $EscortBank->bsb ? formatAccountNumber($EscortBank->bsb) : 'NA';
+            $EscortBank->bsb = $EscortBank->bsb ? formatAccountNumber($EscortBank->bsb , 'bsb') : 'NA';
  
-            $EscortBank->account_number = $EscortBank->account_number ?  formatAccountNumber($EscortBank->account_number) : "NA";
+            $EscortBank->account_number = $EscortBank->account_number ?  formatAccountNumber($EscortBank->account_number,null) : "NA";
  
             return response()->json([
                 'error' => false,
