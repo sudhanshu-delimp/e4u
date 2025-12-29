@@ -131,7 +131,12 @@
             data-parent="#accordionSidebar" class="collapse" style="">
 
             <div class="py-0 collapse-inner rounded mb-2">
-
+                
+                <a class="collapse-item" href="{{ route('Fees.summary') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+                    <span style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">Fees
+                        Summary</span>
+                </a>
 
                 <a class="collapse-item" href="{{ route('Fees.monthly-report') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
@@ -139,11 +144,6 @@
                         Report</span>
                 </a>
 
-                <a class="collapse-item" href="{{ route('Fees.summary') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-                    <span style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">Fees
-                        Summary</span>
-                </a>
 
                 <a class="collapse-item" href="{{ route('Fees.my-income', ['from' => 'sidebar']) }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
@@ -242,24 +242,25 @@
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
             <div class="py-0 collapse-inner rounded mb-2">
+                
 
-                <!-- Messages -->
-                <a class="collapse-item" href="{{ route('agent.agent-messages') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
-                    <span
-                        style="{{ request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : '' }}">Messages</span>
+                <!-- Forms -->
+                <a class="collapse-item" href="{{ route('agent.forms') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/form.png') }}">
+                    <span style="{{ request()->segment(2) == 'forms' ? 'color: #e5365a;' : '' }}">Forms</span>
                 </a>
-
+                
                 <!-- Guidelines -->
                 <a class="collapse-item" href="{{ route('agent.guidelines') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/guide.png') }}">
                     <span
                         style="{{ request()->segment(2) == 'guidelines' ? 'color: #e5365a;' : '' }}">Guidelines</span>
                 </a>
-                <!-- Forms -->
-                <a class="collapse-item" href="{{ route('agent.forms') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/form.png') }}">
-                    <span style="{{ request()->segment(2) == 'forms' ? 'color: #e5365a;' : '' }}">Forms</span>
+                <!-- Messages -->
+                <a class="collapse-item" href="{{ route('agent.agent-messages') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
+                    <span
+                        style="{{ request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : '' }}">Messages</span>
                 </a>
             </div>
         </div>
