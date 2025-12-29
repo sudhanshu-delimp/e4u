@@ -829,6 +829,7 @@ Account details, including the initial setup.</li>
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
+   var existingPin = "{{ auth()->user()->user_bank_pin }}";
    $(document).ready(function(){
 
       //$('#EnterPinModal').modal('show');
@@ -996,9 +997,6 @@ Account details, including the initial setup.</li>
          const pinDisplay = $('#pinDisplay');
          const textEl = document.getElementById("pinDisplay");
          let pin = pinDisplay.text().trim();
-
-         let existingPin = "{{ auth()->user()->user_bank_pin }}";
-
          if (pin === existingPin) {
             $('#EnterPinModal').modal('hide');
             if(isClickEft == true){
@@ -1679,18 +1677,19 @@ Account details, including the initial setup.</li>
 
    
 
-   function updateBankPinByAjax(url, data) 
+   function updateBankPinByAjax(url, payload_data) 
    {
          $.ajax({
             method: "POST",
             url: url,
-            data: {'user_bank_pin': data},
+            data: {'user_bank_pin': payload_data},
             dataType: "JSON",
             headers: {
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             success: function(data) {
                if (data.error == false) {
+                   existingPin = payload_data;
                   $("#SetPinModal").modal('hide');
                   $("#modal-title").text("Pin Update Confirmation");
                   let textMsg = `<h5 class="text-center">
