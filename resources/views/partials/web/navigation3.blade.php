@@ -1,3 +1,10 @@
+
+@if(global_notifications())
+    @foreach(global_notifications() as $notification)
+        <x-global_frontend.global-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" />
+    @endforeach
+@endif
+
 <div class="blue-bg-before home--header">
          <nav class="navbar navbar-expand-lg navbar-light blue_and_white_nav_blue_in_small">
          <div class="container-fluid manage_header_padding">
@@ -167,12 +174,7 @@
 </div>
 
 
-<div class="alert alert-custom alert-dismissible fade show" role="alert">
-  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+
 
 @push('scripts')
     <script>
