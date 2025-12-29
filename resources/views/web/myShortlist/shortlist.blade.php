@@ -378,11 +378,10 @@
                                                                     <span id="">
                                                                         {{--  {{ $memberTitle }} : --}}
                                                                         Total Listings :
-                                                                        
+                                                                         
                                                                     </span>
                                                                     <span >
-                                                                        {{-- {{ $memberTotalCountSum }} --}}
-                                                                       36
+                                                                        {{ array_sum($memberTotalCount) }}
                                                                         
                                                                     </span>
                                                                 </div>
@@ -396,7 +395,7 @@
                                                                 <li class="{{ !request()->has('membership_type') || request('membership_type') == '' ? 'active' : '' }}">
                                                                     <a  class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => null]) }}">
                                                                         <span class="firts-text">Total Listings :</span>
-                                                                        <span class="firts-text">36 {{-- {{ array_sum($memberTotalCount) }} --}} </span>
+                                                                        <span class="firts-text"> {{ array_sum($memberTotalCount) }} </span>
                                                                         
                                                                     </a>
                                                                 </li>
@@ -405,7 +404,7 @@
                                                                 <li class="{{ request('membership_type') == '1' ? 'active' : '' }}">
                                                                     <a class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '1']) }}">
                                                                         <span>View Platinum Listings :</span>
-                                                                        <span>10 {{-- {{ $memberTotalCount[1] }} --}}</span>
+                                                                        <span> {{ $memberTotalCount[1] }}</span>
                                                                          
                                                                     </a>
                                                                 </li>
@@ -414,7 +413,7 @@
                                                                 <li class="{{ request('membership_type') == '2' ? 'active' : '' }}">
                                                                     <a class="membership_list" class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '2']) }}">
                                                                         <span>View Gold Listings :</span>
-                                                                        <span>20 {{-- {{ $memberTotalCount[2] }} --}}</span>
+                                                                        <span>{{ $memberTotalCount[2] }}</span>
                                                                         
                                                                     </a>
                                                                 </li>
@@ -423,7 +422,7 @@
                                                                 <li class="{{ request('membership_type') == '3' ? 'active' : '' }}">
                                                                     <a class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '3']) }}">
                                                                         <span>View Silver Listings :</span>
-                                                                        <span>6 {{-- {{ $memberTotalCount[3] }} --}}</span>
+                                                                        <span>{{ $memberTotalCount[3] }}</span>
                                                                     </a>
                                                                 </li>
 

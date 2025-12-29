@@ -432,7 +432,7 @@
                                                                             href="{{ request()->fullUrlWithQuery(['membership_type' => null]) }}">
                                                                             <span class="firts-text">Total Listings :</span>
                                                                             <span
-                                                                                class="firts-text">{{ array_sum($memberTotalCount) }}</span>
+                                                                                class="firts-text">{{ array_sum($memberTotalCount) }}</span> 
                                                                         </a>
                                                                     </li>
 
