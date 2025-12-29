@@ -700,9 +700,9 @@ Route::get('/admin-dashboard/management/post-office',function(){
 // })->name('admin.viewers');
 
 
-Route::get('/admin-dashboard/notifications/escorts',function(){
-    return view('admin.notifications.escorts');
-})->name('admin.escorts');
+// Route::get('/admin-dashboard/notifications/escorts',function(){
+//     return view('admin.notifications.escorts');
+// })->name('admin.escorts');
 
 
 Route::get('/admin-dashboard/management/punterbox-reports',function(){
