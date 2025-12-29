@@ -172,6 +172,10 @@
       border-radius: 25px;
       font-size: 14px;
    }
+   .pin-display:empty::before {
+      content: attr(data-placeholder);
+      color: #aaa;
+   }
 
 </style>
 @endsection
@@ -577,8 +581,8 @@ Account details, including the initial setup.</li>
        <div class="modal-body text-center p-0" >
          <!-- PIN Display -->
          <div class="overflow-hidden">
-            <div id="pinDisplay" class="pin-display mb-3">
-            Numbers appear as typed
+            <div id="pinDisplay" class="pin-display mb-3" data-placeholder="Numbers appear as typed">
+            <span style="color: #aaa">Numbers appear as typed</span>
             </div>
          </div>
          
@@ -625,7 +629,7 @@ Account details, including the initial setup.</li>
    <div class="modal-dialog modal-dialog-centered" style="max-width: 500px;" role="document">
      <div class="modal-content">
       <div class="modal-header">
-            <h5 class="modal-title"><img src="{{asset('assets/dashboard/img/add-new-account.png')}}" class="custompopicon" alt="cross"> Instructions for Payer</h5>
+            <h5 class="modal-title"><img src="{{asset('assets/dashboard/img/add-new-account.png')}}" class="custompopicon" alt="cross">EFT Instructions for Payer</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true"><img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -645,7 +649,7 @@ Account details, including the initial setup.</li>
             </li>
             <li class="pl-3">Please email your payment receipt to:
                <ul class="text-left list-unstyled ">
-                  <li><a href="javascript:void(0)" id="sendMailToEscort">Center Email</a></li>
+                  <li><a href="javascript:void(0)" id="sendMailToEscort">{{auth()->user()->email}}</a></li>
                </ul>
             </li>
          </ol>
@@ -774,8 +778,8 @@ Account details, including the initial setup.</li>
  
        <div class="modal-body text-center p-0">
          <!-- PIN Display -->
-         <div id="pinDisplaySet" class="pin-display mb-3">
-           Numbers appear as typed
+         <div id="pinDisplaySet" class="pin-display mb-3" data-placeholder="Numbers appear as typed">
+           <span style="color: #aaa">Numbers appear as typed</span>
          </div>
  
          <!-- Keypad -->
@@ -803,6 +807,10 @@ Account details, including the initial setup.</li>
          </div>
  
          <!-- Footer Buttons -->
+         <div class="d-flex justify-content-center mb-3">
+           <button type="button" class="btn-cancel-modal mr-3" id="allClearSetPin">Clear</button>
+           <button type="button" class="btn-success-modal" id="okSave">Save</button>
+         </div>
          {{-- <div class="d-flex justify-content-center mb-3">
            <button type="button" class="btn-cancel-modal mr-3 clear_at_once">Clear</button>
            <button type="button" class="btn-success-modal save_new_pin">Save</button>
@@ -872,6 +880,10 @@ Account details, including the initial setup.</li>
          el2.text(text2 + inputValue);
       });
 
+      $('#allClearSetPin').click(function(){
+         $('#pinDisplaySet').text('');
+      });
+
       $('#clear').click(function(){
          let el = $('#pinDisplay');
          let el2 = $('#pinDisplaySet');
@@ -900,7 +912,7 @@ Account details, including the initial setup.</li>
          let text2 = el2.text('');
       });
 
-      $("#ok").click(function(){
+      $("#ok, #okSave").click(function(){
          const pinDisplay = $('#pinDisplaySet');
          const textEl = document.getElementById("pinDisplaySet");
          let pin = pinDisplay.text().trim();
@@ -1025,7 +1037,7 @@ Account details, including the initial setup.</li>
 
             setTimeout(() => {
                   textEl.classList.remove("shake");
-                  pinDisplay.text(pin); // ✅ restore original PIN
+                  pinDisplay.text(''); // restore original PIN
             }, 300);
          }
       });
@@ -1624,7 +1636,9 @@ Account details, including the initial setup.</li>
                         Change PIN button.
                      </p>`;
                      $('.comman_msg').html(textMsg);
+                      $('.common_modal_close_btn').text('Close');
                      $("#comman_modal").modal('show');
+
                      
                      $("#sendOtp_modal").modal('hide');
                      
