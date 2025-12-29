@@ -1,5 +1,24 @@
 @php
     $escortName = $escort->gender == 'Transgender' ? 'TS-' . $escort->name : $escort->name;
+    $imagePath =  asset('assets/app/img/service-provider/Frame-408.png');
+    if($escort && $escort->membership){
+        switch ($escort->membership) {
+            case $escort->membership == '1':
+                $imagePath = asset('images/platinum_membership.png');
+                break;
+            case $escort->membership == '2':
+                $imagePath = asset('images/gold_membership.png');
+                break;
+            case $escort->membership == '3':
+                $imagePath = asset('images/silver_membership.png');
+                break;
+            
+            default:
+                $imagePath =  asset('assets/app/img/service-provider/Frame-408.png');
+                break;
+        }
+    }
+    
 @endphp
 <div class="container">
 
@@ -18,7 +37,7 @@
                                     <div class="verify-image-custom">
                                         <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                                     </div>
-                                    <div class="siliver_logo_icon"><img src="{{ asset('images/gold_membership.png') }}">
+                                    <div class="siliver_logo_icon"><img src="{{ $imagePath }}">
                                     </div>
                                     <div class="add_to_fab_list_view_each_sec">
                                         @if (auth()->user())

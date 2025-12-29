@@ -50,7 +50,7 @@
                             </h1>
                         </div>
                         <div class="modal-footer" style="justify-content: center;">
-                            <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
+                            <button type="submit" class="btn main_bg_color site_btn_primary common_modal_close_btn" data-dismiss="modal" id="close">Ok</button>
                         </div>
                     </div>
                 </div>

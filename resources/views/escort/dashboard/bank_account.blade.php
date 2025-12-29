@@ -170,7 +170,10 @@
     font-size: 14px;
 }
 
-
+.pin-display:empty::before {
+    content: attr(data-placeholder);
+    color: #aaa;
+}
 </style>
 @endsection
 @section('content')
@@ -577,8 +580,8 @@
        <div class="modal-body text-center p-0" >
          <!-- PIN Display -->
          <div class="overflow-hidden">
-            <div id="pinDisplay" class="pin-display mb-3">
-            Numbers appear as typed
+            <div id="pinDisplay" class="pin-display mb-3" data-placeholder="Numbers appear as typed">
+            <span style="color: #aaa">Numbers appear as typed</span>
             </div>
          </div>
          
@@ -610,7 +613,7 @@
          <!-- Footer Buttons -->
          {{-- <div class="d-flex justify-content-center mb-3">
            <button type="button" class="btn-cancel-modal mr-3">Clear</button>
-           <button type="button" class="btn-success-modal">Confirm</button>
+           <button type="button" class="btn-success-modal">Save</button>
          </div> --}}
  
        </div>
@@ -626,7 +629,7 @@
    <div class="modal-dialog modal-dialog-centered" style="max-width: 500px;" role="document">
      <div class="modal-content">
       <div class="modal-header">
-            <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/add-new-account.png')}}" class="custompopicon" alt="cross"> Instructions for Payer</h5>
+            <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/add-new-account.png')}}" class="custompopicon" alt="cross"> EFT Instructions for Payer</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -646,7 +649,7 @@
             </li>
             <li class="pl-3">Please email your payment receipt to:
                <ul class="text-left list-unstyled ">
-                  <li><a href="javascript:void(0)" id="sendMailToEscort">Escort email</a></li>
+                  <li><a href="javascript:void(0)" id="sendMailToEscort" style="color: #4e73df;">{{auth()->user()->email}}</a></li>
                </ul>
             </li>
          </ol>
@@ -708,8 +711,8 @@
  
        <div class="modal-body text-center p-0">
          <!-- PIN Display -->
-         <div id="pinDisplaySet" class="pin-display mb-3">
-           Numbers appear as typed
+         <div id="pinDisplaySet" class="pin-display mb-3" data-placeholder="Numbers appear as typed">
+           <span style="color: #aaa">Numbers appear as typed</span>
          </div>
  
          <!-- Keypad -->
@@ -736,11 +739,10 @@
            </div>
          </div>
  
-         <!-- Footer Buttons -->
-         {{-- <div class="d-flex justify-content-center mb-3">
-           <button type="button" class="btn-cancel-modal mr-3 clear_at_once">Clear</button>
-           <button type="button" class="btn-success-modal save_new_pin">Save</button>
-         </div> --}}
+         <div class="d-flex justify-content-center mb-3">
+           <button type="button" class="btn-cancel-modal mr-3" id="allClearSetPin">Clear</button>
+           <button type="button" class="btn-success-modal" id="okSave">Save</button>
+         </div>
  
        </div>
      </div>
@@ -839,6 +841,8 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
+
+   var existingPin = "{{ auth()->user()->user_bank_pin }}";
    $(document).ready(function(){
 
       //$('#EnterPinModal').modal('show');
@@ -912,13 +916,17 @@
             el2.text(text2.slice(0, -1));
          }
       });
+      $('#allClearSetPin').click(function(){
+         $('#pinDisplaySet').text('');
+      });
+      
 
       $('.clear_at_once').click(function(){
          let el2 = $('#pinDisplaySet');
          let text2 = el2.text('');
       });
 
-      $("#ok").click(function(){
+      $("#ok, #okSave").click(function(){
          const pinDisplay = $('#pinDisplaySet');
          const textEl = document.getElementById("pinDisplaySet");
          let pin = pinDisplay.text().trim();
@@ -947,7 +955,7 @@
          const textEl = document.getElementById("pinDisplay");
          let pin = pinDisplay.text().trim();
 
-         let existingPin = "{{ auth()->user()->user_bank_pin }}";
+         //let existingPin = "{{ auth()->user()->user_bank_pin }}";
 
          if (pin === existingPin) {
             $('#EnterPinModal').modal('hide');
@@ -983,10 +991,9 @@
             $(".container-fluid").addClass("wrong_pin_hide_details");
             textEl.classList.add("shake");
             pinDisplay.text('Enter your correct PIN');
-
             setTimeout(() => {
                   textEl.classList.remove("shake");
-                  pinDisplay.text(pin); // ✅ restore original PIN
+                  pinDisplay.text(''); // ✅ restore original PIN
             }, 300);
          }
       });
@@ -1000,6 +1007,7 @@
 
       function resetSensitiveBlur() {
          $('.bank-details-container').removeClass('blurred');
+
       }
       $('#InstructionPayerModal, #AddPayId').on('hidden.bs.modal', resetSensitiveBlur);
 
@@ -1661,6 +1669,7 @@
                'X-CSRF-Token': token
             },
             success: function(data) {
+                $('.common_modal_close_btn').text('Ok');
                // $("#change_pin_active").val('0'); 
                if((data.changePin == '1' || data.changePin == '0') ){
                   if(data.changePin == '1'){
@@ -1704,6 +1713,7 @@
                         Change PIN button.
                      </p>`;
                      $('.comman_msg').html(textMsg);
+                     $('.common_modal_close_btn').text('Close');
                      $("#comman_modal").modal('show');
                      
                      $("#sendOtp_modal").modal('hide');
@@ -1745,18 +1755,19 @@
 
    
 
-   function updateBankPinByAjax(url, data) 
-   {
+   function updateBankPinByAjax(url, payload_data) 
+   { 
          $.ajax({
             method: "POST",
             url: url,
-            data: {'user_bank_pin': data},
+            data: {'user_bank_pin': payload_data},
             dataType: "JSON",
             headers: {
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             success: function(data) {
                if (data.error == false) {
+                  existingPin = payload_data;
                   $("#SetPinModal").modal('hide');
                   $("#modal-title").text("Pin Update Confirmation");
                   let textMsg = `<h5 class="text-center">

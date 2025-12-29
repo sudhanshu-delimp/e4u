@@ -279,6 +279,33 @@ Route::get('database/manage-sim', function () {
     return view('admin.database.manage-sim');
 })->name('manage-sim');
 
+// Guidelines
+
+Route::get('guidelines/agents-guidelines', function () {
+    return view('admin.guidelines.agents-guidelines');
+})->name('admin.agents-guidelines');
+
+Route::get('guidelines/escorts-guidelines', function () {
+    return view('admin.guidelines.escorts-guidelines');
+})->name('admin.escorts-guidelines');
+
+Route::get('guidelines/viewers-guidelines', function () {
+    return view('admin.guidelines.viewer-guidelines');
+})->name('admin.viewers-guidelines');
+
+Route::get('guidelines/massage-centres-guidelines', function () {
+    return view('admin.guidelines.massage-centres-guidelines');
+})->name('admin.massage-centres-guidelines');
+
+Route::get('guidelines/operator-guidelines', function () {
+    return view('admin.guidelines.operator-guidelines');
+})->name('admin.operator-guidelines');
+
+Route::get('guidelines/shareholders-guidelines', function () {
+    return view('admin.guidelines.shareholders-guidelines');
+})->name('admin.shareholders-guidelines');
+
+
 
 Route::get('reports/agent-requests', function () {
     return view('admin.reports.agent-requests');
