@@ -11,15 +11,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
+                {{-- ESCORT SECOND MENU --}}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Find Escort</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu addMyLocation" aria-labelledby="navbarDropdown">
 
-                        <a class="dropdown-item" href="{{ route('find.all',['gender'=>6]) }}"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Female</a>
-                        <a class="dropdown-item" href="{{ route('find.all',['gender'=>1]) }}"><img src="{{asset('assets/app/img/male-user.svg')}}">Male</a>
-                        <a class="dropdown-item saptate_by_border" href="{{ route('find.all',['gender'=>2]) }}"><img src="{{asset('assets/app/img/couple.svg')}}">Couples</a>
-                        <a class="dropdown-item" href="{{ route('find.all',['gender'=>3]) }}"><img src="{{asset('assets/app/img/Vector.svg')}}">Transgender</a>
-                        <a class="dropdown-item" href="{{ route('find.all',['gender'=>4]) }}"><img src="{{asset('assets/app/img/male-user.svg')}}">Cross Dresser</a>
+                        <a class="dropdown-item" href="{{ route('find.all',['gender'=>6]) }}?lat"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Female</a>
+                        <a class="dropdown-item" href="{{ route('find.all',['gender'=>1]) }}?lat"><img src="{{asset('assets/app/img/male-user.svg')}}">Male</a>
+                        <a class="dropdown-item saptate_by_border" href="{{ route('find.all',['gender'=>2]) }}?lat"><img src="{{asset('assets/app/img/couple.svg')}}">Couples</a>
+                        <a class="dropdown-item" href="{{ route('find.all',['gender'=>3]) }}?lat"><img src="{{asset('assets/app/img/Vector.svg')}}">Transgender</a>
+                        <a class="dropdown-item" href="{{ route('find.all',['gender'=>4]) }}?lat"><img src="{{asset('assets/app/img/male-user.svg')}}">Cross Dresser</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -156,3 +157,19 @@
      </div>
   </div>
   
+   <script>
+
+        navigator.geolocation.getCurrentPosition(async function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            document.querySelectorAll('.addMyLocation a').forEach(function(link) {
+                let originalHref = link.getAttribute('href');
+
+                url = originalHref.replace('?lat', '&lat='+latitude+'&lng='+longitude);
+                link.setAttribute('href',url);
+            });
+
+        });
+      
+    </script>
