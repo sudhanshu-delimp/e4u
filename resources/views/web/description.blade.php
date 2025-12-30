@@ -54,6 +54,9 @@
          color: #fff;
     }
 
+ .swal2-popup{
+            width: auto !important;
+        }
 </style>
 
 
@@ -76,6 +79,9 @@
         color: red;
         padding-top: 5%;
     }
+    .swal2-popup{
+            width: auto !important;
+        }
 </style> 
 @endif
 
@@ -2094,7 +2100,7 @@ $('#review-submitted-popup .close').on('click', function() {
 
 
           if (window.authUser.myLegboxDisabled) {
-            swal_error_warning('Add to My Legbox','You have disabled this feature');
+            swal_error_warning('My Legbox','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
             return false;
         }
 

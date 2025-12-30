@@ -41,6 +41,9 @@
         .fiter_btns select {
             text-transform: capitalize;
         }
+        .swal2-popup{
+            width: auto !important;
+        }
     </style>
 @endsection
 @php
@@ -1614,7 +1617,7 @@
           
             
             if (window.authUser.myLegboxDisabled) {
-                swal_error_warning('Add to My Legbox','You have disabled this feature');
+                swal_error_warning('My Legbox','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
                 return false;
             }
 
