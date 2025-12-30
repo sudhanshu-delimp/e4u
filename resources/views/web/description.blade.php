@@ -1181,7 +1181,7 @@
             <div class="content">
                 <div class="accodien_manage_padding_content">
                     <p class="text-justify">
-                        Prices are all inclusive unless an extra is listed in My Serices. For Outcalls, price is rate + taxi to and from my Location.
+                        Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location.
                     </p>
                 </div>
             </div>
