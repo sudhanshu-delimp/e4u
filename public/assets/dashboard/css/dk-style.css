@@ -10344,7 +10344,7 @@ button:disabled {
     padding: 0px 5px !important;
 }
 
-s .listing-tag-tooltip .listing-tag-tooltip-desc {
+.listing-tag-tooltip .listing-tag-tooltip-desc {
     position: absolute;
     top: 22px;
     left: 0px;
