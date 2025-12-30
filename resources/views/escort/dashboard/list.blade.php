@@ -441,6 +441,9 @@
                     $select.empty();
                     let $selectBumpUp = $('#bumpUpProfileId');
                     $selectBumpUp.empty();
+                    let $selectPinUp = $('#pinup_profile_id');
+                    $selectPinUp.empty();
+                    
                     if (records.recordsTotal > 0) {
                         $select.append('<option value="">-- Select Profile --</option>');
                         $.each(records.data, function (i, item) {
@@ -459,7 +462,7 @@
 
                         $selectBumpUp.append('<option value="">-- Select Profile --</option>');
                         $.each(records.data, function (i, item) {
-                            if(!item.is_bumpup && item.membership=='Platinum'){
+                            if(!item.is_bumpup){
                                 $selectBumpUp.append(
                                     $('<option>', {
                                     value: item.id,
@@ -471,6 +474,25 @@
                                 );
                             }
                         });
+
+                        let existPinup = records.data.some(profile=>profile.latest_active_pinup!=null);
+
+                        if(!existPinup){
+                            $selectPinUp.append('<option value="">-- Select Profile --</option>');
+                            $.each(records.data, function (i, item) {
+                                if(item.membership=='Platinum'){
+                                    $selectPinUp.append(
+                                        $('<option>', {
+                                        value: item.id,
+                                        text: `${item.id} - ${item.name} - ${item.state.name}`,
+                                        'data-start': item.start_date_formatted,
+                                        'data-end': item.end_date_formatted,
+                                        'data-membership':item.membership,
+                                        })
+                                    );
+                                }
+                            });
+                        }
                         $(".listingActionButtons button").show();
                     }
                     
