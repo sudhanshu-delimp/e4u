@@ -1118,6 +1118,13 @@
 @push('scripts')
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script>
+
+   window.authUser = {
+        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+        myLegboxDisabled: {{ auth()->check() && auth()->user()->features_enable_my_legbox == 0 ? 'true' : 'false' }}
+    };
+
+
         $(function() {
             var list = $('.js-dropdown-list');
             var link = $('.js-link');
@@ -1237,9 +1244,14 @@
         let view1 = $('.footer_view_type_one').attr('href');
         let view2 = $('.footer_view_type_two').attr('href');
 
-        //let viewType = localStorage.getItem('profileViewType') || 'grid';
 
-        let viewType = '{{ $viewType }}';
+        if (window.authUser.isLoggedIn) {
+            var viewType = '{{ $viewType }}';
+        }
+        else {
+        var viewType = localStorage.getItem('profileViewType') || 'grid';
+        }
+        
         console.log(viewType);
 
         // Define functions for grid and list view logic
@@ -1598,6 +1610,17 @@
         });
 
         $(document).on('click', '.add_to_favrate', function() {
+
+          
+            
+            if (window.authUser.myLegboxDisabled) {
+                swal_error_warning('Add to My Legbox','You have disabled this feature');
+                return false;
+            }
+
+
+
+
             var name = $(this).attr('data-name');
             var Eid = $(this).attr('data-escortId');
             var Uid = $(this).attr('data-userId');

@@ -46,7 +46,19 @@
     opacity: 1;
   }
 
+.fa-thumbs-down, .fa-thumbs-up {
+    pointer-events: none;
+}
+
+.save-my-legbox-btn {
+         color: #fff;
+    }
+
+</style>
+
+
 @if($escort->latestActiveBrb)
+ <style>
     .overlay_parent {
         position: relative;
     }
@@ -64,20 +76,8 @@
         color: red;
         padding-top: 5%;
     }
-
-  
+</style> 
 @endif
-
-
-.fa-thumbs-down, .fa-thumbs-up {
-    pointer-events: none;
-}
-
-.save-my-legbox-btn {
-         color: #fff;
-    }
-
-</style>
 
 @if(str_contains(url()->full(), '?no-next-page') || str_contains(url()->full(), '?no-next-page='))
     <style>
@@ -2026,7 +2026,14 @@ $('#review-submitted-popup .close').on('click', function() {
 
 </script>
 <script type="text/javascript">
+
+    window.authUser = {
+        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+        myLegboxDisabled: {{ auth()->check() && auth()->user()->features_enable_my_legbox == 0 ? 'true' : 'false' }}
+    };
+
     $(document).ready(function () {
+
         var totalItems = $('.item-01').length;
         var currentIndex = $('div.carousel-item').index() + 1;
         var currentIndex_active = $('div.carousel-item.active').index();
@@ -2084,6 +2091,13 @@ $('#review-submitted-popup .close').on('click', function() {
 
 
     $(document).on('click', '#legbox_btn', function () {
+
+
+          if (window.authUser.myLegboxDisabled) {
+            swal_error_warning('Add to My Legbox','You have disabled this feature');
+            return false;
+        }
+
         var addToFebIcon = $(this).find('.add_to_favrate');
         var Eid = addToFebIcon.attr('data-escortId');
         var Uid = addToFebIcon.attr('data-userId');

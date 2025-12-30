@@ -815,6 +815,13 @@
 @push('scripts')
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script>
+
+    window.authUser = {
+        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+        myLegboxDisabled: {{ auth()->check() && auth()->user()->features_enable_my_legbox == 0 ? 'true' : 'false' }}
+    };
+
+
         $(function() {
             var list = $('.js-dropdown-list');
             var link = $('.js-link');
@@ -1078,6 +1085,14 @@
             });
         });
         $(document).on('click', '.add_to_favrate', function() {
+
+
+            if (window.authUser.myLegboxDisabled) {
+                swal_error_warning('Add to My Legbox','You have disabled this feature');
+                return false;
+            }
+
+
             var Eid = $(this).attr('data-escortId');
             var Uid = $(this).attr('data-userId');
             var cidcl = $(this).attr('class');

@@ -95,4 +95,6 @@ function ajaxRequest({
     });
 }
 
-
+function swal_error_warning(titile,message) {
+    Swal.fire((titile) ? titile : '',(message) ? message : '', 'warning' );       
+}
