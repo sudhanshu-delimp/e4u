@@ -15,14 +15,15 @@ class PricingSeeder extends Seeder
      */
     public function run()
     {
+       DB::table('pricing')->truncate();
        DB::table('pricing')->insert([
             [
                 'membership_id' => '1',  // Platinum
                 'frequency' => 'Fixed',
                 'days' => '1',
-                'price' => 34.00,
-                'percentage' => 6.25,
-                'discount_amount' => 31.88,
+                'price' => 10.00,
+                'percentage' => 6.50,
+                'discount_amount' => 9.35,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -30,9 +31,9 @@ class PricingSeeder extends Seeder
                 'membership_id' => '2',  // Gold
                 'frequency' => 'Fixed',
                 'days' => '1',
-                'price' => 5.00,
+                'price' => 6.00,
                 'percentage' => 5.00,
-                'discount_amount' => 4.75,
+                'discount_amount' => 5.70,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
@@ -58,6 +59,16 @@ class PricingSeeder extends Seeder
             ],
             [
                 'membership_id' => '5',  // Pin-Up
+                'frequency' => 'Fixed',
+                'days' => '2',
+                'price' => 475.00,
+                'percentage' => 0.00,
+                'discount_amount' => 475.00,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'membership_id' => '6',  // Bump-Up
                 'frequency' => 'Fixed',
                 'days' => '2',
                 'price' => 475.99,

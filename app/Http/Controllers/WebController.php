@@ -94,7 +94,21 @@ class WebController extends Controller
                 $query = $query->whereNotIn('id',$blockedProfileForViewersIds);
             }
         }
+        $query->with(['currentActivePinup','activeBumpup']);
 
+        $query->withMax(['activeBumpup as bump_start' => function ($q) {
+            $q->select('utc_start_time');
+        }], 'utc_start_time')
+        ->orderByRaw('bump_start IS NULL')
+        ->orderByDesc('bump_start');
+
+        $query->withMax(['currentActivePinup as pinup_start' => function ($q) {
+            $q->select('utc_start_time');
+        }], 'utc_start_time')
+        ->orderByRaw('pinup_start IS NULL')
+        ->orderByDesc('pinup_start');
+        
+        $query->orderBy('utc_start_time','desc');
         # Search escort by search button on the bases on radio button with search icon
         if(isset($str['search_by_radio']) && ($str['search_by_radio'] == '1' || $str['search_by_radio'] == 1))
         {
@@ -124,7 +138,6 @@ class WebController extends Controller
             {
                 $query->where('state_id','=',$str['lat_state']);
             }
-
             return $query;
         }
 
@@ -418,7 +431,6 @@ class WebController extends Controller
             $silver = $silver->where('membership', $str['membership_type']);
             $free = $free->where('membership', $str['membership_type']);    
         }
-        
         $merged = $platinum->concat($gold)->concat($silver);
 
          $merged = $merged->map(function($item, $key) {
@@ -624,6 +636,7 @@ class WebController extends Controller
 
         $escorts = $escorts->map(function($item, $key) {
             # get star rating on the bases on like and unlike
+
             $total = EscortLike::where('escort_id',$item->id)->count();
             if($total > 0) {
                 $likeCount = EscortLike::where('like',1)->where('escort_id',$item->id)->count();
@@ -652,6 +665,11 @@ class WebController extends Controller
             return $item;
         })->collect();
 
+        $memberTotalCount[1] =  $escorts->where('membership', '1')->count(); // platinum
+        $memberTotalCount[2] =  $escorts->where('membership', '2')->count(); // gold
+        $memberTotalCount[3] =  $escorts->where('membership', '3')->count(); // silver
+        $memberTotalCount[4] =  $escorts->where('membership', '4')->count(); // free
+
         // if(request()->has('list') || request()->get('view_type') == 'list'){
         //     $backToListing = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToListing);
         // }else{
@@ -660,7 +678,7 @@ class WebController extends Controller
         //dd($all_services_tag);
         // dd($escorts);
         //dd($escorts->items()[1]->where(8));
-        return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts','backToListing','radio_location_filter','all_services_tag','defaultViewType'));
+        return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts','backToListing','radio_location_filter','all_services_tag','defaultViewType','memberTotalCount'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
 

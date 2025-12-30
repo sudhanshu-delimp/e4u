@@ -1,3 +1,9 @@
+@if(global_notifications())
+    @foreach(global_notifications() as $notification)
+        <x-global_frontend.global-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" />
+    @endforeach
+@endif
+
 <nav class="navbar navbar-expand-lg navbar-light main_bg_color py-3 custom--header">
     <div class="container-fluid manage_header_padding justify-content-center position-relative custom--header">
         <a class="navbar-brand" href="{{ route('home') }}">
