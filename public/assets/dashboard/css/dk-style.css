@@ -257,6 +257,26 @@ span.menu-active {
     border: none;
 }
 
+.brb-btn {
+    background-color: var(--peach);
+    color: var(--white);
+    padding: 10px;
+    border-radius: 5px;    
+    border: 1px solid var(--peach);
+}
+
+.brb-btn:hover, .btn-bump-up:hover {
+    color: #fff;
+    background-color: #0c223dcf;
+    border: 1px solid #0c223dcf;
+
+    text-decoration: none;   
+}
+.btn-bump-up{    
+    background-color: #36b9cc;
+    border-color: #36b9cc;
+    color: #fff;
+}
 .btn-cancel-modal:hover {
     background-color: #d82546 !important;
 }

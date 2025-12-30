@@ -91,12 +91,12 @@
                             <div>
                                 <div class="add--list listingActionButtons">
                                 <div class="">
-                                <button style="padding: 10px;" class="btn btn-info custom-btn-info" data-toggle="modal"
+                                <button class="btn brb-btn" data-toggle="modal"
                                     data-target="#add_brb" id="btn_add_brb">Add BRB</button>
                                 <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                     data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
                                 <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
-                                <button style="padding: 10px;" class="btn btn-info" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  </button>
+                                <button style="padding: 10px;" class="btn btn-bump-up" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  </button>
                                     
                             </div>
                                 <div class="pinup-tooltip-wrapper">
