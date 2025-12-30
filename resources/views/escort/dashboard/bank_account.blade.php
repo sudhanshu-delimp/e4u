@@ -192,11 +192,13 @@
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
                <ol>
                   <li>Use this feature for displaying your Bank Account details for an Electronic
-                     Funds Transfer <b>(EFT) </b>. By using this feature for an EFT payment, you
-                     remove the risk of having your bank account app open.</li>
-                  <li>You can set up, update and add additional bank accounts by clicking the
-                     'Add New Account' button. SMS 2FA authentication is applied for any changes to Close your Bank Account details, including the initial setup.</li>
-                  <li>To display your Bank Account details, enter your PIN number.</li>
+                     Funds Transfer <b>(EFT)</b>. By using this feature for an EFT payment, you remove
+                     the risk of having your bank account app open</li>
+                  <li>You can set up, update and add additional bank accounts by clicking the 'Add
+                     New' button. SMS 2FA authentification is applied for any changes to your Bank
+                     Account details, including the initial setup.</li>
+                  <li>To display your Bank Account details to a client, select from the Action options
+‘EFT Client’, enter your PIN number, and your bank account details will display.</li>
                </ol>
             </div>
          </div>
