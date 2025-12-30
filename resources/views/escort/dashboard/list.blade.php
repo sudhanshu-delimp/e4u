@@ -111,7 +111,8 @@
                             </div>
                             <br>
                         @endif
-                        <table class="table table-hover" id="sailorTable">
+                        <div class="table-responsive">
+                            <table class="table w-100" id="sailorTable">
                             <thead id="table-sec" class="table-bg">
                                 <tr>
                                     <th>ID</th>
@@ -128,6 +129,8 @@
                                 </tr>
                             </thead>
                         </table>
+                        </div>
+                        
                         <div>
                         </div>
                     </div>

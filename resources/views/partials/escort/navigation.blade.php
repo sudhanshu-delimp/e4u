@@ -18,7 +18,9 @@
                 </span>
                 <span>
                     <span class="separator">|</span> <b>Membership ID : </b><span
-                        class="user-values">{{ auth()->user()->member_id }}</span>
+                        class="user-values">
+                        {{ auth()->user()->member_id }}
+                    </span>
                 </span>
                 <span>
                     <span class="separator">|</span> <b>My Agent : </b>
