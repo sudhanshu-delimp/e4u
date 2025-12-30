@@ -1576,7 +1576,7 @@
          }
          
          
-         var url = "{{ route('massage.checkOTP')}}";
+         var url = "{{ route('escort.checkOTP')}}";
  
          var phone = data.phone;
          var token = $('input[name="_token"]').attr('value');

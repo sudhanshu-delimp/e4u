@@ -168,7 +168,7 @@ class EscortAccountController extends Controller
             ];
  
             Mail::to(auth()->user()->email)->queue(new send2FAOtpEmail($body));
-            
+
             return response()->json([
                 'status' => $output,
                 'message' => "Hello! Your one-time user code has been sent successfully. You can ignore this text message.",
@@ -264,7 +264,6 @@ class EscortAccountController extends Controller
    
     public function checkOTP(Request $request)
     {
- 
         $data = $request->session()->all();
  
         $error = 1;
@@ -280,6 +279,7 @@ class EscortAccountController extends Controller
         $error =true;
         $otp = $user->otp;
         $bank_data = [];
+        
  
         if(($user && $changeOtp == 1) || ($user->otp != (int)$request->otp)) {
  

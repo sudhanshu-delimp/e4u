@@ -649,7 +649,7 @@ Account details, including the initial setup.</li>
             </li>
             <li class="pl-3">Please email your payment receipt to:
                <ul class="text-left list-unstyled ">
-                  <li><a href="javascript:void(0)" id="sendMailToEscort">{{auth()->user()->email}}</a></li>
+                  <li><a href="javascript:void(0)" id="sendMailToEscort" style="color: #4e73df;">{{auth()->user()->email}}</a></li>
                </ul>
             </li>
          </ol>
