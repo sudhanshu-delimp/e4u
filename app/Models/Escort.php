@@ -193,8 +193,8 @@ class Escort extends Model
 
     public function currentActivePinup(){
         return $this->hasOne(EscortPinup::class)
-        ->where('utc_start_time', '<=', Carbon::now('UTC'))
-        ->where('utc_end_time', '>=', Carbon::now('UTC'))
+        ->where('utc_start_time', '<=', now('UTC'))
+        ->where('utc_end_time', '>=', now('UTC'))
         ->latestOfMany('utc_end_time');
     }
     

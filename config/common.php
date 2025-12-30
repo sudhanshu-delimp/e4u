@@ -30,4 +30,5 @@ return [
         '7' => 'Report a bug in the Website',
         '8' => 'Report Scammer',
     ],
+    'access_denied_suspended_msg' => env('ACCESS_DENIED_SUSPENDED_MSG', 'Your membership has been Suspended due to a Report'),
 ];

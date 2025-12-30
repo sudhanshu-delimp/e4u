@@ -17,8 +17,10 @@ use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 use App\Models\EscortStatistics;
+use App\Models\GlobalNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
@@ -1023,5 +1025,32 @@ if (!function_exists('formatAccountNumber')) {
                 // Fallback (return as-is)
                 return $number;
         }
+    }
+}
+
+
+if(!function_exists('global_notifications')){
+    function global_notifications(){
+        $today = Carbon::today();
+        $todayDate = $today->toDateString();
+        $notifications = GlobalNotification::where('status', 'Published')->where(function ($query) use ($todayDate) {
+            // Adhoc notifications valid for today
+            $query->where('type', 'Ad hoc')
+                ->where('start_date', '<=', $todayDate)
+                ->where('end_date', '>=', $todayDate);
+
+            // Notice notifications valid for today with matching member_id
+            $query->orWhere(function ($q) use ($todayDate) {
+                $q->where('type', 'Template')
+                    ->where('start_date', '<=', $todayDate)
+                    ->where('end_date', '>=', $todayDate);
+            });
+
+
+        })->orderBy('created_at', 'desc')
+            ->select('id', 'heading', 'content', 'template_name')
+            ->get();
+
+        return $notifications;
     }
 }

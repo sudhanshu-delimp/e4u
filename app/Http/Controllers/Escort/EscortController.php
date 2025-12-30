@@ -107,6 +107,10 @@ class EscortController extends BaseController
 
     function add_listing()
     {
+        $user = auth()->user();
+        if($user->status == "Suspended"){
+             return redirect()->route('escort.dashboard')->with('info', config('common.access_denied_suspended_msg'));
+        }
         // $today = Carbon::today()->toDateString();        
         // $excludedEscortIds = DB::table('purchase')
         //     ->select('escort_id')
