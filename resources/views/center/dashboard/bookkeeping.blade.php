@@ -198,7 +198,7 @@
 Funds Transfer <b>(EFT)</b>. By using this feature for an EFT payment, you remove
 the risk of having your bank account app open.</li>
                   <li>You can set up, update and add additional bank accounts by clicking the 'Add
-New' button. SMS 2FA authentication is applied for any changes to your Bank
+New Account' button. SMS 2FA authentication is applied for any changes to your Bank
 Account details, including the initial setup.</li>
                   <li>To display your Bank Account details to a client, select from the Action options
 ‘EFT Client’, enter your PIN number, and your bank account details will display.</li>
@@ -311,7 +311,7 @@ Account details, including the initial setup.</li>
       </div>
    </div>
 </div>
-<div class="modal" id="sendOtp_modal" style="display: none">
+{{-- <div class="modal" id="sendOtp_modal" style="display: none">
    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content custome_modal_max_width">
          <form id="SendBankOtp" method="post" action="">
@@ -345,7 +345,6 @@ Account details, including the initial setup.</li>
                      <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
                   </div>
                   <span id="otpError" class="d-none"></span>
-                  {{-- <input type="password" maxlength="4"  required class="form-control" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required"> --}}
                   <div class="termsandconditions_text_color">
                      @error('opt')
                      {{ $message }}
@@ -357,13 +356,14 @@ Account details, including the initial setup.</li>
             </div>
             <div class="modal-footer forgot_pass pt-0 pb-4 justify-content-center">
                <input type="hidden" value="0" name="change_pin_active" id="change_pin_active">
-               {{-- <button type="submit" class="btn main_bg_color site_btn_primary" id="sendOtpSubmit">Send</button> --}}
+               
                <p class="pt-2">Not received your code? <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a></p>
             </div>
          </form>
       </div>
    </div>
-</div>
+</div> --}}
+@include('modal.two-step-verification')
 <div class="modal programmatic" id="delete_bank" style="display: none">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content custome_modal_max_width">
@@ -446,7 +446,7 @@ Account details, including the initial setup.</li>
 
             <div class="modal-header">
                   <h5 class="modal-title">
-                     <img src="{{ asset('assets/dashboard/img/payer.png') }}" style="width:40px; padding-right:10px;" class="modal_title_img">PayID for Member ID 
+                     <img src="{{ asset('assets/dashboard/img/payer.png') }}" style="width:40px; padding-right:10px;" class="modal_title_img">PayID for {{auth()->user()->member_id}} 
                   </h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">
@@ -484,7 +484,7 @@ Account details, including the initial setup.</li>
                   <div class="info-row">
                      <span class="label">1.&nbsp;&nbsp; PayID Number</span>
                      <span class="value">
-                     {{ auth()->user()->pay_id_no ? formatAccountNumber(auth()->user()->pay_id_no ,null) : 'N/A' }}
+                     {{ auth()->user()->pay_id_no ? formatAccountNumber(auth()->user()->pay_id_no ,'bsb') : 'N/A' }}
                      </span>
                   </div>
  
@@ -830,6 +830,7 @@ Account details, including the initial setup.</li>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
    var existingPin = "{{ auth()->user()->user_bank_pin }}";
+   var isAccountAdded2FA = false;
    $(document).ready(function(){
 
       //$('#EnterPinModal').modal('show');
@@ -1242,6 +1243,8 @@ Account details, including the initial setup.</li>
          //////// Saving Conditions //////////////////////
          if(bankId == '')
          {
+               data.append('isbankAccountAdded', '1');
+               isAccountAdded2FA = true;
                if((is_primary_bank_acc != '1' || is_primary_bank_acc != 1) && state == '2')
                {
                   Swal.fire({
@@ -1349,7 +1352,8 @@ Account details, including the initial setup.</li>
          }
          else
          {
-               
+               data.append('isbankAccountAdded', '0');
+               isAccountAdded2FA = false;
                ////// Save at its normally ///////////
                if(previous_state==state)
                {
@@ -1456,12 +1460,13 @@ Account details, including the initial setup.</li>
          
       })
 
-      function submitFormByAjax(form, url, data, table) 
+      function submitFormByAjax(form, url, payloadData, table) 
       {
+         
          $.ajax({
             method: form.attr('method'),
             url: url,
-            data: data,
+            data: payloadData,
             contentType: false,
             processData: false,
             headers: {
@@ -1471,9 +1476,23 @@ Account details, including the initial setup.</li>
                
                if (data.error == false) {
                   // if(data.id != null) {
-                  $("#otp").val('');
-                  $("#sendOtp_modal").modal('show'); //
-                  $("#commission-report").modal('hide');
+                  // by pass the otp modal for adding case 
+                  if(data.isbankAccountAdded == '1'){
+                     $('#otp').val(data.otp);
+                     // bypass otp during adding bank account
+                     sendOtpAjaxSubmit();
+                     // $("#sendOtpSubmit").submit();
+                     $("#commission-report").modal('hide');
+                     return true
+                  }else{
+                     $("#otp").val('');
+                     
+                     $("#sendOtp_modal").modal('show'); //
+                     $("#commission-report").modal('hide');
+                     send2FAotp();
+                  }
+                  
+                  
                   
                } else {
                   
@@ -1489,10 +1508,9 @@ Account details, including the initial setup.</li>
          })
       }
 
-      $(document).on('click', "#change_pin_modal", function(e)
+      // use for change pin and resend otp
+      function send2FAotp() 
       {
-         isChangePin = true;
-         isBankAccountChanged = false;
          var token = $('input[name="_token"]').attr('value');
          $.ajax({
             url: "{{route('center.send-otp-for-pin-change')}}",
@@ -1505,8 +1523,8 @@ Account details, including the initial setup.</li>
             },
             success: function(data) {
                if(data.status){
-                  $("#sendOtp_modal").modal('show');
-                  $("#change_pin_active").val('1');
+                  //$("#sendOtp_modal").modal('show');
+                  //$("#change_pin_active").val('1');
                }
             },
             error: function(data) {
@@ -1515,9 +1533,19 @@ Account details, including the initial setup.</li>
                
             }
          });
+      }
+
+      $(document).on('click', "#change_pin_modal", function(e)
+      {
+         isChangePin = true;
+         isBankAccountChanged = false;
+         $("#sendOtp_modal").modal('show');
+         $("#change_pin_active").val('1');
+         send2FAotp() ;
 
       });
 
+      // use for massage center 
       function sendOtpPin(params) 
       {
          var url = "{{ route('massage.checkOTP')}}";
@@ -1562,21 +1590,24 @@ Account details, including the initial setup.</li>
          }
       });
 
-      $("body").on("click", "#sendOtpSubmit", function(e) {
-        e.preventDefault();
-
-        if (!$('#otp').val().trim()) {
-            showOtpError();
-            return false;
-         }
-
-         let form = $("#SendBankOtp")[0];
+      function sendOtpAjaxSubmit() 
+      {
+          // let form = $("#SendBankOtp")[0];
+         let form = $("#SendOtp")[0];
          let data = new FormData(form);
+
+         if(isAccountAdded2FA = true){
+            data.append('isbankAccountAdded', '1');
+         }else{
+            data.append('isbankAccountAdded', '0');
+         }
+         
          
          var url = "{{ route('massage.checkOTP')}}";
 
          var phone = data.phone;
          var token = $('input[name="_token"]').attr('value');
+         
 
          $.ajax({
             url: url,
@@ -1670,6 +1701,18 @@ Account details, including the initial setup.</li>
                $('#senderror').html(errorsHtml);
             }
          });
+      }
+
+      $("body").on("click", "#sendOtpSubmit", function(e) {
+        e.preventDefault();
+
+        if (!$('#otp').val().trim()) {
+            showOtpError();
+            return false;
+         }
+
+         sendOtpAjaxSubmit();
+        
 
       });
 
@@ -1782,6 +1825,30 @@ Account details, including the initial setup.</li>
    $(document).on('click', '.closeMe', function () {
       $('.bank-details-container').removeClass('blurred');
    });
+
+   $(document).on('click', "#resendOtpSubmit", function(e){
+         var token = $('input[name="_token"]').attr('value');
+         $.ajax({
+            url: "{{route('center.send-otp-for-pin-change')}}",
+            type: 'POST',
+           
+            dataType: "JSON",
+           
+            headers: {
+               'X-CSRF-Token': token
+            },
+            success: function(data) {
+               if(data.status){
+                  $("#change_pin_active").val('1');
+               }
+            },
+            error: function(data) {
+ 
+               console.log("error otp: ", data.responseJSON.errors);
+               
+            }
+         });
+      });
    
 </script>
 @endpush
