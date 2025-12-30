@@ -251,7 +251,7 @@
                                                             <div class="form-group">
                                                                 <label for="PayID Number">PayID Number</label>
                                                                 <input type="text" class="form-control" name="paID_no"
-                                                                    placeholder="Insert your PayID Number" value="{{ $escort->pay_id_no ?? ''}}">
+                                                                    placeholder="Insert your PayID Number" value="{{ formatAccountNumber($escort->pay_id_no, 'bsb') }}">
                                                             </div>
                                                         </div>
                                                     </div>

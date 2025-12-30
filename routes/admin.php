@@ -425,6 +425,37 @@ Route::get('/notifications/shareholders',function(){
 //     return view('admin.notifications.global');
 // })->name('admin.global');
 
+
+
+
+// ye Operation Management Notification hai administration kanhi 
+
+Route::get('/management/notifications/global-notifications',function(){
+    return view('admin.management.notifications.global.index');
+})->name('admin.global-notifications');
+
+Route::get('/management/notifications/agents-notifications',function(){
+    return view('admin.management.notifications.agents.index');
+})->name('admin.agents-notifications');
+
+Route::get('/management/notifications/escorts-notifications',function(){
+    return view('admin.management.notifications.escorts.index');
+})->name('admin.escorts-notifications');
+
+Route::get('/management/notifications/centres-notifications',function(){
+    return view('admin.management.notifications.centres.index');
+})->name('admin.centres-notifications');
+
+Route::get('/management/notifications/shareholders-notifications',function(){
+    return view('admin.management.notifications.shareholders.index');
+})->name('admin.shareholders-notifications');
+
+Route::get('/management/notifications/viewers-notifications',function(){
+    return view('admin.management.notifications.viewers.index');
+})->name('admin.viewers-notifications');
+
+// end
+
 ################### PDF ###################
 Route::post('/generate-agent-info-pdf', [AgentPdfController::class, 'generate_agent_info_pdf'])->name('admin.generate-agent-info-pdf');
 

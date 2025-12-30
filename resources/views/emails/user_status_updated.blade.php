@@ -225,7 +225,7 @@
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
                                         <h1 style="margin: 0;font-size: 22px;">E4U Membership - {{$statusName}} </h1>
-                                        <h3style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
+                                        <h3 style="margin: 0;font-size: 22px;">Member ID: {{$user->member_id}}</h3>
                                     </td>
                                 </tr>
                             </table>
