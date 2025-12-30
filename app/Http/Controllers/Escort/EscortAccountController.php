@@ -16,6 +16,7 @@ use App\Models\EscortBankDetail;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use App\Mail\send2FAOtpEmail;
 use App\Sms\SendSms;
 use App\Models\PasswordSecurity;
 use App\Models\User;
@@ -159,6 +160,15 @@ class EscortAccountController extends Controller
             $sendotp = new SendSms();
             $output = $sendotp->send($phone,$msg);
             $user_id = $user->id;
+             $body = [
+                'name' => auth()->user()->name,
+                'member_id' => auth()->user()->member_id,
+                'pin' => $otp,
+                'subject' => '2FA Verification OTP',
+            ];
+ 
+            Mail::to(auth()->user()->email)->queue(new send2FAOtpEmail($body));
+
             return response()->json([
                 'status' => $output,
                 'message' => "Hello! Your one-time user code has been sent successfully. You can ignore this text message.",
@@ -180,13 +190,15 @@ class EscortAccountController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function generateOTP(){
-        $otp = mt_rand(1000,9999);
+        $otp = mt_rand(100000,999999);
         return $otp;
     }
+
     public function saveBankDetails(StoreEscortBankDetailRequest $request ,$id = null)
     {
         //dd($request->all());
         $value = $request->all();
+                                                                                                                                                                                       
         session($value);
         $error = false;
         $user = auth()->user();
@@ -198,8 +210,9 @@ class EscortAccountController extends Controller
         $sendotp = new SendSms();
         $output = $sendotp->send($phone,$msg);
         $user_id = $user->id;
-
-        return response()->json(compact('error','phone','otp'));
+        $isbankAccountAdded = (string)$request->isbankAccountAdded;
+ 
+        return response()->json(compact('error','phone','otp','isbankAccountAdded'));
 
         // $data = [];
         // $data = [
@@ -251,12 +264,12 @@ class EscortAccountController extends Controller
    
     public function checkOTP(Request $request)
     {
- 
         $data = $request->session()->all();
  
         $error = 1;
  
         $user = auth()->user();
+        $isbankAccountAdded = (string)$request->isbankAccountAdded;
  
         $changeOtp = (isset($request->change_pin_active) && (int)$request->change_pin_active == 1) ? $request->change_pin_active : 0;
  
@@ -266,6 +279,7 @@ class EscortAccountController extends Controller
         $error =true;
         $otp = $user->otp;
         $bank_data = [];
+        
  
         if(($user && $changeOtp == 1) || ($user->otp != (int)$request->otp)) {
  
@@ -352,7 +366,7 @@ class EscortAccountController extends Controller
                 // }
             }
             $request->session()->flash('status', 'Task was successful!');
-            return response()->json(compact('error','bank_data','changePin','otp'));
+            return response()->json(compact('error','bank_data','changePin','otp','isbankAccountAdded'));
             //return $this->sendLoginResponse($request);
         } else {
             //return response()->json(compact('error','phone','otp','status','changePin'));
@@ -582,7 +596,7 @@ class EscortAccountController extends Controller
                 'member_id' => auth()->user()->member_id,
                 'bsb' => $request->bsb,
                 'account_number' => $request->account_number,
-                'subject' => 'Bank payment receipt',
+                'subject' => 'Bank Payment Receipt',
             ];
  
             Mail::to(auth()->user()->email)->queue(new sendBookeepingEscortBankPaymentReceipt($body));

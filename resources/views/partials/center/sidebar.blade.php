@@ -287,13 +287,40 @@
                     </div>
                 </div>
                 {{-- Bookkeeping --}}
-                <a class="nav-link collapsed {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
+                {{-- <a class="nav-link collapsed {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
                     href="{{ route('center.bookkeeping') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/bookshelf.png') }}">
                     <span>
                         Bookkeeping
                     </span>
+                </a> --}}
+
+                  <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                    data-target="#ManagementBookkeeping">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/bookshelf.png') }}">
+                    <span>Bookkeeping</span>
                 </a>
+ 
+                <div id="ManagementBookkeeping"
+                    class="collapse
+                    @if (in_array(request()->segment(2), ['bookkeeping'])) show @endif"
+                    data-parent="#AdminTab">
+ 
+                    <a class="collapse-item {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
+                    href="{{ route('center.bookkeeping') }}">
+                        <img src="{{ asset('assets/app/img/sales-performance.png') }}">
+                        <span>Bank Account</span>
+                    </a>
+                    {{-- <a class="collapse-item {{ request()->segment(2) == 'credit-my-account' ? 'menu-active' : '' }}"
+                        href="{{ url('escort-dashboard/credit-my-account') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
+                        <span>Add Credit</span>
+                    </a>
+                    <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
+                        href="{{ url('escort-dashboard/transaction-summary') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
+                        <span>Transaction Summary</span></a> --}}
+                </div>
 
                 {{-- Communication --}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"

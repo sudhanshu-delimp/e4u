@@ -37,6 +37,9 @@
         .fiter_btns select {
             text-transform: capitalize;
         }
+        .swal2-popup{
+            width: auto !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -815,6 +818,13 @@
 @push('scripts')
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script>
+
+    window.authUser = {
+        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+        myLegboxDisabled: {{ auth()->check() && auth()->user()->features_enable_my_legbox == 0 ? 'true' : 'false' }}
+    };
+
+
         $(function() {
             var list = $('.js-dropdown-list');
             var link = $('.js-link');
@@ -1078,6 +1088,14 @@
             });
         });
         $(document).on('click', '.add_to_favrate', function() {
+
+
+            if (window.authUser.myLegboxDisabled) {
+                swal_error_warning('My Legbox','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
+                return false;
+            }
+
+
             var Eid = $(this).attr('data-escortId');
             var Uid = $(this).attr('data-userId');
             var cidcl = $(this).attr('class');
