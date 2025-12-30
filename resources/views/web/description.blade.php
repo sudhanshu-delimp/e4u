@@ -1351,9 +1351,9 @@
             <div class="col-md-12 mb-4">
             @if(auth()->user())
                     @if(auth()->user()->type == 0)
-                        <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                        <button type="button" class="btn add_reviews_btn all_btn_flx open_review_box">
                             <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                            Add Review
+                            Add Reviews
                         </button>
                     @endif
                 @else
@@ -2035,8 +2035,12 @@ $('#review-submitted-popup .close').on('click', function() {
 
     window.authUser = {
         isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
-        myLegboxDisabled: {{ auth()->check() && auth()->user()->features_enable_my_legbox == 0 ? 'true' : 'false' }}
+        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings->features_enable_my_legbox == 0 ? 'true' : 'false' }},
+        write_reviews_disable: {{ auth()->check() && auth()->user()->viewer_settings->features_write_reviews == 0 ? 'true' : 'false' }}
     };
+
+    console.log('window.authUser.write_reviews_disable',window.authUser.write_reviews_disable);
+
 
     $(document).ready(function () {
 
@@ -2094,6 +2098,19 @@ $('#review-submitted-popup .close').on('click', function() {
         $('.tab2').hide();
         $('.tab3').show();
     });
+
+
+
+     $(document).on('click', '.open_review_box', function (e) {
+        e.preventDefault();
+       if (window.authUser.write_reviews_disable) {
+            swal_error_warning('Reviews','Writing reviews is currently disabled. <br> To access this feature, go to your setting in My Account.');
+            return false;
+        } else {
+            $('#add_reviews').modal('show');
+        }
+    });
+
 
 
     $(document).on('click', '#legbox_btn', function () {
