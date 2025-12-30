@@ -10340,20 +10340,24 @@ button:disabled {
     cursor: pointer;
 }
 
-.listing-tag-tooltip .listing-tag-tooltip-desc {
+.social_media_modal .input-group-text {
+    padding: 0px 5px !important;
+}
+
+s .listing-tag-tooltip .listing-tag-tooltip-desc {
     position: absolute;
     top: 22px;
     left: 0px;
     opacity: 0;
     background: var(--blue--text);
-    font-size: 10px;
+    font-size: 11px;
     padding: 10px;
     border-radius: 4px;
     z-index: 1;
     opacity: 0;
     transition: opacity 0.3s ease;
     color: #fff;
-    font-weight: 300;
+    font-weight: 400;
     width: max-content;
 }
 

@@ -822,7 +822,7 @@
                         </a>
                         <div id="operatorMenu" class="collapse @if (in_array(request()->segment(3), ['monthly-fee-reports', 'commission-summary', 'operator-manage'])) show @endif"  data-parent="#Management">
                             <a class="collapse-item" href="{{ route('admin.monthly-fee-reports') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/report.png') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'monthly-fee-reports' ? 'color: #FF3C5F;' : '' }}">Monthly
                                     Fee Reports</span>
