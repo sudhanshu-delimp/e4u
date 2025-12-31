@@ -600,9 +600,13 @@ Route::get('/management/email-management', function () {
     return view('admin.management.email-management');
 })->name('admin.email-management');
 
-Route::get('/management/advertiser-templates', function () {
-    return view('admin.management.cms.advertiser-templates');
-})->name('admin.advertiser-templates');
+Route::get('/management/escorts-templates', function () {
+    return view('admin.management.cms.escorts-templates');
+})->name('admin.escorts-templates');
+
+Route::get('/management/centres-templates', function () {
+    return view('admin.management.cms.centres-templates');
+})->name('admin.centres-templates');
 
 Route::get('/management/operator-templates', function () {
     return view('admin.management.cms.operator-templates');

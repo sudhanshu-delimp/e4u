@@ -306,22 +306,24 @@
                                 <span
                                     style="{{ request()->segment(3) == 'agents' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Agents</span>
                             </a>
+                            {{-- centres --}}
+                            <a href="{{ route('admin.centres.notifications.index') }}" class="collapse-item">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/c-notification.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'centres' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Centres</span>
+                            </a>
 
                             {{-- escorts --}}
+
+                            
 
                             <a href="{{ route('admin.escort.notifications.index') }}" class="collapse-item">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/e-notification.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'escort' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Escorts</span>
                             </a>
-                            {{-- centres --}}
-                            <a href="{{ route('admin.centres.notifications.index') }}" class="collapse-item">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/c-notification.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'centres' || request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Massage
-                                    Centres</span>
-                            </a>
-                            {{-- centres --}}
+
+                            {{-- Shareholders --}}
                             <a href="{{ route('admin.shareholders') }}" class="collapse-item">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/profit.png') }}">
                                 <span style="{{ request()->segment(3) == 'shareholders' ? 'color: #FF3C5F;' : '' }}">Shareholders</span>
@@ -520,7 +522,7 @@
                 <div id="Management" class="collapse @if (in_array(request()->segment(3), [
                         'email-management',
                         'sim-management',
-                        'advertiser-templates',
+                        'escorts-templates','centres-templates',
                         'e4u-templates',
                         'agent-templates',
                         'operator-templates',
@@ -560,7 +562,7 @@
                         'application',
                         'revision',
                         'security',
-                    ]) || in_array(request()->segment(4), ['global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications'])) show @endif"
+                    ]) || in_array(request()->segment(4), ['legal','community','other','about','concierge','global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications'])) show @endif"
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
                     <div class="py-0 collapse-inner rounded mb-2">
@@ -574,13 +576,13 @@
                             class="collapse @if (in_array(request()->segment(3), ['agent', 'agents-monthly-report'])) show @endif" data-parent="#Management">
 
                             <a class="collapse-item" href="{{ route('admin.agent') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/manage-agents.png') }}">
                                 <span style="{{ request()->segment(3) == 'agent' ? 'color: #FF3C5F;' : '' }}">Manage
                                     Agents</span>
                             </a>
 
                             <a class="collapse-item" href="{{ route('admin.agents-monthly-report') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'agents-monthly-report' ? 'color: #FF3C5F;' : '' }}">Monthly
                                     Report</span>
@@ -597,54 +599,196 @@
 
                         <div id="CMSMenu"
                            class="collapse @if (in_array(request()->segment(3), [
-                                'advertiser-templates',
+                                'escorts-templates',
                                 'e4u-templates',
                                 'agent-templates',
                                 'operator-templates',
                                 'shareholder-templates',
-                                'viewer-templates',
-                            ]) || in_array(request()->segment(4), [
+                                'viewer-templates','centres-templates'
+                            ]) || in_array(request()->segment(4), ['legal','community','other','about','concierge',
                              'global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications'
                             ])) show @endif"
                             data-parent="#Management">
 
-                            <!-- Email -->
+                           
+                            <!-- Footer -->
+
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Footer"
+                                aria-expanded="false" aria-controls="Footer">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/footer.png') }}">
+                                <span>Footer</span>
+                            </a>
+                            <div id="Footer" class="collapse @if (in_array(request()->segment(4), ['other','legal','community'])) show @endif" data-parent="#CMSMenu">
+
+                                <div class="py-0 collapse-inner rounded mb-2">
+                                    {{-- Community --}}
+
+                                    <a href="" class="collapse-item">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/com.png') }}">
+                                        <span
+                                            style="{{ request()->segment(4) == 'community' ? 'color: #FF3C5F;' : '' }}">Community</span>
+                                    </a>
+                                    {{-- Legal --}}
+                                    <a href="" class="collapse-item">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/legal.png') }}">
+                                        <span
+                                            style="{{ request()->segment(4) == 'legal' ? 'color: #FF3C5F;' : '' }}">Legal</span>
+                                    </a>
+                                    
+                                    {{-- Other --}}
+
+                                    <a href="" class="collapse-item">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/others.png') }}">
+                                        <span
+                                            style="{{ request()->segment(4) == 'other' ? 'color: #FF3C5F;' : '' }}">Other</span>
+                                    </a>
+
+
+                                </div>
+                            </div>
+                            <!-- end -->  
+
+                            <!-- Header -->
+
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Header"
+                                aria-expanded="false" aria-controls="Header">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/header.png') }}">
+                                <span>Header</span>
+                            </a>
+                            <div id="Header" class="collapse @if (in_array(request()->segment(4), ['about','concierge'])) show @endif" data-parent="#CMSMenu">
+
+                                <div class="py-0 collapse-inner rounded mb-2">
+                                    {{-- Legal --}}
+                                    <a href="" class="collapse-item">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/information.png') }}">
+                                        <span
+                                            style="{{ request()->segment(4) == 'about' ? 'color: #FF3C5F;' : '' }}">About</span>
+                                    </a>
+                                    {{-- Community --}}
+
+                                    <a href="" class="collapse-item">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/package-variant-closed.png') }}">
+                                        <span
+                                            style="{{ request()->segment(4) == 'concierge' ? 'color: #FF3C5F;' : '' }}">Concierge</span>
+                                    </a>
+                                    
+
+                                </div>
+                            </div>
+                            <!-- end -->  
+
+
+                            
+                            <!-- Notification -->
+
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#OMnotification"
+                                aria-expanded="false" aria-controls="OMnotification">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/global-notification.png') }}">
+                                <span>Notifications<!----></span>
+                            </a>
+                            <div id="OMnotification" class="collapse @if (in_array(request()->segment(4), ['global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications'])) show @endif" data-parent="#CMSMenu">
+
+                                <div class="py-0 collapse-inner rounded mb-2">
+                                    {{-- global --}}
+                                    <a href="{{ route('admin.global-notifications') }}" class="collapse-item">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/g-notification.png') }}">
+                                        <span
+                                            style="{{ request()->segment(4) == 'global-notifications' ? 'color: #FF3C5F;' : '' }}">Global</span>
+                                    </a>
+                                    {{-- agents --}}
+
+                                    <a href="{{ route('admin.agents-notifications') }}" class="collapse-item">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/agent.png') }}">
+                                        <span
+                                            style="{{ request()->segment(4) == 'agents-notifications' ? 'color: #FF3C5F;' : '' }}">Agents</span>
+                                    </a>
+
+                                    {{-- escorts --}}
+
+                                    <a href="{{ route('admin.escorts-notifications') }}" class="collapse-item">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/e-notification.png') }}">
+                                        <span
+                                            style="{{ request()->segment(4) == 'escorts-notifications' ? 'color: #FF3C5F;' : '' }}">Escorts</span>
+                                    </a>
+
+                                    {{-- centres --}}
+
+                                    <a href="{{ route('admin.centres-notifications') }}" class="collapse-item">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/c-notification.png') }}">
+                                        <span
+                                            style="{{ request()->segment(4) == 'centres-notifications' ? 'color: #FF3C5F;' : '' }}">Massage Centres</span>
+                                    </a>
+
+                                    {{-- Shareholders --}}
+                                    
+                                    <a href="{{ route('admin.shareholders-notifications') }}" class="collapse-item">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/profit.png') }}">
+                                        <span
+                                            style="{{ request()->segment(4) == 'shareholders-notifications' ? 'color: #FF3C5F;' : '' }}">Shareholders</span>
+                                    </a>
+
+                                    {{-- viewers --}}
+                                    <a href="{{ route('admin.viewers-notifications') }}" class="collapse-item">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/v-notification.png') }}">
+                                        <span
+                                            style="{{ request()->segment(4) == 'viewers-notifications' ? 'color: #FF3C5F;' : '' }}">Viewers</span>
+                                    </a>
+
+                                    
+
+
+                                </div>
+                            </div>
+                            <!-- end -->    
+
+                             <!-- Email -->
                             <a class="nav-link collapsed" href="#" data-toggle="collapse"
                                 data-target="#CMSEmailMenu" aria-expanded="false">
                                     <img src="{{ asset('assets/dashboard/img/menu-icon/email-manage.png') }}">
-                                    <span>Email</span>
+                                    <span>System Email</span>
                                 </a>
 
                             <div id="CMSEmailMenu"
                                 class="collapse @if (in_array(request()->segment(3), [
-                                    'advertiser-templates',
+                                    'escorts-templates',
                                     'e4u-templates',
                                     'agent-templates',
                                     'operator-templates',
                                     'shareholder-templates',
-                                    'viewer-templates',
+                                    'viewer-templates','centres-templates'
                                 ])) show @endif"
                                     data-parent="#CMSMenu">
-
-                                <a class="collapse-item" href="{{ route('admin.advertiser-templates') }}">
-                                    <img width="16" height="17"
-                                        src="{{ asset('assets/dashboard/img/menu-icon/emailhosting.png') }}">
-                                    <span
-                                        style="{{ request()->segment(3) == 'advertiser-templates' ? 'color: #FF3C5F;' : '' }}">Advertiser</span>
-                                </a>
-
-                                <a class="collapse-item" href="{{ route('admin.agent-templates') }}">
-                                    <img width="16" height="17"
-                                        src="{{ asset('assets/dashboard/img/menu-icon/emailhosting.png') }}">
-                                    <span
-                                        style="{{ request()->segment(3) == 'agent-templates' ? 'color: #FF3C5F;' : '' }}">Agent</span>
-                                </a>
+                                
 
                                 <a class="collapse-item" href="{{ route('admin.e4u-templates') }}">
                                     <img width="16" height="17"
                                         src="{{ asset('assets/dashboard/img/menu-icon/emailhosting.png') }}">
                                     <span
                                         style="{{ request()->segment(3) == 'e4u-templates' ? 'color: #FF3C5F;' : '' }}">E4U</span>
+                                </a>
+
+                                <a class="collapse-item" href="{{ route('admin.agent-templates') }}">
+                                    <img width="16" height="17"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/emailhosting.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'agent-templates' ? 'color: #FF3C5F;' : '' }}">Agents</span>
+                                </a>
+                                
+                                <a class="collapse-item" href="{{ route('admin.escorts-templates') }}">
+                                    <img width="16" height="17"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/emailhosting.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'escorts-templates' ? 'color: #FF3C5F;' : '' }}">Escorts</span>
+                                </a>
+                                
+                                <a class="collapse-item" href="{{ route('admin.centres-templates') }}">
+                                    <img width="16" height="17"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/emailhosting.png') }}">
+                                    <span
+                                        style="{{ request()->segment(3) == 'centres-templates' ? 'color: #FF3C5F;' : '' }}">Centres</span>
                                 </a>
 
                                 <a class="collapse-item" href="{{ route('admin.operator-templates') }}">
@@ -658,80 +802,17 @@
                                     <img width="16" height="17"
                                         src="{{ asset('assets/dashboard/img/menu-icon/emailhosting.png') }}">
                                     <span
-                                        style="{{ request()->segment(3) == 'shareholder-templates' ? 'color: #FF3C5F;' : '' }}">Shareholder</span>
+                                        style="{{ request()->segment(3) == 'shareholder-templates' ? 'color: #FF3C5F;' : '' }}">Shareholders</span>
                                 </a>
 
                                 <a class="collapse-item" href="{{ route('admin.viewer-templates') }}">
                                     <img width="16" height="17"
                                         src="{{ asset('assets/dashboard/img/menu-icon/emailhosting.png') }}">
                                     <span
-                                        style="{{ request()->segment(3) == 'viewer-templates' ? 'color: #FF3C5F;' : '' }}">Viewer</span>
+                                        style="{{ request()->segment(3) == 'viewer-templates' ? 'color: #FF3C5F;' : '' }}">Viewers</span>
                                 </a>
 
                             </div>
-
-                            <!-- Notification -->
-
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#OMnotification"
-                        aria-expanded="false" aria-controls="OMnotification">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/global-notification.png') }}">
-                        <span>Notifications<!----></span>
-                    </a>
-                    <div id="OMnotification" class="collapse @if (in_array(request()->segment(4), ['global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications'])) show @endif" data-parent="#CMSMenu">
-
-                        <div class="py-0 collapse-inner rounded mb-2">
-                            {{-- global --}}
-                            <a href="{{ route('admin.global-notifications') }}" class="collapse-item">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/g-notification.png') }}">
-                                <span
-                                    style="{{ request()->segment(4) == 'global-notifications' ? 'color: #FF3C5F;' : '' }}">Global</span>
-                            </a>
-                            {{-- agents --}}
-
-                             <a href="{{ route('admin.agents-notifications') }}" class="collapse-item">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/agent.png') }}">
-                                <span
-                                    style="{{ request()->segment(4) == 'agents-notifications' ? 'color: #FF3C5F;' : '' }}">Agents</span>
-                            </a>
-
-                            {{-- escorts --}}
-
-                            <a href="{{ route('admin.escorts-notifications') }}" class="collapse-item">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/e-notification.png') }}">
-                                <span
-                                    style="{{ request()->segment(4) == 'escorts-notifications' ? 'color: #FF3C5F;' : '' }}">Escorts</span>
-                            </a>
-
-                            {{-- centres --}}
-
-                            <a href="{{ route('admin.centres-notifications') }}" class="collapse-item">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/c-notification.png') }}">
-                                <span
-                                    style="{{ request()->segment(4) == 'centres-notifications' ? 'color: #FF3C5F;' : '' }}">Massage Centres</span>
-                            </a>
-
-                            {{-- Shareholders --}}
-                            
-                            <a href="{{ route('admin.shareholders-notifications') }}" class="collapse-item">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/profit.png') }}">
-                                <span
-                                    style="{{ request()->segment(4) == 'shareholders-notifications' ? 'color: #FF3C5F;' : '' }}">Shareholders</span>
-                            </a>
-
-                            {{-- viewers --}}
-                            <a href="{{ route('admin.viewers-notifications') }}" class="collapse-item">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/v-notification.png') }}">
-                                <span
-                                    style="{{ request()->segment(4) == 'viewers-notifications' ? 'color: #FF3C5F;' : '' }}">Viewers</span>
-                            </a>
-
-                            
-
-
-                        </div>
-                    </div>
-                    <!-- end -->
 
 
                         </div>
