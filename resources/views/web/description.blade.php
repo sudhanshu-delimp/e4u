@@ -1145,6 +1145,7 @@
                 @php
                     $formattedNumber = $escort->phone;
                     $contactTypes = $escort->contact != null ? $escort->contact : '';
+                   
                 @endphp
 
                 @if($contactTypes != '')
@@ -1156,7 +1157,8 @@
                         on my number --
                     @endif
                 @else
-                    on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}.
+                    {{-- on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
+                    on my number --.
                 @endif
             </p>
 
