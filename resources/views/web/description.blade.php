@@ -2035,8 +2035,8 @@ $('#review-submitted-popup .close').on('click', function() {
 
     window.authUser = {
         isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
-        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings->features_enable_my_legbox == 0 ? 'true' : 'false' }},
-        write_reviews_disable: {{ auth()->check() && auth()->user()->viewer_settings->features_write_reviews == 0 ? 'true' : 'false' }}
+        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
+        write_reviews_disable: {{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }},
     };
 
     console.log('window.authUser.write_reviews_disable',window.authUser.write_reviews_disable);
