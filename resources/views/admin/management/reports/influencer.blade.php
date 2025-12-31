@@ -172,90 +172,262 @@
                         action=""
                         enctype="multipart/form-data">
 
-                     <div class="row social_media_modal" style="max-height: 500px; overflow:auto;">
+                     <div class="row social_media_modal" >
+                        <div class="col-lg-12" style="max-height: 500px; overflow:auto;">
+                            <div class="row">
+                                <!-- Section -->
+                                <div class="col-lg-12 my-2">
+                                    <h6 class="border-bottom pb-1 text-blue-primary">Social Media Account 1</h6>
+                                </div>
 
-                        <!-- Section -->
-                        <div class="col-12 my-2">
-                              <h6 class="border-bottom pb-1 text-blue-primary">Social Media Account 1</h6>
-                        </div>
+                                <!-- Name -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Name:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="name" id="name"
+                                            value="Monika Goswami" placeholder="Name">
+                                    </div>
+                                    <span class="text-danger error-name"></span>
+                                </div>
 
-                        <!-- Name -->
-                        <div class="col-6 mb-3">
-                              <div class="input-group">
-                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Name:</span>
-                                 </div>
-                                 <input type="text" class="form-control rounded-0"
-                                       name="name" id="name"
-                                       value="Monika Goswami" placeholder="Name">
-                              </div>
-                              <span class="text-danger error-name"></span>
-                        </div>
+                                <!-- URL Address -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">URL Address:</span>
+                                        </div>
+                                        <input type="url" class="form-control rounded-0"
+                                            name="address" id="address"
+                                            value="https://www.facebook.com"
+                                            placeholder="URL Address">
+                                    </div>
+                                    <span class="text-danger error-address"></span>
+                                </div>
 
-                        <!-- URL Address -->
-                        <div class="col-6 mb-3">
-                              <div class="input-group">
-                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">URL Address:</span>
-                                 </div>
-                                 <input type="url" class="form-control rounded-0"
-                                       name="address" id="address"
-                                       value="https://www.facebook.com"
-                                       placeholder="URL Address">
-                              </div>
-                              <span class="text-danger error-address"></span>
-                        </div>
+                                <!-- Date Joined -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Date Joined:</span>
+                                        </div>
+                                        <input type="date" class="form-control rounded-0"
+                                            name="date_joined" id="date_joined">
+                                    </div>
+                                    <span class="text-danger error-date_joined"></span>
+                                </div>
 
-                        <!-- Date Joined -->
-                        <div class="col-6 mb-3">
-                              <div class="input-group">
-                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Date Joined:</span>
-                                 </div>
-                                 <input type="date" class="form-control rounded-0"
-                                       name="date_joined" id="date_joined">
-                              </div>
-                              <span class="text-danger error-date_joined"></span>
-                        </div>
+                                <!-- Followers -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Followers:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="followers" id="followers"
+                                            value="2" placeholder="Followers">
+                                    </div>
+                                    <span class="text-danger error-followers"></span>
+                                </div>
 
-                        <!-- Followers -->
-                        <div class="col-6 mb-3">
-                              <div class="input-group">
-                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Followers:</span>
-                                 </div>
-                                 <input type="text" class="form-control rounded-0"
-                                       name="followers" id="followers"
-                                       value="2" placeholder="Followers">
-                              </div>
-                              <span class="text-danger error-followers"></span>
-                        </div>
+                                <!-- Posts -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Posts:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="posts" id="posts"
+                                            value="02" placeholder="Posts">
+                                    </div>
+                                    <span class="text-danger error-posts"></span>
+                                </div>
 
-                        <!-- Posts -->
-                        <div class="col-6 mb-3">
-                              <div class="input-group">
-                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Posts:</span>
-                                 </div>
-                                 <input type="text" class="form-control rounded-0"
-                                       name="posts" id="posts"
-                                       value="02" placeholder="Posts">
-                              </div>
-                              <span class="text-danger error-posts"></span>
-                        </div>
+                                <!-- Re-Posts -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Re-Posts:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="re_posts" id="re_posts"
+                                            value="02" placeholder="Re-Posts">
+                                    </div>
+                                    <span class="text-danger error-re_posts"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Section -->
+                                <div class="col-lg-12 my-2">
+                                    <h6 class="border-bottom pb-1 text-blue-primary">Social Media Account 2</h6>
+                                </div>
 
-                        <!-- Re-Posts -->
-                        <div class="col-6 mb-3">
-                              <div class="input-group">
-                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Re-Posts:</span>
-                                 </div>
-                                 <input type="text" class="form-control rounded-0"
-                                       name="re_posts" id="re_posts"
-                                       value="02" placeholder="Re-Posts">
-                              </div>
-                              <span class="text-danger error-re_posts"></span>
+                                <!-- Name -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Name:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="name" id="name"
+                                            value="Monika Goswami" placeholder="Name">
+                                    </div>
+                                    <span class="text-danger error-name"></span>
+                                </div>
+
+                                <!-- URL Address -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">URL Address:</span>
+                                        </div>
+                                        <input type="url" class="form-control rounded-0"
+                                            name="address" id="address"
+                                            value="https://www.facebook.com"
+                                            placeholder="URL Address">
+                                    </div>
+                                    <span class="text-danger error-address"></span>
+                                </div>
+
+                                <!-- Date Joined -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Date Joined:</span>
+                                        </div>
+                                        <input type="date" class="form-control rounded-0"
+                                            name="date_joined" id="date_joined">
+                                    </div>
+                                    <span class="text-danger error-date_joined"></span>
+                                </div>
+
+                                <!-- Followers -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Followers:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="followers" id="followers"
+                                            value="2" placeholder="Followers">
+                                    </div>
+                                    <span class="text-danger error-followers"></span>
+                                </div>
+
+                                <!-- Posts -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Posts:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="posts" id="posts"
+                                            value="02" placeholder="Posts">
+                                    </div>
+                                    <span class="text-danger error-posts"></span>
+                                </div>
+
+                                <!-- Re-Posts -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Re-Posts:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="re_posts" id="re_posts"
+                                            value="02" placeholder="Re-Posts">
+                                    </div>
+                                    <span class="text-danger error-re_posts"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Section -->
+                                <div class="col-lg-12 my-2">
+                                    <h6 class="border-bottom pb-1 text-blue-primary">Social Media Account 3</h6>
+                                </div>
+
+                                <!-- Name -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Name:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="name" id="name"
+                                            value="Monika Goswami" placeholder="Name">
+                                    </div>
+                                    <span class="text-danger error-name"></span>
+                                </div>
+
+                                <!-- URL Address -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">URL Address:</span>
+                                        </div>
+                                        <input type="url" class="form-control rounded-0"
+                                            name="address" id="address"
+                                            value="https://www.facebook.com"
+                                            placeholder="URL Address">
+                                    </div>
+                                    <span class="text-danger error-address"></span>
+                                </div>
+
+                                <!-- Date Joined -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Date Joined:</span>
+                                        </div>
+                                        <input type="date" class="form-control rounded-0"
+                                            name="date_joined" id="date_joined">
+                                    </div>
+                                    <span class="text-danger error-date_joined"></span>
+                                </div>
+
+                                <!-- Followers -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Followers:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="followers" id="followers"
+                                            value="2" placeholder="Followers">
+                                    </div>
+                                    <span class="text-danger error-followers"></span>
+                                </div>
+
+                                <!-- Posts -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Posts:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="posts" id="posts"
+                                            value="02" placeholder="Posts">
+                                    </div>
+                                    <span class="text-danger error-posts"></span>
+                                </div>
+
+                                <!-- Re-Posts -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Re-Posts:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="re_posts" id="re_posts"
+                                            value="02" placeholder="Re-Posts">
+                                    </div>
+                                    <span class="text-danger error-re_posts"></span>
+                                </div>
+                            </div>
                         </div>
+                        
 
                      </div>
 

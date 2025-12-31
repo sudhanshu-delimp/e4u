@@ -526,7 +526,7 @@
 
 
                                 <div class="mb-2">
-                                    <span class="about_box_small_heading">Contact me:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.contact-me.$escort->contact") }}</span>
+                                    <span class="about_box_small_heading">Contact me:</span> <span class="about_box_small_heading_value">{{ strtoupper(config("escorts.profile.contact-me.$escort->contact")) }}</span>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-12">
@@ -1145,18 +1145,20 @@
                 @php
                     $formattedNumber = $escort->phone;
                     $contactTypes = $escort->contact != null ? $escort->contact : '';
+                   
                 @endphp
 
                 @if($contactTypes != '')
                     @if($contactTypes == 1)
                         on my email {{ $escort->user->email ?? '' }}
                     @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
-                        on my number {{ $formattedNumber }}
+                        on my number {{ $formattedNumber }}.
                     @else
                         on my number --
                     @endif
                 @else
-                    on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}
+                    {{-- on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
+                    on my number --
                 @endif
             </p>
 
@@ -1206,7 +1208,7 @@
 
         </div>
         <div class="pt-2">
-            <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel" data-interval="2500">
+            <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel" data-interval="4000">
                 <!-- Wrapper for carousel items -->
                 <div class="carousel-inner">
                     <div class="carousel-item tip_carousel_item_text active item-01">

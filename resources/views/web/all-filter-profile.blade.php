@@ -307,9 +307,9 @@
                                                 </button> --}}
                                                 <select class="custome_form_control_border_radus padding_five_px with_eight_em"
                                                     id=""name="verify_list">
-                                                    <option value="all">Verification</option>
-                                                    <option value="unverified">Unverified</option>
-                                                    <option value="verified">Verified</option>
+                                                    <option value="all" {{ request()->get('verify_list') == 'all' ? 'selected' : '' }}>Verification</option>
+                                                    <option value="unverified" {{ request()->get('verify_list') == 'unverified' ? 'selected' : '' }}>Unverified</option>
+                                                    <option value="verified" {{ request()->get('verify_list') == 'verified' ? 'selected' : '' }}>Verified</option>
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 ">

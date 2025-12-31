@@ -74,7 +74,21 @@
                         <div class="wcustom-50">
                             <ul class="list-group footer_list_style_none">
                                 @foreach (config('escorts.profile.cities') as $key => $city)
-                                    <li><a href="{{ route('find.all', [request()->segment(2), 'city' => $key]) }}&view_type={{ $viewType }}"
+                                @php
+                                    $query = request()->query();
+                                    $query['city'] = $key;
+                                    $query['gender'] = '';
+                                @endphp
+                               
+                                    {{-- <li><a href="{{ route('find.all', [request()->segment(2), 'city' => $key]) }}&view_type={{ $viewType }}"
+                                            class="footer_view_type_one"
+                                            id="{{ $key }}">{{ $city }}</a></li> --}}
+
+                                            <li><a href="{{ route('find.all', request()->segment(2)) . '?' . http_build_query(array_merge(request()->query(), [
+                                                'city' => $key,
+                                                'gender' => '',
+                                                'view_type' => $viewType
+                                            ])) }}"
                                             class="footer_view_type_one"
                                             id="{{ $key }}">{{ $city }}</a></li>
                                     @if ($loop->iteration == 4)
@@ -93,7 +107,14 @@
                             <ul class="list-group footer_list_style_none">
                                 @foreach (config('escorts.profile.cities') as $key => $city)
                                     @if ($loop->iteration > 4)
-                                        <li><a href="{{ route('find.all', [request()->segment(2), 'city' => $key]) }}&view_type={{ $viewType }}"
+                                        {{-- <li><a href="{{ route('find.all', [request()->segment(2), 'city' => $key]) }}&view_type={{ $viewType }}"
+                                                class="city_id footer_view_type_two"
+                                                id="{{ $key }}">{{ $city }}</a></li> --}}
+                                                 <li><a href="{{ route('find.all', request()->segment(2)) . '?' . http_build_query(array_merge(request()->query(), [
+                                                    'city' => $key,
+                                                    'gender' => '',
+                                                    'view_type' => $viewType
+                                                ])) }}"
                                                 class="city_id footer_view_type_two"
                                                 id="{{ $key }}">{{ $city }}</a></li>
                                     @endif
