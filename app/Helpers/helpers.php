@@ -115,6 +115,20 @@ if (!function_exists('calculateTotalFee')) {
     }
 }
 
+if(!function_exists('getPinupFee')){
+    function getPinupFee(){
+        $pricing = \App\Models\Pricing::where('membership_id', 6)->first();
+        return $pricing->price;
+    }
+}
+
+if(!function_exists('getBumpupFee')){
+    function getBumpupFee(){
+        $pricing = \App\Models\Pricing::where('membership_id', 7)->first();
+        return $pricing->price;
+    }
+}
+
 
 
 if (!function_exists('formatCurrency')) {
