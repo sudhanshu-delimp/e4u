@@ -91,12 +91,12 @@
                             <div>
                                 <div class="add--list listingActionButtons">
                                 <div class="">
-                                <button style="padding: 10px;" class="btn btn-info custom-btn-info" data-toggle="modal"
+                                <button class="btn brb-btn" data-toggle="modal"
                                     data-target="#add_brb" id="btn_add_brb">Add BRB</button>
                                 <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                     data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
                                 <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
-                                <button style="padding: 10px;" class="btn btn-info" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  </button>
+                                <button style="padding: 10px;" class="btn btn-bump-up" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  </button>
                                     
                             </div>
                                 <div class="pinup-tooltip-wrapper">
@@ -111,7 +111,8 @@
                             </div>
                             <br>
                         @endif
-                        <table class="table table-hover" id="sailorTable">
+                        <div class="table-responsive">
+                            <table class="table w-100" id="sailorTable">
                             <thead id="table-sec" class="table-bg">
                                 <tr>
                                     <th>ID</th>
@@ -128,6 +129,8 @@
                                 </tr>
                             </thead>
                         </table>
+                        </div>
+                        
                         <div>
                         </div>
                     </div>
@@ -441,6 +444,9 @@
                     $select.empty();
                     let $selectBumpUp = $('#bumpUpProfileId');
                     $selectBumpUp.empty();
+                    let $selectPinUp = $('#pinup_profile_id');
+                    $selectPinUp.empty();
+                    
                     if (records.recordsTotal > 0) {
                         $select.append('<option value="">-- Select Profile --</option>');
                         $.each(records.data, function (i, item) {
@@ -459,7 +465,7 @@
 
                         $selectBumpUp.append('<option value="">-- Select Profile --</option>');
                         $.each(records.data, function (i, item) {
-                            if(!item.is_bumpup && item.membership=='Platinum'){
+                            if(!item.is_bumpup){
                                 $selectBumpUp.append(
                                     $('<option>', {
                                     value: item.id,
@@ -471,6 +477,25 @@
                                 );
                             }
                         });
+
+                        let existPinup = records.data.some(profile=>profile.latest_active_pinup!=null);
+
+                        if(!existPinup){
+                            $selectPinUp.append('<option value="">-- Select Profile --</option>');
+                            $.each(records.data, function (i, item) {
+                                if(item.membership=='Platinum'){
+                                    $selectPinUp.append(
+                                        $('<option>', {
+                                        value: item.id,
+                                        text: `${item.id} - ${item.name} - ${item.state.name}`,
+                                        'data-start': item.start_date_formatted,
+                                        'data-end': item.end_date_formatted,
+                                        'data-membership':item.membership,
+                                        })
+                                    );
+                                }
+                            });
+                        }
                         $(".listingActionButtons button").show();
                     }
                     

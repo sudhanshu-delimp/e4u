@@ -46,7 +46,22 @@
     opacity: 1;
   }
 
+.fa-thumbs-down, .fa-thumbs-up {
+    pointer-events: none;
+}
+
+.save-my-legbox-btn {
+         color: #fff;
+    }
+
+ .swal2-popup{
+            width: auto !important;
+        }
+</style>
+
+
 @if($escort->latestActiveBrb)
+ <style>
     .overlay_parent {
         position: relative;
     }
@@ -64,20 +79,11 @@
         color: red;
         padding-top: 5%;
     }
-
-  
+    .swal2-popup{
+            width: auto !important;
+        }
+</style> 
 @endif
-
-
-.fa-thumbs-down, .fa-thumbs-up {
-    pointer-events: none;
-}
-
-.save-my-legbox-btn {
-         color: #fff;
-    }
-
-</style>
 
 @if(str_contains(url()->full(), '?no-next-page') || str_contains(url()->full(), '?no-next-page='))
     <style>
@@ -1175,7 +1181,7 @@
             <div class="content">
                 <div class="accodien_manage_padding_content">
                     <p class="text-justify">
-                        Prices are all inclusive unless an extra is listed in My Serices. For Outcalls, price is rate + taxi to and from my Location.
+                        Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location.
                     </p>
                 </div>
             </div>
@@ -1345,9 +1351,9 @@
             <div class="col-md-12 mb-4">
             @if(auth()->user())
                     @if(auth()->user()->type == 0)
-                        <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                        <button type="button" class="btn add_reviews_btn all_btn_flx open_review_box">
                             <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                            Add Review
+                            Add Reviews
                         </button>
                     @endif
                 @else
@@ -2026,7 +2032,18 @@ $('#review-submitted-popup .close').on('click', function() {
 
 </script>
 <script type="text/javascript">
+
+    window.authUser = {
+        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
+        write_reviews_disable: {{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }},
+    };
+
+    console.log('window.authUser.write_reviews_disable',window.authUser.write_reviews_disable);
+
+
     $(document).ready(function () {
+
         var totalItems = $('.item-01').length;
         var currentIndex = $('div.carousel-item').index() + 1;
         var currentIndex_active = $('div.carousel-item.active').index();
@@ -2083,7 +2100,27 @@ $('#review-submitted-popup .close').on('click', function() {
     });
 
 
+
+     $(document).on('click', '.open_review_box', function (e) {
+        e.preventDefault();
+       if (window.authUser.write_reviews_disable) {
+            swal_error_warning('Reviews','Writing reviews is currently disabled. <br> To access this feature, go to your setting in My Account.');
+            return false;
+        } else {
+            $('#add_reviews').modal('show');
+        }
+    });
+
+
+
     $(document).on('click', '#legbox_btn', function () {
+
+
+          if (window.authUser.myLegboxDisabled) {
+            swal_error_warning('My Legbox','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
+            return false;
+        }
+
         var addToFebIcon = $(this).find('.add_to_favrate');
         var Eid = addToFebIcon.attr('data-escortId');
         var Uid = addToFebIcon.attr('data-userId');

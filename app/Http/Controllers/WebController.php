@@ -96,17 +96,17 @@ class WebController extends Controller
         }
         $query->with(['currentActivePinup','activeBumpup']);
 
+        $query->withMax(['currentActivePinup as pinup_start' => function ($q) {
+            $q->select('created_at');
+        }], 'created_at')
+        ->orderByRaw('pinup_start IS NULL')
+        ->orderByDesc('pinup_start');
+        
         $query->withMax(['activeBumpup as bump_start' => function ($q) {
             $q->select('utc_start_time');
         }], 'utc_start_time')
         ->orderByRaw('bump_start IS NULL')
         ->orderByDesc('bump_start');
-
-        $query->withMax(['currentActivePinup as pinup_start' => function ($q) {
-            $q->select('utc_start_time');
-        }], 'utc_start_time')
-        ->orderByRaw('pinup_start IS NULL')
-        ->orderByDesc('pinup_start');
         
         $query->orderBy('utc_start_time','desc');
         # Search escort by search button on the bases on radio button with search icon

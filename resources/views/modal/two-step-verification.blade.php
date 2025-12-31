@@ -45,6 +45,8 @@
 
                                         <!-- hidden field to store final OTP -->
                                         <input type="hidden" maxlength="6" required class="form-control w-75" name="otp" id="otp">
+
+                                        <input type="hidden" value="0" name="change_pin_active" id="change_pin_active">
                                         
 
                                         <img src="{{asset('assets/app/img/circle-loader.gif')}}" class="wait-loader" style="width: 60px;margin-bottom:18px;display:none;" alt="face-lock verification">
