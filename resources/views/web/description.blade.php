@@ -1158,7 +1158,7 @@
                     @endif
                 @else
                     {{-- on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
-                    on my number --.
+                    on my number --
                 @endif
             </p>
 
