@@ -465,7 +465,7 @@
 
                         $selectBumpUp.append('<option value="">-- Select Profile --</option>');
                         $.each(records.data, function (i, item) {
-                            if(!item.is_bumpup){
+                            //if(!item.is_bumpup){
                                 $selectBumpUp.append(
                                     $('<option>', {
                                     value: item.id,
@@ -475,7 +475,7 @@
                                     'data-membership':item.membership,
                                     })
                                 );
-                            }
+                            //}
                         });
 
                         let existPinup = records.data.some(profile=>profile.latest_active_pinup!=null);

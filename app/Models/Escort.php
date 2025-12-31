@@ -705,6 +705,7 @@ class Escort extends Model
     public function activeBumpup()
     {
         return $this->hasOne(EscortBumpup::class, 'escort_id')
-                    ->active();
+            ->latestOfMany('utc_start_time')
+            ->active();
     }
 }
