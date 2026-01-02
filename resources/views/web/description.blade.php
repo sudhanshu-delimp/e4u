@@ -1575,7 +1575,7 @@ genuine reports will be considered.</li>
                 <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">
                 <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $escort->name }}
                 </h5>
-                <button type="button" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-dismiss="modal" @endif class="close" aria-label="Close">
+                <button type="button" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif class="close" aria-label="Close">
                 <span aria-hidden="true">
                 <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                 </span>
@@ -1633,7 +1633,7 @@ genuine reports will be considered.</li>
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn site_btn_primary main_bg_color" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-dismiss="modal" @endif>
+                    <button type="button" class="btn site_btn_primary main_bg_color" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif>
                         Cancel
                     </button>
 
