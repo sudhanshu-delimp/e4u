@@ -501,7 +501,7 @@
                                 <div class="mb-2">
                                     <span class="about_box_small_heading">Available to:</span>
                                     @if(!empty($escort->available_to))
-                                        {{ implode(', ', array_map(fn($item) => config("escorts.profile.available-to.$item"), $escort->available_to)) }}
+                                       <span class="about_box_small_heading_value"> {{ implode(', ', array_map(fn($item) => config("escorts.profile.available-to.$item"), $escort->available_to)) }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -588,7 +588,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <span id="y" class="about_box_small_heading_value">Read more&gt;&gt;</span>
+                                <span id="y" class="">Read more&gt;&gt;</span>
                             </div>
                         </div>
                         <div class="hide_data">
