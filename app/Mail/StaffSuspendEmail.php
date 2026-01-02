@@ -22,7 +22,7 @@ class StaffSuspendEmail extends Mailable
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'))
-                ->subject('Staff Suspend Notification') 
+                ->subject('Staff Suspension Notification') 
                 ->markdown('emails.staff.staff_suspend_email')
                 ->with('staff', $this->body);
     }
