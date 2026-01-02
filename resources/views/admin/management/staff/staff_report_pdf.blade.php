@@ -133,7 +133,7 @@
         <div class="col-md-12 ">
             <div class="my-account-card">
                 <div class="card-head" style="display: flex; justify-content:space-between;align-items:center;">
-                    <h2>Staff Member Repord</h2>
+                    <h2>Staff Member Report</h2>
                 </div>
 
                 <h6 class=" pb-1 text-blue-primary">Personal Details</h6>
