@@ -731,144 +731,20 @@
                                 <td class="text-center">---------</td>
                             </tr>
                             <tr>
-                                <th colspan="4">
-                                    Followers:
-                                </th>
-                                <td>
-                                    <table>
+                                <td colspan="4">
+                                    <table class="w-100">
                                         <tr>
-                                            <th>Social media 1:</th>
-                                            <td>No of</td>
+                                            <th class="4">Followers:</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-left">Social media 1:</th>
+                                            <td class="text-center">No of</td>
+                                            <td class="text-center">10</td>
+                                            <td class="text-center">---------</td>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
-                            <tr>
-                                <th class="text-left">Followers:</th>
-                                <td class="text-center">No of</td>
-                                <td class="text-center">10</td>
-                                <td class="text-center">---------</td>
-                            </tr>
-
-                            {{-- <tr>
-                                <td>
-                                    <table width="100%">
-                                        <tr>
-                                            <th class="text-center" colspan="2">Item</th>
-                                        </tr>
-                                            <th>Membership Time: </th><td>No of</td>
-                                        </tr>
-                                         <tr>
-                                            <th>Listings: </th><td>No of</td>
-                                        </tr>
-                                         <tr>
-                                            <th>Tours: </th><td>No of</td>
-                                        </tr>
-                                         <tr>
-                                            <th>Views (Profile): </th><td>No of</td>
-                                        </tr>
-                                         <tr>
-                                            <th>Views (Media): </th><td>No of</td>
-                                        </tr>
-                                         <tr>
-                                            <th>Views (Playbox): </th><td>No of</td>
-                                        </tr>
-                                         <tr>
-                                            <th>Recommendations: </th><td>No of</td>
-                                        </tr>
-                                         <tr>
-                                            <th>Reports: </th><td>No of</td>
-                                        </tr>
-                                         <tr>
-                                            <th>Reviews: </th><td>No of</td>
-                                        </tr>
-                                         <tr>
-                                            <td colspan="2">
-                                                <tr><th colspan="2">Followers:</th></tr>
-                                            </td>
-                                            <td colspan="2">
-                                                <table>
-                                                    <tr>
-                                                        <th>Social media 1:</th>
-                                                        <td>No of</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Social media 2:</th>
-                                                        <td>No of</td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colspan="2">
-                                                <tr><th colspan="2">Posts:</th></tr>
-                                            </td>
-                                            <td colspan="2">
-                                                <table>
-                                                    <tr>
-                                                        <th>Social media 1:</th>
-                                                        <td>No of</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Social media 2:</th>
-                                                        <td>No of</td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-
-                                         <tr>
-                                            <td colspan="2">
-                                                <tr><th colspan="2">Re-Posts:</th></tr>
-                                            </td>
-                                            <td colspan="2">
-                                                <table>
-                                                    <tr>
-                                                        <th>Social media 1:</th>
-                                                        <td>No of</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Social media 2:</th>
-                                                        <td>No of</td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                
-                                 <td>
-                                    <table width="100%" class="text-center">
-                                        <tr>
-                                            <th colspan="2">Assessment</th>
-                                        </tr>
-                                         <tr>
-                                            <th>Benchmark</th>
-                                            <th>Score</th>
-                                        </tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                        <tr><th>10</th><td class="text-center">___________</td></tr>
-                                    </table>
-                                </td>
-                            </tr> --}}
                            
                         </table>
 
