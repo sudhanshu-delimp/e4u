@@ -212,11 +212,21 @@
 <div class="d-flex align-items-center justify-content-start gap-10 px-3">
                
 
-<div class="my-play-box-profile-icon">
-    <a href="{{ url('playbox') }}" target="_blank">
-        <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
-    </a>
-    <div class="custom-tooltip">I don't have any Playbox.</div>
+<div class="d-flex align-items-center justify-content-start">
+    <div class="my-play-box-profile-icon">
+        <a href="{{ url('playbox') }}" target="_blank">
+            <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
+        </a>
+        <div class="custom-tooltip">I don't have any Playbox.</div>
+    </div>
+    @if($escort->mainPurchase->tour_location_id!=null)
+        <div class="my-play-box-profile-icon">
+            <a href="#">
+                <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
+            </a>
+            <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
+        </div>
+    @endif
 </div>
                 <ul class="profile_page_social_profiles">
                
@@ -224,19 +234,19 @@
                         @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
                             <li class="selected-from-profile">
                                 <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
-                                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/facebook.png" class="twitter-x-logo" alt="logo"></a>
+                                <img src="{{asset('assets/app/img/facebook.png')}}" class="twitter-x-logo" alt="logo"></a>
                             </li>
                         @endif
                         @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
-                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/instagram.png" class="twitter-x-logo" alt="logo"></a></li>
+                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
                         @endif
                         @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
-                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo"></a></li>
+                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
                         @else
-                            <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" ></a></li>
+                            <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
                         @endif
                     @else
-                        <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" ></a></li>
+                        <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
                     @endif
                 </ul>
 
@@ -1543,7 +1553,7 @@ genuine reports will be considered.</li>
                     Report Logged
                     </h5>
                 <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
-                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/newcross.png" class="img-fluid img_resize_in_smscreen">
+                <img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                 </button>
             </div>
  
