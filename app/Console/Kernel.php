@@ -30,12 +30,12 @@ class Kernel extends ConsoleKernel
     */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('disable_escort')->everyMinute();//Based on the escort profile end date, set enable to 0
-        $schedule->command('enable_escort')->everyMinute();  //Based on the listing, add start-end date to escort profile and enable the profile
+        $schedule->command('disable_escort')->dailyAt('00:00')->timezone('Australia/Perth');//Based on the escort profile end date, set enable to 0
+        $schedule->command('enable_escort')->dailyAt('00:05')->timezone('Australia/Perth');  //Based on the listing, add start-end date to escort profile and enable the profile
         $schedule->command('send:playmate_disable')->daily();
         $schedule->command('send:playmate_disable')->daily();
-        $schedule->command('passwords:send-expiry-notices')->dailyAt('10:00');
-        $schedule->command('escort:send-listing-expiry-reminders')->dailyAt('16:00');
+        $schedule->command('passwords:send-expiry-notices')->dailyAt('10:00')->timezone('Australia/Perth');
+        $schedule->command('escort:send-listing-expiry-reminders')->dailyAt('00:00')->timezone('Australia/Perth');
         $schedule->command('appointments:update-status')->everySixHours();
         $schedule->command('center-notification:expire-check')->dailyAt('00:00')->timezone('Australia/Perth');
         //$schedule->command('resetPassword')->daily();

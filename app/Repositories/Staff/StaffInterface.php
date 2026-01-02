@@ -10,4 +10,6 @@ interface StaffInterface extends BaseRepositoryInterface
     public function check_staff_email(array $data);
     public function change_user_status(array $data);
     public function activate_user(array $data);
+    public function sendSuspendEmail(array $data);
+    public function sendActiveEmail(array $data);
 }
