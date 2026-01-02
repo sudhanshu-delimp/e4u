@@ -75,22 +75,27 @@
         }
 
         h2 {
-            font-size: 22px;
+            font-size: 16px;
             font-weight: bold;
-            padding-bottom: 10px;
         }
 
         h6 {
-            font-size: 18px;
+            font-size: 16px;
         }
-
+        .my-account-card .table td{
+            vertical-align: middle;
+        }
+        
+      
         table td {
-            padding: 7px .75rem !important;
+            padding: .25rem .75rem !important;
         }
 
         table th {
-            padding: 7px .75rem !important;
-            font-weight: 500
+            padding: .25rem .75rem !important;
+            font-weight: 500;
+            vertical-align: middle;
+            
         }
     </style>
 </head>
@@ -129,7 +134,6 @@
             <div class="my-account-card">
                 <div class="card-head" style="display: flex; justify-content:space-between;align-items:center;">
                     <h2>Staff Member Repord</h2>
-
                 </div>
 
                 <h6 class=" pb-1 text-blue-primary">Personal Details</h6>
