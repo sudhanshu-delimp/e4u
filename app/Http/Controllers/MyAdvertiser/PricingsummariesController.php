@@ -266,7 +266,7 @@ class PricingsummariesController extends BaseController
                
         foreach($fees_list as $key => $item) {
 
-            $item->amount = '$'.$item->amount;
+            $item->amount ='<div class="num_value">$<span>'.$item->amount.'</span></div>';
             $dropdown = '<div class="dropdown no-arrow">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -342,7 +342,7 @@ class PricingsummariesController extends BaseController
         $i = 1;
                
         foreach($fees_list as $key => $item) {
-            $item->amount =  ($item->amount!="" || 0) ? '$'.$item->amount : '0.00';
+            $item->amount =  ($item->amount!="" || 0) ? '<div class="num_value">$<span>'.$item->amount : '0.00'.'</span></div>';
             $dropdown = '<div class="dropdown no-arrow">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -416,7 +416,7 @@ class PricingsummariesController extends BaseController
                
         foreach($fees_list as $key => $item) {
 
-            $item->amount = '$'.$item->amount;
+            $item->amount = '<div class="num_value">$<span>'.$item->amount.'</span></div>';
             $dropdown = '<div class="dropdown no-arrow">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
