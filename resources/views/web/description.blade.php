@@ -219,7 +219,7 @@
         </a>
         <div class="custom-tooltip">I don't have any Playbox.</div>
     </div>
-    @if($escort->mainPurchase->tour_location_id!=null)
+    @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
         <div class="my-play-box-profile-icon">
             <a href="#">
                 <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
