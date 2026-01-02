@@ -193,6 +193,9 @@ class AgentNotificationController extends Controller
             if ($request->type === 'Notice') {
                 $data['member_id'] = $request->member_id;
             }
+            if($request->type === 'Template'){
+                $data['template_name'] = $request->template_name;
+            }
 
             if ($request->type === 'Scheduled') {
                 $data['recurring_type'] = $request->recurring_type;

@@ -97,7 +97,7 @@
                 </div>
                 <div class="modal-body pb-0">
                     <form method="POST" action="{{ route('admin.agent.notifications.store') }}" id="createNotificationForm"
-                        data-parsley-validate novalidate>
+                        data-parsley-validate="">
                         @csrf
                         <div class="row">
 
@@ -123,20 +123,21 @@
                                     <option value="Ad hoc">Ad hoc</option>
                                     <option value="Scheduled">Scheduled</option>
                                     <option value="Notice">Notice</option>
+                                    <option value="Template">Template</option>
                                 </select>
                             </div>
 
                             <!-- Start Date -->
                             <div class="col-12 mb-3 date_show_hide" id="startDateField">
                                 <label class="label" for="startDateField">Start Date</label>
-                                <input type="text" name="start_date" id="start_date" placeholder="Start Date"
+                                <input type="text" name="start_date" id="start_date" placeholder="Start Date" data-parsley-required="false"
                                     class="form-control rounded-0 js_datepicker"  />
                             </div>
 
                             <!-- Finish Date -->
                             <div class="col-12 mb-3 date_show_hide" id="endDateField">
                                 <label class="label" for="endDateField">End Date</label>
-                                <input type="text" name="end_date" id="end_date" placeholder="Finish Date"
+                                <input type="text" name="end_date" id="end_date" placeholder="Finish Date" data-parsley-required="false"
                                     class="form-control rounded-0 js_datepicker" />
                             </div>
 
@@ -147,7 +148,7 @@
                                 <div class="row">
                                     <div class="form-group col-12">
                                         <label class="label" for="scheduleType">Recurring Type</label>
-                                        <select id="scheduleType" class="form-control rounded-0" name="recurring_type">
+                                        <select id="scheduleType" class="form-control rounded-0" data-parsley-required="false" name="recurring_type">
                                             <option value="">Select Type</option>
                                             <option value="weekly">Weekly</option>
                                             <option value="monthly">Monthly</option>
@@ -259,233 +260,44 @@
                             <!-- Number of Recurring  -->
                             <div id="numberOfRecurring" class="col-12 mb-3" style="display:none;">
                                 <label class="label" for="recurring">Number of Recurring</label>
-                                <input type="number" id="recurring" name="recurring" class="form-control"
+                                <input type="number" id="recurring" name="recurring" class="form-control" data-parsley-required="false"
                                     placeholder="Number of Recurring" />
                             </div>
 
                             <!-- Notice Section -->
                             <div id="noticeSection" class="col-12 mb-3" style="display:none;">
                                 <label class="label" for="member_id">Member Id</label>
-                                <input type="text" id="member_id" name="member_id" class="form-control"
+                                <input type="text" id="member_id" name="member_id" class="form-control" data-parsley-required="false"
                                     placeholder="Member Id e.g. 123456" />
                             </div>
 
                             <!-- Content -->
-                            <div class="col-12 mb-3" id="contentField">
+                            <div class="col-12 mb-3" id="contentField" data-parsley-required="false">
                                 <label class="label" for="content">Content</label>
-                                <textarea id="contents" name="content" class="form-control" required placeholder="up to 250 characters..."
-                                    maxlength="250" data-parsley-required="true">
+                                <textarea id="contents" name="content" class="form-control"  placeholder="up to 250 characters..."
+                                    maxlength="250" data-parsley-required="false">
 
                                 </textarea>
                             </div>
+                            <!-- Template Name -->
 
-                        </div>
-                        <div class="modal-footer pr-3">
-                            <button type="submit" id="createNotificationSubmit" class="btn-success-modal">Save</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade upload-modal" id="createNotification" tabindex="-1" role="dialog"
-        aria-labelledby="createNotification" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
-                <div class="modal-header">
-                    <img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon">
-                    <h5 class="modal-title" id="createNotificationTitle">Create Notification </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body pb-0">
-                    <form method="POST" action="{{ route('admin.agent.notifications.store') }}"
-                        id="createNotificationForm" data-parsley-validate novalidate>
-                        @csrf
-                        <div class="row">
-
-                            <!-- Auto-generated Date (readonly) -->
-                            <div class="col-12 mb-3" id="currentDateField">
-                                <label class="label" for="currentDate">Current Day</label>
-                                <input type="hidden" id="notificationId" name="notificationId">
-                                <input type="text" class="form-control rounded-0" name="current_day" id="current_day"
-                                    value="<?php echo date('d-m-Y'); ?>" data-parsley-required="true" />
-                            </div>
-
-                            <!-- Heading Field -->
-                            <div class="col-12 mb-3" id="headingField">
-                                <label class="label" for="headingField">Heading</label>
-                                <input type="text" class="form-control rounded-0 fw-bold" name="heading"
-                                    id="heading" placeholder="Heading" data-parsley-required="true" />
-                            </div>
-
-                            <!-- Notification Type -->
-                            <div class="col-12 mb-3" id="typeField">
-                                <label class="label" for="type">Type</label>
-                                <select id="type" class="form-control" name="type">
-                                    <option value="Ad hoc">Ad hoc</option>
-                                    <option value="Scheduled">Scheduled</option>
-                                    <option value="Notice">Notice</option>
+                            <div id="templateSelect" style="display: none;" class="col-12 mb-3" >
+                                <label class="label">Select Template</label>
+                                <select id="template_name" name="template_name" class="form-control rounded-0" data-parsley-required="false"> 
+                                    <option value="">-- Choose a Template --</option>
+                                    <option value="Your monthly Fee Report has been uploaded for your checking and approval.">Check
+                                        Your monthly Fee Report has been uploaded for your checking and approval.</option>
+                                    <option value="Are you keeping in touch with your Advertisers?  Say hello from time to time.">
+                                        Are you keeping in touch with your Advertisers?  Say hello from time to time.</option>
+                                    <option
+                                        value="Management is looking for suggestions on where to hold the annual conference this year.">
+                                        Management is looking for suggestions on where to hold the annual conference this year.
+                                    </option>
+                                    <option
+                                        value="Just a gentle reminder to make sure you keep up to date with our policies.">
+                                       Just a gentle reminder to make sure you keep up to date with our policies.</option>
                                 </select>
                             </div>
-
-                            <!-- Start Date -->
-                            <div class="col-12 mb-3 date_show_hide" id="startDateField">
-                                <label class="label" for="startDateField">Start Date</label>
-                                <input type="date" name="start_date" id="start_date" placeholder="Start Date"
-                                    class="form-control rounded-0" />
-                            </div>
-
-                            <!-- Finish Date -->
-                            <div class="col-12 mb-3 date_show_hide" id="endDateField">
-                                <label class="label" for="endDateField">End Date</label>
-                                <input type="date" name="end_date" id="end_date" placeholder="Finish Date"
-                                    class="form-control rounded-0" />
-                            </div>
-
-
-
-                            <!-- Scheduled Section -->
-                            <div id="scheduledSection" style="display:none;" class="col-12 mb-3">
-                                <div class="row">
-                                    <div class="form-group col-12">
-                                        <label class="label" for="scheduleType">Recurring Type</label>
-                                        <select id="scheduleType" class="form-control rounded-0" name="recurring_type">
-                                            <option value="">Select Type</option>
-                                            <option value="weekly">Weekly</option>
-                                            <option value="monthly">Monthly</option>
-                                            <option value="yearly">Yearly</option>
-                                            <option value="forever">Forever</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Yearly Options -->
-                                    <div class="form-group col-lg-12 schedule-options" id="startyearlyOptions"
-                                        style="display:none;">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <label class="label" for="startFirstMonth">Start Month</label>
-                                                        <select id="startFirstMonth" class="form-control rounded-0 mb-2"
-                                                            name="start_month_yearly">
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <label class="label" for="startFirstDate">Start Day</label>
-                                                        <select id="startFirstDate" class="form-control rounded-0"
-                                                            name="start_day_yearly">
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            {{-- 2nd column --}}
-
-                                            <div class="col-lg-6">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <label class="label" for="endSecondMonth">End Month</label>
-                                                        <select id="endSecondMonth" class="form-control rounded-0 mb-2"
-                                                            name="end_month_yearly">
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <label class="label" for="endSecondDay">End Day</label>
-                                                        <select id="endSecondDay" class="form-control rounded-0"
-                                                            name="end_day_yearly">
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Monthly Option -->
-                                    <div class="form-group col-lg-12 schedule-options" id="monthlyOptions"
-                                        style="display:none;">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <label class="label" for="monthWiseStartDate">Start Day</label>
-                                                        <select id="monthWiseStartDate" class="form-control rounded-0"
-                                                            name="start_day_monthly">
-
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="col-6">
-                                                        <label class="label" for="monthWiseEndDate">End Day</label>
-                                                        <select id="monthWiseEndDate" class="form-control rounded-0"
-                                                            name="end_day_monthly">
-
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Week Option -->
-                                    <div class="form-group col-lg-12 schedule-options" id="weekOptions"
-                                        style="display:none;">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <label class="label" for="weekWiseStartDate">Start Day</label>
-                                                        <select id="weekWiseStartDate" class="form-control rounded-0"
-                                                            name="start_day_week">
-
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="col-6">
-                                                        <label class="label" for="weekWiseEndDate">End Day</label>
-                                                        <select id="weekWiseEndDate" class="form-control rounded-0"
-                                                            name="end_day_week">
-
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <!-- Number of Recurring  -->
-                            <div id="numberOfRecurring" class="col-12 mb-3" style="display:none;">
-                                <label class="label" for="recurring">Number of Recurring</label>
-                                <input type="number" id="recurring" name="recurring" class="form-control"
-                                    placeholder="Number of Recurring" />
-                            </div>
-
-                            <!-- Notice Section -->
-                            <div id="noticeSection" class="col-12 mb-3" style="display:none;">
-                                <label class="label" for="member_id">Member Id</label>
-                                <input type="text" id="member_id" name="member_id" class="form-control"
-                                    placeholder="Member Id e.g. 123456" />
-                            </div>
-
-                            <!-- Content -->
-                            <div class="col-12 mb-3" id="contentField">
-                                <label class="label" for="content">Content</label>
-                                <textarea id="contents" name="content" class="form-control" required placeholder="up to 250 characters..."
-                                    maxlength="250" data-parsley-required="true">
-
-                                </textarea>
-                            </div>
-
                         </div>
                         <div class="modal-footer pr-3">
                             <button type="submit" id="createNotificationSubmit" class="btn-success-modal">Save</button>
@@ -608,20 +420,26 @@
                         $("#numberOfRecurring").val('');
                         $("#member_id").val('');
                         $('#scheduledSection').hide();
-                        //$('#scheduleType').hide();
+                        $('#templateSelect').hide();
                     } else if (type === 'Notice') {
                         // Notice: Also show member_id
                         $('#noticeSection').show();
                         $("#numberOfRecurring").val('');
                         $('#scheduledSection').hide();
+                         $('#templateSelect').hide();
                     } else if (type === 'Scheduled') {
                         // Show Schedule Type dropdown
                         $('#scheduledSection, #numberOfRecurring').show();
                         $('.schedule-options, #startDateField, #endDateField').hide();
-
+                        $('#templateSelect').hide();
                         // Reset input fields
                         $('#member_id, #start_date, #end_date').val('');
-
+                    } else if(type === 'Template') {
+                        $("#numberOfRecurring").val('');
+                        $("#member_id").val('');
+                        $('#scheduledSection').hide();
+                        $('#contentField').hide();
+                        $('#templateSelect').show();
                     }
                 }
 
@@ -880,6 +698,8 @@
                     return (tpl || '').replace('__ID__', id);
                 }
 
+                //check type condition
+                
                 function ensureParsleyAndSubmit(form) {
                     function proceed() {
                         try {
@@ -949,9 +769,37 @@
                     }
                 }
 
+                function applyTypeBasedValidation() {
+                    let type = $('#type').val();
+
+                    // reset all
+                    $('#content, #templateName').parsley().reset();
+                    $('#start_date, #end_date, #content, #member_id, #recurring, #scheduleType, #template_name').attr('data-parsley-required', 'false');
+
+                    $('#heading').attr('data-parsley-required', 'true');
+
+                    if (type === 'Ad hoc') {
+                        $('#start_date, #end_date, #content').attr('data-parsley-required', 'true');
+                    }
+
+                    else if (type === 'Scheduled') {
+                        $('#scheduleType, #recurring, #content').attr('data-parsley-required', 'true');
+                    }
+
+                    else if (type === 'Notice') {
+                        $('#start_date, #end_date, #member_id, #content').attr('data-parsley-required', 'true');
+                    }
+
+                    else if (type === 'Template') {
+                        $('#start_date, #end_date, #template_name').attr('data-parsley-required', 'true');
+                        $('#content').attr('data-parsley-required', 'false');
+                    }
+                }
+
                 $('#createNotificationForm').on('submit', function(e) {
                     e.preventDefault();
                     var form = $(this);
+                    applyTypeBasedValidation();
                     ensureParsleyAndSubmit(form);
                 });
 
