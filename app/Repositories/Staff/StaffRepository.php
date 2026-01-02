@@ -10,6 +10,8 @@ use App\Models\StaffSetting;
 use App\Models\AccountSetting;
 use App\Events\StaffRegistered;
 use App\Mail\StaffApprovalEmail;
+use App\Mail\StaffSuspendEmail;
+use App\Mail\StaffActivateEmail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Repositories\BaseRepository;
@@ -80,23 +82,23 @@ class StaffRepository extends BaseRepository implements StaffInterface
                     'email' => $data['email'] ?? null,
                     //'state_id' => $data['location'] ?? null,
                     'city_id' => $data['location'] ?? null,
-                    'gender' => $data['gender'] ?? null,  
+                    'gender' => $data['gender'] ?? null,
                 ];
 
                 if (isset($data['user_id']) && (!empty($data['user_id']))) {
                     $user = $this->staff->where('id', $data['user_id'])->first();
                     if ($user) {
                         $user->update($staffData);
-                        $message = 'Staff updated successfully';
+                        $message = 'Staff updated successfully.';
                     } else {
-                        $this->response = ['status' => false, 'message' => 'Staff not found'];
+                        $this->response = ['status' => false, 'message' => 'Staff not found.'];
                         return $this->response;
                     }
                 } else {
                     $staffData['enabled'] = 1;
                     $staffData['status'] = 2;
                     $staffData['type'] = (string) config('staff.staff_role_type');
-                    $message = 'New staff added successfully';
+                    $message = 'New staff added successfully.';
                     $user = User::create($staffData);
                     if ($user) {
                         $this->setting->create_account_setting($user);
@@ -113,7 +115,7 @@ class StaffRepository extends BaseRepository implements StaffInterface
                     'kin_relationship' => $data['kin_relationship'] ?? null,
                     'kin_mobile' => $data['kin_mobile'] ?? null,
                     'kin_email' => $data['kin_email'] ?? null,
-                   
+
                     'location' => $data['location'] ?? null,
                     'commenced_date' => $data['commenced_date'] ?? null,
                     'security_level' => $data['security_level'] ?? null,
@@ -125,7 +127,7 @@ class StaffRepository extends BaseRepository implements StaffInterface
                     'keys_issued' => $data['keys_issued'] ?? null,
                     'car_parking' => $data['car_parking'] ?? null,
                     //'idle_preference_time' => $data['idle_preference_time'] ?? null,
-                   // 'twofa' => $data['twofa'] ?? null,
+                    // 'twofa' => $data['twofa'] ?? null,
                 ]);
 
                 $staffSetting = \App\Models\StaffSetting::firstOrNew(['user_id' => $user->id]);
@@ -153,9 +155,9 @@ class StaffRepository extends BaseRepository implements StaffInterface
             $password  = random_string($type = 'alnum', $len = 8);
             $user->update(['status' =>  $data['status'], 'password' => Hash::make($password)]);
             $this->sendApprovalEmail($user, $password);
-            return $this->response = ['status' => true, 'message' => 'Approved Successfully'];
+            return $this->response = ['status' => true, 'message' => 'Staff account approved successfully.'];
         } else {
-            return $this->response = ['status' => true, 'message' => 'Error occured while approving the user'];
+            return $this->response = ['status' => true, 'message' => 'Error occured while approving the user.'];
         }
     }
 
@@ -165,18 +167,46 @@ class StaffRepository extends BaseRepository implements StaffInterface
         $user = $this->staff->where('id', $data['user_id'])->firstOrFail();
         if ($user && $data['status'] != "") {
             $user->update(['status' => '1']);
-            return $this->response = ['status' => true, 'message' => 'Activated Successfully'];
+            $this->sendActiveEmail($user);
+            return $this->response = ['status' => true, 'message' => 'Staff account activated successfully.'];
         } else {
-            return $this->response = ['status' => true, 'message' => 'Error occured while activating the user'];
+            return $this->response = ['status' => true, 'message' => 'Error occured while activating the user.'];
         }
     }
 
 
     public function sendApprovalEmail($user, $plainPassword)
     {
-        $user['plainPassword'] = $plainPassword;
+        try {
+            $user['plainPassword'] = $plainPassword;
+            //logErrorLocal($user);
+            Mail::to($user->email)->send(new StaffApprovalEmail($user));
+        } catch (Exception $e) {
+            Log::info($e->getMessage() . " Line no.:" . $e->getLine() . " Line no.:" . $e->getFile());
+            logErrorLocal($e);
+        }
+        return true;
+    }
 
-        logErrorLocal($user);
-        Mail::to($user->email)->send(new StaffApprovalEmail($user));
+    public function sendSuspendEmail($user)
+    {
+        try {
+            Mail::to($user->email)->send(new StaffSuspendEmail($user));
+        } catch (Exception $e) {
+            Log::info($e->getMessage() . " Line no.:" . $e->getLine() . " Line no.:" . $e->getFile());
+            logErrorLocal($e);
+        }
+        return true;
+    }
+
+    public function sendActiveEmail($user)
+    {
+        try {
+            Mail::to($user->email)->send(new StaffActivateEmail($user));
+        } catch (Exception $e) {
+            Log::info($e->getMessage() . " Line no.:" . $e->getLine() . " Line no.:" . $e->getFile());
+            logErrorLocal($e);
+        }
+        return true;
     }
 }
