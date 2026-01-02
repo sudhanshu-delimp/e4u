@@ -2959,12 +2959,12 @@ i.fa.fa-heart-o{
             line-height: 45px;
             text-align: center;
             border-radius: 50%;
-            margin-left: 40px;
         }
         
         .profile_page_social_profiles {
             display: flex;
             gap: 15px;
+            margin-left: 40px;
         }
         
         .profile_page_location_and_id ul li {
