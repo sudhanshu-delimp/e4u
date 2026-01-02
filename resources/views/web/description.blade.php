@@ -1313,12 +1313,12 @@
                     @if(auth()->user())
                             @if(auth()->user()->type == 0)
                                 @if(!$reviewAlreadyExist)
-                                    <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
                                     <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
                                     Add Review
                                 </button>
                                 @else
-                                    <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
                                         <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
                                         Edit Review
                                     </button>
@@ -1353,9 +1353,9 @@
             <div class="col-md-12 mb-4">
             @if(auth()->user())
                     @if(auth()->user()->type == 0)
-                        <button type="button" class="btn add_reviews_btn all_btn_flx open_review_box">
+                        <button type="button" class="btn add_reviews_btn all_btn_flx open_review_box disabled-button">
                             <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                            Add Reviews
+                            Add Review
                         </button>
                     @endif
                 @else
@@ -1569,7 +1569,9 @@ genuine reports will be considered.</li>
 <div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color">
+            
+        
+        <div class="modal-header main_bg_color">
                 <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">
                 <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $escort->name }}
                 </h5>
@@ -1579,6 +1581,8 @@ genuine reports will be considered.</li>
                 </span>
                 </button>
             </div>
+
+
             <form id="reviewAdvertiser" action="{{ route('review.advertiser',[$escort->id])}}" method="post" data-parsley-validate>
                 @csrf
                 {{--  <input type="hidden" value="" name="star_rating">--}}
@@ -1628,6 +1632,11 @@ genuine reports will be considered.</li>
                             </ol>
                 </div>
                 <div class="modal-footer">
+
+                    <button type="button" class="btn site_btn_primary main_bg_color" data-dismiss="modal">
+                        Cancel
+                    </button>
+
                     <button type="submit" class="btn main_bg_color site_btn_primary rounded">{{$reviewAlreadyExist ? 'Update' : "Submit"}} Review</button>
                 </div>
             </form>
@@ -2037,6 +2046,7 @@ $('#review-submitted-popup .close').on('click', function() {
 
     window.authUser = {
         isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+        auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
         myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
         write_reviews_disable: {{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }},
     };
@@ -2044,7 +2054,23 @@ $('#review-submitted-popup .close').on('click', function() {
     console.log('window.authUser.write_reviews_disable',window.authUser.write_reviews_disable);
 
 
+    if (window.authUser.write_reviews_disable && window.authUser.auth_user_type=='0') {
+
+        $('.disabled-button').css({
+        'background-color': '#ccc',
+        'border-color': '#ccc',
+        'color': '#646464',
+        'opacity': '0.9',
+       
+    });
+    }
+    
+
+
     $(document).ready(function () {
+
+        let review_box = $('#review_textarea').val().trim();
+        $('#review_textarea').val(review_box);
 
         var totalItems = $('.item-01').length;
         var currentIndex = $('div.carousel-item').index() + 1;
@@ -2105,8 +2131,8 @@ $('#review-submitted-popup .close').on('click', function() {
 
      $(document).on('click', '.open_review_box', function (e) {
         e.preventDefault();
-       if (window.authUser.write_reviews_disable) {
-            swal_error_warning('Reviews','Writing reviews is currently disabled. <br> To access this feature, go to your setting in My Account.');
+       if (window.authUser.write_reviews_disable && window.authUser.auth_user_type=='0') {
+            swal_error_warning('Reviews','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
             return false;
         } else {
             $('#add_reviews').modal('show');
@@ -2118,7 +2144,7 @@ $('#review-submitted-popup .close').on('click', function() {
     $(document).on('click', '#legbox_btn', function () {
 
 
-          if (window.authUser.myLegboxDisabled) {
+          if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type=='0') {
             swal_error_warning('My Legbox','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
             return false;
         }
