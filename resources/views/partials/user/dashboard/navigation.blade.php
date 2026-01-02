@@ -164,12 +164,12 @@
                                         Change Password
                                     </a>
                                     
-                                    <a class="dropdown-item" href="/user-dashboard/my-legbox-list">
+                                    <a class="dropdown-item @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_legbox!='1') inactive_li @endif" href="/user-dashboard/my-legbox-list">
                                     <img class="profile_icons" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox.png')}}">
                                         My Legbox
                                     </a>
                                     
-                                    <a class="dropdown-item" href="/user-dashboard/notebox/list">
+                                    <a class="dropdown-item @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox!='1') inactive_li @endif" href="/user-dashboard/notebox/list">
                                         <img class="profile_icons" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyNotebox.png')}}">
                                         My Notebox
                                     </a>

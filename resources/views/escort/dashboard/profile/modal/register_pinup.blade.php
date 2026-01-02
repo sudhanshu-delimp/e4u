@@ -52,7 +52,7 @@
                                             <div class="col-sm-4">
                                               <div class="input-group input-group-sm">
                                                 <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
-                                                <span class="form-control" id="extendFeeLive" style="background-color: #e9ecef; border: 1px solid #ced4da;">475.00</span>
+                                                <span class="form-control" id="extendFeeLive" style="background-color: #e9ecef; border: 1px solid #ced4da;">{{getPinupFee()}}</span>
                                               </div>
                                             </div>
                                           </div>

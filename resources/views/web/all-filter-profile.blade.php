@@ -1124,6 +1124,7 @@
 
    window.authUser = {
         isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+        auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
         myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
     };
 
@@ -1616,7 +1617,7 @@
 
           
             
-            if (window.authUser.myLegboxDisabled) {
+            if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type=='0') {
                 swal_error_warning('My Legbox','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
                 return false;
             }
