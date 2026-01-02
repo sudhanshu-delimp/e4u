@@ -187,13 +187,13 @@ class GlobalMonitoringLoggedInController extends Controller
                 case 0:
                     # viewer...
                     $userDetails = User::where('id', $userId)
-                        ->with(['loginAttempts','playmates:id','escorts:id,user_id','myLegBox:id','massageCenterLegBox:id'])
+                        ->with(['loginAttempts','escorts:id,user_id','myLegBox:id','massageCenterLegBox:id'])
                         ->first();
                     break;
                 case 1:
                     # Admin...
                     $userDetails = User::where('id', $userId)
-                        ->with(['loginAttempts','playmates:id','escorts:id,user_id','myLegBox:id','massageCenterLegBox:id'])
+                        ->with(['loginAttempts','escorts:id,user_id','myLegBox:id','massageCenterLegBox:id'])
                         ->first();
                     break;
                 case 2:
@@ -219,7 +219,6 @@ class GlobalMonitoringLoggedInController extends Controller
                     $userDetails = User::where('id', $userId)
                         ->with([
                             'loginAttempts',
-                            'playmates:id',
                             'escorts:id,user_id',
                             'listedEscorts:id',
                             'agentEscorts:id',
@@ -242,7 +241,7 @@ class GlobalMonitoringLoggedInController extends Controller
                 case 4:
                     # massage...
                     $userDetails = User::where('id', $userId)
-                        ->with('loginAttempts','playmates','escorts','agentEscorts','escortsAgents','myLegBox','massageCenterLegBox','my_agent')->first();
+                        ->with('loginAttempts','escorts','agentEscorts','escortsAgents','myLegBox','massageCenterLegBox','my_agent')->first();
                     break;
                 case 5:
                     # agent...
@@ -254,7 +253,7 @@ class GlobalMonitoringLoggedInController extends Controller
                 default:
                     # misslaneious...
                     $userDetails = User::where('id', $userId)
-                        ->with('loginAttempts','playmates','escorts','agentEscorts','escortsAgents','myLegBox','massageCenterLegBox','my_agent');
+                        ->with('loginAttempts','escorts','agentEscorts','escortsAgents','myLegBox','massageCenterLegBox','my_agent');
                     break;
             }
         }
