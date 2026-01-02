@@ -268,7 +268,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->pro_name .= '<sup class="bumpup_icon listing-tag-tooltip ml-1">Bumped Up
                 <small class="listing-tag-tooltip-desc">From ' . getEscortLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A') . " to ".getEscortLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A').'</small>
                 </sup>';
-                $item->tour = true;
             }
             $item->start_date_formatted = $item->start_date_formatted;
             $item->end_date_formatted = $item->end_date_formatted;
