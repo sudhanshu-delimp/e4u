@@ -22,7 +22,7 @@ class StaffActivateEmail extends Mailable
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'))
-                ->subject('Staff activate Notification') 
+                ->subject('Staff Account Activation Notification') 
                 ->markdown('emails.staff.staff_activate_email')
                 ->with('staff', $this->body);
     }
