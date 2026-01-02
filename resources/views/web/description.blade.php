@@ -1575,7 +1575,7 @@ genuine reports will be considered.</li>
                 <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">
                 <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $escort->name }}
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" {{$reviewAlreadyExist ? 'data-dismiss="modal"' : 'data-bs-dismiss="modal"'}}  aria-label="Close">
                 <span aria-hidden="true">
                 <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                 </span>
