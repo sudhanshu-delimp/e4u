@@ -177,6 +177,10 @@
       color: #aaa;
    }
 
+   .fa-ellipsis-v{
+   transform: rotate(0deg) !important;
+}
+
 </style>
 @endsection
 @section('content')
@@ -1824,6 +1828,7 @@ Account details, including the initial setup.</li>
  
    $(document).on('click', '.closeMe', function () {
       $('.bank-details-container').removeClass('blurred');
+      $('#pinDisplay').text('');
    });
 
    $(document).on('click', "#resendOtpSubmit", function(e){

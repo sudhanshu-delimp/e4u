@@ -174,6 +174,9 @@
     content: attr(data-placeholder);
     color: #aaa;
 }
+.fa-ellipsis-v{
+   transform: rotate(0deg) !important;
+}
 </style>
 @endsection
 @section('content')
@@ -997,6 +1000,7 @@
 
        $(document).on('click', '.closeMe', function () {
          $('.bank-details-container').removeClass('blurred');
+         $('#pinDisplay').text('');
       });
    })
   
@@ -1602,6 +1606,7 @@
                   if(data.changePin == '1'){
                      $('#sendOtp_modal').modal('hide');
                      $("#SetPinModal").modal('show');
+                     $('#pinDisplaySet').text('');
                      $('#otp').val('');
                   }else{
                      Swal.fire({
