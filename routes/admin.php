@@ -129,6 +129,30 @@ Route::get('shareholders/annual-report', function () {
     return view('admin.management.shareholders.annual-report');
 })->name('admin.annual-report');
 
+Route::get('shareholders/directors', function () {
+    return view('admin.management.shareholders.directors');
+})->name('admin.directors');
+
+Route::get('shareholders/portfolio', function () {
+    return view('admin.management.shareholders.portfolio');
+})->name('admin.portfolio');
+
+Route::get('shareholders/e4u-revenue', function () {
+    return view('admin.management.shareholders.e4u-revenue');
+})->name('admin.e4u-revenue');
+
+Route::get('shareholders/registrations', function () {
+    return view('admin.management.shareholders.registrations');
+})->name('admin.registrations');
+
+Route::get('shareholders/shareholder', function () {
+    return view('admin.management.shareholders.shareholder');
+})->name('admin.shareholder');
+
+Route::get('shareholders/share-value', function () {
+    return view('admin.management.shareholders.share-value');
+})->name('admin.share-value');
+
 Route::get('shareholders/annual-profit-and-loss', function () {
     return view('admin.management.shareholders.annual-profit-and-loss');
 })->name('admin.annual-profit-and-loss');
