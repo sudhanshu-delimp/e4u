@@ -28,6 +28,7 @@ $position = $positions[$postionKey] ?? "";
             </div>
         </div>
     </div>
+    
     <div class="navbar-nav">
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
         <form class="form-inline form-inline-custom navbar-search custom-nav-search d-none" style="width: 23rem;">
@@ -62,6 +63,49 @@ $position = $positions[$postionKey] ?? "";
                 </form>
             </div>
         </li>
+        
+        <!-- //////// Notification ///////////// -->
+
+        <li class="nav-item dropdown no-arrow mx-1 support-tooltip-wrap">
+            <span class="support-tooltip">Support Tickets</span>
+            <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown"
+                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip"
+                title="">
+                <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
+            </a>
+
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="ticketNotificationDropdown">
+                <h6 class="dropdown-header">Support Ticket Alert</h6>
+                <div class="support_notify_html">
+
+                    <div class="text-center">No new notification</div>
+
+                </div>
+            </div>
+
+        </li>
+
+        <li class="nav-item dropdown no-arrow mx-1 alert-tooltip-wrap">
+            <span class="alert-tooltip">Alert Centre</span>
+            <a class="nav-link dropdown-toggle alert_notify_bell common-tooltip" href="#" id="alertsDropdown"
+                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="top-icon-bg fas fa-bell fa-fw"></i>
+                <span class="tooltip-text">Alerts Center</span>
+            </a>
+
+
+            <div class="dropdown-list  dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">Alerts Center</h6>
+                <div class="alert_notify_html">
+
+                    <div class="text-center">No new notification</div>
+
+                </div>
+            </div>
+        </li>
+        
         <div class=" d-none d-sm-block"></div>
         @php
             $avtar = !empty(auth()->user()->avatar_img) ? auth()->user()->avatar_url : 'assets/img/default_user.png';
