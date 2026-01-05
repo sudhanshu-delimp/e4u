@@ -114,6 +114,10 @@ class LoginController extends BaseController
 
             // $user = User::where('phone', '=', $request->phone)->first();
             // $count = User::where('phone', '=', $request->phone)->count();
+
+            if(!$user)
+            return $this->sendFailedLoginResponse($request);
+
             if ($user != null) {
                 if ($user->type == 0 || $user->type == 1 || $user->type == 2) {
                     return $this->sendFailedLoginResponse($request);
@@ -121,10 +125,13 @@ class LoginController extends BaseController
             }
             
             $userStatus = ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled', 'Suspended'];
-            if($user->type == 3 || $user->type == 4) {
-                $userStatus = ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled'];
-            }
+
             if ($user != null && $user->status && in_array($user->status, $userStatus)) {
+
+                    if($user->type == 3 || $user->type == 4) {
+                        $userStatus = ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled'];
+                    }
+
                  if ($user->status == 'Pending') {
                         $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';
                     } else if ($user->status == 'On Hold') {

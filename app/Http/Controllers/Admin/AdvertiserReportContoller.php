@@ -58,12 +58,17 @@ class AdvertiserReportContoller extends Controller
 
         return DataTables::of($advertiserReports)
             ->addColumn('ref', fn($row) => $row->id . ($row->escort->id ?? ''))
-            ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
+            
             ->addColumn('member_id', fn($row) => $row->escort->user->member_id ?? '-')
-            ->addColumn('mobile', fn($row) => $row->escort->user->phone ?? '-')
-            ->addColumn('home_state', fn($row) => $row->escort->user->home_state ?? '-')
-            ->addColumn('status', fn($row) => $row->report_status == 'pending' ? 'Current' : 'Resolved')
+            ->addColumn('report_type', fn($row) => formatStringTitleCase($row->report_tag) ?? '-')
+            // ->addColumn('mobile', fn($row) => $row->escort->user->phone ?? '-')
+            // ->addColumn('home_state', fn($row) => $row->escort->user->home_state ?? '-')
+            ->addColumn('advertiser_id', fn($row) => $row->escort->id ?? '-')
+            ->addColumn('stage_name', fn($row) => $row->escort->name ?? '-')
+            ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
+            ->addColumn('status', fn($row) => $row->report_status == 'pending' ? 'Active' : 'Resolved')
             ->addColumn('action', function ($row) {
+                
                 $statusActionHtml = '';
                 if ($this->editAccessEnabled) {
                     $statusActionHtml = '
@@ -79,8 +84,23 @@ class AdvertiserReportContoller extends Controller
                         data-toggle="modal" data-target="#confirm-popup" 
                         data-id="' . $row->id . '" data-val="resolved" href="#">
                         <i class="fa fa-check-circle text-dark"></i> Resolved
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a title="Mark status as In Progress" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
+                        data-toggle="modal" data-target="#confirm-popup" 
+                        data-id="' . $row->id . '" data-val="inprogress" href="#">
+                        <i class="fa fa-sync-alt text-dark"></i> In Progress
                         </a>';
                     }
+
+                    // if ($row->report_status == 'resolved') {
+                    //     $statusActionHtml += '
+                    //     <a title="Mark status as resolved" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
+                    //     data-toggle="modal" data-target="#confirm-popup" 
+                    //     data-id="' . $row->id . '" data-val="inprogress" href="#">
+                    //     <i class="fa fa-check-circle text-dark"></i> In Progress
+                    //     </a>';
+                    // }
                 }
                 return '
                     <div class="dropdown no-arrow ml-3">
@@ -152,7 +172,7 @@ class AdvertiserReportContoller extends Controller
 
             $report = ReportEscortProfile::where('id', $request->report_id)
                 ->with([
-                    'escort:id,user_id,city_id,state_id',
+                    'escort:id,user_id,city_id,state_id,name',
                     'escort.user:id,member_id,phone,state_id,city_id',
                     'viewer:id,email,phone',
                 ])
@@ -192,11 +212,13 @@ class AdvertiserReportContoller extends Controller
 
             $report = ReportEscortProfile::where('id', $report_id)
                 ->with([
-                    'escort:id,user_id',
+                    'escort:id,user_id,name',
                     'escort.user:id,member_id,phone,state_id',
                     'viewer:id,email,phone'
                 ])
                 ->first();
+
+            $report->report_tag = formatStringTitleCase($report->report_tag);
 
             return view('admin.prints_file.advertiser_report_print', ['report' => $report]);
         }

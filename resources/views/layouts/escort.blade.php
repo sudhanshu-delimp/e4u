@@ -48,7 +48,7 @@
                             </h1>
                         </div>
                         <div class="modal-footer" style="justify-content: center;">
-                            <button type="submit" class="btn-success-modal" data-dismiss="modal" id="close">Ok</button>
+                            <button type="submit" class="btn-success-modal common_modal_close_btn" data-dismiss="modal" id="close">Ok</button>
                         </div>
                     </div>
                 </div>

@@ -37,6 +37,9 @@
         .fiter_btns select {
             text-transform: capitalize;
         }
+        .swal2-popup{
+            width: auto !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -378,11 +381,10 @@
                                                                     <span id="">
                                                                         {{--  {{ $memberTitle }} : --}}
                                                                         Total Listings :
-                                                                        
+                                                                         
                                                                     </span>
                                                                     <span >
-                                                                        {{-- {{ $memberTotalCountSum }} --}}
-                                                                       36
+                                                                        {{ array_sum($memberTotalCount) }}
                                                                         
                                                                     </span>
                                                                 </div>
@@ -396,7 +398,7 @@
                                                                 <li class="{{ !request()->has('membership_type') || request('membership_type') == '' ? 'active' : '' }}">
                                                                     <a  class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => null]) }}">
                                                                         <span class="firts-text">Total Listings :</span>
-                                                                        <span class="firts-text">36 {{-- {{ array_sum($memberTotalCount) }} --}} </span>
+                                                                        <span class="firts-text"> {{ array_sum($memberTotalCount) }} </span>
                                                                         
                                                                     </a>
                                                                 </li>
@@ -405,7 +407,7 @@
                                                                 <li class="{{ request('membership_type') == '1' ? 'active' : '' }}">
                                                                     <a class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '1']) }}">
                                                                         <span>View Platinum Listings :</span>
-                                                                        <span>10 {{-- {{ $memberTotalCount[1] }} --}}</span>
+                                                                        <span> {{ $memberTotalCount[1] }}</span>
                                                                          
                                                                     </a>
                                                                 </li>
@@ -414,7 +416,7 @@
                                                                 <li class="{{ request('membership_type') == '2' ? 'active' : '' }}">
                                                                     <a class="membership_list" class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '2']) }}">
                                                                         <span>View Gold Listings :</span>
-                                                                        <span>20 {{-- {{ $memberTotalCount[2] }} --}}</span>
+                                                                        <span>{{ $memberTotalCount[2] }}</span>
                                                                         
                                                                     </a>
                                                                 </li>
@@ -423,7 +425,7 @@
                                                                 <li class="{{ request('membership_type') == '3' ? 'active' : '' }}">
                                                                     <a class="membership_list" href="{{ request()->fullUrlWithQuery(['membership_type' => '3']) }}">
                                                                         <span>View Silver Listings :</span>
-                                                                        <span>6 {{-- {{ $memberTotalCount[3] }} --}}</span>
+                                                                        <span>{{ $memberTotalCount[3] }}</span>
                                                                     </a>
                                                                 </li>
 
@@ -816,6 +818,14 @@
 @push('scripts')
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script>
+
+    window.authUser = {
+        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+        auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
+        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
+    };
+
+
         $(function() {
             var list = $('.js-dropdown-list');
             var link = $('.js-link');
@@ -1079,6 +1089,14 @@
             });
         });
         $(document).on('click', '.add_to_favrate', function() {
+
+
+            if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type=='0') {
+                swal_error_warning('My Legbox','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
+                return false;
+            }
+
+
             var Eid = $(this).attr('data-escortId');
             var Uid = $(this).attr('data-userId');
             var cidcl = $(this).attr('class');

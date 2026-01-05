@@ -25,11 +25,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#myaccount"
             aria-expanded="true" aria-controls="myaccount">
-            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M8 0.720703C9.06087 0.720703 10.0783 1.14213 10.8284 1.89228C11.5786 2.64242 12 3.65984 12 4.7207C12 5.78157 11.5786 6.79899 10.8284 7.54913C10.0783 8.29928 9.06087 8.7207 8 8.7207C6.93913 8.7207 5.92172 8.29928 5.17157 7.54913C4.42143 6.79899 4 5.78157 4 4.7207C4 3.65984 4.42143 2.64242 5.17157 1.89228C5.92172 1.14213 6.93913 0.720703 8 0.720703ZM8 10.7207C12.42 10.7207 16 12.5107 16 14.7207V16.7207H0V14.7207C0 12.5107 3.58 10.7207 8 10.7207Z"
-                    fill="#C2CFE0" />
-            </svg>
+           <img src="{{ asset('assets/dashboard/img/menu-icon/my-account.png') }}" alt="">
 
             <span>My Account</span>
         </a>
@@ -233,13 +229,7 @@
         <div id="cms" class="collapse @if (request()->segment(2) == 'communication' || request()->segment(2) == 'viewer-messages') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-                {{-- <a class="collapse-item" href="{{ route('user.advertiser') }}">
-                    <img src="{{ asset('assets/app/img/Abrieviations.png') }}">
-                    <span style="{{ request()->segment(2) == 'communication' ? 'color: #e5365a;' : '' }}">Advertiser
-                        Messaging</span>
-                </a> --}}
-
-                <a class="collapse-item" href="{{ route('user.viewer-messages') }}">
+                <a class="collapse-item  @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_direct_chatting_with_escorts!='1') inactive_li @endif" href="{{ route('user.viewer-messages') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
                     <span style="{{ request()->segment(2) == 'viewer-messages' ? 'color: #e5365a;' : '' }}">Messages</span>
                 </a>

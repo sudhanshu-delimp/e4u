@@ -46,7 +46,22 @@
     opacity: 1;
   }
 
+.fa-thumbs-down, .fa-thumbs-up {
+    pointer-events: none;
+}
+
+.save-my-legbox-btn {
+         color: #fff;
+    }
+
+ .swal2-popup{
+            width: auto !important;
+        }
+</style>
+
+
 @if($escort->latestActiveBrb)
+ <style>
     .overlay_parent {
         position: relative;
     }
@@ -64,20 +79,11 @@
         color: red;
         padding-top: 5%;
     }
-
-  
+    .swal2-popup{
+            width: auto !important;
+        }
+</style> 
 @endif
-
-
-.fa-thumbs-down, .fa-thumbs-up {
-    pointer-events: none;
-}
-
-.save-my-legbox-btn {
-         color: #fff;
-    }
-
-</style>
 
 @if(str_contains(url()->full(), '?no-next-page') || str_contains(url()->full(), '?no-next-page='))
     <style>
@@ -206,11 +212,21 @@
 <div class="d-flex align-items-center justify-content-start gap-10 px-3">
                
 
-<div class="my-play-box-profile-icon">
-    <a href="{{ url('playbox') }}" target="_blank">
-        <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
-    </a>
-    <div class="custom-tooltip">I don't have any Playbox.</div>
+<div class="d-flex align-items-center justify-content-start">
+    <div class="my-play-box-profile-icon">
+        <a href="{{ url('playbox') }}" target="_blank">
+            <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
+        </a>
+        <div class="custom-tooltip">I don't have any Playbox.</div>
+    </div>
+    @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
+        <div class="my-play-box-profile-icon">
+            <a href="#">
+                <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
+            </a>
+            <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
+        </div>
+    @endif
 </div>
                 <ul class="profile_page_social_profiles">
                
@@ -218,19 +234,19 @@
                         @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
                             <li class="selected-from-profile">
                                 <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
-                                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/facebook.png" class="twitter-x-logo" alt="logo"></a>
+                                <img src="{{asset('assets/app/img/facebook.png')}}" class="twitter-x-logo" alt="logo"></a>
                             </li>
                         @endif
                         @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
-                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/instagram.png" class="twitter-x-logo" alt="logo"></a></li>
+                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
                         @endif
                         @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
-                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo"></a></li>
+                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
                         @else
-                            <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" ></a></li>
+                            <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
                         @endif
                     @else
-                        <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" ></a></li>
+                        <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
                     @endif
                 </ul>
 
@@ -485,7 +501,7 @@
                                 <div class="mb-2">
                                     <span class="about_box_small_heading">Available to:</span>
                                     @if(!empty($escort->available_to))
-                                        {{ implode(', ', array_map(fn($item) => config("escorts.profile.available-to.$item"), $escort->available_to)) }}
+                                       <span class="about_box_small_heading_value"> {{ implode(', ', array_map(fn($item) => config("escorts.profile.available-to.$item"), $escort->available_to)) }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -520,7 +536,7 @@
 
 
                                 <div class="mb-2">
-                                    <span class="about_box_small_heading">Contact me:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.contact-me.$escort->contact") }}</span>
+                                    <span class="about_box_small_heading">Contact me:</span> <span class="about_box_small_heading_value">{{ strtoupper(config("escorts.profile.contact-me.$escort->contact")) }}</span>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-12">
@@ -572,7 +588,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <span id="y" class="about_box_small_heading_value">Read more&gt;&gt;</span>
+                                <span id="y" class="">Read more&gt;&gt;</span>
                             </div>
                         </div>
                         <div class="hide_data">
@@ -1133,24 +1149,26 @@
             substr($from, 6));
             //dd($number);
             @endphp
-            <b>When texting me please say:</b>
+            <p class="font-weight-bold mb-0 mt-2">When texting me please say:</p>
             <p class="profile_description_contect_pera">
-                <b><i>Hi {{ $escortName }}, I found you on E4U ... </i></b> <br>
+                <b><i>Hi {{ $escortName }}, I found you on E4U ... </i></b>
                 @php
                     $formattedNumber = $escort->phone;
                     $contactTypes = $escort->contact != null ? $escort->contact : '';
+                   
                 @endphp
 
                 @if($contactTypes != '')
                     @if($contactTypes == 1)
                         on my email {{ $escort->user->email ?? '' }}
                     @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
-                        on my number {{ $formattedNumber }}
+                        on my number {{ $formattedNumber }}.
                     @else
                         on my number --
                     @endif
                 @else
-                    on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}
+                    {{-- on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
+                    on my number --
                 @endif
             </p>
 
@@ -1175,7 +1193,7 @@
             <div class="content">
                 <div class="accodien_manage_padding_content">
                     <p class="text-justify">
-                        Prices are all inclusive unless an extra is listed in My Serices. For Outcalls, price is rate + taxi to and from my Location.
+                        Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location.
                     </p>
                 </div>
             </div>
@@ -1200,7 +1218,7 @@
 
         </div>
         <div class="pt-2">
-            <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel" data-interval="2500">
+            <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel" data-interval="4000">
                 <!-- Wrapper for carousel items -->
                 <div class="carousel-inner">
                     <div class="carousel-item tip_carousel_item_text active item-01">
@@ -1305,12 +1323,12 @@
                     @if(auth()->user())
                             @if(auth()->user()->type == 0)
                                 @if(!$reviewAlreadyExist)
-                                    <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
                                     <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
                                     Add Review
                                 </button>
                                 @else
-                                    <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
                                         <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
                                         Edit Review
                                     </button>
@@ -1345,7 +1363,7 @@
             <div class="col-md-12 mb-4">
             @if(auth()->user())
                     @if(auth()->user()->type == 0)
-                        <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                        <button type="button" class="btn add_reviews_btn all_btn_flx open_review_box disabled-button">
                             <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
                             Add Review
                         </button>
@@ -1503,8 +1521,10 @@
                         <div class="col">
                             <ol>
                                 <li>Only report if you had direct contact with the Escort.</li>
-                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended Only genuine reports will be considered.</li>
-                                <li>The Escort’s Member ID will automatically attach to this report.</li>
+                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended. Only
+genuine reports will be considered.</li>
+                                <li>The Advertisers Membership Number will automatically attach to this report.</li>
+                                <li>You will receive a notification when this report has been resolved.</li>
                             </ol>
                         </div>
                     </div>
@@ -1533,7 +1553,7 @@
                     Report Logged
                     </h5>
                 <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
-                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/newcross.png" class="img-fluid img_resize_in_smscreen">
+                <img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                 </button>
             </div>
  
@@ -1559,16 +1579,20 @@
 <div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color">
+            
+        
+        <div class="modal-header main_bg_color">
                 <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">
                 <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $escort->name }}
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif class="close" aria-label="Close">
                 <span aria-hidden="true">
                 <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                 </span>
                 </button>
             </div>
+
+
             <form id="reviewAdvertiser" action="{{ route('review.advertiser',[$escort->id])}}" method="post" data-parsley-validate>
                 @csrf
                 {{--  <input type="hidden" value="" name="star_rating">--}}
@@ -1618,6 +1642,11 @@
                             </ol>
                 </div>
                 <div class="modal-footer">
+
+                    <button type="button" class="btn site_btn_primary main_bg_color" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif>
+                        Cancel
+                    </button>
+
                     <button type="submit" class="btn main_bg_color site_btn_primary rounded">{{$reviewAlreadyExist ? 'Update' : "Submit"}} Review</button>
                 </div>
             </form>
@@ -2024,7 +2053,35 @@ $('#review-submitted-popup .close').on('click', function() {
 
 </script>
 <script type="text/javascript">
+
+    window.authUser = {
+        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+        auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
+        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
+        write_reviews_disable: {{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }},
+    };
+
+    console.log('window.authUser.write_reviews_disable',window.authUser.write_reviews_disable);
+
+
+    if (window.authUser.write_reviews_disable && window.authUser.auth_user_type=='0') {
+
+        $('.disabled-button').css({
+        'background-color': '#ccc',
+        'border-color': '#ccc',
+        'color': '#646464',
+        'opacity': '0.9',
+       
+    });
+    }
+    
+
+
     $(document).ready(function () {
+
+        let review_box = $('#review_textarea').val().trim();
+        $('#review_textarea').val(review_box);
+
         var totalItems = $('.item-01').length;
         var currentIndex = $('div.carousel-item').index() + 1;
         var currentIndex_active = $('div.carousel-item.active').index();
@@ -2081,7 +2138,27 @@ $('#review-submitted-popup .close').on('click', function() {
     });
 
 
+
+     $(document).on('click', '.open_review_box', function (e) {
+        e.preventDefault();
+       if (window.authUser.write_reviews_disable && window.authUser.auth_user_type=='0') {
+            swal_error_warning('Reviews','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
+            return false;
+        } else {
+            $('#add_reviews').modal('show');
+        }
+    });
+
+
+
     $(document).on('click', '#legbox_btn', function () {
+
+
+          if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type=='0') {
+            swal_error_warning('My Legbox','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
+            return false;
+        }
+
         var addToFebIcon = $(this).find('.add_to_favrate');
         var Eid = addToFebIcon.attr('data-escortId');
         var Uid = addToFebIcon.attr('data-userId');

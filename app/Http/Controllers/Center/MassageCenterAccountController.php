@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Center;
 
 use App\Http\Controllers\Controller;
 use App\Mail\EscortChangeBankPin;
+use App\Mail\send2FAOtpEmail;
 use App\Mail\sendBookeepingMassageBankPaymentReceipt;
 use App\Models\MassageBankDetail;
 use App\Models\MassageProfile;
@@ -38,12 +39,11 @@ class MassageCenterAccountController extends Controller
     }
 
     public function generateOTP(){
-        $otp = mt_rand(1000,9999);
+        $otp = mt_rand(100000,999999);
         return $otp;
     }
     public function saveBankDetails(Request $request ,$id = null)
     {
-        //dd($request->all());
         $value = $request->all();
         session($value);
         $error = false;
@@ -56,8 +56,9 @@ class MassageCenterAccountController extends Controller
         $sendotp = new SendSms();
         $output = $sendotp->send($phone,$msg);
         $user_id = $user->id;
+        $isbankAccountAdded = (string)$request->isbankAccountAdded;
 
-        return response()->json(compact('error','phone','otp'));
+        return response()->json(compact('error','phone','otp','isbankAccountAdded'));
 
     }
     public function deleteMassageBank(Request $request , $id)
@@ -76,12 +77,13 @@ class MassageCenterAccountController extends Controller
     }
     public function checkOTP(Request $request)
     {
-
         $data = $request->session()->all();
 
         $error = 1;
 
         $user = auth()->user();
+        $isbankAccountAdded = (string)$request->isbankAccountAdded;
+          
 
         $changeOtp = (isset($request->change_pin_active) && (int)$request->change_pin_active == 1) ? $request->change_pin_active : 0;
 
@@ -91,9 +93,9 @@ class MassageCenterAccountController extends Controller
         $error =true;
         $otp = $user->otp;
         $bank_data = [];
- 
+
         if(($user && $changeOtp == 1) || ($user->otp != (int)$request->otp)) {
- 
+
             if($user->otp == (int)$request->otp) {
                 $status = true;
                 $otp = $user->otp;
@@ -177,7 +179,7 @@ class MassageCenterAccountController extends Controller
                 // }
             }
             $request->session()->flash('status', 'Task was successful!');
-            return response()->json(compact('error','bank_data','changePin','otp'));
+            return response()->json(compact('error','bank_data','changePin','otp','isbankAccountAdded'));
             //return $this->sendLoginResponse($request);
         } else {
             //return response()->json(compact('error','phone','otp','status','changePin'));
@@ -277,9 +279,9 @@ class MassageCenterAccountController extends Controller
            
             $massageBank = MassageBankDetail::where('id', (int)$request->bank_id)->first();
 
-            $massageBank->bsb = $massageBank->bsb ? formatAccountNumber($massageBank->bsb) : 'NA';
+            $massageBank->bsb = $massageBank->bsb ? formatAccountNumber($massageBank->bsb,'bsb') : 'NA';
 
-            $massageBank->account_number = $massageBank->account_number ?  formatAccountNumber($massageBank->account_number) : "NA";
+            $massageBank->account_number = $massageBank->account_number ?  formatAccountNumber($massageBank->account_number,null) : "NA";
 
             return response()->json([
                 'error' => false,
@@ -305,7 +307,7 @@ class MassageCenterAccountController extends Controller
                 'member_id' => auth()->user()->member_id,
                 'bsb' => $request->bsb,
                 'account_number' => $request->account_number,
-                'subject' => 'Bank payment receipt',
+                'subject' => 'Bank Payment Receipt',
             ];
 
             Mail::to(auth()->user()->email)->queue(new sendBookeepingMassageBankPaymentReceipt($body));
@@ -339,6 +341,16 @@ class MassageCenterAccountController extends Controller
             $sendotp = new SendSms();
             $output = $sendotp->send($phone,$msg);
             $user_id = $user->id;
+
+            $body = [
+                'name' => auth()->user()->name,
+                'member_id' => auth()->user()->member_id,
+                'pin' => $otp,
+                'subject' => '2FA Verification OTP',
+            ];
+
+            Mail::to(auth()->user()->email)->queue(new send2FAOtpEmail($body));
+
             return response()->json([
                 'status' => $output,
                 'message' => "Hello! Your one-time user code has been sent successfully. You can ignore this text message.",

@@ -31,7 +31,7 @@
                 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                     <div class="row">
                         <div class="custom-heading-wrapper col-md-12">
-                            <h1 class="h1">Agent Notifications</h1>
+                            <h1 class="h1">Agent (Notifications)</h1>
                             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                         </div>
                         <div class="col-md-12 mb-4">
@@ -914,7 +914,10 @@
                                     let msg = response.message ? response.message : 'Saved successfully';
                                     $("#image_icon").attr("src", endpoint.success_image);
                                     $('#success_task_title').text('Success');
-                                    $('#success_msg').text(msg);
+                                    //$('#success_msg').text(msg);
+                                    $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                                        '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                        );
                                     form[0].reset();
                                     $('#successModal').modal('show');
                                     setTimeout(function() {
@@ -931,7 +934,10 @@
                                 }
                                 $("#image_icon").attr("src", endpoint.error_image);
                                 $('#success_task_title').text('Error');
-                                $('#success_msg').text(msg);
+                                //$('#success_msg').text(msg);
+                                $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                                    '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                                );
                                 $('#successModal').modal('show');
                             }
                         });

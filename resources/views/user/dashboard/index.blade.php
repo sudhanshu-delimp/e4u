@@ -72,7 +72,7 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            {{-- <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('user.viewer-statistics') }}">
                         <div class="box-icon">
@@ -85,7 +85,7 @@
                     </a>
 
                 </div>
-            </div>
+            </div> --}}
             {{-- end --}}
             {{-- box start --}}
             <div class="col-lg-4 box-wrapper">

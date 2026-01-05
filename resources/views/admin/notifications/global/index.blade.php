@@ -32,7 +32,7 @@
             <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                 <div class="row">
                     <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1">Global Notifications</h1>
+                        <h1 class="h1">Global (Notifications)</h1>
                         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                     </div>
                     <div class="col-md-12 mb-4">
@@ -123,19 +123,16 @@
                             <!-- Start Date -->
                             <div class="col-12 mb-3">
                                 <label class="label">Start Date</label>
-                                <input type="date" name="start_date" id="start_date" class="form-control js_datepicker" placeholder="Start Date"
-                                    class="form-control rounded-0" min="{{ \Carbon\Carbon::now()->format('d-m-Y') }}"
+                                <input type="text" name="start_date" id="start_date" class="form-control js_datepicker" placeholder="Start Date"
+                                    class="form-control rounded-0" 
                                     required />
 
                             </div>
-
-                            
-
                             <!-- Finish Date -->
                             <div class="col-12 mb-3">
                                 <label class="label">End Date</label>
-                                <input type="date" name="end_date" id="end_date" placeholder="End Date"
-                                    class="form-control rounded-0" min="{{ \Carbon\Carbon::now()->format('d-m-Y') }}"
+                                <input type="text" name="end_date" id="end_date" placeholder="End Date"
+                                    class="form-control rounded-0 js_datepicker"
                                     required />
 
                             </div>
@@ -298,15 +295,12 @@
 
             if (type === 'Template') {
                 templateSelect.style.display = 'block';
-                //noticeSection.style.display = 'none';
                 contentField.style.display = 'none';
             } else if (type === 'Ad hoc') {
                 templateSelect.style.display = 'none';
-                //noticeSection.style.display = 'none';
                 contentField.style.display = 'block';
             } else {
                 templateSelect.style.display = 'none';
-                //noticeSection.style.display = 'none';
                 contentField.style.display = 'none';
             }
         }
@@ -355,7 +349,9 @@
                             let msg = response.message ? response.message : 'Saved successfully';
                             $("#image_icon").attr("src", endpoint.success_image);
                             $('#success_task_title').text('Success');
-                            $('#success_msg').text(msg);
+                            $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                            );
                             form[0].reset();
                             $('#successModal').modal('show');
                             setTimeout(function() {
@@ -372,7 +368,9 @@
                         }
                         $("#image_icon").attr("src", endpoint.error_image);
                         $('#success_task_title').text('Error');
-                        $('#success_msg').text(msg);
+                        $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                        );
                         $('#successModal').modal('show');
                     }
                 });
@@ -403,10 +401,10 @@
             $('#createNotificationForm')[0].reset();
             $('#edit_notification_id').val('');
             $('#submitBtn').text('Save');
-            $('#current_date').prop('readonly', false);
-            $('#start_date').prop('readonly', false);
-            $('#end_date').prop('readonly', false);
-            $('#type').prop('disabled', false);
+            //$('#current_date').prop('readonly', false);
+            //$('#start_date').prop('readonly', false);
+           // $('#end_date').prop('readonly', false);
+            //$('#type').prop('disabled', false);
             // Reset modal title
             $(this).find('h5.modal-title').html(
                 '<img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create Notification'
@@ -474,7 +472,6 @@
                 url: endpoint.global_notification_show.replace('__ID__', id),
                 type: 'GET',
                 success: function(response) {
-                    console.log(response, 'response');
                     if (response.status === true) {
                         const d = response.data || {};
                         const rows = [
@@ -548,6 +545,7 @@
             modal.modal('show');
             body.off('click', '#confirmRemove').on('click', '#confirmRemove', function() {
                 $(this).prop('disabled', true);
+                //$('#success_form_html').html('');
                 $.ajax({
                     url: endpoint.global_notification_status.replace('__ID__', id),
                     type: 'POST',
@@ -558,8 +556,7 @@
                     success: function(response) {
                         $('#success_task_title').text('Success');
                         $('#image_icon').attr('src', endpoint.success_image);
-                        $('#success_form_html').html('<h4>' + (response.message ||
-                                'Status updated successfully') +
+                        $('#success_form_html').html('<h4>' + (response.message || 'Status updated successfully') +
                             '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                         );
                         setTimeout(function() {
@@ -588,12 +585,10 @@
             const container = $('#listingModalContent');
             container.html('<div class="text-center py-3">Loading...</div>');
             $('#createNotificationForm')[0].reset();
-            // $('#edit_notification_id').val(id);
+             $('#edit_notification_id').val(id);
             $('#submitBtn').text('Save');
-            $('#current_date').prop('readonly', true);
-            $('#start_date').prop('readonly', true);
-            $('#end_date').prop('readonly', true);
-            $('#type').prop('disabled', true);
+
+
             // Reset modal title
             $(this).find('h5.modal-title').html(
                 '<img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create Notification'
@@ -616,10 +611,6 @@
                             $('#template_name').val(n.template_name);
                         }
 
-                        // Make date fields readonly in edit mode
-                        ['#current_date', '#start_date', '#end_date'].forEach(id => $(id).prop(
-                            'readonly', true));
-                        $('#type').prop('disabled', true);
                         // Change button text to Update
                         $('#submitBtn').text('Update');
 

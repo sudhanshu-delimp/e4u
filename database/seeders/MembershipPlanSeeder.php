@@ -15,12 +15,14 @@ class MembershipPlanSeeder extends Seeder
      */
    public function run(): void
         {
+            DB::table('membership_plan')->truncate();
             DB::table('membership_plan')->insert([
                 ['name' => 'Platinum', 'is_for_calculater' => '1', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['name' => 'Gold', 'is_for_calculater' => '1', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['name' => 'Silver', 'is_for_calculater' => '1', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['name' => 'Free<sup>(3)</sup>', 'is_for_calculater' => '0', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['name' => 'Pin-Up<sup>(4)</sup>', 'is_for_calculater' => '0', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+                ['name' => 'Bump Up', 'is_for_calculater' => '0', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ]);
         }
 }

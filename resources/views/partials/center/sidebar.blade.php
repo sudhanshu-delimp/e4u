@@ -24,12 +24,8 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="false" aria-controls="collapseTwo">
-            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M8 0.720703C9.06087 0.720703 10.0783 1.14213 10.8284 1.89228C11.5786 2.64242 12 3.65984 12 4.7207C12 5.78157 11.5786 6.79899 10.8284 7.54913C10.0783 8.29928 9.06087 8.7207 8 8.7207C6.93913 8.7207 5.92172 8.29928 5.17157 7.54913C4.42143 6.79899 4 5.78157 4 4.7207C4 3.65984 4.42143 2.64242 5.17157 1.89228C5.92172 1.14213 6.93913 0.720703 8 0.720703ZM8 10.7207C12.42 10.7207 16 12.5107 16 14.7207V16.7207H0V14.7207C0 12.5107 3.58 10.7207 8 10.7207Z"
-                    fill="#C2CFE0"></path>
-            </svg>
 
+            <img src="{{ asset('assets/dashboard/img/menu-icon/my-account.png') }}" alt="">
             <span>My Account</span>
         </a>
         <div id="collapseTwo" class="collapse @if (request()->segment(2) == 'update-account' ||
@@ -41,34 +37,29 @@
             <div class="py-0 collapse-inner rounded mb-2">
                 <a class="collapse-item" href="{{ route('center.account.edit') }}">
 
-                    <img width="16" height="17" viewBox="0 0 16 17" fill="none"
-                        src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
 
                     <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Edit Our
                         Account</span></a>
                 <a class="collapse-item" href="{{ route('center.profile.information') }}">
-                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                        src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
 
                     <span style="{{ request()->segment(2) == 'profile-informations' ? 'color: #e5365a;' : '' }}">Profile
                         information</span></a>
                 <a class="collapse-item" href="{{ route('center.change.password') }}">
-                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                        src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
 
                     <span style="{{ request()->segment(2) == 'change-password' ? 'color: #e5365a;' : '' }}">Change
                         password</span></a>
 
                 <a class="collapse-item" href="{{ route('centre.notifications-and-features') }}">
-                    <img width="16" height="17" viewBox="0 0 16 17" fill="none"
-                        src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
 
                     <span
                         style="{{ request()->segment(2) == 'notifications-and-features' ? 'color: #e5365a;' : '' }}">Notifications
                         & Features</span></a>
                 <a class="collapse-item" href="{{ route('center.profile.avatar') }}">
-                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                        src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
 
                     <span style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #e5365a;' : '' }}">Upload my
                         avatar</span></a>
@@ -98,8 +89,7 @@
 
                 {{-- Listings --}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ProfileListings">
-                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                        src="{{ asset('assets/dashboard/img/menu-icon/pachive.png') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/pachive.png') }}">
 
                     <span>Listings</span>
                 </a>
@@ -129,8 +119,7 @@
                 {{-- end --}}
 
                 {{-- Profile --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse"
-                    data-target="#ManageProfile">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ManageProfile">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/add-profile-centre.png') }}">
                     <span>Profiles</span>
                 </a>
@@ -219,7 +208,7 @@
     </li>
     {{-- Listings --}}
 
-   {{-- devider --}}
+    {{-- devider --}}
     <li
         style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
     </li>
@@ -298,13 +287,40 @@
                     </div>
                 </div>
                 {{-- Bookkeeping --}}
-                <a class="nav-link collapsed {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
+                {{-- <a class="nav-link collapsed {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
                     href="{{ route('center.bookkeeping') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/bookshelf.png') }}">
-                   <span>
+                    <span>
                         Bookkeeping
                     </span>
+                </a> --}}
+
+                  <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                    data-target="#ManagementBookkeeping">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/bookshelf.png') }}">
+                    <span>Bookkeeping</span>
                 </a>
+ 
+                <div id="ManagementBookkeeping"
+                    class="collapse
+                    @if (in_array(request()->segment(2), ['bookkeeping'])) show @endif"
+                    data-parent="#AdminTab">
+ 
+                    <a class="collapse-item {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
+                    href="{{ route('center.bookkeeping') }}">
+                        <img src="{{ asset('assets/app/img/sales-performance.png') }}">
+                        <span>Bank Account</span>
+                    </a>
+                    {{-- <a class="collapse-item {{ request()->segment(2) == 'credit-my-account' ? 'menu-active' : '' }}"
+                        href="{{ url('escort-dashboard/credit-my-account') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
+                        <span>Add Credit</span>
+                    </a>
+                    <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
+                        href="{{ url('escort-dashboard/transaction-summary') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
+                        <span>Transaction Summary</span></a> --}}
+                </div>
 
                 {{-- Communication --}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"
