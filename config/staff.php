@@ -103,7 +103,8 @@ return [
         'shareholder-notices',
         'subsidiaries-balance-sheet',
         'subsidiaries-annual-profit-and-loss',
-        'updates'
+        'updates',
+        'influencer'
     ],
     'genders' => [
 			'6' => 'Female',

@@ -28,7 +28,8 @@ class AdminAuth
             return redirect('/');
         }
         /** You should not access the Admin Sidebar Management tab link */
-        if (request()->segment(2) == "management" && in_array($request->segment(3), config('staff.admin_management_url_endpoint'))) {
+
+        if (in_array(request()->segment(2), ["management", "shareholders"]) && in_array($request->segment(3), config('staff.admin_management_url_endpoint'))) {
             $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
         
             $sidebar = staffPageAccessPermission($securityLevel, 'sidebar');

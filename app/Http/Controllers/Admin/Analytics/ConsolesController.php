@@ -35,7 +35,7 @@ class ConsolesController extends Controller
             $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
 
             if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
-                return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
+                //return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
             }
 
             return $next($request);

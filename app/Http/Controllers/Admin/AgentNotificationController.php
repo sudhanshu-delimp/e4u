@@ -10,15 +10,44 @@ use GrahamCampbell\ResultType\Success;
 use Intervention\Image\Colors\Rgb\Channels\Red;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Database\Eloquent\Builder;
+use App\Repositories\User\UserInterface;
 
 class AgentNotificationController extends Controller
 {
+    protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    protected $sidebar;
+
+    public function __construct(UserInterface $user)
+    {
+        $this->user = $user;
+        $this->current_date_time = date('Y-m-d H:i:s');
+        $this->middleware(function ($request, $next) {
+
+            $user = auth()->user();   // works here
+
+            // Now do everything that needs user data
+            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+            $addAccess = staffPageAccessPermission($securityLevel, 'add');
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+            return $next($request);
+        });
+    }
+
     public function index(Request $request)
     {
-        
+
         if ($request->ajax()) {
             $query = AgentNotification::query();
-                $clientOrder = $request->input('order'); 
+            $clientOrder = $request->input('order');
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
             }
@@ -63,25 +92,35 @@ class AgentNotificationController extends Controller
                     $actions = [];
                     $status = $row->status ?? null;
 
+                    if ($this->editAccessEnabled) {
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-edit" data-id="' . $row->id . '"><i class="fa fa-fw fa-edit"></i> Edit</a>';
+                    }
+
                     // If published -> offer suspend
                     if ($status === 'Published') {
-                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspend</a>';
+                        if ($this->editAccessEnabled) {
+                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspend</a>';
+                        }
                     }
 
                     // If suspended -> offer publish and remove
                     if ($status === 'Suspended') {
-                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
-                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                        if ($this->editAccessEnabled) {
+                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
+                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                        }
                     }
 
                     // If completed -> offer remove
                     if ($status === 'Completed') {
-                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                        if ($this->editAccessEnabled) {
+                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                        }
                     }
 
                     // Common actions
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
-                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-edit" data-id="' . $row->id . '"><i class="fa fa-fw fa-edit"></i> Edit</a>';
+                   
 
                     $dropdown = '<div class="dropdown no-arrow">'
                         . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
@@ -121,11 +160,11 @@ class AgentNotificationController extends Controller
             $notification = AgentNotification::findOrFail($id);
             $allowed = ['Published', 'Suspended', 'Removed'];
             $status = $request->input('status');
-            if($status == 'Removed'){
-                 $notification->delete();
-                 return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification delete Successfylly!!.');
+            if ($status == 'Removed') {
+                $notification->delete();
+                return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification delete Successfylly!!.');
             }
-            
+
             if (!in_array($status, $allowed)) {
                 return response()->json(['success' => false, 'message' => 'Invalid status'], 422);
             }
@@ -143,8 +182,8 @@ class AgentNotificationController extends Controller
             $n = AgentNotification::findOrFail($id);
             // Format recurring day/month range
             $recurringRange = null;
-            if (in_array($n->recurring_type, ['weekly', 'monthly','yearly'])) {
-                $recurringRange = basicDateFormat($n['start_date']).' - '.basicDateFormat($n['end_date']);
+            if (in_array($n->recurring_type, ['weekly', 'monthly', 'yearly'])) {
+                $recurringRange = basicDateFormat($n['start_date']) . ' - ' . basicDateFormat($n['end_date']);
             } elseif ($n->recurring_type === 'forever') {
                 $recurringRange = "Forever";
             }
@@ -297,11 +336,10 @@ class AgentNotificationController extends Controller
 
             if ($isUpdate) {
                 $notification = AgentNotification::findOrFail($request->notificationId);
-                if($data['end_date'] > date('Y-m-d')){
-                    if($notification->status == 'Completed'){
+                if ($data['end_date'] > date('Y-m-d')) {
+                    if ($notification->status == 'Completed') {
                         $data['status'] = 'Published';
                     }
-                    
                 }
                 $notification->update($data);
                 return success_response($notification, 'Notification updated successfully');
@@ -328,9 +366,9 @@ class AgentNotificationController extends Controller
 
 
             $recurringRange = null;
-            if (in_array($data->recurring_type, ['weekly', 'monthly','yearly'])) {
-                $recurringRange = basicDateFormat($data['start_date']).' - '.basicDateFormat($data['end_date']);
-            }  elseif ($data->recurring_type === 'forever') {
+            if (in_array($data->recurring_type, ['weekly', 'monthly', 'yearly'])) {
+                $recurringRange = basicDateFormat($data['start_date']) . ' - ' . basicDateFormat($data['end_date']);
+            } elseif ($data->recurring_type === 'forever') {
                 $recurringRange = "Forever";
             }
 
@@ -356,30 +394,28 @@ class AgentNotificationController extends Controller
         }
     }
 
-    public function edit($id){
-        try{
+    public function edit($id)
+    {
+        try {
             $notification = AgentNotification::findOrFail($id);
             $notification->current_day = basicDateFormat($notification->current_day);
             $notification->start_date = basicDateFormat($notification->start_date);
             $notification->end_date = basicDateFormat($notification->end_date);
             return success_response($notification, 'Notification saved successfully');
-         } catch (\Exception $e) {
+        } catch (\Exception $e) {
             return error_response('Failed to create notification: ' . $e->getMessage(), 500);
         }
-     
     }
 
-    public function update(Request  $request, $id){
-        try{
+    public function update(Request  $request, $id)
+    {
+        try {
             $notification = AgentNotification::findOrFail($id);
             $data = $request->all();
             $notification->update($data);
-            return success_response($notification,'Notification updated successfully.');
-        } catch(\Exception $e){
-            return error_response('Faild to update Notification: '. $e->getMessage(), 500);
+            return success_response($notification, 'Notification updated successfully.');
+        } catch (\Exception $e) {
+            return error_response('Faild to update Notification: ' . $e->getMessage(), 500);
         }
     }
-
-
-
 }
