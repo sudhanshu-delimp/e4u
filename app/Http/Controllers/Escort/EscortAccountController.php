@@ -150,7 +150,7 @@ class EscortAccountController extends Controller
         $user = auth()->user();
         if($user){
             $phone = $user->phone;
-            $user->otp = $this->generateOTP();
+            $user->otp = $user->generateOTP();
             $user->save();
             $error = false;
             $user = auth()->user();
@@ -189,21 +189,18 @@ class EscortAccountController extends Controller
      * @param  \App\Models\Escort  $escort
      * @return \Illuminate\Http\Response
      */
-    public function generateOTP(){
-        $otp = mt_rand(100000,999999);
-        return $otp;
-    }
+    
 
     public function saveBankDetails(StoreEscortBankDetailRequest $request ,$id = null)
     {
-        //dd($request->all());
+
         $value = $request->all();
                                                                                                                                                                                        
         session($value);
         $error = false;
         $user = auth()->user();
         $phone = $user->phone;
-        $otp = $this->generateOTP();
+        $otp = $user->generateOTP();
         $user->otp = $otp;
         $user->save();
         $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
@@ -289,7 +286,7 @@ class EscortAccountController extends Controller
                 $error = false;
                 $changePin = '1';
             }
-            return response()->json(compact('error','phone','otp','status','changePin'));
+            return response()->json(compact('error','phone','status','changePin'));
         }
  
         //TODO:: remove bypass before deployment
@@ -366,7 +363,7 @@ class EscortAccountController extends Controller
                 // }
             }
             $request->session()->flash('status', 'Task was successful!');
-            return response()->json(compact('error','bank_data','changePin','otp','isbankAccountAdded'));
+            return response()->json(compact('error','bank_data','changePin','isbankAccountAdded'));
             //return $this->sendLoginResponse($request);
         } else {
             //return response()->json(compact('error','phone','otp','status','changePin'));
