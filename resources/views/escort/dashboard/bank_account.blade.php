@@ -1614,7 +1614,8 @@
                            title: "Invalid OTP",
                            text: "The OTP you entered is incorrect. Please try again.",
                      });
-                     $('#otp').val('');
+                     $('.otp-input').val('');
+
                      // $("#change_pin_active").val('1');
                      return true;
                   }

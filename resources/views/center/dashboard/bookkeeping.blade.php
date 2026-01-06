@@ -1630,6 +1630,7 @@ Account details, including the initial setup.</li>
                if(data.changePin == '1' || data.changePin == '0'){
                   if(data.changePin == '1'){
                      $('#sendOtp_modal').modal('hide');
+                     $('#pinDisplaySet').text('');
                      $("#SetPinModal").modal('show');
                      $('#otp').val('');
                   }else{
@@ -1638,7 +1639,7 @@ Account details, including the initial setup.</li>
                            title: "Invalid OTP",
                            text: "The OTP you entered is incorrect. Please try again.",
                      });
-                     $('#otp').val('');
+                     $('.otp-input').val('');
                      // $("#change_pin_active").val('1');
                      return true;
                   }
