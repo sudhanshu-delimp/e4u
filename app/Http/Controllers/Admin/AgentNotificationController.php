@@ -65,9 +65,6 @@ class AgentNotificationController extends Controller
                         $query->where('id', 'like', "%{$digits}%");
                     }
                 })
-                // ->orderColumn('ref', function ($query, $order) {
-                //     $query->orderBy('id', $order);
-                // })
                 ->editColumn('start_date', function ($row) {
                     return basicDateFormat($row->start_date);
                 })
@@ -91,6 +88,17 @@ class AgentNotificationController extends Controller
                 ->orderColumn('end_date', function ($query, $order) {
                     $query->orderBy('end_date', $order);
                 })
+
+                ->editColumn('status', function ($row) {
+                    $start_date = $row->start_date;
+                    $status = $row->status;
+                    if($status === 'Published' && $start_date > date('Y-m-d')){
+                        return 'Published (Upcoming)';
+                    }else{
+                        return $status;
+                    }
+                })
+
                 ->addColumn('action', function ($row) {
                     $actions = [];
                     $status = $row->status ?? null;
@@ -136,7 +144,7 @@ class AgentNotificationController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action', 'start_date', 'end_date', 'ref'])
+                ->rawColumns(['action', 'start_date', 'end_date', 'ref', 'status'])
                 ->make(true);
         }
         return view('admin.notifications.agents.index');
@@ -219,8 +227,6 @@ class AgentNotificationController extends Controller
 
     public function store(StoreAgentNotificationRequest $request)
     {
-
-
         try {
             $isUpdate = !empty($request->notificationId);
             $data = [
