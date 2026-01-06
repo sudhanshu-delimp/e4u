@@ -20,13 +20,18 @@
     </style>
 @stop
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+@endphp
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                     <div class="row">
                         <div class="custom-heading-wrapper col-md-12">
-                            <h1 class="h1">Agent Notifications</h1>
+                            <h1 class="h1">Agent (Notifications)</h1>
                             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                         </div>
                         <div class="col-md-12 mb-4">
@@ -42,12 +47,14 @@
                         </div>
                     </div>
                     <div class="row">
+                         @if($editAccessEnabled)
                         <div class="col-md-12">
                             <div class="bothsearch-form mb-3">
                                 <button type="button" class="create-tour-sec dctour" data-toggle="modal" id=""
                                     data-target="#createNotification">New Notification</button>
                             </div>
                         </div>
+                        @endif
                         <div class="col-md-12">
                             <div class="panel with-nav-tabs panel-warning">
                                 <div class="panel-body">

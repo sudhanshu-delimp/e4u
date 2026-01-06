@@ -4,6 +4,11 @@
     </style>
 @stop
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $addAccess = staffPageAccessPermission($securityLevel, 'add');
+   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+@endphp
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -37,13 +42,14 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade active show" id="tab3warning">
                                         <div class="row pb-3">
-
+                                             @if($addAccessEnabled)
                                             <div class="col-lg-12 col-md-12 col-sm-12">
                                                 <div class="bothsearch-form" style="gap: 10px;">
                                                     <button type="button" class="btn-common" data-toggle="modal"
                                                         data-target="#addStaffnew">Add New Staff Member</button>
                                                 </div>
                                             </div>
+                                            @endif
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table mb-3 w-100" id="staff_data_table">
@@ -310,7 +316,8 @@
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="idle_preference_time"
-                                            id="idle_preference_time_never" value="{{config('staff.idle_vever_minute')}}">
+                                            id="idle_preference_time_never"
+                                            value="{{ config('staff.idle_vever_minute') }}">
                                         <label class="form-check-label" for="idle_preference_time_never">Never</label>
                                     </div>
 
@@ -395,7 +402,7 @@
 
 
 
-  
+
 @endsection
 @push('script')
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
@@ -607,34 +614,38 @@
             })
 
             ///////// Approve Agent //////////////////////////////
-            $(document).on('click', '.approve_account', function(e) {
+            $(document).on('click', '.approve_account', async function(e) {
+                if (await isConfirm({
+                        'action': 'Approve',
+                        'text': 'Are you sure you want to approve this account?'
+                    })) {
+                    swal_waiting_popup({
+                        'title': 'Approving Account'
+                    });
+                    $.ajax({
+                        url: "{{ route('admin.approve_staff_account') }}",
+                        method: 'POST',
+                        data: {
+                            'user_id': $(this).attr('data-id'),
+                            'status': '1'
+                        },
+                        success: function(response) {
+                            table.ajax.reload(null, false);
+                            Swal.close();
+                            $('#staffViewModal').modal('hide');
+                            $('#staffEditModal').modal('hide');
+                            swal_success_popup(response.message);
+                        },
+                        error: function(xhr) {
 
-                swal_waiting_popup({
-                    'title': 'Approving Account'
-                });
-                $.ajax({
-                    url: "{{ route('admin.approve_staff_account') }}",
-                    method: 'POST',
-                    data: {
-                        'user_id': $(this).attr('data-id'),
-                        'status': '1'
-                    },
-                    success: function(response) {
-                        table.ajax.reload(null, false);
-                        Swal.close();
-                        $('#staffViewModal').modal('hide');
-                        $('#staffEditModal').modal('hide');
-                        swal_success_popup(response.message);
-                    },
-                    error: function(xhr) {
-
-                        Swal.close();
-                        $('#staffViewModal').modal('hide');
-                        $('#staffEditModal').modal('hide');
-                        swal_error_popup(xhr.responseJSON.message);
-                    }
-                });
-            })
+                            Swal.close();
+                            $('#staffViewModal').modal('hide');
+                            $('#staffEditModal').modal('hide');
+                            swal_error_popup(xhr.responseJSON.message);
+                        }
+                    });
+                }
+            });
 
             /*** Activate staff Account */
             $(document).on('click', '.active-account-btn', async function(e) {

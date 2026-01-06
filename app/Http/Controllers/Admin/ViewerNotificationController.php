@@ -7,9 +7,37 @@ use Illuminate\Http\Request;
 use App\Models\ViewerNotification;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
+use App\Repositories\User\UserInterface;
 
 class ViewerNotificationController extends Controller
 {
+    protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    protected $sidebar;
+
+    public function __construct(UserInterface $user)
+    {
+        $this->user = $user;
+        $this->current_date_time = date('Y-m-d H:i:s');
+        $this->middleware(function ($request, $next) {
+            $user = auth()->user();   // works here
+
+            // Now do everything that needs user data
+            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+            $addAccess = staffPageAccessPermission($securityLevel, 'add');
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+            return $next($request);
+        });
+    }
+
     public function index(Request $request)
     {
 
@@ -63,25 +91,35 @@ class ViewerNotificationController extends Controller
                     $actions = [];
                     $status = $row->status ?? null;
 
+                    if ($this->editAccessEnabled) {
+                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-edit" data-id="' . $row->id . '"><i class="fa fa-fw fa-edit"></i> Edit</a>';
+                    }
+
                     // If published -> offer suspend
                     if ($status === 'Published') {
-                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspend</a>';
+                        if ($this->editAccessEnabled) {
+                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspend</a>';
+                        }
                     }
 
                     // If suspended -> offer publish and remove
                     if ($status === 'Suspended') {
-                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
-                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                        if ($this->editAccessEnabled) {
+                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
+                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                        }
                     }
 
                     // If completed -> offer remove
                     if ($status === 'Completed') {
-                        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                        if ($this->editAccessEnabled) {
+                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                        }
                     }
 
                     // Common actions
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
-                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-edit" data-id="' . $row->id . '"><i class="fa fa-fw fa-edit"></i> Edit</a>';
+
 
                     $dropdown = '<div class="dropdown no-arrow">'
                         . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
@@ -183,7 +221,7 @@ class ViewerNotificationController extends Controller
                 'current_day' => Carbon::createFromFormat('d-m-Y', $request->current_day)->toDateString(),
                 'heading' => $request->heading,
                 'type' => $request->type,
-                'start_date' => sqlDateFormat($request->start_date) ,
+                'start_date' => sqlDateFormat($request->start_date),
                 'end_date' => sqlDateFormat($request->end_date),
                 'content' => $request->content,
             ];
@@ -295,11 +333,10 @@ class ViewerNotificationController extends Controller
 
             if ($isUpdate) {
                 $notification = ViewerNotification::findOrFail($request->notificationId);
-                if($data['end_date'] > date('Y-m-d')){
-                    if($notification->status == 'Completed'){
+                if ($data['end_date'] > date('Y-m-d')) {
+                    if ($notification->status == 'Completed') {
                         $data['status'] = 'Published';
                     }
-                    
                 }
                 $notification->update($data);
                 return success_response($notification, 'Notification updated successfully');
@@ -357,7 +394,7 @@ class ViewerNotificationController extends Controller
             $notification->current_day = basicDateFormat($notification->current_day);
             $notification->start_date = basicDateFormat($notification->start_date);
             $notification->end_date = basicDateFormat($notification->end_date);
-           
+
             return success_response($notification, 'Notification saved successfully');
         } catch (\Exception $e) {
             return error_response('Failed to create notification: ' . $e->getMessage(), 500);

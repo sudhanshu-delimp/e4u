@@ -193,22 +193,69 @@ class StaffController extends BaseController
             $item->position = isset($item->staff_detail->position) ? $item->staff_detail->position($item->staff_detail->position) : 'NA';
             $suspend_html = "";
             $activate_html = "";
-            if ($item->status != 'Suspended') {
+            $dropdownsub = "";
+            $edit = "";
+            /*  if ($item->status != 'Suspended') {
                 $suspend_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-ban"></i> Suspend</a><div class="dropdown-divider"></div>';
             }
             if ($item->status == 'Suspended') {
                 $activate_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center active-account-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-check"></i> Activate</a><div class="dropdown-divider"></div>';
-            }
-            $dropdown = '<div class="dropdown no-arrow ml-3">
-                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item view-account-btn view-staff-btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '>  
+            } */
+            $view = '<div class="dropdown-divider"></div><a class="dropdown-item view-account-btn view-staff-btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '>  
                 <i class="fa fa-eye "></i> View Account</a>';
+
+            $dropdown = '<div class="dropdown no-arrow ml-3">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
+
 
             if ($this->editAccessEnabled) {
                 if (auth()->user()->member_id != $item->member_id) {
-                    $dropdown .= '<div class="dropdown-divider"></div>' . $activate_html . $suspend_html;
-                    $dropdown .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
+                    $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
                 }
+            }    
+
+            if ($item->status == 'Pending') {
+                $dropdownsub .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center approve_account" href="javascript:void(0)" data-id=' . $item->id . '> <i class="fa fa-check"></i>Approve</a><div class="dropdown-divider"></div>';
+                /* 
+                $dropdownsub .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-ban"></i>Suspend</a><div class="dropdown-divider"></div>'; */
+                 if (auth()->user()->member_id == $item->member_id) {
+                    $dropdown .= $view;
+                 } else {
+                     if ($this->editAccessEnabled) {
+                    $dropdown .= $dropdownsub. $edit.  $view;
+                    } else {
+                        $dropdown .= $view;
+                    }
+                 }
             }
+
+            if ($item->status == 'Active') {
+                $dropdownsub = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-ban"></i>Suspend</a>';
+                if (auth()->user()->member_id == $item->member_id) {
+                    $dropdown .= $view;
+                 } else {
+                    if ($this->editAccessEnabled) {
+                     $dropdown .= $edit . $dropdownsub.  $view;
+                     } else {
+                        $dropdown .= $view;
+                    }
+                 }
+            }
+
+            if ($item->status == 'Suspended') {
+                $dropdownsub = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center active-account-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-check"></i>Activate</a><div class="dropdown-divider"></div>';
+               
+                if (auth()->user()->member_id == $item->member_id) {
+                    $dropdown .= $view;
+                 } else {
+                    if ($this->editAccessEnabled) {
+                      $dropdown .= $dropdownsub. $edit.  $view;
+                    } else {
+                        $dropdown .= $view;
+                    }
+                 }
+            }
+            
             $dropdown .= '</div></div>';
 
             $item->action = $dropdown;
@@ -224,21 +271,20 @@ class StaffController extends BaseController
     public function suspend_staff(Request $request)
     {
         if ($request->id && $request->request_type && $request->request_type == 'suspend') {
-
             $user = User::where('id', $request->id)->first();
             if ($user->status && $user->status == 'Suspended') {
-                return $this->successResponse('This Account Already Suspended');
+                return $this->successResponse('This Account Already Suspended.');
             }
-
             $user->status = '3';
             $response = $user->save();
 
-            if ($response)
-                return $this->successResponse('Account Suspended Successfully');
-            else
-                return $this->successResponse('Error Occurred while Account Suspending');
+            if ($response){
+                 $resposne = $this->staffRepo->sendSuspendEmail($user);
+                return $this->successResponse('Account Suspended Successfully.');
+            } else
+                return $this->successResponse('Error Occurred while Account Suspending.');
         } else {
-            return $this->successResponse('Unknown Input Found');
+            return $this->successResponse('Unknown Input Found.');
         }
     }
 
@@ -255,7 +301,7 @@ class StaffController extends BaseController
         if (!empty($errors))
             return $this->validationError('Email Validation', $errors);
         else
-            return $this->successResponse('Email(s) are available');
+            return $this->successResponse('Email(s) are available.');
     }
 
     /**

@@ -1,6 +1,41 @@
 @extends('layouts.admin')
 @section('style')
-
+<style>
+    .influencer_modal{
+        max-width: 800px;
+    }
+    .influencer_view_summary{
+        max-height: 500px;
+        overflow: auto;
+    }
+    .influencer_view_summary table td{
+        border:none;
+        /* vertical-align: middle; */
+    padding: 5px 10px;
+    }
+    .influencer_view_summary table th{
+        border:none;
+        vertical-align: middle;
+        font-weight: 600;
+        padding: 5px 10px;
+    }
+    .influencer_head{
+        background: #0c223d;
+        font-size: 16px;
+        color: #fff;
+        padding: 5px 10px;
+    }
+    .influencer_view_summary .total-value{
+        border-top:1px solid #000 !important; 
+        border-bottom:1px solid #000 !important; 
+    }
+    .influencer_view_summary .flex_value{
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+    }
+</style>
 @stop
 @section('content')
     <!-- Content Wrapper -->
@@ -115,7 +150,7 @@
                                                                     <div class="dropdown-divider"></div>
                                                                     <a class="dropdown-item align-item-custom"
                                                                         href="#" data-toggle="modal"
-                                                                        data-target="#viewAgentreport"> <i class="fa fa-eye"
+                                                                        data-target="#viewSummarydetails"> <i class="fa fa-eye"
                                                                             aria-hidden="true"></i>
                                                                         View Summary</a>
                                                             </div>
@@ -172,90 +207,262 @@
                         action=""
                         enctype="multipart/form-data">
 
-                     <div class="row social_media_modal" style="max-height: 500px; overflow:auto;">
+                     <div class="row social_media_modal" >
+                        <div class="col-lg-12" style="max-height: 500px; overflow:auto;">
+                            <div class="row">
+                                <!-- Section -->
+                                <div class="col-lg-12 my-2">
+                                    <h6 class="border-bottom pb-1 text-blue-primary">Social Media Account 1</h6>
+                                </div>
 
-                        <!-- Section -->
-                        <div class="col-12 my-2">
-                              <h6 class="border-bottom pb-1 text-blue-primary">Social Media Account 1</h6>
-                        </div>
+                                <!-- Name -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Name:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="name" id="name"
+                                            value="Monika Goswami" placeholder="Name">
+                                    </div>
+                                    <span class="text-danger error-name"></span>
+                                </div>
 
-                        <!-- Name -->
-                        <div class="col-6 mb-3">
-                              <div class="input-group">
-                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Name:</span>
-                                 </div>
-                                 <input type="text" class="form-control rounded-0"
-                                       name="name" id="name"
-                                       value="Monika Goswami" placeholder="Name">
-                              </div>
-                              <span class="text-danger error-name"></span>
-                        </div>
+                                <!-- URL Address -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">URL Address:</span>
+                                        </div>
+                                        <input type="url" class="form-control rounded-0"
+                                            name="address" id="address"
+                                            value="https://www.facebook.com"
+                                            placeholder="URL Address">
+                                    </div>
+                                    <span class="text-danger error-address"></span>
+                                </div>
 
-                        <!-- URL Address -->
-                        <div class="col-6 mb-3">
-                              <div class="input-group">
-                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">URL Address:</span>
-                                 </div>
-                                 <input type="url" class="form-control rounded-0"
-                                       name="address" id="address"
-                                       value="https://www.facebook.com"
-                                       placeholder="URL Address">
-                              </div>
-                              <span class="text-danger error-address"></span>
-                        </div>
+                                <!-- Date Joined -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Date Joined:</span>
+                                        </div>
+                                        <input type="date" class="form-control rounded-0"
+                                            name="date_joined" id="date_joined">
+                                    </div>
+                                    <span class="text-danger error-date_joined"></span>
+                                </div>
 
-                        <!-- Date Joined -->
-                        <div class="col-6 mb-3">
-                              <div class="input-group">
-                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Date Joined:</span>
-                                 </div>
-                                 <input type="date" class="form-control rounded-0"
-                                       name="date_joined" id="date_joined">
-                              </div>
-                              <span class="text-danger error-date_joined"></span>
-                        </div>
+                                <!-- Followers -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Followers:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="followers" id="followers"
+                                            value="2" placeholder="Followers">
+                                    </div>
+                                    <span class="text-danger error-followers"></span>
+                                </div>
 
-                        <!-- Followers -->
-                        <div class="col-6 mb-3">
-                              <div class="input-group">
-                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Followers:</span>
-                                 </div>
-                                 <input type="text" class="form-control rounded-0"
-                                       name="followers" id="followers"
-                                       value="2" placeholder="Followers">
-                              </div>
-                              <span class="text-danger error-followers"></span>
-                        </div>
+                                <!-- Posts -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Posts:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="posts" id="posts"
+                                            value="02" placeholder="Posts">
+                                    </div>
+                                    <span class="text-danger error-posts"></span>
+                                </div>
 
-                        <!-- Posts -->
-                        <div class="col-6 mb-3">
-                              <div class="input-group">
-                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Posts:</span>
-                                 </div>
-                                 <input type="text" class="form-control rounded-0"
-                                       name="posts" id="posts"
-                                       value="02" placeholder="Posts">
-                              </div>
-                              <span class="text-danger error-posts"></span>
-                        </div>
+                                <!-- Re-Posts -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Re-Posts:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="re_posts" id="re_posts"
+                                            value="02" placeholder="Re-Posts">
+                                    </div>
+                                    <span class="text-danger error-re_posts"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Section -->
+                                <div class="col-lg-12 my-2">
+                                    <h6 class="border-bottom pb-1 text-blue-primary">Social Media Account 2</h6>
+                                </div>
 
-                        <!-- Re-Posts -->
-                        <div class="col-6 mb-3">
-                              <div class="input-group">
-                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Re-Posts:</span>
-                                 </div>
-                                 <input type="text" class="form-control rounded-0"
-                                       name="re_posts" id="re_posts"
-                                       value="02" placeholder="Re-Posts">
-                              </div>
-                              <span class="text-danger error-re_posts"></span>
+                                <!-- Name -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Name:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="name" id="name"
+                                            value="Monika Goswami" placeholder="Name">
+                                    </div>
+                                    <span class="text-danger error-name"></span>
+                                </div>
+
+                                <!-- URL Address -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">URL Address:</span>
+                                        </div>
+                                        <input type="url" class="form-control rounded-0"
+                                            name="address" id="address"
+                                            value="https://www.facebook.com"
+                                            placeholder="URL Address">
+                                    </div>
+                                    <span class="text-danger error-address"></span>
+                                </div>
+
+                                <!-- Date Joined -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Date Joined:</span>
+                                        </div>
+                                        <input type="date" class="form-control rounded-0"
+                                            name="date_joined" id="date_joined">
+                                    </div>
+                                    <span class="text-danger error-date_joined"></span>
+                                </div>
+
+                                <!-- Followers -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Followers:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="followers" id="followers"
+                                            value="2" placeholder="Followers">
+                                    </div>
+                                    <span class="text-danger error-followers"></span>
+                                </div>
+
+                                <!-- Posts -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Posts:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="posts" id="posts"
+                                            value="02" placeholder="Posts">
+                                    </div>
+                                    <span class="text-danger error-posts"></span>
+                                </div>
+
+                                <!-- Re-Posts -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Re-Posts:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="re_posts" id="re_posts"
+                                            value="02" placeholder="Re-Posts">
+                                    </div>
+                                    <span class="text-danger error-re_posts"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Section -->
+                                <div class="col-lg-12 my-2">
+                                    <h6 class="border-bottom pb-1 text-blue-primary">Social Media Account 3</h6>
+                                </div>
+
+                                <!-- Name -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Name:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="name" id="name"
+                                            value="Monika Goswami" placeholder="Name">
+                                    </div>
+                                    <span class="text-danger error-name"></span>
+                                </div>
+
+                                <!-- URL Address -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">URL Address:</span>
+                                        </div>
+                                        <input type="url" class="form-control rounded-0"
+                                            name="address" id="address"
+                                            value="https://www.facebook.com"
+                                            placeholder="URL Address">
+                                    </div>
+                                    <span class="text-danger error-address"></span>
+                                </div>
+
+                                <!-- Date Joined -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Date Joined:</span>
+                                        </div>
+                                        <input type="date" class="form-control rounded-0"
+                                            name="date_joined" id="date_joined">
+                                    </div>
+                                    <span class="text-danger error-date_joined"></span>
+                                </div>
+
+                                <!-- Followers -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Followers:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="followers" id="followers"
+                                            value="2" placeholder="Followers">
+                                    </div>
+                                    <span class="text-danger error-followers"></span>
+                                </div>
+
+                                <!-- Posts -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Posts:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="posts" id="posts"
+                                            value="02" placeholder="Posts">
+                                    </div>
+                                    <span class="text-danger error-posts"></span>
+                                </div>
+
+                                <!-- Re-Posts -->
+                                <div class="col-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Re-Posts:</span>
+                                        </div>
+                                        <input type="text" class="form-control rounded-0"
+                                            name="re_posts" id="re_posts"
+                                            value="02" placeholder="Re-Posts">
+                                    </div>
+                                    <span class="text-danger error-re_posts"></span>
+                                </div>
+                            </div>
                         </div>
+                        
 
                      </div>
 
@@ -272,13 +479,319 @@
     </div>
 
 
+    {{-- view summary --}}
+
+    <div class="modal fade upload-modal" id="viewSummarydetails" tabindex="-1" role="dialog"
+        aria-labelledby="viewSummarydetailsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered influencer_modal" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title d-flex align-items-center">
+                        <img src="{{ asset('assets/dashboard/img/unblock.png') }}" alt="resolved" class="custompopicon">
+                        <span class="success-modal-title">Influencer Application Summary - M40161</span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="influencer_view_summary">
+                        
+                        <h5 class="influencer_head">Member Details</h5>
+                        <table width="100%" border="0" cellpadding="5">
+                            <tr>
+                                <th>Name:</th>
+                                <td>My Account name</td>
+                                <th>Home State:</th>
+                                <td>My Account</td>
+                            </tr>
+                            <tr>
+                                <th>Joined:</th>
+                                <td>My Account</td>
+                                <th>Sex:</th>
+                                <td>My Account</td>
+                            </tr>
+                            <tr>
+                                <th>Mobile:</th>
+                                <td>My Account mobile</td>
+                                <th>Email:</b></th>
+                                <td>Online application</td>
+                            </tr>
+                            <tr>
+                                <th>Social Media:</th>
+                                <td colspan="3">
+                                    <ul>
+                                        <li>online application</li>
+                                        <li>online application</li>
+                                        <li>online application</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Comments:</th>
+                                <td colspan="3">online application</td>
+                            </tr>
+                            <tr>
+                                <th>Agent:</th>
+                                <td>Yes or No</td>
+                                <th>Member ID:</th>
+                                <td>Agent Member ID</td>
+                            </tr>
+                        </table>
+
+                       
+
+                        <h5 class="influencer_head">Member Listings</h5>
+
+                        <table width="100%" border="0" cellpadding="5">
+                            <tr>
+                                <th>Listings:</th>
+                                <td>No. of current Listings</td>
+                                <th>Spend:</th>
+                                <td class="flex_value"><span>$ value</span> <span><b>Avg:</b> $ value</span></td>
+                            </tr>
+                            <tr>
+                                <th>Past Listings:</th>
+                                <td><div class="flex_value">Platinum: <span>No. of</span></div></td>
+                                <th>Spend:</th>
+                                <td class="flex_value"><span>$ value</span> <span><b>Avg:</b> $ value</span></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td><div class="flex_value">Gold: <span>No. of</span></div></td>
+                                <th>Spend:</th>
+                                <td class="flex_value"><span>$ value</span> <span><b>Avg:</b> $ value</span></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td><div class="flex_value">Silver: <span>No. of</span></div></td>                               
+                                <th>Spend:</th>
+                                <td class="flex_value"><span>$ value</span> <span><b>Avg:</b> $ value</span></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td><div class="flex_value"><b>Total:</b> <span class="total-value">No. of</span></div></td> 
+                                <th>Total:</th>
+                                <td><div class="flex_value"><span>$ value</span> <span><b>Avg:</b> $ value</span></td>
+                            </tr>                                
+                            <tr>
+                                <th>Tours:</th>
+                                <td><div class="flex_value">Current: <span>Yes or No</span></div></td>
+                                <th>Spend:</th>
+                                <td>$ value</td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td><div class="flex_value">Current: <span>Yes or No</span></div></td>
+                                <th>Spend:</th>
+                                <td>$ value</td>
+                            </tr>
+                        </table>
+
+                        <h5 class="influencer_head">Member Statistics</h5>
+
+                        <table width="100%" border="0" cellpadding="5">
+                            <tr>
+                                <th>Profile Views:</th>
+                                <td>YTD: No. of</td>
+                                <th>Recommendations:</th>
+                                <td>YTD: No. of</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Avg p/mth: No. of</td>
+                                <td></td>
+                                <td>Avg p/mth: No. of</td>
+                            </tr>
+                            <tr>
+                                <th>Media Views:</th>
+                                <td>YTD: No. of</td>
+                                <th>Reports:</th>
+                                <td>YTD: No. of</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Avg p/mth: No. of</td>
+                                <td></td>
+                                <td>Avg p/mth: No. of</td>
+                            </tr>
+                            <tr>
+                                <th>Playbox Views:</th>
+                                <td>YTD: No. of</td>
+                                <th>Reviews:</b></th>
+                                <td>YTD: No. of</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Avg p/mth: No. of</td>
+                                <td></td>
+                                <td>Avg p/mth: No. of</td>
+                            </tr>
+                        </table>
+
+                       
+
+                       <h5 class="influencer_head">Social Media Statistics (Nominated)</h5>
+
+                        <table width="100%" border="0" cellpadding="5">
+                            <tr>
+                                <td colspan="4"><b>Social media 1 name</b></td>
+                            </tr>
+                            <tr>
+                                <th>Date joined:</th><td>edit data</td>
+                                <th>Followers:</th><td>edit data</td>
+                            </tr>
+                            <tr>
+                                <th>Posts:</th><td>edit data</td>
+                                <th>Re-Posts:</th><td>edit data</td>
+                            </tr>
+                        </table>
+
+                       
+
+                        <h5 class="influencer_head">Data Assessment</h5>
+
+                        <table class="text-center w-100">
+                            <tr>
+                                <th colspan="2">Item</th>
+                                <th colspan="2">Assessment</th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <th>Benchmark</th>
+                                <th>Score</th>
+                            </tr>
+
+                            <tr>
+                                <th class="text-left">Membership Time:</th>
+                                <td class="text-center">No of</td>
+                                <td class="text-center">10</td>
+                                <td class="text-center">---------</td>
+                            </tr>
+                            
+                            <tr>
+                                <th class="text-left">Listings:</th>
+                                <td class="text-center">No of</td>
+                                <td class="text-center">10</td>
+                                <td class="text-center">---------</td>
+                            </tr>
+                            
+                            <tr>
+                                <th class="text-left">Tours:</th>
+                                <td class="text-center">No of</td>
+                                <td class="text-center">10</td>
+                                <td class="text-center">---------</td>
+                            </tr>
+                            
+                            <tr>
+                                <th class="text-left">Views (Profile):</th>
+                                <td class="text-center">No of</td>
+                                <td class="text-center">10</td>
+                                <td class="text-center">---------</td>
+                            </tr>
+                            
+                            <tr>
+                                <th class="text-left">Views (Media)::</th>
+                                <td class="text-center">No of</td>
+                                <td class="text-center">10</td>
+                                <td class="text-center">---------</td>
+                            </tr>
+                            
+                            <tr>
+                                <th class="text-left">Views (Playbox)::</th>
+                                <td class="text-center">No of</td>
+                                <td class="text-center">10</td>
+                                <td class="text-center">---------</td>
+                            </tr>
+                            
+                            <tr>
+                                <th class="text-left">Recommendations:</th>
+                                <td class="text-center">No of</td>
+                                <td class="text-center">10</td>
+                                <td class="text-center">---------</td>
+                            </tr>
+                            
+                            <tr>
+                                <th class="text-left">Reports:</th>
+                                <td class="text-center">No of</td>
+                                <td class="text-center">10</td>
+                                <td class="text-center">---------</td>
+                            </tr>
+                            
+                            <tr>
+                                <th class="text-left">Reviews:</th>
+                                <td class="text-center">No of</td>
+                                <td class="text-center">10</td>
+                                <td class="text-center">---------</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <table class="w-100">
+                                        <tr>
+                                            <th class="4">Followers:</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-left">Social media 1:</th>
+                                            <td class="text-center">No of</td>
+                                            <td class="text-center">10</td>
+                                            <td class="text-center">---------</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                           
+                        </table>
+
+                        <br>
+
+                        <p><b>Total:</b> 100 &nbsp;&nbsp; <b>Minimum:</b> 80 &nbsp;&nbsp; <b>Net:</b> +/-</p>
+
+                        <br>
+
+                        <p>
+                            Approved <input type="checkbox">
+                            &nbsp;&nbsp;
+                            Declined <input type="checkbox">
+                        </p>
+
+                        <br>
+
+                        <p>Managing Director: __________________________</p>
+
+                        <h4>Comments</h4>
+                        <hr>
+                        <hr>
+                        <hr>
+
+
+                    </div>
+                     <!-- Footer -->
+                     <div class="modal-footer pb-0 pt-3">
+                        <button type="submit" class="btn-success-modal">Print</button>
+                        <button type="submit" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+                     </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- end --}}
+
 @endsection
 @push('script')
     <script>
         var table = $("#InfluencerReportTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Agent ID"
+                searchPlaceholder: "Search by Member ID"
             },
             info: true,
             paging: true,

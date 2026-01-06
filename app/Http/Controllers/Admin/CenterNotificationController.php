@@ -7,16 +7,44 @@ use App\Models\CenterNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use App\Repositories\User\UserInterface;
 
 class CenterNotificationController extends Controller
 {
+    protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    protected $sidebar;
+
+    public function __construct(UserInterface $user)
+    {
+        $this->user = $user;
+        $this->current_date_time = date('Y-m-d H:i:s');
+        $this->middleware(function ($request, $next) {
+            $user = auth()->user();   // works here
+
+            // Now do everything that needs user data
+            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+            $addAccess = staffPageAccessPermission($securityLevel, 'add');
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+            return $next($request);
+        });
+    }
+
     public function index(Request $request)
     {
 
-        
+
         if ($request->ajax()) {
             $query = CenterNotification::query();
-            $clientOrder = $request->input('order'); 
+            $clientOrder = $request->input('order');
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
             }
@@ -60,26 +88,35 @@ class CenterNotificationController extends Controller
                 ->addColumn('action', function ($row) {
                     $actions = [];
                     $status = $row->status ?? null;
+                    if ($this->editAccessEnabled) {
+                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-edit" data-id="' . $row->id . '"><i class="fa fa-fw fa-edit"></i> Edit</a>';
+                     }
 
                     // If published -> offer suspend
                     if ($status === 'Published') {
+                         if ($this->editAccessEnabled) {
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Suspend</a>';
+                         }
                     }
 
                     // If suspended -> offer publish and remove
                     if ($status === 'Suspended') {
+                         if ($this->editAccessEnabled) {
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                         }
                     }
 
                     // If completed -> offer remove
                     if ($status === 'Completed') {
+                         if ($this->editAccessEnabled) {
                         $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
+                         }
                     }
 
                     // Common actions
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
-                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-edit" data-id="' . $row->id . '"><i class="fa fa-fw fa-edit"></i> Edit</a>';
+                     
 
                     $dropdown = '<div class="dropdown no-arrow">'
                         . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
@@ -161,7 +198,7 @@ class CenterNotificationController extends Controller
 
         //check date range for update
         $dateRange = $this->chckDateRange($start, $end);
-        if($dateRange){
+        if ($dateRange) {
             return error_response('A Notification already exists in the selected date range!', 422);
         }
 
@@ -180,15 +217,15 @@ class CenterNotificationController extends Controller
             $update->template_name = null;
             $update->member_id     = null;
 
-            if($request->type == 'Ad hoc'){
+            if ($request->type == 'Ad hoc') {
                 $update->content = $request->content;
-            }elseif($request->type == 'Template'){
+            } elseif ($request->type == 'Template') {
                 $update->template_name = $request->template_name;
-            }elseif($request->type == 'Notice'){
+            } elseif ($request->type == 'Notice') {
                 $update->member_id = $request->member_id;
                 $update->content = $request->content;
             }
-      
+
             $update->save();
             return success_response($data, 'Notification update successfully!!');
         }

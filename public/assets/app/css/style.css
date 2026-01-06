@@ -2964,6 +2964,7 @@ i.fa.fa-heart-o{
         .profile_page_social_profiles {
             display: flex;
             gap: 15px;
+            margin-left: 40px;
         }
         
         .profile_page_location_and_id ul li {
@@ -4179,7 +4180,7 @@ i.fa.fa-heart-o{
             font-family: Poppins;
             font-style: normal;
             font-weight: 600;
-            font-size: 15px;
+            font-size: 14px;
             line-height: 28px;
             color: var(--black-body);
         }
@@ -4188,7 +4189,7 @@ i.fa.fa-heart-o{
             font-family: Poppins;
             font-style: normal;
             font-weight: 500;
-            font-size: 14px;
+            font-size: 13px;
             line-height: 28px;
             color: var(--black-body);
         }
@@ -7126,7 +7127,7 @@ i.fa.fa-heart-o{
             border-radius: 50%;
             z-index: 2;
             margin-bottom: 22px;
-            margin-right: 50px;
+            margin-right: 5px;
         }
         
         .my-play-box-profile-icon a img {

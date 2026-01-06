@@ -14,6 +14,14 @@
 </style>
 @endsection
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $addAccess = staffPageAccessPermission($securityLevel, 'add');
+   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+@endphp
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content-->
    <div class="row">
@@ -41,10 +49,12 @@
    </div>
    <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12 "> 
+          @if($addAccessEnabled)
          <div class="d-flex justify-content-end gap-20 my-3">
                <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#Create_Notice">New Notice</button>
                <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#Create_Alert">New Alert</button>
          </div>
+         @endif
          <div class="table-responsive">
             <table class="table" id="AlertTable">
                <thead class="table-bg">
@@ -79,10 +89,12 @@
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                            </a>
                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                               @if($editAccessEnabled)
                               <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" > <i class="fa fa-check"></i> Published </a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#">  <i class="fa fa-times"></i> Withdrawn </a>
                               <div class="dropdown-divider"></div>
+                              @endif
                               <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-eye"></i> view  </a>
                            </div>
                         </div>
