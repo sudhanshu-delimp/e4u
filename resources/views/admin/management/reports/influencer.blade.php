@@ -38,6 +38,14 @@
 </style>
 @stop
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $addAccess = staffPageAccessPermission($securityLevel, 'add');
+   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+@endphp
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
@@ -105,6 +113,7 @@
                                                 <td>28-12-2025</td>
                                                 <td>Pending</td>
                                                 <td>
+                                                    
                                                     <div class="dropdown no-arrow">
                                                         <a class="dropdown-toggle" href="#" role="button"
                                                             id="dropdownMenuLink" data-toggle="dropdown"
@@ -114,40 +123,37 @@
                                                         </a>
                                                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                             aria-labelledby="dropdownMenuLink">
-                                                            <div class="custom-tooltip-container"><a
+                                                            <div class="custom-tooltip-container">
+                                                                <a
                                                                     class="dropdown-item align-item-custom toggle-massage-notification"
                                                                     href="#" title="Click to disable notification">
+                                                                     @if($editAccessEnabled)
                                                                     <a class="dropdown-item align-item-custom"
                                                                         data-toggle="modal" data-target="#payAgentreport"
                                                                         href=""> <i class="fa fa-check-circle"
                                                                             aria-hidden="true"></i>
                                                                         Approve</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item align-item-custom"
-                                                                        href="#" data-toggle="modal"
-                                                                        data-target="#viewAgentreport"> <i class="fa fa-ban"
-                                                                            aria-hidden="true"></i>
-                                                                        Suspend</a>
-
-
-                                                                    <div class="dropdown-divider"></div>
+                                                                         <div class="dropdown-divider"></div>
                                                                     <a class="dropdown-item align-item-custom"
                                                                         href="#" data-toggle="modal"
                                                                         data-target="#viewAgentreport"> <i
                                                                             class="fa fa-thumbs-down"
                                                                             aria-hidden="true"></i>
                                                                         Decline</a>
-
-
-                                                                    <div class="dropdown-divider"></div>
+                                                                        <div class="dropdown-divider"></div>
                                                                     <a class="dropdown-item align-item-custom"
                                                                         href="#" data-toggle="modal"
                                                                         data-target="#editSocialMediaAccount"> <i
                                                                             class="fa fa-pen" aria-hidden="true"></i>
                                                                         Edit</a>
-
-
                                                                     <div class="dropdown-divider"></div>
+                                                                    <a class="dropdown-item align-item-custom"
+                                                                        href="#" data-toggle="modal"
+                                                                        data-target="#viewAgentreport"> <i class="fa fa-ban"
+                                                                            aria-hidden="true"></i>
+                                                                        Suspend</a>
+                                                                    <div class="dropdown-divider"></div>
+                                                                     @endif
                                                                     <a class="dropdown-item align-item-custom"
                                                                         href="#" data-toggle="modal"
                                                                         data-target="#viewSummarydetails"> <i class="fa fa-eye"
@@ -157,6 +163,7 @@
                                                         </div>
 
                                                     </div>
+                                                   
                                                 </td>
                                             </tr>
                                         </tbody>
