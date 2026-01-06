@@ -23,6 +23,7 @@ class UpdateMembershipPlanSeeder extends Seeder
                 ['name' => 'Free<sup>(3)</sup>', 'is_for_calculater' => '0', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['name' => 'Massage Centre', 'is_for_calculater' => '0', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
                 ['name' => 'Pin-Up<sup>(4)</sup>', 'is_for_calculater' => '0', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+                ['name' => 'Bump Up', 'is_for_calculater' => '0', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ]);
         
     }

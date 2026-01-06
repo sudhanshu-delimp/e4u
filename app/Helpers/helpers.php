@@ -115,6 +115,20 @@ if (!function_exists('calculateTotalFee')) {
     }
 }
 
+if(!function_exists('getPinupFee')){
+    function getPinupFee(){
+        $pricing = \App\Models\Pricing::where('membership_id', 6)->first();
+        return $pricing->price;
+    }
+}
+
+if(!function_exists('getBumpupFee')){
+    function getBumpupFee(){
+        $pricing = \App\Models\Pricing::where('membership_id', 7)->first();
+        return $pricing->price;
+    }
+}
+
 
 
 if (!function_exists('formatCurrency')) {
@@ -1000,6 +1014,26 @@ if (!function_exists('formatAccountNumber')) {
                 return substr($digits, 0, 4) . $digiType .
                     substr($digits, 4, 3) . $digiType .
                     substr($digits, 7, 3);
+            case 11:
+                // 12345678901 → 123-456-789-01
+                return substr($digits, 0, 3) . $digiType .
+                    substr($digits, 3, 3) . $digiType .
+                    substr($digits, 6, 3) . $digiType .
+                    substr($digits, 9, 2);
+
+            case 12:
+                // 123456789012 → 1234-567-890-12
+                return substr($digits, 0, 4) . $digiType .
+                    substr($digits, 4, 3) . $digiType .
+                    substr($digits, 7, 3) . $digiType .
+                    substr($digits, 10, 2);
+
+            case 16:
+                // 1234567812345678 → 1234-5678-1234-5678 (Card format)
+                return substr($digits, 0, 4) . $digiType .
+                    substr($digits, 4, 4) . $digiType .
+                    substr($digits, 8, 4) . $digiType .
+                    substr($digits, 12, 4);
 
             default:
                 // Fallback (return as-is)

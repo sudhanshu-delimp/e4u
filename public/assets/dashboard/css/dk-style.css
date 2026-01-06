@@ -257,6 +257,26 @@ span.menu-active {
     border: none;
 }
 
+.brb-btn {
+    background-color: var(--peach);
+    color: var(--white);
+    padding: 10px;
+    border-radius: 5px;    
+    border: 1px solid var(--peach);
+}
+
+.brb-btn:hover, .btn-bump-up:hover {
+    color: #fff;
+    background-color: #0c223dcf;
+    border: 1px solid #0c223dcf;
+
+    text-decoration: none;   
+}
+.btn-bump-up{    
+    background-color: #36b9cc;
+    border-color: #36b9cc;
+    color: #fff;
+}
 .btn-cancel-modal:hover {
     background-color: #d82546 !important;
 }
@@ -10340,20 +10360,24 @@ button:disabled {
     cursor: pointer;
 }
 
+.social_media_modal .input-group-text {
+    padding: 0px 5px !important;
+}
+
 .listing-tag-tooltip .listing-tag-tooltip-desc {
     position: absolute;
     top: 22px;
     left: 0px;
     opacity: 0;
     background: var(--blue--text);
-    font-size: 10px;
+    font-size: 11px;
     padding: 10px;
     border-radius: 4px;
     z-index: 1;
     opacity: 0;
     transition: opacity 0.3s ease;
     color: #fff;
-    font-weight: 300;
+    font-weight: 400;
     width: max-content;
 }
 

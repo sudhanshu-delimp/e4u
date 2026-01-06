@@ -1,5 +1,5 @@
 
-<div class="alert alert-custom alert-dismissible fade show border-bottom text-center" role="alert">
+<div class="alert alert-custom alert-dismissible fade show git  text-center" role="alert">
     
     <!-- Heading row -->
     <div class="font-weight-bold mb-1">

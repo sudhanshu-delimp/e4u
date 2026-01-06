@@ -26,7 +26,7 @@
                 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                     <div class="row">
                         <div class="custom-heading-wrapper col-md-12">
-                            <h1 class="h1">Escort Notifications</h1>
+                            <h1 class="h1">Escort (Notifications)</h1>
                             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                         </div>
                         <div class="col-md-12 mb-4">
@@ -101,8 +101,8 @@
                             <!-- Auto-generated Date (readonly) -->
                             <div class="col-12 mb-3">
                                 <label class="label">Current Date</label>
-                                <input type="date" id="current_date" class="form-control rounded-0"
-                                    value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  />
+                                <input type="text" id="current_date" class="form-control rounded-0"
+                                    value="{{ \Carbon\Carbon::now()->format('d-m-Y') }}"  />
                             </div>
 
                             <!-- Heading Field -->

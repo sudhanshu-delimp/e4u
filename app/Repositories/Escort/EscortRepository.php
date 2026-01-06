@@ -232,10 +232,17 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 </sup>';
             }
 
-            if(!empty($item->activeUpcomingSuspend)){
-                $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">SUS
+            if(!empty($item->activeUpcomingSuspend) || $item->user->status == "Suspended"){
+                if($item->user->status == "Suspended"){
+                       $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
+                <small class="listing-tag-tooltip-desc">Your membership has been Suspended due to a Report</small>
+                </sup>';
+                } else {
+                    $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
                 <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($item->activeUpcomingSuspend->start_date)) . " to ".date("d-m-Y", strtotime($item->activeUpcomingSuspend->end_date)).'</small>
                 </sup>';
+                
+            }
             }
             
             if($isExtended->count){
@@ -261,7 +268,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->pro_name .= '<sup class="bumpup_icon listing-tag-tooltip ml-1">Bumped Up
                 <small class="listing-tag-tooltip-desc">From ' . getEscortLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A') . " to ".getEscortLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A').'</small>
                 </sup>';
-                $item->tour = true;
             }
             $item->start_date_formatted = $item->start_date_formatted;
             $item->end_date_formatted = $item->end_date_formatted;

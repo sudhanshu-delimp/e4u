@@ -310,7 +310,8 @@
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="idle_preference_time"
-                                            id="idle_preference_time_never" value="{{config('staff.idle_vever_minute')}}">
+                                            id="idle_preference_time_never"
+                                            value="{{ config('staff.idle_vever_minute') }}">
                                         <label class="form-check-label" for="idle_preference_time_never">Never</label>
                                     </div>
 
@@ -395,7 +396,7 @@
 
 
 
-  
+
 @endsection
 @push('script')
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
@@ -607,34 +608,38 @@
             })
 
             ///////// Approve Agent //////////////////////////////
-            $(document).on('click', '.approve_account', function(e) {
+            $(document).on('click', '.approve_account', async function(e) {
+                if (await isConfirm({
+                        'action': 'Approve',
+                        'text': 'Are you sure you want to approve this account?'
+                    })) {
+                    swal_waiting_popup({
+                        'title': 'Approving Account'
+                    });
+                    $.ajax({
+                        url: "{{ route('admin.approve_staff_account') }}",
+                        method: 'POST',
+                        data: {
+                            'user_id': $(this).attr('data-id'),
+                            'status': '1'
+                        },
+                        success: function(response) {
+                            table.ajax.reload(null, false);
+                            Swal.close();
+                            $('#staffViewModal').modal('hide');
+                            $('#staffEditModal').modal('hide');
+                            swal_success_popup(response.message);
+                        },
+                        error: function(xhr) {
 
-                swal_waiting_popup({
-                    'title': 'Approving Account'
-                });
-                $.ajax({
-                    url: "{{ route('admin.approve_staff_account') }}",
-                    method: 'POST',
-                    data: {
-                        'user_id': $(this).attr('data-id'),
-                        'status': '1'
-                    },
-                    success: function(response) {
-                        table.ajax.reload(null, false);
-                        Swal.close();
-                        $('#staffViewModal').modal('hide');
-                        $('#staffEditModal').modal('hide');
-                        swal_success_popup(response.message);
-                    },
-                    error: function(xhr) {
-
-                        Swal.close();
-                        $('#staffViewModal').modal('hide');
-                        $('#staffEditModal').modal('hide');
-                        swal_error_popup(xhr.responseJSON.message);
-                    }
-                });
-            })
+                            Swal.close();
+                            $('#staffViewModal').modal('hide');
+                            $('#staffEditModal').modal('hide');
+                            swal_error_popup(xhr.responseJSON.message);
+                        }
+                    });
+                }
+            });
 
             /*** Activate staff Account */
             $(document).on('click', '.active-account-btn', async function(e) {

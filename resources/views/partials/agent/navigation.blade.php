@@ -16,7 +16,7 @@
                                 
                                 <span>
                                     <span class="separator">|</span>
-                                    <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span>
+                                    <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id}}</span>
                                 </span>
 
                                 <span>
@@ -26,7 +26,7 @@
                                 
                                 <span>
                                     <span class="separator">|</span>
-                                    <b>Total Advertisers :  </b><span class="user-values">{{getAgentTotalAdvertisers()  }} </span>
+                                    <b>Total Advertisers :  </b><span class="user-values">{{getAgentTotalAdvertisers()}} </span>
                                 </span>
 
                             </div>

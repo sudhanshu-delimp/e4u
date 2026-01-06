@@ -997,6 +997,79 @@
                 });
             }
 
+             function renderTasks(tasks) {
+               
+                let html = '';
+                
+
+                $.each(tasks, function (index, task) {
+
+                    var taskBadgeColor = '#9d1d08 ';
+                    var priorityColor = 'text-high';
+
+                    if(task.status == 'inprogress'){
+                        taskBadgeColor = '#4e73df ';
+                    }
+
+                    if(task.status == 'completed'){
+                        taskBadgeColor = '#1cc88a';
+                    }
+
+                    
+                    if(task.priority == 'medium'){
+                        priorityColor = 'text-medium';
+                    }
+                    if(task.priority === 'low'){
+                        priorityColor = 'text-low';
+                    }
+                    let checkboxId = 'task_checkbox_' + task.id;
+                    let taskId = task.id;
+
+                    html += `<tr>
+                    <!-- ye check box hai main comment kar rakha hai-->
+                         <!-- <td class=" pr-0">
+                            <div class="form-check m-0 p-0">
+                                <label class="form-check-label" for="`+checkboxId+`">
+                                    <input class="form-check-input" name="task_ids" data-id="`+taskId+`" id="`+checkboxId+`" type="checkbox" value="">
+                                    <span class="form-check-sign"></span>
+                                </label>
+                            </div>
+                        </td>-->
+                        <td class=" task-color">
+                            <label for="`+checkboxId+`" class="mb-0 cursor-pointer ">
+                            <i
+                                class="fas fa-circle `+priorityColor+` taski mr-2 "></i><span class="task_title_class">`+task.title.charAt(0).toUpperCase()+task.title.slice(1).toLowerCase()+`</span>
+                            </label></td>
+                        <td class="td-actions text-center ">
+                            <span class="badge badge-danger-lighten task-1" style="background: `+taskBadgeColor+`; padding:5px 10px; max-width:120px; width:100%;">`+task.status.charAt(0).toUpperCase() + task.status.slice(1).toLowerCase()+`</span>
+                        </td>
+                        <td class="theme-color text-center bg-white ">
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button"
+                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i
+                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink" style="">
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="edit_task" data-id=`+taskId+`> <i class="fa fa-pen"></i> Edit Task</a>
+                                        
+                                        <div class="dropdown-divider"></div>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="complete_task" data-id=`+taskId+`> <i class="fa fa-check-circle"></i> Completed Task</a>
+                                        
+                                        <div class="dropdown-divider"></div>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="view_task" data-id=`+taskId+`> <i class="fa fa-eye"></i> View Task</a>
+                                    
+                                </div>
+                            </div>
+                        </td>
+                    </tr>`;
+                });
+                
+                $('#taskList').html(html);
+            }
+
             function renderPagination(data) {
                 let pagination = `<nav><ul class="pagination">`;
 

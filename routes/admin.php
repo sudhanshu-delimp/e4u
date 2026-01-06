@@ -417,10 +417,44 @@ Route::get('/notifications/escort/{id}/edit', [EscortNotificationController::cla
 Route::post('/notifications/escort/{id}/update', [EscortNotificationController::class, 'update'])->name('admin.escort.notifications.update');
 
 
+Route::get('/notifications/shareholders',function(){
+    return view('admin.notifications.shareholders.index');
+})->name('admin.shareholders');
+
 // Route::get('/admin-dashboard/notifications/global',function(){
 //     return view('admin.notifications.global');
 // })->name('admin.global');
 
+
+
+
+// ye Operation Management Notification hai administration kanhi 
+
+Route::get('/management/notifications/global-notifications',function(){
+    return view('admin.management.notifications.global.index');
+})->name('admin.global-notifications');
+
+Route::get('/management/notifications/agents-notifications',function(){
+    return view('admin.management.notifications.agents.index');
+})->name('admin.agents-notifications');
+
+Route::get('/management/notifications/escorts-notifications',function(){
+    return view('admin.management.notifications.escorts.index');
+})->name('admin.escorts-notifications');
+
+Route::get('/management/notifications/centres-notifications',function(){
+    return view('admin.management.notifications.centres.index');
+})->name('admin.centres-notifications');
+
+Route::get('/management/notifications/shareholders-notifications',function(){
+    return view('admin.management.notifications.shareholders.index');
+})->name('admin.shareholders-notifications');
+
+Route::get('/management/notifications/viewers-notifications',function(){
+    return view('admin.management.notifications.viewers.index');
+})->name('admin.viewers-notifications');
+
+// end
 
 ################### PDF ###################
 Route::post('/generate-agent-info-pdf', [AgentPdfController::class, 'generate_agent_info_pdf'])->name('admin.generate-agent-info-pdf');
@@ -566,9 +600,13 @@ Route::get('/management/email-management', function () {
     return view('admin.management.email-management');
 })->name('admin.email-management');
 
-Route::get('/management/advertiser-templates', function () {
-    return view('admin.management.cms.advertiser-templates');
-})->name('admin.advertiser-templates');
+Route::get('/management/escorts-templates', function () {
+    return view('admin.management.cms.escorts-templates');
+})->name('admin.escorts-templates');
+
+Route::get('/management/centres-templates', function () {
+    return view('admin.management.cms.centres-templates');
+})->name('admin.centres-templates');
 
 Route::get('/management/operator-templates', function () {
     return view('admin.management.cms.operator-templates');
@@ -609,9 +647,9 @@ Route::get('/management/post-office', function () {
 // })->name('admin.viewers');
 
 
-Route::get('/notifications/escorts', function () {
-    return view('admin.notifications.escorts');
-})->name('admin.escorts');
+// Route::get('/notifications/escorts', function () {
+//     return view('admin.notifications.escorts');
+// })->name('admin.escorts');
 
 Route::get('/publications/blog', function () {
     return view('admin.publications.blog');

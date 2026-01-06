@@ -41,6 +41,9 @@
         .fiter_btns select {
             text-transform: capitalize;
         }
+        .swal2-popup{
+            width: auto !important;
+        }
     </style>
 @endsection
 @php
@@ -304,9 +307,9 @@
                                                 </button> --}}
                                                 <select class="custome_form_control_border_radus padding_five_px with_eight_em"
                                                     id=""name="verify_list">
-                                                    <option value="all">Verification</option>
-                                                    <option value="unverified">Unverified</option>
-                                                    <option value="verified">Verified</option>
+                                                    <option value="all" {{ request()->get('verify_list') == 'all' ? 'selected' : '' }}>Verification</option>
+                                                    <option value="unverified" {{ request()->get('verify_list') == 'unverified' ? 'selected' : '' }}>Unverified</option>
+                                                    <option value="verified" {{ request()->get('verify_list') == 'verified' ? 'selected' : '' }}>Verified</option>
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 ">
@@ -1118,6 +1121,14 @@
 @push('scripts')
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script>
+
+   window.authUser = {
+        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+        auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
+        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
+    };
+
+
         $(function() {
             var list = $('.js-dropdown-list');
             var link = $('.js-link');
@@ -1237,9 +1248,14 @@
         let view1 = $('.footer_view_type_one').attr('href');
         let view2 = $('.footer_view_type_two').attr('href');
 
-        //let viewType = localStorage.getItem('profileViewType') || 'grid';
 
-        let viewType = '{{ $viewType }}';
+        if (window.authUser.isLoggedIn) {
+            var viewType = '{{ $viewType }}';
+        }
+        else {
+        var viewType = localStorage.getItem('profileViewType') || 'grid';
+        }
+        
         console.log(viewType);
 
         // Define functions for grid and list view logic
@@ -1598,6 +1614,17 @@
         });
 
         $(document).on('click', '.add_to_favrate', function() {
+
+          
+            
+            if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type=='0') {
+                swal_error_warning('My Legbox','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
+                return false;
+            }
+
+
+
+
             var name = $(this).attr('data-name');
             var Eid = $(this).attr('data-escortId');
             var Uid = $(this).attr('data-userId');

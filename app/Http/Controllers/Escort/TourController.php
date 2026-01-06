@@ -94,6 +94,10 @@ class TourController extends Controller
     }
     public function createTour($id = null)
     {
+        $user = auth()->user();
+        if($user->status == "Suspended"){
+             return redirect()->route('escort.dashboard')->with('info', config('common.access_denied_suspended_msg'));
+        }
         // $escort = $this->escort->FindByUsers(auth()->user()->id);
         // $escorts = $escort->whereNotNull('state_id')->where('default_setting',0)->unique('state_id');
 
@@ -128,26 +132,23 @@ class TourController extends Controller
         //return response()->json(compact('find_tour'));
     }
     public function TourDataTable(Request $request, $type = NULL){
-        // $today = Carbon::today()->format('Y-m-d');
-        // $conditions = [];
-        // if ($type == 'current') {
-        //     $conditions[] = ['end_date','>=',$today];
-        // } elseif ($type == 'past') {
-        //     $conditions[] = ['end_date','<',$today];
-        // }
-        // list($result, $count, $other) = $this->tour->paginatedList(
-        //     request()->get('start'),
-        //     request()->get('length'),
-        //     request()->get('order')[0]['column'],
-        //     request()->get('order')[0]['dir'],
-        //     request()->get('columns'),
-        //     request()->get('search')['value'],
-        //     auth()->user()->id,
-        //     $conditions
-        // );
-        $count = 1;
-        $other = 1;
-        $result = [];
+        $today = Carbon::today()->format('Y-m-d');
+        $conditions = [];
+        if ($type == 'current') {
+            $conditions[] = ['end_date','>=',$today];
+        } elseif ($type == 'past') {
+            $conditions[] = ['end_date','<',$today];
+        }
+        list($result, $count, $other) = $this->tour->paginatedList(
+            request()->get('start'),
+            request()->get('length'),
+            request()->get('order')[0]['column'],
+            request()->get('order')[0]['dir'],
+            request()->get('columns'),
+            request()->get('search')['value'],
+            auth()->user()->id,
+            $conditions
+        );
         $data = array(
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),

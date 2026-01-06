@@ -195,7 +195,7 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="PayID Number">PayID Number</label>
-                                       <input type="text" class="form-control" name="PayID_NO" placeholder="Insert your PayID Number" aria-describedby="Help" value="{{ $escort->pay_id_no ?? ''}}">
+                                       <input type="text" class="form-control" name="PayID_NO" placeholder="Insert your PayID Number" aria-describedby="Help" value="{{ formatAccountNumber($escort->pay_id_no ,'bsb')}}">
                                     </div>
                                  </div>
                                  {{-- end --}}

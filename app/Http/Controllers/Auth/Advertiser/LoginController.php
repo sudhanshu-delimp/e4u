@@ -66,10 +66,12 @@ class LoginController extends BaseController
                 if ($user == null || $user->type != 5) {
                     return $this->sendFailedLoginResponse($request);
                 }
-                if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+                if ($user != null && $user->status && in_array($user->status, ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled', 'Suspended'])) {
 
                     if ($user->status == 'Pending') {
-                        $messge = 'your Account is currently pending approval.you will be notified via email once it has been approved.';
+                        $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';
+                    } else if ($user->status == 'On Hold') {
+                        $messge = 'Your membership has been placed on hold pending an inquiry.';
                     } else {
                         $messge = "Your account has been " . $user->status . ". Please contact to admin.";
                     }
@@ -86,9 +88,16 @@ class LoginController extends BaseController
 
                     return $this->sendFailedLoginResponse($request);
                 }
-                if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+                if ($user != null && $user->status && in_array($user->status, ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled', 'Suspended'])) {
+                    if ($user->status == 'Pending') {
+                        $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';
+                    } else if ($user->status == 'On Hold') {
+                        $messge = 'Your membership has been placed on hold pending an inquiry.';
+                    } else {
+                        $messge = "Your account has been " . $user->status . ". Please contact to admin.";
+                    }
                     throw ValidationException::withMessages([
-                        'email' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                        'email' => [$messge],
                     ]);
                 }
             }
@@ -105,16 +114,33 @@ class LoginController extends BaseController
 
             // $user = User::where('phone', '=', $request->phone)->first();
             // $count = User::where('phone', '=', $request->phone)->count();
+
+            if(!$user)
+            return $this->sendFailedLoginResponse($request);
+
             if ($user != null) {
                 if ($user->type == 0 || $user->type == 1 || $user->type == 2) {
                     return $this->sendFailedLoginResponse($request);
                 }
             }
+            
+            $userStatus = ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled', 'Suspended'];
 
-            if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+            if ($user != null && $user->status && in_array($user->status, $userStatus)) {
 
+                    if($user->type == 3 || $user->type == 4) {
+                        $userStatus = ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled'];
+                    }
+
+                 if ($user->status == 'Pending') {
+                        $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';
+                    } else if ($user->status == 'On Hold') {
+                        $messge = 'Your membership has been placed on hold pending an inquiry.';
+                    } else {
+                        $messge = "Your account has been " . $user->status . ". Please contact to admin.";
+                    }
                 throw ValidationException::withMessages([
-                    'phone' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                    'phone' => [$messge],
                 ]);
             }
         }
@@ -127,10 +153,17 @@ class LoginController extends BaseController
                     return $this->sendFailedLoginResponse($request);
                 }
             }
-            if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+            if ($user != null && $user->status && in_array($user->status, ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled'])) {
+                 if ($user->status == 'Pending') {
+                        $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';
+                    } else if ($user->status == 'On Hold') {
+                        $messge = 'Your membership has been placed on hold pending an inquiry.';
+                    } else {
+                        $messge = "Your account has been " . $user->status . ". Please contact to admin.";
+                    }
 
                 throw ValidationException::withMessages([
-                    'email' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                    'email' => [$messge],
                 ]);
             }
         }
@@ -223,7 +256,7 @@ class LoginController extends BaseController
       
 
         if ($user->otp == (int)$request->otp) {
-
+           
             // if($user->email_verified_at == NULL && ($user->type == 3 || $user->type == 4)) {
             //     $this->_sendRegisterSuccessEmail($user);
             // }

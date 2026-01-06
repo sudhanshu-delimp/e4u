@@ -27,14 +27,7 @@
                                                     id="pinup_profile_id" name="pinup_profile_id"
                                                     data-parsley-errors-container="#pinup_profile-errors" required
                                                     data-parsley-required-message="Select Profile">
-                                                    <option value="">Select Profile</option>
-                                                    @foreach ($active_escorts as $profile)
-                                                        <option value="{{ $profile['id'] }}">
-                                                            {{ $profile['id'] }} - {{ $profile['profile_name'] }} @if (isset($profile['state']['name']))
-                                                                - {{ $profile['state']['name'] }}
-                                                            @endif
-                                                        </option>
-                                                    @endforeach
+                                                   
                                                 </select>
                                                 <span id="profile-errors"></span>
                                             </div>
@@ -54,6 +47,15 @@
                                             </div>
                                             <div class="col-sm-1"></div>
                                         </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="">Fee:</label>
+                                            <div class="col-sm-4">
+                                              <div class="input-group input-group-sm">
+                                                <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
+                                                <span class="form-control" id="extendFeeLive" style="background-color: #e9ecef; border: 1px solid #ced4da;">{{getPinupFee()}}</span>
+                                              </div>
+                                            </div>
+                                          </div>
                                         <div class="form-group row custom-pin-button">
                                             <div class="col-sm-12 text-center">
                                                 <button type="submit" class="btn btn-primary"
@@ -66,7 +68,7 @@
                                             <div class="col-lg-12">
                                                 <p class="mb-1"><b>Notes:</b></p>
                                                 <ol class="pl-4 text-justify">
-                                                    <li> You must have a Current Listing to register as a Pin Up.</li>
+                                                    <li> You must have a Current Platinum Listing to register as a Pin Up.</li>
                                                     <li> If the date period you have selected is not available, and your
                                                         Current Listing period
                                                         exceeds the requested period, you will be added to the pool.</li>

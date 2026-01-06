@@ -23,9 +23,15 @@
                             </span>
                         <span>
                             <span class="separator">|</span><b>My Agent :</b>
-                                @if(auth()->user()->my_agent)<span class="user-values" title="My Agent ID : {{ auth()->user()->my_agent->member_id }}">{{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}</span>
+                                @if(auth()->user()->my_agent)<span class="user-values" title="My Agent ID : {{ auth()->user()->my_agent->member_id }}"> {{ \Illuminate\Support\Str::limit(
+                                \Illuminate\Support\Str::title(
+                                    auth()->user()?->my_agent?->business_name ?? (auth()->user()?->my_agent?->name ?? ''),
+                                ),
+                                12,
+                                '..',
+                            ) }}</span>
                                 @else
-                                <span class="user-values" title=""><a href="{{url('/escort-dashboard/escort-agency-request') }}" class="request-active">Request one</a></span>
+                                <span class="user-values" title=""><a href="{{url('/center-dashboard/agent-request') }}" class="request-active">Request one</a></span>
                                 @endif
                        
                         </span>
