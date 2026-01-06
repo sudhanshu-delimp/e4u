@@ -96,8 +96,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <form method="POST" action="{{ route('admin.agent.notifications.store') }}" id="createNotificationForm"
-                        data-parsley-validate="">
+                    <form method="POST" action="{{ route('admin.agent.notifications.store') }}" id="createNotificationForm" >
                         @csrf
                         <div class="row">
 
@@ -106,20 +105,20 @@
                                 <label class="label" for="currentDate">Current Day</label>
                                 <input type="hidden" id="notificationId" name="notificationId">
                                 <input type="text" class="form-control rounded-0" name="current_day" id="current_day"
-                                    value="<?php echo date('d-m-Y'); ?>" data-parsley-required="true" />
+                                    value="<?php echo date('d-m-Y'); ?>"  />
                             </div>
 
                             <!-- Heading Field -->
                             <div class="col-12 mb-3" id="headingField">
                                 <label class="label" for="headingField">Heading</label>
                                 <input type="text" class="form-control rounded-0 fw-bold" name="heading" id="heading"
-                                    placeholder="Heading" data-parsley-required="true" />
+                                    placeholder="Heading" />
                             </div>
 
                             <!-- Notification Type -->
                             <div class="col-12 mb-3" id="typeField">
                                 <label class="label" for="type">Type</label>
-                                <select id="type" class="form-control" name="type">
+                                <select id="type" class="form-control" name="type" >
                                     <option value="Ad hoc">Ad hoc</option>
                                     <option value="Scheduled">Scheduled</option>
                                     <option value="Notice">Notice</option>
@@ -130,14 +129,14 @@
                             <!-- Start Date -->
                             <div class="col-12 mb-3 date_show_hide" id="startDateField">
                                 <label class="label" for="startDateField">Start Date</label>
-                                <input type="text" name="start_date" id="start_date" placeholder="Start Date" data-parsley-required="false"
-                                    class="form-control rounded-0 js_datepicker"  />
+                                <input type="text" name="start_date" id="start_date" placeholder="Start Date"
+                                    class="form-control rounded-0 js_datepicker" />
                             </div>
 
                             <!-- Finish Date -->
                             <div class="col-12 mb-3 date_show_hide" id="endDateField">
                                 <label class="label" for="endDateField">End Date</label>
-                                <input type="text" name="end_date" id="end_date" placeholder="Finish Date" data-parsley-required="false"
+                                <input type="text" name="end_date" id="end_date" placeholder="Finish Date"
                                     class="form-control rounded-0 js_datepicker" />
                             </div>
 
@@ -148,7 +147,8 @@
                                 <div class="row">
                                     <div class="form-group col-12">
                                         <label class="label" for="scheduleType">Recurring Type</label>
-                                        <select id="scheduleType" class="form-control rounded-0" data-parsley-required="false" name="recurring_type">
+                                        <select id="scheduleType" class="form-control rounded-0"
+                                             name="recurring_type">
                                             <option value="">Select Type</option>
                                             <option value="weekly">Weekly</option>
                                             <option value="monthly">Monthly</option>
@@ -260,42 +260,43 @@
                             <!-- Number of Recurring  -->
                             <div id="numberOfRecurring" class="col-12 mb-3" style="display:none;">
                                 <label class="label" for="recurring">Number of Recurring</label>
-                                <input type="number" id="recurring" name="recurring" class="form-control" data-parsley-required="false"
-                                    placeholder="Number of Recurring" />
+                                <input type="number" id="recurring" name="recurring" class="form-control" placeholder="Number of Recurring" />
                             </div>
 
                             <!-- Notice Section -->
                             <div id="noticeSection" class="col-12 mb-3" style="display:none;">
                                 <label class="label" for="member_id">Member Id</label>
-                                <input type="text" id="member_id" name="member_id" class="form-control" data-parsley-required="false"
-                                    placeholder="Member Id e.g. 123456" />
+                                <input type="text" id="member_id" name="member_id" class="form-control" placeholder="Member Id e.g. 123456" />
                             </div>
 
                             <!-- Content -->
-                            <div class="col-12 mb-3" id="contentField" data-parsley-required="false">
+                            <div class="col-12 mb-3" id="contentField" >
                                 <label class="label" for="content">Content</label>
-                                <textarea id="contents" name="content" class="form-control"  placeholder="up to 250 characters..."
-                                    maxlength="250" data-parsley-required="false">
-
+                                <textarea id="contents" name="content" class="form-control" placeholder="up to 250 characters..." maxlength="250" >
                                 </textarea>
                             </div>
                             <!-- Template Name -->
 
-                            <div id="templateSelect" style="display: none;" class="col-12 mb-3" >
+                            <div id="templateSelect" style="display: none;" class="col-12 mb-3">
                                 <label class="label">Select Template</label>
-                                <select id="template_name" name="template_name" class="form-control rounded-0" data-parsley-required="false"> 
+                                <select id="template_name" name="template_name" class="form-control rounded-0">
                                     <option value="">-- Choose a Template --</option>
-                                    <option value="Your monthly Fee Report has been uploaded for your checking and approval.">Check
+                                    <option
+                                        value="Your monthly Fee Report has been uploaded for your checking and approval.">
+                                        Check
                                         Your monthly Fee Report has been uploaded for your checking and approval.</option>
-                                    <option value="Are you keeping in touch with your Advertisers?  Say hello from time to time.">
-                                        Are you keeping in touch with your Advertisers?  Say hello from time to time.</option>
+                                    <option
+                                        value="Are you keeping in touch with your Advertisers?  Say hello from time to time.">
+                                        Are you keeping in touch with your Advertisers? Say hello from time to time.
+                                    </option>
                                     <option
                                         value="Management is looking for suggestions on where to hold the annual conference this year.">
-                                        Management is looking for suggestions on where to hold the annual conference this year.
+                                        Management is looking for suggestions on where to hold the annual conference this
+                                        year.
                                     </option>
                                     <option
                                         value="Just a gentle reminder to make sure you keep up to date with our policies.">
-                                       Just a gentle reminder to make sure you keep up to date with our policies.</option>
+                                        Just a gentle reminder to make sure you keep up to date with our policies.</option>
                                 </select>
                             </div>
                         </div>
@@ -386,8 +387,7 @@
         data-agent-notification-update="{{ route('admin.agent.notifications.update', ['id' => '__ID__']) }}"
         data-agent-notification-index="{{ route('admin.agent.notifications.index') }}"
         data-agent-notification-store="{{ route('admin.agent.notifications.store') }}"
-        data-agent-notification-show="{{ route('admin.agent.notifications.show', ['id' => '__ID__']) }}"
-        >
+        data-agent-notification-show="{{ route('admin.agent.notifications.show', ['id' => '__ID__']) }}">
 
         <!-- End of Page Wrapper -->
         <!-- Scroll to Top Button-->
@@ -411,6 +411,7 @@
             $(document).ready(function() {
                 function toggleFields() {
                     var type = $('#type').val();
+
                     // Hide all conditionally visible fields initially
                     $('#scheduledSection, #noticeSection, #weeklyOptions, #monthlyOptions, #startyearlyOptions, #endyearlyOptions, #numberOfRecurring, #weekOptions')
                         .hide();
@@ -426,7 +427,7 @@
                         $('#noticeSection').show();
                         $("#numberOfRecurring").val('');
                         $('#scheduledSection').hide();
-                         $('#templateSelect').hide();
+                        $('#templateSelect').hide();
                     } else if (type === 'Scheduled') {
                         // Show Schedule Type dropdown
                         $('#scheduledSection, #numberOfRecurring').show();
@@ -434,7 +435,7 @@
                         $('#templateSelect').hide();
                         // Reset input fields
                         $('#member_id, #start_date, #end_date').val('');
-                    } else if(type === 'Template') {
+                    } else if (type === 'Template') {
                         $("#numberOfRecurring").val('');
                         $("#member_id").val('');
                         $('#scheduledSection').hide();
@@ -446,8 +447,16 @@
                 // Track if we're in edit mode
                 let isEditMode = false;
 
+                                //Remove Validation Message
+                function removeValidationMsg(){
+                    $('.server-error').remove();
+                    $('.is-invalid').removeClass('is-invalid');
+                }
+
                 //Reset and initialize form - used for create new notification
                 function resetAndInitializeForm() {
+                    //Remove Validaiton message
+                    removeValidationMsg();
                     $('#createNotificationForm')[0].reset();
                     $('#notificationId').val('');
                     $('#createNotificationTitle').text('Create Notification');
@@ -658,7 +667,7 @@
                 //Type Week wise event
                 // Loop for append week list 
                 function populateTypeWeekDate(selectId) {
-                     $(selectId).empty();
+                    $(selectId).empty();
                     for (i = 1; i <= 7; i++) {
                         $(selectId).append(`<option value="${i}">${i}</option>`);
                     }
@@ -699,107 +708,75 @@
                 }
 
                 //check type condition
-                
+
                 function ensureParsleyAndSubmit(form) {
-                    function proceed() {
-                        try {
-                            if ($.fn.parsley) {
-                                var instance = form.parsley();
-                                if (!instance.isValid()) {
-                                    instance.validate();
-                                    return;
-                                }
-                            }
-                        } catch (e) {
-                            // ignore and continue with submit
-                        }
 
-                        let formData = form.serialize();
-
-                        $.ajax({
-                            url: endpoint.agent_notification_store,
-                            type: "POST",
-                            _token: endpoint.csrf_token,
-                            data: formData,
-                            success: function(response) {
-                                if (response.status === true) {
-                                    $('#createNotification').modal('hide');
-                                    let msg = response.message ? response.message : 'Saved successfully';
-                                    $("#image_icon").attr("src", endpoint.success_image);
-                                    $('#success_task_title').text('Success');
-                                    //$('#success_msg').text(msg);
-                                    $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
-                                        '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
-                                        );
-                                    form[0].reset();
-                                    $('#successModal').modal('show');
-                                    setTimeout(function() {
-                                        $('#successModal').modal('hide');
-                                        table.ajax.reload(null, false);
-                                    }, 1200);
-                                }
-
-                            },
-                            error: function(xhr) {
-                                let msg = 'Something went wrong';
-                                if (xhr.responseJSON && xhr.responseJSON.message) {
-                                    msg = xhr.responseJSON.message;
-                                }
-                                $("#image_icon").attr("src", endpoint.error_image);
-                                $('#success_task_title').text('Error');
+                    formData = form.serialize();
+                    $.ajax({
+                        url: endpoint.agent_notification_store,
+                        type: "POST",
+                        _token: endpoint.csrf_token,
+                        data: formData,
+                        success: function(response) {
+                            if (response.status === true) {
+                                $('#createNotification').modal('hide');
+                                let msg = response.message ? response.message :
+                                    'Saved successfully';
+                                $("#image_icon").attr("src", endpoint.success_image);
+                                $('#success_task_title').text('Success');
                                 //$('#success_msg').text(msg);
-                                $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                                $('#success_form_html').html('<h4>' + (msg ||
+                                        'Status updated successfully') +
                                     '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                                 );
+                                form[0].reset();
                                 $('#successModal').modal('show');
+                                setTimeout(function() {
+                                    $('#successModal').modal('hide');
+                                    table.ajax.reload(null, false);
+                                }, 1200);
                             }
-                        });
-                    }
 
-                    if (!$.fn.parsley) {
-                        $.getScript('https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js')
-                            .done(function() {
-                                proceed();
-                            })
-                            .fail(function() {
-                                proceed();
-                            });
-                    } else {
-                        proceed();
-                    }
-                }
+                        },
+                        error: function(xhr) {
+                            //Check Validation condition
+                            if (xhr.status === 422 && xhr.responseJSON.status === false) {
+                                let errors = xhr.responseJSON.errors;
+                                $('.server-error').remove();
+                                $('.is-invalid').removeClass('is-invalid');
+                                $.each(errors, function(field, message) {
+                                    let input = $('[name="' + field + '"]');
+                                    input.addClass('is-invalid');
+                                    input.after(
+                                        '<small class="text-danger server-error">' + message +
+                                        '</small>'
+                                    );
+                                });
+                                return;
+                            }
 
-                function applyTypeBasedValidation() {
-                    let type = $('#type').val();
+                            let msg = 'Something went wrong';
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                msg = xhr.responseJSON.message;
+                            }
 
-                    // reset all
-                    $('#content, #templateName').parsley().reset();
-                    $('#start_date, #end_date, #content, #member_id, #recurring, #scheduleType, #template_name').attr('data-parsley-required', 'false');
 
-                    $('#heading').attr('data-parsley-required', 'true');
+                            $("#image_icon").attr("src", endpoint.error_image);
+                            $('#success_task_title').text('Error');
+                            //$('#success_msg').text(msg);
+                            $('#success_form_html').html('<h4>' + (msg ||
+                                    'Status updated successfully') +
+                                '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                            );
+                            $('#successModal').modal('show');
+                        }
+                    });
 
-                    if (type === 'Ad hoc') {
-                        $('#start_date, #end_date, #content').attr('data-parsley-required', 'true');
-                    }
-
-                    else if (type === 'Scheduled') {
-                        $('#scheduleType, #recurring, #content').attr('data-parsley-required', 'true');
-                    }
-
-                    else if (type === 'Notice') {
-                        $('#start_date, #end_date, #member_id, #content').attr('data-parsley-required', 'true');
-                    }
-
-                    else if (type === 'Template') {
-                        $('#start_date, #end_date, #template_name').attr('data-parsley-required', 'true');
-                        $('#content').attr('data-parsley-required', 'false');
-                    }
                 }
 
                 $('#createNotificationForm').on('submit', function(e) {
                     e.preventDefault();
                     var form = $(this);
-                    applyTypeBasedValidation();
                     ensureParsleyAndSubmit(form);
                 });
 
@@ -814,8 +791,7 @@
                         url: endpoint.viewer_notification_index,
                         type: 'GET'
                     },
-                    columns: [
-                         { 
+                    columns: [{
                             data: 'ref',
                             name: 'ref',
                         },
@@ -901,7 +877,7 @@
                         },
                         error: function() {
                             container.html(
-                            '<div class="text-danger">Failed to load details.</div>');
+                                '<div class="text-danger">Failed to load details.</div>');
                         }
                     });
                 });
@@ -983,9 +959,11 @@
 
                 });
 
+
+
                 //Populate fields based on notification data (used for both create and edit)
                 function populateNotificationFields(n) {
-                    
+
                     $('#notificationId').val(n.id || '');
                     $('#current_day').val(n.current_day || '');
                     $('#heading').val(n.heading || '');
@@ -994,10 +972,11 @@
                     $('#end_date').val(n.end_date || '');
                     $('#member_id').val(n.member_id || '');
                     $('#recurring').val(n.recurring || '');
-                    
+                    $('#template_name').val(n.template_name || '');
+
                     // Set type and trigger change to show related fields
                     $('#type').val(n.type);
-                  
+
                     $('#type').trigger('change');
                     // Handle Scheduled specific fields
                     if (n.type === 'Scheduled' && n.recurring_type) {
@@ -1011,7 +990,7 @@
 
                 //Populate schedule-specific fields (yearly, monthly, weekly, forever)
                 function populateScheduleFields(n) {
-            
+
                     if (n.recurring_type === 'yearly') {
                         if (n.start_month) {
                             $('#startFirstMonth').val(n.start_month);
@@ -1023,17 +1002,17 @@
                                 $('#startFirstDate').val(n.start_day || '');
                                 $('#endSecondDay').val(n.end_day || '');
                                 $('#recurring').val(n.num_recurring || '');
-                                
+
                             }, 50);
                         }
-                        
+
                     } else if (n.recurring_type === 'monthly') {
                         populateTypeMonthDate('#monthWiseStartDate', totalDays);
                         populateTypeMonthDate('#monthWiseEndDate', totalDays);
                         setTimeout(function() {
                             $('#monthWiseStartDate').val(n.start_day || '');
                             $('#monthWiseEndDate').val(n.end_day || '');
-                             $('#recurring').val(n.num_recurring || '');
+                            $('#recurring').val(n.num_recurring || '');
                         }, 50);
                     } else if (n.recurring_type === 'weekly') {
                         populateTypeWeekDate('#weekWiseStartDate');
@@ -1041,7 +1020,7 @@
                         setTimeout(function() {
                             $('#weekWiseStartDate').val(n.start_day || '');
                             $('#weekWiseEndDate').val(n.end_day || '');
-                             $('#recurring').val(n.num_recurring || '');
+                            $('#recurring').val(n.num_recurring || '');
                         }, 50);
                     }
                 }
@@ -1050,6 +1029,7 @@
                 $(document).on('click', '.js-edit', function(e) {
                     e.preventDefault();
                     let id = $(this).data('id');
+                    removeValidationMsg();
                     $.ajax({
                         url: endpoint.agent_notification_edit.replace('__ID__', id),
                         type: 'GET',
@@ -1061,7 +1041,8 @@
                                 // Store the id to indicate we're editing
                                 $('#notificationId').val(n.id || '');
                                 // Clear UI visibility first
-                                $('#scheduledSection, #noticeSection, #weeklyOptions, #monthlyOptions, #startyearlyOptions, #endyearlyOptions, #numberOfRecurring, #weekOptions').hide();
+                                $('#scheduledSection, #noticeSection, #weeklyOptions, #monthlyOptions, #startyearlyOptions, #endyearlyOptions, #numberOfRecurring, #weekOptions')
+                                    .hide();
                                 // Then populate with edit data
                                 populateNotificationFields(n);
                                 //Change madal title

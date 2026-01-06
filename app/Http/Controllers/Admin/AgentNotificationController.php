@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\AgentNotification;
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
 use GrahamCampbell\ResultType\Success;
-use Intervention\Image\Colors\Rgb\Channels\Red;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Database\Eloquent\Builder;
+use Intervention\Image\Colors\Rgb\Channels\Red;
+use App\Http\Requests\StoreAgentNotificationRequest;
 
 class AgentNotificationController extends Controller
 {
@@ -175,8 +176,9 @@ class AgentNotificationController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreAgentNotificationRequest $request)
     {
+
 
         try {
             $isUpdate = !empty($request->notificationId);
@@ -188,7 +190,6 @@ class AgentNotificationController extends Controller
                 'end_date' => sqlDateFormat($request->end_date),
                 'content' => $request->content,
             ];
-            //dd($data);
 
             if ($request->type === 'Notice') {
                 $data['member_id'] = $request->member_id;
@@ -298,6 +299,7 @@ class AgentNotificationController extends Controller
                 }
             }
 
+            
             if ($isUpdate) {
                 $notification = AgentNotification::findOrFail($request->notificationId);
                 if($data['end_date'] > date('Y-m-d')){

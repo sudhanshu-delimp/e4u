@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class AddTemplateNameToAgentNotificationsTable extends Migration
 {
@@ -15,6 +16,9 @@ class AddTemplateNameToAgentNotificationsTable extends Migration
     {
         Schema::table('agent_notifications', function (Blueprint $table) {
             $table->string('template_name')->nullable()->after('content');
+            DB::statement("ALTER TABLE agent_notifications MODIFY COLUMN type 
+                ENUM('Ad hoc', 'Scheduled', 'Notice', 'Template') 
+                NOT NULL DEFAULT 'Ad hoc'");
         });
     }
 
@@ -27,6 +31,10 @@ class AddTemplateNameToAgentNotificationsTable extends Migration
     {
         Schema::table('agent_notifications', function (Blueprint $table) {
             $table->dropColumn('template_name');
+
+            DB::statement("ALTER TABLE agent_notifications MODIFY COLUMN type
+            ENUM('Ad hoc', 'Scheduled', 'Notice')
+            NOT NULL DEFAULT 'Ad hoc'");
         });
     }
 }
