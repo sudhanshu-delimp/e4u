@@ -302,12 +302,12 @@
            }
        },
        columns: [
-           { data: 'memberId', id: 'memberId', searchable: true, orderable:false,defaultContent: 'NA' },
+           { data: 'member_id', id: 'memberId', searchable: true, orderable:false,defaultContent: 'NA' },
            { data: 'name', name: 'name', searchable: true, orderable:false,defaultContent: 'NA' },
            { data: 'usertype', name: 'usertype', searchable: true, orderable:false ,defaultContent: 'NA'},
            { data: 'location', name: 'location', searchable: true, orderable:false, defaultContent: 'NA' },
            { data: 'sLevel', name: 'sLevel', searchable: true, orderable:false, defaultContent: 'NA' },
-           { data: 'status', name: 'status', searchable: true, orderable:false, defaultContent: 'NA' },
+           { data: 'status2', name: 'status2', searchable: true, orderable:false, defaultContent: 'NA' },
            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' }
        ],
        aoColumnDefs:[

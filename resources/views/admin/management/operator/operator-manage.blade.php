@@ -19,6 +19,14 @@
 @stop
 
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $addAccess = staffPageAccessPermission($securityLevel, 'add');
+   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+@endphp
 <div id="content-wrapper" class="d-flex flex-column">
    <div id="content">
       <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -48,11 +56,13 @@
                      <div class="tab-content">  
                         <div class="tab-pane fade active show" id="tab3warning">
                            <div class="row pb-3">
+                               @if($addAccessEnabled)
                               <div class="col-lg-12 col-md-12 col-sm-12">
                                  <div class="bothsearch-form" style="gap: 10px;">
                                     <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#addOperator">Add Operator</button>
                                  </div>
                               </div>
+                              @endif
                            </div>
 
                            <div class="table-responsive-xl">

@@ -11,6 +11,14 @@
 </style>
 @stop
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $addAccess = staffPageAccessPermission($securityLevel, 'add');
+   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+@endphp
 <div id="wrapper">
    <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
@@ -55,7 +63,9 @@
                      </div>
 
                      <div class="col-sm-12 d-flex justify-content-end mt-3">
+                         @if($addAccessEnabled)
                         <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#createNewrecord">Add New Record</button>
+                        @endif
                      </div>
                 </div>
                <div class="row">
@@ -88,12 +98,15 @@
                                  <td>12 months</td>
                                  <td>Active</td>
                                  <td>
+                                     @if($editAccessEnabled)
                                     <div class="dropdown no-arrow" >
                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal">   <i class="fa fa-fw fa-check"></i> Activate</a>
+                                           <div class="dropdown-divider"></div>
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal" >   <i class="fa fa-fw fa-times" ></i> Deactivate</a>
                                            <div class="dropdown-divider"></div>
                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-toggle="modal" data-target="#editNewrecord" > <i class="fa fa-fw fa-pen"></i> Edit</a>
                                            <div class="dropdown-divider"></div>
@@ -102,12 +115,10 @@
                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-target="#renewEmailmodal" data-toggle="modal" >  <i class="fa fa-sync-alt"></i> Renew</a>
                                            <div class="dropdown-divider"></div>
                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal" >  <i class="fa fa-fw fa-ban" ></i> Suspend</a>
-                                           <div class="dropdown-divider"></div>
-                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal" >   <i class="fa fa-fw fa-times" ></i> Deactivate</a>
-                                           
                                            
                                         </div>
                                     </div>
+                                    @endif
                                  </td>
                               </tr>
                            </tbody>
