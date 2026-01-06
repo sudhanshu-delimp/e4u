@@ -312,58 +312,6 @@
    </div>
 </div>
 
-{{-- <div class="modal" id="sendOtp_modal" style="display: none">
-   <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content custome_modal_max_width">
-         <form id="SendBankOtp" method="post" action="">
-            @csrf
-            <div class="modal-header main_bg_color border-0">
-               <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/face-lock.png') }}" style="width:40px;" alt="face-lock verification"> 2FA Verification</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">
-                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                  </span>
-               </button>
-            </div>
-            <div class="modal-body forgot_pass pb-1">
-               <div class="form-group label_margin_zero_for_login">
-                  <div class="row text-center" style="">
-                     <div class="col-md-12">
-                        <a href="#"><img src="{{ asset('assets/app/img/e4u_forget.png') }}" class="img-fluid" alt="logo"></a>
-                     </div>
-                  </div>
-                  <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Account Protection</strong></h4>
-                  <ol class="pb-2 pl-3 text-justify">
-                     <li>To help keep your account safe, E4U wants to make sure it is really you trying to
-                        log in.
-                     </li>
-                     <li>We have sent you your verification code according to your preference, please
-                        insert your verification code.
-                     </li>
-                  </ol>
-                  <div class="d-flex align-items-center justify-content-between gap-10">
-                     <input type="password" maxlength="4" class="form-control w-75" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required" required>
-                     <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
-                  </div>
-                  <span id="otpError" class="d-none"></span>
-                  <div class="termsandconditions_text_color">
-                     @error('opt')
-                     {{ $message }}
-                     @enderror
-                  </div>
-                  <input type="hidden" name="phone" id="phoneId" value="">
-               </div>
-               <div id="senderror"></div>
-            </div>
-            <div class="modal-footer forgot_pass pt-0 pb-4 justify-content-center">
-               <input type="hidden" value="0" name="change_pin_active" id="change_pin_active">
-               <p class="pt-2">Not received your code? <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a></p>
-            </div>
-         </form>
-      </div>
-   </div>
-</div> --}}
-
 @include('modal.two-step-verification')
 
 <div class="modal programmatic" id="delete_bank" style="display: none">
@@ -482,14 +430,12 @@
                 </p>
 
                 <div class="text-center mt-4">
-                    <button type="button" class="btn-success-modal" data-dismiss="modal">
-                    Close
-                    </button>
+                  <button type="button" class="btn-success-modal" data-dismiss="modal">
+                     Close
+                  </button>
                 </div>
 
             </div>
-
-
          </div>
       </div>
 </div>
@@ -619,11 +565,7 @@
                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
          </div>
-      {{-- <div class="modal-header justify-content-between ">
-         <!-- Title -->
-         <h5 class=""><b>Instructions for Payer </b></h5>
-      </div> --}}
- 
+     
        <div class="modal-body">
          <ol class="text-left">
             <li class="pl-3">EFT your payment to this bank account:
@@ -634,42 +576,15 @@
             </li>
             <li class="pl-3">Please email your payment receipt to:
                <ul class="text-left list-unstyled ">
-                  <li><a href="javascript:void(0)" id="sendMailToEscort" style="color: #4e73df;">{{auth()->user()->email}}</a></li>
+                  <li><a href="javascript:void(0)" id="sendMailToEscort" style="color: #1d4cd6;">{{auth()->user()->email}}</a></li>
                </ul>
             </li>
          </ol>
-         <!-- PIN Display -->
-         {{-- <div id="pinDisplay" class="pin-display mb-3">
-           [numbers appear as typed]
-         </div> --}}
- 
-         <!-- Keypad -->
-         <div class="pin-keypad mx-auto mb-3">
-           {{-- <div class="keypad-row">
-             <button class="key input_value">1</button>
-             <button class="key input_value">2</button>
-             <button class="key input_value">3</button>
-           </div>
-           <div class="keypad-row">
-             <button class="key input_value">4</button>
-             <button class="key input_value">5</button>
-             <button class="key input_value">6</button>
-           </div>
-           <div class="keypad-row">
-             <button class="key input_value">7</button>
-             <button class="key input_value">8</button>
-             <button class="key input_value">9</button>
-           </div>
-           <div class="keypad-row">
-             <button class="key" id="clear">⌫</button>
-             <button class="key input_value">0</button>
-             <button class="key" id="pinok">OK</button>
-           </div> --}}
-         </div>
- 
+          <p class="pl-3">
+            Thank you for your payment.
+         </p>
          <!-- Footer Buttons -->
          <div class="d-flex justify-content-center mb-3">
-            {{-- <button type="button" class="btn-cancel-modal mr-3">Close</button> --}}
             <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
          </div>
  
@@ -1613,9 +1528,18 @@
                            icon: "error",
                            title: "Invalid OTP",
                            text: "The OTP you entered is incorrect. Please try again.",
+                           allowOutsideClick: false,
+                           didClose: () => {
+                              $('.otp-input').val('');
+                              $('.first_input')
+                                    .val('')
+                                    .focus()
+                                    .select();
+                           }
                      });
                      $('.otp-input').val('');
-
+                     
+                    
                      // $("#change_pin_active").val('1');
                      return true;
                   }
