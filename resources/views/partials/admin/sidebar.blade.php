@@ -1263,7 +1263,7 @@
                     <a class="collapse-item" href="{{ route('admin.account.edit') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                         <span style="{{ request()->segment(2) == 'update-account' ? 'color: #FF3C5F;' : '' }}">Edit
-                            my account..</span></a>
+                            my account</span></a>
                     <a class="collapse-item" href="{{ route('admin.change.password') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
                         <span
