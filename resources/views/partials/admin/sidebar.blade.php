@@ -530,7 +530,7 @@
                         'viewer-templates',
                         'set-fees',
                         'manage-user',
-                        'memberships',
+                        'memberships','product',
                         'legbox-report',
                         'agents-monthly-report',
                         'punterbox-reports',
@@ -546,7 +546,7 @@
                         'dashboard',
                         'All-user',
                         'email-templates',
-                        'annual-report',
+                        'annual-report','directors','portfolio','registrations','e4u-revenue',
                         'minutes',
                         'annual-profit-and-loss',
                         'balance-sheet',
@@ -561,7 +561,7 @@
                         'revenue','influencer',
                         'application',
                         'revision',
-                        'security',
+                        'security','shareholder','share-value'
                     ]) || in_array(request()->segment(4), ['legal','community','other','about','concierge','global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications'])) show @endif"
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
@@ -994,90 +994,219 @@
                         </a>
                         <div id="ShareholdersMenu"
                             class="collapse @if (in_array(request()->segment(3), [
-                                    'annual-report',
+                                    'annual-report','directors','portfolio',
                                     'annual-profit-and-loss',
                                     'balance-sheet',
                                     'constitution',
                                     'minutes',
                                     'newsletter',
-                                    'shareholder-notices',
+                                    'shareholder-notices','registrations','e4u-revenue',
                                     'subsidiaries-balance-sheet',
                                     'subsidiaries-annual-profit-and-loss',
-                                    'updates',
+                                    'updates','shareholder','share-value'
                                 ])) show @endif" data-parent="#Management">
 
+                            <!--  Blackbox Tech Pty Ltd -->
 
-                            <a class="collapse-item" href="{{ route('admin.annual-report') }}">
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Blackbox"
+                                aria-expanded="false" aria-controls="Blackbox">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'annual-report' ? 'color: #FF3C5F;' : '' }}">Annual
-                                    Report</span>
+                                <span>Blackbox Tech</span>
                             </a>
+                            <div id="Blackbox" class="collapse @if (in_array(request()->segment(3), ['annual-report','directors','portfolio'])) show @endif" data-parent="#ShareholdersMenu">
 
-                            <a class="collapse-item" href="{{ route('admin.annual-profit-and-loss') }}">
+                                <div class="py-0 collapse-inner rounded mb-2">
+                                    
+                                    {{-- Annual Report  --}}
+                                     <a class="collapse-item" href="{{ route('admin.annual-report') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'annual-report' ? 'color: #FF3C5F;' : '' }}">Annual
+                                            Report</span>
+                                    </a>
+                                    {{-- end --}}
+
+                                    {{-- Directors  --}}
+                                     <a class="collapse-item" href="{{ route('admin.directors') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'directors' ? 'color: #FF3C5F;' : '' }}">Directors</span>
+                                    </a>
+                                    {{-- end --}}
+
+                                    {{-- Portfolio  --}}
+                                     <a class="collapse-item" href="{{ route('admin.portfolio') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'portfolio' ? 'color: #FF3C5F;' : '' }}">Portfolio</span>
+                                    </a>
+                                    {{-- end --}}
+
+                                </div>
+                            </div>
+                            <!-- end --> 
+
+
+                            <!--  Communications -->
+
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#SHCommunications"
+                                aria-expanded="false" aria-controls="SHCommunications">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'annual-profit-and-loss' ? 'color: #FF3C5F;' : '' }}">Annual
-                                    Profit & Loss</span>
+                                <span>Communications</span>
                             </a>
+                            <div id="SHCommunications" class="collapse @if (in_array(request()->segment(3), ['newsletter','shareholder-notices'])) show @endif" data-parent="#ShareholdersMenu">
 
-                            <a class="collapse-item" href="{{ route('admin.balance-sheet') }}">
+                                <div class="py-0 collapse-inner rounded mb-2">
+                                     <a class="collapse-item" href="{{ route('admin.newsletter') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'newsletter' ? 'color: #FF3C5F;' : '' }}">Newsletter</span>
+                                    </a>
+
+                                    <a class="collapse-item" href="{{ route('admin.shareholder-notices') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'shareholder-notices' ? 'color: #FF3C5F;' : '' }}">Shareholder
+                                            Notices</span>
+                                    </a>
+     
+
+                                </div>
+                            </div>
+                            <!-- end --> 
+
+
+                            <!--  E4U Information -->
+
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#E4UInformation"
+                                aria-expanded="false" aria-controls="E4UInformation">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'balance-sheet' ? 'color: #FF3C5F;' : '' }}">Balance
-                                    Sheet</span>
+                                <span>E4U Information</span>
                             </a>
+                            <div id="E4UInformation" class="collapse @if (in_array(request()->segment(3), ['registrations','e4u-revenue'])) show @endif" data-parent="#ShareholdersMenu">
+
+                                <div class="py-0 collapse-inner rounded mb-2">
+                                     <a class="collapse-item" href="{{ route('admin.registrations') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'registrations' ? 'color: #FF3C5F;' : '' }}">Registrations</span>
+                                    </a>
+
+                                    <a class="collapse-item" href="{{ route('admin.e4u-revenue') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'e4u-revenue' ? 'color: #FF3C5F;' : '' }}">Revenue</span>
+                                    </a>
+     
+
+                                </div>
+                            </div>
+                            <!-- end --> 
 
 
-                            <a class="collapse-item" href="{{ route('admin.constitution') }}">
+                            <!--  Shareholder Documents -->
+
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ShareholderDocuments"
+                                aria-expanded="false" aria-controls="ShareholderDocuments">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'constitution' ? 'color: #FF3C5F;' : '' }}">Constitution</span>
+                                <span>Shareholder Documents</span>
                             </a>
+                            <div id="ShareholderDocuments" class="collapse @if (in_array(request()->segment(3), ['annual-profit-and-loss','balance-sheet','constitution','minutes','updates'])) show @endif" data-parent="#ShareholdersMenu">
+
+                                <div class="py-0 collapse-inner rounded mb-2">
+
+                                    <a class="collapse-item" href="{{ route('admin.annual-profit-and-loss') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'annual-profit-and-loss' ? 'color: #FF3C5F;' : '' }}">Annual
+                                            Profit & Loss</span>
+                                    </a>
+                                     <a class="collapse-item" href="{{ route('admin.balance-sheet') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'balance-sheet' ? 'color: #FF3C5F;' : '' }}">Balance
+                                            Sheet</span>
+                                    </a>
+                                    
+                                    <a class="collapse-item" href="{{ route('admin.constitution') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'constitution' ? 'color: #FF3C5F;' : '' }}">Constitution</span>
+                                    </a>
 
 
-                            <a class="collapse-item" href="{{ route('admin.minutes') }}">
+                                    <a class="collapse-item" href="{{ route('admin.minutes') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'minutes' ? 'color: #FF3C5F;' : '' }}">Shareholder Minutes</span>
+                                    </a>
+
+                                    <a class="collapse-item" href="{{ route('admin.updates') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'updates' ? 'color: #FF3C5F;' : '' }}">Shareholder Updates</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- end --> 
+
+
+                            <!--  Share Register -->
+
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ShareRegister"
+                                aria-expanded="false" aria-controls="ShareRegister">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'minutes' ? 'color: #FF3C5F;' : '' }}">Minutes</span>
+                                <span>Share Register</span>
                             </a>
+                            <div id="ShareRegister" class="collapse @if (in_array(request()->segment(3), ['shareholder','share-value'])) show @endif" data-parent="#ShareholdersMenu">
+
+                                <div class="py-0 collapse-inner rounded mb-2">
+                                    <a class="collapse-item" href="{{ route('admin.shareholder') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'shareholder' ? 'color: #FF3C5F;' : '' }}">Shareholders</span>
+                                    </a>
+                                    <a class="collapse-item" href="{{ route('admin.share-value') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'share-value' ? 'color: #FF3C5F;' : '' }}">Share Value</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- end --> 
 
 
+                            <!--  Subsidiaries -->
 
-                            <a class="collapse-item" href="{{ route('admin.newsletter') }}">
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Subsidiaries"
+                                aria-expanded="false" aria-controls="Subsidiaries">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'newsletter' ? 'color: #FF3C5F;' : '' }}">Newsletter</span>
+                                <span>Subsidiaries</span>
                             </a>
+                            <div id="Subsidiaries" class="collapse @if (in_array(request()->segment(3), ['subsidiaries-balance-sheet','subsidiaries-annual-profit-and-loss'])) show @endif" data-parent="#ShareholdersMenu">
+
+                                <div class="py-0 collapse-inner rounded mb-2">
+                                    
+                                    <a class="collapse-item"
+                                        href="{{ route('admin.subsidiaries-annual-profit-and-loss') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'subsidiaries-annual-profit-and-loss' ? 'color: #FF3C5F;' : '' }}">Annual Profit & Loss</span>
+                                    </a>
+
+                                    <a class="collapse-item" href="{{ route('admin.subsidiaries-balance-sheet') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'subsidiaries-balance-sheet' ? 'color: #FF3C5F;' : '' }}">Balance Sheet</span>
+                                    </a>
+                                    
+                                </div>
+                            </div>
+                            <!-- end --> 
+
+                            
 
 
-                            <a class="collapse-item" href="{{ route('admin.shareholder-notices') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'shareholder-notices' ? 'color: #FF3C5F;' : '' }}">Shareholder
-                                    Notices</span>
-                            </a>
-
-                            <a class="collapse-item" href="{{ route('admin.subsidiaries-balance-sheet') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'subsidiaries-balance-sheet' ? 'color: #FF3C5F;' : '' }}">Subsidiaries
-                                    Balance Sheet</span>
-                            </a>
-
-                            <a class="collapse-item"
-                                href="{{ route('admin.subsidiaries-annual-profit-and-loss') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'subsidiaries-annual-profit-and-loss' ? 'color: #FF3C5F;' : '' }}">Subsidiaries
-                                    Annual Profit & Loss</span>
-                            </a>
-
-                            <a class="collapse-item" href="{{ route('admin.updates') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'updates' ? 'color: #FF3C5F;' : '' }}">Updates</span>
-                            </a>
                         </div>
                         {{-- end --}}
 
@@ -1087,14 +1216,18 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/statistic.png') }}">
                             <span>Statistics</span>
                         </a>
-                        <div id="statisticsMenu" class="collapse @if (in_array(request()->segment(3), ['tours', 'profile', 'memberships'])) show @endif " data-parent="#Management">
+                        <div id="statisticsMenu" class="collapse @if (in_array(request()->segment(3), ['tours', 'profile','product', 'memberships'])) show @endif " data-parent="#Management">
                             <a class="collapse-item" href="{{ route('admin.memberships') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'memberships' ? 'color: #FF3C5F;' : '' }}">Memberships</span>
                             </a>
-
-                            <a class="collapse-item" href="{{ route('admin.profile') }}">
+                            <a class="collapse-item" href="{{ route('admin.product') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'product' ? 'color: #FF3C5F;' : '' }}">Product</span>
+                            </a>
+                             <a class="collapse-item" href="{{ route('admin.profile') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Profile</span>
@@ -1130,7 +1263,7 @@
                     <a class="collapse-item" href="{{ route('admin.account.edit') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                         <span style="{{ request()->segment(2) == 'update-account' ? 'color: #FF3C5F;' : '' }}">Edit
-                            my account..</span></a>
+                            my account</span></a>
                     <a class="collapse-item" href="{{ route('admin.change.password') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
                         <span
