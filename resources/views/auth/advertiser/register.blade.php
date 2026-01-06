@@ -64,6 +64,9 @@
                                 the Prostitution Licensing Authority (Queensland) and display the number on any Profile
                                 it publishes.
                             </li>
+                            <li>
+                                Click <a href="https://www.esafety.gov.au/parents/resources/online-safety-book" target="_blank" class="termsandconditions_text_color">here to read</a> the eSafety Commissioner’s Online Safety Guide before registering as a Member.
+                            </li>
                         </ol>
                     </div>
                 </div>
