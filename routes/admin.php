@@ -266,7 +266,7 @@ Route::get('commision_playbox_fees', [PricingsummariesController::class, 'commis
 
 
 Route::get('management/manage-suppliers', function () {
-    return view('admin.management/manage-suppliers');
+    return view('admin.management.manage-suppliers');
 })->name('admin.manage-suppliers');
 
 

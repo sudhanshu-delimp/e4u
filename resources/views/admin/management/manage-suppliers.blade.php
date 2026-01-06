@@ -2,6 +2,14 @@
 @section('style')
 @stop
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $addAccess = staffPageAccessPermission($securityLevel, 'add');
+   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+@endphp
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
    <!-- Main Content -->
@@ -32,12 +40,13 @@
                      <div class="tab-content">
                         <div class="tab-pane fade active show" id="tab3warning">
                            <div class="row pb-3">
-
+                               @if($addAccessEnabled)
                               <div class="col-md-12 col-sm-12">
                                  <div class="bothsearch-form" style="gap: 10px;">
                                     <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#addNewMerchant">Add New Merchant</button>
                                  </div>
                               </div>
+                              @endif
                            </div>
                            <div class="table-responsive-xl">
                               <table class="table mb-3 w-100" id="ManageSupplierTable">
@@ -66,11 +75,15 @@
                                                      <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                  </a>
                                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
-                                                   <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#view_merchant_data">  <i class="fa fa-eye "></i> View Account</a>
-                                                   <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Suspend</a>
-                                                   <div class="dropdown-divider"></div>
+                                                    @if($editAccessEnabled)
                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-target="#edit_merchant_data" data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>
+                                                   <div class="dropdown-divider"></div>
+                                                  
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Suspend</a>
+                                                    <div class="dropdown-divider"></div>
+                                                   @endif
+                                                   
+                                                    <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#view_merchant_data">  <i class="fa fa-eye "></i> View Account</a>
                                                 </div>
                                              </div>
                                          </td>

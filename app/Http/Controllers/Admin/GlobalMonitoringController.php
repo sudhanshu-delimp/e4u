@@ -34,12 +34,9 @@ class GlobalMonitoringController extends Controller
     {
         $this->escort = $escort;
         $this->massage_profile = $massage_profile;
-
         $this->user = $user;
         $this->middleware(function ($request, $next) {
-
             $user = auth()->user();   // works here
-
             // Now do everything that needs user data
             $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
 

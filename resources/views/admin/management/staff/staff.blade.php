@@ -4,6 +4,11 @@
     </style>
 @stop
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $addAccess = staffPageAccessPermission($securityLevel, 'add');
+   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+@endphp
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -37,13 +42,14 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade active show" id="tab3warning">
                                         <div class="row pb-3">
-
+                                             @if($addAccessEnabled)
                                             <div class="col-lg-12 col-md-12 col-sm-12">
                                                 <div class="bothsearch-form" style="gap: 10px;">
                                                     <button type="button" class="btn-common" data-toggle="modal"
                                                         data-target="#addStaffnew">Add New Staff Member</button>
                                                 </div>
                                             </div>
+                                            @endif
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table mb-3 w-100" id="staff_data_table">

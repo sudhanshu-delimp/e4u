@@ -76,7 +76,7 @@ class AdvertiserReportContoller extends Controller
                     data-toggle="modal" data-target="#confirm-popup" 
                     data-id="' . $row->id . '" data-val="pending" href="#">
                     <i class="fa fa-hourglass-half text-dark"></i> Current
-                    </a>';
+                    </a><div class="dropdown-divider"></div>';
 
                     if ($row->report_status == 'pending') {
                         $statusActionHtml = '
@@ -90,7 +90,7 @@ class AdvertiserReportContoller extends Controller
                         data-toggle="modal" data-target="#confirm-popup" 
                         data-id="' . $row->id . '" data-val="inprogress" href="#">
                         <i class="fa fa-sync-alt text-dark"></i> In Progress
-                        </a>';
+                        </a><div class="dropdown-divider"></div>';
                     }
 
                     // if ($row->report_status == 'resolved') {
@@ -111,7 +111,6 @@ class AdvertiserReportContoller extends Controller
                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                             aria-labelledby="dropdownMenuLink">
                             ' . $statusActionHtml . '
-                            <div class="dropdown-divider"></div>
                             <a class="view_member_report dropdown-item d-flex justify-content-start gap-10 align-items-center" 
                             href="#" data-id="' . $row->id . '">
                             <i class="fa fa-eye text-dark"></i> View

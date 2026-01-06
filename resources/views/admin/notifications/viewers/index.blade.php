@@ -20,6 +20,11 @@
     </style>
 @stop
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $addAccess = staffPageAccessPermission($securityLevel, 'add');
+   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+@endphp
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
@@ -42,12 +47,14 @@
                         </div>
                     </div>
                     <div class="row">
+                         @if($addAccessEnabled)
                         <div class="col-md-12">
                             <div class="bothsearch-form mb-3">
                                 <button type="button" class="create-tour-sec dctour" data-toggle="modal" id=""
                                     data-target="#createNotification">New Notification</button>
                             </div>
                         </div>
+                        @endif
                         <div class="col-md-12">
                             <div class="panel with-nav-tabs panel-warning">
                                 <div class="panel-body">
@@ -83,6 +90,7 @@
         <!-- End of Main Content -->
     </div>
     <!-- End of Content Wrapper -->
+     @if($addAccessEnabled)
     <div class="modal fade upload-modal" id="createNotification" tabindex="-1" role="dialog"
         aria-labelledby="createNotification" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -289,6 +297,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     <!-- Edit of Content Wrapper -->
     {{--

@@ -221,7 +221,11 @@ class StaffController extends BaseController
                  if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
                  } else {
+                     if ($this->editAccessEnabled) {
                     $dropdown .= $dropdownsub. $edit.  $view;
+                    } else {
+                        $dropdown .= $view;
+                    }
                  }
             }
 
@@ -230,7 +234,11 @@ class StaffController extends BaseController
                 if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
                  } else {
+                    if ($this->editAccessEnabled) {
                      $dropdown .= $edit . $dropdownsub.  $view;
+                     } else {
+                        $dropdown .= $view;
+                    }
                  }
             }
 
@@ -240,7 +248,11 @@ class StaffController extends BaseController
                 if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
                  } else {
+                    if ($this->editAccessEnabled) {
                       $dropdown .= $dropdownsub. $edit.  $view;
+                    } else {
+                        $dropdown .= $view;
+                    }
                  }
             }
             

@@ -33,14 +33,17 @@ class PostOfficeController extends Controller
     }
     public function addPostOfficeReport()
     {
-         if (!$this->addAccessEnabled) {
-                return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
-            }
+        if (!$this->viewAccessEnabled) {
+            return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
+        }
         return view('admin.post-office.reports');
     }
 
     public function listingPostOfficeReport()
     {
+        if (!$this->addAccessEnabled) {
+            return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
+        }
         return view('admin.post-office.send-reports');
     }
     public function storePostOfficeReportAjax()
