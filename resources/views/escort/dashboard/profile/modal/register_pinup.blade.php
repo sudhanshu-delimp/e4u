@@ -68,7 +68,7 @@
                                             <div class="col-lg-12">
                                                 <p class="mb-1"><b>Notes:</b></p>
                                                 <ol class="pl-4 text-justify">
-                                                    <li> You must have a Current Listing to register as a Pin Up.</li>
+                                                    <li> You must have a Current Platinum Listing to register as a Pin Up.</li>
                                                     <li> If the date period you have selected is not available, and your
                                                         Current Listing period
                                                         exceeds the requested period, you will be added to the pool.</li>
