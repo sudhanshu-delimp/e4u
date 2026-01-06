@@ -584,6 +584,10 @@ Route::get('/management/memberships', function () {
     return view('admin.management.memberships');
 })->name('admin.memberships');
 
+Route::get('/management/product', function () {
+    return view('admin.management.statistics.product');
+})->name('admin.product');
+
 Route::get('/reports/credit', function () {
     return view('admin.reports.credit');
 })->name('admin.credit');

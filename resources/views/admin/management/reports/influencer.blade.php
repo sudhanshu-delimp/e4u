@@ -253,7 +253,7 @@
             <div class="modal-content basic-modal">
                 <div class="modal-header border-0">
                     <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
-                        <img src="{{ asset('assets/dashboard/img/unblock.png') }}" alt="resolved" class="custompopicon">
+                        <img src="{{ asset('assets/dashboard/img/influencer.png') }}" alt="resolved" class="custompopicon">
                         <span class="success-modal-title">Edit Social Media Accounts</span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -549,7 +549,7 @@
             <div class="modal-content basic-modal">
                 <div class="modal-header border-0">
                     <h5 class="modal-title d-flex align-items-center">
-                        <img src="{{ asset('assets/dashboard/img/unblock.png') }}" alt="resolved" class="custompopicon">
+                        <img src="{{ asset('assets/dashboard/img/influencer.png') }}" alt="resolved" class="custompopicon">
                         <span class="success-modal-title">Influencer Application Summary - M40161</span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
