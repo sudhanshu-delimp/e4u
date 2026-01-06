@@ -67,8 +67,8 @@ class StoreAgentNotificationRequest extends FormRequest
 
         /* ------------------ TYPE : NOTICE ------------------ */
         if($type === 'Notice'){
-            $rules['start_date'] = 'required';
-            $rules['end_date'] = 'required';
+            $rules['start_date'] = $isEdit ? 'nullable|date' : 'required|date';
+            $rules['end_date'] = $isEdit ? 'nullable|date|after_or_equal:start_date' : 'required|date|after_or_equal:start_date';
             $rules['content'] = 'required';
             $rules['member_id'] = 'required';
         }
