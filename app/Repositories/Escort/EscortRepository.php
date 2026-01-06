@@ -99,6 +99,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ->limit($limit)
             ->with([
                 'latestActivePinup',
+                'currentActivePinup',
                 'activeBumpup',
                 'activeUpcomingSuspend',
                 'brb' => function ($query) {
