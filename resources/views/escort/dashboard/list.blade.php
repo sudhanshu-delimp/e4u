@@ -448,6 +448,7 @@
                     $selectPinUp.empty();
                     
                     if (records.recordsTotal > 0) {
+
                         $select.append('<option value="">-- Select Profile --</option>');
                         $.each(records.data, function (i, item) {
                             if(!item.is_extended && !item.tour){
@@ -465,7 +466,7 @@
 
                         $selectBumpUp.append('<option value="">-- Select Profile --</option>');
                         $.each(records.data, function (i, item) {
-                            //if(!item.is_bumpup){
+                            if(item.current_active_pinup==null){
                                 $selectBumpUp.append(
                                     $('<option>', {
                                     value: item.id,
@@ -475,7 +476,7 @@
                                     'data-membership':item.membership,
                                     })
                                 );
-                            //}
+                            }
                         });
 
                         let existPinup = records.data.some(profile=>profile.latest_active_pinup!=null);
