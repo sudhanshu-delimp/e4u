@@ -618,9 +618,9 @@ Route::get('/management/logs-staff', function () {
     return view('admin.management.logs-staff');
 })->name('admin.logs-staff');
 
-/* Route::get('/management/staff',function(){
-    return view('admin.management.staff');
-})->name('admin.staff'); */
+ Route::get('/management/manage-influencers',function(){
+    return view('admin.management.influencer.manage-influencers');
+})->name('admin.manage-influencers');
 
 Route::get('/management/application', function () {
     return view('admin.management.logs.application');

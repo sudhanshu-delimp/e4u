@@ -1,6 +1,10 @@
 @extends('layouts.escort')
 @section('style')
-    
+   <style>
+    .table td{
+        vertical-align: middle;
+    }
+    </style> 
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -34,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="">
+                            <tr>
                                 <td>
                                     <div class="guide-document">
                                         <img src="{{ asset('assets/dashboard/forms-pdf/E4U_Coin_2026.png') }}" alt="" style="width: 100px">

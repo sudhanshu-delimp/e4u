@@ -434,7 +434,17 @@
                     class="collapse
                     @if (in_array(request()->segment(2), ['profiles-tours', 'social-media', 'feedback', 'criticalinformation'])) show @endif"
                     data-parent="#Management">
-
+                    
+                    <a class="collapse-item {{ request()->segment(2) == 'criticalinformation' ? 'menu-active' : '' }}"
+                        href="{{ url('escort-dashboard/criticalinformation') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/important-file-22.png') }}">
+                        <span>Critical Information</span>
+                    </a>
+                    <a class="collapse-item {{ request()->segment(2) == 'feedback' ? 'menu-active' : '' }}"
+                        href="{{ url('escort-dashboard/feedback') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/feedback-22.png') }}">
+                        <span>Feedback</span>
+                    </a>
                     <a class="collapse-item {{ request()->segment(2) == 'profiles-tours' ? 'menu-active' : '' }}"
                         href="{{ url('escort-dashboard/profiles-tours') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/bed.png') }}">
@@ -444,16 +454,6 @@
                         href="{{ url('escort-dashboard/social-media') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
                         <span>Social Media</span>
-                    </a>
-                    <a class="collapse-item {{ request()->segment(2) == 'feedback' ? 'menu-active' : '' }}"
-                        href="{{ url('escort-dashboard/feedback') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/feedback-22.png') }}">
-                        <span>Feedback</span>
-                    </a>
-                    <a class="collapse-item {{ request()->segment(2) == 'criticalinformation' ? 'menu-active' : '' }}"
-                        href="{{ url('escort-dashboard/criticalinformation') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/important-file-22.png') }}">
-                        <span>Critical Information</span>
                     </a>
                 </div>
 
@@ -469,15 +469,16 @@
                     @if (in_array(request()->segment(2), ['bank_account', 'credit-my-account', 'transaction-summary'])) show @endif"
                     data-parent="#Management">
 
-                    <a class="collapse-item {{ request()->segment(2) == 'bank_account' ? 'menu-active' : '' }}"
-                        href="{{ route('escort.bank_account') }}">
-                        <img src="{{ asset('assets/app/img/sales-performance.png') }}">
-                        <span>Bank Account</span>
-                    </a>
+                    
                     <a class="collapse-item {{ request()->segment(2) == 'credit-my-account' ? 'menu-active' : '' }}"
                         href="{{ url('escort-dashboard/credit-my-account') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
                         <span>Add Credit</span>
+                    </a>
+                    <a class="collapse-item {{ request()->segment(2) == 'bank_account' ? 'menu-active' : '' }}"
+                        href="{{ route('escort.bank_account') }}">
+                        <img src="{{ asset('assets/app/img/sales-performance.png') }}">
+                        <span>Bank Account</span>
                     </a>
                     <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
                         href="{{ url('escort-dashboard/transaction-summary') }}">
@@ -513,13 +514,6 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/comtwo.png') }}">
                             <span>Agent Request</span>
                         </a>
-
-                        <a class="collapse-item {{ request()->segment(2) == 'send-notifications' ? 'menu-active' : '' }}"
-                            href="{{ url('escort-dashboard/send-notifications') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
-                            <span>Notifications</span>
-                        </a>
-
                         <a class="collapse-item {{ request()->segment(2) == 'my-legbox-viewers' ? 'menu-active' : '' }}"
                             href="{{ route('escort.dashboard.my-legbox-viewers', ['from' => 'sidebar']) }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/legbox.png') }}">
@@ -537,6 +531,14 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/reviewone.png') }}">
                             <span>My Reviews</span>
                         </a>
+                        
+
+                        <a class="collapse-item {{ request()->segment(2) == 'send-notifications' ? 'menu-active' : '' }}"
+                            href="{{ url('escort-dashboard/send-notifications') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
+                            <span>Notifications</span>
+                        </a>
+
 
                     </div>
                 </div>
@@ -658,22 +660,22 @@
                             <span>Edit My Account</span>
                         </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'my-information' ? 'menu-active' : '' }}"
-                            href="{{ route('escort.my-information') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/information-24.png') }}" />
-                            <span>My Information</span>
-                        </a>
-
                         <a class="collapse-item {{ request()->segment(2) == 'listing' ? 'menu-active' : '' }}"
                             href="{{ route('escort.listing') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/listing-24.png') }}" />
                             <span>Listings</span>
                         </a>
-
                         <a class="collapse-item {{ request()->segment(2) == 'media' ? 'menu-active' : '' }}"
                             href="{{ route('escort.media') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/media-24.png') }}" />
                             <span>Media</span>
+                        </a>
+
+
+                        <a class="collapse-item {{ request()->segment(2) == 'my-information' ? 'menu-active' : '' }}"
+                            href="{{ route('escort.my-information') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/information-24.png') }}" />
+                            <span>My Information</span>
                         </a>
 
                         <a class="collapse-item {{ request()->segment(2) == 'profiles' ? 'menu-active' : '' }}"
@@ -704,18 +706,18 @@
                     @if (in_array(request()->segment(3), ['uploads', 'guidelines'])) show @endif"
                     data-parent="#Management">
 
-                     <!-- Forms -->
-                        <a class="collapse-item" href="{{ route('escort.uploads') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/uploads.png') }}">
-                            <span style="{{ request()->segment(3) == 'uploads' ? 'color: #e5365a;' : '' }}">Uploads</span>
-                        </a>
-
                         <!-- Guidelines -->
                         <a class="collapse-item" href="{{ route('escort.guidelines') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/guide.png') }}">
                             <span
                                 style="{{ request()->segment(3) == 'guidelines' ? 'color: #e5365a;' : '' }}">Guidelines</span>
                         </a>
+                     <!-- Forms -->
+                        <a class="collapse-item" href="{{ route('escort.uploads') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/uploads.png') }}">
+                            <span style="{{ request()->segment(3) == 'uploads' ? 'color: #e5365a;' : '' }}">Uploads</span>
+                        </a>
+
                 </div>
 
                 {{-- ===== NUM ===== --}}
@@ -729,15 +731,15 @@
                     @if (in_array(request()->segment(2), ['num-dashboard', 'add-report', 'my-reports', 'num-tips'])) show @endif"
                     data-parent="#Management">
 
-                    <a class="collapse-item {{ request()->segment(2) == 'num-dashboard' ? 'menu-active' : '' }}"
-                        href="{{ route('escort.numdashboard') }}">
-                        <img src="{{ asset('assets/img/dashboard-24.png') }}" />
-                        <span>Dashboard</span>
-                    </a>
                     <a class="collapse-item {{ request()->segment(2) == 'add-report' ? 'menu-active' : '' }}"
                         href="{{ route('escort.add-report') }}">
                         <img src="{{ asset('assets/img/report-24.png') }}" />
                         <span>Add Report</span>
+                    </a>
+                    <a class="collapse-item {{ request()->segment(2) == 'num-dashboard' ? 'menu-active' : '' }}"
+                        href="{{ route('escort.numdashboard') }}">
+                        <img src="{{ asset('assets/img/dashboard-24.png') }}" />
+                        <span>Dashboard</span>
                     </a>
                     <a class="collapse-item {{ request()->segment(2) == 'my-reports' ? 'menu-active' : '' }}"
                         href="{{ route('escort.my-reports') }}">

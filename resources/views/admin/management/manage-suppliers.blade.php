@@ -48,7 +48,7 @@
                               </div>
                               @endif
                            </div>
-                           <div class="table-responsive-xl">
+                           <div class="table-responsive">
                               <table class="table mb-3 w-100" id="ManageSupplierTable">
                                  <thead class="table-bg">
                                     <tr>
