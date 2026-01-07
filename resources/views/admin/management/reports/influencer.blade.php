@@ -688,12 +688,12 @@
                         <h5 class="section-title">Data Assessment</h5>
                         <table class="assessment-table">
                             <tr>
-                                <th colspan="2" rowspan="2">Item</th>
-                                <th colspan="2">Assessment</th>
+                                <th colspan="2" rowspan="2" class="text-center">Item</th>
+                                <th colspan="2" class="text-center">Assessment</th>
                             </tr>
                             <tr>
-                                <th>Benchmark</th>
-                                <th>Score</th>
+                                <th class="text-center">Benchmark</th>
+                                <th class="text-center">Score</th>
                             </tr>
                             <tr><th class="text-left">Membership Time</th><td>No.</td><td>10</td><td>—</td></tr>
                             <tr><th class="text-left">Listings</th><td>No.</td><td>10</td><td>—</td></tr>
