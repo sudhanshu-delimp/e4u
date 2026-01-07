@@ -324,7 +324,7 @@
                             </a>
 
                             {{-- Shareholders --}}
-                            <a href="{{ route('admin.shareholders') }}" class="collapse-item">
+                            <a href="{{ route('admin.shareholders.notifications.index') }}" class="collapse-item">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/profit.png') }}">
                                 <span style="{{ request()->segment(3) == 'shareholders' ? 'color: #FF3C5F;' : '' }}">Shareholders</span>
                             </a>
