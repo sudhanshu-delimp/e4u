@@ -7,7 +7,7 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="custom-heading-wrapper col-md-12">
-                <h1 class="h1">Forms</h1>
+                <h1 class="h1">Uploads</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
             <div class="col-md-12 mb-4">

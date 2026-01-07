@@ -706,7 +706,7 @@
 
                      <!-- Forms -->
                         <a class="collapse-item" href="{{ route('escort.uploads') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/form.png') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/uploads.png') }}">
                             <span style="{{ request()->segment(3) == 'uploads' ? 'color: #e5365a;' : '' }}">Uploads</span>
                         </a>
 

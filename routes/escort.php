@@ -373,7 +373,7 @@ Route::post('update-my-reports',[NumController::class, 'updateMyReportByAjax'])-
 
 
 Route::get('/influencer/uploads', function () {
-    return view('escort.dashboard.influencer.forms');
+    return view('escort.dashboard.influencer.uploads');
 })->name('escort.uploads');
 
 Route::get('/influencer/guidelines', function () {
