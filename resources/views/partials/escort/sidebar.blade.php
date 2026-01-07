@@ -418,7 +418,7 @@
                     'tours',
                     'ticket-list',
                     'submit_ticket',
-                ]) || in_array(request()->segment(1), ['submit_ticket']) || in_array(request()->segment(3), ['forms', 'guidelines'])) show @endif"
+                ]) || in_array(request()->segment(1), ['submit_ticket']) || in_array(request()->segment(3), ['uploads', 'guidelines'])) show @endif"
             data-parent="#accordionSidebar">
 
             <div class="collapse-inner">
@@ -701,13 +701,13 @@
 
                 <div id="ManagementInfluencer"
                     class="collapse
-                    @if (in_array(request()->segment(3), ['forms', 'guidelines'])) show @endif"
+                    @if (in_array(request()->segment(3), ['uploads', 'guidelines'])) show @endif"
                     data-parent="#Management">
 
                      <!-- Forms -->
-                        <a class="collapse-item" href="{{ route('escort.forms') }}">
+                        <a class="collapse-item" href="{{ route('escort.uploads') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/form.png') }}">
-                            <span style="{{ request()->segment(3) == 'forms' ? 'color: #e5365a;' : '' }}">Forms</span>
+                            <span style="{{ request()->segment(3) == 'uploads' ? 'color: #e5365a;' : '' }}">Uploads</span>
                         </a>
 
                         <!-- Guidelines -->
