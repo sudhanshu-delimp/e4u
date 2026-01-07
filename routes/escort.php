@@ -372,6 +372,15 @@ Route::get('edit-my-reports/{id}',[NumController::class, 'editMyReport'])->name(
 Route::post('update-my-reports',[NumController::class, 'updateMyReportByAjax'])->name('escort.update-my-reports');
 
 
+Route::get('/influencer/uploads', function () {
+    return view('escort.dashboard.influencer.uploads');
+})->name('escort.uploads');
+
+Route::get('/influencer/guidelines', function () {
+    return view('escort.dashboard.influencer.guidelines');
+})->name('escort.guidelines');
+
+
 Route::get('lookup',function(){
     return view('escort.dashboard.UglyMugsRegister.lookup');
 })->name('escort.lookup');
