@@ -692,10 +692,10 @@ function basicDateFormat($date)
 
 function sqlDateFormat($date)
 {
-    if ($date) {
+    if (!empty($date)) {
         return \Carbon\Carbon::parse($date)->format('Y-m-d');
     } else {
-        return '';
+        return null;
     }
 }
 
