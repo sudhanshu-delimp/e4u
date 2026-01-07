@@ -225,6 +225,7 @@ class ShareholderNotificationController extends Controller
 
     public function store(ShareholderNotificationRequest $request)
     {
+      
         try {
             $isUpdate = !empty($request->notificationId);
             $data = [
@@ -343,7 +344,6 @@ class ShareholderNotificationController extends Controller
                         break;
                 }
             }
-
             
             if ($isUpdate) {
                 $notification = ShareholderNotification::findOrFail($request->notificationId);

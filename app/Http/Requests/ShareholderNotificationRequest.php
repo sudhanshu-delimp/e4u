@@ -42,25 +42,33 @@ class ShareholderNotificationRequest extends FormRequest
 
         /* ------------------ TYPE : SCHEDULED ------------------ */
         if($type === 'Scheduled'){
-            $rules['recurring'] = 'required|integer|min:1';
+           
             $rules['recurring_type'] = 'required|in:weekly,monthly,yearly,forever';
-            $rules['content'] = 'required';
-
             if($recurringType === 'weekly'){
+                $rules['recurring'] = 'required|integer|min:1';
+                $rules['content'] = 'required';
                 $rules['start_day_week'] = 'required';
                 $rules['end_day_week'] = 'required';
             }
 
             if($recurringType  === 'monthly'){
+                $rules['recurring'] = 'required|integer|min:1';
+                $rules['content'] = 'required';
                 $rules['start_day_monthly'] = 'required';
                 $rules['end_day_monthly'] = 'required';
             }
 
             if($recurringType === 'yearly'){
+                $rules['recurring'] = 'required|integer|min:1';
+                $rules['content'] = 'required';
                 $rules['start_month_yearly'] = 'required';
                 $rules['start_day_yearly'] = 'required';
                 $rules['end_month_yearly'] = 'required';
                 $rules['end_day_yearly'] = 'required';
+            }
+
+            if($recurringType  === 'forever'){
+                $rules['content'] = 'required';
             }
         }
 
