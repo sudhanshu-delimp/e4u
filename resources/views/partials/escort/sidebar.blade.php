@@ -418,7 +418,7 @@
                     'tours',
                     'ticket-list',
                     'submit_ticket',
-                ]) || in_array(request()->segment(1), ['submit_ticket'])) show @endif"
+                ]) || in_array(request()->segment(1), ['submit_ticket']) || in_array(request()->segment(3), ['forms', 'guidelines'])) show @endif"
             data-parent="#accordionSidebar">
 
             <div class="collapse-inner">
@@ -692,6 +692,31 @@
                 </div>
                 {{-- end How is it Done --}}
 
+
+                {{-- ===== Influencer ===== --}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ManagementInfluencer">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/influencer.png') }}">
+                    <span>Influencer</span>
+                </a>
+
+                <div id="ManagementInfluencer"
+                    class="collapse
+                    @if (in_array(request()->segment(3), ['forms', 'guidelines'])) show @endif"
+                    data-parent="#Management">
+
+                     <!-- Forms -->
+                        <a class="collapse-item" href="{{ route('escort.forms') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/form.png') }}">
+                            <span style="{{ request()->segment(3) == 'forms' ? 'color: #e5365a;' : '' }}">Forms</span>
+                        </a>
+
+                        <!-- Guidelines -->
+                        <a class="collapse-item" href="{{ route('escort.guidelines') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/guide.png') }}">
+                            <span
+                                style="{{ request()->segment(3) == 'guidelines' ? 'color: #e5365a;' : '' }}">Guidelines</span>
+                        </a>
+                </div>
 
                 {{-- ===== NUM ===== --}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ManagementNUM">
