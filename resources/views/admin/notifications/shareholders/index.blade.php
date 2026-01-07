@@ -288,22 +288,9 @@
                                 <label class="label">Select Template</label>
                                 <select id="template_name" name="template_name" class="form-control rounded-0">
                                     <option value="">-- Choose a Template --</option>
-                                    <option
-                                        value="Your monthly Fee Report has been uploaded for your checking and approval.">
-                                        Check
-                                        Your monthly Fee Report has been uploaded for your checking and approval.</option>
-                                    <option
-                                        value="Are you keeping in touch with your Advertisers?  Say hello from time to time.">
-                                        Are you keeping in touch with your Advertisers? Say hello from time to time.
-                                    </option>
-                                    <option
-                                        value="Management is looking for suggestions on where to hold the annual conference this year.">
-                                        Management is looking for suggestions on where to hold the annual conference this
-                                        year.
-                                    </option>
-                                    <option
-                                        value="Just a gentle reminder to make sure you keep up to date with our policies.">
-                                        Just a gentle reminder to make sure you keep up to date with our policies.</option>
+                                    <option value="Notice of Shareholder meeting">Notice of Shareholder meeting</option>
+                                    <option value="Financial Statements available">Financial Statements available</option>
+                                    <option value="Latest Newsletter published">Latest Newsletter published year.</option>
                                 </select>
                             </div>
                         </div>
