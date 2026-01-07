@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>View Agent Notification — Details</title>
+    <title>View Shareholder Notification — Details</title>
     <style>
         @media print {
         .no-print {
@@ -25,7 +25,7 @@
 
             <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #e6e6e6;background:#fafafa;">
                 <div style="display:flex;gap:12px;align-items:center;">
-                    <h2 style="margin:0;font-size:18px;color:#0C223D">Agent Notification Details</h2>
+                    <h2 style="margin:0;font-size:18px;color:#0C223D">Shareholder Notification Details</h2>
 
                 </div>
                 <div style="display:flex;gap:8px;align-items:center;">
