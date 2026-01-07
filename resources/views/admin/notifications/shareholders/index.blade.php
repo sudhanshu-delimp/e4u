@@ -388,7 +388,7 @@
     <div id="manage-route" data-scrf-token="{{ csrf_token() }}"
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
-        data-pdf-download="{{ route('admin.agent.pdf.download', ['id' => '__ID__']) }}"
+        data-pdf-download="{{ route('admin.shareholders.pdf.download', ['id' => '__ID__']) }}"
         data-shareholders-notification-status="{{ route('admin.shareholders.notifications.status', ['id' => '__ID__']) }}"
         data-shareholders-notification-edit="{{ route('admin.shareholders.notifications.edit', ['id' => '__ID__']) }}"
         data-shareholders-notification-update="{{ route('admin.shareholders.notifications.update', ['id' => '__ID__']) }}"

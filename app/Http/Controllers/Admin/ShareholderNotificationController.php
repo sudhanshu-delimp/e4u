@@ -91,7 +91,7 @@ class ShareholderNotificationController extends Controller
                     $start_date = $row->start_date;
                     $status = $row->status;
                     if($status === 'Published' && $start_date > date('Y-m-d')){
-                        return 'Published (Upcoming)';
+                        return 'Upcoming';
                     }else{
                         return $status;
                     }
@@ -206,7 +206,7 @@ class ShareholderNotificationController extends Controller
                 'start_date' =>  basicDateFormat($n->start_date),
                 'end_date' =>  basicDateFormat($n->end_date),
                 'member_id' => $n->member_id,
-                'status' => $n->status,
+                'status' => ($n->status && $n->status === 'Published' && $n->start_date > date('Y-m-d')) ? 'Upcoming' : $n->status,
                 'recurring_type' => $n->recurring_type,
                 'recurring_range' => $recurringRange,
                 'num_recurring' => $n->num_recurring,
@@ -390,7 +390,7 @@ class ShareholderNotificationController extends Controller
             $pdfDetail['current_day'] = $data['current_day'] ? basicDateFormat($data['current_day']) : null;
             $pdfDetail['heading'] = $data['heading'];
             $pdfDetail['type'] = $data['type'];
-            $pdfDetail['status'] = $data['status'];
+            $pdfDetail['status'] = ($data['status'] && $data['status'] === 'Published' && $data['start_date'] > date('Y-m-d')) ? 'Upcoming' : $data['status'];
             $pdfDetail['start_date'] = basicDateFormat($data['start_date']);
             $pdfDetail['end_date'] = basicDateFormat($data['end_date']);
             $pdfDetail['member_id'] = $data['member_id'];
