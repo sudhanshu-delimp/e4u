@@ -3,11 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
-
-class StoreAgentNotificationRequest extends FormRequest
+class ShareholderNotificationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -115,6 +114,4 @@ class StoreAgentNotificationRequest extends FormRequest
             error_response('Validation failed', 422, $errors)
         );
     }
-
-
 }

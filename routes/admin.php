@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\GlobalNotificationController;
 use App\Http\Controllers\Admin\ViewerNotificationController;
 use App\Http\Controllers\Admin\AdminMakeNotificationController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
+use App\Http\Controllers\Admin\ShareholderNotificationController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
@@ -407,6 +408,16 @@ Route::get('/notifications/agent/pdf-download/{id}', [AgentNotificationControlle
 Route::get('/notifications/agent/{id}/edit', [AgentNotificationController::class, 'edit'])->name('admin.agent.notifications.edit');
 Route::post('/notifications/agent/{id}/update', [AgentNotificationController::class, 'update'])->name('admin.agent.notifications.update');
 
+//Agent Notification system for admin
+Route::get('notifications/shareholders/list', [ShareholderNotificationController::class, 'index'])->name('admin.shareholders.notifications.index');
+Route::post('/notifications/shareholders/store', [ShareholderNotificationController::class, 'store'])->name('admin.shareholders.notifications.store');
+Route::get('/notifications/shareholders/{id}', [ShareholderNotificationController::class, 'show'])->name('admin.shareholders.notifications.show');
+Route::post('/notifications/shareholders/{id}/suspend', [ShareholderNotificationController::class, 'updateStatus'])->name('admin.shareholders.notifications.suspend');
+Route::post('/notifications/shareholders/{id}/status', [ShareholderNotificationController::class, 'changeStatus'])->name('admin.shareholders.notifications.status');
+Route::get('/notifications/shareholders/pdf-download/{id}', [ShareholderNotificationController::class, 'pdfDownload'])->name('admin.shareholders.pdf.download');
+Route::get('/notifications/shareholders/{id}/edit', [ShareholderNotificationController::class, 'edit'])->name('admin.shareholders.notifications.edit');
+Route::post('/notifications/shareholders/{id}/update', [ShareholderNotificationController::class, 'update'])->name('admin.shareholders.notifications.update');
+
 
 //Viewer Notification system for admin
 
@@ -441,9 +452,9 @@ Route::get('/notifications/escort/{id}/edit', [EscortNotificationController::cla
 Route::post('/notifications/escort/{id}/update', [EscortNotificationController::class, 'update'])->name('admin.escort.notifications.update');
 
 
-Route::get('/notifications/shareholders',function(){
-    return view('admin.notifications.shareholders.index');
-})->name('admin.shareholders');
+// Route::get('/notifications/shareholders',function(){
+//     return view('admin.notifications.shareholders.index');
+// })->name('admin.shareholders');
 
 // Route::get('/admin-dashboard/notifications/global',function(){
 //     return view('admin.notifications.global');
