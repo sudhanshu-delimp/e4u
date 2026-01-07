@@ -45,10 +45,10 @@
                         </div>
                         <div id="Agreement" class="collapse" data-parent="#accordion" style="">
                             <div class="card-body">
-                                <p>The E4U Terms and Conditions - Influencer are set out in the Terms and Conditions located
-                                    in the Website’s footer (<b>Agreement</b>).</p>
-                                <p>
-                                    The Agreement addresses all of your obligations as well as our obligations.</p>
+                                <p class="mb-2">The E4U Terms and Conditions - Influencer are set out in the Terms and Conditions located
+                                    in the Website’s footer (<b>Agreement</b>). The Agreement addresses all of your obligations as well as our obligations.</p>
+                                
+                                    
                                 <p>
                                     These guidelines form a part of the Agreement.</p>
                             </div>

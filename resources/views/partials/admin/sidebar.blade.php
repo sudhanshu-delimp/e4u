@@ -542,7 +542,7 @@
                         'operator-manage',
                         'profile',
                         'agent',
-                        'manage-suppliers',
+                        'manage-suppliers','manage-influencers',
                         'dashboard',
                         'All-user',
                         'email-templates',
@@ -877,7 +877,7 @@
                             <span>Manage People</span>
                         </a>
                         <div id="managePeopleMenu"
-                            class="collapse @if (in_array(request()->segment(3), ['staff', 'manage-suppliers'])) show @endif"
+                            class="collapse @if (in_array(request()->segment(3), ['staff', 'manage-suppliers', 'manage-influencers'])) show @endif"
                             data-parent="#Management">
                             <a class="collapse-item" href="{{ route('admin.staff') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
@@ -889,6 +889,12 @@
                                 <span
                                     style="{{ request()->segment(3) == 'manage-suppliers' ? 'color: #FF3C5F;' : '' }}">
                                     Suppliers</span>
+                            </a>
+                            <a class="collapse-item" href="{{ route('admin.manage-influencers') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'manage-influencers' ? 'color: #FF3C5F;' : '' }}">
+                                    Influencer</span>
                             </a>
                         </div>
 
