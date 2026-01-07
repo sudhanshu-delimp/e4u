@@ -204,7 +204,7 @@ class AgentNotificationController extends Controller
                 'ref' => sprintf('#%05d', $n->id),
                 'current_day' => basicDateFormat($n->current_day),
                 'heading' => $n->heading,
-                'type' => $n->type,
+                'type' => ($n->type === 'Template') ? ($n->type . '  -  ' . $n->template_name)   : $n->type,
                 'start_date' =>  basicDateFormat($n->start_date),
                 'end_date' =>  basicDateFormat($n->end_date),
                 'member_id' => $n->member_id,
@@ -391,7 +391,7 @@ class AgentNotificationController extends Controller
             $pdfDetail['ref'] = $data['id'];
             $pdfDetail['current_day'] = $data['current_day'] ? basicDateFormat($data['current_day']) : null;
             $pdfDetail['heading'] = $data['heading'];
-            $pdfDetail['type'] = $data['type'];
+            $pdfDetail['type'] = ($data['type'] === 'Template') ? ($data['type'] . '  -  ' . $data['template_name'])   : $data['type'];
             $pdfDetail['status'] = ($data['status'] && $data['status'] === 'Published' && $data['start_date'] > date('Y-m-d')) ? 'Upcoming' : $data['status'];
             $pdfDetail['start_date'] = basicDateFormat($data['start_date']);
             $pdfDetail['end_date'] = basicDateFormat($data['end_date']);
