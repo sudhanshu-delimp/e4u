@@ -255,6 +255,7 @@ class GlobalMonitoringController extends Controller
 
         $data = array(
             "draw"            => intval(request()->input('draw')),
+            "other"            => request()->get('order')[0]['column'],
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
             "data"            => $result,
