@@ -274,6 +274,10 @@ function updateProfileButtonState(locationGroup) {
         startDate.datepicker('option', 'minDate', startDate.val());
         endDate.datepicker('option', 'minDate', startDate.val());
     }
+    else{
+        startDate.datepicker('option', 'minDate', 0);
+    }
+    
     addProfileButton.disabled = !(startDate.val() && endDate.val());
 }
 
