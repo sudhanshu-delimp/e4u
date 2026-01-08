@@ -141,7 +141,7 @@
                                         @php  
                                         $massage_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->massage_price:0;
                                         @endphp
-                                        {{ $massage_price ? '$'. $massage_price.'/hr' : 'N/A' }}
+                                        {{ $massage_price ? '$'. number_format($massage_price).'/hr' : 'N/A' }}
                                         </h4>
                                         </div>
                                     </div>
@@ -159,7 +159,7 @@
                                             @php  
                                             $incall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->incall_price:0;
                                             @endphp
-                                            {{ $incall_price ? '$'. $incall_price.'/hr' : 'N/A' }}
+                                            {{ $incall_price ? '$'. number_format($incall_price).'/hr' : 'N/A' }}
                                         </h4>
                                         </div>
                                     </div>
@@ -177,7 +177,7 @@
                                             @php  
                                             $outcall_price = $escort->durations()->where('name', '1 Hour')->first()? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price:0;
                                             @endphp
-                                            {{ $outcall_price ? '$'. $outcall_price.'/hr' : 'N/A' }}
+                                            {{ $outcall_price ? '$'. number_format($outcall_price).'/hr' : 'N/A' }}
                                             </h4>
                                         </div>
                                     </div>

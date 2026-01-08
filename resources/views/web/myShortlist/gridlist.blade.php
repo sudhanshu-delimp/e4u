@@ -81,6 +81,7 @@
                             </a>
 
                         </div>
+                        {{-- @php echo"<pre>". print_r($escort) @endphp --}}
                         <div class="col-md-8 p-0 all-escort-view-profile-box">
                             <div class="d-flex justify-content-between mb-3 flex_directiom_warp list_cruise pr-0">
                                 <div class="free_profile_name_and_color profile-text">{{ $escortName }}</div>
@@ -169,7 +170,7 @@
                                                                 ->pivot->massage_price
                                                             : 0;
                                                     @endphp
-                                                    {{ $massage_price ? '$' . $massage_price . '/hr' : 'N/A' }}
+                                                    {{ $massage_price ? '$' . number_format($massage_price) . '/hr' : 'N/A' }}
                                                 </h4>
                                             </div>
                                         </div>
@@ -193,7 +194,7 @@
                                                                 ->pivot->incall_price
                                                             : 0;
                                                     @endphp
-                                                    {{ $incall_price ? '$' . $incall_price . '/hr' : 'N/A' }}
+                                                    {{ $incall_price ? '$' . number_format($incall_price) . '/hr' : 'N/A' }}
                                                 </h4>
 
                                                 {{-- <h4>{{$escort->durations()->where('name','1 Hour')->first() ?  $escort->durations()->where('name','1 Hour')->first()->pivot->incall_price : '0'}}/hr</h4> --}}
@@ -220,7 +221,7 @@
                                                                 ->pivot->outcall_price
                                                             : 0;
                                                     @endphp
-                                                    {{ $outcall_price ? '$' . $outcall_price . '/hr' : 'N/A' }}
+                                                    {{ $outcall_price ? '$' . number_format($outcall_price) . '/hr' : 'N/A' }}
                                                 </h4>
                                                 {{-- <h4>{{$escort->durations()->where('name','1 Hour')->first() ? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price : '0'}}/hr</h4> --}}
                                                 {{-- <h4>{{ $escort->durations->pluck('pivot')->min('outcall_price') }}/hr</h4> --}}
@@ -290,11 +291,11 @@
                                         <td>{{ $duration->name }} </td>
 
                                         <td>{!! $duration->pivot->massage_price
-                                            ? "<div class='public-num-value-table'> <span>$ </span>" . $duration->pivot->massage_price . '</div>'
+                                            ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . '</div>'
                                             : "<span class='if_data_not_available'>N/A</span>" !!}
                                         </td>
                                         <td>{!! $duration->pivot->incall_price
-                                            ? "<div class='public-num-value-table'> <span>$ </span>" . $duration->pivot->incall_price . '</div>'
+                                            ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . '</div>'
                                             : "<span class='if_data_not_available'>N/A</span>" !!}
                                         </td>
                                     </tr>
