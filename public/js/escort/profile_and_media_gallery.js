@@ -183,11 +183,12 @@ function preview_image(event)
                         var width = image.width;
                         if(input.id=='upload_banner' && (height < 469 || width < 1920)) {
                             Swal.fire("Banner Media", "The image you have selected is too small.<br>Please upload an image with a minimum size of 1920×469 pixels", "warning");
+                            input.value='';
                             return false;
-
                         }
                         if(input.id=='upload_pinup' && (height < 627 || width < 855)){
                             Swal.fire("Pin Up Media", "The image you have selected is too small.<br>Please upload an image with a minimum size of 855×627 pixels", "warning");
+                            input.value='';
                             return false;
                         }
                         $(`#${input.id}`).prev().attr('src', e.target.result);
