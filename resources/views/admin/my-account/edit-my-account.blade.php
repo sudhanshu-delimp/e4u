@@ -66,9 +66,10 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                         <div class="card collapse" id="notes">
                             <div class="card-body">
                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                {{-- <ol>
-                            <li></li>
-                          </ol> --}}
+                                <ol>
+                                    <li>Keep your account details up to date.</li>
+                                    <li>You can change your password <a href="{{ route('admin.change.password') }}" class="custom_links_design">here</a>.</li>
+                                </ol>
                             </div>
                         </div>
                     </div>

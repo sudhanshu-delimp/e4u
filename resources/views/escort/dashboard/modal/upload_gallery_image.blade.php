@@ -16,40 +16,48 @@
                                 <div class="container p-0">
                                     <div class="row p-0">
                                         <div class="col-12 p-0">
-                                            <div class="photo-sec-popup custom-upload-photo"  id="image_preview">
-                                                <a href="#">
-                                                    <div class="five_column_content_top img-title-sec justify-content-between wish_span rm" style="z-index: 1;">
-                                                      
-                                                    </div>
+                                            <div class="row mt-2">
+                                                {{-- <div class="{{request()->segment(2) == 'archive-view-photos'?'col-lg-4':'col-lg-12'}}">
+                                                <div class="plate">
                                                     <label class="newbtn rm">
                                                         <img id="blah" class="item" src="{{ asset('assets/app/img/upload-thum-1.png')}}">
-                                                        
                                                         <input name="img[]" id="upload_file" class="pis" onchange="preview_image(event);" type="file" multiple accept="image/*">
                                                     </label>
-                                                    <div style="margin-top: -34px;">
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="{{request()->segment(2) == 'archive-view-photos'?'col-lg-6':'col-lg-12'}}">
-                                                    <div class="plate"><label class="newbtn">
-                                                        <img id="blah9" class="img-fluid pl-2 pr-2 js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
-                                                        <input name="banner" id="upload_banner" class="pis galleryMedia" onchange="readImageURL(this);" type="file" accept="image/*" >
-                                                        <input type="hidden" name="position[]" id="mediaBanner">
-                                                        </label>
-                                                    </div>
                                                 </div>
-                                                @if(request()->segment(2) == 'archive-view-photos')
-                                                <div class="col-lg-6">
-                                                    <div class="plate"><label class="newbtn">
-                                                        <img id="blah10" class="img-fluid pl-2 pr-2 js_pinupDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
-                                                        <input name="pinup" id="upload_pinup" class="pis" onchange="readImageURL(this);" type="file" accept="image/*" >
-                                                        <input type="hidden" name="position[]" id="mediaPinup">
-                                                        </label>
-                                                    </div>
+                                            </div> --}}
+                                            <div class="{{request()->segment(2) == 'archive-view-photos'?'col-lg-4':'col-lg-4'}}">
+                                                <div class="plate"><label class="newbtn">
+                                                    <img id="blah" class="img-fluid pl-2 pr-2 js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/upload-thum-1.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                    <input name="img[]" id="upload_file" class="pis" onchange="preview_image(event);" type="file" multiple accept="image/*">
+                                                    
+                                                    </label>
                                                 </div>
-                                                @endif
                                             </div>
+                                            <div class="{{request()->segment(2) == 'archive-view-photos'?'col-lg-4':'col-lg-4'}}">
+                                                <div class="plate"><label class="newbtn">
+                                                    <img id="blah9" class="img-fluid pl-2 pr-2 js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                    <input name="banner" id="upload_banner" class="pis galleryMedia" onchange="readImageURL(this);" type="file" accept="image/*" >
+                                                    <input type="hidden" name="position[]" id="mediaBanner">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            @if(request()->segment(2) == 'archive-view-photos')
+                                            <div class="col-lg-4">
+                                                <div class="plate"><label class="newbtn">
+                                                    <img id="blah10" class="img-fluid pl-2 pr-2 js_pinupDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                    <input name="pinup" id="upload_pinup" class="pis" onchange="readImageURL(this);" type="file" accept="image/*" >
+                                                    <input type="hidden" name="position[]" id="mediaPinup">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            </div>
+                                        </div>
+                                        <div class="photo-sec-popup custom-upload-photo"  id="image_preview">
+                                            <a href="#">
+                                                <div style="margin-top: -34px;">
+                                                </div>
+                                            </a>
                                         </div>
                                     </div>
                                     <!-- <div class="row mt-4 pt-1" style="border: 1px dotted;">

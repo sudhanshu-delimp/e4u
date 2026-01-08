@@ -1,43 +1,113 @@
 @extends('layouts.admin')
 @section('style')
-<style>
-    .influencer_modal{
-        max-width: 800px;
+<style>    
+.total-value{
+        border-top:2px solid #000 !important; 
+        border-bottom:2px solid #000 !important; 
     }
-    .influencer_view_summary{
-        max-height: 500px;
-        overflow: auto;
-    }
-    .influencer_view_summary table td{
-        border:none;
-        /* vertical-align: middle; */
-    padding: 5px 10px;
-    }
-    .influencer_view_summary table th{
-        border:none;
-        vertical-align: middle;
-        font-weight: 600;
-        padding: 5px 10px;
-    }
-    .influencer_head{
-        background: #0c223d;
-        font-size: 16px;
-        color: #fff;
-        padding: 5px 10px;
-    }
-    .influencer_view_summary .total-value{
-        border-top:1px solid #000 !important; 
-        border-bottom:1px solid #000 !important; 
-    }
-    .influencer_view_summary .flex_value{
+
+    .flex_value{
         display: flex;
         justify-content: space-between;
         gap: 10px;
         align-items: center;
     }
-</style>
+.table-bordered{
+    border-color: #000 !important;
+}
+
+.influencer_modal{    
+    max-width: 800px;
+    margin: auto;
+}
+.report-wrapper {
+    max-height: 500px;
+    min-height: 150px;
+    overflow: auto;
+}
+
+.section-title {
+    background: #0c223d;
+    color: #fff;
+    padding: 8px 10px;
+    font-weight: bold;
+    margin-top: 25px;
+    text-align:left;
+}
+.sub-section-title{
+    text-align: left !important
+}
+.report-table,
+.assessment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+
+.assessment-table th{
+    text-align: left;
+}
+.report-table th,
+.report-table td,
+.assessment-table th,
+.assessment-table td {
+    border: 1px solid #000;
+    padding: 6px 8px;
+}
+
+.report-table th {
+    width: 20%;
+    text-align: left;
+    font-weight: bold;
+}
+
+.list {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.total-row td,
+.total-row th {
+    font-weight: bold;
+    border-top: 2px solid #000;
+}
+
+.assessment-table td {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+    font-weight: bold;
+}
+
+.signature-table {
+    width: 100%;
+    margin-top: 30px;
+    padding: 20px 0px;
+}
+
+.signature-table td {
+    padding: 10px;
+}
+
+.comment-lines {
+    border-bottom: 1px solid #000;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+    </style>
 @stop
 @section('content')
+@php
+   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+   $addAccess = staffPageAccessPermission($securityLevel, 'add');
+   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+@endphp
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
@@ -105,6 +175,7 @@
                                                 <td>28-12-2025</td>
                                                 <td>Pending</td>
                                                 <td>
+                                                    
                                                     <div class="dropdown no-arrow">
                                                         <a class="dropdown-toggle" href="#" role="button"
                                                             id="dropdownMenuLink" data-toggle="dropdown"
@@ -114,40 +185,37 @@
                                                         </a>
                                                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                             aria-labelledby="dropdownMenuLink">
-                                                            <div class="custom-tooltip-container"><a
+                                                            <div class="custom-tooltip-container">
+                                                                <a
                                                                     class="dropdown-item align-item-custom toggle-massage-notification"
                                                                     href="#" title="Click to disable notification">
+                                                                     @if($editAccessEnabled)
                                                                     <a class="dropdown-item align-item-custom"
                                                                         data-toggle="modal" data-target="#payAgentreport"
                                                                         href=""> <i class="fa fa-check-circle"
                                                                             aria-hidden="true"></i>
                                                                         Approve</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item align-item-custom"
-                                                                        href="#" data-toggle="modal"
-                                                                        data-target="#viewAgentreport"> <i class="fa fa-ban"
-                                                                            aria-hidden="true"></i>
-                                                                        Suspend</a>
-
-
-                                                                    <div class="dropdown-divider"></div>
+                                                                         <div class="dropdown-divider"></div>
                                                                     <a class="dropdown-item align-item-custom"
                                                                         href="#" data-toggle="modal"
                                                                         data-target="#viewAgentreport"> <i
                                                                             class="fa fa-thumbs-down"
                                                                             aria-hidden="true"></i>
                                                                         Decline</a>
-
-
-                                                                    <div class="dropdown-divider"></div>
+                                                                        <div class="dropdown-divider"></div>
                                                                     <a class="dropdown-item align-item-custom"
                                                                         href="#" data-toggle="modal"
                                                                         data-target="#editSocialMediaAccount"> <i
                                                                             class="fa fa-pen" aria-hidden="true"></i>
                                                                         Edit</a>
-
-
                                                                     <div class="dropdown-divider"></div>
+                                                                    <a class="dropdown-item align-item-custom"
+                                                                        href="#" data-toggle="modal"
+                                                                        data-target="#viewAgentreport"> <i class="fa fa-ban"
+                                                                            aria-hidden="true"></i>
+                                                                        Suspend</a>
+                                                                    <div class="dropdown-divider"></div>
+                                                                     @endif
                                                                     <a class="dropdown-item align-item-custom"
                                                                         href="#" data-toggle="modal"
                                                                         data-target="#viewSummarydetails"> <i class="fa fa-eye"
@@ -157,6 +225,7 @@
                                                         </div>
 
                                                     </div>
+                                                   
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -191,7 +260,7 @@
             <div class="modal-content basic-modal">
                 <div class="modal-header border-0">
                     <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
-                        <img src="{{ asset('assets/dashboard/img/unblock.png') }}" alt="resolved" class="custompopicon">
+                        <img src="{{ asset('assets/dashboard/img/influencer.png') }}" alt="resolved" class="custompopicon">
                         <span class="success-modal-title">Edit Social Media Accounts</span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -487,7 +556,7 @@
             <div class="modal-content basic-modal">
                 <div class="modal-header border-0">
                     <h5 class="modal-title d-flex align-items-center">
-                        <img src="{{ asset('assets/dashboard/img/unblock.png') }}" alt="resolved" class="custompopicon">
+                        <img src="{{ asset('assets/dashboard/img/influencer.png') }}" alt="resolved" class="custompopicon">
                         <span class="success-modal-title">Influencer Application Summary - M40161</span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -499,279 +568,264 @@
                 </div>
 
                 <div class="modal-body">
+                    <div class="report-wrapper">
 
-                    <div class="influencer_view_summary">
-                        
-                        <h5 class="influencer_head">Member Details</h5>
-                        <table width="100%" border="0" cellpadding="5">
+                        <!-- Member Details -->
+                        <h5 class="section-title">Member Details</h5>
+                        <table class="report-table">
                             <tr>
-                                <th>Name:</th>
-                                <td>My Account name</td>
-                                <th>Home State:</th>
-                                <td>My Account</td>
+                                <th>Name</th><td>My Account name</td>
+                                <th>Home State</th><td>My Account</td>
                             </tr>
                             <tr>
-                                <th>Joined:</th>
-                                <td>My Account</td>
-                                <th>Sex:</th>
-                                <td>My Account</td>
+                                <th>Joined</th><td>My Account</td>
+                                <th>Sex</th><td>My Account</td>
                             </tr>
                             <tr>
-                                <th>Mobile:</th>
-                                <td>My Account mobile</td>
-                                <th>Email:</b></th>
-                                <td>Online application</td>
+                                <th>Mobile</th><td>My Account mobile</td>
+                                <th>Email</th><td>Online application</td>
                             </tr>
                             <tr>
-                                <th>Social Media:</th>
+                                <th>Social Media</th>
                                 <td colspan="3">
-                                    <ul>
-                                        <li>online application</li>
-                                        <li>online application</li>
-                                        <li>online application</li>
+                                    <ul class="list">
+                                        <li>Online application</li>
+                                        <li>Online application</li>
+                                        <li>Online application</li>
                                     </ul>
                                 </td>
                             </tr>
                             <tr>
-                                <th>Comments:</th>
-                                <td colspan="3">online application</td>
+                                <th>Comments</th>
+                                <td colspan="3">Online application</td>
                             </tr>
                             <tr>
-                                <th>Agent:</th>
-                                <td>Yes or No</td>
-                                <th>Member ID:</th>
-                                <td>Agent Member ID</td>
+                                <th>Agent</th><td>Yes / No</td>
+                                <th>Member ID</th><td>Agent Member ID</td>
                             </tr>
                         </table>
 
-                       
+                        <!-- Member Listings -->
+                        <h5 class="section-title">Member Listings</h5>
+                        <table class="report-table">
+                            <tr>
+                                <th>Listings</th><td>No. of current listings</td>
+                                <th>Spend</th><td>$ Value</td>
+                            </tr>
+                            <tr>
+                                <th>Past Listings</th><td><div class="flex_value"><span>Platinum:</span> No.</div></td>
+                                <th>Spend</th><td>$ Value (Avg: $)</td>
+                            </tr>
+                            <tr>
+                                <th></th><td><div class="flex_value"><span>Gold:</span> No.</div> </td>
+                                <th>Spend</th><td>$ Value (Avg: $)</td>
+                            </tr>
+                            <tr>
+                                <th></th><td><div class="flex_value"><span>Silver:</span> No.</div> </td>
+                                <th>Spend</th><td >$ Value (Avg: $)</td>
+                            </tr>
+                            <tr>
+                                <th></th><td class="text-right total-value">Total: No.</td>
+                                <th class="text-right total-value">Total</th><td class="total-value">$ Value (Avg: $)</td>
+                            </tr>
 
-                        <h5 class="influencer_head">Member Listings</h5>
-
-                        <table width="100%" border="0" cellpadding="5">
                             <tr>
-                                <th>Listings:</th>
-                                <td>No. of current Listings</td>
-                                <th>Spend:</th>
-                                <td class="flex_value"><span>$ value</span> <span><b>Avg:</b> $ value</span></td>
+                                <th>Tours</th><td><div class="flex_value"><span>Current:</span> Yes or No</td>
+                                <th>Spend</th><td>$ Value</td>
                             </tr>
                             <tr>
-                                <th>Past Listings:</th>
-                                <td><div class="flex_value">Platinum: <span>No. of</span></div></td>
-                                <th>Spend:</th>
-                                <td class="flex_value"><span>$ value</span> <span><b>Avg:</b> $ value</span></td>
-                            </tr>
-                            <tr>
-                                <th></th>
-                                <td><div class="flex_value">Gold: <span>No. of</span></div></td>
-                                <th>Spend:</th>
-                                <td class="flex_value"><span>$ value</span> <span><b>Avg:</b> $ value</span></td>
-                            </tr>
-                            <tr>
-                                <th></th>
-                                <td><div class="flex_value">Silver: <span>No. of</span></div></td>                               
-                                <th>Spend:</th>
-                                <td class="flex_value"><span>$ value</span> <span><b>Avg:</b> $ value</span></td>
-                            </tr>
-                            <tr>
-                                <th></th>
-                                <td><div class="flex_value"><b>Total:</b> <span class="total-value">No. of</span></div></td> 
-                                <th>Total:</th>
-                                <td><div class="flex_value"><span>$ value</span> <span><b>Avg:</b> $ value</span></td>
-                            </tr>                                
-                            <tr>
-                                <th>Tours:</th>
-                                <td><div class="flex_value">Current: <span>Yes or No</span></div></td>
-                                <th>Spend:</th>
-                                <td>$ value</td>
-                            </tr>
-                            <tr>
-                                <th></th>
-                                <td><div class="flex_value">Current: <span>Yes or No</span></div></td>
-                                <th>Spend:</th>
-                                <td>$ value</td>
+                                <th></th><td><div class="flex_value"><span>Past:</span> No.</td>
+                                <th>Spend</th><td>$ Value</td>
                             </tr>
                         </table>
 
-                        <h5 class="influencer_head">Member Statistics</h5>
-
-                        <table width="100%" border="0" cellpadding="5">
+                        <!-- Member Statistics -->
+                        <h5 class="section-title">Member Statistics</h5>
+                        <table class="report-table">
                             <tr>
-                                <th>Profile Views:</th>
-                                <td>YTD: No. of</td>
-                                <th>Recommendations:</th>
-                                <td>YTD: No. of</td>
+                                <th>Profile Views</th><td>YTD</td>
+                                <th>Recommendations</th><td>YTD</td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td>Avg p/mth: No. of</td>
-                                <td></td>
-                                <td>Avg p/mth: No. of</td>
+                                <td></td><td>Avg p/mth</td>
+                                <td></td><td>Avg p/mth</td>
                             </tr>
                             <tr>
-                                <th>Media Views:</th>
-                                <td>YTD: No. of</td>
-                                <th>Reports:</th>
-                                <td>YTD: No. of</td>
+                                <th>Media Views</th><td>YTD</td>
+                                <th>Reports</th><td>YTD</td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td>Avg p/mth: No. of</td>
-                                <td></td>
-                                <td>Avg p/mth: No. of</td>
+                                <td></td><td>Avg p/mth</td>
+                                <td></td><td>Avg p/mth</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>Playbox Views</th><td>YTD</td>
+                                <th>Reviews</th><td>YTD</td>
                             </tr>
                             <tr>
-                                <th>Playbox Views:</th>
-                                <td>YTD: No. of</td>
-                                <th>Reviews:</b></th>
-                                <td>YTD: No. of</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Avg p/mth: No. of</td>
-                                <td></td>
-                                <td>Avg p/mth: No. of</td>
+                                <td></td><td>Avg p/mth</td>
+                                <td></td><td>Avg p/mth</td>
                             </tr>
                         </table>
-
-                       
-
-                       <h5 class="influencer_head">Social Media Statistics (Nominated)</h5>
-
-                        <table width="100%" border="0" cellpadding="5">
+                        <!-- Social Media Statistics (Nominated) -->
+                        <h5 class="section-title">Social Media Statistics (Nominated)</h5>
+                        <table class="report-table">
                             <tr>
-                                <td colspan="4"><b>Social media 1 name</b></td>
+                                <th colspan="4"> social media 1 name</th>
                             </tr>
                             <tr>
                                 <th>Date joined:</th><td>edit data</td>
-                                <th>Followers:</th><td>edit data</td>
+                                <th>Posts:</th><td>edit data</td>
                             </tr>
                             <tr>
-                                <th>Posts:</th><td>edit data</td>
+                                
+                                <th>Followers:</th><td>edit data</td>
                                 <th>Re-Posts:</th><td>edit data</td>
                             </tr>
                         </table>
+                        <!-- Data Assessment -->
+                        <h5 class="section-title">Data Assessment</h5>
+                        <table class="assessment-table">
+                            <tr>
+                                <th colspan="2" rowspan="2" class="text-center">Item</th>
+                                <th colspan="2" class="text-center">Assessment</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center">Benchmark</th>
+                                <th class="text-center">Score</th>
+                            </tr>
+                            <tr><th class="text-left">Membership Time</th><td>No.</td><td>10</td><td>—</td></tr>
+                            <tr><th class="text-left">Listings</th><td>No.</td><td>10</td><td>—</td></tr>
+                            <tr><th class="text-left">Tours</th><td>No.</td><td>10</td><td>—</td></tr>
+                            <tr><th class="text-left">Views (Profile)</th><td>No.</td><td>5</td><td>—</td></tr>
+                            <tr><th class="text-left">Views (Media)</th><td>No.</td><td>5</td><td>—</td></tr>
+                            <tr><th class="text-left">Views (Playbox)</th><td>No.</td><td>5</td><td>—</td></tr>
+                            <tr><th class="text-left">Recommendations</th><td>No.</td><td>5</td><td>—</td></tr>
+                            <tr><th class="text-left">Reports</th><td>No.</td><td>5</td><td>—</td></tr>
+                            <tr><th class="text-left">Reviews</th><td>No.</td><td>5</td><td>—</td></tr>
 
-                       
-
-                        <h5 class="influencer_head">Data Assessment</h5>
-
-                        <table class="text-center w-100">
+                            <!-- Followers -->
                             <tr>
-                                <th colspan="2">Item</th>
-                                <th colspan="2">Assessment</th>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <th>Benchmark</th>
-                                <th>Score</th>
-                            </tr>
-
-                            <tr>
-                                <th class="text-left">Membership Time:</th>
-                                <td class="text-center">No of</td>
-                                <td class="text-center">10</td>
-                                <td class="text-center">---------</td>
-                            </tr>
-                            
-                            <tr>
-                                <th class="text-left">Listings:</th>
-                                <td class="text-center">No of</td>
-                                <td class="text-center">10</td>
-                                <td class="text-center">---------</td>
-                            </tr>
-                            
-                            <tr>
-                                <th class="text-left">Tours:</th>
-                                <td class="text-center">No of</td>
-                                <td class="text-center">10</td>
-                                <td class="text-center">---------</td>
-                            </tr>
-                            
-                            <tr>
-                                <th class="text-left">Views (Profile):</th>
-                                <td class="text-center">No of</td>
-                                <td class="text-center">10</td>
-                                <td class="text-center">---------</td>
-                            </tr>
-                            
-                            <tr>
-                                <th class="text-left">Views (Media)::</th>
-                                <td class="text-center">No of</td>
-                                <td class="text-center">10</td>
-                                <td class="text-center">---------</td>
-                            </tr>
-                            
-                            <tr>
-                                <th class="text-left">Views (Playbox)::</th>
-                                <td class="text-center">No of</td>
-                                <td class="text-center">10</td>
-                                <td class="text-center">---------</td>
-                            </tr>
-                            
-                            <tr>
-                                <th class="text-left">Recommendations:</th>
-                                <td class="text-center">No of</td>
-                                <td class="text-center">10</td>
-                                <td class="text-center">---------</td>
-                            </tr>
-                            
-                            <tr>
-                                <th class="text-left">Reports:</th>
-                                <td class="text-center">No of</td>
-                                <td class="text-center">10</td>
-                                <td class="text-center">---------</td>
-                            </tr>
-                            
-                            <tr>
-                                <th class="text-left">Reviews:</th>
-                                <td class="text-center">No of</td>
-                                <td class="text-center">10</td>
-                                <td class="text-center">---------</td>
+                                <th colspan="4">Followers</th>
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <table class="w-100">
+                                    <table class="inner-table" width="100%">
                                         <tr>
-                                            <th class="4">Followers:</th>
+                                            <th>Social Media 1</th>
+                                            <td>No.</td>
+                                            <td rowspan="4">20</td>
+                                            <td rowspan="4">—</td>
                                         </tr>
                                         <tr>
-                                            <th class="text-left">Social media 1:</th>
-                                            <td class="text-center">No of</td>
-                                            <td class="text-center">10</td>
-                                            <td class="text-center">---------</td>
+                                            <th>Social Media 2</th>
+                                            <td>No.</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Social Media 3</th>
+                                            <td>No.</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Social Media 4</th>
+                                            <td>No.</td>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
-                           
+                            <!-- Post -->
+                            <tr>
+                                <th colspan="4">Post</th>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <table class="inner-table" width="100%">
+                                        <tr>
+                                            <th>Social Media 1</th>
+                                            <td>No.</td>
+                                            <td rowspan="4">10</td>
+                                            <td rowspan="4">—</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Social Media 2</th>
+                                            <td>No.</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Social Media 3</th>
+                                            <td>No.</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Social Media 4</th>
+                                            <td>No.</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!-- Re Post -->
+                            <tr>
+                                <th colspan="4">Re Post</th>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <table class="inner-table" width="100%">
+                                        <tr>
+                                            <th>Social Media 1</th>
+                                            <td>No.</td>
+                                            <td rowspan="4">10</td>
+                                            <td rowspan="4">—</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Social Media 2</th>
+                                            <td>No.</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Social Media 3</th>
+                                            <td>No.</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Social Media 4</th>
+                                            <td>No.</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="2"  style="border:0px;text-align:right;">Total</th>
+                                <td style="border-top:2px solid #000; border-left:0px; border-right:0px;border-bottom:0px;">100</td>
+                                <td style="border-top:2px solid #000; border-left:0px; border-right:0px;border-bottom:0px;"></td>
+                            </tr>
+                            <tr>
+                                <th colspan="2" style="border:0px;text-align:right;">Minimum</th>
+                                <td  style="border:0px;"></td>
+                                <td  style="border:0px;text-align:right;">80</td>
+                            </tr>
+                            <tr class="net-row">
+                                <th colspan="2" style="border:0px; text-align:right;">Net</th>
+                                <td style="border:0px;text-align:right;">+ / -</td>
+                                <td style="border-top:2px solid #000; border-bottom: 6px double #000; border-left:0px; border-right:0px;text-align:right;">80</td>
+                            </tr>
                         </table>
 
-                        <br>
+                        <!-- Approval -->
+                        <table class="signature-table table-bordered">
+                            <tr>
+                                <td style="border:none;">Managing Director: __________________________</td>
+                                <th style="border:none;">
+                                    Approved <input type="checkbox">
+                                    &nbsp;&nbsp;
+                                    Declined <input type="checkbox">
+                                </th>
+                            </tr>
+                        </table>
 
-                        <p><b>Total:</b> 100 &nbsp;&nbsp; <b>Minimum:</b> 80 &nbsp;&nbsp; <b>Net:</b> +/-</p>
-
-                        <br>
-
-                        <p>
-                            Approved <input type="checkbox">
-                            &nbsp;&nbsp;
-                            Declined <input type="checkbox">
-                        </p>
-
-                        <br>
-
-                        <p>Managing Director: __________________________</p>
-
-                        <h4>Comments</h4>
-                        <hr>
-                        <hr>
-                        <hr>
-
+                        <!-- Comments -->
+                        <h5 class="mt-3 font-weight-bold">Comments</h5>
+                        <div class="comment-lines"></div>
+                        <div class="comment-lines"></div>
+                        <div class="comment-lines"></div>
+                        <div class="comment-lines"></div>
 
                     </div>
-                     <!-- Footer -->
                      <div class="modal-footer pb-0 pt-3">
                         <button type="submit" class="btn-success-modal">Print</button>
                         <button type="submit" class="btn-cancel-modal" data-dismiss="modal">Close</button>
@@ -784,6 +838,9 @@
     </div>
 
     {{-- end --}}
+
+    
+
 
 @endsection
 @push('script')

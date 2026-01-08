@@ -86,7 +86,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
     protected function getOrderEscort($order_key)
 	{
-		$columns = ['id','profile_name','state_name','name','membership','phone','created_at','status'];
+		$columns = ['id','profile_name','state_name','name','membership','start_date','created_at','status'];
         return $columns[$order_key];
 	}
 
@@ -99,13 +99,15 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ->limit($limit)
             ->with([
                 'latestActivePinup',
+                'currentActivePinup',
                 'activeBumpup',
                 'activeUpcomingSuspend',
                 'brb' => function ($query) {
                     $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
                 },
             ])
-            ->orderBy($order, $dir);
+            ->orderBy($order, $dir)
+            ->orderBy('membership', 'asc');
 
         if($user_id != null){
             $query = $query->where('user_id', $user_id);

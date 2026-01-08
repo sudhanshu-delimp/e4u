@@ -94,7 +94,7 @@
                                     class="mr-3 rounded-circle" style="width:40px;">
                                 <div class="media-body">
                                     <h4>Massage</h4>
-                                    <p class="mb-0">{{ $massage_price ? '$'. $massage_price.'/hr' : 'N/A' }}</p>
+                                    <p class="mb-0">{{ $massage_price ? '$'. number_format($massage_price).'/hr' : 'N/A' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                                     class="mr-3 rounded-circle" style="width:40px;">
                                 <div class="media-body">
                                     <h4>Incalls</h4>
-                                    <p class="mb-0">{{ $incall_price ? '$'. $incall_price.'/hr' : 'N/A' }}</p>
+                                    <p class="mb-0">{{ $incall_price ? '$'. number_format($incall_price).'/hr' : 'N/A' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                                     class="mr-3 rounded-circle" style="width:40px;">
                                 <div class="media-body">
                                     <h4>Outcalls</h4>
-                                    <p class="mb-0">{{ $outcall_price ? '$'. $outcall_price.'/hr' : 'N/A' }}</p>
+                                    <p class="mb-0">{{ $outcall_price ? '$'. number_format($outcall_price).'/hr' : 'N/A' }}</p>
                                 </div>
                             </div>
                         </div>

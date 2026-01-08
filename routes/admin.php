@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\GlobalNotificationController;
 use App\Http\Controllers\Admin\ViewerNotificationController;
 use App\Http\Controllers\Admin\AdminMakeNotificationController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
+use App\Http\Controllers\Admin\ShareholderNotificationController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
@@ -128,6 +129,30 @@ Route::get('get-visitors-by-ajax', [VisitorController::class, "getVisitorsByAjax
 Route::get('shareholders/annual-report', function () {
     return view('admin.management.shareholders.annual-report');
 })->name('admin.annual-report');
+
+Route::get('shareholders/directors', function () {
+    return view('admin.management.shareholders.directors');
+})->name('admin.directors');
+
+Route::get('shareholders/portfolio', function () {
+    return view('admin.management.shareholders.portfolio');
+})->name('admin.portfolio');
+
+Route::get('shareholders/e4u-revenue', function () {
+    return view('admin.management.shareholders.e4u-revenue');
+})->name('admin.e4u-revenue');
+
+Route::get('shareholders/registrations', function () {
+    return view('admin.management.shareholders.registrations');
+})->name('admin.registrations');
+
+Route::get('shareholders/shareholder', function () {
+    return view('admin.management.shareholders.shareholder');
+})->name('admin.shareholder');
+
+Route::get('shareholders/share-value', function () {
+    return view('admin.management.shareholders.share-value');
+})->name('admin.share-value');
 
 Route::get('shareholders/annual-profit-and-loss', function () {
     return view('admin.management.shareholders.annual-profit-and-loss');
@@ -266,7 +291,7 @@ Route::get('commision_playbox_fees', [PricingsummariesController::class, 'commis
 
 
 Route::get('management/manage-suppliers', function () {
-    return view('admin.management/manage-suppliers');
+    return view('admin.management.manage-suppliers');
 })->name('admin.manage-suppliers');
 
 
@@ -383,6 +408,16 @@ Route::get('/notifications/agent/pdf-download/{id}', [AgentNotificationControlle
 Route::get('/notifications/agent/{id}/edit', [AgentNotificationController::class, 'edit'])->name('admin.agent.notifications.edit');
 Route::post('/notifications/agent/{id}/update', [AgentNotificationController::class, 'update'])->name('admin.agent.notifications.update');
 
+//Agent Notification system for admin
+Route::get('notifications/shareholders/list', [ShareholderNotificationController::class, 'index'])->name('admin.shareholders.notifications.index');
+Route::post('/notifications/shareholders/store', [ShareholderNotificationController::class, 'store'])->name('admin.shareholders.notifications.store');
+Route::get('/notifications/shareholders/{id}', [ShareholderNotificationController::class, 'show'])->name('admin.shareholders.notifications.show');
+Route::post('/notifications/shareholders/{id}/suspend', [ShareholderNotificationController::class, 'updateStatus'])->name('admin.shareholders.notifications.suspend');
+Route::post('/notifications/shareholders/{id}/status', [ShareholderNotificationController::class, 'changeStatus'])->name('admin.shareholders.notifications.status');
+Route::get('/notifications/shareholders/pdf-download/{id}', [ShareholderNotificationController::class, 'pdfDownload'])->name('admin.shareholders.pdf.download');
+Route::get('/notifications/shareholders/{id}/edit', [ShareholderNotificationController::class, 'edit'])->name('admin.shareholders.notifications.edit');
+Route::post('/notifications/shareholders/{id}/update', [ShareholderNotificationController::class, 'update'])->name('admin.shareholders.notifications.update');
+
 
 //Viewer Notification system for admin
 
@@ -417,9 +452,9 @@ Route::get('/notifications/escort/{id}/edit', [EscortNotificationController::cla
 Route::post('/notifications/escort/{id}/update', [EscortNotificationController::class, 'update'])->name('admin.escort.notifications.update');
 
 
-Route::get('/notifications/shareholders',function(){
-    return view('admin.notifications.shareholders.index');
-})->name('admin.shareholders');
+// Route::get('/notifications/shareholders',function(){
+//     return view('admin.notifications.shareholders.index');
+// })->name('admin.shareholders');
 
 // Route::get('/admin-dashboard/notifications/global',function(){
 //     return view('admin.notifications.global');
@@ -560,6 +595,10 @@ Route::get('/management/memberships', function () {
     return view('admin.management.memberships');
 })->name('admin.memberships');
 
+Route::get('/management/product', function () {
+    return view('admin.management.statistics.product');
+})->name('admin.product');
+
 Route::get('/reports/credit', function () {
     return view('admin.reports.credit');
 })->name('admin.credit');
@@ -579,9 +618,9 @@ Route::get('/management/logs-staff', function () {
     return view('admin.management.logs-staff');
 })->name('admin.logs-staff');
 
-/* Route::get('/management/staff',function(){
-    return view('admin.management.staff');
-})->name('admin.staff'); */
+ Route::get('/management/manage-influencers',function(){
+    return view('admin.management.influencer.manage-influencers');
+})->name('admin.manage-influencers');
 
 Route::get('/management/application', function () {
     return view('admin.management.logs.application');

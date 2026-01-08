@@ -38,10 +38,7 @@ class MassageCenterAccountController extends Controller
         return view('center.dashboard.bookkeeping');
     }
 
-    public function generateOTP(){
-        $otp = mt_rand(100000,999999);
-        return $otp;
-    }
+
     public function saveBankDetails(Request $request ,$id = null)
     {
         $value = $request->all();
@@ -49,7 +46,7 @@ class MassageCenterAccountController extends Controller
         $error = false;
         $user = auth()->user();
         $phone = $user->phone;
-        $otp = $this->generateOTP();
+        $otp = $user->generateOTP();
         $user->otp = $otp;
         $user->save();
         $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
@@ -331,7 +328,7 @@ class MassageCenterAccountController extends Controller
         $user = auth()->user();
         if($user){
             $phone = $user->phone;
-            $user->otp = $this->generateOTP();
+            $user->otp = $user->generateOTP();
             $user->save();
             $error = false;
             $user = auth()->user();
