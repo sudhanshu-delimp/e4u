@@ -127,4 +127,26 @@ class MassageMediaRepository extends BaseRepository implements MassageMediaInter
                         //dd($result);$path->findByposition(auth()->user()->id,1
 		return $result;
 	}
+
+
+    ########## Gallery Methods #############
+
+    public function with_Or_withoutPosition($user_id,$position = null)
+    {
+    
+        $result = $this->model
+            ->where('user_id',$user_id)
+      
+            ->where('type','=', 0)
+            ->where('template','0');
+        if($position) {
+            $result = $result->where(function($q) use ($position) {
+                $q
+                    ->orWhereNull('position')
+                    ->orWhereNotIn('position', $position);
+            });
+        }
+        
+        return $result->get();
+    }
 }

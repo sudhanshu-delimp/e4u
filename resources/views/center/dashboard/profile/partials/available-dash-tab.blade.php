@@ -20,7 +20,7 @@
         <div class="padding_20_all_side my-availability-mon">
            
                
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-12">
                         <div class="padding_20_all_side my-availability-mon profile_time_availibility">
                             <div class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
@@ -579,6 +579,54 @@
                             </div>
                         </div>
                     </div>
+                </div> -->
+
+
+
+                <div class="row">
+                <div class="col-12">
+                    <div class="padding_20_all_side my-availability-mon profile_time_availibility">
+                        @php $days = [ 'monday' => 'Monday', 'tuesday' => 'Tuesday', 'wednesday' => 'Wednesday', 'thursday' => 'Thursday', 'friday' => 'Friday', 'saturday' => 'Saturday', 'sunday' => 'Sunday', ]; @endphp @foreach ($days as $dayKey => $dayLabel) 
+                        <div class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
+                            <label style="width:100px;"><strong>{{ $dayLabel }}:</strong></label> <!-- FROM --> 
+                            <select name="time[{{ $dayKey }}][hh_from]" class="{{ $dayKey }}">
+                            <option value="">H:M</option>
+                            @for ($i = 1; $i <= 12; $i++) 
+                            <option value="{{ sprintf('%02d',$i) }}:00"> {{ sprintf('%02d',$i) }}:00 </option>
+                            <option value="{{ sprintf('%02d',$i) }}:30"> {{ sprintf('%02d',$i) }}:30 </option>
+                            @endfor 
+                            </select>
+                            <select name="time[{{ $dayKey }}][ampm_from]" class="{{ $dayKey }}">
+                            <option value="">--</option>
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                            </select>
+                            <span class="mx-2">To</span> <!-- TO --> 
+                            <select name="time[{{ $dayKey }}][hh_to]" class="{{ $dayKey }}">
+                            <option value="">H:M</option>
+                            @for ($i = 1; $i <= 12; $i++) 
+                            <option value="{{ sprintf('%02d',$i) }}:00"> {{ sprintf('%02d',$i) }}:00 </option>
+                            <option value="{{ sprintf('%02d',$i) }}:30"> {{ sprintf('%02d',$i) }}:30 </option>
+                            @endfor 
+                            </select>
+                            <select name="time[{{ $dayKey }}][ampm_to]" class="{{ $dayKey }}">
+                            <option value="">--</option>
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                            </select>
+                            <!-- STATUS --> 
+                             <input type="hidden" name="availability_time[{{ $dayKey }}]" value="custom">
+                             <label class="ms-3"> <input type="radio" name="availability_time[{{ $dayKey }}]" value="til_late"> … Til late 
+                            </label> <label class="ms-2"> <input type="radio" name="availability_time[{{ $dayKey }}]" value="24_hours"> Open 24 Hours </label> 
+                            <label class="ms-2"> <input type="radio" name="availability_time[{{ $dayKey }}]" value="closed" checked> Closed </label> 
+                             <div class="resetdays-icon">
+                                    <input type="button" value="Reset" class="resetdays" data-day="sunday"
+                                        id="resetSunday">
+                            </div>
+                        </div>
+                        @endforeach 
+                    </div>
+                </div>
                 </div>
 
               
@@ -591,12 +639,12 @@
     <div class="tab_btm_btns_preview_and_next py-3">
         <div class="row pt-3 pb-3">
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 a_text_white_hover previous_bt_center_in_sm">
-                <a class="prev_step_btn btn_width_hundred"  id="profile-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="home" aria-selected="true">
+                <a class="prev_step_btn btn_width_hundred"  id="profile-tab-prev" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="home" aria-selected="true">
                 <i class="fas fa-arrow-left"></i>&nbsp;Previous Step</a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right a_text_white_hover previous_bt_center_in_sm">
                
-                <a class="nex_sterp_btn" id="massuers-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="massuers" aria-selected="false">Next Step
+                <a class="nex_sterp_btn" id="massuers-tab-next" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="massuers" aria-selected="false">Next Step
                 <i class="fas fa-arrow-right"></i>
                 </a>
             </div>

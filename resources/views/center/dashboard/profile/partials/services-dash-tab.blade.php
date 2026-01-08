@@ -60,7 +60,7 @@
                     <div class="col-lg-4 col-md-12 col-sm-12 full-width-for-ipad-select">
                         <div class="form-group">
                             <label class="label" for="exampleFormControlSelect1">Other Service Types </label>
-                            <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_two">
+                            <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_two" name="other_services">
                                 <option value="" selected="" disable="">All other service types</option>
                                 @foreach(config('escorts.profile.other-services') as $key =>$services)
                                     @if(! in_array($key, $escort->massage_services()->pluck('service_id')->toArray()))
@@ -157,11 +157,11 @@
     <div class="tab_btm_btns_preview_and_next py-3">
         <div class="row pt-3 pb-3">
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 a_text_white_hover previous_bt_center_in_sm">
-                <a class="prev_step_btn btn_width_hundred" id="home-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="home" aria-selected="true">
+                <a class="prev_step_btn btn_width_hundred" id="home-tab-prev" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="home" aria-selected="true">
                 <i class="fas fa-arrow-left"></i> &nbsp; Previous Step</a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right a_text_white_hover previous_bt_center_in_sm">
-                <a class="nex_sterp_btn" id="contact-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="contact" aria-selected="false">
+                <a class="nex_sterp_btn" id="contact-tab-next" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="contact" aria-selected="false">
                     Next Step <i class="fas fa-arrow-right"></i>
                 </a>
             </div>

@@ -100,12 +100,13 @@
     <div class="tab_btm_btns_preview_and_next">
         <div class="row py-3">
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 a_text_white_hover previous_bt_center_in_sm">
-                <a href="javascript:void(0)" class="prev_step_btn" id="contact-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">
+                <a href="javascript:void(0)" class="prev_step_btn" id="contact-tab-prev" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">
                 <i class="fas fa-arrow-left"></i>&nbsp;Previous Step</a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right a_text_white_hover previous_bt_center_in_sm">                
-                <a href="#" class="save_profile_btn">Preview Profile</a>                
-                <button type="submit" id="submitForm" class=" btn_width_hundred save_profile_btn">Save Profile</button>
+                <a href="#" class="save_profile_btn">Preview Profile</a>
+                <input type="hidden" name="massage_profile_id"   id="massage_profile_id">              
+                <button type="submit" id="submit_form_massage" class=" btn_width_hundred save_profile_btn">Save Profile</button>
             </div>
             
         </div>

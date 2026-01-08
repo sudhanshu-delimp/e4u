@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers\Center\Profile;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Escort\StoreRequest;
-use App\Http\Requests\Escort\StoreEscortMediaRequest;
-use App\Repositories\Escort\EscortInterface;
-use Illuminate\Support\Facades\Storage;
-use App\Repositories\Escort\EscortMediaInterface;
-use App\Repositories\Thumbnail\ThumbnailInterface;
-use App\Repositories\Duration\DurationInterface;
-use App\Repositories\Service\ServiceInterface;
-use App\Repositories\MassageProfile\MassageProfileInterface;
+use File;
+use FFMpeg;
+use App\Models\Escort;
 use App\Traits\ResizeImage;
 use Illuminate\Support\Str;
-use FFMpeg;
-use File;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Escort\StoreRequest;
+use App\Repositories\Escort\EscortInterface;
+use App\Repositories\Service\ServiceInterface;
+use App\Repositories\Duration\DurationInterface;
+use App\Repositories\Escort\EscortMediaInterface;
+use App\Repositories\Thumbnail\ThumbnailInterface;
+use App\Http\Requests\Escort\StoreEscortMediaRequest;
+use App\Repositories\MassageProfile\MassageProfileInterface;
 
 class CreateController extends Controller
 {
@@ -170,34 +173,188 @@ class CreateController extends Controller
         return redirect()->route('escort.update.profile', [$escort->id]);
     }
 
-    public function createProfile(StoreRequest $request , $id)
+    public function createProfile(Request $request)
     {
-        $data = $request->validated();
+        // dd($request->all());
+        //$data = $request->validated();
 
-        $input = [
-            'name'=>$request->name,
-            'age'=>$request->age,
-            'phone'=>$request->phone,
-            'pincode'=>$request->pincode,
-            'city_id'=>$request->city_id,
-            'country_id'=>$request->country_id,
-            'state_id'=>$request->state_id,
-            'social_links'=>$request->social_links,
-            'user_id' => auth()->id(),
-            'completed' => 2,
-            'enabled' => 1,
-        ];
+        // $input = [
+        //     'profile_name'=>$request->profile_name,
+        //     'business_name'=>$request->business_name,
+        //     'business_no'=>$request->business_no,
+        //     'phone'=>$request->phone,
+        //     'address'=>$request->address,
+        //     'country_id'=>$request->country_id,
+        //     'state_id'=>$request->state_id,
+        //     'social_links'=>$request->social_links,
+        //     'user_id' => auth()->id(),
+        //     'completed' => 2,
+        //     'enabled' => 1,
+        // ];
 
-        //$id = request()->get('id');
+        // //$id = request()->get('id');
 
-        $escort = $this->escort->store($input, $id);
+        // $escort = $this->escort->store($input, $id);
 
-        $error = false;
+        // $error = false;
 
-        $url = route('escort.update.profile', [$escort->id]);
+        // $url = route('escort.update.profile', [$escort->id]);
 
-        return response()->json(compact('escort','error','url'), 200);
+        // return response()->json(compact('escort','error','url'), 200);
+
+        $request_data = $request->all();
+        $availability =  $this->makeAvailability($request_data);
+        $escort = new Escort();
+
+        $escort->profile_name       = $request->filled('profile_name') ? $request->profile_name : null;
+        $escort->business_name      = $request->filled('business_name') ? $request->business_name : null;
+        $escort->business_no        = $request->filled('business_no') ? $request->business_no : null;
+        $escort->phone              = $request->filled('phone') ? $request->phone : null;
+        $escort->address            = $request->filled('address') ? $request->address : null;
+
+        $escort->about_title        = $request->filled('about_title') ? $request->about_title : null;
+        $escort->about_us_box       = $request->filled('about_us_box') ? $request->about_us_box : null;
+
+        $escort->building           = $request->filled('building') ? $request->building : null;
+        $escort->parking            = $request->filled('parking') ? $request->parking : null;
+        $escort->entry              = $request->filled('entry') ? $request->entry : null;
+
+        $escort->furniture_types    = $request->filled('furniture_types') ? $request->furniture_types : null;
+        $escort->shower             = $request->filled('shower') ? $request->shower : null;
+        $escort->ambiance           = $request->filled('ambiance') ? $request->ambiance : null;
+
+        $escort->security           = $request->filled('security') ? $request->security : null;
+        $escort->payment            = $request->filled('payment') ? $request->payment : null;
+        $escort->loyalty            = $request->filled('loyalty') ? $request->loyalty : null;
+
+
+        $escort->massage_price      = !empty($request->massage_price) ? $request->massage_price : null;
+        $escort->incall_price       = !empty($request->incall_price) ? $request->incall_price : null;
+        $escort->outcall_price      = !empty($request->outcall_price) ? $request->outcall_price : null;
+
+        $escort->availability  = !empty($availability) ? $availability : null;
+        $escort->save();
+
+        return response()->json([
+            'success' => true,
+            'escort_id' => $escort->id,
+        ]);
+
     }
+
+
+        // public function makeAvailability($request_data)
+        // {
+
+        //         $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+        //         $availability = [];
+        //         foreach ($days as $day) 
+        //         {
+
+        //             $status = $request_data['availability_time'][$day] ?? 'closed';
+        //             if ($status === 'closed') 
+        //             {
+
+        //                 $availability[$day] = [
+        //                     'status' => 'closed',
+        //                     'from'   => null,
+        //                     'to'     => null,
+        //                 ];
+
+        //             } 
+        //             elseif ($status === '24_hours') 
+        //             {
+
+        //                 $availability[$day] = [
+        //                     'status' => '24_hours',
+        //                     'from'   => '12:00 AM',
+        //                     'to'     => '11:59 PM',
+        //                 ];
+
+        //             } 
+        //             elseif ($status === 'til_late') 
+        //             {
+
+        //                 $from = null;
+        //                 $to   = null;
+
+        //                 if (
+        //                     !empty($request_data['time'][$day]['hh_from']) &&
+        //                     !empty($request_data['time'][$day]['ampm_from'])
+        //                 ) {
+        //                     $from = $request_data['time'][$day]['hh_from'] . ' ' . $request_data['time'][$day]['ampm_from'];
+        //                 }
+
+        //                 if (
+        //                     !empty($request_data['time'][$day]['hh_to']) &&
+        //                     !empty($request_data['time'][$day]['ampm_to'])
+        //                 ) {
+        //                     $to = $request_data['time'][$day]['hh_to'] . ' ' . $request_data['time'][$day]['ampm_to'];
+        //                 }
+
+        //                 $availability[$day] = [
+        //                     'status' => 'til_late',
+        //                     'from'   => $from,
+        //                     'to'     => $to,
+        //                 ];
+        //             }
+                
+        //         }
+
+        //     return $availability;  
+        // }
+
+    public function makeAvailability($request_data)
+    {
+        $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+        $availability = [];
+
+        foreach ($days as $day) {
+
+            $status = $request_data['availability_time'][$day] ?? 'closed';
+
+            if ($status === 'closed') {
+                $availability[$day] = [
+                    'status' => 'closed',
+                    'from' => null,
+                    'to' => null,
+                ];
+                continue;
+            }
+
+            if ($status === '24_hours') {
+                $availability[$day] = [
+                    'status' => '24_hours',
+                    'from' => '12:00 AM',
+                    'to' => '11:59 PM',
+                ];
+                continue;
+            }
+
+
+            $from = null;
+            $to   = null;
+
+            if (!empty($request_data['time'][$day]['hh_from']) &&
+                !empty($request_data['time'][$day]['ampm_from'])) {
+                $from = $request_data['time'][$day]['hh_from'].' '.$request_data['time'][$day]['ampm_from'];
+            }
+
+            if (!empty($request_data['time'][$day]['hh_to']) &&
+                !empty($request_data['time'][$day]['ampm_to'])) {
+                $to = $request_data['time'][$day]['hh_to'].' '.$request_data['time'][$day]['ampm_to'];
+            }
+
+            $availability[$day] = [
+                'status' => $status,
+                'from' => $from,
+                'to' => $to,
+            ];
+        }
+
+        return $availability;
+    }
+
 
     public function saveMedia(StoreEscortMediaRequest $request)
     {

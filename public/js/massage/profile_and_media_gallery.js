@@ -709,3 +709,63 @@ async function initVideos() {
     });
 }
 initVideos();
+
+
+
+function initDragDrop() {
+            $("#dvSource img").draggable({
+                revert: "invalid",
+                helper: 'clone',
+                appendTo: ".upload-banner",
+                refreshPositions: false,
+                start: function (event, ui) {
+                ui.helper.css({
+                    width: "82px",   // shrink preview
+                    height: "auto",
+                    "z-index": 9999
+                });
+                ui.helper.find("img").css({
+                    width: "100%",
+                    height: "auto"
+                });
+                },
+                drag: function(event, ui) {
+
+                },
+                stop: function(event, ui) {}
+            });
+
+            $(".dvDest").droppable({
+                drop: function(event, ui) {
+                    let dropSlot = $(this);
+                    let dragSlot = ui.draggable;
+                    let dropSlotType = dropSlot.find('img').data('type');
+                    let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
+                    if (dropSlotType != dragSlotType) {
+                        let message = (dragSlotType == 'gallery') ?
+                            `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :
+                            `The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
+                        swal.fire('Media', message, 'error');
+                        return false;
+                    } else {
+                        $(this).trigger('click');
+                        let meidaId = dragSlot.data('id');
+                        let target;
+                        switch (dragSlotType) {
+                            case 'gallery': {
+                                target = $(".modalPopup .item4 img[data-id='" + meidaId + "']").closest(
+                                    ".item4");
+                            }
+                            break;
+                            case 'banner': {
+                                target = $(".modalPopup .item2 img[data-id='" + meidaId + "']").closest(
+                                    ".item2");
+                            }
+                            break;
+                        }
+                        target.trigger('click');
+                    }
+
+                }
+            });
+        }

@@ -1,7 +1,7 @@
 <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 900px;position: absolute;">
-            <form id="mulitiImage" method="POST" action="{{route('escort.upload.gallery')}}" enctype="multipart/form-data">
+            <form id="mulitiImage" method="POST" action="{{route('center.upload.gallery')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content border-0">
                     <div class="modal-header">

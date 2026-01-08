@@ -402,11 +402,13 @@ function initDragDrop() {
         }
 
         function updateDefaultImage(position, meidaId, img_target, media_src) {
+
+          
             console.log({
                 position: position,
                 meidaId: meidaId
             });
-            var url = "{{ route('escort.default.images') }} ";
+            var url = window.postdefaultImageUrl;
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -577,80 +579,180 @@ function initDragDrop() {
         }
 
 
-        function validateAvailability() 
-        {
+           ////////////// For Our Open Times ///////////////// 
+            function validateAvailability() 
+            {
 
                 let isFormValid = true;
+
                 $('.profile_time_availibility .parent-row').each(function () {
 
-                        let row = $(this);
+                    let row = $(this);
 
-                        let fromHH   = row.find('select[name$="_hh_from"]').val();
-                        let fromAMPM = row.find('select[name$="_time_from"]').val();
-                        let toHH     = row.find('select[name$="_hh_to"]').val();
-                        let toAMPM   = row.find('select[name$="_time_to"]').val();
+                    let status = row.find('input[type="radio"]:checked').val() || '';
 
-                        let timeSelected = fromHH && fromAMPM && toHH && toAMPM;
-                        let radioSelected = row.find('input[type="radio"]:checked').length > 0;
+                    let fromHH   = row.find('select[name*="[hh_from]"]').val();
+                    let fromAMPM = row.find('select[name*="[ampm_from]"]').val();
+                    let toHH     = row.find('select[name*="[hh_to]"]').val();
+                    let toAMPM   = row.find('select[name*="[ampm_to]"]').val();
 
-                        if (!timeSelected && !radioSelected) {
-                            isFormValid = false;
-                            row.addClass('border border-danger p-2');
-                            return false;
-                        } else {
-                            row.removeClass('border border-danger p-2');
-                        }
-                    });
+                    row.removeClass('border border-danger');
 
-                console.log('isFormValid',isFormValid)
+                    let hasFrom = fromHH && fromAMPM;
+                    let hasTo   = toHH && toAMPM;
 
+                   
+                    if (!status && !hasFrom && !hasTo) {
+                        isFormValid = false;
+                        row.addClass('border border-danger');
+                        return;
+                    }
+
+                    
+                    if (status === 'til_late' && !hasFrom) {
+                        isFormValid = false;
+                        row.addClass('border border-danger');
+                        return;
+                    }
+
+                    
+                    if (!status && hasFrom && !hasTo) {
+                        isFormValid = false;
+                        row.addClass('border border-danger');
+                        return;
+                    }
+
+                    if (status === '24_hours' || status === 'closed') {
+                        return;
+                    }
+                });
+
+                console.log('isFormValid', isFormValid);
                 if (!isFormValid) {
-                return true;
+                            return true;
+                            }
+                 return false;
+
+            }
+
+                function getRow(row) {
+                    return {
+                        from: row.find('select[name*="[hh_from]"], select[name*="[ampm_from]"]'),
+                        to: row.find('select[name*="[hh_to]"], select[name*="[ampm_to]"]'),
+                        radios: row.find('input[type="radio"]')
+                    };
                 }
 
-                return false;
-        }
+
+                $('.profile_time_availibility').on('change', 'input[type="radio"]', function () {
+
+                    let row = $(this).closest('.parent-row');
+                    let val = $(this).val();
+                    let { from, to } = getRow(row);
+
+                    if (val === 'til_late') {
+                        from.prop('disabled', false);
+                        to.val('').prop('disabled', true);
+                    } else {
+                        from.val('').prop('disabled', true);
+                        to.val('').prop('disabled', true);
+                    }
+                });
 
 
-        $('.profile_time_availibility').on('change', 'select', function () {
+                $('.profile_time_availibility').on(
+                    'change',
+                    'select[name*="[hh_from]"], select[name*="[ampm_from]"]',
+                    function () {
 
-            let row = $(this).closest('.parent-row');
+                        let row = $(this).closest('.parent-row');
+                        let { from, to, radios } = getRow(row);
 
-          
-            let hasTimeValue = false;
+                        radios.prop('checked', false);   // uncheck radios
+                        from.prop('disabled', false);
+                        to.prop('disabled', false);
+                    }
+                );
 
-            row.find('select').each(function () {
-                if ($(this).val()) {
-                    hasTimeValue = true;
+
+                $('.profile_time_availibility .parent-row').each(function () {
+
+                    let row = $(this);
+                    let checked = row.find('input[type="radio"]:checked').val();
+                    let { from, to } = getRow(row);
+
+                    if (checked === 'til_late') {
+                        from.prop('disabled', false);
+                        to.prop('disabled', true);
+                    } else {
+                        from.prop('disabled', true);
+                        to.prop('disabled', true);
+                    }
+                });
+
+
+            ////////////// End For Our Open Times ///////////////// 
+
+       
+    $(function(e) {
+
+            $('.resetdays').on('click', function () {
+                let row = $(this).closest('.parent-row');
+                row.find('select').val('').prop('disabled', false);
+                row.find('input[type="radio"]').prop('checked', false);
+
+            });
+
+
+            //////////// For Our Service (Tags)  /////////////////////
+            $('body').on('click', '.akh1', function() {
+                    var id = $(this).attr('id');
+                    var val = $(this).data('val');
+                    var name = $(this).data('sname');
+                    $('#hideenclassOne_'+val).remove();
+            
+                    $("#service_id_one").append("<option id='"+name+"' value='"+val+"'>"+name+"</option>"); 
+                    console.log("click "+name);
+                });
+               
+            $('body').on('click', '.akh2', function() {
+                var id = $(this).attr('id');
+                var val = $(this).data('val');
+                var name = $(this).data('sname');
+                $('#hideenclassTwo_'+val).remove();
+        
+                $("#service_id_two").append("<option id='"+name+"' value='"+val+"'>"+name+"</option>"); 
+                console.log("click "+name);
+                console.log("id= "+id);
+                console.log("val= "+val);
+            });    
+            
+            $(document).on('change','#service_id_one', function(){
+                var selectedIdOne = $('#service_id_one').val();
+                
+                var getNameOne = $(this).children(":selected").attr("id");console.log(getNameOne);
+                if(selectedIdOne){
+                    $("#selected_service_one").append(" <li id='hideenclassOne_"+ selectedIdOne+"'><div class='my_service_anal' ><span class='dollar-sign'>"+getNameOne+"</span><input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value=0 min='0' oninput='this.value = Math.abs(this.value)' step=10 max=200><input type='hidden' name='category_id[]' value='1'><input type='hidden' name='service_id[]' value="+ selectedIdOne +" placeholder=''><span><i class='fas fa-times-circle akh1' data-sname='"+getNameOne+"' data-val="+ selectedIdOne+"  id='id_"+ selectedIdOne+"' value="+selectedIdOne+"></i></span></div></li> ");
+                    $("#service_id_one option[value="+ selectedIdOne +"]").attr('disabled','disabled');
+                    $("#service_id_one option[value="+ selectedIdOne +"]").remove();
+                    console.log('changewwwwww='+selectedIdOne);
                 }
             });
 
-            if (hasTimeValue) {
-                row.find('input[type="radio"]').prop('checked', false);
-            }
-        });
 
 
-        $('.profile_time_availibility').on('change', 'input[type="radio"]', function () {
-            let row = $(this).closest('.parent-row');
-            row.find('select').val('');
-        });
+        $('body').on('change','#service_id_two', function(){
+                var selectedIdTwo = $('#service_id_two').val();
+                var getNameTwo = $(this).children(":selected").attr("id");
+                if(selectedIdTwo){
+                    $("#selected_service_two").append(" <li id='hideenclassTwo_"+selectedIdTwo+"'><div class='my_service_anal hideenclassTwo"+selectedIdTwo+"'><span class='dollar-sign'>"+getNameTwo+"</span><input type='number' class='dollar-before input_border' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step=10 max=200 value=0><input type='hidden' name='category_id[]' value='2'><input type='hidden' name='service_id[]' value="+ selectedIdTwo +"><span><i class='fas fa-times-circle akh2'  data-sname='"+getNameTwo+"' data-val="+ selectedIdTwo+"  id='id_"+ selectedIdTwo+"' value="+selectedIdTwo+"></i></span></div></li> ");
+                    $("#service_id_two option[value="+ selectedIdTwo +"]").attr('disabled','disabled');
+                    $("#service_id_two option[value="+ selectedIdTwo +"]").remove();
+                    console.log('change='+selectedIdTwo);
+                }
+            });
 
-       
-        $(function(e) {
+        //////////// End For Our Service (Tags)  /////////////////////
 
-                $('.resetdays').click(function(){
-                    var p_element = $(this);
-                    var id = $(this).attr('id');
-                    var element_class = p_element.attr('data-day');
-                    console.log("select."+element_class);
-                    $('select.'+element_class).prop('selectedIndex',0);
-                    $('select.'+element_class).attr('disabled', false)
-                    //$('input[name="covidreport"]').removeAttr('checked');
-                    //var ch = $(" input[name='mytime[]']:checked").val();
-                    var ch = $('input.'+element_class+":checked").val();
-                    $('input.'+element_class+":checked").prop('checked', false);
-                    console.log(ch);
-                
-                }); 
-        }); 
+
+ }); 

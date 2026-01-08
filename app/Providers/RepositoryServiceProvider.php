@@ -18,9 +18,19 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\BaseRepository'
         );
         $this->app->bind(
+            'App\Repositories\Message\MessageInterface',
+            'App\Repositories\Message\MessageRepository'
+        );
+         $this->app->bind(
+            'App\Repositories\Message\MessageMediaInterface',
+            'App\Repositories\Message\MessageMediaRepository'
+        );
+
+        $this->app->bind(
             'App\Repositories\MassageProfile\MassageMediaInterface',
             'App\Repositories\MassageProfile\MassageMediaRepository'
         );
+
         $this->app->bind(
             'App\Repositories\MassageProfile\MassageProfileInterface',
             'App\Repositories\MassageProfile\MassageProfileRepository'

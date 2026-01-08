@@ -26,7 +26,12 @@
 .prev_step_btn .fa-arrow-left {
     color: #fff !important;
 }
-   
+  
+.disabled-form-tab {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 </style>
 @endsection
 @section('content')
@@ -273,6 +278,7 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
 
 <script>
 window.defaultImagesUrl = "{{ route('center.get.default.images') }}";
+window.postdefaultImageUrl = "{{ route('center.default.images') }}";
 var textarea = document.getElementById('about_us_box');
 CKEDITOR.replace('about_us_box');
 var updatePosition = 0;
@@ -290,7 +296,7 @@ var updatePosition = 0;
    
     $ (document).ready(function(e) {
 
-       
+        $('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
 
 
         const validator = $('#my_massage_profile').validate({
@@ -307,32 +313,31 @@ var updatePosition = 0;
 
         $('.nex_sterp_btn').on('click', function () {
 
-
-            
-
             syncCKEditor();
             let isValid = true;
             let isFirstTab = $('a.nav-link.active').parent().is(':first-child');
             let isSecondTab = $('a.nav-link.active').parent().index() === 1;
             let isThirdTab = $('a.nav-link.active').parent().index() === 2;
 
-            console.log('isThirdTab',isThirdTab);
+            
 
 
             // if (isFirstTab) 
             // {
+
+            //     console.log('isFirstTab',isFirstTab);
 
             //     if(!checkProfileDynamicMedia()){
             //     return false;
             //     }
             // }
 
-            if(isSecondTab)
-            {
+            // if(isSecondTab)
+            // {
 
-                if(!validateSecondTab())
-                 return false;    
-            }
+            //     if(!validateSecondTab())
+            //      return false;    
+            // }
 
             if(isThirdTab)
             {
@@ -372,7 +377,9 @@ var updatePosition = 0;
                     .find('a[data-toggle="tab"]');
 
                if (nextTab.length) {
+                   
                     nextTab.tab('show');
+                    nextTab.removeClass('disabled-form-tab'); 
                     updateProgressBar(nextTab.attr('id'));
                 }
         
@@ -413,12 +420,47 @@ var updatePosition = 0;
 
 
 
-         @if (request()->getPathInfo() == '/center-dashboard/create-profile')
-                setDefaults();
-          @endif
+        
+
+
+
+       $('#my_massage_profile').on('submit', function (e) {
+        e.preventDefault();
+        submit_form_massage();
+        });
+
+        function submit_form_massage() 
+        {
+
+            let form = $('#my_massage_profile');
+            let centerId = $('#massage_profile_id').val();
+
+            let formData = new FormData(form[0]);
+
+            $.ajax({
+                url: "{{route('center.create.profile')}}",  
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log(response);
+                    alert('Profile created successfully');
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                    alert('Error while saving profile');
+                }
+            });
+        }
+
+
+
         
     });
 
+
+    
 
 
 </script>
