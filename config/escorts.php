@@ -808,11 +808,23 @@ return [
             'Website Report'
         ],
         'services' => [
-            'Alert notifications',
-            'Escort Agent',
-            'Viewer review',
-            'Ugly Mugs register',
+            // 'Alert notifications',
+            // 'Escort Agent',
+            // 'Viewer review',
+            // 'Ugly Mugs register',
+            // 'Other'
+
+			'My Account',
+            'My Information',
+            'Fees',
+            'Listings',
+            'Media',
+			'My Agent',
+            'Notifications & Features',
+            'Profiles',
+            'Profile Information',
             'Other'
+			
         ]
     ],
 	'mobileOrderSimRequest'=>[
