@@ -266,11 +266,11 @@
                                 <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
                             </div>
                             <div class="col-6 mb-3">
-                                <input class="form-control rounded-0" placeholder="Advertising"
+                                <input class="form-control rounded-0" placeholder="Advertising %"
                                     name="commission_advertising_percent" id="commission_advertising_percent">
                             </div>
                             <div class="col-6 mb-3">
-                                <input class="form-control rounded-0" placeholder="Massage Centre (Registrations)"
+                                <input class="form-control rounded-0" placeholder="Massage Centre (Registrations) %"
                                     name="commission_registration_amount" id="commission_registration_amount">
                             </div>
 
@@ -422,11 +422,11 @@
                                 <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
                             </div>
                             <div class="col-6 mb-3">
-                                <input class="form-control rounded-0" placeholder="Advertising"
+                                <input class="form-control rounded-0" placeholder="Advertising %"
                                     name="commission_advertising_percent" id="commission_advertising_percent">
                             </div>
                             <div class="col-6 mb-3">
-                                <input class="form-control rounded-0" placeholder="Massage Centre (Registrations)"
+                                <input class="form-control rounded-0" placeholder="Massage Centre (Registrations) %"
                                     name="commission_registration_amount" id="commission_registration_amount">
                             </div>
 
