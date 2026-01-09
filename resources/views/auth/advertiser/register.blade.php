@@ -45,7 +45,9 @@
 
     #RegisterEscort li {
         padding-left: 20px;
-    } #RegisterMassage li {
+    }
+
+    #RegisterMassage li {
         padding-left: 20px;
     }
 </style>
@@ -219,9 +221,9 @@
                                 </div>
                             </div>
                             <!--<div class="form-check form-check-inline">
-                                 <input class="form-check-input" type="radio" name="type" id="inlineRadio3" value="5"{{ old('type') == 4 ? ' checked' : null }}>
-                                 <label class="form-check-label" for="inlineRadio2">I am a Agent</label>
-                             </div>-->
+                                     <input class="form-check-input" type="radio" name="type" id="inlineRadio3" value="5"{{ old('type') == 4 ? ' checked' : null }}>
+                                     <label class="form-check-label" for="inlineRadio2">I am a Agent</label>
+                                 </div>-->
 
                             <div class="termsandconditions_text_color">
                                 <!-- error sms here -->
@@ -756,7 +758,7 @@
 
                     <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/welcome.png') }}"
                             class="custompopicon">
-                        Welcome to Escorts4U! <span>Member ID: M20346</span></h5>
+                        Welcome to Escorts4U!! <span>Member ID: M20346</span></h5>
                     <a href="" class="close" data-dismiss="modal" aria-label="Close">
                         <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
                     </a>
@@ -805,47 +807,62 @@
                                             help you. Here is some important information you need to know:
                                         </p>
                                         <ol style="padding-left: 20px; font-size: 15px; line-height: 1.6;">
-                                            <li>Before you can advertise on our website you need to complete some more of your
-details, as a once off, which will help you create and manage your Profile and Masseur
-Profiles. <br>These include :
+                                            <li>Before you can advertise on our website you need to complete some more of
+                                                your
+                                                details, as a once off, which will help you create and manage your Profile
+                                                and Masseur
+                                                Profiles. <br>These include :
                                                 <ul
                                                     style="padding-left: 20px; font-size: 15px; line-height: 1.6;list-style-type: disc;">
                                                     <li>Completing your business information, such as About Us.</li>
                                                     <li>Setting your Notifications & Features..</li>
-                                                    <li>Uploading and verifying your Media, such as photos and video, and selecting
-which uploads will act as your default Media.</li>
+                                                    <li>Uploading and verifying your Media, such as photos and video, and
+                                                        selecting
+                                                        which uploads will act as your default Media.</li>
                                                     <li>Uploading the Masseur’s media.</li>
                                                 </ul>
-                                                If you forget to complete any of the above, you can edit your account anytime, or in
-some instances, you will be asked if you want to update your Account when you make
-a change (Profile Creator).
+                                                If you forget to complete any of the above, you can edit your account
+                                                anytime, or in
+                                                some instances, you will be asked if you want to update your Account when
+                                                you make
+                                                a change (Profile Creator).
                                             </li>
 
 
-                                            <li>Our support staff are available to help you between 8:00am and 6:00pm WST Monday
-to Friday. You can email us, text us, call us, or log a Support Ticket (our preference).</li>
-                                            <li>Support Agents are available to assist you with any queries you may have about the
-website and services. You can request to have a Support Agent assigned to you any
-time by following the link.</li>
-                                            <li>Your Member ID is: [insert number created from registration], which you will need when
-communicating with us or your Support Agent (if you have appointed one). We use your
-Member ID for all communications across the website (hashtags are not used in this
-website).</li>
+                                            <li>Our support staff are available to help you between 8:00am and 6:00pm WST
+                                                Monday
+                                                to Friday. You can email us, text us, call us, or log a Support Ticket (our
+                                                preference).</li>
+                                            <li>Support Agents are available to assist you with any queries you may have
+                                                about the
+                                                website and services. You can request to have a Support Agent assigned to
+                                                you any
+                                                time by following the link.</li>
+                                            <li>Your Member ID is: [insert number created from registration], which you will
+                                                need when
+                                                communicating with us or your Support Agent (if you have appointed one). We
+                                                use your
+                                                Member ID for all communications across the website (hashtags are not used
+                                                in this
+                                                website).</li>
                                             <li>From time to time we will come back to you and remind you of any important
-information you have not completed.</li>
+                                                information you have not completed.</li>
                                         </ol>
 
                                         <form action="">
 
                                             <input type="checkbox" name="registration" id="registration">
-                                            <label for="registration">Do you want to complete your Registration now? (Recommended, only takes a few
-minutes)</label>
+                                            <label for="registration">Do you want to complete your Registration now?
+                                                (Recommended, only takes a few
+                                                minutes)</label>
                                         </form>
 
                                         <h4 style="margin-top: 25px;">Heads Up!</h4>
                                         <p>
-                                            We have designed a unique Profile creator that enables you to complete many functions to
-make your experience a pleasant and enjoyable one. Some of those features include:
+                                            We have designed a unique Profile creator that enables you to complete many
+                                            functions to
+                                            make your experience a pleasant and enjoyable one. Some of those features
+                                            include:
                                         </p>
                                         <ul style="padding-left: 20px; font-size: 15px; line-height: 1.6;">
                                             <li>Pre-loaded data when creating a Profile</li>
@@ -855,11 +872,13 @@ make your experience a pleasant and enjoyable one. Some of those features includ
                                             <li>Bump Up your Listing</li>
                                             <li>Pin Up</li>
                                         </ul>
-                                        <p>You can create as many Profiles as you want, especially if you have more than one Massage
-Centre. You can do that by duplicating Profiles. Create the first one, and then duplicate it
-for as many times as you want.</p>
+                                        <p>You can create as many Profiles as you want, especially if you have more than one
+                                            Massage
+                                            Centre. You can do that by duplicating Profiles. Create the first one, and then
+                                            duplicate it
+                                            for as many times as you want.</p>
 
-                                        
+
                                     </td>
                                 </tr>
                             </table>
