@@ -6,34 +6,49 @@
         margin-bottom: 1rem;
         background-color: transparent;
     }
+
     .table2 th {
         padding: 0.55rem;
     }
+
     .table2 tbody td {
         color: #192A3E;
         font-family: 'Poppins';
         font-weight: normal;
         font-size: 16px;
     }
+
     .table2 td {
         padding: 0.75rem;
         vertical-align: top;
         border-top: 1px solid #dee2e6;
         text-align: justify;
     }
+
     .table2 thead {
         border-bottom: 2px solid #000000;
     }
+
     .table2 th {
         padding: 0.75rem;
         vertical-align: top;
         border-top: none;
     }
+
     .table2 td:first-child {
         font-weight: bold;
     }
-    p{
+
+    p {
         text-align: justify !important;
+    }
+
+    #RegisterEscort li {
+        padding-left: 20px;
+    }
+
+    #RegisterMassage li {
+        padding-left: 20px;
     }
 </style>
 @section('content')
@@ -47,17 +62,19 @@
                         <div class="pt-2 pb-5">
                             <h1 class="text-uppercase">Advertiser Registration</h1>
                             <h2>Registration with us is free</h2>
-                            <p class="text-justify">There are no Fees when you create an Account. Fees only apply when you post a Profile or Tour
+                            <p class="text-justify">There are no Fees when you create an Account. Fees only apply when you
+                                post a Profile or Tour
                                 where you are charged according to the number of days and the Membership Type you select.
-                                See also <span><a href="{{ url('help-for-advertisers')}}"
-                                                                                class="termsandconditions_text_color">Help for Advertisers</a></span>
-                                and <span><a href="{{ url('help-for-massage-centres')}}"
-                                                                           class="termsandconditions_text_color">Help for Massage Centres</a></span>
+                                See also <span><a href="{{ url('help-for-advertisers') }}"
+                                        class="termsandconditions_text_color">Help for Advertisers</a></span>
+                                and <span><a href="{{ url('help-for-massage-centres') }}"
+                                        class="termsandconditions_text_color">Help for Massage Centres</a></span>
                                 for more information on Package benefits, Profiles & Tours, Fees and your obligations.</p>
                         </div>
                         <h4>Alert:</h4>
                         <ol class="pl-4 text-justify">
-                            <li>Victorian Advertisers can voluntarily provide their SWA exception number or license number, like for
+                            <li>Victorian Advertisers can voluntarily provide their SWA exception number or license number,
+                                like for
                                 example, SWA20188XE. The license number will be displayed on any Profile you publish.
                             </li>
                             <li>Massage Centres in Queensland must have their business telephone number registered with
@@ -65,7 +82,9 @@
                                 it publishes.
                             </li>
                             <li>
-                                Click <a href="https://www.esafety.gov.au/parents/resources/online-safety-book" target="_blank" class="termsandconditions_text_color">here to read</a> the eSafety Commissioner’s Online Safety Guide before registering as a Member.
+                                Click <a href="https://www.esafety.gov.au/parents/resources/online-safety-book"
+                                    target="_blank" class="termsandconditions_text_color">here to read</a> the eSafety
+                                Commissioner’s Online Safety Guide before registering as a Member.
                             </li>
                         </ol>
                     </div>
@@ -73,32 +92,33 @@
                 <div class="reg_box_form_style col-lg-5 col-md-5">
                     <div class="regstractionform">
                         <h4>Register Now, No Fees for the first 14 days Advertising!</h4>
-                        <form id="escort_registration" action="{{ route('advertiser.register')}}" method="post">
+                        <form id="escort_registration" action="{{ route('advertiser.register') }}" method="post">
                             @csrf
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="txt" class="form-control" id="name" aria-describedby="emailHelp"
-                                       name="name" required placeholder="Name"
-                                       data-parsley-required-message="Your name is required"
-                                       value="{{ old('name') }}">
+                                    name="name" required placeholder="Name"
+                                    data-parsley-required-message="Your name is required" value="{{ old('name') }}">
                                 <span id="name-errors"></span>
                                 <div class="termsandconditions_text_color">
                                     @error('name')
-                                    <strong>{{ $message }}</strong>
+                                        <strong>{{ $message }}</strong>
                                     @enderror
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="mobileno">Mobile Number</label>
-                                <input type="tel" maxlength="10" class="form-control" id="mobileno" aria-describedby="emailHelp"
-                                       name="phone" data-parsley-maxlength="10" required placeholder="Mobile Number"
-                                       data-parsley-required-message="Your mobile number is required"
-                                       value="{{ old('phone') }}" data-parsley-type="digits"
-                                       data-parsley-type-message="Enter only mobile numbers" autocomplete="off" oninput="this.value = this.value.replace(/\D/g,'');">
+                                <input type="tel" maxlength="10" class="form-control" id="mobileno"
+                                    aria-describedby="emailHelp" name="phone" data-parsley-maxlength="10" required
+                                    placeholder="Mobile Number"
+                                    data-parsley-required-message="Your mobile number is required"
+                                    value="{{ old('phone') }}" data-parsley-type="digits"
+                                    data-parsley-type-message="Enter only mobile numbers" autocomplete="off"
+                                    oninput="this.value = this.value.replace(/\D/g,'');">
                                 <span id="phone-errors"></span>
                                 <div class="termsandconditions_text_color">
                                     @error('phone')
-                                    <strong>{{ $message }}</strong>
+                                        <strong>{{ $message }}</strong>
                                     @enderror
                                 </div>
                             </div>
@@ -106,14 +126,14 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">{{ __('Email') }}</label>
                                 <input type="email" class="form-control" id="exampleInputEmail1"
-                                       aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required
-                                       autocomplete="email" placeholder="Email Address"
-                                       data-parsley-required-message="@lang('errors/validation/required.email')"
-                                       data-parsley-type-message="@lang('errors/validation/valid.email')">
+                                    aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required
+                                    autocomplete="email" placeholder="Email Address"
+                                    data-parsley-required-message="@lang('errors/validation/required.email')"
+                                    data-parsley-type-message="@lang('errors/validation/valid.email')">
                                 <span id="email-errors"></span>
                                 <div class="termsandconditions_text_color">
                                     @error('email')
-                                    <strong>{{ $message }}</strong>
+                                        <strong>{{ $message }}</strong>
                                     @enderror
                                 </div>
                             </div>
@@ -121,13 +141,14 @@
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Location<sup>(*)</sup></label>
                                 <select class="form-control loc-sec" id="location_state" name="state_id" required
-                                        data-parsley-required-message="Select Location">
+                                    data-parsley-required-message="Select Location">
                                     <option value="">Select your Home State (if not already identified)</option>
-                                    @foreach(config('escorts.profile.states') as $key => $state)
-                                        <option style="font-weight: 500;"
-                                                value="{{$key}}" {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $state['stateName'] ? request()->ipinfo->region : '' }}> {{$state['stateName']}} </option>
+                                    @foreach (config('escorts.profile.states') as $key => $state)
+                                        <option style="font-weight: 500;" value="{{ $key }}"
+                                            {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $state['stateName'] ? request()->ipinfo->region : '' }}>
+                                            {{ $state['stateName'] }} </option>
                                     @endforeach
-                                    {{-- @foreach($state as $name)
+                                    {{-- @foreach ($state as $name)
                                        <option value="{{$name->id}}">{{$name->name}}</option>
                                     @endforeach --}}
                                 </select>
@@ -148,7 +169,7 @@
                                 </div>
                                 <div class="termsandconditions_text_color">
                                     @error('password')
-                                    <strong>{{ $message }}</strong>
+                                        <strong>{{ $message }}</strong>
                                     @enderror
                                 </div>
                             </div>
@@ -162,7 +183,8 @@
                                         data-parsley-equalto-message="Confirm password should be the same password"
                                         required autocomplete="new-password"
                                         data-parsley-required-message="@lang('errors/validation/required.confirm_password')">
-                                    <span class="input-group-text custom--eye" id="toggleConfirmPassword" style="cursor: pointer;">
+                                    <span class="input-group-text custom--eye" id="toggleConfirmPassword"
+                                        style="cursor: pointer;">
                                         <i class="fa fa-eye" id="confirmEyeIcon"></i>
                                     </span>
                                 </div>
@@ -173,11 +195,12 @@
 
                             <div class="form-group">
                                 <label for="conformPassword">Referred by Agent (Agent ID)</label>
-                                <input type="txt" class="form-control" id="agent_id" name="agent_id" placeholder="Enter Agent ID">
+                                <input type="txt" class="form-control" id="agent_id" name="agent_id"
+                                    placeholder="Enter Agent ID">
                                 <span id="agent_id-errors"></span>
-                               <div class="termsandconditions_text_color">
+                                <div class="termsandconditions_text_color">
                                     @error('agent_id')
-                                    <strong>{{ $message }}</strong>
+                                        <strong>{{ $message }}</strong>
                                     @enderror
                                 </div>
                             </div>
@@ -185,36 +208,35 @@
                                 <div class="col-lg-4 col-md-12 col-sm-12 pr-0 pl-2">
                                     <div class="form-check form-check-inline pb-0">
                                         <input class="form-check-input" required type="radio" name="type"
-                                               id="inlineRadio1" value="3"{{ old('type') == 3 ? ' checked' : null }}>
+                                            id="inlineRadio1" value="3"{{ old('type') == 3 ? ' checked' : null }}>
                                         <label class="form-check-label" for="inlineRadio1">I am an Escort</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 pr-0">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="type" id="inlineRadio2"
-                                               value="4"{{ old('type') == 4 ? ' checked' : null }}>
+                                            value="4"{{ old('type') == 4 ? ' checked' : null }}>
                                         <label class="form-check-label" for="inlineRadio2">I am a Massage Centre</label>
                                     </div>
                                 </div>
                             </div>
-                        <!--<div class="form-check form-check-inline">
-                     <input class="form-check-input" type="radio" name="type" id="inlineRadio3" value="5"{{ old('type') == 4 ? ' checked' : null }}>
-                     <label class="form-check-label" for="inlineRadio2">I am a Agent</label>
-                 </div>-->
+                            <!--<div class="form-check form-check-inline">
+                                     <input class="form-check-input" type="radio" name="type" id="inlineRadio3" value="5"{{ old('type') == 4 ? ' checked' : null }}>
+                                     <label class="form-check-label" for="inlineRadio2">I am a Agent</label>
+                                 </div>-->
 
                             <div class="termsandconditions_text_color">
                                 <!-- error sms here -->
                                 @error('type')
-                                <strong>{{ $message }}</strong>
+                                    <strong>{{ $message }}</strong>
                                 @enderror
                             </div>
                             <div class="form-check form-check-inline pb-0" style="margin-left: 4px;">
-                                <input type="checkbox" data-parsley-errors-container=".check-tc"
-                                       class="form-check-input" id="termsandconditions" required
-                                       data-parsley-required-message="@lang('errors/validation/required.checkbox')">
+                                <input type="checkbox" data-parsley-errors-container=".check-tc" class="form-check-input"
+                                    id="termsandconditions" required data-parsley-required-message="@lang('errors/validation/required.checkbox')">
                                 <label class="form-check-label " for="termsandconditions">I have read and agree to the
                                     <a href="terms-conditions" class="termsandconditions_text_color"
-                                       style="font-size: 13px;">Terms and Conditions</a></label>
+                                        style="font-size: 13px;">Terms and Conditions</a></label>
                             </div>
                             <span class="check-tc"></span>
                             <div class="termsandconditions_text_color">
@@ -253,7 +275,8 @@
                             <div class="border_top_one_px padding_ten_px_top_btm">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 col-12">
-                                        <ul class="padding_zero_px_ul_ol list_style_none font_size_forteenpx mb-0 register_ul">
+                                        <ul
+                                            class="padding_zero_px_ul_ol list_style_none font_size_forteenpx mb-0 register_ul">
                                             <li><span class="correct_symbole_font_weight">&#10003;</span> At least 1
                                                 lowercase character
                                             </li>
@@ -263,7 +286,8 @@
                                         </ul>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-12">
-                                        <ul class="padding_zero_px_ul_ol list_style_none font_size_forteenpx mb-0 register_ul">
+                                        <ul
+                                            class="padding_zero_px_ul_ol list_style_none font_size_forteenpx mb-0 register_ul">
                                             <li><span class="correct_symbole_font_weight">&#10003;</span> At least 1
                                                 uppercase character
                                             </li>
@@ -299,102 +323,103 @@
                                 along the way. You will always know what the Fees are before you commit to posting your
                                 Profile. You can also create a Profile and archive it until you are ready to post it.
                                 Create as many Profiles as you like.</p>
-                            <span class=" custome_span_color">Go to <a
-                                    href="{{ url('help-for-advertisers')}}" class="termsandconditions_text_color">help for Advertisers</a> for details on Membership Packages associated with each Membership Type.</span>
+                            <span class=" custome_span_color">Go to <a href="{{ url('help-for-advertisers') }}"
+                                    class="termsandconditions_text_color">help for Advertisers</a> for details on
+                                Membership Packages associated with each Membership Type.</span>
                             <table class="table2">
                                 <thead>
-                                <tr>
-                                    <th scope="col">Type</th>
-                                    <th scope="col" style="border-left: 2px solid #000000;">Description</th>
-                                </tr>
+                                    <tr>
+                                        <th scope="col">Type</th>
+                                        <th scope="col" style="border-left: 2px solid #000000;">Description</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                    <tr>
 
-                                    <td>Platinum</td>
-                                    <td style="border-left: 2px solid #000000;">
-                                        Platinum Membership always ranks at the top of the Escort Home Page.
-                                        <p><b>List View:</b> Your Thumbnail photo is 142px x 200px. Rates, review
-                                            rating,
-                                            available to, verification and your 'Who I am' are displayed.</p>
-                                        <p><b>Grid View:</b> Your Thumbnail photo is 200px x 281px. Hourly rate,
-                                            services,
-                                            gender, orientation and view rating are included in the display.</p>
-                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                            Thumbnail is 420px x 600px together with 6 additional photos
-                                            and a video player 640px x 360px. All photos and the video
-                                            can pop up.
-                                        </p>
-                                    </td>
-                                </tr>
+                                        <td>Platinum</td>
+                                        <td style="border-left: 2px solid #000000;">
+                                            Platinum Membership always ranks at the top of the Escort Home Page.
+                                            <p><b>List View:</b> Your Thumbnail photo is 142px x 200px. Rates, review
+                                                rating,
+                                                available to, verification and your 'Who I am' are displayed.</p>
+                                            <p><b>Grid View:</b> Your Thumbnail photo is 200px x 281px. Hourly rate,
+                                                services,
+                                                gender, orientation and view rating are included in the display.</p>
+                                            <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
+                                                Thumbnail is 420px x 600px together with 6 additional photos
+                                                and a video player 640px x 360px. All photos and the video
+                                                can pop up.
+                                            </p>
+                                        </td>
+                                    </tr>
 
-                                <tr>
+                                    <tr>
 
-                                    <td>Gold</td>
-                                    <td style="border-left: 2px solid #000000;">
-                                        Gold Membership ranks behind Platinum and before Silver.
-                                        <p><b>List View:</b> Your Thumbnail photo is 112px x 157px. Rates, review
-                                            rating,
-                                            available to, verification and your 'Who I am' are displayed.</p>
-                                        <p><b>Grid View:</b> Your Thumbnail photo is 163px x 229px. Hourly rate,
-                                            services,
-                                            gender, orientation and view rating are included in the display.
-                                        </p>
-                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                            Thumbnail is 420px x 600px together with 6 additional photos
-                                            and a video player 640px x 360px. All photos and the video
-                                            can pop up
-                                        </p>
-                                    </td>
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>Silver</td>
-                                    <td style="border-left: 2px solid #000000;">
-                                        Silver Membership ranks behind Gold and before Free.
-                                        <p><b>List View:</b> Your Thumbnail photo is 102px x 144px. Review rating,
-                                            available to, verification and your 'Who I am' are displayed.</p>
-                                        <p><b>Grid View:</b> Your Thumbnail photo is 136px x 191px. Hourly rate,
-                                            services,
-                                            gender, orientation and view rating are included in the display.
-                                        </p>
-                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                            Thumbnail is 420px x 600px together with 6 additional photos
-                                            and a video player 640px x 360px. All photos and the video can
-                                            pop up.
-                                        </p>
-                                    </td>
-                                </tr>
+                                        <td>Gold</td>
+                                        <td style="border-left: 2px solid #000000;">
+                                            Gold Membership ranks behind Platinum and before Silver.
+                                            <p><b>List View:</b> Your Thumbnail photo is 112px x 157px. Rates, review
+                                                rating,
+                                                available to, verification and your 'Who I am' are displayed.</p>
+                                            <p><b>Grid View:</b> Your Thumbnail photo is 163px x 229px. Hourly rate,
+                                                services,
+                                                gender, orientation and view rating are included in the display.
+                                            </p>
+                                            <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
+                                                Thumbnail is 420px x 600px together with 6 additional photos
+                                                and a video player 640px x 360px. All photos and the video
+                                                can pop up
+                                            </p>
+                                        </td>
+                                    </tr>
 
 
-                                <tr>
+                                    <tr>
 
-                                    <td>Free</td>
-                                    <td style="border-left: 2px solid #000000;">
-                                        Free Membership ranks behind Silver
-                                        <p>Escort Home Page: You will appear after paid listings in all Search Page
-                                            results and Profile shortlist displays.</p>
-                                        <p><b>List View:</b> Your Thumbnail is displayed as a silhouette 79px x 116px.
-                                            Available to and your 'Who I am' are displayed.</p>
-                                        <p><b>Grid View:</b>Your Thumbnail is displayed as a silhouette 100px x 145px.
-                                            Hourly rate and services are included in the display.
-                                        </p>
-                                        <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                            thumbnail photo is 420px x 600px together with 6 additional
-                                            photos 100px x 100px. No video is available. All photos can
-                                            pop up.</p>
-                                        <p>If you receive over a certain number of Profile views or telephone number
-                                            clicks during the free 14 day period you will be informed and notified to
-                                            upgrade to a paying Membership Type.</p>
-                                        <p>We do this to provide for the fairest distribution of leads between our Free
-                                            Members. If you do not elect to become a paying Member, your Profile will be
-                                            suspended. You will still be able to log onto your Account at any time to
-                                            upgrade your Membership Type.</p>
+                                        <td>Silver</td>
+                                        <td style="border-left: 2px solid #000000;">
+                                            Silver Membership ranks behind Gold and before Free.
+                                            <p><b>List View:</b> Your Thumbnail photo is 102px x 144px. Review rating,
+                                                available to, verification and your 'Who I am' are displayed.</p>
+                                            <p><b>Grid View:</b> Your Thumbnail photo is 136px x 191px. Hourly rate,
+                                                services,
+                                                gender, orientation and view rating are included in the display.
+                                            </p>
+                                            <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
+                                                Thumbnail is 420px x 600px together with 6 additional photos
+                                                and a video player 640px x 360px. All photos and the video can
+                                                pop up.
+                                            </p>
+                                        </td>
+                                    </tr>
 
-                                    </td>
-                                </tr>
+
+                                    <tr>
+
+                                        <td>Free</td>
+                                        <td style="border-left: 2px solid #000000;">
+                                            Free Membership ranks behind Silver
+                                            <p>Escort Home Page: You will appear after paid listings in all Search Page
+                                                results and Profile shortlist displays.</p>
+                                            <p><b>List View:</b> Your Thumbnail is displayed as a silhouette 79px x 116px.
+                                                Available to and your 'Who I am' are displayed.</p>
+                                            <p><b>Grid View:</b>Your Thumbnail is displayed as a silhouette 100px x 145px.
+                                                Hourly rate and services are included in the display.
+                                            </p>
+                                            <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
+                                                thumbnail photo is 420px x 600px together with 6 additional
+                                                photos 100px x 100px. No video is available. All photos can
+                                                pop up.</p>
+                                            <p>If you receive over a certain number of Profile views or telephone number
+                                                clicks during the free 14 day period you will be informed and notified to
+                                                upgrade to a paying Membership Type.</p>
+                                            <p>We do this to provide for the fairest distribution of leads between our Free
+                                                Members. If you do not elect to become a paying Member, your Profile will be
+                                                suspended. You will still be able to log onto your Account at any time to
+                                                upgrade your Membership Type.</p>
+
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
 
@@ -410,9 +435,9 @@
                     <div class="content">
                         <div class="accodien_manage_padding_content">
                             <p>Escorts4U has partnered with a leading provider of online booking services for
-                                accommodation and travel. For more information go to <span
-                                    class=""><a href="{{ url('help-for-advertisers')}}"
-                                                                     class="termsandconditions_text_color">Help for Advertisers</a></span>
+                                accommodation and travel. For more information go to <span class=""><a
+                                        href="{{ url('help-for-advertisers') }}"
+                                        class="termsandconditions_text_color">Help for Advertisers</a></span>
                                 and select "Travel & Accommodation".</p>
                         </div>
                     </div>
@@ -426,8 +451,9 @@
                         <div class="accodien_manage_padding_content">
                             <p>Escorts4U has partnered with the Condom Man where you can order products online and they
                                 will be delivered to your door. For more information about ordering products
-                                go to <span
-                                    class=""><a href="#" class="termsandconditions_text_color">Products</a></span>. (This service is only available to Perth Escorts).</p>
+                                go to <span class=""><a href="#"
+                                        class="termsandconditions_text_color">Products</a></span>. (This service is only
+                                available to Perth Escorts).</p>
                         </div>
                     </div>
                 </div>
@@ -440,7 +466,8 @@
                         <div class="accodien_manage_padding_content">
                             <p>Escorts4U has partnered with an experienced advisor in this complex area. For more
                                 information about these services go to <span class=""><a
-                                        href="{{ url('help-for-advertisers')}}" class="termsandconditions_text_color">Help for Advertisers</a></span>
+                                        href="{{ url('help-for-advertisers') }}"
+                                        class="termsandconditions_text_color">Help for Advertisers</a></span>
                                 and select "Visa applications & banking". Our partner can also provide advice on
                                 education placements. You can submit an enquiry with our partner.</p>
                         </div>
@@ -453,14 +480,14 @@
                     </a>
                     <div class="content">
                         <div class="accodien_manage_padding_content">
-                            <p>We have many sources you can access for help and information. See <span
-                                    class=""><a href="{{ url('help-for-advertisers')}}"
-                                                                     class="termsandconditions_text_color">help for Advertisers</a></span>
-                                and <span class=""><a href="{{ url('faqs')}}"
-                                                                           class="termsandconditions_text_color">FAQs</a></span>,
+                            <p>We have many sources you can access for help and information. See <span class=""><a
+                                        href="{{ url('help-for-advertisers') }}"
+                                        class="termsandconditions_text_color">help for Advertisers</a></span>
+                                and <span class=""><a href="{{ url('faqs') }}"
+                                        class="termsandconditions_text_color">FAQs</a></span>,
                                 or if you still can not find the answer, <span class=""><a
-                                        href="{{ url('contact-us')}}"
-                                        class="termsandconditions_text_color">contact us</a></span> directly.</p>
+                                        href="{{ url('contact-us') }}" class="termsandconditions_text_color">contact
+                                        us</a></span> directly.</p>
                         </div>
                     </div>
                 </div>
@@ -468,9 +495,9 @@
                 <div class="set">
                     <a>Changes to this Policy
 
-                    <i class="fa fa-angle-down"></i>
+                        <i class="fa fa-angle-down"></i>
                     </a>
-                    
+
                     <div class="content ">
                         <div class="accodien_manage_padding_content">
                             <div class="border_top_one_px padding_ten_px_top_btm">
@@ -482,7 +509,7 @@
                                                 We may change or modify these Terms and Conditions in the future. We
                                                 will note the date that revisions were last made at the bottom of this
                                                 page. Any revision will take effect upon its posting. It is your
-                                                responsibility to check the <a href="{{ url('terms-conditions')}}">Terms
+                                                responsibility to check the <a href="{{ url('terms-conditions') }}">Terms
                                                     and Conditions</a> from time to time to review the most current
                                                 version.
                                             </p>
@@ -496,12 +523,12 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
 
 
-         @include('modal.two-step-verification')
+        @include('modal.two-step-verification')
 
 
         <div class="modal" id="comman_modal" style="display: none">
@@ -512,9 +539,10 @@
                         <div class="modal-header main_bg_color border-0">
                             <h5 class="modal-title text-white">Reset Password</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">
-                      <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                      </span>
+                                <span aria-hidden="true">
+                                    <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                        class="img-fluid img_resize_in_smscreen">
+                                </span>
                             </button>
                         </div>
                         <div class="modal-body forgot_pass pb-1">
@@ -522,22 +550,20 @@
                                 <div class="row text-center" style="">
                                     <div class="col-md-12">
                                         <a href="#"><img src="{{ asset('assets/app/img/e4u_forget.png') }}"
-                                                         class="img-fluid" alt="logo"></a>
+                                                class="img-fluid" alt="logo"></a>
                                     </div>
                                 </div>
                                 <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Reset
                                         Password</strong></h4>
                                 <p class="text-center pb-2">We’ll send you a reset password link on your email.</p>
                                 <input type="txt" required class="form-control" name="email" id="email"
-                                       aria-describedby="emailHelp" placeholder="Email Address"
-                                       data-parsley-required-message="Your Email is required"
-                                       value="{{ old('email') }}">
+                                    aria-describedby="emailHelp" placeholder="Email Address"
+                                    data-parsley-required-message="Your Email is required" value="{{ old('email') }}">
                                 <div class="termsandconditions_text_color">
                                     @error('email')
-
-                                    {{ $message }}
+                                        {{ $message }}
                                     @enderror
-                                    <input type="hidden" name="url" value="{{ route('escort.forgot')}}">
+                                    <input type="hidden" name="url" value="{{ route('escort.forgot') }}">
                                 </div>
                                 <div id="errorNew"></div>
                             </div>
@@ -552,26 +578,341 @@
         </div>
     </section>
 
+
+    {{-- <button type="button" data-target="#RegisterEscort" data-toggle="modal">Click Me</button> --}}
+    {{-- agar tum niche wale modal ko dekhana chate ho to upar wale button ko uncomment karo --}}
+    {{-- for Escort --}}
+    <div class="modal fade upload-modal" id="RegisterEscort" tabindex="-1" role="dialog"
+        aria-labelledby="RegisterEscortLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <!-- Header -->
+
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/welcome.png') }}"
+                            class="custompopicon">
+                        Welcome to Escorts4U! <span>Member ID: E20346</span></h5>
+                    <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                    </a>
+                </div>
+                <!-- Body -->
+                <div class="modal-body" style="padding: 20px;">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="accordion-container">
+                                <div class="set">
+                                    <a class="active">
+                                        Notes
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <div class="content">
+                                        <ol>
+                                            <li>You can update your personal information any time by either going to My
+                                                Account and
+                                                making your changes, or by updating your information, where it applies, in
+                                                the Profile
+                                                Creator. When you update your personal information in the Profile Creator,
+                                                you will
+                                                have the option to update your Account Information or not.</li>
+                                            <li>Where you alter your information in the Profile Creator and you opt not to
+                                                update your
+                                                Account, the information you inserted into the Profile Creator, and which is
+                                                different to
+                                                your Account, will be saved to that Profile only.</li>
+                                            <li>Your Notifications and Features can also be changed in My Account. Please
+                                                take a look
+                                                as these affect the way your Console operates and how you access a number of
+                                                services.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <table>
+
+                                <tr>
+                                    <td style="padding: 30px; text-align: justify;">
+                                        <h4>Hello Dolly,</h4>
+                                        <p>
+                                            Thank you for selecting E4U to advertise your companionship. The team at E4U is
+                                            here to
+                                            help you. Here is some important information you need to know:
+                                        </p>
+                                        <ol style="padding-left: 20px; font-size: 15px; line-height: 1.6;">
+                                            <li>Before you can advertise on our website you need to complete some more of
+                                                your
+                                                details, as a once off, which will help you create and manage your Profiles
+                                                and
+                                                Tours. <br>These include :
+                                                <ul
+                                                    style="padding-left: 20px; font-size: 15px; line-height: 1.6;list-style-type: disc;">
+                                                    <li>Completing your personal information, such as About Me and Profile
+                                                        and Tour
+                                                        Options.</li>
+                                                    <li>Setting your Notifications & Features.</li>
+                                                    <li>Uploading and verifying your Media, such as photos and video, and
+                                                        selecting
+                                                        which uploads will act as your default Media, Banner image and Pin
+                                                        Up.</li>
+                                                    <li>Uploading your My Playbox content, if you intend to use that
+                                                        service.</li>
+                                                </ul>
+                                                If you forget to complete any of the above, you can edit your account
+                                                anytime, or in
+                                                some instances, you will be asked if you want to update your Account when
+                                                you make
+                                                a change (Profile Creator).
+                                            </li>
+
+
+                                            <li>Our support staff are available to help you between 8:00am and 6:00pm WST
+                                                Monday
+                                                to Friday. You can email us, text us, call us, or log a Support Ticket (our
+                                                preference).</li>
+                                            <li>Support Agents are available to assist you with any queries you may have
+                                                about the
+                                                website and services. You can request to have a Support Agent assigned to
+                                                you any
+                                                time by following the link.</li>
+                                            <li>Please remember your Member ID: [insert number created from registration],
+                                                which you
+                                                will need when communicating with us or your Support Agent, and especially
+                                                when you
+                                                are using the Playmates feature. We use your Member ID for all
+                                                communications
+                                                across the website (hashtags are not used in this website).</li>
+                                            <li>From time to time we will come back to you and remind you of any important
+                                                information
+                                                you have not completed.</li>
+                                        </ol>
+
+                                        <h4 style="margin-top: 25px;">Heads Up!</h4>
+                                        <p>
+                                            We have designed a unique Profile creator that enables you to complete many
+                                            functions to
+                                            make your experience a pleasant and enjoyable one. Some of those features
+                                            include:
+                                        </p>
+                                        <ul style="padding-left: 20px; font-size: 15px; line-height: 1.6;">
+                                            <li>Pre-loaded data when creating a Profile</li>
+                                            <li>BRB</li>
+                                            <li>Suspend Listed Profile</li>
+                                            <li>Extend Listing</li>
+                                            <li>Bump Up your Listing</li>
+                                            <li>Upgrade your Profile Membership Type</li>
+                                            <li>Pin Up</li>
+                                        </ul>
+                                        <p>You can create as many Profiles as you want. We recommend you create at least one
+                                            Profile for each State in Australia you would visit. You can do that by
+                                            duplicating
+                                            Profiles.
+                                            Create the first one, and then duplicate it for as many times as you want. By
+                                            creating
+                                            at least
+                                            one Profile for each State, or Location as we call them, you can then create a
+                                            Tour
+                                            across
+                                            Australia for a minimum of two Locations, but with as many Profiles in each
+                                            Location as
+                                            you
+                                            want.</p>
+
+                                        <form action="">
+
+                                            <input type="checkbox" name="registration" id="registration">
+                                            <label for="registration">Do you want to complete your Registration now?
+                                                (Recommended,
+                                                only takes a few minutes)</label>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer pt-0" style="justify-content: center;">
+                    <button type="submit" class="btn-success-modal" data-dismiss="modal">Got it</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end --}}
+    {{-- <button type="button" data-target="#RegisterMassage" data-toggle="modal">Click Me</button> --}}
+    {{-- agar tum niche wale modal ko dekhana chate ho to upar wale button ko uncomment karo --}}
+    {{-- for Massage --}}
+    <div class="modal fade upload-modal" id="RegisterMassage" tabindex="-1" role="dialog"
+        aria-labelledby="RegisterMassageLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <!-- Header -->
+
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/welcome.png') }}"
+                            class="custompopicon">
+                        Welcome to Escorts4U!! <span>Member ID: M20346</span></h5>
+                    <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                    </a>
+                </div>
+                <!-- Body -->
+                <div class="modal-body" style="padding: 20px;">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="accordion-container">
+                                <div class="set">
+                                    <a class="active">
+                                        Notes
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <div class="content">
+                                        <ol>
+                                            <li>You can update your business information any time by either going to My
+                                                Account and
+                                                making your changes, or by updating your information, where it applies, in
+                                                the Profile
+                                                Creator. When you update your business information in the Profile Creator,
+                                                you will
+                                                have the option to update your Account Information or not.</li>
+                                            <li>Where you alter business information in the Profile Creator and you opt not
+                                                to update
+                                                your Account, the information you inserted into the Profile Creator, and
+                                                which is different
+                                                to your Account, will be saved to that Profile only.</li>
+                                            <li>Before you can add a new Masseur to your Profile, you must first add them to
+                                                your
+                                                Masseur list together with the personal information and photos.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <table>
+
+                                <tr>
+                                    <td style="padding: 30px; text-align: justify;">
+                                        <h4>Hello Healing Hands,</h4>
+                                        <p>
+                                            Thank you for selecting E4U to advertise your companionship. The team at E4U is
+                                            here to
+                                            help you. Here is some important information you need to know:
+                                        </p>
+                                        <ol style="padding-left: 20px; font-size: 15px; line-height: 1.6;">
+                                            <li>Before you can advertise on our website you need to complete some more of
+                                                your
+                                                details, as a once off, which will help you create and manage your Profile
+                                                and Masseur
+                                                Profiles. <br>These include :
+                                                <ul
+                                                    style="padding-left: 20px; font-size: 15px; line-height: 1.6;list-style-type: disc;">
+                                                    <li>Completing your business information, such as About Us.</li>
+                                                    <li>Setting your Notifications & Features..</li>
+                                                    <li>Uploading and verifying your Media, such as photos and video, and
+                                                        selecting
+                                                        which uploads will act as your default Media.</li>
+                                                    <li>Uploading the Masseur’s media.</li>
+                                                </ul>
+                                                If you forget to complete any of the above, you can edit your account
+                                                anytime, or in
+                                                some instances, you will be asked if you want to update your Account when
+                                                you make
+                                                a change (Profile Creator).
+                                            </li>
+
+
+                                            <li>Our support staff are available to help you between 8:00am and 6:00pm WST
+                                                Monday
+                                                to Friday. You can email us, text us, call us, or log a Support Ticket (our
+                                                preference).</li>
+                                            <li>Support Agents are available to assist you with any queries you may have
+                                                about the
+                                                website and services. You can request to have a Support Agent assigned to
+                                                you any
+                                                time by following the link.</li>
+                                            <li>Your Member ID is: [insert number created from registration], which you will
+                                                need when
+                                                communicating with us or your Support Agent (if you have appointed one). We
+                                                use your
+                                                Member ID for all communications across the website (hashtags are not used
+                                                in this
+                                                website).</li>
+                                            <li>From time to time we will come back to you and remind you of any important
+                                                information you have not completed.</li>
+                                        </ol>
+
+                                        <form action="">
+
+                                            <input type="checkbox" name="registration" id="registration">
+                                            <label for="registration">Do you want to complete your Registration now?
+                                                (Recommended, only takes a few
+                                                minutes)</label>
+                                        </form>
+
+                                        <h4 style="margin-top: 25px;">Heads Up!</h4>
+                                        <p>
+                                            We have designed a unique Profile creator that enables you to complete many
+                                            functions to
+                                            make your experience a pleasant and enjoyable one. Some of those features
+                                            include:
+                                        </p>
+                                        <ul style="padding-left: 20px; font-size: 15px; line-height: 1.6;">
+                                            <li>Pre-loaded data when creating a Profile</li>
+                                            <li>BRB</li>
+                                            <li>Suspend Listed Profile</li>
+                                            <li>Extend Listing</li>
+                                            <li>Bump Up your Listing</li>
+                                            <li>Pin Up</li>
+                                        </ul>
+                                        <p>You can create as many Profiles as you want, especially if you have more than one
+                                            Massage
+                                            Centre. You can do that by duplicating Profiles. Create the first one, and then
+                                            duplicate it
+                                            for as many times as you want.</p>
+
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer pt-0" style="justify-content: center;">
+                    <button type="submit" class="btn-success-modal" data-dismiss="modal">Got it</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end --}}
 @endsection
 @section('script')
-
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 
     <script>
-
-        $(function () {
+        $(function() {
             $('#escort_registration').parsley();
 
             var RegistrationForm = $("#escort_registration");
 
-            RegistrationForm.submit(function (e) {
+            RegistrationForm.submit(function(e) {
 
                 e.preventDefault();
                 var form = $(this);
                 var url = form.attr('action');
                 var formData = new FormData($("#escort_registration")[0]);
                 var token = $('input[name="_token"]').attr('value');
-                swal_waiting_popup({'title' : 'Your registration is currently being processed.'});
+                swal_waiting_popup({
+                    'title': 'Your registration is currently being processed.'
+                });
                 $('#agent_id-errors').html('');
                 $.ajax({
                     url: url,
@@ -583,7 +924,7 @@
                     headers: {
                         'X-CSRF-Token': token
                     },
-                    success: function (data) {
+                    success: function(data) {
                         Swal.close();
                         console.log(data);
                         var ph = data.phone;
@@ -591,10 +932,13 @@
                         if (data.error == 1) {
 
                             setTimeout(() => {
-                            $("#sendOtp_modal").modal({backdrop: 'static', keyboard: false});
-                            }, 300); 
+                                $("#sendOtp_modal").modal({
+                                    backdrop: 'static',
+                                    keyboard: false
+                                });
+                            }, 300);
 
-                            $('body').on("click", "#resendOtpSubmit", function () {
+                            $('body').on("click", "#resendOtpSubmit", function() {
                                 var token = $('input[name="_token"]').attr('value');
                                 $.post({
                                     type: 'POST',
@@ -605,21 +949,25 @@
                                     data: {
                                         phone: data.phone,
                                     },
-                                }).done(function (data) {
-                                    $('#senderror').html("<p> Verification code sent to " + data.phone + "</p>");
+                                }).done(function(data) {
+                                    $('#senderror').html(
+                                        "<p> Verification code sent to " +
+                                        data.phone + "</p>");
                                     console.log(data);
                                 })
                             });
 
 
-                            $("body").on("submit", "#SendOtp", function (e) {
-                                swal_waiting_popup({'title' : 'Validating your OTP.'});
+                            $("body").on("submit", "#SendOtp", function(e) {
+                                swal_waiting_popup({
+                                    'title': 'Validating your OTP.'
+                                });
                                 e.preventDefault();
                                 var form = $(this);
 
                                 console.log(ph);
                                 // var url = form.attr('action');
-                                var url = "{{ route('web.checkOTP')}}";
+                                var url = "{{ route('web.checkOTP') }}";
 
                                 var data = new FormData($('#SendOtp')[0]);
                                 var phone = data.phone;
@@ -637,30 +985,37 @@
                                     headers: {
                                         'X-CSRF-Token': token
                                     },
-                                    success: function (data) {
-                                         Swal.close();
+                                    success: function(data) {
+                                        Swal.close();
                                         console.log(data);
 
                                         if (data.error == true) {
                                             //console.log(data);
                                             if (data.type == 3) {
-                                                window.location.href = "{{ route('escort.dashboard') }}";
+                                                window.location.href =
+                                                    "{{ route('escort.dashboard') }}";
                                             }
                                             if (data.type == 4) {
-                                                window.location.href = "{{ route('center.dashboard') }}";
+                                                window.location.href =
+                                                    "{{ route('center.dashboard') }}";
                                             }
 
                                         }
 
                                     },
-                                    error: function (data) {
+                                    error: function(data) {
                                         Swal.close();
-                                        console.log("error: a", data.responseJSON.errors);
+                                        console.log("error: a", data
+                                            .responseJSON.errors);
                                         var errorsHtml = '<ul><li>';
-                                        $.each(data.responseJSON.errors, function (key, value) {
-                                            errorsHtml = '<div class="alert alert-danger"><ul>';
-                                            errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
-                                        });
+                                        $.each(data.responseJSON.errors,
+                                            function(key, value) {
+                                                errorsHtml =
+                                                    '<div class="alert alert-danger"><ul>';
+                                                errorsHtml += '<li>' +
+                                                    value +
+                                                    '</li>'; //showing only the first error.
+                                            });
 
                                         errorsHtml += '</ul></li>';
                                         $('#senderror').html(errorsHtml);
@@ -670,21 +1025,27 @@
                             });
                         }
                     },
-                    error: function (data) {
-                         Swal.close();
+                    error: function(data) {
+                        Swal.close();
                         console.log("error: b", data.responseJSON.errors);
 
                         var errorsHtml = '';
-                        $.each(data.responseJSON.errors, function (key, value) {
+                        $.each(data.responseJSON.errors, function(key, value) {
 
                             if (key === "phone") {
-                                $('#phone-errors').html('<div class="alert alert-danger">' + data.responseJSON.errors.phone + '</div>');
+                                $('#phone-errors').html(
+                                    '<div class="alert alert-danger">' + data
+                                    .responseJSON.errors.phone + '</div>');
                             }
                             if (key === "email") {
-                                $('#email-errors').html('<div class="alert alert-danger">' + data.responseJSON.errors.email + '</div>');
+                                $('#email-errors').html(
+                                    '<div class="alert alert-danger">' + data
+                                    .responseJSON.errors.email + '</div>');
                             }
                             if (key === "agent_id") {
-                                $('#agent_id-errors').html('<div class="alert alert-danger">' + data.responseJSON.errors.agent_id + '</div>');
+                                $('#agent_id-errors').html(
+                                    '<div class="alert alert-danger">' + data
+                                    .responseJSON.errors.agent_id + '</div>');
                             }
                             // errorsHtml = '<div class="alert alert-danger"><ul>';
                             // errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
@@ -718,31 +1079,31 @@
             //       }
             //   });
         });
-        $("body").on("click", "#submit_button", function () {
+        $("body").on("click", "#submit_button", function() {
             $('#phone-errors').html('');
             $('#email-errors').html('');
             console.log("working");
         });
     </script>
     <script>
-    document.getElementById("togglePassword").addEventListener("click", function () {
-        const passwordField = document.getElementById("exampleInputPassword1");
-        const eyeIcon = document.getElementById("eyeIcon");
-        const isPassword = passwordField.type === "password";
+        document.getElementById("togglePassword").addEventListener("click", function() {
+            const passwordField = document.getElementById("exampleInputPassword1");
+            const eyeIcon = document.getElementById("eyeIcon");
+            const isPassword = passwordField.type === "password";
 
-        passwordField.type = isPassword ? "text" : "password";
-        eyeIcon.classList.toggle("fa-eye");
-        eyeIcon.classList.toggle("fa-eye-slash");
-    });
+            passwordField.type = isPassword ? "text" : "password";
+            eyeIcon.classList.toggle("fa-eye");
+            eyeIcon.classList.toggle("fa-eye-slash");
+        });
 
-    document.getElementById("toggleConfirmPassword").addEventListener("click", function () {
-        const confirmPasswordField = document.getElementById("conformPassword");
-        const confirmEyeIcon = document.getElementById("confirmEyeIcon");
-        const isPassword = confirmPasswordField.type === "password";
+        document.getElementById("toggleConfirmPassword").addEventListener("click", function() {
+            const confirmPasswordField = document.getElementById("conformPassword");
+            const confirmEyeIcon = document.getElementById("confirmEyeIcon");
+            const isPassword = confirmPasswordField.type === "password";
 
-        confirmPasswordField.type = isPassword ? "text" : "password";
-        confirmEyeIcon.classList.toggle("fa-eye");
-        confirmEyeIcon.classList.toggle("fa-eye-slash");
-    });
-</script>
+            confirmPasswordField.type = isPassword ? "text" : "password";
+            confirmEyeIcon.classList.toggle("fa-eye");
+            confirmEyeIcon.classList.toggle("fa-eye-slash");
+        });
+    </script>
 @endsection

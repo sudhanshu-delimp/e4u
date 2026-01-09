@@ -599,6 +599,10 @@ Route::get('/management/product', function () {
     return view('admin.management.statistics.product');
 })->name('admin.product');
 
+Route::get('/management/email', function () {
+    return view('admin.management.statistics.email');
+})->name('admin.email');
+
 Route::get('/reports/credit', function () {
     return view('admin.reports.credit');
 })->name('admin.credit');
