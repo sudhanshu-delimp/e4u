@@ -56,7 +56,7 @@
                 </div>
                 <div class="d-flex justify-content-between five_column_fonts">
                     <span>Price:</span>
-                    <span>From $ {{ $escort->services->pluck('pivot')->min('price') }} / hr</span>
+                    <span>From $ {{ number_format($escort->services->pluck('pivot')->min('price')) }} / hr</span>
                 </div>
                 <div class="d-flex justify-content-between five_column_fonts custom-available-time-icon">
                     <span>Services:</span>
