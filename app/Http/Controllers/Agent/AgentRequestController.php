@@ -433,7 +433,10 @@ class AgentRequestController extends Controller
                     $q->where('ref_number', 'like', "%{$search}%")
                     ->orWhereHas('user', function ($u) use ($search) {
                     $u->where('member_id', 'like', "%{$search}%");
-                     });
+                     })
+                    ->orWhereHas('agent_request_users.receiverAgent', function ($q) use ($search) {
+                        $q->where('member_id', 'like', "%{$search}%");
+                    });
                 });
             }
 
@@ -472,9 +475,7 @@ class AgentRequestController extends Controller
             $requestList = $query->offset($start)
                             ->limit($limit)
                             ->get();
-
-                            
-
+           
             $i = 1;
             foreach ($requestList as $item) {
 
