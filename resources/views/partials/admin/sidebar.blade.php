@@ -552,7 +552,7 @@
                         'balance-sheet',
                         'constitution',
                         'newsletter',
-                        'shareholder-notices',
+                        'shareholder-notices','email',
                         'subsidiaries-balance-sheet',
                         'subsidiaries-annual-profit-and-loss',
                         'updates',
@@ -1222,11 +1222,18 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/statistic.png') }}">
                             <span>Statistics</span>
                         </a>
-                        <div id="statisticsMenu" class="collapse @if (in_array(request()->segment(3), ['tours', 'profile','product', 'memberships'])) show @endif " data-parent="#Management">
-                            <a class="collapse-item" href="{{ route('admin.memberships') }}">
+                        <div id="statisticsMenu" class="collapse @if (in_array(request()->segment(3), ['tours', 'profile','product', 'memberships','email'])) show @endif " data-parent="#Management">
+                           
+
+                            <a class="collapse-item" href="{{ route('admin.email') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'memberships' ? 'color: #FF3C5F;' : '' }}">Memberships</span>
+                                    style="{{ request()->segment(3) == 'email' ? 'color: #FF3C5F;' : '' }}">Email</span>
+                            </a>
+                             <a class="collapse-item" href="{{ route('admin.memberships') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'memberships' ? 'color: #FF3C5F;' : '' }}"> Memberships</span>
                             </a>
                             <a class="collapse-item" href="{{ route('admin.product') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
