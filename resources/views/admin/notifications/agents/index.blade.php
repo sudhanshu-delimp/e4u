@@ -454,7 +454,7 @@
                 // Track if we're in edit mode
                 let isEditMode = false;
 
-                                //Remove Validation Message
+                 //Remove Validation Message
                 function removeValidationMsg(){
                     $('.server-error').remove();
                     $('.is-invalid').removeClass('is-invalid');
@@ -1034,6 +1034,7 @@
 
                 //edit Agent moduel
                 $(document).on('click', '.js-edit', function(e) {
+                    removeValidationMsg();
                     e.preventDefault();
                     let id = $(this).data('id');
                     removeValidationMsg();

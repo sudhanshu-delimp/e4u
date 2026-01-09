@@ -461,6 +461,13 @@ class UserController extends Controller
                     ->where('member_id', $loggedMemberId);
             });
 
+            // Notice notifications valid for template 
+            $query->orWhere(function ($q) use ($todayDate) {
+                $q->where('type', 'Template')
+                    ->where('start_date', '<=', $todayDate)
+                    ->where('end_date', '>=', $todayDate);
+            });
+
             // Scheduled notifications valid for today based on scheduled_days or forever recurring
             $query->orWhere(function ($q) use ($todayDate) {
                 $q->where('type', 'Scheduled')
@@ -470,7 +477,7 @@ class UserController extends Controller
                     });
             });
         })->orderBy('created_at', 'desc')
-            ->select('id', 'heading', 'content')
+            ->select('id', 'heading', 'content', 'template_name')
             ->get();
 
         return $notifications;
