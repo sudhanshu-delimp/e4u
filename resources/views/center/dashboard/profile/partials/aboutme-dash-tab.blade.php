@@ -221,12 +221,7 @@ textarea {
       <!-- ########## Photos Tab ############ -->
        
      <div class="about_me_drop_down_info profile-sec">
-        @if (request()->segment(2) == 'profile' && request()->segment(3))
-            <form id="myProfileMediaForm" name="myProfileMediaForm"
-                action="{{ route('escort.profile.media', [$escort->id]) }}" method="POST"
-                enctype="multipart/form-data">
-                @CSRF
-        @endif
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="col-lg-12 py-3">
@@ -848,22 +843,7 @@ textarea {
                 </div>
             </div>
         </div>
-        @if (request()->segment(2) == 'profile' && request()->segment(3))
-            <div class="row">
-                <div class="col-md-12 text-right media-profile">
-                    <button id="mediaProfileBtn" type="submit" class="save_profile_btn">Update</button>
-                </div>
-            </div>
-            </form>
-        @endif
-                {{-- video section start --}}
-                <hr>
-                @if (request()->segment(2) == 'profile' && request()->segment(3))
-                <form id="myProfileMediaVideoForm" name="myProfileMediaVideoForm"
-                    action="{{ route('escort.profile.video', [$escort->id]) }}" method="POST"
-                    enctype="multipart/form-data">
-                    @CSRF
-            @endif
+        
                 <div class="row">
                     <div class="col-md-12">
                 <div class="col-md-12 mb-3">    
@@ -939,14 +919,7 @@ textarea {
             {{-- end video section --}}
             </div>
         </div>
-        @if (request()->segment(2) == 'profile' && request()->segment(3))
-            <div class="row">
-                <div class="col-md-12 text-right media-profile">
-                    <button id="mediaProfileVideoBtn" type="submit" class="save_profile_btn">Update</button>
-                </div>
-            </div>
-            </form>
-        @endif
+        
     </div>
       <!-- ########## End Photos Tab #################    -->
 
@@ -1072,7 +1045,7 @@ textarea {
                                     <label for="exampleFormControlSelect1">Languages
                                     </label>
                                     
-                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="language" >
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="language" name="language" >
                                        <option value="" selected="">-- Not Set --</option>
                                        @foreach(config('escorts.profile.languages') as $key =>$language)
                                        <option value="{{$key}}"  @if(!empty($massage_profile->language)) @if(in_array($key ,$escort->language)) selected @endif @endif data-name="{{ $language }}">{{$language}}</option>

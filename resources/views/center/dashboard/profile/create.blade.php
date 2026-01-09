@@ -280,6 +280,7 @@ window.postdefaultImageUrl = "{{ route('center.default.images') }}";
 var textarea = document.getElementById('about_us_box');
 CKEDITOR.replace('about_us_box');
 var updatePosition = 0;
+
 </script>
 
 
@@ -422,38 +423,47 @@ var updatePosition = 0;
 
 
 
-       $('#my_massage_profile').on('submit', function (e) {
-        e.preventDefault();
-        submit_form_massage();
-        });
-
-        function submit_form_massage() 
-        {
-
-            let form = $('#my_massage_profile');
-            let centerId = $('#massage_profile_id').val();
-
-            let formData = new FormData(form[0]);
-
-            $.ajax({
-                url: "{{route('center.create.profile')}}",  
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    console.log(response);
-                    alert('Profile created successfully');
-                },
-                error: function (xhr) {
-                    console.log(xhr.responseText);
-                    alert('Error while saving profile');
-                }
+        $('#my_massage_profile').on('submit', function (e) {
+            e.preventDefault();
+            submit_form_massage();
             });
-        }
 
+            function submit_form_massage() 
+            {
+                let form = $('#my_massage_profile');
+                let formData = new FormData(form[0]);
+                swal_waiting_popup({'title':'Creating Profile'});
+                $.ajax({
+                    url: "{{ route('center.create.profile') }}",
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        Swal.close();
+                        if (response.success === true && response.massage_profile_id) {
+                            swal_success_popup(response.message ?? 'Profile created successfully');
+                            setTimeout(function () {
+                                window.location = 'update-profile/' + response.massage_profile_id;
+                            }, 2000); // 2 seconds
 
+                        } 
+                        else 
+                        {
+                            swal_error_popup('Something went wrong');
+                        }
+                    },
 
+                    error: function (xhr) {
+                        Swal.close();
+                        let message = 'Error while saving profile';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            message = xhr.responseJSON.message;
+                        }
+                        swal_error_popup(message);
+                    }
+                });
+            }
         
     });
 

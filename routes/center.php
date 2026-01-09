@@ -79,8 +79,11 @@ Route::get('/profile-info/create-profile', function()
 
     
 ///////////////profile
-Route::get('create-profile/{id?}',[CreateController::class,'index'])->name('center.profile');
-Route::get('update-profile/{id?}',[UpdateController::class,'updateBasicProfile'])->name('center.profile.basic.update');
+Route::get('create-profile',[CreateController::class,'index'])->name('center.profile');
+Route::get('update-profile/{id?}',[CreateController::class,'get_profile'])->name('center.update-profile');
+
+
+//Route::get('update-profile/{id?}',[CreateController::class,'updateBasicProfile'])->name('center.profile.basic.update');
 //create new profile
 Route::post('setting-profile/{id?}',[UpdateController::class,'createBySetting'])->name('center.setting.profile');
 //end

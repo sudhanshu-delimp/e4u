@@ -23,7 +23,7 @@ class MessageMediaRepository extends BaseRepository implements MessageMediaInter
     {
         $medias = $this->model
             ->where('id', '!=', $media->id)
-            ->where('escort_id', $media->escort_id)
+            ->where('massage_id', $media->massage_id)
             ->get();
 
         foreach ($medias as $other_media) {
@@ -56,6 +56,7 @@ class MessageMediaRepository extends BaseRepository implements MessageMediaInter
 
         return $result;
 	}
+
     public function get_videos($user_id)
 	{
         $result = $this->model
@@ -64,6 +65,7 @@ class MessageMediaRepository extends BaseRepository implements MessageMediaInter
             ->get();
             return $result;
 	}
+
     public function findDefaultMedia($user_id, $mediaType = 0)
     {
         $result = $this->model
@@ -80,6 +82,7 @@ class MessageMediaRepository extends BaseRepository implements MessageMediaInter
 
         return $result;
     }
+
     public function with_Or_withoutPosition($user_id,$position = null)
     {
 //        dd($user_id);
@@ -119,6 +122,8 @@ class MessageMediaRepository extends BaseRepository implements MessageMediaInter
 
         return $result->get();
     }
+
+
     public function nullPosition($user_id,$position)
 	{
 	    $conditions = [
@@ -142,6 +147,7 @@ class MessageMediaRepository extends BaseRepository implements MessageMediaInter
 
             //return $result;
 	}
+
     public function nullVedioPosition($user_id,$position)
 	{
         $result = $this->model
@@ -155,6 +161,8 @@ class MessageMediaRepository extends BaseRepository implements MessageMediaInter
 
             //return $result;
 	}
+
+    
     public function findByVideoposition($user_id,$position) {
         if($image = $this->model->where('user_id',$user_id)->where('type',1)->where('position', 1)->where('default',1)->first()) {
             $arr = ['path'=>$image->path, 'id'=>$image->id];
@@ -168,15 +176,6 @@ class MessageMediaRepository extends BaseRepository implements MessageMediaInter
     }
 
 
-    /***
-     * @updated_by :: Bikash Chhualsingh
-     * @date :: 07-July-2023
-     *
-     * @param $user_id
-     * @param $position   => media position
-     * @param null $default => default images to be returned or not
-     * @return array|mixed
-     */
     public function findByposition($user_id,$position, $default = null)
 	{
         $conditions = [
