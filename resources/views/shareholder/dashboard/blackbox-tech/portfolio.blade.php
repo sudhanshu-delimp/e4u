@@ -51,7 +51,7 @@
     <div class="row Sh_portfolio">
         <div class="col-lg-6">
             <div class="text-center portfolio-img">
-                <img src="{{ asset('assets/dashboard/img/shareholder/portfolio-logo.png') }}" alt="">
+                <img src="{{ asset('assets/dashboard/img/shareholder/portfolio-logo.PNG') }}" alt="">
             </div>
             <p>Specialist migration agency in the provision of visa and education
                 placement services for individuals seeking to migrate to Australia
