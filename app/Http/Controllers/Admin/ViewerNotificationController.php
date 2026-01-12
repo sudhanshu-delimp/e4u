@@ -17,6 +17,8 @@ class ViewerNotificationController extends Controller
     protected $editAccessEnabled;
     protected $addAccessEnabled;
     protected $sidebar;
+    protected $user;
+    protected $current_date_time;
 
     public function __construct(UserInterface $user)
     {
@@ -225,6 +227,7 @@ class ViewerNotificationController extends Controller
 
     public function store(StoreViewerNotification $request)
     {
+
         try {
             $isUpdate = !empty($request->notificationId);
             $data = [
@@ -345,7 +348,7 @@ class ViewerNotificationController extends Controller
                         break;
                 }
             }
-           // dd($data);
+
             if ($isUpdate) {
                 $notification = ViewerNotification::findOrFail($request->notificationId);
                 if ($data['end_date'] > date('Y-m-d')) {

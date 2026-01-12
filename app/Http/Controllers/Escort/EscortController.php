@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Escort;
 
-use App\Http\Controllers\BaseController;
 use Auth;
 use File;
 use FFMpeg;
@@ -15,9 +14,9 @@ use App\Models\PinUps;
 use App\Models\Pricing;
 use App\Models\Purchase;
 use App\Models\EscortPinup;
-use App\Models\EscortBumpup;
 use Illuminate\Support\Str;
 use MongoDB\Driver\Session;
+use App\Models\EscortBumpup;
 use Illuminate\Http\Request;
 use App\Models\MembershipPlan;
 use App\Models\DashboardViewer;
@@ -27,12 +26,14 @@ use App\Models\FeesSupportService;
 use Illuminate\Support\Facades\DB;
 use App\Models\PricingFeeUpdateLog;
 use App\Traits\DataTablePagination;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\FeesConciergeService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\VariablLoyaltyProgram;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\BaseController;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\StoreEscortRequest;
 use App\Http\Requests\UpdateEscortRequest;
@@ -40,6 +41,7 @@ use App\Repositories\Escort\EscortInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Repositories\Purchase\PurchaseInterface;
 use App\Repositories\AttemptLogin\AttemptLoginRepository;
+use App\Models\EscortNotification;
 
 class EscortController extends BaseController
 {
@@ -274,164 +276,7 @@ class EscortController extends BaseController
         return response()->json($data);
     }
 
-    // public function dataTableListing($type = NULL)
-    // {
 
-    //     $start = request()->get('start');
-    //     $limit = request()->get('length');
-    //     $order_key = (request()->get('order')[0]['column'] == 1 ? 6 : request()->get('order')[0]['column']);
-    //     $dir = request()->get('order')[0]['dir'];
-    //     $columns = request()->get('columns');
-    //     $search = request()->get('search')['value'];
-    //     $user_id = auth()->user()->id;
-    //     $ascDesc = 'ASC';
-    //     $recordTotal = 0;
-    //     $dataTableData = [];
-    //     //$dataTablePagination = (new DataTablePagination);
-    //     //$order = $dataTablePagination->getOrder($order_key);
-    //     // $searchables = $dataTablePagination->getSearchableFields($columns);
-
-    //     $result = Escort::with(['purchase' => function ($query) use ($type, $ascDesc, $start, $limit) {
-    //         if ($type == 'past') {
-    //             $query->where('end_date', '<', date('Y-m-d'));
-    //             $ascDesc = 'DESC';
-    //         } else {
-    //             $query->where('end_date', '>=', date('Y-m-d'));
-    //         }
-    //          $query->offset($start)
-    //         ->limit($limit)
-
-    //        ->orderBy('start_date', $ascDesc);
-    //     }])
-    //         ->whereHas('purchase')
-    //         ->with([
-    //             'Brb' => function ($query) {
-    //                 $query->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc');
-    //             }
-    //         ])
-    //         ->where('profile_name', '!=', null)
-    //         ->where('user_id', auth()->user()->id);
-
-    //     if ($search) {
-    //         $result = $result->where(function ($query) use ($search) {
-    //             $query->where('id', 'like', "%{$search}%")
-    //                 ->orWhere('profile_name', 'LIKE', "%{$search}%")
-    //                 ->orWhere('name', 'LIKE', "%{$search}%");
-    //         });
-    //     }
-    //     $result = $result->get()->toArray();
-    //    // For count
-    //     $resultNoLImit = Escort::with(['purchase' => function ($query2) use ($type, $ascDesc, $start, $limit) {
-    //         if ($type == 'past') {
-    //             $query2->where('end_date', '<', date('Y-m-d'));
-    //             $ascDesc = 'DESC';
-    //         } else {
-    //             $query2->where('end_date', '>=', date('Y-m-d'));
-    //         }
-    //        $query2->orderBy('start_date', $ascDesc);
-    //     }])
-    //         ->whereHas('purchase')
-    //         ->with([
-    //             'Brb' => function ($query2) {
-    //                 $query2->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc');
-    //             }
-    //         ])
-    //         ->where('profile_name', '!=', null)
-    //         ->where('user_id', auth()->user()->id);
-
-    //     if ($search) {
-    //         $resultNoLImit = $resultNoLImit->where(function ($query2) use ($search) {
-    //             $query2->where('id', 'like', "%{$search}%")
-    //                 ->orWhere('profile_name', 'LIKE', "%{$search}%")
-    //                 ->orWhere('name', 'LIKE', "%{$search}%");
-    //         });
-    //     }
-    //     $resultNoLImit = $resultNoLImit->get();
-    //     foreach ($resultNoLImit as $escort2) {
-    //         if ($escort2['purchase']) {
-               
-    //             foreach ($escort2['purchase'] as $purchase2) {
-    //                  $recordTotal++;
-    //             }
-    //         }
-    //     }
-
-    //     $i = 1;
-
-    //     foreach ($result as $escort) {
-    //         if ($escort['purchase']) {
-    //             // $recordTotal++;
-    //             foreach ($escort['purchase'] as $purchase) {
-    //                 $daysDiff = 0;
-    //                 $brb = $escort['profile_name'];
-    //                 $totalAmount = 0;
-    //                 if (isset($escort['brb'][0]['brb_time'])) {
-    //                     $brb =
-    //                         '<span id="brb_' .
-    //                         $escort['id'] .
-    //                         '" >' .
-    //                         $escort['profile_name'] .
-    //                         ' <sup
-    //                                         title="Brb at ' .
-    //                         date(
-    //                             'd-m-Y h:i A',
-    //                             strtotime($escort['brb'][0]['brb_time']),
-    //                         ) .
-    //                         '"
-    //                                         class="brb_icon">BRB</sup></span>';
-    //                 }
-    //                 if (!empty($purchase['start_date'])) {
-    //                     $daysDiff = Carbon::parse(
-    //                         $purchase['end_date'],
-    //                     )->diffInDays(Carbon::parse($purchase['start_date']))+1;
-    //                     if($purchase['start_date'] == $purchase['end_date']) {
-    //                         $daysDiff = 1;
-    //                     }
-    //                     [$discount, $rate] = calculateTatalFee(
-    //                         $purchase['membership'],
-    //                         $daysDiff,
-    //                     );
-    //                     $totalAmount = $rate;
-    //                     $totalAmount -= $discount;
-    //                     $totalAmount = formatIndianCurrency($totalAmount);
-    //                 }
-    //                 $dataTableData[] = [
-    //                     //'sl_no' => $i++,
-    //                     'id' => $escort['id'],
-    //                     //'profile_name' => $escort['profile_name'],
-    //                     'profile_name' => $escort['profile_name'] ? $brb : 'NA',
-    //                     //'city' =>
-    //                     config(
-    //                         "escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName",
-    //                     ) .
-    //                         '<br>' .
-    //                         config("escorts.profile.states.$escort[state_id].stateName"),
-    //                     'city' => config(
-    //                         "escorts.profile.states.$escort[state_id].stateName",
-    //                     ),
-    //                     'name' => $escort['name'],
-    //                     'start_date' => date(
-    //                         'd-m-Y',
-    //                         strtotime($purchase['start_date']),
-    //                     ),
-    //                     'end_date' => date('d-m-Y', strtotime($purchase['end_date'])),
-    //                     'days' => $daysDiff,
-    //                     'membership' => $purchase['membership'] ? getMembershipType($purchase['membership']) : "NA",
-    //                     'fee' => $totalAmount,
-    //                 ];
-    //             }
-    //         }
-    //     }
-    //     // print_r($dataTableData);die;
-    //     $data = array(
-    //         "draw"            => intval(request()->input('draw')),
-    //         "recordsTotal"    => intval($recordTotal),
-    //         "recordsFiltered" => intval($recordTotal),
-    //         "data"            => $dataTableData
-    //     );
-
-    //     return response()->json($data);
-    // }
 
     /**
      * Show the form for creating a new resource.
@@ -446,15 +291,6 @@ class EscortController extends BaseController
         $escort = $this->escort->all();
         $escorts = $escort->whereNotNull('state_id')->where('state_id', '!=', auth()->user()->state_id)->where('user_id', auth()->user()->id)->where('default_setting', 0)->unique('state_id');
 
-        // dd( $escorts);
-        // foreach($escorts as $states) {
-
-        //          echo $states->state_id."</br>";
-        //          echo $states->state->name."</br>";
-
-
-        // }
-        //  dd("hlfhsd");
         return view('escort.dashboard.archives.home-state', compact('escorts', 'user'));
     }
 
@@ -987,6 +823,27 @@ class EscortController extends BaseController
                 'message' => 'Something went wrong while booking the Pinup.',
                 'error' => $e->getMessage(),
             ], 500);
+        }
+    }
+
+
+    public function chckDateRange($start, $end, $id = null)
+    {
+        $query = EscortNotification::where('status', '=', 'Published')
+        ->where('id', '!=', $id)
+        ->where(function ($q) use ($start, $end) {
+            $q->whereBetween('start_date', [$start, $end])
+                ->orWhereBetween('end_date', [$start, $end])
+                ->orWhere(function ($q2) use ($start, $end) {
+                    $q2->where('start_date', '<=', $start)
+                        ->where('end_date', '>=', $end);
+                });
+        });
+
+        if ($query->exists()) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

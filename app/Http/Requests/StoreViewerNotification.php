@@ -35,8 +35,8 @@ class StoreViewerNotification extends FormRequest
         /* ------------------ TYPE : AD HOC ------------------ */
 
         if ($type === 'Ad hoc') {
-            $rules['start_date'] = $isEdit ? 'nullable|date' : 'required|date';
-            $rules['end_date'] = $isEdit ? 'nullable|date|after_or_equal:start_date' : 'required|date|after_or_equal:start_date';
+            $rules['start_date'] = 'required|date';
+            $rules['end_date'] = 'required|date|after_or_equal:start_date';
             $rules['content'] = 'required';
         }
 
@@ -74,16 +74,16 @@ class StoreViewerNotification extends FormRequest
 
         /* ------------------ TYPE : NOTICE ------------------ */
         if ($type === 'Notice') {
-            $rules['start_date'] = $isEdit ? 'nullable|date' : 'required|date';
-            $rules['end_date'] = $isEdit ? 'nullable|date|after_or_equal:start_date' : 'required|date|after_or_equal:start_date';
+            $rules['start_date'] = 'required|date';
+            $rules['end_date'] = 'required|date|after_or_equal:start_date';
             $rules['content'] = 'required';
             $rules['member_id'] = 'required';
         }
 
         /* ------------------ TYPE : TEMPLATE ------------------ */
         if ($type === 'Template') {
-            $rules['start_date'] = $isEdit ? 'nullable|date' : 'required|date';
-            $rules['end_date'] = $isEdit ? 'nullable|date|after_or_equal:start_date' : 'required|date|after_or_equal:start_date';
+            $rules['start_date'] = 'required|date';
+            $rules['end_date'] = 'required|date|after_or_equal:start_date';
             $rules['template_name'] = 'required';
         }
 

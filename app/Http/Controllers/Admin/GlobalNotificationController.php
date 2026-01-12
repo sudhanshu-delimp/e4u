@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\GlobalNotification;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreGlobalNotification;
 use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\User\UserInterface;
 
@@ -15,6 +16,8 @@ class GlobalNotificationController extends Controller
     protected $editAccessEnabled;
     protected $addAccessEnabled;
     protected $sidebar;
+    protected $user;
+    protected $current_date_time;
 
     public function __construct(UserInterface $user)
     {
@@ -69,14 +72,20 @@ class GlobalNotificationController extends Controller
                 ->orderColumn('end_date', function ($query, $order) {
                     $query->orderBy('end_date', $order);
                 })
+                ->editColumn('status', function ($row) {
+                    $start_date = $row->start_date;
+                    $status = $row->status;
+                    if ($status === 'Published' && $start_date > date('Y-m-d')) {
+                        return 'Upcoming';
+                    } else {
+                        return $status;
+                    }
+                })
                 ->editColumn('type', function ($row) {
                     return $row->type;
                 })
                 ->orderColumn('type', function ($query, $order) {
                     $query->orderBy('type', $order);
-                })
-                ->editColumn('status', function ($row) {
-                    return $row->status;
                 })
                 ->orderColumn('status', function ($query, $order) {
                     $query->orderBy('status', $order);
@@ -125,11 +134,10 @@ class GlobalNotificationController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action', 'start_date', 'end_date', 'ref'])
+                ->rawColumns(['action', 'start_date', 'end_date', 'ref','status'])
                 ->make(true);
         }
         return view('admin.notifications.global.index');
-        // return view('admin.notifications.global');
     }
 
     public function updateStatus(Request $request, $id)
@@ -159,7 +167,6 @@ class GlobalNotificationController extends Controller
         } catch (\Exception $e) {
             return error_response('Failed to update status: ' . $e->getMessage(), 500);
         }
-
     }
 
     public function show($id)
@@ -182,17 +189,20 @@ class GlobalNotificationController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(StoreGlobalNotification $request)
     {
         $data =  $request->only(['heading', 'start_date', 'end_date', 'type', 'content', 'template_name', 'edit_notification_id']);
         $start = sqlDateFormat($data['start_date']);
         $end =  sqlDateFormat($data['end_date']);
         //Check condition 
-        $notificationId = $request->edit_notification_id;
-
         $data['start_date'] = $start;
         $data['end_date'] = $end;
-
+        $notificationId = $request->edit_notification_id;
+        //check date range for update
+        $dateRange = $this->chckDateRange($start, $end, $notificationId);
+        if ($dateRange) {
+            return error_response('A Notification already exists in the selected date range!', 422);
+        }
         if ($notificationId) {
             //dd($request->content);
             $update = GlobalNotification::find($notificationId);
@@ -215,17 +225,7 @@ class GlobalNotificationController extends Controller
             $update->save();
             return success_response($data, 'Notification update successfully!!');
         }
-        $query = GlobalNotification::where('status', '=', 'Published')->where(function ($q) use ($start, $end) {
-            $q->whereBetween('start_date', [$start, $end])
-                ->orWhereBetween('end_date', [$start, $end])
-                ->orWhere(function ($q2) use ($start, $end) {
-                    $q2->where('start_date', '<=', $start)
-                        ->where('end_date', '>=', $end);
-                });
-        });
-        if ($query->exists()) {
-            return error_response('A Notification already exists in the selected date range!', 422);
-        }
+
         try {
             GlobalNotification::create($data);
             return success_response($data, 'Notification create successfully!!');
@@ -266,13 +266,34 @@ class GlobalNotificationController extends Controller
         try {
             $notification = GlobalNotification::findOrFail($id);
             // Return raw date format for edit form
-           // $notificationData = $notification->toArray();
+            // $notificationData = $notification->toArray();
             $notification['start_date'] = basicDateFormat($notification->start_date);
             $notification['end_date'] = basicDateFormat($notification->end_date);
             $notificationData = $notification->toArray();
             return success_response($notificationData, 'Notification view');
         } catch (\Exception $e) {
             return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);
+        }
+    }
+
+
+    public function chckDateRange($start, $end, $id = null)
+    {
+        $query = GlobalNotification::where('status', '=', 'Published')
+        ->where('id', '!=', $id)
+        ->where(function ($q) use ($start, $end) {
+            $q->whereBetween('start_date', [$start, $end])
+                ->orWhereBetween('end_date', [$start, $end])
+                ->orWhere(function ($q2) use ($start, $end) {
+                    $q2->where('start_date', '<=', $start)
+                        ->where('end_date', '>=', $end);
+                });
+        });
+
+        if ($query->exists()) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

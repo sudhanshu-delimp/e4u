@@ -20,60 +20,61 @@
     </style>
 @stop
 @section('content')
-@php
-   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
-   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
-   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
-@endphp
+    @php
+        $securityLevel = isset(auth()->user()->staff_detail->security_level)
+            ? auth()->user()->staff_detail->security_level
+            : 0;
+        $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+        $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+    @endphp
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
-            
-                <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-                    <div class="row">
-                        <div class="custom-heading-wrapper col-md-12">
-                            <h1 class="h1">Escort (Notifications)</h1>
-                            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-                        </div>
-                        <div class="col-md-12 mb-4">
-                            <div class="card collapse" id="notes">
-                                <div class="card-body">
-                                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                    <ol>
-                                        <li>You can create a Notification, published at the top of the Escort’s Dashboard.</li>
-                                    </ol>
-                                </div>
+
+            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+                <div class="row">
+                    <div class="custom-heading-wrapper col-md-12">
+                        <h1 class="h1">Escort (Notifications)</h1>
+                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <div class="card collapse" id="notes">
+                            <div class="card-body">
+                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                <ol>
+                                    <li>You can create a Notification, published at the top of the Escort’s Dashboard.</li>
+                                </ol>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                         @if($editAccessEnabled)
+                </div>
+                <div class="row">
+                    @if ($editAccessEnabled)
                         <div class="col-md-12 ">
                             <div class="bothsearch-form mb-3">
                                 <button type="button" class="create-tour-sec dctour" data-toggle="modal"
                                     data-target="#createNotification">New Notification</button>
                             </div>
                         </div>
-                        @endif
-                        <div class="col-md-12">
-                            <div class="panel with-nav-tabs panel-warning">
-                                <div class="panel-body">
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade in active show" id="tab1warning">
-                                            <div class="table-responsive-xl">
-                                                <table class="table" id="centerNotificationTable">
-                                                    <thead class="table-bg">
-                                                        <tr>
-                                                            <th scope="col">Ref</th>
-                                                            <th scope="col">Start</th>
-                                                            <th scope="col">End</th>
-                                                            <th scope="col">Type</th>
-                                                            <th scope="col">Status</th>
-                                                            <th scope="col" class="text-center">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table-content"></tbody>
-                                                </table>
-                                            </div>
+                    @endif
+                    <div class="col-md-12">
+                        <div class="panel with-nav-tabs panel-warning">
+                            <div class="panel-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active show" id="tab1warning">
+                                        <div class="table-responsive-xl">
+                                            <table class="table" id="centerNotificationTable">
+                                                <thead class="table-bg">
+                                                    <tr>
+                                                        <th scope="col">Ref</th>
+                                                        <th scope="col">Start</th>
+                                                        <th scope="col">End</th>
+                                                        <th scope="col">Type</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col" class="text-center">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-content"></tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +82,8 @@
                         </div>
                     </div>
                 </div>
-                
+            </div>
+
         </div>
         <!-- End of Main Content -->
     </div>
@@ -101,21 +103,21 @@
                 </div>
                 <div class="modal-body pb-0">
                     <form method="POST" id="createNotificationForm"
-                        action="{{ route('admin.escort.notifications.store') }}" data-parsley-validate>
+                        action="{{ route('admin.escort.notifications.store') }}">
                         @csrf
                         <div class="row">
                             <!-- Auto-generated Date (readonly) -->
                             <div class="col-12 mb-3">
                                 <label class="label">Current Date</label>
                                 <input type="text" id="current_date" class="form-control rounded-0"
-                                    value="{{ \Carbon\Carbon::now()->format('d-m-Y') }}"  />
+                                    value="{{ \Carbon\Carbon::now()->format('d-m-Y') }}" />
                             </div>
 
                             <!-- Heading Field -->
                             <div class="col-12 mb-3">
                                 <label class="label">Heading</label>
                                 <input type="text" name="heading" id="heading" class="form-control rounded-0  fw-bold"
-                                    placeholder="Heading" required />
+                                    placeholder="Heading" />
                                 <input type="hidden" name="edit_notification_id" id="edit_notification_id">
                             </div>
 
@@ -123,8 +125,7 @@
                             <div class="col-12 mb-3">
                                 <label class="label">Start Date</label>
                                 <input type="text" name="start_date" id="start_date" placeholder="Start Date"
-                                    class="form-control rounded-0 js_datepicker"
-                                    required />
+                                    class="form-control rounded-0 js_datepicker" />
 
                             </div>
 
@@ -132,16 +133,14 @@
                             <div class="col-12 mb-3">
                                 <label class="label">End Date</label>
                                 <input type="text" name="end_date" id="end_date" placeholder="End Date"
-                                    class="form-control rounded-0 js_datepicker" 
-                                    required />
+                                    class="form-control rounded-0 js_datepicker" />
 
                             </div>
                             <!-- Type Field (fixed Adhoc Content) -->
                             <div class="col-12 mb-3">
-                                 <label class="label">Select Type</label>
+                                <label class="label">Select Type</label>
                                 <select id="type" onchange="toggleFields()" name="type"
-                                    class="form-control rounded-0" required>
-                                    <option value="">-- Select Type --</option>
+                                    class="form-control rounded-0" >
                                     <option value="Ad hoc">Ad hoc</option>
                                     <option value="Template">Template</option>
                                     <option value="Notice">Notice</option>
@@ -153,14 +152,32 @@
                                 <label class="label">Select Template</label>
                                 <select id="template_name" name="template_name" class="form-control rounded-0">
                                     <option value="">-- Choose a Template --</option>
-                                    <option value="Check out our Visa services. Go to Concierge and select- Visa.">Check out our Visa services. Go to Concierge and select- Visa.</option>
-                                    <option value="Check out of Mobile SIM service. Go to Concierge and select - Visa."> Check out of Mobile SIM service. Go to Concierge and select - Visa.</option>
-                                    <option value="Did you know you can order product online? Go to Concierge and select - Product.">Did you know you can order product online? Go to Concierge and select - Product. </option>
-                                    <option value="Discounts apply when you spend a certain amount with us. Check out our Loyalty Program."> Discounts apply when you spend a certain amount with us. Check out our Loyalty Program.</option>
-                                    <option value="Want to save on Fees, become an Influencer.">Want to save on Fees, become an Influencer.</option>
-                                    <option value="Need an email account? We can help you. Simply go to Concierge and select Email."> Need an email account? We can help you. Simply go to Concierge and select Email.</option>
-                                    <option value="Did you know you can book your flights online with us? Simply go to Concierge and select Travel.">Did you know you can book your flights online with us? Simply go to Concierge and select Travel.</option>
-                                    <option value="Did you know you can book your accommodation online with us? Simply go to Concierge and select Accommodation.">Did you know you can book your accommodation online with us? Simply go to Concierge and select Accommodation.</option>
+                                    <option value="Check out our Visa services. Go to Concierge and select- Visa.">Check
+                                        out our Visa services. Go to Concierge and select- Visa.</option>
+                                    <option value="Check out of Mobile SIM service. Go to Concierge and select - Visa.">
+                                        Check out of Mobile SIM service. Go to Concierge and select - Visa.</option>
+                                    <option
+                                        value="Did you know you can order product online? Go to Concierge and select - Product.">
+                                        Did you know you can order product online? Go to Concierge and select - Product.
+                                    </option>
+                                    <option
+                                        value="Discounts apply when you spend a certain amount with us. Check out our Loyalty Program.">
+                                        Discounts apply when you spend a certain amount with us. Check out our Loyalty
+                                        Program.</option>
+                                    <option value="Want to save on Fees, become an Influencer.">Want to save on Fees,
+                                        become an Influencer.</option>
+                                    <option
+                                        value="Need an email account? We can help you. Simply go to Concierge and select Email.">
+                                        Need an email account? We can help you. Simply go to Concierge and select Email.
+                                    </option>
+                                    <option
+                                        value="Did you know you can book your flights online with us? Simply go to Concierge and select Travel.">
+                                        Did you know you can book your flights online with us? Simply go to Concierge and
+                                        select Travel.</option>
+                                    <option
+                                        value="Did you know you can book your accommodation online with us? Simply go to Concierge and select Accommodation.">
+                                        Did you know you can book your accommodation online with us? Simply go to Concierge
+                                        and select Accommodation.</option>
                                 </select>
                             </div>
 
@@ -264,15 +281,14 @@
         data-escort-notification-edit="{{ route('admin.escort.notifications.edit', ['id' => '__ID__']) }}"
         data-escort-notification-update="{{ route('admin.escort.notifications.update', ['id' => '__ID__']) }}"
         data-escort-notification-store="{{ route('admin.escort.notifications.store') }}"
-        data-escort-notification-show="{{route('admin.escort.notifications.show',['id' => '__ID__'])}}"
-        data-escort-notification-index="{{ route('admin.escort.notifications.index') }}"
-        >
+        data-escort-notification-show="{{ route('admin.escort.notifications.show', ['id' => '__ID__']) }}"
+        data-escort-notification-index="{{ route('admin.escort.notifications.index') }}">
 
 
     </div>
 @endsection
 @section('script')
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
@@ -301,8 +317,7 @@
                 contentField.style.display = 'none';
             }
         }
-    </script>
-    <script>
+
         const mmRoot = $('#manage-route');
         endpoint = {
             csrf_token: mmRoot.data('scrf-token'),
@@ -320,70 +335,73 @@
             return (tpl || '').replace('__ID__', id);
         }
 
+          //Remove Validation Message
+        function removeValidationMsg(){
+            $('.server-error').remove();
+            $('.is-invalid').removeClass('is-invalid');
+        }
+
+
         function ensureParsleyAndSubmit(form) {
-            function proceed() {
-                try {
-                    if ($.fn.parsley) {
-                        var instance = form.parsley();
-                        if (!instance.isValid()) {
-                            instance.validate();
-                            return;
-                        }
-                    }
-                } catch (e) {
-                    // ignore and continue with submit
-                }
-
-                let formData = form.serialize();
-                $.ajax({
-                    url: endpoint.escort_notification_store,
-                    type: "POST",
-                    _token: endpoint.csrf_token,
-                    data: formData,
-                    success: function(response) {
-                        if (response.status === true) {
-                            $('#createNotification').modal('hide');
-                            let msg = response.message ? response.message : 'Saved successfully';
-                            $("#image_icon").attr("src", endpoint.success_image);
-                            $('#success_task_title').text('Success');
-                            $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
-                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
-                            );
-                            form[0].reset();
-                            $('#successModal').modal('show');
-                            setTimeout(function() {
-                                $('#successModal').modal('hide');
-                                table.ajax.reload(null, false);
-                            }, 1200);
-                        }
-
-                    },
-                    error: function(xhr) {
-                        let msg = 'Something went wrong';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            msg = xhr.responseJSON.message;
-                        }
-                        $("#image_icon").attr("src", endpoint.error_image);
-                        $('#success_task_title').text('Error');
+            let formData = form.serialize();
+            $.ajax({
+                url: endpoint.escort_notification_store,
+                type: "POST",
+                _token: endpoint.csrf_token,
+                data: formData,
+                success: function(response) {
+                    if (response.status === true) {
+                        $('#createNotification').modal('hide');
+                        let msg = response.message ? response.message : 'Saved successfully';
+                        $("#image_icon").attr("src", endpoint.success_image);
+                        $('#success_task_title').text('Success');
                         $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
                             '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                         );
+                        form[0].reset();
                         $('#successModal').modal('show');
+                        setTimeout(function() {
+                            $('#successModal').modal('hide');
+                            table.ajax.reload(null, false);
+                        }, 1200);
                     }
-                });
-            }
 
-            if (!$.fn.parsley) {
-                $.getScript('https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js')
-                    .done(function() {
-                        proceed();
-                    })
-                    .fail(function() {
-                        proceed();
-                    });
-            } else {
-                proceed();
-            }
+                },
+                error: function(xhr) {
+                    //Check Validation condition
+                    if (xhr.status === 422 && xhr.responseJSON.status === false) {
+                        let errors = xhr.responseJSON.errors;
+                        $('.server-error').remove();
+                        $('.is-invalid').removeClass('is-invalid');
+                        if(errors){
+                            $.each(errors, function(field, message) {
+                            let input = $('[name="' + field + '"]');
+                            input.addClass('is-invalid');
+                            input.after(
+                                '<small class="text-danger server-error">' + message +
+                                '</small>'
+                            );
+                        });
+                            return;
+                        }
+                        
+                    }
+
+                    let msg = 'Something went wrong';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        msg = xhr.responseJSON.message;
+                    }
+                    $("#image_icon").attr("src", endpoint.error_image);
+                    $('#success_task_title').text('Error');
+                    $('#success_form_html').html('<h4>' + (msg ||
+                            'Status updated successfully') +
+                        '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                    );
+                    $('#successModal').modal('show');
+                }
+            });
+
+
         }
 
         $('#createNotificationForm').on('submit', function(e) {
@@ -397,6 +415,7 @@
         $('#createNotification').on('hide.bs.modal', function() {
             $('#createNotificationForm')[0].reset();
             $('#edit_notification_id').val('');
+            removeValidationMsg();
             $('#submitBtn').text('Save');
             // Reset modal title
             $(this).find('h5.modal-title').html(
@@ -404,9 +423,7 @@
             );
 
         });
-    </script>
 
-    <script>
         var table = $("#centerNotificationTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
@@ -418,15 +435,14 @@
                 url: endpoint.escort_notification_index,
                 type: 'GET'
             },
-            columns: [
-                {
+            columns: [{
                     data: 'ref',
                     name: 'ref'
                 },
                 {
                     data: 'start_date',
                     name: 'start_date',
-                    
+
                 },
                 {
                     data: 'end_date',
@@ -577,10 +593,11 @@
         $(document).on('click', '.js-edit', function(e) {
             e.preventDefault();
             let id = $(this).data('id');
+            removeValidationMsg();
             const container = $('#listingModalContent');
             container.html('<div class="text-center py-3">Loading...</div>');
             $('#createNotificationForm')[0].reset();
-             $('#edit_notification_id').val(id);
+            $('#edit_notification_id').val(id);
             $('#submitBtn').text('Save');
 
             $.ajax({
