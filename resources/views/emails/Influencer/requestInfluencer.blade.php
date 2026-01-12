@@ -18,7 +18,7 @@
                 <tr>
                   <td style="text-align: left;">
                     
-                    <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo" style="height: 50px;">
+                    <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                   </td>
                   <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
                     Request to be an Influencer  {{$body['member_id']}}<br>
