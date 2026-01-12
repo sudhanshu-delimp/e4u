@@ -6,8 +6,10 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\ViewerNotification;
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\User\UserInterface;
+use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\StoreViewerNotification;
+use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class ViewerNotificationController extends Controller
 {
@@ -15,6 +17,8 @@ class ViewerNotificationController extends Controller
     protected $editAccessEnabled;
     protected $addAccessEnabled;
     protected $sidebar;
+    protected $user;
+    protected $current_date_time;
 
     public function __construct(UserInterface $user)
     {
@@ -61,9 +65,6 @@ class ViewerNotificationController extends Controller
                         $query->where('id', 'like', "%{$digits}%");
                     }
                 })
-                // ->orderColumn('ref', function ($query, $order) {
-                //     $query->orderBy('id', $order);
-                // })
                 ->editColumn('start_date', function ($row) {
                     return basicDateFormat($row->start_date);
                 })
@@ -87,6 +88,17 @@ class ViewerNotificationController extends Controller
                 ->orderColumn('end_date', function ($query, $order) {
                     $query->orderBy('end_date', $order);
                 })
+
+                ->editColumn('status', function ($row) {
+                    $start_date = $row->start_date;
+                    $status = $row->status;
+                    if($status === 'Published' && $start_date > date('Y-m-d')){
+                        return 'Upcoming';
+                    }else{
+                        return $status;
+                    }
+                })
+
                 ->addColumn('action', function ($row) {
                     $actions = [];
                     $status = $row->status ?? null;
@@ -132,7 +144,7 @@ class ViewerNotificationController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action', 'start_date', 'end_date', 'ref'])
+                ->rawColumns(['action', 'start_date', 'end_date', 'ref', 'status'])
                 ->make(true);
         }
         return view('admin.notifications.viewers.index');
@@ -196,7 +208,7 @@ class ViewerNotificationController extends Controller
                 'start_date' => $n->start_date ? basicDateFormat($n->start_date) : null,
                 'end_date' => $n->end_date ? basicDateFormat($n->end_date) : null,
                 'member_id' => $n->member_id,
-                'status' => $n->status,
+                'status' => ($n->status && $n->status === 'Published' && $n->start_date > date('Y-m-d')) ? 'Upcoming' : $n->status,
                 'recurring_type' => $n->recurring_type,
                 'recurring_range' => $recurringRange,
                 'num_recurring' => $n->num_recurring,
@@ -213,8 +225,9 @@ class ViewerNotificationController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreViewerNotification $request)
     {
+
         try {
             $isUpdate = !empty($request->notificationId);
             $data = [
@@ -229,6 +242,11 @@ class ViewerNotificationController extends Controller
             if ($request->type === 'Notice') {
                 $data['member_id'] = $request->member_id;
             }
+
+            if($request->type === 'Template'){
+                $data['template_name'] = $request->template_name;
+            }
+
 
             if ($request->type === 'Scheduled') {
                 $data['recurring_type'] = $request->recurring_type;
@@ -372,7 +390,7 @@ class ViewerNotificationController extends Controller
             $pdfDetail['current_day'] = $data['current_day'] ? basicDateFormat($data['current_day']) : null;
             $pdfDetail['heading'] = $data['heading'];
             $pdfDetail['type'] = $data['type'];
-            $pdfDetail['status'] = $data['status'];
+            $pdfDetail['status'] = ($data['status'] && $data['status'] === 'Published' && $data['start_date'] > date('Y-m-d')) ? 'Upcoming' : $data['status'];
             $pdfDetail['start_date'] = basicDateFormat($data['start_date']);
             $pdfDetail['end_date'] = basicDateFormat($data['end_date']);
             $pdfDetail['member_id'] = $data['member_id'];
