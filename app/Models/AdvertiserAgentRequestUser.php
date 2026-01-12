@@ -24,5 +24,9 @@ class AdvertiserAgentRequestUser extends Model
         return $this->belongsTo(User::class,'receiver_agent_id','id');
         
     }
+    public function receiverAgent()
+    {
+        return $this->belongsTo(User::class, 'receiver_agent_id');
+    }
 
 }

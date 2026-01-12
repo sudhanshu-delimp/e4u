@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\CenterNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
+use App\Models\CenterNotification;
+use App\Http\Controllers\Controller;
 use App\Repositories\User\UserInterface;
+use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\StoreCenterNotification;
 
 class CenterNotificationController extends Controller
 {
@@ -15,6 +16,8 @@ class CenterNotificationController extends Controller
     protected $editAccessEnabled;
     protected $addAccessEnabled;
     protected $sidebar;
+    protected $user;
+    protected $current_date_time;
 
     public function __construct(UserInterface $user)
     {
@@ -73,17 +76,20 @@ class CenterNotificationController extends Controller
                 ->orderColumn('end_date', function ($query, $order) {
                     $query->orderBy('end_date', $order);
                 })
+                ->editColumn('status', function ($row) {
+                    $start_date = $row->start_date;
+                    $status = $row->status;
+                    if ($status === 'Published' && $start_date > date('Y-m-d')) {
+                        return 'Upcoming';
+                    } else {
+                        return $status;
+                    }
+                })
                 ->editColumn('type', function ($row) {
                     return $row->type;
                 })
                 ->orderColumn('type', function ($query, $order) {
                     $query->orderBy('type', $order);
-                })
-                ->editColumn('status', function ($row) {
-                    return $row->status;
-                })
-                ->orderColumn('status', function ($query, $order) {
-                    $query->orderBy('status', $order);
                 })
                 ->addColumn('action', function ($row) {
                     $actions = [];
@@ -129,7 +135,7 @@ class CenterNotificationController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action', 'start_date', 'end_date'])
+                ->rawColumns(['action', 'start_date', 'end_date', 'status'])
                 ->make(true);
         }
         return view('admin.notifications.centres.index');
@@ -186,7 +192,7 @@ class CenterNotificationController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(StoreCenterNotification $request)
     {
         $data =  $request->only(['heading', 'start_date', 'end_date', 'type', 'content', 'member_id', 'template_name', 'edit_notification_id']);
         $start = sqlDateFormat($data['start_date']);
@@ -197,7 +203,7 @@ class CenterNotificationController extends Controller
         $notificationId = $request->edit_notification_id;
 
         //check date range for update
-        $dateRange = $this->chckDateRange($start, $end);
+        $dateRange = $this->chckDateRange($start, $end, $notificationId);
         if ($dateRange) {
             return error_response('A Notification already exists in the selected date range!', 422);
         }
@@ -281,9 +287,11 @@ class CenterNotificationController extends Controller
     }
 
 
-    public function chckDateRange($start, $end)
+    public function chckDateRange($start, $end, $id = null)
     {
-        $query = CenterNotification::where('status', '=', 'Published')->where(function ($q) use ($start, $end) {
+        $query = CenterNotification::where('status', '=', 'Published')
+        ->where('id', '!=', $id)
+        ->where(function ($q) use ($start, $end) {
             $q->whereBetween('start_date', [$start, $end])
                 ->orWhereBetween('end_date', [$start, $end])
                 ->orWhere(function ($q2) use ($start, $end) {

@@ -102,6 +102,7 @@
 
 <script>
    $(document).ready(function() {
+    let countSet = false;
       var table = $("#agentRequestreportTable").DataTable({
         processing: true,
         serverSide: true,
@@ -133,13 +134,17 @@
         order: [[1, 'desc']],
         pageLength: 10,
     });
+    
 
     $('#agentRequestreportTable').on('init.dt', function () {
-    $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by Member ID');
+    $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by Member ID or Agent ID');
     });
 
     table.on('xhr.dt', function (e, settings, json, xhr) {
-    $('.totalCompletedTask').html( json.recordsFiltered);
+        if(!countSet){
+            $('.totalCompletedTask').text(json.data.length);
+            countSet = true; 
+        }
     });
 
     
@@ -384,12 +389,9 @@
             $(document).ready(function(){
               setInterval(function () {
                   $('#agentRequestreportTable').DataTable().ajax.reload(function (json) {
-                     console.log("Returned JSON:", json);
             }, false);
             }, 15000);
             });
           </script> 
-
-
 
 @endsection
