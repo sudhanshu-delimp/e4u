@@ -281,7 +281,7 @@
                 <table class="table table-striped">
                     <thead class="table_heading_bgcolor_color">
                         <tr>
-                            <th scope="col">Service</th>
+                            <th scope="col">Service 444</th>
                             <th scope="col">Massage</th>
                             <th scope="col">Incalls</th>
                         </tr>
@@ -293,12 +293,12 @@
                                     <td>{{ $duration->name }}</td>
 
                                     <td>{!! $duration->pivot->massage_price
-                                        ? "<div class='public-num-value-table'> <span>$ </span>" . $duration->pivot->massage_price . '</div>'
+                                        ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . '</div>'
                                         : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>
 
                                     <td>{!! $duration->pivot->incall_price
-                                        ? "<div class='public-num-value-table'> <span>$ </span>" . $duration->pivot->incall_price . '</div>'
+                                        ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . '</div>'
                                         : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>
                                 </tr>
