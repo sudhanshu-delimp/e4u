@@ -36,8 +36,76 @@
           </div>
         </div>
         <div class="row">
+            {{-- new row --}}
+            
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('escort.list', 'current') }}?from=dashboard">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/listed-profiles.png') }}" class="my-svg-icons" alt=" Listed Profiles">
+                        </div>
+                        <h2>
+                            Listed Profiles
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            
+            {{-- box start --}}
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('escort.profile', ['from' => 'dashboard']) }}">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/new-profile.png') }}" class="my-svg-icons" alt="New Profile">
+                        </div>
+                        <h2>
+                            New Profile
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            
+            {{-- box start --}}
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ url('escort-dashboard/create-tour') }}?from=dashboard">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/new-tour.png') }}" class="my-svg-icons" alt="New Tour">
+                        </div>
+                        <h2>
+                            New Tour
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            
+            {{-- box start --}}
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('escort.archive-view-photos', ['from'=>'dashbaord']) }}">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_manage-media.png') }}" class="my-svg-icons" alt="Manage Media">
+                        </div>
+                        <h2>
+                            Manage Media
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+
+            {{-- end --}}
+
+
+
+
+
+            {{-- box start --}}
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('escort.dashboard.task-list') }}">
                         <div class="box-icon">
@@ -52,7 +120,7 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('escort.dashboard.tour-schedule') }}">
                         <div class="box-icon">
@@ -68,7 +136,7 @@
             {{-- end --}}
             
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('escort.dashboard.my-spend') }}">
                         <div class="box-icon">
@@ -84,7 +152,7 @@
             {{-- end --}}
             
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('escort.dashboard.my-playmates') }}">
                         <div class="box-icon">
@@ -99,9 +167,9 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('escort.archive-myplaybox') }}">
+                    <a href="{{ route('escort.archive-myplaybox', ['from'=>'dashboard']) }}">
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/boxicon/icon_myplaybox.png') }}" class="my-svg-icons" alt="My Playbox Summary">
                         </div>
@@ -114,9 +182,9 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('escort.dashboard.my-legbox-viewers') }}">
+                    <a href="{{ route('escort.dashboard.my-legbox-viewers', ['from'=>'dashboard']) }}">
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/boxicon/icon_mylegbox.png') }}" class="my-svg-icons" alt="My Legbox Summary">
                         </div>
@@ -129,7 +197,7 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('escort.dashboard.escorts-statistics') }}">
                         <div class="box-icon">
@@ -144,7 +212,7 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('escort.dashboard.my-statistics') }}">
                         <div class="box-icon">
@@ -159,7 +227,7 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('logs.and.status') }}">
                         <div class="box-icon">
@@ -167,6 +235,21 @@
                         </div>
                         <h2>
                         Logs & Status
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            {{-- end --}}
+            {{-- box start --}}
+            <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('support-ticket.list', ['from'=>'dashboard']) }}">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_support-tickets.png') }}" alt=" Support Tickets">
+                        </div>
+                        <h2>
+                      Support Tickets
                         </h2>
                     </a>
 
@@ -186,7 +269,7 @@
              if(!$checked)
              continue;
          ?>
-                <div class="col-lg-4 box-wrapper">
+                <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ url($view['link'])}}">
                         <div class="box-icon">
@@ -207,584 +290,14 @@
         <!-- ########## End Customise Dashboard ################ -->
 
         </div>
-        <div class="row my-3">
+        {{-- <div class="row my-3">
             <div class="col-lg-12">
                 <div class="d-flex align-items-center justify-content-end custom-dash-btn">
                     <a href="{{ route('escort.dashboard.customise-dashboard') }}">Customise Dashboard <i class="fas fa-cog "></i>
                     </a>
                 </div>
             </div>
-        </div>
-        {{-- display none d-none --}}
-
-        <div class="row agent-dash d-none" >
-            <div class="col-lg-8 pr-2">
-                <div class="sec-one">
-                    <h2 class="h5 mt-2 mb-4 text-gray-800 font-weight-bold">My Statistics</h2>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card static-sec">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold mb-1 text-muted">Profile Views Today</div>
-                                            <div class="h2 mb-0 font-weight-bold text-gray-800">25</div>
-                                        </div>
-                                        <div class="col-auto mt-3">
-                                            <img src="{{ asset('assets/app/img/account-multiple-0.png') }}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end card-body -->
-                            </div>
-                        </div>
-                        <div class="col-md-3 pl-0">
-                            <div class="card static-sec-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold mb-1 text-muted">Media Views Today</div>
-                                            <div class="h2 mb-0 font-weight-bold text-gray-800">125</div>
-                                        </div>
-                                        <div class="col-auto mt-3">
-                                            <img src="{{ asset('assets/app/img/account-multiple-00.png') }}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end card-body -->
-                            </div>
-                        </div>
-                        <div class="col-md-3 pl-0">
-                            <div class="card static-sec">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold mb-1 text-muted">Recommendations This Week
-                                            </div>
-                                            <div class="h2 mb-0 font-weight-bold text-gray-800">32</div>
-                                        </div>
-                                        <div class="col-auto mt-3">
-                                            <img src="{{ asset('assets/app/img/account-multiple-000.png') }}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end card-body -->
-                            </div>
-                        </div>
-                        <div class="col-md-3 pl-0">
-                            <div class="card static-sec-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold mb-1 text-muted">Reviews Posted This Week
-                                            </div>
-                                            <div class="h2 mb-0 font-weight-bold text-gray-800">125</div>
-                                        </div>
-                                        <div class="col-auto mt-3">
-                                            <img src="{{ asset('assets/app/img/account-multiple-0000.png') }}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end card-body -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 pl-2">
-                <div class="sec-one pb-4">
-                    <h2 class="h5 mt-2 mb-4 text-gray-800 font-weight-bold">My Spend</h2>
-                    <div class="row pb-1">
-                        <div class="col-md-6 pr-0">
-                            <div class="card">
-                                <div class="card-body pl-2 pr-2 pt-4 pb-4 mt-1">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold mb-1 text-muted">Week to Date</div>
-                                            <div class="h6 mb-0 font-weight-bold text-gray-800">$ 580.00</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <img src="{{ asset('assets/app/img/account-multiple-4.png') }}"
-                                                class="img-fluid">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end card-body -->
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body pl-2 pr-2 pt-4 pb-4 mt-1">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold mb-1 text-muted">Month to Date</div>
-                                            <div class="h6 mb-0 font-weight-bold text-gray-800">$ 3588.00</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <img src="{{ asset('assets/app/img/account-multiple-4.png') }}"
-                                                class="img-fluid">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end card-body -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- display none d-none --}}
-        <div class="row mt-3 mb-5 d-none">
-            <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7 pr-2">
-                <div class="card shadow mb-3">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between border-0">
-                        <h2 class="h5 text-gray-800 font-weight-bold">Task List</h2>
-                        <span aria-hidden="true"><a href="#"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                    class="img-fluid img_resize_in_smscreen"></a></span>
-                    </div>
-                    <!-- Card Body -->
-                    <div class="card-body task-sec">
-                        <div class="d-flex align-items-center mb-2  row">
-                            <div class="col-md-12">
-                                <button type="submit" id="new_task" name="submit"
-                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">New Task</button>
-                                <button type="submit" id="edit_task" name="submit"
-                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">Edit Task</button>
-                                <button type="submit" id="complete_task" name="submit"
-                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">Complete Task</button>
-                                <button type="submit" id="view_task" name="submit"
-                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">View Task</button>
-                                <button type="submit" id="open_task" name="submit"
-                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">Open Task</button>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="text-center small d-flex justify-content-start mt-1 w-100 task-sec">
-                                    <span class="mr-2">Importance:</span>
-                                    <span class="mr-2">High</span><i class="fas fa-circle text-high mr-2"></i>
-                                    <span class="mr-2">Medium</span>
-                                    <i class="fas fa-circle text-medium mr-2"></i>
-                                    <span class="mr-2">Low</span>
-                                    <i class="fas fa-circle text-low"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center mt-4 justify-content-between">
-                            <label class="font-weight-bold mb-0">Task</label>
-                            <div class="text-center ">
-                                <label class="font-weight-bold mb-0" style="margin-left: 220px;">Status</label>
-                            </div>
-                            <div class="text-center">
-                                <label class="font-weight-bold mb-0" style="margin-right: 35px">Action</label>
-                            </div>
-                        </div>
-                        {{-- $tasks --}}
-                        <div class="card-body pl-1 Dash-table task_table">
-                            <div class="table-full-width">
-                                <table class="table" >
-                                    <tbody id="taskList">
-                                        
-                                        {{-- @foreach ($tasks as $task)
-
-                                            @php
-                                                
-                                                $taskBadgeColor = '#f6c23e ';
-                                                if($task->status === 'inprogress'){
-                                                    $taskBadgeColor = '#4e73df ';
-                                                }
-
-                                                if($task->status === 'completed'){
-                                                    $taskBadgeColor = '#1cc88a';
-                                                }
-
-                                                $priorityColor = 'text-high';
-                                                if($task->priority === 'medium'){
-                                                    $priorityColor = 'text-medium';
-                                                }
-                                                if($task->priority === 'low'){
-                                                    $priorityColor = 'text-low';
-                                                }
-                                                $checkboxId = 'task_checkbox_' . $task->id;
-                                            @endphp
-                                            <tr>
-                                                <td class="border-0 pl-0 pr-0">
-                                                    <div class="form-check m-0 p-0">
-                                                        <label class="form-check-label" for="{{ $checkboxId }}">
-                                                            <input class="form-check-input" id="{{ $checkboxId }}" type="checkbox" value="">
-                                                            <span class="form-check-sign"></span>
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td class="border-0 pl-0 task-color">
-                                                    <label for="{{ $checkboxId }}" class="mb-0 cursor-pointer">
-                                                    <i
-                                                        class="fas fa-circle {{$priorityColor}} taski mr-2"></i>{{Str::title($task->title)}}
-                                                    </label></td>
-                                                <td class="td-actions text-left border-0 ">
-                                                    <span class="badge badge-danger-lighten task-1" style="background: {{$taskBadgeColor}}; padding:5px 10px; max-width:120px; width:100%;">{{Str::title($task->status)}}</span>
-                                                </td>
-                                                <td class="theme-color  pr-0 bg-white" style="border: none;">
-                                                    <div class="dropdown no-arrow">
-                                                        <a class="dropdown-toggle" href="#" role="button"
-                                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i
-                                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                        </a>
-                                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                            aria-labelledby="dropdownMenuLink" style="">
-                                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                                data-target="#new-ban">Delete</a>
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach --}}
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="d-flex justify-content-center mt-4 custome_paginator">
-                                {{-- {!! $tasks->links() !!} --}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card shadow mb-3">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between border-0">
-                        <h2 class="h5 text-gray-800 font-weight-bold">My Tours Schedule</h2>
-                    </div>
-                    <!-- Card Body -->
-                    <div class="card-body task-sec">
-                        <div class="card-body pl-1 Dash-table">
-                            <div class="table-responsive-xl">
-                                <table class="table apoint-sec">
-                                    <thead>
-                                        <tr>
-                                            <th class="pl-0 w-25" scope="col">Location</th>
-                                            <th scope="col">Days</th>
-                                            <th scope="col">Arriving</th>
-                                            <th scope="col">Departing</th>
-                                            <th scope="col" class="text-center">Status</th>
-                                            <th class="float-right border-0" scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="row-color">
-                                            <td class="border-0 pl-0 task-color bg-white"><i
-                                                    class="fas fa-circle text-primary taski mr-2"></i>Perth</td>
-                                            <td class="border-0 task-color bg-white">10</td>
-                                            <td class="border-0 task-color bg-white">01-01-2022</td>
-                                            <td class="border-0 task-color bg-white">10-01-2022</td>
-                                            <td class="theme-color text-center bg-white">
-                                                <span class="badge badge-danger-lighten task-1">Completed</span>
-                                            </td>
-                                            <td class="theme-color text-center pr-0 bg-white">
-                                                <div class="dropdown no-arrow">
-                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i
-                                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                    </a>
-                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                        aria-labelledby="dropdownMenuLink" style="">
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban">View</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban-2">Reschedule</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban-3">Cancel</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban-4">Completed</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="row-color">
-                                            <td class="border-0 pl-0 task-color bg-white"><i
-                                                    class="fas fa-circle text-medium taski mr-2"></i>Adelaide</td>
-                                            <td class="border-0 task-color bg-white">10</td>
-                                            <td class="border-0 task-color bg-white">01-01-2022</td>
-                                            <td class="border-0 task-color bg-white">10-01-2022</td>
-                                            <td class="theme-color text-center bg-white">
-                                                <span class="badge badge-danger-lighten task-1">Completed</span>
-                                            </td>
-                                            <td class="theme-color text-center pr-0 bg-white">
-                                                <div class="dropdown no-arrow">
-                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i
-                                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                    </a>
-                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                        aria-labelledby="dropdownMenuLink" style="">
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban">View</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban-2">Reschedule</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban-3">Cancel</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban-4">Completed</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="row-color">
-                                            <td class="border-0 pl-0 task-color bg-white"><i
-                                                    class="fas fa-circle text-high taski mr-2"></i>Melbourne</td>
-                                            <td class="border-0 task-color bg-white">10</td>
-                                            <td class="border-0 task-color bg-white">01-01-2022</td>
-                                            <td class="border-0 task-color bg-white">10-01-2022</td>
-                                            <td class="theme-color text-center bg-white">
-                                                <span
-                                                    class="badge badge-danger-lighten task-1 bg-warning w-75">Current</span>
-                                            </td>
-                                            <td class="theme-color text-center pr-0 bg-white">
-                                                <div class="dropdown no-arrow">
-                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i
-                                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                    </a>
-                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                        aria-labelledby="dropdownMenuLink" style="">
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban">View</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban-2">Reschedule</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban-3">Cancel</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban-4">Completed</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="row-color">
-                                            <td class="border-0 pl-0 task-color bg-white"><i
-                                                    class="fas fa-circle text-info taski mr-2"></i>Sydney</td>
-                                            <td class="border-0 task-color bg-white">10</td>
-                                            <td class="border-0 task-color bg-white">01-01-2022</td>
-                                            <td class="border-0 task-color bg-white">10-01-2022</td>
-                                            <td class="theme-color text-center bg-white">
-                                                <span
-                                                    class="badge badge-danger-lighten task-1 bg-danger w-75">Pending</span>
-                                            </td>
-                                            <td class="theme-color text-center pr-0 bg-white">
-                                                <div class="dropdown no-arrow">
-                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i
-                                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                    </a>
-                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                        aria-labelledby="dropdownMenuLink" style="">
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban">View</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban-2">Reschedule</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban-3">Cancel</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#new-ban-4">Completed</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5 pl-2">
-                <div class="row agent-dash">
-                    <div class="col-lg-12">
-                        <div class="sec-one pb-4 rounded" style="background: #5D6D7E;">
-                            <h2 class="h5 mt-2 mb-4 text-white">Escort Statistics</h2>
-                            <div class="card mb-4">
-                                <div
-                                    class="card-header py-3 pl-3 d-flex flex-row align-items-center justify-content-between border-0">
-                                    <h2 class="h5 text-gray-800 font-weight-bold">Followers Online (Legbox)
-                                    </h2>
-                                </div>
-                                <div class="card-body pt-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-nowrap mb-0">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="border-0">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-grow-1 font-weight-bold">In my location:</div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-right border-0">15</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-grow-1 font-weight-bold">Outside my location:
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-right">15</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card mb-4">
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between border-0">
-                                    <h2 class="h5 text-gray-800 font-weight-bold">Finance</h2>
-                                </div>
-                                <div class="card-body pt-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-nowrap mb-0">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="border-0 leftside-table">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-grow-1 font-weight-bold">Credit:</div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-right border-0">$ 500.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-grow-1 font-weight-bold">Loyalty days:</div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-right">2</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card mb-4">
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between border-0">
-                                    <h2 class="h5 text-gray-800 font-weight-bold">Logs & Status</h2>
-                                </div>
-                                <div class="card-body pt-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-nowrap mb-0">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="border-0 leftside-table">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-grow-1 font-weight-bold">Login count:</div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-right border-0">526</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-grow-1 font-weight-bold">Last login:</div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-right">11/3/22 | 12:32:02 PM</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-grow-1 font-weight-bold">Home State:</div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-right">Western Australia</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-grow-1 font-weight-bold">Password Expiry:
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-right">Never</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between border-0">
-                                    <h2 class="h5 text-gray-800 font-weight-bold">My Playmates</h2>
-                                    <h2 class="h5 text-gray-800">5</h2>
-                                </div>
-                                <div class="card-body pt-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-nowrap mb-0">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="border-0 leftside-table">
-                                                        <div class="d-flex followers">
-                                                            <div>
-                                                                <div class="d-flex">
-                                                                    <a href="#"><img
-                                                                            src="{{ asset('assets/app/img/ellipse-1.png') }}"
-                                                                            class="img-fluid rounded-circle"
-                                                                            alt=" "></a>
-                                                                    <a href="#"><img
-                                                                            src="{{ asset('assets/app/img/ellipse-2.png') }}"
-                                                                            class="img-fluid rounded-circle"
-                                                                            alt=" "></a>
-                                                                    <a href="#"><img
-                                                                            src="{{ asset('assets/app/img/ellipse-3.png') }}"
-                                                                            class="img-fluid rounded-circle"
-                                                                            alt=" "></a>
-                                                                    <a href="#"><img
-                                                                            src="{{ asset('assets/app/img/ellipse-4.png') }}"
-                                                                            class="img-fluid rounded-circle"
-                                                                            alt=" "></a>
-                                                                    <a href="#"> <img
-                                                                            src="{{ asset('assets/app/img/ellipse-5.png') }}"
-                                                                            class="img-fluid rounded-circle"
-                                                                            alt=" "> </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-right border-0 pt-4"><a class="theme-text-color"
-                                                            href="#">See All</a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </div> --}}
     </div>
     <div class="modal fade upload-modal" id="new-ban" tabindex="-1" role="dialog" aria-labelledby="new-ban"
         aria-hidden="true" data-backdrop="static">

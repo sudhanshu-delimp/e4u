@@ -51,15 +51,32 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
 $loginAccount = auth()->user();
 @endphp
 <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <div class="d-sm-flex align-items-center justify-content-between">
+        <div class="custom-heading-wrapper">
+             @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
+            <h1 class="h1">New Profile</h1>
+            @else
+            <h1 class="h1">Update Profile</h1>
+            @endif
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options" aria-expanded="true"><b>Help?</b></span>
+        </div>
+        @if (request('from') == 'dashboard')
+        <div class="back-to-dashboard">
+            <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+            </a>
+        </div>
+        @endif
+    </div>
    <div class="row">
-      <div class="col-md-12 custom-heading-wrapper">
+      {{-- <div class="col-md-12 custom-heading-wrapper">
          @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
          <h1 class="h1">New Profile</h1>
          @else
          <h1 class="h1">Update Profile</h1>
          @endif
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-      </div>
+      </div> --}}
       <div class="col-md-12 mb-4" id="profile_and_tour_options">
          <div class="card collapse" id="notes">
             <div class="card-body">
