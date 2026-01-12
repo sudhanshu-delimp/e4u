@@ -1,0 +1,23 @@
+.portfolio-img {
+    margin-bottom: 21px;
+}
+
+.sh_devider {
+    border-bottom: 6px double #000;
+    margin: 25px 0px 50px;
+}
+
+.Sh_portfolio p {
+    text-align: justify
+}
+
+.Sh_portfolio h2,
+h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #000;
+}
+
+.sh_directors .table td {
+    vertical-align: middle;
+}
