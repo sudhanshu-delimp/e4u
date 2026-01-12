@@ -281,7 +281,7 @@ class WebController extends Controller
                 $userInterest['gender'][] = 1;
 
                 if(auth()->user()->viewer_settings->interests_with_female)
-                $userInterest['gender'][] = 2;
+                $userInterest['gender'][] = 6;
 
                 if(auth()->user()->viewer_settings->interests_with_trans)
                 $userInterest['gender'][] = 3;
