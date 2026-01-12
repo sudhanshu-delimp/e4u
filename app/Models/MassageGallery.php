@@ -11,4 +11,9 @@ class MassageGallery extends Model
     
     protected $table = "massage_gallery";
     protected $guarded = ['id'];
+
+    public function media()
+    {
+        return $this->belongsTo(MassageMedia::class, 'massage_media_id', 'id');
+    }
 }

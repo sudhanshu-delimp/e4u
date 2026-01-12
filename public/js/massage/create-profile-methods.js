@@ -675,20 +675,26 @@ function initDragDrop() {
                 );
 
 
-                $('.profile_time_availibility .parent-row').each(function () {
+                
+                if(!edit_mode)  
+                {
+                        $('.profile_time_availibility .parent-row').each(function () {
 
-                    let row = $(this);
-                    let checked = row.find('input[type="radio"]:checked').val();
-                    let { from, to } = getRow(row);
+                        let row = $(this);
+                        let checked = row.find('input[type="radio"]:checked').val();
+                        let { from, to } = getRow(row);
 
-                    if (checked === 'til_late') {
-                        from.prop('disabled', false);
-                        to.prop('disabled', true);
-                    } else {
-                        from.prop('disabled', true);
-                        to.prop('disabled', true);
-                    }
-                });
+                        if (checked === 'til_late') {
+                            from.prop('disabled', false);
+                            to.prop('disabled', true);
+                        } else {
+                            from.prop('disabled', true);
+                            to.prop('disabled', true);
+                        }
+                        });
+                }
+                
+            
 
 
             ////////////// End For Our Open Times ///////////////// 

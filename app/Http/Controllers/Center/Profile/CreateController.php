@@ -137,13 +137,45 @@ class CreateController extends Controller
     {
      
         $user = auth()->user();
-        $massage = $this->massage_profile->get_massage_by_id($id);
-        if(!$massage) {
+        $escort = $this->escort->find($id);
+
+        //dd($escort);
+        if(!$escort) {
         return redirect()->route('center.profile');
         }
+        else
+        {
+            $user = auth()->user();
+            list($service_one, $service_two, $service_three) = $this->service->findByCategory([1, 2, 3]);
+            $durations = $this->duration->all();
+
+           
+
+            $availability = $escort->availability ? json_decode($escort->availability->availability_time, true) : [];
+
+       
+
+            $service = $this->service;
+            $path = $this->media;
+            $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [], $id);
+            //$users_for_available_playmate = $this->user->findPlaymates(auth()->user()->id);
+            $defaultImages = $this->media->findDefaultMedia($user->id, 0);
+            $escortDefault = $this->escort->findDefault(auth()->user()->id, 1);
+
+            
 
 
-         $massage_profile = $massage;
+            $defaultServiceIds = $escortDefault->services()->pluck('service_id')->toArray();
+
+            ///dd($escortDefault->services());
+
+            $edit_mode = true;
+            ///return view('center.dashboard.profile.update',compact('path','media','massage','durations','massage_profile','edit_mode'));
+            return view('center.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'edit_mode'));
+        }
+
+     
+
 
         //dd($massage_profile);
         // $defaultServiceIds = $escort->services()->pluck('service_id')->toArray();
@@ -154,11 +186,11 @@ class CreateController extends Controller
         // $availability = $escort->availability;
         // $service = $this->service;
 
-        $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
-        $path = $this->media;
-        $durations = $this->duration->all();
-        $edit_mode = true;
-        return view('center.dashboard.profile.update',compact('path','media','massage','durations','massage_profile','edit_mode'));
+        //$media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
+       // $path = $this->media;
+        //$durations = $this->duration->all();
+        
+        
     }
 
 
@@ -251,7 +283,7 @@ class CreateController extends Controller
                     if ($mediaId) {
                         MassageGallery::create([
                             'massage_profile_id' => $massage_profile_id,
-                            'massage_media_id'   => isGalleryTemplate($mediaId),
+                            'massage_media_id'   => isMassageGalleryTemplate($mediaId),
                             'position'           => $position,
                             'type'               => 0,
                         ]);

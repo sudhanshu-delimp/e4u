@@ -1,7 +1,8 @@
 <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" style="width: 900px;position: absolute;">
-            <form id="mulitiImage" method="POST" action="{{route('escort.upload.gallery')}}" enctype="multipart/form-data">
+             <form id="mulitiImage" method="POST" action="{{route('escort.upload.gallery')}}" enctype="multipart/form-data">
+
                 @csrf
                 <div class="modal-content border-0">
                     <div class="modal-header">
@@ -33,7 +34,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="{{request()->segment(2) == 'archive-view-photos'?'col-lg-4':'col-lg-4'}}">
+                                            <div class="{{request()->segment(2) == 'archive-view-photos'?'col-lg-12':'col-lg-12'}}">
                                                 <div class="plate"><label class="newbtn">
                                                     <img id="blah9" class="img-fluid pl-2 pr-2 js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
                                                     <input name="banner" id="upload_banner" class="pis galleryMedia" onchange="readImageURL(this);" type="file" accept="image/*" >
@@ -41,16 +42,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            @if(request()->segment(2) == 'archive-view-photos')
-                                            <div class="col-lg-4">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img id="blah10" class="img-fluid pl-2 pr-2 js_pinupDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
-                                                    <input name="pinup" id="upload_pinup" class="pis" onchange="readImageURL(this);" type="file" accept="image/*" >
-                                                    <input type="hidden" name="position[]" id="mediaPinup">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            @endif
+                                            
                                             </div>
                                         </div>
                                         <div class="photo-sec-popup custom-upload-photo"  id="image_preview">

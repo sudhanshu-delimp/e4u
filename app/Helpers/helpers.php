@@ -15,6 +15,7 @@ use App\Mail\LoginOtpMail;
 use App\Models\EscortMedia;
 use Illuminate\Support\Str;
 
+use App\Models\MassageMedia;
 use Illuminate\Http\Request;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
@@ -470,6 +471,19 @@ if (!function_exists('isGalleryTemplate')) {
         $media = EscortMedia::where(['id' => $media_id])->first();
         if ($media->template) {
             $template = EscortMedia::where(['user_id' => NULL, 'template' => '1', 'path' => $media->path])->first('id');
+            return $template->id;
+        } else {
+            return $media_id;
+        }
+    }
+}
+
+if (!function_exists('isMassageGalleryTemplate')) {
+    function isMassageGalleryTemplate($media_id = 0)
+    {
+        $media = MassageMedia::where(['id' => $media_id])->first();
+        if ($media->template) {
+            $template = MassageMedia::where(['user_id' => NULL, 'template' => '1', 'path' => $media->path])->first('id');
             return $template->id;
         } else {
             return $media_id;

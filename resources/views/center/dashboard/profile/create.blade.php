@@ -179,74 +179,8 @@
 
 
 
-<div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-scrollable" role="document"> {{--NOTE:: use  modal-dialog-scrollable instead of modal-dialog to make body scrollable only--}}
-       <div class="modal-content">
-           
-           
-               <div class="modal-content border-0">
-                   <div class="modal-header">
-                       <h5 class="modal-title" id="exampleModalLongTitle"><img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Upload Photos</h5>
-                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                       <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-                       </button>
-                   </div>
 
 
-                   <form id="mulitiImage" method="POST" action="{{route('center.upload.gallery')}}" enctype="multipart/form-data">
-                    @csrf
-                   <div class="modal-body">
-                   
-
-            
-                       <div class="row">
-                           <div class="col-md-12">
-                               <div class="container p-0">
-                                   <div class="row p-0">
-                                       <div class="col-12 p-0">
-                                           <div class="photo-sec-popup custom-upload-photo"  id="image_preview">
-                                               <a href="#">
-                                                   <div class="five_column_content_top img-title-sec justify-content-between wish_span rm" style="z-index: 1;">
-                                                     
-                                                   </div>
-                                                   <label class="newbtn rm">
-                                                       <img id="blah" class="item" src="{{ asset('assets/app/img/upload-thum-1.png')}}">
-                                                       
-                                                       <input name="img[]" id="upload_file" class="pis" onchange="preview_image(this);" type="file" multiple accept="image/*">
-                                                   </label>
-                                                   <div style="margin-top: -34px;">
-                                                   </div>
-                                               </a>
-                                           </div>
-                                           <div class="row mt-2">
-                                               <div class="col-lg-12">
-                                                   <div class="plate"><label class="newbtn">
-                                                       <img id="blah9" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
-                                                       <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
-                                                       <input type="hidden" name="position[]" id="mediaId9">
-                                                       </label>
-                                                   </div>
-                                               </div>
-                                              
-                                           </div>
-                                       </div>
-                                   </div>
-                                   
-                               </div>
-                           </div>
-                       </div>
-                      
-                   </div>
-                    </form>
-                   <div class="modal-footer">
-                     <button type="submit" class="btn-success-modal">Verify Media</button>
-                       <button type="button" id="upload_photos" class="btn-success-modal">Upload</button>
-                   </div>
-               </div>
-           
-       </div>
-   </div>
-</div>
 
 
 
@@ -280,6 +214,7 @@ window.postdefaultImageUrl = "{{ route('center.default.images') }}";
 var textarea = document.getElementById('about_us_box');
 CKEDITOR.replace('about_us_box');
 var updatePosition = 0;
+var edit_mode = false;
 
 </script>
 

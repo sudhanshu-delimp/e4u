@@ -186,31 +186,31 @@ textarea {
          <div class="business-info-field pt-4">
             <div class="form-group business-field">
                <label for="profile_name">Profile Name:</label>
-                  <input type="text" name="profile_name" class="form-control" id="profile_name"  placeholder="Enter Profile Name" required data-tab="group_one">
+                  <input type="text" value="{{ $escort->profile_name}}" name="profile_name" class="form-control" id="profile_name"  placeholder="Enter Profile Name" required data-tab="group_one">
                
             </div>
 
             <div class="form-group business-field">
                <label for="business_name">
                   Business Name:</label>
-                  <input type="text" name="business_name" class="form-control" id="business_name" placeholder="Enter Business Name"  required data-tab="group_one">
+                  <input type="text" value="{{ $escort->business_name}}" name="business_name" class="form-control" id="business_name" placeholder="Enter Business Name"  required data-tab="group_one">
             </div>           
 
             <div class="form-group business-field">
                <label for="business_no">
                   Business No:</label>
-                  <input type="text" name="business_no" class="form-control" id="business_no" placeholder="Enter Business Number" >               
+                  <input type="text" value="{{ $escort->business_no}}" name="business_no" class="form-control" id="business_no" placeholder="Enter Business Number" >               
             </div>
 
             <div class="form-group business-field">
-               <label for="mobile_no">
-                  Mobile No:</label>
-               <input type="text" name="phone" class="form-control" id="phone" placeholder="Enter Mobile Number">           
+               <label for="phone">
+                  Mobile No: </label>
+               <input type="text" value="{{$escort->phone}}" name="phone" class="form-control" id="phone" placeholder="Enter Mobile Number">           
             </div>
 
             <div class="form-group business-field">
                <label for="address">Address:</label>
-               <textarea name="address" rows="3" class="form-control" id="address" placeholder="Enter Address" data-parsley-group="goup_one" ></textarea>              
+               <textarea name="address" rows="3" class="form-control" id="address" placeholder="Enter Address" data-parsley-group="goup_one" >{{ $escort->address}}</textarea>              
             </div>
 
          </div>
@@ -1048,21 +1048,10 @@ textarea {
                                     <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="language" name="language" >
                                        <option value="" selected="">-- Not Set --</option>
                                        @foreach(config('escorts.profile.languages') as $key =>$language)
-                                       <option value="{{$key}}"  @if(!empty($massage_profile->language)) @if(in_array($key ,$escort->language)) selected @endif @endif data-name="{{ $language }}">{{$language}}</option>
+                                       <option value="{{$key}}"  @if ((isset($escort->language) && $escort->language == $key)) selected @endif data-name="{{ $language }}">{{$language}}</option>
                                        @endforeach>
                                     </select>
-                                    <div id="show_language">
-                                       <div class='selecated_languages'>
-                                          @if(!empty($escort->language)) 
-                                          @foreach($escort->language as $language)
-                                          <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!}<small class="remove-lang">×</small></span>
-                                          <input type='hidden' name='language[]' value="{{$language}}">
-                                          @endforeach
-                                          @endif
-                                       </div>
-                                       <div id="container_language">
-                                       </div>
-                                    </div>
+                                   
                                  </div>
                               </div>
                         </div>
@@ -1075,13 +1064,13 @@ textarea {
       {{-- who are we --}}
       <div class="about_me_drop_down_info profile-sec p-4">
          <div class="fill_profile_headings_global">
-            <h2>Who are We ?</h2>
+            <h2>Who are We ? </h2>
          </div>
          <div class="padding_20_all_side">
-            <input type="text" name="about_title" id="about_title" value="{{$escort->about_title ? $escort->about_title : null }}" class="whoiamtitle mc-whoiam-title mb-1" placeholder="Enter Your Title Here" required data-tab="group_one" >
+            <input type="text" name="about_title" id="about_title" value="{{$escort->about ? $escort->about : null }}" class="whoiamtitle mc-whoiam-title mb-1" placeholder="Enter Your Title Here" required data-tab="group_one" >
                <div class="row mt-3">
                   <div class="col-12">
-                     <textarea id="about_us_box" name="about_us_box"  required>@if(!empty($escort->about)) {{ $escort->about}} @endif</textarea>
+                     <textarea id="about_us_box" name="about_us_box"  required>@if(!empty($escort->about_us_box)) {{ $escort->about_us_box}} @endif</textarea>
                      <span class="theme-text-color text-capitalize">max limit 2500 characters</span>
                      <div id="about_me_error"></div>
                   </div>

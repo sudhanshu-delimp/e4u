@@ -12,25 +12,27 @@ use Illuminate\Support\Str;
 use App\Models\MassageMedia;
 use Illuminate\Http\Request;
 use App\Models\EscortGallery;
+use App\Models\MassageGallery;
 use App\Models\EscortCovidReport;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManager;
 use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\User\UserInterface;
+
 use App\Http\Requests\Escort\StoreRequest;
 use App\Http\Requests\UpdateEscortRequest;
-
 use App\Http\Requests\Escort\StoreRateRequest;
 use App\Repositories\Message\MessageInterface;
 use App\Repositories\Service\ServiceInterface;
 use App\Http\Requests\Escort\UpdateRequestAbout;
+
 use App\Repositories\Duration\DurationInterface;
+
 use App\Http\Requests\Escort\StoreServiceRequest;
-
 use App\Http\Requests\Escort\UpdateRequestPolicy;
-
 use App\Repositories\Escort\AvailabilityInterface;
 use App\Http\Requests\Escort\UpdateRequestReadMore;
 use App\Repositories\Message\MessageMediaInterface;
@@ -68,6 +70,8 @@ class MassageGalleryController extends AppController
         $prefix = 'images/';
         $type = 0;
         $file_path = $prefix.$userId;
+
+      
         if($request->hasFile('img')){
             if ($request->hasFile('img')) {
                 foreach($request->file('img') as $key => $image){
@@ -122,7 +126,7 @@ class MassageGalleryController extends AppController
             Storage::disk('escorts')->put($destination_path, (string) $encoded);
             if(!$media = $this->media->findByPath('escorts/'.$destination_path)) {
                 $mediaRecordId = null;
-                if($bannerImages = EscortMedia::where('position', '=', 9)->where('user_id', '=', auth()->user()->id)->get()) {
+                if($bannerImages = MassageMedia::where('position', '=', 9)->where('user_id', '=', auth()->user()->id)->get()) {
                     foreach ($bannerImages as $bannerImage) {
                         $bannerImage->default = 0;
                         $bannerImage->save();
@@ -161,7 +165,7 @@ class MassageGalleryController extends AppController
             Storage::disk('escorts')->put($destination_path, (string) $encoded);
             if(!$media = $this->media->findByPath('escorts/'.$destination_path)) {
                 $mediaRecordId = null;
-                if($pinupImages = EscortMedia::where('position', '=', 10)->where('user_id', '=', auth()->user()->id)->get()) {
+                if($pinupImages = MassageMedia::where('position', '=', 10)->where('user_id', '=', auth()->user()->id)->get()) {
                     foreach ($pinupImages as $pinupImage) {
                         $pinupImage->default = 0;
                         $pinupImage->save();
@@ -183,6 +187,9 @@ class MassageGalleryController extends AppController
             }
         }
         } catch (Exception $e) {
+
+            Log::info(json_decode($e->getMessage(),true));
+
             return response()->json([
                 'success' => false,
                 'message' => 'Something went wrong.',
@@ -509,12 +516,14 @@ class MassageGalleryController extends AppController
 
     public function getDefaultVideos($profileId = 0){
         try {
+
+            Log::info('$profileId'.$profileId);
             $user_id = auth()->user()->id;
             if($profileId){
                 //$accountVideos = EscortMedia::where(['user_id'=>$user_id,'type'=>1,'default'=>1])->orderBy('position','ASC')->get();
-                $media = EscortGallery::where(['escort_id'=>$profileId,'type'=>'1'])->orderBy('position','ASC')->get();
+                $media = MassageGallery::where(['massage_profile_id'=>$profileId,'type'=>'1'])->orderBy('position','ASC')->get();
                 foreach($media as $key=>$item){
-                    $media[$key]->id = $item->escort_media_id;
+                    $media[$key]->id = $item->massage_media_id;
                     $media[$key]->media = $item->media;
                 }
             }
