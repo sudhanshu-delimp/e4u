@@ -3,6 +3,9 @@
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <!-- Page Heading -->
         <div class="row">
+            @if($notification)
+            <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success" />
+            @endif
             @if($expiringListings->count() > 0)
                 @foreach ($expiringListings as $profile)
                 <div class="col-sm-12 ">
