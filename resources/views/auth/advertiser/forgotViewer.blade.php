@@ -3,7 +3,7 @@
 
 <div class="container">
       <section class="login_page_pt_pb_of_outer_section">
-        <div class="row text-center" style="z-index: 9999;position: relative;top: 2.5rem;">
+        <div class="row text-center" style="position: relative;top: 2.5rem;">
                <div class="col-md-12">
                    <a href="#"><img src="{{ asset('assets/app/img/e4u_forget.png')}}" style="max-width:150px; width:100%" alt="logo"></a>
                </div>
