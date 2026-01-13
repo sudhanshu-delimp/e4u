@@ -119,7 +119,7 @@
                     'registrations-reports',
                     'advertiser-reports',
                     'advertiser-reviews',                    
-                ]) || in_array(request()->segment(2), ['support_tickets'])) show @endif"
+                ]) || in_array(request()->segment(2), ['support_tickets','submit_ticket'])) show @endif"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
                 <div class="py-0 collapse-inner rounded mb-2">
@@ -496,12 +496,32 @@
                         </div>
                     </div>
 
-                    <a class="nav-link collapsed {{ request()->routeIs('admin.support-ticket.list', ['from' => 'sidebar']) ? 'menu-active' : '' }}" href="{{ route('admin.support-ticket.list') }}">
-                        
+                    {{-- <a class="nav-link collapsed {{ request()->routeIs('admin.support-ticket.list', ['from' => 'sidebar']) ? 'menu-active' : '' }}" href="{{ route('admin.support-ticket.list') }}">   
                         <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+                        <span>Support Tickets </span>
+                    </a> --}}
+                     <a class="nav-link  {{ in_array(request()->segment(2), ['support_tickets','submit_ticket'])  ? '' : 'collapsed' }}" href="#" data-toggle="collapse"
+                        data-target="#SupportTickets">
+                        <img src="{{ asset('assets/app/img/ticket.png') }}">
                         <span>Support Tickets </span>
                     </a>
 
+                    <div id="SupportTickets"
+                        class="collapse
+                        @if (in_array(request()->segment(2), ['support_tickets']) || request()->segment(2) == 'submit_ticket') show @endif"
+                        data-parent="#Management">
+
+                        <a class="collapse-item {{ request()->segment(2) == 'submit_ticket' ? 'menu-active' : '' }}"
+                            href="{{ route('support-ticket.create.admin') }}">
+                            <img src="{{ asset('assets/app/img/right-30.png') }}">
+                            <span>Submit Ticket</span>
+                        </a>
+                        <a class="collapse-item {{ request()->segment(2) == 'support_tickets' ? 'menu-active' : '' }}"
+                            href="{{ route('admin.support-ticket.list') }}">
+                            <img src="{{ asset('assets/app/img/view-48.png') }}">
+                            <span>View & Reply</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </li>

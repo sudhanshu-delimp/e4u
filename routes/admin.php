@@ -42,6 +42,7 @@ Route::get('/upload-my-avatar', [DashboardController::class, 'uploadAvatar'])->n
 Route::post('upload-avatar/{id}', [DashboardController::class, 'storeMyAvatar'])->name('admin.save.avatar');
 Route::post('remove-avatar', [DashboardController::class, 'removeMyAvatar'])->name('admin.avatar.remove');
 
+Route::get('submit_ticket', [SupportTicketsController::class, 'createSubmitTicket'])->name('support-ticket.create.admin');
 Route::post('submit_ticket', [SupportTicketsController::class, 'submit_ticket'])->name('admin.support-ticket.create');
 Route::get('support_tickets', [SupportTicketsController::class, 'index'])->name('admin.support-ticket.list');
 Route::get('support_tickets/dataTable', [SupportTicketsController::class, 'dataTable'])->name('admin.support-ticket.dataTable');

@@ -69,6 +69,11 @@ class SupportTicketsController extends AppController
         return view('admin.SupportTickets.list');
     }
 
+    public function createSubmitTicket()
+    {
+        return view('admin.SupportTickets.submit_ticket');
+    }
+
     public function dataTable()
     {
         list($result, $count) = $this->paginatedList(
@@ -222,9 +227,10 @@ class SupportTicketsController extends AppController
                                     }
 
                                 }
-                                    $dropdown .= '<a class="dropdown-item editTour view_ticket d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#conversation_modal"> <i class="fa fa-comments text-default"></i> History
+                                    $dropdown .= '<a class="dropdown-item editTour view_ticket d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-source="'.$item->user->type.'" data-id='.$item->id.' data-target="#conversation_modal"> <i class="fa fa-comments text-default"></i> History
                                         
                                         </a>';
+
                                 $dropdown .='</div></div>';
                                 $item->action = $dropdown;
             $i++;
