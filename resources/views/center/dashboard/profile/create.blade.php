@@ -131,15 +131,14 @@
                                 
                                 
                             </ul>
-                            <form id="my_massage_profile" action="{{ route('center.setting.profile',request()->segment(3) ) }}" method="post" enctype="multipart/form-data">
+                            <form id="my_massage_profile" action="{{ route('center.create-profile')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="tab-content custom-tab-bg-mc" id="myTabContent">
                                     
-                                    @include('center.dashboard.profile.partials.aboutme-dash-tab')
-                                    @include('center.dashboard.profile.partials.services-dash-tab')
-                                    @include('center.dashboard.profile.partials.available-dash-tab')
-                                   
-                                    @include('center.dashboard.profile.partials.massuers-dash-tab')
+                                    @include('center.dashboard.profile.create.aboutme-dash-tab')
+                                    @include('center.dashboard.profile.create.services-dash-tab')
+                                    @include('center.dashboard.profile.create.available-dash-tab')
+                                    @include('center.dashboard.profile.create.massuers-dash-tab')
                                     
                                 </div>
                             </form>
@@ -150,41 +149,50 @@
         </div>
     </div>
 </div>
-<div class="modal programmatic" id="change_all" style="display: none">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
-                {{-- <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5> --}}
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">
-                    <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                </span>
-                </button>
-            </div>
-            <div class="modal-body">    
-                <input type="hidden" id="current" name="current">
-                <input type="hidden" id="previous" name="previous">
-                <input type="hidden" id="label" name="label">
-                <input type="hidden" id="trigger-element">
-                <h3 class="mb-4 mt-5"><span id="Lname"></span> </h3>
-                <h3 class="mb-4 mt-5"><span id="log"></span> </h3>
+
+
+
+
+
+
+<div class="modal programmatic" id="update_info" style="display: none">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content custome_modal_max_width">
+         <div class="modal-header main_bg_color border-0">
+            <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+            <img src="{{ asset('assets/app/img/newcross.png') }}"
+               class="img-fluid img_resize_in_smscreen">
+            </span>
+            </button>
+         </div>
+         <div class="modal-body">
+
+            <form name="update_single_data" method="post" action="{{route('center.update-single-data')}}">
+            <input type="hidden" name="post_field" id="post_field" value="">
+            <input type="hidden" name="post_value" id="post_value" value="">
+                
+                <h3 class="my-2"><span id="Lname"><p>Would you like to update <b>
+                                <span id="field_name"></span>       
+                </b> in your 'My Information' page for future Profiles?</p></span> </h3>
                 <div class="modal-footer">
-                    <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal" value="close" id="close_change">Close</button>
-                    <button type="button" class="btn main_bg_color site_btn_primary" id="save_change">save</button>
+                <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
+                    value="close" id="close_change">No</button>
+                <button type="button" class="btn-success-modal" id="update_new_value">Yes</button>
                 </div>
-            </div>
-        </div>
-    </div>
+            </form>
+
+
+         </div>
+      </div>
+   </div>
 </div>
 
 
 
 
-
-
-
-
-@include('escort.dashboard.modal.upload_gallery_image')
+@include('center.dashboard.modal.upload_gallery_image')
 @include('center.dashboard.modal.remove_gallary_image')
 @include('center.dashboard.modal.upload_gallery_video')
 @include('center.dashboard.modal.set_default_video')
@@ -230,6 +238,90 @@ var edit_mode = false;
    
     $ (document).ready(function(e) {
 
+
+        $('#language').change(function(){
+            var languageValue = $('#language').val();
+            $("#show_language").show();
+            $(".select_lang").hide();
+            var selectedLanguage = $(this).children("option:selected", this).data("name");
+            $("#show_language").append("  <div class='selecated_languages' style='display: inline-block'><span class='languages_choosed_from_drop_down'>"+ selectedLanguage +" <small class='remove-lang'>×</small></span> </div> ");
+            $("#container_language").append("<input type='hidden' name='language[]' value="+ languageValue +">");
+            $("#language option[value='"+languageValue+"']").remove();
+        });
+
+         $(document).on('click', '.remove-lang , span.custom--help', function () {
+            $(this).closest('.selecated_languages').remove();            
+            $(this).closest('.custom-help-contain').toggleClass('help-note-toggle');
+        });
+
+        //// ----------- Update Single Data ------------ ///////
+         $('.update_profile_data').on('blur change', function () {
+
+                var current_feild  = $(this).attr('id');
+                var current_value  = $(this).val();
+                var old_value  = $('#profile_'+current_feild).val();
+
+                if(current_feild=='about_title')
+                    current_feild = 'about_us_box'
+
+                if (current_value !== old_value) {
+                $('#post_field').val(current_feild);
+                $('#post_value').val(current_value);
+                $('#field_name').text(formatProfileName(current_feild));
+                $('#update_info').modal('show');
+                }
+         });
+
+
+            function formatProfileName(text) {
+
+                let formattedText = text
+                    .split('_')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+
+                switch (formattedText) {
+                    case 'Phone':
+                        return 'Mobile No';
+
+                        case 'About Us Box':
+                        return 'Who are We';
+                    
+                    default:
+                        return formattedText;
+                }
+            }
+
+            $('#update_new_value').on('click', function (e) {
+                e.preventDefault();
+                swal_waiting_popup({'title':'Updating Data.'});
+                let form = $('form[name="update_single_data"]');
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        Swal.close();
+                        $('#update_info').modal('hide');    
+                    },
+                    error: function (xhr) {
+                       Swal.close();
+                       $('#update_info').modal('hide');
+                    },
+                    complete: function () {
+                         Swal.close();
+                         $('#update_info').modal('hide');
+                    }
+                });
+            });    
+
+        ///////// End Update Single Data //////////////////      
+
+
         $('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
 
 
@@ -256,22 +348,22 @@ var edit_mode = false;
             
 
 
-            // if (isFirstTab) 
-            // {
+            if (isFirstTab) 
+            {
 
-            //     console.log('isFirstTab',isFirstTab);
+                console.log('isFirstTab',isFirstTab);
 
-            //     if(!checkProfileDynamicMedia()){
-            //     return false;
-            //     }
-            // }
+                if(!checkProfileDynamicMedia()){
+                return false;
+                }
+            }
 
-            // if(isSecondTab)
-            // {
+            if(isSecondTab)
+            {
 
-            //     if(!validateSecondTab())
-            //      return false;    
-            // }
+                if(!validateSecondTab())
+                 return false;    
+            }
 
             if(isThirdTab)
             {
@@ -342,7 +434,7 @@ var edit_mode = false;
                     $(".uploadModalTrigger").find("button").attr('data-target', '#upload-sec-banner');
 
                 } else {
-                    $(".uploadModalTrigger").find("button").attr('data-target', '#upload-sec');
+                    $(".uploadModalTrigger").find("button").attr('data-target', '#exampleModal');
 
                 }
             });

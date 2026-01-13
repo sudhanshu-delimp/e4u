@@ -339,6 +339,9 @@ function initDragDrop() {
         let profile_selected_images = [];
         let default_image_icons = ['img-11.png', 'img-12.png', 'img-13.png'];
         $(document).on('click', '.modalPopup .item4, .modalPopup .item2', function(e) {
+
+          
+
             let imageSrc = $(this).find('img').attr('src');
             let mediaId = $(this).find('img').data('id');
             let img_target = $("#img" + updatePosition);
@@ -373,6 +376,9 @@ function initDragDrop() {
                 $("#blah" + updatePosition).attr('src', imageSrc);
                 $("#img" + updatePosition).attr('src', imageSrc);
                 $("#mediaId" + updatePosition).val(mediaId);
+
+                console.log('profile_selected_images.length',profile_selected_images.length);
+
                 if (profile_selected_images.length > 0) {
                     let modalTitle = document.querySelector("#setAsDefaultForMainAccount .modal-title");
                     let textNode = [...modalTitle.childNodes].find(
@@ -539,26 +545,34 @@ function initDragDrop() {
         {
              var massage_service   = $('#service_id_one').val();
              var other_service   = $('#service_id_two').val();
+             var selected_service_one_li = $('#selected_service_one li').length;
+             var selected_service_two_li = $('#selected_service_two li').length;
+
+             
+
              var existRates = checkRates();
              let is_true = true;
 
-             console.log('existRates',existRates);
+             // console.log('existRates',existRates);
 
-            if(massage_service=="")
+            if(selected_service_one_li==0)
             {
-            swal_error_warning('Massage Services','Please select massage service.')
-            is_true = false;
+                swal_error_warning('Massage Services','Please select massage service.')
+                is_true = false;
+                return is_true;
             }
             
-            else if(other_service=="")
+            else if(selected_service_two_li==0)
             {
             swal_error_warning('Other Service Types','Please select another service type.')
             is_true = false;
+            return is_true;
             }
 
             else if (!existRates) {
                  swal_error_warning('Rates','You must complete at least one rate value to proceed.')
                  is_true = false;
+                  return is_true;
             }
 
             return is_true;
@@ -635,29 +649,31 @@ function initDragDrop() {
 
             }
 
-                function getRow(row) {
+            function getRow(row) {
                     return {
                         from: row.find('select[name*="[hh_from]"], select[name*="[ampm_from]"]'),
                         to: row.find('select[name*="[hh_to]"], select[name*="[ampm_to]"]'),
                         radios: row.find('input[type="radio"]')
                     };
+            }
+
+
+
+
+            $('.profile_time_availibility').on('change', 'input[type="radio"]', function () {
+
+                let row = $(this).closest('.parent-row');
+                let val = $(this).val();
+                let { from, to } = getRow(row);
+
+                if (val === 'til_late') {
+                    from.prop('disabled', false);
+                    to.val('').prop('disabled', true);
+                } else {
+                    from.val('').prop('disabled', true);
+                    to.val('').prop('disabled', true);
                 }
-
-
-                $('.profile_time_availibility').on('change', 'input[type="radio"]', function () {
-
-                    let row = $(this).closest('.parent-row');
-                    let val = $(this).val();
-                    let { from, to } = getRow(row);
-
-                    if (val === 'til_late') {
-                        from.prop('disabled', false);
-                        to.val('').prop('disabled', true);
-                    } else {
-                        from.val('').prop('disabled', true);
-                        to.val('').prop('disabled', true);
-                    }
-                });
+            });
 
 
                 $('.profile_time_availibility').on(
@@ -692,10 +708,15 @@ function initDragDrop() {
                             to.prop('disabled', true);
                         }
                         });
+
+
+
+                   
+
                 }
                 
             
-
+           
 
             ////////////// End For Our Open Times ///////////////// 
 
@@ -759,6 +780,10 @@ function initDragDrop() {
             });
 
         //////////// End For Our Service (Tags)  /////////////////////
+
+        $(document).on('input', '.allow_only_numeric', function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
+        });
 
 
  }); 

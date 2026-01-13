@@ -149,72 +149,63 @@ textarea {
             <span>Member ID: M60218:001</span>
         </div>
       </div>
-      {{-- <div class="about_me_drop_down_info profile-sec">
-         <div class="row tab-input- pl-2 pt-4">            
-            <div class="col-lg-4 col-md-12 col-sm-12">
-               <div class="form-group row tab-about-me-row-padding">
-                  <label class="col-sm-5 font-weight-500" for="exampleFormControlSelect1">
-                  Profile Name:</label>
-                  <div class="col-sm-7">
-                     <input type="text" value="{{ $escort->profile_name}}" name="profile_name" class="form-control form-control-sm select_tag_remove_box_sadow" id="profile_name" required data-parsley-required-message="Enter profile name" data-parsley-group="goup_one">
-                  </div>
-               </div>
-            </div>
-            <div class="col-lg-4 col-md-12 col-sm-12">
-               <div class="form-group row tab-about-me-row-padding">
-                  <label class="col-sm-5 font-weight-500" for="exampleFormControlSelect1">Profile start date:</label>
-                  <div class="col-sm-7">
-                     <input type="date" name="start_date" class="form-control form-control-sm select_tag_remove_box_sadow" value="{{ $escort->start_date ? date('Y-m-d',strtotime($escort->start_date)) : ''}}" id="start_date" onkeydown="return false" required data-parsley-required-message="-select date-" data-parsley-group="goup_one">
-                  </div>
-               </div>
-            </div>
-            <div class="col-lg-4 col-md-12 col-sm-12">
-               <div class="form-group row tab-about-me-row-padding">
-                  <label class="col-sm-5 font-weight-500" for="exampleFormControlSelect1">Profile end date:</label>
-                  <div class="col-sm-7">
-                     <input type="date" name="end_date" class="form-control form-control-sm select_tag_remove_box_sadow" value="{{ $escort->end_date ? date('Y-m-d',strtotime($escort->end_date)) : ''}}" id="end_date" onkeydown="return false" required data-parsley-required-message="-select date-" data-parsley-group="goup_one">
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div> --}}
+
+
+      
       {{-- Our Business --}}
-      <div class="about_me_drop_down_info profile-sec p-4">
-         <div class="fill_profile_headings_global">          
-            <h2>Our Business</h2>
-         </div>
-         <div class="business-info-field pt-4">
-            <div class="form-group business-field">
-               <label for="profile_name">Profile Name:</label>
-                  <input type="text" value="{{ $escort->profile_name}}" name="profile_name" class="form-control" id="profile_name"  placeholder="Enter Profile Name" required data-tab="group_one">
-               
+
+
+      
+    <form id="update_business" action="{{route('center.update-massage-profile')}}" method="POST" enctype="multipart/form-data" novalidate="">
+        <div class="about_me_drop_down_info profile-sec p-4">
+                <div class="fill_profile_headings_global">          
+                    <h2>Our Business</h2>
+                </div>
+                <div class="business-info-field pt-4">
+                    <div class="form-group business-field">
+                    <label for="profile_name">Profile Name:</label>
+                        <input type="text" value="{{ $escort->profile_name}}" name="profile_name" class="form-control" id="profile_name"  placeholder="Enter Profile Name" required data-tab="group_one">
+                    
+                    </div>
+
+                    <div class="form-group business-field">
+                    <label for="business_name">
+                        Business Name:</label>
+                        <input type="text" value="{{ $escort->business_name}}" name="business_name" class="form-control" id="business_name" placeholder="Enter Business Name"  required data-tab="group_one">
+                    </div>           
+
+                    <div class="form-group business-field">
+                    <label for="business_no">
+                        Business No:</label>
+                        <input type="text" value="{{ $escort->business_no}}" name="business_no" class="form-control" id="business_no" placeholder="Enter Business Number" >               
+                    </div>
+
+                    <div class="form-group business-field">
+                    <label for="phone">
+                        Mobile No: </label>
+                    <input type="text" value="{{$escort->phone}}" name="phone" class="form-control" id="phone" placeholder="Enter Mobile Number">           
+                    </div>
+
+                    <div class="form-group business-field">
+                    <label for="address">Address:</label>
+                    <textarea name="address" rows="3" class="form-control" id="address" placeholder="Enter Address" data-parsley-group="goup_one" >{{ $escort->address}}</textarea>              
+                    </div>
+
+                </div>
+
+                
+                <div class="">
+                        <div class="col-md-12 text-right">
+                            
+                            <input type="hidden" name="type" id="type" value="profile">
+                            <input type="hidden" name="massage_id" id="massage_id" value="{{$escort->id}}">
+                            <button id="read-more" type="submit" class="save_profile_btn">Update</button>
+                        </div>
+                </div>
             </div>
-
-            <div class="form-group business-field">
-               <label for="business_name">
-                  Business Name:</label>
-                  <input type="text" value="{{ $escort->business_name}}" name="business_name" class="form-control" id="business_name" placeholder="Enter Business Name"  required data-tab="group_one">
-            </div>           
-
-            <div class="form-group business-field">
-               <label for="business_no">
-                  Business No:</label>
-                  <input type="text" value="{{ $escort->business_no}}" name="business_no" class="form-control" id="business_no" placeholder="Enter Business Number" >               
-            </div>
-
-            <div class="form-group business-field">
-               <label for="phone">
-                  Mobile No: </label>
-               <input type="text" value="{{$escort->phone}}" name="phone" class="form-control" id="phone" placeholder="Enter Mobile Number">           
-            </div>
-
-            <div class="form-group business-field">
-               <label for="address">Address:</label>
-               <textarea name="address" rows="3" class="form-control" id="address" placeholder="Enter Address" data-parsley-group="goup_one" >{{ $escort->address}}</textarea>              
-            </div>
-
-         </div>
-      </div>
+       </form>
+     
+       
       {{-- media --}}
       
 
@@ -335,7 +326,7 @@ textarea {
                                             data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
                                             <img class="img-fluid profile-gallery" data-type="banner" id="img9"
                                                 src="{{ asset($escort->imagePosition(9)) }}"
-                                                style="height: 167.578px;width: 1066.640px;object-fit: cover;">
+                                                style="height: 230.578px;width: 1066.640px;object-fit: cover;">
                                         </label>
                                     </div>
                                 </div>
@@ -927,164 +918,205 @@ textarea {
 
 
       {{-- about us--}}
-      <div class="about_me_drop_down_info profile-sec p-4">
-         <div class="fill_profile_headings_global mb-3">
-            <h2>About Us</h2>
-         </div>
-         <div class="">
-            <div class="card" style="border: #90A0B7 solid 0px;padding: 0;margin-top: -10px;">
-               <div>
-                  <div class="card-body p-0">
-                     <div>
-                        <!-- upload video  -->
-                        <div class="about_me_drop_down_info ">
 
-                              <div class="business-info-field pt-3">
-                                 <div class="form-group business-field">
-                                    <label for="exampleFormControlSelect1">
-                                       Building<span style="color:red">*</span>
-                                    </label>                                       
-                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="" name="building" required="">
-                                       <option value="" selected="">-- Not Set --</option>
-                                       @foreach(config('escorts.profile.Building') as $key =>$buldingName)
-                                       <option value="{{$key}}" {{ ($escort->building == $key)? 'selected' : ''}}>{{$buldingName}}</option>
-                                       @endforeach
-                                    </select>
-                                    
-                                 </div>
-                                 <div class="form-group business-field">
-                                    <label for="exampleFormControlSelect1">Parking</label>
-                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="parking" name="parking">
-                                       <option value="" selected="">-- Not Set --</option>
-                                       @foreach(config('escorts.profile.Parking') as $key =>$ParkingName)
-                                       <option value="{{$key}}" {{ ($escort->parking == $key)? 'selected' : ''}} >{{$ParkingName}}</option>
-                                       @endforeach
-                                    </select>
-                                 </div>
-                                 <div class="form-group business-field">
-                                    <label for="exampleFormControlSelect1">Entry</label>
-                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="entry" name="entry">
-                                       <option value="" selected="">-- Not Set --</option>
-                                       @foreach(config('escorts.profile.Entry') as $key =>$EntryName)
-                                       <option value="{{$key}}" {{ ($escort->entry == $key)? 'selected' : ''}}>{{$EntryName}}</option>
-                                       @endforeach
-                                    </select>
-                                 </div>
-                                 <div class="form-group business-field">
-                                    <label for="exampleFormControlSelect1">Type</label>
-                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="Type" name="furniture_types">
-                                       <option value="" selected="">-- Not Set --</option>
-                                       @foreach(config('escorts.profile.furniture_types') as $key =>$furniture_type)
-                                       <option value="{{$key}}" {{ ($escort->furniture_types == $key)? 'selected' : ''}} >{{$furniture_type}}</option>
-                                       @endforeach
-                                    </select>
-                                 </div>
-                                 <div class="form-group business-field">
-                                    <label for="exampleFormControlSelect1">
-                                    Shower</label>
-                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="" name="shower">
-                                       <option value="" selected="">-- Not Set --</option>
-                                       @foreach(config('escorts.profile.Shower') as $key =>$Type)
-                                       <option value="{{$key}}" {{ ($escort->shower == $key)? 'selected' : ''}} >{{$Type}}</option>
-                                       @endforeach
-                                    </select>
-                                 </div>
-                                 <div class="form-group business-field">
-                                    <label for="exampleFormControlSelect1">Ambiance</label>
-                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="ambiance" name="ambiance">
-                                       <option value="" selected="">-- Not Set --</option>
-                                       @foreach(config('escorts.profile.Ambiance') as $key =>$AmbianceName)
-                                       <option value="{{$key}}" {{ ($escort->ambiance == $key)? 'selected' : ''}} >{{$AmbianceName}}</option>
-                                       @endforeach
-                                    </select>
-                                 </div>
-
-                                 <div class="form-group business-field">
-                                    <label for="exampleFormControlSelect1">Security</label>
-                                    
-                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="security" name="security">
-                                       <option value="" selected="">-- Not Set --</option>
-                                       @foreach(config('escorts.profile.Security') as $key =>$SecurityName)
-                                       <option value="{{$key}}" {{ ($escort->security == $key)? 'selected' : ''}} data-name="{{$SecurityName}}">{{$SecurityName}}</option>
-                                       @endforeach
-                                    </select>
-                                 </div>
-                                 <div class="form-group business-field">
-                                    <label for="exampleFormControlSelect1">Payment</label>                                       
-                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="payment" name="payment">
-                                       <option value="" selected="">-- Not Set --</option>
-                                       @foreach(config('escorts.profile.Payments') as $key =>$PaymentType)
-                                       <option value="{{$key}}" {{ ($escort->payment == $key)? 'selected' : ''}} data-name="{{$PaymentType}}">{{$PaymentType}}</option>
-                                       @endforeach>
-                                    </select>
-                                    @if(!empty($escort->payment)) 
-                                    <div class='select_pay'>
-                                          <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.payments.$escort->payment") !!}</span>
-                                    </div>
-                                    @endif                                      
-                                    <div class="col-sm-12">                                       
-                                          <div id="show_payment_type" style="display:none">
-                                             <div class='select_pay' style='display: inline-block'>
-                                                <span class='languages_choosed_from_drop_down'> </span>
-                                             </div>
-                                          </div>
-                                    </div>
-                                 </div>
-                                 <div class="form-group business-field">
-                                    <label for="exampleFormControlSelect1">Loyalty program
-                                    </label>
-                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="loyalty" name="loyalty">
-                                       <option value="" selected="">-- Not Set --</option>
-                                       @foreach(config('escorts.profile.Loyalty') as $key =>$LoyaltyType)
-                                       <option value="{{$key}}" {{ ($escort->loyalty == $key)? 'selected' : ''}} >{{$LoyaltyType}}</option>
-                                       @endforeach>
-                                    </select>
-                                 </div>
-
-                                 <div class="form-group business-field">
-                                    <label for="exampleFormControlSelect1">Languages
-                                    </label>
-                                    
-                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="language" name="language" >
-                                       <option value="" selected="">-- Not Set --</option>
-                                       @foreach(config('escorts.profile.languages') as $key =>$language)
-                                       <option value="{{$key}}"  @if ((isset($escort->language) && $escort->language == $key)) selected @endif data-name="{{ $language }}">{{$language}}</option>
-                                       @endforeach>
-                                    </select>
-                                   
-                                 </div>
-                              </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+    <form id="update_about_me" action="{{route('center.update-massage-profile')}}" method="POST" enctype="multipart/form-data" novalidate="">
+        <div class="about_me_drop_down_info profile-sec p-4">
+            <div class="fill_profile_headings_global mb-3">
+                <h2>About Us</h2>
             </div>
-         </div>
-      </div>
+            <div class="">
+                <div class="card" style="border: #90A0B7 solid 0px;padding: 0;margin-top: -10px;">
+                <div>
+                    <div class="card-body p-0">
+                        <div>
+                            <!-- upload video  -->
+                            <div class="about_me_drop_down_info ">
+
+                                <div class="business-info-field pt-3">
+                                    <div class="form-group business-field">
+                                        <label for="exampleFormControlSelect1">
+                                        Building<span style="color:red">*</span>
+                                        </label>                                       
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="" name="building" required="">
+                                        <option value="" selected="">-- Not Set --</option>
+                                        @foreach(config('escorts.profile.Building') as $key =>$buldingName)
+                                        <option value="{{$key}}" {{ ($escort->building == $key)? 'selected' : ''}}>{{$buldingName}}</option>
+                                        @endforeach
+                                        </select>
+                                        
+                                    </div>
+                                    <div class="form-group business-field">
+                                        <label for="exampleFormControlSelect1">Parking</label>
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="parking" name="parking">
+                                        <option value="" selected="">-- Not Set --</option>
+                                        @foreach(config('escorts.profile.Parking') as $key =>$ParkingName)
+                                        <option value="{{$key}}" {{ ($escort->parking == $key)? 'selected' : ''}} >{{$ParkingName}}</option>
+                                        @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group business-field">
+                                        <label for="exampleFormControlSelect1">Entry</label>
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="entry" name="entry">
+                                        <option value="" selected="">-- Not Set --</option>
+                                        @foreach(config('escorts.profile.Entry') as $key =>$EntryName)
+                                        <option value="{{$key}}" {{ ($escort->entry == $key)? 'selected' : ''}}>{{$EntryName}}</option>
+                                        @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group business-field">
+                                        <label for="exampleFormControlSelect1">Type</label>
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="Type" name="furniture_types">
+                                        <option value="" selected="">-- Not Set --</option>
+                                        @foreach(config('escorts.profile.furniture_types') as $key =>$furniture_type)
+                                        <option value="{{$key}}" {{ ($escort->furniture_types == $key)? 'selected' : ''}} >{{$furniture_type}}</option>
+                                        @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group business-field">
+                                        <label for="exampleFormControlSelect1">
+                                        Shower</label>
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="" name="shower">
+                                        <option value="" selected="">-- Not Set --</option>
+                                        @foreach(config('escorts.profile.Shower') as $key =>$Type)
+                                        <option value="{{$key}}" {{ ($escort->shower == $key)? 'selected' : ''}} >{{$Type}}</option>
+                                        @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group business-field">
+                                        <label for="exampleFormControlSelect1">Ambiance</label>
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="ambiance" name="ambiance">
+                                        <option value="" selected="">-- Not Set --</option>
+                                        @foreach(config('escorts.profile.Ambiance') as $key =>$AmbianceName)
+                                        <option value="{{$key}}" {{ ($escort->ambiance == $key)? 'selected' : ''}} >{{$AmbianceName}}</option>
+                                        @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group business-field">
+                                        <label for="exampleFormControlSelect1">Security</label>
+                                        
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="security" name="security">
+                                        <option value="" selected="">-- Not Set --</option>
+                                        @foreach(config('escorts.profile.Security') as $key =>$SecurityName)
+                                        <option value="{{$key}}" {{ ($escort->security == $key)? 'selected' : ''}} data-name="{{$SecurityName}}">{{$SecurityName}}</option>
+                                        @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group business-field">
+                                        <label for="exampleFormControlSelect1">Payment</label>                                       
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="payment" name="payment">
+                                        <option value="" selected="">-- Not Set --</option>
+                                        @foreach(config('escorts.profile.Payments') as $key =>$PaymentType)
+                                        <option value="{{$key}}" {{ ($escort->payment == $key)? 'selected' : ''}} data-name="{{$PaymentType}}">{{$PaymentType}}</option>
+                                        @endforeach>
+                                        </select>
+                                        @if(!empty($escort->payment)) 
+                                        <div class='select_pay'>
+                                            <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.payments.$escort->payment") !!}</span>
+                                        </div>
+                                        @endif                                      
+                                        <div class="col-sm-12">                                       
+                                            <div id="show_payment_type" style="display:none">
+                                                <div class='select_pay' style='display: inline-block'>
+                                                    <span class='languages_choosed_from_drop_down'> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group business-field">
+                                        <label for="exampleFormControlSelect1">Loyalty program
+                                        </label>
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="loyalty" name="loyalty">
+                                        <option value="" selected="">-- Not Set --</option>
+                                        @foreach(config('escorts.profile.Loyalty') as $key =>$LoyaltyType)
+                                        <option value="{{$key}}" {{ ($escort->loyalty == $key)? 'selected' : ''}} >{{$LoyaltyType}}</option>
+                                        @endforeach>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group business-field">
+                                    
+                                        <label for="exampleFormControlSelect1">Languages
+                                        </label>
+                                        
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="language" name="language" >
+                                        <option value="" selected="">-- Not Set --</option>
+                                        @foreach(config('escorts.profile.languages') as $key =>$language)
+                                        <option value="{{$key}}"  @if ((isset($escort->language) && $escort->language == $key)) selected @endif data-name="{{ $language }}">{{$language}}</option>
+                                        @endforeach>
+                                        </select>
+
+                                        @if(!empty($escort->language)) 
+                                        <div id="show_db_language" class="d-flex">
+                                                @foreach($escort->language as $language)
+                                                
+                                                        <div class='selecated_languages select_lang'>
+                                                            <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!} <small class='remove-lang'>×</small></span>
+                                                            
+                                                        </div>
+                                            
+                                                @endforeach 
+                                        </div>
+                                        @endif
+
+
+                                        <div id="container_language">
+                                        </div>
+                                        <div id="show_language" style="display:none">
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                                
+                                <div class="">
+                                        <div class="col-md-12 text-right">
+                                            <input type="hidden" name="type" id="type" value="about_us">
+                                            <input type="hidden" name="massage_id" id="massage_id" value="{{$escort->id}}">
+                                            <button id="read-more" type="submit" class="save_profile_btn">Update</button>
+                                        </div>
+                                </div>
+                                
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+   </form>
+      
       {{-- who are we --}}
-      <div class="about_me_drop_down_info profile-sec p-4">
-         <div class="fill_profile_headings_global">
-            <h2>Who are We ? </h2>
-         </div>
-         <div class="padding_20_all_side">
-            <input type="text" name="about_title" id="about_title" value="{{$escort->about ? $escort->about : null }}" class="whoiamtitle mc-whoiam-title mb-1" placeholder="Enter Your Title Here" required data-tab="group_one" >
-               <div class="row mt-3">
-                  <div class="col-12">
-                     <textarea id="about_us_box" name="about_us_box"  required>@if(!empty($escort->about_us_box)) {{ $escort->about_us_box}} @endif</textarea>
-                     <span class="theme-text-color text-capitalize">max limit 2500 characters</span>
-                     <div id="about_me_error"></div>
-                  </div>
-               
-               </div>
 
-               {{-- <div class="row pt-3">
-                  <div class="col-md-12 text-right" style="padding-right: 1.8rem;">
-                        <button id="update_who_am_i" type="button" class="save_profile_btn who_am_i">Update</button>
-                  </div>
-               </div> --}}
-      </div>
+    <form id="update_about_me" action="{{route('center.update-massage-profile')}}" method="POST" enctype="multipart/form-data" novalidate="">
+        <div class="about_me_drop_down_info profile-sec p-4">
+            <div class="fill_profile_headings_global">
+                <h2>Who are We ? </h2>
+            </div>
+            <div class="padding_20_all_side">
+                <input type="text" name="about_title" id="about_title" value="{{$escort->about ? $escort->about : null }}" class="whoiamtitle mc-whoiam-title mb-1" placeholder="Enter Your Title Here" required data-tab="group_one" >
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <textarea id="about_us_box" name="about_us_box">@if(!empty($escort->about_us_box)) {{ $escort->about_us_box}} @endif</textarea>
+                        <span class="theme-text-color text-capitalize">max limit 2500 characters</span>
+                        <div id="about_me_error"></div>
+                    </div>
+                
+                </div>
 
-      </div>
+                            <div class="">
+                                        <div class="col-md-12 text-right">
+                                            <input type="hidden" name="type" id="type" value="who_we">
+                                            <input type="hidden" name="massage_id" id="massage_id" value="{{$escort->id}}">
+                                            <button id="read-more" type="submit" class="save_profile_btn">Update</button>
+                                        </div>
+                                </div>
+                </div>
+
+        </div>
+    </form>
+
+
       <div class="tab_btm_btns_preview_and_next py-3">
          <div class="row pt-3 pb-2">
             <div class="col-md-12 text-right mb-2 a_text_white_hover">

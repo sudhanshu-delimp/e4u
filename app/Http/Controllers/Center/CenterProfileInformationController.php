@@ -100,6 +100,7 @@ class CenterProfileInformationController extends BaseController
         $availability = $massage_profile->availability;
         return view('center.my-account.profile-information',compact('massage_profile','service_one','service_two','service_three','availability','durations'));
     }
+
     public function storeAboutMe(UpdateRequestAboutMe $request)
     {
         //dd($request->all());
@@ -126,6 +127,29 @@ class CenterProfileInformationController extends BaseController
         }
         return response()->json(compact('error'));
     }
+
+     public function ourBusiness(Request $request)
+    {
+       
+        $input = [
+            'profile_name'=>$request->profile_name,
+            'business_name'=>$request->business_name,
+            'business_no'=>$request->business_no,
+            'furniture_types'=>$request->furniture_types,
+            'phone'=>$request->phone,
+            'address'=>$request->address,
+        ];
+        
+        $error=true;
+        if($data = $this->massage_profile->updateOrCreate($input, auth()->user()->id,1)) {
+            $error = false;
+        }
+        return response()->json(compact('error'));
+    }
+
+
+    
+
     public function storeSocialsLink(Request $request)
     {
         //dd($request->social_links);
@@ -442,9 +466,10 @@ class CenterProfileInformationController extends BaseController
         // $path = $this->media;
         //dd($path->findByposition(auth()->user()->id,1)['path']);
         
+        
          $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
          $path = $this->media;
-        return view('center.dashboard.archives.archive-view-photos',compact('path','media'));
+         return view('center.dashboard.archives.archive-view-photos',compact('path','media'));
     }
     public function defaultImages(Request $request)
     {

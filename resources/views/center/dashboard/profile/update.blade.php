@@ -27,10 +27,10 @@
     color: #fff !important;
 }
   
-.disabled-form-tab {
+/* .disabled-form-tab {
     pointer-events: none;
     opacity: 0.5;
-}
+} */
 
 </style>
 @endsection
@@ -131,18 +131,15 @@
                                 
                                 
                             </ul>
-                            <form id="my_massage_profile" action="{{ route('center.setting.profile',request()->segment(3) ) }}" method="post" enctype="multipart/form-data">
-                                @csrf
+                            
                                 <div class="tab-content custom-tab-bg-mc" id="myTabContent">
-                                    
-                                    @include('center.dashboard.profile.partials.aboutme-dash-tab')
-                                    @include('center.dashboard.profile.partials.services-dash-tab')
-                                    @include('center.dashboard.profile.partials.available-dash-tab')
-                                   
-                                    @include('center.dashboard.profile.partials.massuers-dash-tab')
+                                    @include('center.dashboard.profile.update.aboutme-dash-tab')
+                                    @include('center.dashboard.profile.update.services-dash-tab')
+                                    @include('center.dashboard.profile.update.available-dash-tab')
+                                    @include('center.dashboard.profile.update.massuers-dash-tab')
                                     
                                 </div>
-                            </form>
+                           
                         </div>
                     </div>
                 </div>
@@ -151,32 +148,7 @@
     </div>
 </div>
 
-<div class="modal programmatic" id="change_all" style="display: none">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
-                {{-- <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5> --}}
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">
-                    <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                </span>
-                </button>
-            </div>
-            <div class="modal-body">    
-                <input type="hidden" id="current" name="current">
-                <input type="hidden" id="previous" name="previous">
-                <input type="hidden" id="label" name="label">
-                <input type="hidden" id="trigger-element">
-                <h3 class="mb-4 mt-5"><span id="Lname"></span> </h3>
-                <h3 class="mb-4 mt-5"><span id="log"></span> </h3>
-                <div class="modal-footer">
-                    <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal" value="close" id="close_change">Close</button>
-                    <button type="button" class="btn main_bg_color site_btn_primary" id="save_change">save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 
@@ -231,107 +203,123 @@ console.log('profileId',profileId);
    
     $ (document).ready(function(e) {
 
-        $('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
 
+        $('#language').change(function(){
+            var languageValue = $('#language').val();
+            $("#show_language").show();
+            $(".select_lang").hide();
+            var selectedLanguage = $(this).children("option:selected", this).data("name");
+            $("#show_language").append("  <div class='selecated_languages' style='display: inline-block'><span class='languages_choosed_from_drop_down'>"+ selectedLanguage +" <small class='remove-lang'>×</small></span> </div> ");
+            $("#container_language").append("<input type='hidden' name='language[]' value="+ languageValue +">");
+            $("#language option[value='"+languageValue+"']").remove();
+        });
 
-        const validator = $('#my_massage_profile').validate({
-            ignore: function (index, element) {
-                return $(element).closest('.tab-pane').length &&
-                    !$(element).closest('.tab-pane').hasClass('active');
-            },
-
-            errorClass: 'text-danger',
-            errorElement: 'small'
+         $(document).on('click', '.remove-lang , span.custom--help', function () {
+            $(this).closest('.selecated_languages').remove();            
+            $(this).closest('.custom-help-contain').toggleClass('help-note-toggle');
         });
 
 
+        //$('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
 
-        $('.nex_sterp_btn').on('click', function () {
+        // const validator = $('#my_massage_profile').validate({
+        //     ignore: function (index, element) {
+        //         return $(element).closest('.tab-pane').length &&
+        //             !$(element).closest('.tab-pane').hasClass('active');
+        //     },
 
-            syncCKEditor();
-            let isValid = true;
-            let isFirstTab = $('a.nav-link.active').parent().is(':first-child');
-            let isSecondTab = $('a.nav-link.active').parent().index() === 1;
-            let isThirdTab = $('a.nav-link.active').parent().index() === 2;
+        //     errorClass: 'text-danger',
+        //     errorElement: 'small'
+        // });
+
+
+
+        // $('.nex_sterp_btn').on('click', function () {
+
+        //     syncCKEditor();
+        //     let isValid = true;
+        //     let isFirstTab = $('a.nav-link.active').parent().is(':first-child');
+        //     let isSecondTab = $('a.nav-link.active').parent().index() === 1;
+        //     let isThirdTab = $('a.nav-link.active').parent().index() === 2;
 
             
 
 
-            // if (isFirstTab) 
-            // {
+        //     if (isFirstTab) 
+        //     {
 
-            //     console.log('isFirstTab',isFirstTab);
+        //         console.log('isFirstTab',isFirstTab);
 
-            //     if(!checkProfileDynamicMedia()){
-            //     return false;
-            //     }
-            // }
+        //         if(!checkProfileDynamicMedia()){
+        //         return false;
+        //         }
+        //     }
 
-            // if(isSecondTab)
-            // {
+        //     if(isSecondTab)
+        //     {
 
-            //     if(!validateSecondTab())
-            //      return false;    
-            // }
+        //         if(!validateSecondTab())
+        //          return false;    
+        //     }
 
-            if(isThirdTab)
-            {
+        //     if(isThirdTab)
+        //     {
 
-                if(!validateThirdTab())
-                 return false; 
+        //         if(!validateThirdTab())
+        //          return false; 
             
-            }
+        //     }
 
 
         
-            $('.tab-pane.active :input').each(function () {
-                if (!validator.element(this)) {
-                    isValid = false;
-                }
-            });
+        //     $('.tab-pane.active :input').each(function () {
+        //         if (!validator.element(this)) {
+        //             isValid = false;
+        //         }
+        //     });
 
 
-            if(!checkProfileDynamicMediaVideo()){
-                    Swal.fire('Media',
-                        'Please attach video to this profile from the Media Repository or upload a new file',
-                        'warning');
-                    return false;  
-            }
+        //     if(!checkProfileDynamicMediaVideo()){
+        //             Swal.fire('Media',
+        //                 'Please attach video to this profile from the Media Repository or upload a new file',
+        //                 'warning');
+        //             return false;  
+        //     }
 
             
-            if (!validateCKEditor()) {
-                isValid = false;
-            }
+        //     if (!validateCKEditor()) {
+        //         isValid = false;
+        //     }
 
-            if (!isValid) return false;
+        //     if (!isValid) return false;
 
 
-                let nextTab = $('a.nav-link.active')
-                    .parent()
-                    .next()
-                    .find('a[data-toggle="tab"]');
+        //         let nextTab = $('a.nav-link.active')
+        //             .parent()
+        //             .next()
+        //             .find('a[data-toggle="tab"]');
 
-               if (nextTab.length) {
+        //        if (nextTab.length) {
                    
-                    nextTab.tab('show');
-                    nextTab.removeClass('disabled-form-tab'); 
-                    updateProgressBar(nextTab.attr('id'));
-                }
+        //             nextTab.tab('show');
+        //             nextTab.removeClass('disabled-form-tab'); 
+        //             updateProgressBar(nextTab.attr('id'));
+        //         }
         
 
-        });
+        // });
 
-        $('.prev_step_btn').on('click', function () {
+        // $('.prev_step_btn').on('click', function () {
 
-            let prevTab = $('a.nav-link.active')
-                .parent()
-                .prev()
-                .find('a[data-toggle="tab"]');
+        //     let prevTab = $('a.nav-link.active')
+        //         .parent()
+        //         .prev()
+        //         .find('a[data-toggle="tab"]');
 
-            if (prevTab.length) {
-                prevTab.tab('show');
-            }
-        });
+        //     if (prevTab.length) {
+        //         prevTab.tab('show');
+        //     }
+        // });
 
 
           
@@ -359,43 +347,81 @@ console.log('profileId',profileId);
 
 
 
-       $('#my_massage_profile').on('submit', function (e) {
-        e.preventDefault();
-        submit_form_massage();
-        });
+    //    $('#my_massage_profile').on('submit', function (e) {
+    //     e.preventDefault();
+    //     submit_form_massage();
+    //     });
 
-        function submit_form_massage() 
-        {
+    //     function submit_form_massage() 
+    //     {
 
-            let form = $('#my_massage_profile');
-            let centerId = $('#massage_profile_id').val();
+    //         let form = $('#my_massage_profile');
+    //         let centerId = $('#massage_profile_id').val();
 
-            let formData = new FormData(form[0]);
+    //         let formData = new FormData(form[0]);
 
-            $.ajax({
-                url: "{{route('center.create.profile')}}",  
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    console.log(response);
-                    alert('Profile created successfully');
-                },
-                error: function (xhr) {
-                    console.log(xhr.responseText);
-                    alert('Error while saving profile');
-                }
-            });
-        }
+    //         $.ajax({
+    //             url: "{{route('center.create.profile')}}",  
+    //             type: 'POST',
+    //             data: formData,
+    //             processData: false,
+    //             contentType: false,
+    //             success: function (response) {
+    //                 console.log(response);
+    //                 alert('Profile created successfully');
+    //             },
+    //             error: function (xhr) {
+    //                 console.log(xhr.responseText);
+    //                 alert('Error while saving profile');
+    //             }
+    //         });
+    //     }
 
 
 
         
+    // });
+
+
+          
+    
+      $(document).on('click', '.save_profile_btn', function (e) {
+        e.preventDefault();
+
+
+            for (let instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            }
+            
+             let form = $(this).closest('form'); 
+             let formData = new FormData(form[0]);
+             var url = form.attr('action');
+             
+
+            $.ajax({
+                method: form.attr('method'),
+                url:url,
+                data:formData,
+                contentType: false,
+                processData: false,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success: function (data) {
+                    $(this).prop('disabled', false);
+                    $(this).html('Update');
+                    if(!data.error){
+                        swal_success_popup(data.message);
+                            setTimeout(function () {
+                               //location.reload();
+                            }, 2000); 
+                    } else {
+                    swal_error_popup('Oops.. sumthing wrong Please try again');
+                    }
+                }
+            });
+        
     });
 
-
-    
+     });
 
 
 </script>

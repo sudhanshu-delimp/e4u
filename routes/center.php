@@ -11,9 +11,10 @@ use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Center\PolyPaymentController;
 use App\Http\Controllers\Escort\EscortGalleryController;
+use App\Http\Controllers\Center\MassageGalleryController;
 use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\UpdateController;
-use App\Http\Controllers\Center\MassageGalleryController;
+use App\Http\Controllers\Center\Profile\MassageController;
 use App\Http\Controllers\Center\MassageCenterAccountController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Center\CenterProfileInformationController;
@@ -79,15 +80,24 @@ Route::get('/profile-info/create-profile', function()
 
     
 ///////////////profile
+
+
 Route::get('create-profile',[CreateController::class,'index'])->name('center.profile');
-Route::get('update-profile/{id?}',[CreateController::class,'get_profile'])->name('center.update-profile');
+
+Route::post('update-single-data',[MassageController::class,'update_single_data'])->name('center.update-single-data');
+Route::post('our-business',[MassageController::class,'ourBusiness'])->name('center.our-business');
+Route::post('create-profile',[MassageController::class,'createProfile'])->name('center.create.profile');
+Route::get('update-profile/{id?}',[MassageController::class,'getProfile'])->name('center.update-profile');
+Route::post('update-massage-profile',[MassageController::class,'updateprofile'])->name('center.update-massage-profile');
+
+
 
 
 //Route::get('update-profile/{id?}',[CreateController::class,'updateBasicProfile'])->name('center.profile.basic.update');
 //create new profile
 Route::post('setting-profile/{id?}',[UpdateController::class,'createBySetting'])->name('center.setting.profile');
 //end
-Route::post('create-profile/{id?}',[CreateController::class,'createProfile'])->name('center.create.profile');
+
 Route::post('upload-media',[CreateController::class,'saveMedia'])->name('upload.media');
 Route::delete('delete-media/{id}',[CreateController::class,'deleteMedia'])->name('center.delete.media');
 Route::post('mark-default/{id}',[CreateController::class,'markDefault'])->name('center.media.mark.default');
@@ -107,6 +117,7 @@ Route::get('paymentUrl-status-success',[PolyPaymentController::class,'successUrl
 
 /////////settings
 Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
+
 Route::post('settings-information',[CenterProfileInformationController::class,'storeAboutMe'])->name('center.settings.about.me');
 Route::post('settings-my-rates',[CenterProfileInformationController::class,'storeRates'])->name('center.settings.rate');
 Route::post('settings-availability',[CenterProfileInformationController::class,'storeAvailability'])->name('center.settings.availability');
