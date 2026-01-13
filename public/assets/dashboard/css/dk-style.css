@@ -4831,8 +4831,13 @@ white-space: nowrap;
     border-color: #2C3E50 !important;
 }
 
-.sidebar-brand .e4u_logo {
-    width: 50%;
+.sidebar-brand {
+    max-width: 195px;
+    width: 100%;
+}
+
+.sidebar-brand img {
+    width: 100%;
 }
 
 .sidebar .sidebar-brand {

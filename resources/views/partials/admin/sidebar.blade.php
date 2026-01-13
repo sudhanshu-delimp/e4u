@@ -17,10 +17,11 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
 
     @if (auth()->user() && auth()->user()->type == 1)
-        <a class="sidebar-brand text-left" href="{{ route('home') }}">
-            <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3 e4u_logo" alt=""><br>
-            <span style="color:#FF3C5F;" class="font-weight-normal">OC ({{ $ocLavel }})</span>
+        <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
+            <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3 e4u_logo" alt="">
+            
         </a>
+        <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">OC ({{ $ocLavel }})</span>
         <li class="nav-item active">
             <a class="nav-link" href="{{ route('admin.index') }}">
                 <svg width="18" height="19" viewBox="0 0 18 19" fill="none"
