@@ -60,13 +60,25 @@
 @endsection
 @section('content')
     <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-        <div class="row">
-            <div class="col-md-12 custom-heading-wrapper">
-                <h1 class="h1">{{ $type == 'past' ? 'Archive' : 'Listed' }}
-                    Profiles</h1>
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </span>
+            
+
+            <div class="d-sm-flex align-items-center justify-content-between">
+                <div class="custom-heading-wrapper">
+                    <h1 class="h1">{{ $type == 'past' ? 'Archive' : 'Listed' }}
+                        Profiles</h1>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+                </div>
+                @if (request('from') == 'dashboard')
+                <div class="back-to-dashboard">
+                    <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                        <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                    </a>
+                </div>
+                @endif
             </div>
-            <div class="col-md-12 mb-4 collapse" id="profile_and_tour_options">               
+            
+        <div class="row">
+            <div class="col-md-12 mb-4 collapse" id="notes">               
                 <div class="card " id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>

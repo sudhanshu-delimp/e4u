@@ -101,39 +101,34 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0">
-                    <form method="POST" id="createNotificationForm" action="{{ route('admin.global.notification.store') }}"
-                        data-parsley-validate>
+                    <form method="POST" id="createNotificationForm" action="{{ route('admin.global.notification.store') }}">
                         @csrf
                         <div class="row">
                             <!-- Auto-generated Date (readonly) -->
                             <div class="col-12 mb-3">
                                 <label class="label">Current Date</label>
                                 <input type="text" class="form-control rounded-0" name="current_day" id="current_day"
-                                    value="<?php echo date('d-m-Y'); ?>" data-parsley-required="true" />
+                                    value="<?php echo date('d-m-Y'); ?>"  />
                             </div>
 
                             <!-- Heading Field -->
                             <div class="col-12 mb-3">
                                 <label class="label">Heading</label>
                                 <input type="text" name="heading" id="heading" class="form-control rounded-0  fw-bold"
-                                    placeholder="Heading" required />
+                                    placeholder="Heading"  />
                                 <input type="hidden" name="edit_notification_id" id="edit_notification_id">
                             </div>
 
                             <!-- Start Date -->
                             <div class="col-12 mb-3">
                                 <label class="label">Start Date</label>
-                                <input type="text" name="start_date" id="start_date" class="form-control js_datepicker" placeholder="Start Date"
-                                    class="form-control rounded-0" 
-                                    required />
+                                <input type="text" name="start_date" id="start_date" class="form-control js_datepicker" placeholder="Start Date" class="form-control rounded-0"  />
 
                             </div>
                             <!-- Finish Date -->
                             <div class="col-12 mb-3">
                                 <label class="label">End Date</label>
-                                <input type="text" name="end_date" id="end_date" placeholder="End Date"
-                                    class="form-control rounded-0 js_datepicker"
-                                    required />
+                                <input type="text" name="end_date" id="end_date" placeholder="End Date" class="form-control rounded-0 js_datepicker"  />
 
                             </div>
                             <!-- Type Field (fixed Adhoc Content) -->
@@ -141,7 +136,6 @@
                                 <label class="label">Select Type</label>
                                 <select id="type" onchange="toggleFields()" name="type"
                                     class="form-control rounded-0" required>
-                                    <option value="">-- Select Type --</option>
                                     <option value="Ad hoc">Ad hoc</option>
                                     <option value="Template">Template</option>
                                 </select>
@@ -288,9 +282,7 @@
     <script>
         function toggleFields() {
             var type = document.getElementById('type').value;
-
             var templateSelect = document.getElementById('templateSelect');
-           // var noticeSection = document.getElementById('noticeSection');
             var contentField = document.getElementById('contentField');
 
             if (type === 'Template') {
@@ -304,8 +296,7 @@
                 contentField.style.display = 'none';
             }
         }
-    </script>
-    <script>
+
         const mmRoot = $('#manage-route');
         endpoint = {
             csrf_token: mmRoot.data('scrf-token'),
@@ -323,70 +314,70 @@
             return (tpl || '').replace('__ID__', id);
         }
 
+         //Remove Validation Message
+        function removeValidationMsg(){
+            $('.server-error').remove();
+            $('.is-invalid').removeClass('is-invalid');
+        }
+
         function ensureParsleyAndSubmit(form) {
-            function proceed() {
-                try {
-                    if ($.fn.parsley) {
-                        var instance = form.parsley();
-                        if (!instance.isValid()) {
-                            instance.validate();
+            let formData = form.serialize();
+            $.ajax({
+                url: endpoint.global_notification_store,
+                type: "POST",
+                _token: endpoint.csrf_token,
+                data: formData,
+                success: function(response) {
+                    if (response.status === true) {
+                        $('#createNotification').modal('hide');
+                        let msg = response.message ? response.message : 'Saved successfully';
+                        $("#image_icon").attr("src", endpoint.success_image);
+                        $('#success_task_title').text('Success');
+                        $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                        '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                        );
+                        form[0].reset();
+                        $('#successModal').modal('show');
+                        setTimeout(function() {
+                            $('#successModal').modal('hide');
+                            table.ajax.reload(null, false);
+                        }, 1200);
+                    }
+                },
+                error: function(xhr) {
+                    //Check Validation condition
+                    if (xhr.status === 422 && xhr.responseJSON.status === false) {
+                        let errors = xhr.responseJSON.errors;
+                        $('.server-error').remove();
+                        $('.is-invalid').removeClass('is-invalid');
+                        if(errors){
+                            $.each(errors, function(field, message) {
+                            let input = $('[name="' + field + '"]');
+                            input.addClass('is-invalid');
+                            input.after(
+                                '<small class="text-danger server-error">' + message +
+                                '</small>'
+                            );
+                        });
                             return;
                         }
+                        
                     }
-                } catch (e) {
-                    // ignore and continue with submit
+
+                    let msg = 'Something went wrong';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        msg = xhr.responseJSON.message;
+                    }
+                    $("#image_icon").attr("src", endpoint.error_image);
+                    $('#success_task_title').text('Error');
+                    $('#success_form_html').html('<h4>' + (msg ||
+                            'Status updated successfully') +
+                        '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                    );
+                    $('#successModal').modal('show');
                 }
+            });
 
-                let formData = form.serialize();
-                $.ajax({
-                    url: endpoint.global_notification_store,
-                    type: "POST",
-                    _token: endpoint.csrf_token,
-                    data: formData,
-                    success: function(response) {
-                        if (response.status === true) {
-                            $('#createNotification').modal('hide');
-                            let msg = response.message ? response.message : 'Saved successfully';
-                            $("#image_icon").attr("src", endpoint.success_image);
-                            $('#success_task_title').text('Success');
-                            $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
-                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
-                            );
-                            form[0].reset();
-                            $('#successModal').modal('show');
-                            setTimeout(function() {
-                                $('#successModal').modal('hide');
-                                table.ajax.reload(null, false);
-                            }, 1200);
-                        }
-
-                    },
-                    error: function(xhr) {
-                        let msg = 'Something went wrong';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            msg = xhr.responseJSON.message;
-                        }
-                        $("#image_icon").attr("src", endpoint.error_image);
-                        $('#success_task_title').text('Error');
-                        $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
-                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
-                        );
-                        $('#successModal').modal('show');
-                    }
-                });
-            }
-
-            if (!$.fn.parsley) {
-                $.getScript('https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js')
-                    .done(function() {
-                        proceed();
-                    })
-                    .fail(function() {
-                        proceed();
-                    });
-            } else {
-                proceed();
-            }
         }
 
         $('#createNotificationForm').on('submit', function(e) {
@@ -400,20 +391,15 @@
         $('#createNotification').on('hide.bs.modal', function() {
             $('#createNotificationForm')[0].reset();
             $('#edit_notification_id').val('');
+            removeValidationMsg();
             $('#submitBtn').text('Save');
-            //$('#current_date').prop('readonly', false);
-            //$('#start_date').prop('readonly', false);
-           // $('#end_date').prop('readonly', false);
-            //$('#type').prop('disabled', false);
             // Reset modal title
             $(this).find('h5.modal-title').html(
                 '<img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create Notification'
             );
 
         });
-    </script>
 
-    <script>
         var table = $("#centerNotificationTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
@@ -582,6 +568,7 @@
         $(document).on('click', '.js-edit', function(e) {
             e.preventDefault();
             let id = $(this).data('id');
+            removeValidationMsg();
             const container = $('#listingModalContent');
             container.html('<div class="text-center py-3">Loading...</div>');
             $('#createNotificationForm')[0].reset();

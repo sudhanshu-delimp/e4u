@@ -6,8 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-
-class StoreAgentNotificationRequest extends FormRequest
+class StoreViewerNotification extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,33 +32,33 @@ class StoreAgentNotificationRequest extends FormRequest
         $rules = [
             'heading' =>  'required|min:3',
         ];
-         /* ------------------ TYPE : AD HOC ------------------ */
+        /* ------------------ TYPE : AD HOC ------------------ */
 
-        if($type === 'Ad hoc'){
+        if ($type === 'Ad hoc') {
             $rules['start_date'] = 'required|date';
             $rules['end_date'] = 'required|date|after_or_equal:start_date';
             $rules['content'] = 'required';
         }
 
         /* ------------------ TYPE : SCHEDULED ------------------ */
-          if($type === 'Scheduled'){
-           
+        if ($type === 'Scheduled') {
+
             $rules['recurring_type'] = 'required|in:weekly,monthly,yearly,forever';
-            if($recurringType === 'weekly'){
+            if ($recurringType === 'weekly') {
                 $rules['recurring'] = 'required|integer|min:1';
                 $rules['content'] = 'required';
                 $rules['start_day_week'] = 'required';
                 $rules['end_day_week'] = 'required';
             }
 
-            if($recurringType  === 'monthly'){
+            if ($recurringType  === 'monthly') {
                 $rules['recurring'] = 'required|integer|min:1';
                 $rules['content'] = 'required';
                 $rules['start_day_monthly'] = 'required';
                 $rules['end_day_monthly'] = 'required';
             }
 
-            if($recurringType === 'yearly'){
+            if ($recurringType === 'yearly') {
                 $rules['recurring'] = 'required|integer|min:1';
                 $rules['content'] = 'required';
                 $rules['start_month_yearly'] = 'required';
@@ -68,32 +67,32 @@ class StoreAgentNotificationRequest extends FormRequest
                 $rules['end_day_yearly'] = 'required';
             }
 
-            if($recurringType  === 'forever'){
+            if ($recurringType  === 'forever') {
                 $rules['content'] = 'required';
             }
         }
 
         /* ------------------ TYPE : NOTICE ------------------ */
-        if($type === 'Notice'){
+        if ($type === 'Notice') {
             $rules['start_date'] = 'required|date';
             $rules['end_date'] = 'required|date|after_or_equal:start_date';
             $rules['content'] = 'required';
             $rules['member_id'] = 'required';
         }
 
-         /* ------------------ TYPE : TEMPLATE ------------------ */
-         if($type === 'Template'){
-            $rules['start_date'] ='required|date';
+        /* ------------------ TYPE : TEMPLATE ------------------ */
+        if ($type === 'Template') {
+            $rules['start_date'] = 'required|date';
             $rules['end_date'] = 'required|date|after_or_equal:start_date';
             $rules['template_name'] = 'required';
-         }
+        }
 
-     return $rules;
-
-
+        return $rules;
     }
 
-    public function messages(){
+
+    public function messages()
+    {
         return [
             'heading.required' => 'Heading is required',
             'content.required' => 'Content is required',
@@ -112,10 +111,10 @@ class StoreAgentNotificationRequest extends FormRequest
         ];
     }
 
-
-    protected function failedValidation(Validator $validator){
+    protected function failedValidation(Validator $validator)
+    {
         $errors = [];
-        foreach($validator->errors()->messages() as $field => $messages){
+        foreach ($validator->errors()->messages() as $field => $messages) {
             $errors[$field] = $messages[0];
         }
 
@@ -123,6 +122,4 @@ class StoreAgentNotificationRequest extends FormRequest
             error_response('Validation failed', 422, $errors)
         );
     }
-
-
 }
