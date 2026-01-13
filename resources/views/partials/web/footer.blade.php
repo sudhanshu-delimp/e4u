@@ -465,7 +465,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <img src="{{ asset('assets/app/img/logo.png') }}" class="img-fluid">
+                    <img src="{{ asset('assets/app/img/logo.png') }}" style="max-width: 195px; width:100%">
                 </div>
                 <div class="modal-body">
                     <h5 class="modal-title"><img src="{{ asset('assets/app/img/block-user.png') }}" class="img-fluid"> User Agreement</h5>

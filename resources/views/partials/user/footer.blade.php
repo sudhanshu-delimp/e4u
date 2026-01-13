@@ -3,7 +3,7 @@
        <div class="container-fluid">
            <div class="row">
                <div class="col-md-12">
-                   <a href="#"><img src="{{ asset('assets/app/img/logo.png') }}" class="img-fluid" alt="logo"></a>
+                   <a href="#" class="footer_logo"><img src="{{ asset('assets/app/img/logo.png') }}"  alt="logo"></a>
                </div>
            </div>
            <div class="row">

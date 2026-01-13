@@ -20,61 +20,62 @@
     </style>
 @stop
 @section('content')
-@php
-   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
-   $editAccess = staffPageAccessPermission($securityLevel, 'add');
-   $addAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
-@endphp
+    @php
+        $securityLevel = isset(auth()->user()->staff_detail->security_level)
+            ? auth()->user()->staff_detail->security_level
+            : 0;
+        $editAccess = staffPageAccessPermission($securityLevel, 'add');
+        $addAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+    @endphp
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
-            
-                <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-                    <div class="row">
-                        <div class="custom-heading-wrapper col-md-12">
-                            <h1 class="h1">Center (Notifications)</h1>
-                            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-                        </div>
-                        <div class="col-md-12 mb-4">
-                            <div class="card collapse" id="notes">
-                                <div class="card-body">
-                                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                    <ol>
-                                        <li>You can create a Notification, published at the top of the Massage Centre’s
-                                            Dashboard.</li>
-                                    </ol>
-                                </div>
+
+            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+                <div class="row">
+                    <div class="custom-heading-wrapper col-md-12">
+                        <h1 class="h1">Center (Notifications)</h1>
+                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <div class="card collapse" id="notes">
+                            <div class="card-body">
+                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                <ol>
+                                    <li>You can create a Notification, published at the top of the Massage Centre’s
+                                        Dashboard.</li>
+                                </ol>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                         @if($addAccessEnabled)
+                </div>
+                <div class="row">
+                    @if ($addAccessEnabled)
                         <div class="col-md-12 ">
                             <div class="bothsearch-form mb-3">
                                 <button type="button" class="create-tour-sec dctour" data-toggle="modal"
                                     data-target="#createNotification">New Notification</button>
                             </div>
                         </div>
-                        @endif
-                        <div class="col-md-12">
-                            <div class="panel with-nav-tabs panel-warning">
-                                <div class="panel-body">
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade in active show" id="tab1warning">
-                                            <div class="table-responsive-xl">
-                                                <table class="table" id="centerNotificationTable">
-                                                    <thead class="table-bg">
-                                                        <tr>
-                                                            <th scope="col">Ref</th>
-                                                            <th scope="col">Start</th>
-                                                            <th scope="col">End</th>
-                                                            <th scope="col">Type</th>
-                                                            <th scope="col">Status</th>
-                                                            <th scope="col" class="text-center">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table-content"></tbody>
-                                                </table>
-                                            </div>
+                    @endif
+                    <div class="col-md-12">
+                        <div class="panel with-nav-tabs panel-warning">
+                            <div class="panel-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active show" id="tab1warning">
+                                        <div class="table-responsive-xl">
+                                            <table class="table" id="centerNotificationTable">
+                                                <thead class="table-bg">
+                                                    <tr>
+                                                        <th scope="col">Ref</th>
+                                                        <th scope="col">Start</th>
+                                                        <th scope="col">End</th>
+                                                        <th scope="col">Type</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col" class="text-center">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-content"></tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -82,7 +83,8 @@
                         </div>
                     </div>
                 </div>
-                
+            </div>
+
         </div>
         <!-- End of Main Content -->
     </div>
@@ -102,21 +104,21 @@
                 </div>
                 <div class="modal-body pb-0">
                     <form method="POST" id="createNotificationForm"
-                        action="{{ route('admin.centres.notifications.store') }}" data-parsley-validate>
+                        action="{{ route('admin.centres.notifications.store') }}">
                         @csrf
                         <div class="row">
                             <!-- Auto-generated Date (readonly) -->
                             <div class="col-12 mb-3">
                                 <label class="label">Current Date</label>
                                 <input type="date" id="current_date" class="form-control rounded-0"
-                                    value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  />
+                                    value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
                             </div>
 
                             <!-- Heading Field -->
                             <div class="col-12 mb-3">
                                 <label class="label">Heading</label>
                                 <input type="text" name="heading" id="heading" class="form-control rounded-0  fw-bold"
-                                    placeholder="Heading" required />
+                                    placeholder="Heading" />
                                 <input type="hidden" name="edit_notification_id" id="edit_notification_id">
                             </div>
 
@@ -124,8 +126,7 @@
                             <div class="col-12 mb-3">
                                 <label class="label">Start Date</label>
                                 <input type="text" name="start_date" id="start_date" placeholder="Start Date"
-                                    class="form-control rounded-0 js_datepicker"
-                                    required />
+                                    class="form-control rounded-0 js_datepicker" />
 
                             </div>
 
@@ -133,16 +134,15 @@
                             <div class="col-12 mb-3">
                                 <label class="label">End Date</label>
                                 <input type="text" name="end_date" id="end_date" placeholder="End Date"
-                                    class="form-control rounded-0 js_datepicker" 
-                                    required />
+                                    class="form-control rounded-0 js_datepicker" />
 
                             </div>
                             <!-- Type Field (fixed Adhoc Content) -->
                             <div class="col-12 mb-3">
-                                 <label class="label">Select Type</label>
+                                <label class="label">Select Type</label>
                                 <select id="type" onchange="toggleFields()" name="type"
-                                    class="form-control rounded-0" required>
-                                    <option value="">-- Select Type --</option>
+                                    class="form-control rounded-0">
+                                    {{-- <option value="">-- Select Type --</option> --}}
                                     <option value="Ad hoc">Ad hoc</option>
                                     <option value="Template">Template</option>
                                     <option value="Notice">Notice</option>
@@ -275,8 +275,7 @@
         data-center-notification-edit="{{ route('admin.centres.notifications.edit', ['id' => '__ID__']) }}"
         data-center-notification-update="{{ route('admin.centres.notifications.update', ['id' => '__ID__']) }}"
         data-center-notification-store="{{ route('admin.centres.notifications.store') }}"
-        data-center-notification-show="{{route('admin.centres.notifications.show',['id' => '__ID__'])}}"
-        >
+        data-center-notification-show="{{ route('admin.centres.notifications.show', ['id' => '__ID__']) }}">
 
 
     </div>
@@ -311,8 +310,7 @@
                 contentField.style.display = 'none';
             }
         }
-    </script>
-    <script>
+
         const mmRoot = $('#manage-route');
         endpoint = {
             csrf_token: mmRoot.data('scrf-token'),
@@ -329,70 +327,72 @@
             return (tpl || '').replace('__ID__', id);
         }
 
+          //Remove Validation Message
+        function removeValidationMsg(){
+            $('.server-error').remove();
+            $('.is-invalid').removeClass('is-invalid');
+        }
+
         function ensureParsleyAndSubmit(form) {
-            function proceed() {
-                try {
-                    if ($.fn.parsley) {
-                        var instance = form.parsley();
-                        if (!instance.isValid()) {
-                            instance.validate();
-                            return;
-                        }
-                    }
-                } catch (e) {
-                    // ignore and continue with submit
-                }
-
-                let formData = form.serialize();
-                $.ajax({
-                    url: endpoint.center_notification_store,
-                    type: "POST",
-                    _token: endpoint.csrf_token,
-                    data: formData,
-                    success: function(response) {
-                        if (response.status === true) {
-                            $('#createNotification').modal('hide');
-                            let msg = response.message ? response.message : 'Saved successfully';
-                            $("#image_icon").attr("src", endpoint.success_image);
-                            $('#success_task_title').text('Success');
-                            $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
-                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
-                            );
-                            form[0].reset();
-                            $('#successModal').modal('show');
-                            setTimeout(function() {
-                                $('#successModal').modal('hide');
-                                table.ajax.reload(null, false);
-                            }, 1200);
-                        }
-
-                    },
-                    error: function(xhr) {
-                        let msg = 'Something went wrong';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            msg = xhr.responseJSON.message;
-                        }
-                        $("#image_icon").attr("src", endpoint.error_image);
-                        $('#success_task_title').text('Error');
+            let formData = form.serialize();
+            $.ajax({
+                url: endpoint.center_notification_store,
+                type: "POST",
+                _token: endpoint.csrf_token,
+                data: formData,
+                success: function(response) {
+                    if (response.status === true) {
+                        $('#createNotification').modal('hide');
+                        let msg = response.message ? response.message : 'Saved successfully';
+                        $("#image_icon").attr("src", endpoint.success_image);
+                        $('#success_task_title').text('Success');
                         $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
                             '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                         );
+                        form[0].reset();
                         $('#successModal').modal('show');
+                        setTimeout(function() {
+                            $('#successModal').modal('hide');
+                            table.ajax.reload(null, false);
+                        }, 1200);
                     }
-                });
-            }
 
-            if (!$.fn.parsley) {
-                $.getScript('https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js')
-                    .done(function() {
-                        proceed();
-                    })
-                    .fail(function() {
-                        proceed();
+                },
+                error: function(xhr) {
+                //Check Validation condition
+                if (xhr.status === 422 && xhr.responseJSON.status === false) {
+                    let errors = xhr.responseJSON.errors;
+                    $('.server-error').remove();
+                    $('.is-invalid').removeClass('is-invalid');
+                    if(errors){
+                        $.each(errors, function(field, message) {
+                        let input = $('[name="' + field + '"]');
+                        input.addClass('is-invalid');
+                        input.after(
+                            '<small class="text-danger server-error">' + message +
+                            '</small>'
+                        );
                     });
-            } else {
-                proceed();
+                        return;
+                    }
+                    
+                }
+
+                let msg = 'Something went wrong';
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    msg = xhr.responseJSON.message;
+                }
+                $("#image_icon").attr("src", endpoint.error_image);
+                $('#success_task_title').text('Error');
+                $('#success_form_html').html('<h4>' + (msg ||
+                        'Status updated successfully') +
+                    '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                );
+                $('#successModal').modal('show');
             }
+            });
+
+
         }
 
         $('#createNotificationForm').on('submit', function(e) {
@@ -406,6 +406,7 @@
         $('#createNotification').on('hide.bs.modal', function() {
             $('#createNotificationForm')[0].reset();
             $('#edit_notification_id').val('');
+            removeValidationMsg();
             $('#submitBtn').text('Save');
             // Reset modal title
             $(this).find('h5.modal-title').html(
@@ -413,9 +414,7 @@
             );
 
         });
-    </script>
 
-    <script>
         var table = $("#centerNotificationTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
@@ -427,15 +426,14 @@
                 url: "{{ route('admin.centres.notifications.index') }}",
                 type: 'GET'
             },
-            columns: [
-                {
+            columns: [{
                     data: 'ref',
                     name: 'ref'
                 },
                 {
                     data: 'start_date',
                     name: 'start_date',
-                    
+
                 },
                 {
                     data: 'end_date',
@@ -586,10 +584,11 @@
         $(document).on('click', '.js-edit', function(e) {
             e.preventDefault();
             let id = $(this).data('id');
+            removeValidationMsg();
             const container = $('#listingModalContent');
             container.html('<div class="text-center py-3">Loading...</div>');
             $('#createNotificationForm')[0].reset();
-             $('#edit_notification_id').val(id);
+            $('#edit_notification_id').val(id);
             $('#submitBtn').text('Save');
 
             $.ajax({

@@ -14,6 +14,9 @@
    span.select2.select2-container.select2-container--default > span.selection > span {
       height: 52px !important; 
    }
+   .table-responsive {
+    overflow: visible;
+}
 </style>
 @endsection
 
@@ -393,7 +396,7 @@ $(document).ready(function() {
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                 </a>
-                <div class="dropdown-menu">
+                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#createProfileModal"><i class="fa fa-plus"></i> Create Profile</a>
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#editProfileModal"><i class="fa fa-pen"></i> Edit Profile</a>
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="/agent/profile/list/${row.member_id}"><i class="fa fa-list"></i> List Profile</a>

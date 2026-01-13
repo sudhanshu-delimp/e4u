@@ -27,7 +27,7 @@ class CreateViewerNotificationsTable extends Migration
             $table->tinyInteger('start_month')->nullable(); // yearly ke liye month int (1-12)
             $table->tinyInteger('end_month')->nullable();   // yearly ke liye month int (1-12)
             $table->integer('num_recurring')->nullable();   // Kitne times repeat karna hai
-            $table->text('content')->nullable();
+            $table->longText('content')->nullable();
             $table->enum('status', ['Published','Completed','Suspended', 'Removed'])->default('Published');
             $table->text('scheduled_days')->nullable();
             $table->timestamps();

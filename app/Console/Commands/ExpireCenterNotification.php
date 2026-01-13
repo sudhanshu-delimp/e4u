@@ -9,6 +9,7 @@ use App\Models\CenterNotification;
 use App\Models\EscortNotification;
 use App\Models\GlobalNotification;
 use App\Models\ViewerNotification;
+use App\Models\ShareholderNotification;
 
 class ExpireCenterNotification extends Command
 {
@@ -68,6 +69,11 @@ class ExpireCenterNotification extends Command
             ->update(['status' => 'Completed']);
 
         GlobalNotification::where('end_date', '<', $today)
+            ->whereNotNull('end_date')
+            ->where('status', 'Published')
+            ->update(['status' => 'Completed']);
+
+        ShareholderNotification::where('end_date', '<', $today)
             ->whereNotNull('end_date')
             ->where('status', 'Published')
             ->update(['status' => 'Completed']);
