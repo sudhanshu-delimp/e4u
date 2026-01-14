@@ -11,7 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class FooterAlertController extends Controller
 {
-        protected $viewAccessEnabled;
+    protected $viewAccessEnabled;
     protected $editAccessEnabled;
     protected $addAccessEnabled;
     protected $sidebar;
@@ -48,8 +48,6 @@ class FooterAlertController extends Controller
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
             }
-
-
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('ref', function ($row) {
@@ -61,7 +59,7 @@ class FooterAlertController extends Controller
                         $query->where('id', 'like', "%{$digits}%");
                     }
                 })
-                ->editColumn('published_date', function ($row) {
+                ->editColumn('created_at', function ($row) {
                     return basicDateFormat($row['created_at']);
                 })
 
@@ -83,14 +81,14 @@ class FooterAlertController extends Controller
                     }
 
                     // If published -> offer suspend
-                    if ($status === 'Withdrawn') {
+                    if ($status === 'Published') {
                         if ($this->editAccessEnabled) {
-                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-suspend" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Withdrawn</a>';
+                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-withdrawn" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Withdrawn</a>';
                         }
                     }
 
                     // If suspended -> offer publish and remove
-                    if ($status === 'Suspended') {
+                    if ($status === 'Withdrawn') {
                         if ($this->editAccessEnabled) {
                             $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
                             $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
@@ -112,7 +110,7 @@ class FooterAlertController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action','status','alert_type'])
+                ->rawColumns(['action','status','alert_type','ref','created_at'])
                 ->make(true);
         }
         return view('admin.publications.footer_alert.index');
@@ -122,25 +120,25 @@ class FooterAlertController extends Controller
     {
 
         try {
-            $notification = EscortNotification::findOrFail($id);
+            $alert = FooterAlert::findOrFail($id);
             $status = $request->input('status');
-            $allowedStatuses = ['Published', 'Suspended', 'Removed'];
+            $allowedStatuses = ['Published', 'Withdrawn', 'Removed'];
 
             if (!in_array($status, $allowedStatuses)) {
                 return error_response('Invalid status', 422);
             }
 
             if ($status === 'Removed') {
-                $notification->delete();
+                $alert->delete();
                 return success_response(
-                    ['id' => $notification->id, 'status' => 'Removed'],
-                    'Notification deleted successfully.'
+                    ['id' => $alert->id, 'status' => 'Removed'],
+                    'Alert deleted successfully.'
                 );
             }
 
-            $notification->update(['status' => $status]);
+            $alert->update(['status' => $status]);
             return success_response(
-                ['id' => $notification->id, 'status' => $status],
+                ['id' => $alert->id, 'status' => $status],
                 'Status updated successfully.'
             );
         } catch (\Exception $e) {
@@ -155,17 +153,15 @@ class FooterAlertController extends Controller
             return success_response([
                 'id' => $n->id,
                 'ref' => sprintf('#%05d', $n->id),
-                'heading' => $n->heading,
-                'start_date' => basicDateFormat($n->start_date),
-                'end_date' => basicDateFormat($n->end_date),
-                'type' => $n->type,
+                'alert_type' => $n->alert_type,
+                'subject' => $n->subject,
+                'description' => $n->description,
+                'message' => $n->message,
                 'status' => $n->status,
-                'content' => $n->content,
-                'template_name' => $n->template_name,
-                'member_id' => $n->member_id,
+                'create_date' => basicDateFormat($n->created_at)
             ]);
         } catch (\Exception $e) {
-            return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);
+            return error_response('Failed to fetch alert: ' . $e->getMessage(), 500);
         }
     }
 
@@ -191,45 +187,44 @@ class FooterAlertController extends Controller
         }
     }
 
-    public function pdfDownload($id)
-    {
-        try {
-            $decodedId = (int) base64_decode($id);
-            $data = FooterAlert::find($decodedId);
-            if (is_null($data)) {
-                abort(404); // Throws a NotFoundHttpException
-            }
-            $pdfDetail['ref'] = $data['id'];
-            $pdfDetail['heading'] = $data['heading'];
-            $pdfDetail['type'] = $data['type'];
-            $pdfDetail['status'] = $data['status'];
-            $pdfDetail['member_id'] = $data['member_id'];
-            $pdfDetail['start_date'] = basicDateFormat($data['start_date']);
-            $pdfDetail['end_date'] = basicDateFormat($data['end_date']);
-            if ($data['type'] == 'Template') {
-                $pdfDetail['template_name'] = $data['template_name'];
-            } else {
-                $pdfDetail['content'] = $data['content'];
-            }
+    // public function pdfDownload($id)
+    // {
+    //     try {
+    //         $decodedId = (int) base64_decode($id);
+    //         $data = FooterAlert::find($decodedId);
+    //         if (is_null($data)) {
+    //             abort(404); // Throws a NotFoundHttpException
+    //         }
+    //         $pdfDetail['ref'] = $data['id'];
+    //         $pdfDetail['heading'] = $data['heading'];
+    //         $pdfDetail['type'] = $data['type'];
+    //         $pdfDetail['status'] = $data['status'];
+    //         $pdfDetail['member_id'] = $data['member_id'];
+    //         $pdfDetail['start_date'] = basicDateFormat($data['start_date']);
+    //         $pdfDetail['end_date'] = basicDateFormat($data['end_date']);
+    //         if ($data['type'] == 'Template') {
+    //             $pdfDetail['template_name'] = $data['template_name'];
+    //         } else {
+    //             $pdfDetail['content'] = $data['content'];
+    //         }
 
 
-            return view('admin.notifications.escorts.center-notification-pdf-download', compact('pdfDetail'));
-        } catch (\Throwable $e) {
-            abort(404);
-        }
-    }
+    //         return view('admin.notifications.escorts.center-notification-pdf-download', compact('pdfDetail'));
+    //     } catch (\Throwable $e) {
+    //         abort(404);
+    //     }
+    // }
 
     public function edit($id)
     {
         try {
-            $notification = FooterAlert::findOrFail($id);
-            $notification->start_date = basicDateFormat($notification->start_date);
-            $notification->end_date = basicDateFormat($notification->end_date);
+            $editAlert = FooterAlert::findOrFail($id);
             // Return raw date format for edit form
-            $notificationData = $notification->toArray();
-            return success_response($notificationData, 'Notification view');
+            $editAlert['create_date'] = basicDateFormat($editAlert->created_at);
+            $editAlert = $editAlert->toArray();
+            return success_response($editAlert, 'Alert view');
         } catch (\Exception $e) {
-            return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);
+            return error_response('Failed to fetch alert: ' . $e->getMessage(), 500);
         }
     }
 

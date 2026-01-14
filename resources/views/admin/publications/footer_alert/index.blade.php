@@ -105,7 +105,7 @@
                             </div>
                             <div class="col-12 mb-3">
                                 <label for="Descrioption" class="label">Descrioption</label>
-                                <textarea class="form-control" id="description" name="description" placeholder="up to 200 characters"
+                                <textarea class="form-control" id="description_notice" name="description" placeholder="up to 200 characters"
                                     rows="3"></textarea>
                             </div>
                             <div class="col-12">
@@ -144,7 +144,8 @@
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <label class="label">Select Alert Type</label>
-                                <select class="form-control rounded-0" id="alert_type" name="alert_type">
+                                <select class="form-control rounded-0" id="alert_type" name="alert_type"
+                                    id="alert_type">
                                     <option value="Employment">Employment</option>
                                     <option value="New Features">New Features</option>
                                     <option value="Scammer Alerts">Scammer Alerts</option>
@@ -168,8 +169,8 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group mb-0">
-                                    <label class="form-check-label pr-4">Date: <span
-                                            class="ml-1">{{ date('d-m-Y') }}</span></label>
+                                    <label class="form-check-label pr-4">Date: <span class="ml-1"
+                                            id="create_date">{{ date('d-m-Y') }}</span></label>
                                 </div>
                             </div>
                         </div>
@@ -192,7 +193,7 @@
                         <img id="image_icon" class="custompopicon" src="#"> <span id="success_task_title"></span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/alert.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
@@ -207,16 +208,49 @@
             </div>
         </div>
     </div>
+
+    <!-- View Alert Pop up module-->
+    <div class="modal fade upload-modal " id="view-listing" tabindex="-1" role="dialog"
+        aria-labelledby="view-listingLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="view-listings"><img
+                            src="{{ asset('assets/dashboard/img/create-notification.png') }}" alt="alert"
+                            style="width:29px;">
+                        View Alert
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div id="listingModalContent">
+                                <table
+                                    style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer pb-4 mb-2">
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+                    {{-- <button type="submit" id="pdf-download" data-notification-id="">Print</button> --}}
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- End of Page Wrapper -->
 
 
-
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
     <div id="manage-route" data-scrf-token="{{ csrf_token() }}"
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
-        data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
+        data-alert-image="{{ asset('assets/app/img/alert.png') }}" data-current-date="{{ date('d-m-Y') }}"
         data-publications-alert-status="{{ route('admin.publications.alert.status', ['id' => '__ID__']) }}"
         data-publications-alert-edit="{{ route('admin.publications.alert.edit', ['id' => '__ID__']) }}"
         data-publications-alert-update="{{ route('admin.publications.alert.update', ['id' => '__ID__']) }}"
@@ -236,7 +270,8 @@
         endpoint = {
             csrf_token: mmRoot.data('scrf-token'),
             success_image: mmRoot.data('success-image'),
-            error_image: mmRoot.data('error-image'),
+            alert_image: mmRoot.data('alert-image'),
+            current_date: mmRoot.data('current-date'),
             publications_alert_status: mmRoot.data('publications-alert-status'),
             publications_alert_edit: mmRoot.data('publications-alert-edit'),
             publications_alert_store: mmRoot.data('publications-alert-store'),
@@ -257,14 +292,12 @@
         //for submit
         function formSubmit(form) {
             let formData = form.serialize();
-
             $.ajax({
                 url: endpoint.publications_alert_store,
                 method: "POST",
                 _token: endpoint.csrf_token,
                 data: formData,
                 success: function(response) {
-
                     if (response.status == true) {
                         $('#Create_Alert').modal('hide');
                         let msg = response.message ? response.message : "Save Successfully";
@@ -318,11 +351,179 @@
 
         }
 
+        $('#Create_Alert').on('hide.bs.modal', function() {
+            $('#AlertForm')[0].reset();
+            $('#edit_alert_id').val('');
+            removeValidationMsg();
+            $('#create_date').html(endpoint.current_date);
+            $('#submitBtn').text('Publish');
+            // Reset modal title
+            $(this).find('h5.modal-title').html(
+                `<img src="${endpoint.alert_image}" alt="alert" class="custompopicon"> New Alert`);
+
+        });
+
         $('#AlertForm').on('submit', function(e) {
             e.preventDefault();
             var form = $(this);
             formSubmit(form);
         });
+
+        //Edit Alert Modal
+        $(document).on('click', '.js-edit', function(e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            //Remove validation 
+            removeValidationMsg();
+            $('#AlertForm')[0].reset();
+            $('#edit_alert_id').val(id);
+            $('#submitBtn').text('Save');
+
+            $.ajax({
+                url: endpoint.publications_alert_edit.replace('__ID__', id),
+                type: 'GET',
+                success: function(response) {
+                    if (response.status === true) {
+                        let n = response.data;
+                        $('#edit_alert_id').val(n.id);
+                        $('#alert_type').val(n.alert_type).trigger('change');;
+                        $('#subject').val(n.subject || '');
+                        $('#description').val(n.description || '');
+                        $('#message').val(n.message || '')
+                        $('#create_date').html(n.create_date || '');
+
+                        // Change button text to Update
+                        $('#submitBtn').text('Update');
+
+                        // Change modal title
+                        $('#Create_Alert').find('h5.modal-title').html(
+                            `<img src="${endpoint.alert_image}" alt="alert" class="custompopicon"> Edit Alert`
+                            );
+                        $('#Create_Alert').modal('show');
+                    } else {
+                        alert('data not found...');
+
+                    }
+                },
+
+            })
+
+        });
+
+        //update Alert Status
+        $(document).on('click', '.js-withdrawn, .js-publish, .js-remove', function(e) {
+            e.preventDefault();
+            const id = $(this).data('id');
+            let status = '';
+            let confirmMsg = '';
+            if ($(this).hasClass('js-withdrawn')) {
+                status = "Withdrawn";
+                confirmMsg = 'Are you sure you want to withdrawn this alert';
+            } else if ($(this).hasClass('js-publish')) {
+                status = 'Published';
+                confirmMsg = 'Are you sure you want to publish this alert';
+            } else if ($(this).hasClass('js-remove')) {
+                status = 'Removed';
+                confirmMsg = 'Are you sure you want to remove the alert';
+            }
+
+            const modal = $('#successModal');
+            const body = $('#success_form_html');
+            const title = $('#success_task_title').text('Confirmation');
+            const img = $('#image_icon');
+
+            img.attr('src', endpoint.alert_image);
+            body.html(
+                `<h4>${confirmMsg}</h4>
+                <div class="d-flex justify-content-center gap-10 mt-3">
+                    <button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button>
+                    <button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button>
+                </div>`
+            );
+            modal.modal('show');
+            body.off('click', '#confirmRemove').on('click', '#confirmRemove', function() {
+                $(this).prop('disabled', true);
+                $.ajax({
+                    url: endpoint.publications_alert_status.replace('__ID__', id),
+                    type: 'POST',
+                    data: {
+                        _token: endpoint.csrf_token,
+                        status: status
+                    },
+                    success: function(response) {
+                        $('#success_task_title').text('Success');
+                        $('#image_icon').attr('src', endpoint.success_image);
+                        $('#success_form_html').html(`
+                        <h4> ${(response.message || 'Status updated successfully')} </h4>
+                        <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>
+                        `);
+
+                        setTimeout(function() {
+                            modal.modal('hide');
+                            table.ajax.reload(null, false);
+                        }, 1000);
+                    },
+                    error: function(xhr) {
+                        let msg = 'Something went wrong';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            msg = xhr.responseJSON.message;
+                        }
+                        $('#success_task_title').text('Error');
+                        $('#image_icon').attr('src', endpoint.error_image);
+                        $('#success_form_html').html('<h4>' + msg +
+                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                        );
+                    }
+                });
+            });
+
+        });
+
+        //View Alert module
+        $(document).on('click', '.js-view', function(e) {
+            e.preventDefault();
+            const id = $(this).data('id');
+            const container = $('#listingModalContent');
+            container.html('<div class="text-center py-3">Loading...</div>');
+            $.ajax({
+                url: endpoint.publications_alert_show.replace('__ID__', id),
+                type: 'GET',
+                success : function(response){
+                    if(response.status == true){
+                        const d =  response.data || {};
+                        const rows = [
+                            ['Ref', d.ref || ''],
+                            ['Alert Type', d.alert_type || ''],
+                            ['Subject', d.subject || ''],
+                            ['Description', d.description || ''],
+                            ['Message', d.message || ''],
+                            ['Status', d.status || ''],
+                            ['Create Date', d.create_date || '']
+                        ];
+                        let html = `
+                            <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+                              <tbody>
+                        `;
+                        rows.forEach(function(r) {
+                            html += `
+                                <tr>
+                                    <th style="text-align:left; border: 1px solid #ccc; padding: 8px; width:190px;">${r[0]}</th>
+                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">${r[1] || ''}</td>
+                                </tr>
+                            `;
+                        });
+                        html += '</tbody></table>';
+                        container.html(html);
+                        $('#pdf-download').attr('data-notification-id', id);
+                        $('#view-listing').modal('show');
+                    }else{
+                       console.log('Failed to load details.')
+                    }
+                }
+            });
+        })
+
+
 
 
         var table = $("#AlertTable").DataTable({
@@ -333,7 +534,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: endpoint.escort_notification_index,
+                url: endpoint.publications_alert_index,
                 type: 'GET'
             },
             columns: [{
@@ -341,8 +542,8 @@
                     name: 'ref'
                 },
                 {
-                    data: 'published_date',
-                    name: 'published_date',
+                    data: 'created_at',
+                    name: 'created_at',
 
                 },
                 {
