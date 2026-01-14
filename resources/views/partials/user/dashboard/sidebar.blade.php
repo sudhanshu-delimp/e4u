@@ -5,11 +5,11 @@
     <!-- <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
       <img src="{{ asset('assets/app/img/logo.svg') }} " alt="">
       </a> -->
-    <a class="sidebar-brand text-left pb-3" href="{{ route('home') }}">
-        <img src="{{ asset('assets/app/img/logo.svg') }}" class=" e4u_logo" alt=""><br>
+    <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
+        <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3 e4u_logo" alt=""><br>
 
     </a>
-    <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-4">Viewer Console</span>
+    <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Viewer Console</span>
     <!-- Divider -->
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">

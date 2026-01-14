@@ -23,7 +23,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.6') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.8') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css') }}" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload.css') }}" />

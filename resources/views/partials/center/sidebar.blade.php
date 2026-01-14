@@ -3,10 +3,10 @@
     id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand text-left pb-0" href="{{ route('home') }}">
+    <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
         <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3 e4u_logo" alt="">
     </a>
-    <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-4">Massage Centre Console</span>
+    <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Massage Centre Console</span>
     <!-- Divider -->
 
     <!-- Nav Item - Dashboard -->

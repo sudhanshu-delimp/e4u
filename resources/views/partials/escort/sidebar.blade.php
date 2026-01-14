@@ -2,16 +2,16 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand text-left pb-0" href="{{ route('home') }}">
+    <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
         <img src="{{ asset('assets/app/img/logo.svg') }} " class="mb-3 e4u_logo" alt="">
     </a>
-    <span style="color:#FF3C5F;" class="font-weight-normal pl-3">Escort Console</span>
+    <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Escort Console</span>
 
     <!-- Divider -->
 
     <!-- Nav Item - Dashboard -->
 
-    </br>
+    
     <li class="nav-item active">
         <a class="nav-link" href="{{ route('escort.dashboard') }}">
             <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">

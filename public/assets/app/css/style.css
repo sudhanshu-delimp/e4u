@@ -21,6 +21,25 @@
             color: #ff3c5f;
         }
         
+        .header_logo {
+            max-width: 195px;
+            width: 100%;
+        }
+        
+        .header_logo img {
+            width: 100%;
+        }
+        
+        .footer_logo {
+            display: inline-block;
+            max-width: 195px;
+            width: 100%;
+        }
+        
+        .footer_logo img {
+            width: 100%;
+        }
+        
         .customepsizeofa p a {
             font-size: 14px !important;
         }

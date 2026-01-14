@@ -149,7 +149,7 @@
                         <table width="100%" cellpadding="0" cellspacing="0">
                             <tr>
                             <td style="text-align: left; border:none;">
-                                <img src="http://e4u.local/assets/app/img/logo.png" alt="E4U Logo" style="height: 50px;">
+                                <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo" style="height: 63px; width:195px">
                             </td>
                             <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;border:none;">
                             Communications
