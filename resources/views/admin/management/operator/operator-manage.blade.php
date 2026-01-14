@@ -3,7 +3,6 @@
     <style>
     </style>
 @stop
-
 @section('content')
     @php
         $securityLevel = isset(auth()->user()->staff_detail->security_level)
@@ -52,7 +51,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table mb-3" id="OperatorTable">
+                            <table class="table mb-3" id="operator_data_table">
                                 <thead class="table-bg">
                                     <tr>
                                         <th>ID</th>
@@ -66,53 +65,24 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>O60458</td>
-                                        <td>Agency Management (Australia) Pty Ltd</td>
-                                        <td>Aus</td>
-                                        <td>Wayne Primrose</td>
-                                        <td>admin@agencymanagement.com.au</td>
-                                        <td>13</td>
-                                        <td>20-05-2025 09:12 am</td>
-                                        <td>Active</td>
-                                        <td>
-                                            <div class="dropdown no-arrow">
-                                                <a class="dropdown-toggle" href="#" role="button"
-                                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="true">
-                                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                </a>
-                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                    aria-labelledby="dropdownMenuLink"
-                                                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);"
-                                                    x-placement="bottom-end">
-                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                        href="#" data-target="#editOperator" data-toggle="modal">
-                                                        <i class="fa fa-pen"></i> Edit </a>
-                                                    <div class="dropdown-divider"></div>
+                                <tbody class="table-content">
 
-                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                        href="#" data-target="#SuspendedOperator" data-toggle="modal"> <i class="fa fa-ban"></i> Suspend</a>
-                                                    <div class="dropdown-divider"></div>
-
-
-                                                    <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center"
-                                                        href="#" data-toggle="modal" data-target="#viewOperator"> <i
-                                                            class="fa fa-eye "></i> View Account</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
                                 </tbody>
-                                <tfoot class="bg-first">
-                                    <tr>
-                                        <th colspan="3" class="text-left">Server time: <span>10:23:51 am</span></th>
-                                        <th colspan="3" class="text-center">Refresh time:<span>seconds</span></th>
-                                        <th colspan="3" class="text-right">Up time: <span>214 days & 09 hours 12
-                                                minutes</span></th>
-                                    </tr>
-                                </tfoot>
+                               <tfoot class="bg-first">
+    <tr>
+        <th colspan="3" class="text-left">
+            Server time: <span class="serverTime">{{ getServertime() }}</span>
+        </th>
+
+        <th colspan="3" class="text-center">
+            Refresh time: <span class="refreshSeconds">15</span>
+        </th>
+
+        <th colspan="3" class="text-right">
+            Up time: <span class="uptimeClass">{{ getAppUptime() }}</span>
+        </th>
+    </tr>
+</tfoot>
                             </table>
                         </div>
                     </div>
@@ -121,19 +91,13 @@
         </div>
     </div>
 
-
-
-
-
-
-
-    <!-- Add New Operator popupform -->
+    <!-- Add New Operator popup form -->
     <div class="modal fade upload-modal" id="addOperator" tabindex="-1" role="dialog" aria-labelledby="addOperatorLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addOperator"> <img src="{{ asset('assets/dashboard/img/operators.png') }}"
+                    <h5 class="modal-title" id="addOperatorTitle"> <img src="{{ asset('assets/dashboard/img/operators.png') }}"
                             class="custompopicon"> Add New Operator</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -141,7 +105,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form name="add_operator" id="add_operator" method="POST" action="{{ route('admin.add.operator') }}">
                         <div class="row">
                             <!-- Section: Personal Details -->
                             <div class="col-12 my-2">
@@ -167,16 +131,18 @@
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" class="form-control rounded-0" placeholder="ABN" name="abn"
-                                    id="abn">
+                                    id="abn" maxlength="11">
                                 <span class="text-danger error-abn"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" class="form-control rounded-0" placeholder="Business Address"
                                     name="business_address" id="business_address">
+                                <span class="text-danger error-business_address"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" class="form-control rounded-0" placeholder="Business Number"
-                                    name="business_number" id="business_number">
+                                    name="business_number" id="business_number"
+                                    oninput="this.value = this.value.replace(/\D/g,'');" maxlength="14">
                                 <span class="text-danger error-business_number"></span>
                             </div>
                             <div class="col-6 mb-3">
@@ -186,7 +152,7 @@
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" class="form-control rounded-0" placeholder="Mobile" name="phone"
-                                    id="phone">
+                                    id="phone" oninput="this.value = this.value.replace(/\D/g,'');" maxlength="14">
                                 <span class="text-danger error-phone"></span>
                             </div>
                             <div class="col-6 mb-3">
@@ -197,16 +163,9 @@
                             <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="state_id" id="state_id">
                                     <option>Select Territory</option>
-                                    <option value="3903">Victoria</option>
-                                    <option value="3904">South Australia</option>
-                                    <option value="3905">Queensland</option>
-                                    <option value="3906">Western Australia</option>
-                                    <option value="3907">Australian Capital Territory</option>
-                                    <option value="3908">Tasmania</option>
-                                    <option value="3909">New South Wales</option>
-                                    <option value="3910">Northern Territory</option>
-                                    <option value="4021">Delhi</option>
-                                    <option value="4022">Uttar Pradesh</option>
+                                    @foreach (config('escorts.profile.states') as $skey => $state)
+                                        <option value="{{ $skey }}">{{ $state['stateName'] }}</option>
+                                    @endforeach
                                 </select>
                                 <span class="text-danger error-state_id"></span>
                             </div>
@@ -214,52 +173,49 @@
                                 <h6 class="mb-0 text-blue-primary">Method of Contact:</h6>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="viewer_contact_type_1"
-                                        name="Messaging" value="1">
+                                        name="contact_type[]" value="1">
                                     <label class="form-check-label" for="contactText">Messaging</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="viewer_contact_type_1"
-                                        name="viewer_contact_type" value="1">
+                                    <input class="form-check-input" type="checkbox" id="viewer_contact_type_2"
+                                        name="contact_type[]" value="2">
                                     <label class="form-check-label" for="contactText">Text</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="viewer_contact_type_2"
-                                        name="viewer_contact_type" value="2">
+                                    <input class="form-check-input" type="checkbox" id="viewer_contact_type_3"
+                                        name="contact_type[]" value="3">
                                     <label class="form-check-label" for="contactEmail">Email</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="viewer_contact_type_3"
-                                        name="viewer_contact_type" value="3">
+                                    <input class="form-check-input" type="checkbox" id="viewer_contact_type_5"
+                                        name="contact_type[]" value="4">
                                     <label class="form-check-label" for="contactCall">Call Us</label>
                                 </div>
+                                <span class="text-danger error-contact_type"></span>
                             </div>
                             <!-- Section: Agreement Details -->
                             <div class="col-12 my-2">
                                 <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" required
+                                <input type="text" class="form-control rounded-0"
                                     placeholder="Agreement Date (DD/MM/YYYY)" onfocus="(this.type='date')"
-                                    onblur="if(this.value==''){this.type='text'}">
+                                    onblur="if(this.value==''){this.type='text'}" name="agreement_date"
+                                    id="agreement_date">
+                                <span class="text-danger error-agreement_date"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Term" required
-                                    name="term">
+                                <input type="text" class="form-control rounded-0" placeholder="Term" name="term"
+                                    id="term">
+                                <span class="text-danger error-term"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Fees" required
-                                    name="fees">
+                                <input type="text" class="form-control rounded-0" placeholder="fee" name="fee"
+                                    id="fee" maxlength="10">
+                                <span class="text-danger error-fee"></span>
                             </div>
-
-
-
                         </div>
                         <div class="row">
-
-
-
-
-
 
                             <!-- Commission -->
                             <div class="col-12 my-2">
@@ -267,11 +223,15 @@
                             </div>
                             <div class="col-6 mb-3">
                                 <input class="form-control rounded-0" placeholder="Advertising %"
-                                    name="commission_advertising_percent" id="commission_advertising_percent">
+                                    name="commission_advertising_percent" id="commission_advertising_percent"
+                                    maxlength="3">
+                                <span class="text-danger error-commission_advertising_percent"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <input class="form-control rounded-0" placeholder="Massage Centre (Registrations) %"
-                                    name="commission_registration_amount" id="commission_registration_amount">
+                                    name="commission_massage_centre_percent" id="commission_massage_centre_percent"
+                                    maxlength="3">
+                                <span class="text-danger error-commission_massage_centre_percent"></span>
                             </div>
 
                         </div>
@@ -286,12 +246,12 @@
     <!-- end -->
 
     <!-- Edit Operator popupform -->
-    <div class="modal fade upload-modal" id="editOperator" tabindex="-1" role="dialog"
+    <div class="modal fade upload-modal" id="editOperatorModel" tabindex="-1" role="dialog"
         aria-labelledby="editOperatorLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editOperator">
+                    <h5 class="modal-title" id="editOperatorTitle">
                         <img src="{{ asset('assets/dashboard/img/operators.png') }}" class="custompopicon">
                         Update Operator Details
                     </h5>
@@ -303,143 +263,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <!-- Section: Personal Details -->
-                            <div class="col-12 my-2">
-                                <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
-                            </div>
-
-                            <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Operator ID" readonly>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Date Appointed">
-                            </div>
-
-                            <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Company Name"
-                                    name="company_name" id="company_name">
-                                <span class="text-danger error-company_name"></span>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Business Name"
-                                    name="business_name" id="business_name">
-                                <span class="text-danger error-business_name"></span>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="ABN" name="abn"
-                                    id="abn">
-                                <span class="text-danger error-abn"></span>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Business Address"
-                                    name="business_address" id="business_address">
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Business Number"
-                                    name="business_number" id="business_number">
-                                <span class="text-danger error-business_number"></span>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Point of Contact"
-                                    name="point_of_contact" id="point_of_contact">
-                                <span class="text-danger error-point_of_contact"></span>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Mobile" name="phone"
-                                    id="phone">
-                                <span class="text-danger error-phone"></span>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input type="email" class="form-control rounded-0" placeholder="Email" name="email"
-                                    id="email">
-                                <span class="text-danger error-email"></span>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <select class="form-control rounded-0" name="state_id" id="state_id">
-                                    <option>Select Territory</option>
-                                    <option value="3903">Victoria</option>
-                                    <option value="3904">South Australia</option>
-                                    <option value="3905">Queensland</option>
-                                    <option value="3906">Western Australia</option>
-                                    <option value="3907">Australian Capital Territory</option>
-                                    <option value="3908">Tasmania</option>
-                                    <option value="3909">New South Wales</option>
-                                    <option value="3910">Northern Territory</option>
-                                    <option value="4021">Delhi</option>
-                                    <option value="4022">Uttar Pradesh</option>
-                                </select>
-                                <span class="text-danger error-state_id"></span>
-                            </div>
-                            <div class="col-12 mb-3 d-flex align-items-center justify-content-start gap-10 flex-wrap">
-                                <h6 class="mb-0 text-blue-primary">Method of Contact:</h6>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="viewer_contact_type_1"
-                                        name="Messaging" value="1">
-                                    <label class="form-check-label" for="contactText">Messaging</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="viewer_contact_type_1"
-                                        name="viewer_contact_type" value="1">
-                                    <label class="form-check-label" for="contactText">Text</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="viewer_contact_type_2"
-                                        name="viewer_contact_type" value="2">
-                                    <label class="form-check-label" for="contactEmail">Email</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="viewer_contact_type_3"
-                                        name="viewer_contact_type" value="3">
-                                    <label class="form-check-label" for="contactCall">Call Us</label>
-                                </div>
-                            </div>
-                            <!-- Section: Agreement Details -->
-                            <div class="col-12 my-2">
-                                <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" required
-                                    placeholder="Agreement Date (DD/MM/YYYY)" onfocus="(this.type='date')"
-                                    onblur="if(this.value==''){this.type='text'}">
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Term" required
-                                    name="term">
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Fees" required
-                                    name="fees">
-                            </div>
-
-
-
-                        </div>
-                        <div class="row">
-                            <!-- Commission -->
-                            <div class="col-12 my-2">
-                                <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input class="form-control rounded-0" placeholder="Advertising %"
-                                    name="commission_advertising_percent" id="commission_advertising_percent">
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input class="form-control rounded-0" placeholder="Massage Centre (Registrations) %"
-                                    name="commission_registration_amount" id="commission_registration_amount">
-                            </div>
-
-                        </div>
-                        <div class="modal-footer p-0 pl-2 pb-4">
-                            <button type="submit" class="btn-success-modal mr-2">Save</button>
-                        </div>
-                    </form>
-                </div>
+                    <!-- Edit form -->
+                    <div class="modal-content" id="modalOperatorEditContent"></div>
             </div>
         </div>
     </div>
-
 
     <!-- View Operator popupform -->
     <div class="modal fade upload-modal" id="viewOperator" tabindex="-1" role="dialog"
@@ -492,7 +320,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>Business Name</th>
+                                        <th>Business Name</th>staffEditModal
                                         <td>Agency Management (Australia) Pty Ltd
                                         </td>
                                     </tr>
@@ -584,7 +412,7 @@
         </div>
     </div>
 
-     <!-- Account Suspended -->
+    <!-- Account Suspended -->
     <div class="modal fade upload-modal" id="SuspendedOperator" tabindex="-1" role="dialog"
         aria-labelledby="viewOperatorLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -610,10 +438,12 @@
                     <div class="row">
                         <div class="col-lg-12 text-center">
 
-                           <p class="mt-3 mb-4 popu_heading_style">Your account has been suspended until further notice.</p>
+                            <p class="mt-3 mb-4 popu_heading_style">Your account has been suspended until further notice.
+                            </p>
                             <!-- Footer Buttons -->
                             <div class="d-flex justify-content-center my-2">
-                                <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">
+                                <button type="button" class="btn-success-modal" data-dismiss="modal"
+                                    aria-label="Close">
                                     Close
                                 </button>
                             </div>
@@ -627,97 +457,174 @@
     </div>
 
 @endsection
-
 @push('script')
-    <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+  
     </script>
 
-    <script>
-        var table = $("#OperatorTable").DataTable({
-            language: {
-                search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Operator ID"
-            },
-            info: true,
-            paging: true,
-            lengthChange: true,
-            searching: true,
-            bStateSave: true,
-            order: [
-                [1, 'desc']
-            ],
-            lengthMenu: [
-                [10, 25, 50, 100],
-                [10, 25, 50, 100]
-            ],
-            pageLength: 10,
 
-            columns: [{
-                    data: 'id',
-                    name: 'id',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
+
+    <script>
+        $(document).ready(function() {
+            var table = $("#operator_data_table").DataTable({
+                language: {
+                    search: "Search: _INPUT_",
+                    searchPlaceholder: "Search by Operator ID",
                 },
-                {
-                    data: 'operator',
-                    name: 'operator',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
+
+                processing: true,
+                serverSide: true,
+                lengthChange: true,
+                searchable: false,
+                bStateSave: false,
+
+                ajax: {
+                    url: "{{ route('admin.operator_list_data_table') }}",
+                    data: function(d) {
+                        d.type = 'player';
+                    }
                 },
-                {
-                    data: 'territory',
-                    name: 'territory',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
+
+
+                columns: [{
+                        data: 'member_id',
+                        name: 'member_id',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'company_name',
+                        name: 'company_name',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'territory',
+                        name: 'territory',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'point_of_contact',
+                        name: 'point_of_contact',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'totalAgents',
+                        name: 'totalAgents',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'last_login',
+                        name: 'last_login',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'action',
+                        name: 'edit',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA',
+                        class: 'text-center'
+                    },
+                    
+
+                ],
+                order: [
+                    [1, 'desc']
+                ],
+                lengthMenu: [
+                    [10, 25, 50, 100],
+                    [10, 25, 50, 100]
+                ],
+                pageLength: 10,
+            });
+
+            /*** Edit the operator */
+        $(document).on('click', '.edit-operator-btn', function() {
+            let id = $(this).data('id');
+            $.ajax({
+                url: "/admin-dashboard/edit-operator/" + id,
+                type: 'GET',
+                success: function(response) {
+                    if ($.trim(response) === "") {
+                        swal_error_popup("Operator data not found");
+                    } else {
+                        $('#modalOperatorEditContent').html(response);
+                        $('#editOperatorModel').modal('show');
+                    }
                 },
-                {
-                    data: 'contact',
-                    name: 'contact',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'email',
-                    name: 'email',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'agent',
-                    name: 'agent',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'last_login',
-                    name: 'last_login',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'status',
-                    name: 'status',
-                    searchable: false,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'action',
-                    name: 'edit',
-                    searchable: false,
-                    orderable: false,
-                    defaultContent: 'NA',
-                    class: 'text-center'
-                },
-            ],
+                error: function() {
+                    alert("Error loading form");
+                }
+            });
         });
+       
+        $(document).on('submit', 'form[name="add_operator"]', function(e) {
+            e.preventDefault();
+            let form = $(this);
+            let formData = new FormData(this);
+            $('span.text-danger').text('');
+
+            swal_waiting_popup({
+                'title': 'Saving Operator Details'
+            });
+            //  return false
+
+            $.ajax({
+                url: "{{ route('admin.add.operator') }}",
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    table.ajax.reload(null, false);
+                    Swal.close();
+                    $('span.text-danger').text('');
+                    $('#addOperator').modal('hide');
+                    $('#editOperatorModel').modal('hide');
+                    $('#add_staff')[0].reset();
+                    swal_success_popup(response.message);
+                },
+                error: function(xhr) {
+
+                    Swal.close();
+                    console.log(xhr);
+                    if (xhr.status === 422) {
+                        $('span.text-danger').text('');
+                        let errors = xhr.responseJSON.errors;
+                        $.each(errors, function(field, messages) {
+                            $('.error-' + field).text(messages[0]);
+                        });
+                    } else {
+                        swal_error_popup(xhr.responseJSON.message ||
+                            'Something went wrong');
+                    }
+                }
+            });
+        });
+         });
     </script>
 @endpush

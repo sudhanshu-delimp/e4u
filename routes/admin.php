@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\ShareholderNotificationController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
+use App\Http\Controllers\Admin\OperatorController;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
@@ -256,11 +257,6 @@ Route::get('management/commission-summary', function () {
     return view('admin.management.operator.commission-summary');
 })->name('admin.commission-summary');
 
-Route::get('management/operator-manage', function () {
-    return view('admin.management.operator.operator-manage');
-})->name('admin.operator-manage');
-
-
 Route::get('management/tours', function () {
     return view('admin.management.statistics.tours');
 })->name('admin.tours');
@@ -373,6 +369,13 @@ Route::post('/store-staff', [StaffController::class, 'update_staff'])->name('adm
 Route::get('/view-staff/{id}', [StaffController::class, 'viewStaff'])->name('admin.view-staff');
 Route::post('/approve-staff-account', [StaffController::class, 'approve_staff_account'])->name('admin.approve_staff_account');
 Route::post('/print-staff', [StaffController::class, 'printStaffDetails'])->name('admin.print_staff');
+
+/** Operator */
+Route::get('/management/operator-manage', [OperatorController::class, 'operator_list'])->name('admin.operator-manage');
+Route::post('/management/add-operator', [OperatorController::class, 'add_operator'])->name('admin.add.operator');
+Route::get('operator_list_data_table', [OperatorController::class, 'operator_data_list'])->name('admin.operator_list_data_table');
+Route::get('/edit-operator/{id}', [OperatorController::class, 'editOperator'])->name('admin.edit-operator');
+Route::post('/store-operator', [OperatorController::class, 'updateOperator'])->name('admin.store-operator');
 
 
 Route::get('/management/agent', [AgentController::class, 'agent_list'])->name('admin.agent');
