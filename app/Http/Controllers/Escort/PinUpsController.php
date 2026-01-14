@@ -169,6 +169,13 @@ class PinUpsController extends AppController
             ->map(fn ($d) => Carbon::parse($d)->toDateString())
             ->all();
             $available = $weeks->reject(fn ($w) => in_array($w['start'], $bookedStarts));
+            if($available->values()->count()==0){
+                return response()->json([
+                    'success' => false,
+                    'weeks' => $weeks,
+                    'message' => 'There are no available Pin Up dates for your current Profile/s for the Location.',
+                ]);
+            }
             return response()->json([
                 'success' => true,
                 'weeks' => $available->values(),
