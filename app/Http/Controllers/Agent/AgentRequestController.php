@@ -559,9 +559,11 @@ class AgentRequestController extends Controller
                 ];
                 
                 $item->accepted_date =  $accepted_date;
+
+                $view_status =  '<div class="dropdown-divider"></div><a class="dropdown-item align-item-custom current_status" href="#" data-id="' . $item->id . '"> <i class="fa fa-eye"></i> View Status</a>';
                 if($accepted_date=='')
                 $followup = '<a class="dropdown-item align-item-custom notiification-confirmation" href="#" data-id="' . $item->id . '"  data-toggle="modal"> <i class="fa fa-bell"></i> Follow Up</a><div class="dropdown-divider"></div>';
-                                    
+
                
 
                 $item->action = '<div class="dropdown no-arrow">
@@ -569,10 +571,10 @@ class AgentRequestController extends Controller
                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                 </a>
                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">'.$followup.'
-                                    <a class="dropdown-item align-item-custom view-agent-details" href="#"  data-id="' . $item->id . '" data-toggle="modal"> <i class="fa fa-eye" aria-hidden="true" ></i> View</a>
+                                    <a class="dropdown-item align-item-custom view-agent-details" href="#"  data-id="' . $item->id . '" data-toggle="modal"> <i class="fa fa-eye" aria-hidden="true" ></i> View Request</a>'.$view_status.'
                                 </div>';
 
-                $item->view_status =  '<a href="javascript:void(0)" class="current_status" data-id="' . $item->id . '">View Status</a>';
+                // $item->view_status =  '<a href="javascript:void(0)" class="current_status" data-id="' . $item->id . '">View Status</a>';
 
 
                 $i++;
