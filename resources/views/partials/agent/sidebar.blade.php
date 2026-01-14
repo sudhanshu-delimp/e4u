@@ -2,11 +2,11 @@
 <ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar"
     id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand text-left pb-3" href="{{ asset('/') }}">
-        <img src="{{ asset('assets/app/img/logo.svg') }} " alt="" class="e4u_logo">
+    <a class="sidebar-brand text-left pb-1" href="{{ asset('/') }}">
+        <img src="{{ asset('assets/app/img/logo.svg') }} " alt="" class="mb-3 e4u_logo">
     </a>
 
-    <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-4">Agent Console </span>
+    <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Agent Console </span>
     <!-- Divider -->
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">

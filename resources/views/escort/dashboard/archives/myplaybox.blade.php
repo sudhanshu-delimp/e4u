@@ -27,7 +27,7 @@
                     <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
                     </h6>
                 </div>
-                 @if (request('from') !== 'sidebar')
+                 @if (request('from') == 'dashboard')
                 <div class="back-to-dashboard">
                     <a href="{{ url()->previous() ?? route('dashboard.home') }}">
                         <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">

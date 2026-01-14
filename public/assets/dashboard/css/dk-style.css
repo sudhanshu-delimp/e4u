@@ -261,22 +261,24 @@ span.menu-active {
     background-color: var(--peach);
     color: var(--white);
     padding: 10px;
-    border-radius: 5px;    
+    border-radius: 5px;
     border: 1px solid var(--peach);
 }
 
-.brb-btn:hover, .btn-bump-up:hover {
+.brb-btn:hover,
+.btn-bump-up:hover {
     color: #fff;
     background-color: #0c223dcf;
     border: 1px solid #0c223dcf;
-
-    text-decoration: none;   
+    text-decoration: none;
 }
-.btn-bump-up{    
+
+.btn-bump-up {
     background-color: #36b9cc;
     border-color: #36b9cc;
     color: #fff;
 }
+
 .btn-cancel-modal:hover {
     background-color: #d82546 !important;
 }
@@ -2053,12 +2055,12 @@ color: #B9B9B9;
 }
 
 .main--chat--wrapper {
-    border: 1px solid #ddd;
+    border: 1px solid #c2c8ce;
 }
 
 .main--chat--wrapper .chat-sidebar {
     width: 350px;
-    border-right: 1px solid #ddd;
+    border-right: 1px solid #c2c8ce;
 }
 
 .main--chat--wrapper .chating-pannel {
@@ -2076,7 +2078,7 @@ color: #B9B9B9;
     align-items: flex-start;
     flex-wrap: wrap;
     padding: 15px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #c2c8ce;
 }
 
 .main--chat--wrapper ul,
@@ -2095,7 +2097,7 @@ color: #B9B9B9;
     width: 90px;
     display: flex;
     align-items: center;
-    border: 1px solid #ddd;
+    border: 1px solid #c2c8ce;
     justify-content: center;
     border-radius: 8px;
     height: 100%;
@@ -4829,8 +4831,13 @@ white-space: nowrap;
     border-color: #2C3E50 !important;
 }
 
-.sidebar-brand .e4u_logo {
-    width: 50%;
+.sidebar-brand {
+    max-width: 195px;
+    width: 100%;
+}
+
+.sidebar-brand img {
+    width: 100%;
 }
 
 .sidebar .sidebar-brand {
@@ -8851,7 +8858,7 @@ td {
     justify-content: space-between;
     align-items: center;
     gap: 6px;
-    border: 1px solid #ccc;
+    border: 1px solid #c2c8ce;
     border-radius: 5px;
     box-shadow: 0 .125rem .25rem 0 rgba(58, 59, 69, .2) !important;
 }
@@ -9183,10 +9190,10 @@ td {
 /* escort dashboard my-custom-box */
 
 .my-custom-box {
-    padding: 10px;
+    padding: 0px 0px 5px;
     border-radius: 5px;
     text-align: center;
-    margin: 10px 0px;
+    margin: 10px 0px 0px;
     background-color: #fff;
     border: 1px solid #0c223d40;
 }
@@ -9207,7 +9214,7 @@ border-top: 5px solid var(--peach);
 .my-custom-box .box-icon {
     width: 75px;
     height: 75px;
-    margin: 10px auto 20px;
+    margin: 10px auto;
 }
 
 .my-custom-box .box-icon img {
@@ -9216,7 +9223,7 @@ border-top: 5px solid var(--peach);
 }
 
 .my-custom-box h2 {
-    font-size: 24px;
+    font-size: clamp(18px, 3vw, 24px);
     color: var(--blue--text);
     font-weight: 500;
 }
@@ -10876,7 +10883,7 @@ details[open]>summary:first-of-type {
 
 .card {
     background: #ffffff;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #c2c8ce;
     padding: 0;
 }
 

@@ -18,7 +18,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo" style="height: 50px;">
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
                                     <td style="color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle; text-align: right;">
                                         <h1 style="margin: 0; font-size: 22px; color:#ffffff; text-align: right;">Confirmation of Registration - Massage Centre</h1>
@@ -45,7 +45,7 @@
                             </p>
                             <ul style="padding-left: 20px; font-size: 15px; line-height: 1.6;">
                                 <li>Web address: <a href="http://www.e4u.com.au" target="_blank">www.e4u.com.au</a></li>
-                                <li>Username: {{$user->phone}} <em>(Your mobile number)</em></li>
+                                <li>Username: {{removeSpaceFromString($user->phone)}} <em>(Your mobile number)</em></li>
                                 <li>Password: {{$user->password}} <em>(please note passwords are case sensitive)</em></li>
                             </ul>
                             <p style="font-size: 13px; font-style: italic;">Note: Your logging in process is also subject to SMS 2FA verification. It is a good idea to bookmark

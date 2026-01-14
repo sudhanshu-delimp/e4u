@@ -73,7 +73,7 @@
                     <th>Member ID</th>
                     <th>Mobile</th>
                     <th>Home State</th>
-                    <th>Status</th>
+                    {{-- <th>Status</th> --}}
                     <th>Accepted Date</th>
                     <th>Action</th>
                    </tr>
@@ -102,6 +102,7 @@
 
 <script>
    $(document).ready(function() {
+    let countSet = false;
       var table = $("#agentRequestreportTable").DataTable({
         processing: true,
         serverSide: true,
@@ -123,7 +124,7 @@
             { data: 'user_member_id', name: 'user_member_id', orderable: true, defaultContent: 'NA' },
             { data: 'phone', name: 'phone', orderable: true, defaultContent: 'NA' },
             { data: 'country_code', name: 'country_code', orderable: true, defaultContent: 'NA' },
-            { data: 'view_status', name: 'view_status', orderable: false, defaultContent: 'NA' },
+            // { data: 'view_status', name: 'view_status', orderable: false, defaultContent: 'NA' },
             { data: 'accepted_date', name: 'accepted_date', orderable: false, defaultContent: 'NA' },
             { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA', class: 'text-center' },
         ],
@@ -133,13 +134,17 @@
         order: [[1, 'desc']],
         pageLength: 10,
     });
+    
 
     $('#agentRequestreportTable').on('init.dt', function () {
-    $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by Member ID');
+    $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by Member ID or Agent ID');
     });
 
     table.on('xhr.dt', function (e, settings, json, xhr) {
-    $('.totalCompletedTask').html( json.recordsFiltered);
+        if(!countSet){
+            $('.totalCompletedTask').text(json.data.length);
+            countSet = true; 
+        }
     });
 
     
@@ -315,8 +320,6 @@
    contact_data = "By Mobile or By Email";
    } 
    
-    
-    
     var modal_html = `<div class="modal-dialog modal-dialog-centered" role="document">
        <div class="modal-content basic-modal">
           <div class="modal-header">
@@ -338,7 +341,7 @@
                             </div>
                             <div class="ms-3 name">
                                <h5 class="primery_color normal_heading mb-0" data-toggle="modal" data-target="#Agent_Name"><a class="collapse-item" href="#"><b>${rowData.first_name} ${rowData.last_name}</b></a></h5>
-                               <h6 class="text-muted mb-0 small">Member ID: ${rowData.ref_number} <span class="ml-5 pl-3">Date: ${rowData.requested_at}</span></h6>
+                               <h6 class="text-muted mb-0 small">Member ID: ${rowData.user_member_id} <span class="ml-5 pl-3">Date: ${rowData.requested_at}</span></h6>
                             </div>
                          </div>
                       </div>
@@ -384,12 +387,9 @@
             $(document).ready(function(){
               setInterval(function () {
                   $('#agentRequestreportTable').DataTable().ajax.reload(function (json) {
-                     console.log("Returned JSON:", json);
             }, false);
             }, 15000);
             });
           </script> 
-
-
 
 @endsection

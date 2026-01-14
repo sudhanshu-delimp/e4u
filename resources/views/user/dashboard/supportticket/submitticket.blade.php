@@ -31,7 +31,7 @@
                 </div>
             </div>
             <br>
-            <form class="mb-4 w-50" id="supportTicket" method="post" action="{{route('support-ticket.create')}}" enctype="multipart/form-data">
+            <form class="mb-4 col-md-9" id="supportTicket" method="post" action="{{route('support-ticket.create')}}" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group">
@@ -58,10 +58,17 @@
                     <label for="sel1"><b>Service type</b></label>
                     <select class="form-control" name="service_type" required>
                         <option id="placeholder" selected="" disabled="" value="">Choose Service</option>
-                        <option value="Alert notifications">Alert notifications</option>
+                        {{-- <option value="Alert notifications">Alert notifications</option>
                         <option value="Escort Agent">Escort Agent</option>
                         <option value="Viewer review">Viewer review</option>
                         <option value="Ugly Mugs register">Ugly Mugs register</option>
+                        <option value="Other">Other</option> --}}
+
+                        <option value="My Account">My Account</option>
+                        <option value="Legbox">Legbox</option>
+                        <option value="Listed Profile">Listed Profile</option>
+                        <option value="Notifications & Features">Notifications & Features</option>
+                        <option value="Punterbox">Punterbox</option>
                         <option value="Other">Other</option>
                     </select>
 

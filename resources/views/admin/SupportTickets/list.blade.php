@@ -125,6 +125,7 @@
                         <input type="hidden" name="reference_id" id="reference_id" >
                         <button class="btn-cancel-modal py-3" id="submit_message">Send</button>
                        </div>
+                       <small class="text-danger d-none" id="message_error">Please enter a message.</small>
                     </form>
                     @endif
                 </div>
@@ -218,7 +219,18 @@
 
 
        $(document).on('click', ".view_ticket", function() {
-        
+            let source = Number($(this).data('source'));
+            // reset first
+            $('#message').prop('disabled', false);
+            $('#submit_message').prop('disabled', false);
+            $('#message').attr('placeholder', '');
+
+            if (source === 1 || source === 2) {
+                $('#message').prop('disabled', true);
+                $('#submit_message').prop('disabled', true);
+                $('#message').attr('placeholder', 'Reply is not available for this ticket.');
+            }
+
            ticketId = $(this).closest('tr').find('td:first').html();
            reference_id = $(this).closest('tr').find('td:eq(1)').html();
            //console.log('reference_id',reference_id);
@@ -303,6 +315,16 @@
     $("#submit_message").on('click', function (e) {
         e.preventDefault();
         var message = $("#message").val();
+
+        if (message === '') {
+            $('#message_error').removeClass('d-none');
+            $('#message').addClass('is-invalid');
+            return false;
+        } else {
+            $('#message_error').addClass('d-none');
+            $('#message').removeClass('is-invalid');
+        }
+
         var reference_id = $("#reference_id").val();
 
         let data = {
@@ -344,9 +366,6 @@
         // $("#sendMessage").reset();
     });
 
-
-
-
     $(document).on('click', '.change-status-btn', async function(e) {
     e.preventDefault();
      if (await isConfirm({ 'title' : 'NA','action': 'Change ','text':'Are you sure to change the status ?'})) { 
@@ -355,10 +374,6 @@
         change_status(id, status);
     }
     });
-
-
-    
-
 
     function change_status(id, status_id) {
         $.ajax({
@@ -381,7 +396,10 @@
         return false;
     }
 
-
-
+    $('#conversation_modal').on('hidden.bs.modal', function () {
+        $('#message').val('');
+        $('#message_error').addClass('d-none');
+        $('#message').removeClass('is-invalid');
+    });
 </script>
 @endpush

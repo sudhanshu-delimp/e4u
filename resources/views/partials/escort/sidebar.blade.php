@@ -2,16 +2,16 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand text-left pb-0" href="{{ route('home') }}">
+    <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
         <img src="{{ asset('assets/app/img/logo.svg') }} " class="mb-3 e4u_logo" alt="">
     </a>
-    <span style="color:#FF3C5F;" class="font-weight-normal pl-3">Escort Console</span>
+    <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Escort Console</span>
 
     <!-- Divider -->
 
     <!-- Nav Item - Dashboard -->
 
-    </br>
+    
     <li class="nav-item active">
         <a class="nav-link" href="{{ route('escort.dashboard') }}">
             <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -78,142 +78,6 @@
     <li
         style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
     </li>
-
-    {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Administration"
-            aria-expanded="false" aria-controls="Administration">
-            <img src="{{ asset('assets/dashboard/img/menu-icon/administration.png') }}">
-            <span>Administration</span>
-        </a>
-        <div id="Administration" class="collapse @if (in_array(request()->segment(3), ['create-tour', 'list-tour', 'archive-myplaybox', 'archive-view-photos', 'archive-view-videos', 'add-listing', 'listings', 'current', 'past'])) show @endif"
-            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-
-
-            <div class="py-0 collapse-inner rounded mb-2">
-               
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#listingMenu"
-                    aria-expanded="false" aria-controls="listingMenu">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/list-one.png') }}" />
-                    <span>Listings</span>
-                </a>
-
-                <div id="listingMenu"
-                    class="collapse  
-                        @if (request()->segment(3) == 'add-listing' || (request()->segment(3) == 'listings' && in_array(request()->segment(3), ['current', 'past']))) show @endif">
-
-                    <div class="py-0 collapse-inner rounded mb-2">
-
-                        <a class="collapse-item" href="{{ route('escort.account.add-listing') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/add-exot.png') }}" />
-                            <span class="{{ request()->segment(3) == 'add-listing' ? 'menu-active' : '' }}">New</span>
-                        </a>
-
-                        <a class="collapse-item" href="{{ route('escort.dashboard.listings', 'current') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/list-current.png') }}" />
-                            <span
-                                class="{{ request()->segment(3) == 'listings' && request()->segment(3) == 'current' ? 'menu-active' : '' }}">Current</span>
-                        </a>
-
-                        <a class="collapse-item" href="{{ route('escort.dashboard.listings', 'past') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/clipboard.png') }}" />
-                            <span
-                                class="{{ request()->segment(3) == 'listings' && request()->segment(3) == 'past' ? 'menu-active' : '' }}">Past</span>
-                        </a>
-
-                    </div>
-                </div>
-                
-
-
-               
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#profileMenu"
-                    aria-expanded="false" aria-controls="profileMenu">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
-                    <span>Profiles</span>
-                </a>
-
-                <div id="profileMenu" class="collapse @if (request()->segment(2) == 'create-profile' || request()->segment(2) == 'profile' || (request()->segment(2) == 'list' && in_array(request()->segment(3), ['current', 'listed', 'past', 'archive']))) show @endif">
-
-                    <div class="py-0 collapse-inner rounded mb-2">
-                        <a class="collapse-item" href="{{ route('escort.profile') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/registration.png') }}">
-                            <span
-                                class="{{ request()->segment(2) == 'create-profile' ? 'menu-active' : '' }}">New</span>
-                        </a>
-                        <a class="collapse-item" href="{{ route('escort.list', 'current') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/list-current.png') }}">
-                            <span
-                                class="{{ request()->segment(2) == 'list' && request()->segment(3) == 'current' ? 'menu-active' : '' }}">Listed</span>
-                        </a>
-                        <a class="collapse-item" href="{{ route('escort.list', 'past') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/list-archive.png') }}">
-                            <span
-                                class="{{ request()->segment(2) == 'list' && request()->segment(3) == 'past' ? 'menu-active' : '' }}">Archive</span>
-                        </a>
-                    </div>
-                </div>
-
-                
-
-               
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tourMenu"
-                    aria-expanded="false" aria-controls="tourMenu">
-                    <img class="big" src="{{ asset('assets/dashboard/img/menu-icon/travel-agency.png') }}">
-                    <span>Tours</span>
-                </a>
-
-                <div id="tourMenu" class="collapse @if (request()->segment(2) == 'create-tour' || (request()->segment(2) == 'list-tour' && in_array(request()->segment(3), ['current', 'past']))) show @endif">
-
-                    <div class="py-0 collapse-inner rounded mb-2">
-                        <a class="collapse-item" href="{{ url('escort-dashboard/create-tour') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/registration.png') }}">
-                            <span class="{{ request()->segment(2) == 'create-tour' ? 'menu-active' : '' }}">New</span>
-                        </a>
-
-                        <a class="collapse-item" href="{{ url('escort-dashboard/list-tour/current') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/list-current.png') }}">
-                            <span
-                                class="{{ request()->segment(2) == 'list-tour' && request()->segment(3) == 'current' ? 'menu-active' : '' }}">Current</span>
-                        </a>
-
-                        <a class="collapse-item" href="{{ url('escort-dashboard/list-tour/past') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/clipboard.png') }}">
-                            <span
-                                class="{{ request()->segment(2) == 'list-tour' && request()->segment(3) == 'past' ? 'menu-active' : '' }}">Archive</span>
-                        </a>
-
-                    </div>
-                </div>
-               
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pmedia"
-                    aria-expanded="false" aria-controls="collapseTwo">
-                    <img class="cstm-excort" src="{{ asset('assets/dashboard/img/menu-icon/media-exort.png') }}">
-                    <span>Media</span>
-                </a>
-                <div id="pmedia" class="collapse  @if (request()->segment(2) == 'archive-view-photos' || request()->segment(2) == 'archive-view-videos') show @endif;">
-                    <div class="py-0 collapse-inner rounded mb-2">
-                        <a class="collapse-item" href="{{ route('escort.archive-view-photos') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/photo-camera.png') }}">
-                            <span
-                                class="{{ request()->segment(2) == 'archive-view-photos' ? 'menu-active' : '' }}">Photos</span>
-                        </a>
-                        <a class="collapse-item" href="{{ route('escort.archive-view-videos') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/clapperboard.png') }}">
-                            <span
-                                class="{{ request()->segment(2) == 'archive-view-videos' ? 'menu-active' : '' }}">Videos</span>
-                        </a>
-                    </div>
-                </div>
-               
-                <a class="nav-link collapsed" href="{{ route('escort.archive-myplaybox', ['from' => 'sidebar']) }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}" />
-                    <span class="{{ request()->routeIs('escort.archive-myplaybox') ? 'active-text' : '' }}">
-                        My Playbox
-                    </span>
-                </a>
-            </div>
-        </div>
-    </li> --}}
 
 
     <li class="nav-item">
@@ -353,7 +217,7 @@
 
                 {{-- ===== MY PLAYBOX ===== --}}
                 <a class="nav-link collapsed {{ request()->segment(2) == 'pricarchive-myplayboxing' ? 'menu-active' : '' }}"
-                    href="{{ route('escort.archive-myplaybox', ['from' => 'sidebar']) }}">
+                    href="{{ route('escort.archive-myplaybox') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}">
                     <span>My Playbox</span>
                 </a>
@@ -515,7 +379,7 @@
                             <span>Agent Request</span>
                         </a>
                         <a class="collapse-item {{ request()->segment(2) == 'my-legbox-viewers' ? 'menu-active' : '' }}"
-                            href="{{ route('escort.dashboard.my-legbox-viewers', ['from' => 'sidebar']) }}">
+                            href="{{ route('escort.dashboard.my-legbox-viewers') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/legbox.png') }}">
                             <span>Legbox Viewer</span>
                         </a>
