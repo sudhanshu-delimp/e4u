@@ -1632,6 +1632,10 @@
             margin-top: 10px;
         }
         
+        .accordion-container-new .set>a i {
+            margin-top: 0px;
+        }
+        
         .content {
             display: none;
         }
@@ -2301,6 +2305,11 @@ i.fa.fa-heart-o{
         
         .custom-pagination ul li {
             list-style: none;
+        }
+        
+        .custom-pagination ul {
+            display: flex;
+            justify-content: center;
         }
         
         .custom-pagination ul li a {
@@ -3437,6 +3446,7 @@ i.fa.fa-heart-o{
             height: 40px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 10px;
         }
         
@@ -5265,6 +5275,22 @@ i.fa.fa-heart-o{
         }
         /* Optional: Make it responsive */
         
+        .location_radio_filter {
+            width: 105px;
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+        }
+        
+        .custom-rate-type {
+            display: flex;
+            justify-content: flex-start;
+            gap: 15px;
+            padding-left: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
         @media (max-width: 768px) {
             .gallery {
                 grid-template-columns: 1fr;
@@ -5285,6 +5311,71 @@ i.fa.fa-heart-o{
             .custom_total_list.dropdown {
                 border: 1px solid #5d6d7e;
                 width: 16em !important;
+            }
+            .custom-pagination ul {
+                flex-wrap: wrap;
+            }
+            .custom-pagination ul li {
+                max-width: max-content;
+            }
+            .ryt_srch_btn {
+                justify-content: flex-start;
+            }
+            .item_dis {
+                width: 100% !important;
+            }
+            .slect__btn_tab {
+                display: flex;
+                justify-content: flex-start;
+                gap: 10px 5px;
+                flex-wrap: wrap;
+            }
+            .slect__btn_tab>div {
+                flex: unset;
+                width: 121px;
+                margin: 0px !important;
+            }
+            .custom_total_list.dropdown {
+                width: 100% !important;
+            }
+            .custom--service-tag {
+                gap: 0px !important;
+            }
+            .location_radio_filter {
+                width: unset;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+                align-items: center;
+            }
+            .custom--gender--area {
+                flex-wrap: wrap;
+            }
+            .platinum-escort-list-view-custom {
+                padding: 0px !important;
+            }
+            .flex_directiom_warp_but_list_child_not_hundred_present {
+                padding-left: 0px !important;
+            }
+            .all-escort-view-profile-btn {
+                padding: 0px;
+            }
+            .social_media_icons {
+                margin-bottom: 10px;
+            }
+            .custom-rate-type {
+                padding-left: 15px !important;
+                flex-wrap: wrap;
+            }
+            .icon-lis-col>div {
+                margin-bottom: 0em !important;
+            }
+            .gold-view-escort-list {
+                flex-wrap: wrap;
+                gap: 5px !important;
+                margin-bottom: 15px;
             }
         }
         
@@ -6914,11 +7005,20 @@ i.fa.fa-heart-o{
             font-weight: 400 !important;
         }
         
+        .custom-rate-type {
+            display: flex;
+            justify-content: flex-start;
+            gap: 15px;
+            padding-left: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
         .gold-view-escort-list {
             display: flex;
-            align-items: center;
             justify-content: flex-start;
-            gap: 20px;
+            gap: 15px;
+            padding-left: 0px;
             flex-wrap: wrap;
         }
         
@@ -8157,12 +8257,12 @@ background-image:none;
                 text-align: center;
                 margin-bottom: 13px;
             }
-            .slect__btn_tab {
+            /* .slect__btn_tab {
                 display: block;
-            }
-            .ryt_srch_btn {
+            } */
+            /* .ryt_srch_btn {
                 display: block;
-            }
+            } */
             .pad_ryt {
                 margin-right: 1em;
                 padding: 5px 0px 10px;

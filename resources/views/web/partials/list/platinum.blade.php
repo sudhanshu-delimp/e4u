@@ -128,8 +128,8 @@
                                 
                             </div>
                         </div>
-                        <div class="row mb-2 margin_lft_rgt_one_five  pr-0">
-                            <div class="col-xl-3 col-md-3 col-sm-6 col-6 p-1">
+                        <div class="row">
+                            <div class="col-lg-12 custom-rate-type">
                                 <div class="d-flex align-items-center manage_gap_text_img-profile">
                                     <img src="{{ asset('assets/app/img/handwithhart.png')}}">
                                     <div class="div_contain_text">
@@ -146,8 +146,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-3 col-md-3 col-sm-6 col-6 p-1">
                                 <div class="d-flex align-items-center manage_gap_text_img-profile">
                                     <img src="{{ asset('assets/app/img/areodownimg.png')}}">
                                     <div class="div_contain_text">
@@ -164,8 +162,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-3 col-md-3 col-sm-6 col-6 p-1">
                                 <div class="d-flex align-items-center manage_gap_text_img-profile">
                                     <img src="{{ asset('assets/app/img/aeroupimg.png')}}">
                                     <div class="div_contain_text">

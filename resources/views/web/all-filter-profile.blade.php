@@ -104,7 +104,7 @@
                                             </div>
                                             <div class="col-md-8 ryt_srch_btn">
                                                 <div class="display_inline_block">
-                                                    <div class="d-flex flex-column gap-2" style="width:105px">
+                                                    <div class="location_radio_filter">
                                                         <div class="d-flex align-items-start"
                                                             @php
                                                             // $myLocation = false;
@@ -133,7 +133,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="display_inline_block ">
+                                                <div class="display_inline_block w-100">
                                                     <div
                                                         class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
 
@@ -908,7 +908,7 @@
 
 
         <nav aria-label="Page navigation" class="custom-pagination">
-            <ul class="d-flex justify-content-center list-unstyled">
+            <ul class="list-unstyled">
 
                 {{-- First Page --}}
                 <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
