@@ -35,7 +35,7 @@
     <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
         <div class="container text-justify">
             <h1 class="home_heading_first">E4U Pin Up - enhance your opportunities!</h1>
-            <h2 class="primery_color normal_heading">What is a Pin Up? Test 2</h2>
+            <h2 class="primery_color normal_heading">What is a Pin Up?</h2>
             <p> When a User visits the Website, they are greeted with their Pin Up registered in the User's Location. The Escort's
                  Pin Up image will appear on the Home page, which when clicked, will take the User to the Escort's Profile summary, 
                  a quick snapshot of the Escort.  From here, the User can then click the <i>View Profile</i> button to see the Escort's 
