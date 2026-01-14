@@ -30,7 +30,7 @@
         </div>
 </div>
 <br>
-            <form class="mb-4 w-50">
+            <form class="mb-4 col-md-9">
                 <div class="form-group">
   <label for="sel1"><b>Department</b></label>
   <select class="form-control">
