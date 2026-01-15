@@ -184,7 +184,7 @@
                             $plainTextAbout = strip_tags($escort->about);
                             $limitText = Str::limit($plainTextAbout, 210, '...');
                         @endphp
-                        <div class="col pr-1">
+                        <div class="col pr-1 prof_desc">
                             <p class="list_view_profile_pera_font_size">{!! $limitText !!}
                                 @if(strlen($plainTextAbout) > 210)
                                     <a href="{{ route('profile.description', $escort->id) }}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}" class="h6 text-danger">Read More</a>
