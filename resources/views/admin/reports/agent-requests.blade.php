@@ -9,6 +9,10 @@
     white-space: normal !important;
     word-break: break-word;
 }
+#agentRequestreportTable_filter input[type="search"] {
+    width: 268px!important;
+}
+
 .avatar img {
    width: 60px; height: 60px;
    border-radius: 50%;
