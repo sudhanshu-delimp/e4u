@@ -1116,6 +1116,46 @@
             </div>
         </div>
     </div>
+
+{{-- viewer Preferences when viewer change location from filter than open this modal  --}}
+
+<div class="modal fade" id="viewerPreferences" tabindex="-1" role="dialog">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content custome_modal_max_width">
+         <div class="modal-header main_bg_color border-0">
+
+            <h5 class="modal-title text-white">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="12" fill="#FF3B57"/>
+                    <text x="12" y="17" text-anchor="middle" font-size="16" font-weight="bold" fill="white" font-family="Arial, sans-serif">!</text>
+                </svg>
+                Viewer Preferences
+            </h5>
+             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">
+                    <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                </span>
+            </button>
+         </div>
+         <div class="modal-body text-center">
+            <input type="hidden" id="previous" name="url" value="delete-escort-bank/40">
+            <input type="hidden" id="label" name="label">
+            <input type="hidden" id="trigger-element">
+            <h5 class="mb-2 mt-3"><span id="Lname">By changing the Location filter your Preference Settings for Advertisers will be cancelled for this session.</span> </h5>
+            <h3 class="mb-4 mt-2"><span id="log"></span> </h3>
+            
+         </div>
+         <div class="modal-footer justify-content-center">
+                <button type="button" class="btn-cancel-modal">Proceed</button>
+                <button type="button" class="btn-success-modal" data-dismiss="modal">Cancel</button>  
+            </div>
+      </div>
+   </div>
+</div>
+
+
+{{-- viewer Preferences End modal here --}}
+
     <!-- =============       pagination end here            ====================-->
 @endsection
 @push('scripts')
@@ -1130,6 +1170,7 @@
 
 
         $(function() {
+           // $('#viewerPreferences').modal('show');
             var list = $('.js-dropdown-list');
             var link = $('.js-link');
 
