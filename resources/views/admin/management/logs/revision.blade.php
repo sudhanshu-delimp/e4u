@@ -64,19 +64,20 @@
                                                       <div class="custom-tooltip-container"><a
                                                             class="dropdown-item align-item-custom toggle-massage-notification"
                                                             href="#" title="Click to disable notification">
-                                                         </a> <div class="dropdown-divider"></div>
-                                                         <a class="dropdown-item align-item-custom" data-toggle="modal"
-                                                            data-target="#payAgentreport" href=""> <i
-                                                                  class="fa fa-star" aria-hidden="true"></i>
-                                                            Pay</a>
+                                                         </a>
+                                                          <a class="dropdown-item align-item-custom" href=""> <i
+                                                                  class="fa fa-print" aria-hidden="true"></i>
+                                                            Print</a>
                                                          <div class="dropdown-divider"></div>
-                                                      </div>
-
-                                                      <div class="custom-tooltip-container">
+                                                            
                                                          <a class="dropdown-item align-item-custom" href="#"
-                                                            data-toggle="modal" data-target="#viewAgentreport"> <i
+                                                            data-toggle="modal" data-target="#viewAgentreport"><i class="fa fa-route"></i>         <!-- FA5+ -->
+
+                                                            Tracker</a>
+                                                         <div class="dropdown-divider"></div>
+                                                         <a class="dropdown-item align-item-custom" href="/" target="_blank"> <i
                                                                   class="fa fa-eye" aria-hidden="true"></i>
-                                                            View Report</a>
+                                                            View Page</a>
                                                       </div>
                                                 </div>
 
@@ -148,14 +149,14 @@
         pageLength: 10,
 
            columns: [
-               { data: 'date_issued', name: 'date_issued', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'billing_period', name: 'billing_period', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'agent_id', name: 'agent_id', searchable: true, orderable:false ,defaultContent: 'NA'},
-               { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'fees', name: 'fees', searchable: true, orderable:true,defaultContent: 'NA' },
-               { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'date_agent_approved', name: 'date_agent_approved', searchable: true, orderable:true,defaultContent: 'NA' },
-               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+               { data: 'Ref', name: 'Ref', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'date_changed', name: 'date_changed', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'time', name: 'time', searchable: true, orderable:false ,defaultContent: 'NA'},
+               { data: 'staff_ID', name: 'staff_ID', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'page_title', name: 'page_title', searchable: true, orderable:true,defaultContent: 'NA' },
+               { data: 'console', name: 'console', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'url', name: 'url', searchable: true, orderable:true,defaultContent: 'NA' },
+               { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
            ],
     });
 </script>
