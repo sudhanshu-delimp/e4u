@@ -461,6 +461,9 @@ Route::post('/publications/alert/{id}/status', [FooterAlertController::class, 'u
 //Route::get('/publications/alert/pdf-download/{id}', [FooterAlertController::class, 'pdfDownload'])->name('admin.publications.alert.pdf.download');
 Route::get('/publications/alert/{id}/edit', [FooterAlertController::class, 'edit'])->name('admin.publications.alert.edit');
 Route::post('/publications/alert/{id}/update', [FooterAlertController::class, 'update'])->name('admin.publications.alert.update');
+//For New Notice
+Route::post('publications/notice/store', [FooterAlertController::class, 'noticeStore'])->name('admin.publications.alert.noticeStore');
+Route::get('/publications/notice/show', [FooterAlertController::class, 'noticeShow'])->name('admin.publications.alert.noticeShow');
 
 
 

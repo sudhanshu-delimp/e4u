@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\AlertNotic;
 use App\Models\FooterAlert;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAlertRequest;
 use App\Repositories\User\UserInterface;
 use Yajra\DataTables\Facades\DataTables;
+
+use function Symfony\Component\Translation\t;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
 
 class FooterAlertController extends Controller
 {
@@ -110,7 +117,7 @@ class FooterAlertController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action','status','alert_type','ref','created_at'])
+                ->rawColumns(['action', 'status', 'alert_type', 'ref', 'created_at'])
                 ->make(true);
         }
         return view('admin.publications.footer_alert.index');
@@ -228,4 +235,53 @@ class FooterAlertController extends Controller
         }
     }
 
+    public function noticeStore(Request $request)
+    {
+
+        try {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'motion' => 'required|string',
+                    //'notice_descrioption' => 'required|string'
+                ],
+                [
+                    'motion.required' => 'Please select motion type.',
+                    'motion.string' => 'Motion must be a valid string.',
+
+                    //'notice_descrioption.required' => 'Description is required.',
+                    //'notice_descrioption.string' => 'Description must be text.',
+                ]
+            );
+
+            if ($validator->fails()) {
+                $errors = [];
+                foreach ($validator->errors()->messages() as $field => $messages) {
+                    $errors[$field] = $messages[0]; // first error only
+                }
+                return error_response('Validation failed', 422, $errors);
+            }
+        } catch (ValidationException $e) {
+            return error_response($e->errors(), 422);
+        }
+
+        $data = $request->only(['id', 'motion', 'notice_descrioption']);
+        try {
+            AlertNotic::updateOrCreate(['id' => 1],
+            $data);
+            return success_response($data, 'Notice create successfully!!');
+        } catch (\Exception $e) {
+            return error_response('Failed to create notice: ' . $e->getMessage(), 500);
+        }
+    }
+
+    //show Alert 
+    public function noticeShow(){
+        try{
+        $data = AlertNotic::first();
+        return success_response($data, 'Notice create successfully!!');
+        } catch(\Exception $e){
+            return error_response('Failed to create notice: ' . $e->getMessage(), 500);
+        }
+    }
 }

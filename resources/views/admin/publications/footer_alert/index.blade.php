@@ -83,43 +83,40 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="Create_Notice"><img src="{{ asset('assets/dashboard/img/new-notice.png') }}"
-                            alt="alert" class="custompopicon"> New Notice
+                    <h5 class="modal-title" id="Create_Notice_heading"><img
+                            src="{{ asset('assets/dashboard/img/new-notice.png') }}" alt="alert" class="custompopicon">
+                        New Notice
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
-                <div class="modal-body pb-0">
-                    <form>
+                <form method="POST" id="NoticeForm">
+                    @csrf
+                    <div class="modal-body pb-0">
                         <div class="row">
                             <div class="col-12 mb-3 d-flex justify-content-start align-items-center">
                                 <label class="mb-1 label">Motion : </label>
                                 <div class="pl-3">
-                                    <input type="radio" name="motion" id="motion" checked>
-                                    <lable name="motion"> Static</lable>
-                                    <input type="radio" name="motion" id="motion">
-                                    <lable name="motion"> Scrolling</lable>
+                                    <input type="radio" name="motion" id="static" value="static" checked>
+                                    <label for="static" name="motion"> Static</label>
+
+                                    <input type="radio" name="motion" id="scrolling" value="scrolling">
+                                    <label for="scrolling" name="motion"> Scrolling</label>
                                 </div>
                             </div>
                             <div class="col-12 mb-3">
-                                <label for="Descrioption" class="label">Descrioption</label>
-                                <textarea class="form-control" id="description_notice" name="description" placeholder="up to 200 characters"
+                                <label for="notice_descrioption" class="label">Descrioption</label>
+                                <textarea class="form-control" id="notice_descrioption" name="notice_descrioption" placeholder="up to 200 characters"
                                     rows="3"></textarea>
                             </div>
-                            <div class="col-12">
-                                <div class="form-group mb-0">
-                                    <label class="form-check-label pr-4" for="exampleCheck1">Date: <span
-                                            class="ml-1">{{ date('d-m-Y') }}</span></label>
-                                </div>
-                            </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer pb-4 mb-2">
-                    <button type="button" class="btn-success-modal">Publish</button>
-                </div>
+                    </div>
+                    <div class="modal-footer pb-4 mb-2">
+                        <button type="submit" id="noticSubmit" class="btn-success-modal">Publish</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -193,8 +190,8 @@
                         <img id="image_icon" class="custompopicon" src="#"> <span id="success_task_title"></span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/alert.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
+                        {{-- <span aria-hidden="true"><img src="{{ asset('assets/app/img/alert.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span> --}}
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
@@ -240,7 +237,6 @@
                 </div>
                 <div class="modal-footer pb-4 mb-2">
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
-                    {{-- <button type="submit" id="pdf-download" data-notification-id="">Print</button> --}}
                 </div>
             </div>
         </div>
@@ -256,7 +252,11 @@
         data-publications-alert-update="{{ route('admin.publications.alert.update', ['id' => '__ID__']) }}"
         data-publications-alert-store="{{ route('admin.publications.alert.store') }}"
         data-publications-alert-show="{{ route('admin.publications.alert.show', ['id' => '__ID__']) }}"
-        data-publications-alert-index="{{ route('admin.publications.alert.index') }}">
+        data-publications-alert-index="{{ route('admin.publications.alert.index') }}"
+        data-publications-notice-store="{{ route('admin.publications.alert.noticeStore') }}"
+        data-publications-notice-show="{{ route('admin.publications.alert.noticeShow') }}"
+
+        >
 
     </div>
 @endsection
@@ -277,6 +277,8 @@
             publications_alert_store: mmRoot.data('publications-alert-store'),
             publications_alert_show: mmRoot.data('publications-alert-show'),
             publications_alert_index: mmRoot.data('publications-alert-index'),
+            publications_notice_store: mmRoot.data('publications-notice-store'),
+            publications_notice_show: mmRoot.data('publications-notice-show'),
         }
 
         function urlFor(tpl, id) {
@@ -301,7 +303,7 @@
                     if (response.status == true) {
                         $('#Create_Alert').modal('hide');
                         let msg = response.message ? response.message : "Save Successfully";
-                        $("#image_icon").attr("src", endpoint.success_image);
+                        //$("#image_icon").attr("src", endpoint.success_image);
                         $('#success_task_title').text('Success');
                         $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
                             '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
@@ -398,7 +400,7 @@
                         // Change modal title
                         $('#Create_Alert').find('h5.modal-title').html(
                             `<img src="${endpoint.alert_image}" alt="alert" class="custompopicon"> Edit Alert`
-                            );
+                        );
                         $('#Create_Alert').modal('show');
                     } else {
                         alert('data not found...');
@@ -488,9 +490,9 @@
             $.ajax({
                 url: endpoint.publications_alert_show.replace('__ID__', id),
                 type: 'GET',
-                success : function(response){
-                    if(response.status == true){
-                        const d =  response.data || {};
+                success: function(response) {
+                    if (response.status == true) {
+                        const d = response.data || {};
                         const rows = [
                             ['Ref', d.ref || ''],
                             ['Alert Type', d.alert_type || ''],
@@ -516,15 +518,12 @@
                         container.html(html);
                         $('#pdf-download').attr('data-notification-id', id);
                         $('#view-listing').modal('show');
-                    }else{
-                       console.log('Failed to load details.')
+                    } else {
+                        console.log('Failed to load details.')
                     }
                 }
             });
         })
-
-
-
 
         var table = $("#AlertTable").DataTable({
             language: {
@@ -569,5 +568,97 @@
             ],
             pageLength: 10
         });
+
+
+        //store and update Notice #Create_Notice : module name, #NoticeForm : form id
+        $('#NoticeForm').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            noticeFormSubmit(form);
+        });
+
+        function noticeFormSubmit(form) {
+            let formData = form.serialize();
+            console.log(endpoint.publications_notice_store, 'formData');
+            $.ajax({
+                url: endpoint.publications_notice_store,
+                method: "POST",
+                _token: endpoint.csrf_token,
+                data: formData,
+                success: function(response) {
+                    if (response.status == true) {
+                        $('#Create_Notice').modal('hide');
+                        let msg = response.message ? response.message : "Save Successfully";
+                        $("#image_icon").attr("src", endpoint.success_image);
+                        $('#success_task_title').text('Success');
+                        $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
+                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                        );
+                        form[0].reset();
+                        $('#successModal').modal('show');
+                        setTimeout(function() {
+                            $('#successModal').modal('hide');
+                            table.ajax.reload(null, false);
+                        }, 1200);
+
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422 && xhr.responseJSON.status === false) {
+                        let errors = xhr.responseJSON.errors;
+                        $('.server-error').remove();
+                        $('.is-invalid').removeClass('is-invalid');
+                        if (errors) {
+                            $.each(errors, function(field, message) {
+                                let input = $('[name="' + field + '"]');
+                                input.addClass('is-invalid');
+                                input.after(
+                                    '<small class="text-danger server-error">' + message +
+                                    '</small>'
+                                );
+                            });
+                            return;
+                        }
+
+                    }
+                    let msg = 'Something went wrong';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        msg = xhr.responseJSON.message;
+                    }
+                    $("#image_icon").attr("src", endpoint.error_image);
+                    $('#success_task_title').text('Error');
+                    $('#success_form_html').html('<h4>' + (msg ||
+                            'Status updated successfully') +
+                        '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                    );
+                    $('#successModal').modal('show');
+                }
+            })
+
+
+        }
+
+        //view Notice data
+        $('#Create_Notice').on('show.bs.modal', function() {
+            showAlertValue();
+            removeValidationMsg();
+        });
+        
+        function showAlertValue() {
+            $.ajax({
+                url: endpoint.publications_notice_show,
+                type: 'GET',
+                success: function(response) {
+                    if (response.status == true) {
+                        const d = response.data || {};
+                        $('input[name="motion"]').prop('checked', false);
+                        $('input[name="motion"][value="' + d.motion + '"]').prop('checked', true);
+                        $('#notice_descrioption').val(d.notice_descrioption || '');
+                    } else {
+                        console.log('Failed to load details.')
+                    }
+                }
+            });
+        }
     </script>
 @endpush
