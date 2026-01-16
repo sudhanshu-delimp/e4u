@@ -479,7 +479,7 @@
                                                 summary of your Profile. You will always rank within your
                                                 Membership type in all search results irrespective of which
                                                 format the Viewers choose to view the Escort Home Page. Each
-                                                Membership type reshuffles every 4 hours enabling all
+                                                Membership type reshuffles every 30 minutes enabling all
                                                 Advertisers to appear first from time to time within their
                                                 respective Membership type.</p>
                                             <p>Each Membership type enjoys certain benefits according to the
