@@ -71,7 +71,7 @@
                                                          <div class="dropdown-divider"></div>
                                                             
                                                          <a class="dropdown-item align-item-custom" href="#"
-                                                            data-toggle="modal" data-target="#viewAgentreport"><i class="fa fa-route"></i>         <!-- FA5+ -->
+                                                            data-toggle="modal" data-target="#viewAgentreport"><i class="fa fa-route"></i>
 
                                                             Tracker</a>
                                                          <div class="dropdown-divider"></div>
