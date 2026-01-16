@@ -72,12 +72,11 @@
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <span style="color: var(--peach);font-size: 14px;">Membership Type reshuffles every 15
-                                                    minutes. </span>
+                                                <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every 30 minutes.</span>
                                             </div>
                                             <div class="col-md-8 ryt_srch_btn">
                                                 <div class="display_inline_block">
-                                                    <div class="d-flex flex-column gap-2" style="width:105px">
+                                                    <div class="location_radio_filter">
                                                         <div class="d-flex align-items-start" style=" padding-top: 2px;">
                                                             <input type="radio" name="locationByRadio"
                                                                 {{ $radio_location_filter != null ? 'checked' : '' }} id="yourLocation">
@@ -97,7 +96,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="display_inline_block ">
+                                                <div class="display_inline_block w-100">
                                                     {{-- old-code <div class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile">
                                                     <button class="input-group-text border-0 remove_bg_color_of_search_btn" id="search-addon" type="submit">
                                                     <i class="fa fa-search" aria-hidden="true"></i>
@@ -278,7 +277,7 @@
                                                     <option value="verified">Verified</option>
                                                 </select>
                                             </div>
-                                            <div class="display_inline_block mb-1 mr-2">
+                                            <div class="display_inline_block mb-1">
                                                 <button type="submit" class="btn reset_filter" data-toggle="tooltip" title="">
                                                     Apply Filters
                                                 </button>
@@ -301,8 +300,7 @@
                                                     <!-- accordien start here -->
                                                     <div class="accordion-container-new mb-0">
                                                         <div class="set mb-0">
-                                                            <a class=" py-lg-0 py-2"
-                                                                style="font-weight:500;display: flex; align-items: center;justify-content: space-between;font-size:22px;">
+                                                            <a class=" py-lg-0 py-2 custom-accordion-title px-2">
                                                                 Service Tags
                                                                 <i class="fa fa-angle-down"></i>
                                                             </a>
@@ -522,24 +520,7 @@
             <div class="row grid_list_part grid_wishlist_part mb-0" id="v_li_wishlist" style="display: block;">
                 {{-- @if (count($escorts) > 0) --}}
                 <div class="col-12 align-items-left">
-                    {{-- <div class="grid_list_icon_box display_inline_block " data-toggle="modal1" data-target="#" data-url="grid-escort-list">
-                        <a href="#" class="active" id="grid-modal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
-                                <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="grid_list_icon_box display_inline_block">
-                        <a href="#" class=" " id="grid-list">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24" viewBox="0 0 27 24" fill="none">
-                                <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                    </div> --}}
-                    <div class="grid_list_icon_box display_inline_block my-shortlist">
+                    <div class="my-shortlist">
                         <ul class="mb-0 mt-1 pt-1 ml-0">
                             <li>
                                 <h3>My Shortlist</h3>
@@ -564,7 +545,7 @@
                                         {{-- <i class="fa fa-back" aria-hidden="true"></i> --}}
                                         <i class="fa fa-arrow-left ml-0" aria-hidden="true"
                                             style="padding: 5px;font-size: 16px;"></i>
-                                        Back To Listings
+                                       <span class="hide-on-sm"> Back To Listings</span>
                                     </a>
                                 </div>
                             </li>

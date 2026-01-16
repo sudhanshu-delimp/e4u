@@ -99,12 +99,11 @@
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <span style="color: var(--peach);font-size: 14px;">Membership Type reshuffles every 15
-                                                    minutes. </span>
+                                                <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every 30 minutes.</span>
                                             </div>
                                             <div class="col-md-8 ryt_srch_btn">
                                                 <div class="display_inline_block">
-                                                    <div class="d-flex flex-column gap-2" style="width:105px">
+                                                    <div class="location_radio_filter">
                                                         <div class="d-flex align-items-start"
                                                             @php
                                                             // $myLocation = false;
@@ -133,7 +132,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="display_inline_block ">
+                                                <div class="display_inline_block w-100">
                                                     <div
                                                         class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
 
@@ -312,7 +311,7 @@
                                                     <option value="verified" {{ request()->get('verify_list') == 'verified' ? 'selected' : '' }}>Verified</option>
                                                 </select>
                                             </div>
-                                            <div class="display_inline_block mb-1 ">
+                                            <div class="display_inline_block mb-1">
                                                 <input type="hidden" name="filter_button_submit" value="1">
                                                 <input type="hidden" name="view_type" id="view_type"
                                                     value='{{ isset($viewType) && $viewType == 'list' ? 'list' : 'grid' }}'>
@@ -330,8 +329,7 @@
                                                     <!-- accordien start here -->
                                                     <div class="accordion-container-new mb-0">
                                                         <div class="set mb-0">
-                                                            <a class=" py-lg-0 py-2"
-                                                                style="font-weight:500;display: flex; align-items: center;justify-content: space-between; font-size:22px;">
+                                                            <a class=" py-lg-0 py-2 custom-accordion-title px-2">
                                                                 Service Tags
                                                                 <i class="fa fa-angle-down"></i>
                                                             </a>
@@ -908,7 +906,7 @@
 
 
         <nav aria-label="Page navigation" class="custom-pagination">
-            <ul class="d-flex justify-content-center list-unstyled">
+            <ul class="list-unstyled">
 
                 {{-- First Page --}}
                 <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
