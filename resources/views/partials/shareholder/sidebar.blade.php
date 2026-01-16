@@ -76,6 +76,7 @@
                     request()->segment(2) == 'balance-sheet' || request()->segment(2) == 'annual-report' ||
                     request()->segment(2) == 'directors' ||
                     request()->segment(2) == 'portfolio' ||
+                    request()->segment(2) == 'financials' ||
                     request()->segment(2) == 'contact-us') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
@@ -86,29 +87,19 @@
                             style="{{ request()->segment(2) == 'annual-report' ? 'color: #ff3c5f;' : '' }}">
                             Annual Report</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('shareholder.annual-profit-and-loss') }}">
-                        <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                        <span
-                            style="{{ request()->segment(2) == 'annual-profit-and-loss' ? 'color: #ff3c5f;' : '' }}">
-                            Annual Profit & Loss</span>
-                    </a>
-
-                    <a class="collapse-item" href="{{ route('shareholder.balance-sheet') }}">
-                        <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                        <span
-                            style="{{ request()->segment(2) == 'balance-sheet' ? 'color: #ff3c5f;' : '' }}">
-                           Balance Sheet</span>
-                    </a>
-
-                    
                     <a class="collapse-item" href="{{ route('shareholder.directors', ['from' => 'sidebar']) }}">
                         <img 
                             src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'directors' ? 'color: #ff3c5f;' : '' }}">
                            Directors</span>
+                    </a>
+                    <a class="collapse-item" href="{{ route('shareholder.financials') }}">
+                        <img 
+                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                        <span
+                            style="{{ request()->segment(2) == 'financials' ? 'color: #ff3c5f;' : '' }}">
+                            Financials</span>
                     </a>
 
                     <a class="collapse-item" href="{{ route('shareholder.portfolio') }}">

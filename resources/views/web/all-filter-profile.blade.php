@@ -978,7 +978,7 @@
 
             </ul>
             {{-- Page Info Below --}}
-            <div class="text-center mt-2 mb-5" style="color: #ff3c5f; font-weight: 400;">
+            <div class="text-center mt-2 mb-5 col-sm-12" style="color: #ff3c5f; font-weight: 400;">
                 Page {{ $paginator->currentPage() }} of {{ $paginator->lastPage() }} |
                 Showing {{ $paginator->firstItem() ?? 0 }} to {{ $paginator->lastItem() ?? 0 }} of
                 {{ $paginator->total() }} Listings

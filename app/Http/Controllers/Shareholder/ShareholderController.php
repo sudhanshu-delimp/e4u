@@ -160,6 +160,10 @@ class ShareholderController extends Controller
     {
         return view('shareholder.dashboard.shareholder-documents.shareholder-updates');
     }
+    public function financials()
+    {
+        return view('shareholder.dashboard.blackbox-tech.financials');
+    }
 
 
     // Share Register
