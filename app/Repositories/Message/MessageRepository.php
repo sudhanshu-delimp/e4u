@@ -739,6 +739,7 @@ class MessageRepository extends BaseRepository implements MessageInterface
     }
     public function findDefault($user_id, $default_setting)
     {
+        
         $result = $this->model->where('user_id', $user_id)
             ->where('default_setting', $default_setting)
             ->first();

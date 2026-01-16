@@ -25,118 +25,83 @@
 
 
                 <div class="row">
-                <div class="col-12">
-                    <div class="padding_20_all_side my-availability-mon profile_time_availibility">
-                        @php 
-                        $days = [ 'monday' => 'Monday', 'tuesday' => 'Tuesday', 'wednesday' => 'Wednesday', 'thursday' => 'Thursday', 'friday' => 'Friday', 'saturday' => 'Saturday', 'sunday' => 'Sunday', ]; 
-                        
+                    <div class="col-12">
+                        <div class="padding_20_all_side my-availability-mon profile_time_availibility">
 
-                            function splitTime($time) {
-                                if (!$time) return [null, null];
-                                return explode(' ', $time);
-                            }
-
-                        @endphp 
-                                                    
-                                                    
-                                @foreach ($days as $dayKey => $dayLabel)
-
-                                @php
-                                $dayData =  [];
-
-                                $status = $dayData['status'] ?? 'closed';
-
-                                [$fromTime, $fromAmPm] = splitTime($dayData['from'] ?? null);
-                                [$toTime, $toAmPm]     = splitTime($dayData['to'] ?? null);
-
-                                $isTilLate = $status === 'til_late';
-                                $is24Hours = $status === '24_hours';
-                                $isClosed  = $status === 'closed';
-                                $isCustom  = $status === 'custom';
-
-                                $disableFrom = $isClosed || $is24Hours;
-                                $disableTo   = $isClosed || $is24Hours || $isTilLate;
+                            @php
+                                $days = [
+                                    'monday' => 'Monday',
+                                    'tuesday' => 'Tuesday',
+                                    'wednesday' => 'Wednesday',
+                                    'thursday' => 'Thursday',
+                                    'friday' => 'Friday',
+                                    'saturday' => 'Saturday',
+                                    'sunday' => 'Sunday',
+                                ];
                             @endphp
 
+                            @foreach ($days as $dayKey => $dayLabel)
                                 <div class="d-flex align-items-center flex-wrap gap-20 my-3 parent-row" data-day="{{ $dayKey }}">
-
+                                    
                                     <label style="width:100px;"><strong>{{ $dayLabel }}:</strong></label>
 
-                                    {{-- FROM --}}
-                                    <select name="time[{{ $dayKey }}][hh_from]" {{ $disableFrom ? 'disabled' : '' }}>
+                                    <!-- FROM -->
+                                    <select name="time[{{ $dayKey }}][hh_from]" class="time-field">
                                         <option value="">H:M</option>
                                         @for ($i = 1; $i <= 12; $i++)
-                                            @foreach (['00','30'] as $m)
-                                                @php $val = sprintf('%02d:%s', $i, $m); @endphp
-                                                <option value="{{ $val }}" {{ $fromTime === $val ? 'selected' : '' }}>
-                                                    {{ $val }}
-                                                </option>
-                                            @endforeach
+                                            <option value="{{ sprintf('%02d',$i) }}:00">{{ sprintf('%02d',$i) }}:00</option>
+                                            <option value="{{ sprintf('%02d',$i) }}:30">{{ sprintf('%02d',$i) }}:30</option>
                                         @endfor
                                     </select>
 
-                                    <select name="time[{{ $dayKey }}][ampm_from]" {{ $disableFrom ? 'disabled' : '' }}>
+                                    <select name="time[{{ $dayKey }}][ampm_from]" class="time-field">
                                         <option value="">--</option>
-                                        <option value="AM" {{ $fromAmPm === 'AM' ? 'selected' : '' }}>AM</option>
-                                        <option value="PM" {{ $fromAmPm === 'PM' ? 'selected' : '' }}>PM</option>
+                                        <option value="AM">AM</option>
+                                        <option value="PM">PM</option>
                                     </select>
 
                                     <span class="mx-2">To</span>
 
-                                    {{-- TO --}}
-                                    <select name="time[{{ $dayKey }}][hh_to]" {{ $disableTo ? 'disabled' : '' }}>
+                                    <!-- TO -->
+                                    <select name="time[{{ $dayKey }}][hh_to]" class="time-field">
                                         <option value="">H:M</option>
                                         @for ($i = 1; $i <= 12; $i++)
-                                            @foreach (['00','30'] as $m)
-                                                @php $val = sprintf('%02d:%s', $i, $m); @endphp
-                                                <option value="{{ $val }}" {{ $toTime === $val ? 'selected' : '' }}>
-                                                    {{ $val }}
-                                                </option>
-                                            @endforeach
+                                            <option value="{{ sprintf('%02d',$i) }}:00">{{ sprintf('%02d',$i) }}:00</option>
+                                            <option value="{{ sprintf('%02d',$i) }}:30">{{ sprintf('%02d',$i) }}:30</option>
                                         @endfor
                                     </select>
 
-                                    <select name="time[{{ $dayKey }}][ampm_to]" {{ $disableTo ? 'disabled' : '' }}>
+                                    <select name="time[{{ $dayKey }}][ampm_to]" class="time-field">
                                         <option value="">--</option>
-                                        <option value="AM" {{ $toAmPm === 'AM' ? 'selected' : '' }}>AM</option>
-                                        <option value="PM" {{ $toAmPm === 'PM' ? 'selected' : '' }}>PM</option>
+                                        <option value="AM">AM</option>
+                                        <option value="PM">PM</option>
                                     </select>
 
-                                    {{-- STATUS --}}
+                                    <!-- DEFAULT STATUS -->
+                                    <input type="hidden" name="availability_time[{{ $dayKey }}]" value="custom">
+
+                                    <!-- STATUS RADIOS -->
                                     <label class="ms-3">
-                                        <input type="radio"
-                                            name="availability_time[{{ $dayKey }}]"
-                                            value="til_late"
-                                            {{ $isTilLate ? 'checked' : '' }}>
-                                        Til late
+                                        <input type="radio" name="availability_time[{{ $dayKey }}]" value="til_late">
+                                        … Till late
                                     </label>
 
                                     <label class="ms-2">
-                                        <input type="radio"
-                                            name="availability_time[{{ $dayKey }}]"
-                                            value="24_hours"
-                                            {{ $is24Hours ? 'checked' : '' }}>
+                                        <input type="radio" name="availability_time[{{ $dayKey }}]" value="24_hours">
                                         Open 24 Hours
                                     </label>
 
                                     <label class="ms-2">
-                                        <input type="radio"
-                                            name="availability_time[{{ $dayKey }}]"
-                                            value="closed"
-                                            {{ $isClosed ? 'checked' : '' }}>
+                                        <input type="radio" name="availability_time[{{ $dayKey }}]" value="closed">
                                         Closed
                                     </label>
 
-                                    <div class="resetdays-icon"> <input type="button" value="Reset" class="resetdays" data-day="sunday" id="resetSunday"> </div>
-
-
+                                    <button type="button" class="resetdays ms-2">Reset</button>
                                 </div>
-
-
                             @endforeach
 
+                        </div>
                     </div>
-                </div>
                 </div>
 
               

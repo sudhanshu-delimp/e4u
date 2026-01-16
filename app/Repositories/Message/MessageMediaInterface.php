@@ -11,6 +11,7 @@ interface MessageMediaInterface extends BaseRepositoryInterface
         public function markDefault($media);
         public function with_Or_withoutPosition($user_id);
         public function findDefaultMedia($user_id, $default);
+        public function nullPosition($user_id,$position);
       
        
 

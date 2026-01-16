@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Center\Profile;
 
+use Exception;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Service;
@@ -26,6 +27,7 @@ use App\Http\Requests\Escort\StoreRequest;
 use App\Http\Requests\UpdateEscortRequest;
 use App\Repositories\Escort\EscortInterface;
 use App\Http\Requests\Escort\StoreRateRequest;
+use App\Repositories\Message\MessageInterface;
 use App\Repositories\Service\ServiceInterface;
 use App\Http\Requests\Escort\UpdateRequestAbout;
 use App\Repositories\Duration\DurationInterface;
@@ -33,16 +35,15 @@ use App\Http\Requests\Escort\StoreServiceRequest;
 use App\Http\Requests\Escort\UpdateRequestPolicy;
 use App\Repositories\Escort\EscortMediaInterface;
 use App\Repositories\Escort\AvailabilityInterface;
-use App\Repositories\Message\MessageMediaInterface;
+use App\Repositories\Thumbnail\ThumbnailInterface;
 use App\Http\Requests\Escort\UpdateRequestReadMore;
+use App\Repositories\Message\MassageMediaInterface;
+use App\Repositories\Message\MessageMediaInterface;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
-use App\Repositories\Message\MassageMediaInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
-use App\Repositories\Message\MessageInterface;
-use App\Repositories\Thumbnail\ThumbnailInterface;
 
 //use Illuminate\Http\Request;
 
@@ -71,60 +72,129 @@ class MassageController extends Controller
     }
 
    
+    // public function makeAvailability($request_data)
+    // {
+
+      
+    //     $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+    //     $availability = [];
+
+    //     foreach ($days as $day) {
+
+    //         $status = $request_data['availability_time'][$day] ?? 'closed';
+
+    //         if ($status === 'closed') {
+    //             $availability[$day] = [
+    //                 'status' => 'closed',
+    //                 'from' => null,
+    //                 'to' => null,
+    //             ];
+    //             continue;
+    //         }
+
+    //         if ($status === '24_hours') {
+    //             $availability[$day] = [
+    //                 'status' => '24_hours',
+    //                 'from' => '12:00 AM',
+    //                 'to' => '11:59 PM',
+    //             ];
+    //             continue;
+    //         }
+
+
+    //         $from = null;
+    //         $to   = null;
+
+    //         if (!empty($request_data['time'][$day]['hh_from']) &&
+    //             !empty($request_data['time'][$day]['ampm_from'])) {
+    //             $from = $request_data['time'][$day]['hh_from'].' '.$request_data['time'][$day]['ampm_from'];
+    //         }
+
+    //         if (!empty($request_data['time'][$day]['hh_to']) &&
+    //             !empty($request_data['time'][$day]['ampm_to'])) {
+    //             $to = $request_data['time'][$day]['hh_to'].' '.$request_data['time'][$day]['ampm_to'];
+    //         }
+
+    //         $availability[$day] = [
+    //             'status' => $status,
+    //             'from' => $from,
+    //             'to' => $to,
+    //         ];
+    //     }
+
+    //     return $availability;
+    // }
+
+
     public function makeAvailability($request_data)
-    {
-        $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
-        $availability = [];
+{
+    $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+    $availability = [];
 
-        foreach ($days as $day) {
+    foreach ($days as $day) {
 
-            $status = $request_data['availability_time'][$day] ?? 'closed';
+        $status = $request_data['availability_time'][$day] ?? 'closed';
 
-            if ($status === 'closed') {
-                $availability[$day] = [
-                    'status' => 'closed',
-                    'from' => null,
-                    'to' => null,
-                ];
-                continue;
-            }
-
-            if ($status === '24_hours') {
-                $availability[$day] = [
-                    'status' => '24_hours',
-                    'from' => '12:00 AM',
-                    'to' => '11:59 PM',
-                ];
-                continue;
-            }
-
-
-            $from = null;
-            $to   = null;
-
-            if (!empty($request_data['time'][$day]['hh_from']) &&
-                !empty($request_data['time'][$day]['ampm_from'])) {
-                $from = $request_data['time'][$day]['hh_from'].' '.$request_data['time'][$day]['ampm_from'];
-            }
-
-            if (!empty($request_data['time'][$day]['hh_to']) &&
-                !empty($request_data['time'][$day]['ampm_to'])) {
-                $to = $request_data['time'][$day]['hh_to'].' '.$request_data['time'][$day]['ampm_to'];
-            }
-
+        if ($status === 'closed') {
             $availability[$day] = [
-                'status' => $status,
-                'from' => $from,
-                'to' => $to,
+                'status' => 'closed',
+                'from' => null,
+                'to' => null,
             ];
+            continue;
         }
 
-        return $availability;
+        if ($status === '24_hours') {
+            $availability[$day] = [
+                'status' => '24_hours',
+                'from' => '12:00 AM',
+                'to' => '11:59 PM',
+            ];
+            continue;
+        }
+
+        // custom / til_late
+        $from = null;
+        $to   = null;
+
+        if (!empty($request_data['time'][$day]['hh_from']) &&
+            !empty($request_data['time'][$day]['ampm_from'])) {
+            $from = $request_data['time'][$day]['hh_from'].' '.$request_data['time'][$day]['ampm_from'];
+        }
+
+        if (!empty($request_data['time'][$day]['hh_to']) &&
+            !empty($request_data['time'][$day]['ampm_to'])) {
+            $to = $request_data['time'][$day]['hh_to'].' '.$request_data['time'][$day]['ampm_to'];
+        }
+
+        $availability[$day] = [
+            'status' => $status,
+            'from' => $from,
+            'to' => $to,
+        ];
+    }
+
+    return $availability;
+}
+
+
+    public function index($id = null)
+    {
+        $user = auth()->user();
+        $escort = $this->massage_profile->findDefault($user->id,1);
+        if(!$escort) {
+            $escort = $this->massage_profile->make();
+        }
+        $massage_profile = $escort;
+        $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
+        $path = $this->media;
+        $durations = $this->duration->all();
+        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile'));
     }
 
     public function getProfile(Request $request, $id)
     {
-     
+       
         $user = auth()->user();
         $escort = $this->escort->find($id);
         if(!$escort || !$id){
@@ -132,6 +202,7 @@ class MassageController extends Controller
         }
         else
         {
+           
             $user = auth()->user();
             list($service_one, $service_two, $service_three) = $this->service->findByCategory([1, 2, 3]);
             $durations = $this->duration->all();
@@ -141,10 +212,10 @@ class MassageController extends Controller
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [], $id);
             $defaultImages = $this->media->findDefaultMedia($user->id, 0);
             $escortDefault = $this->escort->findDefault(auth()->user()->id, 1);
+           
             $defaultServiceIds = $escortDefault->services()->pluck('service_id')->toArray();
             $edit_mode = true;
-
-            
+            //dd($escort->imagePosition(9));
             return view('center.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'edit_mode'));
         }
         
@@ -195,7 +266,8 @@ class MassageController extends Controller
 
             DB::beginTransaction();
             $user = auth()->user();
-            $availability     = $this->makeAvailability($request->all());
+            $request_data = $request->all();
+            $availability     = $this->makeAvailability($request_data);
             $availabilityJson = json_encode($availability);
 
             /* ================== Massage Profile ================== */
@@ -328,6 +400,10 @@ class MassageController extends Controller
     public function updateprofile(Request $request)
     {
         $message = "";
+        $error = true;
+
+
+        ######### Update profile ##########################
         if($request->type=='profile')
         {
             $input = [
@@ -339,8 +415,13 @@ class MassageController extends Controller
             ];
 
             $message = 'Business information updated successfully.';
+            if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) 
+            $error = false;
         }
+        ######### End Update profile  #####################
 
+
+        ######### Update Abous us #########################
         if($request->type=='about_us')
         {
                 $input = [
@@ -357,8 +438,13 @@ class MassageController extends Controller
                 ];
 
             $message = 'About Us info has been updated successfully.';
+            if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) 
+            $error = false;
         }
+        ######### End Update Abous us #####################
 
+
+        ######### Update Who We ###########################
         if($request->type=='who_we')
         {
                 $input = [
@@ -367,12 +453,237 @@ class MassageController extends Controller
                 ];
 
             $message = 'Who We Are updated successfully.';
-        }
-        
-        $error=true;
-        if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) {
+            if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) 
             $error = false;
         }
+        ########### End Update Who We #####################
+
+
+        ######### Update Media ###########################
+        if($request->type=='media' && $request->massage_id)
+        {
+            try 
+            {
+              
+                $id = $request->massage_id;
+                $user = auth()->user();
+                $media_arr = [];
+                $errors = "";
+                $successFlashMsg = $id ? 'Profile updated successfully' : 'Profile created successfully';
+                $galleryStorageFull = false;
+                $noOfFilesInGallery = $this->media->get_user_row(auth()->user()->id, [8, 10])->count();
+               
+                if($request->position){
+                    foreach($request->position as $position=>$media_id){
+                        if(!empty($media_id)){
+                            $media_arr[$position]  = [
+                                'massage_profile_id' => $id,
+                                'massage_media_id' => $media_id,
+                                'position' => $position,
+                                'created_at' => date('Y-m-d H:i:s')
+                            ];
+                        }
+                    }
+                }
+
+                $escortImages = MassageGallery::where(['massage_profile_id'=>$id,'type'=>'0'])->get();
+                if($escortImages->count() > 0)
+                {
+                    foreach ($escortImages as $escortImage) {
+                        if (isset($media_arr[$escortImage->position])) {
+                            $escortImage->massage_media_id = $media_arr[$escortImage->position]['massage_media_id'];
+                            $escortImage->updated_at = date('Y-m-d H:i:s');
+                            $escortImage->save();
+                            unset($media_arr[$escortImage->position]);
+                        }
+                    }
+                    if(count($media_arr) > 0){
+                        MassageGallery::insert($media_arr);
+                    }
+                }
+                else
+                {
+                    MassageGallery::insert($media_arr);
+                }
+
+                $message = "Updated Successfully."; 
+                $error = false;
+
+
+            } catch (Exception $e) {
+               $message = "Error occured while updating."; 
+               $error = true; 
+            }
+                  
+
+        }
+        ########### End Update Media #####################
+        
+
+        ######### Update Video  ##########################
+        if($request->type=='video' && $request->massage_id)
+        {
+            
+               
+                try 
+                {
+                $id = $request->massage_id;
+                $escortVideos = MassageGallery::where(['massage_profile_id'=>$id,'type'=>'1'])->get();
+                $videoGalleryArray = $request->video_position;
+                if($escortVideos->count() > 0){
+                    foreach($escortVideos as $key=>$video){
+                        if(isset($videoGalleryArray[$video->position]) && $videoGalleryArray[$video->position]!=""){
+                            $video->massage_media_id = $videoGalleryArray[$video->position];
+                            $video->type = '1';
+                            $video->updated_at = date('Y-m-d H:i:s');
+                            $video->save();
+                            unset($videoGalleryArray[$video->position]);
+                        }
+                    }
+                }
+
+                if(count($videoGalleryArray) > 0){
+                    foreach($videoGalleryArray as $key=>$video){
+                        if($video!="")
+                        {
+                            $gallery = new MassageGallery;
+                            $gallery->massage_profile_id = $id;
+                            $gallery->massage_media_id = $video;
+                            $gallery->position = $key;
+                            $gallery->type = '1';
+                            $gallery->created_at = date('Y-m-d H:i:s');
+                            $gallery->save();
+                        }
+                       
+                    }
+                }
+        
+                $message = "Updated Successfully."; 
+                $error = false;
+                } 
+                catch (Exception $e) {
+                  $message = "Error occured while updating."; 
+                  $error = true; 
+                } 
+        }
+        ######### End Update Video  ######################
+
+
+        ######### Update Service  #########################
+        if($request->type=='service')
+        {
+            try 
+            {
+                if ((isset($request->service_id)) &&  (!empty($request->service_id)) && (isset($request->category_id))  && (!empty($request->category_id))) 
+                {
+                    $services = [];
+
+                    $massage_profile_id = $request->massage_id;
+
+                    foreach ($request->service_id as $key => $value) {
+                        $services[] = [
+                            'price'              => $request->price[$key],
+                            'category_id'        => (int) $request->category_id[$key],
+                            'massage_profile_id' => $massage_profile_id,
+                            'service_id'         => (int) $value,
+                            'created_at'         => now(),
+                            'updated_at'         => now(),
+                        ];
+                    }
+
+                    if(!empty($services))
+                    {
+                        MassageService::where(['massage_profile_id'=> $massage_profile_id])->delete();
+                        MassageService::insert($services);
+                    }
+                    
+                }
+
+
+                $message = "Updated Successfully."; 
+                $error = false;
+            } 
+            catch (Exception $e){
+                $message = "Error occured while updating."; 
+                $error = true; 
+            }
+        }
+        ######### End Update Service  #####################
+
+
+        ######### Update Rates  ###########################
+        if($request->type=='rates')
+        {
+            try 
+            {
+                if (!empty($request->duration_id)) 
+                {
+                    $massage_profile_id = $request->massage_id;
+                    $rates = [];
+                    foreach ($request->duration_id as $key => $value) {
+                        $rates[] = [
+                            'massage_price'      => $request->massage_price[$key],
+                            'incall_price'       => $request->incall_price[$key],
+                            'outcall_price'      => $request->outcall_price[$key],
+                            'duration_id'        => $value,
+                            'massage_profile_id' => $massage_profile_id,
+                            'created_at'         => now(),
+                            'updated_at'         => now(),
+                        ];
+                    }
+
+                    
+                    if(!empty($rates))
+                        {
+                            MassageRate::where(['massage_profile_id'=> $massage_profile_id])->delete();
+                            MassageRate::insert($rates);
+                        }
+                }
+
+
+                $message = "Updated Successfully."; 
+                $error = false;
+            } 
+            catch (Exception $e){
+                $message = "Error occured while updating."; 
+                $error = true; 
+            }
+        }
+        ######### End Update Rates  #######################
+
+
+        ######### Update Availibility  ####################
+        if($request->type=='availibility')
+        {
+            try 
+            {
+                $request_data = $request->all();
+                $availability     = $this->makeAvailability($request_data);
+
+                Log::info($availability);
+                if(!empty($availability))
+                {   
+                    
+                    $massage_profile_id = $request->massage_id;
+                    $availabilityJson = json_encode($availability);
+                    $record = MassageAvailability::where('massage_profile_id', $massage_profile_id)->first();
+                    if ($record) {
+                        $record->availability_time = json_encode($availability);
+                        $record->save();
+                    }
+                }
+               
+                $message = "Updated Successfully."; 
+                $error = false;
+            } 
+            catch (Exception $e){
+                $message = "Error occured while updating."; 
+                $error = true; 
+            }
+        }
+        ######### End Update Rates  #######################
+
+
         return response()->json(compact('error','message'));
     }
 

@@ -17,131 +17,136 @@
         
 
     <div class="about-me-box-one-name stage_name">Our Open Time</div>
-        <div class="padding_20_all_side my-availability-mon">
+    <div class="padding_20_all_side my-availability-mon">
            
-               
-                
+        <form id="myProfileAvailibilityForms" name="myProfileAvailibilityForms" action="{{route('center.update-massage-profile')}}" method="POST" enctype="multipart/form-data">                                                
+                    <div class="row">
+                        <div class="col-12">
+                                <div class="padding_20_all_side my-availability-mon profile_time_availibility">
+                                        @php 
+                                            $days = [ 'monday' => 'Monday', 'tuesday' => 'Tuesday', 'wednesday' => 'Wednesday', 'thursday' => 'Thursday', 'friday' => 'Friday', 'saturday' => 'Saturday', 'sunday' => 'Sunday', ]; 
 
 
+                                            function splitTime($time) {
+                                                if (!$time) return [null, null];
+                                                return explode(' ', $time);
+                                            }
 
-                <div class="row">
-                <div class="col-12">
-                    <div class="padding_20_all_side my-availability-mon profile_time_availibility">
-                        @php 
-                        $days = [ 'monday' => 'Monday', 'tuesday' => 'Tuesday', 'wednesday' => 'Wednesday', 'thursday' => 'Thursday', 'friday' => 'Friday', 'saturday' => 'Saturday', 'sunday' => 'Sunday', ]; 
-                        
+                                        @endphp 
+                                        
+                                        
+                                        @foreach ($days as $dayKey => $dayLabel)
 
-function splitTime($time) {
-    if (!$time) return [null, null];
-    return explode(' ', $time);
-}
+                                        @php
+                                            $dayData = $availability[$dayKey] ?? [];
 
-                        @endphp 
-                        
-                        
-                        @foreach ($days as $dayKey => $dayLabel)
+                                            $status = $dayData['status'] ?? 'closed';
 
-@php
-    $dayData = $availability[$dayKey] ?? [];
+                                            [$fromTime, $fromAmPm] = splitTime($dayData['from'] ?? null);
+                                            [$toTime, $toAmPm]     = splitTime($dayData['to'] ?? null);
 
-    $status = $dayData['status'] ?? 'closed';
+                                            $isTilLate = $status === 'til_late';
+                                            $is24Hours = $status === '24_hours';
+                                            $isClosed  = $status === 'closed';
+                                            $isCustom  = $status === 'custom';
 
-    [$fromTime, $fromAmPm] = splitTime($dayData['from'] ?? null);
-    [$toTime, $toAmPm]     = splitTime($dayData['to'] ?? null);
+                                            $disableFrom = $isClosed || $is24Hours;
+                                            $disableTo   = $isClosed || $is24Hours || $isTilLate;
+                                        @endphp
 
-    $isTilLate = $status === 'til_late';
-    $is24Hours = $status === '24_hours';
-    $isClosed  = $status === 'closed';
-    $isCustom  = $status === 'custom';
+                                    <div class="d-flex align-items-center flex-wrap gap-20 my-3 parent-row" data-day="{{ $dayKey }}">
 
-    $disableFrom = $isClosed || $is24Hours;
-    $disableTo   = $isClosed || $is24Hours || $isTilLate;
-@endphp
+                                        <label style="width:100px;"><strong>{{ $dayLabel }}:</strong></label>
 
-<div class="d-flex align-items-center flex-wrap gap-20 my-3 parent-row" data-day="{{ $dayKey }}">
+                                        {{-- FROM --}}
+                                        <select name="time[{{ $dayKey }}][hh_from]" {{ $disableFrom ? 'disabled' : '' }}>
+                                            <option value="">H:M</option>
+                                            @for ($i = 1; $i <= 12; $i++)
+                                                @foreach (['00','30'] as $m)
+                                                    @php $val = sprintf('%02d:%s', $i, $m); @endphp
+                                                    <option value="{{ $val }}" {{ $fromTime === $val ? 'selected' : '' }}>
+                                                        {{ $val }}
+                                                    </option>
+                                                @endforeach
+                                            @endfor
+                                        </select>
 
-    <label style="width:100px;"><strong>{{ $dayLabel }}:</strong></label>
+                                        <select name="time[{{ $dayKey }}][ampm_from]" {{ $disableFrom ? 'disabled' : '' }}>
+                                            <option value="">--</option>
+                                            <option value="AM" {{ $fromAmPm === 'AM' ? 'selected' : '' }}>AM</option>
+                                            <option value="PM" {{ $fromAmPm === 'PM' ? 'selected' : '' }}>PM</option>
+                                        </select>
 
-    {{-- FROM --}}
-    <select name="time[{{ $dayKey }}][hh_from]" {{ $disableFrom ? 'disabled' : '' }}>
-        <option value="">H:M</option>
-        @for ($i = 1; $i <= 12; $i++)
-            @foreach (['00','30'] as $m)
-                @php $val = sprintf('%02d:%s', $i, $m); @endphp
-                <option value="{{ $val }}" {{ $fromTime === $val ? 'selected' : '' }}>
-                    {{ $val }}
-                </option>
-            @endforeach
-        @endfor
-    </select>
+                                        <span class="mx-2">To</span>
 
-    <select name="time[{{ $dayKey }}][ampm_from]" {{ $disableFrom ? 'disabled' : '' }}>
-        <option value="">--</option>
-        <option value="AM" {{ $fromAmPm === 'AM' ? 'selected' : '' }}>AM</option>
-        <option value="PM" {{ $fromAmPm === 'PM' ? 'selected' : '' }}>PM</option>
-    </select>
+                                        {{-- TO --}}
+                                        <select name="time[{{ $dayKey }}][hh_to]" {{ $disableTo ? 'disabled' : '' }}>
+                                            <option value="">H:M</option>
+                                            @for ($i = 1; $i <= 12; $i++)
+                                                @foreach (['00','30'] as $m)
+                                                    @php $val = sprintf('%02d:%s', $i, $m); @endphp
+                                                    <option value="{{ $val }}" {{ $toTime === $val ? 'selected' : '' }}>
+                                                        {{ $val }}
+                                                    </option>
+                                                @endforeach
+                                            @endfor
+                                        </select>
 
-    <span class="mx-2">To</span>
+                                        <select name="time[{{ $dayKey }}][ampm_to]" {{ $disableTo ? 'disabled' : '' }}>
+                                            <option value="">--</option>
+                                            <option value="AM" {{ $toAmPm === 'AM' ? 'selected' : '' }}>AM</option>
+                                            <option value="PM" {{ $toAmPm === 'PM' ? 'selected' : '' }}>PM</option>
+                                        </select>
 
-    {{-- TO --}}
-    <select name="time[{{ $dayKey }}][hh_to]" {{ $disableTo ? 'disabled' : '' }}>
-        <option value="">H:M</option>
-        @for ($i = 1; $i <= 12; $i++)
-            @foreach (['00','30'] as $m)
-                @php $val = sprintf('%02d:%s', $i, $m); @endphp
-                <option value="{{ $val }}" {{ $toTime === $val ? 'selected' : '' }}>
-                    {{ $val }}
-                </option>
-            @endforeach
-        @endfor
-    </select>
+                                         <input type="hidden" name="availability_time[{{ $dayKey }}]" value="custom">
+                                         
+                                        {{-- STATUS --}}
+                                        <label class="ms-3">
+                                            <input type="radio"
+                                                name="availability_time[{{ $dayKey }}]"
+                                                value="til_late"
+                                                {{ $isTilLate ? 'checked' : '' }}>
+                                            Til late
+                                        </label>
 
-    <select name="time[{{ $dayKey }}][ampm_to]" {{ $disableTo ? 'disabled' : '' }}>
-        <option value="">--</option>
-        <option value="AM" {{ $toAmPm === 'AM' ? 'selected' : '' }}>AM</option>
-        <option value="PM" {{ $toAmPm === 'PM' ? 'selected' : '' }}>PM</option>
-    </select>
+                                        <label class="ms-2">
+                                            <input type="radio"
+                                                name="availability_time[{{ $dayKey }}]"
+                                                value="24_hours"
+                                                {{ $is24Hours ? 'checked' : '' }}>
+                                            Open 24 Hours
+                                        </label>
 
-    {{-- STATUS --}}
-    <label class="ms-3">
-        <input type="radio"
-               name="availability_time[{{ $dayKey }}]"
-               value="til_late"
-               {{ $isTilLate ? 'checked' : '' }}>
-        Til late
-    </label>
+                                        <label class="ms-2">
+                                            <input type="radio"
+                                                name="availability_time[{{ $dayKey }}]"
+                                                value="closed"
+                                                {{ $isClosed ? 'checked' : '' }}>
+                                            Closed
+                                        </label>
 
-    <label class="ms-2">
-        <input type="radio"
-               name="availability_time[{{ $dayKey }}]"
-               value="24_hours"
-               {{ $is24Hours ? 'checked' : '' }}>
-        Open 24 Hours
-    </label>
-
-    <label class="ms-2">
-        <input type="radio"
-               name="availability_time[{{ $dayKey }}]"
-               value="closed"
-               {{ $isClosed ? 'checked' : '' }}>
-        Closed
-    </label>
-
-    <div class="resetdays-icon"> <input type="button" value="Reset" class="resetdays" data-day="sunday" id="resetSunday"> </div>
+                                        <div class="resetdays-icon"> <input type="button" value="Reset" class="resetdays" data-day="sunday" id="resetSunday"> </div>
 
 
-</div>
+                                    </div>
+                                    @endforeach
+
+                            </div>
 
 
-@endforeach
+                                <div class="">
+                                        <div class="col-md-12 text-right">
+                                            <input type="hidden" name="type" id="type" value="availibility">
+                                            <input type="hidden" name="massage_id" id="massage_id" value="{{$escort->id}}">
+                                            <button id="read-more" type="submit" class="save_profile_btn">Update</button>
+                                        </div>
+                                </div>
 
+                        </div>
                     </div>
-                </div>
-                </div>
-
+        </form> 
               
-           
-        </div>
+    </div>
     </div>
 
 

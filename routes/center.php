@@ -82,15 +82,17 @@ Route::get('/profile-info/create-profile', function()
 ///////////////profile
 
 
-Route::get('create-profile',[CreateController::class,'index'])->name('center.profile');
 
+Route::get('create-profile',[MassageController::class,'index'])->name('center.profile');
+Route::post('create-profile',[MassageController::class,'createProfile'])->name('center.create.profile');
 Route::post('update-single-data',[MassageController::class,'update_single_data'])->name('center.update-single-data');
 Route::post('our-business',[MassageController::class,'ourBusiness'])->name('center.our-business');
-Route::post('create-profile',[MassageController::class,'createProfile'])->name('center.create.profile');
 Route::get('update-profile/{id?}',[MassageController::class,'getProfile'])->name('center.update-profile');
 Route::post('update-massage-profile',[MassageController::class,'updateprofile'])->name('center.update-massage-profile');
 
+Route::get('archive-view-photos', [CenterProfileInformationController ::class, 'galleries'])->name('cen.archive-view-photos');
 
+ 
 
 
 //Route::get('update-profile/{id?}',[CreateController::class,'updateBasicProfile'])->name('center.profile.basic.update');
@@ -313,7 +315,7 @@ Route::post('/update-password', [AgentAccountController::class, 'changePassword'
 // Route::post('default_photos', [CenterProfileInformationController ::class, 'defaultImages'])->name('center.default.images');
 // Route::post('get-default-photos', [CenterProfileInformationController ::class, 'getDefaultImages'])->name('center.get.default.images');
 // Route::post('delete-photos/{id}', [CenterProfileInformationController ::class, 'ImagesDelete'])->name('center.delete.gallery');
-Route::get('archive-view-photos', [CenterProfileInformationController ::class, 'galleries'])->name('cen.archive-view-photos');
+
 Route::get('archive-view-videos',[MassageGalleryController ::class, 'videoGalleries'])->name('center.archive-view-videos');
 Route::get('get-account-media-gallery/{category?}',[MassageGalleryController ::class, 'getAccountMediaGallery'])->name('center.account.gallery');
 Route::post('upload-galleries',[MassageGalleryController::class,'uploadGallery'])->name('center.upload.gallery');

@@ -7,98 +7,113 @@
             <span>Member ID: {{auth()->user()->member_id}}</span>
         </div>
     </div>
-    <div class="about_me_drop_down_info profile-sec p-4">
-        <div class="fill_profile_headings_global">
-            <h2>Our Service (Tags)</h2>
-        </div>
-        <div class="padding_20_all_side">
-            <div class="pt-2 pb-2">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12 full-width-for-ipad-select">
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1" class="label">Massage Services </label>
-                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
-                                    <option value="" selected="" disable="">All massage services</option>
-                                    @foreach(config('escorts.profile.massage-services') as $key =>$services)
-                                    @if(! in_array($key, $escort->massage_services()->pluck('service_id')->toArray()))
-                                        <option id="{{ $services}}" value="{{$key}}" >{{$services}}</option>
-                                    @endif
+
+
+    <form id="myProfileServiceForm" name="myProfileServiceForm" action="{{route('center.update-massage-profile')}}" method="POST" enctype="multipart/form-data">                                                
+       
+        <div class="about_me_drop_down_info profile-sec p-4">
+            <div class="fill_profile_headings_global">
+                <h2>Our Service (Tags)</h2>
+            </div>
+            <div class="padding_20_all_side">
+                <div class="pt-2 pb-2">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 col-sm-12 full-width-for-ipad-select">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1" class="label">Massage Services </label>
+                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
+                                        <option value="" selected="" disable="">All massage services</option>
+                                        @foreach(config('escorts.profile.massage-services') as $key =>$services)
+                                        @if(! in_array($key, $escort->massage_services()->pluck('service_id')->toArray()))
+                                            <option id="{{ $services}}" value="{{$key}}" >{{$services}}</option>
+                                        @endif
+                                        @endforeach
+                                        
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="manage_tag_style">
+                                <ul id="selected_service_one">
+                                    {{-- @foreach ($massage_profile->services()->where('category_id', 1)->get() as $value) --}}
+                                    @foreach ($escort->massage_services()->where('category_id', 1)->get() as $value)
+                                        <li class="mb-2" id="hideenclassOne_{{$value->service_id}}">
+                                            <div class='my_service_anal hideenclassOne{{$value->id}}'>
+                                                <span class="dollar-sign">
+                                                {{config('escorts.profile.massage-services')[$value->service_id]  }}
+                                                </span>
+                                                <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->price}}" min=0 step=10 max=200>
+                                                <input type='hidden' name='service_id[]' value="{{$value->service_id}}" placeholder='test test '>
+                                                <input type='hidden' name='category_id[]' value='1'>
+                                                <span id="span_id" data-id="{{$value->id}}">
+                                                <i class='fas fa-times-circle akh1' id="id_{{$value->id}}" value="{{$value->service_id}}" data-sname="{{config('escorts.profile.massage-services')[$value->service_id]  }}" data-val="{{$value->service_id}}"></i>
+                                                </span>
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                </ul>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-2 pb-2">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 col-sm-12 full-width-for-ipad-select">
+                            <div class="form-group">
+                                <label class="label" for="exampleFormControlSelect1">Other Service Types </label>
+                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_two" name="other_services">
+                                    <option value="" selected="" disable="">All other service types</option>
+                                    @foreach(config('escorts.profile.other-services') as $key =>$services)
+                                        @if(! in_array($key, $escort->massage_services()->pluck('service_id')->toArray()))
+                                            <option id="{{ $services}}" value="{{$key}}" >{{$services}}</option>
+                                        @endif
                                     @endforeach
                                     
                                 </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="manage_tag_style">
-                            <ul id="selected_service_one">
-                                {{-- @foreach ($massage_profile->services()->where('category_id', 1)->get() as $value) --}}
-                                @foreach ($escort->massage_services()->where('category_id', 1)->get() as $value)
-                                    <li class="mb-2" id="hideenclassOne_{{$value->service_id}}">
-                                        <div class='my_service_anal hideenclassOne{{$value->id}}'>
-                                            <span class="dollar-sign">
-                                            {{config('escorts.profile.massage-services')[$value->service_id]  }}
-                                            </span>
-                                            <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->price}}" min=0 step=10 max=200>
-                                            <input type='hidden' name='service_id[]' value="{{$value->service_id}}" placeholder='test test '>
-                                            <input type='hidden' name='category_id[]' value='1'>
-                                            <span id="span_id" data-id="{{$value->id}}">
-                                            <i class='fas fa-times-circle akh1' id="id_{{$value->id}}" value="{{$value->service_id}}" data-sname="{{config('escorts.profile.massage-services')[$value->service_id]  }}" data-val="{{$value->service_id}}"></i>
-                                            </span>
-                                        </div>
-                                    </li>
-                                    @endforeach
-                            </ul>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pt-2 pb-2">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12 full-width-for-ipad-select">
-                        <div class="form-group">
-                            <label class="label" for="exampleFormControlSelect1">Other Service Types </label>
-                            <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_two" name="other_services">
-                                <option value="" selected="" disable="">All other service types</option>
-                                @foreach(config('escorts.profile.other-services') as $key =>$services)
-                                    @if(! in_array($key, $escort->massage_services()->pluck('service_id')->toArray()))
-                                        <option id="{{ $services}}" value="{{$key}}" >{{$services}}</option>
-                                    @endif
-                                @endforeach
+                    <div class="row">
+                        <div class="col">
+                            <div class="manage_tag_style">
                                 
-                            </select>
+                                <ul id="selected_service_two">
+                                    @foreach ($escort->massage_services()->where('category_id', 2)->get() as $value)
+                                        <li class="mb-2" id="hideenclassTwo_{{$value->service_id}}">
+                                            <div class='my_service_anal hideenclassTwo{{$value->id}}'>
+                                                <span class="dollar-sign">
+                                                {{config('escorts.profile.other-services')[$value->service_id]  }}
+                                                </span>
+                                                <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->price}}" min=0 step=10 max=200>
+                                                <input type='hidden' name='service_id[]' value="{{$value->service_id}}" placeholder='test test '>
+                                                <input type='hidden' name='category_id[]' value='2'>
+                                                <span id="span_id" data-id="{{$value->id}}">
+                                                <i class='fas fa-times-circle akh2' id="id_{{$value->id}}" value="{{$value->service_id}}" data-sname="{{config('escorts.profile.other-services')[$value->service_id]  }}" data-val="{{$value->service_id}}"></i>
+                                                </span>
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="manage_tag_style">
-                            
-                            <ul id="selected_service_two">
-                                @foreach ($escort->massage_services()->where('category_id', 2)->get() as $value)
-                                    <li class="mb-2" id="hideenclassTwo_{{$value->service_id}}">
-                                        <div class='my_service_anal hideenclassTwo{{$value->id}}'>
-                                            <span class="dollar-sign">
-                                            {{config('escorts.profile.other-services')[$value->service_id]  }}
-                                            </span>
-                                            <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->price}}" min=0 step=10 max=200>
-                                            <input type='hidden' name='service_id[]' value="{{$value->service_id}}" placeholder='test test '>
-                                            <input type='hidden' name='category_id[]' value='2'>
-                                            <span id="span_id" data-id="{{$value->id}}">
-                                            <i class='fas fa-times-circle akh2' id="id_{{$value->id}}" value="{{$value->service_id}}" data-sname="{{config('escorts.profile.other-services')[$value->service_id]  }}" data-val="{{$value->service_id}}"></i>
-                                            </span>
-                                        </div>
-                                    </li>
-                                    @endforeach
-                            </ul>
+
+
+                        <div class="col-md-12 text-right mb-4">
+                            <input type="hidden" name="type" id="type" value="service">
+                            <input type="hidden" name="massage_id" id="massage_id" value="{{$escort->id}}">
+                            <button id="read-more" type="submit" class="save_profile_btn">Update</button>
                         </div>
-                    </div>
-                </div>
+
             </div>
         </div>
-    </div>
+    </form>
+
+ <form id="myProfilerRateForm" name="myProfilerRateForm" action="{{route('center.update-massage-profile')}}" method="POST" enctype="multipart/form-data">
     <div class="about_me_drop_down_info profile-sec p-4">
         <div class="about_me_heading_in_first_tab fill_profile_headings_global">
             <h2>Our Rates</h2>
@@ -150,9 +165,16 @@
                     @endforeach
                 </div>
             </div>
+
+                        <div class="col-md-12 text-right mb-4">
+                            <input type="hidden" name="type" id="type" value="rates">
+                            <input type="hidden" name="massage_id" id="massage_id" value="{{$escort->id}}">
+                            <button id="read-more" type="submit" class="save_profile_btn">Update</button>
+                        </div>
             
         </div>
     </div>
+</form>
     
     <div class="tab_btm_btns_preview_and_next py-3">
         <div class="row pt-3 pb-3">

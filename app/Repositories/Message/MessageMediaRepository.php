@@ -83,14 +83,23 @@ class MessageMediaRepository extends BaseRepository implements MessageMediaInter
         return $result;
     }
 
-    public function with_Or_withoutPosition($user_id,$position = null)
+  public function with_Or_withoutPosition($user_id,$position = null)
     {
-        
-         $result = $this->model
+//        dd($user_id);
+        $result = $this->model
             ->where('user_id',$user_id)
-      
+//            ->where('position', null)
             ->where('type','=', 0)
             ->where('template','0');
+            /*->where(function($q) {
+                $q
+                    ->orWhere('position','!=',9)
+                    ->orWhere('position','!=',8)
+                    ->orWhere('position', null);
+            })*/
+
+
+            //->orderBy('position','DESC')
         if($position) {
             $result = $result->where(function($q) use ($position) {
                 $q
@@ -98,8 +107,19 @@ class MessageMediaRepository extends BaseRepository implements MessageMediaInter
                     ->orWhereNotIn('position', $position);
             });
         }
-        
-        
+        // if($position == null) {
+        //     $result =   $result->whereNull('position')
+        //     ->get();
+        // }
+        // if($position != null) {
+
+        //     $result = $result->whereNotNull('position')
+        //     ->where('position','!=', 8)
+        //     ->orderBy('position','asc')
+        //     ->get();
+
+        // }
+
         return $result->get();
     }
 

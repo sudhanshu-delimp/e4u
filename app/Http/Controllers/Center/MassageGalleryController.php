@@ -275,6 +275,7 @@ class MassageGalleryController extends AppController
 
         $media = $this->media->find($request->meidaId);
 
+        
         $labels = [
             9 => 'Banner',
             10 => 'Pin Up',
@@ -288,7 +289,10 @@ class MassageGalleryController extends AppController
         }
         else {
             $this->media->nullPosition(auth()->user()->id, $request->position);
+
+            if($media->template)
             MassageMedia::where(['template'=>'1','user_id'=>auth()->user()->id])->delete();
+
             if($media->template){
                 $copy = $media->replicate();
                 $copy->user_id = auth()->user()->id;
@@ -426,7 +430,10 @@ class MassageGalleryController extends AppController
         $this->media->nullVedioPosition(auth()->user()->id,$request->position);
         if($media = $this->media->find($id)) {
             unlink(Storage::disk('escorts')->path("../".$media->path));
-            $media->delete();
+            if($media->delete())
+            {
+             MassageGallery::where(['massage_media_id'=>$id,'type'=>'1'])->delete();
+            }
             $error = true;
         }
         return response()->json(compact('error'));

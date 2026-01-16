@@ -151,12 +151,7 @@
 
 
 
-
-
-
-
-
-@include('escort.dashboard.modal.upload_gallery_image')
+@include('center.dashboard.modal.upload_gallery_image')
 @include('center.dashboard.modal.remove_gallary_image')
 @include('center.dashboard.modal.upload_gallery_video')
 @include('center.dashboard.modal.set_default_video')
@@ -220,106 +215,104 @@ console.log('profileId',profileId);
         });
 
 
-        //$('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
+        $('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
 
-        // const validator = $('#my_massage_profile').validate({
-        //     ignore: function (index, element) {
-        //         return $(element).closest('.tab-pane').length &&
-        //             !$(element).closest('.tab-pane').hasClass('active');
-        //     },
+        const validator = $('#my_massage_profile').validate({
+            ignore: function (index, element) {
+                return $(element).closest('.tab-pane').length &&
+                    !$(element).closest('.tab-pane').hasClass('active');
+            },
 
-        //     errorClass: 'text-danger',
-        //     errorElement: 'small'
-        // });
+            errorClass: 'text-danger',
+            errorElement: 'small'
+        });
 
 
 
-        // $('.nex_sterp_btn').on('click', function () {
+        $('.nex_sterp_btn').on('click', function () {
 
-        //     syncCKEditor();
-        //     let isValid = true;
-        //     let isFirstTab = $('a.nav-link.active').parent().is(':first-child');
-        //     let isSecondTab = $('a.nav-link.active').parent().index() === 1;
-        //     let isThirdTab = $('a.nav-link.active').parent().index() === 2;
+            syncCKEditor();
+            let isValid = true;
+            let isFirstTab = $('a.nav-link.active').parent().is(':first-child');
+            let isSecondTab = $('a.nav-link.active').parent().index() === 1;
+            let isThirdTab = $('a.nav-link.active').parent().index() === 2;
 
+        
+            if (isFirstTab) 
+            {
+
+                console.log('isFirstTab',isFirstTab);
+
+                if(!checkProfileDynamicMedia()){
+                return false;
+                }
+            }
+
+            if(isSecondTab)
+            {
+
+                if(!validateSecondTab())
+                 return false;    
+            }
+
+            if(isThirdTab)
+            {
+
+                if(!validateThirdTab())
+                 return false; 
             
-
-
-        //     if (isFirstTab) 
-        //     {
-
-        //         console.log('isFirstTab',isFirstTab);
-
-        //         if(!checkProfileDynamicMedia()){
-        //         return false;
-        //         }
-        //     }
-
-        //     if(isSecondTab)
-        //     {
-
-        //         if(!validateSecondTab())
-        //          return false;    
-        //     }
-
-        //     if(isThirdTab)
-        //     {
-
-        //         if(!validateThirdTab())
-        //          return false; 
-            
-        //     }
+            }
 
 
         
-        //     $('.tab-pane.active :input').each(function () {
-        //         if (!validator.element(this)) {
-        //             isValid = false;
-        //         }
-        //     });
+            // $('.tab-pane.active :input').each(function () {
+            //     if (!validator.element(this)) {
+            //         isValid = false;
+            //     }
+            // });
 
 
-        //     if(!checkProfileDynamicMediaVideo()){
-        //             Swal.fire('Media',
-        //                 'Please attach video to this profile from the Media Repository or upload a new file',
-        //                 'warning');
-        //             return false;  
-        //     }
+            if(!checkProfileDynamicMediaVideo()){
+                    Swal.fire('Media',
+                        'Please attach video to this profile from the Media Repository or upload a new file',
+                        'warning');
+                    return false;  
+            }
 
             
-        //     if (!validateCKEditor()) {
-        //         isValid = false;
-        //     }
+            if (!validateCKEditor()) {
+                isValid = false;
+            }
 
-        //     if (!isValid) return false;
+            if (!isValid) return false;
 
 
-        //         let nextTab = $('a.nav-link.active')
-        //             .parent()
-        //             .next()
-        //             .find('a[data-toggle="tab"]');
+                let nextTab = $('a.nav-link.active')
+                    .parent()
+                    .next()
+                    .find('a[data-toggle="tab"]');
 
-        //        if (nextTab.length) {
+               if (nextTab.length) {
                    
-        //             nextTab.tab('show');
-        //             nextTab.removeClass('disabled-form-tab'); 
-        //             updateProgressBar(nextTab.attr('id'));
-        //         }
+                    nextTab.tab('show');
+                    nextTab.removeClass('disabled-form-tab'); 
+                    updateProgressBar(nextTab.attr('id'));
+                }
         
 
-        // });
+        });
 
-        // $('.prev_step_btn').on('click', function () {
+        $('.prev_step_btn').on('click', function () {
 
-        //     let prevTab = $('a.nav-link.active')
-        //         .parent()
-        //         .prev()
-        //         .find('a[data-toggle="tab"]');
+            let prevTab = $('a.nav-link.active')
+                .parent()
+                .prev()
+                .find('a[data-toggle="tab"]');
 
-        //     if (prevTab.length) {
-        //         prevTab.tab('show');
-        //     }
-        // });
+            if (prevTab.length) {
+                prevTab.tab('show');
+            }
+        });
 
 
           
@@ -343,47 +336,6 @@ console.log('profileId',profileId);
 
 
 
-        
-
-
-
-    //    $('#my_massage_profile').on('submit', function (e) {
-    //     e.preventDefault();
-    //     submit_form_massage();
-    //     });
-
-    //     function submit_form_massage() 
-    //     {
-
-    //         let form = $('#my_massage_profile');
-    //         let centerId = $('#massage_profile_id').val();
-
-    //         let formData = new FormData(form[0]);
-
-    //         $.ajax({
-    //             url: "{{route('center.create.profile')}}",  
-    //             type: 'POST',
-    //             data: formData,
-    //             processData: false,
-    //             contentType: false,
-    //             success: function (response) {
-    //                 console.log(response);
-    //                 alert('Profile created successfully');
-    //             },
-    //             error: function (xhr) {
-    //                 console.log(xhr.responseText);
-    //                 alert('Error while saving profile');
-    //             }
-    //         });
-    //     }
-
-
-
-        
-    // });
-
-
-          
     
       $(document).on('click', '.save_profile_btn', function (e) {
         e.preventDefault();
@@ -396,6 +348,58 @@ console.log('profileId',profileId);
              let form = $(this).closest('form'); 
              let formData = new FormData(form[0]);
              var url = form.attr('action');
+             let type = formData.get('type'); 
+
+
+            if(type=='video')
+            {
+                if(!checkProfileDynamicMediaVideo()){
+                    Swal.fire('Media',
+                        'Please attach video to this profile from the Media Repository or upload a new file',
+                        'warning');
+                    return false;  
+                }
+            }
+
+            if(type=='service')
+            {
+                var selected_service_one_li = $('#selected_service_one li').length;
+                var selected_service_two_li = $('#selected_service_two li').length;
+
+                if(selected_service_one_li==0)
+                {
+                    swal_error_warning('Massage Services','Please select massage service.')
+                    return false;
+                }
+                
+                else if(selected_service_two_li==0)
+                {
+                    swal_error_warning('Other Service Types','Please select another service type.')
+                    return false;
+                }
+            }
+            
+
+            if(type=='rates')
+            {   
+                var existRates = checkRates();
+                if (!existRates) 
+                {
+                 swal_error_warning('Rates','You must complete at least one rate value to proceed.')
+                 return false;
+                }
+            }
+
+
+            if(type=='availibility')
+            {
+                var hasError  = validateAvailability();
+                if (hasError) {
+                    swal_error_warning('Our Open Time','Please select a time range or choose an availability option for each day.')
+                    return false;
+                }
+            }
+
              
 
             $.ajax({

@@ -460,7 +460,7 @@
                         <!-- default Banner Tab -->
                         {{-- <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
                             @php  
-                            $bannerTemplates = getBannerTemplates();
+                            $bannerTemplates = getMassageBannerTemplates();
                             @endphp
                             <div class="modal-tab">
                                 @if(!empty($bannerTemplates))
@@ -501,7 +501,7 @@
                                             <!-- GROUP 1 STATIC -->
                                             <div class="tab-pane fade show active" id="bdsm">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(1);
+                                                    $bannerTemplates = getMassageBannerTemplates(1);
                                                 @endphp
                                                 <div class="modal-tab">
                                                 @if(!empty($bannerTemplates))
@@ -517,7 +517,7 @@
                                             <!-- GROUP 2 STATIC -->
                                             <div class="tab-pane fade" id="lingerie">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(2);
+                                                    $bannerTemplates = getMassageBannerTemplates(2);
                                                 @endphp
                                                 <div class="modal-tab">
                                                     @if(!empty($bannerTemplates))
@@ -533,7 +533,7 @@
                                             <!-- GROUP 3 STATIC -->
                                             <div class="tab-pane fade" id="passive">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(3);
+                                                    $bannerTemplates = getMassageBannerTemplates(3);
                                                 @endphp
                                                 <div class="modal-tab">
                                                     @if(!empty($bannerTemplates))
@@ -549,7 +549,7 @@
                                             <!-- GROUP 4 STATIC -->
                                             <div class="tab-pane fade" id="sheets">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(4);
+                                                    $bannerTemplates = getMassageBannerTemplates(4);
                                                 @endphp
                                                 <div class="modal-tab">
                                                     @if(!empty($bannerTemplates))
@@ -565,7 +565,7 @@
                                             <!-- GROUP 5 STATIC -->
                                             <div class="tab-pane fade" id="subtle">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(5);
+                                                    $bannerTemplates = getMassageBannerTemplates(5);
                                                 @endphp
                                                 <div class="modal-tab">
                                                     @if(!empty($bannerTemplates))

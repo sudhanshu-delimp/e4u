@@ -166,10 +166,10 @@ class MassageMediaRepository extends BaseRepository implements MassageMediaInter
                 : ['path' => url('assets/app/img/img-13.png'), 'id' => ''];
 
         } elseif ($position == 9) {
-
             $image = $this->model
                 ->where('user_id', $user_id)
                 ->where('position', 9)
+                ->where('default', 1)
                 ->when(!is_null($type), function ($q) use ($type) {
                     $q->where('type', $type);
                 })

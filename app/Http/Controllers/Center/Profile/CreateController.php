@@ -119,19 +119,19 @@ class CreateController extends Controller
     }
 
     
-    public function index($id = null)
-    {
-        $user = auth()->user();
-        $escort = $this->massage_profile->findDefault($user->id,1);
-        if(!$escort) {
-            $escort = $this->massage_profile->make();
-        }
-        $massage_profile = $escort;
-        $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
-        $path = $this->media;
-        $durations = $this->duration->all();
-        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile'));
-    }
+    // public function index($id = null)
+    // {
+    //     $user = auth()->user();
+    //     $escort = $this->massage_profile->findDefault($user->id,1);
+    //     if(!$escort) {
+    //         $escort = $this->massage_profile->make();
+    //     }
+    //     $massage_profile = $escort;
+    //     $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
+    //     $path = $this->media;
+    //     $durations = $this->duration->all();
+    //     return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile'));
+    // }
 
     public function get_profile(Request $request, $id)
     {

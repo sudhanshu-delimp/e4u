@@ -259,6 +259,11 @@ var edit_mode = false;
 
                 var current_feild  = $(this).attr('id');
                 var current_value  = $(this).val();
+                
+                if(current_value==="")
+                return false;    
+
+
                 var old_value  = $('#profile_'+current_feild).val();
 
                 if(current_feild=='about_title')

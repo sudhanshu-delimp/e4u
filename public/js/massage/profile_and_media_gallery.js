@@ -183,6 +183,7 @@ function preview_image(event)
                         var width = image.width;
                         if(input.id=='upload_banner' && (height < 469 || width < 1920)) {
                             Swal.fire("Banner Media", "The image you have selected is too small.<br>Please upload an image with a minimum size of 1920×469 pixels", "warning");
+                            input.value = '';
                             return false;
 
                         }
@@ -382,10 +383,12 @@ function preview_image(event)
 
     var resetAddPhotoFrom = function(form){
             $('#image_preview a:not(:first)').remove();
+            
             $(".js_bannerDefaultImage").attr('src',bannerDefaultImage);
             $(".js_pinupDefaultImage").attr('src',pinupDefaultImage);
             $("#exampleModal").modal('hide');
             form[0].reset();
+            $('#image_preview').html('');
             allFiles = [];
             Swal.fire({
                 icon: 'success',
@@ -561,13 +564,14 @@ function preview_image(event)
         });
     }
 
-    function getProfileDefaultVideo(){
+    function getProfileDefaultVideo()
+    {
         return $.ajax({
             url: `/center-dashboard/get-default-videos/${profileId}`,
             type: "GET",
             dataType: "json"
         }).done(function (response) {
-            console.log(response);
+            console.log('response=======>',response);
             if (response.success) {
                 if(response.media.length > 0){
                     response.media.map((item,index)=>{

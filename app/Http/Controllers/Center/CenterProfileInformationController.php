@@ -462,13 +462,11 @@ class CenterProfileInformationController extends BaseController
 
     public function galleries()
     {
-        // $media = $this->media->findByUid(auth()->user()->id);
-        // $path = $this->media;
-        //dd($path->findByposition(auth()->user()->id,1)['path']);
-        
         
          $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
          $path = $this->media;
+         //dd($path->findByposition(auth()->user()->id,9)['path']);
+         //dd($path->findByposition(auth()->user()->id,9, 0)['path']);
          return view('center.dashboard.archives.archive-view-photos',compact('path','media'));
     }
     public function defaultImages(Request $request)

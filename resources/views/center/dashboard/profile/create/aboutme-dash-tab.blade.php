@@ -551,7 +551,7 @@ textarea {
                                             <!-- GROUP 1 STATIC -->
                                             <div class="tab-pane fade show active" id="bdsm">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(1);
+                                                    $bannerTemplates = getMassageBannerTemplates(1);
                                                 @endphp
                                                 <div class="modal-tab">
                                                 @if(!empty($bannerTemplates))
@@ -567,7 +567,7 @@ textarea {
                                             <!-- GROUP 2 STATIC -->
                                             <div class="tab-pane fade" id="lingerie">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(2);
+                                                    $bannerTemplates = getMassageBannerTemplates(2);
                                                 @endphp
                                                 <div class="modal-tab">
                                                 @if(!empty($bannerTemplates))
@@ -583,7 +583,7 @@ textarea {
                                             <!-- GROUP 3 STATIC -->
                                             <div class="tab-pane fade" id="passive">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(3);
+                                                    $bannerTemplates = getMassageBannerTemplates(3);
                                                 @endphp
                                                 <div class="modal-tab">
                                                 @if(!empty($bannerTemplates))
@@ -599,7 +599,7 @@ textarea {
                                             <!-- GROUP 4 STATIC -->
                                             <div class="tab-pane fade" id="sheets">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(4);
+                                                    $bannerTemplates = getMassageBannerTemplates(4);
                                                 @endphp
                                                 <div class="modal-tab">
                                                 @if(!empty($bannerTemplates))
@@ -615,7 +615,7 @@ textarea {
                                             <!-- GROUP 5 STATIC -->
                                             <div class="tab-pane fade" id="subtle">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(5);
+                                                    $bannerTemplates = getMassageBannerTemplates(5);
                                                 @endphp
                                                 <div class="modal-tab">
                                                 @if(!empty($bannerTemplates))
@@ -917,9 +917,7 @@ textarea {
 
       {{-- about us--}}
 
-       <?php if(isset($edit_mode) && $edit_mode)
-        echo '<form id="update_about_me" action="https://e4u.local/'.route('center.settings.about.me').'" method="POST" enctype="multipart/form-data" novalidate="">';
-        ?>
+       
         
       <div class="about_me_drop_down_info profile-sec p-4">
          <div class="fill_profile_headings_global mb-3">

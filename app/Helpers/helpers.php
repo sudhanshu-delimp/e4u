@@ -465,6 +465,9 @@ if (!function_exists('getDefaultBannerTemplates')) {
     }
 }
 
+
+
+
 if (!function_exists('isGalleryTemplate')) {
     function isGalleryTemplate($media_id = 0)
     {
@@ -475,6 +478,16 @@ if (!function_exists('isGalleryTemplate')) {
         } else {
             return $media_id;
         }
+    }
+}
+
+
+if (!function_exists('getMassageBannerTemplates')) {
+    function getMassageBannerTemplates($group = 0)
+    {
+        return MassageMedia::where(['type' => 0, 'banner_group' => strval($group), 'position' => 9])
+            ->whereNull('user_id')
+            ->get();
     }
 }
 
