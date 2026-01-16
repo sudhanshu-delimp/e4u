@@ -43,7 +43,7 @@
                             </p>
                             <ul style="padding-left: 20px; font-size: 15px; line-height: 1.6;">
                                 <li>Web address: <a href="http://www.e4u.com.au" target="_blank">www.e4u.com.au</a></li>
-                                <li>Username: {{$user->phone}} <em>(Your mobile number)</em></li>
+                                <li>Username: {{removeSpaceFromString($user->phone)}} <em>(Your mobile number)</em></li>
                                 <li>Password: {{$user->password}} <em>(please note passwords are case sensitive)</em></li>
                             </ul>
                             <p style="font-size: 13px; font-style: italic;">Note: Your logging in process is also subject to SMS 2FA verification. It is a good idea to bookmark the Website.</p>
