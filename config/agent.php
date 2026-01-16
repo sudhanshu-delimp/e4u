@@ -10,11 +10,21 @@ return [
                 'Website Report'
             ],
             'services' => [
-                'Alert notifications',
-                'Escort Agent',
-                'Viewer review',
-                'Ugly Mugs register',
-                'Other'
+                // 'Alert notifications',
+                // 'Escort Agent',
+                // 'Viewer review',
+                // 'Ugly Mugs register',
+                // 'Other',
+
+                'Advertiser Listings',
+                'Advertiser Media',
+                'Advertiser Profile Information',
+                'Advertiser Profiles',
+                'My Account',
+                'My Information',
+                'Fees',
+                'Notifications & Features',
+                'Other',
             ]
         ],
 

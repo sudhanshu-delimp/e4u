@@ -1,4 +1,4 @@
-@extends('layouts.userDashboard')
+@extends('layouts.admin')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
@@ -58,17 +58,10 @@
                     <label for="sel1"><b>Service type</b></label>
                     <select class="form-control" name="service_type" required>
                         <option id="placeholder" selected="" disabled="" value="">Choose Service</option>
-                        {{-- <option value="Alert notifications">Alert notifications</option>
-                        <option value="Escort Agent">Escort Agent</option>
-                        <option value="Viewer review">Viewer review</option>
-                        <option value="Ugly Mugs register">Ugly Mugs register</option>
-                        <option value="Other">Other</option> --}}
-
-                        <option value="My Account">My Account</option>
-                        <option value="Legbox">Legbox</option>
-                        <option value="Listed Profile">Listed Profile</option>
-                        <option value="Notifications & Features">Notifications & Features</option>
-                        <option value="Punterbox">Punterbox</option>
+                        <option value="Management Fees">Management Fees</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Monthly Reporting">Monthly Reporting</option>
+                        <option value="Support Agents">Support Agents</option>
                         <option value="Other">Other</option>
                     </select>
 
@@ -96,7 +89,7 @@
                 </div>
 
 
-                <input type="hidden"  name="user_type"  value="viewer">
+                <input type="hidden"  name="user_type"  value="admin">
                 <input type="submit" name="submit" id="submitTicketBtn" class=" create-tour-sec dctour mt-3" value="Submit Ticket">
             </form>
         </div>
