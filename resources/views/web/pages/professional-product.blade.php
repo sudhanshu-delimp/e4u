@@ -43,7 +43,7 @@
           To access the Products, Advertisers need to <a href="{{ route('advertiser.login') }}" class="e4ulinks" style="color:#FF3C5F;font-size: 16px;">logon</a> and at their Dashboard:
       </p>
       <ul>
-          <li><p class="mb-0">Select Concierge from the menu and click "Products"</p></li>
+          <li><p class="mb-0">Select Administration > Concierge from the menu and click "Products"</p></li>
           <li><p class="mb-0">Order your Products from the list, following the instructions</p></li>
           <li><p class="mb-0">Check your order, and proceed to payment</p></li>
       </ul>

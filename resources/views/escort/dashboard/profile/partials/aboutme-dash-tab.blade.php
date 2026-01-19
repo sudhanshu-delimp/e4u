@@ -366,6 +366,8 @@
             </div>
         </div>
     </div>
+
+    
     <div class="about_me_drop_down_info profile-sec">
         @if (request()->segment(2) == 'profile' && request()->segment(3))
             <form id="myProfileMediaForm" name="myProfileMediaForm"
@@ -800,6 +802,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="modal fade upload-modal" id="upload-sec" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false"
             data-backdrop="static" aria-modal="true">
@@ -951,6 +954,8 @@
                 </div>
             </div>
         </div>
+
+
         <div class="modal fade upload-modal" id="upload-sec-banner" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false"
             data-backdrop="static">
@@ -994,6 +999,8 @@
                 </div>
             </div>
         </div>
+
+
         @if (request()->segment(2) == 'profile' && request()->segment(3))
             <div class="row">
                 <div class="col-md-12 text-right media-profile">

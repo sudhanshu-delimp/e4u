@@ -40,10 +40,11 @@
         </p>
         <h2 class="primery_color normal_heading">Access to the Booking Service</h2>
         <p>
-            To access the Booking Service, Advertisers need to <a href="{{ route('advertiser.login') }}" style="color:#FF3C5F;font-size: 16px;" class="e4ulinks">logon</a> and at their Dashboard:
+            To access the Booking Service, Advertisers need to <a href="{{ route('advertiser.login') }}" style="color:#FF3C5F;font-size: 16px;" class="e4ulinks">logon</a> 
+            and at their Dashboard:
         </p>
         <ul>
-            <li><p class="mb-0">Select Concierge from the menu and click "Accommodation"</p></li>
+            <li><p class="mb-0">Select Administration > Concierge from the menu and click "Accommodation"</p></li>
             <li><p class="mb-0">Proceed to make your booking from the landing page</p></li>
             <li><p class="mb-0">Check your details are correct and proceed to payment</p></li>
         </ul>

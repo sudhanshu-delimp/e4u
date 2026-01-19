@@ -1045,7 +1045,7 @@
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Blackbox"
                                 aria-expanded="false" aria-controls="Blackbox">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span>Blackbox Tech</span>
+                                <span>Blackbox Tech...</span>
                             </a>
                             <div id="Blackbox" class="collapse @if (in_array(request()->segment(3), ['annual-report','directors','portfolio'])) show @endif" data-parent="#ShareholdersMenu">
 
@@ -1143,7 +1143,7 @@
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ShareholderDocuments"
                                 aria-expanded="false" aria-controls="ShareholderDocuments">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span>Shareholder Documents</span>
+                                <span>Shareholder Docs</span>
                             </a>
                             <div id="ShareholderDocuments" class="collapse @if (in_array(request()->segment(3), ['annual-profit-and-loss','balance-sheet','constitution','minutes','updates'])) show @endif" data-parent="#ShareholdersMenu">
 

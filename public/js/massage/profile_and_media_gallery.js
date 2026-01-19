@@ -183,6 +183,7 @@ function preview_image(event)
                         var width = image.width;
                         if(input.id=='upload_banner' && (height < 469 || width < 1920)) {
                             Swal.fire("Banner Media", "The image you have selected is too small.<br>Please upload an image with a minimum size of 1920×469 pixels", "warning");
+                            input.value = '';
                             return false;
 
                         }
@@ -196,8 +197,111 @@ function preview_image(event)
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+
+
+    $('#upload_photos').on('click', function (e) {
+    e.preventDefault();
+
+    console.log('mulitiImage new ===============');
+
+    let selectedImagesCount = parseInt(countSelectedImages());
+    let existingImagesCount = parseInt($("input[name='media_count']").val());
+
+    if ((existingImagesCount + selectedImagesCount) > 30) {
+        Swal.fire(
+            'Media',
+            "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>",
+            'error'
+        );
+        return false;
+    }
+
+    const form = $('#mulitiImage');
+    const url = form.attr('action');
+
+    console.log('url',url);
+
+    const formData = new FormData();
+
+    // 🔹 multiple images
+    allFiles.forEach((file) => {
+        formData.append('img[]', file);
+    });
+
+    // 🔹 banner
+    const bannerInput = document.getElementById('upload_banner');
+    if (bannerInput && bannerInput.files.length > 0) {
+        formData.append('banner', bannerInput.files[0]);
+    }
+
+    // 🔹 pinup
+    const pinupInput = document.getElementById('upload_pinup');
+    if (pinupInput && pinupInput.files.length > 0) {
+        formData.append('pinup', pinupInput.files[0]);
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: formData,
+        contentType: false,
+        processData: false,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+
+        beforeSend: function () {
+            Swal.fire({
+                title: 'Uploading...',
+                text: 'Please wait while we upload your files.',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+        },
+
+        success: function (data) {
+            if (data.status == 200) {
+                resetAddPhotoFrom(form);
+            } else if (data.status == 405) {
+                Swal.fire(
+                    'Media',
+                    "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>",
+                    'error'
+                );
+                $('#exampleModal').modal('hide');
+            } else {
+                Swal.fire('Media', 'Please choose at least one image', 'error');
+            }
+        },
+
+        error: function (xhr) {
+            if (xhr.status === 422) {
+                let messages = Object.values(xhr.responseJSON.errors)
+                    .flat()
+                    .join('<br>');
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    html: messages
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: xhr.statusText,
+                    text: xhr.responseJSON?.message || 'Something went wrong.'
+                });
+            }
+        }
+    });
+});
+
+
     
     $("body").on('submit','#mulitiImage',function(e){
+
+        console.log('mulitiImage===============');
         e.preventDefault();
         let selectedImagesCount = parseInt(countSelectedImages());
         let existingImagesCount = parseInt($("input[name='media_count']").val());
@@ -279,10 +383,12 @@ function preview_image(event)
 
     var resetAddPhotoFrom = function(form){
             $('#image_preview a:not(:first)').remove();
+            
             $(".js_bannerDefaultImage").attr('src',bannerDefaultImage);
             $(".js_pinupDefaultImage").attr('src',pinupDefaultImage);
             $("#exampleModal").modal('hide');
             form[0].reset();
+            $('#image_preview').html('');
             allFiles = [];
             Swal.fire({
                 icon: 'success',
@@ -458,13 +564,14 @@ function preview_image(event)
         });
     }
 
-    function getProfileDefaultVideo(){
+    function getProfileDefaultVideo()
+    {
         return $.ajax({
             url: `/center-dashboard/get-default-videos/${profileId}`,
             type: "GET",
             dataType: "json"
         }).done(function (response) {
-            console.log(response);
+            console.log('response=======>',response);
             if (response.success) {
                 if(response.media.length > 0){
                     response.media.map((item,index)=>{
@@ -606,3 +713,63 @@ async function initVideos() {
     });
 }
 initVideos();
+
+
+
+function initDragDrop() {
+            $("#dvSource img").draggable({
+                revert: "invalid",
+                helper: 'clone',
+                appendTo: ".upload-banner",
+                refreshPositions: false,
+                start: function (event, ui) {
+                ui.helper.css({
+                    width: "82px",   // shrink preview
+                    height: "auto",
+                    "z-index": 9999
+                });
+                ui.helper.find("img").css({
+                    width: "100%",
+                    height: "auto"
+                });
+                },
+                drag: function(event, ui) {
+
+                },
+                stop: function(event, ui) {}
+            });
+
+            $(".dvDest").droppable({
+                drop: function(event, ui) {
+                    let dropSlot = $(this);
+                    let dragSlot = ui.draggable;
+                    let dropSlotType = dropSlot.find('img').data('type');
+                    let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
+                    if (dropSlotType != dragSlotType) {
+                        let message = (dragSlotType == 'gallery') ?
+                            `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :
+                            `The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
+                        swal.fire('Media', message, 'error');
+                        return false;
+                    } else {
+                        $(this).trigger('click');
+                        let meidaId = dragSlot.data('id');
+                        let target;
+                        switch (dragSlotType) {
+                            case 'gallery': {
+                                target = $(".modalPopup .item4 img[data-id='" + meidaId + "']").closest(
+                                    ".item4");
+                            }
+                            break;
+                            case 'banner': {
+                                target = $(".modalPopup .item2 img[data-id='" + meidaId + "']").closest(
+                                    ".item2");
+                            }
+                            break;
+                        }
+                        target.trigger('click');
+                    }
+
+                }
+            });
+        }
