@@ -7,11 +7,12 @@ use App\Models\User;
 use App\Sms\SendSms;
 use App\Models\Escort;
 use Illuminate\Http\Request;
+use App\Models\MassageProfile;
 use App\Models\PasswordSecurity;
 use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\AppController;
 use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\BaseController;
 use Illuminate\Validation\ValidationException;
@@ -273,6 +274,14 @@ class LoginController extends BaseController
                     $escort = new Escort();
                     $escort->user_id = auth()->user()->id;
                     //$escort->enabled = 1;
+                    $escort->default_setting = 1;
+                    $escort->save();
+                }
+            }
+            if ($type == 4) {
+                if (!MassageProfile::where('user_id', auth()->user()->id)->exists()) {
+                    $escort = new MassageProfile();
+                    $escort->user_id = auth()->user()->id;
                     $escort->default_setting = 1;
                     $escort->save();
                 }

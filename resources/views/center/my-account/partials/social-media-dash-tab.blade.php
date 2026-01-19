@@ -1,6 +1,6 @@
 <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab">
    
-    <form id="socials_link" action="{{ route('center.settings.social')}}" method="POST" enctype="multipart/form-data">
+     <form id="myProfileServiceForm" name="myProfileServiceForm" action="{{route('center.update-massage-profile')}}" method="POST" enctype="multipart/form-data">  
        
         <div class="fill_profile_headings_global col-md-12 p-0  custom--social-head">
             <h2>Our Social Media</h2>
@@ -25,7 +25,7 @@
                     <div class="form-group row align-items-center">
                         <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><i class="fab fa-facebook-f"></i></span></label>
                         <div class="col-sm-7 col-lg-7 col-md-7 col-10">
-                            <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Facebook" name="social_links[facebook]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ $massage_profile->social_links ? $massage_profile->social_links['facebook'] : null }}">
+                            <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Facebook" name="social_links[facebook]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ isset($social_links['facebook']) ? $social_links['facebook'] : '' }}">
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                                         <div class="form-group row align-items-center">
                         <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><i class="fab fa-instagram"></i></span></label>
                         <div class="col-sm-7 col-lg-7 col-md-7 col-10">
-                            <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Instagram" name="social_links[insta]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ $massage_profile->social_links ? $massage_profile->social_links['insta'] : null }}">
+                            <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Instagram" name="social_links[insta]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ isset($social_links['insta']) ? $social_links['insta'] : '' }}">
                         </div>
                     </div>
                 </div>
@@ -41,13 +41,25 @@
                     <div class="form-group row align-items-center">
                         <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><img src="{{ asset('assets/img/twitter-new.png') }}" alt="" class="cutom-social-icon"></span></label>
                         <div class="col-sm-7 col-lg-7 col-md-7 col-10">
-                            <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="X" name="social_links[twitter]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ $massage_profile->social_links ? $massage_profile->social_links['twitter'] : null }}">
+                            <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="X" name="social_links[twitter]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ isset($social_links['twitter']) ? $social_links['twitter'] : '' }}">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 text-right"><button type="submit" class="save_profile_btn" id="escort-form-submit-btn">Save</button></div>
+
+
+               
+
+                <div class="col-md-12 text-right">
+
+
+                <input type="hidden" name="type" id="type" value="social_links">
+                <input type="hidden" name="massage_id" id="massage_id" value="{{$massage_profile->id}}">
+                <button id="read-more" type="submit" class="save_profile_btn">Update</button>
+                
+                
+                </div>
             </div>
         </div>
     </form>

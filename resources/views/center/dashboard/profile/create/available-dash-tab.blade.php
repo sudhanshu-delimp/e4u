@@ -96,7 +96,9 @@
                                         Closed
                                     </label>
 
-                                    <button type="button" class="resetdays ms-2">Reset</button>
+                                    
+
+                                    <div class="resetdays-icon"> <input type="button" value="Reset" class="resetdays"> </div>
                                 </div>
                             @endforeach
 

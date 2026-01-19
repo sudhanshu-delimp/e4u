@@ -437,7 +437,7 @@ class MassageController extends Controller
                 'language'        => $request->filled('language') ? array_map('strval', $request->language) : null,
                 ];
 
-            $message = 'About Us info has been updated successfully.';
+            $message = 'Updated successfully.';
             if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) 
             $error = false;
         }
@@ -671,6 +671,10 @@ class MassageController extends Controller
                         $record->availability_time = json_encode($availability);
                         $record->save();
                     }
+                    else
+                    {
+                        MassageAvailability::create(['massage_profile_id'=>$massage_profile_id,'availability_time'=>json_encode($availability)]);
+                    }
                 }
                
                 $message = "Updated Successfully."; 
@@ -683,6 +687,26 @@ class MassageController extends Controller
         }
         ######### End Update Rates  #######################
 
+
+        ######### Update Who We ###########################
+        if($request->type=='social_links')
+        {
+                $input = [
+                'social_links' => (!empty($request->$request->social_links)) ? $request->$request->social_links : null,
+                ];
+
+            $message = 'Updated successfully.';
+            $profile = MassageProfile::where(['id'=>$request->massage_id])->first();
+            if($profile)
+            {
+                $profile->default_setting = 1;
+                $profile->social_links = json_encode($request->social_links);
+                $profile->save();
+            }
+
+            $error = false;
+        }
+        ########### End Update Who We #####################
 
         return response()->json(compact('error','message'));
     }

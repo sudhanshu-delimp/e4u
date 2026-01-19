@@ -91,6 +91,7 @@ Route::get('update-profile/{id?}',[MassageController::class,'getProfile'])->name
 Route::post('update-massage-profile',[MassageController::class,'updateprofile'])->name('center.update-massage-profile');
 
 Route::get('archive-view-photos', [CenterProfileInformationController ::class, 'galleries'])->name('cen.archive-view-photos');
+Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
 
  
 
@@ -118,7 +119,6 @@ Route::post('poli-paymentUrl/{id}',[PolyPaymentController::class,'polyPaymentUrl
 Route::get('paymentUrl-status-success',[PolyPaymentController::class,'successUrl'])->name('center.poly.paymentUrl.status.success');
 
 /////////settings
-Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
 
 Route::post('settings-information',[CenterProfileInformationController::class,'storeAboutMe'])->name('center.settings.about.me');
 Route::post('settings-my-rates',[CenterProfileInformationController::class,'storeRates'])->name('center.settings.rate');
