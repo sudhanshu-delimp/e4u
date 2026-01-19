@@ -30,7 +30,7 @@
                                 <p class="mb-0" style="font-size: 20px;"><b>Notes:</b></p>
                                 <ol>
                                     <li>Manage the Operator from here.</li>
-                                    <li>Update the Operator’s details and status from here.</li>
+                                    <li>Update the Operator's details and status from here.</li>
                                 </ol>
                             </div>
                         </div>
@@ -68,21 +68,21 @@
                                 <tbody class="table-content">
 
                                 </tbody>
-                               <tfoot class="bg-first">
-    <tr>
-        <th colspan="3" class="text-left">
-            Server time: <span class="serverTime">{{ getServertime() }}</span>
-        </th>
+                                <tfoot class="bg-first">
+                                    <tr>
+                                        <th colspan="3" class="text-left">
+                                            Server time: <span class="serverTime">{{ getServertime() }}</span>
+                                        </th>
 
-        <th colspan="3" class="text-center">
-            Refresh time: <span class="refreshSeconds">15</span>
-        </th>
+                                        <th colspan="3" class="text-center">
+                                            Refresh time: <span class="refreshSeconds">15</span>
+                                        </th>
 
-        <th colspan="3" class="text-right">
-            Up time: <span class="uptimeClass">{{ getAppUptime() }}</span>
-        </th>
-    </tr>
-</tfoot>
+                                        <th colspan="3" class="text-right">
+                                            Up time: <span class="uptimeClass">{{ getAppUptime() }}</span>
+                                        </th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -97,8 +97,9 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addOperatorTitle"> <img src="{{ asset('assets/dashboard/img/operators.png') }}"
-                            class="custompopicon"> Add New Operator</h5>
+                    <h5 class="modal-title" id="addOperatorTitle"> <img
+                            src="{{ asset('assets/dashboard/img/operators.png') }}" class="custompopicon"> Add New Operator
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -162,7 +163,7 @@
                             </div>
                             <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="state_id" id="state_id">
-                                    <option>Select Territory</option>
+                                    <option value="">Select Territory</option>
                                     @foreach (config('escorts.profile.states') as $skey => $state)
                                         <option value="{{ $skey }}">{{ $state['stateName'] }}</option>
                                     @endforeach
@@ -174,22 +175,22 @@
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="viewer_contact_type_1"
                                         name="contact_type[]" value="1">
-                                    <label class="form-check-label" for="contactText">Messaging</label>
+                                    <label class="form-check-label" for="viewer_contact_type_1">Messaging</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="viewer_contact_type_2"
                                         name="contact_type[]" value="2">
-                                    <label class="form-check-label" for="contactText">Text</label>
+                                    <label class="form-check-label" for="viewer_contact_type_2">Text</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="viewer_contact_type_3"
                                         name="contact_type[]" value="3">
-                                    <label class="form-check-label" for="contactEmail">Email</label>
+                                    <label class="form-check-label" for="viewer_contact_type_3">Email</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="viewer_contact_type_5"
+                                    <input class="form-check-input" type="checkbox" id="viewer_contact_type_4"
                                         name="contact_type[]" value="4">
-                                    <label class="form-check-label" for="contactCall">Call Us</label>
+                                    <label class="form-check-label" for="viewer_contact_type_4">Call Us</label>
                                 </div>
                                 <span class="text-danger error-contact_type"></span>
                             </div>
@@ -198,9 +199,8 @@
                                 <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0"
-                                    placeholder="Agreement Date (DD/MM/YYYY)" onfocus="(this.type='date')"
-                                    onblur="if(this.value==''){this.type='text'}" name="agreement_date"
+                                <input type="text" class="form-control rounded-0 js_datepicker"
+                                    placeholder="Agreement Date (DD-MM-YYYY)" name="agreement_date"
                                     id="agreement_date">
                                 <span class="text-danger error-agreement_date"></span>
                             </div>
@@ -211,7 +211,7 @@
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" class="form-control rounded-0" placeholder="fee" name="fee"
-                                    id="fee" maxlength="10">
+                                    id="fee" maxlength="100">
                                 <span class="text-danger error-fee"></span>
                             </div>
                         </div>
@@ -265,147 +265,26 @@
                 <div class="modal-body">
                     <!-- Edit form -->
                     <div class="modal-content" id="modalOperatorEditContent"></div>
+                </div>
             </div>
         </div>
     </div>
-
     <!-- View Operator popupform -->
-    <div class="modal fade upload-modal" id="viewOperator" tabindex="-1" role="dialog"
-        aria-labelledby="viewOperatorLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-
-                <!-- Header -->
+    <div class="modal fade upload-modal" id="viewOperatorPopUpModel" tabindex="-1" role="dialog"
+        aria-labelledby="viewOperatorNewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="viewOperatorLabel">
-                        <img src="{{ asset('assets/dashboard/img/operators.png') }}" class="custompopicon"
-                            alt="View Merchant">
-                        View Account
+                    <h5 class="modal-title" id="viewOperatorTitle">
+                        <img src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">View Account
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen">
-                        </span>
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
-
-                <!-- Body -->
-                <div class="modal-body pb-0">
-                    <div class="row">
-                        <div class="col-12 custom-merchant-modal">
-
-                            <div class="card mb-3 p-3">
-                                <!-- Avatar + Name -->
-                                <div class="d-flex align-items-center mb-3">
-                                    <img src="{{ asset('assets/img/default_user.png') }}" alt="Avatar"
-                                        class="rounded-circle mr-3" width="50" height="50">
-                                    <h6 class="mb-0">Agency Management (Australia) Pty Ltd</h6>
-                                </div>
-
-                                <!-- Merchant Details -->
-                                <h6 class=" text-blue-primary">Merchant Details</h6>
-                                <table class="table table-bordered mb-3">
-                                    <tr>
-                                        <th>Operator ID</th>
-                                        <td>O60458</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Date Appointed</th>
-                                        <td>2024-03-01</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Company Name</th>
-                                        <td>Agency Management (Australia) Pty Ltd
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Business Name</th>staffEditModal
-                                        <td>Agency Management (Australia) Pty Ltd
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>ABN</th>
-                                        <td>12345678901</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Business Address</th>
-                                        <td>123 King St, Melbourne</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Business Number</th>
-                                        <td>028888999</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Point of Contact</th>
-                                        <td>Wayne Primrose</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Mobile</th>
-                                        <td>0438 028 728</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Email</th>
-                                        <td>wayne.personal@gmail.com</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Territory</th>
-                                        <td>North</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Method of Contact</th>
-                                        <td>Email</td>
-                                    </tr>
-                                </table>
-
-                                <!-- Agreement Details -->
-                                <h6 class=" text-blue-primary">Agreement Details</h6>
-                                <table class="table table-bordered mb-3">
-                                    <tr>
-                                        <th>Agreement Date</th>
-                                        <td>2023-12-01</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Term</th>
-                                        <td>12 Months</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Fees</th>
-                                        <td>$ 100</td>
-                                    </tr>
-                                </table>
-
-                                <!-- Commission -->
-                                <h6 class=" text-blue-primary">Commission</h6>
-                                <table class="table table-bordered mb-3">
-                                    <tr>
-                                        <th>Advertising</th>
-                                        <td>5%</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Massage Centre (Registrations)</th>
-                                        <td>10%</td>
-                                    </tr>
-                                </table>
-
-
-                            </div>
-
-
-                        </div>
-                        <div class="col-lg-12">
-                            <!-- Footer Buttons -->
-                            <div class="d-flex justify-content-end my-2">
-                                <button class="btn-success-modal d-block mr-2" onclick="window.print();">
-                                    <i class="fa fa-print text-white"></i> Print
-                                </button>
-                                <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
+                <div class="modal-body">
+                    <div class="modal-content" id="modalViewOperatorContent"></div>
                 </div>
 
             </div>
@@ -438,7 +317,8 @@
                     <div class="row">
                         <div class="col-lg-12 text-center">
 
-                            <p class="mt-3 mb-4 popu_heading_style">Your account has been suspended until further notice.
+                            <p class="mt-3 mb-4 popu_heading_style">Your account has been suspended until further
+                                notice.
                             </p>
                             <!-- Footer Buttons -->
                             <div class="d-flex justify-content-center my-2">
@@ -458,7 +338,6 @@
 
 @endsection
 @push('script')
-  
     </script>
 
 
@@ -549,7 +428,7 @@
                         defaultContent: 'NA',
                         class: 'text-center'
                     },
-                    
+
 
                 ],
                 order: [
@@ -563,68 +442,182 @@
             });
 
             /*** Edit the operator */
-        $(document).on('click', '.edit-operator-btn', function() {
-            let id = $(this).data('id');
-            $.ajax({
-                url: "/admin-dashboard/edit-operator/" + id,
-                type: 'GET',
-                success: function(response) {
-                    if ($.trim(response) === "") {
-                        swal_error_popup("Operator data not found");
-                    } else {
-                        $('#modalOperatorEditContent').html(response);
-                        $('#editOperatorModel').modal('show');
+            $(document).on('click', '.edit-operator-btn', function() {
+                let id = $(this).data('id');
+                $.ajax({
+                    url: "/admin-dashboard/edit-operator/" + id,
+                    type: 'GET',
+                    success: function(response) {
+                        if ($.trim(response) === "") {
+                            swal_error_popup("Operator data not found");
+                        } else {
+                            $('#modalOperatorEditContent').html(response);
+                            $('#editOperatorModel').modal('show');
+                        }
+                    },
+                    error: function() {
+                        alert("Error loading form");
                     }
-                },
-                error: function() {
-                    alert("Error loading form");
-                }
+                });
             });
-        });
-       
-        $(document).on('submit', 'form[name="add_operator"]', function(e) {
-            e.preventDefault();
-            let form = $(this);
-            let formData = new FormData(this);
-            $('span.text-danger').text('');
 
-            swal_waiting_popup({
-                'title': 'Saving Operator Details'
-            });
-            //  return false
+            $(document).on('submit', 'form[name="add_operator"]', function(e) {
+                e.preventDefault();
+                let form = $(this);
+                let formData = new FormData(this);
+                $('span.text-danger').text('');
 
-            $.ajax({
-                url: "{{ route('admin.add.operator') }}",
-                method: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    table.ajax.reload(null, false);
-                    Swal.close();
-                    $('span.text-danger').text('');
-                    $('#addOperator').modal('hide');
-                    $('#editOperatorModel').modal('hide');
-                    $('#add_staff')[0].reset();
-                    swal_success_popup(response.message);
-                },
-                error: function(xhr) {
+                swal_waiting_popup({
+                    'title': 'Saving Operator Details'
+                });
+                //  return false
 
-                    Swal.close();
-                    console.log(xhr);
-                    if (xhr.status === 422) {
+                $.ajax({
+                    url: "{{ route('admin.add.operator') }}",
+                    method: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        table.ajax.reload(null, false);
+                        Swal.close();
                         $('span.text-danger').text('');
-                        let errors = xhr.responseJSON.errors;
-                        $.each(errors, function(field, messages) {
-                            $('.error-' + field).text(messages[0]);
-                        });
-                    } else {
-                        swal_error_popup(xhr.responseJSON.message ||
-                            'Something went wrong');
+                        $('#addOperator').modal('hide');
+                        $('#editOperatorModel').modal('hide');
+                        $('#add_operator')[0].reset();
+                        swal_success_popup(response.message);
+                    },
+                    error: function(xhr) {
+
+                        Swal.close();
+                        console.log(xhr);
+                        if (xhr.status === 422) {
+                            $('span.text-danger').text('');
+                            let errors = xhr.responseJSON.errors;
+                            $.each(errors, function(field, messages) {
+                                $('.error-' + field).text(messages[0]);
+                            });
+                        } else {
+                            swal_error_popup(xhr.responseJSON.message ||
+                                'Something went wrong');
+                        }
                     }
+                });
+            });
+            /*** View the Operator */
+            $(document).on('click', '.viewOperatorBtn', function() {
+                let id = $(this).data('id');
+                $.ajax({
+                    url: "/admin-dashboard/view-operator/" + id,
+                    type: 'GET',
+                    success: function(response) {
+                        if ($.trim(response) === "") {
+                            swal_error_popup("Operator data not found");
+                        } else {
+                            $('#modalViewOperatorContent').html(response);
+                            $('#viewOperatorPopUpModel').modal('show');
+                        }
+                    },
+                    error: function() {
+                        alert("Error loading form");
+                    }
+                });
+            });
+
+            /*** Suspend operator */
+            $(document).on('click', '.account-suspend-btn', async function(e) {
+                if (await isConfirm({
+                        'action': 'Suspend',
+                        'text': 'Are you sure you want to suspend this account?'
+                    })) {
+                    swal_waiting_popup({
+                        'title': 'Suspending Account'
+                    });
+                    ajaxRequest({
+                        url: "{{ route('admin.suspend-operator') }}",
+                        method: 'POST',
+                        data: {
+                            id: $(this).data('id'),
+                            request_type: 'suspend'
+                        },
+                        success: function(response) {
+                            console.log(response)
+                            if (response.status) {
+                                swal_success_popup(response.message);
+                                table.ajax.reload(null, false);
+                            } else {
+                                swal_error_popup(response.message);
+                            }
+                        },
+                        error: function(xhr) {
+                            swal_error_popup('Error occured whiile making request');
+                        }
+                    });
+                }
+            })
+
+             /* Approve operator */
+            $(document).on('click', '.approve_account', async function(e) {
+                if (await isConfirm({
+                        'action': 'Approve',
+                        'text': 'Are you sure you want to approve this account?'
+                    })) {
+                    swal_waiting_popup({
+                        'title': 'Approving Account'
+                    });
+                    $.ajax({
+                        url: "{{ route('admin.approve_operator_account') }}",
+                        method: 'POST',
+                        data: {
+                            'user_id': $(this).attr('data-id'),
+                            'status': '1'
+                        },
+                        success: function(response) {
+                            table.ajax.reload(null, false);
+                            Swal.close();
+                            $('#staffViewModal').modal('hide');
+                            $('#staffEditModal').modal('hide');
+                            swal_success_popup(response.message);
+                        },
+                        error: function(xhr) {
+
+                            Swal.close();
+                            $('#staffViewModal').modal('hide');
+                            $('#staffEditModal').modal('hide');
+                            swal_error_popup(xhr.responseJSON.message);
+                        }
+                    });
                 }
             });
+
+            /*** Activate operator Account */
+            $(document).on('click', '.active-account-btn', async function(e) {
+                if (await isConfirm({
+                        'action': 'Activate',
+                        'text': 'Are you sure you want to activate this account?'
+                    })) {
+                    swal_waiting_popup({
+                        'title': 'Activating Account'
+                    });
+                    $.ajax({
+                        url: "{{ route('admin.active-operator-account') }}",
+                        method: 'POST',
+                        data: {
+                            'user_id': $(this).attr('data-id'),
+                            'status': '1'
+                        },
+                        success: function(response) {
+                            table.ajax.reload(null, false);
+                            Swal.close();
+                            swal_success_popup(response.message);
+                        },
+                        error: function(xhr) {
+                            Swal.close();
+                            swal_error_popup(xhr.responseJSON.message);
+                        }
+                    });
+                }
+            })
         });
-         });
     </script>
 @endpush

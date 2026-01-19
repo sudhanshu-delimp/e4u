@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Account Approval - Staff</title>
+  <title>Account Approval - Operator</title>
 </head>
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
@@ -19,9 +19,9 @@
                     <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                   </td>
                   <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                    Account Approval - Staff <br>
+                    Account Approval - Operator <br>
                     <span style="font-size: 13px; color: #cccccc;">
-                      Staff ID: {{$staff['member_id'] ?? ''}}</span>
+                      Operator ID: {{$operator['member_id'] ?? ''}}</span>
                   </td>
                 </tr>
               </table>
@@ -30,21 +30,21 @@
           <!-- Content Padding -->
           <tr>
             <td style="padding: 30px;">
-              <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$staff['name']}},</p>
+              <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$operator['business_name']}},</p>
                 <p style="font-size: 16px; margin: 20px 0 15px 0;">Your Account has been approved.Your login credentials are :</p>
                 <!-- Details Table -->
                 <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Email Address :</td>
-                    <td style="padding: 10px 0px 10px 10px">{{$staff['email'] ?? ''}}</td>
+                    <td style="padding: 10px 0px 10px 10px">{{$operator['email'] ?? ''}}</td>
                   </tr>
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Password :</td>
-                    <td style="padding: 10px 0px 10px 10px">{{$staff['plainPassword'] ?? ''}}</td>
+                    <td style="padding: 10px 0px 10px 10px">{{$operator['plainPassword'] ?? ''}}</td>
                   </tr>
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Login url:</td>
-                    <td style="padding: 10px 0px 10px 10px">{{route('admin.login')}}</td>
+                    <td style="padding: 10px 0px 10px 10px">{{route('operator.login')}}</td>
                   </tr>
                 </table>
                 <p style="font-size: 15px; margin-top: 20px;">

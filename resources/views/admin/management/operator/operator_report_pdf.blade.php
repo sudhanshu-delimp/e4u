@@ -14,8 +14,8 @@
         href="https://fonts.googleapis.com/css2?family=wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
 
-    <link href="{{ url('/') . '/' . 'assets/dashboard/vendor/file-upload/css/fill-profile-details.css' }}" rel="stylesheet"
-        type="text/css">
+    <link href="{{ url('/') . '/' . 'assets/dashboard/vendor/file-upload/css/fill-profile-details.css' }}"
+        rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
     <link href="{{ url('/') . '/' . 'assets/dashboard/css/sb-admin-2.min.css' }}" rel="stylesheet">
@@ -82,11 +82,12 @@
         h6 {
             font-size: 16px;
         }
-        .my-account-card .table td{
+
+        .my-account-card .table td {
             vertical-align: middle;
         }
-        
-      
+
+
         table td {
             padding: .15rem .75rem .35rem .75rem !important;
         }
@@ -95,7 +96,7 @@
             padding: .15rem .75rem .35rem .75rem !important;
             font-weight: 500;
             vertical-align: middle;
-            
+
         }
     </style>
 </head>
@@ -103,164 +104,144 @@
 <body style="margin:0;width:100%">
     <div class="container1">
         @php
-            $employmentStatuss = config('staff.employment_status');
-            $employmentStatus = isset($employmentStatuss[$staff->staff_detail->employment_status])
-                ? $employmentStatuss[$staff->staff_detail->employment_status]
-                : '';
-            $securityLevels = config('staff.security_level');
-            $securityLevel = isset($securityLevels[$staff->staff_detail->security_level])
-                ? $securityLevels[$staff->staff_detail->security_level]
-                : '';
-            $genders = config('escorts.profile.genders');
-            $gender = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
-            $cities = config('escorts.profile.cities');
-            $city = isset($cities[$staff->city_id]) ? $cities[$staff->city_id] : '';
+            $appointedDate = '';
+            $agreementDate = '';
+            $contactTypesText = '';
+            $contactTypesArray = [];
+            if (!empty($operator->operator_detail->date_appointed)) {
+                $appointedDate = showDateWithFormat($operator->operator_detail->date_appointed, 'd-m-Y');
+            }
 
-            $setting = $staff->staff_setting ?? null;
-            $idle_preference_times = config('staff.idle_preference_time');
-            $idle_preference_time = '';
-            $twofa = '';
-            if (isset($setting) && isset($setting->idle_preference_time)) {
-                $idle_preference_time = isset($idle_preference_times[(string) $setting->idle_preference_time])
-                    ? $idle_preference_times[$setting->idle_preference_time]
-                    : '';
+            if (!empty($operator->operator_detail->agreement_date)) {
+                $agreementDate = showDateWithFormat($operator->operator_detail->agreement_date, 'd-m-Y');
             }
-            $twofas = config('staff.twofa');
-            if (isset($setting) && isset($setting->twofa)) {
-                $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : '';
+
+            if (is_array($operator->contact_type)) {
+                $contactType = $operator->contact_type;
+            } elseif (!empty($operator->contact_type)) {
+                $contactType = json_decode($operator->contact_type, true) ?? [];
+            } else {
+                $contactType = [];
             }
+            if (count($contactType) > 0) {
+                if (in_array('1', $contactType)) {
+                    $contactTypesArray[] = 'Messaging';
+                }
+                if (in_array('2', $contactType)) {
+                    $contactTypesArray[] = 'Text';
+                }
+                if (in_array('3', $contactType)) {
+                    $contactTypesArray[] = 'Email';
+                }
+                if (in_array('4', $contactType)) {
+                    $contactTypesArray[] = 'Call Us';
+                }
+            }
+            $contactTypesText = implode(', ', $contactTypesArray);
+
+            $states = config('escorts.profile.states');
+            $stateName = isset($states[$operator->state_id]['stateName'])
+                ? $states[$operator->state_id]['stateName']
+                : '';
         @endphp
         <div class="col-md-12 ">
-            <div class="my-account-card">
-                <div class="card-head" style="display: flex; justify-content:space-between;align-items:center;">
-                    <h2>Staff Member Report</h2>
-                </div>
+            <div class="card mb-3 p-3">
+                <div class="my-account-card">
+                    <div class="card-head" style="display: flex; justify-content:space-between;align-items:center;">
+                        <h2>Operator Report</h2>
+                    </div>
+                    <!-- Avatar + Name -->
+                    <div style="margin-left:-10px;">
+                        <img src="{{ asset('assets/img/default_user.png') }}" alt="Avatar"
+                            style="vertical-align:middle; border-radius:50%; margin-right:10px;" width="50"
+                            height="50">
 
-                <h6 class=" pb-1 text-blue-primary">Personal Details</h6>
-                <table class="table table-bordered">
-                    <tbody>
-                        <tr>
-                            <th width="40%">Member ID</th>
-                            <td width="60%">{{ $staff->member_id }}</td>
-                        </tr>
-                        <tr>
-                            <th width="40%">Full Name</th>
-                            <td width="60%">{{ $staff->name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Address</th>
-                            <td> {{ $staff->staff_detail->address }}</td>
-                        </tr>
-                        <tr>
-                            <th>Phone</th>
-                            <td>{{ $staff->phone }}</td>
-                        </tr>
-                        <tr>
-                            <th>Private Email</th>
-                            <td>{{ $staff->email }}</td>
-                        </tr>
-                        <tr>
-                            <th>Gender</th>
-                            <td>{{ $gender }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                        <h6 style="display:inline-block; vertical-align:middle; margin:0;">
+                            {{ $operator->name }}
+                        </h6>
+                    </div>
 
-                <!-- Next of Kin Section -->
-
-                <h6 class=" pb-1 text-blue-primary">Next of Kin (Emergency Contact)</h6>
-
-                <table class="table table-bordered mb-3">
-                    <tbody>
+                    <h6 class=" text-blue-primary">Merchant Details</h6>
+                    <table class="table table-bordered mb-3">
                         <tr>
-                            <th width="40%">Name of Kin</th>
-                            <td width="60%">{{ $staff->staff_detail->kin_name }}</td>
+                            <th width="40%">Operator ID</th>
+                            <td width="60%">{{ $operator->member_id }}</td>
                         </tr>
                         <tr>
-                            <th>Relationship</th>
-                            <td> {{ $staff->staff_detail->kin_relationship }}</td>
+                            <th>Date Appointed</th>
+                            <td>{{ $appointedDate }}</td>
+                        </tr>
+                        <tr>
+                            <th>Company Name</th>
+                            <td>{{ $operator->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Business Name</th>
+                            <td>{{ $operator->business_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>ABN</th>
+                            <td>{{ $operator->abn }}</td>
+                        </tr>
+                        <tr>
+                            <th>Business Address</th>
+                            <td>{{ $operator->business_address }}</td>
+                        </tr>
+                        <tr>
+                            <th>Business Number</th>
+                            <td>{{ $operator->business_number }}</td>
+                        </tr>
+                        <tr>
+                            <th>Point of Contact</th>
+                            <td>{{ $operator->operator_detail->point_of_contact }}</td>
                         </tr>
                         <tr>
                             <th>Mobile</th>
-                            <td>{{ $staff->staff_detail->kin_mobile }}</td>
+                            <td>{{ $operator->phone }}</td>
                         </tr>
                         <tr>
-                            <th>Email (optional)</th>
-                            <td>{{ $staff->staff_detail->kin_email }}</td>
+                            <th>Email</th>
+                            <td>{{ $operator->email }}</td>
                         </tr>
-                    </tbody>
-                </table>
+                        <tr>
+                            <th>Territory</th>
+                            <td>{{ $stateName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Method of Contact</th>
+                            <td>{{ $contactTypesText }}</td>
+                        </tr>
+                    </table>
 
-                <!-- Section: Other Details -->
-
-                <h6 class="pb-1 text-blue-primary">Other Details</h6>
-
-                <table class="table table-bordered mb-3">
-                    <tbody>
+                    <!-- Agreement Details -->
+                    <h6 class=" text-blue-primary">Agreement Details</h6>
+                    <table class="table table-bordered mb-3">
                         <tr>
-                            <th>Security Level</th>
-                            <td>{{ $securityLevel }}</td>
+                            <th width="40%">Agreement Date</th>
+                            <td width="60%">{{ $agreementDate }}</td>
                         </tr>
                         <tr>
-                            <th width="40%">Position</th>
-                            <td width="60%">{{ $staff->staff_detail->position($staff->staff_detail->position) }}
-                            </td>
+                            <th>Term</th>
+                            <td>{{ $operator->operator_detail->term }}</td>
                         </tr>
                         <tr>
-                            <th>Location</th>
-                            <td> {{ $city }}</td>
+                            <th>Fees</th>
+                            <td>{{ $operator->operator_detail->fee }}</td>
+                        </tr>
+                    </table>
+                    <!-- Commission -->
+                    <h6 class=" text-blue-primary">Commission</h6>
+                    <table class="table table-bordered mb-3">
+                        <tr>
+                            <th width="40%">Advertising</th>
+                            <td width="60%">{{ $operator->operator_detail->commission_advertising_percent }}%</td>
                         </tr>
                         <tr>
-                            <th>Commenced Date</th>
-                            <td>{{ showDateWithFormat($staff->staff_detail->commenced_date, 'd-m-Y') }}</td>
+                            <th>Massage Centre (Registrations)</th>
+                            <td>{{ $operator->operator_detail->commission_massage_centre_percent }}%</td>
                         </tr>
-
-                        <tr>
-                            <th>Employment Status</th>
-                            <td>{{ $employmentStatus }}</td>
-                        </tr>
-                        <tr>
-                            <th>Employment Agreement</th>
-                            <td>{{ ucfirst($staff->staff_detail->employment_agreement) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- Section: Building Security -->
-
-                <h6 class="pb-1 text-blue-primary">Building Security</h6>
-                <table class="table table-bordered mb-3">
-                    <tbody>
-                        <tr>
-                            <th width="40%">Building Security</th>
-                            <td width="60%">{{ ucfirst($staff->staff_detail->building_access_code) }}</td>
-                        </tr>
-                        <tr>
-                            <th>Key Provided?</th>
-                            <td> {{ ucfirst($staff->staff_detail->keys_issued) }}</td>
-                        </tr>
-                        <tr>
-                            <th>Car Park?</th>
-                            <td>{{ ucfirst($staff->staff_detail->car_parking) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-
-                <table class="table table-bordered " style="padding-top: 10px;">
-                    <tbody>
-                        <tr>
-                            <th width="40%">Idle Time Preference</th>
-                            <td width="60%">{{ $idle_preference_time }}</td>
-                        </tr>
-                        <tr>
-                            <th width="40%">2FA Authentication</th>
-                            <td width="60%">{{ $twofa }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                    </table>
+                </div>
             </div>
         </div>
     </div>

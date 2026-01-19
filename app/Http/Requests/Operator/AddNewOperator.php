@@ -32,7 +32,7 @@ class AddNewOperator extends FormRequest
         return [
             'company_name' => 'bail|required|string|max:100',
             'business_name' => 'bail|required|string|max:100',
-            'abn' => 'nullable|required|digits:11',
+            'abn' => 'required|digits:11',
             'business_address' => 'bail|required|string|max:255',
             'business_number' => "bail|required|min:10|max:14",
             'point_of_contact' => 'bail|required|string|max:100', // Point of contact
@@ -40,12 +40,13 @@ class AddNewOperator extends FormRequest
             'email' => "bail|required|email|max:100|email:rfc,filter|unique:users,email,{$userId}",
             'state_id' => 'required',
             'contact_type' => 'required',
-            'agreement_date' => 'required|date|date_format:Y-m-d',
-            'date_appointed' => 'nullable|date|date_format:Y-m-d',
+            'agreement_date' => 'bail|required|date|date_format:d-m-Y',
+            'date_appointed' => 'nullable|date|date_format:d-m-Y',
             'term' => 'required|string|max:255',
-            'fee' => 'required|required|integer',
-            'commission_advertising_percent' => 'required|integer|between:1,100',
-            'commission_massage_centre_percent' => 'required|integer|between:1,100',
+            //'fee' => 'required|integer',
+            'fee' => 'required|',
+            'commission_advertising_percent' => 'bail|required|integer|between:1,100',
+            'commission_massage_centre_percent' => 'bail|required|integer|between:1,100',
         ];
     }
 

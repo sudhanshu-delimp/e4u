@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Account Suspend - Staff</title>
+  <title>Account Suspend - Operator</title>
 </head>
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
@@ -19,9 +19,9 @@
                     <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                   </td>
                   <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                    Account Suspend - Staff <br>
+                    Account Suspend - Operator <br>
                     <span style="font-size: 13px; color: #cccccc;">
-                      Staff ID: {{$staff['member_id'] ?? ''}}</span>
+                      Operator ID: {{$operator['member_id'] ?? ''}}</span>
                   </td>
                 </tr>
               </table>
@@ -30,7 +30,7 @@
           <!-- Content Padding -->
           <tr>
             <td style="padding: 30px;">
-              <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$staff['name']}},</p>
+              <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$operator['business_name']}},</p>
                 <p style="font-size: 16px; margin: 20px 0 15px 0;">Please be advised that your account has been suspended due to a Report. We are looking into the Report. We will be in touch as soon as the matter is resolved.</p>
                 <!-- Details Table -->
                 <p style="font-size: 15px; margin-top: 20px;">

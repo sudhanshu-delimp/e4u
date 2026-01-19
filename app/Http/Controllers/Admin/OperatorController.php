@@ -72,7 +72,7 @@ class OperatorController extends BaseController
      */
     public function editOperator($id)
     {
-        $operator = User::with('operator_detail', 'operator_setting')->where("id", $id)->first();
+        $operator = Operator::with('operator_detail', 'operator_setting')->where("id", $id)->first();
         if ($operator) {
             return view('admin.management.operator.operator-edit', compact('operator'));
         } else {
@@ -101,7 +101,7 @@ class OperatorController extends BaseController
      */
     public function viewOperator($id)
     {
-        $operator = User::with('operator_detail')->where("id", $id)->first();
+        $operator = Operator::with('operator_detail')->where("id", $id)->first();
         if ($operator) {
             return view('admin.management.operator.operator-view', compact('operator'));
         } else {
@@ -201,8 +201,7 @@ class OperatorController extends BaseController
             $dropdownsub = "";
             $edit = "";
 
-            $view = '<div class="dropdown-divider"></div><a class="dropdown-item view-account-btn view-operator-btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '>  
-                <i class="fa fa-eye "></i> View Account</a>';
+            $view = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center viewOperatorBtn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-eye"></i> View Account</a>';
 
             $dropdown = '<div class="dropdown no-arrow ml-3">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
@@ -270,7 +269,7 @@ class OperatorController extends BaseController
     public function suspend_operator(Request $request)
     {
         if ($request->id && $request->request_type && $request->request_type == 'suspend') {
-            $user = User::where('id', $request->id)->first();
+            $user = Operator::where('id', $request->id)->first();
             if ($user->status && $user->status == 'Suspended') {
                 return $this->successResponse('This Account Already Suspended.');
             }
@@ -341,7 +340,7 @@ class OperatorController extends BaseController
             return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
         }
         $userId  = $request->user_id;
-        $operator = User::with('operator_detail')->where("id", $userId)->first();
+        $operator = Operator::with('operator_detail')->where("id", $userId)->first();
         if ($operator) {
             $pdf = PDF::loadView(
                 'admin.management.operator.operator_report_pdf',

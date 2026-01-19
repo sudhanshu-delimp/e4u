@@ -1,5 +1,12 @@
 @php
-$contactType = isset($operator->contact_type) ? $operator->contact_type : [];
+if (is_array($operator->contact_type)) {
+    $contactType = $operator->contact_type;
+} elseif (!empty($operator->contact_type)) {
+    $contactType = json_decode($operator->contact_type, true) ?? [];
+} else {
+    $contactType = [];
+}
+
 
 @endphp
 <style>
@@ -26,7 +33,7 @@ $contactType = isset($operator->contact_type) ? $operator->contact_type : [];
             <input type="text" class="form-control rounded-0" placeholder="Operator ID" value="{{ $operator->member_id }}" readonly >
         </div>
         <div class="col-6 mb-3">
-            <input type="date" name="date_appointed" id="date_appointed" class="form-control rounded-0" placeholder="Date Appointed"  value="{{ $operator->operator_detail->date_appointed }}" >
+            <input type="text" name="date_appointed" id="date_appointed" class="form-control rounded-0 js_datepicker" placeholder="Date Appointed(DD-MM-YYYY)"  value="{{ showDateWithFormat($operator->operator_detail->date_appointed, 'd-m-Y') }}" >
             <span class="text-danger error-date_appointed"></span>
         </div>
         <div class="col-6 mb-3">
@@ -70,7 +77,7 @@ $contactType = isset($operator->contact_type) ? $operator->contact_type : [];
         </div>
         <div class="col-6 mb-3">
             <select class="form-control rounded-0" name="state_id" id="state_id">
-                <option>Select Territory</option>
+                <option  value="">Select Territory</option>
                 @foreach (config('escorts.profile.states') as $skey => $state)
                     <option value="{{ $skey }}" {{ $operator->state_id == $skey ? 'selected' : '' }}>{{ $state['stateName'] }}</option>
                 @endforeach
@@ -106,8 +113,7 @@ $contactType = isset($operator->contact_type) ? $operator->contact_type : [];
             <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
         </div>
         <div class="col-6 mb-3">
-            <input type="date" class="form-control rounded-0" placeholder="Agreement Date (DD/MM/YYYY)" name="agreement_date"
-                id="agreement_date" value="{{ $operator->operator_detail->agreement_date }}">
+        <input type="text" name="agreement_date" id="opt_agreement_date" class="form-control rounded-0 js_datepicker" value="{{ showDateWithFormat($operator->operator_detail->agreement_date, "d-m-Y") }}" placeholder="Agreement Date (DD-MM-YYYY)" />
             <span class="text-danger error-agreement_date"></span>
         </div>
         <div class="col-6 mb-3">
@@ -116,7 +122,7 @@ $contactType = isset($operator->contact_type) ? $operator->contact_type : [];
         </div>
         <div class="col-6 mb-3">
             <input type="text" class="form-control rounded-0" placeholder="fee" name="fee" id="fee"
-                maxlength="10" value="{{ $operator->operator_detail->fee }}">
+                maxlength="100" value="{{ $operator->operator_detail->fee }}">
             <span class="text-danger error-fee"></span>
         </div>
     </div>
@@ -150,3 +156,25 @@ $contactType = isset($operator->contact_type) ? $operator->contact_type : [];
     </div>
     
 </form>
+  <script>
+       var initJsDatePicker = function() {
+                var $inputs = $(".js_datepicker");
+                if ($inputs.length > 0) {
+                    $inputs.attr('placeholder', 'DD-MM-YYYY');
+                    $inputs.attr('autocomplete', 'off');
+                    $inputs.datepicker({
+                        dateFormat: "dd-mm-yy",
+                        changeMonth: true,
+                        changeYear: true,
+                        showAnim: "slideDown",
+                        onSelect: function(dateText) {
+                            $(this).trigger('change');
+                        }
+                    });
+                }
+            }
+
+            $(document).ready(function() {
+                initJsDatePicker();
+            });
+  </script>

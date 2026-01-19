@@ -377,6 +377,11 @@ Route::post('/management/add-operator', [OperatorController::class, 'add_operato
 Route::get('operator_list_data_table', [OperatorController::class, 'operator_data_list'])->name('admin.operator_list_data_table');
 Route::get('/edit-operator/{id}', [OperatorController::class, 'editOperator'])->name('admin.edit-operator');
 Route::post('/store-operator', [OperatorController::class, 'updateOperator'])->name('admin.store-operator');
+Route::get('/view-operator/{id}', [OperatorController::class, 'viewOperator'])->name('admin.view-operator');
+Route::post('/print-operator', [OperatorController::class, 'printOperatorDetails'])->name('admin.print_operator');
+Route::post('/suspend-operator', [OperatorController::class, 'suspend_operator'])->name('admin.suspend-operator');
+Route::post('/active-operator-account', [OperatorController::class, 'activate_user'])->name('admin.active-operator-account');
+Route::post('/approve-operator-account', [OperatorController::class, 'approve_operator_account'])->name('admin.approve_operator_account');
 
 
 Route::get('/management/agent', [AgentController::class, 'agent_list'])->name('admin.agent');

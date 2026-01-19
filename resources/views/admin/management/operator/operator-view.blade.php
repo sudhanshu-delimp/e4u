@@ -1,169 +1,146 @@
-<div class="row" >
-    @php
-        $employmentStatuss = config('staff.employment_status');
-        $employmentStatus = isset($employmentStatuss[$staff->staff_detail->employment_status])
-            ? $employmentStatuss[$staff->staff_detail->employment_status] : '';
-        $securityLevels = config('staff.security_level');
-        $securityLevel = isset($securityLevels[$staff->staff_detail->security_level])
-            ? $securityLevels[$staff->staff_detail->security_level]
-            : '';
-        $genders = config('escorts.profile.genders');
-        $gender = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
-        $cities = config('escorts.profile.cities');
-        $city = isset($cities[$staff->city_id]) ? $cities[$staff->city_id] : '';
-        $setting = $staff->staff_setting??null;
-        $idle_preference_times = config('staff.idle_preference_time');
-        $idle_preference_time = "";
-         $twofa = "";
-        if(isset( $setting) && (isset($setting->idle_preference_time))) {
-            $idle_preference_time = isset($idle_preference_times[(string)$setting->idle_preference_time]) ? $idle_preference_times[$setting->idle_preference_time] : "";
-        }
-        $twofas = config('staff.twofa');
-        if(isset( $setting) && isset($setting->twofa)) {
-        $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
-        }
-    @endphp
-    <div class="col-12 view_staff_details">
-         <div class="row" style="max-height: 600px; overflow:auto;">
-            <!-- Section: Personal Details -->
-            <div class="col-12 my-2">
-                <h6 class="text-blue-primary">Personal Details</h6>
-                <table class="table table-bordered">
-                    <tbody>
-                        <tr>
-                            <th width="40%">Member ID</th>
-                            <td width="60%">{{ $staff->member_id }}</td>
-                        </tr>
-                        <tr>
-                            <th width="40%">Full Name</th>
-                            <td width="60%">{{ $staff->name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Address</th>
-                            <td> {{ $staff->staff_detail->address }}</td>
-                        </tr>
-                        <tr>
-                            <th>Phone</th>
-                            <td>{{ $staff->phone }}</td>
-                        </tr>
-                        <tr>
-                            <th>Private Email</th>
-                            <td>{{ $staff->email }}</td>
-                        </tr>
-                        <tr>
-                            <th>Gender</th>
-                            <td>{{ $gender }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- Next of Kin Section -->
-            <div class="col-12 my-2">
-                <h6 class="text-blue-primary">Next of Kin (Emergency Contact)</h6>
+@php
+$appointedDate = "";
+$agreementDate = "";
+$contactTypesText = "";
+$contactTypesArray = [];
+if(!empty($operator->operator_detail->date_appointed)){
+     $appointedDate = showDateWithFormat($operator->operator_detail->date_appointed, "d-m-Y");
+}
 
-                <table class="table table-bordered mb-3">
-                    <tbody>
-                        <tr>
-                            <th width="40%">Name of Kin</th>
-                            <td width="60%">{{ $staff->staff_detail->kin_name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Relationship</th>
-                            <td> {{ $staff->staff_detail->kin_relationship }}</td>
-                        </tr>
-                        <tr>
-                            <th>Mobile</th>
-                            <td>{{ $staff->staff_detail->kin_mobile }}</td>
-                        </tr>
-                        <tr>
-                            <th>Email (optional)</th>
-                            <td>{{ $staff->staff_detail->kin_email }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- Section: Other Details -->
-            <div class="col-12 my-2">
-                <h6 class="text-blue-primary">Other Details</h6>
+if(!empty($operator->operator_detail->agreement_date)){
+     $agreementDate = showDateWithFormat($operator->operator_detail->agreement_date, "d-m-Y");
+}
 
-                <table class="table table-bordered mb-3">
-                    <tbody>
-                        <tr>
-                            <th>Security Level</th>
-                            <td>{{ $securityLevel }}</td>
-                        </tr>
-                        <tr>
-                            <th width="40%">Position</th>
-                            <td width="60%">{{ $staff->staff_detail->position($staff->staff_detail->position) }}</td>
-                        </tr>
-                        <tr>
-                            <th>Location</th>
-                            <td> {{ $city }}</td>
-                        </tr>
-                        <tr>
-                            <th>Commenced Date</th>
-                            <td>{{showDateWithFormat($staff->staff_detail->commenced_date, "d-m-Y")}}</td>
-                        </tr>
-                        
-                        <tr>
-                            <th>Employment Status</th>
-                            <td>{{ $employmentStatus }}</td>
-                        </tr>
-                        <tr>
-                            <th>Employment Agreement</th>
-                            <td>{{ ucfirst($staff->staff_detail->employment_agreement) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- Section: Building Security -->
-            <div class="col-12 my-2">
-                <h6 class="text-blue-primary">Building Security</h6>
-                <table class="table table-bordered mb-3">
-                    <tbody>
-                        <tr>
-                            <th width="40%">Building Security</th>
-                            <td width="60%">{{ ucfirst($staff->staff_detail->building_access_code) }}</td>
-                        </tr>
-                        <tr>
-                            <th>Key Provided?</th>
-                            <td> {{ ucfirst($staff->staff_detail->keys_issued) }}</td>
-                        </tr>
-                        <tr>
-                            <th>Car Park?</th>
-                            <td>{{ ucfirst($staff->staff_detail->car_parking) }}</td>
-                        </tr>
+if (is_array($operator->contact_type)) {
+    $contactType = $operator->contact_type;
+} elseif (!empty($operator->contact_type)) {
+    $contactType = json_decode($operator->contact_type, true) ?? [];
+} else {
+    $contactType = [];
+}
+if(count($contactType) > 0){
+  if(in_array('1', $contactType)) {
+    $contactTypesArray[] = 'Messaging';
+  }
+  if(in_array('2', $contactType)) {
+    $contactTypesArray[] = 'Text';
+  }
+  if(in_array('3', $contactType)) {
+    $contactTypesArray[] = 'Email';
+  }
+  if(in_array('4', $contactType)) {
+    $contactTypesArray[] = 'Call Us';
+  }
+}
+$contactTypesText = implode(", ", $contactTypesArray);
 
-                    </tbody>
-                </table>
+$states = config('escorts.profile.states');
+$stateName = isset($states[$operator->state_id]['stateName']) ? $states[$operator->state_id]['stateName'] : '';
+
+
+@endphp
+<div class="row">
+    <div class="col-12 custom-merchant-modal">
+        <div class="card mb-3 p-3">
+            <!-- Avatar + Name -->
+            <div class="d-flex align-items-center mb-3">
+                <img src="{{ asset('assets/img/default_user.png') }}" alt="Avatar" class="rounded-circle mr-3"
+                    width="50" height="50">
+                <h6 class="mb-0">{{ $operator->name }}</h6>
             </div>
 
-            <div class="col-12 my-2">
-               
-                <table class="table table-bordered mb-3">
-                    <tbody>
-                        <tr>
-                            <th width="40%">Idle Time Preference</th>
-                            <td width="60%">{{$idle_preference_time}}</td>
-                        </tr>
-                        <tr>
-                            <th width="40%">2FA Authentication</th>
-                            <td width="60%">{{ $twofa }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-         </div>    
-        <div class="row">
-            <div class="col-12 my-2 text-right">
-            <form action="{{ route('admin.print_staff') }}" method="post" target="_blank">
+            <!-- Merchant Details -->
+            <h6 class=" text-blue-primary">Merchant Details</h6>
+            <table class="table table-bordered mb-3">
+                <tr>
+                    <th width="40%">Operator ID</th>
+                    <td width="60%">{{ $operator->member_id }}</td>
+                </tr>
+                <tr>
+                    <th>Date Appointed</th>
+                    <td>{{$appointedDate}}</td>
+                </tr>
+                <tr>
+                    <th>Company Name</th>
+                    <td>{{ $operator->name }}</td>
+                </tr>
+                <tr>
+                    <th>Business Name</th>
+                    <td>{{ $operator->business_name }}</td>
+                </tr>
+                <tr>
+                    <th>ABN</th>
+                    <td>{{ $operator->abn }}</td>
+                </tr>
+                <tr>
+                    <th>Business Address</th>
+                    <td>{{ $operator->business_address }}</td>
+                </tr>
+                <tr>
+                    <th>Business Number</th>
+                    <td>{{ $operator->business_number }}</td>
+                </tr>
+                <tr>
+                    <th>Point of Contact</th>
+                    <td>{{ $operator->operator_detail->point_of_contact }}</td>
+                </tr>
+                <tr>
+                    <th>Mobile</th>
+                    <td>{{ $operator->phone }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ $operator->email }}</td>
+                </tr>
+                <tr>
+                    <th>Territory</th>
+                    <td>{{ $stateName }}</td>
+                </tr>
+                <tr>
+                    <th>Method of Contact</th>
+                    <td>{{$contactTypesText}}</td>
+                </tr>
+            </table>
+            <!-- Agreement Details -->
+            <h6 class=" text-blue-primary">Agreement Details</h6>
+            <table class="table table-bordered mb-3">
+                <tr>
+                    <th width="40%">Agreement Date</th>
+                    <td width="60%">{{$agreementDate}}</td>
+                </tr>
+                <tr>
+                    <th>Term</th>
+                    <td>{{ $operator->operator_detail->term }}</td>
+                </tr>
+                <tr>
+                    <th>Fees</th>
+                    <td>{{ $operator->operator_detail->fee }}</td>
+                </tr>
+            </table>
+            <!-- Commission -->
+            <h6 class=" text-blue-primary">Commission</h6>
+            <table class="table table-bordered mb-3">
+                <tr>
+                    <th width="60%">Advertising</th>
+                    <td width="40%">{{ $operator->operator_detail->commission_advertising_percent }}%</td>
+                </tr>
+                <tr>
+                    <th>Massage Centre (Registrations)</th>
+                    <td>{{ $operator->operator_detail->commission_massage_centre_percent }}%</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <!-- Footer Buttons -->
+        <div class="col-12 my-2 text-right">
+            <form action="{{ route('admin.print_operator') }}" method="post" target="_blank">
                 {{ csrf_field() }}
                 <input name="user_id" type="hidden" id="user_print_id" class="user_print_id"
-                    value="{{ $staff->id }}">
+                    value="{{ $operator->id }}">
                 <button type="submit" class="print-btn m-0">🖨️ Print Report</button>
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
             </form>
-        </div>
         </div>
     </div>
 </div>

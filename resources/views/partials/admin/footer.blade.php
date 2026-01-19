@@ -56,25 +56,7 @@
           <script src="{{ asset('assets/js/web-socket.js') }}"></script>
           <script src="{{ config('constants.socket_url') }}/socket.io/socket.io.js"></script> -->
         <script>
-            // var initJsDatePicker = function() {
-            //     $(".js_datepicker").attr('placeholder', 'DD-MM-YYYY');
-            //     $(".js_datepicker").attr('autocomplete', 'off');
-            //     $(".js_datepicker").datepicker({
-            //         dateFormat: "dd-mm-yy",
-            //         changeMonth: true,
-            //         changeYear: true,
-            //         showAnim: "slideDown",
-            //         constrainInput: false,
-            //         onSelect: function(dateText) {
-            //             const event = new Event('change', {
-            //                 bubbles: true
-            //             });
-            //             this.dispatchEvent(event); // 👈 manually trigger change event
-            //         }
-            //     });
-            // }
-            // initJsDatePicker();
-
+            
             var initJsDatePicker = function() {
                 var $inputs = $(".js_datepicker");
                 if ($inputs.length > 0) {

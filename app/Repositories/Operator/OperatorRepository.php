@@ -17,7 +17,6 @@ use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Repositories\Operator\OperatorInterface;
-
 class OperatorRepository extends BaseRepository implements OperatorInterface
 {
     protected $operator;
@@ -75,6 +74,7 @@ class OperatorRepository extends BaseRepository implements OperatorInterface
     {
         return  DB::transaction(function () use ($data) {
             try {
+                $contactType = $data['contact_type'];
                 $operatorData  =  [
                     'name' => $data['company_name'] ?? null,
                     'phone' => $data['phone'] ?? null,
@@ -84,7 +84,7 @@ class OperatorRepository extends BaseRepository implements OperatorInterface
                     'business_number' => $data['business_number'] ?? null,
                     'abn' => $data['abn'] ?? null,
                     'business_address' => $data['business_address'] ?? null,
-                    'contact_type' => isset($data['contact_type'])  ? json_encode($data['contact_type']): null,
+                    'contact_type' => isset($data['contact_type'])  ? json_encode($contactType) : null,
                 ];
 
                 if (isset($data['user_id']) && (!empty($data['user_id']))) {
@@ -103,22 +103,29 @@ class OperatorRepository extends BaseRepository implements OperatorInterface
                     $message = 'New operator added successfully.';
                     $user = User::create($operatorData);
                     if ($user) {
+                        $operator = $this->operator->where('id', $user->id)->first();
+                        $operator->update(['contact_type' => $contactType]);
                         $this->setting->create_account_setting($user);
                     }
                 }
 
                 /// Update operator detail
                 $operator = $user->operator_detail ?? $user->operator_detail()->create(['user_id' => $user->id]);
-            
+
                 $operator->update([
-                    'date_appointed' => $data['date_appointed'] ?? null,
+                    'date_appointed' => !empty($data['date_appointed'])
+                        ? Carbon::parse($data['date_appointed'])->format('Y-m-d')
+                        : null,
+                    'agreement_date' => !empty($data['agreement_date'])
+                        ? Carbon::parse($data['agreement_date'])->format('Y-m-d')
+                        : null,
                     'point_of_contact' => $data['point_of_contact'] ?? null,
-                    'agreement_date' => $data['agreement_date'] ?? null,
+
                     'term' => $data['term'] ?? null,
                     'fee' => $data['fee'] ?? null,
                     'commission_advertising_percent' => $data['commission_advertising_percent'] ?? null,
                     'commission_massage_centre_percent' => $data['commission_massage_centre_percent'] ?? null,
-                    
+
                 ]);
 
                 $operatorSetting = \App\Models\OperatorSetting::firstOrNew(['user_id' => $user->id]);
@@ -170,7 +177,6 @@ class OperatorRepository extends BaseRepository implements OperatorInterface
     {
         try {
             $user['plainPassword'] = $plainPassword;
-            //logErrorLocal($user);
             Mail::to($user->email)->send(new OperatorApprovalEmail($user));
         } catch (Exception $e) {
             Log::info($e->getMessage() . " Line no.:" . $e->getLine() . " Line no.:" . $e->getFile());
