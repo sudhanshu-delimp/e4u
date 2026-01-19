@@ -239,7 +239,7 @@
                                                     <div class="row">
                                                         <div class="col-md-12 text-right">
                                                              <input type="hidden" name="type" id="type" value="about_us">
-                                                             <input type="hidden" name="massage_id" id="massage_id" value="1">
+                                                             <input type="hidden" name="massage_id" id="massage_id" value="{{$massage_profile->id}}">
                                                               <button id="read-more" type="submit" class="save_profile_btn">Update</button>
                                                         </div>
                                                     </div>
