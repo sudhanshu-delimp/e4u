@@ -79,11 +79,11 @@
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every 15 minutes. </span>
+                                                <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every 30 minutes. </span>
                                             </div>
                                             <div class="col-md-8 ryt_srch_btn">
                                                 <div class="display_inline_block">
-                                                    <div class="d-flex flex-column gap-2" style="width:105px;">
+                                                    <div class="location_radio_filter">
                                                         <div class="d-flex align-items-start" style="padding-top: 2px;"
                                                             >
                                                             <input type="radio" name="locationByRadio" checked="checked"
@@ -104,7 +104,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="display_inline_block">
+                                                <div class="display_inline_block w-100">
                                                     <div
                                                         class="input-group custome_form_control managefilter_search_btn_style rounded search_btn_profile custom_search_btn_profile">
 

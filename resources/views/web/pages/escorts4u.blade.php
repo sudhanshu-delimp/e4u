@@ -32,10 +32,10 @@
    <div class="container reg_info text-justify">
     <h1 class="home_heading_first margin_btm_twenty_px page-title">What Escorts4U is About</h1>
 
-    <h2 class="primery_color normal_heading">What is this Website for?</h2>
+    <h2 class="primery_color normal_heading">Why this Website?</h2>
     <p>
         We set out to bring Advertisers of escort and massage centre services and Viewers
-        together through a simple but convenient platform. Advertisers set out a detailed
+        together through a simple but convenient modern platform. Advertisers set out a detailed
         informative Profile where they propose their services and companionship where Viewers
         can then make contact directly. We do not act as an intermediary, and nor do we play any
         role in, or receive any payment from, any transaction which may result from a mutual
@@ -55,10 +55,11 @@
     <p>We do:</p>
     <ul>
        <li>Provide an open, transparent and professional Website</li>
+       <li>Offer a range of features not available on other websites, like My Playmates, BRB, Extend Profile, Suspend Profile, Pin Up and Bumpup</li>
        <li>Remove the Profile or Tour when it expires</li>
-       <li>Offer a range of features not available on other websites (like our Concierge Services and My Playbox)</li>
+       <li>Provide a range of relevant other services not available elsewhere (like our Concierge Services and My Playbox)</li>
        <li>Make ourselves available to you to address your issues and concerns</li>
-       <li>Have Agents available to Advertisers to assist them with the management of their Account, Profiles and Tours</li>
+       <li>Have Agents available to assist you with the management of your Account, Profiles, Tours and My Playbox</li>
        <li>To the best of our ability, provide you with as much anonymity as possible</li>
     </ul>
 
@@ -84,15 +85,15 @@
         registration). A Viewer can also shortlist and then view the shortlist of Advertisers from the
         Advertiser Home Page. There is a lot of information about the Advertiser for you to make
         an informed decision. Profiles are presented in a professional manner so as to let your
-        imagination take you there, including video, where the Advertiser has provided one.
+        imagination take you there, including video, where the Advertiser has provided them.
     </p>
     <p>
         All of our Advertisers are independent, except where they engage an Agent to assist
-        them with posting their Profiles and Tours. It is just you and your chosen companion.                
+        them with Listing their Profiles and Tours. It is just you and your chosen companion.                
     </p>
     <p>
         Privacy is very important to everyone. There are a range of options available to both the
-        Advertiser and Viewer to make contact with each other very easy, including Alerts. We
+        Advertiser and Viewer to make contact with each other very easy, including Alerts and encrypted messaging. We
         have applied a one stop shop approach for Advertisers.
     </p>
     <p>
@@ -117,7 +118,7 @@
         visa or migration advice, just ask.                
     </p>
     <p>And of course there is the My Playbox service. A unique service that permits Escorts to
-upload Content for Users to view either as a pay-per-view or by subscription.
+upload Content for Users to view either by pay-per-play or by subscription.
     </p>
     <h2 class="primery_color normal_heading">Your experience</h2>
     <p>
