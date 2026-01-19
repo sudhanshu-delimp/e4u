@@ -155,9 +155,10 @@ class OperatorController extends BaseController
         if (!empty($search)) {
             $operator->where(function ($query) use ($search) {
                 $query->where('member_id', 'like', "%{$search}%")
-                    ->orWhere('company_name', 'like', "%{$search}%")
+                    ->orWhere('business_name', 'like', "%{$search}%")
                     ->orWhere('phone', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('name', 'like', "%{$search}%")
                     ->orWhereHas('state', function ($q) use ($search) {
                         $q->where('name', 'like', "%{$search}%");
                     });
