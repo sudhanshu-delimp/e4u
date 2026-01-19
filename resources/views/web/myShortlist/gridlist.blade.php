@@ -28,7 +28,7 @@
             <div class="row plat_num_row">
                 <div class="col-md-12 col-lg-8 col-xl-8 col-sm-12 pr-3 pr-lg-0 self-w-73">
                     <div class="row plat-inner mr-0 ml-0">
-                        <div class="col-md-4 pl-0">
+                        <div class="col-md-4 p_for_sm">
                             <a href="{{ route('profile.description', $escort->id) }}?list">
                                 <div class="section_wise_level_icon_img all-escort-profile-pic">
                                     <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
@@ -83,7 +83,7 @@
                         </div>
                         {{-- @php echo"<pre>". print_r($escort) @endphp --}}
                         <div class="col-md-8 p-0 all-escort-view-profile-box">
-                            <div class="d-flex justify-content-between mb-3 flex_directiom_warp list_cruise pr-0">
+                            <div class="d-flex justify-content-between mb-3 flex_directiom_warp list_cruise p-0">
                                 <div class="free_profile_name_and_color profile-text">{{ $escortName }}</div>
                                 <div class="age" style="text-align: end; margin-top: 13px;">
                                     <span
@@ -101,7 +101,7 @@
                                 </div>
                             </div>
                             <div
-                                class="d-flex justify-content-between mb-4 flex_directiom_warp_but_list_child_not_hundred_present list_gender_area  pr-0">
+                                class="d-flex justify-content-between mb-4 flex_directiom_warp_but_list_child_not_hundred_present list_gender_area  p-0">
                                 <div class="custom--gender--area">
                                     <div class="gender">
                                         <span class="filter-pad">Gender:</span>
@@ -122,7 +122,7 @@
                                         @endfor
                                     </div>
                                 </div>
-                                <div class="custom--available-section">
+                                <div class="custom--available-section p-0">
                                     <div class="available padding_top_ten_px custom-gender-type-icon">
                                         <span class="filter-pad">Available:</span>
                                         <span>
@@ -151,8 +151,8 @@
 
                                 </div>
                             </div>
-                            <div class="row mb-2 margin_lft_rgt_one_five  pr-0">
-                                <div class="col-xl-3 col-md-3 col-sm-6 col-6 p-1">
+                            <div class="row">
+                                <div class="col-sm-12 shortlist-rate-type">
                                     <div class="d-flex align-items-center manage_gap_text_img-profile">
                                         <img src="{{ asset('assets/app/img/handwithhart.png') }}">
                                         <div class="div_contain_text">
@@ -175,8 +175,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-3 col-md-3 col-sm-6 col-6 p-1">
                                     <div class="d-flex align-items-center manage_gap_text_img-profile">
                                         <img src="{{ asset('assets/app/img/areodownimg.png') }}">
                                         <div class="div_contain_text">
@@ -202,8 +200,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-3 col-md-3 col-sm-6 col-6 p-1">
                                     <div class="d-flex align-items-center manage_gap_text_img-profile">
                                         <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
                                         <div class="div_contain_text">
@@ -234,7 +230,7 @@
                                 $plainTextAbout = strip_tags($escort->about);
                                 $limitText = Str::limit($plainTextAbout, 200, '...');
                             @endphp
-                            <div class="col pr-1">
+                            <div class="col p-0">
                                 <p class="list_view_profile_pera_font_size">{!! $limitText !!}
                                     @if (strlen($plainTextAbout) > 210)
                                         <a href="{{ route('profile.description', $escort->id) }}?list&brb={{ isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : '' }}"
@@ -242,7 +238,7 @@
                                     @endif
                                 </p>
                             </div>
-                            <div class="col pr-1 all-escort-view-profile-btn">
+                            <div class="col p-0 all-escort-view-profile-btn">
                                 {{-- social-media icon --}}
                                 <div class="social_media_icons">
                                     <div class="social_media_wrapper">
