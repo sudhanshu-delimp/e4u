@@ -37,8 +37,13 @@ $is_checkout = $tour->tourPurchase->count();
                         </div>
                     </div>
                 </div>
-            </div>        
+            </div>     
             <div class="row tour-dashrow">
+                <div class="col-md-9 mb-2">
+                    <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
+                    data-target="#pinup_profile" id="btn_pinup_profile" data-tour-id="{{$tour->id}}">List Pin Up</button>
+                </div>
+                @include('escort.dashboard.NewTour.modal.register_pinup')
                 <div class="col-md-9">
                     <div class="card shadow-sm">
                         <div class="card-body">
@@ -132,4 +137,5 @@ $is_checkout = $tour->tourPurchase->count();
     const account_save_tour_route = "{{ route('account.update_tour', ['id' => $tour->id]) }}";
 </script>
 <script src="{{ asset('js/escort/add_edit_tour.js') }}"></script>
+<script src="{{ asset('js/escort/pinup_tour.js') }}"></script>
 @endpush

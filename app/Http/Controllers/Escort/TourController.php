@@ -98,16 +98,7 @@ class TourController extends Controller
         if($user->status == "Suspended"){
              return redirect()->route('escort.dashboard')->with('info', config('common.access_denied_suspended_msg'));
         }
-        // $escort = $this->escort->FindByUsers(auth()->user()->id);
-        // $escorts = $escort->whereNotNull('state_id')->where('default_setting',0)->unique('state_id');
-
-        // $user_names = $escort->whereNotNull('state_id')->where('default_setting',0);
-
-        // $tours = $this->tour->all();
-        // $find_tour = null;
-
-        //dd($user_names);
-        //return view('escort.dashboard.NewTour.create-tour',compact('escorts','tours','find_tour','user_names'));
+        
         if(!empty($id)){
             $tour = Tour::findOrFail($id);
             $tourLocations = TourLocation::where(['tour_id'=>$id])->get();
@@ -1034,5 +1025,53 @@ class TourController extends Controller
                 'message' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function getTourLocations(Request $request){
+        try {
+            $response['success'] = false;
+            $tourId = $request->tour_id;
+            $conditions = $request->module=='pinup'?['tour_id'=>$tourId, 'is_pinup'=>'0']:['tour_id'=>$tourId];
+            $locations = TourLocation::with('state')->where($conditions)->get();
+            if($locations->count() > 0){
+                $response['success'] = true;
+                $response['locations'] = $locations;
+            }
+            else{
+                $response['message'] = 'Not Available.';
+            }
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
+    public function getTourLocationProfiles(Request $request){
+        try {
+            $response['success'] = false;
+            $profiles = TourProfile::with('escort')->where('tour_location_id',$request->tour_location_id)->get();
+            if($profiles->count() > 0){
+                $response['success'] = true;
+                $response['profiles'] = $profiles;
+            }
+            else{
+                $response['message'] = 'Not Available.';
+            }
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function registerTourPinup(Request $request){
+
     }
 }
