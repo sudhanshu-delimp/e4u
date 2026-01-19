@@ -129,8 +129,9 @@
                   </div>
       
                   <div class="form-group">
-                      <label class="required">Incident Type</label>
+                      <label class="required">Incident Nature</label>
                       <select class="custom-select" name="incident_nature">
+                        <option >Please Choose</option>
                         <option value="Time Waster" >Time Waster</option>
                         <option value="Con Man">Con Man</option>
                         <option value="Dangerous">Dangerous</option>
