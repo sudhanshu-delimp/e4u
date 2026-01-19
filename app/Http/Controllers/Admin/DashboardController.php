@@ -36,6 +36,7 @@ use App\Http\Requests\Admin\UpdateStaff;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\Admin\AddNewStaff;
+use App\Models\Feedback;
 use App\Repositories\Admin\AdminInterface;
 
 class DashboardController extends BaseController
@@ -491,12 +492,22 @@ class DashboardController extends BaseController
     public function feedbackList(Request $request)
     {
         try {
-        dd("gfd");
+            list($result, $count) = $this->feedback_data_pagination(
+                request()->get('start'),
+                request()->get('length'),
+                (request()->get('order')[0]['column']),
+                request()->get('order')[0]['dir']
+            );
+            $data = array(
+                "draw"            => intval(request()->input('draw')),
+                "recordsTotal"    => intval($count),
+                "recordsFiltered" => intval($count),
+                "data"            => $result
+            );
+            return response()->json($data);
 
         } catch (\Exception $e) {
-
             \Log::error('Feedback DataTable Error: ' . $e->getMessage());
-
             return response()->json([
                 'draw' => intval($request->get('draw')),
                 'recordsTotal' => 0,
@@ -505,5 +516,101 @@ class DashboardController extends BaseController
                 'error' => 'Something went wrong while loading feedback data.'
             ], 500);
         }
+    }
+
+
+
+    public function feedback_data_pagination($start, $limit, $order_key, $dir)
+    {
+        $subjects = config('common.feedback_subject');
+        $matchedSubjectIds = [];
+        $feedback = Feedback::query()->with('option');
+        $search = trim(request()->input('search.value'));
+        $feedback->with('option');
+        $statusSearch = null;
+        if (stripos($search, 'pending') !== false) {
+            $statusSearch = 1;
+        } elseif (stripos($search, 'completed') !== false) {
+            $statusSearch = 2;
+        }
+
+        if ($search !== '') {
+            foreach ($subjects as $id => $label) {
+                if (stripos($label, $search) !== false) {
+                    $matchedSubjectIds[] = $id;
+                }
+            }
+        }
+       
+        if ($search !== '') {
+            $feedback->where(function ($query) use ($search, $statusSearch, $matchedSubjectIds) {
+
+                $query->where('id', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+
+                if (!is_null($statusSearch)) {
+                    $query->orWhere('status', $statusSearch);
+                }
+                if (!empty($matchedSubjectIds)) {
+                    $query->orWhereIn('subject_id', $matchedSubjectIds);
+                }
+            });
+        }
+
+        $columns = [
+            0 => 'id',   
+            1 => 'created_at',
+            2 => 'subject_id',
+            3 => 'email',  
+            4 => 'status',  
+        ];
+      
+        $order_key = (int) $order_key; 
+        $dir = strtolower($dir) === 'asc' ? 'asc' : 'desc';
+
+        if (isset($columns[$order_key])) {
+            $feedback = $feedback->orderBy($columns[$order_key], $dir);
+        } else {
+            $feedback = $feedback->orderBy('id', 'desc');
+        }
+
+        $total_feedback = $feedback->count();
+        $feedbacks = $feedback->offset($start)->limit($limit)->get();
+    
+        foreach ($feedbacks as $key => $item) {
+
+            $completedHtml ='';
+            $item->ref_number = $item->id;
+            $item->date =   isset($item->created_at) ? showDateWithFormat($item->created_at) : 'NA';
+            $item->subject = isset($subjects[$item->subject_id]) ? $subjects[$item->subject_id] : 'NA';
+            $item->email = isset($item->email) ? $item->email : 'NA';
+            $item->status = isset($item->status) ? $item->status_text : 'NA';
+            if($item->status ==  "Pending"){
+            $completedHtml =  '<a class="dropdown-item completed_btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '>  
+                <i class="fa fa-check "></i> Completed</a><div class="dropdown-divider"></div>';
+            }
+
+            $dropdown = '<div class="dropdown no-arrow ml-3">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                '.$completedHtml.'<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-feedback-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-eye"></i> View</a>
+                </div></div>';
+
+            $item->action = $dropdown; 
+        }
+        return [$feedbacks, $total_feedback];
+    }
+
+    public function feedbackStatusChange(Request $request)
+    {
+        $feedback = Feedback::findOrFail($request->id);
+        $feedback->status = $request->status;
+        $feedback->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => $request->status == 2 
+                ? 'Feedback marked as Completed.' 
+                : 'Feedback marked as Pending.'
+        ]);
     }
 }

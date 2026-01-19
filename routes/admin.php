@@ -710,6 +710,9 @@ Route::get('feedback', function () {
 
 Route::get('feedback-list', [DashboardController::class, 'feedbackList'])
     ->name('admin.feedback.dataTable');
+    
+Route::post('feedback-status-change', [DashboardController::class, 'feedbackStatusChange'])
+    ->name('admin.feedback.status.change');
 
 Route::get('/management/punterbox-reports', function () {
     return view('admin.management.punterbox-report');

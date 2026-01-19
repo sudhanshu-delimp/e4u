@@ -45,40 +45,7 @@
                                                             <th scope="col" class="text-center">Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody class="table-content">
-                                                        <tr class="row-color">
-                                                            <td class="theme-color">123</td>
-                                                            <td class="theme-color">2025-06-09 8:36:54</td>
-                                                            <td class="theme-color">National Ugly Mugs Feature [header tile
-                                                                in email]</td>
-                                                            <td class="theme-color">a@yopmial.com</td>
-                                                            <td class="theme-color">Pending</td>
-                                                            <td class="theme-color text-center">
-                                                                <div class="dropdown no-arrow">
-                                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                                        id="dropdownMenuLink" data-toggle="dropdown"
-                                                                        aria-haspopup="true" aria-expanded="false">
-                                                                        <i
-                                                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                                    </a>
-                                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                                        aria-labelledby="dropdownMenuLink" style="">
-
-
-                                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                            href="#" data-toggle="modal"
-                                                                            data-target="#postOffivereport"> <i
-                                                                                class="fa fa-eye"></i> View </a>
-                                                                        <div class="dropdown-divider"></div>
-                                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                            href="#"> <i
-                                                                                class="fa fa-fw fa-print"></i> Print </a>
-
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
+                                                   
                                                 </table>
                                             </div>
                                         </div>
@@ -96,11 +63,11 @@
     <!-- Popup Post Office Report: [date & time] -->
 
 
-    {{-- <div class="modal fade upload-modal bd-example-modal-lg" id="postOffivereport" tabindex="-1" role="dialog" aria-labelledby="postOffivereportLabel" aria-hidden="true">
+    <div class="modal fade upload-modal bd-example-modal-lg" id="feedbackReportView" tabindex="-1" role="dialog" aria-labelledby="feedbackReportViewLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
       <div class="modal-content basic-modal modal-lg">
          <div class="modal-header">
-            <h5 class="modal-title" id="postOffivereport"><img src="{{ asset('assets/dashboard/img/post-office-report.png') }}" class="custompopicon">Post Office Report</h5>
+            <h5 class="modal-title" id="feedbackReportView"><img src="{{ asset('assets/dashboard/img/post-office-report.png') }}" class="custompopicon">Post Office Report</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -151,13 +118,51 @@
          </div>
       </div>
    </div>
-</div> --}}
+</div> 
+
+<!-- confirm modal here  -->
+
+<div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel" aria-modal="true" style="padding-right: 15px;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header border-0">
+                    <input type="hidden" id="status_data_id" value="334">
+                    <input type="hidden" id="status_data_value" value="7">
+                    <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
+                        <img src="{{asset('assets/dashboard/img/question-mark.png')}}" alt="resolved" class="custompopicon">
+                        <span>Confirmation</span>
+                    </h5>
+                    <input type="hidden" id="status_data_id" name="status_data_id" value="">
+                    <input type="hidden" id="status_data_value" name="status_data_value" value="">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+
+                <div class="modal-body pb-0 teop-text text-center">
+                    <h5 class="popu_heading_style mt-2">
+                        Are you sure you want to perform this action.
+                    </h5>
+
+                </div>
+                <div class="modal-footer justify-content-center border-0 pb-4">
+
+                    <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal" aria-label="Close">Yes</button> <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- confirm modal end here -->
 
     <!-- end -->
     @include('escort.dashboard.partials.playmates-modal')
 @endsection
 @push('script')
-
+confirm-popup
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
@@ -177,31 +182,61 @@
                     dataType: 'json'
                 },
 
-                // columns: [
-                //     { data: 'ref_number', name: 'ref_number', orderable: true, defaultContent: 'NA' },
-                //     { data: 'feedback_date', name: 'feedback_date', orderable: true, defaultContent: 'NA' },
-                //     { data: 'member_id', name: 'member_id', orderable: true, defaultContent: 'NA' },
-                //     { data: 'email', name: 'email', orderable: true, defaultContent: 'NA' },
-                //     { data: 'subject', name: 'subject', orderable: false, defaultContent: 'NA' },
-                //     { data: 'status', name: 'status', orderable: true, defaultContent: 'Pending' },
-                //     { data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center' }
-                // ],
+                columns: [
+                    { data: 'ref_number', name: 'ref_number', defaultContent: 'NA' },
+                    { data: 'date', name: 'date', defaultContent: 'NA' },
+                    { data: 'subject', name: 'subject', defaultContent: 'NA' },
+                    { data: 'email', name: 'email', defaultContent: 'NA' },
+                    { data: 'status', name: 'status', defaultContent: 'NA' },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center'
+                    }
+                ],
 
                 lengthMenu: [
                     [10, 25, 50, 100],
                     [10, 25, 50, 100]
                 ],
-                order: [
-                    [1, 'desc']
-                ], // Date desc
-                pageLength: 10,
+
+                order: [[0, 'desc']],
+                pageLength: 10
             });
 
-            $('#feedbackReportTable').on('init.dt', function() {
-                $('.dataTables_filter input[type="search"]')
-                    .attr('placeholder', 'Search by Ref or Member ID');
+
+            $('#feedbackReportTable').on('init.dt', function () {
+                $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by Ref, subject, email, or status');
             });
 
+            $(document).off('click','.completed_btn');
+            let feedbackID = null;
+            $(document).on('click','.completed_btn', function(){
+                feedbackID = $(this).attr('data-id');
+                $('#confirm-popup').modal('show');
+            });
+
+            $('.saveStatus').click(function(){
+                $.ajax({
+                    url: '{{route("admin.feedback.status.change")}}', 
+                    method: 'POST',                     
+                    dataType: 'json',
+                    data:{id: feedbackID,status:2, _token: '{{ csrf_token() }}'},
+                    success:function(data){
+                        feedbackID = null;
+                        $('#feedbackReportTable').DataTable().ajax.reload(null, false);
+                        $(".head_modal_title").html("Feedback Updated");
+                        $('.comman_msg').html("The feedback status has been successfully changed to Completed.");
+                        $('#comman_modal').modal('show');
+                    }               
+                })
+            });
+
+            $(document).on('click','.view-feedback-btn', function(){
+                $('#feedbackReportView').modal('show');
+            });
         });
     </script>
 @endpush
