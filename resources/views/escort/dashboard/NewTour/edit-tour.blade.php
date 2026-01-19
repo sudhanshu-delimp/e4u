@@ -98,7 +98,9 @@ $is_checkout = $tour->tourPurchase->count();
                                                                     <option value="3" {{($profile['tour_plan']=='3'?'selected':'')}}>Silver</option>
                                                                     <option value="4" {{($profile['tour_plan']=='4'?'selected':'')}}>Free</option>
                                                                 </select>
-                                                                <span class="profile-dates text-muted">Start: {{$tourLocation->start_date_formatted}}, End: {{$tourLocation->end_date_formatted}}</span>
+                                                                <span class="profile-dates text-muted">Start: {{$tourLocation->start_date_formatted}}, End: {{$tourLocation->end_date_formatted}} @if(!empty($profile->is_pinup)) <sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
+                                                                    <small class="listing-tag-tooltip-desc">Pinup from {{ $profile->escortPinup->start_date }} to {{$profile->escortPinup->end_date}}</small>
+                                                                    </sup> @endif</span>
                                                                 @if(!$is_checkout) 
                                                                 <button type="button" class="btn btn-sm btn-danger removeProfile">Remove</button>
                                                                 @endif

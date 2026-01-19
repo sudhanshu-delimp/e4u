@@ -72,6 +72,7 @@
                                           </div>
                                         <div class="form-group row custom-pin-button">
                                             <div class="col-sm-12 text-center">
+                                                <input type="hidden" name="tour_location_id">
                                                 <button type="submit" class="btn btn-primary"
                                                     id="savePinupButton">Proceed to Payment</button>
                                             </div>

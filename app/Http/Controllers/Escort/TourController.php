@@ -33,6 +33,7 @@ use App\Models\Escort;
 use App\Models\Tour;
 use App\Models\TourLocation;
 use App\Models\TourProfile;
+use App\Models\EscortPinup;
 use Illuminate\Support\Facades\DB;
 //use Illuminate\Http\Request;
 
@@ -1053,21 +1054,76 @@ class TourController extends Controller
     public function getTourLocationProfiles(Request $request){
         try {
             $response['success'] = false;
-            $profiles = TourProfile::with('escort')->where('tour_location_id',$request->tour_location_id)->get();
-            if($profiles->count() > 0){
+            $tour_location_id = $request->tour_location_id;
+            $tourLocation = TourLocation::find($tour_location_id);
+            $profiles = TourProfile::with('escort')->where(['tour_location_id'=>$tour_location_id])->get();
+            $availableWeeks = $this->getPinupAvailableWeeks($tourLocation);
+            if($availableWeeks['success']){
                 $response['success'] = true;
                 $response['profiles'] = $profiles;
+                $response['weeks'] = $availableWeeks['weeks'];
             }
             else{
-                $response['message'] = 'Not Available.';
+                $response['message'] = $availableWeeks['message'];
             }
             return response()->json($response);
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage()
             ], 500);
+        }
+    }
+
+    protected function getPinupAvailableWeeks($tour_location){
+        try{
+            $start = Carbon::parse($tour_location->start_date)->startOfWeek(Carbon::MONDAY);
+            $end = Carbon::parse($tour_location->end_date)->endOfWeek(Carbon::SUNDAY);
+            $weeks = collect();
+            $candidateStarts = [];
+            $today = Carbon::now();
+            while ($start->lte($end)) {
+                $weekStart = $start->copy();
+                $weekEnd = $start->copy()->endOfWeek(Carbon::SUNDAY);
+        
+                // Only include if full week is within profile listing range
+            
+                if ($weekStart->gte(Carbon::parse($tour_location->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($tour_location->end_date)->endOfDay()) && $weekEnd->gte($today->startOfDay())) {
+                    $weeks->push([
+                        'start' => $weekStart->toDateString(),
+                        'end' => $weekEnd->toDateString()
+                    ]);
+                    $candidateStarts[] = $weekStart->toDateString();
+                }
+        
+                $start->addWeek();
+            }
+            if (empty($candidateStarts)) {
+                return [
+                    'success' => false,
+                    'weeks' => $weeks,
+                    'message' => 'Sorry, no weeks are available during your selected listing dates.',
+                ];
+            }
+            
+            // Fetch week starts already booked for THIS location (state_id + city_id)
+            $bookedStarts = EscortPinup::query()
+            ->where('state_id', $tour_location->state_id)
+            ->whereIn('start_date', $candidateStarts)   
+            ->pluck('start_date')                       
+            ->map(fn ($d) => Carbon::parse($d)->toDateString())
+            ->all();
+            $available = $weeks->reject(fn ($w) => in_array($w['start'], $bookedStarts));
+            return [
+                'success' => true,
+                'weeks' => $available->values(),
+                'message' => 'Found available weeks.'
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
         }
     }
 
