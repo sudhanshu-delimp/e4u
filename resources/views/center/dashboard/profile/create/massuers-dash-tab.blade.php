@@ -104,7 +104,7 @@
                 <i class="fas fa-arrow-left"></i>&nbsp;Previous Step</a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right a_text_white_hover previous_bt_center_in_sm">                
-                <a href="#" class="save_profile_btn">Preview Profile</a>
+                <!-- <a href="#" class="save_profile_btn">Preview Profile</a> -->
                 <input type="hidden" name="massage_profile_id"   id="massage_profile_id">              
                 <button type="submit" id="submit_form_massage" class=" btn_width_hundred save_profile_btn">Save Profile</button>
             </div>
