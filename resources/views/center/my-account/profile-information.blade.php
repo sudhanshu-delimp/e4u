@@ -222,12 +222,17 @@
                                                                         <option value="{{$key}}"  @if(!empty($massage_profile->language)) @if(in_array($key ,$massage_profile->language)) selected @endif @endif data-name="{{ $language }}">{{$language}}</option>
                                                                         @endforeach>
                                                                     </select>
-                                                                    @if(!empty($massage_profile->language)) @foreach($massage_profile->language as $language)
-                                                                    <div class='selecated_languages select_lang'>
-                                                                        <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!} <small class='remove-lang'>×</small></span>
-                                                                        
-                                                                    </div>
-                                                                    @endforeach @endif
+                                                                    @if(!empty($massage_profile->language)) 
+                                                                        <div style="display:flex;margin-top: 5px;">
+                                                                                @foreach($massage_profile->language as $language)
+                                                                            
+                                                                                <div class='selecated_languages select_lang'>
+                                                                                    <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!} <small class='remove-lang'>×</small></span>
+                                                                                    
+                                                                                </div>
+                                                                                @endforeach 
+                                                                        </div>
+                                                                    @endif
                                                                     <div id="container_language">
                                                                     </div>
                                                                     <div id="show_language" style="display:none">
@@ -713,7 +718,15 @@
 
 
 
-
+    $('#language').change(function(){
+        var languageValue = $('#language').val();
+        $("#show_language").show();
+        $(".select_lang").hide();
+        var selectedLanguage = $(this).children("option:selected", this).data("name");
+        $("#show_language").append("  <div class='selecated_languages' style='display: inline-block'><span class='languages_choosed_from_drop_down'>"+ selectedLanguage +" <small class='remove-lang'>×</small></span> </div> ");
+        $("#container_language").append("<input type='hidden' name='language[]' value="+ languageValue +">");
+        $("#language option[value='"+languageValue+"']").remove();
+    });
 
 
 
