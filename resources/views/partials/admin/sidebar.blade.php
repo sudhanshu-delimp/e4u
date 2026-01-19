@@ -1136,7 +1136,7 @@
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ShareholderDocuments"
                                 aria-expanded="false" aria-controls="ShareholderDocuments">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span>Shareholder Documents</span>
+                                <span>Shareholder Docs</span>
                             </a>
                             <div id="ShareholderDocuments" class="collapse @if (in_array(request()->segment(3), ['annual-profit-and-loss','balance-sheet','constitution','minutes','updates'])) show @endif" data-parent="#ShareholdersMenu">
 
