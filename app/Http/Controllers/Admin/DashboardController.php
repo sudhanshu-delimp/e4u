@@ -482,4 +482,28 @@ class DashboardController extends BaseController
         else
             return $this->successResponse('Email(s) are available');
     }
+
+    /**
+     * get data if feedback
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
+    public function feedbackList(Request $request)
+    {
+        try {
+        dd("gfd");
+
+        } catch (\Exception $e) {
+
+            \Log::error('Feedback DataTable Error: ' . $e->getMessage());
+
+            return response()->json([
+                'draw' => intval($request->get('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => [],
+                'error' => 'Something went wrong while loading feedback data.'
+            ], 500);
+        }
+    }
 }

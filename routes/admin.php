@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
+    
 });
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
 Route::post('/update-account', [DashboardController::class, 'update'])->name('admin.account.update');
@@ -703,6 +704,12 @@ Route::get('publications/alerts', function () {
     return view('admin.publications.alerts');
 })->name('admin.alerts');
 
+Route::get('feedback', function () {
+    return view('admin.feedback.feedback-list');
+})->name('admin.feedback');
+
+Route::get('feedback-list', [DashboardController::class, 'feedbackList'])
+    ->name('admin.feedback.dataTable');
 
 Route::get('/management/punterbox-reports', function () {
     return view('admin.management.punterbox-report');
