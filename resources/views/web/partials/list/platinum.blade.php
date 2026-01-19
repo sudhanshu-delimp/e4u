@@ -249,9 +249,9 @@
                         @foreach($escort->durations as $key => $duration)
                         <tr>
                             <td>{{ $duration->name }} </td>
-                            <td>{!! ($duration->pivot->massage_price) ? "<div class='public-num-value-table'> <span>$ </span>" . $duration->pivot->massage_price . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
+                            <td>{!! ($duration->pivot->massage_price) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
                             </td>
-                            <td>{!! ($duration->pivot->incall_price) ? "<div class='public-num-value-table'> <span>$ </span>" . $duration->pivot->incall_price . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
+                            <td>{!! ($duration->pivot->incall_price) ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . "</div>" : "<span class='if_data_not_available'>N/A</span>" !!}
                             </td>
                         </tr>
                         @if($loop->index == 5)

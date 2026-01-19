@@ -171,7 +171,13 @@ class SupportTicketsController extends AppController
     {
        
         $refNumber = random_string();
-        $red_url = (isset($request->user_type) && $request->user_type == 'viewer') ? 'user.view-and-reply-ticket' : 'support-ticket.list';
+        // $red_url = (isset($request->user_type) && $request->user_type == 'viewer') ? 'user.view-and-reply-ticket' : 'support-ticket.list';
+        $red_url = match ($request->user_type ?? '') {
+            'admin'  => 'admin.support-ticket.list',
+            'viewer' => 'user.view-and-reply-ticket',
+            default  => 'support-ticket.list',
+        };
+
         $input = [
             'user_id' => auth()->user()->id,
             'ref_number'=> $refNumber,
