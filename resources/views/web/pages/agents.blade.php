@@ -41,17 +41,17 @@
         The Advertiser's Dashboard offers many features for Escorts and Massage Centres to
         use, but we understand that not every Escort or Massage Centre is able to navigate
         through all the features. To assist Advertisers, Escorts4U offers Advertisers a way to get
-        help by connecting them with an Agent.                
+        help by connecting them with a Support Agent, or Agent as we often call them.                
     </p>
     <h2 class="primery_color normal_heading">What is an Agent</h2>
     <p>
-        An Agent is a business or person who organises an Advertiser's Profile and / or Tour on
+        An Agent is a business or a person who organises an Advertiser's Profile and / or Tour on
         their behalf, and generally looks after their Account. We put Agents in contact with
         Advertisers when the Advertiser has requested help (see also <a class="termsandconditions_text_color" href="{{ url('help-for-escorts')}}" class="e4ulinks">Help for Advertisers</a>).
     </p>
     <h2 class="primery_color normal_heading">How does an Agent get rewarded?</h2>
     <p>
-        When an Agent is put in contact with an Advertiser, the two of them discuss a fee for the
+        When the Agent is put in contact with an Advertiser, the two of them discuss a fee for the
         work the Agent will undertake for the Advertiser. Those arrangements are between the
         Agent and the Advertiser. We do provide Agents with guidelines on what to charge for other
         services. An Agent will also receive a percentage of the Fees paid to us by Advertisers for
@@ -62,7 +62,10 @@
 
     <!-- please register link should redirect on agent registration form -->
     <p> 
-        Simply <a class="termsandconditions_text_color" href="{{ route('agent.register') }}" class="e4ulinks">register</a> with us and when a request is made by an Advertiser, your details will be
+        You can either <a class="termsandconditions_text_color" href="{{ route('agent.register') }}" class="e4ulinks">register</a> with us, 
+        or visit our appointed <a class="termsandconditions_text_color" href="https://agencymanagement.com.au"  target="_blank">Manager</a> where you will
+        find detailed information about becoming an Agent.  Once approved, when a 
+        request is made by an Advertiser, your details will be
         made available to them. You can also seek out Massage Centres with a view to having
         them register with Escorts4U where you will receive a payment for your services.
     </p>

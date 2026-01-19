@@ -44,7 +44,7 @@
             To access the Service, Advertisers need to <a href="{{ route('advertiser.login') }}" class="e4ulinks" style="color:#FF3C5F;font-size: 16px;">logon</a> and at their Dashboard:
         </p>
         <ul>
-            <li><p class="mb-0">Select Concierge from the menu and click "Email Hosting"</p></li>
+            <li><p class="mb-0">Select Administration > Concierge from the menu and click "Email Hosting"</p></li>
             <li><p class="mb-0">Follow the instructions and complete the form</p></li>
             <li><p class="mb-0">Check your details are correct and proceed to payment</p></li>
         </ul>
