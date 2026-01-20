@@ -5,6 +5,10 @@
     @endforeach
 @endif
 
+@if(notic_alert())
+ <x-global_frontend.publications_alert  :content="notic_alert()" />
+@endif
+
 <div class="blue-bg-before home--header">
          <nav class="navbar navbar-expand-lg navbar-light blue_and_white_nav_blue_in_small">
          <div class="container-fluid manage_header_padding">
