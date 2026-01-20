@@ -205,7 +205,7 @@
                                     New Profile
                                 </a>
 
-                                 <a class="dropdown-item" href="{{ route('center.new-listing')}}">
+                                 <a class="dropdown-item" href="{{ route('center.create-new-masseur')}}">
                                       <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
                                     New Masseur 
                                 </a>

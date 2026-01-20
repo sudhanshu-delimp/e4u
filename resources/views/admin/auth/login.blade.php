@@ -124,7 +124,7 @@
                           </div>
                        </div>
                        <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Reset Password</strong></h4>
-                       <p class="text-center pb-2">We’ll send you a reset password link on your email.</p>
+                       <p class="text-center pb-2">We will send you a reset password link to your email.</p>
                        <input type="txt" required class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" data-parsley-required-message="Your Email is required" value="{{ old('email') }}">
                        <div class="termsandconditions_text_color">
                           @error('email')

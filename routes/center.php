@@ -15,6 +15,7 @@ use App\Http\Controllers\Center\MassageGalleryController;
 use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\UpdateController;
 use App\Http\Controllers\Center\Profile\MassageController;
+use App\Http\Controllers\Center\Masseurs\MasseurController;
 use App\Http\Controllers\Center\MassageCenterAccountController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Center\CenterProfileInformationController;
@@ -93,8 +94,14 @@ Route::post('update-massage-profile',[MassageController::class,'updateprofile'])
 Route::get('archive-view-photos', [CenterProfileInformationController ::class, 'galleries'])->name('cen.archive-view-photos');
 Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
 
- 
 
+Route::get('create-new-masseur', [MasseurController::class, 'index'])->name('center.create-new-masseur');
+Route::get('create-new-masseur', [MasseurController::class, 'add_masseur'])->name('center.create-new-masseur');
+ 
+// Route::get('masseurs/new-listing', function()
+// {
+// 	return view('center.dashboard.masseurs.new-listing');
+// })->name('center.new-listing');
 
 //Route::get('update-profile/{id?}',[CreateController::class,'updateBasicProfile'])->name('center.profile.basic.update');
 //create new profile
@@ -210,10 +217,7 @@ Route::get('listing/past', function()
 
 
 // add Masseurs Profle Route
-Route::get('masseurs/new-listing', function()
-{
-	return view('center.dashboard.masseurs.new-listing');
-})->name('center.new-listing');
+
 
 Route::get('masseurs/archives-listing', function()
 {

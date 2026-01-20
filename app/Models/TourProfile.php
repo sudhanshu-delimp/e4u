@@ -19,4 +19,9 @@ class TourProfile extends Model
     {
         return $this->belongsTo(Escort::class,'escort_id');
     }
+
+    public function escortPinup()
+    {
+        return $this->belongsTo(EscortPinup::class, 'is_pinup', 'id');
+    }
 }
