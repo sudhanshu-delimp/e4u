@@ -1038,7 +1038,7 @@
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Blackbox"
                                 aria-expanded="false" aria-controls="Blackbox">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span>Blackbox Tech</span>
+                                <span>Blackbox Tech...</span>
                             </a>
                             <div id="Blackbox" class="collapse @if (in_array(request()->segment(3), ['annual-report','directors','portfolio'])) show @endif" data-parent="#ShareholdersMenu">
 

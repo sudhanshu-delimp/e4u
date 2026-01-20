@@ -178,6 +178,7 @@ class TourRepository extends BaseRepository implements TourInterface
                 $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $item->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
             }
             else{
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#pinup_profile" data-tour-id="'.$item->id.'"> <i class="fa fa-arrow-up" ></i> List Pin Up</a>'; 
                 $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
             }
             $action .= '</div></div>';
