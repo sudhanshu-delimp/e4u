@@ -3,7 +3,17 @@
         <x-global_frontend.global-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" />
     @endforeach
 @endif
-
+<!-- News Topbar -->
+@if(notic_alert())
+ <x-global_frontend.publications_alert  :content="notic_alert()" />
+@endif
+{{-- <div class="news-bar">
+    <div class="container-fluid">
+        <div class="news-track">
+            <span class="news-item">🔴 BREAKING: System maintenance at 10 PM</span>
+        </div>
+    </div>
+</div> --}}
 
 <nav class="navbar navbar-expand-lg navbar-light main_bg_color py-3 custom--header">
     <div class="container-fluid manage_header_padding">

@@ -110,7 +110,7 @@
                     'shareholders-guidelines',
                     'reports',
                     'send-reports',
-                    'alerts',
+                    'alert',
                     'blog',
                     'credit',
                     'agent-requests',
@@ -372,13 +372,13 @@
                             src="{{ asset('assets/dashboard/img/menu-icon/publication.png') }}">
                         <span>Publications</span>
                     </a>
-                    <div id="Publications" class="collapse @if (request()->segment(3) == 'alerts' || request()->segment(3) == 'blog') show @endif;" data-parent="#Administration">
+                    <div id="Publications" class="collapse @if (request()->segment(3) == 'alert' || request()->segment(3) == 'blog') show @endif;" data-parent="#Administration">
                         <div class="py-0 collapse-inner rounded mb-2">
-                            <a class="nav-link collapsed" href="{{ route('admin.alerts') }}">
+                            <a class="nav-link collapsed" href="{{ route('admin.publications.alert.index') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/alert.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'alerts' ? 'color: #FF3C5F;' : '' }}">Alerts</span>
+                                    style="{{ request()->segment(3) == 'alert' ? 'color: #FF3C5F;' : '' }}">Alerts</span>
                             </a>
                             <a class="nav-link collapsed" href="{{ route('admin.blog') }}">
                                 <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg"

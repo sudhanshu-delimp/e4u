@@ -33,6 +33,7 @@ use App\Models\Escort;
 use App\Models\Tour;
 use App\Models\TourLocation;
 use App\Models\TourProfile;
+use App\Models\EscortPinup;
 use Illuminate\Support\Facades\DB;
 //use Illuminate\Http\Request;
 
@@ -98,16 +99,7 @@ class TourController extends Controller
         if($user->status == "Suspended"){
              return redirect()->route('escort.dashboard')->with('info', config('common.access_denied_suspended_msg'));
         }
-        // $escort = $this->escort->FindByUsers(auth()->user()->id);
-        // $escorts = $escort->whereNotNull('state_id')->where('default_setting',0)->unique('state_id');
-
-        // $user_names = $escort->whereNotNull('state_id')->where('default_setting',0);
-
-        // $tours = $this->tour->all();
-        // $find_tour = null;
-
-        //dd($user_names);
-        //return view('escort.dashboard.NewTour.create-tour',compact('escorts','tours','find_tour','user_names'));
+        
         if(!empty($id)){
             $tour = Tour::findOrFail($id);
             $tourLocations = TourLocation::where(['tour_id'=>$id])->get();
@@ -1034,5 +1026,108 @@ class TourController extends Controller
                 'message' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function getTourLocations(Request $request){
+        try {
+            $response['success'] = false;
+            $tourId = $request->tour_id;
+            $conditions = $request->module=='pinup'?['tour_id'=>$tourId, 'is_pinup'=>'0']:['tour_id'=>$tourId];
+            $locations = TourLocation::with('state')->where($conditions)->get();
+            if($locations->count() > 0){
+                $response['success'] = true;
+                $response['locations'] = $locations;
+            }
+            else{
+                $response['message'] = 'Not Available.';
+            }
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
+    public function getTourLocationProfiles(Request $request){
+        try {
+            $response['success'] = false;
+            $tour_location_id = $request->tour_location_id;
+            $tourLocation = TourLocation::find($tour_location_id);
+            $profiles = TourProfile::with('escort')->where(['tour_location_id'=>$tour_location_id])->get();
+            $availableWeeks = $this->getPinupAvailableWeeks($tourLocation);
+            if($availableWeeks['success']){
+                $response['success'] = true;
+                $response['profiles'] = $profiles;
+                $response['weeks'] = $availableWeeks['weeks'];
+            }
+            else{
+                $response['message'] = $availableWeeks['message'];
+            }
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    protected function getPinupAvailableWeeks($tour_location){
+        try{
+            $start = Carbon::parse($tour_location->start_date)->startOfWeek(Carbon::MONDAY);
+            $end = Carbon::parse($tour_location->end_date)->endOfWeek(Carbon::SUNDAY);
+            $weeks = collect();
+            $candidateStarts = [];
+            $today = Carbon::now();
+            while ($start->lte($end)) {
+                $weekStart = $start->copy();
+                $weekEnd = $start->copy()->endOfWeek(Carbon::SUNDAY);
+        
+                // Only include if full week is within profile listing range
+            
+                if ($weekStart->gte(Carbon::parse($tour_location->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($tour_location->end_date)->endOfDay()) && $weekEnd->gte($today->startOfDay())) {
+                    $weeks->push([
+                        'start' => $weekStart->toDateString(),
+                        'end' => $weekEnd->toDateString()
+                    ]);
+                    $candidateStarts[] = $weekStart->toDateString();
+                }
+        
+                $start->addWeek();
+            }
+            if (empty($candidateStarts)) {
+                return [
+                    'success' => false,
+                    'weeks' => $weeks,
+                    'message' => 'Sorry, no weeks are available during your selected listing dates.',
+                ];
+            }
+            
+            // Fetch week starts already booked for THIS location (state_id + city_id)
+            $bookedStarts = EscortPinup::query()
+            ->where('state_id', $tour_location->state_id)
+            ->whereIn('start_date', $candidateStarts)   
+            ->pluck('start_date')                       
+            ->map(fn ($d) => Carbon::parse($d)->toDateString())
+            ->all();
+            $available = $weeks->reject(fn ($w) => in_array($w['start'], $bookedStarts));
+            return [
+                'success' => true,
+                'weeks' => $available->values(),
+                'message' => 'Found available weeks.'
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function registerTourPinup(Request $request){
+
     }
 }

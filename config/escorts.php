@@ -457,6 +457,17 @@ return [
 
 
 		'states' => [
+			'4008' => [
+				"stateName" => 'Maharashtra',
+				'stateAbbr' => 'MH',
+				'timeZone' => 'Asia/Kolkata',
+				'cities' => [
+					133504 => [
+						'cityName' => 'Pune',
+						'timeZone' => 'Asia/Kolkata',
+					],
+				],
+			],
 			'4022' => [
 				"stateName" => 'Uttar Pradesh',
 				'stateAbbr' => 'UP',

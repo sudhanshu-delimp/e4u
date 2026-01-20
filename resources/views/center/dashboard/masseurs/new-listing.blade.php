@@ -43,251 +43,284 @@
                         </div>
                     </div>
                 </div>
-                {{-- start content --}}
+
+
+               
 
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="add-mcc-section">
-                            <form action="">
-                              {{-- About The Masseur --}}
-                                <div class="mcc-form-tab">
-                                    <h2 class="mcc-heading">About The Masseur</h2>
-                                    <div class="business-info-field pt-4">
-                                        <!-- Personal Info -->
-                                        <div class="form-group business-field">
-                                            <label for="masseurName" class="mb-1">Name</label>
-                                            <input type="text" id="masseurName" class="form-control rounded-0"
-                                                placeholder="Enter Name" required>
-                                        </div>
-                                        <div class="form-group business-field">
-                                            <label for="stageName" class="mb-1">Stage Name</label>
-                                            <input type="text" id="stageName" class="form-control rounded-0"
-                                                placeholder="Enter Stage Name" required>
-                                        </div>
-                                        <div class="form-group business-field">
-                                            <label for="masseurMobile" class="mb-1">Mobile</label>
-                                            <input type="text" id="masseurMobile" class="form-control rounded-0"
-                                                placeholder="Enter Mobile" required>
-                                        </div>
-
-                                        <div class="form-group business-field">
-                                            <label for="nationality" class="mb-1">Nationality</label>
-                                            <select id="nationality" class="form-control rounded-0" required>
-                                                <option value="">-Not Set-</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group business-field">
-                                            <label for="ethnicity" class="mb-1">Ethnicity</label>
-                                            <select id="ethnicity" class="form-control rounded-0" required>
-                                                <option value="">-Not Set-</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group business-field">
-                                            <label for="age" class="mb-1">Age</label>
-                                            <input type="number" id="age" class="form-control rounded-0"
-                                                placeholder="Enter Age">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="label">Vaccination</label>
-                                            <div class="d-flex justify-content-start gap-10">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="vaccination"
-                                                        id="vaccinatedNotUpToDate" value="not_up_to_date">
-                                                    <label class="form-check-label" for="vaccinatedNotUpToDate">
-                                                        Vaccinated, not up to date
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="vaccination"
-                                                        id="vaccinatedUpToDate" value="up_to_date">
-                                                    <label class="form-check-label" for="vaccinatedUpToDate">
-                                                        Vaccinated, up to date
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="vaccination"
-                                                        id="notVaccinated" value="not_vaccinated">
-                                                    <label class="form-check-label" for="notVaccinated">
-                                                        Not Vaccinated
-                                                    </label>
-                                                </div>
+                            
+                        
+                            <form id="masseur_frm" name="masseur_frm" action="{{ route('center.create-new-masseur')}}" method="Post">
+               
+                                    <!-- About The Masseur -->
+                                    <div class="mcc-form-tab">
+                                        <h2 class="mcc-heading">About The Masseur</h2>
+                                        <div class="business-info-field pt-4">
+                                            <!-- Personal Info -->
+                                            <div class="form-group business-field">
+                                                <label for="name" class="mb-1">Name</label>
+                                                <input type="text" id="name" name="name"  class="form-control rounded-0"
+                                                    placeholder="Enter Name" required>
                                             </div>
-                                        </div>
+                                            <div class="form-group business-field">
+                                                <label for="stage_name" class="mb-1">Stage Name</label>
+                                                <input type="text" id="stage_name" name="stage_name" class="form-control rounded-0"
+                                                    placeholder="Enter Stage Name" required>
+                                            </div>
+                                            <div class="form-group business-field">
+                                                <label for="mobile" class="mb-1">Mobile</label>
+                                                <input type="text" id="mobile" name="mobile" class="form-control rounded-0"
+                                                    placeholder="Enter Mobile" required>
+                                            </div>
+
+
+                                            <div class="form-group business-field">
+                                                <label for="nationality" class="mb-1">Nationality</label>
+                                                    @php
+                                                        $countrys = getCountryList();
+                                                    @endphp
+                                                <select id="nationality" name="nationality" class="form-control rounded-0" required>
+                                                    <option value="">-Not Set-</option>
+                                                    @if (count($countrys) > 0)
+                                                        @foreach ($countrys as $ckey => $cname)
+                                                            <option value="{{ old('nationality_id', $ckey) }}">{{ $cname }}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>
+
+
+                                            <div class="form-group business-field">
+                                                <label for="ethnicity" class="mb-1">Ethnicity</label>
+                                                <select id="ethnicity" name="ethnicity" class="form-control rounded-0" required>
+                                                    <option value="">-Not Set-</option>
+                                                    @foreach (config('escorts.profile.ethnicities') as $key => $ethnicity)
+                                                        <option value="{{ $key }}"> {{ $ethnicity }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group business-field">
+                                                <label for="age" class="mb-1">Age</label>
+                                                <input type="text" id="age" name="age" data-type="number" data-regex="^(1[89]|[2-9][0-9])$"  data-min="18" data-max-length="2" data-label="Age" class="form-control rounded-0"
+                                                    placeholder="Enter Age" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                    <label class="label">Vaccination</label>
+                                                    <div class="d-flex justify-content-start gap-10">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input"
+                                                                    type="radio"
+                                                                    name="vaccination"
+                                                                    value="1"
+                                                                    required
+                                                                    data-label="Vaccination">
+                                                                <label class="form-check-label">
+                                                                    Vaccinated, not up to date
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input"
+                                                                    type="radio"
+                                                                    name="vaccination"
+                                                                    value="2">
+                                                                <label class="form-check-label">
+                                                                    Vaccinated, up to date
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input"
+                                                                    type="radio"
+                                                                    name="vaccination"
+                                                                    value="3">
+                                                                <label class="form-check-label">
+                                                                    Not Vaccinated
+                                                                </label>
+                                                            </div>
+                                                    </div>
+                                                </div>
+
                                     </div>
-                                    <div class="">
-                                       
-                                        <!-- Commentary -->
-                                        <div class="form-group">
-                                            <label for="commentary" class="label">Commentary</label>
-                                            <textarea id="commentary" class="form-control rounded-0" placeholder="Commentary (max 300 words)" rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- media --}}
-                                <div class="mcc-form-tab">
-                                    <h2 class="mcc-heading">Media</h2>
+
                                     <div class="row">
-                                        <div class="col-md-12 my-3 d-flex justify-content-end">
-                                            <button type="button" class="create-tour-sec dctour" data-toggle="modal"
-                                                data-target="#add_photo_mcc">Add Photos</button>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-12">
-                                            <div class="upload-banner p-0">
-                                                <div class="photo-top-header">
-                                                    <div class="custom-img-filter-header border-0">
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <h3 class="gallery-head">Your Default Images</h3>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row p-3">
-                                                    <div class="col-sm-12">
-                                                        <h4 class="banner-sub-heading my-2">Thumbnail</h4>
-                                                        <div class="plate">
-                                                            <label class="newbtn" data-toggle="modal"
-                                                                data-target="#photo_gallery">
-                                                                <img class="w-100" id="img1"
-                                                                    src="{{ asset('assets/app/img/mcc-default-thumbnail.png') }}">
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12">
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <h4 class="banner-sub-heading my-2">Gallery Images</h4>
-                                                            </div>
-                                                            <div class="col-sm-12 d-flex align-item-center gap-10">
-                                                                <div class="plate">
-                                                                    <label class="newbtn" data-toggle="modal"
-                                                                        data-target="#photo_gallery">
-                                                                        <img class="w-100"
-                                                                            id="img2"src="{{ asset('assets/app/img/frame-main-thum.png') }}">
-                                                                    </label>
-                                                                </div>
-                                                                <div class="plate">
-                                                                    <label class="newbtn" data-toggle="modal"
-                                                                        data-target="#photo_gallery">
-                                                                        <img class="w-100"
-                                                                            id="img3"src="{{ asset('assets/app/img/frame-main-thum.png') }}">
-                                                                    </label>
-                                                                </div>
-                                                                <div class="plate">
-                                                                    <label class="newbtn" data-toggle="modal"
-                                                                        data-target="#photo_gallery">
-                                                                        <img class="w-100"
-                                                                            id="img4"src="{{ asset('assets/app/img/frame-main-thum.png') }}">
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        <div class="col-sm-12">                                                
+                                            <!-- Commentary -->
+                                            <div class="form-group">
+                                                <label for="commentary" class="label">Commentary</label>
+                                                <textarea id="commentary" name="commentary" class="form-control rounded-0" placeholder="Commentary (max 300 words)" rows="3"></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-lg-8 col-sm-12">
-                                            <div class="photo-top-header">
-                                                <div class="photo-top-header">
-                                                    <div class="photo-header custom-photo-header">
-                                                        <div class="modal-header border-0 p-0"
-                                                            style="display: block;position: relative;top: 30%;">
+                                    </div>
+                                    <!-- End About The Masseur -->
+
+                                    <!-- Media -->
+                                    {{-- media --}}
+                                    <div class="mcc-form-tab">
+                                        <h2 class="mcc-heading">Media</h2>
+                                        <div class="row">
+                                            <div class="col-md-12 my-3 d-flex justify-content-end">
+                                                <button type="button" class="create-tour-sec dctour" data-toggle="modal"
+                                                    data-target="#add_photo_mcc">Add Photos</button>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12">
+                                                <div class="upload-banner p-0">
+                                                    <div class="photo-top-header">
+                                                        <div class="custom-img-filter-header border-0">
                                                             <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <ul class="nav nav-tabs border-0">
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link active" id="menu_all"
-                                                                                data-toggle="tab" href="#home">All</a>
-                                                                        </li>
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link" id="menu_varified"
-                                                                                data-toggle="tab"
-                                                                                href="#menu1">Verified</a>
-                                                                        </li>
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link" id="menu_unverified"
-                                                                                data-toggle="tab"
-                                                                                href="#menu2">Unverified</a>
-                                                                        </li>
-                                                                    </ul>
+                                                                <div class="col-lg-12">
+                                                                    <h3 class="gallery-head">Your Default Images</h3>
                                                                 </div>
-                                                                <div class="col-md-2 pt-1">
-                                                                    <div class="progress">
-                                                                        <div class="progress-bar bg-success"
-                                                                            role="progressbar" style="width: 100%"
-                                                                            aria-valuenow="16.16" aria-valuemin="0"
-                                                                            aria-valuemax="100"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row p-3">
+                                                        <div class="col-sm-12">
+                                                            <h4 class="banner-sub-heading my-2">Thumbnail</h4>
+                                                            <div class="plate">
+                                                                <label class="newbtn" data-toggle="modal"
+                                                                    data-target="#photo_gallery">
+                                                                    <img class="w-100" id="img1"
+                                                                        src="{{ asset('assets/app/img/mcc-default-thumbnail.png') }}">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <h4 class="banner-sub-heading my-2">Gallery Images</h4>
+                                                                </div>
+                                                                <div class="col-sm-12 d-flex align-item-center gap-10">
+                                                                    <div class="plate">
+                                                                        <label class="newbtn" data-toggle="modal"
+                                                                            data-target="#photo_gallery">
+                                                                            <img class="w-100"
+                                                                                id="img2"src="{{ asset('assets/app/img/frame-main-thum.png') }}">
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="plate">
+                                                                        <label class="newbtn" data-toggle="modal"
+                                                                            data-target="#photo_gallery">
+                                                                            <img class="w-100"
+                                                                                id="img3"src="{{ asset('assets/app/img/frame-main-thum.png') }}">
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="plate">
+                                                                        <label class="newbtn" data-toggle="modal"
+                                                                            data-target="#photo_gallery">
+                                                                            <img class="w-100"
+                                                                                id="img4"src="{{ asset('assets/app/img/frame-main-thum.png') }}">
+                                                                        </label>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-2">
-                                                                    <div style="display: flex;gap: 15px;">
-                                                                        <p>6/6</p>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8 col-sm-12">
+                                                <div class="photo-top-header">
+                                                    <div class="photo-top-header">
+                                                        <div class="photo-header custom-photo-header">
+                                                            <div class="modal-header border-0 p-0"
+                                                                style="display: block;position: relative;top: 30%;">
+                                                                <div class="row">
+                                                                    <div class="col-md-8">
+                                                                        <ul class="nav nav-tabs border-0">
+                                                                            <li class="nav-item">
+                                                                                <a class="nav-link active" id="menu_all"
+                                                                                    data-toggle="tab" href="#home">All</a>
+                                                                            </li>
+                                                                            <li class="nav-item">
+                                                                                <a class="nav-link" id="menu_varified"
+                                                                                    data-toggle="tab"
+                                                                                    href="#menu1">Verified</a>
+                                                                            </li>
+                                                                            <li class="nav-item">
+                                                                                <a class="nav-link" id="menu_unverified"
+                                                                                    data-toggle="tab"
+                                                                                    href="#menu2">Unverified</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="col-md-2 pt-1">
+                                                                        <div class="progress">
+                                                                            <div class="progress-bar bg-success"
+                                                                                role="progressbar" style="width: 100%"
+                                                                                aria-valuenow="16.16" aria-valuemin="0"
+                                                                                aria-valuemax="100"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div style="display: flex;gap: 15px;">
+                                                                            <p>6/6</p>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="archive-photo-sec upload-6-img-mcc">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="grid-container p-2" id="dvSource">
-                                                            <div class="default-img-mcc">
-                                                                <img class="img-thumbnail defult-image ui-draggable"
-                                                                    src="{{ asset('assets/app/img/banner/mcc1.jpg') }}"
-                                                                    alt="default-img-mcc">
-                                                                <i class="fa fa-trash deleteimg"
-                                                                    title="Remove this media"></i>
-                                                                <span class="badge badge-red">Gallery</span>
-                                                            </div>
+                                                <div class="archive-photo-sec upload-6-img-mcc">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="grid-container p-2" id="dvSource">
+                                                                <div class="default-img-mcc">
+                                                                    <img class="img-thumbnail defult-image ui-draggable"
+                                                                        src="{{ asset('assets/app/img/banner/mcc1.jpg') }}"
+                                                                        alt="default-img-mcc">
+                                                                    <i class="fa fa-trash deleteimg"
+                                                                        title="Remove this media"></i>
+                                                                    <span class="badge badge-red">Gallery</span>
+                                                                </div>
 
-                                                            <div class="default-img-mcc">
-                                                                <img class="img-thumbnail defult-image ui-draggable"
-                                                                    src="{{ asset('assets/app/img/banner/mcc2.jpg') }}"
-                                                                    alt="default-img-mcc">
-                                                                <i class="fa fa-trash deleteimg"
-                                                                    title="Remove this media"></i>
-                                                                <span class="badge badge-red">Gallery</span>
-                                                            </div>
+                                                                <div class="default-img-mcc">
+                                                                    <img class="img-thumbnail defult-image ui-draggable"
+                                                                        src="{{ asset('assets/app/img/banner/mcc2.jpg') }}"
+                                                                        alt="default-img-mcc">
+                                                                    <i class="fa fa-trash deleteimg"
+                                                                        title="Remove this media"></i>
+                                                                    <span class="badge badge-red">Gallery</span>
+                                                                </div>
 
-                                                            <div class="default-img-mcc">
-                                                                <img class="img-thumbnail defult-image ui-draggable"
-                                                                    src="{{ asset('assets/app/img/banner/mcc3.jpg') }}"
-                                                                    alt="default-img-mcc">
-                                                                <i class="fa fa-trash deleteimg"
-                                                                    title="Remove this media"></i>
-                                                                <span class="badge badge-red">Gallery</span>
-                                                            </div>
+                                                                <div class="default-img-mcc">
+                                                                    <img class="img-thumbnail defult-image ui-draggable"
+                                                                        src="{{ asset('assets/app/img/banner/mcc3.jpg') }}"
+                                                                        alt="default-img-mcc">
+                                                                    <i class="fa fa-trash deleteimg"
+                                                                        title="Remove this media"></i>
+                                                                    <span class="badge badge-red">Gallery</span>
+                                                                </div>
 
-                                                            <div class="default-img-mcc">
-                                                                <img class="img-thumbnail defult-image ui-draggable"
-                                                                    src="{{ asset('assets/app/img/banner/mcc4.jpg') }}"
-                                                                    alt="default-img-mcc">
-                                                                <i class="fa fa-trash deleteimg"
-                                                                    title="Remove this media"></i>
-                                                                <span class="badge badge-red">Gallery</span>
-                                                            </div>
+                                                                <div class="default-img-mcc">
+                                                                    <img class="img-thumbnail defult-image ui-draggable"
+                                                                        src="{{ asset('assets/app/img/banner/mcc4.jpg') }}"
+                                                                        alt="default-img-mcc">
+                                                                    <i class="fa fa-trash deleteimg"
+                                                                        title="Remove this media"></i>
+                                                                    <span class="badge badge-red">Gallery</span>
+                                                                </div>
 
-                                                            <div class="default-img-mcc">
-                                                                <img class="img-thumbnail defult-image ui-draggable"
-                                                                    src="{{ asset('assets/app/img/banner/mcc5.jpg') }}"
-                                                                    alt="default-img-mcc">
-                                                                <i class="fa fa-trash deleteimg"
-                                                                    title="Remove this media"></i>
-                                                                <span class="badge badge-red">Gallery</span>
-                                                            </div>
+                                                                <div class="default-img-mcc">
+                                                                    <img class="img-thumbnail defult-image ui-draggable"
+                                                                        src="{{ asset('assets/app/img/banner/mcc5.jpg') }}"
+                                                                        alt="default-img-mcc">
+                                                                    <i class="fa fa-trash deleteimg"
+                                                                        title="Remove this media"></i>
+                                                                    <span class="badge badge-red">Gallery</span>
+                                                                </div>
 
-                                                            <div class="default-img-mcc">
-                                                                <img class="img-thumbnail defult-image ui-draggable"
-                                                                    src="{{ asset('assets/app/img/banner/mcc6.jpg') }}"
-                                                                    alt="default-img-mcc">
-                                                                <i class="fa fa-trash deleteimg"
-                                                                    title="Remove this media"></i>
-                                                                <span class="badge badge-red">Gallery</span>
+                                                                <div class="default-img-mcc">
+                                                                    <img class="img-thumbnail defult-image ui-draggable"
+                                                                        src="{{ asset('assets/app/img/banner/mcc6.jpg') }}"
+                                                                        alt="default-img-mcc">
+                                                                    <i class="fa fa-trash deleteimg"
+                                                                        title="Remove this media"></i>
+                                                                    <span class="badge badge-red">Gallery</span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -295,734 +328,164 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                {{-- My Availability --}}
-                                <div class="mcc-form-tab">
-                                    <h2>My Availability</h2>
-                                    <div
-                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
-                                        <div style="width:100px;">
-                                            <label class="col-0 label" for="monday">Monday:
-                                            </label>
-                                            <input type="hidden" value="monday">
-                                        </div>
+                                    <!-- End Media -->
 
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
-                                                name="mon_from" id="monfrom" data-parsley-gt="#mon_to"
-                                                day_key_from="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
-                                                id="monfromtime" name="mon_time_from" day_key_from="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">
-                                                    AM</option>
-                                                <option value="PM">
-                                                    PM</option>
-                                            </select>
-                                        </div>
 
-                                        <div class=" p-md-0" style="text-align: center;">
-                                            <span class="text-muted font-13">To</span>
-                                        </div>
-
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
-                                                name="mon_to" id="mon_to" day_key_to="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
-                                                id="mon_time_to" name="mon_time_to" day_key_to="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">AM
-                                                </option>
-                                                <option value="PM">PM
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <div class="">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_til_ate" value="til_ate"
-                                                    data-parsley-multiple="covidreport" availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_til_ate">... Til late</label>
-                                            </div>
+                                    <!-- My Availability -->
+                                    <div class="mcc-form-tab">
                                             
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_unavailable"
-                                                    value="unavailable" data-parsley-multiple="covidreport"
-                                                    checked="" availability_time_key="mon">
-                                                <label class="form-check-label"
-                                                    for="monday_unavailable">Unavailable</label>
-                                            </div>
-                                        </div>
+                                                <h2>My Availability</h2>   
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="padding_20_all_side my-availability-mon profile_time_availibility">
 
-                                        <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="monday"
-                                                id="resetMonday">
-                                        </div>
+                                                            @php
+                                                                $days = [
+                                                                    'monday' => 'Monday',
+                                                                    'tuesday' => 'Tuesday',
+                                                                    'wednesday' => 'Wednesday',
+                                                                    'thursday' => 'Thursday',
+                                                                    'friday' => 'Friday',
+                                                                    'saturday' => 'Saturday',
+                                                                    'sunday' => 'Sunday',
+                                                                ];
+                                                            @endphp
+
+                                                            @foreach ($days as $dayKey => $dayLabel)
+                                                                <div class="d-flex align-items-center flex-wrap gap-20 my-3 parent-row" data-day="{{ $dayKey }}">
+                                                                    
+                                                                    <label style="width:100px;"><strong>{{ $dayLabel }}:</strong></label>
+
+                                                                    <!-- FROM -->
+                                                                    <select name="time[{{ $dayKey }}][hh_from]" class="time-field">
+                                                                        <option value="">H:M</option>
+                                                                        @for ($i = 1; $i <= 12; $i++)
+                                                                            <option value="{{ sprintf('%02d',$i) }}:00">{{ sprintf('%02d',$i) }}:00</option>
+                                                                            <option value="{{ sprintf('%02d',$i) }}:30">{{ sprintf('%02d',$i) }}:30</option>
+                                                                        @endfor
+                                                                    </select>
+
+                                                                    <select name="time[{{ $dayKey }}][ampm_from]" class="time-field">
+                                                                        <option value="">--</option>
+                                                                        <option value="AM">AM</option>
+                                                                        <option value="PM">PM</option>
+                                                                    </select>
+
+                                                                    <span class="mx-2">To</span>
+
+                                                                    <!-- TO -->
+                                                                    <select name="time[{{ $dayKey }}][hh_to]" class="time-field">
+                                                                        <option value="">H:M</option>
+                                                                        @for ($i = 1; $i <= 12; $i++)
+                                                                            <option value="{{ sprintf('%02d',$i) }}:00">{{ sprintf('%02d',$i) }}:00</option>
+                                                                            <option value="{{ sprintf('%02d',$i) }}:30">{{ sprintf('%02d',$i) }}:30</option>
+                                                                        @endfor
+                                                                    </select>
+
+                                                                    <select name="time[{{ $dayKey }}][ampm_to]" class="time-field">
+                                                                        <option value="">--</option>
+                                                                        <option value="AM">AM</option>
+                                                                        <option value="PM">PM</option>
+                                                                    </select>
+
+                                                                    <!-- DEFAULT STATUS -->
+                                                                    <input type="hidden" name="availability_time[{{ $dayKey }}]" value="custom">
+
+                                                                    <!-- STATUS RADIOS -->
+                                                                    <label class="ms-3">
+                                                                        <input type="radio" name="availability_time[{{ $dayKey }}]" value="til_late">
+                                                                        … Till late
+                                                                    </label>
+
+                                                                    <label class="ms-2">
+                                                                        <input type="radio" name="availability_time[{{ $dayKey }}]" checked="true" value="24_hours">
+                                                                        Open 24 Hours
+                                                                    </label>
+
+                                                                    <label class="ms-2">
+                                                                        <input type="radio" name="availability_time[{{ $dayKey }}]" value="closed">
+                                                                        Closed
+                                                                    </label>
+
+                                                                    
+
+                                                                    <div class="resetdays-icon"> <input type="button" value="Reset" class="resetdays"> </div>
+                                                                </div>
+                                                            @endforeach
+
+                                                        </div>
+                                                    </div>
+                                                </div>              
+                            
                                     </div>
+                                    <!-- End My Availability -->                           
 
-                                    <div
-                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
-                                        <div style="width:100px;">
-                                            <label class="col-0 label" for="tuesday">Tuesday:
-                                            </label>
-                                            <input type="hidden" value="tuesday">
-                                        </div>
 
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date tuesday p-0 change_default"
-                                                name="mon_from" id="monfrom" data-parsley-gt="#mon_to"
-                                                day_key_from="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow tuesday p-0 change_default"
-                                                id="monfromtime" name="mon_time_from" day_key_from="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">
-                                                    AM</option>
-                                                <option value="PM">
-                                                    PM</option>
-                                            </select>
-                                        </div>
-
-                                        <div class=" p-md-0" style="text-align: center;">
-                                            <span class="text-muted font-13">To</span>
-                                        </div>
-
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date tuesday p-0 change_default"
-                                                name="mon_to" id="mon_to" day_key_to="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow tuesday p-0 change_default"
-                                                id="mon_time_to" name="mon_time_to" day_key_to="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">AM
-                                                </option>
-                                                <option value="PM">PM
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <div class="">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input tuesday" type="radio"
-                                                    name="availability_time[tuesday]" id="tuesday_til_ate" value="til_ate"
-                                                    data-parsley-multiple="covidreport" availability_time_key="mon">
-                                                <label class="form-check-label" for="tuesday_til_ate">... Til late</label>
+                                    <!-- Rate -->               
+                                    <div class="mcc-form-tab">
+                                        <h2>Rate</h2>
+                                            <div class="row">
+                                                <div class="col-lg-8 col-md-12 col-sm-12 full-width-for-ipad-select horizontal-scroll-rates pt-5">
+                                                    <div class="rate_first_row row">
+                                                        <div class="col-3">
+                                                        </div>
+                                                        <div class="col-3 rate-img-center rate-tooltip">
+                                                            <img src="{{asset('assets/dashboard/img/massage-only.png')}}" class="w-50">
+                                                            <span class="tooltip-info">Massage only</span>
+                                                        </div>
+                                                        <div class="col-3 rate-img-center rate-tooltip">
+                                                            <img src="{{asset('assets/dashboard/img/massage-with2.png')}}" class="w-50">
+                                                            <span class="tooltip-info">Massage with Extras, 2 hands.</span>
+                                                        </div>
+                                                        <div class="col-3 rate-img-center rate-tooltip">
+                                                            <img src="{{asset('assets/dashboard/img/massage-with4.png')}}" class="w-50">
+                                                            <span class="tooltip-info">Massage with Extras, 2 hands.</span>
+                                                        </div>
+                                                    </div>
+                                                    @foreach($durations->whereIn('id',[2,3,4,5,6]) as $duration)
+                                                    <div class="rate_first_row">
+                                                        <input type="hidden" name="duration_id[]" value="{{ $duration->id}}">
+                                                        <div class="form-group row">
+                                                            <label class="col-3 label" for="exampleFormControlSelect1">{{ $duration->name == "1 Hour" ? '1 Hour' :  $duration->name}} : </label>
+                                                            <div class="col-3">
+                                                                <div class="service_rate_dolor_symbol form-group">
+                                                                    <span>$</span>
+                                                                    <input  placeholder="0" type="text"  class="form-control allow_only_numeric" id="massage_price" name="massage_price[]" >
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="service_rate_dolor_symbol form-group">
+                                                                    <span>$</span>
+                                                                    <input  placeholder="0"  type="text"  class="form-control allow_only_numeric" id="incall_price" name="incall_price[]"  >
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="service_rate_dolor_symbol form-group">
+                                                                    <span>$</span>
+                                                                    <input  placeholder="0"  type="text"  class="form-control allow_only_numeric" id="outcall_price" name="outcall_price[]"  >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+                                                </div>
                                             </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input tuesday" type="radio"
-                                                    name="availability_time[tuesday]" id="tuesday_unavailable"
-                                                    value="unavailable" data-parsley-multiple="covidreport"
-                                                    checked="" availability_time_key="mon">
-                                                <label class="form-check-label"
-                                                    for="tuesday_unavailable">Unavailable</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="tuesday"
-                                                id="resetTuesday">
-                                        </div>
                                     </div>
+                                    <!-- End Rate -->                              
 
-                                    <div
-                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
-                                        <div style="width:100px;">
-                                            <label class="col-0 label" for="wednesday">Wednesday:
 
-                                            </label>
-                                            <input type="hidden" value="wednesday">
-                                        </div>
-
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date wednesday p-0 change_default"
-                                                name="mon_from" id="monfrom" data-parsley-gt="#mon_to"
-                                                day_key_from="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow wednesday p-0 change_default"
-                                                id="monfromtime" name="mon_time_from" day_key_from="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">
-                                                    AM</option>
-                                                <option value="PM">
-                                                    PM</option>
-                                            </select>
-                                        </div>
-
-                                        <div class=" p-md-0" style="text-align: center;">
-                                            <span class="text-muted font-13">To</span>
-                                        </div>
-
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date wednesday p-0 change_default"
-                                                name="mon_to" id="mon_to" day_key_to="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow wednesday p-0 change_default"
-                                                id="mon_time_to" name="mon_time_to" day_key_to="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">AM
-                                                </option>
-                                                <option value="PM">PM
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <div class="">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input wednesday" type="radio"
-                                                    name="availability_time[wednesday]" id="wednesday_til_ate" value="til_ate"
-                                                    data-parsley-multiple="covidreport" availability_time_key="mon">
-                                                <label class="form-check-label" for="wednesday_til_ate">... Til late</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input wednesday" type="radio"
-                                                    name="availability_time[wednesday]" id="wednesday_unavailable"
-                                                    value="unavailable" data-parsley-multiple="covidreport"
-                                                    checked="" availability_time_key="mon">
-                                                <label class="form-check-label"
-                                                    for="wednesday_unavailable">Unavailable</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="wednesday"
-                                                id="resetWednesday">
-                                        </div>
+                                    <div class="d-flex justify-content-end py-3">
+                                        <button type="button" id="submitMasseur" class="btn-common">Create Masseur</button>
                                     </div>
-
-                                    <div
-                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
-                                        <div style="width:100px;">
-                                            <label class="col-0 label" for="thursday">Thursday:
-
-
-                                            </label>
-                                            <input type="hidden" value="thursday">
-                                        </div>
-
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date thursday p-0 change_default"
-                                                name="mon_from" id="monfrom" data-parsley-gt="#mon_to"
-                                                day_key_from="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow thursday p-0 change_default"
-                                                id="monfromtime" name="mon_time_from" day_key_from="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">
-                                                    AM</option>
-                                                <option value="PM">
-                                                    PM</option>
-                                            </select>
-                                        </div>
-
-                                        <div class=" p-md-0" style="text-align: center;">
-                                            <span class="text-muted font-13">To</span>
-                                        </div>
-
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date thursday p-0 change_default"
-                                                name="mon_to" id="mon_to" day_key_to="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow thursday p-0 change_default"
-                                                id="mon_time_to" name="mon_time_to" day_key_to="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">AM
-                                                </option>
-                                                <option value="PM">PM
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <div class="">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input thursday" type="radio"
-                                                    name="availability_time[thursday]" id="thursday_til_ate" value="til_ate"
-                                                    data-parsley-multiple="covidreport" availability_time_key="mon">
-                                                <label class="form-check-label" for="thursday_til_ate">... Til late</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input thursday" type="radio"
-                                                    name="availability_time[thursday]" id="thursday_unavailable"
-                                                    value="unavailable" data-parsley-multiple="covidreport"
-                                                    checked="" availability_time_key="mon">
-                                                <label class="form-check-label"
-                                                    for="thursday_unavailable">Unavailable</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="thursday"
-                                                id="resetThursday">
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
-                                        <div style="width:100px;">
-                                            <label class="col-0 label" for="friday">Friday:
-
-
-
-                                            </label>
-                                            <input type="hidden" value="friday">
-                                        </div>
-
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date friday p-0 change_default"
-                                                name="mon_from" id="monfrom" data-parsley-gt="#mon_to"
-                                                day_key_from="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow friday p-0 change_default"
-                                                id="monfromtime" name="mon_time_from" day_key_from="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">
-                                                    AM</option>
-                                                <option value="PM">
-                                                    PM</option>
-                                            </select>
-                                        </div>
-
-                                        <div class=" p-md-0" style="text-align: center;">
-                                            <span class="text-muted font-13">To</span>
-                                        </div>
-
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date friday p-0 change_default"
-                                                name="mon_to" id="mon_to" day_key_to="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow friday p-0 change_default"
-                                                id="mon_time_to" name="mon_time_to" day_key_to="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">AM
-                                                </option>
-                                                <option value="PM">PM
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <div class="">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input friday" type="radio"
-                                                    name="availability_time[friday]" id="friday_til_ate" value="til_ate"
-                                                    data-parsley-multiple="covidreport" availability_time_key="mon">
-                                                <label class="form-check-label" for="friday_til_ate">... Til late</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input friday" type="radio"
-                                                    name="availability_time[friday]" id="friday_unavailable"
-                                                    value="unavailable" data-parsley-multiple="covidreport"
-                                                    checked="" availability_time_key="mon">
-                                                <label class="form-check-label"
-                                                    for="friday_unavailable">Unavailable</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="friday"
-                                                id="resetFriday">
-                                        </div>
-                                    </div>
-
-
-                                    <div
-                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
-                                        <div style="width:100px;">
-                                            <label class="col-0 label" for="saturday">Saturday:
-
-
-                                            </label>
-                                            <input type="hidden" value="saturday">
-                                        </div>
-
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date saturday p-0 change_default"
-                                                name="mon_from" id="monfrom" data-parsley-gt="#mon_to"
-                                                day_key_from="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow saturday p-0 change_default"
-                                                id="monfromtime" name="mon_time_from" day_key_from="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">
-                                                    AM</option>
-                                                <option value="PM">
-                                                    PM</option>
-                                            </select>
-                                        </div>
-
-                                        <div class=" p-md-0" style="text-align: center;">
-                                            <span class="text-muted font-13">To</span>
-                                        </div>
-
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date saturday p-0 change_default"
-                                                name="mon_to" id="mon_to" day_key_to="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow saturday p-0 change_default"
-                                                id="mon_time_to" name="mon_time_to" day_key_to="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">AM
-                                                </option>
-                                                <option value="PM">PM
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <div class="">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input saturday" type="radio"
-                                                    name="availability_time[saturday]" id="saturday_til_ate" value="til_ate"
-                                                    data-parsley-multiple="covidreport" availability_time_key="mon">
-                                                <label class="form-check-label" for="saturday_til_ate">... Til late</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input saturday" type="radio"
-                                                    name="availability_time[saturday]" id="saturday_unavailable"
-                                                    value="unavailable" data-parsley-multiple="covidreport"
-                                                    checked="" availability_time_key="saturday">
-                                                <label class="form-check-label"
-                                                    for="saturday_unavailable">Unavailable</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="saturday"
-                                                id="resetSaturday">
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
-                                        <div style="width:100px;">
-                                            <label class="col-0 label" for="sunday">Sunday:
-
-
-
-                                            </label>
-                                            <input type="hidden" value="sunday">
-                                        </div>
-
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date sunday p-0 change_default"
-                                                name="mon_from" id="monfrom" data-parsley-gt="#mon_to"
-                                                day_key_from="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow sunday p-0 change_default"
-                                                id="monfromtime" name="mon_time_from" day_key_from="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">
-                                                    AM</option>
-                                                <option value="PM">
-                                                    PM</option>
-                                            </select>
-                                        </div>
-
-                                        <div class=" p-md-0" style="text-align: center;">
-                                            <span class="text-muted font-13">To</span>
-                                        </div>
-
-                                        <div class="service_rate_dolor_symbol form-group mb-0">
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date sunday p-0 change_default"
-                                                name="mon_to" id="mon_to" day_key_to="mon">
-                                                <option value="" selected="">H:M</option>
-                                            </select>
-                                            <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow sunday p-0 change_default"
-                                                id="mon_time_to" name="mon_time_to" day_key_to="mon"
-                                             >
-                                                <option value="" selected="">--</option>
-                                                <option value="AM">AM
-                                                </option>
-                                                <option value="PM">PM
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <div class="">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input sunday" type="radio"
-                                                    name="availability_time[sunday]" id="sunday_til_ate" value="til_ate"
-                                                    data-parsley-multiple="covidreport" availability_time_key="mon">
-                                                <label class="form-check-label" for="sunday_til_ate">... Til late</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input sunday" type="radio"
-                                                    name="availability_time[sunday]" id="sunday_unavailable"
-                                                    value="unavailable" data-parsley-multiple="covidreport"
-                                                    checked="" availability_time_key="mon">
-                                                <label class="form-check-label"
-                                                    for="sunday_unavailable">Unavailable</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="sunday"
-                                                id="resetSunday">
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- Rate --}}
-                                <div class="mcc-form-tab">
-                                    <h2>Rate</h2>
-                                    <div class="row">
-                                        <div
-                                            class="col-lg-8 col-md-12 col-sm-12 full-width-for-ipad-select horizontal-scroll-rates pt-5">
-                                            <div class="rate_first_row row">
-                                                <div class="col-3">
-                                                </div>
-                                                <div class="col-3 rate-img-center rate-tooltip">
-                                                    <img src="{{ asset('assets/dashboard/img/massage-only.png') }}"
-                                                        class="w-50">
-                                                    <span class="tooltip-info">Massage only</span>
-                                                </div>
-                                                <div class="col-3 rate-img-center rate-tooltip">
-                                                    <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}"
-                                                        class="w-50">
-                                                    <span class="tooltip-info">Massage with Extras, 2 hands.</span>
-                                                </div>
-                                                <div class="col-3 rate-img-center rate-tooltip">
-                                                    <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}"
-                                                        class="w-50">
-                                                    <span class="tooltip-info">Massage with Extras, 2 hands.</span>
-                                                </div>
-                                            </div>
-                                            <div class="rate_first_row">
-                                                <input type="hidden" name="duration_id[]" value="2">
-                                                <div class="form-group row">
-                                                    <label class="col-3 label" for="exampleFormControlSelect1">30
-                                                        Minutes:</label>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="massage_price" name="massage_price[]" value=""
-                                                                step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="incall_price" name="incall_price[]" value=""
-                                                                step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="outcall_price" name="outcall_price[]" value=""
-                                                                step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="rate_first_row">
-                                                <input type="hidden" name="duration_id[]" value="3">
-                                                <div class="form-group row">
-                                                    <label class="col-3 label" for="exampleFormControlSelect1">45
-                                                        Minutes:</label>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="massage_price" name="massage_price[]" value=""
-                                                                step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="incall_price" name="incall_price[]" value=""
-                                                                step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="outcall_price" name="outcall_price[]" value=""
-                                                                step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="rate_first_row">
-                                                <input type="hidden" name="duration_id[]" value="4">
-                                                <div class="form-group row">
-                                                    <label class="col-3 label" for="exampleFormControlSelect1">1
-                                                        Hour:</label>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="massage_price" name="massage_price[]"
-                                                                value="" step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="incall_price" name="incall_price[]" value=""
-                                                                step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="outcall_price" name="outcall_price[]"
-                                                                value="" step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="rate_first_row">
-                                                <input type="hidden" name="duration_id[]" value="5">
-                                                <div class="form-group row">
-                                                    <label class="col-3 label" for="exampleFormControlSelect1">1.5
-                                                        Hours:</label>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="massage_price" name="massage_price[]"
-                                                                value="" step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="incall_price" name="incall_price[]" value=""
-                                                                step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="outcall_price" name="outcall_price[]"
-                                                                value="" step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="rate_first_row">
-                                                <input type="hidden" name="duration_id[]" value="6">
-                                                <div class="form-group row">
-                                                    <label class="col-3 label" for="exampleFormControlSelect1">2
-                                                        Hours:</label>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="massage_price" name="massage_price[]"
-                                                                value="" step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="incall_price" name="incall_price[]" value=""
-                                                                step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="service_rate_dolor_symbol form-group">
-                                                            <span>$</span>
-                                                            <input min="0" placeholder="0" type="number"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                                                id="outcall_price" name="outcall_price[]"
-                                                                value="" step="10" max="200">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-end py-3">
-                                    <button type="button" class="btn-common">Save</button>
-                                </div>
+                            
                             </form>
+
+
                         </div>
                     </div>
                 </div>
 
-                {{-- end --}}
+                
             </div>
         </div>
     </div>
@@ -1151,9 +614,233 @@
 @endsection
 
 @push('script')
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
+
+<script>
+////////////// For Our Open Times ///////////////// 
+
+    function validateAvailability() 
+    {
+
+                let isFormValid = true;
+
+                $('.profile_time_availibility .parent-row').each(function () {
+
+                let row = $(this);
+
+                let status = row.find('input[type="radio"]:checked').val() || '';
+
+                let fromHH   = row.find('select[name*="[hh_from]"]').val();
+                let fromAMPM = row.find('select[name*="[ampm_from]"]').val();
+                let toHH     = row.find('select[name*="[hh_to]"]').val();
+                let toAMPM   = row.find('select[name*="[ampm_to]"]').val();
+
+                row.removeClass('border border-danger');
+
+                let hasFrom = fromHH && fromAMPM;
+                let hasTo   = toHH && toAMPM;
+
+
+                if (!status && !hasFrom && !hasTo) {
+                isFormValid = false;
+                row.addClass('border border-danger');
+                return;
+                }
+
+
+                if (status === 'til_late' && !hasFrom) {
+                isFormValid = false;
+                row.addClass('border border-danger');
+                return;
+                }
+
+
+                if (!status && hasFrom && !hasTo) {
+                isFormValid = false;
+                row.addClass('border border-danger');
+                return;
+                }
+
+                if (status === '24_hours' || status === 'closed') {
+                return;
+                }
+                });
+
+                console.log('isFormValid', isFormValid);
+                if (!isFormValid) {
+                return true;
+                }
+                return false;
+
+    }
+
+    function getRow(row) {
+            return {
+                from: row.find('select[name*="[hh_from]"], select[name*="[ampm_from]"]'),
+                to: row.find('select[name*="[hh_to]"], select[name*="[ampm_to]"]'),
+                radios: row.find('input[type="radio"]')
+            };
+    }
+
+
+
+
+    $('.profile_time_availibility').on('change', 'input[type="radio"]', function () {
+
+        let row = $(this).closest('.parent-row');
+        let val = $(this).val();
+        let { from, to } = getRow(row);
+
+        if (val === 'til_late') {
+            from.prop('disabled', false);
+            to.val('').prop('disabled', true);
+        } else {
+            from.val('').prop('disabled', true);
+            to.val('').prop('disabled', true);
+        }
+    });
+
+
+    $('.profile_time_availibility').on(
+        'change',
+        'select[name*="[hh_from]"], select[name*="[ampm_from]"]',
+        function () {
+
+            let row = $(this).closest('.parent-row');
+            let { from, to, radios } = getRow(row);
+
+            radios.prop('checked', false);   // uncheck radios
+            from.prop('disabled', false);
+            to.prop('disabled', false);
+        }
+    );
+
+    $('.profile_time_availibility .parent-row').each(function () {
+
+        let row = $(this);
+        let checked = row.find('input[type="radio"]:checked').val();
+        let { from, to } = getRow(row);
+
+        if (checked === 'til_late') {
+            from.prop('disabled', false);
+            to.prop('disabled', true);
+        } else {
+            from.prop('disabled', true);
+            to.prop('disabled', true);
+        }
+
+    });
+                
+              
+            
+           
+
+    ////////////// End For Our Open Times ///////////////// 
+
+       
+    $(function(e) 
+    {
+        $('.resetdays').on('click', function () {
+            let row = $(this).closest('.parent-row');
+            row.find('select').val('').prop('disabled', false);
+            row.find('input[type="radio"]').prop('checked', false);
+
+        });
+
+
+
+        function validateForm(formId) 
+        {
+
+                let form = $('#' + formId);
+                let isValid = true;
+
+                // reset errors
+                form.find('.is-invalid').removeClass('is-invalid');
+                form.find('.error-text').remove();
+
+                function showError(el, message) {
+                    el.addClass('is-invalid');
+                    el.after('<span class="error-text text-danger">' + message + '</span>');
+                    isValid = false;
+                }
+
+             
+
+        
+                form.find('[required]').each(function () 
+                {
+
+                    let field = $(this);
+                    let label = field.data('label') || 'This field';
+
+                    if (field.attr('type') === 'radio') {
+                        let name = field.attr('name');
+                        if (form.find('input[name="' + name + '"]:checked').length === 0) {
+                            showError(field.closest('.d-flex'), label + ' is required');
+                        }
+                        return;
+                    }
+
+                
+                    if ($.trim(field.val()) === '') {
+                        showError(field, label + ' is required');
+                        return;
+                    }
+
+                    
+                 if (field.data('regex')) {
+
+                    let value = $.trim(field.val());
+
+                    // skip empty (optional field)
+                    if (value !== '') {
+                        let regex = new RegExp(field.data('regex'));
+                        let msg   = field.data('regex-msg') || (label + ' must be 18 or older.');
+
+                        if (!regex.test(value)) {
+                            showError(field, msg);
+                            return;
+                        }
+                    }
+                }
+
+                
+                    if (field.attr('min') && Number(field.val()) < Number(field.attr('min'))) {
+                        showError(field, label + ' must be at least ' + field.attr('min'));
+                        return;
+                    }
+                });
+
+                return isValid;
+        }
+
+        $('#submitMasseur').on('click', function (e) {
+            e.preventDefault();
+
+            if (!validateForm('masseur_frm')) {
+                return false;
+            }
+
+            // ✔ proceed with AJAX / submit
+        });
+
+
+
+        //  var hasError  = validateAvailability();
+        //    let is_true = true;
+
+        //      if (hasError) {
+        //          swal_error_warning('Our Open Time','Please select a time range or choose an availability option for each day.')
+        //          is_true = false;
+        //     }
+
+
+    });       
+
+
+</script>
+
+
 @endpush
