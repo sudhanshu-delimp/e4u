@@ -13,13 +13,13 @@ use App\Models\Reviews;
 use App\Models\EscortBrb;
 use App\Models\EscortLike;
 use App\Models\Add_to_list;
-use App\Models\FooterAlert;
 use App\Models\MassageLike;
 use Illuminate\Support\Arr;
 use App\Models\AttemptLogin;
 use App\Models\LoginAttempt;
 use Illuminate\Http\Request;
 use App\Models\SuspendProfile;
+use App\Models\PublicationAlert;
 use Illuminate\Support\Facades\DB;
 use App\Models\ReportEscortProfile;
 use App\Http\Controllers\Controller;
@@ -29,8 +29,8 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use App\Models\Add_to_massage_shortlist;
 use App\Models\EscortViewerInteractions;
-use App\Repositories\Page\PageInterface;
 
+use App\Repositories\Page\PageInterface;
 use App\Repositories\Escort\EscortInterface;
 use App\Repositories\Service\ServiceInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -1571,7 +1571,7 @@ class WebController extends Controller
     }
 
     public function alerts(){
-        $alertData = FooterAlert::where('status','Published')->get();
+        $alertData = PublicationAlert::where('status','Published')->get();
        return view('web.pages.alerts');
     }
 

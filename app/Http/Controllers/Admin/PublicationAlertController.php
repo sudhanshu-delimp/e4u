@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\AlertNotic;
-use App\Models\FooterAlert;
 use Illuminate\Http\Request;
+use App\Models\PublicationAlert;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAlertRequest;
 use App\Repositories\User\UserInterface;
-use Yajra\DataTables\Facades\DataTables;
 
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 use function Symfony\Component\Translation\t;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 
-class FooterAlertController extends Controller
+class PublicationAlertController extends Controller
 {
     protected $viewAccessEnabled;
     protected $editAccessEnabled;
@@ -50,7 +50,7 @@ class FooterAlertController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = FooterAlert::query();
+            $query = PublicationAlert::query();
             $clientOrder = $request->input('order');
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
@@ -127,7 +127,7 @@ class FooterAlertController extends Controller
     {
 
         try {
-            $alert = FooterAlert::findOrFail($id);
+            $alert = PublicationAlert::findOrFail($id);
             $status = $request->input('status');
             $allowedStatuses = ['Published', 'Withdrawn', 'Removed'];
 
@@ -156,7 +156,7 @@ class FooterAlertController extends Controller
     public function show($id)
     {
         try {
-            $n = FooterAlert::findOrFail($id);
+            $n = PublicationAlert::findOrFail($id);
             return success_response([
                 'id' => $n->id,
                 'ref' => sprintf('#%05d', $n->id),
@@ -178,7 +178,7 @@ class FooterAlertController extends Controller
         $alertId = $request->edit_alert_id;
 
         if ($alertId) {
-            $update = FooterAlert::find($alertId);
+            $update = PublicationAlert::find($alertId);
             $update->alert_type = $request->alert_type;
             $update->subject = $data['subject'];
             $update->description = $request->description;
@@ -187,7 +187,7 @@ class FooterAlertController extends Controller
             return success_response($data, 'Alert update successfully!!');
         }
         try {
-            FooterAlert::create($data);
+            PublicationAlert::create($data);
             return success_response($data, 'Alert create successfully!!');
         } catch (\Exception $e) {
             return error_response('Failed to create alert: ' . $e->getMessage(), 500);
@@ -198,7 +198,7 @@ class FooterAlertController extends Controller
     // {
     //     try {
     //         $decodedId = (int) base64_decode($id);
-    //         $data = FooterAlert::find($decodedId);
+    //         $data = PublicationAlert::find($decodedId);
     //         if (is_null($data)) {
     //             abort(404); // Throws a NotFoundHttpException
     //         }
@@ -225,7 +225,7 @@ class FooterAlertController extends Controller
     public function edit($id)
     {
         try {
-            $editAlert = FooterAlert::findOrFail($id);
+            $editAlert = PublicationAlert::findOrFail($id);
             // Return raw date format for edit form
             $editAlert['create_date'] = basicDateFormat($editAlert->created_at);
             $editAlert = $editAlert->toArray();

@@ -11,12 +11,12 @@ use App\Http\Controllers\Admin\AdminNumsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ReportingController;
 use App\Http\Controllers\Admin\PostOfficeController;
-use App\Http\Controllers\Admin\FooterAlertController;
 use App\Http\Controllers\Admin\PDF\AgentPdfController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
+use App\Http\Controllers\Admin\PublicationAlertController;
 use App\Http\Controllers\Admin\AdvertiserReviewsController;
 use App\Http\Controllers\Admin\AgentNotificationController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
@@ -454,16 +454,16 @@ Route::post('/notifications/escort/{id}/update', [EscortNotificationController::
 
 
 //Public page Alert for Footer section
-Route::get('publications/alert/list', [FooterAlertController::class, 'index'])->name('admin.publications.alert.index');
-Route::post('/publications/alert/store', [FooterAlertController::class, 'store'])->name('admin.publications.alert.store');
-Route::get('/publications/alert/{id}/show', [FooterAlertController::class, 'show'])->name('admin.publications.alert.show');
-Route::post('/publications/alert/{id}/status', [FooterAlertController::class, 'updateStatus'])->name('admin.publications.alert.status');
-//Route::get('/publications/alert/pdf-download/{id}', [FooterAlertController::class, 'pdfDownload'])->name('admin.publications.alert.pdf.download');
-Route::get('/publications/alert/{id}/edit', [FooterAlertController::class, 'edit'])->name('admin.publications.alert.edit');
-Route::post('/publications/alert/{id}/update', [FooterAlertController::class, 'update'])->name('admin.publications.alert.update');
+Route::get('publications/alert/list', [PublicationAlertController::class, 'index'])->name('admin.publications.alert.index');
+Route::post('/publications/alert/store', [PublicationAlertController::class, 'store'])->name('admin.publications.alert.store');
+Route::get('/publications/alert/{id}/show', [PublicationAlertController::class, 'show'])->name('admin.publications.alert.show');
+Route::post('/publications/alert/{id}/status', [PublicationAlertController::class, 'updateStatus'])->name('admin.publications.alert.status');
+//Route::get('/publications/alert/pdf-download/{id}', [PublicationAlertController::class, 'pdfDownload'])->name('admin.publications.alert.pdf.download');
+Route::get('/publications/alert/{id}/edit', [PublicationAlertController::class, 'edit'])->name('admin.publications.alert.edit');
+Route::post('/publications/alert/{id}/update', [PublicationAlertController::class, 'update'])->name('admin.publications.alert.update');
 //For New Notice
-Route::post('publications/notice/store', [FooterAlertController::class, 'noticeStore'])->name('admin.publications.alert.noticeStore');
-Route::get('/publications/notice/show', [FooterAlertController::class, 'noticeShow'])->name('admin.publications.alert.noticeShow');
+Route::post('publications/notice/store', [PublicationAlertController::class, 'noticeStore'])->name('admin.publications.alert.noticeStore');
+Route::get('/publications/notice/show', [PublicationAlertController::class, 'noticeShow'])->name('admin.publications.alert.noticeShow');
 
 
 
