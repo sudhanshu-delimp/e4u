@@ -83,10 +83,10 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="Create_Notice_heading"><img
+                    <h4 class="modal-title" id="Create_Notice_heading"><img
                             src="{{ asset('assets/dashboard/img/new-notice.png') }}" alt="alert" class="custompopicon">
                         New Notice
-                    </h5>
+                    </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -187,7 +187,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        <img id="image_icon" class="custompopicon" src="#"> <span id="success_task_title"></span>
+                        <img id="image_icon" class="custompopicon" src="{{asset('assets/dashboard/img/unblock.png')}}"> <span id="success_task_title"></span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         {{-- <span aria-hidden="true"><img src="{{ asset('assets/app/img/alert.png') }}"

@@ -37,6 +37,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use App\Repositories\Escort\EscortMediaInterface;
 use App\Repositories\Escort\AvailabilityInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
+use Illuminate\View\Component;
 
 class WebController extends Controller
 {
@@ -1571,8 +1572,8 @@ class WebController extends Controller
     }
 
     public function alerts(){
-        $alertData = PublicationAlert::where('status','Published')->get();
-       return view('web.pages.alerts');
+        $alertData = PublicationAlert::where('status','Published')->get()->groupBy('alert_type');;
+       return view('web.pages.alerts', compact('alertData'));
     }
 
 
