@@ -627,6 +627,14 @@ Route::get('/management/logs-staff', function () {
     return view('admin.management.influencer.manage-influencers');
 })->name('admin.manage-influencers');
 
+ Route::get('/management/manage-shareholders',function(){
+    return view('admin.management.manage-shareholders');
+})->name('admin.manage-shareholders');
+
+ Route::get('/management/dashboard',function(){
+    return view('admin.management.dashboard');
+})->name('admin.dashboard');
+
 Route::get('/management/application', function () {
     return view('admin.management.logs.application');
 })->name('admin.application');
