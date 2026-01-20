@@ -65,8 +65,8 @@
                             <p class="text-justify">There are no Fees when you create an Account. Fees only apply when you
                                 post a Profile or Tour
                                 where you are charged according to the number of days and the Membership Type you select.
-                                See also <span><a href="{{ url('help-for-advertisers') }}"
-                                        class="termsandconditions_text_color">Help for Advertisers</a></span>
+                                See also <span><a href="{{ url('help-for-escorts') }}"
+                                        class="termsandconditions_text_color">Help for Escorts</a></span>
                                 and <span><a href="{{ url('help-for-massage-centres') }}"
                                         class="termsandconditions_text_color">Help for Massage Centres</a></span>
                                 for more information on Package benefits, Profiles & Tours, Fees and your obligations.</p>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="reg_box_form_style col-lg-5 col-md-5">
                     <div class="regstractionform">
-                        <h4>Register Now, No Fees for the first 14 days Advertising!</h4>
+                        <h4>Register now and start saving!</h4>
                         <form id="escort_registration" action="{{ route('advertiser.register') }}" method="post">
                             @csrf
                             <div class="form-group">
@@ -320,12 +320,14 @@
                     <div class="content">
                         <div class="accodien_manage_padding_content">
                             <p>Create a Profile with a few simple steps. Our Profile creator will calculate the Fee
-                                along the way. You will always know what the Fees are before you commit to posting your
-                                Profile. You can also create a Profile and archive it until you are ready to post it.
-                                Create as many Profiles as you like.</p>
-                            <span class=" custome_span_color">Go to <a href="{{ url('help-for-advertisers') }}"
-                                    class="termsandconditions_text_color">help for Advertisers</a> for details on
-                                Membership Packages associated with each Membership Type.</span>
+                                along the way. You will always know what the Fees are before you commit to Listing your
+                                Profile. You can also create a Profile and archive it until you are ready to List it.
+                                Create as many Profiles as you like.  We recommend you create at least one Profile for each Location ready for when you Tour.</p>
+
+                            <p class="custome_span_color">Go to <a href="{{ url('help-for-escorts') }}"
+                                    class="termsandconditions_text_color">help for Escorts</a> for details on
+                                Membership Packages associated with each Membership Type.</p>
+
                             <table class="table2">
                                 <thead>
                                     <tr>
@@ -338,17 +340,17 @@
 
                                         <td>Platinum</td>
                                         <td style="border-left: 2px solid #000000;">
-                                            Platinum Membership always ranks at the top of the Escort Home Page.
-                                            <p><b>List View:</b> Your Thumbnail photo is 142px x 200px. Rates, review
-                                                rating,
-                                                available to, verification and your 'Who I am' are displayed.</p>
-                                            <p><b>Grid View:</b> Your Thumbnail photo is 200px x 281px. Hourly rate,
-                                                services,
-                                                gender, orientation and view rating are included in the display.</p>
+                                            Platinum Membership always ranks at the top of the Escort Listing page.
+                                            <p><b>Grid View:</b> Your Thumbnail is displayed with a hover over
+                                                details the salient points about you, such as your hourly rate,
+                                                services, gender, orientation, together with your rating are all included in the display.
+                                                  Grid view is the default Listing.</p>
+                                            <p><b>List View:</b> A more detailed summary, your Thumbnail is displayed with some key 
+                                                inforation about you, together with your rates, rating,
+                                                available to, verification and the introduction to your 'Who I am' are displayed.</p>
                                             <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                                Thumbnail is 420px x 600px together with 6 additional photos
-                                                and a video player 640px x 360px. All photos and the video
-                                                can pop up.
+                                                Thumbnail is displayed here together with 6 additional photos
+                                                and 3 videos. All of your Media is available individually or in a pop up.
                                             </p>
                                         </td>
                                     </tr>
@@ -358,17 +360,16 @@
                                         <td>Gold</td>
                                         <td style="border-left: 2px solid #000000;">
                                             Gold Membership ranks behind Platinum and before Silver.
-                                            <p><b>List View:</b> Your Thumbnail photo is 112px x 157px. Rates, review
-                                                rating,
-                                                available to, verification and your 'Who I am' are displayed.</p>
-                                            <p><b>Grid View:</b> Your Thumbnail photo is 163px x 229px. Hourly rate,
-                                                services,
-                                                gender, orientation and view rating are included in the display.
-                                            </p>
+                                            <p><b>Grid View:</b> Your Thumbnail is displayed with a hover over
+                                                details the salient points about you, such as your hourly rate,
+                                                services, gender, orientation, together with your rating are all included in the display.
+                                                  Grid view is the default Listing.</p>
+                                            <p><b>List View:</b> A more detailed summary, your Thumbnail is displayed with some key 
+                                                inforation about you, together with your rates, rating,
+                                                available to, verification and the introduction to your 'Who I am' are displayed.</p>
                                             <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                                Thumbnail is 420px x 600px together with 6 additional photos
-                                                and a video player 640px x 360px. All photos and the video
-                                                can pop up
+                                                Thumbnail is displayed here together with 6 additional photos
+                                                and 3 videos. All of your Media is available individually or in a pop up.
                                             </p>
                                         </td>
                                     </tr>
@@ -379,16 +380,16 @@
                                         <td>Silver</td>
                                         <td style="border-left: 2px solid #000000;">
                                             Silver Membership ranks behind Gold and before Free.
-                                            <p><b>List View:</b> Your Thumbnail photo is 102px x 144px. Review rating,
-                                                available to, verification and your 'Who I am' are displayed.</p>
-                                            <p><b>Grid View:</b> Your Thumbnail photo is 136px x 191px. Hourly rate,
-                                                services,
-                                                gender, orientation and view rating are included in the display.
-                                            </p>
+                                            <p><b>Grid View:</b> Your Thumbnail is displayed with a hover over
+                                                details the salient points about you, such as your hourly rate,
+                                                services, gender, orientation, together with your rating are all included in the display.
+                                                  Grid view is the default Listing.</p>
+                                            <p><b>List View:</b> A more detailed summary, your Thumbnail is displayed with some key 
+                                                inforation about you, together with your rates, rating,
+                                                available to, verification and the introduction to your 'Who I am' are displayed.</p>
                                             <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                                Thumbnail is 420px x 600px together with 6 additional photos
-                                                and a video player 640px x 360px. All photos and the video can
-                                                pop up.
+                                                Thumbnail is displayed here together with 6 additional photos
+                                                and 3 videos. All of your Media is available individually or in a pop up.
                                             </p>
                                         </td>
                                     </tr>
@@ -398,25 +399,25 @@
 
                                         <td>Free</td>
                                         <td style="border-left: 2px solid #000000;">
-                                            Free Membership ranks behind Silver
-                                            <p>Escort Home Page: You will appear after paid listings in all Search Page
-                                                results and Profile shortlist displays.</p>
-                                            <p><b>List View:</b> Your Thumbnail is displayed as a silhouette 79px x 116px.
-                                                Available to and your 'Who I am' are displayed.</p>
-                                            <p><b>Grid View:</b>Your Thumbnail is displayed as a silhouette 100px x 145px.
-                                                Hourly rate and services are included in the display.
+                                            Free Membership ranks behind Silver and has limited display options.  On the Escort Listing page 
+                                                you will appear after paid Listings in all Search Page
+                                                results and Profile Shortlist displays.
+                                            <p><b>Grid View:</b>Your Thumbnail is displayed as a silhouette without any personal information about you other than
+                                                your name, hourly rate and your services being included in the display.
+                                            </p>
+                                                <p><b>List View:</b> Your Thumbnail is displayed as a silhouette with limited information being displayed.
+                                                The User must click into your Profile to view your Media.
                                             </p>
                                             <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
-                                                thumbnail photo is 420px x 600px together with 6 additional
-                                                photos 100px x 100px. No video is available. All photos can
-                                                pop up.</p>
+                                                Thumbnail is displayed here together with 6 additional photos
+                                                and 3 videos. All of your Media is available individually or in a pop up.</p>
                                             <p>If you receive over a certain number of Profile views or telephone number
                                                 clicks during the free 14 day period you will be informed and notified to
                                                 upgrade to a paying Membership Type.</p>
                                             <p>We do this to provide for the fairest distribution of leads between our Free
                                                 Members. If you do not elect to become a paying Member, your Profile will be
                                                 suspended. You will still be able to log onto your Account at any time to
-                                                upgrade your Membership Type.</p>
+                                                upgrade your Membership Type for the Profile you have Listed as Free.</p>
 
                                         </td>
                                     </tr>
@@ -436,8 +437,8 @@
                         <div class="accodien_manage_padding_content">
                             <p>Escorts4U has partnered with a leading provider of online booking services for
                                 accommodation and travel. For more information go to <span class=""><a
-                                        href="{{ url('help-for-advertisers') }}"
-                                        class="termsandconditions_text_color">Help for Advertisers</a></span>
+                                        href="{{ url('help-for-escorts') }}"
+                                        class="termsandconditions_text_color">Help for Escorts</a></span>
                                 and select "Travel & Accommodation".</p>
                         </div>
                     </div>
@@ -450,10 +451,9 @@
                     <div class="content">
                         <div class="accodien_manage_padding_content">
                             <p>Escorts4U has partnered with the Condom Man where you can order products online and they
-                                will be delivered to your door. For more information about ordering products
-                                go to <span class=""><a href="#"
-                                        class="termsandconditions_text_color">Products</a></span>. (This service is only
-                                available to Perth Escorts).</p>
+                                will be delivered to your door or by post deparding on your Location. For more information about ordering products
+                                go to <span class=""><a href="{{ url('terms-conditions') }}"
+                                        class="termsandconditions_text_color">Part G Concierge Services Products</a></span>.</p>
                         </div>
                     </div>
                 </div>
@@ -466,8 +466,8 @@
                         <div class="accodien_manage_padding_content">
                             <p>Escorts4U has partnered with an experienced advisor in this complex area. For more
                                 information about these services go to <span class=""><a
-                                        href="{{ url('help-for-advertisers') }}"
-                                        class="termsandconditions_text_color">Help for Advertisers</a></span>
+                                        href="{{ url('help-for-escorts') }}"
+                                        class="termsandconditions_text_color">Help for Escorts</a></span>
                                 and select "Visa applications & banking". Our partner can also provide advice on
                                 education placements. You can submit an enquiry with our partner.</p>
                         </div>
@@ -481,13 +481,13 @@
                     <div class="content">
                         <div class="accodien_manage_padding_content">
                             <p>We have many sources you can access for help and information. See <span class=""><a
-                                        href="{{ url('help-for-advertisers') }}"
-                                        class="termsandconditions_text_color">help for Advertisers</a></span>
+                                        href="{{ url('help-for-escorts') }}"
+                                        class="termsandconditions_text_color">help for Escorts</a></span>
                                 and <span class=""><a href="{{ url('faqs') }}"
                                         class="termsandconditions_text_color">FAQs</a></span>,
                                 or if you still can not find the answer, <span class=""><a
                                         href="{{ url('contact-us') }}" class="termsandconditions_text_color">contact
-                                        us</a></span> directly.</p>
+                                        us</a></span> directly, or your Agent if you appoint one.</p>
                         </div>
                     </div>
                 </div>

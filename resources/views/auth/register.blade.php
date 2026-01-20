@@ -18,19 +18,19 @@
                     <div class="reg_info viewer-registration">
                         {{-- <h2>Registration - Viewer</h2> --}}
                         <div class="pl-4 pt-2 pb-5">
-                            <h1 class="text-uppercase">viewer Registration</h1>
-                            <h2>Registration with us is free</h2>
-                            <p class="text-justify">You do not have to register to view a Profile or Tour however, if you
+                            <h1 class="text-uppercase">Viewer Registration</h1>
+                            <h2>Registration with us is anonymous and free</h2>
+                            <p class="text-justify">You do not have to register with us to view an Advertiser's Profile however, if you
                                 register you will recieve the following benefits:</p>
                             <div class="">
                                 <ul class="pl-4 text-justify">
-                                    <li>Flag a Profile and produce a short list of your preferred Advertisers</li>
-                                    <li>View at any time your favourite Profiles (Legbox)</li>
+                                    <li>Flag a Profile and produce a Shortlist of your preferred Advertisers (per session)</li>
+                                    <li>After logging on, view your favourite Profiles (My Legbox)</li>
                                     <li>Receive Alerts when your favourite Escort is visiting your Location</li>
                                     <li>Have a discreet conversation with an Advertiser (provided they have enabled that
                                         feature)</li>
                                     <li>Write a review about your experience with an Advertiser</li>
-                                    <li>Complete a private Note (Notebox) about your experience with an Advertiser (from
+                                    <li>Complete a private Note (My Notebox) about your experience with an Advertiser (from
                                         your Dashboard)</li>
                                 </ul>
                             </div>

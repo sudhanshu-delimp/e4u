@@ -150,13 +150,13 @@
               <h3><img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}" class="custompopicon menu-icon my--play"> My Playbox</h3>
               <div class="modal-sec pb-0">
                 <h1 class="popu_heading_style mb-3 mt-3" style="text-align: center;">
-                    <span id="Lname " class="my_legbox_title">Full My Playbox content is only available to Viewers. Please Login or Register to access My Playbox.</span>
+                    <span id="Lname " class="my_legbox_title">My Playbox content is only available to Viewers.<br> Please Login or Register to access My Playbox.</span>
                     </h1>
                 {{-- <h1 class="popu_heading_style mb-3 mt-3" style="text-align: center;">
                     
                 
                     <h1 class="popu_heading_style mb-4 mt-3" style="text-align: center;">    
-                    <span id="Lname " class="my_legbox_title">Or to view an Escort’s Playbox, click the icon on the Escort’s Profile, if it has been made available.</span>
+                    <span id="Lname " class="my_legbox_title">Or to view an Escort's Playbox, click the icon on the Escort's Profile, if it has been made available.</span>
                     </h1> --}}
                 </div>
            </div>
