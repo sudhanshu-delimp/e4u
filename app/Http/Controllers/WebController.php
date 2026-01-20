@@ -19,6 +19,7 @@ use App\Models\AttemptLogin;
 use App\Models\LoginAttempt;
 use Illuminate\Http\Request;
 use App\Models\SuspendProfile;
+use App\Models\PublicationAlert;
 use Illuminate\Support\Facades\DB;
 use App\Models\ReportEscortProfile;
 use App\Http\Controllers\Controller;
@@ -28,14 +29,15 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use App\Models\Add_to_massage_shortlist;
 use App\Models\EscortViewerInteractions;
+
 use App\Repositories\Page\PageInterface;
 use App\Repositories\Escort\EscortInterface;
-
 use App\Repositories\Service\ServiceInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Repositories\Escort\EscortMediaInterface;
 use App\Repositories\Escort\AvailabilityInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
+use Illuminate\View\Component;
 
 class WebController extends Controller
 {
@@ -1567,6 +1569,11 @@ class WebController extends Controller
     {
          $advertings = Pricing::with('memberships')->get()->toArray();
         return view('web.pages.help-for-advertisers',compact('advertings'));    
+    }
+
+    public function alerts(){
+        $alertData = PublicationAlert::where('status','Published')->get()->groupBy('alert_type');;
+       return view('web.pages.alerts', compact('alertData'));
     }
 
 
