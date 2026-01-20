@@ -46,6 +46,29 @@
                                         </div>
                                     </div>
                                     @foreach($durations->whereIn('id',[2,3,4,5,6]) as $duration)
+
+                                    @php
+                                    if($duration->id!="")
+                                    {
+                                        $massage_price = $incall_price = $outcall_price = "";
+                                        if(!empty($massage_durations))
+                                        {
+                                          foreach($massage_durations as $db_duration)  
+                                            {
+                                               if(isset($db_duration['pivot']['duration_id']) && $db_duration['pivot']['duration_id']==$duration->id)
+                                                {
+                                                   
+                                                    $massage_price = isset($db_duration['pivot']['massage_price']) ? $db_duration['pivot']['massage_price'] : 0;
+                                                    $incall_price =  isset($db_duration['pivot']['incall_price']) ? $db_duration['pivot']['incall_price'] : 0;
+                                                    $outcall_price = isset($db_duration['pivot']['outcall_price']) ? $db_duration['pivot']['outcall_price'] : 0;
+                                                    break;
+                                                    
+                                                } 
+                                            }   
+                                        }
+                                    }
+                                    @endphp
+
                                     <div class="rate_first_row">
                                         <input type="hidden" name="duration_id[]" value="{{ $duration->id}}">
                                         <div class="form-group row">
@@ -53,19 +76,19 @@
                                             <div class="col-3">
                                                 <div class="service_rate_dolor_symbol form-group">
                                                     <span>$</span>
-                                                    <input min="0" placeholder="0" type="number"  class="form-control" id="massage_price" name="massage_price[]" value="{{ $massage_profile->durationRate($duration->id, 'massage_price') }}" >
+                                                    <input min="0" placeholder="0" type="number"  class="form-control" id="massage_price" name="massage_price[]"  value="{{ $massage_price }}" >
                                                 </div>
                                             </div>
                                             <div class="col-3">
                                                 <div class="service_rate_dolor_symbol form-group">
                                                     <span>$</span>
-                                                    <input min="0" placeholder="0"  type="number"  class="form-control" id="incall_price" name="incall_price[]" value="{{ $massage_profile->durationRate($duration->id, 'incall_price') }}" >
+                                                    <input min="0" placeholder="0"  type="number"  class="form-control" id="incall_price" name="incall_price[]" value="{{ $incall_price }}" >
                                                 </div>
                                             </div>
                                             <div class="col-3">
                                                 <div class="service_rate_dolor_symbol form-group">
                                                     <span>$</span>
-                                                    <input min="0" placeholder="0"  type="number"  class="form-control" id="outcall_price" name="outcall_price[]" value="{{ $massage_profile->durationRate($duration->id, 'outcall_price') }}" >
+                                                    <input min="0" placeholder="0"  type="number"  class="form-control" id="outcall_price" name="outcall_price[]" value="{{ $outcall_price }}" >
                                                 </div>
                                             </div>
                                         </div>

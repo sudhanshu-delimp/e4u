@@ -186,10 +186,16 @@ class MassageController extends Controller
             $escort = $this->massage_profile->make();
         }
         $massage_profile = $escort;
+        $massage_durations = (isset($escort->durations) && count($escort->durations)>0) ? $escort->durations->toArray() : [];
+
+        // echo '<pre>';
+        // print_r($massage_durations);
+        // exit;
+
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
         $path = $this->media;
         $durations = $this->duration->all();
-        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile'));
+        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations'));
     }
 
     public function getProfile(Request $request, $id)

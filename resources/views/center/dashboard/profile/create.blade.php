@@ -172,6 +172,9 @@
             <form name="update_single_data" method="post" action="{{route('center.update-single-data')}}">
             <input type="hidden" name="post_field" id="post_field" value="">
             <input type="hidden" name="post_value" id="post_value" value="">
+
+             <input type="hidden" name="post_json" id="post_json" value="">
+            <input type="hidden" name="post_type" id="post_type" value="">
                 
                 <h3 class="my-2"><span id="Lname"><p>Would you like to update <b>
                                 <span id="field_name"></span>       
@@ -278,6 +281,42 @@ var edit_mode = false;
          });
 
 
+         $('.update_default_rate').on('blur', function () {
+
+                var duration_id  = $(this).data('duration_id');
+                var massage_profile_id  = $(this).data('massage_profile_id');
+                var data_type  = $(this).data('data_type');
+
+
+                var current_value  = $(this).val();
+                var current_feild  = $(this).attr('id');
+
+                var current_old_input = 'profile_'+current_feild;
+                var old_value  =  $(this).closest('.service_rate_dolor_symbol').find('.'+current_old_input).val();
+
+               
+            
+                if(current_value==="")
+                return false;    
+
+
+                if (current_value !== old_value) {
+
+                let postData = {
+                    duration_id: duration_id,
+                    massage_profile_id: massage_profile_id,
+                    data_type: data_type,
+                    new_value: current_value
+                }
+
+                $('#post_json').val(JSON.stringify(postData));
+                $('#post_type').val('rate');
+                $('#field_name').text('Rate');
+                $('#update_info').modal('show');
+                }
+         });
+
+
             function formatProfileName(text) {
 
                 let formattedText = text
@@ -327,7 +366,7 @@ var edit_mode = false;
         ///////// End Update Single Data //////////////////      
 
 
-        $('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
+        //$('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
 
 
         const validator = $('#my_massage_profile').validate({
