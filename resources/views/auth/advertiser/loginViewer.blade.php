@@ -98,7 +98,7 @@
                     <form id="forgotPasswordSend" method="post" action="" >
                         @csrf
                         <div class="modal-header main_bg_color border-0">
-                          <h5 class="modal-title text-white">Reset Password</h5>
+                          <h5 class="modal-title text-white"> <img src="{{asset('assets/app/img/2fa.png')}}" class="custompopicon" alt="logo">Reset Password</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">

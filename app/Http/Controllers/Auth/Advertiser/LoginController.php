@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\AppController;
 use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\BaseController;
+use App\Mail\send2FAOtpEmail;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends BaseController
 {
@@ -235,9 +237,85 @@ class LoginController extends BaseController
 
 
     }
+
+    public function sendOtpForPinChange(Request $request)
+    {
+        try {
+            $user = User::where('email', $request->email)->first();
+            if (!$user) {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'User not found with this email.'
+                ]);
+            }
+
+            $phone = $user->phone;
+
+            // Generate & save OTP
+            $user->otp = $user->generateOTP();
+            $user->save();
+
+            $otp = $user->otp;
+
+            $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+
+            $sendotp = new SendSms();
+            $output = $sendotp->send($phone, $msg);
+
+            $body = [
+                'name' => $user->name,
+                'member_id' => $user->member_id,
+                'pin' => $otp,
+                'subject' => '2FA Verification OTP',
+            ];
+
+            Mail::to($user->email)->queue(new send2FAOtpEmail($body));
+
+            return response()->json([
+                    'status' => $output,
+                    'message' => "Hello! Your one-time user code has been sent successfully. You can ignore this text message.",
+                ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 500,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
     protected function checkOTP(Request $request)
     {
         // echo "agent";
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json([
+                'error' => true,
+                'message' => 'User not found'
+            ]);
+        }
+
+        $forget_password = (int) ($request->forget_password ?? 0);
+        $phone = $user->phone;
+
+        /**
+         * FORGET PASSWORD FLOW
+         * yahin se return ho jayega
+         */
+        if ($forget_password === 1) {
+
+            $isValidOtp = ((int) $request->otp === (int) $user->otp);
+
+            return response()->json([
+                'error' => !$isValidOtp,
+                'status' => $isValidOtp,
+                'phone' => $phone,
+                'message' => $isValidOtp
+                    ? 'OTP verified successfully'
+                    : 'You have entered an invalid OTP.'
+            ]);
+        }
 
         if (! is_null(removeSpaceFromString($request->phone))) {
 

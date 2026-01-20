@@ -56,6 +56,8 @@ class SendForgotPasswordController extends Controller
         $body = [
            'url' => $link,
            'name' => !empty($users->name) ? $users->name : $data['email'],
+           'ref'  => $users->id,
+           'member_id' => !empty($users->member_id) ? $users->member_id : ''
         ];
  
         $error = true;
