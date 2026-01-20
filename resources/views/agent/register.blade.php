@@ -129,9 +129,9 @@
         </div>
     </div>
 </section>
-<section class="padding_two_fifty_two_top padding_bottom_eight_px">
+<section class="padding_one_thiry_top padding_bottom_eight_px">
    <div class="container">
-   <h1 class="home_heading_first margin_btm_twenty_px page-title">Help for Agents</h1>
+   {{-- <h1 class="home_heading_first margin_btm_twenty_px page-title">Help for Agents</h1> --}}
    <div class="accordion-container">
       <div class="set">
          <a class="active">

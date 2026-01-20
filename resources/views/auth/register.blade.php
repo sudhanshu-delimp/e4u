@@ -158,7 +158,7 @@
             </div>
         </div>
     </section>
-    <section class="padding_one_thiry_top padding_ninty_btm_ninty_px" text-color="white">
+    <section class="padding_one_thiry_top padding_ninty_btm_ninty_px padding_bottom_eight_px" text-color="white">
         <div class="container">
             <div class="accordion-container">
                 <div class="set">
