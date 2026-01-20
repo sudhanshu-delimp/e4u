@@ -13,6 +13,7 @@ use App\Models\Reviews;
 use App\Models\EscortBrb;
 use App\Models\EscortLike;
 use App\Models\Add_to_list;
+use App\Models\FooterAlert;
 use App\Models\MassageLike;
 use Illuminate\Support\Arr;
 use App\Models\AttemptLogin;
@@ -29,8 +30,8 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Add_to_massage_shortlist;
 use App\Models\EscortViewerInteractions;
 use App\Repositories\Page\PageInterface;
-use App\Repositories\Escort\EscortInterface;
 
+use App\Repositories\Escort\EscortInterface;
 use App\Repositories\Service\ServiceInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Repositories\Escort\EscortMediaInterface;
@@ -1567,6 +1568,11 @@ class WebController extends Controller
     {
          $advertings = Pricing::with('memberships')->get()->toArray();
         return view('web.pages.help-for-advertisers',compact('advertings'));    
+    }
+
+    public function alerts(){
+        $alertData = FooterAlert::where('status','Published')->get();
+       return view('web.pages.alerts');
     }
 
 
