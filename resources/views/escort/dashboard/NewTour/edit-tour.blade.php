@@ -39,11 +39,13 @@ $is_checkout = $tour->tourPurchase->count();
                 </div>
             </div>     
             <div class="row tour-dashrow">
-                <div class="col-md-9 mb-2">
-                    <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
-                    data-target="#pinup_profile" id="btn_pinup_profile" data-tour-id="{{$tour->id}}">List Pin Up</button>
-                </div>
-                @include('escort.dashboard.NewTour.modal.register_pinup')
+                @if($tour->tourPurchase->count() > 0)
+                    <div class="col-md-9 mb-2">
+                        <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
+                        data-target="#pinup_profile" id="btn_pinup_profile" data-tour-id="{{$tour->id}}">List Pin Up</button>
+                    </div>
+                    @include('escort.dashboard.NewTour.modal.register_pinup')
+                @endif
                 <div class="col-md-9">
                     <div class="card shadow-sm">
                         <div class="card-body">
