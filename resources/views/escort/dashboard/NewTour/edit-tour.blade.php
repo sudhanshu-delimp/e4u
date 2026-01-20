@@ -37,8 +37,15 @@ $is_checkout = $tour->tourPurchase->count();
                         </div>
                     </div>
                 </div>
-            </div>        
+            </div>     
             <div class="row tour-dashrow">
+                @if($tour->tourPurchase->count() > 0)
+                    <div class="col-md-9 mb-2">
+                        <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
+                        data-target="#pinup_profile" id="btn_pinup_profile" data-tour-id="{{$tour->id}}">List Pin Up</button>
+                    </div>
+                    @include('escort.dashboard.NewTour.modal.register_pinup')
+                @endif
                 <div class="col-md-9">
                     <div class="card shadow-sm">
                         <div class="card-body">
@@ -93,7 +100,9 @@ $is_checkout = $tour->tourPurchase->count();
                                                                     <option value="3" {{($profile['tour_plan']=='3'?'selected':'')}}>Silver</option>
                                                                     <option value="4" {{($profile['tour_plan']=='4'?'selected':'')}}>Free</option>
                                                                 </select>
-                                                                <span class="profile-dates text-muted">Start: {{$tourLocation->start_date_formatted}}, End: {{$tourLocation->end_date_formatted}}</span>
+                                                                <span class="profile-dates text-muted">Start: {{$tourLocation->start_date_formatted}}, End: {{$tourLocation->end_date_formatted}} @if(!empty($profile->is_pinup)) <sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
+                                                                    <small class="listing-tag-tooltip-desc">Pinup from {{ $profile->escortPinup->start_date }} to {{$profile->escortPinup->end_date}}</small>
+                                                                    </sup> @endif</span>
                                                                 @if(!$is_checkout) 
                                                                 <button type="button" class="btn btn-sm btn-danger removeProfile">Remove</button>
                                                                 @endif
@@ -132,4 +141,5 @@ $is_checkout = $tour->tourPurchase->count();
     const account_save_tour_route = "{{ route('account.update_tour', ['id' => $tour->id]) }}";
 </script>
 <script src="{{ asset('js/escort/add_edit_tour.js') }}"></script>
+<script src="{{ asset('js/escort/pinup_tour.js') }}"></script>
 @endpush
