@@ -228,17 +228,17 @@
                 </div>
                 <div class="set">
                     <a>
-                        Any Question?
+                        Any Questions?
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <div class="content">
                         <div class="accodien_manage_padding_content">
                             <p>We have many sources you can access for help and information. See <span><a
                                         class="termsandconditions_text_color" href="{{ url('help-for-viewers') }}"> help
-                                        for viewers</a></span> and <span><a
+                                        for Viewers</a></span> and <span><a
                                         class="termsandconditions_text_color"href="{{ url('faqs') }}">FAQs</a></span>,
                                 or if you still can not find the answer, <span><a class="termsandconditions_text_color"
-                                        href="#">contact us</a></span> directly.</p>
+                                        href="{{ url('contact-us') }}">contact us</a></span> directly.</p>
                             <p>We also welcome <span><a class="termsandconditions_text_color"
                                         href="{{ url('feedback') }}">feedback</a></span> on how we can improve the
                                 delivery of our Services.</p>
@@ -256,10 +256,10 @@
                             <table class="table table-borderless table_border_remove text-justify">
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="accordien_color_table">Features</th>
-                                        <th scope="col" class="accordien_color_table">Registered</th>
-                                        <th scope="col" class="accordien_color_table">Unregistered</th>
-                                        <th scope="col" class="accordien_color_table">Comments</th>
+                                        <th scope="col" class="accordien_color_table"><b>Features</b></th>
+                                        <th scope="col" class="accordien_color_table"><b>Registered</b></th>
+                                        <th scope="col" class="accordien_color_table"><b>Unregistered</b></th>
+                                        <th scope="col" class="accordien_color_table"><b>Comments</b></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -269,38 +269,16 @@
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
-                                        <td><span class="accordien_color_table">View all the Advertisers on the
-                                                Website</span></td>
+                                        <td><span class="accordien_color_table">You determine the default settings on what you would like to 
+                                            appear on the Escort Listing page when you log on.</span></td>
                                     </tr>
                                     <tr>
-                                        <td><span class="accordien_color_table">Chatting</span></td>
+                                        <td><span class="accordien_color_table">Dashboard</span></td>
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
                                         <td class="text-center"><span
-                                                class="correct_symbole_font_weight accordien_color_table">&#x2717;</span>
-                                        </td>
-                                        <td><span class="accordien_color_table">Participate in direct chatting with
-                                                Advertisers (provided they have enabled this feature)</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="accordien_color_table">Dashboard -Personalised</span></td>
-                                        <td class="text-center"><span
-                                                class="correct_symbole_font_weight accordien_color_table">✓</span></td>
-                                        <td class="text-center"><span
-                                                class="correct_symbole_font_weight accordien_color_table">&#x2717;</span>
-                                        </td>
-                                        <td><span class="accordien_color_table">Select the widgets you want to appear on
-                                                your dashboard</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="accordien_color_table">Dashboard - Pinup</span></td>
-                                        <td class="text-center"><span
-                                                class="correct_symbole_font_weight accordien_color_table">✓</span></td>
-                                        <td class="text-center"><span
-                                                class="correct_symbole_font_weight accordien_color_table">&#x2717;</span>
-                                        </td>
-                                        <td><span class="accordien_color_table">Select your favorite Escort as your
-                                                dashboard pinup</span></td>
+                                                class="correct_symbole_font_weight accordien_color_table">&#x2717;</span></td>
+                                        <td><span class="accordien_color_table">A customised array of features at your finger tips.</span></td>
                                     </tr>
                                     <tr>
                                         <td><span class="accordien_color_table">Favorites</span></td>
@@ -309,37 +287,37 @@
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
                                         <td><span class="accordien_color_table">Flag your favorite Escorts while searching
-                                                and then view your shortlist</span></td>
+                                                and then view your shortlist.</span></td>
                                     </tr>
                                     <tr>
-                                        <td><span class="accordien_color_table">Legbox</span></td>
+                                        <td><span class="accordien_color_table">My Legbox</span></td>
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">&#x2717;</span>
                                         </td>
                                         <td><span class="accordien_color_table">Select your favorite Escorts by adding them
-                                                to your Legbox. View your Legbox anytime</span></td>
+                                                to your Legbox. View your Legbox anytime to see the Escort's Location.</span></td>
                                     </tr>
                                     <tr>
-                                        <td><span class="accordien_color_table">Message</span></td>
+                                        <td><span class="accordien_color_table">Messaging</span></td>
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">&#x2717;</span>
                                         </td>
                                         <td><span class="accordien_color_table">Send a message to an Escort (provided they
-                                                have enabled this feature)</span></td>
+                                                have enabled this feature).</span></td>
                                     </tr>
                                     <tr>
-                                        <td><span class="accordien_color_table">Notes</span></td>
+                                        <td><span class="accordien_color_table">My Notes</span></td>
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">&#x2717;</span>
                                         </td>
                                         <td><span class="accordien_color_table">Make notes about your experience with an
-                                                Escort</span></td>
+                                                Escort.</span></td>
                                     </tr>
                                     <tr>
                                         <td><span class="accordien_color_table">Notifications</span></td>
@@ -349,7 +327,7 @@
                                                 class="correct_symbole_font_weight accordien_color_table">&#x2717;</span>
                                         </td>
                                         <td><span class="accordien_color_table">Receive A-Alerts from Advertisers when they
-                                                are visiting your location</span></td>
+                                                are visiting your Location.</span></td>
                                     </tr>
                                     <tr>
                                         <td><span class="accordien_color_table">Rating</span></td>
@@ -359,16 +337,15 @@
                                                 class="correct_symbole_font_weight accordien_color_table">&#x2717;</span>
                                         </td>
                                         <td><span class="accordien_color_table">Rate your experience with an Escort so you
-                                                will remember for next time</span></td>
+                                                will remember for next time.</span></td>
                                     </tr>
                                     <tr>
-                                        <td><span class="accordien_color_table">Recommendation</span></td>
+                                        <td><span class="accordien_color_table">My Playbox</span></td>
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
-                                        <td><span class="accordien_color_table">Share your experiences and publish a
-                                                recommendation [thumb icon up] or [thumb icon down]</span></td>
+                                        <td><span class="accordien_color_table">Have direct access to an Escort's Playbox.</span></td>
                                     </tr>
                                     <tr>
                                         <td><span class="accordien_color_table">Reviews</span></td>
@@ -378,7 +355,7 @@
                                                 class="correct_symbole_font_weight accordien_color_table">&#x2717;</span>
                                         </td>
                                         <td><span class="accordien_color_table">Write a review about your experience with
-                                                an Escort</span></td>
+                                                an Escort.</span></td>
                                     </tr>
                                     <tr>
                                         <td><span class="accordien_color_table">Security</span></td>
@@ -387,7 +364,7 @@
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
                                         <td><span class="accordien_color_table">Our Website is a secure environment so that
-                                                we can maintain your anonymity</span></td>
+                                                we can maintain your anonymity.  Select the level of security you want to apply.</span></td>
                                     </tr>
                                 </tbody>
                             </table>
