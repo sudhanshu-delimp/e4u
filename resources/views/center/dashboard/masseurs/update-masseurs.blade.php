@@ -23,7 +23,7 @@
             <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
                 <div class="row">
                     <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1">Add New Masseur</h1>
+                        <h1 class="h1">Update Masseur</h1>
                         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                             aria-expanded="true"><b>Help?</b></span>
                     </div>
@@ -52,7 +52,7 @@
                         <div class="add-mcc-section">
                             
                         
-                            <form id="masseur_frm" name="masseur_frm" action="{{ route('center.create-new-masseur')}}" method="Post">
+                            <form id="masseur_frm" name="masseur_frm"  method="Post">
                
                                     <!-- About The Masseur -->
                                     <div class="mcc-form-tab">
@@ -62,17 +62,17 @@
                                             <div class="form-group business-field">
                                                 <label for="name" class="mb-1">Name</label>
                                                 <input type="text" id="name" name="name"  class="form-control rounded-0"
-                                                    placeholder="Enter Name" required>
+                                                    placeholder="Enter Name" value="{{$masseur->name}}" required>
                                             </div>
                                             <div class="form-group business-field">
                                                 <label for="stage_name" class="mb-1">Stage Name</label>
                                                 <input type="text" id="stage_name" name="stage_name" class="form-control rounded-0"
-                                                    placeholder="Enter Stage Name" required>
+                                                    placeholder="Enter Stage Name" value="{{$masseur->stage_name}}" required>
                                             </div>
                                             <div class="form-group business-field">
                                                 <label for="mobile" class="mb-1">Mobile</label>
                                                 <input type="text" id="mobile" name="mobile" class="form-control rounded-0"
-                                                    placeholder="Enter Mobile" required>
+                                                    placeholder="Enter Mobile" value="{{$masseur->mobile}}" required>
                                             </div>
 
 
@@ -85,7 +85,7 @@
                                                     <option value="">-Not Set-</option>
                                                     @if (count($countrys) > 0)
                                                         @foreach ($countrys as $ckey => $cname)
-                                                            <option value="{{ old('nationality_id', $ckey) }}">{{ $cname }}</option>
+                                                            <option {{ ($masseur->nationality == $ckey) ? 'selected' : ''}}  value="{{ $ckey  }}">{{ $cname }}</option>
                                                         @endforeach
                                                     @endif
                                                 </select>
@@ -97,14 +97,14 @@
                                                 <select id="ethnicity" name="ethnicity" class="form-control rounded-0" required>
                                                     <option value="">-Not Set-</option>
                                                     @foreach (config('escorts.profile.ethnicities') as $key => $ethnicity)
-                                                        <option value="{{ $key }}"> {{ $ethnicity }}</option>
+                                                        <option {{ ($masseur->ethnicity == $key) ? 'selected' : ''}} value="{{ $key }}"> {{ $ethnicity }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
 
                                             <div class="form-group business-field">
                                                 <label for="age" class="mb-1">Age</label>
-                                                <input type="text" id="age" name="age" data-type="number" data-regex="^(1[89]|[2-9][0-9])$"  data-min="18" data-max-length="2" data-label="Age" class="form-control rounded-0"
+                                                <input type="text" value="{{$masseur->age}}" id="age" name="age" data-type="number" data-regex="^(1[89]|[2-9][0-9])$"  data-min="18" data-max-length="2" data-label="Age" class="form-control rounded-0"
                                                     placeholder="Enter Age" required>
                                             </div>
 
@@ -116,6 +116,7 @@
                                                                     type="radio"
                                                                     name="vaccination"
                                                                     value="1"
+                                                                    {{ ($masseur->vaccination == 1) ? 'checked' : ''}} 
                                                                     required
                                                                     data-label="Vaccination">
                                                                 <label class="form-check-label">
@@ -126,6 +127,7 @@
                                                                 <input class="form-check-input"
                                                                     type="radio"
                                                                     name="vaccination"
+                                                                    {{ ($masseur->vaccination == 2) ? 'checked' : ''}}
                                                                     value="2">
                                                                 <label class="form-check-label">
                                                                     Vaccinated, up to date
@@ -135,6 +137,7 @@
                                                                 <input class="form-check-input"
                                                                     type="radio"
                                                                     name="vaccination"
+                                                                     {{ ($masseur->vaccination == 3) ? 'checked' : ''}}
                                                                     value="3">
                                                                 <label class="form-check-label">
                                                                     Not Vaccinated
@@ -150,7 +153,7 @@
                                             <!-- Commentary -->
                                             <div class="form-group">
                                                 <label for="commentary" class="label">Commentary</label>
-                                                <textarea id="commentary" name="commentary" class="form-control rounded-0" placeholder="Commentary (max 300 words)" rows="3"></textarea>
+                                                <textarea id="commentary" name="commentary" class="form-control rounded-0" placeholder="Commentary (max 300 words)" rows="3">{{$masseur->commentary}}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -336,87 +339,120 @@
                                             
                                                 <h2>My Availability</h2>   
                                                 <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="padding_20_all_side my-availability-mon profile_time_availibility">
+                                                    
+                                                        <div class="col-12">
+                                                            <div class="padding_20_all_side my-availability-mon profile_time_availibility">
+                                                                                
+                                                                    @php 
+                                                                        $days = [ 'monday' => 'Monday', 'tuesday' => 'Tuesday', 'wednesday' => 'Wednesday', 'thursday' => 'Thursday', 'friday' => 'Friday', 'saturday' => 'Saturday', 'sunday' => 'Sunday', ]; 
 
-                                                            @php
-                                                                $days = [
-                                                                    'monday' => 'Monday',
-                                                                    'tuesday' => 'Tuesday',
-                                                                    'wednesday' => 'Wednesday',
-                                                                    'thursday' => 'Thursday',
-                                                                    'friday' => 'Friday',
-                                                                    'saturday' => 'Saturday',
-                                                                    'sunday' => 'Sunday',
-                                                                ];
-                                                            @endphp
 
-                                                            @foreach ($days as $dayKey => $dayLabel)
-                                                                <div class="d-flex align-items-center flex-wrap gap-20 my-3 parent-row" data-day="{{ $dayKey }}">
-                                                                    
-                                                                    <label style="width:100px;"><strong>{{ $dayLabel }}:</strong></label>
+                                                                        function splitTime($time) {
+                                                                            if (!$time) return [null, null];
+                                                                            return explode(' ', $time);
+                                                                        }
 
-                                                                    <!-- FROM -->
-                                                                    <select name="time[{{ $dayKey }}][hh_from]" class="time-field">
-                                                                        <option value="">H:M</option>
-                                                                        @for ($i = 1; $i <= 12; $i++)
-                                                                            <option value="{{ sprintf('%02d',$i) }}:00">{{ sprintf('%02d',$i) }}:00</option>
-                                                                            <option value="{{ sprintf('%02d',$i) }}:30">{{ sprintf('%02d',$i) }}:30</option>
-                                                                        @endfor
-                                                                    </select>
+                                                                    @endphp 
+                                                                            
+                                                                            
+                                                                    @foreach ($days as $dayKey => $dayLabel)
 
-                                                                    <select name="time[{{ $dayKey }}][ampm_from]" class="time-field">
-                                                                        <option value="">--</option>
-                                                                        <option value="AM">AM</option>
-                                                                        <option value="PM">PM</option>
-                                                                    </select>
+                                                                            @php
+                                                                                $dayData = $availability[$dayKey] ?? [];
 
-                                                                    <span class="mx-2">To</span>
+                                                                                $status = $dayData['status'] ?? 'closed';
 
-                                                                    <!-- TO -->
-                                                                    <select name="time[{{ $dayKey }}][hh_to]" class="time-field">
-                                                                        <option value="">H:M</option>
-                                                                        @for ($i = 1; $i <= 12; $i++)
-                                                                            <option value="{{ sprintf('%02d',$i) }}:00">{{ sprintf('%02d',$i) }}:00</option>
-                                                                            <option value="{{ sprintf('%02d',$i) }}:30">{{ sprintf('%02d',$i) }}:30</option>
-                                                                        @endfor
-                                                                    </select>
+                                                                                [$fromTime, $fromAmPm] = splitTime($dayData['from'] ?? null);
+                                                                                [$toTime, $toAmPm]     = splitTime($dayData['to'] ?? null);
 
-                                                                    <select name="time[{{ $dayKey }}][ampm_to]" class="time-field">
-                                                                        <option value="">--</option>
-                                                                        <option value="AM">AM</option>
-                                                                        <option value="PM">PM</option>
-                                                                    </select>
+                                                                                $isTilLate = $status === 'til_late';
+                                                                                $is24Hours = $status === '24_hours';
+                                                                                $isClosed  = $status === 'closed';
+                                                                                $isCustom  = $status === 'custom';
 
-                                                                    <!-- DEFAULT STATUS -->
-                                                                    <input type="hidden" name="availability_time[{{ $dayKey }}]" value="custom">
+                                                                                $disableFrom = $isClosed || $is24Hours;
+                                                                                $disableTo   = $isClosed || $is24Hours || $isTilLate;
+                                                                            @endphp
 
-                                                                    <!-- STATUS RADIOS -->
-                                                                    <label class="ms-3">
-                                                                        <input type="radio" name="availability_time[{{ $dayKey }}]" value="til_late">
-                                                                        … Till late
-                                                                    </label>
+                                                                        <div class="d-flex align-items-center flex-wrap gap-20 my-3 parent-row" data-day="{{ $dayKey }}">
 
-                                                                    <label class="ms-2">
-                                                                        <input type="radio" name="availability_time[{{ $dayKey }}]" checked="true" value="24_hours">
-                                                                        Open 24 Hours
-                                                                    </label>
+                                                                            <label style="width:100px;"><strong>{{ $dayLabel }}:</strong></label>
 
-                                                                    <label class="ms-2">
-                                                                        <input type="radio" name="availability_time[{{ $dayKey }}]" value="closed">
-                                                                        Closed
-                                                                    </label>
+                                                                            {{-- FROM --}}
+                                                                            <select name="time[{{ $dayKey }}][hh_from]" {{ $disableFrom ? 'disabled' : '' }}>
+                                                                                <option value="">H:M</option>
+                                                                                @for ($i = 1; $i <= 12; $i++)
+                                                                                    @foreach (['00','30'] as $m)
+                                                                                        @php $val = sprintf('%02d:%s', $i, $m); @endphp
+                                                                                        <option value="{{ $val }}" {{ $fromTime === $val ? 'selected' : '' }}>
+                                                                                            {{ $val }}
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                @endfor
+                                                                            </select>
 
-                                                                    
+                                                                            <select name="time[{{ $dayKey }}][ampm_from]" {{ $disableFrom ? 'disabled' : '' }}>
+                                                                                <option value="">--</option>
+                                                                                <option value="AM" {{ $fromAmPm === 'AM' ? 'selected' : '' }}>AM</option>
+                                                                                <option value="PM" {{ $fromAmPm === 'PM' ? 'selected' : '' }}>PM</option>
+                                                                            </select>
 
-                                                                    <div class="resetdays-icon"> <input type="button" value="Reset" class="resetdays"> </div>
-                                                                </div>
-                                                            @endforeach
+                                                                            <span class="mx-2">To</span>
+
+                                                                            {{-- TO --}}
+                                                                            <select name="time[{{ $dayKey }}][hh_to]" {{ $disableTo ? 'disabled' : '' }}>
+                                                                                <option value="">H:M</option>
+                                                                                @for ($i = 1; $i <= 12; $i++)
+                                                                                    @foreach (['00','30'] as $m)
+                                                                                        @php $val = sprintf('%02d:%s', $i, $m); @endphp
+                                                                                        <option value="{{ $val }}" {{ $toTime === $val ? 'selected' : '' }}>
+                                                                                            {{ $val }}
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                @endfor
+                                                                            </select>
+
+                                                                            <select name="time[{{ $dayKey }}][ampm_to]" {{ $disableTo ? 'disabled' : '' }}>
+                                                                                <option value="">--</option>
+                                                                                <option value="AM" {{ $toAmPm === 'AM' ? 'selected' : '' }}>AM</option>
+                                                                                <option value="PM" {{ $toAmPm === 'PM' ? 'selected' : '' }}>PM</option>
+                                                                            </select>
+
+                                                                            <input type="hidden" name="availability_time[{{ $dayKey }}]" value="custom">
+                                                                            
+                                                                            {{-- STATUS --}}
+                                                                            <label class="ms-3">
+                                                                                <input type="radio"
+                                                                                    name="availability_time[{{ $dayKey }}]"
+                                                                                    value="til_late"
+                                                                                    {{ $isTilLate ? 'checked' : '' }}>
+                                                                                Til late
+                                                                            </label>
+
+                                                                            <label class="ms-2">
+                                                                                <input type="radio"
+                                                                                    name="availability_time[{{ $dayKey }}]"
+                                                                                    value="24_hours"
+                                                                                    {{ $is24Hours ? 'checked' : '' }}>
+                                                                                Open 24 Hours
+                                                                            </label>
+
+                                                                            <label class="ms-2">
+                                                                                <input type="radio"
+                                                                                    name="availability_time[{{ $dayKey }}]"
+                                                                                    value="closed"
+                                                                                    {{ $isClosed ? 'checked' : '' }}>
+                                                                                Closed
+                                                                            </label>
+
+                                                                            <div class="resetdays-icon"> <input type="button" value="Reset" class="resetdays" data-day="sunday" id="resetSunday"> </div>
+                                                                        </div>
+                                                                    @endforeach
 
                                                         </div>
                                                     </div>
-                                                </div>              
-                            
+
+                                        </div>              
                                     </div>
                                     <!-- End My Availability -->                           
 
@@ -443,6 +479,35 @@
                                                         </div>
                                                     </div>
                                                     @foreach($durations->whereIn('id',[2,3,4,5,6]) as $duration)
+
+                                                    @php
+                                                    if($duration->id!="")
+                                                    {
+                                                        $massage_price = $incall_price = $outcall_price =  $massage_profile_id = "";
+                                                        if(!empty($massage_durations))
+                                                        {
+                                                            foreach($massage_durations as $db_duration)  
+                                                            {
+                                                                if(isset($db_duration['pivot']['duration_id']) && $db_duration['pivot']['duration_id']==$duration->id)
+                                                                {
+                                                                    
+                                                                    $massage_price = isset($db_duration['pivot']['massage_price']) ? $db_duration['pivot']['massage_price'] : 0;
+                                                                    $incall_price =  isset($db_duration['pivot']['incall_price']) ? $db_duration['pivot']['incall_price'] : 0;
+                                                                    $outcall_price = isset($db_duration['pivot']['outcall_price']) ? $db_duration['pivot']['outcall_price'] : 0;
+                                                                    $massage_profile_id = isset($db_duration['pivot']['massage_profile_id']) ? $db_duration['pivot']['massage_profile_id'] : "";
+
+                                                                    
+                                                                    break;
+                                                                    
+                                                                } 
+                                                            }   
+                                                        }
+                                                    }
+                                                    
+                                                    
+                                                    
+                                                    @endphp
+
                                                     <div class="rate_first_row">
                                                         <input type="hidden" name="duration_id[]" value="{{ $duration->id}}">
                                                         <div class="form-group row">
@@ -450,19 +515,22 @@
                                                             <div class="col-3">
                                                                 <div class="service_rate_dolor_symbol form-group">
                                                                     <span>$</span>
-                                                                    <input  placeholder="0" type="text"  class="form-control allow_only_numeric" id="massage_price" name="massage_price[]" >
+                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="massage_price" type="text"  class="form-control allow_only_numeric update_default_rate" id="massage_price" value="{{ $masseur->durationRate($duration->id, 'massage_price') }}" name="massage_price[]">
+                                                                     <input type="hidden" class="profile_massage_price"  value="{{$massage_price}}" >
                                                                 </div>
                                                             </div>
                                                             <div class="col-3">
                                                                 <div class="service_rate_dolor_symbol form-group">
                                                                     <span>$</span>
-                                                                    <input  placeholder="0"  type="text"  class="form-control allow_only_numeric" id="incall_price" name="incall_price[]"  >
+                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="incall_price"  type="text"  class="form-control allow_only_numeric update_default_rate" id="incall_price" value="{{ $masseur->durationRate($duration->id, 'incall_price') }}" name="incall_price[]">
+                                                                    <input type="hidden" class="profile_incall_price"  value="{{$incall_price}}" >
                                                                 </div>
                                                             </div>
                                                             <div class="col-3">
                                                                 <div class="service_rate_dolor_symbol form-group">
                                                                     <span>$</span>
-                                                                    <input  placeholder="0"  type="text"  class="form-control allow_only_numeric" id="outcall_price" name="outcall_price[]"  >
+                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}"  data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="outcall_price"   type="text"  class="form-control allow_only_numeric update_default_rate" id="outcall_price"  value="{{ $masseur->durationRate($duration->id, 'outcall_price') }}" name="outcall_price[]">
+                                                                     <input type="hidden" class="profile_outcall_price"  value="{{$outcall_price}}" >
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -475,7 +543,8 @@
 
 
                                     <div class="d-flex justify-content-end py-3">
-                                        <button type="button" id="submitMasseur" class="btn-common">Create Masseur</button>
+                                        <input type="hidden" name="masseur_id" id="masseur_id" value="{{$masseur->id}}">
+                                        <button type="button" id="submitMasseur" class="btn-common">Update Masseur</button>
                                     </div>
                             
                             </form>
@@ -611,6 +680,43 @@
 
 {{-- end --}}
 
+<div class="modal programmatic" id="update_info" style="display: none">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content custome_modal_max_width">
+         <div class="modal-header main_bg_color border-0">
+            <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+            <img src="{{ asset('assets/app/img/newcross.png') }}"
+               class="img-fluid img_resize_in_smscreen">
+            </span>
+            </button>
+         </div>
+         <div class="modal-body">
+
+            <form name="update_single_data" method="post" action="{{route('center.update-single-data')}}">
+            <input type="hidden" name="post_field" id="post_field" value="">
+            <input type="hidden" name="post_value" id="post_value" value="">
+
+             <input type="hidden" name="post_json" id="post_json" value="">
+            <input type="hidden" name="post_type" id="post_type" value="">
+                
+                <h3 class="my-2"><span id="Lname"><p>Would you like to update <b>
+                                <span id="field_name"></span>       
+                </b> in your 'My Information' page for future Profiles?</p></span> </h3>
+                <div class="modal-footer">
+                <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
+                    value="close" id="close_change">No</button>
+                <button type="button" class="btn-success-modal" id="update_new_value">Yes</button>
+                </div>
+            </form>
+
+
+         </div>
+      </div>
+   </div>
+</div>
+
 @endsection
 
 @push('script')
@@ -675,15 +781,14 @@
 
     }
 
-    function getRow(row) {
+    function getRow(row) 
+    {
             return {
                 from: row.find('select[name*="[hh_from]"], select[name*="[ampm_from]"]'),
                 to: row.find('select[name*="[hh_to]"], select[name*="[ampm_to]"]'),
                 radios: row.find('input[type="radio"]')
             };
     }
-
-
 
 
     $('.profile_time_availibility').on('change', 'input[type="radio"]', function () {
@@ -716,21 +821,21 @@
         }
     );
 
-    $('.profile_time_availibility .parent-row').each(function () {
+    // $('.profile_time_availibility .parent-row').each(function () {
 
-        let row = $(this);
-        let checked = row.find('input[type="radio"]:checked').val();
-        let { from, to } = getRow(row);
+    //     let row = $(this);
+    //     let checked = row.find('input[type="radio"]:checked').val();
+    //     let { from, to } = getRow(row);
 
-        if (checked === 'til_late') {
-            from.prop('disabled', false);
-            to.prop('disabled', true);
-        } else {
-            from.prop('disabled', true);
-            to.prop('disabled', true);
-        }
+    //     if (checked === 'til_late') {
+    //         from.prop('disabled', false);
+    //         to.prop('disabled', true);
+    //     } else {
+    //         from.prop('disabled', true);
+    //         to.prop('disabled', true);
+    //     }
 
-    });
+    // });
                 
               
             
@@ -741,6 +846,75 @@
        
     $(function(e) 
     {
+
+        //// ----------- Update Single Data ------------ ///////
+        $('.update_default_rate').on('blur', function () {
+
+                var duration_id  = $(this).data('duration_id');
+                var massage_profile_id  = $(this).data('massage_profile_id');
+                var data_type  = $(this).data('data_type');
+
+
+                var current_value  = $(this).val();
+                var current_feild  = $(this).attr('id');
+
+                var current_old_input = 'profile_'+current_feild;
+                var old_value  =  $(this).closest('.service_rate_dolor_symbol').find('.'+current_old_input).val();
+
+               
+            
+                if(current_value==="")
+                return false;    
+
+
+                if (current_value !== old_value) {
+
+                let postData = {
+                    duration_id: duration_id,
+                    massage_profile_id: massage_profile_id,
+                    data_type: data_type,
+                    new_value: current_value
+                }
+
+                $('#post_json').val(JSON.stringify(postData));
+                $('#post_type').val('rate');
+                $('#field_name').text('Rate');
+                $('#update_info').modal('show');
+                }
+         });
+
+
+         $('#update_new_value').on('click', function (e) {
+                e.preventDefault();
+                swal_waiting_popup({'title':'Updating Data.'});
+                let form = $('form[name="update_single_data"]');
+                
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        Swal.close();
+                        $('#update_info').modal('hide');    
+                    },
+                    error: function (xhr) {
+                       Swal.close();
+                       $('#update_info').modal('hide');
+                    },
+                    complete: function () {
+                         Swal.close();
+                         $('#update_info').modal('hide');
+                    }
+                });
+            });    
+
+       //// ----------- Update Single Data ------------ ///////
+
+
         $('.resetdays').on('click', function () {
             let row = $(this).closest('.parent-row');
             row.find('select').val('').prop('disabled', false);
@@ -749,6 +923,30 @@
         });
 
 
+
+        function checkRates()
+        {
+            const selectors = [
+            'input[name="massage_price[]"]',
+            'input[name="incall_price[]"]',
+            'input[name="outcall_price[]"]'
+            ];
+
+            let isValid = false;
+            const allInputs = selectors.flatMap(selector => 
+            Array.from(document.querySelectorAll(selector))
+            );
+
+            for (const input of allInputs) {
+            const val = parseFloat(input.value);
+            
+            if (!isNaN(val) && val > 0) {
+                isValid = true;
+                break;
+            }
+            }
+            return isValid;
+        }
 
         function validateForm(formId) 
         {
@@ -794,7 +992,7 @@
 
                     let value = $.trim(field.val());
 
-                    // skip empty (optional field)
+                    
                     if (value !== '') {
                         let regex = new RegExp(field.data('regex'));
                         let msg   = field.data('regex-msg') || (label + ' must be 18 or older.');
@@ -819,22 +1017,70 @@
         $('#submitMasseur').on('click', function (e) {
             e.preventDefault();
 
-            if (!validateForm('masseur_frm')) {
-                return false;
+             var hasError  = validateAvailability();
+             let existRates = checkRates();
+             
+            
+            if (!existRates) 
+            {
+                 swal_error_warning('Rate','You must complete at least one rate value to proceed.')
+                 return false;
             }
 
-            // ✔ proceed with AJAX / submit
+            else if (hasError) {
+                 swal_error_warning('My Availability','Please select a time range or choose an availability option for each day.')
+                 return false;
+            }
+
+            else
+            {
+                if (!validateForm('masseur_frm')) {
+                return false;
+                }
+            }
+            
+
+
+            swal_waiting_popup({'title':'Creating new masseur.'});
+            let form = $('form[name="masseur_frm"]');
+            let formData = new FormData(form[0]);
+
+            $.ajax({
+                    url: "{{ route('center.update-masseur') }}",
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        Swal.close();
+                        if (response.success === true && response.masseur_profile_id) {
+                            swal_success_popup(response.message ?? 'Profile updated successfully');
+                            // setTimeout(function () {
+                            //     window.location = 'update-masseur/' + response.masseur_profile_id;
+                            // }, 2000); // 2 seconds
+
+                        } 
+                        else 
+                        {
+                            swal_error_popup('Something went wrong');
+                        }
+                    },
+
+                    error: function (xhr) {
+                        Swal.close();
+                        let message = 'Error while saving profile';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            message = xhr.responseJSON.message;
+                        }
+                        swal_error_popup(message);
+                    }
+                });
+
         });
 
 
 
-        //  var hasError  = validateAvailability();
-        //    let is_true = true;
-
-        //      if (hasError) {
-        //          swal_error_warning('Our Open Time','Please select a time range or choose an availability option for each day.')
-        //          is_true = false;
-        //     }
+        
 
 
     });       

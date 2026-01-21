@@ -127,55 +127,55 @@ class MassageController extends Controller
 
 
     public function makeAvailability($request_data)
-{
-    $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
-    $availability = [];
+    {
+        $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+        $availability = [];
 
-    foreach ($days as $day) {
+        foreach ($days as $day) {
 
-        $status = $request_data['availability_time'][$day] ?? 'closed';
+            $status = $request_data['availability_time'][$day] ?? 'closed';
 
-        if ($status === 'closed') {
+            if ($status === 'closed') {
+                $availability[$day] = [
+                    'status' => 'closed',
+                    'from' => null,
+                    'to' => null,
+                ];
+                continue;
+            }
+
+            if ($status === '24_hours') {
+                $availability[$day] = [
+                    'status' => '24_hours',
+                    'from' => '12:00 AM',
+                    'to' => '11:59 PM',
+                ];
+                continue;
+            }
+
+            // custom / til_late
+            $from = null;
+            $to   = null;
+
+            if (!empty($request_data['time'][$day]['hh_from']) &&
+                !empty($request_data['time'][$day]['ampm_from'])) {
+                $from = $request_data['time'][$day]['hh_from'].' '.$request_data['time'][$day]['ampm_from'];
+            }
+
+            if (!empty($request_data['time'][$day]['hh_to']) &&
+                !empty($request_data['time'][$day]['ampm_to'])) {
+                $to = $request_data['time'][$day]['hh_to'].' '.$request_data['time'][$day]['ampm_to'];
+            }
+
             $availability[$day] = [
-                'status' => 'closed',
-                'from' => null,
-                'to' => null,
+                'status' => $status,
+                'from' => $from,
+                'to' => $to,
             ];
-            continue;
         }
 
-        if ($status === '24_hours') {
-            $availability[$day] = [
-                'status' => '24_hours',
-                'from' => '12:00 AM',
-                'to' => '11:59 PM',
-            ];
-            continue;
-        }
-
-        // custom / til_late
-        $from = null;
-        $to   = null;
-
-        if (!empty($request_data['time'][$day]['hh_from']) &&
-            !empty($request_data['time'][$day]['ampm_from'])) {
-            $from = $request_data['time'][$day]['hh_from'].' '.$request_data['time'][$day]['ampm_from'];
-        }
-
-        if (!empty($request_data['time'][$day]['hh_to']) &&
-            !empty($request_data['time'][$day]['ampm_to'])) {
-            $to = $request_data['time'][$day]['hh_to'].' '.$request_data['time'][$day]['ampm_to'];
-        }
-
-        $availability[$day] = [
-            'status' => $status,
-            'from' => $from,
-            'to' => $to,
-        ];
+        return $availability;
     }
-
-    return $availability;
-}
 
 
     public function index($id = null)
@@ -202,6 +202,16 @@ class MassageController extends Controller
     {
        
         $user = auth()->user();
+
+        
+        ########## default profile data ############
+        $massage_default = $this->massage_profile->findDefault($user->id,1);
+        if(!$massage_default ) {
+            $massage_default = $this->massage_profile->make();
+        }
+        $massage_durations = (isset($massage_default->durations) && count($massage_default->durations)>0) ? $massage_default->durations->toArray() : [];
+        ########## End default profile data ########
+
         $escort = $this->escort->find($id);
         if(!$escort || !$id){
         return redirect()->route('center.profile');
@@ -222,31 +232,56 @@ class MassageController extends Controller
             $defaultServiceIds = $escortDefault->services()->pluck('service_id')->toArray();
             $edit_mode = true;
             //dd($escort->imagePosition(9));
-            return view('center.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'edit_mode'));
+            return view('center.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'edit_mode','massage_durations','massage_default'));
         }
         
     }
 
     
+    
     public function update_single_data(Request $request)
     {
-        $request->validate([
-            'post_field' => 'required|string',
-            'post_value' => 'required'
-        ]);
-
+       
         try 
         {
-            $profile  =  MassageProfile::where('user_id',auth()->user()->id)
+            if(isset($request->post_type) && $request->post_type=='rate')
+            {
+                    if ($request->filled('post_json')) 
+                    {
+
+                        $data = json_decode($request->post_json, true);
+                        if(isset($data['duration_id']) && isset($data['massage_profile_id']) && isset($data['data_type']))
+                        {
+                              $massage_rate  = MassageRate::where(['massage_profile_id'=> $data['massage_profile_id'], 'duration_id'=> $data['duration_id']])->first();
+                              if($massage_rate)
+                              {
+                                $massage_rate->{$data['data_type']} = $data['new_value'];
+                                $massage_rate->save();
+
+                              }
+                        
+                        }
+
+                    }
+            }
+            else
+            {
+                if(isset($request->post_field) && isset($request->post_value) && $request->post_field!="" && $request->post_value!="")
+                {
+                    $profile  =  MassageProfile::where('user_id',auth()->user()->id)
                             ->where('default_setting',1)
                             ->first();
                             
-            $field = $request->post_field;
-            $value = $request->post_value;    
-            
-            $profile->update([
-                $field => $value
-            ]);
+                    $field = $request->post_field;
+                    $value = $request->post_value;    
+                    
+                    $profile->update([
+                        $field => $value
+                    ]);
+                }
+                  
+            }
+           
 
 
             return response()->json([

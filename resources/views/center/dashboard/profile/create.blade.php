@@ -366,7 +366,7 @@ var edit_mode = false;
         ///////// End Update Single Data //////////////////      
 
 
-        //$('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
+        $('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
 
 
         const validator = $('#my_massage_profile').validate({

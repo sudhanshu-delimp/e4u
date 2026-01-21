@@ -164,26 +164,30 @@ textarea {
                 <div class="business-info-field pt-4">
                     <div class="form-group business-field">
                     <label for="profile_name">Profile Name:</label>
-                        <input type="text" value="{{ $escort->profile_name}}" name="profile_name" class="form-control" id="profile_name"  placeholder="Enter Profile Name" required data-tab="group_one">
+                        <input type="hidden" value="{{ $massage_default->profile_name}}" class="form-control" id="profile_profile_name">
+                        <input type="text" value="{{ $escort->profile_name}}" name="profile_name" class="form-control update_profile_data" id="profile_name"  placeholder="Enter Profile Name" required data-tab="group_one">
                     
                     </div>
 
                     <div class="form-group business-field">
                     <label for="business_name">
                         Business Name:</label>
-                        <input type="text" value="{{ $escort->business_name}}" name="business_name" class="form-control" id="business_name" placeholder="Enter Business Name"  required data-tab="group_one">
+                         <input type="hidden" value="{{ $massage_default->business_no}}" class="form-control" id="profile_business_no">
+                        <input type="text" value="{{ $escort->business_name}}" name="business_name" class="form-control update_profile_data" id="business_name" placeholder="Enter Business Name"  required data-tab="group_one">
                     </div>           
 
                     <div class="form-group business-field">
                     <label for="business_no">
                         Business No:</label>
-                        <input type="text" value="{{ $escort->business_no}}" name="business_no" class="form-control" id="business_no" placeholder="Enter Business Number" >               
+                        <input type="hidden" value="{{ $massage_default->business_no}}" class="form-control" id="profile_business_no">
+                        <input type="text" value="{{ $escort->business_no}}" name="business_no" class="form-control update_profile_data" id="business_no" placeholder="Enter Business Number" >               
                     </div>
 
                     <div class="form-group business-field">
                     <label for="phone">
                         Mobile No: </label>
-                    <input type="text" value="{{$escort->phone}}" name="phone" class="form-control" id="phone" placeholder="Enter Mobile Number">           
+                     <input type="hidden" value="{{ $massage_default->phone}}" class="form-control" id="profile_phone">
+                    <input type="text" value="{{$escort->phone}}" name="phone" class="form-control update_profile_data" id="phone" placeholder="Enter Mobile Number">           
                     </div>
 
                     <div class="form-group business-field">
@@ -1172,79 +1176,87 @@ textarea {
                                         <label for="exampleFormControlSelect1">
                                         Building<span style="color:red">*</span>
                                         </label>                                       
-                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="" name="building" required="">
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="" name="building" required="">
                                         <option value="" selected="">-- Not Set --</option>
                                         @foreach(config('escorts.profile.Building') as $key =>$buldingName)
                                         <option value="{{$key}}" {{ ($escort->building == $key)? 'selected' : ''}}>{{$buldingName}}</option>
                                         @endforeach
                                         </select>
+                                        <input type="hidden" value="{{ $massage_default->building}}" class="form-control" id="profile_building">
                                         
                                     </div>
                                     <div class="form-group business-field">
                                         <label for="exampleFormControlSelect1">Parking</label>
-                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="parking" name="parking">
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="parking" name="parking">
                                         <option value="" selected="">-- Not Set --</option>
                                         @foreach(config('escorts.profile.Parking') as $key =>$ParkingName)
                                         <option value="{{$key}}" {{ ($escort->parking == $key)? 'selected' : ''}} >{{$ParkingName}}</option>
                                         @endforeach
                                         </select>
+                                         <input type="hidden" value="{{ $massage_default->parking}}" class="form-control" id="profile_parking">
                                     </div>
                                     <div class="form-group business-field">
                                         <label for="exampleFormControlSelect1">Entry</label>
-                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="entry" name="entry">
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="entry" name="entry">
                                         <option value="" selected="">-- Not Set --</option>
                                         @foreach(config('escorts.profile.Entry') as $key =>$EntryName)
                                         <option value="{{$key}}" {{ ($escort->entry == $key)? 'selected' : ''}}>{{$EntryName}}</option>
                                         @endforeach
                                         </select>
+                                        <input type="hidden" value="{{ $massage_default->entry}}" class="form-control" id="profile_entry">
                                     </div>
                                     <div class="form-group business-field">
                                         <label for="exampleFormControlSelect1">Type</label>
-                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="Type" name="furniture_types">
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="Type" name="furniture_types">
                                         <option value="" selected="">-- Not Set --</option>
                                         @foreach(config('escorts.profile.furniture_types') as $key =>$furniture_type)
                                         <option value="{{$key}}" {{ ($escort->furniture_types == $key)? 'selected' : ''}} >{{$furniture_type}}</option>
                                         @endforeach
                                         </select>
+                                         <input type="hidden" value="{{ $massage_default->furniture_types}}" class="form-control" id="profile_furniture_types">
                                     </div>
                                     <div class="form-group business-field">
                                         <label for="exampleFormControlSelect1">
                                         Shower</label>
-                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="" name="shower">
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="" name="shower">
                                         <option value="" selected="">-- Not Set --</option>
                                         @foreach(config('escorts.profile.Shower') as $key =>$Type)
                                         <option value="{{$key}}" {{ ($escort->shower == $key)? 'selected' : ''}} >{{$Type}}</option>
                                         @endforeach
                                         </select>
+                                        <input type="hidden" value="{{ $massage_default->shower}}" class="form-control" id="profile_shower">
                                     </div>
                                     <div class="form-group business-field">
                                         <label for="exampleFormControlSelect1">Ambiance</label>
-                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="ambiance" name="ambiance">
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="ambiance" name="ambiance">
                                         <option value="" selected="">-- Not Set --</option>
                                         @foreach(config('escorts.profile.Ambiance') as $key =>$AmbianceName)
                                         <option value="{{$key}}" {{ ($escort->ambiance == $key)? 'selected' : ''}} >{{$AmbianceName}}</option>
                                         @endforeach
                                         </select>
+                                        <input type="hidden" value="{{ $massage_default->ambiance}}" class="form-control" id="profile_ambiance">
                                     </div>
 
                                     <div class="form-group business-field">
                                         <label for="exampleFormControlSelect1">Security</label>
                                         
-                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="security" name="security">
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="security" name="security">
                                         <option value="" selected="">-- Not Set --</option>
                                         @foreach(config('escorts.profile.Security') as $key =>$SecurityName)
                                         <option value="{{$key}}" {{ ($escort->security == $key)? 'selected' : ''}} data-name="{{$SecurityName}}">{{$SecurityName}}</option>
                                         @endforeach
                                         </select>
+                                         <input type="hidden" value="{{ $massage_default->security}}" class="form-control" id="profile_security">
                                     </div>
                                     <div class="form-group business-field">
                                         <label for="exampleFormControlSelect1">Payment</label>                                       
-                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="payment" name="payment">
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="payment" name="payment">
                                         <option value="" selected="">-- Not Set --</option>
                                         @foreach(config('escorts.profile.Payments') as $key =>$PaymentType)
                                         <option value="{{$key}}" {{ ($escort->payment == $key)? 'selected' : ''}} data-name="{{$PaymentType}}">{{$PaymentType}}</option>
                                         @endforeach>
                                         </select>
+                                         <input type="hidden" value="{{ $massage_default->payment}}" class="form-control" id="profile_payment">
                                         @if(!empty($escort->payment)) 
                                         <div class='select_pay'>
                                             <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.payments.$escort->payment") !!}</span>
@@ -1261,12 +1273,13 @@ textarea {
                                     <div class="form-group business-field">
                                         <label for="exampleFormControlSelect1">Loyalty program
                                         </label>
-                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="loyalty" name="loyalty">
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="loyalty" name="loyalty">
                                         <option value="" selected="">-- Not Set --</option>
                                         @foreach(config('escorts.profile.Loyalty') as $key =>$LoyaltyType)
                                         <option value="{{$key}}" {{ ($escort->loyalty == $key)? 'selected' : ''}} >{{$LoyaltyType}}</option>
                                         @endforeach>
                                         </select>
+                                        <input type="hidden" value="{{ $massage_default->loyalty}}" class="form-control" id="profile_loyalty">
                                     </div>
 
                                     <div class="form-group business-field">
@@ -1274,7 +1287,7 @@ textarea {
                                         <label for="exampleFormControlSelect1">Languages
                                         </label>
                                         
-                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="language" name="language" >
+                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="language" name="language" >
                                         <option value="" selected="">-- Not Set --</option>
                                         @foreach(config('escorts.profile.languages') as $key =>$language)
                                         <option value="{{$key}}"  @if ((isset($escort->language) && $escort->language == $key)) selected @endif data-name="{{ $language }}">{{$language}}</option>
@@ -1329,7 +1342,9 @@ textarea {
                 <h2>Who are We ? </h2>
             </div>
             <div class="padding_20_all_side">
-                <input type="text" name="about_title" id="about_title" value="{{$escort->about ? $escort->about : null }}" class="whoiamtitle mc-whoiam-title mb-1" placeholder="Enter Your Title Here" required data-tab="group_one" >
+                <input type="text" name="about_title" id="about_title" value="{{$escort->about ? $escort->about : null }}" class="whoiamtitle mc-whoiam-title mb-1 update_profile_data" placeholder="Enter Your Title Here" required data-tab="group_one" >
+                <input type="hidden" value="{{ $massage_default->about_title}}" class="form-control" id="profile_about_title">
+                
                 <div class="row mt-3">
                     <div class="col-12">
                         <textarea id="about_us_box" name="about_us_box">@if(!empty($escort->about_us_box)) {{ $escort->about_us_box}} @endif</textarea>

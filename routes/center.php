@@ -96,7 +96,10 @@ Route::get('profile-informations', [CenterProfileInformationController::class, '
 
 
 Route::get('create-new-masseur', [MasseurController::class, 'index'])->name('center.create-new-masseur');
-Route::get('create-new-masseur', [MasseurController::class, 'add_masseur'])->name('center.create-new-masseur');
+Route::post('create-new-masseur', [MasseurController::class, 'add_masseur'])->name('center.create-new-masseur');
+Route::get('update-masseur/{id?}',[MasseurController::class,'edit_masseur'])->name('center.update-masseur');
+Route::post('update-masseur',[MasseurController::class,'update_masseur'])->name('center.update-masseur');
+
  
 // Route::get('masseurs/new-listing', function()
 // {

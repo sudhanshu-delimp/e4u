@@ -150,6 +150,43 @@
 
 
 
+<div class="modal programmatic" id="update_info" style="display: none">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content custome_modal_max_width">
+         <div class="modal-header main_bg_color border-0">
+            <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+            <img src="{{ asset('assets/app/img/newcross.png') }}"
+               class="img-fluid img_resize_in_smscreen">
+            </span>
+            </button>
+         </div>
+         <div class="modal-body">
+
+            <form name="update_single_data" method="post" action="{{route('center.update-single-data')}}">
+            <input type="hidden" name="post_field" id="post_field" value="">
+            <input type="hidden" name="post_value" id="post_value" value="">
+
+             <input type="hidden" name="post_json" id="post_json" value="">
+            <input type="hidden" name="post_type" id="post_type" value="">
+                
+                <h3 class="my-2"><span id="Lname"><p>Would you like to update <b>
+                                <span id="field_name"></span>       
+                </b> in your 'My Information' page for future Profiles?</p></span> </h3>
+                <div class="modal-footer">
+                <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
+                    value="close" id="close_change">No</button>
+                <button type="button" class="btn-success-modal" id="update_new_value">Yes</button>
+                </div>
+            </form>
+
+
+         </div>
+      </div>
+   </div>
+</div>
+
 
 @include('center.dashboard.modal.upload_gallery_image')
 @include('center.dashboard.modal.remove_gallary_image')
@@ -198,6 +235,117 @@ console.log('profileId',profileId);
    
     $ (document).ready(function(e) {
 
+        $('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
+
+
+        //// ----------- Update Single Data ------------ ///////
+         $('.update_profile_data').on('blur change', function () {
+
+                var current_feild  = $(this).attr('id');
+                var current_value  = $(this).val();
+                
+                if(current_value==="")
+                return false;    
+
+
+                var old_value  = $('#profile_'+current_feild).val();
+
+                if(current_feild=='about_title')
+                    current_feild = 'about_us_box'
+
+                if (current_value !== old_value) {
+                $('#post_field').val(current_feild);
+                $('#post_value').val(current_value);
+                $('#field_name').text(formatProfileName(current_feild));
+                $('#update_info').modal('show');
+                }
+         });
+
+
+         $('.update_default_rate').on('blur', function () {
+
+                var duration_id  = $(this).data('duration_id');
+                var massage_profile_id  = $(this).data('massage_profile_id');
+                var data_type  = $(this).data('data_type');
+
+
+                var current_value  = $(this).val();
+                var current_feild  = $(this).attr('id');
+
+                var current_old_input = 'profile_'+current_feild;
+                var old_value  =  $(this).closest('.service_rate_dolor_symbol').find('.'+current_old_input).val();
+
+               
+            
+                if(current_value==="")
+                return false;    
+
+
+                if (current_value !== old_value) {
+
+                let postData = {
+                    duration_id: duration_id,
+                    massage_profile_id: massage_profile_id,
+                    data_type: data_type,
+                    new_value: current_value
+                }
+
+                $('#post_json').val(JSON.stringify(postData));
+                $('#post_type').val('rate');
+                $('#field_name').text('Rate');
+                $('#update_info').modal('show');
+                }
+         });
+
+
+            function formatProfileName(text) {
+
+                let formattedText = text
+                    .split('_')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+
+                switch (formattedText) {
+                    case 'Phone':
+                        return 'Mobile No';
+
+                        case 'About Us Box':
+                        return 'Who are We';
+                    
+                    default:
+                        return formattedText;
+                }
+            }
+
+            $('#update_new_value').on('click', function (e) {
+                e.preventDefault();
+                swal_waiting_popup({'title':'Updating Data.'});
+                let form = $('form[name="update_single_data"]');
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        Swal.close();
+                        $('#update_info').modal('hide');    
+                    },
+                    error: function (xhr) {
+                       Swal.close();
+                       $('#update_info').modal('hide');
+                    },
+                    complete: function () {
+                         Swal.close();
+                         $('#update_info').modal('hide');
+                    }
+                });
+            });    
+
+        ///////// End Update Single Data ////////////////// 
+
 
         $('#language').change(function(){
             var languageValue = $('#language').val();
@@ -209,13 +357,11 @@ console.log('profileId',profileId);
             $("#language option[value='"+languageValue+"']").remove();
         });
 
-         $(document).on('click', '.remove-lang , span.custom--help', function () {
+        $(document).on('click', '.remove-lang , span.custom--help', function () {
             $(this).closest('.selecated_languages').remove();            
             $(this).closest('.custom-help-contain').toggleClass('help-note-toggle');
         });
 
-
-        $('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
 
         const validator = $('#my_massage_profile').validate({
             ignore: function (index, element) {
@@ -226,7 +372,6 @@ console.log('profileId',profileId);
             errorClass: 'text-danger',
             errorElement: 'small'
         });
-
 
 
         $('.nex_sterp_btn').on('click', function () {
@@ -314,8 +459,6 @@ console.log('profileId',profileId);
             }
         });
 
-
-          
                 
           initDragDrop();
 
@@ -423,7 +566,7 @@ console.log('profileId',profileId);
                 }
             });
         
-    });
+        });
 
      });
 
