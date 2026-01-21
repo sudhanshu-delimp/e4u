@@ -567,6 +567,12 @@ class MassageProfileRepository extends BaseRepository implements MassageProfileI
 		return  $result;
 	}
 
+    public function get_massage_by_id($id)
+	{
+        $result = $this->model->where('id',$id)->where('default_setting','!=',1)->first();
+		return  $result;
+	}
+
     // public function addToList($user_id)
 	// {
     //     $q = $this->model

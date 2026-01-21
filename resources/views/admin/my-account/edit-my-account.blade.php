@@ -247,7 +247,8 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                                                 <h5 class="border-bottom pb-1 text-blue-primary">Building Security</h5>
                                             </div>
                                         </div>
-                                        <div class="col-md-10 px-0">
+                                        <div class="row">
+                                            <div class="col-md-10 px-0">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -272,11 +273,13 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                                                 </div>
                                             </div>
                                         </div>
+                                        </div>
                                             <!-- End Building Security -->
 
                                                       <!-- Start 2FA -->
                                   
-                                        <div class="col-md-10 px-0">
+                                        <div class="row">
+                                            <div class="col-md-10 px-0">
                                             <p>&nbsp;</p>
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -296,6 +299,7 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
                                         </div>
                                             <!-- End 2FA -->
                                             <input type="submit" value="save"

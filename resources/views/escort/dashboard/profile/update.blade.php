@@ -241,6 +241,7 @@ $loginAccount = auth()->user();
       </div>
    </div>
 </div>
+
 <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
       <div class="modal-content basic-modal modal-lg">

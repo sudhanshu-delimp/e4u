@@ -16,6 +16,7 @@ use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
+use App\Http\Controllers\Admin\PublicationAlertController;
 use App\Http\Controllers\Admin\AdvertiserReviewsController;
 use App\Http\Controllers\Admin\AgentNotificationController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
@@ -461,6 +462,20 @@ Route::get('/notifications/escort/{id}/edit', [EscortNotificationController::cla
 Route::post('/notifications/escort/{id}/update', [EscortNotificationController::class, 'update'])->name('admin.escort.notifications.update');
 
 
+//Public page Alert for Footer section
+Route::get('publications/alert/list', [PublicationAlertController::class, 'index'])->name('admin.publications.alert.index');
+Route::post('/publications/alert/store', [PublicationAlertController::class, 'store'])->name('admin.publications.alert.store');
+Route::get('/publications/alert/{id}/show', [PublicationAlertController::class, 'show'])->name('admin.publications.alert.show');
+Route::post('/publications/alert/{id}/status', [PublicationAlertController::class, 'updateStatus'])->name('admin.publications.alert.status');
+//Route::get('/publications/alert/pdf-download/{id}', [PublicationAlertController::class, 'pdfDownload'])->name('admin.publications.alert.pdf.download');
+Route::get('/publications/alert/{id}/edit', [PublicationAlertController::class, 'edit'])->name('admin.publications.alert.edit');
+Route::post('/publications/alert/{id}/update', [PublicationAlertController::class, 'update'])->name('admin.publications.alert.update');
+//For New Notice
+Route::post('publications/notice/store', [PublicationAlertController::class, 'noticeStore'])->name('admin.publications.alert.noticeStore');
+Route::get('/publications/notice/show', [PublicationAlertController::class, 'noticeShow'])->name('admin.publications.alert.noticeShow');
+
+
+
 // Route::get('/notifications/shareholders',function(){
 //     return view('admin.notifications.shareholders.index');
 // })->name('admin.shareholders');
@@ -634,6 +649,14 @@ Route::get('/management/logs-staff', function () {
  Route::get('/management/manage-influencers',function(){
     return view('admin.management.influencer.manage-influencers');
 })->name('admin.manage-influencers');
+
+ Route::get('/management/manage-shareholders',function(){
+    return view('admin.management.manage-shareholders');
+})->name('admin.manage-shareholders');
+
+ Route::get('/management/dashboard',function(){
+    return view('admin.management.dashboard');
+})->name('admin.dashboard');
 
 Route::get('/management/application', function () {
     return view('admin.management.logs.application');

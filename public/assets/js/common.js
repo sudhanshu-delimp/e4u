@@ -44,6 +44,10 @@ function swal_error_popup(message) {
     });
 }
 
+function swal_error_warning(titile,message) {
+    Swal.fire((titile) ? titile : '',(message) ? message : '', 'warning' );       
+}
+
 function swal_waiting_popup(data) {
 
     let gif_img = `<img src="../../assets/img/wait_loader.gif" alt="loading..." style="width:80px; margin-top:10px;">`;

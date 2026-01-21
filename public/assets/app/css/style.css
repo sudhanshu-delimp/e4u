@@ -7422,6 +7422,54 @@ i.fa.fa-heart-o{
             height: 60px;
             animation: spin 1s linear infinite;
         }
+
+
+/* News bar */
+.news-bar {
+    top: 0;
+    width: 100%;
+    background-color: var(--peach);
+    color: #fff;
+    overflow: hidden;
+    height: 45px;
+    line-height: 45px;
+    z-index: 1050;
+}
+
+/* ========== SCROLLING MODE ========== */
+.news-track {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    animation: news-scroll 18s linear infinite;
+}
+
+/* Pause on hover */
+.news-bar:hover .news-track {
+    animation-play-state: paused;
+}
+
+/* ========== STATIC MODE ========== */
+.news-static {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    text-align: center;
+    white-space: normal;
+}
+
+/* News text */
+.news-item {
+    display: inline-block;
+    font-weight: 600;
+}
+
+/* Animation */
+@keyframes news-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
         
         @keyframes spin {
             0% {
