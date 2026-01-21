@@ -187,7 +187,9 @@ Route::post('/view-tour',[TourController::class, 'viewTour'])->name('escort.view
 
 Route::get('/archive-tour-{name?}/{id}',[TourController::class, 'tourProfileList'])->name('escort.archive.tour.name');
 Route::post('/create-tour/{id?}',[TourController::class, 'createStoreTour'])->name('escort.store.tour');
-Route::get('create-tour/{id?}',[TourController::class, 'createTour'])->name('escort.store.tour');
+Route::get('/create-tour',[TourController::class, 'createTour'])->name('escort.store.tour');
+Route::get('/current-tour/{id?}',[TourController::class, 'createTour'])->name('escort.current.tour');
+Route::get('/past-tour/{id?}',[TourController::class, 'createTour'])->name('escort.past.tour');
 
 Route::post('/delete-tour/{id}',[TourController::class, 'DeleteTour'])->name('escort.delete.tour');
 Route::get('/archive-tours-list',[TourController::class, 'viewTourList'])->name('escort.tour.view');
