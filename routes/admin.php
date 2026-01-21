@@ -627,6 +627,10 @@ Route::get('/management/email', function () {
     return view('admin.management.statistics.email');
 })->name('admin.email');
 
+Route::get('/management/sim', function () {
+    return view('admin.management.statistics.sim');
+})->name('admin.sim');
+
 Route::get('/reports/credit', function () {
     return view('admin.reports.credit');
 })->name('admin.credit');
