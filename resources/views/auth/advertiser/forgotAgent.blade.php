@@ -134,7 +134,7 @@
                     if (data.error == true) {
 
                         $("#resetPassword_modal").modal('show');
-                        $("#hid").html("Password Change Successfully.");
+                        $("#hid").html("Changed password successfully.");
 
                         // $(".comman_msg").text(data.email);
 

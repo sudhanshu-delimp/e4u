@@ -53,7 +53,7 @@ password for your Account.
                             <!-- Closing -->
                             <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
-                                <b>E4U</b>
+                                <b>E4U - Operations Centre</b>
                             </p>
                         </td>
                     </tr>
@@ -64,7 +64,7 @@ password for your Account.
                     <tr>
                         <td>
                             This is an automatically generated email by the Escorts4U Operations Centre.<br>
-                            &copy; Copyright 2025 Blackbox Tech Pty Ltd. All rights reserved..
+                            &copy; Copyright 2025 Blackbox Tech Pty Ltd. All rights reserved.
                         </td>
                     </tr>
                 </table>
