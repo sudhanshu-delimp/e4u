@@ -1100,7 +1100,7 @@ if(!function_exists('global_notifications')){
 
 if(!function_exists('notic_alert')){
     function notic_alert(){
-        $content = AlertNotic::first();
-        return $content;
+        $content = AlertNotic::where('action','public')->first();
+        return $content ??  null;
     }
 }

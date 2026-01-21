@@ -17,6 +17,7 @@ class CreateAlertNoticsTable extends Migration
             $table->id();
             $table->enum('motion', ['static', 'scrolling'])->default(null);
             $table->longText('notice_descrioption')->nullable();
+            $table->enum('action', ['public', 'suspend'])->nullable();
             $table->timestamps();
         });
     }
