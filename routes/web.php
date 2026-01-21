@@ -286,7 +286,7 @@ Route::post('/agent-register', [AgentRegisterController::class,'register']);
 Route::get('/advertiser-register', [AdvertiserRegisterController::class,'index'])->name('advertiser.register');
 Route::post('/advertiser-register', [AdvertiserRegisterController::class,'register']);
 Route::post('/check-otp', [AdvertiserLoginController::class,'checkOTP'])->name('web.checkOTP');
-Route::post('send-otp-for-pin-change',[AdvertiserLoginController::class,'sendOtpForPinChange'])->name('agent.send-otp-for-pin-change');
+Route::post('send-otp-for-pin-change',[AdvertiserLoginController::class,'sendOtpForPinChange'])->name('send-otp-for-pin-change');
 
 
 

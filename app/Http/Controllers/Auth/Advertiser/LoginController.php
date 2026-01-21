@@ -286,36 +286,39 @@ class LoginController extends BaseController
 
     protected function checkOTP(Request $request)
     {
-        // echo "agent";
-        $user = User::where('email', $request->email)->first();
+        $forgot_password = (int) ($request->forget_password ?? 0);
+            if($forgot_password){
+                $user = User::where('email', $request->email)->first();
 
-        if (!$user) {
-            return response()->json([
-                'error' => true,
-                'message' => 'User not found'
-            ]);
+            if (!$user) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'User not found'
+                ]);
+            }
+
+        
+            $phone = $user->phone;
+
+            /**
+             * FORGET PASSWORD FLOW
+             * yahin se return ho jayega
+             */
+            if ($forgot_password === 1) {
+
+                $isValidOtp = ((int) $request->otp === (int) $user->otp);
+
+                return response()->json([
+                    'error' => !$isValidOtp,
+                    'status' => $isValidOtp,
+                    'phone' => $phone,
+                    'message' => $isValidOtp
+                        ? 'OTP verified successfully'
+                        : 'You have entered an invalid OTP.'
+                ]);
+            }
         }
-
-        $forget_password = (int) ($request->forget_password ?? 0);
-        $phone = $user->phone;
-
-        /**
-         * FORGET PASSWORD FLOW
-         * yahin se return ho jayega
-         */
-        if ($forget_password === 1) {
-
-            $isValidOtp = ((int) $request->otp === (int) $user->otp);
-
-            return response()->json([
-                'error' => !$isValidOtp,
-                'status' => $isValidOtp,
-                'phone' => $phone,
-                'message' => $isValidOtp
-                    ? 'OTP verified successfully'
-                    : 'You have entered an invalid OTP.'
-            ]);
-        }
+        
 
         if (! is_null(removeSpaceFromString($request->phone))) {
 

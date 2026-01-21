@@ -88,6 +88,7 @@
       <div class="modal" id="comman_modal" style="display: none">
          <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content custome_modal_max_width">
+               <input type="hidden" value="0" id="forgot_password">
                <form id="forgotPasswordSend" method="post" action="" >
                   @csrf
                   <div class="modal-header main_bg_color border-0">
@@ -119,7 +120,7 @@
                   </div>
                   <div class="modal-footer forgot_pass pt-0 pb-4">
                         <button type="submit" class="btn main_bg_color site_btn_primary" id="sendSubmit">Send</button>
-                        <p class="pt-2">Not received your code? <a href="#" class="termsandconditions_text_color">Resend Code</a></p>
+                        <!-- <p class="pt-2">Not received your code? <a href="#" class="termsandconditions_text_color">Resend Code</a></p> -->
                   </div>
                </form>
             </div>
@@ -193,8 +194,6 @@
 <script>
 
 $(document).ready(function() {
-
-
    $("body").on("click","#forgotpassword",function(e){
       e.preventDefault();
       $("#comman_modal").modal('show');
@@ -209,17 +208,17 @@ $(document).ready(function() {
          e.preventDefault();
          $('#sendOtp_modal').modal('show');
          $('#comman_modal').modal('hide');
-         
+         $('#forgot_password').val('1');
          send2FAotp($('#email').val());
       });
       // });
 
       $("body").on("click", "#sendOtpSubmit", function(e) {
          e.preventDefault();
-          let form = $("#SendOtp")[0];
+         let form = $("#SendOtp")[0];
          let data = new FormData(form);
          var url = "{{ route('web.checkOTP')}}";
-         data.append('forget_password' , 1);
+         data.append('forget_password' , $('#forgot_password').val());
          data.append('email' , $('#email').val());
          var token = $('input[name="_token"]').attr('value');
 
@@ -259,8 +258,6 @@ $(document).ready(function() {
                            },
                            success: function(data) {
                               if(data.error == true) {
-                                 $('#sendSubmit').prop('disabled', true);
-                                 $('#sendSubmit').html('<div class="spinner-border"></div>');
                                  $("#comman_modal").modal('hide');
                                  $(".comman_msg").text(data.email);
                                  $("#recovery_modal").modal('show');
@@ -283,24 +280,21 @@ $(document).ready(function() {
                               console.log("error: ", data.responseJSON.errors);
                            }
                      }); 
-               }else{
-                  Swal.fire({
-                           icon: "error",
-                           title: "Invalid OTP",
-                           text: "The OTP you entered is incorrect. Please try again.",
-                           allowOutsideClick: false,
-                           didClose: () => {
-                              $('.otp-input').val('');
-                              $('.first_input')
-                                    .val('')
-                                    .focus()
-                                    .select();
-                           }
-                     });
+               }else if (data.error === true && !('type' in data)) {
                      $('.otp-input').val('');
+                     $('.first_input').val('').focus().select();
+                     $("#senderror").html('');
+                     $("#senderror").append(
+                        "<ul class='parsley-errors-list filled'>" +
+                           "<li class='parsley-required'>Your have entered invalid otp.</li>" +
+                        "</ul>"
+                     );
+
                      $('#otp').val('');
                      $('#sendOtpSubmit').prop('disabled', false);
                      $('#sendOtpSubmit').html('Verify');
+               }else{
+                 window.location.href = "{{ route('agent.dashboard') }}";
                }
             },
             error: function(data) {
@@ -310,9 +304,12 @@ $(document).ready(function() {
                   errorsHtml = '<div class="alert alert-danger"><ul>';
                   errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
                });
- 
+               $('#sendOtpSubmit').prop('disabled', false);
+                     $('#sendOtpSubmit').html('Verify');
                errorsHtml += '</ul></di>';
                $('#senderror').html(errorsHtml);
+               $('.otp-input').val('');
+               $('.first_input').val('').focus().select();
             }
          });
       });        
@@ -322,7 +319,7 @@ $(document).ready(function() {
       {
          var token = $('input[name="_token"]').attr('value');
          $.ajax({
-            url: "{{route('agent.send-otp-for-pin-change')}}",
+            url: "{{route('send-otp-for-pin-change')}}",
             type: 'POST',
             data: {email:email},
             dataType: "JSON",
@@ -331,10 +328,6 @@ $(document).ready(function() {
                'X-CSRF-Token': token
             },
             success: function(data) {
-               if(data.status){
-                  //$("#sendOtp_modal").modal('show');
-                  //$("#change_pin_active").val('1');
-               }
             },
             error: function(data) {
  
@@ -343,6 +336,11 @@ $(document).ready(function() {
             }
          });
       }
+
+   $(document).off('click' , '#resendOtpSubmit');
+   $(document).on('click' , '#resendOtpSubmit' , function(){
+      send2FAotp($('#email').val());
+   });
 
    var loginForm = $("#escort_login");
 
@@ -428,6 +426,8 @@ $(document).ready(function() {
 
                               errorsHtml += '</ul></di>';
                               $('#senderror').html(errorsHtml);
+                              $('.otp-input').val('');
+                              $('.first_input').val('').focus().select();
                            }
                         });  
                
@@ -450,6 +450,12 @@ $(document).ready(function() {
          }
       });
    });
+
+
+   $('#sendOtp_modal').off('hidden.bs.modal').on('hidden.bs.modal', function () {
+    $('#forgot_password').val(0);
+    $("#senderror").html('');
+});
 });
 </script>
 <script>
