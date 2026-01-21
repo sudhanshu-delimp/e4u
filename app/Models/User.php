@@ -11,6 +11,8 @@ use App\Models\AccountSetting;
 use App\Models\MassageSetting;
 use App\Models\AgentBankDetail;
 use App\Models\PasswordSecurity;
+use App\Models\OperatorDetail;
+use App\Models\OperatorSetting;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Traits\HasRoles;
@@ -154,7 +156,9 @@ class User extends Authenticatable
             case 'staff':
                 $type = 6;
                 break;
-
+             case 'operator':
+                $type = 7;
+                break;
             default:
                 $type = 0;
                 break;
@@ -194,6 +198,9 @@ class User extends Authenticatable
             case (6):
                 return "Staff";
                 break;
+             case (7):
+                return "Operator";
+                break;    
         }
     }
     public function getUserTypeAttribute()
@@ -227,6 +234,9 @@ class User extends Authenticatable
             case (6):
                 return "ST";
                 break;
+             case (7):
+                return "O";
+                break;    
         }
     }
     public function getLevelTypeAttribute()
@@ -259,6 +269,9 @@ class User extends Authenticatable
             case (6):
                 return 6;
                 break;
+              case (7):
+                return 7;
+                break;    
             case (0):
                 return 4;
                 break;
@@ -439,6 +452,9 @@ class User extends Authenticatable
         }
         if ($this->type == 10) {
             return 'DL' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+        }
+         if ($this->type == 7) {
+            return 'O' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
         if ($this->type == 6) {
             $staffPrefix = config('staff.staff_member_id_prefix');
@@ -634,6 +650,8 @@ class User extends Authenticatable
 
         // Return default image based on user type
         switch ($this->type) {
+             case 1: //for Staff
+                return config('constants.staff_default_icon');
             case 3: //for escort
                 return config('constants.escort_default_icon');
             case 4: // fro massage center
@@ -642,6 +660,8 @@ class User extends Authenticatable
                 return config('constants.agent_default_icon');
             case 6: //for Staff
                 return config('constants.agent_default_icon');
+            case 7: //for Operator
+                return config('constants.operator_default_icon');    
             case 0: // For Viewers
                 return config('constants.viewer_default_icon');
             default:
@@ -691,16 +711,21 @@ class User extends Authenticatable
         return $this->belongsTo(EscortSetting::class, 'id', 'user_id');
     }
 
-      public function staff_setting()
+    public function staff_setting()
     {
         return $this->belongsTo(StaffSetting::class, 'id', 'user_id');
     }
-
-    
-
+    public function operator_setting()
+    {
+        return $this->belongsTo(OperatorSetting::class, 'id', 'user_id');
+    }
     public function staff_detail()
     {
         return $this->belongsTo(StaffDetail::class,  'id', 'user_id');
+    }
+    public function operator_detail()
+    {
+        return $this->belongsTo(OperatorDetail::class,  'id', 'user_id');
     }
 
     public function generateOTP()
@@ -730,7 +755,9 @@ class User extends Authenticatable
             elseif ($user->type == '5') {
                 $settings = $user->agent_settings;
             }
-
+            elseif ($user->type == '6') {
+                $settings = $user->operator_settings;
+            }
      
             if (isset($settings->twofa) && ($settings->twofa == '1' && $user->email != "")) {
                 sendLoginOtpEmail($otp, $user);
@@ -782,5 +809,10 @@ class User extends Authenticatable
     public function lastLoginTime()
     {
         return $this->hasOne(AccountSetting::class,  'user_id', 'id');
+    }
+
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
     }
 }

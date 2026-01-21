@@ -120,7 +120,7 @@
       
                   <div class="form-group">
                       <label class="required">Offender's Mobile</label>
-                      <input type="text" class="form-control" min="8" name="offender_mobile" placeholder="No spaces or any other characters - just numbers">
+                      <input type="tel" class="form-control" maxlength="10" min="10" name="offender_mobile" placeholder="No spaces or any other characters - just numbers" oninput="this.value = this.value.replace(/\D/g,'');">
                   </div>
       
                   <div class="form-group">

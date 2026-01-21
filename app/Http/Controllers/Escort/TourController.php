@@ -139,7 +139,8 @@ class TourController extends Controller
             request()->get('columns'),
             request()->get('search')['value'],
             auth()->user()->id,
-            $conditions
+            $conditions,
+            $type
         );
         $data = array(
             "draw"            => intval(request()->input('draw')),

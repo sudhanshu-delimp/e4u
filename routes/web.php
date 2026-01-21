@@ -69,6 +69,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/staff-login', [AdvertiserLoginController::class,'indexStaff'])->name('staff.login');
     
 });
+
 ############## End Put All Guest Url Here ####################
 
 
@@ -324,6 +325,11 @@ Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class,'grid
 Route::get('admin-login', [App\Http\Controllers\Admin\AuthController::class,'showLoginForm'])->name('admin.login');
 Route::post('/admin-login', [App\Http\Controllers\Admin\AuthController::class, 'login']);
 Route::post('/admin-logout', [App\Http\Controllers\Admin\AuthController::class,'logout'])->name('admin.logout');
+
+/********** Operator **********/
+Route::get('operator-login', [App\Http\Controllers\Admin\AuthController::class,'showOperatorLoginForm'])->name('operator.login');
+Route::post('/operator-login', [App\Http\Controllers\Admin\AuthController::class, 'operatorLogin']);
+Route::post('/operator-logout', [App\Http\Controllers\Admin\AuthController::class,'OperatorLogout'])->name('operator.logout');
 
 
 /********** Shareholder Login **********/

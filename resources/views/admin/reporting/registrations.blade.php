@@ -462,7 +462,9 @@
             }
                 data.reject_reason = reason;
             }
-
+            swal_waiting_popup({
+                'title': 'Action is processing'
+            });
             $.ajax({
                 url: "{{ route('admin.change-user-status') }}",
                 type: "POST",
