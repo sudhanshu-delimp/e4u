@@ -20,7 +20,7 @@
                     </div>
                     <div class="modal-body text-center">
                         <h5 class="popu_heading_style mb-0 mt-4">
-                                Are you sure that you want to logout?
+                            Are you sure that you want to logout?
                         </h5>
                     </div>
                     <div class="modal-footer justify-content-center">
@@ -47,7 +47,7 @@
         <script src="{{ asset('assets/app/js/demo/chart-pie-demo.js') }}"></script>-->
         <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-        <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
+        <script src="{{ asset('assets/app/js/jquery-ui.min.js') }}"></script>
         <script src="{{ asset('assets/js/common.js') }}"></script>
         <!-- <script src="{{ config('constants.socket_url') }}/socket.io/socket.io.js"></script>
           <script>
@@ -56,31 +56,12 @@
           <script src="{{ asset('assets/js/web-socket.js') }}"></script>
           <script src="{{ config('constants.socket_url') }}/socket.io/socket.io.js"></script> -->
         <script>
-            // var initJsDatePicker = function() {
-            //     $(".js_datepicker").attr('placeholder', 'DD-MM-YYYY');
-            //     $(".js_datepicker").attr('autocomplete', 'off');
-            //     $(".js_datepicker").datepicker({
-            //         dateFormat: "dd-mm-yy",
-            //         changeMonth: true,
-            //         changeYear: true,
-            //         showAnim: "slideDown",
-            //         constrainInput: false,
-            //         onSelect: function(dateText) {
-            //             const event = new Event('change', {
-            //                 bubbles: true
-            //             });
-            //             this.dispatchEvent(event); // 👈 manually trigger change event
-            //         }
-            //     });
-            // }
-            // initJsDatePicker();
-
-
+            
             var initJsDatePicker = function() {
                 var $inputs = $(".js_datepicker");
                 if ($inputs.length > 0) {
-                    $inputs.attr('placeholder','DD-MM-YYYY');
-                    $inputs.attr('autocomplete','off');
+                    $inputs.attr('placeholder', 'DD-MM-YYYY');
+                    $inputs.attr('autocomplete', 'off');
                     $inputs.datepicker({
                         dateFormat: "dd-mm-yy",
                         changeMonth: true,
@@ -96,8 +77,6 @@
             $(document).ready(function() {
                 initJsDatePicker();
             });
-
-
         </script>
         <script>
             $(document).ready(function() {
@@ -107,16 +86,42 @@
                     }
                 });
             })
+
+            $(document).ready(function(e) {
+                $(".date-picker").each(function() {
+                    int_datePicker($(this));
+                });
+            });
+
+            function int_datePicker(ele) {
+                let datePickerOptions = {
+                    showAnim: 'slideDown',
+                    dateFormat: 'dd-mm-yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    showOn: "both",
+                    buttonImageOnly: true,
+                    buttonImage: "{{ asset('assets/img/calendar.svg') }}"
+                };
+                var dynamicOptions = $(ele).data('options') ? $(ele).data('options').split(', ') : '';
+                $(dynamicOptions).each(function(index, element) {
+                    var item = element.split(':');
+                    datePickerOptions[item[0]] = item[1];
+                });
+                if ($(ele).data('min')) {
+                    datePickerOptions['minDate'] = new Date($(ele).data('min'));
+                }
+                $(ele).datepicker(datePickerOptions);
+
+                //THis is to remove icon from the input when the input is disabled
+                if ($(ele).prop('disabled')) {
+                    $(ele).find('.ui-datepicker-trigger').hide();
+                }
+                $(".ui-datepicker-trigger").removeAttr("title");
+            }
         </script>
-
-
-
         @section('script')
         @show
         @stack('script')
-
-
-      
-  
-</body>
-</html>
+        </body>
+        </html>

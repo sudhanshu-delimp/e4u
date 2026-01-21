@@ -12,10 +12,11 @@ use App\Models\State;
 use App\Models\Escort;
 use App\Models\Country;
 use App\Mail\LoginOtpMail;
+use App\Models\AlertNotic;
 use App\Models\EscortMedia;
-use Illuminate\Support\Str;
 
 use App\Models\MassageMedia;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
@@ -1093,5 +1094,13 @@ if(!function_exists('global_notifications')){
             ->get();
 
         return $notifications;
+    }
+}
+
+
+if(!function_exists('notic_alert')){
+    function notic_alert(){
+        $content = AlertNotic::where('action','public')->first();
+        return $content ??  null;
     }
 }

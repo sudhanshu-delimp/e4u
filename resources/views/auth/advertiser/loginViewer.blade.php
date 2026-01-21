@@ -64,9 +64,7 @@
 
                         <div class="row login-bottom-des">
                            <div class="col-md-7 align-self-center">
-                               <a href="#" id="forgotpassword"> Forgot Password?</a>
-                               {{-- <form id="sendMailform" method="post" action="{{ route('web.sendMail')}}"> --}}
-                                {{-- {{ route('viewer.forgot')}} --}}
+                               <a href="#" id="forgotpassword"> Forgot Password?</a>n
                                     {{-- <button type="button" id="forgotpassword"> Forgot Password?</button>
                                 </form> --}}
                            </div>
@@ -75,7 +73,7 @@
                            </div>
                        </div>
                        <input type="hidden" name="current_state_id" id="current_state_id">
-                       <p class="mb-0 mynote"><b>Note:</b> Login is undertaken with 2FA authentification</p>
+                       <p class="mb-0 mynote"><b>Note:</b> Login is undertaken with 2FA authentification.</p>
                     </form>
                </div>
                <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2">

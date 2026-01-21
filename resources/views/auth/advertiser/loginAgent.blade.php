@@ -68,7 +68,7 @@
                                 <button type="submit" id="submit_button" class="btn site_btn_primary">Login</button>
                            </div>
                        </div>
-                       <p class="mb-0 mynote"><b>Note:</b> Login is undertaken with 2FA authentification</p>
+                       <p class="mb-0 mynote"><b>Note:</b> Login is undertaken with 2FA authentification.</p>
                      </form>
                </div>
                <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2">
@@ -98,7 +98,7 @@
                            </div>
                         </div>
                         <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Reset Password</strong></h4>
-                        <p class="text-center pb-2">We’ll send you a reset password link on your email.</p>
+                        <p class="text-center pb-2">We will send you a reset password link to your email.</p>
                         <input type="txt" required class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" data-parsley-required-message="Your Email is required" value="{{ old('email') }}">
                         <div class="termsandconditions_text_color">
                            @error('email')

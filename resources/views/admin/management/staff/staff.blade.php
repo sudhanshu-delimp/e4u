@@ -588,8 +588,11 @@
             $(document).on('click', '.account-suspend-btn', async function(e) {
                 if (await isConfirm({
                         'action': 'Suspend',
-                        'text': ' Suspend This Account.'
+                        'text': 'Are you sure you want to suspend this account?'
                     })) {
+                    swal_waiting_popup({
+                        'title': 'Suspending Account'
+                    });
                     ajaxRequest({
                         url: "{{ route('admin.suspend-staff') }}",
                         method: 'POST',
@@ -613,7 +616,7 @@
                 }
             })
 
-            ///////// Approve Agent //////////////////////////////
+            /* Approve staff */
             $(document).on('click', '.approve_account', async function(e) {
                 if (await isConfirm({
                         'action': 'Approve',
@@ -651,7 +654,7 @@
             $(document).on('click', '.active-account-btn', async function(e) {
                 if (await isConfirm({
                         'action': 'Activate',
-                        'text': ' Activate This Account.'
+                        'text': 'Are you sure you want to activate this account?'
                     })) {
                     swal_waiting_popup({
                         'title': 'Activating Account'

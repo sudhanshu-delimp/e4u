@@ -69,6 +69,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/staff-login', [AdvertiserLoginController::class,'indexStaff'])->name('staff.login');
     
 });
+
 ############## End Put All Guest Url Here ####################
 
 
@@ -324,6 +325,11 @@ Route::get('admin-login', [App\Http\Controllers\Admin\AuthController::class,'sho
 Route::post('/admin-login', [App\Http\Controllers\Admin\AuthController::class, 'login']);
 Route::post('/admin-logout', [App\Http\Controllers\Admin\AuthController::class,'logout'])->name('admin.logout');
 
+/********** Operator **********/
+Route::get('operator-login', [App\Http\Controllers\Admin\AuthController::class,'showOperatorLoginForm'])->name('operator.login');
+Route::post('/operator-login', [App\Http\Controllers\Admin\AuthController::class, 'operatorLogin']);
+Route::post('/operator-logout', [App\Http\Controllers\Admin\AuthController::class,'OperatorLogout'])->name('operator.logout');
+
 
 /********** Shareholder Login **********/
 Route::get('shareholder-login', [App\Http\Controllers\Admin\AuthController::class,'showShareholderLoginForm'])->name('shareholder.login');
@@ -376,6 +382,8 @@ Route::get('/acceptable-usage-policy', function() { return view('web.pages.accep
 //Route::get('/acceptable-usage-policy',[App\Http\Controllers\WebController::class,'usagePolicy']);
 //Route::get('/acceptable-use-policy', function() { return view('web.pages.policynew'); });
 
+// Other Pages
+Route::get('alerts', [WebController::class, 'alerts'])->name('alerts');
 
 Route::get('/acceptable-usages-policy', function() { return view('web.pages.acceptable-usages-policy'); });
 Route::get('/copyright-statement', function() { return view('web.pages.copyright-statement'); });
@@ -387,7 +395,7 @@ Route::get('/refund-policy', function() { return view('web.pages.refund-policy')
 Route::get('/spam-policy', function() { return view('web.pages.spam-policy'); });
 Route::get('/terms-conditions', function() { return view('web.pages.terms-conditions'); })->name('pages.terms-conditions');
 Route::get('/abbreviations', function() { return view('web.pages.abbreviations'); });
-Route::get('/alerts', function() { return view('web.pages.alerts'); });
+//Route::get('/alerts', function() { return view('web.pages.alerts'); });
 Route::get('/blog', function() { return view('web.pages.blog'); });
 //Route::get('/contact-us', function() { return view('web.pages.contact-us'); })
 

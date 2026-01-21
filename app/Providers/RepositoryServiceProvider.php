@@ -165,6 +165,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\MassageCenter\MassageCenterInterface',
             'App\Repositories\MassageCenter\MassageCenterRepository'
         );
+         $this->app->bind(
+            'App\Repositories\Operator\OperatorInterface',
+            'App\Repositories\Operator\OperatorRepository'
+        );
     }
 
     /**

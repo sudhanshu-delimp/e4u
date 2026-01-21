@@ -71,9 +71,9 @@
                             <td>0438 028 728</td>
                             <td>
                             
-                             <a href="{{ asset('assets/dashboard/forms-pdf/E4U_Coin_2026.png') }}"
+                             <a href="{{ asset('assets/dashboard/forms-pdf/directors/test.pdf') }}"
                                                 target="_blank" class="custom_links_design"
-                                                download="E4U_Coin_2026.png">wayne@blackboxtech.com.au</a>
+                                                download >wayne@blackboxtech.com.au</a>
                             </td>
 
                         </tr>
@@ -96,9 +96,9 @@
                             <td>0401 071 478</td>
                             <td>
                             
-                             <a href="{{ asset('assets/dashboard/forms-pdf/E4U_Coin_2026.png') }}"
+                             <a href="{{ asset('assets/dashboard/forms-pdf/directors/test.pdf') }}"
                                                 target="_blank" class="custom_links_design"
-                                                download="E4U_Coin_2026.png">andrew@blackboxtech.com.au</a>
+                                                download >andrew@blackboxtech.com.au</a>
                             </td>
 
                         </tr>
