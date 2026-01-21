@@ -38,7 +38,7 @@
 
 <div class="row">
     <div class="col-md-12 mb-5">
-      <form class="v-form-design" id="userProfile" action="{{ route('agent.update.password')}}" method="POST">
+      <form class="v-form-design" id="userProfile" action="{{ route('operator.update.password')}}" method="POST">
         @csrf
         <div class="row">
             <div class="col-md-6">

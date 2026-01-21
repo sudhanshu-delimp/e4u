@@ -12,16 +12,16 @@
         <div class="d-user-info">
             <div class="common_top_menu">
                 <span>
-                    <b>Welcome back : </b><span class="user-values">Operator</span>
+                    <b>Welcome back : </b><span class="user-values">{{ auth()->user()->business_name }}</span>
                 </span>
                 <span>
                     <span class="separator">|</span>
-                    <b>Membership ID : </b><span class="user-values">OP123456</span>
+                    <b>Membership ID : </b><span class="user-values">{{ auth()->user()->member_id }}</span>
                
                 </span>
                 <span>
                     <b>Home State : </b>
-                    <span class="user-values"> Perth escort Services</span>
+                    <span class="user-values"> {{auth()->user()->home_state  }}</span>
                 </span>
 
             </div>
@@ -125,11 +125,11 @@
                 aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-user.png') }}">
-                    Member ID: OP123456
+                    Member ID: {{ auth()->user()->member_id }}
                 </a>
                 <a class="dropdown-item" href="#">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-user.png') }}">
-                     User Name: Wayne Primrose
+                     User Name: {{ auth()->user()->business_name }}
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('operator.edit-my-account') }}">

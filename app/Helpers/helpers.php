@@ -1068,3 +1068,16 @@ if(!function_exists('global_notifications')){
         return $notifications;
     }
 }
+
+if (!function_exists('removeAnythingExceptNumber')) {
+    function removeAnythingExceptNumber($number)
+    {
+        if ($number == null || empty($number)) {
+            return $number;
+        }
+        // Remove anything that is not a digit
+        return preg_replace('/\D/', '', $number);
+
+        
+    }
+}

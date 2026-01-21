@@ -27,7 +27,7 @@ class AuthController extends Controller
     public function __construct(User $user)
     {
         $this->middleware('guest')->except('logout');
-         $this->user = $user;
+        $this->user = $user;
     }
 
     /**
@@ -39,11 +39,13 @@ class AuthController extends Controller
     {
         return view('admin.auth.login');
     }
-    public function showOperatorLoginForm(){
+    public function showOperatorLoginForm()
+    {
         return view('operator.auth.login');
     }
-    
-    public function showShareholderLoginForm(){
+
+    public function showShareholderLoginForm()
+    {
         return view('shareholder.auth.login');
     }
     /**
@@ -52,60 +54,74 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function generateOTP(){
-        $otp = mt_rand(1000,9999);
+    public function generateOTP()
+    {
+        $otp = mt_rand(1000, 9999);
         return $otp;
     }
-    
+
     public function login(Request $request)
     {
-        
-        if(! is_null($request->phone)) {
+        //print_r($request->all());die;
+
+        if (! is_null($request->phone)) {
             //$user = User::where('phone','=',$request->phone)->first();
-            $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$request->phone])->first();
-            if($user == null) {
+            $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?", [$request->phone])->first();
+            if ($user == null) {
                 return $this->sendFailedLoginResponse($request);
             }
+        }
+        if (! is_null($request->email)) {
+            $user = User::where('email', '=', $request->email)->first();
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Invalid email or password.',
+                ], 401);
+            }
+             if ($user->status == 'Pending') {
+                 return response()->json([
+                    'status' => false,
+                    'message' => 'Your account is currently pending approval. You will be notified via email once it has been approved.',
+                ], 401);
+            } else if ($user->status == 'Suspended') {
+                 return response()->json([
+                    'status' => false,
+                    'message' => "Your account has been " . strtolower($user->status) . ". Please contact to admin."
+                ], 401);
+            } else if ($user->status != 'Active') {
+                 return response()->json([
+                    'status' => false,
+                    'message' => "Your account has been " . strtolower($user->status) . ". Please contact to admin."
+                ], 401);
+            }
+        }
 
-        }
-        if(! is_null($request->email)) {
-            $user = User::where('email','=',$request->email)->first();
-           if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Invalid email or password.',
-            ], 401);
-        }
-        }
-
-        if($user->type == 1 || $user->type == 2) {
+        if ($user->type == 1 || $user->type == 2 || $user->type == 7) {
             $hasher = app('hash');
             $error = 0;
-//            if (Hash::check($request->password, $user->password)) { //TODO::Enable
+            //            if (Hash::check($request->password, $user->password)) { //TODO::Enable
             if (true) {
                 $error = 1;
                 $phone = removeSpaceFromString($user->phone);
                 $otp = $this->user->generateOTP();
                 $user->otp = $otp;
                 $user->save();
-               
+
                 // $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
                 // $sendotp = new SendSms();
                 // $output = $sendotp->send($phone,$msg);
                 // $id = $user->id;
 
-                 $this->user->sendOtpNotification($user->id,$otp);
+                $this->user->sendOtpNotification($user->id, $otp);
                 //TODO:: Don't send otp in the response object so remove from bellow
-                return response()->json(compact('error','phone','otp'));
-
-
+                return response()->json(compact('error', 'phone', 'otp'));
             } else {
                 return $this->sendFailedLoginResponse($request);
                 //dd("hellog user");
             }
         } else {
             return $this->sendFailedLoginResponse($request);
-
         }
 
 
@@ -135,19 +151,19 @@ class AuthController extends Controller
 
 
     }
-    
+
     protected function checkOTP(Request $request)
     {
         //dd($request->all());
-        if(! is_null($request->phone)) {
-            $user = User::where('phone','=',$request->phone)->first();
+        if (! is_null($request->phone)) {
+            $user = User::where('phone', '=', $request->phone)->first();
         }
-        if(! is_null($request->email)) {
-            $user = User::where('email','=',$request->email)->first();
+        if (! is_null($request->email)) {
+            $user = User::where('email', '=', $request->email)->first();
         }
         //$user = User::where('phone','=',$request->phone)->first();
         $error = false;
-        if($user->otp == $request->otp) {
+        if ($user->otp == $request->otp) {
 
             auth()->login($user);
             $user->otp = null;
@@ -182,16 +198,21 @@ class AuthController extends Controller
             'email' => $request->get('email'),
             'password' => $request->get('password'),
         ];
-        if(!empty($request->get('type_admin'))) {
+        if (!empty($request->get('type_admin'))) {
             $input['type'] = 1;
         }
-        if(!empty($request->get('type_staff'))) {
+        if (!empty($request->get('type_staff'))) {
             $input['type'] = 2;
         }
+        if (!empty($request->get('type_operator'))) {
+            $input['type'] = 7;
+        }
+
 
 
         return $this->guard()->attempt(
-            $this->credentials($request), $request->filled('remember')
+            $this->credentials($request),
+            $request->filled('remember')
         );
     }
 
@@ -208,11 +229,11 @@ class AuthController extends Controller
         $this->guard()->logout();
 
         $request->session()->invalidate();
-       
+
         $request->session()->regenerateToken();
         session()->put('cart', $cart);
         if ($response = $this->loggedOut($request)) {
-           
+
             return $response;
         }
 
@@ -222,14 +243,13 @@ class AuthController extends Controller
         return $request->wantsJson()
             ? new JsonResponse([], 204)
             : redirect()->route('home');
-
     }
 
     protected function validateLogin(Request $request)
-     {
+    {
         return $request->validate([
-             'email' => 'required|string',
-             'password' => 'required|string',
-         ]);
-     }
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ]);
+    }
 }
