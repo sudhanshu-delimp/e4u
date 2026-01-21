@@ -9,5 +9,5 @@ class AlertNotic extends Model
 {
     use HasFactory;
     protected $table = 'alert_notics';
-    protected $fillable = ['id', 'motion','notice_descrioption'];
+    protected $fillable = ['id', 'motion','notice_descrioption', 'action'];
 }

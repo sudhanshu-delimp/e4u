@@ -90,7 +90,7 @@ class PublicationAlertController extends Controller
                     // If published -> offer suspend
                     if ($status === 'Published') {
                         if ($this->editAccessEnabled) {
-                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-withdrawn" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Withdrawn</a>';
+                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-withdrawn" data-id="' . $row->id . '"><i class="fa fa-fw fa-times"></i> Withdraw</a>';
                         }
                     }
 
@@ -246,8 +246,8 @@ class PublicationAlertController extends Controller
                     //'notice_descrioption' => 'required|string'
                 ],
                 [
-                    'motion.required' => 'Please select motion type.',
-                    'motion.string' => 'Motion must be a valid string.',
+                    'motion.required' => '',
+                    'motion.string' => '',
 
                     //'notice_descrioption.required' => 'Description is required.',
                     //'notice_descrioption.string' => 'Description must be text.',
@@ -265,7 +265,7 @@ class PublicationAlertController extends Controller
             return error_response($e->errors(), 422);
         }
 
-        $data = $request->only(['id', 'motion', 'notice_descrioption']);
+        $data = $request->only(['id', 'motion', 'notice_descrioption', 'action']);
         try {
             AlertNotic::updateOrCreate(['id' => 1],
             $data);
