@@ -162,13 +162,13 @@
                                 <span class="text-danger error-email"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <select class="form-control rounded-0" name="state_id" id="state_id">
+                                <select class="form-control rounded-0" name="country_id" id="country_id">
                                     <option value="">Select Territory</option>
-                                    @foreach (config('escorts.profile.states') as $skey => $state)
-                                        <option value="{{ $skey }}">{{ $state['stateName'] }}</option>
+                                    @foreach (config('operator.country') as $skey => $country)
+                                        <option value="{{ $skey }}">{{ $country['name'] }}</option>
                                     @endforeach
                                 </select>
-                                <span class="text-danger error-state_id"></span>
+                                <span class="text-danger error-country_id"></span>
                             </div>
                             <div class="col-12 mb-3 d-flex align-items-center justify-content-start gap-10 flex-wrap">
                                 <h6 class="mb-0 text-blue-primary">Method of Contact:</h6>
@@ -222,13 +222,13 @@
                                 <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
                             </div>
                             <div class="col-6 mb-3">
-                                <input class="form-control rounded-0" placeholder="Advertising %"
+                                <input class="form-control rounded-0" placeholder="Advertising"
                                     name="commission_advertising_percent" id="commission_advertising_percent"
                                     maxlength="3">
                                 <span class="text-danger error-commission_advertising_percent"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input class="form-control rounded-0" placeholder="Massage Centre (Registrations) %"
+                                <input class="form-control rounded-0" placeholder="Massage Centre (Registrations)"
                                     name="commission_massage_centre_percent" id="commission_massage_centre_percent"
                                     maxlength="3">
                                 <span class="text-danger error-commission_massage_centre_percent"></span>
