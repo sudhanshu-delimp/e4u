@@ -129,7 +129,7 @@ class OperatorRepository extends BaseRepository implements OperatorInterface
                 ]);
 
                 $operatorSetting = \App\Models\OperatorSetting::firstOrNew(['user_id' => $user->id]);
-                $operatorSetting->idle_preference_time = $data['idle_preference_time'] ?? null;
+                $operatorSetting->idle_preference_time = $data['idle_preference_time'] ?? '30';
                 $operatorSetting->twofa = $data['twofa'] ?? '2';
                 $operatorSetting->save();
 

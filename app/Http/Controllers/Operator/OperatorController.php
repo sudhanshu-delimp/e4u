@@ -153,7 +153,7 @@ class OperatorController extends Controller
             if (!$user) {
                 return response()->json(['type' => 1, 'message' => 'User not found'], 404);
             }
-
+            /** @var \App\Models\User $user */
             if (!empty($user->avatar_img)) {
                 $oldPath = $dir . DIRECTORY_SEPARATOR . $user->avatar_img;
                 if (File::exists($oldPath)) {
@@ -178,6 +178,7 @@ class OperatorController extends Controller
     public function removeMyAvatar()
     {
         try {
+            /** @var \App\Models\User $user */
             $user = $this->user->find(auth()->user()->id);
 
             if (!$user) {

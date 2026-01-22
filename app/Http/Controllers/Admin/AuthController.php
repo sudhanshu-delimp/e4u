@@ -87,7 +87,7 @@ class AuthController extends Controller
             } else if ($user->status == 'Suspended') {
                  return response()->json([
                     'status' => false,
-                    'message' => "Your account has been " . strtolower($user->status) . ". Please contact to admin."
+                    'message' => "Your account has been suspended until further notice."
                 ], 401);
             } else if ($user->status != 'Active') {
                  return response()->json([
