@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAlertNoticsTable extends Migration
+class CreateWalletsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateAlertNoticsTable extends Migration
      */
     public function up()
     {
-        Schema::create('alert_notics', function (Blueprint $table) {
+        Schema::create('wallets', function (Blueprint $table) {
             $table->id();
-            $table->enum('motion', ['static', 'scrolling'])->default(null);
-            $table->longText('notice_descrioption')->nullable();
-            $table->enum('action', ['public', 'suspend'])->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->decimal('balance', 15, 2)->default(0); // cached balance
+            $table->string('currency')->default('credits'); // optional for multi-currency/credit types
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateAlertNoticsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alert_notics');
+        Schema::dropIfExists('wallets');
     }
 }

@@ -823,4 +823,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(AccountSetting::class,  'user_id', 'id');
     }
+
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
 }

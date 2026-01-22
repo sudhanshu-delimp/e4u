@@ -83,10 +83,10 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="Create_Notice_heading"><img
+                    <h5 class="modal-title" id="Create_Notice_heading"><img
                             src="{{ asset('assets/dashboard/img/new-notice.png') }}" alt="alert" class="custompopicon">
                         New Notice
-                    </h4>
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -96,8 +96,8 @@
                     @csrf
                     <div class="modal-body pb-0">
                         <div class="row">
-                            <div class="col-12 mb-3 d-flex justify-content-start align-items-center">
-                                <label class="mb-1 label">Motion : </label>
+                            <div class="col-6 d-flex justify-content-start align-items-center">
+                                <label class="mb-2 label">Motion : </label>
                                 <div class="pl-3">
                                     <input type="radio" name="motion" id="static" value="static" checked>
                                     <label for="static" name="motion"> Static</label>
@@ -106,15 +106,28 @@
                                     <label for="scrolling" name="motion"> Scrolling</label>
                                 </div>
                             </div>
+                            <div class="col-6 d-flex justify-content-start align-items-center">
+                                <label class="mb-2 label">Action : </label>
+                                <div class="pl-3">
+                                    <input type="radio" name="action" id="public" value="public" checked>
+                                    <label for="public"> Publish</label>
+
+                                    <input type="radio" name="action" id="suspend" value="suspend">
+                                    <label for="suspend"> Suspend</label>
+                                </div>
+                            </div>
+                            
                             <div class="col-12 mb-3">
                                 <label for="notice_descrioption" class="label">Descrioption</label>
                                 <textarea class="form-control" id="notice_descrioption" name="notice_descrioption" placeholder="up to 200 characters"
                                     rows="3"></textarea>
                             </div>
+
+                            
                         </div>
                     </div>
                     <div class="modal-footer pb-4 mb-2">
-                        <button type="submit" id="noticSubmit" class="btn-success-modal">Publish</button>
+                        <button type="submit" id="noticSubmit" class="btn-success-modal">Notices</button>
                     </div>
                 </form>
             </div>
@@ -420,13 +433,13 @@
             let confirmMsg = '';
             if ($(this).hasClass('js-withdrawn')) {
                 status = "Withdrawn";
-                confirmMsg = 'Are you sure you want to withdrawn this alert';
+                confirmMsg = 'Are you sure you want to withdraw this alert ?';
             } else if ($(this).hasClass('js-publish')) {
                 status = 'Published';
-                confirmMsg = 'Are you sure you want to publish this alert';
+                confirmMsg = 'Are you sure you want to publish this alert  ?';
             } else if ($(this).hasClass('js-remove')) {
                 status = 'Removed';
-                confirmMsg = 'Are you sure you want to remove the alert';
+                confirmMsg = 'Are you sure you want to remove the alert ?';
             }
 
             const modal = $('#successModal');
@@ -579,7 +592,6 @@
 
         function noticeFormSubmit(form) {
             let formData = form.serialize();
-            console.log(endpoint.publications_notice_store, 'formData');
             $.ajax({
                 url: endpoint.publications_notice_store,
                 method: "POST",
@@ -651,9 +663,17 @@
                 success: function(response) {
                     if (response.status == true) {
                         const d = response.data || {};
-                        $('input[name="motion"]').prop('checked', false);
-                        $('input[name="motion"][value="' + d.motion + '"]').prop('checked', true);
-                        $('#notice_descrioption').val(d.notice_descrioption || '');
+                        if (Object.keys(d).length > 0) {
+                            $('input[name="motion"]').prop('checked', false);
+                            $('input[name="motion"][value="' + d.motion + '"]').prop('checked', true);
+                            $('#notice_descrioption').val(d.notice_descrioption || '');
+
+                            //for action
+                            $('input[name="action"]').prop('checked', false);
+                            $('input[name="action"][value="' + d.action + '"]').prop('checked', true);
+                            
+                        }
+
                     } else {
                         console.log('Failed to load details.')
                     }
