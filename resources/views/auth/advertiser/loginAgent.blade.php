@@ -4,6 +4,11 @@
    .otp-verify-btn{
           padding: 20px 20px 23px !important;
    }
+   #email-error{
+      color: red;
+      font-size: 14px;
+      padding: 10px;
+   }
 </style>
 @endsection
 
@@ -109,6 +114,7 @@
                         <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Reset Password</strong></h4>
                         <p class="text-center pb-2">We will send you a reset password link to your email.</p>
                         <input type="txt" required class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" data-parsley-required-message="Your Email is required" value="{{ old('email') }}">
+                        <div id="email-error"></div>
                         <div class="termsandconditions_text_color">
                            @error('email')
 
@@ -205,12 +211,10 @@ $(document).ready(function() {
 
       //    })
          $("body").on("submit","#forgotPasswordSend",function(e){
-         e.preventDefault();
-         $('#sendOtp_modal').modal('show');
-         $('#comman_modal').modal('hide');
-         $('#forgot_password').val('1');
-         send2FAotp($('#email').val());
-      });
+            e.preventDefault();
+            $('#forgot_password').val('1');
+            send2FAotp($('#email').val());
+         });
       // });
 
       $("body").on("click", "#sendOtpSubmit", function(e) {
@@ -315,28 +319,7 @@ $(document).ready(function() {
       });        
    });
          // use for change pin and resend otp
-      function send2FAotp(email)
-      {
-         var token = $('input[name="_token"]').attr('value');
-         $.ajax({
-            url: "{{route('send-otp-for-pin-change')}}",
-            type: 'POST',
-            data: {email:email},
-            dataType: "JSON",
-           
-            headers: {
-               'X-CSRF-Token': token
-            },
-            success: function(data) {
-            },
-            error: function(data) {
- 
-               console.log("error otp: ", data.responseJSON.errors);
-               
-            }
-         });
-      }
-
+    
    $(document).off('click' , '#resendOtpSubmit');
    $(document).on('click' , '#resendOtpSubmit' , function(){
       send2FAotp($('#email').val());
@@ -453,9 +436,9 @@ $(document).ready(function() {
 
 
    $('#sendOtp_modal').off('hidden.bs.modal').on('hidden.bs.modal', function () {
-    $('#forgot_password').val(0);
-    $("#senderror").html('');
-});
+      $('#forgot_password').val(0);
+      $("#senderror").html('');
+   });
 });
 </script>
 <script>
@@ -482,6 +465,35 @@ let agent_pending_status = sessionStorage.getItem('agent_pending_status');
         swal_success_popup(formattedMessage);
          sessionStorage.removeItem('agent_pending_status');
   }
+
+    function send2FAotp(email)
+      {
+         $('#email-error').html('');
+         var token = $('input[name="_token"]').attr('value');
+         $.ajax({
+            url: "{{route('send-otp-for-pin-change')}}",
+            type: 'POST',
+            data: {email:email},
+            dataType: "JSON",
+           
+            headers: {
+               'X-CSRF-Token': token
+            },
+            success: function(data) {
+               if(data.status == true){
+                  $('#sendOtp_modal').modal('show');
+                  $('#comman_modal').modal('hide');
+               }else{
+                  $('#email-error').html(data.message);
+               }
+            },
+            error: function(data) {
+ 
+               console.log("error otp: ", data.responseJSON.errors);
+               
+            }
+         });
+      }
 
 </script>
 @endsection

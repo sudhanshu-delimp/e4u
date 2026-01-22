@@ -6,6 +6,13 @@
         right: 20px;
         top: 40px;
     }
+
+    .modal-content {
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
+}
+.modal-dialog {
+    max-width: 650px !important;
+}
 </style>
 <div class="container">
     <section class="login_page_pt_pb_of_outer_section">
@@ -49,7 +56,7 @@
                         <div class="row login-bottom-des">
 
                             <div class="col-md-12">
-                                <button type="submit" class="btn site_btn_primary">Update Password </button>
+                                <button type="submit" class="btn site_btn_primary" id="updatePasswordBtn">Update Password </button>
                                 <h6>Or</h6>
                                 <a href="{{ route('agent.login')}}">
                                     <h5>Login</h5>
@@ -93,10 +100,38 @@
     </div>
 </div>
 
+<div class="modal fade upload-modal" id="userNotFoundModal" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel" aria-modal="true" >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header border-0">
+                    <input type="hidden" id="status_data_id" value="334">
+                    <input type="hidden" id="status_data_value" value="7">
+                    <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
+                        <img src="{{asset('assets/dashboard/img/alert.png')}}" alt="resolved" class="custompopicon">
+                        <span>Password Reset Link Expired</span>
+                    </h5>
+                    <input type="hidden" id="status_data_id" name="status_data_id" value="">
+                    <input type="hidden" id="status_data_value" name="status_data_value" value="">
 
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
 
+                <div class="modal-body pb-0 teop-text text-center">
+                    <h5 class="popu_heading_style mt-2">
+                        Your password reset link is invalid or has expired. Please request a new one.
+                    </h5>
 
-
+                </div>
+                <div class="modal-footer justify-content-center border-0 pb-4">
+                    <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 @section('script')
@@ -129,27 +164,36 @@
                 headers: {
                     'X-CSRF-Token': token
                 },
+                beforeSend: function () {
+                    $('#updatePasswordBtn').prop('disabled', true);
+                    $('#updatePasswordBtn').html('Updating...');
+                },
                 success: function(data) {
-                    console.log(data);
                     if (data.error == true) {
-
                         $("#resetPassword_modal").modal('show');
                         $("#hid").html("Changed password successfully.");
+                        $('#updatePasswordBtn').prop('disabled', false);
+                        $('#updatePasswordBtn').html('Update Password');
 
                         // $(".comman_msg").text(data.email);
-
                     }
+                    else {
+                        $('#userNotFoundModal').modal('show');
+                    }
+
                 },
                 error: function(data) {
-
                     console.log("error: "); //, data.responseJSON.errors);
-
                 }
             });
 
         });
     });
-
+   
+    $('#userNotFoundModal').off('hidden.bs.modal').on('hidden.bs.modal', function () {
+      window.location.href = "{{ route('home') }}";
+    });
+    
     document.querySelectorAll('.toggle-password').forEach(function(el) {
         el.addEventListener('click', function() {
             var selector = this.getAttribute('toggle');
