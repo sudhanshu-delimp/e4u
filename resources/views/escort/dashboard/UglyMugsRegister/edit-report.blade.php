@@ -158,8 +158,9 @@
                   </div>
       
                   <button type="submit" class="save_profile_btn">Update Report</button>
-                  <br>
-                  <small>Your report will remain <i style="color: #6c757d">Pending</i>  until approved by our Operations team.</small>
+                  <div class="mt-2">
+                     <small>Your report will remain <i style="color: #6c757d">Pending</i>  until approved by our Operations team.</small>
+                 </div>
               </form>
             </div>
          </div>
