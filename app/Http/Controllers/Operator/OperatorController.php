@@ -12,6 +12,9 @@ use App\Repositories\Operator\OperatorInterface;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\Operator\UpdateMyAccountOperator;
 use App\Repositories\User\UserInterface;
+use App\Http\Requests\StoreAvatarMediaRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class OperatorController extends Controller
 {
@@ -44,7 +47,8 @@ class OperatorController extends Controller
 
     public function editPassword()
     {
-        return view('operator.dashboard.my-account.change-password');
+         $user = $this->user->find(auth()->user()->id);
+        return view('operator.dashboard.my-account.change-password', compact('user'));
     }
 
     /**
@@ -187,7 +191,7 @@ class OperatorController extends Controller
             } else {
                 return response()->json(['type' => 1, 'message' => 'Image not found!']);
             }
-            $defaultImg = asset(config('constants.staff_default_icon'));
+            $defaultImg = asset(config('constants.operator_default_icon'));
             return response()->json(['type' => 0, 'message' => 'Avatar removed successfully', 'img' => $defaultImg]);
         } catch (\Exception $e) {
             \Log::error('Error removing avatar: ' . $e->getMessage());

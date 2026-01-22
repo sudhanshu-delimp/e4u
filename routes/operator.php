@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Operator\OperatorController;
+use App\Http\Controllers\User\Dashboard\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,6 +13,9 @@ Route::get('/edit-my-account', [OperatorController::class, 'editMyaccount'])->na
 Route::post('/update-account', [OperatorController::class, 'update'])->name('operator.account.update');
 Route::get('/change-password', [OperatorController::class, 'editPassword'])->name('operator.change-password');
 Route::get('/upload-avatar', [OperatorController::class, 'uploadAvatar'])->name('operator.upload-avatar');
+Route::post('upload-avatar/{id}', [OperatorController::class, 'storeMyAvatar'])->name('operator.save.avatar');
+Route::post('remove-avatar', [OperatorController::class, 'removeMyAvatar'])->name('operator.avatar.remove');
+
 Route::post('/update-password', [OperatorController::class, 'changePassword'])->name('operator.update-password');
 Route::post('/change-password', [UserController::class, 'updatePassword'])->name('operator.update.password');
 Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('operator.update.password.expiry');

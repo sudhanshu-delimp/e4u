@@ -19,10 +19,10 @@
         <div class="row">
             @php
                 $agreementDate = '';
-                $states = config('escorts.profile.states');
+               /*  $states = config('escorts.profile.states');
                 $stateName = isset($states[$operator->state_id]['stateName'])
                     ? $states[$operator->state_id]['stateName']
-                    : '';
+                    : ''; */
                 if (is_array($operator->contact_type)) {
                     $contactType = $operator->contact_type;
                 } elseif (!empty($operator->contact_type)) {
@@ -33,6 +33,10 @@
                 if (!empty($operator->operator_detail->agreement_date)) {
                     $agreementDate = showDateWithFormat($operator->operator_detail->agreement_date, 'd-m-Y');
                 }
+
+            $countries = config('operator.country');
+            $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$operator->country_id]['name'] : '';
+    
             @endphp
 
 
@@ -176,7 +180,7 @@
                                                     <div class="form-group">
                                                         <label for="mobile">Territory</label>
                                                         <label class="form-control form-back"
-                                                            aria-describedby="emailHelp">{{ $stateName }} </label>
+                                                            aria-describedby="emailHelp">{{ $countryName }} </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
@@ -260,7 +264,7 @@
                                                             aria-describedby="emailHelp">{{ $operator->operator_detail->fee }}</label>
                                                     </div>
                                                 </div>
-                                                {{--  <div class="col-md-12">
+                                                 <div class="col-md-12">
                                     <div class="form-group">
                                        <h5 for="mobile">Your Agreement</h5>
                                        <label>You can retrieve your Agent Management Agreement by clicking
@@ -269,7 +273,7 @@
                                              <span style="color: var(--color-orange: #f5841f;)">here</span>.
                                           </a>       
                                     </div>
-                                 </div> --}}
+                                 </div>
                                             </div>
                                         </div>
                                     </div>
