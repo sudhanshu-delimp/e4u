@@ -145,7 +145,7 @@
                       <label class="required d-block">Rating</label>
                       <div class="form-check d-flex align-items-center">
                           <input class="form-check-input" {{($num && $num->rating == 'Do Not Book') ? 'checked' : ''}}  type="radio" name="rating" value="Do Not Book" id="rate1">
-                          <label class="form-check-label" for="rate1">Do Not Book</label>
+                          <label class="form-check-label" for="rate1">Do not book</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
                           <input class="form-check-input" type="radio" {{($num && $num->rating == 'Exercise Caution') ? 'checked' : ''}} name="rating" value="Exercise Caution" id="rate2">
@@ -158,7 +158,7 @@
                   </div>
       
                   <button type="submit" class="save_profile_btn">Update Report</button>
-                  <small class="d-block mt-2">Your report will remain <em>Pending</em> until approved by our Operations team.</small>
+                  <small>Your report will remain <i style="color: #6c757d">Pending</i>  until approved by our Operations team.</small>
               </form>
             </div>
          </div>
