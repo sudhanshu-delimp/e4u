@@ -20,8 +20,12 @@
 
                 </span>
                 <span>
-                    <b>Home State : </b>
-                    <span class="user-values"> {{ auth()->user()->home_state }}</span>
+                    <b>Territory : </b>
+                    @php
+                     $countries = config('operator.country');
+                        $countryName = isset($countries[auth()->user()->country_id]['name']) ? $countries[auth()->user()->country_id]['name'] : '';
+            @endphp
+                    <span class="user-values"> {{  $countryName }}</span>
                 </span>
 
             </div>
