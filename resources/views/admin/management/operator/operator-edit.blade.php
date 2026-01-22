@@ -133,13 +133,15 @@ if (is_array($operator->contact_type)) {
             <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
         </div>
         <div class="col-6 mb-3">
+            <label class="form-check-label" for="viewer_contact_type_1">Advertising</label>
             <input class="form-control rounded-0" placeholder="Advertising" name="commission_advertising_percent"
-                id="commission_advertising_percent" maxlength="3" value="{{ $operator->operator_detail->commission_advertising_percent }}">
+                id="commission_advertising_percent" maxlength="10" value="{{ $operator->operator_detail->commission_advertising_percent }}">
             <span class="text-danger error-commission_advertising_percent"></span>
         </div>
         <div class="col-6 mb-3">
+            <label class="form-check-label" for="viewer_contact_type_1">Massage Centre (Registrations)</label>
             <input class="form-control rounded-0" placeholder="Massage Centre (Registrations)"
-                name="commission_massage_centre_percent" id="commission_massage_centre_percent" maxlength="3" value="{{ $operator->operator_detail->commission_massage_centre_percent }}">
+                name="commission_massage_centre_percent" id="commission_massage_centre_percent" maxlength="10" value="{{ $operator->operator_detail->commission_massage_centre_percent }}">
             <span class="text-danger error-commission_massage_centre_percent"></span>
         </div>
     </div>

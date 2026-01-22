@@ -139,8 +139,8 @@
             }
             $contactTypesText = implode(', ', $contactTypesArray);
 
-           $countries = config('operator.country');
-$countryName = isset($countries[$operator->country_id]['name']) ? $countries[$operator->country_id]['name'] : '';
+        $countries = config('operator.country');
+        $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$operator->country_id]['name'] : '';
         @endphp
         <div class="col-md-12 ">
             <div class="card mb-3 p-3">
