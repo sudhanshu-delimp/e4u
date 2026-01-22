@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Mail\NotificationPasswordReset;
 use Auth;
 use Mail;
 use Carbon\Carbon;
@@ -90,8 +92,7 @@ class SendForgotPasswordController extends Controller
         // if (!$tokenData) { dd("tokendata"); return view('auth.passwords.email'); }
 
         $user = User::where('email', $tokenData->email)->first();
-      
-        
+       
         // Redirect the user back if the email is invalid
         if (!$user) { 
             if($user->type == 0) {
@@ -107,9 +108,25 @@ class SendForgotPasswordController extends Controller
                return redirect()->route('agent.login'); 
             }
             
-            // return redirect()->back()->withErrors(['email' => 'Email not found']);
+            
         }
-      
+        if($user->type == 5){
+             $user = User::with('agent_settings')->where('email', $tokenData->email)->first();
+        }
+        
+        $user_settings =$user->agent_settings;
+        
+        $body = [
+           'new_password' => $password,
+           'name' => !empty($user->name) ? $user->name : $tokenData->email,
+           'ref'  => $user->id,
+           'member_id' => !empty($user->member_id) ? $user->member_id : ''
+        ];
+
+        if($user_settings && $user_settings->advertiser_email  == '1'){
+             Mail::to($tokenData->email)->send(new NotificationPasswordReset($body));
+        }
+       
         //Hash and update the new password
         $user->password = Hash::make($password);
         $error = false;
