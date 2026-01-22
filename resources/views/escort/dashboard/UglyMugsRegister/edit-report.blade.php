@@ -31,13 +31,13 @@
                      <p><b>Notes:</b> </p>
                      <ol>
                         <li>
-                          The NUM register (NUM) is a free service to all Escorts. You can use the NUM service
+                          The NUM register (<b>NUM</b>) is a free service to all Escorts. You can use the NUM service
                           at any time.
                         </li>
                         <li>
                           Complete the form to add an incident to the NUM. When completing the form please
                           ensure all of the details are correct and you have selected the correct option under
-                          <strong>Incident Nature</strong> to describe the incident as well as for Rating. Please ensure your report
+                          Incident Nature to describe the incident as well as for Rating. Please ensure your report
                           complies with the <strong><a href="{{ route('escort.code-of-conduct') }}" class="custom_links_design">Code of Conduct</a></strong>.
                         </li>
                         <li>
@@ -108,7 +108,7 @@
       
                   <div class="form-group">
                       <label class="required">Offender's Mobile</label>
-                      <input type="number" class="form-control" min="8" value="{{$num ? $num->offender_mobile : ''}}" name="offender_mobile" placeholder="No spaces or any other characters - just numbers">
+                      <input type="tel" maxlength="10" oninput="this.value = this.value.replace(/\D/g,'');" class="form-control" min="8" value="{{$num ? $num->offender_mobile : ''}}" name="offender_mobile" placeholder="No spaces or any other characters - just numbers">
                   </div>
       
                   <div class="form-group">
@@ -158,6 +158,7 @@
                   </div>
       
                   <button type="submit" class="save_profile_btn">Update Report</button>
+                  <br>
                   <small>Your report will remain <i style="color: #6c757d">Pending</i>  until approved by our Operations team.</small>
               </form>
             </div>
