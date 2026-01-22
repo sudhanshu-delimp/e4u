@@ -13,10 +13,13 @@ class CreateMasseursTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('masseurs');
+
         Schema::create('masseurs', function (Blueprint $table) {
 
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('token_id');
             $table->string('name');
             $table->string('stage_name');
             $table->string('mobile', 20);

@@ -6,15 +6,21 @@ use Exception;
 use App\Models\Masseur;
 use App\Models\MasseurRate;
 use Illuminate\Http\Request;
+use App\Models\MasseurGallery;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Intervention\Image\ImageManager;
 use App\Http\Controllers\AppController;
+use Illuminate\Support\Facades\Storage;
 use App\Repositories\Message\MessageInterface;
 use App\Repositories\Service\ServiceInterface;
 use App\Repositories\Duration\DurationInterface;
 use App\Repositories\Thumbnail\ThumbnailInterface;
+use App\Repositories\Message\MasseurMediaInterface;
 use App\Repositories\Message\MessageMediaInterface;
+use Intervention\Image\Drivers\Gd\Driver as GdDriver;
+use App\Http\Requests\Escort\StoreGalleryMediaRequest;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
 
@@ -32,9 +38,7 @@ class MasseurController extends AppController
     protected $massage_profile;
   
     
-
-
-    public function __construct(MassageProfileInterface $massage_profile, MessageInterface $escort, MessageMediaInterface $media, ServiceInterface $service, DurationInterface $duration)
+    public function __construct(MassageProfileInterface $massage_profile, MessageInterface $escort, MasseurMediaInterface $media, ServiceInterface $service, DurationInterface $duration)
     {
         $this->escort = $escort;
         $this->service = $service;
@@ -98,6 +102,8 @@ class MasseurController extends AppController
 
     public function index(Request $request)
     {
+        $page_token = bin2hex(random_bytes(32));
+
         $durations = $this->duration->all();
         $user = auth()->user();
 
@@ -109,7 +115,13 @@ class MasseurController extends AppController
         $massage_durations = (isset($massage_default->durations) && count($massage_default->durations)>0) ? $massage_default->durations->toArray() : [];
         ########## End default profile data ########
 
-        return view('center.dashboard.masseurs.add-masseurs',compact('durations','massage_durations'));
+        $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
+        // $path = $this->media;
+        // $defaultImages = $this->media->findDefaultMedia($user->id, 0);
+        // //$escortDefault = $this->escort->findDefault(auth()->user()->id, 1);
+        
+
+        return view('center.dashboard.masseurs.add-masseurs',compact('durations','massage_durations','massage_default','page_token','media'));
     }
 
     public function add_masseur(Request $request)
@@ -139,6 +151,8 @@ class MasseurController extends AppController
             $masseur->vaccination           = $request->filled('vaccination') ? $request->vaccination : null;
             $masseur->commentary            = $request->filled('commentary') ? $request->commentary : null;
 
+            $masseur->token_id            = $request->filled('page_token') ? $request->page_token : null;
+
             $masseur->availability            = $availabilityJson;
             
             $masseur->save();
@@ -166,33 +180,22 @@ class MasseurController extends AppController
             }
 
             // /* ================== Gallery (Images) ================== */
-            // if (!empty($request->position)) {
-            //     foreach ($request->position as $position => $mediaId) {
-            //         if ($mediaId) {
-            //             MassageGallery::create([
-            //                 'massage_profile_id' => $massage_profile_id,
-            //                 'massage_media_id'   => isMassageGalleryTemplate($mediaId),
-            //                 'position'           => $position,
-            //                 'type'               => 0,
-            //             ]);
-            //         }
-            //     }
-            // }
+            if (!empty($request->position)) {
+                foreach ($request->position as $position => $mediaId) {
+                    if ($mediaId) {
+                        MasseurGallery::create([
 
-            // /* ================== Gallery (Videos) ================== */
-            // if (!empty($request->video_position)) {
-            //     foreach ($request->video_position as $key => $video) {
-            //         if (!empty($video)) {
-            //             MassageGallery::create([
-            //                 'massage_profile_id' => $massage_profile_id,
-            //                 'massage_media_id'   => $video,
-            //                 'position'           => $key,
-            //                 'type'               => 1,
-            //             ]);
-            //         }
-            //     }
-            // }
+                            'masseur_token_id'   => $request->page_token,
+                            'masseur_profile_id' => $masseur_profile_id,
+                            'masseur_media_id'   => isMasseursGalleryTemplate($mediaId),
+                            'position'           => $position,
+                            'type'               => 0,
+                        ]);
+                    }
+                }
+            }
 
+           
             DB::commit();
 
             return response()->json([
@@ -238,6 +241,9 @@ class MasseurController extends AppController
         }
         $massage_durations = (isset($massage_default->durations) && count($massage_default->durations)>0) ? $massage_default->durations->toArray() : [];
         ########## End default profile data ########
+
+         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, $masseur->token_id,[]);
+         dd($media);
 
         return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur'));
     }
@@ -351,6 +357,96 @@ class MasseurController extends AppController
         
     }
     
-    
+    public function masseur_list(Request $request)
+    {
+        return view('center.dashboard.masseurs.archives-listing');
+    }
+
+
+
+    public function uploadGallery(StoreGalleryMediaRequest $request)
+    {
+        try 
+        {
+        $userId = auth()->user()->id;
+        $response['status'] = '';
+        $prefix = 'images/';
+        $type = 0;
+        $file_path = $prefix.$userId;
+        $page_token = $request->page_token;
+
+      
+        if($request->hasFile('img'))
+        {
+            if ($request->hasFile('img')) {
+                foreach($request->file('img') as $key => $image){
+                    $encryptedFileName = $this->_generateUniqueFilename($image->getClientOriginalName());
+                    $destination_path = $file_path.'/gallery_'.$encryptedFileName;
+                    $manager = new ImageManager(new GdDriver());
+                    $extension = strtolower($image->getClientOriginalExtension());
+                    $orgImage = $manager->read($image->getPathname());
+                    Storage::disk('escorts')->put($destination_path, file_get_contents($image));
+                    if(!$media = $this->media->findByPath('escorts/'.$destination_path)) {
+                    $data = [
+                    'user_id' => $userId,
+                    'type' => $type,
+                    'masseur_token_id' => $page_token,
+                    'path' => 'escorts/'.$destination_path,
+                    ];
+                    $response['status'] = 200;
+                    $media = $this->media->store($data);
+                    }
+                    else {
+                        $response['status'] = 200;
+                    }
+                }
+            }
+        }
+        } 
+        catch (Exception $e) {
+
+            Log::info(json_decode($e->getMessage(),true));
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+        return response()->json($response);
+    }
+
+
+
+
+     public function getAccountMediaGallery(Request $request, $category=null,$page_token,){
+        try {
+            $media = $this->media->with_Or_withoutPosition(auth()->user()->id,$page_token, []);
+            $mediaCategory = match ($category) {
+                'gallery' => $media->whereNotIn('position',[9,10]),
+                'banner'  => $media->whereIn('position',[9])->where('template','0'),
+                'pinup'   => $media->whereIn('position',[10]),
+            };
+            $path = $this->media;
+            $response = [];
+            $response['success'] = true;
+            $response['category'] = $category;
+            $response['gallery_container_html'] = view('center.masseur.media_gallery_container',compact('mediaCategory','media','path','category'))->render();
+            $response['gallery_modal_container_html'] = view('center.masseur.gallery_modal_container',compact('media','path'))->render();
+            //$response['banner_modal_container_html'] = view('escort.dashboard.profile.partials.banner_modal_container',compact('media','path'))->render();
+            
+            // if(auth()->user()->type!='4')
+            // $response['pinup_modal_container_html'] = view('escort.dashboard.profile.partials.pinup_modal_container',compact('media','path'))->render();
+            
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
 
 }

@@ -4,11 +4,156 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
-    <style>
+    <style>.parsley-errors-list {
+   list-style: none;
+   color: rgb(248, 0, 0)
+}
 
+.modalPopup>.item4 {
+   cursor: pointer;
+}
+
+.modalPopup>.item2 {
+   cursor: pointer;
+}
+
+.ui-draggable-dragging {
+   width: 82px !important;
+   height: 82px !important;
+   opacity: 0.8;
+}
+
+.draggable {
+   filter: alpha(opacity=60);
+   opacity: 0.6;
+}
+
+.dropped {
+   position: static !important;
+}
+
+.pis {
+   display: none;
+}
+
+.newbtn {
+   cursor: pointer;
+}
+
+.grid-container>div {
+   background-color: rgba(255, 255, 255, 0.8);
+}
+
+.item1 {
+   grid-column: 3 / span 3;
+}
+
+.item4 {
+   width: 100%;
+   object-fit: cover;
+}
+
+img.img-thumbnail.defult-image {
+   width: 190px;
+   height: 135px;
+   object-fit: cover;
+}
+
+img.img-thumbnail.defult-image-3 {
+   width: 585px;
+   height: 202px;
+   object-fit: cover;
+   position: absolute;
+}
+
+img#blah8 {
+   width: 425px !important;
+}
+
+.leftLst.over {
+   pointer-events: none;
+}
+
+.item4 .fa-trash {
+   position: absolute;
+   right: 10px;
+   top: 10px;
+   color: #e73b3b;
+   display: none;
+}
+
+.item4:hover .fa-trash {
+   display: block;
+}
+
+.item4 {
+   position: relative;
+}
+
+.item2 {
+   height: 100% !important;
+   width: 100%;
+}
+
+.item2 img {
+   width: 100% !important;
+   height: 100% !important;
+   object-fit: cover;
+}
+
+textarea {
+   resize: none;
+}
+
+#count_message {
+   background-color: smoke;
+   margin-top: -20px;
+   margin-right: 5px;
+}
+
+.fill_profile_headings_global {
+   border-bottom: 1px solid #0c223d;
+}
 
 .pis {
     display: none;
+}
+
+.upld-img {
+   height: 82px !important;
+}
+
+.grid-container {
+   display: grid;
+   grid-template-columns: repeat(5, 1fr);
+   /* default 5 columns */
+   gap: 10px;
+}
+
+ .modal-tab {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+.gal-thumb{
+    width: 149px !important;
+    height: 138px !important;
+}
+.gal-thumb-first{
+    width: 467px !important;
+    height: 340px !important;
+}
+
+@media (min-width:600px) and (max-width: 1024px) {
+   .grid-container {
+       grid-template-columns: repeat(3, 1fr);
+   }
+}
+
+@media (max-width: 600px) {
+   .grid-container {
+       grid-template-columns: repeat(2, 1fr);
+   }
 }
 
 
@@ -178,15 +323,15 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> 
                                                     <div class="row p-3">
                                                         <div class="col-sm-12">
                                                             <h4 class="banner-sub-heading my-2">Thumbnail</h4>
                                                             <div class="plate">
                                                                 <label class="newbtn" data-toggle="modal"
                                                                     data-target="#photo_gallery">
-                                                                    <img class="w-100" id="img1"
-                                                                        src="{{ asset('assets/app/img/mcc-default-thumbnail.png') }}">
+                                                                    <img class="w-100 gal-thumb-first" id="img1"
+                                                                        src="{{ asset($masseur->imagePosition(1)) }}">
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -199,22 +344,22 @@
                                                                     <div class="plate">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
-                                                                            <img class="w-100"
-                                                                                id="img2"src="{{ asset('assets/app/img/frame-main-thum.png') }}">
+                                                                            <img class="w-100 gal-thumb"
+                                                                                id="img2"src="{{ asset($masseur->imagePosition(2)) }}">
                                                                         </label>
                                                                     </div>
                                                                     <div class="plate">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
-                                                                            <img class="w-100"
-                                                                                id="img3"src="{{ asset('assets/app/img/frame-main-thum.png') }}">
+                                                                            <img class="w-100 gal-thumb"
+                                                                                id="img3"src="{{ asset($masseur->imagePosition(3)) }}">
                                                                         </label>
                                                                     </div>
                                                                     <div class="plate">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
-                                                                            <img class="w-100"
-                                                                                id="img4"src="{{ asset('assets/app/img/frame-main-thum.png') }}">
+                                                                            <img class="w-100 gal-thumb"
+                                                                                id="img4"src="{{ asset($masseur->imagePosition(4)) }}">
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -237,7 +382,8 @@
                                                                                 <a class="nav-link active" id="menu_all"
                                                                                     data-toggle="tab" href="#home">All</a>
                                                                             </li>
-                                                                            <li class="nav-item">
+
+                                                                            <!-- <li class="nav-item">
                                                                                 <a class="nav-link" id="menu_varified"
                                                                                     data-toggle="tab"
                                                                                     href="#menu1">Verified</a>
@@ -246,7 +392,7 @@
                                                                                 <a class="nav-link" id="menu_unverified"
                                                                                     data-toggle="tab"
                                                                                     href="#menu2">Unverified</a>
-                                                                            </li>
+                                                                            </li> -->
                                                                         </ul>
                                                                     </div>
                                                                     <div class="col-md-2 pt-1">
@@ -267,6 +413,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="archive-photo-sec upload-6-img-mcc">
                                                     <div class="row">
                                                         <div class="col-md-12">
@@ -543,6 +690,7 @@
 
 
                                     <div class="d-flex justify-content-end py-3">
+                                        <input type="hidden" name="page_token" id="page_token"  value="{{$masseur->token_id}}">
                                         <input type="hidden" name="masseur_id" id="masseur_id" value="{{$masseur->id}}">
                                         <button type="button" id="submitMasseur" class="btn-common">Update Masseur</button>
                                     </div>
@@ -561,51 +709,44 @@
 
 
 
-    <div class="modal" id="photo_gallery" aria-modal="true" role="dialog">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title" style="color: white;"><img
-                            src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon"> Select Photo
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
+<div class="modal" id="photo_gallery" style="display: none">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color border-0">
+                <h5 class="modal-title" style="color: white;"><img
+                        src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon"> Select Photo
+                </h5>
+                <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 200px;">
+                    <button type="button" data-toggle="modal" data-target="empty" class="btn-cancel-modal"
+                        style=" padding: 5px 10px;">Upload from device</button>
                 </div>
-                <div class="modal-body gallery-modal">
-                    <div id="gallery_modal_container" class="grid-container modalPopup"
-                        style="max-height: 500px; overflow-y:scroll;">
-
-
-                        <div class="default-img-mcc">
-                            <img class="img-thumbnail defult-image select_image"
-                                src="{{ asset('escorts/images/203/9539b7a0b8f7dfe5b5ff82675.jpg') }}" alt=" "
-                               >
-                        </div>
-                        <div class="default-img-mcc">
-                            <img class="img-thumbnail defult-image select_image"
-                                src="{{ asset('escorts/images/203/6bb13756ba0293d53e059f499.jpg') }}" alt=" "
-                                >
-                        </div>
-                        <div class="default-img-mcc">
-                            <img class="img-thumbnail defult-image select_image"
-                                src="{{ asset('escorts/images/203/2175285317b919c07f892ff40.jpg') }}" alt=" "
-                                >
-                        </div>
-                        <div class="default-img-mcc">
-                            <img class="img-thumbnail defult-image select_image"
-                                src="{{ asset('escorts/images/203/c75304a26c587132b15efe031.jpg') }}" alt=" "
-                                >
-                        </div>
-                    </div>
-                </div>
-
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}"
+                            class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
             </div>
+            <div class="modal-body">
+                <div id="gallery_modal_container" class="grid-container modalPopup"
+                    style="max-height: 500px; overflow-y:scroll;">
+
+                    @foreach ($media as $keyId => $image)
+                        @if (!in_array($image->position, [9, 10]))
+                            <div class="item4">
+                                <img class="img-thumbnail defult-image select_image"
+                                    src="{{ asset($image->path) }}" alt=" "
+                                    data-id="{{ $image->id }}"
+                                    data-position="{{ $image->position ? $image->position : '' }}">
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+
         </div>
     </div>
+</div>
 
     
 {{-- upload photo popup --}}

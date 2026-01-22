@@ -100,6 +100,12 @@ Route::post('create-new-masseur', [MasseurController::class, 'add_masseur'])->na
 Route::get('update-masseur/{id?}',[MasseurController::class,'edit_masseur'])->name('center.update-masseur');
 Route::post('update-masseur',[MasseurController::class,'update_masseur'])->name('center.update-masseur');
 
+Route::post('masseurs/archives-listing',[MasseurController::class,'masseur_list'])->name('center.archives-listing');
+
+Route::post('center.massuers-media-upload-gallery',[MasseurController::class,'uploadGallery'])->name('center.massuers-media-upload-gallery');
+Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}',[MasseurController ::class, 'getAccountMediaGallery'])->name('center.massuers.account.gallery');
+
+
  
 // Route::get('masseurs/new-listing', function()
 // {
