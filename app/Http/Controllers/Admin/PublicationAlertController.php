@@ -194,34 +194,6 @@ class PublicationAlertController extends Controller
         }
     }
 
-    // public function pdfDownload($id)
-    // {
-    //     try {
-    //         $decodedId = (int) base64_decode($id);
-    //         $data = PublicationAlert::find($decodedId);
-    //         if (is_null($data)) {
-    //             abort(404); // Throws a NotFoundHttpException
-    //         }
-    //         $pdfDetail['ref'] = $data['id'];
-    //         $pdfDetail['heading'] = $data['heading'];
-    //         $pdfDetail['type'] = $data['type'];
-    //         $pdfDetail['status'] = $data['status'];
-    //         $pdfDetail['member_id'] = $data['member_id'];
-    //         $pdfDetail['start_date'] = basicDateFormat($data['start_date']);
-    //         $pdfDetail['end_date'] = basicDateFormat($data['end_date']);
-    //         if ($data['type'] == 'Template') {
-    //             $pdfDetail['template_name'] = $data['template_name'];
-    //         } else {
-    //             $pdfDetail['content'] = $data['content'];
-    //         }
-
-
-    //         return view('admin.notifications.escorts.center-notification-pdf-download', compact('pdfDetail'));
-    //     } catch (\Throwable $e) {
-    //         abort(404);
-    //     }
-    // }
-
     public function edit($id)
     {
         try {
