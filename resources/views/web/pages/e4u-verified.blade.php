@@ -39,25 +39,26 @@
 
     <h2 class="primery_color normal_heading">Our commitment</h2>
     <p>
-        Escorts4U takes its role as a provider of an advertising platform very seriously on behalf of
-        all the Users who may frequent the Website. We have developed a clear focus on providing
+        Escorts4U, on behalf of all the Users who may frequent the Website, takes its role as a provider of an advertising platform very seriously. 
+        We have developed a clear focus on providing
         a secure, transparent, and trustworthy platform for all Users. A part of this commitment
         includes our E4U Verified feature.
     </p>
     <p>
-        A public E4U Verified image appears on all Media within the Website that has been verified
+        A public E4U Verified image appears on all Media within the Website which has been verified
         by the E4U process. It is optional for Escorts to use, however, where Media has not been
-        verified, an alternative image appears advising the User that the Advertiser’s Media has not
-        been verified.
+        verified, an alternative image appears advising the User that the Advertiser's Media has not
+        been verified.  Our Search filters for both Escorts and Massage Centres have a filter which you can select
+        to narrow your criteria.
     </p>
     <h2 class="primery_color normal_heading">The benefits to you</h2>
     <p>By developing this policy, all Users are delivered a range of benefits, which include:</p>
     <ol class="e4u-verify-list">
         <li> <i>Enhanced Transparency and Trust.</i> E4U Verified lets you know that when you look at
-            any Advertisers Media that displays an E4U Verified icon, the Advertiser has submitted
-            that Media and passed the verification process. You can reply on that Media’s
+            any Advertiser's Media that displays an E4U Verified icon, the Advertiser has submitted
+            that Media and passed the verification process. You can reply on the Media's
             authenticity.</li>
-        <li> <i>Improved Confidence in Your Bookings.</i> This added layer of verification helps eliminate
+        <li> <i>Improved Confidence with Your Bookings.</i> This added layer of verification helps eliminate
             any uncertainty about who you will be meeting, should you undertake a booking with the
             Advertiser.
             </li>
@@ -81,7 +82,7 @@
             option located in the Search Filters. By
             default, the filter is not enabled and you
             will be presented with verified and
-            unverified Profiles.
+            unverified Profiles togther.
             </p>
         </div>   
         <div class="col-lg-7">

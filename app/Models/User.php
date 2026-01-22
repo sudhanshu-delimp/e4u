@@ -454,7 +454,15 @@ class User extends Authenticatable
             return 'DL' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
          if ($this->type == 7) {
-            return 'O' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+            $countryAbrs = config('operator.countryAbr');
+           // return 'O' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+        
+           if(isset($countryAbrs[$this->country_id])) {
+             $cid = $countryAbrs[$this->country_id];
+           } else {
+             $cid = $this->country_id;
+           }
+            return 'O' .  $cid . sprintf("%04d", $this->id);
         }
         if ($this->type == 6) {
             $staffPrefix = config('staff.staff_member_id_prefix');
@@ -544,6 +552,11 @@ class User extends Authenticatable
     public function state()
     {
         return $this->belongsTo('App\Models\State', 'state_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Country', 'country_id');
     }
 
     public function currentState()

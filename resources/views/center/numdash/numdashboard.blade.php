@@ -128,7 +128,7 @@
                 
                 "language": {
                     "zeroRecords": "No Record Found!",
-                    searchPlaceholder: "Search by Mobile"
+                    searchPlaceholder: "Search by Mobile Number"
                 },
                 paging: true,
                 processing: false,

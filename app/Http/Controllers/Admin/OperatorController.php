@@ -11,6 +11,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\Operator\AddNewOperator;
 use App\Models\Operator;
 use App\Repositories\Operator\OperatorInterface;
+use App\Models\VariablAgentOperator;
 use PDF;
 
 class OperatorController extends BaseController
@@ -113,7 +114,21 @@ class OperatorController extends BaseController
      */
     public function operator_list()
     {
-        return view('admin.management.operator.operator-manage');
+        $fees = VariablAgentOperator::get();
+        $feeMassage = "";
+        $feeAdvertising = "";
+        if($fees->count() > 0) {
+            $msFee = $fees->where('id',2)->first();
+            if($msFee) {
+               $feeMassage = $msFee->percent; 
+            }
+
+            $advFee = $fees->where('id',1)->first();
+            if($advFee) {
+               $feeAdvertising = $advFee->percent; 
+            }
+        }
+        return view('admin.management.operator.operator-manage', compact('feeMassage', 'feeAdvertising'));
     }
 
     /**
@@ -147,7 +162,7 @@ class OperatorController extends BaseController
      */
     public function operator_data_pagination($start, $limit, $order_key, $dir)
     {
-        $operator = User::with('state', 'operator_detail', 'account_setting', 'LoginStatus')
+        $operator = User::with('country', 'operator_detail', 'account_setting', 'LoginStatus')
             ->where('type', '7');
 
         $search = request()->input('search.value');
@@ -159,7 +174,7 @@ class OperatorController extends BaseController
                     ->orWhere('phone', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%")
                     ->orWhere('name', 'like', "%{$search}%")
-                    ->orWhereHas('state', function ($q) use ($search) {
+                    ->orWhereHas('country', function ($q) use ($search) {
                         $q->where('name', 'like', "%{$search}%");
                     });
             });
@@ -190,7 +205,7 @@ class OperatorController extends BaseController
             $item->login_count = (isset($logAndStatus->login_count) && $logAndStatus->login_count > 0) ? $logAndStatus->login_count : 0;
             $item->operator_id = $item->id;
             $item->member_id = isset($item->member_id) ? $item->member_id : 'NA';
-            $item->territory = isset($item->state->name) ? $item->state->name : 'NA';
+            $item->territory = isset($item->country->name) ? $item->country->name : 'NA';
             $item->email = isset($item->email) ? $item->email : 'NA';
             $item->totalAgents = 0;
             $item->company_name = isset($item->name) ? $item->name : 'NA';

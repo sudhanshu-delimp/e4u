@@ -173,6 +173,7 @@
             </div>
          </div>
       </div>
+      @include('escort.dashboard.NewTour.modal.register_pinup')
 </div>
 @endsection
 @push('script')
@@ -181,6 +182,7 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/escort/pinup_tour.js') }}"></script>
 <script>
    var table; 
    $(document).ready(function () {

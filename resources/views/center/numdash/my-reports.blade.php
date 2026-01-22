@@ -43,7 +43,7 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
   <div class="row">
     <div class="col-md-12 custom-heading-wrapper">
-      <h1 class="h1">My Report</h1>
+      <h1 class="h1">My Reports</h1>
       <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
     </div>
     <div class="col-md-12 mb-4">
@@ -166,7 +166,7 @@
            
             "language": {
                 "zeroRecords": "No Record Found!",
-                searchPlaceholder: "Search by Mobile"
+                searchPlaceholder: "Search by Mobile Number"
             },
             paging: true,
             processing: false,
@@ -218,7 +218,8 @@
                     data: 'actions',
                     name: 'actions',
                     orderable: false,
-                    searchable: false
+                    searchable: false,
+                    class: 'text-center'
                 }
             ]
         });

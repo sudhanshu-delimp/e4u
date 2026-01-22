@@ -32,14 +32,14 @@
    <div class="container reg_info text-justify">
     <h1 class="home_heading_first margin_btm_twenty_px page-title">My Playbox</h1>
     <h5 class="primery_color normal_heading">A unique service for Escorts!</h5>
-    <p>Unlike other social platforms, My Playbox has an established fan base for Escorts to
-        create their content for. When an Escort posts any content, every Viewer to the Website
+    <p>Unlike other social media platforms, My Playbox has an established fan base for Escorts to
+        create their content for. When an Escort posts their content, every Viewer to the Website
         is made aware of the content which they can see and interact with. The Viewer can
-        message the Escort, if you are registered and logged on, which are nearly always opened
+        message the Escort, if they are registered and logged on, which are nearly always opened
         and responded to. The service continues to grow as more and more Escorts take up the
         Website as their preferred platform for advertising.
             </p>
-            <p>Finally, an advertising platform which brings together all the services to the one website.</p>
+            <p>Finally, an advertising platform which brings together all the desired services into the one website.</p>
  
             <h5 class="primery_color normal_heading">What is this all about?</h5>
             <p>
@@ -51,23 +51,23 @@
             </p>
             <h5 class="primery_color normal_heading">How does it work?</h5>
             <p>If an Escort has uploaded content to their Playbox, the My Playbox icon appears on any
-        Profile they publish. The Viewer simply clicks the icon which will take them to the Escorts
+        Profile they List. The Viewer simply clicks the icon, located on the Profile page, which will take them to the Escort's
         Playbox page. This is particularly helpful for Viewers to get to see an Escort who they are
         considering meeting with.</p>
             <h5 class="primery_color normal_heading">What do I have to do as an Escort?</h5>
             <p>All you have to do is register with Escorts4U and then set up your content and pricing
         schedule within your Dashboard. It is very quick and easy to do. Once you have
-        completed that, the E4U My Playbox icon will appear on any Profile you publish where
-        Viewers can click to go to your content. A Viewer can only access your Playbox from a
-        published Profile.</p>
+        completed that, the E4U My Playbox icon will appear on enery Profile you publish where
+        Viewers can click to go to your My Playbox content. A User can only access your Playbox from a Listed Profile, 
+        whereas a Viewer can access your Playbox anytime.</p>
             <h5 class="primery_color normal_heading">What do I have to do as a Viewer?</h5>
             <p>To view an Escort's Playbox, nothing. You can view any Escort's Playbox by clicking the
-        My Playbox icon that appears on their Profile.</p>
+        My Playbox icon that appears on their Profile.  It the Escort does not have a current Listing, as a Viewer you can still access the Escort's Playbox by logging on.</p>
             <p>If you want to communicate with the Escort, then you will need to <a class="termsandconditions_text_color" href="{{ route('register') }}" class="e4ulinks">register</a> with Escorts4U
         and each time you visit us, login. Once you have logged in, you will not only see the My
-        Playbox icon on any Escort’s Profile who has a Playbox, but you will also be able to
+        Playbox icon on any Escort's Profile who has a Playbox, but you will also be able to
         message the Escort (provided you have the Messaging Service enabled in your settings).</p>
-            <p>You can view the content on an pay-per-play basis or subscribe to the Escort’s Playbox. What
+            <p>You can view the content on an pay-per-play basis or subscribe to the Escort's Playbox. What
         a great way to see the Escort before you hook up with them!</p>
         
        <!-- changes to this policy -->

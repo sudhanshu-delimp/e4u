@@ -12,6 +12,8 @@ class MassageMediaRepository extends BaseRepository implements MassageMediaInter
     public function __construct(MassageMedia $media)
     {
         $this->model = $media;
+
+      
     }
 
     public function findByPath($path)
@@ -80,51 +82,138 @@ class MassageMediaRepository extends BaseRepository implements MassageMediaInter
             ->get();
             return $result;
 	}
-    public function findByposition($user_id,$position)
-	{
-        $arr = [];
-        if($position == 1) {
-            if($image = $this->model->where('user_id',$user_id)->where('position', 1)->first()) {
-                $arr = ['path'=>$image->path, 'id'=>$image->id];
-                return $arr;
-            } else {
+
+    // public function findByposition($user_id,$position,$type = NUll)
+	// {
+    //     $arr = [];
+    //     if($position == 1) {
+    //         if($image = $this->model->where('user_id',$user_id)->where('position', 1)->first()) {
+    //             $arr = ['path'=>$image->path, 'id'=>$image->id];
+
+    //             dd($arr);
+    //             return $arr;
+    //         } else {
                 
-                $arr = ['path'=>url('assets/app/img/img-11.png'), 'id'=>''];
-                return $arr;
-                //asset('assets/app/img/service-provider/Frame-408.png')
-            }
+    //             $arr = ['path'=>url('assets/app/img/img-11.png'), 'id'=>''];
+    //             return $arr;
+    //             //asset('assets/app/img/service-provider/Frame-408.png')
+    //         }
             
+    //     } elseif ($position == 8) {
+    //         if($image = $this->model->where('user_id',$user_id)->where('position', 8)->first()) {
+    //             $arr = ['path'=>$image->path, 'id'=>$image->id];
+    //             return $arr;
+    //         } else {
+                
+    //             $arr = ['path'=>url('assets/app/img/img-13.png'), 'id'=>''];
+    //             return $arr;
+    //         }
+    //     } elseif ($position == 9) {
+    //         if($image = $this->model->where('user_id',$user_id)->where('position', 9)->first()) {
+    //             $arr = ['path'=>$image->path, 'id'=>$image->id];
+    //             return $arr;
+    //         } else {
+                
+    //             $arr = ['path'=>url('assets/app/img/img-13.png'), 'id'=>''];
+    //             return $arr;
+    //         }
+    //     }  
+    //     else {
+    //         if($image = $this->model->where('user_id',$user_id)->where('position',$position)->first()) {
+    //             $arr = ['path'=>$image->path, 'id'=>$image->id];
+    //             return $arr;
+    //         } else {
+                
+    //             $arr = ['path'=>url('assets/app/img/img-12.png'), 'id'=>''];
+    //             return $arr;
+    //         }
+    //     }
+        
+    //                     //dd($result);$path->findByposition(auth()->user()->id,1
+	// 	return $result;
+	// }
+
+
+
+    public function findByposition($user_id, $position, $type = null)
+    {
+        if ($position == 1) {
+
+            $image = $this->model
+                ->where('user_id', $user_id)
+                ->where('position', 1)
+                ->when(!is_null($type), function ($q) use ($type) {
+                    $q->where('type', $type);
+                })
+                ->first();
+
+            return $image
+                ? ['path' => $image->path, 'id' => $image->id]
+                : ['path' => url('assets/app/img/img-11.png'), 'id' => ''];
+
         } elseif ($position == 8) {
-            if($image = $this->model->where('user_id',$user_id)->where('position', 8)->first()) {
-                $arr = ['path'=>$image->path, 'id'=>$image->id];
-                return $arr;
-            } else {
-                
-                $arr = ['path'=>url('assets/app/img/img-13.png'), 'id'=>''];
-                return $arr;
-            }
+
+            $image = $this->model
+                ->where('user_id', $user_id)
+                ->where('position', 8)
+                ->when(!is_null($type), function ($q) use ($type) {
+                    $q->where('type', $type);
+                })
+                ->first();
+
+            return $image
+                ? ['path' => $image->path, 'id' => $image->id]
+                : ['path' => url('assets/app/img/img-13.png'), 'id' => ''];
+
         } elseif ($position == 9) {
-            if($image = $this->model->where('user_id',$user_id)->where('position', 9)->first()) {
-                $arr = ['path'=>$image->path, 'id'=>$image->id];
-                return $arr;
-            } else {
-                
-                $arr = ['path'=>url('assets/app/img/img-13.png'), 'id'=>''];
-                return $arr;
-            }
-        }  
-        else {
-            if($image = $this->model->where('user_id',$user_id)->where('position',$position)->first()) {
-                $arr = ['path'=>$image->path, 'id'=>$image->id];
-                return $arr;
-            } else {
-                
-                $arr = ['path'=>url('assets/app/img/img-12.png'), 'id'=>''];
-                return $arr;
-            }
+            $image = $this->model
+                ->where('user_id', $user_id)
+                ->where('position', 9)
+                ->where('default', 1)
+                ->when(!is_null($type), function ($q) use ($type) {
+                    $q->where('type', $type);
+                })
+                ->first();
+
+            return $image
+                ? ['path' => $image->path, 'id' => $image->id]
+                : ['path' => url('assets/app/img/img-13.png'), 'id' => ''];
+
+        } else {
+
+            $image = $this->model
+                ->where('user_id', $user_id)
+                ->where('position', $position)
+                ->when(!is_null($type), function ($q) use ($type) {
+                    $q->where('type', $type);
+                })
+                ->first();
+
+            return $image
+                ? ['path' => $image->path, 'id' => $image->id]
+                : ['path' => url('assets/app/img/img-12.png'), 'id' => ''];
+        }
+    }
+
+
+    ########## Gallery Methods #############
+
+    public function with_Or_withoutPosition($user_id,$position = null)
+    {
+    
+        $result = $this->model
+            ->where('user_id',$user_id)
+      
+            ->where('type','=', 0)
+            ->where('template','0');
+        if($position) {
+            $result = $result->where(function($q) use ($position) {
+                $q
+                    ->orWhereNull('position')
+                    ->orWhereNotIn('position', $position);
+            });
         }
         
-                        //dd($result);$path->findByposition(auth()->user()->id,1
-		return $result;
-	}
+        return $result->get();
+    }
 }
