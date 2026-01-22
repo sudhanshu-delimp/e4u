@@ -108,7 +108,7 @@
       
                   <div class="form-group">
                       <label class="required">Offender's Mobile</label>
-                      <input type="number" maxlength="10" oninput="this.value = this.value.replace(/\D/g,'');" class="form-control" min="8" value="{{$num ? $num->offender_mobile : ''}}" name="offender_mobile" placeholder="No spaces or any other characters - just numbers">
+                      <input type="tel" maxlength="10" oninput="this.value = this.value.replace(/\D/g,'');" class="form-control" min="8" value="{{$num ? $num->offender_mobile : ''}}" name="offender_mobile" placeholder="No spaces or any other characters - just numbers">
                   </div>
       
                   <div class="form-group">
