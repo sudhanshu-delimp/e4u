@@ -34,8 +34,8 @@ if(count($contactType) > 0){
 }
 $contactTypesText = implode(", ", $contactTypesArray);
 
-$states = config('escorts.profile.states');
-$stateName = isset($states[$operator->state_id]['stateName']) ? $states[$operator->state_id]['stateName'] : '';
+$countries = config('operator.country');
+$countryName = isset($countries[$operator->country_id]['name']) ? $countries[$operator->country_id]['name'] : '';
 
 
 @endphp
@@ -94,7 +94,7 @@ $stateName = isset($states[$operator->state_id]['stateName']) ? $states[$operato
                 </tr>
                 <tr>
                     <th>Territory</th>
-                    <td>{{ $stateName }}</td>
+                    <td>{{ $countryName }}</td>
                 </tr>
                 <tr>
                     <th>Method of Contact</th>

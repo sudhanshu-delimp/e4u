@@ -551,7 +551,7 @@
                         'viewer-templates',
                         'set-fees',
                         'manage-user',
-                        'memberships','product',
+                        'memberships','product','sim',
                         'legbox-report',
                         'agents-monthly-report',
                         'punterbox-reports',
@@ -1261,7 +1261,7 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/statistic.png') }}">
                             <span>Statistics</span>
                         </a>
-                        <div id="statisticsMenu" class="collapse @if (in_array(request()->segment(3), ['tours', 'profile','product', 'memberships','email'])) show @endif " data-parent="#Management">
+                        <div id="statisticsMenu" class="collapse @if (in_array(request()->segment(3), ['tours', 'profile','product', 'memberships','email','sim'])) show @endif " data-parent="#Management">
                            
 
                             <a class="collapse-item" href="{{ route('admin.email') }}">
@@ -1284,12 +1284,16 @@
                                 <span
                                     style="{{ request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Profile</span>
                             </a>
-                            <a class="collapse-item" href="{{ route('admin.tours') }}">
+                            <a class="collapse-item" href="{{ route('admin.sim') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'sim' ? 'color: #FF3C5F;' : '' }}">SIM</span>
+                            </a>
+                             <a class="collapse-item" href="{{ route('admin.tours') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'tours' ? 'color: #FF3C5F;' : '' }}">Tours</span>
                             </a>
-
                         </div>
                     </div>
                 </div>

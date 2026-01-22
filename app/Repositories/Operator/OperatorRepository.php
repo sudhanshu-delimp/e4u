@@ -79,7 +79,7 @@ class OperatorRepository extends BaseRepository implements OperatorInterface
                     'name' => $data['company_name'] ?? null,
                     'phone' => $data['phone'] ?? null,
                     'email' => $data['email'] ?? null,
-                    'state_id' => $data['state_id'] ?? null,
+                    'country_id' => $data['country_id'] ?? null,
                     'business_name' => $data['business_name'] ?? null,
                     'business_number' => $data['business_number'] ?? null,
                     'abn' => $data['abn'] ?? null,
