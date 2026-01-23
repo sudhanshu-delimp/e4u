@@ -122,11 +122,11 @@ $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$op
             <table class="table table-bordered mb-3">
                 <tr>
                     <th width="60%">Advertising</th>
-                    <td width="40%">{{ $operator->operator_detail->commission_advertising_percent }}%</td>
+                    <td width="40%">{{ $operator->operator_detail->commission_advertising_percent }}</td>
                 </tr>
                 <tr>
                     <th>Massage Centre (Registrations)</th>
-                    <td>{{ $operator->operator_detail->commission_massage_centre_percent }}%</td>
+                    <td>{{ $operator->operator_detail->commission_massage_centre_percent }}</td>
                 </tr>
             </table>
         </div>

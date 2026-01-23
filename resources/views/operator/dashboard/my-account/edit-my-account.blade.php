@@ -28,11 +28,13 @@
                 } elseif (!empty($operator->contact_type)) {
                     $contactType = json_decode($operator->contact_type, true) ?? [];
                 } else {
-                    $contactType = [];
+                    $contactType = [99999];
                 }
                 if (!empty($operator->operator_detail->agreement_date)) {
                     $agreementDate = showDateWithFormat($operator->operator_detail->agreement_date, 'd-m-Y');
                 }
+
+                  // print_r($contactType);die;
 
             $countries = config('operator.country');
             $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$operator->country_id]['name'] : '';
@@ -299,14 +301,14 @@
                                                         <label for="membership_num">Advertising
                                                         </label>
                                                         <span
-                                                            class="form-control form-back">{{ $operator->operator_detail->commission_advertising_percent }}%</span>
+                                                            class="form-control form-back">{{ $operator->operator_detail->commission_advertising_percent }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="membership_num">Massage Centre (Membership)</label>
                                                         <label class="form-control form-back" placeholder=" "
-                                                            aria-describedby="emailHelp">{{ $operator->operator_detail->commission_massage_centre_percent }}%</label>
+                                                            aria-describedby="emailHelp">{{ $operator->operator_detail->commission_massage_centre_percent }}</label>
                                                     </div>
                                                 </div>
                                             </div>
