@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ReportingController;
 use App\Http\Controllers\Admin\PostOfficeController;
 use App\Http\Controllers\Admin\PDF\AgentPdfController;
 use App\Http\Controllers\Agent\AgentRequestController;
+use App\Http\Controllers\Admin\CommunicationController;
 use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
@@ -476,6 +477,10 @@ Route::post('publications/notice/store', [PublicationAlertController::class, 'no
 Route::get('/publications/notice/show', [PublicationAlertController::class, 'noticeShow'])->name('admin.publications.alert.noticeShow');
 
 
+//communications module
+Route::get('/reports/communication/list', [CommunicationController::class, 'index'])->name('admin.reports.communication.index');
+Route::get('/reports/communication/{id}/show',[CommunicationController::class, 'show'])->name('admin.reports.communication.show');
+
 
 // Route::get('/notifications/shareholders',function(){
 //     return view('admin.notifications.shareholders.index');
@@ -608,9 +613,6 @@ Route::get('reports/punterbox',function(){
     return view('admin.reports.punterbox');
 })->name('admin.punterbox');
 
-Route::get('reports/communications',function(){
-    return view('admin.reports.communications');
-})->name('admin.communications');
 
 Route::get('/management/competitor-database',function(){
     return view('admin.management.competitor-database');
