@@ -55,8 +55,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12 ">
                 @if ($addAccessEnabled)
                     <div class="d-flex justify-content-end gap-20 my-3">
-                        <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#Create_Notice">New
-                            Notice</button>
+                        <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#Create_Notice">Notices</button>
                         <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#Create_Alert">New
                             Alert</button>
                     </div>
@@ -116,18 +115,18 @@
                                     <label for="suspend"> Suspend</label>
                                 </div>
                             </div>
-                            
+
                             <div class="col-12 mb-3">
                                 <label for="notice_descrioption" class="label">Descrioption</label>
-                                <textarea class="form-control" id="notice_descrioption" name="notice_descrioption" placeholder="up to 200 characters"
-                                    rows="3"></textarea>
+                                <textarea class="form-control" id="notice_descrioption" name="notice_descrioption"
+                                    placeholder="up to 200 characters" rows="3"></textarea>
                             </div>
 
-                            
+
                         </div>
                     </div>
                     <div class="modal-footer pb-4 mb-2">
-                        <button type="submit" id="noticSubmit" class="btn-success-modal">Notices</button>
+                        <button type="submit" id="noticSubmit" class="btn-success-modal">Save</button>
                     </div>
                 </form>
             </div>
@@ -170,12 +169,12 @@
                             <div class="col-12 mb-3">
                                 <label class="label">Descrioption</label>
                                 <textarea class="form-control" id="description" name="description" placeholder="up to 500 characters"
-                                    rows="3"></textarea>
+                                    rows="5"></textarea>
                             </div>
                             <div class="col-12 mb-3">
                                 <label class="label">Message</label>
                                 <textarea class="form-control rounded-0" id="message" name="message" placeholder="Message" rows="1"
-                                    cols="1"></textarea>
+                                    cols="3"></textarea>
                             </div>
                             <div class="col-12">
                                 <div class="form-group mb-0">
@@ -200,7 +199,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        <img id="image_icon" class="custompopicon" src="{{asset('assets/dashboard/img/unblock.png')}}"> <span id="success_task_title"></span>
+                        <img id="image_icon" class="custompopicon" src="{{ asset('assets/dashboard/img/unblock.png') }}">
+                        <span id="success_task_title"></span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         {{-- <span aria-hidden="true"><img src="{{ asset('assets/app/img/alert.png') }}"
@@ -267,18 +267,20 @@
         data-publications-alert-show="{{ route('admin.publications.alert.show', ['id' => '__ID__']) }}"
         data-publications-alert-index="{{ route('admin.publications.alert.index') }}"
         data-publications-notice-store="{{ route('admin.publications.alert.noticeStore') }}"
-        data-publications-notice-show="{{ route('admin.publications.alert.noticeShow') }}"
-
-        >
+        data-publications-notice-show="{{ route('admin.publications.alert.noticeShow') }}">
 
     </div>
 @endsection
 @push('script')
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
+    <script src="{{ asset('assets/dashboard/vendor/ckeditor/ckeditor.js') }}"></script>
 
     <script>
         const mmRoot = $('#manage-route');
+
+        //setup text editor
+        CKEDITOR.replace('description');
 
         endpoint = {
             csrf_token: mmRoot.data('scrf-token'),
@@ -372,6 +374,8 @@
             removeValidationMsg();
             $('#create_date').html(endpoint.current_date);
             $('#submitBtn').text('Publish');
+            //Remove text area content
+            CKEDITOR.instances.description.setData('');
             // Reset modal title
             $(this).find('h5.modal-title').html(
                 `<img src="${endpoint.alert_image}" alt="alert" class="custompopicon"> New Alert`);
@@ -381,6 +385,7 @@
         $('#AlertForm').on('submit', function(e) {
             e.preventDefault();
             var form = $(this);
+            syncCkEditor();
             formSubmit(form);
         });
 
@@ -406,6 +411,8 @@
                         $('#description').val(n.description || '');
                         $('#message').val(n.message || '')
                         $('#create_date').html(n.create_date || '');
+
+                        CKEDITOR.instances.description.setData(n.description);
 
                         // Change button text to Update
                         $('#submitBtn').text('Update');
@@ -655,7 +662,7 @@
             showAlertValue();
             removeValidationMsg();
         });
-        
+
         function showAlertValue() {
             $.ajax({
                 url: endpoint.publications_notice_show,
@@ -671,7 +678,7 @@
                             //for action
                             $('input[name="action"]').prop('checked', false);
                             $('input[name="action"][value="' + d.action + '"]').prop('checked', true);
-                            
+
                         }
 
                     } else {
@@ -680,5 +687,103 @@
                 }
             });
         }
+
+
+
+        CKEDITOR.editorConfig = function(config) {
+            config.toolbarGroups = [{
+                    name: 'clipboard',
+                    groups: ['clipboard', 'undo']
+                },
+                {
+                    name: 'editing',
+                    groups: ['find', 'selection', 'spellchecker', 'editing']
+                },
+                {
+                    name: 'links',
+                    groups: ['links']
+                },
+                {
+                    name: 'insert',
+                    groups: ['insert']
+                },
+                {
+                    name: 'forms',
+                    groups: ['forms']
+                },
+                {
+                    name: 'tools',
+                    groups: ['tools']
+                },
+                {
+                    name: 'document',
+                    groups: ['mode', 'document', 'doctools']
+                },
+                {
+                    name: 'others',
+                    groups: ['others']
+                },
+                '/',
+                {
+                    name: 'basicstyles',
+                    groups: ['basicstyles', 'cleanup']
+                },
+                {
+                    name: 'paragraph',
+                    groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']
+                },
+                {
+                    name: 'styles',
+                    groups: ['styles']
+                },
+                {
+                    name: 'colors',
+                    groups: ['colors']
+                },
+                {
+                    name: 'about',
+                    groups: ['about']
+                }
+            ];
+
+            config.removeButtons =
+                'Underline,Subscript,Superscript,PasteText,PasteFromWord,Scayt,Anchor,Unlink,Image,Table,HorizontalRule,SpecialChar,Maximize,About,RemoveFormat,Strike';
+        };
+        let editor = CKEDITOR.replace(textarea);
+        let deleteKey = 46;
+        let backspaceKey = 8;
+        let leftArrowKey = 37;
+        let rightArrowKey = 38;
+        let topArrowKey = 39;
+        let bottomArrowKey = 40;
+        let charLimit = 2500;
+        window.onload = function() {
+            CKEDITOR.instances.about_us_box.on('key', function(event) {
+                let keyCode = event.data.keyCode;
+                var str = CKEDITOR.instances.about_us_box.getData();
+                if (str.length > charLimit) {
+                    return [deleteKey, backspaceKey, leftArrowKey, rightArrowKey, topArrowKey, bottomArrowKey]
+                        .includes(keyCode);
+                }
+            });
+            CKEDITOR.instances.about_us_box.on('paste', function(event) {
+                var keyCode = event.data.keyCode;
+                var str = CKEDITOR.instances.about_us_box.getData();
+                if (str.length > charLimit) {
+                    return [deleteKey, backspaceKey, leftArrowKey, rightArrowKey, topArrowKey, bottomArrowKey]
+                        .includes(keyCode);
+                }
+            });
+        };
+
+        //update CKediter content before Ajax sub
+
+        function syncCkEditor() {
+            for (let instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            }
+        }
+
+
     </script>
 @endpush

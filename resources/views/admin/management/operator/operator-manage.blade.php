@@ -165,7 +165,11 @@
                                 <select class="form-control rounded-0" name="country_id" id="country_id">
                                     <option value="">Select Territory</option>
                                     @foreach (config('operator.country') as $skey => $country)
-                                        <option value="{{ $skey }}">{{ $country['name'] }}</option>
+                                    @if($skey == 14)
+                                        <option value="{{ $skey }}" selected>{{ $country['name'] }}</option>
+                                    @else
+                                     <option value="{{ $skey }}">{{ $country['name'] }}</option>
+                                    @endif     
                                     @endforeach
                                 </select>
                                 <span class="text-danger error-country_id"></span>
@@ -222,15 +226,17 @@
                                 <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
                             </div>
                             <div class="col-6 mb-3">
+                                <label class="form-check-label" for="viewer_contact_type_1">Advertising</label>
                                 <input class="form-control rounded-0" placeholder="Advertising"
                                     name="commission_advertising_percent" id="commission_advertising_percent"
-                                    maxlength="3">
+                                    maxlength="10" value="{{$feeAdvertising}}">
                                 <span class="text-danger error-commission_advertising_percent"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="viewer_contact_type_1">Massage Centre (Registrations)</label>
                                 <input class="form-control rounded-0" placeholder="Massage Centre (Registrations)"
                                     name="commission_massage_centre_percent" id="commission_massage_centre_percent"
-                                    maxlength="3">
+                                    maxlength="10" value="{{$feeMassage}}">
                                 <span class="text-danger error-commission_massage_centre_percent"></span>
                             </div>
 

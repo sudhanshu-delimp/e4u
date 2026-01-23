@@ -12,10 +12,10 @@
                   </div>
 
                   <h4 class="welcome_sub_login_heading text-uppercase"><strong>Operator LOGIN</strong></h4>
-                  <form id="admin_login" action="#" method="post">
+                  <form id="admin_login" action="{{ route('admin.login')}}" method="post">
                     @csrf
-                    <input type="hidden" name="type_admin" value="1">
-                    <input type="hidden" name="type_staff" value="2">
+                    <input type="hidden" name="type_operator" value="7">
+                    
                         <div class="form-group label_margin_zero_for_login">
                            <label for="email">Email Address</label>
 
@@ -52,7 +52,7 @@
                             <a href="#" id="forgotpassword"> Forgot Password?</a>
                            </div>
                            <div class="col-md-5 align-self-center text-left text-md-right">
-                                <button type="submit" id="submit_button" class="btn site_btn_primary" disabled>Login</button>       
+                                <button type="submit" id="submit_button" class="btn site_btn_primary">Login</button>       
                            </div>
                        </div>
                         <p class="mb-0 mynote mt-4"><b>Note:</b> Login is undertaken with 2FA authentification</p>
@@ -139,6 +139,8 @@
 @endsection
 @section('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     $(function() {
         $('#admin_login').parsley({
@@ -153,21 +155,22 @@
     });
 
 </script>
+
+<script>
+    document.getElementById('email').focus();
+</script>
 <script>
 
 $(document).ready(function() {
    $("body").on("click","#forgotpassword",function(e){
-            
          e.preventDefault();
          $("#comman_modal").modal('show');
-
          $("body").on("submit","#forgotPasswordSend",function(e){
          e.preventDefault();
          var form = $(this);
          // var url = form.attr('action');
          var url = "{{ route('web.sendMail.admin')}}";
          var data = new FormData($('#forgotPasswordSend')[0]);
-         
          console.log("url="+url);
          var token = $('input[name="_token"]').attr('value');
          
@@ -200,20 +203,13 @@ $(document).ready(function() {
                      }
                   },
                   error: function(data) {
-
                      console.log("error: ", data.responseJSON.errors);
-                     
                   }
                });  
-         
-      });
-          
-            
+      });    
    });
    var loginFormViewer = $("#admin_login");
-
     loginFormViewer.submit(function(e) {
-   
       e.preventDefault();
       swal_waiting_popup({});
 
@@ -234,6 +230,7 @@ $(document).ready(function() {
                'X-CSRF-Token': token
          },
             success: function(data) {
+               console.log(data);
                 $('#formerror').html('');
                  Swal.close();
                 console.log(data);
@@ -281,7 +278,7 @@ $(document).ready(function() {
                               
                               if(data.error == true) {
                               //console.log(data); 
-                              window.location.href = "{{ route('admin.index') }}";
+                              window.location.href = "{{ route('operator.index') }}";
                               }
                            },
                            error: function(data) {
@@ -303,7 +300,16 @@ $(document).ready(function() {
                 
          },
          error: function(data) {
-
+            swal({
+                               title: "Oops!",
+                               text: data.responseJSON.message,
+                               icon: "error",
+                               closeModal: true,
+                               buttons: {
+                                   cancel: false,
+                                   ok:true,
+                               },
+                           });
                console.log("error w: ", data.responseJSON.errors);
                 Swal.close();
                $.each(data.responseJSON.errors, function(key, value) {

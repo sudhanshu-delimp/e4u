@@ -4,10 +4,9 @@ namespace App\Http\Requests\Operator;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
-
-class AddNewOperator extends FormRequest
+class UpdateMyAccountOperator extends FormRequest
 {
-    /**
+   /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -36,20 +35,17 @@ class AddNewOperator extends FormRequest
             'business_address' => 'bail|required|string|max:255',
             'business_number' => "bail|required|min:10|max:14",
             'point_of_contact' => 'bail|required|string|max:100', // Point of contact
-            'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}", //Mobile
+            /* 'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}", //Mobile
             'email' => "bail|required|email|max:100|email:rfc,filter|unique:users,email,{$userId}",
-            //'state_id' => 'required',
-            'country_id' => 'required',
+            'state_id' => 'required',
             'contact_type' => 'required',
             'agreement_date' => 'bail|required|date|date_format:d-m-Y',
             'date_appointed' => 'nullable|date|date_format:d-m-Y',
             'term' => 'required|string|max:255',
-            //'fee' => 'required|integer',
             'fee' => 'required',
-            //'commission_advertising_percent' => 'bail|required|integer|between:1,100',
-            //'commission_massage_centre_percent' => 'bail|required|integer|between:1,100',
-            'commission_advertising_percent' => 'required',
-            'commission_massage_centre_percent' => 'required',
+            'commission_advertising_percent' => 'bail|required|integer|between:1,100',
+            'commission_massage_centre_percent' => 'bail|required|integer|between:1,100',
+            */
         ];
     }
 
@@ -59,8 +55,6 @@ class AddNewOperator extends FormRequest
             'contact_type.required' => 'The method of Contact field is required.',
             'phone.required' => 'The phone number field is required.',
             'point_of_contact.required' => 'The point of contact field is required.',
-            'country_id.required' => 'please select your territory.',
-            'country_id.exists' => 'please select your territory.',
             'state_id.required' => 'please select your territory.',
             'state_id.exists' => 'please select your territory.',
             'commission_advertising_percent.required' => 'The advertising commission field is required.',

@@ -45,7 +45,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 mt-4">
                                             <h2 class="primery_color normal_heading">Upload your avatar</h2>
-                                            <form id="my_avatar" action="{{---{{ route('agent.save.avatar', auth()->user()->id)}}--}}" method="POST" enctype="multipart/form-data">
+                                            <form id="my_avatar" action="{{ route('operator.save.avatar', auth()->user()->id)}}" method="POST" enctype="multipart/form-data">
                                                 <div class="file-upload">
                                                     <div class="image-upload-wrap">
                                                         <input class="file-upload-input gambar item-img" name="avatar_img" type='file' onchange="readURL(this);" accept="image/*" />
@@ -67,12 +67,12 @@
                                         <div class="col-lg-4 mt-4 current-avatar">
 
                                             <h2 class="primery_color normal_heading">Current Avatar</h2>
-                                            {{-- @if(auth()->user()->hasUploadedAvatar()) --}}
+                                             @if(auth()->user()->hasUploadedAvatar())
                                             <button type="button" class="avatar close delete_avatar" aria-label="Close">
                                                 <span aria-hidden="true">×</span>
                                             </button>
-                                            {{-- @endif --}}
-                                            <img src="{{---{{ asset(auth()->user()->avatar_url) }}---}}" alt="" class="img-rounded avatarName">
+                                            @endif
+                                           <img src="{{ !auth()->user()->avatar_img ? asset('avatars/default/staff_default.png') :asset('avatars/'.auth()->user()->avatar_img) }}" alt="" class="img-rounded avatarName">
                                         </div>
                                     </div>
                                 </div>
@@ -552,7 +552,7 @@
 
             $.ajax({
                 method: 'POST',
-                url: "{{ route('agent.avatar.remove') }}",
+                url: "{{ route('operator.avatar.remove') }}",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
