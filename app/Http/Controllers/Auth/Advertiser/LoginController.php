@@ -435,23 +435,57 @@ class LoginController extends BaseController
     }
     public function viewerForgotPassword($token)
     {
+        $user_info = $this->getUserTypeByResetToken($token);
 
-        return view('auth.advertiser.forgotViewer', compact('token'));
+        if (!$user_info) {
+            return view('auth.advertiser.forgotViewer', [
+                'error' => 'Your password reset link is invalid or has expired. Please request a new one.',
+                'user_info' => null,
+                'token' => null
+            ]);
+        }
+        return view('auth.advertiser.forgotViewer', compact('token','user_info'));
     }
     public function agentForgotPassword($token)
     {
+        $user_info = $this->getUserTypeByResetToken($token);
 
-        return view('auth.advertiser.forgotAgent', compact('token'));
+        if (!$user_info) {
+            return view('auth.advertiser.forgotAgent', [
+                'error' => 'Your password reset link is invalid or has expired. Please request a new one.',
+                'user_info' => null,
+                'token' => null
+            ]);
+        }
+        return view('auth.advertiser.forgotAgent', compact('token','user_info'));
     }
     public function adminForgotPassword($token)
     {
+       $user_info = $this->getUserTypeByResetToken($token);
 
-        return view('auth.advertiser.forgotAdmin', compact('token'));
+        if (!$user_info) {
+            return view('auth.advertiser.forgotAdmin', [
+                'error' => 'Your password reset link is invalid or has expired. Please request a new one.',
+                'user_info' => null,
+                'token' => null
+            ]);
+        }
+
+        return view('auth.advertiser.forgotAdmin', compact('token', 'user_info'));
+
     }
     public function escortForgotPassword($token)
     {
+        $user_info = $this->getUserTypeByResetToken($token);
 
-        return view('auth.advertiser.forgotEscort', compact('token'));
+        if (!$user_info) {
+            return view('auth.advertiser.forgotEscort', [
+                'error' => 'Your password reset link is invalid or has expired. Please request a new one.',
+                'user_info' => null,
+                'token' => null
+            ]);
+        }
+        return view('auth.advertiser.forgotEscort', compact('token', 'user_info'));
     }
     public function staffForgotPassword($token)
     {
@@ -503,5 +537,19 @@ class LoginController extends BaseController
                 'password' => 'required|string',
             ]);
         }
+    }
+
+    public function getUserTypeByResetToken($token){
+        $tokenData = DB::table('password_resets')
+            ->where('token', $token)
+            ->first();
+
+        if (!$tokenData) {
+            return null;
+        }
+
+        return User::where('email', $tokenData->email)
+            ->select('type')
+            ->first();
     }
 }

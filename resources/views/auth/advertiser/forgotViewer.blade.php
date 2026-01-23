@@ -26,22 +26,28 @@ box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
                <div class="col-md-12 order-md-0 order-sm-1 order-1">
                   
                   <h4 class="welcome_sub_login_heading text-center pt-4 pb-3"><strong>Forgot Password</strong></h4>
+                  @if(isset($error))
+                        <div class="alert alert-danger text-center">
+                            {{ $error }}
+                        </div>
+                    @endif
                   <form id="resetPassword" action="#" method="post">
                      @csrf
-                     <input type="hidden" name="cusotm_token" value="{{$token}}">
-                        
+                        @if(isset($token))
+                            <input type="hidden" name="cusotm_token" value="{{$token}}">
+                        @endif 
                         {{-- <div class="form-group label_margin_zero_for_login">
                            
                            <input type="text" required class="form-control" name="password" placeholder="Create new password">
                            
                         </div>
 
-                         <div class="form-group label_margin_zero_for_login position-relative">
+                         <div class="form-group label_margin_zero_for_login ">
                            
                            <input type="text" required class="form-control" name="password" placeholder="Create new password">
                            
                         </div> --}}
-                        <div class="form-group label_margin_zero_for_login">
+                        <div class="form-group label_margin_zero_for_login position-relative">
                            <label for="exampleInputPassword1">{{ __('Password') }}</label>
                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Create new password" name="password" required autocomplete="new-password" data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
                            <span class="toggle-password" toggle="#exampleInputPassword1">
@@ -70,7 +76,7 @@ box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
                            <div class="col-md-12">
                                 <button type="submit" class="btn site_btn_primary" id="updatePasswordBtn">Update Password </button> 
                                 <h6>Or</h6>
-                                <a href="{{ route('advertiser.login')}}"><h5>Login</h5></a>
+                                <a href="{{ route('viewer.login')}}"><h5>Login</h5></a>
                            </div>
                        </div>
                        
@@ -80,29 +86,31 @@ box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
             </div>
          </section>
       </section>
-      <div class="modal" id="resetPassword_modal" style="display: none">
-         <div class="modal-dialog modal-dialog-centered">
-             <div class="modal-content custome_modal_max_width">
-                 <div class="modal-header main_bg_color border-0">
-                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">
-                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                     </span>
-                     </button>
-                 </div>
-                 <div class="modal-body">
-                     <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;" id="hid"></h1>
-                     <span id="comman_str"></span>
-                     <span class="comman_msg"></span>
-                     
-                 </div>
-                 <div class="modal-footer" style="justify-content: center;">
-                     <a href="{{route('viewer.login')}}" class="btn main_bg_color site_btn_primary">Click Hear To Login</button>
-                 </div>
-             </div>
-         </div>
-     </div>
-      </div>
+</div>
+    <div class="modal" id="resetPassword_modal" style="display: none">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content custome_modal_max_width">
+                    <div class="modal-header main_bg_color border-0">
+                    <h5 class="modal-title text-white"> <img src="{{asset('assets/dashboard/img/save-setting.png')}}" class="custompopicon" alt="logo">Password Updated</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;" id="hid"></h1>
+                        <span id="comman_str"></span>
+                        <span class="comman_msg"></span>
+                        
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <a href="{{route('advertiser.login')}}" class="btn main_bg_color site_btn_primary">Click Hear To Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
 
 <div class="modal fade upload-modal" id="userNotFoundModal" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel" aria-modal="true" >
         <div class="modal-dialog modal-dialog-centered" role="document">

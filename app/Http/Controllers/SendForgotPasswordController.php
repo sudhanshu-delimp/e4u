@@ -108,33 +108,10 @@ class SendForgotPasswordController extends Controller
            'member_id' => !empty($user->member_id) ? $user->member_id : ''
         ];
         
-        switch ($user->type) {
-            case 0:
-            case 1: 
-            case 3: 
-                $user = User::with('escort_settings')->where('email', $tokenData->email)->first();
-                $user_settings =$user->escort_settings;
-                if($user_settings && $user_settings->alert_notification_email  == '1'){
-                    Mail::to($tokenData->email)->send(new NotificationPasswordReset($body));
-                }
-                if($user_settings && $user_settings->alert_notification_text  == '1'){
-                    $msg = 'Your request to reset your password has been completed. Your new password is: ' . $password;
-                    $sendotp = new SendSms();
-                    $output = $sendotp->send($user->phone, $msg);
-                }
-
-            case 5: //agent
-                $user = User::with('agent_settings')->where('email', $tokenData->email)->first();
-                $user_settings =$user->agent_settings;
-                if($user_settings && $user_settings->advertiser_email  == '1'){
-                    Mail::to($tokenData->email)->send(new NotificationPasswordReset($body));
-                }
-                if($user_settings && $user_settings->advertiser_text  == '1'){
-                    $msg = 'Your request to reset your password has been completed. Your new password is: ' . $password;
-                    $sendotp = new SendSms();
-                    $output = $sendotp->send($user->phone, $msg);
-                }
-        }
+        Mail::to($tokenData->email)->send(new NotificationPasswordReset($body));
+        $msg = 'Your request to reset your password has been completed. Your new password is: ' . $password;
+        $sendotp = new SendSms();
+        $output = $sendotp->send($user->phone, $msg);
         
         //Hash and update the new password
         $user->password = Hash::make($password);

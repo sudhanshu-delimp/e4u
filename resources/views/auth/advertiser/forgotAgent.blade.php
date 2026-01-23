@@ -26,9 +26,16 @@
                 <div class="col-md-12 order-md-0 order-sm-1 order-1">
 
                     <h4 class="welcome_sub_login_heading text-center pt-4 pb-3"><strong>Forgot Password</strong></h4>
+                    @if(isset($error))
+                        <div class="alert alert-danger text-center">
+                            {{ $error }}
+                        </div>
+                    @endif
                     <form id="resetPasswordAdmin" action="#" method="post">
                         @csrf
-                        <input type="hidden" name="cusotm_token" value="{{$token}}">
+                        @if(isset($token))
+                            <input type="hidden" name="cusotm_token" value="{{$token}}">
+                        @endif
                         <div class="form-group label_margin_zero_for_login form-group position-relative">
                             <label for="new_password">{{ __('Password') }}</label>
                             <input type="password" id="new_password" class="form-control" placeholder="Create new password" name="password" required autocomplete="new-password" data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
