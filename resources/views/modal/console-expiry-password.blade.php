@@ -20,6 +20,9 @@ if (auth()->check())
             if($user->type==1)
             $open_pop_up = $user?->account_setting?->is_first_login === "1";
 
+            if($user->type==7)
+            $open_pop_up = $user?->account_setting?->is_first_login === "1";
+
 
             $password_updated_date = $user?->account_setting?->password_updated_date;
             $password_expiry_days = $user?->account_setting?->password_expiry_days;
@@ -51,12 +54,23 @@ if (auth()->check())
 
             if( $user->type==1)
             $submit_url  = 'admin.change.password';
+
+            if( $user->type==7)
+            $submit_url  = 'operator.update-password';
     
 }
 @endphp
 
 
-
+<style type="text/css">
+    .toogle_eye_form_wrap{
+        position: relative;
+    }
+    .toogle-eye-password{
+        position: absolute;  right: 10px;
+  top: 40px;
+    }
+</style>
 
 
 @if($open_pop_up)
@@ -246,12 +260,17 @@ if (auth()->check())
                     
                         Swal.close();
                         console.log(xhr);
-                        if (xhr.status === 422) {
+                        if (xhr.status === 422) { 
                         $('span.text-danger').text('');
                         let errors = xhr.responseJSON.errors;
+                        var msg = 0;
                         $.each(errors, function(field, messages) {
+                            var msg = 1;
                         $('.error-' + field).text(messages[0]); 
                         });
+                        if(msg == 0 && xhr.responseJSON.message !="") {
+                             swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                        }
                         } else {
                         swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
                         }
