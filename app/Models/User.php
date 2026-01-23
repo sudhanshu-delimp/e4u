@@ -768,7 +768,7 @@ class User extends Authenticatable
             elseif ($user->type == '5') {
                 $settings = $user->agent_settings;
             }
-            elseif ($user->type == '6') {
+            elseif ($user->type == '7') {
                 $settings = $user->operator_settings;
             }
      

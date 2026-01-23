@@ -241,7 +241,7 @@
 <i class="fas fa-angle-up"></i>
 </a>
 <!-- CKEditor Script -->
-{{-- <script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script> --}}
+<script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
 <script>
   CKEDITOR.replace('editor1', {
     fullPage: false, // Set to true only if you're editing full HTML pages

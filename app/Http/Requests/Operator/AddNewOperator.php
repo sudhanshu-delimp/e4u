@@ -45,9 +45,11 @@ class AddNewOperator extends FormRequest
             'date_appointed' => 'nullable|date|date_format:d-m-Y',
             'term' => 'required|string|max:255',
             //'fee' => 'required|integer',
-            'fee' => 'required|',
-            'commission_advertising_percent' => 'bail|required|integer|between:1,100',
-            'commission_massage_centre_percent' => 'bail|required|integer|between:1,100',
+            'fee' => 'required',
+            //'commission_advertising_percent' => 'bail|required|integer|between:1,100',
+            //'commission_massage_centre_percent' => 'bail|required|integer|between:1,100',
+            'commission_advertising_percent' => 'required',
+            'commission_massage_centre_percent' => 'required',
         ];
     }
 

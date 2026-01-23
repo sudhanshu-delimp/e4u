@@ -11,6 +11,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\Operator\AddNewOperator;
 use App\Models\Operator;
 use App\Repositories\Operator\OperatorInterface;
+use App\Models\VariablAgentOperator;
 use PDF;
 
 class OperatorController extends BaseController
@@ -113,7 +114,21 @@ class OperatorController extends BaseController
      */
     public function operator_list()
     {
-        return view('admin.management.operator.operator-manage');
+        $fees = VariablAgentOperator::get();
+        $feeMassage = "";
+        $feeAdvertising = "";
+        if($fees->count() > 0) {
+            $msFee = $fees->where('id',2)->first();
+            if($msFee) {
+               $feeMassage = $msFee->percent; 
+            }
+
+            $advFee = $fees->where('id',1)->first();
+            if($advFee) {
+               $feeAdvertising = $advFee->percent; 
+            }
+        }
+        return view('admin.management.operator.operator-manage', compact('feeMassage', 'feeAdvertising'));
     }
 
     /**

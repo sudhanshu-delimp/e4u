@@ -63,7 +63,7 @@
                                 the NUM service at any time. Your details, when you undertake a search, are kept
                                 confidential.</li>
                             <li>You can only search for an offender by their mobile number. Search your next booking
-                                by their mobile number itself, e.g. 0400123456. Do not include any prefixes, e.g. +61
+                                by their mobile number itself, e.g. 0400 123 456. Do not include any prefixes, e.g. +61
                                 or spaces.</li>
                             <li>E4U makes no claims:
                                 <ol class="level-2">

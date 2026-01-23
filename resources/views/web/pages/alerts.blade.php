@@ -53,7 +53,7 @@
                                     @if ($item)
                                         <div>
                                             <p><strong>{{ $item['subject'] ?? '' }}</strong></p>
-                                            <p>{{ $item['description'] ?? '' }}</p>
+                                            <p>{!!  $item['description'] ?? '' !!}</p>
                                             <p class="c-red"><b>Note</b>: {{ $item['message'] ?? '' }}</p>
                                             <p class=""><b>Published</b>:
                                                 {{ $item->created_at->format('jS F Y') ?? '' }}
@@ -78,7 +78,7 @@
                                     @if ($item)
                                         <div>
                                             <p><strong>{{ $item['subject'] ?? '' }}</strong></p>
-                                            <p>{{ $item['description'] ?? '' }}</p>
+                                            <p>{!! $item['description'] ?? '' !!}</p>
                                             <p class="c-red"><b>Note</b>: {{ $item['message'] ?? '' }}</p>
                                             <p class=""><b>Published</b>:
                                                 {{ $item->created_at->format('jS F Y') ?? '' }}
@@ -102,7 +102,7 @@
                                     @if ($item)
                                         <div>
                                             <p><strong>{{ $item['subject'] ?? '' }}</strong></p>
-                                            <p>{{ $item['description'] ?? '' }}</p>
+                                            <p>{!! $item['description'] ?? '' !!}</p>
                                             <p class="c-red"><b>Note</b>: {{ $item['message'] ?? '' }}</p>
                                             <p class=""><b>Published</b>:
                                                 {{ $item->created_at->format('jS F Y') ?? '' }}
@@ -127,7 +127,7 @@
                                     @if ($item)
                                         <div>
                                             <p><strong>{{ $item['subject'] ?? '' }}</strong></p>
-                                            <p>{{ $item['description'] ?? '' }}</p>
+                                            <p>{!! $item['description'] ?? '' !!}</p>
                                             <p class="c-red"><b>Note</b>: {{ $item['message'] ?? '' }}</p>
                                             <p class=""><b>Published</b>:
                                                 {{ $item->created_at->format('jS F Y') ?? '' }}
