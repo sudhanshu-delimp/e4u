@@ -16,7 +16,7 @@ use App\Http\Requests\StoreAvatarMediaRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
-class OperatorController extends Controller
+class OperatorController extends BaseController
 {
     protected $user;
 
@@ -209,7 +209,6 @@ class OperatorController extends Controller
     {
         $user = $this->user->find(auth()->user()->id);
         $data = $request->all();
-        $currentPassword = $data['password'];
         $resposne = $this->user->changeUserPassword($data);
 
         if ($resposne['status'])
