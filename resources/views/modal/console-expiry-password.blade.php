@@ -224,22 +224,16 @@ if (auth()->check())
             else {
             myform = true;
             }
-
-            console.log('myform',myform);
-
+           
             if(!myform)
             return false;    
-
 
             formData.append("current_password", formData.get("modal_current_password"));
             formData.append("new_password", formData.get("modal_new_password"));
             formData.append("new_password_confirmation", formData.get("modal_new_password_confirmation"));
-
-        
             formData.delete("modal_current_password");
             formData.delete("modal_new_password");
             formData.delete("modal_new_password_confirmation");
-
 
             $('span.text-danger').text('');
             var submitUrl = {!! json_encode(route($submit_url)) !!};
@@ -254,25 +248,26 @@ if (auth()->check())
                         Swal.close();
                         $('span.text-danger').text('');
                         $('#change_Password_Modal').modal('hide');
-                        swal_success_popup(response.message);
+                        //swal_success_popup(response.message);
                 },
                 error: function(xhr) {
-                    
                         Swal.close();
-                        console.log(xhr);
+                        var msg = 0;
                         if (xhr.status === 422) { 
                         $('span.text-danger').text('');
                         let errors = xhr.responseJSON.errors;
-                        var msg = 0;
+                        
                         $.each(errors, function(field, messages) {
-                            var msg = 1;
-                        $('.error-' + field).text(messages[0]); 
+                            msg = 1;
+                            $('.error-' + field).text(messages[0]); 
                         });
-                        if(msg == 0 && xhr.responseJSON.message !="") {
+                        if(msg === 0 && xhr.responseJSON.message !="") {
                              swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
                         }
                         } else {
-                        swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                            if(msg === 0 ) { console.log("Message2 ",msg);
+                                swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                            }
                         }
                 }
             });
