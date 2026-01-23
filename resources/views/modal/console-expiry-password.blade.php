@@ -248,7 +248,7 @@ if (auth()->check())
                         Swal.close();
                         $('span.text-danger').text('');
                         $('#change_Password_Modal').modal('hide');
-                        //swal_success_popup(response.message);
+                        swal_success_popup(response.message);
                 },
                 error: function(xhr) {
                         Swal.close();
