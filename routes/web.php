@@ -287,6 +287,7 @@ Route::post('/agent-register', [AgentRegisterController::class,'register']);
 Route::get('/advertiser-register', [AdvertiserRegisterController::class,'index'])->name('advertiser.register');
 Route::post('/advertiser-register', [AdvertiserRegisterController::class,'register']);
 Route::post('/check-otp', [AdvertiserLoginController::class,'checkOTP'])->name('web.checkOTP');
+Route::post('send-otp-for-pin-change',[AdvertiserLoginController::class,'sendOtpForPinChange'])->name('send-otp-for-pin-change');
 
 
 
@@ -439,7 +440,7 @@ Route::post('/mobile-order-sim-payment',[ConciergeController::class, 'mobileOrde
 Route::post('/feedback-data', [App\Http\Controllers\FeedbackController::class,'showOption'])->name('web.option');
 Route::post('/feedback', [App\Http\Controllers\FeedbackController::class,'store'])->name('web.feedback.save');
 Route::post('/viewer-send-mail-forgot-passord', [App\Http\Controllers\SendForgotPasswordController::class,'sendMail'])->name('web.sendMail.viewer');
-Route::post('/agent-send-mail-forgot-passord', [App\Http\Controllers\SendForgotPasswordController::class,'sendMail'])->name('web.sendMail.agent');
+Route::post('/send-mail-forgot-passord', [App\Http\Controllers\SendForgotPasswordController::class,'sendMail'])->name('web.sendMail.agent');
 Route::post('/escort-send-mail-forgot-passord', [App\Http\Controllers\SendForgotPasswordController::class,'sendMail'])->name('web.sendMail.escort');
 Route::post('/admin-send-mail-forgot-passord', [App\Http\Controllers\SendForgotPasswordController::class,'sendMail'])->name('web.sendMail.admin');
 Route::post('/staff-send-mail-forgot-passord', [App\Http\Controllers\SendForgotPasswordController::class,'sendMail'])->name('web.sendMail.staff');

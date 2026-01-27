@@ -1,8 +1,7 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Reset Password - Request</title>
+    <title>Notification - Password Reset</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   
@@ -23,7 +22,7 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                         Reset Password - Request<br>
+                                         Notification - Password Reset<br>
                                          <span style="font-size: 13px; color: #cccccc;">Ref:
                                             {{ $body['ref'] }}</span><br>
                                             
@@ -42,14 +41,13 @@
                             <!-- Main Message -->
                             
                             <h4 style="font-size: 17px; line-height: 1.6; margin-bottom: 15px;">
-                                Request to reset your Password
+                                Password Reset
                             </h4>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                We have received a request to reset your password. Click the button below to create a new
-password for your Account.
+                                Your Password has been reset to:
                             </p>
-                            <div style="text-align:center;margin:20px 0px;"><a href="{{$body['url']}}" style="background-color:#0c223d;  padding:10px 20px; color:#fff; text-decoration:none;">Reset Password</a></div>
-                            <p>If you did not make this request, then no further action is required on your part.</p>
+                            <div style=";margin:10px 0px; padding-left:230px;"><strong>{{$body['new_password']}}</strong></div>
+                            
                             <!-- Closing -->
                             <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
@@ -73,6 +71,3 @@ password for your Account.
     </table>
   </body>
 </html>
-
-
-

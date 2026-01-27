@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class sendForgotPassword extends Mailable
+class NotificationPasswordReset extends Mailable
 {
     use Queueable, SerializesModels;
     // public $from;
@@ -29,7 +29,6 @@ class sendForgotPassword extends Mailable
         // $this->data = $data;
         $this->body = $body;
         //$this->sendUrl = $sendUrl;
-      
     }
 
     /**
@@ -40,8 +39,8 @@ class sendForgotPassword extends Mailable
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'))
-        ->markdown('emails.forgotPassword')
-         ->subject('Reset Password - Request')
+        ->markdown('emails.notification_reset_password')
+         ->subject('Notification - Password Reset')
         ->with('body',$this->body);
     }
 }
