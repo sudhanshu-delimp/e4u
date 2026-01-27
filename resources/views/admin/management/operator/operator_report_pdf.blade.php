@@ -232,11 +232,11 @@
                     <table class="table table-bordered mb-3">
                         <tr>
                             <th width="40%">Advertising</th>
-                            <td width="60%">{{ $operator->operator_detail->commission_advertising_percent }}%</td>
+                            <td width="60%">{{ $operator->operator_detail->commission_advertising_percent }}</td>
                         </tr>
                         <tr>
                             <th>Massage Centre (Registrations)</th>
-                            <td>{{ $operator->operator_detail->commission_massage_centre_percent }}%</td>
+                            <td>{{ $operator->operator_detail->commission_massage_centre_percent }}</td>
                         </tr>
                     </table>
                 </div>

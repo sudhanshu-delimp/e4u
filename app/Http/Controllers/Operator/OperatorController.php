@@ -67,7 +67,7 @@ class OperatorController extends BaseController
             'abn' => $request->abn ?? null,
             'business_address' => $request->business_address ?? null,
             'business_number' => $request->business_number ?? null,
-            'contact_type' => isset($data['contact_type'])  ? json_encode($data['contact_type']) : null,
+            'contact_type' => isset( $request->contact_type)  ? json_encode($request->contact_type) : null,
         ];
 
         $error = true;
