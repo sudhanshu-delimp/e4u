@@ -816,6 +816,7 @@ class UpdateController extends AppController
     public function updateProfile($id)
     {
         $escort = $this->escort->find($id);
+        
         if ($escort->user_id != auth()->user()->id) {
             return redirect()->route('escort.list', 'current')->with('error', "This profile doesn't belongs to you");
         } else {

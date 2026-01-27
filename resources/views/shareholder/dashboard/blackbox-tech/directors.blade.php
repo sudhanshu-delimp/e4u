@@ -58,7 +58,7 @@
                                 <p>188 Almeria Parade Upper Swan WA 6069</p>
                             </td>
                             <td>
-                                <p>Director</p>
+                                <p>Chairman Director</p>
                             </td>
                             <td>
                                 <p>Chairman</p>
@@ -71,9 +71,9 @@
                             <td>0438 028 728</td>
                             <td>
                             
-                             <a href="{{ asset('assets/dashboard/forms-pdf/E4U_Coin_2026.png') }}"
+                             <a href="{{ asset('assets/dashboard/forms-pdf/directors/test.pdf') }}"
                                                 target="_blank" class="custom_links_design"
-                                                download="E4U_Coin_2026.png">wayne@blackboxtech.com.au</a>
+                                                download >wayne@blackboxtech.com.au</a>
                             </td>
 
                         </tr>
@@ -96,9 +96,34 @@
                             <td>0401 071 478</td>
                             <td>
                             
-                             <a href="{{ asset('assets/dashboard/forms-pdf/E4U_Coin_2026.png') }}"
+                             <a href="{{ asset('assets/dashboard/forms-pdf/directors/test.pdf') }}"
                                                 target="_blank" class="custom_links_design"
-                                                download="E4U_Coin_2026.png">andrew@blackboxtech.com.au</a>
+                                                download >andrew@blackboxtech.com.au</a>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p>David John Bovell</p>
+                                <p>3 Walba Way Swanbourne WA 6010</p>
+                            </td>
+                            <td>
+                                <p>Director</p>
+                            </td>
+                            <td>
+                                <p></p>
+                            </td>
+                            <td>
+                                
+                                <p></p>
+                            </td>
+                            <td>0408 922 355</td>
+                            <td>
+                            
+                             <a href="{{ asset('assets/dashboard/forms-pdf/directors/test.pdf') }}"
+                                                target="_blank" class="custom_links_design"
+                                                download >david@blackboxtech.com.au </a>
                             </td>
 
                         </tr>

@@ -286,8 +286,10 @@ class EscortGalleryController extends AppController
             $msg = "The photo you selected is already set as the default. Please select a {$repositoryName} image from your repository.";
         }
         else {
+            if($request->position==9){
+                EscortMedia::where(['template'=>'1','user_id'=>auth()->user()->id])->delete();
+            }
             $this->media->nullPosition(auth()->user()->id, $request->position);
-            EscortMedia::where(['template'=>'1','user_id'=>auth()->user()->id])->delete();
             if($media->template){
                 $copy = $media->replicate();
                 $copy->user_id = auth()->user()->id;

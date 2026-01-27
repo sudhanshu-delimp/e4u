@@ -16,6 +16,7 @@ use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
+use App\Http\Controllers\Admin\PublicationAlertController;
 use App\Http\Controllers\Admin\AdvertiserReviewsController;
 use App\Http\Controllers\Admin\AgentNotificationController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
@@ -29,6 +30,7 @@ use App\Http\Controllers\Admin\ShareholderNotificationController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
+use App\Http\Controllers\Admin\OperatorController;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
@@ -257,11 +259,6 @@ Route::get('management/commission-summary', function () {
     return view('admin.management.operator.commission-summary');
 })->name('admin.commission-summary');
 
-Route::get('management/operator-manage', function () {
-    return view('admin.management.operator.operator-manage');
-})->name('admin.operator-manage');
-
-
 Route::get('management/tours', function () {
     return view('admin.management.statistics.tours');
 })->name('admin.tours');
@@ -375,6 +372,18 @@ Route::get('/view-staff/{id}', [StaffController::class, 'viewStaff'])->name('adm
 Route::post('/approve-staff-account', [StaffController::class, 'approve_staff_account'])->name('admin.approve_staff_account');
 Route::post('/print-staff', [StaffController::class, 'printStaffDetails'])->name('admin.print_staff');
 
+/** Operator */
+Route::get('/management/operator-manage', [OperatorController::class, 'operator_list'])->name('admin.operator-manage');
+Route::post('/management/add-operator', [OperatorController::class, 'add_operator'])->name('admin.add.operator');
+Route::get('operator_list_data_table', [OperatorController::class, 'operator_data_list'])->name('admin.operator_list_data_table');
+Route::get('/edit-operator/{id}', [OperatorController::class, 'editOperator'])->name('admin.edit-operator');
+Route::post('/store-operator', [OperatorController::class, 'updateOperator'])->name('admin.store-operator');
+Route::get('/view-operator/{id}', [OperatorController::class, 'viewOperator'])->name('admin.view-operator');
+Route::post('/print-operator', [OperatorController::class, 'printOperatorDetails'])->name('admin.print_operator');
+Route::post('/suspend-operator', [OperatorController::class, 'suspend_operator'])->name('admin.suspend-operator');
+Route::post('/active-operator-account', [OperatorController::class, 'activate_user'])->name('admin.active-operator-account');
+Route::post('/approve-operator-account', [OperatorController::class, 'approve_operator_account'])->name('admin.approve_operator_account');
+
 
 Route::get('/management/agent', [AgentController::class, 'agent_list'])->name('admin.agent');
 Route::post('/suspend-agent', [AgentController::class, 'suspend_agent'])->name('admin.suspend-agent');
@@ -451,6 +460,20 @@ Route::post('/notifications/escort/{id}/status', [EscortNotificationController::
 Route::get('/notifications/escort/pdf-download/{id}', [EscortNotificationController::class, 'pdfDownload'])->name('admin.escort.pdf.download');
 Route::get('/notifications/escort/{id}/edit', [EscortNotificationController::class, 'edit'])->name('admin.escort.notifications.edit');
 Route::post('/notifications/escort/{id}/update', [EscortNotificationController::class, 'update'])->name('admin.escort.notifications.update');
+
+
+//Public page Alert for Footer section
+Route::get('publications/alert/list', [PublicationAlertController::class, 'index'])->name('admin.publications.alert.index');
+Route::post('/publications/alert/store', [PublicationAlertController::class, 'store'])->name('admin.publications.alert.store');
+Route::get('/publications/alert/{id}/show', [PublicationAlertController::class, 'show'])->name('admin.publications.alert.show');
+Route::post('/publications/alert/{id}/status', [PublicationAlertController::class, 'updateStatus'])->name('admin.publications.alert.status');
+//Route::get('/publications/alert/pdf-download/{id}', [PublicationAlertController::class, 'pdfDownload'])->name('admin.publications.alert.pdf.download');
+Route::get('/publications/alert/{id}/edit', [PublicationAlertController::class, 'edit'])->name('admin.publications.alert.edit');
+Route::post('/publications/alert/{id}/update', [PublicationAlertController::class, 'update'])->name('admin.publications.alert.update');
+//For New Notice
+Route::post('publications/notice/store', [PublicationAlertController::class, 'noticeStore'])->name('admin.publications.alert.noticeStore');
+Route::get('/publications/notice/show', [PublicationAlertController::class, 'noticeShow'])->name('admin.publications.alert.noticeShow');
+
 
 
 // Route::get('/notifications/shareholders',function(){
@@ -604,6 +627,10 @@ Route::get('/management/email', function () {
     return view('admin.management.statistics.email');
 })->name('admin.email');
 
+Route::get('/management/sim', function () {
+    return view('admin.management.statistics.sim');
+})->name('admin.sim');
+
 Route::get('/reports/credit', function () {
     return view('admin.reports.credit');
 })->name('admin.credit');
@@ -626,6 +653,14 @@ Route::get('/management/logs-staff', function () {
  Route::get('/management/manage-influencers',function(){
     return view('admin.management.influencer.manage-influencers');
 })->name('admin.manage-influencers');
+
+ Route::get('/management/manage-shareholders',function(){
+    return view('admin.management.manage-shareholders');
+})->name('admin.manage-shareholders');
+
+ Route::get('/management/dashboard',function(){
+    return view('admin.management.dashboard');
+})->name('admin.dashboard');
 
 Route::get('/management/application', function () {
     return view('admin.management.logs.application');

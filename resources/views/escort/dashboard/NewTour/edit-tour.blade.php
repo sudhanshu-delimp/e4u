@@ -14,7 +14,7 @@ $is_checkout = $tour->tourPurchase->count();
             <!--middle content start here-->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="v-main-heading h3" style="display: inline-block;">Create New </div>
+                    <div class="v-main-heading h3" style="display: inline-block;">{{str_replace('-',' ',request()->segment(2))}}</div>
                     <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
 
                 </div>
@@ -27,18 +27,25 @@ $is_checkout = $tour->tourPurchase->count();
                                 <div class="card-body">
                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                 <ol>
-                                    <li>Use this feature to create a new Tour. The Tour creator is fully automated and will remember your Profile and Location selections.</li>
+                                    {{-- <li>Use this feature to create a new Tour. The Tour creator is fully automated and will remember your Profile and Location selections.</li>
                                     <li>Make sure you have <a href="/escort-dashboard/view-archives">created</a> all the Profiles you want to use on this Tour before you start. You can add more than one Profile per Location. A Profile will be posted and removed at midnight.</li>
                                     <li>If you want your Profile to appear one day before you arrive at the Location, make sure you have that <a href="/escort-dashboard/update-account">feature</a> enabled.</li>
-                                    <li>If you change your schedule and will be staying longer or leaving sooner than the scheduled dates in your Tour, remember to <a href="/escort-dashboard/edit-tour">update</a> your Tour to reflect the new dates.</li>
+                                    <li>If you change your schedule and will be staying longer or leaving sooner than the scheduled dates in your Tour, remember to <a href="/escort-dashboard/edit-tour">update</a> your Tour to reflect the new dates.</li> --}}
                                 </ol>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>        
+            </div>     
             <div class="row tour-dashrow">
+                @if($tour->tourPurchase->count() > 0 && request()->segment(2) == 'current-tour')
+                    <div class="col-md-9 mb-2">
+                        <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
+                        data-target="#pinup_profile" id="btn_pinup_profile" data-tour-id="{{$tour->id}}">List Pin Up</button>
+                    </div>
+                    @include('escort.dashboard.NewTour.modal.register_pinup')
+                @endif
                 <div class="col-md-9">
                     <div class="card shadow-sm">
                         <div class="card-body">
@@ -93,7 +100,9 @@ $is_checkout = $tour->tourPurchase->count();
                                                                     <option value="3" {{($profile['tour_plan']=='3'?'selected':'')}}>Silver</option>
                                                                     <option value="4" {{($profile['tour_plan']=='4'?'selected':'')}}>Free</option>
                                                                 </select>
-                                                                <span class="profile-dates text-muted">Start: {{$tourLocation->start_date_formatted}}, End: {{$tourLocation->end_date_formatted}}</span>
+                                                                <span class="profile-dates text-muted">Start: {{$tourLocation->start_date_formatted}}, End: {{$tourLocation->end_date_formatted}} @if(!empty($profile->is_pinup)) <sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
+                                                                    <small class="listing-tag-tooltip-desc">Pinup from {{ $profile->escortPinup->start_date }} to {{$profile->escortPinup->end_date}}</small>
+                                                                    </sup> @endif</span>
                                                                 @if(!$is_checkout) 
                                                                 <button type="button" class="btn btn-sm btn-danger removeProfile">Remove</button>
                                                                 @endif
@@ -132,4 +141,5 @@ $is_checkout = $tour->tourPurchase->count();
     const account_save_tour_route = "{{ route('account.update_tour', ['id' => $tour->id]) }}";
 </script>
 <script src="{{ asset('js/escort/add_edit_tour.js') }}"></script>
+<script src="{{ asset('js/escort/pinup_tour.js') }}"></script>
 @endpush

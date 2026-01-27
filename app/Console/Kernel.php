@@ -30,21 +30,12 @@ class Kernel extends ConsoleKernel
     */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('disable_escort')->everyMinute();
-        // $schedule->command('enable_escort')->everyMinute();
         $schedule->command('sync_escort')->everyMinute();
-        $schedule->command('send:playmate_disable')->daily();
-        $schedule->command('send:playmate_disable')->daily();
         $schedule->command('passwords:send-expiry-notices')->dailyAt('10:00')->timezone('Australia/Perth');
         $schedule->command('escort:send-listing-expiry-reminders')->dailyAt('00:00')->timezone('Australia/Perth');
         $schedule->command('appointments:update-status')->everySixHours();
         $schedule->command('center-notification:expire-check')->dailyAt('00:00')->timezone('Australia/Perth');
-        //$schedule->command('resetPassword')->daily();
     }
-    // protected function schedule(Schedule $schedule)
-    // {
-    //     // $schedule->command('inspire')->hourly();
-    // }
 
     /**
      * Register the commands for the application.

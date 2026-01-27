@@ -120,7 +120,7 @@
       
                   <div class="form-group">
                       <label class="required">Offender's Mobile</label>
-                      <input type="text" class="form-control" min="9" name="offender_mobile" placeholder="No spaces or any other characters - just numbers">
+                      <input type="tel" class="form-control" maxlength="10" min="10" name="offender_mobile" placeholder="No spaces or any other characters - just numbers" oninput="this.value = this.value.replace(/\D/g,'');">
                   </div>
       
                   <div class="form-group">
@@ -131,6 +131,7 @@
                   <div class="form-group">
                       <label class="required">Incident Type</label>
                       <select class="custom-select" name="incident_nature">
+                        <option >Please Choose</option>
                         <option value="Time Waster" >Time Waster</option>
                         <option value="Con Man">Con Man</option>
                         <option value="Dangerous">Dangerous</option>

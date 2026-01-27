@@ -10,6 +10,7 @@
    <div class="row">
             <div class="col-md-12 commanAlert"></div>
        </div>
+      
       {{-- Page Heading   --}}
       <div class="row">
          <div class="operator-heading-wrapper col-lg-12">
@@ -34,11 +35,15 @@
  
 
         
-
+ <div class="row">
+            <div class="col-md-12">
+                <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
+            </div>
+        </div>
 
 <div class="row">
     <div class="col-md-12 mb-5">
-      <form class="v-form-design" id="userProfile" action="{{ route('agent.update.password')}}" method="POST">
+      <form class="v-form-design" id="userProfile" action="{{ route('operator.update.password')}}" method="POST">
         @csrf
         <div class="row">
             <div class="col-md-6">
@@ -100,44 +105,53 @@
          </form>
     
 
-         <form class="v-form-design" id="passwordExpiry" action="{{ route('agent.update.password.expiry')}}" method="POST">          
+         <form class="v-form-design" id="passwordExpiry" action="{{ route('operator.update.password.expiry')}}" method="POST">          
             <div class="col-md-12 p-0 mt-4">
                <div class="form-group mb-0">
                   <label for="confirm_password">Password Expiry </label>
                </div>
-               <div class="form-radio">
-                  <input class="" name="password_expiry_days"  type="radio" value="never">
-                  <label class="form-check-label" for="flexCheckDefault">Never</label>
-               </div>
-               <div class="form-radio">
-                  <input class="" name="password_expiry_days"  type="radio" value="30" checked>
-                  <label class="form-check-label" for="flexCheckDefault">Renew every 30 days</label>
-               </div>
-               <div class="form-radio">
-                  <input class="" name="password_expiry_days" type="radio" value="60" >
-                  <label class="form-check-label" for="flexCheckDefault">Renew every 60 days</label>
-               </div>
-               <div class="form-radio">
-                  <input class="" name="password_expiry_days"  type="radio" value="90">
-                  <label class="form-check-label" for="flexCheckDefault">Renew every 90 days</label>
-               </div>
-               <div class="pt-1">
-                    <i id="emailHelp">Unless you set your preferred Password Expiry, by default your password will renew every 30 days.</i>
-               </div>
+            <div class="form-radio">
+                            <input class="" name="password_expiry_days" type="radio" value="never"
+                                @if ($user->account_setting && $user->account_setting->password_expiry_days == 'never') {{ 'checked' }} @endif>
+                            <label class="form-check-label" for="flexCheckDefault">Never</label>
+                        </div>
+                        <div class="form-radio">
+                            <input class="" name="password_expiry_days" type="radio" value="30"
+                                @if ($user->account_setting && $user->account_setting->password_expiry_days == '30') {{ 'checked' }} @endif>
+                            <label class="form-check-label" for="flexCheckDefault">Renew every 30 days</label>
+                        </div>
+                        <div class="form-radio">
+                            <input class="" name="password_expiry_days" type="radio" value="60"
+                                @if ($user->account_setting && $user->account_setting->password_expiry_days == '60') {{ 'checked' }} @endif>
+                            <label class="form-check-label" for="flexCheckDefault">Renew every 60 days</label>
+                        </div>
+                        <div class="form-radio">
+                            <input class="" name="password_expiry_days" type="radio" value="90"
+                                @if ($user->account_setting && $user->account_setting->password_expiry_days == '90') {{ 'checked' }} @endif>
+                            <label class="form-check-label" for="flexCheckDefault">Renew every 90 days</label>
+                        </div>
+                        <div class="pt-1">
+                            <i id="emailHelp">Unless you set your preferred Password Expiry, by default your password will
+                                renew every30 days.</i>
+                        </div>
                
             </div>
             <div class="col-md-12 p-0 mt-4">
                <div class="form-group mb-0">
                   <label for="confirm_password">Notification</label>
                </div>
-               <div class="form-check m-0">
-                  <input class="form-check-input" name="is_text_notificaion_on" type="checkbox" id="flexCheckDefault" >
-                  <label class="form-check-label" for="flexCheckDefault">Text</label>
-               </div>
-               <div class="form-check m-0">
-                  <input class="form-check-input" name="is_email_notificaion_on" type="checkbox" id="flexCheckDefault" checked>
-                  <label class="form-check-label" for="flexCheckDefault">Email</label>
-               </div>
+                <div class="form-check m-0">
+                            <input class="form-check-input" name="is_text_notificaion_on" type="checkbox"
+                                id="flexCheckDefault" value="1"
+                                @if ($user->account_setting && $user->account_setting->is_text_notificaion_on == '1') {{ 'checked' }} @endif>
+                            <label class="form-check-label" for="flexCheckDefault">Text</label>
+                        </div>
+                        <div class="form-check m-0">
+                            <input class="form-check-input" name="is_email_notificaion_on" type="checkbox"
+                                id="flexCheckDefault" value="1"
+                                @if ($user->account_setting && $user->account_setting->is_email_notificaion_on == '1') {{ 'checked' }} @endif>
+                            <label class="form-check-label" for="flexCheckDefault">Email</label>
+                        </div>
                
                <div class="pt-1">
                 <i id="emailHelp">If you select to be notified of your impending password expiry by Text or Email, you will receive a notification 24 hours prior to expiry date.
@@ -185,95 +199,142 @@
     });
 </script>
 <script type="text/javascript">
-   $('#userProfile').parsley({
-   
-   });
-   
-   
-   
-   $('#userProfile').on('submit', function(e) {
-      e.preventDefault();
-   
-      var form = $(this);
-      
-      $("#modal-title").text("Change Password");
-      $("#modal-icon").attr("src", "/assets/dashboard/img/change-password.png");
-      if (form.parsley().isValid()) {
-   
-           var url = form.attr('action');
-           var data = new FormData(form[0]);
-           $.ajax({
-               method: form.attr('method'),
-               url: url,
-               data: data,
-               contentType: false,
-               processData: false,
-               headers: {
-                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-               },
-               success: function(data) 
-               {
-                     if (data.error != true) {
-                        $('input[type=password]').each(function() {
-                        $(this).val('');
-                        });
+        $('#userProfile').parsley({
 
-                        $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`);
-                        setTimeout(function () {
-                           location.reload();
-                        }, 3000); 
-                     } 
-                     else {
-                      $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-error" >${response.message}</div>`);    
-                     }
-               },
-         });
-       }
-   });
-   $('#passwordExpiry').on('submit', function(e) {
-       e.preventDefault();
-   
-       var form = $(this);
-      
-      $("#modal-title").text("Renew Password Expiry");
-      $("#modal-icon").attr("src", "/assets/dashboard/img/renew.png");
-       if (form.parsley().isValid()) {
-   
-           var url = form.attr('action');
-           var data = new FormData(form[0]);
-           $.ajax({
-               method: form.attr('method'),
-               url: url,
-               data: data,
-               contentType: false,
-               processData: false,
-               headers: {
-                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-               },
-                success: function(data) 
-               {
-                     if (data.error != true) {
-                        $('input[type=password]').each(function() {
-                        $(this).val('');
-                        });
+        });
+         var notes = $('#notes');
 
-                        $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${data.message}</div>`);
-                        setTimeout(function () {
-                           location.reload();
-                        }, 3000); 
-                     } 
-                     else {
-                     $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${data.message}</div>`);
-                     }
-               },
-   
-           });
-       }
-   });
-   
-   
-   
-   
-   
-</script>
+        function showGlobalAlert(message, type = 'success') {
+            const alertBox = $('#globalAlert');
+             $('html, body').animate({
+                                scrollTop: notes.offset()
+                                    .top // Get the top offset of the target div
+                            }, 500);
+            alertBox
+                .removeClass('d-none alert-success alert-danger')
+                .addClass(type === 'success' ? 'alert-success' : 'alert-danger')
+                .html(message);
+
+            setTimeout(() => {
+                alertBox.addClass('d-none');
+            }, 4000); // hide after 4 seconds
+        }
+
+        $('#userProfile').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            $("#modal-title").text('Change Password');
+
+            if (form.parsley().isValid()) {
+                var url = form.attr('action');
+                var data = new FormData(form[0]);
+
+                $.ajax({
+                    method: form.attr('method'),
+                    url: url,
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        console.log(data, 'data');
+
+                        if (data.status == true) {
+                            $('input[type=password]').each(function() {
+                                $(this).val('');
+                            });
+                            showGlobalAlert(data.message, "success");
+                            // Reload page after 3 seconds to reflect changes
+                            setTimeout(function() {
+                                location.reload();
+                            }, 3000);
+                        } else {
+                            // Show error using the message from server
+                            showGlobalAlert(data.message, "danger");
+                        }
+                    },
+                    error: function(xhr) {
+                        var errorMsg = "Something went wrong.";
+                        // If the server sent a JSON response with a message
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMsg = xhr.responseJSON.message;
+                        } else if (xhr.responseText) {
+                            // Try to parse manual JSON if server responded as plain text
+                            try {
+                                var res = JSON.parse(xhr.responseText);
+                                if (res.message) {
+                                    errorMsg = res.message;
+                                }
+                            } catch (e) {
+                                // Not JSON, keep the generic message
+                            }
+                        }
+                        showGlobalAlert(errorMsg, "danger");
+
+                        // Show validation errors (e.g., Laravel validation)
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errorsHtml = '<ul>';
+                            $.each(xhr.responseJSON.errors, function(key, value) {
+                                errorsHtml += '<li>' + value + '</li>';
+                            });
+                            errorsHtml += '</ul>';
+                            showGlobalAlert(errorsHtml, "danger");
+                        }
+                    }
+                });
+            }
+        });
+
+
+        $('#passwordExpiry').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            $("#modal-title").text('Password Expiry');
+
+            if (form.parsley().isValid()) {
+                var url = form.attr('action');
+                var data = new FormData(form[0]);
+
+                $.ajax({
+                    method: form.attr('method'),
+                    url: url,
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        //  console.log(data.message, 'data');
+                        if (data.status === true) {
+                            showGlobalAlert(data.message, "success");
+                            $("#resetPasswordDate").modal('hide');
+                            $('#passwordExpiryText').html(data.data.text);
+                        }
+                    },
+                    error: function(xhr) {
+                        var errorMsg = "Something went wrong.";
+                        // If the server sent a JSON response with a message
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMsg = xhr.responseJSON.message;
+                        } else if (xhr.responseText) {
+                            // Try to parse manual JSON if server responded as plain text
+                            try {
+                                var res = JSON.parse(xhr.responseText);
+                                if (res.message) {
+                                    errorMsg = res.message;
+                                }
+                                showGlobalAlert(errorMsg, "danger");
+                            } catch (e) {
+                                // Not JSON, keep the generic message
+                            }
+                        }
+
+                    }
+                });
+            }
+        });
+    </script>
 @endpush

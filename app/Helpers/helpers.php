@@ -12,9 +12,11 @@ use App\Models\State;
 use App\Models\Escort;
 use App\Models\Country;
 use App\Mail\LoginOtpMail;
+use App\Models\AlertNotic;
 use App\Models\EscortMedia;
-use Illuminate\Support\Str;
 
+use App\Models\MassageMedia;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
@@ -464,12 +466,38 @@ if (!function_exists('getDefaultBannerTemplates')) {
     }
 }
 
+
+
+
 if (!function_exists('isGalleryTemplate')) {
     function isGalleryTemplate($media_id = 0)
     {
         $media = EscortMedia::where(['id' => $media_id])->first();
         if ($media->template) {
             $template = EscortMedia::where(['user_id' => NULL, 'template' => '1', 'path' => $media->path])->first('id');
+            return $template->id;
+        } else {
+            return $media_id;
+        }
+    }
+}
+
+
+if (!function_exists('getMassageBannerTemplates')) {
+    function getMassageBannerTemplates($group = 0)
+    {
+        return MassageMedia::where(['type' => 0, 'banner_group' => strval($group), 'position' => 9])
+            ->whereNull('user_id')
+            ->get();
+    }
+}
+
+if (!function_exists('isMassageGalleryTemplate')) {
+    function isMassageGalleryTemplate($media_id = 0)
+    {
+        $media = MassageMedia::where(['id' => $media_id])->first();
+        if ($media->template) {
+            $template = MassageMedia::where(['user_id' => NULL, 'template' => '1', 'path' => $media->path])->first('id');
             return $template->id;
         } else {
             return $media_id;
@@ -1066,5 +1094,25 @@ if(!function_exists('global_notifications')){
             ->get();
 
         return $notifications;
+    }
+}
+
+if (!function_exists('removeAnythingExceptNumber')) {
+    function removeAnythingExceptNumber($number)
+    {
+        if ($number == null || empty($number)) {
+            return $number;
+        }
+        // Remove anything that is not a digit
+        return preg_replace('/\D/', '', $number);
+
+        
+    }
+}
+
+if(!function_exists('notic_alert')){
+    function notic_alert(){
+        $content = AlertNotic::where('action','public')->first();
+        return $content ??  null;
     }
 }

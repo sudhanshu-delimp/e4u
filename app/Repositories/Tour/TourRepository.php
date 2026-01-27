@@ -124,7 +124,7 @@ class TourRepository extends BaseRepository implements TourInterface
     }
 
 
-    public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id = null, $conditions = [])
+    public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id = null, $conditions = [], $type = '')
     {
         $order_field = $columns[$order_key]['name'];
         $searchables = $this->getSearchableFields($columns);
@@ -155,13 +155,13 @@ class TourRepository extends BaseRepository implements TourInterface
             $query->orderBy($order_field, $dir);
         }
         $mainQuery = $query->offset($start)->limit($limit);
-        $result = $this->modifyRecords($mainQuery->get(), $start);
+        $result = $this->modifyRecords($mainQuery->get(), $type);
         
 
         return [$result, $count, [$query->toSql(),$query->getBindings()]];
     }
 
-    protected function modifyRecords($result, $start)
+    protected function modifyRecords($result, $type)
     {
         $i = 1;
         $today = Carbon::today()->format('d-m-Y');
@@ -178,7 +178,8 @@ class TourRepository extends BaseRepository implements TourInterface
                 $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $item->id).'"> <i class="fa fa-pen " ></i> Edit</a>'; 
             }
             else{
-                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#pinup_profile" data-tour-id="'.$item->id.'"> <i class="fa fa-arrow-up" ></i> List Pin Up</a>'; 
+                $action .= ($type=='current')?'<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.current.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a>':'<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.past.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
             }
             $action .= '</div></div>';
             $item->action = $action;

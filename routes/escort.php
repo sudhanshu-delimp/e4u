@@ -182,16 +182,25 @@ Route::get('archive-view-profiles',[ArchivesController::class, 'profileStates'])
 Route::get('archive-view-profiles-list/{id}',[ArchivesController::class, 'profileStatesList'])->name('escort.state.profiles.list');
 Route::get('archive-view-profiles-datatable/',[ArchivesController::class, 'stateDataTable'])->name('escort.stateId.profile.list.dataTable');
 Route::get('archive-view-profiles-list-datatable/{id}',[ArchivesController::class, 'stateDataTable'])->name('escort.state.profile.list.dataTable');
+
 Route::post('/view-tour',[TourController::class, 'viewTour'])->name('escort.view.tour');
-//Route::post('/create-tour/{id}',[TourController::class, 'create'])->name('escort.create.tour');
+
 Route::get('/archive-tour-{name?}/{id}',[TourController::class, 'tourProfileList'])->name('escort.archive.tour.name');
 Route::post('/create-tour/{id?}',[TourController::class, 'createStoreTour'])->name('escort.store.tour');
-Route::get('create-tour/{id?}',[TourController::class, 'createTour'])->name('escort.store.tour');
-//Route::get('update-tour',[TourController::class, 'updateTour']);
+Route::get('/create-tour',[TourController::class, 'createTour'])->name('escort.store.tour');
+Route::get('/current-tour/{id?}',[TourController::class, 'createTour'])->name('escort.current.tour');
+Route::get('/past-tour/{id?}',[TourController::class, 'createTour'])->name('escort.past.tour');
+
 Route::post('/delete-tour/{id}',[TourController::class, 'DeleteTour'])->name('escort.delete.tour');
 Route::get('/archive-tours-list',[TourController::class, 'viewTourList'])->name('escort.tour.view');
 Route::get('/archive-tours-dataTable/{type}',[TourController::class, 'TourDataTable'])->name('escort.tour.dataTable');
 Route::post('/archive-tours-edit/{id}',[TourController::class, 'viewTourEdit'])->name('escort.tour.edit');
+/** Start Tour pin up */
+Route::post('/get-tour-locations',[TourController::class, 'getTourLocations'])->name('escort.tour.locations');
+Route::post('/get-tour-location-profiles',[TourController::class, 'getTourLocationProfiles'])->name('escort.tour.location_profiles');
+Route::post('/register-tour-pinup',[TourController::class, 'registerTourPinup'])->name('escort.tour.pinup');
+/** End Tour pin up */
+
 Route::get('archive-myplaybox',function(){
     return view('escort.dashboard.archives.myplaybox');
 });

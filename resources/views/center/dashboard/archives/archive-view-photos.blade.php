@@ -150,7 +150,7 @@
                                             <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                                             <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
                                                 <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec" id="dvDest">
-                                                <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="1"  data-html="true" data-placement="top" title="" data-boundary="window" id="img1" src="{{ asset($path->findByposition(auth()->user()->id,1, 1)['path']) }}" style="object-fit: cover;width: 167px;height: 172px;">
+                                                <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="1"  data-html="true" data-placement="top" title="" data-boundary="window" id="img1" src="{{ asset($path->findByposition(auth()->user()->id,1, 0)['path']) }}" style="object-fit: cover;width: 167px;height: 172px;">
                                                 <input type="hidden" id="pos_1" name="position[1]" value="">
                                                 </label>
                                             </div>
@@ -165,7 +165,7 @@
                                                 <div class="col-4 pr-0">
                                                     <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
                                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
-                                                        <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="2" data-html="true" data-placement="top" title="" data-boundary="window" id="img2" src="{{ asset($path->findByposition(auth()->user()->id,2, 1)['path'])}}">
+                                                        <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="2" data-html="true" data-placement="top" title="" data-boundary="window" id="img2" src="{{ asset($path->findByposition(auth()->user()->id,2, 0)['path'])}}">
                                                         <input type="hidden" id="pos_2" name="position[2]" value="">
                                                         </label>
                                                     </div>
@@ -173,7 +173,7 @@
                                                 <div class="col-4 pr-0">
                                                     <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(3)">
                                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
-                                                        <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="3" data-html="true" data-placement="top" title="" data-boundary="window"  id="img3" src="{{ asset($path->findByposition(auth()->user()->id,3, 1)['path'])}}">
+                                                        <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="3" data-html="true" data-placement="top" title="" data-boundary="window"  id="img3" src="{{ asset($path->findByposition(auth()->user()->id,3, 0)['path'])}}">
                                                         <input type="hidden" id="pos_3" name="position[3]" value="">
                                                         </label>
                                                     </div>
@@ -181,7 +181,7 @@
                                                 <div class="col-4 pr-0">
                                                     <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(4)">
                                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
-                                                        <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="4" data-html="true" data-placement="top" title="" data-boundary="window"  id="img4" src="{{ asset($path->findByposition(auth()->user()->id,4, 1)['path'])}}">
+                                                        <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="4" data-html="true" data-placement="top" title="" data-boundary="window"  id="img4" src="{{ asset($path->findByposition(auth()->user()->id,4, 0)['path'])}}">
                                                         <input type="hidden" id="pos_4" name="position[4]" value="">
                                                         </label>
                                                     </div>
@@ -191,7 +191,7 @@
                                                 <div class="col-4 pr-0">
                                                     <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(5)">
                                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
-                                                        <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="5" data-html="true" data-placement="top" title="" data-boundary="window"  id="img5" src="{{ asset($path->findByposition(auth()->user()->id,5, 1)['path'])}}">
+                                                        <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="5" data-html="true" data-placement="top" title="" data-boundary="window"  id="img5" src="{{ asset($path->findByposition(auth()->user()->id,5, 0)['path'])}}">
                                                         <input type="hidden" id="pos_5" name="position[5]" value="">
                                                         </label>
                                                     </div>
@@ -199,7 +199,7 @@
                                                 <div class="col-4 pr-0">
                                                     <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(6)">
                                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
-                                                        <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="6" data-html="true" data-placement="top" title="" data-boundary="window"  id="img6" src="{{ asset($path->findByposition(auth()->user()->id,6, 1)['path'])}}">
+                                                        <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="6" data-html="true" data-placement="top" title="" data-boundary="window"  id="img6" src="{{ asset($path->findByposition(auth()->user()->id,6, 0)['path'])}}">
                                                         <input type="hidden" id="pos_6" name="position[6]" value="">
                                                         </label>
                                                     </div>
@@ -207,7 +207,7 @@
                                                 <div class="col-4 pr-0">
                                                     <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(7)">
                                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
-                                                        <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="7" data-html="true" data-placement="top" title="" data-boundary="window"  id="img7" src="{{ asset($path->findByposition(auth()->user()->id,7, 1)['path'])}}">
+                                                        <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="7" data-html="true" data-placement="top" title="" data-boundary="window"  id="img7" src="{{ asset($path->findByposition(auth()->user()->id,7, 0)['path'])}}">
                                                         <input type="hidden" id="pos_7" name="position[7]" value="">
                                                         </label>
                                                     </div>
@@ -221,7 +221,7 @@
                                             
                                                 <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
                                                     <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
-                                                    <img class="img-fluid common-img" id="img9" data-position-id="9" src="{{ asset($path->findByposition(auth()->user()->id,9, 1)['path'])}}" >
+                                                    <img class="img-fluid common-img" id="img9" data-position-id="9" src="{{ asset($path->findByposition(auth()->user()->id,9, 0)['path'])}}" >
                                                     <input  type="hidden"  id="pos_9" name="position[9]" value="">
                                                     </label>
                                                 </div>
@@ -460,7 +460,7 @@
                         <!-- default Banner Tab -->
                         {{-- <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
                             @php  
-                            $bannerTemplates = getBannerTemplates();
+                            $bannerTemplates = getMassageBannerTemplates();
                             @endphp
                             <div class="modal-tab">
                                 @if(!empty($bannerTemplates))
@@ -501,7 +501,7 @@
                                             <!-- GROUP 1 STATIC -->
                                             <div class="tab-pane fade show active" id="bdsm">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(1);
+                                                    $bannerTemplates = getMassageBannerTemplates(1);
                                                 @endphp
                                                 <div class="modal-tab">
                                                 @if(!empty($bannerTemplates))
@@ -517,7 +517,7 @@
                                             <!-- GROUP 2 STATIC -->
                                             <div class="tab-pane fade" id="lingerie">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(2);
+                                                    $bannerTemplates = getMassageBannerTemplates(2);
                                                 @endphp
                                                 <div class="modal-tab">
                                                     @if(!empty($bannerTemplates))
@@ -533,7 +533,7 @@
                                             <!-- GROUP 3 STATIC -->
                                             <div class="tab-pane fade" id="passive">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(3);
+                                                    $bannerTemplates = getMassageBannerTemplates(3);
                                                 @endphp
                                                 <div class="modal-tab">
                                                     @if(!empty($bannerTemplates))
@@ -549,7 +549,7 @@
                                             <!-- GROUP 4 STATIC -->
                                             <div class="tab-pane fade" id="sheets">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(4);
+                                                    $bannerTemplates = getMassageBannerTemplates(4);
                                                 @endphp
                                                 <div class="modal-tab">
                                                     @if(!empty($bannerTemplates))
@@ -565,7 +565,7 @@
                                             <!-- GROUP 5 STATIC -->
                                             <div class="tab-pane fade" id="subtle">
                                                 @php  
-                                                    $bannerTemplates = getBannerTemplates(5);
+                                                    $bannerTemplates = getMassageBannerTemplates(5);
                                                 @endphp
                                                 <div class="modal-tab">
                                                     @if(!empty($bannerTemplates))

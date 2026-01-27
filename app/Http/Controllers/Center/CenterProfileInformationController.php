@@ -26,6 +26,7 @@ use App\Http\Requests\Escort\StoreServiceRequest;
 use App\Http\Requests\Escort\UpdateRequestPolicy;
 use App\Repositories\Escort\EscortMediaInterface;
 use App\Repositories\Escort\AvailabilityInterface;
+use App\Repositories\Escort\MessageMediaInterface;
 use App\Http\Requests\Escort\UpdateRequestReadMore;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
@@ -44,7 +45,7 @@ class CenterProfileInformationController extends BaseController
     protected $duration;
     protected $user;
     protected $media;
-    protected $esc_media;
+    protected $massage_media;
     protected $massage_profile;
     /**
      * Display a listing of the resource.
@@ -55,7 +56,7 @@ class CenterProfileInformationController extends BaseController
     
 
 
-    public function __construct(MassageProfileInterface $massage_profile, UserInterface $user, EscortMediaInterface $esc_media,  EscortInterface $escort, MassageAvailabilityInterface $massage_availability,  ServiceInterface $service, DurationInterface $duration, MassageMediaInterface $media)
+    public function __construct(MassageProfileInterface $massage_profile, UserInterface $user,   EscortInterface $escort, MassageAvailabilityInterface $massage_availability,  ServiceInterface $service, DurationInterface $duration, MassageMediaInterface $media)
     {
         $this->escort = $escort;
         $this->massage_availability = $massage_availability;
@@ -64,7 +65,7 @@ class CenterProfileInformationController extends BaseController
         $this->user = $user;
         $this->media = $media;
         $this->massage_profile = $massage_profile;
-        $this->esc_media = $esc_media;
+        //$this->massage_media = $massage_media;
     }
 
     // public function updateBasicProfile($id)
@@ -96,9 +97,12 @@ class CenterProfileInformationController extends BaseController
         $durations = $this->duration->all();
         //dd($massage_profile->massage_services()->where('category_id', 1)->get());
         //dd($massage_profile->massage_services);
-        $availability = $massage_profile->availability;
-        return view('center.my-account.profile-information',compact('massage_profile','service_one','service_two','service_three','availability','durations'));
+        $availability = $massage_profile->availability ? json_decode($massage_profile->availability->availability_time, true) : [];
+        $social_links = $massage_profile->social_links ? json_decode($massage_profile->social_links, true) : [];
+  
+        return view('center.my-account.profile-information',compact('massage_profile','service_one','service_two','service_three','availability','durations','social_links'));
     }
+
     public function storeAboutMe(UpdateRequestAboutMe $request)
     {
         //dd($request->all());
@@ -125,6 +129,29 @@ class CenterProfileInformationController extends BaseController
         }
         return response()->json(compact('error'));
     }
+
+     public function ourBusiness(Request $request)
+    {
+       
+        $input = [
+            'profile_name'=>$request->profile_name,
+            'business_name'=>$request->business_name,
+            'business_no'=>$request->business_no,
+            'furniture_types'=>$request->furniture_types,
+            'phone'=>$request->phone,
+            'address'=>$request->address,
+        ];
+        
+        $error=true;
+        if($data = $this->massage_profile->updateOrCreate($input, auth()->user()->id,1)) {
+            $error = false;
+        }
+        return response()->json(compact('error'));
+    }
+
+
+    
+
     public function storeSocialsLink(Request $request)
     {
         //dd($request->social_links);
@@ -437,13 +464,12 @@ class CenterProfileInformationController extends BaseController
 
     public function galleries()
     {
-        // $media = $this->media->findByUid(auth()->user()->id);
-        // $path = $this->media;
-        //dd($path->findByposition(auth()->user()->id,1)['path']);
         
-         $media = $this->esc_media->with_Or_withoutPosition(auth()->user()->id, []);
-         $path = $this->esc_media;
-        return view('center.dashboard.archives.archive-view-photos',compact('path','media'));
+         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
+         $path = $this->media;
+         //dd($path->findByposition(auth()->user()->id,9)['path']);
+         //dd($path->findByposition(auth()->user()->id,9, 0)['path']);
+         return view('center.dashboard.archives.archive-view-photos',compact('path','media'));
     }
     public function defaultImages(Request $request)
     {

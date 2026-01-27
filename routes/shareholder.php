@@ -16,6 +16,7 @@ Route::get('/directors', [ShareholderController::class, 'directors'])->name('sha
 Route::get('/portfolio', [ShareholderController::class, 'portfolio'])->name('shareholder.portfolio');
 Route::get('/contact-us', [ShareholderController::class, 'contactUs'])->name('shareholder.contact-us');
 Route::get('/annual-profit-and-loss', [ShareholderController::class, 'annualProfitloss'])->name('shareholder.annual-profit-and-loss');
+Route::get('/financials', [ShareholderController::class, 'financials'])->name('shareholder.financials');
 Route::get('/balance-sheet', [ShareholderController::class, 'balanceSheet'])->name('shareholder.balance-sheet');
 
 // Shareholders

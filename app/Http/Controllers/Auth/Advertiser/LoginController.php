@@ -7,15 +7,18 @@ use App\Models\User;
 use App\Sms\SendSms;
 use App\Models\Escort;
 use Illuminate\Http\Request;
+use App\Models\MassageProfile;
 use App\Models\PasswordSecurity;
 use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\AppController;
 use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\BaseController;
+use App\Mail\send2FAOtpEmail;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends BaseController
 {
@@ -234,9 +237,88 @@ class LoginController extends BaseController
 
 
     }
+
+    public function sendOtpForPinChange(Request $request)
+    {
+        try {
+            $user = User::where('email', $request->email)->first();
+            if (!$user) {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'User not found with this email.'
+                ]);
+            }
+
+            $phone = $user->phone;
+
+            // Generate & save OTP
+            $user->otp = $user->generateOTP();
+            $user->save();
+
+            $otp = $user->otp;
+
+            $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+
+            $sendotp = new SendSms();
+            $output = $sendotp->send($phone, $msg);
+
+            $body = [
+                'name' => $user->name,
+                'member_id' => $user->member_id,
+                'pin' => $otp,
+                'subject' => '2FA Verification OTP',
+            ];
+
+            Mail::to($user->email)->queue(new send2FAOtpEmail($body));
+
+            return response()->json([
+                    'status' => $output,
+                    'message' => "Hello! Your one-time user code has been sent successfully. You can ignore this text message.",
+                ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 500,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
     protected function checkOTP(Request $request)
     {
-        // echo "agent";
+        $forgot_password = (int) ($request->forget_password ?? 0);
+            if($forgot_password){
+                $user = User::where('email', $request->email)->first();
+
+            if (!$user) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'User not found'
+                ]);
+            }
+
+        
+            $phone = $user->phone;
+
+            /**
+             * FORGET PASSWORD FLOW
+             * yahin se return ho jayega
+             */
+            if ($forgot_password === 1) {
+
+                $isValidOtp = ((int) $request->otp === (int) $user->otp);
+
+                return response()->json([
+                    'error' => !$isValidOtp,
+                    'status' => $isValidOtp,
+                    'phone' => $phone,
+                    'message' => $isValidOtp
+                        ? 'OTP verified successfully'
+                        : 'You have entered an invalid OTP.'
+                ]);
+            }
+        }
+        
 
         if (! is_null(removeSpaceFromString($request->phone))) {
 
@@ -273,6 +355,14 @@ class LoginController extends BaseController
                     $escort = new Escort();
                     $escort->user_id = auth()->user()->id;
                     //$escort->enabled = 1;
+                    $escort->default_setting = 1;
+                    $escort->save();
+                }
+            }
+            if ($type == 4) {
+                if (!MassageProfile::where('user_id', auth()->user()->id)->exists()) {
+                    $escort = new MassageProfile();
+                    $escort->user_id = auth()->user()->id;
                     $escort->default_setting = 1;
                     $escort->save();
                 }
@@ -345,23 +435,56 @@ class LoginController extends BaseController
     }
     public function viewerForgotPassword($token)
     {
+        $user_info = $this->getUserTypeByResetToken($token);
 
-        return view('auth.advertiser.forgotViewer', compact('token'));
+        if (!$user_info) {
+            return view('auth.advertiser.forgotViewer', [
+                'error' => 'Your password reset link is invalid or has expired. Please request a new one.',
+                'user_info' => null,
+                'token' => null
+            ]);
+        }
+        return view('auth.advertiser.forgotViewer', compact('token','user_info'));
     }
     public function agentForgotPassword($token)
     {
+        $user_info = $this->getUserTypeByResetToken($token);
 
-        return view('auth.advertiser.forgotAgent', compact('token'));
+        if (!$user_info) {
+            return view('auth.advertiser.forgotAgent', [
+                'error' => 'Your password reset link is invalid or has expired. Please request a new one.',
+                'user_info' => null,
+                'token' => null
+            ]);
+        }
+        return view('auth.advertiser.forgotAgent', compact('token','user_info'));
     }
     public function adminForgotPassword($token)
     {
+       $user_info = $this->getUserTypeByResetToken($token);
+        if (!$user_info) {
+            return view('auth.advertiser.forgotAdmin', [
+                'error' => 'Your password reset link is invalid or has expired. Please request a new one.',
+                'user_info' => null,
+                'token' => null
+            ]);
+        }
 
-        return view('auth.advertiser.forgotAdmin', compact('token'));
+        return view('auth.advertiser.forgotAdmin', compact('token', 'user_info'));
+
     }
     public function escortForgotPassword($token)
     {
+        $user_info = $this->getUserTypeByResetToken($token);
 
-        return view('auth.advertiser.forgotEscort', compact('token'));
+        if (!$user_info) {
+            return view('auth.advertiser.forgotEscort', [
+                'error' => 'Your password reset link is invalid or has expired. Please request a new one.',
+                'user_info' => null,
+                'token' => null
+            ]);
+        }
+        return view('auth.advertiser.forgotEscort', compact('token', 'user_info'));
     }
     public function staffForgotPassword($token)
     {
@@ -413,5 +536,19 @@ class LoginController extends BaseController
                 'password' => 'required|string',
             ]);
         }
+    }
+
+    public function getUserTypeByResetToken($token){
+        $tokenData = DB::table('password_resets')
+            ->where('token', $token)
+            ->first();
+
+        if (!$tokenData) {
+            return null;
+        }
+
+        return User::where('email', $tokenData->email)
+            ->select('type')
+            ->first();
     }
 }
