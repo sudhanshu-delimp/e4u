@@ -6,7 +6,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
 
 
-    <style>.parsley-errors-list {
+    <style>
+    .parsley-errors-list {
    list-style: none;
    color: rgb(248, 0, 0)
 }
@@ -141,6 +142,13 @@ textarea {
     width: 149px !important;
     height: 138px !important;
 }
+
+.gal-thumb-first{
+    width: 467px !important;
+    height: 340px !important;
+}
+
+
 
 @media (min-width:600px) and (max-width: 1024px) {
    .grid-container {
@@ -325,7 +333,7 @@ textarea {
                                                             <div class="plate">
                                                                 <label class="newbtn" data-toggle="modal"
                                                                     data-target="#photo_gallery">
-                                                                    <img class="w-100" id="img1"
+                                                                    <img class="w-100 gal-thumb-first upld-img" id="img1"
                                                                         src="{{ asset('assets/app/img/mcc-default-thumbnail.png') }}" onclick="positionToUpdate(1)">
                                                                 </label>
                                                             </div>
@@ -339,21 +347,21 @@ textarea {
                                                                     <div class="plate">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
-                                                                            <img class="w-100 gal-thumb"
+                                                                            <img class="w-100 gal-thumb upld-img"
                                                                                 id="img2"src="{{ asset('assets/app/img/frame-main-thum.png') }}" onclick="positionToUpdate(2)">
                                                                         </label>
                                                                     </div>
                                                                     <div class="plate">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
-                                                                            <img class="w-100 gal-thumb"
+                                                                            <img class="w-100 gal-thumb upld-img"
                                                                                 id="img3"src="{{ asset('assets/app/img/frame-main-thum.png') }}" onclick="positionToUpdate(3)">
                                                                         </label>
                                                                     </div>
                                                                     <div class="plate">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
-                                                                            <img class="w-100 gal-thumb"
+                                                                            <img class="w-100 gal-thumb upld-img"
                                                                                 id="img4"src="{{ asset('assets/app/img/frame-main-thum.png') }}" onclick="positionToUpdate(4)">
                                                                         </label>
                                                                     </div>
@@ -393,14 +401,14 @@ textarea {
                                                             <div class="col-md-2 pt-1">
                                                                 <div class="progress">
                                                                     <div class="progress-bar bg-success" role="progressbar"
-                                                                        style="width: {{ $media->count() * 3.3 }}%"
+                                                                        style="width: {{ 0 * 3.3 }}%"
                                                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <div style="display: flex;gap: 15px;">
-                                                                    <p>{{ $media->count() }}/30</p>
+                                                                    <p>0/30</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -460,113 +468,7 @@ textarea {
 
 
 
-                                                            <!-- <div class="col-lg-8 col-sm-12">
-                                                                <div class="photo-top-header">
-                                                                    <div class="photo-top-header">
-                                                                        <div class="photo-header custom-photo-header">
-                                                                            <div class="modal-header border-0 p-0"
-                                                                                style="display: block;position: relative;top: 30%;">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-8">
-                                                                                        <ul class="nav nav-tabs border-0">
-                                                                                            <li class="nav-item">
-                                                                                                <a class="nav-link active" id="menu_all"
-                                                                                                    data-toggle="tab" href="#home">All</a>
-                                                                                            </li>
-                                                                                            <li class="nav-item">
-                                                                                                <a class="nav-link" id="menu_varified"
-                                                                                                    data-toggle="tab"
-                                                                                                    href="#menu1">Verified</a>
-                                                                                            </li>
-                                                                                            <li class="nav-item">
-                                                                                                <a class="nav-link" id="menu_unverified"
-                                                                                                    data-toggle="tab"
-                                                                                                    href="#menu2">Unverified</a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                    <div class="col-md-2 pt-1">
-                                                                                        <div class="progress">
-                                                                                            <div class="progress-bar bg-success"
-                                                                                                role="progressbar" style="width: 100%"
-                                                                                                aria-valuenow="16.16" aria-valuemin="0"
-                                                                                                aria-valuemax="100"></div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-2">
-                                                                                        <div style="display: flex;gap: 15px;">
-                                                                                            <p>6/6</p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="archive-photo-sec upload-6-img-mcc">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <div class="grid-container p-2" id="dvSource">
-                                                                                <div class="default-img-mcc">
-                                                                                    <img class="img-thumbnail defult-image ui-draggable"
-                                                                                        src="{{ asset('assets/app/img/banner/mcc1.jpg') }}"
-                                                                                        alt="default-img-mcc">
-                                                                                    <i class="fa fa-trash deleteimg"
-                                                                                        title="Remove this media"></i>
-                                                                                    <span class="badge badge-red">Gallery</span>
-                                                                                </div>
-
-                                                                                <div class="default-img-mcc">
-                                                                                    <img class="img-thumbnail defult-image ui-draggable"
-                                                                                        src="{{ asset('assets/app/img/banner/mcc2.jpg') }}"
-                                                                                        alt="default-img-mcc">
-                                                                                    <i class="fa fa-trash deleteimg"
-                                                                                        title="Remove this media"></i>
-                                                                                    <span class="badge badge-red">Gallery</span>
-                                                                                </div>
-
-                                                                                <div class="default-img-mcc">
-                                                                                    <img class="img-thumbnail defult-image ui-draggable"
-                                                                                        src="{{ asset('assets/app/img/banner/mcc3.jpg') }}"
-                                                                                        alt="default-img-mcc">
-                                                                                    <i class="fa fa-trash deleteimg"
-                                                                                        title="Remove this media"></i>
-                                                                                    <span class="badge badge-red">Gallery</span>
-                                                                                </div>
-
-                                                                                <div class="default-img-mcc">
-                                                                                    <img class="img-thumbnail defult-image ui-draggable"
-                                                                                        src="{{ asset('assets/app/img/banner/mcc4.jpg') }}"
-                                                                                        alt="default-img-mcc">
-                                                                                    <i class="fa fa-trash deleteimg"
-                                                                                        title="Remove this media"></i>
-                                                                                    <span class="badge badge-red">Gallery</span>
-                                                                                </div>
-
-                                                                                <div class="default-img-mcc">
-                                                                                    <img class="img-thumbnail defult-image ui-draggable"
-                                                                                        src="{{ asset('assets/app/img/banner/mcc5.jpg') }}"
-                                                                                        alt="default-img-mcc">
-                                                                                    <i class="fa fa-trash deleteimg"
-                                                                                        title="Remove this media"></i>
-                                                                                    <span class="badge badge-red">Gallery</span>
-                                                                                </div>
-
-                                                                                <div class="default-img-mcc">
-                                                                                    <img class="img-thumbnail defult-image ui-draggable"
-                                                                                        src="{{ asset('assets/app/img/banner/mcc6.jpg') }}"
-                                                                                        alt="default-img-mcc">
-                                                                                    <i class="fa fa-trash deleteimg"
-                                                                                        title="Remove this media"></i>
-                                                                                    <span class="badge badge-red">Gallery</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div> -->
+                                                           
 
 
                                                         </div>
@@ -914,7 +816,7 @@ textarea {
                         src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon"> Select Photo
                 </h5>
                 <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 200px;">
-                    <button type="button" data-toggle="modal" data-target="empty" class="btn-cancel-modal"
+                    <button type="button" data-toggle="modal" data-target="#add_photo_mcc" class="btn-cancel-modal select-Photo"
                         style=" padding: 5px 10px;">Upload from device</button>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -983,6 +885,9 @@ textarea {
       </div>
    </div>
 </div>
+
+
+@include('center.dashboard.modal.remove_gallary_image')
 
 @endsection
 
@@ -1182,6 +1087,7 @@ textarea {
        //// ----------- Update Single Data ------------ ///////
 
 
+
         $('.resetdays').on('click', function () {
             let row = $(this).closest('.parent-row');
             row.find('select').val('').prop('disabled', false);
@@ -1377,7 +1283,7 @@ textarea {
                             allFiles.push(file); 
                             const imgURL = URL.createObjectURL(file);
                             $('#image_preview').append(`
-                                <a href='#'>
+                                <a href='#' id="atag_${index}" class="rm_${index}'">
                                     <div class='five_column_content_top img-title-sec justify-content-between wish_span rm_${index}' style='z-index: 1;'>
                                         <span class='card_tit'>${file.name}</span>
                                         <i class='fa fa-trash deleteId' data-id='${index}'></i>
@@ -1399,7 +1305,7 @@ textarea {
 
 
 
-        $("body").on('submit','#mulitiImage',function(e){
+            $("body").on('submit','#mulitiImage',function(e){
 
            
             console.log('mulitiImage===============');
@@ -1625,7 +1531,7 @@ textarea {
         }
 
 
-         let profile_selected_images = [];
+        let profile_selected_images = [];
         let default_image_icons = ['img-11.png', 'img-12.png', 'img-13.png'];
         $(document).on('click', '.modalPopup .item4, .modalPopup .item2', function(e) {
 
@@ -1737,7 +1643,164 @@ textarea {
         }
 
 
+//     function updateDefaultImage(position, meidaId, img_target, media_src) {
+//        var url = "{{ route('center.masseur.default.images') }} ";
+//        $.ajax({
+//            type: 'POST',
+//            url: url,
+//            data: {
+//                position: position,
+//                meidaId: meidaId
+//            },
+//            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+//            success : function (data) {
+//                if(data.error == true) {
+//                    img_target.attr('data-id', meidaId);
+//                    img_target.attr('src', media_src);
+//                } else {
+//                    swal.fire('', "<p>"+data.msg+"</p>", 'error');
+                   
+//                    $('#comman_modal').on('hidden.bs.modal', function () {
+                       
+//                    });
+//                }
+//            }
+//        });
+//    }
 
+        
+
+            $('.select-Photo').on('click', function (e) {
+                $("#photo_gallery").modal('hide');
+
+            })
+
+            $(document).on('click','.deleteId', function(e){
+                e.preventDefault();
+                let index = $(this).attr('data-id');
+                allFiles[index] = null;
+                $(`#atag_${index}`).remove();
+                $(`.rm_${index}`).remove();
+                updateInputFiles();
+            });
+
+
+            function updateInputFiles() {
+                const dt = new DataTransfer();
+
+                selectedFiles.forEach(file => {
+                    dt.items.add(file);
+                });
+
+                document.getElementById('upload_file').files = dt.files;
+            }
+
+
+
+         $('body').on('click','.deleteimg', function (e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            let prevTag = $(this).prev().children().first()[0]?.tagName;
+            $('.img_comman_msg').text("Delete");
+            if(prevTag=='VIDEO'){
+                $('#dVideo').attr('remove_media_id',id);
+                $("#delete_video").modal('show');
+            }
+            else{
+                $('#dImg').attr('remove_media_id',id);
+                $("#delete_img").modal('show');
+            }
+        });
+
+
+         $('body').on('click','#dImg', function(e){
+            e.preventDefault();
+            $.ajax({
+            type: "POST",
+            url:`/center-dashboard/delete-masseur-photos/${$(this).attr('remove_media_id')}`,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            beforeSend: function (){
+                $(".img_comman_msg").text('Deleting...');
+            },
+            success: function (data) {
+                getAccountMediaGallery().then(function () {
+                    $("#delete_img").modal('hide');
+                    $(".img_comman_msg").text('Delete');
+                });
+            },
+            error: function (data) {
+                var errors = $.parseJSON(data.responseText);
+                swal.fire('', "<p>"+errors.message+"</p>", 'error');
+            }
+        });
+    });
+
+
+//     $(document).on('click','.modalPopup .item2,.modalPopup .item4', function(e) {
+//        let imageSrc = $(this).find('img').attr('src');
+//        let mediaId = $(this).find('img').data('id');
+//        let img_target = $("#img"+updatePosition);
+//        updateDefaultImage(updatePosition, mediaId, img_target, imageSrc);
+//        $(`#${$(this).parents('.modal').attr('id')}`).modal("hide");
+//    });
+
+
+    // $(document).on('click', '.modalPopup .item4, .modalPopup .item2', function(e) {
+
+    //         let imageSrc = $(this).find('img').attr('src');
+    //         let mediaId = $(this).find('img').data('id');
+    //         let img_target = $("#img" + updatePosition);
+    //         let targetImageSrc = img_target.attr('src');
+    //         let targetImageName = targetImageSrc.split("/").pop();
+    //         /**
+    //          * Get existing profile image data to check duplicates
+    //          */
+    //         let srcArray = $(".upld-img").map(function() {
+    //             return $(this).attr("src"); // Get the 'src' attribute of each <img>
+    //         }).get();
+
+    //         let newObject = {
+    //             imageSrc: imageSrc,
+    //             mediaId: mediaId,
+    //             img_target: img_target,
+    //             updatePosition: updatePosition
+    //         };
+            
+    //         let duplicateImage = srcArray.findIndex(item => item === imageSrc);
+    //         if (duplicateImage !== -1) {
+    //             swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
+    //         } else {
+    //             let index = profile_selected_images.findIndex(item => item.updatePosition === updatePosition);
+    //             if (index !== -1) {
+    //                 profile_selected_images[index] = {
+    //                     ...profile_selected_images[index],
+    //                     ...newObject
+    //                 };
+    //             } else {
+    //                 profile_selected_images.push(newObject);
+    //             }
+    //             $("#blah" + updatePosition).attr('src', imageSrc);
+    //             $("#img" + updatePosition).attr('src', imageSrc);
+    //             $("#mediaId" + updatePosition).val(mediaId);
+
+    //             console.log('profile_selected_images.length',profile_selected_images.length);
+
+    //             // if (profile_selected_images.length > 0) {
+    //             //     let modalTitle = document.querySelector("#setAsDefaultForMainAccount .modal-title");
+    //             //     let textNode = [...modalTitle.childNodes].find(
+    //             //         node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== ""
+    //             //     );
+    //             //     if (textNode) {
+    //             //         textNode.textContent = default_image_icons.includes(targetImageName) ?
+    //             //             'Save to Default Media or Repository' : 'Replace Media';
+    //             //     }
+    //             //     $("#setAsDefaultForMainAccount").modal('show');
+    //             // }
+    //         }
+    //         $("#photo_gallery").modal("hide");
+    //         $("#photo_gallery_banner").modal("hide");
+    //     });
+   
         // ########## Image Upload Script ##########
 </script>
 

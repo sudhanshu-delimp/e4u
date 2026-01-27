@@ -27,10 +27,15 @@
     color: #fff !important;
 }
   
-.disabled-form-tab {
+/* .disabled-form-tab {
     pointer-events: none;
     opacity: 0.5;
-}
+} */
+
+ .defult-image{
+        width: 202px !important;
+        height: 182px !important;
+    }
 
 </style>
 @endsection

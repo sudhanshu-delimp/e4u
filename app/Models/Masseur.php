@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Masseur extends Model
 {
@@ -24,6 +25,50 @@ class Masseur extends Model
         return null;
     }
 
+
+
+
+    public function getImagePosition($val,$profile_id)
+    {
+
+        if($val == 1)
+        {
+                $image = DB::table('massuers_media')
+                                    ->join('masseur_galleries', 'massuers_media.id', '=', 'masseur_galleries.masseur_media_id')
+                                    ->where('masseur_galleries.masseur_profile_id', $profile_id)
+                                    ->where('masseur_galleries.position', $val)
+                                    ->orderBy('masseur_galleries.id', 'desc')
+                                    ->select('massuers_media.*')
+                                    ->first();
+
+                if($image) 
+                return $image->path;
+                else
+                return url('assets/app/img/mcc-default-thumbnail.png');
+              
+
+        }
+
+        else
+        {
+                $image = DB::table('massuers_media')
+                                    ->join('masseur_galleries', 'massuers_media.id', '=', 'masseur_galleries.masseur_media_id')
+                                    ->where('masseur_galleries.masseur_profile_id', $profile_id)
+                                    ->where('masseur_galleries.position', $val)
+                                    ->orderBy('masseur_galleries.id', 'desc')
+                                    ->select('massuers_media.*')
+                                    ->first();
+
+                if($image) 
+                return $image->path;
+                else
+                return url('assets/app/img/frame-main-thum.png');
+              
+
+        }
+
+    }
+
      public function imagePosition($val, $defaultPositionImages = [])
     {
         if($val == 1){
@@ -41,7 +86,7 @@ class Masseur extends Model
             } /*elseif(isset($defaultPositionImages[$val])) {
                 return $defaultPositionImages[$val]->path;
             } */else {
-                return url('assets/app/img/frame-main-thum.pn');
+                return url('assets/app/img/frame-main-thum.png');
             }
             //return url('assets/app/img/upload-thum-1.png');
         } elseif($val == 8) {
@@ -78,6 +123,9 @@ class Masseur extends Model
         }
 
     }
+
+
+    
 
     public function gallary()
     {

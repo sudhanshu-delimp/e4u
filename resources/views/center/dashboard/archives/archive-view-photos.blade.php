@@ -100,6 +100,12 @@
     .my-custompop-tabs .nav-item .nav-link.active{
     color: #fff;
     }
+
+    .defult-image{
+        width: 202px !important;
+        height: 182px !important;
+    }
+
 </style>
 </style>
 @endsection

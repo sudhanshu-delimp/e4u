@@ -99,6 +99,11 @@ Route::get('create-new-masseur', [MasseurController::class, 'index'])->name('cen
 Route::post('create-new-masseur', [MasseurController::class, 'add_masseur'])->name('center.create-new-masseur');
 Route::get('update-masseur/{id?}',[MasseurController::class,'edit_masseur'])->name('center.update-masseur');
 Route::post('update-masseur',[MasseurController::class,'update_masseur'])->name('center.update-masseur');
+Route::post('delete-masseur-photos/{id}', [MasseurController ::class, 'ImagesDelete'])->name('center.delete-masseur-photos');
+Route::post('default_photos_masseur', [MasseurController ::class, 'defaultImages'])->name('center.masseur.default.images');
+
+
+
 
 Route::post('masseurs/archives-listing',[MasseurController::class,'masseur_list'])->name('center.archives-listing');
 

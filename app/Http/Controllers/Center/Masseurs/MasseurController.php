@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Center\Masseurs;
 use Exception;
 use App\Models\Masseur;
 use App\Models\MasseurRate;
+use App\Models\MassageMedia;
 use Illuminate\Http\Request;
 use App\Models\MasseurGallery;
 use Illuminate\Support\Facades\DB;
@@ -243,119 +244,213 @@ class MasseurController extends AppController
         ########## End default profile data ########
 
          $media = $this->media->with_Or_withoutPosition(auth()->user()->id, $masseur->token_id,[]);
-         dd($media);
 
-        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur'));
+        
+
+        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur','media'));
     }
 
     public function update_masseur(Request $request)
     {
-        try 
-        {
 
-            DB::beginTransaction();
-            $user = auth()->user();
-            $request_data = $request->all();
-            $availability     = $this->makeAvailability($request_data);
-            $availabilityJson = json_encode($availability);
-
-            /* ================== Masseur Profile ================== */
-            $masseur = Masseur::where(['id'=> $request->masseur_id])->first();
-
-           
-            $masseur->name                  = $request->name;
-            $masseur->stage_name            = $request->stage_name;
-            $masseur->mobile                = $request->mobile;
-           
-            $masseur->nationality           = $request->nationality;
-
-            $masseur->ethnicity             = $request->ethnicity ;
-            $masseur->age                   = $request->age;
-
-            $masseur->vaccination           = $request->vaccination;
-            $masseur->commentary            = $request->commentary;
-
-            $masseur->availability          = $availabilityJson;
-            
-            $masseur->save();
-           
-
-            
         
-            /* ================== Rates ================== */
-            if (!empty($request->duration_id)) {
-                $rates = [];
+            /* ================== profile ================== */
 
-                foreach ($request->duration_id as $key => $value) {
-                    $rates[] = [
-                        'massage_price'      => $request->massage_price[$key],
-                        'incall_price'       => $request->incall_price[$key],
-                        'outcall_price'      => $request->outcall_price[$key],
-                        'duration_id'        => $value,
-                        'masseur_profile_id' => $request->masseur_id,
-                        'created_at'         => now(),
-                        'updated_at'         => now(),
-                    ];
+                if($request->type=='profile')
+                {
+                    DB::beginTransaction();
+                    try 
+                    {
+                        $user = auth()->user();
+                        $request_data = $request->all();
+                    
+                        $masseur = Masseur::where(['id'=> $request->masseur_id])->first();
+
+                        $masseur->name                  = $request->name;
+                        $masseur->stage_name            = $request->stage_name;
+                        $masseur->mobile                = $request->mobile;
+                    
+                        $masseur->nationality           = $request->nationality;
+
+                        $masseur->ethnicity             = $request->ethnicity ;
+                        $masseur->age                   = $request->age;
+
+                        $masseur->vaccination           = $request->vaccination;
+                        $masseur->commentary            = $request->commentary;
+
+                    
+                        $masseur->save();
+                
+
+                        DB::commit(); 
+                        $message = "Updated Successfully."; 
+                        $error = false;
+
+                    } 
+                    catch (Exception $e)
+                    {
+                        DB::rollBack();
+                        $message = "Error occured while updating."; 
+                        $error = true; 
+                    }
+
+                    return response()->json(compact('error','message'));
                 }
 
-                if(!empty($rates))
-                MasseurRate::where(['masseur_profile_id' => $request->masseur_id])->delete();  
+            /* ================== End profile ================== */
 
-                MasseurRate::insert($rates);
-            }
 
-            // /* ================== Gallery (Images) ================== */
-            // if (!empty($request->position)) {
-            //     foreach ($request->position as $position => $mediaId) {
-            //         if ($mediaId) {
-            //             MassageGallery::create([
-            //                 'massage_profile_id' => $massage_profile_id,
-            //                 'massage_media_id'   => isMassageGalleryTemplate($mediaId),
-            //                 'position'           => $position,
-            //                 'type'               => 0,
-            //             ]);
-            //         }
-            //     }
-            // }
+            /* ================== media ================== */
 
-            // /* ================== Gallery (Videos) ================== */
-            // if (!empty($request->video_position)) {
-            //     foreach ($request->video_position as $key => $video) {
-            //         if (!empty($video)) {
-            //             MassageGallery::create([
-            //                 'massage_profile_id' => $massage_profile_id,
-            //                 'massage_media_id'   => $video,
-            //                 'position'           => $key,
-            //                 'type'               => 1,
-            //             ]);
-            //         }
-            //     }
-            // }
+                if($request->type=='media')
+                {
+                    DB::beginTransaction();
+                    try 
+                    {
+                        $id = $request->masseur_id;
+                        $user = auth()->user();
+                        $media_arr = [];
+                        $errors = "";
+                        $successFlashMsg = $id ? 'Profile updated successfully' : 'Profile created successfully';
+                        $galleryStorageFull = false;
+                        $noOfFilesInGallery = $this->media->get_user_row(auth()->user()->id, [8, 10])->count();
+                    
+                        if($request->position){
+                            foreach($request->position as $position=>$media_id){
+                                if(!empty($media_id)){
+                                    $media_arr[$position]  = [
+                                        'masseur_token_id'   => $request->page_token,
+                                        'masseur_profile_id' => $id,
+                                        'masseur_media_id' => isMasseursGalleryTemplate($media_id),
+                                        'position' => $position,
+                                        'created_at' => date('Y-m-d H:i:s')
+                                    ];
+                                }
+                            }
+                        }
 
-            DB::commit();
+                        $escortImages = MasseurGallery::where(['masseur_profile_id'=>$id,'type'=>'0'])->get();
+                        if($escortImages->count() > 0)
+                        {
+                            foreach ($escortImages as $escortImage) {
+                                if (isset($media_arr[$escortImage->position])) {
+                                    $escortImage->masseur_media_id = $media_arr[$escortImage->position]['masseur_media_id'];
+                                    $escortImage->updated_at = date('Y-m-d H:i:s');
+                                    $escortImage->save();
+                                    unset($media_arr[$escortImage->position]);
+                                }
+                            }
+                            if(count($media_arr) > 0){
+                                MasseurGallery::insert($media_arr);
+                            }
+                        }
+                        else
+                        {
+                            MasseurGallery::insert($media_arr);
+                        }
 
-            return response()->json([
-                'success'   => true,
-                'masseur_profile_id' => $request->masseur_id,
-            ]);
+                        DB::commit(); 
+                        $message = "Updated Successfully."; 
+                        $error = false;
+                    } 
+                    catch (Exception $e)
+                    {
+                        DB::rollBack();
+                        $message = "Error occured while updating."; 
+                        $error = true; 
+                    }
 
-        } 
-        catch (Exception $e) 
-        {
-            DB::rollBack();
-            Log::error('Massage profile creation failed', [
-                'error' => $e->getMessage(),
-                'line'  => $e->getLine(),
-                'file'  => $e->getFile(),
-            ]);
+                    return response()->json(compact('error','message'));
+            
+                }
 
-            return response()->json([
-                'success' => false,
-                'message' => 'Something went wrong. Please try again.',
-            ], 500);
-        }
-        
+            /* ================== End media ================== */
+
+
+
+
+            /* ================== Aavailibility ================== */  
+            
+                if($request->type=='availibility')
+                {
+                        DB::beginTransaction();
+                        try 
+                        {
+                            $user = auth()->user();
+                            $request_data     = $request->all();
+                            $availability     = $this->makeAvailability($request_data);
+                            $availabilityJson = json_encode($availability);
+                            $masseur = Masseur::where(['id'=> $request->masseur_id])->first();
+                            $masseur->availability          = $availabilityJson;
+                            $masseur->save();
+                    
+                            DB::commit(); 
+                            $message = "Updated Successfully."; 
+                            $error = false;
+
+                        } 
+                        catch (Exception $e)
+                        {
+                            DB::rollBack();
+                            $message = "Error occured while updating."; 
+                            $error = true; 
+                        }
+
+                        return response()->json(compact('error','message'));
+                }
+
+            /* ================== End Aavailibility ================== */ 
+
+
+            /* ================== Rates ================== */
+
+                if($request->type=='rates')
+                {
+                    DB::beginTransaction();
+                    try 
+                    {
+                        if (!empty($request->duration_id)) 
+                        {
+                            $rates = [];
+
+                            foreach ($request->duration_id as $key => $value) {
+                                $rates[] = [
+                                    'massage_price'      => $request->massage_price[$key],
+                                    'incall_price'       => $request->incall_price[$key],
+                                    'outcall_price'      => $request->outcall_price[$key],
+                                    'duration_id'        => $value,
+                                    'masseur_profile_id' => $request->masseur_id,
+                                    'created_at'         => now(),
+                                    'updated_at'         => now(),
+                                ];
+                            }
+
+                            if(!empty($rates))
+                            MasseurRate::where(['masseur_profile_id' => $request->masseur_id])->delete();  
+                            MasseurRate::insert($rates);
+                        }
+
+                        DB::commit(); 
+                        $message = "Updated Successfully."; 
+                        $error = false;
+                    } 
+                    catch (Exception $e)
+                    {
+                        DB::rollBack();
+                        $message = "Error occured while updating."; 
+                        $error = true; 
+                    }
+
+                    return response()->json(compact('error','message'));
+            
+                }
+
+            /* ================== End Rates ================== */
+
     }
+
+
+
     
     public function masseur_list(Request $request)
     {
@@ -419,7 +514,8 @@ class MasseurController extends AppController
 
 
 
-     public function getAccountMediaGallery(Request $request, $category=null,$page_token,){
+    public function getAccountMediaGallery(Request $request, $category=null,$page_token,)
+    {
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id,$page_token, []);
             $mediaCategory = match ($category) {
@@ -448,5 +544,61 @@ class MasseurController extends AppController
         }
     }
 
+
+    public function ImagesDelete(Request $request, $id)
+    {
+
+        $error = false;
+        $this->media->nullPosition(auth()->user()->id,$request->position);
+        if($media = $this->media->find($id)) {
+            @unlink(Storage::disk('escorts')->path("../".$media->path));
+            $media->delete();
+            $error = true;
+        }
+        return response()->json(compact('error'));
+    }
+
+    public function defaultImages(Request $request)
+    {
+        $error = false;
+        $msg = '';
+
+        $media = $this->media->find($request->meidaId);
+
+        
+        $labels = [
+            9 => 'Banner',
+            10 => 'Pin Up',
+        ];
+        $repositoryName = array_key_exists($request->position,$labels)?$labels[$request->position]:'Gallery';
+        if((in_array($request->position,[9,10]) && $request->position != $media->position) || ($request->position < 9 && in_array($media->position,[9,10]))) {
+            $msg = "The photo you selected is not a {$repositoryName} image.  Please select a {$repositoryName} image from your repository.";
+        } 
+        else if(!in_array($media->position,[9,10]) && !empty($media->default)){
+            $msg = "The photo you selected is already set as the default. Please select a {$repositoryName} image from your repository.";
+        }
+        else 
+        {
+            $this->media->nullPosition(auth()->user()->id, $request->position);
+
+            if($media->template)
+            MassageMedia::where(['template'=>'1','user_id'=>auth()->user()->id])->delete();
+
+            if($media->template){
+                $copy = $media->replicate();
+                $copy->user_id = auth()->user()->id;
+                $copy->default = 1;
+                $copy->save();
+            }
+            else
+            {
+                $media->position = $request->position;
+                $media->default = 1;
+                $media->save();
+            }
+            $error = true;
+        }
+        return response()->json(compact('error','msg'));
+    }
 
 }
