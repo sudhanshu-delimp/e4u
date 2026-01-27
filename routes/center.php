@@ -102,6 +102,8 @@ Route::post('update-masseur',[MasseurController::class,'update_masseur'])->name(
 Route::post('delete-masseur-photos/{id}', [MasseurController ::class, 'ImagesDelete'])->name('center.delete-masseur-photos');
 Route::post('default_photos_masseur', [MasseurController ::class, 'defaultImages'])->name('center.masseur.default.images');
 
+Route::post('masseur-option-list', [MasseurController ::class, 'masseur_option_list'])->name('center.masseur-option-list');
+
 
 
 

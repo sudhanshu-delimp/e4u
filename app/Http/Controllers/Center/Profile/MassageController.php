@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Center\Profile;
 use Exception;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Masseur;
 use App\Models\Service;
 use App\Models\Duration;
 use App\Models\MassageRate;
@@ -195,7 +196,10 @@ class MassageController extends Controller
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
         $path = $this->media;
         $durations = $this->duration->all();
-        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations'));
+
+        $masseurs  = Masseur::all();
+
+        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations','masseurs'));
     }
 
     public function getProfile(Request $request, $id)
@@ -302,6 +306,7 @@ class MassageController extends Controller
 
     public function createProfile(Request $request)
     {
+        
         try 
         {
 

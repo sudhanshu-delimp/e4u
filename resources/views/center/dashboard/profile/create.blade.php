@@ -37,6 +37,16 @@
         height: 182px !important;
     }
 
+
+#submit_form_massage:disabled,
+#submit_form_massage:disabled:hover {
+    pointer-events: none;   /* 🚫 no hover / click */
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: #ccc; /* optional */
+    border-color: #ccc;     /* optional */
+}
+
 </style>
 @endsection
 @section('content')
@@ -237,6 +247,7 @@ var edit_mode = false;
 
 <script src="{{ asset('js/massage/create-profile-methods.js') }}"></script> 
 <script src="{{ asset('js/massage/profile_and_media_gallery.js') }}"></script>
+
 
 
 <script>
@@ -508,6 +519,12 @@ var edit_mode = false;
             {
                 let form = $('#my_massage_profile');
                 let formData = new FormData(form[0]);
+
+
+                let masseurIds = getSelectedMasseurIds();
+                formData.append('masseur_ids', JSON.stringify(masseurIds));
+
+
                 swal_waiting_popup({'title':'Creating Profile'});
                 $.ajax({
                     url: "{{ route('center.create.profile') }}",
@@ -544,8 +561,149 @@ var edit_mode = false;
     });
 
 
+
+
+    // ########### Messasure List ############### //////
+
+           
+
+
     
 
 
 </script>
+
+
+<script type="text/javascript"  src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+
+<script>
+
+
+const availability = {
+    monday:    { status: "custom", from: "01:30 PM", to: "01:30 PM" },
+    tuesday:   { status: "custom", from: "01:30 AM", to: "01:30 PM" },
+    wednesday: { status: "closed", from: null, to: null },
+    thursday:  { status: "closed", from: null, to: null },
+    friday:    { status: "closed", from: null, to: null },
+    saturday:  { status: "closed", from: null, to: null },
+    sunday:    { status: "custom", from: "09:30 AM", to: "10:00 PM" }
+};
+
+
+ var table = $("#masseurs_Tab").DataTable({
+    processing: true,
+    serverSide: true,
+    paging: false,        
+    searching: false,    
+    info: false,          
+    lengthChange: false,  
+    ordering: false,      
+
+    ajax: {
+        url: "{{ route('center.masseur-option-list') }}",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        data: function (d) {
+            d.type = 'player';
+            d.availability = availability;
+
+            return JSON.stringify(d);
+        }
+    },
+
+    columns: [
+        { data: 'checkbox', orderable: false, searchable: false },
+        { data: 'profile' },
+        { data: 'days' },
+        { data: 'ethnicity' },
+        { data: 'nationality' }
+    ]
+});
+
+
+$('.add_masseurs').on('click', function () {
+
+    $('#masseurs_Tab tbody input.select-masseur:checked').each(function () {
+
+        let $row = $(this).closest('tr');
+        let id   = $(this).val();
+
+        
+        if ($('#selected_masseur tbody tr[data-id="'+id+'"]').length) {
+            return;
+        }
+
+        let profile     = $row.find('td:eq(1)').html();
+        let days        = $row.find('td:eq(2)').html();
+        let ethnicity   = $row.find('td:eq(3)').text();
+        let nationality = $row.find('td:eq(4)').text();
+
+        let html = `
+            <tr data-id="${id}">
+                <td>${profile}</td>
+                <td>${days}</td>
+                <td>${nationality}</td>
+                <td>${ethnicity}</td>
+                <td> <button type="button" class="btn-danger btn-sm remove-row">Remove</button></td>
+
+                  
+                
+            </tr>
+        `;
+
+        $('#selected_masseur tbody').append(html);
+
+      
+         $(this).prop('checked', false);
+         $('#select_profile').modal('hide');
+         toggleSaveProfileButton();
+    });
+
+    
+
+    $(document).on('click', '.remove-row', function () {
+    $(this).closest('tr').remove();
+    toggleSaveProfileButton();
+    });
+
+
+    
+
+
+    
+
+});
+
+
+function getSelectedMasseurIds() {
+    let ids = [];
+    $('#selected_masseur tbody tr[data-id]').each(function () {
+        ids.push($(this).data('id'));
+    });
+
+    return ids;
+}
+
+function toggleSaveProfileButton() {
+
+        let ids = [];
+        const count = $('#selected_masseur tbody tr[data-id]').length;
+        
+
+        if (count > 0) {
+            $('#submit_form_massage').prop('disabled', false);
+        } else {
+            $('#submit_form_massage').prop('disabled', true);
+        }
+}
+
+
+ toggleSaveProfileButton();
+
+</script>    
 @endpush

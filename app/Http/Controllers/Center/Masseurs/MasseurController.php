@@ -8,6 +8,7 @@ use App\Models\MasseurRate;
 use App\Models\MassageMedia;
 use Illuminate\Http\Request;
 use App\Models\MasseurGallery;
+use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -599,6 +600,40 @@ class MasseurController extends AppController
             $error = true;
         }
         return response()->json(compact('error','msg'));
+    }
+
+
+    public function  masseur_option_list(Request $request)
+    {
+            $availability = $request->availability; 
+            $query = Masseur::query();
+            $countries = getCountryList();
+
+           
+
+            return DataTables::of($query)
+                ->addColumn('checkbox', function ($row) use($countries) {
+                    return '<input type="checkbox" class="select-masseur" value="'.$row->id.'">';
+                })
+                ->addColumn('profile', function ($row) {
+                    return '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">';
+                })
+                ->addColumn('days', function ($row) {
+                    return '<span class="available_d">
+                                <span style="color:red;">M</span>T
+                                <span style="color:red;">W</span>THF
+                            </span>';
+                })
+                ->addColumn('ethnicity', function ($row) {
+                    $ethnicities = config('escorts.profile.ethnicities');
+                    return $ethnicities[$row->ethnicity] ?? 'NA';
+                })
+                
+                ->addColumn('nationality', function ($row) use ($countries) {
+                    return $countries[$row->nationality] ?? 'NA';
+                })
+                ->rawColumns(['checkbox','profile','days'])
+                ->make(true);
     }
 
 }
