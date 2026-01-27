@@ -13,6 +13,25 @@
 .modal-dialog {
     max-width: 650px !important;
 }
+.alert {
+    padding: 15px 20px;
+    border-radius: 4px;
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+.alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+}
+
+.text-center {
+    text-align: center;
+}
+.no-capitalize {
+    text-transform: none !important;
+}
 </style>
 <div class="container">
     <section class="login_page_pt_pb_of_outer_section">
@@ -27,7 +46,7 @@
 
                     <h4 class="welcome_sub_login_heading text-center pt-4 pb-3"><strong>Forgot Password</strong></h4>
                     @if(isset($error))
-                        <div class="alert alert-danger text-center">
+                        <div class="alert alert-danger text-center no-capitalize">
                             {{ $error }}
                         </div>
                     @endif

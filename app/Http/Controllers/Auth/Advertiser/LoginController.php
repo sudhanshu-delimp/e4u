@@ -462,7 +462,6 @@ class LoginController extends BaseController
     public function adminForgotPassword($token)
     {
        $user_info = $this->getUserTypeByResetToken($token);
-
         if (!$user_info) {
             return view('auth.advertiser.forgotAdmin', [
                 'error' => 'Your password reset link is invalid or has expired. Please request a new one.',

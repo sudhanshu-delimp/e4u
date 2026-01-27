@@ -83,7 +83,7 @@ class SendForgotPasswordController extends Controller
         // Validate the token
         $tokenData = DB::table('password_resets')
         ->where('token', $request->cusotm_token)->first();
-
+      
         if (!$tokenData) {
             return response()->json([
                 'error'   => false,   // as you want
