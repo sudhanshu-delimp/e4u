@@ -6,11 +6,24 @@ use App\Http\Controllers\Controller;
 use App\Models\Pricing;
 use App\Models\Tour;
 use App\Models\TourLocation;
+use App\Models\TourProfile;
+use App\Models\Purchase;
+use App\Models\Escort;
+use App\Models\EscortPinup;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Repositories\Tour\TourInterface;
 
 class EscortTourScheduleContoller extends Controller
 {
+    protected $tour;
+
+    public function __construct(TourInterface $tour)
+    {
+       
+        $this->tour = $tour;
+    }
+
     public function index()
     {
         $tourIds =  Tour::where('user_id', auth()->id())->pluck('id')->toArray();
@@ -159,5 +172,69 @@ class EscortTourScheduleContoller extends Controller
             'fees' => number_format($tourFee, 2),
             'type' => 'tour_summary'
         ]);
-    }   
+    } 
+    
+    public function getTourLocationListing(Request $request){
+        try {
+            $response['success'] = false;
+            $tourId = $request->tour_id;
+            $conditions = ['tour_id'=>$tourId];
+            $result = $this->tour->getTourLocations($conditions);
+            $locations = $this->tour->modifyTourLocationsRecords($result);
+            $html = view('escort.dashboard.partials.scheduled_tour_locations', compact('locations'))->render();
+            $response['success'] = true;
+            $response['locations'] = $locations;
+            $response['html'] = $html;
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function cancelTourLocation(Request $request){
+        try {
+            $response['success'] = false;
+            $itemId = $request->item_id;
+            $tourLocation = TourLocation::find($itemId);
+            
+            $tourLocationProfiles = $tourLocation->profiles();
+            $items = $tourLocationProfiles->with('escort')->get();
+            if($tourLocation->days_left < $tourLocation->days_total){
+                foreach($items as $item){
+                    $escortDetail = $item->escort;
+                    $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
+                    $localEndDateTime = Carbon::today($profileTimezone)->endOfDay();
+                    $utcEndTime = $localEndDateTime->copy()->setTimezone('UTC');
+                    Purchase::where(['id'=>$escortDetail->purchase_id])->update(['end_date'=>$localEndDateTime,'utc_end_time'=>$utcEndTime]);
+                    Escort::where(['id'=>$escortDetail->id])->update(['end_date'=>$localEndDateTime->format('Y-m-d'),'utc_end_time'=>$utcEndTime]);
+                    if(!empty($item->is_pinup)){
+                        EscortPinup::where('id', $item->is_pinup)->whereDate('end_date', '>', $localEndDateTime->format('Y-m-d'))->update(['end_date'=>$localEndDateTime->format('Y-m-d'),'utc_end_time'=>$utcEndTime]);
+                    }
+                }
+            }
+            else{
+                foreach($items as $item){
+                    $escortDetail = $item->escort;
+                    Purchase::where(['id'=>$escortDetail->purchase_id])->update(['status' => 'expire']);
+                    if(!empty($item->is_pinup)){
+                        EscortPinup::where('id', $item->is_pinup)->delete();
+                    }
+                }
+            }
+            $response['success'] = true;
+            $response['days_left'] = $tourLocation->days_left;
+            $response['days_total'] = $tourLocation->days_total;
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
