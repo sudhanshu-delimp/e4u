@@ -14,8 +14,8 @@ class MakeFieldsNullableInEscortPinupsTable extends Migration
     public function up()
     {
         Schema::table('escort_pinups', function (Blueprint $table) {
-            $table->timestamp('utc_start_time')->nullable()->change();
-            $table->timestamp('utc_end_time')->nullable()->change();
+            $table->dateTime('utc_start_time')->nullable()->change();
+            $table->dateTime('utc_end_time')->nullable()->change();
         });
     }
 

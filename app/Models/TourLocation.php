@@ -50,16 +50,17 @@ class TourLocation extends Model
             ? Carbon::parse($this->end_date)->format('d-m-Y')
             : null;
     }
+    public function getTimeZoneAttribute(){
+        return config("escorts.profile.states.$this->state_id.timeZone");
+    }
     public function getDaysTotalAttribute()
     {
         return Carbon::parse($this->end_date_formatted)->diffInDays(Carbon::parse($this->start_date_formatted))+1;
     }
     public function getDaysLeftAttribute()
     {
-        return Carbon::today()->diffInDays($this->end_date,false);
+        return Carbon::today($this->time_zone)->diffInDays($this->end_date,false);
     }
-    
-
     public function scopeOverlapping($query, $start, $end)
     {
         $formatted_start = Carbon::createFromFormat('d-m-Y', $start)->format('Y-m-d');
