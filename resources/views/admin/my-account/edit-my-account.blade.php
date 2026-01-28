@@ -5,50 +5,58 @@
         .swal-button {
             background-color: #242a2c;
         }
-        .input_not_edit{
+
+        .input_not_edit {
             font-size: 13px !important;
             color: #6e707e !important;
             border-bottom: 1px solid #5D6D7E;
             margin-bottom: 0px !important;
-    line-height: 19px;
-    background: #f2f2f2;
+            line-height: 19px;
+            background: #f2f2f2;
         }
     </style>
 @stop
 @section('content')
-@php
-$securityLevels = config('staff.security_level');
-$securityLevel = isset($staff->staff_detail->security_level) ? $staff->staff_detail->security_level : '';
-$staffType = $staff->type;
-$genders = config('escorts.profile.genders');
-$genderName = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
+    @php
+        $securityLevels = config('staff.security_level');
+        $securityLevel = isset($staff->staff_detail->security_level) ? $staff->staff_detail->security_level : '';
+        $staffType = $staff->type;
+        $genders = config('escorts.profile.genders');
+        $genderName = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
 
-$securityLevelName = isset($securityLevels[$staff->staff_detail->security_level]) ? $securityLevels[$staff->staff_detail->security_level] : '';
+        $securityLevelName = isset($securityLevels[$staff->staff_detail->security_level])
+            ? $securityLevels[$staff->staff_detail->security_level]
+            : '';
 
-  $employmentStatuss = config('staff.employment_status');
+        $employmentStatuss = config('staff.employment_status');
         $employmentStatus = isset($employmentStatuss[$staff->staff_detail->employment_status])
-            ? $employmentStatuss[$staff->staff_detail->employment_status] : '';
-$cities = config('escorts.profile.cities');
-$cityName = isset($cities[$staff->city_id]) ? $cities[$staff->city_id] : '';
+            ? $employmentStatuss[$staff->staff_detail->employment_status]
+            : '';
+        $cities = config('escorts.profile.cities');
+        $cityName = isset($cities[$staff->city_id]) ? $cities[$staff->city_id] : '';
 
-$positions = config('staff.position');
-$positionLabel = isset($positions[$staff->staff_detail->position]) ? $positions[$staff->staff_detail->position] : '';
-  $genders = config('escorts.profile.genders');
-$gender = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
+        $positions = config('staff.position');
+        $positionLabel = isset($positions[$staff->staff_detail->position])
+            ? $positions[$staff->staff_detail->position]
+            : '';
+        $genders = config('escorts.profile.genders');
+        $gender = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
 
- $setting = $staff->staff_setting??null;
-$idle_preference_times = config('staff.idle_preference_time');
-$idle_preference_time = "";
-    $twofa = "";
-if(isset( $setting) && (isset($setting->idle_preference_time))) {
-    $idle_preference_time = isset($idle_preference_times[(string)$setting->idle_preference_time]) ? $idle_preference_times[$setting->idle_preference_time] : "";
-}
-$twofas = config('staff.twofa');
-if(isset( $setting) && isset($setting->twofa)) {
-$twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
-}
+        $setting = $staff->staff_setting ?? null;
+        $idle_preference_times = config('staff.idle_preference_time');
+        $idle_preference_time = '';
+        $twofa = '';
+        if (isset($setting) && isset($setting->idle_preference_time)) {
+            $idle_preference_time = isset($idle_preference_times[(string) $setting->idle_preference_time])
+                ? $idle_preference_times[$setting->idle_preference_time]
+                : '';
+        }
+        $twofas = config('staff.twofa');
+        if (isset($setting) && isset($setting->twofa)) {
+            $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : '';
+        }
 
-@endphp  
+    @endphp
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
@@ -68,7 +76,8 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                 <ol>
                                     <li>Keep your account details up to date.</li>
-                                    <li>You can change your password <a href="{{ route('admin.change.password') }}" class="custom_links_design">here</a>.</li>
+                                    <li>You can change your password <a href="{{ route('admin.change.password') }}"
+                                            class="custom_links_design">here</a>.</li>
                                 </ol>
                             </div>
                         </div>
@@ -99,7 +108,7 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="name" class="my-agent">Full name</label>
-                                                            <p class="input_not_edit">{{$staff->name }}</p>   
+                                                            <p class="input_not_edit">{{ $staff->name }}</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -123,13 +132,13 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email">Email</label>
-                                                            <p class="input_not_edit">{{$staff->email }}</p> 
+                                                            <p class="input_not_edit">{{ $staff->email }}</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email">Gender </label>
-                                                             <p class="input_not_edit">{{$gender }}</p> 
+                                                            <p class="input_not_edit">{{ $gender }}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -151,7 +160,8 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Kin of Name</label>
                                                             <input type="text" name="kin_name" id="kin_name"
-                                                                class="form-control rounded-0" placeholder="Kin of Name (optional)" 
+                                                                class="form-control rounded-0"
+                                                                placeholder="Kin of Name (optional)"
                                                                 value="{{ $staff->staff_detail->kin_name }}">
                                                             <span class="text-danger error-kin_name"></span>
                                                         </div>
@@ -170,7 +180,8 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Mobile</label>
                                                             <input type="text" name="kin_mobile" id="kin_mobile"
-                                                                class="form-control rounded-0" placeholder="Mobile (optional)"
+                                                                class="form-control rounded-0"
+                                                                placeholder="Mobile (optional)"
                                                                 value="{{ $staff->staff_detail->kin_mobile }}">
                                                             <span class="text-danger error-kin_mobile"></span>
                                                         </div>
@@ -202,38 +213,44 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Security Level</label>
-                                                            <p class="input_not_edit">{{$securityLevelName }}</p> 
+                                                            <p class="input_not_edit">{{ $securityLevelName }}</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Position</label>
-                                                            <p class="input_not_edit">{{$positionLabel }}</p> 
+                                                            <p class="input_not_edit">{{ $positionLabel }}</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Location</label>
-                                                            <p class="input_not_edit">{{$cityName }}</p> 
+                                                            <p class="input_not_edit">{{ $cityName }}</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                           <label for="email" class="my-agent">Commenced Date</label>
-                                                                
-                                                            <p class="input_not_edit">{{ showDateWithFormat($staff->staff_detail->commenced_date, "d-m-Y")  }}</p> 
+                                                            <label for="email" class="my-agent">Commenced Date</label>
+
+                                                            <p class="input_not_edit">
+                                                                {{ showDateWithFormat($staff->staff_detail->commenced_date, 'd-m-Y') }}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email" class="my-agent">Employment Status</label>
-                                                            <p class="input_not_edit">{{$employmentStatus }}</p> 
+                                                            <label for="email" class="my-agent">Employment
+                                                                Status</label>
+                                                            <p class="input_not_edit">{{ $employmentStatus }}</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email" class="my-agent">Employment Agreement?</label>
-                                                             <p class="input_not_edit">{{ ucfirst($staff->staff_detail->employment_agreement) }}</p> 
+                                                            <label for="email" class="my-agent">Employment
+                                                                Agreement?</label>
+                                                            <p class="input_not_edit">
+                                                                {{ ucfirst($staff->staff_detail->employment_agreement) }}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -248,61 +265,123 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                                         </div>
                                         <div class="row">
                                             <div class="col-md-10 px-0">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="email" class="my-agent">Access Code
-                                                            Provided?</label>
-                                                             
-                                                            <p class="input_not_edit">{{ ucfirst($staff->staff_detail->building_access_code) }}</p> 
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Access Code
+                                                                Provided?</label>
+
+                                                            <p class="input_not_edit">
+                                                                {{ ucfirst($staff->staff_detail->building_access_code) }}
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="email" class="my-agent">Key Provided?</label>
-                                                     
-                                                            <p class="input_not_edit">{{ ucfirst($staff->staff_detail->keys_issued) }}</p> 
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Key Provided?</label>
+
+                                                            <p class="input_not_edit">
+                                                                {{ ucfirst($staff->staff_detail->keys_issued) }}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="email" class="my-agent">Car Park?</label>
-                                                             <p class="input_not_edit">{{ ucfirst($staff->staff_detail->car_parking) }}</p> 
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Car Park?</label>
+                                                            <p class="input_not_edit">
+                                                                {{ ucfirst($staff->staff_detail->car_parking) }}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        </div>
-                                            <!-- End Building Security -->
+                                        <!-- End Building Security -->
 
-                                                      <!-- Start 2FA -->
-                                  
+                                        <!-- Start 2FA -->
+
                                         <div class="row">
                                             <div class="col-md-10 px-0">
-                                            <p>&nbsp;</p>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="email" class="my-agent">Idle Time Preference</label>
-                                                              <p class="input_not_edit">{{$idle_preference_time }}</p> 
+                                                <p>&nbsp;</p>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">Idle Time
+                                                                Preference</label>
+                                                            {{--  <p class="input_not_edit">{{$idle_preference_time }}</p>  --}}
+                                                            <p>
+                                                            <div class="form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="idle_preference_time"
+                                                                    id="edit_idle_preference_time_15" value="15"
+                                                                    {{ $setting && $setting->idle_preference_time === '15' ? 'checked' : '' }}>
+                                                                <label class="form-check-label"
+                                                                    for="edit_idle_preference_time_15">15 minutes</label>
+                                                            </div>
+
+                                                            <div class="form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="idle_preference_time"
+                                                                    id="edit_idle_preference_time_30" value="30"
+                                                                    {{ $setting && $setting->idle_preference_time === '30' ? 'checked' : '' }}>
+                                                                <label class="form-check-label"
+                                                                    for="edit_idle_preference_time_30">30 minutes</label>
+                                                            </div>
+
+                                                            <div class="form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="idle_preference_time"
+                                                                    id="edit_idle_preference_time_60" value="60"
+                                                                    {{ $setting && $setting->idle_preference_time === '60' ? 'checked' : '' }}>
+                                                                <label class="form-check-label"
+                                                                    for="edit_idle_preference_time_60">60 minutes</label>
+                                                            </div>
+
+                                                            <div class="form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="idle_preference_time"
+                                                                    id="edit_idle_preference_time_never"
+                                                                    value="{{ config('staff.idle_vever_minute') }}"
+                                                                    {{ $setting && $setting->idle_preference_time === config('staff.idle_vever_minute') ? 'checked' : '' }}>
+                                                                <label class="form-check-label"
+                                                                    for="edit_idle_preference_time_never">Never</label>
+                                                            </div>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10 px-0">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+                                                            <label for="email" class="my-agent">2FA
+                                                                Authentication</label>
+                                                            <p>
+                                                                {{--  <p class="input_not_edit">{{$twofa }}</p> --}}
+                                                            <div class="form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="twofa" id="edit_twofa_1" value="1"
+                                                                    {{ $staff->staff_setting && $staff->staff_setting->twofa == 1 ? 'checked' : 'checked' }}>
+                                                                <label class="form-check-label"
+                                                                    for="edit_twofa_1">Email</label>
+                                                            </div>
+
+                                                            <div class="form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="twofa" id="edit_twofa_2" value="2"
+                                                                    {{ $staff->staff_setting && $staff->staff_setting->twofa == 2 ? 'checked' : '' }}>
+                                                                <label class="form-check-label"
+                                                                    for="edit_twofa_2">Text</label>
+                                                            </div>
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-10 px-0">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="email" class="my-agent">2FA Authentication</label>
-                                                              <p class="input_not_edit">{{$twofa }}</p> 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                            <!-- End 2FA -->
-                                            <input type="submit" value="save"
-                                                class="btn btn-primary shadow-none float-right" name="submit">
+                                        <!-- End 2FA -->
+                                        <input type="submit" value="save"
+                                            class="btn btn-primary shadow-none float-right" name="submit">
                                     </form>
                                 </div>
                             </div>
@@ -525,13 +604,13 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
     </script>
 
     <script>
-    $(document).ready(function() {
-        $("#security_level_edit").on("change", function() {
-            let level = $(this).val();
-            // Auto-select position = same value as security_level
-            $("#position_edit").val(level).trigger("change");
-            $("#position_edit").prop("disabled", true);
+        $(document).ready(function() {
+            $("#security_level_edit").on("change", function() {
+                let level = $(this).val();
+                // Auto-select position = same value as security_level
+                $("#position_edit").val(level).trigger("change");
+                $("#position_edit").prop("disabled", true);
+            });
         });
-    });
-</script>
+    </script>
 @endpush
