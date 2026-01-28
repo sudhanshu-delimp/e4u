@@ -5,6 +5,7 @@ namespace App\Repositories\Tour;
 use App\Repositories\BaseRepository;
 use App\Traits\DataTablePagination;
 use App\Models\Tour;
+use App\Models\TourLocation;
 
 use Carbon\Carbon;
 
@@ -12,9 +13,12 @@ use Carbon\Carbon;
 class TourRepository extends BaseRepository implements TourInterface
 {
     use DataTablePagination;
-    public function __construct(Tour $model)
+    protected $tourLocation;
+
+    public function __construct(Tour $model,TourLocation $tourLocation)
     {
         $this->model = $model;
+        $this->tourLocation = $tourLocation;
     }
 
 
@@ -66,7 +70,7 @@ class TourRepository extends BaseRepository implements TourInterface
             $item->name = $item->name ? '<a href="/escort-dashboard/archive-tour-'.strtolower(str_replace(' ','-',$item->name)).'/'.$item->id.'">'.$item->name.' </a>': "NA";
             $item->start_dates = Carbon::parse($item->start_date)->format('d/M/Y');
             $item->end_dates = Carbon::parse($item->end_date)->format('d/M/Y');
-            $item->days = Carbon::parse($item->end_date)->diffInDays(Carbon::parse($item->start_date));
+            $item->days = Carbon::parse($item->end_date)->diffInDays(Carbon::parse($item->start_date))+1;
             $item->total_cost = $item->price ? $item->price : "NA";
             $item->transaction_Status_Code = $item->transaction_Status_Code ? $item->transaction_Status_Code : "NA";
             foreach(config('escorts.profile.states') as $key => $states) {
@@ -133,6 +137,10 @@ class TourRepository extends BaseRepository implements TourInterface
         if($user_id){
             $query = $query->where('user_id',$user_id);
         }
+        
+        if($type=='purchased'){
+            $query = $query->whereHas('tourPurchase');
+        }
 
         if(count($conditions)>0){
             $query->where($conditions);
@@ -164,10 +172,9 @@ class TourRepository extends BaseRepository implements TourInterface
     protected function modifyRecords($result, $type)
     {
         $i = 1;
-        $today = Carbon::today()->format('d-m-Y');
         foreach ($result as $key => $item) {
             $item->days_number = $item->days_number;
-            $item->status = $item->start_date <= $today ?'Current':'Upcoming';
+            $item->status = Carbon::parse($item->start_date)->lte(today()) ?'Current':'Upcoming';
             $is_checkout = $item->tourPurchase->count();
             $action = '<div class="dropdown no-arrow archive-dropdown">
             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
@@ -179,6 +186,7 @@ class TourRepository extends BaseRepository implements TourInterface
             }
             else{
                 $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#pinup_profile" data-tour-id="'.$item->id.'"> <i class="fa fa-arrow-up" ></i> List Pin Up</a>'; 
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#" data-tour-id="'.$item->id.'"> <i class="fa fa-trash" ></i> Summary</a>'; 
                 $action .= ($type=='current')?'<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.current.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a>':'<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.past.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
             }
             $action .= '</div></div>';
@@ -188,4 +196,27 @@ class TourRepository extends BaseRepository implements TourInterface
         return $result;
     }
 
+    public function getTourLocations($conditions = []){
+        $query = $this->tourLocation->with(['state']);
+        if(!empty($conditions)){
+            $query = $query->where($conditions);
+        }
+        $tourLocations = $query->get();
+        return $tourLocations;
+    }
+
+    public function modifyTourLocationsRecords($result){
+        foreach ($result as $key => $item) {
+            $action = '<div class="dropdown no-arrow archive-dropdown">
+            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
+            if(1==1){
+                $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#tour_location_cancel" data-item-id="'.$item->id.'"> <i class="fa fa-trash" ></i> Cancel</a>'; 
+            }
+            $action .= '</div></div>';
+            $item->action = $action;
+            $item->status = Carbon::parse($item->end_date)->lt(today()) ?'Completed' : (Carbon::parse($item->start_date)->lte(today()) ? 'Current':'Upcoming');
+        }
+        return $result;
+    }
 }
