@@ -310,7 +310,7 @@
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="idle_preference_time"
-                                            id="idle_preference_time_60" value="60">
+                                            id="idle_preference_time_60" value="60" checked>
                                         <label class="form-check-label" for="idle_preference_time_60">60 minutes</label>
                                     </div>
 
@@ -330,13 +330,13 @@
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="twofa" id="twofa_1"
-                                            value="1" checked="">
+                                            value="1">
                                         <label class="form-check-label" for="twofa_1">Email</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="twofa" id="twofa_2"
-                                            value="2">
+                                            value="2"  checked>
 
                                         <label class="form-check-label" for="twofa_2">Text</label>
                                     </div>

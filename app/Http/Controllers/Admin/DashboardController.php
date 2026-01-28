@@ -144,6 +144,10 @@ class DashboardController extends BaseController
                 //'keys_issued' => $data['keys_issued'] ?? $staff->keys_issued,
                 //'car_parking' => $data['car_parking'] ?? $staff->car_parking,
             ]);
+            $staffSetting = \App\Models\StaffSetting::firstOrNew(['user_id' => $user->id]);
+            $staffSetting->idle_preference_time = $data['idle_preference_time'] ?? null;
+            $staffSetting->twofa = $data['twofa'] ?? '2';
+            $staffSetting->save();
             $error = false;
         }
         return response()->json(compact('error'));
