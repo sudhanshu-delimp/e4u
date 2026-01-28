@@ -151,7 +151,7 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Kin of Name</label>
                                                             <input type="text" name="kin_name" id="kin_name"
-                                                                class="form-control rounded-0" placeholder="Kin of Name"
+                                                                class="form-control rounded-0" placeholder="Kin of Name (optional)" 
                                                                 value="{{ $staff->staff_detail->kin_name }}">
                                                             <span class="text-danger error-kin_name"></span>
                                                         </div>
@@ -161,7 +161,7 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                                                             <label for="email" class="my-agent">Relationship</label>
                                                             <input type="text" name="kin_relationship"
                                                                 id="kin_relationship" class="form-control rounded-0"
-                                                                placeholder="Relationship"
+                                                                placeholder="Relationship (optional)"
                                                                 value="{{ $staff->staff_detail->kin_relationship }}">
                                                             <span class="text-danger error-kin_relationship"></span>
                                                         </div>
@@ -170,15 +170,14 @@ $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
                                                         <div class="form-group">
                                                             <label for="email" class="my-agent">Mobile</label>
                                                             <input type="text" name="kin_mobile" id="kin_mobile"
-                                                                class="form-control rounded-0" placeholder="Mobile"
+                                                                class="form-control rounded-0" placeholder="Mobile (optional)"
                                                                 value="{{ $staff->staff_detail->kin_mobile }}">
                                                             <span class="text-danger error-kin_mobile"></span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email" class="my-agent">Email
-                                                                (optional)</label>
+                                                            <label for="email" class="my-agent">Email</label>
                                                             <input type="email" name="kin_email"
                                                                 class="form-control rounded-0"
                                                                 placeholder="Email (optional)"

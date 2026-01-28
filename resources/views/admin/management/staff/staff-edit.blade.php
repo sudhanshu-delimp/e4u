@@ -64,16 +64,16 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
 
         <div class="col-6 mb-3">
             <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0"
-                placeholder="Name of Kin" value="{{ $staff->staff_detail->kin_name }}">
+                placeholder="Name of Kin (optional)" value="{{ $staff->staff_detail->kin_name }}">
             <span class="text-danger error-kin_name"></span>
         </div>
         <div class="col-6 mb-3">
             <input type="text" name="kin_relationship" id="kin_relationship" class="form-control rounded-0"
-                placeholder="Relationship" value="{{ $staff->staff_detail->kin_relationship }}">
+                placeholder="Relationship (optional)" value="{{ $staff->staff_detail->kin_relationship }}">
             <span class="text-danger error-kin_relationship"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile" class="form-control rounded-0" placeholder="Mobile"
+            <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile" class="form-control rounded-0" placeholder="Mobile (optional)"
                 value="{{ $staff->staff_detail->kin_mobile }}" autocomplete="off" oninput="this.value = this.value.replace(/\D/g,'');">
             <span class="text-danger error-kin_mobile"></span>
         </div>
