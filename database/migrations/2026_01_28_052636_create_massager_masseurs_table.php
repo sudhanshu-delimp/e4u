@@ -13,6 +13,9 @@ class CreateMassagerMasseursTable extends Migration
      */
     public function up()
     {
+
+        Schema::dropIfExists('massager_masseurs');
+
         Schema::create('massager_masseurs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('massage_profile_id')->nullable();

@@ -16,16 +16,10 @@ return new class extends Migration
         Schema::dropIfExists('masseur_galleries');
 
         Schema::create('masseur_galleries', function (Blueprint $table) {
-<<<<<<<< HEAD:database/migrations/2026_01_22_070209_create_masseur_galleries_table.php
-            $table->id();
-            $table->string('masseur_token_id')->nullable();
-            $table->tinyInteger('masseur_media_id');
-            $table->tinyInteger('masseur_profile_id'); 
-========
             $table->bigIncrements('id');
-            $table->tinyInteger('massage_media_id');
-            $table->tinyInteger('masseur_profile_id');
->>>>>>>> 1783ffb7570574e8ae71fdcdbf9e7aa5ca307e75:database/migrations/2026_01_22_060619_create_masseur_galleries_table.php
+            $table->string('masseur_token_id')->nullable();
+            $table->unsignedBigInteger('massage_media_id');
+            $table->unsignedBigInteger('masseur_profile_id');
             $table->tinyInteger('type')->nullable();
             $table->tinyInteger('position')->nullable()->comment('1=>position: default image, 2-7=>position: massage image,8=>position: massage image varification 9=>position: Banner Image,10=>position: banner varification image');
             $table->timestamps();

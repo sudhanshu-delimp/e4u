@@ -15,7 +15,7 @@ class UpdateMasseurGalleriesTable extends Migration
     {
           Schema::table('masseur_galleries', function (Blueprint $table) {
             $table->unsignedBigInteger('masseur_profile_id')->change();
-            $table->unsignedBigInteger('masseur_media_id')->change();
+            $table->unsignedBigInteger('massage_media_id')->change();
         });
     }
 

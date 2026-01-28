@@ -309,6 +309,7 @@ class MassageController extends Controller
     {
         
        
+       
         try 
         {
 
@@ -396,17 +397,24 @@ class MassageController extends Controller
              /* ================== Massager Masseur ================== */
             if (!empty($request->masseur_ids)) 
             {
-
+                $masseurIds = $request->masseur_ids;
+                if (is_string($masseurIds)) {
+                    $masseurIds = json_decode($masseurIds, true);
+                }
+   
                 $masseur = [];
-                foreach ($request->masseur_ids as $key => $value) 
+                if (!empty($masseurIds) && is_array($masseurIds)) 
                 {
-                        $masseur[] = [  
-                                        'masseur_profile_id'    => $value,
-                                        'massage_profile_id'    => $massage_profile_id,
-                                        'created_at'            => now(),
-                                        'updated_at'            => now(),
-                                      ];
-                }   
+                    foreach ($masseurIds as $key => $value) 
+                    {
+                            $masseur[] = [  
+                                            'masseur_profile_id'    => $value,
+                                            'massage_profile_id'    => $massage_profile_id,
+                                            'created_at'            => now(),
+                                            'updated_at'            => now(),
+                                        ];
+                    }   
+                }
 
                 if(!empty($masseur))
                 MassagerMasseur::insert($masseur);

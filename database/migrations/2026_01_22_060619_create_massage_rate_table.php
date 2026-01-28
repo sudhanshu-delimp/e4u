@@ -13,6 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
+       
+
         Schema::create('massage_rate', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('massage_profile_id');
