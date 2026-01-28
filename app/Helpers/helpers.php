@@ -1113,6 +1113,18 @@ if(!function_exists('global_notifications')){
     }
 }
 
+if (!function_exists('removeAnythingExceptNumber')) {
+    function removeAnythingExceptNumber($number)
+    {
+        if ($number == null || empty($number)) {
+            return $number;
+        }
+        // Remove anything that is not a digit
+        return preg_replace('/\D/', '', $number);
+
+        
+    }
+}
 
 if(!function_exists('notic_alert')){
     function notic_alert(){

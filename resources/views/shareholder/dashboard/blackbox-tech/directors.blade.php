@@ -58,7 +58,7 @@
                                 <p>188 Almeria Parade Upper Swan WA 6069</p>
                             </td>
                             <td>
-                                <p>Director</p>
+                                <p>Chairman Director</p>
                             </td>
                             <td>
                                 <p>Chairman</p>
@@ -99,6 +99,31 @@
                              <a href="{{ asset('assets/dashboard/forms-pdf/directors/test.pdf') }}"
                                                 target="_blank" class="custom_links_design"
                                                 download >andrew@blackboxtech.com.au</a>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p>David John Bovell</p>
+                                <p>3 Walba Way Swanbourne WA 6010</p>
+                            </td>
+                            <td>
+                                <p>Director</p>
+                            </td>
+                            <td>
+                                <p></p>
+                            </td>
+                            <td>
+                                
+                                <p></p>
+                            </td>
+                            <td>0408 922 355</td>
+                            <td>
+                            
+                                <a href="{{ asset('assets/dashboard/forms-pdf/directors/test.pdf') }}"
+                                                target="_blank" class="custom_links_design"
+                                                download >david@blackboxtech.com.au </a>
                             </td>
 
                         </tr>

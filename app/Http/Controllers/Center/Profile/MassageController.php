@@ -16,6 +16,7 @@ use App\Models\MassageGallery;
 use App\Models\MassageProfile;
 use App\Models\MassageService;
 use App\Models\MassageSetting;
+use App\Models\MassagerMasseur;
 use App\Models\EscortCovidReport;
 use Illuminate\Support\Facades\DB;
 use App\Models\MassageAvailability;
@@ -307,6 +308,7 @@ class MassageController extends Controller
     public function createProfile(Request $request)
     {
         
+       
         try 
         {
 
@@ -389,6 +391,29 @@ class MassageController extends Controller
                 MassageRate::insert($rates);
             }
 
+
+
+             /* ================== Massager Masseur ================== */
+            if (!empty($request->masseur_ids)) 
+            {
+
+                $masseur = [];
+                foreach ($request->masseur_ids as $key => $value) 
+                {
+                        $masseur[] = [  
+                                        'masseur_profile_id'    => $value,
+                                        'massage_profile_id'    => $massage_profile_id,
+                                        'created_at'            => now(),
+                                        'updated_at'            => now(),
+                                      ];
+                }   
+
+                if(!empty($masseur))
+                MassagerMasseur::insert($masseur);
+            }
+
+
+        
             /* ================== Gallery (Images) ================== */
             if (!empty($request->position)) {
                 foreach ($request->position as $position => $mediaId) {
@@ -416,6 +441,7 @@ class MassageController extends Controller
                     }
                 }
             }
+            
 
             DB::commit();
 

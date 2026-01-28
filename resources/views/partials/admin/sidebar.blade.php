@@ -604,11 +604,7 @@
                         <div id="manageAgentMenu"
                             class="collapse @if (in_array(request()->segment(3), ['agent', 'agents-monthly-report'])) show @endif" data-parent="#Management">
 
-                            <a class="collapse-item" href="{{ route('admin.agent') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/manage-agents.png') }}">
-                                <span style="{{ request()->segment(3) == 'agent' ? 'color: #FF3C5F;' : '' }}">Manage
-                                    Agents</span>
-                            </a>
+                            
 
                             <a class="collapse-item" href="{{ route('admin.agents-monthly-report') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
@@ -906,9 +902,12 @@
                             <span>Manage People</span>
                         </a>
                         <div id="managePeopleMenu"
-                            class="collapse @if (in_array(request()->segment(3), ['staff', 'manage-suppliers', 'manage-influencers','operator-manage','manage-shareholders'])) show @endif"
+                            class="collapse @if (in_array(request()->segment(3), ['staff', 'manage-suppliers', 'manage-influencers','operator-manage','manage-shareholders','agent'])) show @endif"
                             data-parent="#Management">
-                            
+                            <a class="collapse-item" href="{{ route('admin.agent') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/manage-agents.png') }}">
+                                <span style="{{ request()->segment(3) == 'agent' ? 'color: #FF3C5F;' : '' }}">Agents</span>
+                            </a>
                             <a class="collapse-item" href="{{ route('admin.manage-influencers') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
