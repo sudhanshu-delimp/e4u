@@ -52,8 +52,22 @@
                 <p>The easiest platform to view Escorts and Massage Centres from, without all the
                     fuss.  Escorts4U prides itself on integrity, honesty and value.  The only platform where you pay by the day!
                 </p>
+                @php 
+                    $states = config('escorts.profile.states');
+                        $url    = route('find.all');
+                        if (auth()->check()) {
+                            $stateId = auth()->user()->current_state_id ?? null;
+                            $cities  = $states[$stateId]['cities'] ?? [];
+
+                            if ($cities) {
+                                $url .= (request()->getQueryString() ? '&' : '?')
+                                    . 'city=' . array_key_first($cities);
+                            }
+                        }
+                        
+                @endphp
                 <div class="padding">
-                    <a class="btn btn_advertiser" id="view_btn_advertiser" data-logged-in="{{ auth()->user() ? 'true' : 'false' }}" style="font-weight:500" href="{{ route('find.all') }}" role="button">View Escorts</a>
+                    <a class="btn btn_advertiser" id="view_btn_advertiser" style="font-weight:500" href="{{ $url }}" role="button">View Escorts</a>
                     <a class="btn  btn_become_pin_up" style="font-weight:500" href="become-a-pin-up" role="button">Become a Pin-Up</a>
                 </div>
             </div>
@@ -266,28 +280,5 @@
         });
     }
     
-    $(document).ready(function () {
-    let isLoggedIn = $('#view_btn_advertiser').data('logged-in');
-
-    // Agar user logged in nahi hai to kuch bhi mat karo
-    if (!isLoggedIn) return;
-
-    navigator.geolocation.getCurrentPosition(function (position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-
-        let $link = $('#view_btn_advertiser');
-        let originalHref = $link.attr('href');
-
-        let url = originalHref.includes('?')
-            ? originalHref + '&lat=' + latitude + '&lng=' + longitude
-            : originalHref + '?lat=' + latitude + '&lng=' + longitude;
-
-        $link.attr('href', url);
-    }, function (error) {
-        console.log('Geolocation error:', error.message);
-    });
-});
-
 </script>
 @endpush
