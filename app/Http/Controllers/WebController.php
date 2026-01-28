@@ -277,7 +277,7 @@ class WebController extends Controller
         $userInterest = null;
         if(auth()->user() && auth()->user()->type == 0) {
             $user_type = auth()->user();
-            if(auth()->user()->viewer_settings)
+            if($user_type->viewer_settings && $user_type->state_id == $user_type->current_state_id)
             {
                 if(auth()->user()->viewer_settings->interests_with_male)
                 $userInterest['gender'][] = 1;
