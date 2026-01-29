@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Mail\MessageCentr\RegisterEmailForMassageCentr;
+use App\Mail\NewUserRegistrationConfirmation;
 
 class RegisterListnerForMassageCentr implements ShouldQueue
 {
@@ -31,5 +32,6 @@ class RegisterListnerForMassageCentr implements ShouldQueue
     {
         $user = $event->massage;
         Mail::to($user->email)->send(new RegisterEmailForMassageCentr($user));
+        Mail::to($user->email)->send(new NewUserRegistrationConfirmation($user));
     }
 }
