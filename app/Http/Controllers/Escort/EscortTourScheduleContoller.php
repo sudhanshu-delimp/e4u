@@ -224,6 +224,8 @@ class EscortTourScheduleContoller extends Controller
                         EscortPinup::where('id', $item->is_pinup)->update(['utc_start_time'=>NULL,'utc_end_time'=>NULL]);
                     }
                 }
+                $tourLocation->delete();
+                $tourLocationProfiles->delete();
             }
             $response['success'] = true;
             $response['days_left'] = $tourLocation->days_left;
@@ -237,4 +239,37 @@ class EscortTourScheduleContoller extends Controller
             ], 500);
         }
     }
+
+    public function cancelTour(Request $request){
+        try {
+            $response['success'] = false;
+            $itemId = $request->item_id;
+            $tour = Tour::find($itemId);
+            $tourLocations = $tour->locations();
+            $items = $tourLocations->get();
+            foreach($items as $item){
+                $tourLocationProfiles = $item->profiles();
+                foreach($tourLocationProfiles->with('escort')->get() as $locationProfile){
+                    $escortDetail = $locationProfile->escort;
+                    Purchase::where(['id'=>$escortDetail->purchase_id])->update(['status' => 'expire']);
+                    if(!empty($locationProfile->is_pinup)){
+                        EscortPinup::where('id', $locationProfile->is_pinup)->update(['utc_start_time'=>NULL,'utc_end_time'=>NULL]);
+                    }
+                }
+                $tourLocationProfiles->delete();
+            }
+            $tourLocations->delete();
+            $tour->delete();
+            
+            $response['success'] = true;
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
 }
