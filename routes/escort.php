@@ -193,7 +193,9 @@ Route::get('/past-tour/{id?}',[TourController::class, 'createTour'])->name('esco
 
 Route::post('/delete-tour/{id}',[TourController::class, 'DeleteTour'])->name('escort.delete.tour');
 Route::get('/archive-tours-list',[TourController::class, 'viewTourList'])->name('escort.tour.view');
-Route::get('/archive-tours-dataTable/{type}',[TourController::class, 'TourDataTable'])->name('escort.tour.dataTable');
+Route::get('/archive-tours-dataTable/{type?}',[TourController::class, 'TourDataTable'])->name('escort.tour.dataTable');
+Route::post('/get_tour_location_listing',[EscortTourScheduleContoller::class, 'getTourLocationListing'])->name('escort.tour.location_listing');
+Route::post('/cancel_tour_location',[EscortTourScheduleContoller::class, 'cancelTourLocation'])->name('escort.tour.cancel_tour_location');
 Route::post('/archive-tours-edit/{id}',[TourController::class, 'viewTourEdit'])->name('escort.tour.edit');
 /** Start Tour pin up */
 Route::post('/get-tour-locations',[TourController::class, 'getTourLocations'])->name('escort.tour.locations');

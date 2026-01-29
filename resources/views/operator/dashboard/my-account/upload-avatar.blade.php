@@ -72,7 +72,7 @@
                                                 <span aria-hidden="true">×</span>
                                             </button>
                                             @endif
-                                           <img src="{{ !auth()->user()->avatar_img ? asset('avatars/default/staff_default.png') :asset('avatars/'.auth()->user()->avatar_img) }}" alt="" class="img-rounded avatarName">
+                                           <img src="{{ !auth()->user()->avatar_img ? asset('avatars/default/operator_default.png') :asset('avatars/'.auth()->user()->avatar_img) }}" alt="" class="img-rounded avatarName">
                                         </div>
                                     </div>
                                 </div>

@@ -1155,31 +1155,22 @@
                                     <span>AGE: <b>21</b></span>  
                                 </div>
                             
-                            <div class="massage_type">
-                                <div class="massage_type_info">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/app/img/handwithhart.png') }}">
-                                    </a>
-                                    <div class="profile_message">
-                                        <h4>Massage</h4>
-                                        <h5>200/hr</h5>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <div class="mc_profile_modal">
                                 
-                                <span>Available Time: <span class="about_box_small_heading_value">8am - 7pm</span></span>
+                              
 
                                 <span>Nationality: <span class="about_box_small_heading_value">Australian</span></span>
 
-                                <span>Type: <span class="about_box_small_heading_value">Thai</span></span>
+                                <span>Ethnicity: <span class="about_box_small_heading_value">Thai</span></span>
 
                                 <span>Available Days: <span class="about_box_small_heading_value">M T W T F </span></span>
+                                <span>Available Time: <span class="about_box_small_heading_value">8am - 7pm</span></span>
 
                                 <span>Mobile Number: <span class="about_box_small_heading_value">0438 028 728</span></span>
 
-                                <span>Vaccine: <span class="about_box_small_heading_value">Vaccinated, up to date</span></span>
+                                <span>Vaccination: <span class="about_box_small_heading_value">Vaccinated, up to date</span></span>
 
                             </div>
                             
@@ -1187,8 +1178,20 @@
                                 the thrill of being with that quite little girl who secretely really is that office slut. I
                                 am tall, slim and naughty when it matters. With smooth skin and long hair to run your hands
                                 through, and of course something...</p>
-                            <h5 class="mc_member_id"> <img src="{{ asset('assets/app/img/Vector-31.png') }}" class="img-responsive"
+                           
+                                    <div class="massage_type">
+                                         <h5 class="mc_member_id"> <img src="{{ asset('assets/app/img/Vector-31.png') }}" class="img-responsive"
                                     > Member ID: M60124-001 </h5>
+                                        <div class="massage_type_info">
+                                            <a href="#">
+                                                <img src="{{ asset('assets/app/img/handwithhart.png') }}">
+                                            </a>
+                                            <div class="profile_message">
+                                                <h4>Massage</h4>
+                                                <h5>200/hr</h5>
+                                            </div>
+                                        </div>
+                                    </div>
                         </div>
                     </div>
                 </div>
