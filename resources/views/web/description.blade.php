@@ -1282,15 +1282,18 @@
                             @endphp
                             
                             <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
-                                <h5>
-                                    @if (!empty($review->user->name))
-                                        {{ Str::title($review->user->name) }}
-                                    @elseif (!empty($review->user->email))
-                                        {{ Str::title(explode('@', $review->user->email)[0]) }}
-                                    @else
-                                        Username
-                                    @endif
-                                </h5>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h5>
+                                        @if (!empty($review->user->name))
+                                            {{ Str::title($review->user->name) }}
+                                        @elseif (!empty($review->user->email))
+                                            {{ Str::title(explode('@', $review->user->email)[0]) }}
+                                        @else
+                                            Username
+                                        @endif
+                                    </h5>
+                                    <p class="custome-text-date mb-0">Reviewed: {{$review->created_at->format('d-m-Y')}}</p>
+                                </div>
                                 <ul class="list-inline mb-0">
                                     @for($i=1; $i<= 5; $i++)
                                         @if($i <= $review->star_rating)
@@ -1301,7 +1304,7 @@
                                     @endfor
                                     {{--<li class="list-inline-item testi_icon_color"><b class="">{{$review->star_rating}}</b></li> --}}
                                 </ul>
-                                <p class="custome-text-date">Reviewed {{$review->created_at->format('d-m-Y')}}</p>
+                                
                                 <div class="review-text">
                                     {{ $review->description }}
                                 </div>
@@ -1848,10 +1851,7 @@ genuine reports will be considered.</li>
             <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
                 <img src="{{ asset('assets/app/img/tick.png')}}"
                                 class="custompopicon">
-                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">
-                    
-                    Review Submitted
-                    </h5>
+                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Review Submitted</h5>
                 <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
                 <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                 </button>
@@ -1859,9 +1859,11 @@ genuine reports will be considered.</li>
  
             <!-- if logi Body content -->
            
-            <div class="modal-body text-left">
-                  <h6 class="popu_heading_style mb-4 mt-4">
-                    Your Review of <span id="review-escort-name"></span> has been submitted for approval.
+            <div class="modal-body text-center">
+                 <h5 class="popu_heading_style mt-4">Thank you for your Review.</h5>
+                  <h6 class="popu_heading_style mb-4 mt-2">
+                   
+                    Your Review for <span id="review-escort-name"></span> has been submitted for approval.
                 </h6>
              
             </div>
