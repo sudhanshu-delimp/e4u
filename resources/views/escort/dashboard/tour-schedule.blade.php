@@ -121,6 +121,8 @@
 @section('script') 
      <script>
        var table;
+       var active_tour_id;
+       var cancel_on;
        $(document).ready(function () {
       table = $('#sailorTable').DataTable({
       serverSide: true,
@@ -207,6 +209,7 @@
    });
 });
 var loadChildTable = function(tour_id){
+    active_tour_id = tour_id;
     $.ajax({
         url: '{{route("escort.tour.location_listing")}}',
         type: "POST",
@@ -227,7 +230,12 @@ var loadChildTable = function(tour_id){
 
 $("#tour_location_cancel").on('show.bs.modal', function(event){
     let button = $(event.relatedTarget);
+    cancel_on = button.data('item-type');
+    let actionUrl = cancel_on == 'tour'?"{{route('escort.tour.cancel')}}":"{{route('escort.tour.cancel_tour_location')}}";
     $(this).find('input[name="item_id"]').val(button.data('item-id'));
+    $(this).find('#cancelTourForm').attr('action',actionUrl);
+    
+    
 });
 
 $("#cancelTourForm").on('submit', function(e){
@@ -239,7 +247,7 @@ $("#cancelTourForm").on('submit', function(e){
         method: form.attr('method'),
         data: form.serialize(),
         success: function (response) {
-            console.log(response);
+            cancel_on == 'tour'?table.draw():loadChildTable(active_tour_id);
         },
         error: function (xhr) {
             console.error(xhr.responseText);
