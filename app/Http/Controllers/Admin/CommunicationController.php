@@ -47,7 +47,7 @@ class CommunicationController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = EmailLog::query();
+            $query = EmailLog::query()->select(['id', 'to','cc', 'bcc','subject', 'sent_at','created_at']);
             $clientOrder = $request->input('order');
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
