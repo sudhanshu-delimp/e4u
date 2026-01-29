@@ -103,6 +103,9 @@ Route::post('delete-masseur-photos/{id}', [MasseurController ::class, 'ImagesDel
 Route::post('default_photos_masseur', [MasseurController ::class, 'defaultImages'])->name('center.masseur.default.images');
 
 Route::post('masseur-option-list', [MasseurController ::class, 'masseur_option_list'])->name('center.masseur-option-list');
+Route::post('get-masseur-option-list', [MasseurController ::class, 'get_masseur_option_list'])->name('center.get-masseur-option-list');
+Route::post('filter-masseur-option-list', [MasseurController ::class, 'get_filter_masseur_option_list'])->name('center.filter-masseur-option-list');
+
 
 
 

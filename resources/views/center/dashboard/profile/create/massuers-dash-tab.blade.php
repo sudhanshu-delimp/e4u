@@ -14,13 +14,12 @@
                 <div class="col-lg-6">
                     <h2>Default Masseurs</h2>
                 </div>
-                <!-- end col -->
-                <div class="col-lg-6 text-right">
-                <button type="button"  data-toggle="modal" data-target="#select_profile" class="save_profile_btn">Change Masseurs</button>
-                {{-- <button type="button" data-toggle="modal" data-target="#create_new_profile" class="save_profile_btn">Add Masseurs</button> --}}
-                </div>
+              
+                        <div class="col-lg-6 text-right">
+                        <button type="button"  data-toggle="modal" data-target="#select_profile" class="save_profile_btn">Add Masseurs</button>
+                        </div>
             </div>
-            <!-- end row -->
+           
 
         </div>
 
@@ -148,14 +147,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
-
-                                   
-
-                                    
-
-
-                                </tbody>
+                               </tbody>
                             </table>
                         </div>
                     </div>

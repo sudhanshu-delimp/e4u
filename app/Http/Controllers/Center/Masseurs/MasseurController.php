@@ -8,6 +8,7 @@ use App\Models\MasseurRate;
 use App\Models\MassageMedia;
 use Illuminate\Http\Request;
 use App\Models\MasseurGallery;
+use App\Models\MassagerMasseur;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -616,7 +617,7 @@ class MasseurController extends AppController
                     return '<input type="checkbox" class="select-masseur" value="'.$row->id.'">';
                 })
                 ->addColumn('profile', function ($row) {
-                    return '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">';
+                    return '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">==='.$row->id;
                 })
                 ->addColumn('days', function ($row) {
                     return '<span class="available_d">
@@ -635,5 +636,87 @@ class MasseurController extends AppController
                 ->rawColumns(['checkbox','profile','days'])
                 ->make(true);
     }
+
+
+    public function  get_filter_masseur_option_list(Request $request)
+    {
+            $availability = $request->availability; 
+
+            //$masseurProfileIds = MassagerMasseur::where('massage_profile_id', $request->massage_profile_id)->pluck('masseur_profile_id');
+            
+            $masseurProfileIds = $request->selectedList;
+            $query = Masseur::whereNotIn('id', $masseurProfileIds)->get();
+            $countries = getCountryList();
+
+            return DataTables::of($query)
+                ->addColumn('checkbox', function ($row) use($countries) {
+                    return '<input type="checkbox" class="select-masseur" value="'.$row->id.'">';
+                })
+                ->addColumn('profile', function ($row) {
+                    return '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">==='.$row->id;
+                })
+                ->addColumn('days', function ($row) {
+                    return '<span class="available_d">
+                                <span style="color:red;">M</span>T
+                                <span style="color:red;">W</span>THF
+                            </span>';
+                })
+                ->addColumn('ethnicity', function ($row) {
+                    $ethnicities = config('escorts.profile.ethnicities');
+                    return $ethnicities[$row->ethnicity] ?? 'NA';
+                })
+                
+                ->addColumn('nationality', function ($row) use ($countries) {
+                    return $countries[$row->nationality] ?? 'NA';
+                })
+                ->rawColumns(['checkbox','profile','days'])
+                ->make(true);
+    }
+
+    public function  get_masseur_option_list(Request $request)
+    {
+
+            $masseur  = MassagerMasseur::with('masseur')->where(['massage_profile_id'=>$request->massage_profile_id])->get();
+            $masseurs = $masseur->pluck('masseur')->filter();
+            $countries = getCountryList();
+
+            $data = $masseurs->map(function ($row) use ($countries) {
+                return [
+                   
+                    'id' => $row->id,
+                    
+                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">==='.$row->id,
+
+                    'days' => '<span class="available_d">
+                                    <span style="color:red;">M</span>T
+                                    <span style="color:red;">W</span>THF
+                            </span>',
+
+                    'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
+
+                    'nationality' => $countries[$row->nationality] ?? 'NA',
+                     'action' => '',
+
+                    //  'action' => '<button 
+                    //     type="button"  
+                    //     class="btn-danger btn-sm remove-row delete-masseur" 
+                    //     data-id="'.$row->id.'">
+                    //     Remove
+                    // </button>',
+
+                ];
+            });  
+
+
+            return response()->json([
+                'data' => $data
+            ]);
+
+ 
+    }
+
+
+
+    
 
 }

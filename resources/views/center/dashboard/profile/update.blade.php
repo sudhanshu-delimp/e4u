@@ -572,4 +572,247 @@ console.log('profileId',profileId);
 
 
 </script>
+
+
+<script type="text/javascript"  src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script>
+
+let masseurTable;
+const availability = {
+    monday:    { status: "custom", from: "01:30 PM", to: "01:30 PM" },
+    tuesday:   { status: "custom", from: "01:30 AM", to: "01:30 PM" },
+    wednesday: { status: "closed", from: null, to: null },
+    thursday:  { status: "closed", from: null, to: null },
+    friday:    { status: "closed", from: null, to: null },
+    saturday:  { status: "closed", from: null, to: null },
+    sunday:    { status: "custom", from: "09:30 AM", to: "10:00 PM" }
+};
+
+
+ var table = $("#selected_masseur").DataTable({
+    processing: true,
+    serverSide: false,
+    paging: false,        
+    searching: false,    
+    info: false,          
+    lengthChange: false,  
+    ordering: false,      
+
+    ajax: {
+        url: "{{ route('center.get-masseur-option-list') }}",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        data: function (d) {
+            d.type = 'player';
+            d.massage_profile_id = profileId;
+
+            return JSON.stringify(d);
+        },
+
+       
+    },
+
+     createdRow: function (row, data, dataIndex) {
+            $(row).attr('data-id', data.id); 
+        },
+
+        columns: [
+        
+            { data: 'profile' },
+            { data: 'days' },
+            { data: 'ethnicity' },
+            { data: 'nationality' },
+            { data: 'action', orderable: false, searchable: false } 
+        ],
+
+
+        drawCallback: function() {
+            toggleSaveProfileButton();
+            console.log('getSelectedMasseurIds',getSelectedMasseurIds());
+            masseurs_tab_list(getSelectedMasseurIds());
+        }
+
+});
+
+
+
+ //////////// Popup masseurs List /////////////////
+ 
+    function masseurs_tab_list(selectedList) 
+    {
+
+
+        currentSelectedList = selectedList;
+        console.log('selectedList',selectedList);
+        if ($.fn.DataTable.isDataTable('#masseurs_Tab')) {
+            // already initialized → just reload data
+            masseurTable.ajax.reload(null, false);
+            return;
+        }
+
+        
+        masseurTable = $("#masseurs_Tab").DataTable({
+
+            processing: true,
+            serverSide: false,
+            paging: false,
+            searching: false,
+            info: false,
+            lengthChange: false,
+            ordering: false,
+
+            ajax: {
+                url: "{{ route('center.filter-masseur-option-list') }}",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: function (d) {
+                    d.type = 'player';
+                    d.availability = availability;
+                    d.massage_profile_id = profileId;
+                    d.selectedList = currentSelectedList;
+                    return JSON.stringify(d);
+                }
+            },
+
+            columns: [
+                { data: 'checkbox', orderable: false, searchable: false },
+                { data: 'profile' },
+                { data: 'days' },
+                { data: 'ethnicity' },
+                { data: 'nationality' }
+            ],
+
+
+            // drawCallback: function () {
+            // console.log('getSelectedMasseurIds',getSelectedMasseurIds());
+            // }
+
+        });
+
+
+        
+    }
+
+    //////////// End Popup masseurs List /////////////////
+
+    $('.add_masseurs').on('click', function () {
+
+        $('#masseurs_Tab tbody input.select-masseur:checked').each(function () {
+
+            let $row = $(this).closest('tr');
+            let id   = $(this).val();
+
+            
+            if ($('#selected_masseur tbody tr[data-id="'+id+'"]').length) {
+                swal_error_warning('Masseur','Allready added.');
+                return false;
+            }
+
+            let profile     = $row.find('td:eq(1)').html();
+            let days        = $row.find('td:eq(2)').html();
+            let ethnicity   = $row.find('td:eq(3)').text();
+            let nationality = $row.find('td:eq(4)').text();
+
+            let html = `
+                <tr data-id="${id}">
+                    <td>${profile}</td>
+                    <td>${days}</td>
+                    <td>${nationality}</td>
+                    <td>${ethnicity}</td>
+                    <td> <button type="button" class="btn-danger btn-sm remove-row">Remove</button></td>
+                </tr>`;
+
+            $('#selected_masseur tbody').append(html);
+            $(this).prop('checked', false);
+            masseurTable.row($row).remove().draw(false);
+            $('#select_profile').modal('hide');
+            toggleSaveProfileButton();
+        });
+
+        
+
+        $(document).on('click', '.remove-row', function () {
+        $(this).closest('tr').remove();
+        masseurs_tab_list(getSelectedMasseurIds());
+        toggleSaveProfileButton();
+        });
+
+
+    });
+
+
+
+
+
+function getSelectedMasseurIds() {
+    let ids = [];
+    $('#selected_masseur tbody tr[data-id]').each(function () {
+        ids.push($(this).data('id'));
+    });
+
+    return ids;
+}
+
+function toggleSaveProfileButton() {
+
+        let ids = [];
+        const count = $('#selected_masseur tbody tr[data-id]').length;
+        
+
+        if (count > 0) {
+            $('#submit_form_massage').prop('disabled', false);
+        } else {
+            $('#submit_form_massage').prop('disabled', true);
+        }
+}
+
+
+$('.update_masseurs_btn').on('click', function () {
+
+        let form = $('#my_masseurs');
+        let formData = new FormData(form[0]);
+
+        let masseurIds = getSelectedMasseurIds();
+        formData.append('masseur_ids', JSON.stringify(masseurIds));
+
+
+        $.ajax({
+            method: form.attr('method'),
+            url:"{{route('center.update-massage-profile')}}",
+            data:formData,
+            contentType: false,
+            processData: false,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            success: function (data) {
+                $(this).prop('disabled', false);
+                $(this).html('Update');
+                if(!data.error){
+                    swal_success_popup(data.message);
+                        setTimeout(function () {
+                        //location.reload();
+                        }, 2000); 
+                } else {
+                swal_error_popup('Oops.. sumthing wrong Please try again');
+                }
+            }
+        });
+});
+
+
+ //toggleSaveProfileButton();
+
+</script>    
+
+
+
+
+
 @endpush

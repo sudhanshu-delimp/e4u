@@ -788,6 +788,46 @@ class MassageController extends Controller
         }
         ########### End Update Who We #####################
 
+        ######### Update masseur ###########################
+        if($request->type=='masseur')
+        {
+            if (!empty($request->masseur_ids)) 
+            {
+                $massage_profile_id = $request->massage_id;
+                $masseurIds = $request->masseur_ids;
+                if (is_string($masseurIds)) {
+                    $masseurIds = json_decode($masseurIds, true);
+                }
+   
+                $masseur = [];
+                if (!empty($masseurIds) && is_array($masseurIds)) 
+                {
+                    foreach ($masseurIds as $key => $value) 
+                    {
+                            $masseur[] = [  
+                                            'masseur_profile_id'    => $value,
+                                            'massage_profile_id'    => $massage_profile_id,
+                                            'created_at'            => now(),
+                                            'updated_at'            => now(),
+                                        ];
+                    }   
+                }
+
+                if(!empty($masseur))
+                {
+                    MassagerMasseur::where(['massage_profile_id'=> $massage_profile_id])->delete();
+                    MassagerMasseur::insert($masseur);
+
+                }
+               
+                $message = 'Updated successfully.';
+                $error = false;
+            }
+        }
+        ########### End Update masseur #####################
+
+
+
         return response()->json(compact('error','message'));
     }
 

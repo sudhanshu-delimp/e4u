@@ -575,8 +575,6 @@ var edit_mode = false;
 
 
 <script type="text/javascript"  src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-
-
 <script>
 
 
