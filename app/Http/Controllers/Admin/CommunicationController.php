@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\EmailLog;
-use App\Repositories\User\UserInterface;
+use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use App\Http\Controllers\Controller;
+use App\Repositories\User\UserInterface;
 
 class CommunicationController extends Controller
 {
@@ -62,6 +63,10 @@ class CommunicationController extends Controller
                         $query->where('id', 'like', "%{$digit}%");
                     }
                 })
+                ->editColumn('date_time', function ($row) {
+                    $date = Carbon::parse($row->created_at)->toDayDateTimeString();
+                    return $date ?? '-';
+                })
                 ->editColumn('to_email', function ($row) {
                     $emails = json_decode($row->to, true);
                     return is_array($emails) ? implode(', ', $emails) : '';
@@ -85,7 +90,7 @@ class CommunicationController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action', 'to_email', 'ref'])
+                ->rawColumns(['action', 'to_email', 'ref','date_time'])
                 ->make(true);
         }
         return view('admin.reports.communication.communications');

@@ -43,6 +43,7 @@
                                 <th>Ref</th>
                                 <th>Date & Time</th>
                                 <th>Recipient</th>
+                                <th>Subject</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -163,6 +164,12 @@
             columns: [{
                     data: 'ref',
                     name: 'ref',
+                },
+                {
+                    data: 'date_time',
+                    name: 'date_time',
+                    searchable: false,
+                    orderable: false,
                 },
                 {
                     data: 'to_email',
