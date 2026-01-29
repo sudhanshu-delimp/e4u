@@ -118,8 +118,22 @@
             </div>
 
             <!-- Interests -->
+            @php 
+                $allSelected = isset($setting->viewer_settings)
+                    && $setting->viewer_settings->interests_with_female
+                    && $setting->viewer_settings->interests_with_male
+                    && $setting->viewer_settings->interests_with_trans
+                    && $setting->viewer_settings->interests_with_cross_dresser
+                    && $setting->viewer_settings->interests_with_couples;
+
+            @endphp
+
             <div class="form-group">
                 <h3 class="h3" style="text-transform: unset;">What are Your Interests?</h3>
+                <div class="custom-control custom-switch ">
+                    <input class="custom-control-input" id="interest_all" type="checkbox" {{ $allSelected ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="interest_all">All</label>
+                </div>
 
                 <div class="custom-control custom-switch">
                     <input class="custom-control-input" id="interest_female" type="checkbox"
@@ -157,6 +171,7 @@
                 </div>
 
                 <div class="pt-1"><i>By selecting a particular interest, we can refine your Escort Listings View page.</i></div>
+                <div class="pt-1"><i>These settings apply to your Home State.</i></div>
             </div>
 
         </div>
@@ -201,5 +216,23 @@ let url = $('#change_features_id').attr('action');
         }
     });
 });
+
+
+$(document).ready(function () {
+    const interestCheckboxes = $(
+        '#interest_female, #interest_male, #interest_trans, #interest_cross, #interest_couples'
+    );
+    // All checkbox change
+    $('#interest_all').on('change', function () {
+        interestCheckboxes.prop('checked', $(this).is(':checked'));
+    });
+    // Individual checkbox change
+    interestCheckboxes.on('change', function () {
+        const allChecked = interestCheckboxes.length === interestCheckboxes.filter(':checked').length;
+        $('#interest_all').prop('checked', allChecked);
+    });
+
+});
+
 </script>
 @endpush

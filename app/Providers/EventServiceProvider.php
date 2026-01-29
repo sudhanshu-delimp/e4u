@@ -7,9 +7,11 @@ use App\Events\AgentRegistered;
 use App\Events\MassageRegister;
 use App\Listeners\LoginListener;
 use App\Listeners\LogoutListener;
+use App\Listeners\Admin\LogSentEmail;
 use Illuminate\Support\Facades\Event;
 use App\Listeners\LoginFailedListener;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Mail\Events\MessageSent;
 use App\Listeners\Agent\SendAgentWelcomeEmail;
 use App\Listeners\CreateDefaultAccountSettings;
 use App\Listeners\Escort\RegisterListenerForAdmin;
@@ -51,7 +53,7 @@ class EventServiceProvider extends ServiceProvider
             RegisterListnerForAdmin::class,
             CreateDefaultAccountSettings::class,
         ],
-       
+
         'Illuminate\Auth\Events\Login' => [
             LoginListener::class
         ],
@@ -60,6 +62,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         'Illuminate\Auth\Events\Failed' => [
             LoginFailedListener::class,
+        ],
+        // lisition hole email during send we store email inside the logs
+        MessageSent::class => [
+            LogSentEmail::class,
         ],
     ];
 

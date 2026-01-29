@@ -171,17 +171,17 @@
 
                             <div class="col-6 mb-3">
                                 <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0"
-                                    placeholder="Name of Kin">
+                                    placeholder="Name of Kin (optional)">
                                 <span class="text-danger error-kin_name"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" name="kin_relationship" id="kin_relationship"
-                                    class="form-control rounded-0" placeholder="Relationship">
+                                    class="form-control rounded-0" placeholder="Relationship (optional)">
                                 <span class="text-danger error-kin_relationship"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile"
-                                    class="form-control rounded-0 no-arrow" placeholder="Mobile" autocomplete="off"
+                                    class="form-control rounded-0 no-arrow" placeholder="Mobile (optional)" autocomplete="off"
                                     oninput="this.value = this.value.replace(/\D/g,'');">
                                 <span class="text-danger error-kin_mobile"></span>
                             </div>
@@ -310,7 +310,7 @@
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="idle_preference_time"
-                                            id="idle_preference_time_60" value="60">
+                                            id="idle_preference_time_60" value="60" checked>
                                         <label class="form-check-label" for="idle_preference_time_60">60 minutes</label>
                                     </div>
 
@@ -330,13 +330,13 @@
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="twofa" id="twofa_1"
-                                            value="1" checked="">
+                                            value="1">
                                         <label class="form-check-label" for="twofa_1">Email</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="twofa" id="twofa_2"
-                                            value="2">
+                                            value="2"  checked>
 
                                         <label class="form-check-label" for="twofa_2">Text</label>
                                     </div>

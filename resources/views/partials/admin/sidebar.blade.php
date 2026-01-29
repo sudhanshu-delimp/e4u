@@ -114,7 +114,7 @@
                     'blog',
                     'credit',
                     'agent-requests',
-                    'num','punterbox','communications',
+                    'num','punterbox','communication',
                     'transaction-summary',
                     'advertiser-suspensions',
                     'registrations-reports',
@@ -427,7 +427,7 @@
                             request()->is('*registrations-reports*') ||
                             request()->is('*advertiser-reports*') ||
                             request()->is('*punterbox*') ||
-                            request()->is('*communications*') ||
+                            request()->is('*communication*') ||
                             request()->is('*advertiser-reviews*')) show @endif;" data-parent="#Administration">
                         <div class="py-0 collapse-inner rounded mb-2">
 
@@ -454,10 +454,10 @@
                                     Requests</span>
                             </a>
                            
-                            <a class="nav-link collapsed" href="{{ route('admin.communications') }}">
+                            <a class="nav-link collapsed" href="{{ route('admin.reports.communication.index') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/communication.png') }}">
-                                <span style="{{ request()->is('*communications*') ? 'color: #FF3C5F;' : '' }}">communications</span>
+                                <span style="{{ request()->is('*communication*') ? 'color: #FF3C5F;' : '' }}">communications</span>
                             </a>
                              <a class="nav-link collapsed" href="{{ route('admin.credit') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
