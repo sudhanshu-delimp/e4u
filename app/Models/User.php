@@ -159,6 +159,9 @@ class User extends Authenticatable
              case 'operator':
                 $type = 7;
                 break;
+             case 'Operator-Staff':
+                $type = 9;
+                break;    
             default:
                 $type = 0;
                 break;
@@ -200,7 +203,10 @@ class User extends Authenticatable
                 break;
              case (7):
                 return "Operator";
-                break;    
+                break;
+              case (9):
+                return "Operator-Staff";
+                break;        
         }
     }
     public function getUserTypeAttribute()
@@ -236,7 +242,10 @@ class User extends Authenticatable
                 break;
              case (7):
                 return "O";
-                break;    
+                break;
+             case (9):// Operator's staff
+                return "OS";
+                break;        
         }
     }
     public function getLevelTypeAttribute()
@@ -269,9 +278,12 @@ class User extends Authenticatable
             case (6):
                 return 6;
                 break;
-              case (7):
+            case (7):
                 return 7;
-                break;    
+                break;
+            case (9): // Operator's staff
+                return 9;
+                break;      
             case (0):
                 return 4;
                 break;
@@ -463,6 +475,17 @@ class User extends Authenticatable
              $cid = $this->country_id;
            }
             return 'O' .  $cid . sprintf("%04d", $this->id);
+        }
+        if ($this->type == 9) {
+            $countryAbrs = config('operator.countryAbr');
+           // return 'O' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+        
+           if(isset($countryAbrs[$this->country_id])) {
+             $cid = $countryAbrs[$this->country_id];
+           } else {
+             $cid = $this->country_id;
+           }
+            return 'OS' .  $cid . sprintf("%04d", $this->id);
         }
         if ($this->type == 6) {
             $staffPrefix = config('staff.staff_member_id_prefix');
@@ -674,7 +697,9 @@ class User extends Authenticatable
             case 6: //for Staff
                 return config('constants.agent_default_icon');
             case 7: //for Operator
-                return config('constants.operator_default_icon');    
+                return config('constants.operator_default_icon');
+            case 9: //for Operator
+                return config('constants.operator_staff_default_icon');        
             case 0: // For Viewers
                 return config('constants.viewer_default_icon');
             default:
