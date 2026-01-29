@@ -356,7 +356,7 @@
                                 <div class="d-flex align-items-center gap_between_text_and_img our-masseurs"
                                     data-toggle="modal" data-target="#product_view">
                                     <div><img src="assets/app/img/profile_photo.png"></div>
-                                    <p>Sierra</p>
+                                    <p class="mb-0">Sierra</p>
                                 </div>
                             </div>
                         </div>
@@ -1114,7 +1114,7 @@
 
                                          <div class="massage_type_info">                                           
                                                 <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
-                                           <p class="mc_rate_tooltip">Massage with Extras, 2 hands.</p>                                      
+                                           <p class="mc_rate_tooltip">Massage with 2 hands.</p>                                      
                                         </div>
                                          <div class="massage_type_info">                                            
                                                 <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
