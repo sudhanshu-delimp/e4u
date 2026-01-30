@@ -144,13 +144,7 @@
                 <div class="row mc_profile_table">
                     <div class="col-lg-6 col-md-12">
 
-                        <div style="width: 100%">
-                            <iframe width="100%" height="153" frameborder="0" scrolling="no" marginheight="0"
-                                marginwidth="0"
-                                src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=nema%20san%20francisco&t=&z=14&ie=UTF8&iwloc=B&output=embed"
-                                style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
-                            </iframe>
-                        </div>
+                        
 
                         <table class="table table_striped">
                             <thead>
@@ -164,6 +158,18 @@
 
                             <tbody>
                                 <tr>
+                                    <td>30 Minutes</td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
+                                </tr>
+                                 <tr>
+                                    <td>45 Minutes</td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
+                                </tr>
+                                 <tr>
                                     <td>60 Minutes</td>
                                     <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
                                     <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
@@ -191,6 +197,7 @@
                                 </tr>
                             </thead>
                         </table>
+                        
                     </div>
 
                     <div class="col-lg-6 col-md-12">
@@ -235,6 +242,16 @@
                         </table>
 
                         
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div style="width: 100%">
+                            <iframe width="100%" height="153" frameborder="0" scrolling="no" marginheight="0"
+                                marginwidth="0"
+                                src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=nema%20san%20francisco&t=&z=14&ie=UTF8&iwloc=B&output=embed"
+                                style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
+                            </iframe>
+                        </div>
                     </div>
                 </div>
 
@@ -329,7 +346,7 @@
                         <h2>Who are we?</h2>
                     </div>
                     <div class="padding_20_tob_btm_side">
-                        <div>
+                        <div class="text-justify">
                             I am a professional massage therapist who focuses on creating a calm,
                             relaxing, and respectful experience. My goal is to help you unwind,
                             relieve stress, and feel completely at ease in a clean and comfortable
@@ -346,7 +363,7 @@
                     </div>
 
                     <div class="padding_20_tob_btm_side">
-                        <p>
+                        <p class="text-justify">
                             Check out our experienced Masseurs. All services are conducted in private.
                             Feel free to ask us or any of our Masseurs any questions about our services.
                         </p>
@@ -370,7 +387,7 @@
                     </div>
 
                     <div class="padding_20_tob_btm_side">
-                        <p>
+                        <p class="text-justify">
                             Check out what services are available.
                             Feel free to ask us or your Masseur any questions about our services.
                         </p>
@@ -707,7 +724,7 @@
                         </a>
                         <div class="content">
                             <div class="accodien_manage_padding_content">
-                                <p>Prices are all inclusive unless an extra is listed in Our Services,
+                                <p class="text-justify">Prices are all inclusive unless an extra is listed in Our Services,
                                      or you reach on agreement separately with the Masseur.</p>
                             </div>
                         </div>
@@ -719,7 +736,7 @@
                         </a>
                         <div class="content">
                             <div class="accodien_manage_padding_content">
-                                <p>Any companionship which is agreed to between the Masseur and the client is not an offer or promise for
+                                <p class="text-justify">Any companionship which is agreed to between the Masseur and the client is not an offer or promise for
                                     prostitution or illegal activity. Anything that may occur between the Masseur and the client is their choice as
                                     consenting adults.</p>
                             </div>
@@ -734,7 +751,7 @@
                     </div>
                     <div class="pt-2">
                         <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel"
-                            data-interval="2500">
+                            data-interval="5000">
                             <div class="carousel-inner">
                                 <div class="carousel-item tip_carousel_item_text active">
                                     <p>Be on time.</p>
@@ -915,7 +932,7 @@
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color">
                     <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="custompopicon">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Add review for Carla Brasil
+                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Add review for [MC Name]
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
@@ -961,10 +978,10 @@
                         <hr style="background-color: #0C223D">
                         <p class="mb-1 mt-3"><b>Notes :</b></p>
                         <ol>
-                            <li>Only review if you had direct contact with the Escort.</li>
+                            <li>Only review if you had direct contact with the Massage Centre.</li>
                             <li>Do not write fake or abusive reviews, as they will not be published.</li>
-                            <li>To contact this Escort click on <a href="{{ route('user.viewer-messages') }}"
-                                    style="color: #ff3c5f;" class="custom_links_design">Message Me</a>.
+                            <li>To contact this Massage Centre click on <a href="{{ route('user.viewer-messages') }}"
+                                    style="color: #ff3c5f;" class="custom_links_design">Message Us</a>.
                             </li>
                         </ol>
                     </div>
@@ -1077,6 +1094,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header border-0">
+                     <h5 class="mc_member_id"> <img src="{{ asset('assets/app/img/Vector-31.png') }}" class="img-responsive"
+                                    > Member ID: M60124-001 </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -1084,6 +1103,7 @@
                 </div>
                 <div class="modal-body pb-4 mb-2 pt-1">
                     <div class="row">
+
                         <div class="col-md-4 product_img mc_profile_img pr-0">
                             <img src="{{ asset('assets/app/img/Frame-4181.png') }}" class="img-responsive"
                                 style="width: 305px;height: 374px;object-fit: cover;">
@@ -1091,6 +1111,7 @@
                                 <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
                             </div>
                         </div>
+
                         <div class="col-md-1 product_img pl-0" style="display: grid;gap: 8px;">
                             <img src="{{ asset('assets/app/img/Frame-4201.png') }}" class="img-responsive"
                                 style="width: 108px;height: 119px;object-fit: cover;">
@@ -1099,38 +1120,43 @@
                                 src="{{ asset('assets/app/img/Frame-4222.png') }}" class="img-responsive"
                                 style="width: 108px;height: 119px;object-fit: cover;">
                         </div>
+
                         <div class="col-md-7 product_content pl-5 pt-1 d-flex flex-column justify-content-between" style=""> 
                                                        
                                 <div>
                                     <div class="mc_profile_info">
-                                    <h3 class="mb-0">Jane Doe</h3>
-                                    <span>AGE: <b>21</b></span> 
-                                    <div class="massage_type">
+                                        <h3 class="mb-0">Jane Doe</h3>
+                                        <span>AGE: <b>21</b></span>
                                        
-                                        <div class="massage_type_info">                                           
-                                            <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">                                             
-                                            <p class="mc_rate_tooltip">Massage only</p>                                         
-                                        </div>
-
-                                         <div class="massage_type_info">                                           
-                                                <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
-                                           <p class="mc_rate_tooltip">Massage with 2 hands.</p>                                      
-                                        </div>
-                                         <div class="massage_type_info">                                            
-                                                <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
-                                            <p class="mc_rate_tooltip">Massage with Extras, 2 hands.</p>                                    
-                                        </div>
-                                        
+                                        <div class="massage_type">                                       
+                                            <div class="massage_type_info">                                           
+                                                <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">                                             
+                                                <p class="mc_rate_tooltip">Massage only</p>                                         
+                                            </div>
+                                            <div class="massage_type_info">                                           
+                                                    <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
+                                            <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>                                      
+                                            </div>
+                                            <div class="massage_type_info">                                            
+                                                    <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
+                                                <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>                                    
+                                            </div>                                        
+                                        </div> 
                                     </div> 
-                                </div> 
                                 <div class="mc_profile_modal">                                    
-                                    <span>Mobile Number: <span class="about_box_small_heading_value">0438 028 728</span></span>
-                                    <span>Vaccination: <span class="about_box_small_heading_value">Vaccinated, up to date</span></span>
+                                    <span><b>Mobile Number:</b> <span class="about_box_small_heading_value">0438 028 728</span></span>
+                                    <span><b>Vaccination:</b> <span class="about_box_small_heading_value">Vaccinated, up to date</span></span>
                                 </div>
-
                                 <div class="mc_profile_modal">
-                                    <span>Nationality: <span class="about_box_small_heading_value">Australian</span></span>
-                                    <span>Ethnicity: <span class="about_box_small_heading_value">Thai</span></span>
+                                    <span><b>Nationality:</b> <span class="about_box_small_heading_value">Australian</span></span>
+                                    <span><b>Ethnicity:</b> <span class="about_box_small_heading_value">Thai</span></span>
+                                </div>
+                                <div class="mc_profile_modal">
+                                    <span><b>Massage Services:</b> <span class="about_box_small_heading_value">Deep tissue, Foot</span></span>
+                                    <span><b>Other Service Types:</b> <span class="about_box_small_heading_value">Back stepping</span></span>
+                                </div>
+                                
+                                
                                 </div>
                                 
                                 <p class=" py-1 mb-2 text-justify">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy
@@ -1138,13 +1164,13 @@
                                     am tall, slim and naughty when it matters. With smooth skin and long hair to run your hands
                                     through, and of course something...</p>
                                 </div>
-                                <h5 class="mc_member_id"> <img src="{{ asset('assets/app/img/Vector-31.png') }}" class="img-responsive"
-                                    > Member ID: M60124-001 </h5>
+                               
                             
 
                             
                         </div>
-                        <div class="col-lg-12 mt-2">
+                        
+                        <div class="col-lg-12 mt-2 p-0">
                             <div class="table-responsive-sm mc_avail_table">
                                 <table class="table table-bordered">
                                     <thead class="bg-first">
@@ -1152,13 +1178,13 @@
                                             <th colspan="7" class="text-center">Availability</th>
                                         </tr>
                                         <tr>
-                                            <th>Monday</th>
-                                            <th>Tuesday</th>
-                                            <th>Wednesday</th>
-                                            <th>Thursday</th>
-                                            <th>Friday</th>
-                                            <th>Saturday</th>
-                                            <th>Sunday</th>
+                                            <th style="width:14.2%">Monday</th>
+                                            <th style="width:14.2%">Tuesday</th>
+                                            <th style="width:14.2%">Wednesday</th>
+                                            <th style="width:14.2%">Thursday</th>
+                                            <th style="width:14.2%">Friday</th>
+                                            <th style="width:14.2%">Saturday</th>
+                                            <th style="width:14.2%">Sunday</th>
                                         </tr>
                                     </thead>
                                     <tbody>

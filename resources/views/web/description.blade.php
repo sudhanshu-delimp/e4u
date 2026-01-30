@@ -1218,7 +1218,7 @@
 
         </div>
         <div class="pt-2">
-            <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel" data-interval="4000">
+            <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel" data-interval="5000">
                 <!-- Wrapper for carousel items -->
                 <div class="carousel-inner">
                     <div class="carousel-item tip_carousel_item_text active item-01">
