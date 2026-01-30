@@ -482,4 +482,12 @@ class UserController extends Controller
 
         return $notifications;
     }
+
+    public function welcomePopupClosed()
+    {
+        session(['welcome_popup_closed' => true]);
+        session()->forget('show_welcome_popup');
+
+        return response()->json(['success' => true]);
+    }
 }
