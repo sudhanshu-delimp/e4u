@@ -128,6 +128,20 @@ class MassageController extends Controller
     // }
 
 
+
+    public function make_time_json(Request $request)
+    {
+         $request_data     = $request->all();
+         $availability     = $this->makeAvailability($request_data);
+
+         return response()->json([
+                'success' => true,
+                'data' => $availability
+         ], 200);
+    }
+
+
+
     public function makeAvailability($request_data)
     {
         $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];

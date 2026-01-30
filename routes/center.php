@@ -91,6 +91,9 @@ Route::post('our-business',[MassageController::class,'ourBusiness'])->name('cent
 Route::get('update-profile/{id?}',[MassageController::class,'getProfile'])->name('center.update-profile');
 Route::post('update-massage-profile',[MassageController::class,'updateprofile'])->name('center.update-massage-profile');
 
+Route::post('make-time-json',[MassageController::class,'make_time_json'])->name('center.make-time-json');
+
+
 Route::get('archive-view-photos', [CenterProfileInformationController ::class, 'galleries'])->name('cen.archive-view-photos');
 Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
 
@@ -105,6 +108,7 @@ Route::post('default_photos_masseur', [MasseurController ::class, 'defaultImages
 Route::post('masseur-option-list', [MasseurController ::class, 'masseur_option_list'])->name('center.masseur-option-list');
 Route::post('get-masseur-option-list', [MasseurController ::class, 'get_masseur_option_list'])->name('center.get-masseur-option-list');
 Route::post('filter-masseur-option-list', [MasseurController ::class, 'get_filter_masseur_option_list'])->name('center.filter-masseur-option-list');
+Route::post('all-masseur-list', [MasseurController ::class, 'get_all_masseur_list'])->name('center.all-masseur-list');
 
 
 

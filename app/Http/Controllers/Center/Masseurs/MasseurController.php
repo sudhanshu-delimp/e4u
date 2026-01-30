@@ -456,6 +456,8 @@ class MasseurController extends AppController
     
     public function masseur_list(Request $request)
     {
+
+        
         return view('center.dashboard.masseurs.archives-listing');
     }
 
@@ -607,6 +609,12 @@ class MasseurController extends AppController
     public function  masseur_option_list(Request $request)
     {
             $availability = $request->availability; 
+
+            
+
+
+            Log::info( $availability);
+
             $query = Masseur::query();
             $countries = getCountryList();
 
@@ -714,6 +722,61 @@ class MasseurController extends AppController
 
  
     }
+
+
+    public function  get_all_masseur_list(Request $request)
+    {
+
+            $masseurs  = Masseur::where('user_id', auth()->user()->id)->get();
+            $countries = getCountryList();
+
+            $data = $masseurs->map(function ($row) use ($countries) {
+
+                if($row->status==1)
+                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Deactivate</a>';   
+                 else
+                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-circle"></i> Activate</a>';     
+               
+               
+                 $action = '<div class="dropdown no-arrow">
+                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                 </a>
+                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
+                                                   <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
+                                                   <div class="dropdown-divider"></div>
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-target="#editMasseur" data-toggle="modal"> <i class="fa fa-pen"></i> Edit profile </a>
+                                                   <div class="dropdown-divider"></div>'.$status.
+                                                  
+                                                   
+                            '</div>';
+
+
+                return [
+                   
+                    'name' => $row->name,
+                    'stage_name' => $row->stage_name,
+                    'mobile' => $row->mobile,
+                    'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
+                    'nationality' => $countries[$row->nationality] ?? 'NA',
+                    'created_at' => date('d M Y', strtotime($row->created_at)),
+                    'status' => ($row->status==1) ? 'Active' : 'InActive',
+                    'action' => $action
+
+                ];
+            });  
+
+
+            return response()->json([
+                'data' => $data
+            ]);
+
+ 
+    }
+
+
+
+    
 
 
 
