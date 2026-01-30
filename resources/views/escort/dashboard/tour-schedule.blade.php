@@ -75,6 +75,8 @@
              </div>    
         </div>
     </div>
+
+    {{-- Cancel Tour Popup --}}
     <div class="modal fade upload-modal" id="tour_location_cancel" tabindex="-1" aria-labelledby="new-ban-3" data-backdrop="static" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -117,6 +119,40 @@
             </div>
         </div>
     </div> 
+    {{-- end --}}
+
+    {{-- Cancel Tour confirmation Popup --}}
+    <div class="modal fade upload-modal" id="cancel_tour_confirm" tabindex="-1" role="dialog" aria-labelledby="cancel_tour_confirm"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <img src="{{ asset('assets/dashboard/img/cancel-travel.png') }}" class="custompopicon">
+                        <span class="text-white">Cancellation of Tour - Confirmation</span>                        
+                     </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0 agent-tour">
+                    <form method="post" action="#">
+                        <h4>Your Tour has been cancelled and all Profiles associated with the Tour removed from the
+                            Website.</h4>
+                        
+                        <div class="row">
+                            <div class="col-md-12 my-3 d-flex align-items-center justify-content-between">
+                                <div class="">Date sent: <span>{{ now()->format('d-m-Y') }}</span></div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end --}}
 @endsection
 @section('script') 
      <script>
@@ -247,6 +283,7 @@ $("#cancelTourForm").on('submit', function(e){
         method: form.attr('method'),
         data: form.serialize(),
         success: function (response) {
+            $("#cancel_tour_confirm").modal('show');
             cancel_on == 'tour'?table.draw():loadChildTable(active_tour_id);
         },
         error: function (xhr) {
