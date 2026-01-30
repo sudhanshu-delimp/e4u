@@ -1151,8 +1151,11 @@
                                     <span><b>Nationality:</b> <span class="about_box_small_heading_value">Australian</span></span>
                                     <span><b>Ethnicity:</b> <span class="about_box_small_heading_value">Thai</span></span>
                                 </div>
-                                <div class="mc_profile_modal">
+                                <div class="mc_profile_modal d-block">
                                     <span><b>Massage Services:</b> <span class="about_box_small_heading_value">Deep tissue, Foot</span></span>
+                                </div>
+
+                                 <div class="mc_profile_modal d-block">
                                     <span><b>Other Service Types:</b> <span class="about_box_small_heading_value">Back stepping</span></span>
                                 </div>
                                 
