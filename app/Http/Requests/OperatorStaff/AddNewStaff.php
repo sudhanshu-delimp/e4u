@@ -28,6 +28,7 @@ class AddNewStaff extends FormRequest
             $userId = $request->user_id;
         }
         return [
+            'operator_id' => 'bail|required',
             'name' => 'bail|required|string|max:100',
             'address' => 'bail|required|string|max:255',
             'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}",
@@ -52,6 +53,7 @@ class AddNewStaff extends FormRequest
     public function messages()
     {
         return [
+            'operator_id.required'  => 'please select operator.',
             'state_id.required'  => 'please select your territory.',
             'state_id.exists'  => 'please select your territory.',
             'genders.required'  => 'The gender field is required.',

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Operator;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AddNewOperator extends FormRequest
 {
@@ -30,7 +31,8 @@ class AddNewOperator extends FormRequest
         }
 
         return [
-            'company_name' => 'bail|required|string|max:100',
+            //'company_name' => 'bail|required|string|max:100',
+            'company_name' => ['bail','required','string','max:100',Rule::unique('users', 'name')->where('type', 7)->ignore($userId)],
             'business_name' => 'bail|required|string|max:100',
             'abn' => 'required|digits:11',
             'business_address' => 'bail|required|string|max:255',

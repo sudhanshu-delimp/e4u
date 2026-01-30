@@ -128,6 +128,19 @@
                     <form name="add_staff" id="add_staff" method="POST" action="{{ route('admin.operator.add-staff') }}"
                         enctype="multipart/form-data">
                         <div class="row" style="max-height: 500px; overflow:auto;">
+                            <div class="col-12 my-2">
+                                <h6 class="border-bottom pb-1 text-blue-primary">Operator</h6>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <select class="form-control" name="operator_id" id="operator_id">
+                                    <option value="">Select Operator</option>
+                                    @foreach ($operators as $key => $name)
+                                        <option value="{{ $key }}">{{ $name }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="text-danger error-operator_id"></span>
+                            </div>
+                             
                             <!-- Section: Personal Details -->
                             <div class="col-12 my-2">
                                 <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Operator;
 use Illuminate\Http\Request;
 
 use Laravel\Ui\Presets\React;
@@ -51,7 +52,18 @@ class OperatorstaffController extends BaseController
     }
 
     /**
-     * Add staff
+     * View operator staff list
+     */
+    public function staff_list()
+    {
+        $operatorObj = (new Operator);
+        $operators = $operatorObj->getDropdownList();
+      
+        return view('admin.management.operator_staff.staff', compact('operators'));
+    }
+
+    /**
+     * Add operator staff
      * 
      * @param \Illuminate\Http\Request $request
      */
@@ -66,7 +78,7 @@ class OperatorstaffController extends BaseController
     }
 
     /**
-     * Edit staff
+     * Edit operator staff
      * 
      * @param integer $id
      */
@@ -81,7 +93,7 @@ class OperatorstaffController extends BaseController
     }
 
     /**
-     * Store staff
+     * Store operator staff
      * 
      * @param \Illuminate\Http\Request $request
      */
@@ -95,7 +107,7 @@ class OperatorstaffController extends BaseController
             return $this->validationError($resposne['message']);
     }
     /**
-     * View staff
+     * View operator staff
      * 
      * @param integer $id
      */
@@ -108,16 +120,9 @@ class OperatorstaffController extends BaseController
             return "";
         }
     }
-    /**
-     * View staff list
-     */
-    public function staff_list()
-    {
-        return view('admin.management.operator_staff.staff');
-    }
 
     /**
-     * Get all staff list
+     * Get all operator staff list
      */
     public function staff_data_list()
     {
@@ -138,7 +143,7 @@ class OperatorstaffController extends BaseController
     }
 
     /**
-     *  Get all staff list with filter
+     *  Get all operator staff list with filter
      * 
      * @param integer $start
      * @param integer $limit
@@ -264,7 +269,7 @@ class OperatorstaffController extends BaseController
         return [$staffs, $total_staffs];
     }
     /**
-     *  Suspent the access of staff dashboard
+     *  Suspent the access of operator staff dashboard
      * 
      * @param \Illuminate\Http\Request $request
      */
@@ -307,7 +312,7 @@ class OperatorstaffController extends BaseController
     /**
      *  Change the staff status
      * 
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $requestoperator
      */
     public function approve_staff_account(Request $request)
     {
@@ -321,7 +326,7 @@ class OperatorstaffController extends BaseController
     }
 
     /**
-     *  Approve the staff
+     *  Approve the operator staff
      * 
      * @param \Illuminate\Http\Request $request
      */
