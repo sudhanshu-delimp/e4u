@@ -140,13 +140,6 @@
                     <form method="post" action="#">
                         <h4>Your Tour has been cancelled and all Profiles associated with the Tour removed from the
                             Website.</h4>
-                        
-                        <div class="row">
-                            <div class="col-md-12 my-3 d-flex align-items-center justify-content-between">
-                                <div class="">Date sent: <span>{{ now()->format('d-m-Y') }}</span></div>
-
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -283,6 +276,7 @@ $("#cancelTourForm").on('submit', function(e){
         method: form.attr('method'),
         data: form.serialize(),
         success: function (response) {
+            $("#tour_location_cancel").modal('hide');
             $("#cancel_tour_confirm").modal('show');
             cancel_on == 'tour'?table.draw():loadChildTable(active_tour_id);
         },
