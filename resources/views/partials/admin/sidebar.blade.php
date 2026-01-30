@@ -920,7 +920,7 @@
 
                             <!--  Operator -->
 
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Mnoperator"
+                            <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse" data-target="#Mnoperator"
                                 aria-expanded="false" aria-controls="Mnoperator">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/operator.png') }}">
                                 <span>Operator</span>
