@@ -5,7 +5,137 @@
                 --black-body: #212529;
                 --peach: #ff3c5f;
                 --blue--text--default: #2B3D50;
+                /* status */
+                --active--status: rgb(80, 220, 150);
+                --inactive--status: rgb(255, 0, 0);
+                --withdraw--status: rgb(165, 110, 75);
+                --resolved--status: rgb(200, 150, 20);
+                --rejected--status: rgb(90, 50, 170);
+                --forfeited--status: rgb(80, 80, 80);
+                --accepted--status: rgb(0, 160, 0);
+                --registered--status: rgb(160, 0, 0);
+                --current--status: rgb(0, 90, 170);
+                --upcoming--status: rgb(50, 150, 255);
+                --onHold--status: rgb(130, 130, 130);
+                --pending--status: rgb(190, 190, 190);
+                --available--status: rgb(255, 200, 100);
+                --activated--status: rgb(0, 130, 0);
+                --deactivated--status: rgb(250, 110, 50);
+                --published--status: rgb(80, 220, 150);
+                --suspended--status: rgb(255, 0, 0);
+                --declined--status: rgb(255, 140, 80);
+                --primaryAccount--status: rgb(255, 200, 100);
+                --secondaryAccount--status: rgb(240, 130, 100);
+                --open--status: rgb(180, 0, 0);
+                --inProgress--status: rgb(140, 150, 230);
+                --completed--status: rgb(250, 130, 60);
+                /* end */
             }
+            /* custome badge */
+            
+            .custom_badge {
+                display: inline-block;
+                padding: 4px 10px;
+                border-radius: 5px;
+                font-size: 12px;
+                font-weight: 500;
+                color: #fff;
+                line-height: 1;
+                white-space: nowrap;
+            }
+            
+            .badge_active {
+                background-color: var(--active--status);
+            }
+            
+            .badge_inactive {
+                background-color: var(--inactive--status);
+            }
+            
+            .badge_withdraw {
+                background-color: var(--withdraw--status);
+            }
+            
+            .badge_resolved {
+                background-color: var(--resolved--status);
+            }
+            
+            .badge_rejected {
+                background-color: var(--rejected--status);
+            }
+            
+            .badge_forfeited {
+                background-color: var(--forfeited--status);
+            }
+            
+            .badge_accepted {
+                background-color: var(--accepted--status);
+            }
+            
+            .badge_registered {
+                background-color: var(--registered--status);
+            }
+            
+            .badge_current {
+                background-color: var(--current--status);
+            }
+            
+            .badge_upcoming {
+                background-color: var(--upcoming--status);
+            }
+            
+            .badge_onHold {
+                background-color: var(--onHold--status);
+            }
+            
+            .badge_pending {
+                background-color: var(--pending--status);
+            }
+            
+            .badge_available {
+                background-color: var(--available--status);
+            }
+            
+            .badge_activated {
+                background-color: var(--activated--status);
+            }
+            
+            .badge_deactivated {
+                background-color: var(--deactivated--status);
+            }
+            
+            .badge_published {
+                background-color: var(--published--status);
+            }
+            
+            .badge_suspended {
+                background-color: var(--suspended--status);
+            }
+            
+            .badge_declined {
+                background-color: var(--declined--status);
+            }
+            
+            .badge_primaryAccount {
+                background-color: var(--primaryAccount--status);
+            }
+            
+            .badge_secondaryAccount {
+                background-color: var(--secondaryAccount--status);
+            }
+            
+            .badge_open {
+                background-color: var(--open--status);
+            }
+            
+            .badge_inProgress {
+                background-color: var(--inProgress--status);
+            }
+            
+            .badge_completed {
+                background-color: var(--completed--status);
+            }
+            /* end */
             
             * {
                 margin: 0px;
@@ -16,6 +146,154 @@
                 font-family: Poppins;
             }
             /*tool tip start here*/
+            /* blogs */
+            
+            .blog_search_tab {
+                padding: 10px 0px;
+            }
+            
+            .blog_tab,
+            .breadcrumb {
+                margin: 50px 0px;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                background: #fff;
+                padding: clamp(10px, 3vw, 15px);
+            }
+            
+            .breadcrumb a {
+                text-decoration: none;
+                color: var(--peach);
+                margin-right: 5px;
+            }
+            
+            .breadcrumb a:hover {
+                text-decoration: underline;
+            }
+            
+            .breadcrumb span {
+                color: #555;
+                /* current page */
+            }
+            
+            .blog_search_tab .blog_form_field input {
+                padding: 10px;
+                width: 100%;
+                outline: none;
+                background-color: #fff;
+                border: 1px solid #ccc !important;
+                border-radius: 5px;
+            }
+            
+            .blog_search_tab .blog_form_field {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+            }
+            
+            .blog_search_tab .blog_form_field button {
+                max-width: 200px;
+                width: 100%;
+                background-color: var(--peach);
+                color: #fff;
+                padding: 10px;
+                border-radius: 5px;
+            }
+            /* our_latest_blog */
+            
+            .our_latest_blog {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+            }
+            
+            .our_latest_blog .card-content {
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                padding: clamp(10px, 3vw, 15px);
+            }
+            
+            .our_latest_blog .card-content a {
+                color: var(--peach);
+                font-size: 14px;
+            }
+            
+            .our_latest_blog .card-content .card-img {
+                position: relative;
+            }
+            
+            .our_latest_blog .card-content .card-img small {
+                position: absolute;
+                right: 0px;
+                bottom: 0px;
+                background: var(--peach);
+                border-radius: 0px;
+                color: #fff;
+                font-size: 12px;
+                padding: 2px 5px;
+            }
+            
+            .our_latest_blog .card-desc h3 {
+                font-size: 24px;
+            }
+            
+            .our_latest_blog .card-desc p {
+                font-size: 14px;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            
+            .blog_head {
+                font-size: 28px;
+                margin-bottom: 25px;
+                border-bottom: 2px solid var(--blue--text);
+                padding-bottom: 10px;
+            }
+            
+            .arc_blog_list {
+                padding: clamp(10px, 3vw, 15px);
+                background-color: var(--blue--text);
+                border-radius: 8px;
+            }
+            
+            .archive-form label {
+                display: block;
+                font-weight: 600;
+                margin-bottom: 6px;
+                color: #fff;
+            }
+            
+            .archive-form input {
+                width: 100%;
+                padding: 6px;
+                margin-bottom: 15px;
+            }
+            
+            .archive-list ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .archive-list ul li {
+                margin-bottom: 10px;
+                line-height: 18px;
+            }
+            
+            .archive-list ul li a {
+                text-decoration: none;
+                color: var(--peach);
+                font-size: 14px;
+            }
+            
+            .archive-list ul li a:hover {
+                text-decoration: underline;
+            }
+            /* end */
             
             .c-red {
                 color: #ff3c5f;
@@ -5359,7 +5637,6 @@ i.fa.fa-heart-o{
                 justify-content: space-between;
                 gap: 10px;
                 align-items: center;
-                margin: 10px 0px;
             }
             
             .mc_profile_info h3 {
@@ -5387,6 +5664,10 @@ i.fa.fa-heart-o{
                 align-items: center;
             }
             
+            .massage_type .massage_type_info img {
+                width: 35px;
+            }
+            
             .massage_type .massage_type_info h4 {
                 font-size: 16px;
                 font-weight: 700;
@@ -5397,6 +5678,105 @@ i.fa.fa-heart-o{
                 font-size: 16px;
                 font-weight: 700;
                 color: var(--peach);
+            }
+            
+            .custom_message_types img {
+                width: 40px;
+            }
+            
+            .mc_view_media {
+                position: relative;
+                cursor: pointer;
+            }
+            
+            .mc_tooltip {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                z-index: 999;
+                transform: translate(-50%, -50%);
+                width: max-content;
+                background: #ff3c5f;
+                color: #fff;
+                font-size: 13px;
+                font-weight: 500;
+                padding: 8px 14px;
+                border-radius: 6px;
+                cursor: pointer;
+                display: none;
+            }
+            
+            .mc_view_media:hover .mc_tooltip {
+                display: block;
+            }
+            
+            .mc_avail_table th {
+                font-size: 13px !important;
+                text-align: center;
+            }
+            
+            .mc_avail_table td {
+                font-size: 12px !important;
+                text-align: center;
+            }
+            
+            .mc_avail_table .na-label {
+                font-size: 12px !important;
+                text-align: center;
+            }
+            
+            .mc_profile_img {
+                position: relative;
+            }
+            
+            .mc_profile_img .veryfy_img {
+                position: absolute;
+                width: 100px;
+                object-fit: contain;
+                bottom: 0px;
+                right: 12px;
+                background: var(--blue--text);
+                padding: 4px 10px;
+            }
+            
+            .mc_profile_img .veryfy_img img {
+                width: 100%;
+            }
+            
+            .massage_type_info {
+                position: relative;
+            }
+            
+            .mc_rate_tooltip {
+                position: absolute;
+                left: 50%;
+                top: -50%;
+                z-index: 999;
+                transform: translate(-50%, -50%);
+                width: max-content;
+                background: #ff3c5f;
+                color: #fff;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 3px;
+                border-radius: 2px;
+                cursor: pointer;
+                display: none;
+            }
+            
+            .mc_rate_tooltip::after {
+                position: absolute;
+                left: 50%;
+                top: 22px;
+                content: '';
+                border-width: 6px;
+                border-style: solid;
+                border-color: var(--peach) transparent transparent transparent;
+                transform: rotate(0deg) translate(-50%, 0%);
+            }
+            
+            .massage_type_info img:hover+.mc_rate_tooltip {
+                display: block;
             }
             /* end */
             
@@ -7237,7 +7617,6 @@ i.fa.fa-heart-o{
             /* General Blog Section Styles */
             
             .section.blog-wrap {
-                padding: 80px 0;
                 background-color: #f9f9f9;
             }
             
@@ -7245,7 +7624,7 @@ i.fa.fa-heart-o{
                 border-radius: 8px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
                 background: #fff;
-                padding: clamp(25px, 3vw, 50px);
+                padding: clamp(10px, 3vw, 15px);
             }
             
             .blog-item-meta {

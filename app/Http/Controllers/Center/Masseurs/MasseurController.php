@@ -608,43 +608,81 @@ class MasseurController extends AppController
 
     public function  masseur_option_list(Request $request)
     {
-            $availability = $request->availability; 
-
             
 
-
-            Log::info( $availability);
-
-            $query = Masseur::query();
+        
+            $massageTime = $request->availability; 
+            $masseurLists = Masseur::where(['user_id' => auth()->user()->id,'status'=>'1'])->get();
             $countries = getCountryList();
 
-           
+            $massaureTime  = [];
+            if($masseurLists->isNotEmpty())
+            {
+                $k=0;
+                foreach($masseurLists as $masseurList)
+                {
+                        $massaureTime[$k]['id'] =  $masseurList->id; 
+                        $massaureTime[$k]['availability'] = $masseurList->availability ? json_decode($masseurList->availability, true) : [];
+                        $k++;
+               }
+            }
 
-            return DataTables::of($query)
-                ->addColumn('checkbox', function ($row) use($countries) {
-                    return '<input type="checkbox" class="select-masseur" value="'.$row->id.'">';
-                })
-                ->addColumn('profile', function ($row) {
-                    return '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">==='.$row->id;
-                })
-                ->addColumn('days', function ($row) {
-                    return '<span class="available_d">
-                                <span style="color:red;">M</span>T
-                                <span style="color:red;">W</span>THF
-                            </span>';
-                })
-                ->addColumn('ethnicity', function ($row) {
-                    $ethnicities = config('escorts.profile.ethnicities');
-                    return $ethnicities[$row->ethnicity] ?? 'NA';
-                })
-                
-                ->addColumn('nationality', function ($row) use ($countries) {
-                    return $countries[$row->nationality] ?? 'NA';
-                })
-                ->rawColumns(['checkbox','profile','days'])
-                ->make(true);
+            // Log::info($massageTime);
+            // exit;
+
+            $eligible_masseur = [];
+            if((!empty($massageTime)) && (!empty($massaureTime)))
+            {
+               $eligible_masseur = $this->validate_masseur($massageTime,$massaureTime);
+            } 
+            
+            $eligible_masseur = array_values($eligible_masseur);
+            $query  = Masseur::whereIn('id', $eligible_masseur)->get();
+
+
+             $data = $query->map(function ($row) use ($countries) {
+
+               $avail_arr  = $row->availability ? json_decode($row->availability, true) : [];
+               $avail_list = $this->weeklyAvailibility($avail_arr);
+
+
+                return [
+                   
+                    'checkbox' => '<input type="checkbox" class="select-masseur" value="'.$row->id.'">',
+                    
+                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">==='.$row->id,
+
+                    'days' => $avail_list,
+
+                    'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
+
+                    'nationality' => $countries[$row->nationality] ?? 'NA',
+                    
+
+                ];
+            });  
+
+
+            return response()->json([
+                'data' => $data
+            ]);
+           
     }
 
+
+
+   public function weeklyAvailibility($avail_arr)
+   {
+        $avail = "";
+        $avail .= (isset($avail_arr['monday']) && $avail_arr['monday'] == 'closed') ? '<span style="color:red;">M</span>': 'M';
+        $avail .= (isset($avail_arr['tuesday']) && $avail_arr['tuesday'] == 'closed') ? '<span style="color:red;">T</span>': 'T';
+        $avail .= (isset($avail_arr['wednesday']) && $avail_arr['wednesday'] == 'closed') ? '<span style="color:red;">W</span>': 'W';
+        $avail .= (isset($avail_arr['thursday']) && $avail_arr['thursday'] == 'closed') ? '<span style="color:red;">T</span>': 'T';
+        $avail .= (isset($avail_arr['friday']) && $avail_arr['friday'] == 'closed') ? '<span style="color:red;">F</span>': 'F';
+        $avail .= (isset($avail_arr['saturday']) && $avail_arr['saturday'] == 'closed') ? '<span style="color:red;">S</span>': 'S';
+        $avail .= (isset($avail_arr['sunday']) && $avail_arr['sunday'] == 'closed') ? '<span style="color:red;">S</span>': 'S';
+        return '<span class="available_d">'.$avail.'</span>';
+   } 
 
     public function  get_filter_masseur_option_list(Request $request)
     {
@@ -778,8 +816,211 @@ class MasseurController extends AppController
 
     
 
+    ################## Validate Mmasseur ##########################
+
+    public function validate_masseur($massageTime,$massaureTime)
+    {
+        
+            $newDataarr = []; 
+            $j=0;
+
+            //Log::info($massageTime);
+
+            for($i=0;$i<count($massaureTime);$i++)
+            {
+
+                $exit = false;
+                $massure = $massaureTime[$i]['availability'];
+                $user_id = $massaureTime[$i]['id']; 
+                $status = "";
+
+                //Log::info($massageTime);
 
 
-    
+                $proceed_to_next = $this->proceed_to_next($massure,$massageTime);
 
+                if($proceed_to_next)
+                continue; 
+
+                $monday_proceed_to_next = $this->check_time_status($massure,$massageTime,'monday');
+                if($monday_proceed_to_next)
+                continue; 
+
+                $tuesday_proceed_to_next = $this->check_time_status($massure,$massageTime,'tuesday');
+                if($tuesday_proceed_to_next)
+                continue; 
+
+
+                $wednesday_proceed_to_next = $this->check_time_status($massure,$massageTime,'wednesday');
+                if($wednesday_proceed_to_next)
+                continue; 
+
+                $thursday_proceed_to_next = $this->check_time_status($massure,$massageTime,'thursday');
+                if($thursday_proceed_to_next)
+                continue;
+
+                $friday_proceed_to_next = $this->check_time_status($massure,$massageTime,'friday');
+                if($friday_proceed_to_next)
+                continue;
+
+                $saturday_proceed_to_next = $this->check_time_status($massure,$massageTime,'saturday');
+                if($saturday_proceed_to_next)
+                continue;
+
+                $sunday_proceed_to_next = $this->check_time_status($massure,$massageTime,'sunday');
+                if($sunday_proceed_to_next)
+                continue;
+
+                $newDataarr[$j]  = $user_id;
+                $j++; 
+
+            }
+
+
+            return $newDataarr;
+    }
+
+
+    public function massure_till_Range($massure_from, $massage_from, $massage_to)
+    {
+
+        if ($massure_from === false || $massage_from === false || $massage_to === false) {
+            return false;
+        }
+
+        return ($massure_from >= $massage_from);
+    }
+
+    public function massage_till_Range($massure_from, $massure_to, $massage_from)
+    {
+
+        if ($massure_from === false || $massure_to === false || $massage_from === false) {
+            return false;
+        }
+
+        return ($massure_from>=$massage_from);
+    }
+
+
+    public function isInRange($massure_from, $massure_to, $massage_from, $massage_to)
+    {
+
+            try 
+            {
+                if ($massure_from === false || $massure_to === false || $massage_from === false || $massage_to === false) 
+                {
+                return false;
+                }
+
+                
+                return ($massure_from >= $massage_from && $massure_to <= $massage_to);
+            } 
+            catch (Exception $e) {
+             Log::info('Invalid Time');
+             Log::info($e->getMessage());
+            return false;
+            }
+    }
+
+
+    public function check_time_status($massure,$massageTime,$day)
+    {
+        
+            $proceed_to_next = false;
+            
+            if($massure[$day]['status'] == 'custom' &&  $massageTime[$day]['status'] == 'custom')
+            {
+                $massure_from   = strtotime($massure[$day]['from']);
+                $massure_to     = strtotime($massure[$day]['to']);
+                $massage_from   = strtotime($massageTime[$day]['from']);
+                $massage_to     = strtotime($massageTime[$day]['to']);
+
+                //echo $this->isInRange($massure_from, $massure_to, $massage_from, $massage_to).'<br>';
+                
+                if($this->isInRange($massure_from, $massure_to, $massage_from, $massage_to))
+                $proceed_to_next  = false; 
+                else
+                $proceed_to_next  = true;
+            }
+
+            //echo $proceed_to_next.'<br>';
+
+            elseif($massure[$day]['status'] == 'til_late' &&  $massageTime[$day]['status'] == 'custom')
+            {
+                
+                $massure_from  =  strtotime($massure[$day]['from']);
+                $massage_from  =  strtotime($massageTime[$day]['from']);
+                $massage_to    =  strtotime($massageTime[$day]['to']);
+
+                
+                if($this->massure_till_Range($massure_from, $massage_from, $massage_to))
+                $proceed_to_next  = false; 
+                else
+                $proceed_to_next  = true;
+            }
+
+
+            else if($massure[$day]['status'] == 'custom' &&  $massageTime[$day]['status'] == 'til_late')
+            {
+                $massure_from  = strtotime($massure[$day]['from']);
+                $massure_to    = strtotime($massure[$day]['to']);
+
+                $massage_from = strtotime($massageTime[$day]['from']);
+                
+                
+                if($this->massage_till_Range($massure_from, $massure_to, $massage_from))
+                $proceed_to_next  = false; 
+                else
+                $proceed_to_next  = true;
+            }
+
+            else if($massure[$day]['status'] == '24_hours' &&  $massageTime[$day]['status'] == '24_hours')
+            {
+                $proceed_to_next  = false; 
+            }
+
+            if($massure[$day]['status'] == '24_hours' &&  $massageTime[$day]['status'] != '24_hours')
+            {
+                $proceed_to_next  = false; 
+            }
+
+            if($massure[$day]['status'] != '24_hours' &&  $massageTime[$day]['status'] == '24_hours')
+            {
+                $proceed_to_next  = false; 
+            }
+
+
+            return $proceed_to_next;
+    }
+
+
+    public function proceed_to_next($massure,$massageTime)
+    {
+        $proceed_to_next = false;
+        
+        if($massure['monday']['status'] == 'closed' && $massageTime['monday']['status'] != 'closed')
+        $proceed_to_next = true;
+
+        if($massure['tuesday']['status'] == 'closed' && $massageTime['tuesday']['status'] != 'closed')
+        $proceed_to_next = true;
+
+        if($massure['wednesday']['status'] == 'closed' && $massageTime['wednesday']['status'] != 'closed')
+        $proceed_to_next = true;
+
+        if($massure['thursday']['status'] == 'closed' && $massageTime['thursday']['status'] != 'closed')
+        $proceed_to_next = true;
+
+        if($massure['friday']['status'] == 'closed' && $massageTime['friday']['status'] != 'closed')
+        $proceed_to_next = true;
+
+        if($massure['saturday']['status'] == 'closed' && $massageTime['saturday']['status'] != 'closed')
+        $proceed_to_next = true;
+
+        if($massure['sunday']['status'] == 'closed' && $massageTime['sunday']['status'] != 'closed')
+        $proceed_to_next = true;
+
+        return $proceed_to_next;
+    }
+
+    ################## End Validate Mmasseur ##########################
 }

@@ -785,31 +785,50 @@ class TourController extends Controller
     }
 
     public function getAccountProfiles(Request $request){
+        
         $stateId = $request->input('state_id');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
-        $escort = $this->escort->FindByUsers(auth()->user()->id);
-        $escorts = $escort->where('state_id', $stateId)->whereNotNull('name');
-        $availableEscorts = $escorts->filter(function ($escort) use ($startDate, $endDate) {
+
+        $userProfiles = [];
+
+        /** Check if tour is scheduled for another location in the selected date range. */
+
+        $conflictExists = Tour::where('user_id',auth()->user()->id)
+            ->with('locations')
+            ->whereHas('locations', function ($query) use ($startDate, $endDate, $stateId) {
+                $query->whereNotIn('state_id',[$stateId])
+                ->overlapping($startDate, $endDate);
+            })
+            ->exists();
+
+        if(!$conflictExists){
+            $escort = $this->escort->FindByUsers(auth()->user()->id);
+            $escorts = $escort->where('state_id', $stateId)->whereNotNull('name');
+            $availableEscorts = $escorts->filter(function ($escort) use ($startDate, $endDate) {
+                /** Check if profile is already in the queue of listing in the selected date range. */
             $purchase = $escort->purchase()
                 ->where(function ($query) use ($startDate, $endDate) {
                     $query->overlapping($startDate, $endDate);
                 })->exists();
-
+                /** Check if profile is the part the created current and upcomming tours in the selected date range. */
             $tour = $escort->tourProfiles()
                 ->whereHas('location.tour.locations', function ($query) use ($startDate, $endDate) {
                 $query->overlapping($startDate, $endDate);
             })
             ->exists();
-            return  !$purchase && !$tour; // include escrot if not overlap with existing purchase and tour        
-        })->values();
 
-        $userProfiles = [];
-        foreach ($availableEscorts as $escort) {
+            return  !$purchase && !$tour; /** include escrot if not overlap with existing purchase and tour. */
+            })->values();
+        }
+        
+        if(!empty($availableEscorts)){
+            foreach ($availableEscorts as $escort) {
                 $userProfiles[] = [
                     'id' => $escort['id'],
                     'name' => $escort['name']
                 ];
+            }
         }
         return response()->json($userProfiles);
     }

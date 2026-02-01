@@ -86,11 +86,11 @@
                         </div>
                         <div class="col-3 rate-img-center rate-tooltip">
                             <img src="{{asset('assets/dashboard/img/massage-with2.png')}}" class="w-50">
-                            <span class="tooltip-info">Massage with Extras, 2 hands.</span>
+                            <span class="tooltip-info">Massage with extras +2 hands.</span>
                         </div>
                         <div class="col-3 rate-img-center rate-tooltip">
                             <img src="{{asset('assets/dashboard/img/massage-with4.png')}}" class="w-50">
-                            <span class="tooltip-info">Massage with Extras, 2 hands.</span>
+                            <span class="tooltip-info">Massage with extras +4 hands.</span>
                         </div>
                     </div>
                     @foreach($durations->whereIn('id',[2,3,4,5,6]) as $duration)

@@ -27,10 +27,10 @@
     color: #fff !important;
 }
   
-/* .disabled-form-tab {
+.disabled-form-tab {
     pointer-events: none;
     opacity: 0.5;
-} */
+}
 
  .defult-image{
         width: 202px !important;
@@ -137,7 +137,7 @@
                                 <li class="nav-item m-0">
                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available" role="tab" aria-controls="contact" aria-selected="false">Open Times</a>
                                 </li>
-                                <li class="nav-item m-0">
+                                <li class="nav-item m-0 masseurs_tab">
                                    <a class="nav-link" id="massuers-tab" data-toggle="tab" href="#massuers" role="tab" aria-controls="massuers" aria-selected="false">Masseurs</a>
                                 </li>
                                 {{-- <li class="nav-item m-0">
@@ -524,7 +524,9 @@ var edit_mode = false;
 
 
 
-        
+
+
+    
 
 
 
@@ -576,6 +578,13 @@ var edit_mode = false;
                 });
             }
         
+    });
+
+
+
+
+    $(document).on('click', '#massuers-tab', function (e) {
+        calculateTime();
     });
 
 
@@ -692,10 +701,15 @@ var edit_mode = false;
 
     function load_masseur_table(my_availability)
     {
+
+         currentAvailability = my_availability; 
+
         if ($.fn.DataTable.isDataTable('#masseurs_Tab')) {
             $('#masseurs_Tab').DataTable().ajax.reload();
             return;
         }
+
+        console.log('my_availability->>>>>>>>>>',currentAvailability);
 
         $("#masseurs_Tab").DataTable({
             processing: true,
@@ -714,8 +728,7 @@ var edit_mode = false;
                 },
                 data: function (d) {
                     d.type = 'player';
-                    d.availability = my_availability; // coming from function param
-                    return d;
+                    d.availability = currentAvailability; 
                 }
             },
 
