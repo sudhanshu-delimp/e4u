@@ -614,11 +614,15 @@ class MasseurController extends AppController
 
     public function  masseur_option_list(Request $request)
     {
-            
 
-        
             $massageTime = $request->availability; 
-            $masseurLists = Masseur::where(['user_id' => auth()->user()->id,'status'=>'1'])->get();
+            $masseurProfileIds = $request->selectedList;
+            $masseurLists = Masseur::where(['user_id' => auth()->user()->id,'status'=>'1']);
+            
+            if(!empty($masseurProfileIds))
+            $masseurLists = $masseurLists->whereNotIn('id', $masseurProfileIds);    
+
+            $masseurLists = $masseurLists->get();
             $countries = getCountryList();
 
             $massaureTime  = [];
@@ -646,7 +650,7 @@ class MasseurController extends AppController
             $eligible_masseur = array_values($eligible_masseur);
             $query  = Masseur::whereIn('id', $eligible_masseur)->where('status','1')->get();
 
-            Log::info($query);
+           // Log::info($query);
            // exit;
 
 
@@ -660,7 +664,7 @@ class MasseurController extends AppController
                    
                     'checkbox' => '<input type="checkbox" class="select-masseur" value="'.$row->id.'">',
                     
-                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">==='.$row->id,
+                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">('.$row->id.')',
 
                     'days' => $avail_list,
 
@@ -696,37 +700,41 @@ class MasseurController extends AppController
 
     public function  get_filter_masseur_option_list(Request $request)
     {
-            $availability = $request->availability; 
-
-            //$masseurProfileIds = MassagerMasseur::where('massage_profile_id', $request->massage_profile_id)->pluck('masseur_profile_id');
             
-            $masseurProfileIds = $request->selectedList;
-            $query = Masseur::whereNotIn('id', $masseurProfileIds)->get();
-            $countries = getCountryList();
+            $selected_masseur = $request->selectedList;
+            $query = Masseur::where('user_id',auth()->user()->id)
+                                ->whereNotIn('id', $selected_masseur)
+                                ->where('status','1')
+                                ->get();
 
-            return DataTables::of($query)
-                ->addColumn('checkbox', function ($row) use($countries) {
-                    return '<input type="checkbox" class="select-masseur" value="'.$row->id.'">';
-                })
-                ->addColumn('profile', function ($row) {
-                    return '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">==='.$row->id;
-                })
-                ->addColumn('days', function ($row) {
-                    return '<span class="available_d">
-                                <span style="color:red;">M</span>T
-                                <span style="color:red;">W</span>THF
-                            </span>';
-                })
-                ->addColumn('ethnicity', function ($row) {
-                    $ethnicities = config('escorts.profile.ethnicities');
-                    return $ethnicities[$row->ethnicity] ?? 'NA';
-                })
-                
-                ->addColumn('nationality', function ($row) use ($countries) {
-                    return $countries[$row->nationality] ?? 'NA';
-                })
-                ->rawColumns(['checkbox','profile','days'])
-                ->make(true);
+            
+
+             $countries = getCountryList();
+             $data = $query->map(function ($row) use ($countries) {
+
+               $avail_arr  = $row->availability ? json_decode($row->availability, true) : [];
+               $avail_list = $this->weeklyAvailibility($avail_arr);
+
+
+                return [
+                   
+                    'checkbox' => '<input type="checkbox" class="select-masseur" value="'.$row->id.'">',
+                    
+                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">('.$row->id.')',
+
+                    'days' => $avail_list,
+
+                    'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
+
+                    'nationality' => $countries[$row->nationality] ?? 'NA',
+                    
+
+                ];
+            });  
+
+            return response()->json([
+                'data' => $data
+            ]);
     }
 
     public function  get_masseur_option_list(Request $request)
@@ -737,16 +745,17 @@ class MasseurController extends AppController
             $countries = getCountryList();
 
             $data = $masseurs->map(function ($row) use ($countries) {
+
+               $avail_arr  = $row->availability ? json_decode($row->availability, true) : [];
+               $avail_list = $this->weeklyAvailibility($avail_arr);
+
                 return [
                    
                     'id' => $row->id,
                     
-                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">==='.$row->id,
+                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"> ('.$row->id.')',
 
-                    'days' => '<span class="available_d">
-                                    <span style="color:red;">M</span>T
-                                    <span style="color:red;">W</span>THF
-                            </span>',
+                    'days' => $avail_list,
 
                     'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
 
