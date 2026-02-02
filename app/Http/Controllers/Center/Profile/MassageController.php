@@ -74,58 +74,61 @@ class MassageController extends Controller
     }
 
    
-    // public function makeAvailability($request_data)
-    // {
+    public function massager_list(Request $request)
+    {
+        return view('center.dashboard.list');
+    }
 
-      
-    //     $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
-    //     $availability = [];
+    public function  get_all_massager_list(Request $request)
+    {
 
-    //     foreach ($days as $day) {
+            $masseurs  = MassageProfile::where('user_id', auth()->user()->id)->get();
+            $countries = getCountryList();
 
-    //         $status = $request_data['availability_time'][$day] ?? 'closed';
+            $data = $masseurs->map(function ($row) use ($countries) {
 
-    //         if ($status === 'closed') {
-    //             $availability[$day] = [
-    //                 'status' => 'closed',
-    //                 'from' => null,
-    //                 'to' => null,
-    //             ];
-    //             continue;
-    //         }
+                if($row->enabled==1)
+                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Deactivate</a>';   
+                 else
+                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-circle"></i> Activate</a>';     
+               
+               
+                 $action = '<div class="dropdown no-arrow">
+                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                 </a>
+                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
+                                                   
+                                                  
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-profile/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
+                                                   <div class="dropdown-divider"></div>'.$status.
+                                                  
+                                                   
+                            '</div>';
+                 //  <div class="dropdown-divider"></div>           
+                //<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
 
-    //         if ($status === '24_hours') {
-    //             $availability[$day] = [
-    //                 'status' => '24_hours',
-    //                 'from' => '12:00 AM',
-    //                 'to' => '11:59 PM',
-    //             ];
-    //             continue;
-    //         }
+                return [
+                   
+                    'profile_name' => $row->profile_name,
+                    'business_name' => $row->business_name,
+                    'business_no' => $row->business_no,
+                    'phone' => $row->phone,
+                    'created_at' => date('d M Y', strtotime($row->created_at)),
+                    'status' => ($row->enabled==1) ? 'Active' : 'InActive',
+                    'action' => $action
+
+                ];
+            });  
 
 
-    //         $from = null;
-    //         $to   = null;
+            return response()->json([
+                'data' => $data
+            ]);
 
-    //         if (!empty($request_data['time'][$day]['hh_from']) &&
-    //             !empty($request_data['time'][$day]['ampm_from'])) {
-    //             $from = $request_data['time'][$day]['hh_from'].' '.$request_data['time'][$day]['ampm_from'];
-    //         }
+ 
+    }
 
-    //         if (!empty($request_data['time'][$day]['hh_to']) &&
-    //             !empty($request_data['time'][$day]['ampm_to'])) {
-    //             $to = $request_data['time'][$day]['hh_to'].' '.$request_data['time'][$day]['ampm_to'];
-    //         }
-
-    //         $availability[$day] = [
-    //             'status' => $status,
-    //             'from' => $from,
-    //             'to' => $to,
-    //         ];
-    //     }
-
-    //     return $availability;
-    // }
 
 
 

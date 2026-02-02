@@ -712,7 +712,7 @@ textarea {
                                                                             Til late
                                                                         </label>
 
-                                                                        <label class="ms-2">
+                                                                        <label class="ms-2" style="display: none;">
                                                                             <input type="radio"
                                                                                 name="availability_time[{{ $dayKey }}]"
                                                                                 value="24_hours"
@@ -720,7 +720,7 @@ textarea {
                                                                             Open 24 Hours
                                                                         </label>
 
-                                                                        <label class="ms-2">
+                                                                        <label class="ms-2" style="display: none;">
                                                                             <input type="radio"
                                                                                 name="availability_time[{{ $dayKey }}]"
                                                                                 value="closed"

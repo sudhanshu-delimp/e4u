@@ -547,8 +547,8 @@ textarea {
                                                                                         Open 24 Hours
                                                                                     </label>
 
-                                                                                    <label class="ms-2">
-                                                                                        <input type="radio" name="availability_time[{{ $dayKey }}]" value="closed" checked="true">
+                                                                                    <label class="ms-2" style="display: none;">
+                                                                                        <input type="radio" name="availability_time[{{ $dayKey }}]" value="closed" >
                                                                                         Closed
                                                                                     </label>
 
@@ -979,19 +979,19 @@ textarea {
     });
 
 
-    $('.profile_time_availibility').on(
-        'change',
-        'select[name*="[hh_from]"], select[name*="[ampm_from]"]',
-        function () {
+    // $('.profile_time_availibility').on(
+    //     'change',
+    //     'select[name*="[hh_from]"], select[name*="[ampm_from]"]',
+    //     function () {
 
-            let row = $(this).closest('.parent-row');
-            let { from, to, radios } = getRow(row);
+    //         let row = $(this).closest('.parent-row');
+    //         let { from, to, radios } = getRow(row);
 
-            radios.prop('checked', false);   // uncheck radios
-            from.prop('disabled', false);
-            to.prop('disabled', false);
-        }
-    );
+    //         radios.prop('checked', false);   // uncheck radios
+    //         from.prop('disabled', false);
+    //         to.prop('disabled', false);
+    //     }
+    // );
 
     $('.profile_time_availibility .parent-row').each(function () {
 
@@ -1003,8 +1003,8 @@ textarea {
             from.prop('disabled', false);
             to.prop('disabled', true);
         } else {
-            from.prop('disabled', true);
-            to.prop('disabled', true);
+            //from.prop('disabled', true);
+            //to.prop('disabled', true);
         }
 
     });
