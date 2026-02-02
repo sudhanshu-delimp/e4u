@@ -23,7 +23,6 @@ use App\Http\Controllers\Center\MassageViewerInteractionController;
 
 
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
-Route::get('/list', [CenterController::class, 'escortList'])->name('center.list');
 Route::get('/list/data-table', [CenterController::class, 'dataTable'])->name('center.list.dataTable');
 Route::post('/profile-contact-permission', [EscortController::class, 'profileTourPermissionUpdate'])->name('center.account.profile.contact.update');
 //Route::get('profile/{id}',[CenterController::class,'updateProfile'])->name('center.update.profile');
@@ -90,6 +89,10 @@ Route::post('update-single-data',[MassageController::class,'update_single_data']
 Route::post('our-business',[MassageController::class,'ourBusiness'])->name('center.our-business');
 Route::get('update-profile/{id?}',[MassageController::class,'getProfile'])->name('center.update-profile');
 Route::post('update-massage-profile',[MassageController::class,'updateprofile'])->name('center.update-massage-profile');
+Route::get('/list', [MassageController::class, 'massager_list'])->name('center.list');
+Route::post('all-massager-list', [MassageController ::class, 'get_all_massager_list'])->name('center.all-massager-list');
+
+
 
 Route::post('make-time-json',[MassageController::class,'make_time_json'])->name('center.make-time-json');
 

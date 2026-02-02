@@ -417,12 +417,12 @@ console.log('profileId',profileId);
             // });
 
 
-            if(!checkProfileDynamicMediaVideo()){
-                    Swal.fire('Media',
-                        'Please attach video to this profile from the Media Repository or upload a new file',
-                        'warning');
-                    return false;  
-            }
+            // if(!checkProfileDynamicMediaVideo()){
+            //         Swal.fire('Media',
+            //             'Please attach video to this profile from the Media Repository or upload a new file',
+            //             'warning');
+            //         return false;  
+            // }
 
             
             if (!validateCKEditor()) {

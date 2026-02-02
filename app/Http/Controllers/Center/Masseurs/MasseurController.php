@@ -135,8 +135,14 @@ class MasseurController extends AppController
             DB::beginTransaction();
             $user = auth()->user();
             $request_data = $request->all();
+
+            // Log::info('$request_data');
+            // Log::info($request_data);
+
             $availability     = $this->makeAvailability($request_data);
             $availabilityJson = json_encode($availability);
+
+            // Log::info($availabilityJson);
 
             /* ================== Masseur Profile ================== */
             $masseur = new Masseur();
@@ -627,17 +633,21 @@ class MasseurController extends AppController
                }
             }
 
-            // Log::info($massageTime);
-            // exit;
+           
 
             $eligible_masseur = [];
             if((!empty($massageTime)) && (!empty($massaureTime)))
             {
                $eligible_masseur = $this->validate_masseur($massageTime,$massaureTime);
             } 
+
+            
             
             $eligible_masseur = array_values($eligible_masseur);
-            $query  = Masseur::whereIn('id', $eligible_masseur)->get();
+            $query  = Masseur::whereIn('id', $eligible_masseur)->where('status','1')->get();
+
+            Log::info($query);
+           // exit;
 
 
              $data = $query->map(function ($row) use ($countries) {
@@ -783,7 +793,7 @@ class MasseurController extends AppController
                                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
                                                    <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
                                                    <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-target="#editMasseur" data-toggle="modal"> <i class="fa fa-pen"></i> Edit profile </a>
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="../update-masseur/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
                                                    <div class="dropdown-divider"></div>'.$status.
                                                   
                                                    

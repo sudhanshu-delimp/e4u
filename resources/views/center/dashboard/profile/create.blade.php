@@ -415,40 +415,30 @@ var edit_mode = false;
             //console.log('logs====>', $('a.nav-link.active').parent().index());
 
 
-            // if (isFirstTab) 
-            // {
+            if (isFirstTab) 
+            {
 
-            //     console.log('isFirstTab',isFirstTab);
+                if(!checkProfileDynamicMedia()){
+                return false;
+                }
+            }
 
-            //     if(!checkProfileDynamicMedia()){
-            //     return false;
-            //     }
-            // }
+            if(isSecondTab)
+            {
 
-            // if(isSecondTab)
-            // {
-
-            //     if(!validateSecondTab())
-            //      return false;    
-            // }
-
-            // if(isThirdTab)
-            // {
-            //     calculateTime();
-            //     if(!validateThirdTab())
-            //      return false; 
-            
-            // }
+                if(!validateSecondTab())
+                 return false;    
+            }
 
             if(isThirdTab)
             {
-                calculateTime();
-                // if(!validateThirdTab())
-                //  return false; 
+               
+                if(!validateThirdTab())
+                 return false; 
+
+                 calculateTime();
             
             }
-
-
         
             $('.tab-pane.active :input').each(function () {
                 if (!validator.element(this)) {
@@ -457,15 +447,12 @@ var edit_mode = false;
             });
 
 
-           
-
-
-            if(!checkProfileDynamicMediaVideo()){
-                    Swal.fire('Media',
-                        'Please attach video to this profile from the Media Repository or upload a new file',
-                        'warning');
-                    return false;  
-            }
+            // if(!checkProfileDynamicMediaVideo()){
+            //         Swal.fire('Media',
+            //             'Please attach video to this profile from the Media Repository or upload a new file',
+            //             'warning');
+            //         return false;  
+            // }
 
             
             if (!validateCKEditor()) {
@@ -604,6 +591,137 @@ var edit_mode = false;
 <script type="text/javascript"  src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
 
+ 
+
+
+// const my_availability = {
+//     monday:    { status: "custom", from: "01:00 PM", to: "11:30 PM" },
+//     tuesday:   { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+//     wednesday: { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+//     thursday:  { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+//     friday:    { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+//     saturday:  { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+//     sunday:    { status: "custom", from: "01:00 AM", to: "10:00 PM" }
+// };
+
+
+  
+
+    $('.add_masseurs').on('click', function () {
+
+        $('#masseurs_Tab tbody input.select-masseur:checked').each(function () {
+
+            let $row = $(this).closest('tr');
+            let id   = $(this).val();
+
+            
+            if ($('#selected_masseur tbody tr[data-id="'+id+'"]').length) {
+                return;
+            }
+
+            let profile     = $row.find('td:eq(1)').html();
+            let days        = $row.find('td:eq(2)').html();
+            let ethnicity   = $row.find('td:eq(3)').text();
+            let nationality = $row.find('td:eq(4)').text();
+
+            let html = `
+                <tr data-id="${id}">
+                    <td>${profile}</td>
+                    <td>${days}</td>
+                    <td>${nationality}</td>
+                    <td>${ethnicity}</td>
+                    <td> <button type="button" class="btn-danger btn-sm remove-row">Remove</button></td>
+
+                    
+                    
+                </tr>
+            `;
+
+            $('#selected_masseur tbody').append(html);
+            $row.remove();
+            $(this).prop('checked', false);
+            $('#select_profile').modal('hide');
+            toggleSaveProfileButton();
+        });
+
+    });
+
+
+    $(document).on('click', '.remove-row', function () {
+        $(this).closest('tr').remove();
+        toggleSaveProfileButton();
+    });
+
+
+    function load_masseur_table(my_availability)
+    {
+
+         currentAvailability = my_availability; 
+
+        if ($.fn.DataTable.isDataTable('#masseurs_Tab')) {
+            $('#masseurs_Tab').DataTable().ajax.reload();
+            return;
+        }
+
+        console.log('my_availability->>>>>>>>>>',currentAvailability);
+
+        $("#masseurs_Tab").DataTable({
+            processing: true,
+            serverSide: true,
+            paging: false,
+            searching: false,
+            info: false,
+            lengthChange: false,
+            ordering: false,
+
+            ajax: {
+                url: "{{ route('center.masseur-option-list') }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: function (d) {
+                    d.type = 'player';
+                    d.availability = currentAvailability; 
+                }
+            },
+
+            columns: [
+                { data: 'checkbox', orderable: false, searchable: false },
+                { data: 'profile' },
+                { data: 'days' },
+                { data: 'ethnicity' },
+                { data: 'nationality' }
+            ]
+        });
+
+    }
+
+
+    function getSelectedMasseurIds() 
+    {
+        let ids = [];
+        $('#selected_masseur tbody tr[data-id]').each(function () {
+            ids.push($(this).data('id'));
+        });
+
+        return ids;
+    }
+
+    function toggleSaveProfileButton() 
+    {
+
+            let ids = [];
+            const count = $('#selected_masseur tbody tr[data-id]').length;
+            
+
+            if (count > 0) {
+                $('#submit_form_massage').prop('disabled', false);
+            } else {
+                $('#submit_form_massage').prop('disabled', true);
+            }
+    }
+
     function calculateTime()
     {
 
@@ -660,7 +778,18 @@ var edit_mode = false;
                 success: function (response) {
 
                     console.log('availability',response.data);
-                    my_availability = response.data;
+                    //my_availability = response.data;
+
+                    let my_availability = {
+                        monday:    { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+                        tuesday:   { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+                        wednesday: { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+                        thursday:  { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+                        friday:    { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+                        saturday:  { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+                        sunday:    { status: "custom", from: "01:00 AM", to: "11:30 PM" }
+                    };
+
 
                     if (my_availability && Object.keys(my_availability).length > 0) {
                      load_masseur_table(my_availability);
@@ -685,131 +814,6 @@ var edit_mode = false;
                     swal_error_popup(message);
                 }
             });
-    }
-
-
-// const my_availability = {
-//     monday:    { status: "custom", from: "01:30 PM", to: "01:30 PM" },
-//     tuesday:   { status: "custom", from: "01:30 AM", to: "01:30 PM" },
-//     wednesday: { status: "closed", from: null, to: null },
-//     thursday:  { status: "closed", from: null, to: null },
-//     friday:    { status: "closed", from: null, to: null },
-//     saturday:  { status: "closed", from: null, to: null },
-//     sunday:    { status: "custom", from: "09:30 AM", to: "10:00 PM" }
-// };
-
-
-    function load_masseur_table(my_availability)
-    {
-
-         currentAvailability = my_availability; 
-
-        if ($.fn.DataTable.isDataTable('#masseurs_Tab')) {
-            $('#masseurs_Tab').DataTable().ajax.reload();
-            return;
-        }
-
-        console.log('my_availability->>>>>>>>>>',currentAvailability);
-
-        $("#masseurs_Tab").DataTable({
-            processing: true,
-            serverSide: true,
-            paging: false,
-            searching: false,
-            info: false,
-            lengthChange: false,
-            ordering: false,
-
-            ajax: {
-                url: "{{ route('center.masseur-option-list') }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                data: function (d) {
-                    d.type = 'player';
-                    d.availability = currentAvailability; 
-                }
-            },
-
-            columns: [
-                { data: 'checkbox', orderable: false, searchable: false },
-                { data: 'profile' },
-                { data: 'days' },
-                { data: 'ethnicity' },
-                { data: 'nationality' }
-            ]
-        });
-
-    }
-
-
-    $('.add_masseurs').on('click', function () {
-
-        $('#masseurs_Tab tbody input.select-masseur:checked').each(function () {
-
-            let $row = $(this).closest('tr');
-            let id   = $(this).val();
-
-            
-            if ($('#selected_masseur tbody tr[data-id="'+id+'"]').length) {
-                return;
-            }
-
-            let profile     = $row.find('td:eq(1)').html();
-            let days        = $row.find('td:eq(2)').html();
-            let ethnicity   = $row.find('td:eq(3)').text();
-            let nationality = $row.find('td:eq(4)').text();
-
-            let html = `
-                <tr data-id="${id}">
-                    <td>${profile}</td>
-                    <td>${days}</td>
-                    <td>${nationality}</td>
-                    <td>${ethnicity}</td>
-                    <td> <button type="button" class="btn-danger btn-sm remove-row">Remove</button></td>
-
-                    
-                    
-                </tr>
-            `;
-
-            $('#selected_masseur tbody').append(html);
-
-        
-            $(this).prop('checked', false);
-            $('#select_profile').modal('hide');
-            toggleSaveProfileButton();
-        });
-
-    });
-
-
-    $(document).on('click', '.remove-row', function () {
-        $(this).closest('tr').remove();
-        toggleSaveProfileButton();
-    });
-
-    function getSelectedMasseurIds() {
-        let ids = [];
-        $('#selected_masseur tbody tr[data-id]').each(function () {
-            ids.push($(this).data('id'));
-        });
-
-        return ids;
-    }
-
-    function toggleSaveProfileButton() {
-
-            let ids = [];
-            const count = $('#selected_masseur tbody tr[data-id]').length;
-            
-
-            if (count > 0) {
-                $('#submit_form_massage').prop('disabled', false);
-            } else {
-                $('#submit_form_massage').prop('disabled', true);
-            }
     }
 
 

@@ -112,9 +112,9 @@ textarea {
    border-bottom: 1px solid #0c223d;
 }
 
-.upld-img {
+/* .upld-img {
    height: 82px !important;
-}
+} */
 
 .grid-container {
    display: grid;
@@ -1398,7 +1398,8 @@ textarea {
                         <div class="row pr-2 modal_inner_area">
                            <div class="col-4 full_pic">
                               <div class="plate"><label class="newbtn">
-                                 <img id="blah1" class="img-fluid" src="{{ asset($escort->imagefrontPosition(1))  }}" style="width: 171px;object-fit: cover;height: 308px;">
+                              
+                                 <img id="img1" class="img-fluid excludeTooltip" data-position-id="1" src="{{ asset($escort->imagefrontPosition(1))  }}" style="object-fit: cover;width: 167px;height: 172px;">
                                  <input name="img[1]" id="pic1" data-id="1" class="pis" onchange="readURL(this);" type="file">
                                  <input type="hidden" name="position[]" id="mediaId1">
                                  </label>
