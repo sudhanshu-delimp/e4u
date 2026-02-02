@@ -158,6 +158,12 @@
 
                             <tbody>
                                 <tr>
+                                    <td>15 Minutes</td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
+                                </tr>
+                                <tr>
                                     <td>30 Minutes</td>
                                     <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
                                     <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
@@ -170,19 +176,19 @@
                                     <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
                                 </tr>
                                  <tr>
-                                    <td>60 Minutes</td>
+                                    <td>1 Hours</td>
                                     <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
                                     <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
                                     <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
                                 </tr>
                                 <tr>
-                                    <td>90 Minutes</td>
+                                    <td>1.5 Hours</td>
                                     <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
                                     <td><div class="public-num-value-table"> <span>$ </span>180</div></td>
                                     <td class="text-center"><span class="na-label ">N/A</span></td>
                                 </tr>
                                 <tr>
-                                    <td>120 Minutes</td>
+                                    <td>2 Hours</td>
                                     <td><div class="public-num-value-table"> <span>$ </span>200</div></td>
                                     <td class="text-center"><span class="na-label text-center">N/A</span></td>
                                     <td><div class="public-num-value-table"> <span>$ </span>250</div></td>
@@ -784,7 +790,7 @@
                     </div>
                     <div class="pt-3 row">
                         <div class="col-md-12">
-                            <p class="testimonial"><strong>Carla Brasil</strong> has no Reviews.</p>
+                            <p class="testimonial"><strong>[MC Name]</strong> has no Reviews.</p>
                         </div>
                         {{-- <div class="col-md-12 mb-4"></div> --}}
                     </div>
@@ -1162,10 +1168,13 @@
                                 
                                 </div>
                                 
-                                <p class=" py-1 mb-2 text-justify">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy
-                                    the thrill of being with that quite little girl who secretely really is that office slut. I
-                                    am tall, slim and naughty when it matters. With smooth skin and long hair to run your hands
-                                    through, and of course something...</p>
+                               <div>
+                                    <h4 class="mb-0">About Me</h4>
+                                    <p class=" mt-0 text-justify">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy
+                                        the thrill of being with that quite little girl who secretely really is that office slut. I
+                                        am tall, slim and naughty when it matters. With smooth skin and long hair to run your hands
+                                        through, and of course something...</p>
+                                    </div>
                                 </div>
                                
                             
