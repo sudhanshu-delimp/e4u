@@ -708,7 +708,7 @@
                             <p class="font-weight-bold mb-0 mt-2">When texting us please say:</p>
                             <p class="profile_description_contect_pera">
                                 <b><i>Hi, I found you on Escorts4U ...</i></b>
-                                on my number 1438 028 743
+                                on our number 1438 028 743
                             </p>
                         </span>
                     </div>
