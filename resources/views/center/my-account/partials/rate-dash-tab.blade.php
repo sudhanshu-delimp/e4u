@@ -24,12 +24,12 @@
 
         <div class="padding_20_all_side pb-0">
                 <form id="myProfilerRateForm" name="myProfilerRateForm" action="{{route('center.update-massage-profile')}}" method="POST" enctype="multipart/form-data">
-                    <div class="about_me_drop_down_info profile-sec p-4">
+                    <div class="about_me_drop_down_info">
                        
-                        <div class="padding_20_all_side">
+                        {{-- <div class="padding_20_all_side"> --}}
                             <div class="row">
                                 <div class="col-lg-8 col-md-12 col-sm-12 full-width-for-ipad-select horizontal-scroll-rates">
-                                    <div class="rate_first_row row">
+                                    <div class="rate_first_row row pt-5">
                                         <div class="col-3">
                                         </div>
                                         <div class="col-3 rate-img-center rate-tooltip">
@@ -97,13 +97,13 @@
                                 </div>
                             </div>
 
-                                        <div class="col-md-12 text-right mb-4">
-                                            <input type="hidden" name="type" id="type" value="rates">
-                                            <input type="hidden" name="massage_id" id="massage_id" value="{{$massage_profile->id}}">
-                                            <button id="read-more" type="submit" class="save_profile_btn">Update</button>
-                                        </div>
+                            <div class="col-md-12 text-right mb-4">
+                                <input type="hidden" name="type" id="type" value="rates">
+                                <input type="hidden" name="massage_id" id="massage_id" value="{{$massage_profile->id}}">
+                                <button id="read-more" type="submit" class="save_profile_btn">Update</button>
+                            </div>
                             
-                        </div>
+                        {{-- </div> --}}
                     </div>
                 </form>
 
