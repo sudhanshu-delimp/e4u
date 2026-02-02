@@ -942,6 +942,9 @@ class MasseurController extends AppController
     }
 
 
+
+    
+
     public function check_time_status($massure,$massageTime,$day)
     {
         

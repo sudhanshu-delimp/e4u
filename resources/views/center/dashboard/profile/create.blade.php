@@ -32,6 +32,8 @@
     opacity: 0.5;
 } */
 
+
+
  .defult-image{
         width: 202px !important;
         height: 182px !important;

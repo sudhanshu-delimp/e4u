@@ -32,6 +32,9 @@
     opacity: 0.5;
 } */
 
+
+    
+
 </style>
 @endsection
 @section('content')
