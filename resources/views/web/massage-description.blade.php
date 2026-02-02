@@ -1174,7 +1174,7 @@
                                 </div>
                                 
                                <div>
-                                    <h5 class="mb-0" style="color: #0C223D">About Me</h5>
+                                    <h5 class="mb-0" style="color: #000">About Me</h5>
                                     <p class=" mt-0 text-justify">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy
                                         the thrill of being with that quite little girl who secretely really is that office slut. I
                                         am tall, slim and naughty when it matters. With smooth skin and long hair to run your hands
