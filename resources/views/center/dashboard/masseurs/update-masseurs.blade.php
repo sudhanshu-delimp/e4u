@@ -121,7 +121,8 @@ textarea {
 }
 
 .upld-img {
-   height: 82px !important;
+   height: 100px !important;
+   width: 133px !important
 }
 
 .grid-container {
@@ -136,10 +137,11 @@ textarea {
         grid-template-columns: 1fr 1fr 1fr;
     }
 
-.gal-thumb{
-    width: 149px !important;
-    height: 138px !important;
-}
+/* .gal-thumb{
+    max-width: 200px;
+    width: 100%;
+    height: 138px;
+} */
 
 @media (min-width:600px) and (max-width: 1024px) {
    .grid-container {
@@ -155,7 +157,7 @@ textarea {
 
 
 .gal-thumb-first{
-    width: 467px !important;
+    width: 100% !important;
     height: 340px !important;
 }
 
@@ -368,25 +370,25 @@ textarea {
                                                                                             <div class="col-lg-12">
                                                                                                 <h4 class="banner-sub-heading my-2">Gallery Images</h4>
                                                                                             </div>
-                                                                                            <div class="col-sm-12 d-flex align-item-center gap-10">
+                                                                                            <div class="col-sm-12 d-flex align-item-center justify-content-between gap-10">
                                                                                                 <div class="plate">
                                                                                                     <label class="newbtn" data-toggle="modal"
                                                                                                         data-target="#photo_gallery">
-                                                                                                        <img class="w-100 gal-thumb upld-img"
+                                                                                                        <img class="gal-thumb upld-img"
                                                                                                             id="img2"src="{{ asset($masseur->getImagePosition(2, $masseur->id)) }}"  onclick="positionToUpdate(2)">
                                                                                                     </label>
                                                                                                 </div>
                                                                                                 <div class="plate">
                                                                                                     <label class="newbtn" data-toggle="modal"
                                                                                                         data-target="#photo_gallery">
-                                                                                                        <img class="w-100 gal-thumb upld-img"
+                                                                                                        <img class="gal-thumb upld-img"
                                                                                                             id="img3"src="{{ asset($masseur->getImagePosition(3, $masseur->id)) }}"  onclick="positionToUpdate(3)">
                                                                                                     </label>
                                                                                                 </div>
                                                                                                 <div class="plate">
                                                                                                     <label class="newbtn" data-toggle="modal"
                                                                                                         data-target="#photo_gallery">
-                                                                                                        <img class="w-100 gal-thumb upld-img"
+                                                                                                        <img class="gal-thumb upld-img"
                                                                                                             id="img4"src="{{ asset($masseur->getImagePosition(4, $masseur->id)) }}"  onclick="positionToUpdate(4)">
                                                                                                     </label>
                                                                                                 </div>
@@ -772,11 +774,11 @@ textarea {
                                                                         </div>
                                                                         <div class="col-3 rate-img-center rate-tooltip">
                                                                             <img src="{{asset('assets/dashboard/img/massage-with2.png')}}" class="w-50">
-                                                                            <span class="tooltip-info">Massage with Extras, 2 hands.</span>
+                                                                            <span class="tooltip-info">Massage with extras +2 hands.</span>
                                                                         </div>
                                                                         <div class="col-3 rate-img-center rate-tooltip">
                                                                             <img src="{{asset('assets/dashboard/img/massage-with4.png')}}" class="w-50">
-                                                                            <span class="tooltip-info">Massage with Extras, 2 hands.</span>
+                                                                            <span class="tooltip-info">Massage with extras +4 hands.</span>
                                                                         </div>
                                                                     </div>
                                                                     @foreach($durations->whereIn('id',[2,3,4,5,6]) as $duration)
@@ -937,13 +939,11 @@ textarea {
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-lg-12">
-                                 <label class="newbtn rm">
-                                    
-                                            <img id="blah" class="item" src="{{ asset('assets/app/img/add-images.png')}}">
-                                            
-                                            <input name="img[]" id="upload_file" class="pis" onchange="preview_image(event);" type="file" multiple accept="image/*">
-                                        </label>
+                            <div class="col-lg-12 text-center">
+                                 <label class="newbtn rm">                            
+                                    <img id="blah" class="item w-50" src="{{ asset('assets/app/img/add-images.png')}}" >                                    
+                                    <input name="img[]" id="upload_file" class="pis" onchange="preview_image(event);" type="file" multiple accept="image/*">
+                                </label>
                             </div>
                             
                         </div>
