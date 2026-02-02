@@ -1360,7 +1360,7 @@
                     }
                 @endphp
                 <p class="testimonial">
-                    <strong>{{ $escortName }}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $escortName}}</strong> their first Review?’ @php } @endphp
+                    <strong>{{ $escortName }}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $escortName}}</strong> their first Review? @php } @endphp
                 </p>
             </div>
             <div class="col-md-12 mb-4">
