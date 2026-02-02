@@ -12,7 +12,12 @@ class UpdateMasseurGalleriesTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {       
+
+        Schema::table('masseur_galleries', function (Blueprint $table) {
+            $table->renameColumn('massage_media_id', 'masseur_media_id');
+        });
+
           Schema::table('masseur_galleries', function (Blueprint $table) {
             $table->unsignedBigInteger('masseur_profile_id')->change();
             $table->unsignedBigInteger('masseur_media_id')->change();
