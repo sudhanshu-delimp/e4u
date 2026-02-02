@@ -1,4 +1,11 @@
 @extends('layouts.web')
+@section('style')
+<style>
+    .mc_profile_table .table th{
+    padding: .8rem .55rem !important;
+}
+    </style>
+    @stop
 @section('content')
     <div class="container profile_description_banner custom--profile custommassage--profile--page"
         style="background: url('assets/app/img/massage/massage_2.jpg');
@@ -176,7 +183,7 @@
                                     <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
                                 </tr>
                                  <tr>
-                                    <td>1 Hours</td>
+                                    <td>1 Hour</td>
                                     <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
                                     <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
                                     <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
@@ -320,21 +327,19 @@
                         <div class="row">
                             <div class="col-md-12 pt-2">
                                 <p class="mb-0">
-                                    <span class="about_box_small_heading">Languages:</span>
-                                    <span class="about_box_small_heading_value">English, Spanish</span>
-                                </p>
-                                <p class="mb-0">
                                     <span class="about_box_small_heading">Address:</span>
                                     <span class="about_box_small_heading_value">123 Sample Street, City</span>
                                 </p>
-
+                                <p class="mb-0">
+                                    <span class="about_box_small_heading">Languages:</span>
+                                    <span class="about_box_small_heading_value">English, Spanish</span>
+                                </p>
                                 <p class="mb-0">
                                     <span class="about_box_small_heading">Massage Service:</span>
                                     <span class="about_box_small_heading_value">
                                         Swedish Massage, Deep Tissue, Relaxation
                                     </span>
                                 </p>
-
                                 <p>
                                     <span class="about_box_small_heading">Other Service Types:</span>
                                     <span class="about_box_small_heading_value">
@@ -731,7 +736,7 @@
                         <div class="content">
                             <div class="accodien_manage_padding_content">
                                 <p class="text-justify">Prices are all inclusive unless an extra is listed in Our Services,
-                                     or you reach on agreement separately with the Masseur.</p>
+                                     or you reach an agreement separately with the Masseur.</p>
                             </div>
                         </div>
                     </div>
@@ -1169,7 +1174,7 @@
                                 </div>
                                 
                                <div>
-                                    <h4 class="mb-0">About Me</h4>
+                                    <h5 class="mb-0" style="color: #0C223D">About Me</h5>
                                     <p class=" mt-0 text-justify">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy
                                         the thrill of being with that quite little girl who secretely really is that office slut. I
                                         am tall, slim and naughty when it matters. With smooth skin and long hair to run your hands
