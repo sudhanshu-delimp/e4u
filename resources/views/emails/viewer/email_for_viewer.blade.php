@@ -23,7 +23,7 @@
                                         <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
                                     <td style="color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle; text-align: right;">
-                                        <h1 style="margin: 0; font-size: 22px; color:#ffffff; text-align: right;">Confirmation of Registration - Escort</h1>
+                                        <h1 style="margin: 0; font-size: 22px; color:#ffffff; text-align: right;">Confirmation of Registration - Viewer</h1>
                                         <div style="font-weight: 500;">Member ID: {{$user->member_id ?? ''}}</div>
                                     </td>
                                 </tr>
@@ -33,11 +33,11 @@
                     <!-- Body content -->
                     <tr>
                         <td style="padding: 30px; text-align: justify;">
-                            <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$user->name ?? ''}},</p>
+                            <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$user->name ?? $user->email}},</p>
                             <h3 style="margin-top: 25px;">E4U Registration - Confirmation</h3>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
                                 We are pleased to confirm your Registration has been accepted and you can now log into
-                                the Escort Console and proceed to create Profiles and Tours.
+                                the Viewer Console and proceed to create Profiles and Tours.
                             </p>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
                                 Thank you for joining the E4U community.

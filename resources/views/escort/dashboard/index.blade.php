@@ -741,8 +741,8 @@
 <script>
     $(document).ready(function() {
         @if(session('show_welcome_popup'))
-        $('#WelcomeEscortPopup').modal('show');
-        $('#content-wrapper').addClass('blurred');
+            $('#WelcomeEscortPopup').modal('show');
+            $('#content-wrapper').addClass('blurred');
         @endif
         $('.accordion-container .set > a').on('click', function(e) {
             e.preventDefault();

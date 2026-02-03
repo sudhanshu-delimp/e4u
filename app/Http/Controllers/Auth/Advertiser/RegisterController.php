@@ -124,6 +124,7 @@ class RegisterController extends Controller
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
+            'type' => $user->type,
             'phone' => $user->phone,
             'password' => $request->password,
             'agent_id' => $user->referred_by_agent_id ? $user->referred_by_agent_id : null,
@@ -131,19 +132,7 @@ class RegisterController extends Controller
             'create_at' => date('d-m-Y'),
             'member_id' => $user->member_id,
         ];
-
-        // $userDataForEvent = [
-        //     'id'        => 123,
-        //     'email'     => 'johndoe@example.com',
-        //     'phone'     => '9876543210',
-        //     'password'  => 'password',
-        //     'agent_id' =>  'A40312',
-        //     'location'  => 'Delhi',
-        //     'create_at' => '5 April',
-        //     'member_id' => 'E100324'
-        // ];
-    
-
+       
         //3 is Escote and 4 is Massage Center
         if($request->type == 3){
             event(new EscortRegister((object)$userDataForEvent));

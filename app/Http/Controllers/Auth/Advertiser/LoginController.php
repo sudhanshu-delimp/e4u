@@ -19,6 +19,7 @@ use App\Mail\send2FAOtpEmail;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Mail;
+use App\Repositories\AttemptLogin\AttemptLoginRepository;
 
 class LoginController extends BaseController
 {
@@ -51,10 +52,12 @@ class LoginController extends BaseController
 
 
     protected $user;
-    public function __construct(User $user)
+     protected $attemptlogin;
+    public function __construct(AttemptLoginRepository $attemptlogin ,User $user)
     {
         $this->middleware('guest')->except('logout');
         $this->user = $user;
+        $this->attemptlogin = $attemptlogin;
     }
 
     public function login(Request $request)
@@ -285,7 +288,7 @@ class LoginController extends BaseController
     }
 
     protected function checkOTP(Request $request)
-    {
+    {   
         $forgot_password = (int) ($request->forget_password ?? 0);
             if($forgot_password){
                 $user = User::where('email', $request->email)->first();
@@ -318,8 +321,7 @@ class LoginController extends BaseController
                 ]);
             }
         }
-        
-
+       
         if (! is_null(removeSpaceFromString($request->phone))) {
 
             $mobile_num = removeSpaceFromString($request->phone);
@@ -367,6 +369,12 @@ class LoginController extends BaseController
                     $escort->save();
                 }
             }
+
+            $result = $this->attemptlogin->findby(auth()->user()->id);
+            if ($result[0]->login_count <= 1 && !session()->has('welcome_popup_closed')) {
+                session(['show_welcome_popup' => true]);
+            }
+
             $error = true;
             $this->guard()->user();
             $this->user->update_last_login($user);
