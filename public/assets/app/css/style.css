@@ -4303,7 +4303,6 @@ i.fa.fa-heart-o{
             .tip_carousel_item_text p {
                 text-align: left;
                 margin-bottom: 0px;
-                font-family: Quicksand;
                 font-style: normal;
                 font-weight: normal;
                 font-size: 15px;
@@ -5785,6 +5784,26 @@ i.fa.fa-heart-o{
             
             .massage_type_info img:hover+.mc_rate_tooltip {
                 display: block;
+            }
+            /* slide tips */
+            
+            .text-slider {
+                width: 100%;
+                max-width: 600px;
+                overflow: hidden;
+                margin: auto;
+            }
+            
+            .slider-track {
+                display: flex;
+                transition: transform 0.6s ease-in-out;
+            }
+            
+            .slide_item {
+                min-width: 100%;
+                font-size: 15px;
+                font-weight: 400;
+                color: #000;
             }
             /* end */
             
