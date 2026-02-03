@@ -121,10 +121,14 @@ textarea {
 }
 
 .upld-img {
-   height: 100px !important;
-   width: 133px !important
+   width: 100% !important;
+   object-fit: cover;
 }
-
+.masseur_gallery{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
 .grid-container {
    display: grid;
    grid-template-columns: repeat(5, 1fr);
@@ -370,25 +374,25 @@ textarea {
                                                                                             <div class="col-lg-12">
                                                                                                 <h4 class="banner-sub-heading my-2">Gallery Images</h4>
                                                                                             </div>
-                                                                                            <div class="col-sm-12 d-flex align-item-center justify-content-between gap-10">
+                                                                                            <div class="col-sm-12 masseur_gallery">
                                                                                                 <div class="plate">
                                                                                                     <label class="newbtn" data-toggle="modal"
                                                                                                         data-target="#photo_gallery">
-                                                                                                        <img class="gal-thumb upld-img"
+                                                                                                        <img class="upld-img"
                                                                                                             id="img2"src="{{ asset($masseur->getImagePosition(2, $masseur->id)) }}"  onclick="positionToUpdate(2)">
                                                                                                     </label>
                                                                                                 </div>
                                                                                                 <div class="plate">
                                                                                                     <label class="newbtn" data-toggle="modal"
                                                                                                         data-target="#photo_gallery">
-                                                                                                        <img class="gal-thumb upld-img"
+                                                                                                        <img class="upld-img"
                                                                                                             id="img3"src="{{ asset($masseur->getImagePosition(3, $masseur->id)) }}"  onclick="positionToUpdate(3)">
                                                                                                     </label>
                                                                                                 </div>
                                                                                                 <div class="plate">
                                                                                                     <label class="newbtn" data-toggle="modal"
                                                                                                         data-target="#photo_gallery">
-                                                                                                        <img class="gal-thumb upld-img"
+                                                                                                        <img class="upld-img"
                                                                                                             id="img4"src="{{ asset($masseur->getImagePosition(4, $masseur->id)) }}"  onclick="positionToUpdate(4)">
                                                                                                     </label>
                                                                                                 </div>
