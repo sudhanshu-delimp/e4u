@@ -19,11 +19,7 @@
     <div class="about-me-box-one-name stage_name">Our Open Time</div>
         <div class="padding_20_all_side my-availability-mon">
            
-               
-                
-
-
-           
+       
                 <div class="row"  id="my-avail-time">
                     <div class="col-12">
                         <div class="padding_20_all_side my-availability-mon profile_time_availibility">
