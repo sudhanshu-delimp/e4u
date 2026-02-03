@@ -767,24 +767,29 @@
                         <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel"
                             data-interval="5000">
                             <div class="carousel-inner">
-                                <div class="carousel-item tip_carousel_item_text active">
-                                        <p>Be on time.</p>
-                                    </div>
-                                    <div class="carousel-item tip_carousel_item_text">
-                                        <p>Do not offer any of your personal information.</p>
-                                    </div>
-                                    <div class="carousel-item tip_carousel_item_text">
-                                        <p>Ask questions; it’s okay.</p>
-                                    </div>
-                                    <div class="carousel-item tip_carousel_item_text">
-                                        <p>Maintain good hygiene.</p>
-                                    </div>
-                                    <div class="carousel-item tip_carousel_item_text">
-                                        <p>Keep your conversation light and non-suggestive.</p>
-                                    </div>
-                                    <div class="carousel-item tip_carousel_item_text">
-                                        <p>Be clear about the service you are looking for.</p>
-                                    </div>
+                                <div class="carousel-item tip_carousel_item_text item-01 active">
+                                    <p>Be on time.</p>
+                                </div>
+
+                                <div class="carousel-item tip_carousel_item_text item-01">
+                                    <p>Do not offer any of your personal information.</p>
+                                </div>
+
+                                <div class="carousel-item tip_carousel_item_text item-01">
+                                    <p>Ask questions; it’s okay.</p>
+                                </div>
+
+                                <div class="carousel-item tip_carousel_item_text item-01">
+                                    <p>Maintain good hygiene.</p>
+                                </div>
+
+                                <div class="carousel-item tip_carousel_item_text item-01">
+                                    <p>Keep your conversation light and non-suggestive.</p>
+                                </div>
+                                
+                                <div class="carousel-item tip_carousel_item_text item-01">
+                                    <p>Be clear about the service you are looking for.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
