@@ -18,7 +18,7 @@ use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Message\MessageInterface;
 use App\Repositories\Service\ServiceInterface;
-use App\Repositories\Duration\DurationInterface;
+use App\Repositories\Duration\MassageDurationInterface;
 use App\Repositories\Thumbnail\ThumbnailInterface;
 use App\Repositories\Message\MasseurMediaInterface;
 use App\Repositories\Message\MessageMediaInterface;
@@ -41,7 +41,7 @@ class MasseurController extends AppController
     protected $massage_profile;
   
     
-    public function __construct(MassageProfileInterface $massage_profile, MessageInterface $escort, MasseurMediaInterface $media, ServiceInterface $service, DurationInterface $duration)
+    public function __construct(MassageProfileInterface $massage_profile, MessageInterface $escort, MasseurMediaInterface $media, ServiceInterface $service, MassageDurationInterface $duration)
     {
         $this->escort = $escort;
         $this->service = $service;

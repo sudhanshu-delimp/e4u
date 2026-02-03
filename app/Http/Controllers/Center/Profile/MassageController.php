@@ -32,7 +32,7 @@ use App\Http\Requests\Escort\StoreRateRequest;
 use App\Repositories\Message\MessageInterface;
 use App\Repositories\Service\ServiceInterface;
 use App\Http\Requests\Escort\UpdateRequestAbout;
-use App\Repositories\Duration\DurationInterface;
+use App\Repositories\Duration\MassageDurationInterface;
 use App\Http\Requests\Escort\StoreServiceRequest;
 use App\Http\Requests\Escort\UpdateRequestPolicy;
 use App\Repositories\Escort\EscortMediaInterface;
@@ -62,7 +62,7 @@ class MassageController extends Controller
     
 
 
-    public function __construct(MassageProfileInterface $massage_profile ,MessageInterface $escort, MessageMediaInterface $media, ThumbnailInterface $thumbnail,  ServiceInterface $service, DurationInterface $duration,MassageAvailabilityInterface $massage_availability)
+    public function __construct(MassageProfileInterface $massage_profile ,MessageInterface $escort, MessageMediaInterface $media, ThumbnailInterface $thumbnail,  ServiceInterface $service, MassageDurationInterface $duration,MassageAvailabilityInterface $massage_availability)
     {
         $this->escort = $escort;
         $this->massage_availability = $massage_availability;

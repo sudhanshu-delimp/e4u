@@ -781,7 +781,7 @@ textarea {
                                                                             <span class="tooltip-info">Massage with extras +4 hands.</span>
                                                                         </div>
                                                                     </div>
-                                                                    @foreach($durations->whereIn('id',[2,3,4,5,6]) as $duration)
+                                                                    @foreach($durations->whereIn('id',[2,3,4,5,6,7]) as $duration)
 
                                                                     @php
                                                                     if($duration->id!="")
