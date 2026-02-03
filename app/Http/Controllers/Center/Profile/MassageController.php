@@ -205,6 +205,8 @@ class MassageController extends Controller
             $escort = $this->massage_profile->make();
         }
         $massage_profile = $escort;
+
+        
         $massage_durations = (isset($escort->durations) && count($escort->durations)>0) ? $escort->durations->toArray() : [];
 
         // echo '<pre>';
@@ -231,6 +233,9 @@ class MassageController extends Controller
         if(!$massage_default ) {
             $massage_default = $this->massage_profile->make();
         }
+
+        
+
         $massage_durations = (isset($massage_default->durations) && count($massage_default->durations)>0) ? $massage_default->durations->toArray() : [];
         ########## End default profile data ########
 
@@ -270,18 +275,40 @@ class MassageController extends Controller
             {
                     if ($request->filled('post_json')) 
                     {
-
                         $data = json_decode($request->post_json, true);
-                        if(isset($data['duration_id']) && isset($data['massage_profile_id']) && isset($data['data_type']))
+                       
+                        if(isset($data['duration_id']) && isset($data['data_type']))
                         {
-                              $massage_rate  = MassageRate::where(['massage_profile_id'=> $data['massage_profile_id'], 'duration_id'=> $data['duration_id']])->first();
-                              if($massage_rate)
-                              {
-                                $massage_rate->{$data['data_type']} = $data['new_value'];
-                                $massage_rate->save();
 
-                              }
-                        
+                            if(isset($data['massage_profile_id']) && $data['massage_profile_id'] =="")
+                            {
+                                $massage_default = $this->massage_profile->findDefault(auth()->user()->id,1);
+                                $massage_rate  = MassageRate::where(['massage_profile_id'=> $massage_default->id, 'duration_id'=> $data['duration_id']])->first();
+                                if($massage_rate)
+                                {
+                                    $massage_rate->{$data['data_type']} = $data['new_value'];
+                                    $massage_rate->save();
+                                }
+                                else
+                                {
+                                     $massage_rate   = new  MassageRate;
+                                     $massage_rate->massage_profile_id= $massage_default->id;
+                                     $massage_rate->duration_id =  $data['duration_id'];
+                                     $massage_rate->{$data['data_type']} = $data['new_value'];
+                                     $massage_rate->save();
+                                }
+
+                            }
+                            else
+                            {
+                                $massage_rate  = MassageRate::where(['massage_profile_id'=> $data['massage_profile_id'], 'duration_id'=> $data['duration_id']])->first();
+                                if($massage_rate)
+                                {
+                                    $massage_rate->{$data['data_type']} = $data['new_value'];
+                                    $massage_rate->save();
+
+                                }
+                            }
                         }
 
                     }

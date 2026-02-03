@@ -108,7 +108,7 @@
                                     $massage_price = isset($db_duration['pivot']['massage_price']) ? $db_duration['pivot']['massage_price'] : 0;
                                     $incall_price =  isset($db_duration['pivot']['incall_price']) ? $db_duration['pivot']['incall_price'] : 0;
                                     $outcall_price = isset($db_duration['pivot']['outcall_price']) ? $db_duration['pivot']['outcall_price'] : 0;
-                                    $massage_profile_id = isset($db_duration['pivot']['massage_profile_id']) ? $db_duration['pivot']['massage_profile_id'] : "";
+                                    $massage_profile_id = isset($db_duration['pivot']['massage_profile_id']) ? $db_duration['pivot']['massage_profile_id'] : $massage_profile->id;
 
                                     
                                     break;
