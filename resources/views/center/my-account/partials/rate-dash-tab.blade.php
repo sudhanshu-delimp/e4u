@@ -76,19 +76,19 @@
                                             <div class="col-3">
                                                 <div class="service_rate_dolor_symbol form-group">
                                                     <span>$</span>
-                                                    <input min="0" placeholder="0" type="number"  class="form-control" id="massage_price" name="massage_price[]"  value="{{ $massage_price }}" >
+                                                    <input min="0" placeholder="0"   class="form-control allow_only_numeric" id="massage_price" name="massage_price[]"  value="{{ $massage_price }}" maxlength="6" >
                                                 </div>
                                             </div>
                                             <div class="col-3">
                                                 <div class="service_rate_dolor_symbol form-group">
                                                     <span>$</span>
-                                                    <input min="0" placeholder="0"  type="number"  class="form-control" id="incall_price" name="incall_price[]" value="{{ $incall_price }}" >
+                                                    <input min="0" placeholder="0"    class="form-control allow_only_numeric" id="incall_price" name="incall_price[]" value="{{ $incall_price }}"    maxlength="6">
                                                 </div>
                                             </div>
                                             <div class="col-3">
                                                 <div class="service_rate_dolor_symbol form-group">
                                                     <span>$</span>
-                                                    <input min="0" placeholder="0"  type="number"  class="form-control" id="outcall_price" name="outcall_price[]" value="{{ $outcall_price }}" >
+                                                    <input min="0" placeholder="0"   class="form-control allow_only_numeric" id="outcall_price" name="outcall_price[]" value="{{ $outcall_price }}"  maxlength="6">
                                                 </div>
                                             </div>
                                         </div>

@@ -624,21 +624,21 @@ textarea {
                                                                             <div class="col-3">
                                                                                 <div class="service_rate_dolor_symbol form-group">
                                                                                     <span>$</span>
-                                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="massage_price" type="text"  class="form-control allow_only_numeric update_default_rate" id="massage_price" value="{{$massage_price}}" name="massage_price[]">
+                                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="massage_price" type="text"  class="form-control allow_only_numeric update_default_rate" id="massage_price" value="{{$massage_price}}" name="massage_price[]" maxlength="6"
                                                                                     <input type="hidden" class="profile_massage_price"  value="{{$massage_price}}" >
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-3">
                                                                                 <div class="service_rate_dolor_symbol form-group">
                                                                                     <span>$</span>
-                                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="incall_price"  type="text"  class="form-control allow_only_numeric update_default_rate" id="incall_price" value="{{$incall_price}}" name="incall_price[]">
+                                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="incall_price"  type="text"  class="form-control allow_only_numeric update_default_rate" id="incall_price" value="{{$incall_price}}" name="incall_price[]" maxlength="6">
                                                                                     <input type="hidden" class="profile_incall_price"  value="{{$incall_price}}" >
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-3">
                                                                                 <div class="service_rate_dolor_symbol form-group">
                                                                                     <span>$</span>
-                                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}"  data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="outcall_price"   type="text"  class="form-control allow_only_numeric update_default_rate" id="outcall_price"  value="{{$outcall_price}}" name="outcall_price[]">
+                                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}"  data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="outcall_price"   type="text"  class="form-control allow_only_numeric update_default_rate" id="outcall_price"  value="{{$outcall_price}}" name="outcall_price[]" maxlength="6">
                                                                                     <input type="hidden" class="profile_outcall_price"  value="{{$outcall_price}}" >
                                                                                 </div>
                                                                             </div>
@@ -1734,6 +1734,12 @@ textarea {
             }
         });
     });
+
+
+    $(document).on('input', '.allow_only_numeric', function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
 
 
 //     $(document).on('click','.modalPopup .item2,.modalPopup .item4', function(e) {
