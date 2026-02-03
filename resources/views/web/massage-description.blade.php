@@ -89,7 +89,7 @@
     <div class="container profile_contain">
         <div class="row">
             <div class="col-md-8 col-xl-8 col-sm-12 col-12">
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-md-12 col-xl-8 col-sm-12 col-12">
                         <div class="row mess_row custom_message_types">
 
