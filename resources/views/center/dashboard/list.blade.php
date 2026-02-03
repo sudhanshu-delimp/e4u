@@ -1,224 +1,225 @@
 @extends('layouts.center')
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
-    <style type="text/css">
-        .parsley-errors-list {
-            list-style: none;
-            color: rgb(248, 0, 0)
-        }
-    </style>
-@endsection
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/parsley/src/parsley.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
+<style>
+   .swal-button {
+   background-color: #242a2c;
+   }
+
+   .multiselect {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+}
+
+.checkboxes {
+  display: none;
+  border: 1px solid #ccc;
+  background: #fff;
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 99;
+}
+
+.checkboxes label {
+  display: block;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.checkboxes label:hover {
+  background-color: #f1f1f1;
+}
+</style>
+@stop
 @section('content')
-    <div id="wrapper">
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-                    <!--middle content-->
-                    <div class="row">
-                        <!-- Begin Page Content -->
-                        <div class="custom-heading-wrapper col-md-12">
-                            <h1 class="h1">Our Profiles</h1>
-                            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                                aria-expanded="true"><b>Help?</b></span>
-                        </div>
-                        <div class="col-md-12 mb-4">
-                            <div class="card collapse" id="notes" style="">
-                                <div class="card-body">
-                                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                                    <p></p>
-                                    <ol>
-
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive-xl">
-                                <table id="ListTable" class="table">
-                                    <thead class="table-bg">
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Center</th>
-                                            <th>Mobile Number</th>
-                                            <th>Location</th>
-                                            <th>Joining Date</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="table-content">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+   <!-- Main Content -->
+   <div id="content">
+      
+      <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
+         <div class="row">    
+            <div class="custom-heading-wrapper col-md-12">
+               <h1 class="h1">Our Profiles</h1>
+               <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
-        </div>
-    </div>
+            <div class="col-md-12 mb-4">
+               <div class="card collapse" id="notes" style="">
+                  <div class="card-body">
+                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                     <!-- <ol>
+                           <li>Use these help pages for explanations and guidance on managing all of your Masseur
+                              Profiles.</li>
+                           <li>You can upload four photos for each Masseur. Designate one as the Masseur’s
+                              Thumbnail.</li>
+                           <li>Activate up to eight Masseur Profiles at any one time to appear the Massage Centre
+                              Profile.</li>
+                     </ol> -->
+                  </div>
+               </div>
+            </div>
+         </div>
+         {{-- start content --}}
+
+            
+         <div class="row">
+            <div class="col-md-12">
+               <div class="panel with-nav-tabs panel-warning">
+                  <div class="panel-body">
+                     <div class="tab-content">
+                        <div class="tab-pane fade active show" id="tab3warning">
+                           <div class="row pb-3">
+
+                                 <!-- <div class="col-md-12 col-sm-12">
+                                    <div class="bothsearch-form d-flex align-items-center justify-content-end" style="gap: 10px;">
+                                       <div class="total_listing">
+                                          <div><span>Current Active : </span></div>
+                                          <div><span id="totalViewerLegboxList">1</span></div>
+                                       </div>
+                                       
+                                    </div>
+                                 </div> -->
+                           </div>
+                           <div class="table-responsive-xl">
+
+
+                              <table class="table mb-3" id="massage_list">
+                                 <thead class="table-bg">
+                                    <tr>
+                                   
+                                    <th scope="col">Profile Name</th>
+                                    <th scope="col">Business Name</th>
+                                    <th scope="col">Business No</th>
+                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Created Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col" class="text-center">Action</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody class="table-content">
+                                       
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         {{-- end --}}
+      </div>
+   </div>
+   <!-- End of Main Content -->
+   <!-- Footer -->
+   <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+         <div class="copyright text-center my-auto">
+            <span> </span>
+         </div>
+      </div>
+   </footer>
+   <!-- End of Footer -->
+</div>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+</a>
+
+
 @endsection
+
 @push('script')
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-    </script>
-    <script>
-        $(document).ready(function() {
-            //var table = $('#myTable').DataTable({
-            var table = $('#ListTable').DataTable({
-                language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Mobile Number "
-                },
-                processing: false,
-                serverSide: true,
-                lengthChange: true,
-                order: [0, 'asc'],
-                searchable: false,
-                //searching:true,
-                bStateSave: false,
-
-                ajax: {
-                    url: "{{ route('center.list.dataTable') }}",
-                    data: function(d) {
-                        d.type = 'player';
-                    }
-                },
-                columns: [{
-                        data: 'key',
-                        name: 'key',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'phone_number',
-                        name: 'phone_number',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    {
-                        data: 'location',
-                        name: 'location',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    // { data: 'country_code', name: 'country_code', searchable: true, orderable:true,defaultContent: 'NA' },
-                    {
-                        data: 'start_date_parsed',
-                        name: 'start_date_parsed',
-                        searchable: true,
-                        orderable: true,
-                        defaultContent: 'NA'
-                    },
-                    // { data: 'joined', name: 'joined', searchable: true, orderable:false,defaultContent: 'NA' },
-                    {
-                        data: 'action',
-                        name: 'edit',
-                        searchable: false,
-                        orderable: false,
-                        defaultContent: 'NA',
-                        class: 'text-center'
-                    },
-                ]
-            });
-
-        });
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $(document).on('click', '.delete-center', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            var table = $('#myTable').DataTable();
-            $('#logoutModal').modal('show');
-            $('.htext').html("Delete ");
-            $('.bodytext').html("Are you sure Do you want to delete ?");
-            $('.btnok').html("Ok");
-            //$('.btnok').attr("type","button");
-            var url = $("#modalform").attr('action', $(this).attr('href'));
+<!-- file upload plugin start here -->
 
 
 
-            console.log("url=" + url);
-            console.log($(this).attr('href'));
-            console.log($(this).data('id'));
+<!-- file upload plugin end here -->
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script>
+let expanded = false;
+function showCheckboxes() {
+  let checkboxes = document.getElementById("checkboxes");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+</script>
+</script>
+<script>
+   
 
-        });
-        // $(document).on('click','.delete-center', function(e){
-        //     e.preventDefault();
-        //     var $this = $(this);
-        //     var table = $('#myTable').DataTable();
-        //     const swalWithBootstrapButtons = Swal.mixin({
-        //     customClass: {
-        //     confirmButton: 'btn btn-success',
-        //     cancelButton: 'btn btn-danger'
-        //     },
-        //     buttonsStyling: false
-        //     })
+var table = $("#massage_list").DataTable({
+    info: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    bStateSave: true,
+    order: [[1, 'desc']],
+    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+    pageLength: 10,    
 
-        //     swalWithBootstrapButtons.fire({
-        //         title: 'Are you sure?',
-        //         text: "You won't be able to revert this!",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonText: 'Yes, delete it!',
-        //         cancelButtonText: 'No, cancel!',
-        //         reverseButtons: true
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             $.post({
-        //                 type: 'POST',
-        //                 url: $this.attr('href')
-        //             }).done(function (data) {
-        //                 if(data.error == 0)
-        //                 {
-        //                     Swal.fire({
-        //                       icon: 'error',
-        //                       title: 'Oops...',
-        //                       text: 'Something went wrong!',
-        //                       footer: '<a href="">Why do I have this issue?</a>'
-        //                     })
-        //                 }else {
-        //                     swalWithBootstrapButtons.fire(
-        //                     'Deleted!',
-        //                     'Your file has been deleted.',
-        //                     'success'
-        //                     );
+    ajax: {
+        url: "{{ route('center.all-massager-list') }}",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        data: function (d) {
+            d.type = 'player';
+            return JSON.stringify(d);
+        }
+    },
 
-        //                     table.row( $this.parents('tr') ).remove().draw();
-        //                 }
-
-
-        //             });
-        //         } else if (
-        //         /* Read more about handling dismissals below */
-        //         result.dismiss === Swal.DismissReason.cancel
-        //         ) {
-        //             swalWithBootstrapButtons.fire(
-        //             'Cancelled',
-        //             'Your imaginary file is safe :)',
-        //             'error'
-        //             )
-        //         }
-        //     });
-        //         //alert('success');
+    columns: [
+           
+            { data: 'profile_name', name: 'profile_name', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'business_name', name: 'business_name', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'business_no', name: 'business_no', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'phone', name: 'phone', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'created_at', name: 'created_at', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'status', name: 'status', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+    ],
 
 
-        // });
-    </script>
+});
+
+ </script>
+
+
 @endpush

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Center\Profile;
 use Exception;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Masseur;
 use App\Models\Service;
 use App\Models\Duration;
 use App\Models\MassageRate;
@@ -15,6 +16,7 @@ use App\Models\MassageGallery;
 use App\Models\MassageProfile;
 use App\Models\MassageService;
 use App\Models\MassageSetting;
+use App\Models\MassagerMasseur;
 use App\Models\EscortCovidReport;
 use Illuminate\Support\Facades\DB;
 use App\Models\MassageAvailability;
@@ -72,110 +74,127 @@ class MassageController extends Controller
     }
 
    
-    // public function makeAvailability($request_data)
-    // {
+    public function massager_list(Request $request)
+    {
+        return view('center.dashboard.list');
+    }
 
-      
-    //     $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
-    //     $availability = [];
+    public function  get_all_massager_list(Request $request)
+    {
 
-    //     foreach ($days as $day) {
+            $masseurs  = MassageProfile::where('user_id', auth()->user()->id)->get();
+            $countries = getCountryList();
 
-    //         $status = $request_data['availability_time'][$day] ?? 'closed';
+            $data = $masseurs->map(function ($row) use ($countries) {
 
-    //         if ($status === 'closed') {
-    //             $availability[$day] = [
-    //                 'status' => 'closed',
-    //                 'from' => null,
-    //                 'to' => null,
-    //             ];
-    //             continue;
-    //         }
+                if($row->enabled==1)
+                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Deactivate</a>';   
+                 else
+                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-circle"></i> Activate</a>';     
+               
+               
+                 $action = '<div class="dropdown no-arrow">
+                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                 </a>
+                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
+                                                   
+                                                  
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-profile/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
+                                                   <div class="dropdown-divider"></div>'.$status.
+                                                  
+                                                   
+                            '</div>';
+                 //  <div class="dropdown-divider"></div>           
+                //<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
 
-    //         if ($status === '24_hours') {
-    //             $availability[$day] = [
-    //                 'status' => '24_hours',
-    //                 'from' => '12:00 AM',
-    //                 'to' => '11:59 PM',
-    //             ];
-    //             continue;
-    //         }
+                return [
+                   
+                    'profile_name' => $row->profile_name,
+                    'business_name' => $row->business_name,
+                    'business_no' => $row->business_no,
+                    'phone' => $row->phone,
+                    'created_at' => date('d M Y', strtotime($row->created_at)),
+                    'status' => ($row->enabled==1) ? 'Active' : 'InActive',
+                    'action' => $action
+
+                ];
+            });  
 
 
-    //         $from = null;
-    //         $to   = null;
+            return response()->json([
+                'data' => $data
+            ]);
 
-    //         if (!empty($request_data['time'][$day]['hh_from']) &&
-    //             !empty($request_data['time'][$day]['ampm_from'])) {
-    //             $from = $request_data['time'][$day]['hh_from'].' '.$request_data['time'][$day]['ampm_from'];
-    //         }
+ 
+    }
 
-    //         if (!empty($request_data['time'][$day]['hh_to']) &&
-    //             !empty($request_data['time'][$day]['ampm_to'])) {
-    //             $to = $request_data['time'][$day]['hh_to'].' '.$request_data['time'][$day]['ampm_to'];
-    //         }
 
-    //         $availability[$day] = [
-    //             'status' => $status,
-    //             'from' => $from,
-    //             'to' => $to,
-    //         ];
-    //     }
 
-    //     return $availability;
-    // }
+
+    public function make_time_json(Request $request)
+    {
+         $request_data     = $request->all();
+         $availability     = $this->makeAvailability($request_data);
+
+         return response()->json([
+                'success' => true,
+                'data' => $availability
+         ], 200);
+    }
+
 
 
     public function makeAvailability($request_data)
-{
-    $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
-    $availability = [];
+    {
+        $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+        $availability = [];
 
-    foreach ($days as $day) {
+        foreach ($days as $day) {
 
-        $status = $request_data['availability_time'][$day] ?? 'closed';
+            $status = $request_data['availability_time'][$day] ?? 'closed';
 
-        if ($status === 'closed') {
+            if ($status === 'closed') {
+                $availability[$day] = [
+                    'status' => 'closed',
+                    'from' => null,
+                    'to' => null,
+                ];
+                continue;
+            }
+
+            if ($status === '24_hours') {
+                $availability[$day] = [
+                    'status' => '24_hours',
+                    'from' => '12:00 AM',
+                    'to' => '11:59 PM',
+                ];
+                continue;
+            }
+
+            // custom / til_late
+            $from = null;
+            $to   = null;
+
+            if (!empty($request_data['time'][$day]['hh_from']) &&
+                !empty($request_data['time'][$day]['ampm_from'])) {
+                $from = $request_data['time'][$day]['hh_from'].' '.$request_data['time'][$day]['ampm_from'];
+            }
+
+            if (!empty($request_data['time'][$day]['hh_to']) &&
+                !empty($request_data['time'][$day]['ampm_to'])) {
+                $to = $request_data['time'][$day]['hh_to'].' '.$request_data['time'][$day]['ampm_to'];
+            }
+
             $availability[$day] = [
-                'status' => 'closed',
-                'from' => null,
-                'to' => null,
+                'status' => $status,
+                'from' => $from,
+                'to' => $to,
             ];
-            continue;
         }
 
-        if ($status === '24_hours') {
-            $availability[$day] = [
-                'status' => '24_hours',
-                'from' => '12:00 AM',
-                'to' => '11:59 PM',
-            ];
-            continue;
-        }
-
-        // custom / til_late
-        $from = null;
-        $to   = null;
-
-        if (!empty($request_data['time'][$day]['hh_from']) &&
-            !empty($request_data['time'][$day]['ampm_from'])) {
-            $from = $request_data['time'][$day]['hh_from'].' '.$request_data['time'][$day]['ampm_from'];
-        }
-
-        if (!empty($request_data['time'][$day]['hh_to']) &&
-            !empty($request_data['time'][$day]['ampm_to'])) {
-            $to = $request_data['time'][$day]['hh_to'].' '.$request_data['time'][$day]['ampm_to'];
-        }
-
-        $availability[$day] = [
-            'status' => $status,
-            'from' => $from,
-            'to' => $to,
-        ];
+        return $availability;
     }
-
-    return $availability;
-}
 
 
     public function index($id = null)
@@ -186,16 +205,35 @@ class MassageController extends Controller
             $escort = $this->massage_profile->make();
         }
         $massage_profile = $escort;
+        $massage_durations = (isset($escort->durations) && count($escort->durations)>0) ? $escort->durations->toArray() : [];
+
+        // echo '<pre>';
+        // print_r($massage_durations);
+        // exit;
+
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
         $path = $this->media;
         $durations = $this->duration->all();
-        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile'));
+
+        $masseurs  = Masseur::all();
+
+        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations','masseurs'));
     }
 
     public function getProfile(Request $request, $id)
     {
        
         $user = auth()->user();
+
+        
+        ########## default profile data ############
+        $massage_default = $this->massage_profile->findDefault($user->id,1);
+        if(!$massage_default ) {
+            $massage_default = $this->massage_profile->make();
+        }
+        $massage_durations = (isset($massage_default->durations) && count($massage_default->durations)>0) ? $massage_default->durations->toArray() : [];
+        ########## End default profile data ########
+
         $escort = $this->escort->find($id);
         if(!$escort || !$id){
         return redirect()->route('center.profile');
@@ -216,31 +254,56 @@ class MassageController extends Controller
             $defaultServiceIds = $escortDefault->services()->pluck('service_id')->toArray();
             $edit_mode = true;
             //dd($escort->imagePosition(9));
-            return view('center.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'edit_mode'));
+            return view('center.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'edit_mode','massage_durations','massage_default'));
         }
         
     }
 
     
+    
     public function update_single_data(Request $request)
     {
-        $request->validate([
-            'post_field' => 'required|string',
-            'post_value' => 'required'
-        ]);
-
+       
         try 
         {
-            $profile  =  MassageProfile::where('user_id',auth()->user()->id)
+            if(isset($request->post_type) && $request->post_type=='rate')
+            {
+                    if ($request->filled('post_json')) 
+                    {
+
+                        $data = json_decode($request->post_json, true);
+                        if(isset($data['duration_id']) && isset($data['massage_profile_id']) && isset($data['data_type']))
+                        {
+                              $massage_rate  = MassageRate::where(['massage_profile_id'=> $data['massage_profile_id'], 'duration_id'=> $data['duration_id']])->first();
+                              if($massage_rate)
+                              {
+                                $massage_rate->{$data['data_type']} = $data['new_value'];
+                                $massage_rate->save();
+
+                              }
+                        
+                        }
+
+                    }
+            }
+            else
+            {
+                if(isset($request->post_field) && isset($request->post_value) && $request->post_field!="" && $request->post_value!="")
+                {
+                    $profile  =  MassageProfile::where('user_id',auth()->user()->id)
                             ->where('default_setting',1)
                             ->first();
                             
-            $field = $request->post_field;
-            $value = $request->post_value;    
-            
-            $profile->update([
-                $field => $value
-            ]);
+                    $field = $request->post_field;
+                    $value = $request->post_value;    
+                    
+                    $profile->update([
+                        $field => $value
+                    ]);
+                }
+                  
+            }
+           
 
 
             return response()->json([
@@ -261,6 +324,9 @@ class MassageController extends Controller
 
     public function createProfile(Request $request)
     {
+        
+       
+       
         try 
         {
 
@@ -343,6 +409,36 @@ class MassageController extends Controller
                 MassageRate::insert($rates);
             }
 
+
+
+             /* ================== Massager Masseur ================== */
+            if (!empty($request->masseur_ids)) 
+            {
+                $masseurIds = $request->masseur_ids;
+                if (is_string($masseurIds)) {
+                    $masseurIds = json_decode($masseurIds, true);
+                }
+   
+                $masseur = [];
+                if (!empty($masseurIds) && is_array($masseurIds)) 
+                {
+                    foreach ($masseurIds as $key => $value) 
+                    {
+                            $masseur[] = [  
+                                            'masseur_profile_id'    => $value,
+                                            'massage_profile_id'    => $massage_profile_id,
+                                            'created_at'            => now(),
+                                            'updated_at'            => now(),
+                                        ];
+                    }   
+                }
+
+                if(!empty($masseur))
+                MassagerMasseur::insert($masseur);
+            }
+
+
+        
             /* ================== Gallery (Images) ================== */
             if (!empty($request->position)) {
                 foreach ($request->position as $position => $mediaId) {
@@ -370,6 +466,7 @@ class MassageController extends Controller
                     }
                 }
             }
+            
 
             DB::commit();
 
@@ -707,6 +804,46 @@ class MassageController extends Controller
             $error = false;
         }
         ########### End Update Who We #####################
+
+        ######### Update masseur ###########################
+        if($request->type=='masseur')
+        {
+            if (!empty($request->masseur_ids)) 
+            {
+                $massage_profile_id = $request->massage_id;
+                $masseurIds = $request->masseur_ids;
+                if (is_string($masseurIds)) {
+                    $masseurIds = json_decode($masseurIds, true);
+                }
+   
+                $masseur = [];
+                if (!empty($masseurIds) && is_array($masseurIds)) 
+                {
+                    foreach ($masseurIds as $key => $value) 
+                    {
+                            $masseur[] = [  
+                                            'masseur_profile_id'    => $value,
+                                            'massage_profile_id'    => $massage_profile_id,
+                                            'created_at'            => now(),
+                                            'updated_at'            => now(),
+                                        ];
+                    }   
+                }
+
+                if(!empty($masseur))
+                {
+                    MassagerMasseur::where(['massage_profile_id'=> $massage_profile_id])->delete();
+                    MassagerMasseur::insert($masseur);
+
+                }
+               
+                $message = 'Updated successfully.';
+                $error = false;
+            }
+        }
+        ########### End Update masseur #####################
+
+
 
         return response()->json(compact('error','message'));
     }

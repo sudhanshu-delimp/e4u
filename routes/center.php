@@ -23,7 +23,6 @@ use App\Http\Controllers\Center\MassageViewerInteractionController;
 
 
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
-Route::get('/list', [CenterController::class, 'escortList'])->name('center.list');
 Route::get('/list/data-table', [CenterController::class, 'dataTable'])->name('center.list.dataTable');
 Route::post('/profile-contact-permission', [EscortController::class, 'profileTourPermissionUpdate'])->name('center.account.profile.contact.update');
 //Route::get('profile/{id}',[CenterController::class,'updateProfile'])->name('center.update.profile');
@@ -90,13 +89,40 @@ Route::post('update-single-data',[MassageController::class,'update_single_data']
 Route::post('our-business',[MassageController::class,'ourBusiness'])->name('center.our-business');
 Route::get('update-profile/{id?}',[MassageController::class,'getProfile'])->name('center.update-profile');
 Route::post('update-massage-profile',[MassageController::class,'updateprofile'])->name('center.update-massage-profile');
+Route::get('/list', [MassageController::class, 'massager_list'])->name('center.list');
+Route::post('all-massager-list', [MassageController ::class, 'get_all_massager_list'])->name('center.all-massager-list');
+
+
+
+Route::post('make-time-json',[MassageController::class,'make_time_json'])->name('center.make-time-json');
+
 
 Route::get('archive-view-photos', [CenterProfileInformationController ::class, 'galleries'])->name('cen.archive-view-photos');
 Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
 
 
 Route::get('create-new-masseur', [MasseurController::class, 'index'])->name('center.create-new-masseur');
-Route::get('create-new-masseur', [MasseurController::class, 'add_masseur'])->name('center.create-new-masseur');
+Route::post('create-new-masseur', [MasseurController::class, 'add_masseur'])->name('center.create-new-masseur');
+Route::get('update-masseur/{id?}',[MasseurController::class,'edit_masseur'])->name('center.update-masseur');
+Route::post('update-masseur',[MasseurController::class,'update_masseur'])->name('center.update-masseur');
+Route::post('delete-masseur-photos/{id}', [MasseurController ::class, 'ImagesDelete'])->name('center.delete-masseur-photos');
+Route::post('default_photos_masseur', [MasseurController ::class, 'defaultImages'])->name('center.masseur.default.images');
+
+Route::post('masseur-option-list', [MasseurController ::class, 'masseur_option_list'])->name('center.masseur-option-list');
+Route::post('get-masseur-option-list', [MasseurController ::class, 'get_masseur_option_list'])->name('center.get-masseur-option-list');
+Route::post('filter-masseur-option-list', [MasseurController ::class, 'get_filter_masseur_option_list'])->name('center.filter-masseur-option-list');
+Route::post('all-masseur-list', [MasseurController ::class, 'get_all_masseur_list'])->name('center.all-masseur-list');
+
+
+
+
+
+Route::post('masseurs/archives-listing',[MasseurController::class,'masseur_list'])->name('center.archives-listing');
+
+Route::post('center.massuers-media-upload-gallery',[MasseurController::class,'uploadGallery'])->name('center.massuers-media-upload-gallery');
+Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}',[MasseurController ::class, 'getAccountMediaGallery'])->name('center.massuers.account.gallery');
+
+
  
 // Route::get('masseurs/new-listing', function()
 // {

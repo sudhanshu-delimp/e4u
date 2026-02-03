@@ -112,9 +112,9 @@ textarea {
    border-bottom: 1px solid #0c223d;
 }
 
-.upld-img {
+/* .upld-img {
    height: 82px !important;
-}
+} */
 
 .grid-container {
    display: grid;

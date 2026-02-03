@@ -95,12 +95,19 @@ class CenterProfileInformationController extends BaseController
         //dd($massage_profile);
         list($service_one, $service_two, $service_three) = $this->service->findByCategory([1,2,3]);
         $durations = $this->duration->all();
+        $massage_durations = (isset($massage_profile->durations) && count($massage_profile->durations)>0) ? $massage_profile->durations->toArray() : [];
+
+        // echo '<pre>';
+        // print_r($massage_durations);
+        // exit;
+        // dd($massage_durations);
+        
         //dd($massage_profile->massage_services()->where('category_id', 1)->get());
         //dd($massage_profile->massage_services);
         $availability = $massage_profile->availability ? json_decode($massage_profile->availability->availability_time, true) : [];
         $social_links = $massage_profile->social_links ? json_decode($massage_profile->social_links, true) : [];
   
-        return view('center.my-account.profile-information',compact('massage_profile','service_one','service_two','service_three','availability','durations','social_links'));
+        return view('center.my-account.profile-information',compact('massage_profile','service_one','service_two','service_three','availability','durations','social_links','massage_durations'));
     }
 
     public function storeAboutMe(UpdateRequestAboutMe $request)
