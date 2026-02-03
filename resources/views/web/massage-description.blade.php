@@ -93,9 +93,12 @@
                     <div class="col-md-12 col-xl-8 col-sm-12 col-12">
                         <div class="row mess_row custom_message_types">
 
-                            <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4">
-                                <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="assets/dashboard/img/massage-only.png" alt="Massage">
+                            <div class="col-sm-12 d-flex align-items-center justify-content-center gap-10 flex-wrap">
+                                <div class="d-flex align-items-center justify-content-center gap-10">
+                                    <div class="mc_tooltip_wrap">
+                                        <img src="assets/dashboard/img/massage-only.png" alt="Massage">
+                                        <p class="mc_rate_tooltip">Massage only</p> 
+                                    </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
                                             <h4>Massage</h4>
@@ -105,28 +108,28 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4">
-                                <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="assets/dashboard/img/massage-with2.png" alt="Individual">
+                                <div class="d-flex align-items-center justify-content-center gap-10">
+                                    <div class="mc_tooltip_wrap">
+                                    <img src="assets/dashboard/img/massage-with2.png" alt="Masseur">
+                                     <p class="mc_rate_tooltip">Massage with extras +2 hands.</p> 
+                                    </div>    
                                     <div class="div_contain_text">
                                         <div class="profile_message">
-                                            <h4>Individual</h4>
+                                            <h4>Masseur</h4>
                                         </div>
                                         <div class="profile_hr">
                                             <h4>$120/hr</h4>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4 mx-auto">
-                                <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="assets/dashboard/img/massage-with4.png" alt="2+ Person">
+                                <div class="d-flex align-items-center justify-content-center gap-10">
+                                    <div class="mc_tooltip_wrap">
+                                    <img src="assets/dashboard/img/massage-with4.png" alt="2+ Masseurs">
+                                    <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>   
+                                    </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
-                                            <h4>2+ Person</h4>
+                                            <h4>2+ Masseurs</h4>
                                         </div>
                                         <div class="profile_hr">
                                             <h4>$150/hr</h4>
@@ -158,8 +161,8 @@
                                 <tr>
                                     <th>Rates</th>
                                     <th>Massage</th>
-                                    <th>Individual</th>
-                                    <th>2+ Person</th>
+                                    <th>Masseur</th>
+                                    <th>2+ Masseurs</th>
                                 </tr>
                             </thead>
 
@@ -765,24 +768,23 @@
                             data-interval="5000">
                             <div class="carousel-inner">
                                 <div class="carousel-item tip_carousel_item_text active">
-                                    <p>Be on time.</p>
-                                </div>
-                                 <div class="carousel-item tip_carousel_item_text">
-                                    <p>Do not offer any of your personal information.</p>
-                                </div>
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Ask questions its ok.</p>
-                                </div>
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Have good hygiene.</p>
-                                </div>
-                                
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Keep your conversation light and nothing suggestive.</p>
-                                </div>
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Be clear about what service you are looking for.</p>
-                                </div>
+                                        <p>Be on time.</p>
+                                    </div>
+                                    <div class="carousel-item tip_carousel_item_text">
+                                        <p>Do not offer any of your personal information.</p>
+                                    </div>
+                                    <div class="carousel-item tip_carousel_item_text">
+                                        <p>Ask questions; it’s okay.</p>
+                                    </div>
+                                    <div class="carousel-item tip_carousel_item_text">
+                                        <p>Maintain good hygiene.</p>
+                                    </div>
+                                    <div class="carousel-item tip_carousel_item_text">
+                                        <p>Keep your conversation light and non-suggestive.</p>
+                                    </div>
+                                    <div class="carousel-item tip_carousel_item_text">
+                                        <p>Be clear about the service you are looking for.</p>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -795,13 +797,13 @@
                     </div>
                     <div class="pt-3 row">
                         <div class="col-md-12">
-                            <p class="testimonial"><strong>[MC Name]</strong> has no Reviews.</p>
+                            <p class="testimonial"><strong>[MC Name]</strong> has no Reviews. Why don't you give them their first Review?</p>
                         </div>
                         {{-- <div class="col-md-12 mb-4"></div> --}}
                     </div>
                     <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal" data-target="#add_reviews">
                                     <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                    Add Review
+                                    Login to Add Review
                                 </button>
                 </div>
 

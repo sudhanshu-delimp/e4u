@@ -5747,6 +5747,14 @@ i.fa.fa-heart-o{
                 position: relative;
             }
             
+            .mc_tooltip_wrap {
+                position: relative;
+            }
+            
+            .mc_tooltip_wrap:hover .mc_rate_tooltip {
+                display: block;
+            }
+            
             .mc_rate_tooltip {
                 position: absolute;
                 left: 50%;
