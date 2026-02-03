@@ -801,10 +801,15 @@
                         </div>
                         {{-- <div class="col-md-12 mb-4"></div> --}}
                     </div>
-                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal" data-target="#add_reviews">
-                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                    Login to Add Review
-                                </button>
+                    {{-- <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal" data-target="#add_reviews">
+                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                        Login to Add Review
+                    </button> --}}
+                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box">
+                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
+                    </button>
+                    
                 </div>
 
 
