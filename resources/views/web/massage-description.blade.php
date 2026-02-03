@@ -671,7 +671,7 @@
                     <div class="col-7 text-right">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
                             data-target="#reportMcNew">
-                            <img src="assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Masseurs
+                            <img src="assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Masseur
                         </button>
                     </div>
                 </div>
