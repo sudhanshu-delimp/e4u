@@ -765,7 +765,7 @@ textarea {
                                                 
                                                 <form id="masseur_frm" name="masseur_frm"  method="Post">                                        
                                                     <!-- Rate -->               
-                                                    <div class="mcc-form-tab">
+                                                    <!-- <div class="mcc-form-tab">
                                                         <h2>Rate</h2>
                                                             <div class="row">
                                                                 <div class="col-lg-8 col-md-12 col-sm-12 full-width-for-ipad-select horizontal-scroll-rates pt-5">
@@ -855,7 +855,7 @@ textarea {
                                                                     <button type="button" id="submitMasseur" class="btn-common save_profile_btn">Update</button>
                                                                 </div>
 
-                                                    </div>
+                                                    </div> -->
                                                     <!-- End Rate --> 
                                                 </form>                             
 

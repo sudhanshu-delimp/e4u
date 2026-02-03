@@ -567,7 +567,7 @@ textarea {
 
 
                                                     <!-- Rate -->               
-                                                    <div class="mcc-form-tab">
+                                                    <!-- <div class="mcc-form-tab">
                                                         <h2>Rate</h2>
                                                             <div class="row">
                                                                 <div class="col-lg-8 col-md-12 col-sm-12 full-width-for-ipad-select horizontal-scroll-rates pt-5">
@@ -647,7 +647,7 @@ textarea {
                                                                     @endforeach
                                                                 </div>
                                                             </div>
-                                                    </div>
+                                                    </div> -->
                                                     <!-- End Rate -->                              
 
 
@@ -1267,6 +1267,7 @@ textarea {
             var bannerDefaultImage;
             var pinupDefaultImage;
             var allFiles = [];
+            var max_file = 50;
 
             let selectedVideoId = null;
             let selectedVideoPosition = null;
@@ -1279,7 +1280,7 @@ textarea {
                         const fileSizeMB = file.size / (1024 * 1024);
                         const index = previousSelectedImagesCount + i;
                 
-                        if (fileSizeMB <= 2) {
+                        if (fileSizeMB <= max_file) {
                             allFiles.push(file); 
                             const imgURL = URL.createObjectURL(file);
                             $('#image_preview').append(`
