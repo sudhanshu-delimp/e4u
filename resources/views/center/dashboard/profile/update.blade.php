@@ -463,6 +463,20 @@ console.log('profileId',profileId);
             }
         });
 
+
+         $('.nav-link').on('click', function () {
+
+            let curren_tab = $(this).attr('id');
+
+            updateProgressBar(curren_tab);
+
+        
+        });
+
+
+        
+
+        
                 
           initDragDrop();
 
