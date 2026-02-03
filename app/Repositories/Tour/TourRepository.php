@@ -139,6 +139,8 @@ class TourRepository extends BaseRepository implements TourInterface
         }
         
         if($type=='purchased'){
+            $today = Carbon::today()->format('Y-m-d');
+            $query = $query->where([['end_date','>=',$today]]);
             $query = $query->whereHas('tourPurchase');
         }
 
@@ -208,11 +210,20 @@ class TourRepository extends BaseRepository implements TourInterface
     }
 
     public function getTourLocations($conditions = []){
+        $today = Carbon::today();
         $query = $this->tourLocation->with(['state']);
         if(!empty($conditions)){
             $query = $query->where($conditions);
         }
-        $tourLocations = $query->orderBy('start_date','desc')->get();
+        $tourLocations = $query
+        ->orderByRaw("
+        CASE
+            WHEN start_date <= ? AND end_date >= ? THEN 1   -- Current
+            WHEN start_date > ? THEN 2                      -- Upcoming
+            ELSE 3                                          -- Completed
+        END
+    ", [$today, $today, $today])
+    ->orderBy('start_date','asc')->get();
         return $tourLocations;
     }
 

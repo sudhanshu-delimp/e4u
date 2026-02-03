@@ -8,15 +8,21 @@
    <div class="container">
       <div class="row">
          <div class="col-lg-12">
-            <div class="row">
-               <div class="col-lg-12 mb-5">
+            <div class="breadcrumb">
+           <a href="{{ url('blogs') }}">Blog</a> &gt;
+            <span> Deep Throat Tips You Should Know </span>
+            </div>
+
+                        
+         </div>
+         <div class="col-lg-8 mb-5">
                   <div class="single-blog-item">
-                     <img src="{{ asset('assets/app/img/shutt.jpg') }}" alt="" class="img-fluid rounded">
+                     <img src="{{ asset('assets/app/img/blogs/b1.jpg') }}" alt="" class="img-fluid rounded">
                      <div class="blog-item-content mt-5">
-                        <h2>Important information for all Escorts working in Queensland</h2>
+                        <h2>Deep Throat Tips You Should Know</h2>
                         <div class="blog-item-meta bg-gray mb-4">
                            <span class="text-black text-capitalize mr-3">Posted:</span>
-                           <span class="text-black text-capitalize mr-3">26th January 2024</span>
+                           <span class="text-black text-capitalize mr-3">30th January 2026</span>
                         </div>
                         <hr>
                         <p>We often receive emails from new escorts entering the industry, or established escorts who will be working in Brisbane, the Gold Coast or other cities in Queensland for the first time, who are not familiar with the state legislation and the rules surrounding advertising in Queensland <b>(Local Laws).</b> In this blog, we will give you a little bit of information about the basic things that you need to be aware of, and links to important resources.</p>
@@ -53,28 +59,73 @@
                         <p class="blog-link">For any questions about Local Laws, please feel welcome to contact Respect Inc, which is the sex industry support group for Queensland: <a href="https://scarletalliance.org.au/resources/laws/qld/">www.respectqld.org.au.</a></p>
                      </div>
                   </div>
-               </div>
-               <div class="col-lg-12 mb-5">
-                  <div class="posts-nav bg-white p-5 d-lg-flex d-md-flex justify-content-between ">
-                     <a class="post-prev align-items-center" href="#">
-                        <div class="posts-prev-item mb-4 mb-lg-0">
-                           <span class="nav-posts-desc text-color">- Previous Post</span>
-                           <h6 class="nav-posts-title mt-1">
-                              Donec consectetuer ligula <br>vulputate sem tristique.
-                           </h6>
-                        </div>
-                     </a>
-                     <div class="border"></div>
-                     <a class="posts-next" href="#">
-                        <div class="posts-next-item pt-4 pt-lg-0">
-                           <span class="nav-posts-desc text-lg-right text-md-right text-color d-block">- Next Post</span>
-                           <h6 class="nav-posts-title mt-1">
-                              Ut aliquam sollicitudin leo.
-                           </h6>
-                        </div>
-                     </a>
+         </div>
+         <div class="col-lg-4 mb-5">
+                  <div class="single-blog-item">
+                      <h2 class="blog_head">Blog Archive</h2>
+
+                   <div class="arc_blog_list">
+
+                     <!-- Search Form -->
+                    <form class="archive-form">
+                        <label for="archive-date">Search By Year & Month</label>
+                        <input type="month" id="archive-date" name="archive">
+                     </form>
+
+                     <script>
+                        const monthInput = document.getElementById("archive-date");
+                        const today = new Date();
+
+                        const year = today.getFullYear();
+                        const month = String(today.getMonth() + 1).padStart(2, '0');
+
+                        monthInput.value = `${year}-${month}`;
+                     </script>
+
+
+                     <!-- Archive List -->
+                     <div class="archive-list">
+                        
+                       <ul>
+                           <li><a href="#"> Deep Throat Tips You Should Know</a></li>
+                           <li><a href="#"> Edging Tips For Better Orgasms</a></li>
+                           <li><a href="#"> Keeping Your Sanity - Tips For Escorts</a></li>
+                           <li><a href="#"> How To Have Kinky Dreams</a></li>
+                           <li><a href="#"> How To Pick An Outfit For Sex Work</a></li>
+                           <li><a href="#"> Learn How To Master Conversation With An Escort</a></li>
+                           <li><a href="#"> Tips On Avoiding Nausea After Sex</a></li>
+                           <li><a href="#"> Summer Date Ideas With Your Elite Escort</a></li>
+                           <li><a href="#"> Difference Between PSE and GFE You Should Know</a></li>
+                           <li><a href="#"> Top Nightspots in Launceston To Take Your Escort</a></li>
+                           <li><a href="#"> Tips for Giving an Unforgettable Massage</a></li>
+                           <li><a href="#"> The Art of Teasing and Denial</a></li>
+                           <li><a href="#"> Tips on Talking Dirty to Your Clients</a></li>
+                        </ul>
+
+                     </div>
+
+                     </div>
                   </div>
-               </div>
+         </div>
+         <div class="col-lg-12 mb-5">
+            <div class="posts-nav bg-white p-5 d-lg-flex d-md-flex justify-content-between ">
+               <a class="post-prev align-items-center" href="#">
+                  <div class="posts-prev-item mb-4 mb-lg-0">
+                     <span class="nav-posts-desc text-color">- Previous Post</span>
+                     <h6 class="nav-posts-title mt-1">
+                        Donec consectetuer ligula <br>vulputate sem tristique.
+                     </h6>
+                  </div>
+               </a>
+               <div class="border"></div>
+               <a class="posts-next" href="#">
+                  <div class="posts-next-item pt-4 pt-lg-0">
+                     <span class="nav-posts-desc text-lg-right text-md-right text-color d-block">- Next Post</span>
+                     <h6 class="nav-posts-title mt-1">
+                        Ut aliquam sollicitudin leo.
+                     </h6>
+                  </div>
+               </a>
             </div>
          </div>
       </div>

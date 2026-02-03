@@ -219,7 +219,7 @@ class EscortTourScheduleContoller extends Controller
             else{
                 foreach($items as $item){
                     $escortDetail = $item->escort;
-                    Purchase::where(['id'=>$escortDetail->purchase_id])->update(['status' => 'expire']);
+                    Purchase::where(['tour_location_id'=>$item->id,'escort_id'=>$escortDetail->id])->update(['status' => 'cancel','utc_start_time'=>NULL,'utc_end_time'=>NULL]);
                     if(!empty($item->is_pinup)){
                         EscortPinup::where('id', $item->is_pinup)->update(['utc_start_time'=>NULL,'utc_end_time'=>NULL]);
                     }

@@ -69,12 +69,7 @@ class CenterController extends Controller
     }
 
 
-    public function escortList()
-    {
-        $escorts = $this->escort->all();
-
-        return view('center.dashboard.list', compact('escorts'));
-    }
+   
     public function dataTable()
     {
         list($escort, $count) = $this->massage_profile->massagePaginated(

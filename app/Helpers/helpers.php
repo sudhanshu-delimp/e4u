@@ -15,8 +15,9 @@ use App\Mail\LoginOtpMail;
 use App\Models\AlertNotic;
 use App\Models\EscortMedia;
 
-use App\Models\MassageMedia;
 use Illuminate\Support\Str;
+use App\Models\MassageMedia;
+use App\Models\MasseurMedia;
 use Illuminate\Http\Request;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
@@ -491,6 +492,21 @@ if (!function_exists('getMassageBannerTemplates')) {
             ->get();
     }
 }
+
+
+if (!function_exists('isMasseursGalleryTemplate')) {
+    function isMasseursGalleryTemplate($media_id = 0)
+    {
+        $media = MasseurMedia::where(['id' => $media_id])->first();
+        if ($media->template) {
+            $template = MasseurMedia::where(['user_id' => NULL, 'template' => '1', 'path' => $media->path])->first('id');
+            return $template->id;
+        } else {
+            return $media_id;
+        }
+    }
+}
+
 
 if (!function_exists('isMassageGalleryTemplate')) {
     function isMassageGalleryTemplate($media_id = 0)

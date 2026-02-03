@@ -32,6 +32,9 @@
     opacity: 0.5;
 } */
 
+
+    
+
 </style>
 @endsection
 @section('content')
@@ -150,6 +153,43 @@
 
 
 
+<div class="modal programmatic" id="update_info" style="display: none">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content custome_modal_max_width">
+         <div class="modal-header main_bg_color border-0">
+            <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+            <img src="{{ asset('assets/app/img/newcross.png') }}"
+               class="img-fluid img_resize_in_smscreen">
+            </span>
+            </button>
+         </div>
+         <div class="modal-body">
+
+            <form name="update_single_data" method="post" action="{{route('center.update-single-data')}}">
+            <input type="hidden" name="post_field" id="post_field" value="">
+            <input type="hidden" name="post_value" id="post_value" value="">
+
+             <input type="hidden" name="post_json" id="post_json" value="">
+            <input type="hidden" name="post_type" id="post_type" value="">
+                
+                <h3 class="my-2"><span id="Lname"><p>Would you like to update <b>
+                                <span id="field_name"></span>       
+                </b> in your 'My Information' page for future Profiles?</p></span> </h3>
+                <div class="modal-footer">
+                <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
+                    value="close" id="close_change">No</button>
+                <button type="button" class="btn-success-modal" id="update_new_value">Yes</button>
+                </div>
+            </form>
+
+
+         </div>
+      </div>
+   </div>
+</div>
+
 
 @include('center.dashboard.modal.upload_gallery_image')
 @include('center.dashboard.modal.remove_gallary_image')
@@ -198,6 +238,117 @@ console.log('profileId',profileId);
    
     $ (document).ready(function(e) {
 
+        $('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
+
+
+        //// ----------- Update Single Data ------------ ///////
+         $('.update_profile_data').on('blur change', function () {
+
+                var current_feild  = $(this).attr('id');
+                var current_value  = $(this).val();
+                
+                if(current_value==="")
+                return false;    
+
+
+                var old_value  = $('#profile_'+current_feild).val();
+
+                if(current_feild=='about_title')
+                    current_feild = 'about_us_box'
+
+                if (current_value !== old_value) {
+                $('#post_field').val(current_feild);
+                $('#post_value').val(current_value);
+                $('#field_name').text(formatProfileName(current_feild));
+                $('#update_info').modal('show');
+                }
+         });
+
+
+         $('.update_default_rate').on('blur', function () {
+
+                var duration_id  = $(this).data('duration_id');
+                var massage_profile_id  = $(this).data('massage_profile_id');
+                var data_type  = $(this).data('data_type');
+
+
+                var current_value  = $(this).val();
+                var current_feild  = $(this).attr('id');
+
+                var current_old_input = 'profile_'+current_feild;
+                var old_value  =  $(this).closest('.service_rate_dolor_symbol').find('.'+current_old_input).val();
+
+               
+            
+                if(current_value==="")
+                return false;    
+
+
+                if (current_value !== old_value) {
+
+                let postData = {
+                    duration_id: duration_id,
+                    massage_profile_id: massage_profile_id,
+                    data_type: data_type,
+                    new_value: current_value
+                }
+
+                $('#post_json').val(JSON.stringify(postData));
+                $('#post_type').val('rate');
+                $('#field_name').text('Rate');
+                $('#update_info').modal('show');
+                }
+         });
+
+
+            function formatProfileName(text) {
+
+                let formattedText = text
+                    .split('_')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+
+                switch (formattedText) {
+                    case 'Phone':
+                        return 'Mobile No';
+
+                        case 'About Us Box':
+                        return 'Who are We';
+                    
+                    default:
+                        return formattedText;
+                }
+            }
+
+            $('#update_new_value').on('click', function (e) {
+                e.preventDefault();
+                swal_waiting_popup({'title':'Updating Data.'});
+                let form = $('form[name="update_single_data"]');
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        Swal.close();
+                        $('#update_info').modal('hide');    
+                    },
+                    error: function (xhr) {
+                       Swal.close();
+                       $('#update_info').modal('hide');
+                    },
+                    complete: function () {
+                         Swal.close();
+                         $('#update_info').modal('hide');
+                    }
+                });
+            });    
+
+        ///////// End Update Single Data ////////////////// 
+
 
         $('#language').change(function(){
             var languageValue = $('#language').val();
@@ -209,13 +360,11 @@ console.log('profileId',profileId);
             $("#language option[value='"+languageValue+"']").remove();
         });
 
-         $(document).on('click', '.remove-lang , span.custom--help', function () {
+        $(document).on('click', '.remove-lang , span.custom--help', function () {
             $(this).closest('.selecated_languages').remove();            
             $(this).closest('.custom-help-contain').toggleClass('help-note-toggle');
         });
 
-
-        $('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
 
         const validator = $('#my_massage_profile').validate({
             ignore: function (index, element) {
@@ -226,7 +375,6 @@ console.log('profileId',profileId);
             errorClass: 'text-danger',
             errorElement: 'small'
         });
-
 
 
         $('.nex_sterp_btn').on('click', function () {
@@ -261,6 +409,7 @@ console.log('profileId',profileId);
                 if(!validateThirdTab())
                  return false; 
             
+                 load_landing_messures_table();
             }
 
 
@@ -272,12 +421,12 @@ console.log('profileId',profileId);
             // });
 
 
-            if(!checkProfileDynamicMediaVideo()){
-                    Swal.fire('Media',
-                        'Please attach video to this profile from the Media Repository or upload a new file',
-                        'warning');
-                    return false;  
-            }
+            // if(!checkProfileDynamicMediaVideo()){
+            //         Swal.fire('Media',
+            //             'Please attach video to this profile from the Media Repository or upload a new file',
+            //             'warning');
+            //         return false;  
+            // }
 
             
             if (!validateCKEditor()) {
@@ -315,7 +464,19 @@ console.log('profileId',profileId);
         });
 
 
-          
+         $('.nav-link').on('click', function () {
+
+            let curren_tab = $(this).attr('id');
+
+            updateProgressBar(curren_tab);
+
+        
+        });
+
+
+        
+
+        
                 
           initDragDrop();
 
@@ -423,10 +584,300 @@ console.log('profileId',profileId);
                 }
             });
         
-    });
+        });
 
      });
 
 
+      $(document).on('click', '#massuers-tab', function (e) {
+        load_landing_messures_table();
+    });
+
 </script>
+
+
+<script type="text/javascript"  src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script>
+
+
+    var masseurTable = null;
+    var currentAvailability = null;
+    var currentSelectedList = [];
+    var isCalculating = false;
+
+
+    $('.add_masseurs').on('click', function () {
+
+        $('#masseurs_Tab tbody input.select-masseur:checked').each(function () {
+
+            let $row = $(this).closest('tr');
+            let id   = $(this).val();
+
+            
+            if ($('#selected_masseur tbody tr[data-id="'+id+'"]').length) {
+                swal_error_warning('Masseur','Allready added.');
+                return false;
+            }
+
+            let profile     = $row.find('td:eq(1)').html();
+            let days        = $row.find('td:eq(2)').html();
+            let ethnicity   = $row.find('td:eq(3)').text();
+            let nationality = $row.find('td:eq(4)').text();
+
+            let html = `
+                <tr data-id="${id}">
+                    <td>${profile}</td>
+                    <td>${days}</td>
+                    <td>${nationality}</td>
+                    <td>${ethnicity}</td>
+                    <td> <button type="button" class="btn-danger btn-sm remove-row">Remove</button></td>
+                </tr>`;
+
+            $('#selected_masseur tbody').append(html);
+            $(this).prop('checked', false);
+            $(this).closest('tr').remove();
+            $('#select_profile').modal('hide');
+            toggleSaveProfileButton();
+        });
+
+        
+
+        $(document).on('click', '.remove-row', function () {
+        $(this).closest('tr').remove();
+        refresh_masseur_table();
+        toggleSaveProfileButton();
+        });
+
+
+    });
+
+
+    function getSelectedMasseurIds() {
+    let ids = [];
+    $('#selected_masseur tbody tr[data-id]').each(function () {
+    ids.push($(this).data('id'));
+    });
+
+    return ids;
+    }
+
+    function toggleSaveProfileButton() {
+
+    let ids = [];
+    const count = $('#selected_masseur tbody tr[data-id]').length;
+
+
+    if (count > 0) {
+        $('#submit_form_massage').prop('disabled', false);
+    } else {
+        $('#submit_form_massage').prop('disabled', true);
+    }
+    }
+
+
+    function calculateTime() 
+    {
+    let formData = new FormData();
+
+    $('#my-avail-time').find('input, select, textarea').each(function () {
+        let el = $(this);
+        let name = el.attr('name');
+        if (!name) return;
+
+        if (el.is(':radio') || el.is(':checkbox')) {
+            if (el.is(':checked')) {
+                formData.append(name, el.val());
+            }
+        } else if (el.is('select') && el.prop('multiple')) {
+            let values = el.val();
+            if (values) {
+                values.forEach(v => formData.append(name, v));
+            }
+        } else {
+            formData.append(name, el.val());
+        }
+    });
+
+    return $.ajax({
+        url: "{{ route('center.make-time-json') }}",
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+    });
+    }
+
+
+    function load_landing_messures_table()
+    {
+        calculateTime()
+        .done(function (response) {
+            let my_availability = response.data;
+            load_masseur_data_table(my_availability);
+        })
+        .fail(function () {
+            swal_error_popup('Error occured while calculating availability');
+        });
+    }
+
+
+   function refresh_masseur_table()
+    {
+        if (isCalculating) return; 
+        isCalculating = true;
+
+        calculateTime()
+            .done(function (response) {
+                let my_availability = response.data;
+                currentList = getSelectedMasseurIds();
+                load_masseur_data_table(my_availability, currentList);
+            })
+            .fail(function () {
+                swal_error_popup('Error occured while calculating availability');
+            })
+            .always(function () {
+                isCalculating = false; 
+            });
+    }
+
+    function load_masseur_data_table(my_availability,currentList)
+    {
+        // update global state
+        currentAvailability = my_availability || currentAvailability;
+        currentSelectedList = currentList || currentSelectedList;
+        
+
+        // ✅ if table already exists → reload only
+        if ($.fn.DataTable.isDataTable('#masseurs_Tab')) {
+            masseurTable.ajax.reload(null, false);
+            return;
+        }
+
+        console.log('Initializing DataTable');
+
+        masseurTable = $("#masseurs_Tab").DataTable({
+            processing: true,
+            serverSide: true,
+            paging: false,
+            searching: false,
+            info: false,
+            lengthChange: false,
+            ordering: false,
+
+            ajax: {
+                url: "{{ route('center.masseur-option-list') }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: function (d) {
+                    d.type = 'player';
+                    d.availability = currentAvailability;
+                    d.selectedList = currentSelectedList;
+                    d.massage_profile_id = profileId;
+                }
+            },
+
+            columns: [
+                { data: 'checkbox', orderable: false, searchable: false },
+                { data: 'profile' },
+                { data: 'days' },
+                { data: 'ethnicity' },
+                { data: 'nationality' }
+            ]
+        });
+    }
+
+
+
+
+    $('.update_masseurs_btn').on('click', function () {
+
+            let form = $('#my_masseurs');
+            let formData = new FormData(form[0]);
+
+            let masseurIds = getSelectedMasseurIds();
+            formData.append('masseur_ids', JSON.stringify(masseurIds));
+
+
+            $.ajax({
+                method: form.attr('method'),
+                url:"{{route('center.update-massage-profile')}}",
+                data:formData,
+                contentType: false,
+                processData: false,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success: function (data) {
+                    $(this).prop('disabled', false);
+                    $(this).html('Update');
+                    if(!data.error){
+                        swal_success_popup(data.message);
+                            setTimeout(function () {
+                            //location.reload();
+                            }, 2000); 
+                    } else {
+                    swal_error_popup('Oops.. sumthing wrong Please try again');
+                    }
+                }
+            });
+    });
+
+
+    var table = $("#selected_masseur").DataTable({
+    processing: true,
+    serverSide: false,
+    paging: false,        
+    searching: false,    
+    info: false,          
+    lengthChange: false,  
+    ordering: false,      
+
+    ajax: {
+        url: "{{ route('center.get-masseur-option-list') }}",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        data: function (d) {
+            d.type = 'player';
+            d.massage_profile_id = profileId;
+
+            return JSON.stringify(d);
+        },
+
+       
+    },
+
+     createdRow: function (row, data, dataIndex) {
+            $(row).attr('data-id', data.id); 
+        },
+
+        columns: [
+        
+            { data: 'profile' },
+            { data: 'days' },
+            { data: 'ethnicity' },
+            { data: 'nationality' },
+            { data: 'action', orderable: false, searchable: false } 
+        ],
+
+
+        drawCallback: function() {
+            toggleSaveProfileButton();
+            refresh_masseur_table()
+        }
+
+});
+
+
+ //toggleSaveProfileButton();
+
+</script>    
+
+
+
+
+
 @endpush

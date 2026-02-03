@@ -5,6 +5,134 @@
     --black-body: #212529;
     --peach: #ff3c5f;
     --blue--text--default: #2B3D50;
+    /* status */
+    --active--status: rgb(80, 220, 150);
+    --inactive--status: rgb(255, 0, 0);
+    --withdraw--status: rgb(165, 110, 75);
+    --resolved--status: rgb(200, 150, 20);
+    --rejected--status: rgb(90, 50, 170);
+    --forfeited--status: rgb(80, 80, 80);
+    --accepted--status: rgb(0, 160, 0);
+    --registered--status: rgb(160, 0, 0);
+    --current--status: rgb(0, 90, 170);
+    --upcoming--status: rgb(50, 150, 255);
+    --onHold--status: rgb(130, 130, 130);
+    --pending--status: rgb(190, 190, 190);
+    --available--status: rgb(255, 200, 100);
+    --activated--status: rgb(0, 130, 0);
+    --deactivated--status: rgb(250, 110, 50);
+    --published--status: rgb(80, 220, 150);
+    --suspended--status: rgb(255, 0, 0);
+    --declined--status: rgb(255, 140, 80);
+    --primaryAccount--status: rgb(255, 200, 100);
+    --secondaryAccount--status: rgb(240, 130, 100);
+    --open--status: rgb(180, 0, 0);
+    --inProgress--status: rgb(140, 150, 230);
+    --completed--status: rgb(250, 130, 60);
+    /* end */
+}
+
+.custom_badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.badge_active {
+    background-color: var(--active--status);
+}
+
+.badge_inactive {
+    background-color: var(--inactive--status);
+}
+
+.badge_withdraw {
+    background-color: var(--withdraw--status);
+}
+
+.badge_resolved {
+    background-color: var(--resolved--status);
+}
+
+.badge_rejected {
+    background-color: var(--rejected--status);
+}
+
+.badge_forfeited {
+    background-color: var(--forfeited--status);
+}
+
+.badge_accepted {
+    background-color: var(--accepted--status);
+}
+
+.badge_registered {
+    background-color: var(--registered--status);
+}
+
+.badge_current {
+    background-color: var(--current--status);
+}
+
+.badge_upcoming {
+    background-color: var(--upcoming--status);
+}
+
+.badge_onHold {
+    background-color: var(--onHold--status);
+}
+
+.badge_pending {
+    background-color: var(--pending--status);
+}
+
+.badge_available {
+    background-color: var(--available--status);
+}
+
+.badge_activated {
+    background-color: var(--activated--status);
+}
+
+.badge_deactivated {
+    background-color: var(--deactivated--status);
+}
+
+.badge_published {
+    background-color: var(--published--status);
+}
+
+.badge_suspended {
+    background-color: var(--suspended--status);
+}
+
+.badge_declined {
+    background-color: var(--declined--status);
+}
+
+.badge_primaryAccount {
+    background-color: var(--primaryAccount--status);
+}
+
+.badge_secondaryAccount {
+    background-color: var(--secondaryAccount--status);
+}
+
+.badge_open {
+    background-color: var(--open--status);
+}
+
+.badge_inProgress {
+    background-color: var(--inProgress--status);
+}
+
+.badge_completed {
+    background-color: var(--completed--status);
 }
 
 
@@ -2706,7 +2834,7 @@ button.btn:focus {
 
 .mcc-form-tab .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 10px;
 }
 
