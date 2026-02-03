@@ -21,7 +21,7 @@ use App\Repositories\Escort\EscortInterface;
 use App\Http\Requests\Escort\StoreRateRequest;
 use App\Repositories\Service\ServiceInterface;
 use App\Http\Requests\Escort\UpdateRequestAbout;
-use App\Repositories\Duration\DurationInterface;
+use App\Repositories\Duration\MassageDurationInterface;
 use App\Http\Requests\Escort\StoreServiceRequest;
 use App\Http\Requests\Escort\UpdateRequestPolicy;
 use App\Repositories\Escort\EscortMediaInterface;
@@ -56,7 +56,7 @@ class CenterProfileInformationController extends BaseController
     
 
 
-    public function __construct(MassageProfileInterface $massage_profile, UserInterface $user,   EscortInterface $escort, MassageAvailabilityInterface $massage_availability,  ServiceInterface $service, DurationInterface $duration, MassageMediaInterface $media)
+    public function __construct(MassageProfileInterface $massage_profile, UserInterface $user,   EscortInterface $escort, MassageAvailabilityInterface $massage_availability,  ServiceInterface $service, MassageDurationInterface $duration, MassageMediaInterface $media)
     {
         $this->escort = $escort;
         $this->massage_availability = $massage_availability;
@@ -89,6 +89,7 @@ class CenterProfileInformationController extends BaseController
     {
         
         $user = auth()->user()->id;
+
         if(!$massage_profile = $this->massage_profile->findDefault($user,1)) {
             $massage_profile = $this->massage_profile->make();
         }
