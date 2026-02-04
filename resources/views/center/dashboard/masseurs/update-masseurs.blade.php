@@ -731,7 +731,7 @@ textarea {
                                                                                 name="availability_time[{{ $dayKey }}]"
                                                                                 value="closed"
                                                                                 {{ $isClosed ? 'checked' : '' }}>
-                                                                            NA
+                                                                            Not Available
                                                                         </label>
 
                                                                         <div class="resetdays-icon"> <input type="button" value="Reset" class="resetdays" data-day="sunday" id="resetSunday"> </div>

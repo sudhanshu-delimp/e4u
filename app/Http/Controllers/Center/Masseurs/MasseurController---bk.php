@@ -833,6 +833,18 @@ class MasseurController extends AppController
 
 
 
+    public function count_messure_profile(Request $request)
+    {
+        $masseurs  = Masseur::where('user_id', auth()->user()->id)->count();
+         return response()->json([
+                'messure_count' => $masseurs
+         ]);
+    }
+
+    
+
+    
+
     
 
     ################## Validate Mmasseur ##########################

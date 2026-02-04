@@ -549,7 +549,7 @@ textarea {
 
                                                                                     <label class="ms-2" >
                                                                                         <input type="radio" name="availability_time[{{ $dayKey }}]" value="closed" >
-                                                                                        NA
+                                                                                        Not Available
                                                                                     </label>
 
                                                                                     

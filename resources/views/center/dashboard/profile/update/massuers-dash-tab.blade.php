@@ -114,7 +114,8 @@
                                         <th>
                                             <div class="ckbox">
                                                 <!-- <input type="checkbox" id="checkbox1"> -->
-                                            </div>
+
+\                                            </div>
                                         </th>
                                         <th>Profile</th>
                                         <!-- <th>Available Time</th> -->

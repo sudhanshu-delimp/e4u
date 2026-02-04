@@ -787,23 +787,32 @@ class MasseurController extends AppController
             $data = $masseurs->map(function ($row) use ($countries) {
 
                 if($row->status==1)
-                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Deactivate</a>';   
+                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_deactive" href="javascript:void(0)">   <i class="fa fa-ban"></i> Deactivate</a>';   
                  else
-                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-circle"></i> Activate</a>';     
+                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
                
+                
+                if($row->is_default==1)
+                $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_undefault" href="javascript:void(0)">   <i class="fa fa-ban"></i> Remove Default</a>';   
+                 else
+                $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_default"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Make Default</a>';     
+                
+
                
                  $action = '<div class="dropdown no-arrow">
                                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                      <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                  </a>
                                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
-                                                   <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
-                                                   <div class="dropdown-divider"></div>
+                                                   
+                                                  
                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="../update-masseur/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
-                                                   <div class="dropdown-divider"></div>'.$status.
+                                                   <div class="dropdown-divider"></div>'.$status.'<div class="dropdown-divider"></div>'.$default;
+                                                   
                                                   
                                                    
                             '</div>';
+                //<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>            
 
 
                 return [
@@ -814,7 +823,8 @@ class MasseurController extends AppController
                     'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
                     'nationality' => $countries[$row->nationality] ?? 'NA',
                     'created_at' => date('d M Y', strtotime($row->created_at)),
-                    'status' => ($row->status==1) ? 'Active' : 'InActive',
+                    'status' => ($row->status==1) ? 'Active' : 'Deactive',
+                    'default_profile' => ($row->is_default==1) ? 'Yes' : 'No',
                     'action' => $action
 
                 ];
@@ -830,7 +840,55 @@ class MasseurController extends AppController
 
 
 
+    public function count_messure_profile(Request $request)
+    {
+        $masseurs  = Masseur::where('user_id', auth()->user()->id)->count();
+         return response()->json([
+                'messure_count' => $masseurs
+         ]);
+    }
     
+
+    public function action_messure_profile(Request $request)
+    {
+        $masseurs  = Masseur::where(['user_id' => auth()->user()->id,'id'=>$request->profile_id])->first();
+        if($masseurs)
+        {
+
+            if($request->action == 'row_deactive')
+            {
+                $masseurs->status = '0';    
+                $mess = 'Profile deactivated successfully.';  
+                MassagerMasseur::where('masseur_profile_id',$request->profile_id)->delete();
+            }
+            else if($request->action == 'row_active')
+            {
+                $masseurs->status = '1';  
+                $mess = 'Profile activated successfully.'; 
+            }
+
+            else if($request->action == 'row_default')
+            {
+                 $masseurs->is_default = '1';  
+                 $mess = 'Profile set as default successfully.'; 
+            }
+
+            else if($request->action == 'row_undefault')
+            {
+                $masseurs->is_default = '0';  
+                $mess = 'Profile removed as default successfully.'; 
+            }
+
+
+             $masseurs->save();
+
+            return response()->json([
+                'success' =>true,
+                'message' => $mess
+            ]);
+        }
+        
+    }
 
     ################## Validate Mmasseur ##########################
 

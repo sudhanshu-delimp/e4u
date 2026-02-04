@@ -176,7 +176,7 @@
                 
                 <h3 class="my-2"><span id="Lname"><p>Would you like to update <b>
                                 <span id="field_name"></span>       
-                </b> in your 'My Information' page for future Profiles?</p></span> </h3>
+                </b> in your 'Our Information' page for future Profiles?</p></span> </h3>
                 <div class="modal-footer">
                 <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
                     value="close" id="close_change">No</button>
