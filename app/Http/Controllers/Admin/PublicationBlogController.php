@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Services\ImageService;
-use App\Models\PublicationBlog;
+
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserInterface;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\StorePublicationRequest;
+use App\Models\PublicationBlog;
 
 class PublicationBlogController extends Controller
 {
@@ -47,7 +48,7 @@ class PublicationBlogController extends Controller
 
 
         if ($request->ajax()) {
-            $query = PublicationBlog::query();
+            $query = PublicationBlog::query()->select('id', 'blog_image', 'title' , 'status', 'created_at');
             $clientOrder = $request->input('order');
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
@@ -61,9 +62,10 @@ class PublicationBlogController extends Controller
                 ->filterColumn('ref', function ($query, $keyword) {
                     $digits = ltrim($keyword, '#0');
                     if ($digits !== '') {
-                        $query->where('id', 'like', "%{$digits}%");
+                        $query->where('id', "$digits");
                     }
                 })
+                
                 ->addColumn('image', function ($row) {
                     $imageUrl = ImageService::url($row->blog_image, 'thumb', 'publication_blog');
                     if($imageUrl == null){
