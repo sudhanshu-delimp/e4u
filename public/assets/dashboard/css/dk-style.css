@@ -7118,8 +7118,63 @@ table#myTable\ price-sec {
     margin: 0 !important;
 }
 
-.available_d {
-    letter-spacing: 10px;
+.legend_container {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.legend_item.not_available .legend_box {
+    background-color: var(--peach);
+}
+
+.legend_container .legend_box {
+    background: #022c3d;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.legend_item {
+    position: relative;
+}
+
+.legend_text {
+    position: absolute;
+    font-size: 12px;
+    top: -30px;
+    width: max-content;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--peach);
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: none;
+}
+
+.legend_text::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    border-width: 4px;
+    border-style: solid;
+    background-color: var(--peach);
+    border-color: var(--peach);
+    z-index: -1;
+    transform: translate(-50%, -10%) rotate(45deg);
+}
+
+.legend_item:hover .legend_text {
+    display: block;
 }
 
 .create_n_p .modal-dialog {

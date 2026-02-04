@@ -134,7 +134,7 @@
                             <div class="col-sm-12 stageListParent pl-1">
                                 <div class="col-sm-12 pl-0">
                                     <input type="text" class="form-control form-control-sm" id="st_address"
-                                        placeholder="Enter stage address">
+                                        placeholder="Enter street address">
                                 </div>
                                 <div> <span><b>Note:</b> <i>Save your Addresses before you apply the Sort
                                             feature.</i></span></div>
@@ -145,7 +145,7 @@
                                             <input class="form-check-input sortedByStageAddress" type="radio"
                                                 name="sortedByStageAddress" id="alphabetically" value="alphabetically"
                                                 checked>
-                                            <label class="form-check-label" for="alphabetically">Alphabetical
+                                            <label class="form-check-label" for="alphabetically">Location
                                                 (A–Z)</label>
                                         </div>
                                         <div class="form-check form-check-inline">
@@ -203,7 +203,7 @@
                                     <input type="text" class="form-control form-control-sm" id="who_title"
                                         placeholder="Enter title">
                                 </div>
-                                <div> <span><b>Note:</b> <i>You can create as many Titles as you like.</i></span></div>
+                                <div> <span><b>Note:</b> <i>Save your Titles before you apply the Sort feature.</i></span></div>
                                 <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">

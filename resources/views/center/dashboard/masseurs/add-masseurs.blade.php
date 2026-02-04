@@ -139,11 +139,15 @@ textarea {
         grid-template-columns: 1fr 1fr 1fr;
     }
 
-
+.masseur_upl_img{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 5px;
+}
 .masseur_gallery{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    grid-template-columns: 1fr;
+    gap: 3px;
 }
 .gal-thumb-first{
     width: 100% !important;
@@ -328,22 +332,20 @@ textarea {
                                                         </div>
                                                     </div>
                                                     <div class="row p-3">
-                                                        <div class="col-sm-12">
-                                                            <h4 class="banner-sub-heading my-2">Thumbnail</h4>
-                                                            <div class="plate">
-                                                                <label class="newbtn" data-toggle="modal"
-                                                                    data-target="#photo_gallery">
-                                                                    <img class="w-100 gal-thumb-first upld-img" id="img1"
-                                                                        src="{{ asset('assets/app/img/mcc-default-thumbnail.png') }}" onclick="positionToUpdate(1)">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-12">
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <h4 class="banner-sub-heading my-2">Gallery Images</h4>
+                                                        <div class="col-sm-12 masseur_upl_img">
+                                                            <div class="thumnail_img">
+                                                                <h4 class="banner-sub-heading my-2">Thumbnail</h4>
+                                                                <div class="plate">
+                                                                    <label class="newbtn" data-toggle="modal"
+                                                                        data-target="#photo_gallery">
+                                                                        <img class="w-100 gal-thumb-first upld-img" id="img1"
+                                                                            src="{{ asset('assets/app/img/mcc-default-thumbnail.png') }}" onclick="positionToUpdate(1)">
+                                                                    </label>
                                                                 </div>
-                                                                <div class="col-sm-12 masseur_gallery">
+                                                            </div>
+                                                            <div class="gal_img">                                                               
+                                                                <h4 class="banner-sub-heading my-2">Gallery Images</h4>
+                                                                <div class="masseur_gallery">
                                                                     <div class="plate">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
@@ -780,7 +782,7 @@ textarea {
                             <div class="col-lg-12 text-center">
                                  <label class="newbtn rm">
                                     
-                                            <img id="blah" class="item w-50" src="{{ asset('assets/app/img/add-images.png')}}">
+                                            <img id="blah" class="item" src="{{ asset('assets/app/img/add-images.png')}}">
                                             
                                             <input name="img[]" id="upload_file" class="pis" onchange="preview_image(event);" type="file" multiple accept="image/*">
                                         </label>
