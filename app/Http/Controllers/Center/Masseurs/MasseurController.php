@@ -684,15 +684,49 @@ class MasseurController extends AppController
 
    public function weeklyAvailibility($avail_arr)
    {
-        $avail = "";
-        $avail .= (isset($avail_arr['monday']) && $avail_arr['monday'] == 'closed') ? '<span style="color:red;">M</span>': 'M';
-        $avail .= (isset($avail_arr['tuesday']) && $avail_arr['tuesday'] == 'closed') ? '<span style="color:red;">T</span>': 'T';
-        $avail .= (isset($avail_arr['wednesday']) && $avail_arr['wednesday'] == 'closed') ? '<span style="color:red;">W</span>': 'W';
-        $avail .= (isset($avail_arr['thursday']) && $avail_arr['thursday'] == 'closed') ? '<span style="color:red;">T</span>': 'T';
-        $avail .= (isset($avail_arr['friday']) && $avail_arr['friday'] == 'closed') ? '<span style="color:red;">F</span>': 'F';
-        $avail .= (isset($avail_arr['saturday']) && $avail_arr['saturday'] == 'closed') ? '<span style="color:red;">S</span>': 'S';
-        $avail .= (isset($avail_arr['sunday']) && $avail_arr['sunday'] == 'closed') ? '<span style="color:red;">S</span>': 'S';
-        return '<span class="available_d">'.$avail.'</span>';
+        // $avail = "";
+        // $avail .= (isset($avail_arr['monday']) && $avail_arr['monday'] == 'closed') ? '<span style="color:red;">M</span>': 'M';
+        // $avail .= (isset($avail_arr['tuesday']) && $avail_arr['tuesday'] == 'closed') ? '<span style="color:red;">T</span>': 'T';
+        // $avail .= (isset($avail_arr['wednesday']) && $avail_arr['wednesday'] == 'closed') ? '<span style="color:red;">W</span>': 'W';
+        // $avail .= (isset($avail_arr['thursday']) && $avail_arr['thursday'] == 'closed') ? '<span style="color:red;">T</span>': 'T';
+        // $avail .= (isset($avail_arr['friday']) && $avail_arr['friday'] == 'closed') ? '<span style="color:red;">F</span>': 'F';
+        // $avail .= (isset($avail_arr['saturday']) && $avail_arr['saturday'] == 'closed') ? '<span style="color:red;">S</span>': 'S';
+        // $avail .= (isset($avail_arr['sunday']) && $avail_arr['sunday'] == 'closed') ? '<span style="color:red;">S</span>': 'S';
+        //return '<span class="available_d">'.$avail.'</span>';
+
+        return '
+        <div class="legend_container">
+            <div class="legend_item">
+                <span class="legend_box">M</span>
+                <small class="legend_text">Monday</small>
+            </div>
+            <div class="legend_item not_available">
+                <span class="legend_box">T</span>
+                <small class="legend_text">Tuesday</small>  
+            </div>
+            <div class="legend_item">
+                <span class="legend_box">W</span>
+                <small class="legend_text">Wednesday</small>
+            </div>
+            <div class="legend_item not_available">
+                <span class="legend_box">T</span>
+                <small class="legend_text">Thursday</small>
+            </div>
+            <div class="legend_item">
+                <span class="legend_box">F</span>
+                <small class="legend_text">Friday</small> 
+            </div>
+            <div class="legend_item">
+                <span class="legend_box">S</span>
+                <small class="legend_text">Saturday</small>  
+            </div>
+            <div class="legend_item not_available">
+                <span class="legend_box">S</span>
+                <small class="legend_text">Sunday</small> 
+            </div>
+        </div>
+       
+        ';
    } 
 
     public function  get_filter_masseur_option_list(Request $request)
