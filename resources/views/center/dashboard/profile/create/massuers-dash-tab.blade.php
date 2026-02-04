@@ -135,7 +135,7 @@
                                     <tr>
                                         <th>
                                             <div class="ckbox">
-                                                <input type="checkbox" id="checkbox1">
+                                                <!-- <input type="checkbox" id="checkbox1"> -->
                                             </div>
                                         </th>
                                         <th>Profile</th>

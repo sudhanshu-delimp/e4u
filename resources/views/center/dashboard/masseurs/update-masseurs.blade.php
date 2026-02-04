@@ -726,12 +726,12 @@ textarea {
                                                                             Open 24 Hours
                                                                         </label>
 
-                                                                        <label class="ms-2" style="display: none;">
+                                                                        <label class="ms-2" >
                                                                             <input type="radio"
                                                                                 name="availability_time[{{ $dayKey }}]"
                                                                                 value="closed"
                                                                                 {{ $isClosed ? 'checked' : '' }}>
-                                                                            Closed
+                                                                            NA
                                                                         </label>
 
                                                                         <div class="resetdays-icon"> <input type="button" value="Reset" class="resetdays" data-day="sunday" id="resetSunday"> </div>
