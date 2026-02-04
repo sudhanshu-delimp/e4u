@@ -21,6 +21,7 @@ use App\Listeners\Agent\SendAdminAgentRegisteredEmail;
 use App\Listeners\MessageCentr\RegisterListnerForAdmin;
 use App\Listeners\MessageCentr\RegisterListnerForAgent;
 use App\Listeners\MessageCentr\RegisterListnerForMassageCentr;
+use App\Listeners\Viewer\RegisterListenerForViewer;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -35,6 +36,7 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             CreateDefaultAccountSettings::class,
             SendEmailVerificationNotification::class,
+            RegisterListenerForViewer::class,
         ],
         EscortRegister::class => [
             RegisterListenerForEscort::class,

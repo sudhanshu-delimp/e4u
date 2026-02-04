@@ -547,9 +547,9 @@ textarea {
                                                                                         Open 24 Hours
                                                                                     </label>
 
-                                                                                    <label class="ms-2" style="display: none;">
+                                                                                    <label class="ms-2" >
                                                                                         <input type="radio" name="availability_time[{{ $dayKey }}]" value="closed" >
-                                                                                        Closed
+                                                                                        NA
                                                                                     </label>
 
                                                                                     
@@ -1194,13 +1194,13 @@ textarea {
              let existRates = checkRates();
              
             
-            if (!existRates) 
-            {
-                 swal_error_warning('Rate','You must complete at least one rate value to proceed.')
-                 return false;
-            }
+            // if (!existRates) 
+            // {
+            //      swal_error_warning('Rate','You must complete at least one rate value to proceed.')
+            //      return false;
+            // }
 
-            else if (hasError) {
+            if (hasError) {
                  swal_error_warning('My Availability','Please select a time range or choose an availability option for each day.')
                  return false;
             }

@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('escort:send-listing-expiry-reminders')->dailyAt('00:00')->timezone('Australia/Perth');
         $schedule->command('appointments:update-status')->everySixHours();
         $schedule->command('center-notification:expire-check')->dailyAt('00:00')->timezone('Australia/Perth');
-        $schedule->command('db-backend-process:backend-process')->dailyAt('10:00')->timezone('Australia/Perth');
+        $schedule->command('db-backend-process:backend-process')->hourly()->timezone('Australia/Perth');
     }
 
     /**
