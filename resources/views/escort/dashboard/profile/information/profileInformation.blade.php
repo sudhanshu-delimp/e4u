@@ -178,6 +178,19 @@
                   </div>
                </div>
             </div>
+            <div class="card custom-help-contain">
+               <div class="card-header">
+                  <a class="card-link" data-toggle="collapse" href="#my_additional_information">
+                  My Additional Information
+                  </a>
+               </div>
+               <div id="my_additional_information" class="collapse" data-parent="#accordion">
+                  <div class="card-body pb-0">
+                
+                     @include('escort.dashboard.profile.information.partials.my-additional-info')
+                  </div>
+               </div>
+            </div>
              <div class="card custom-help-contain">
                  <div class="card-header">
                      <a class="collapsed card-link" data-toggle="collapse" href="#my_available_times">
@@ -191,6 +204,7 @@
                      </div>
                  </div>
              </div>
+
             <div class="card custom-help-contain">
                <div class="card-header">
                   <a class="collapsed card-link" data-toggle="collapse" href="#my_playmates">
@@ -203,7 +217,9 @@
                      @include('escort.dashboard.Playmates.partials.playmates')
                   </div>
                </div>
-            </div><div class="card custom-help-contain">
+            </div>
+
+            <div class="card custom-help-contain">
                <div class="card-header">
                   <a class="collapsed card-link" data-toggle="collapse" href="#my_rates">
                   My Rates
@@ -217,6 +233,7 @@
                   </div>
                </div>
             </div>
+
             <div class="card custom-help-contain">
                <div class="card-header">
                   <a class="collapsed card-link" data-toggle="collapse" href="#my_service_tags">

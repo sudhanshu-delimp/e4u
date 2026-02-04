@@ -1,12 +1,14 @@
 @extends('layouts.admin')
 @section('style')
-    <style type="text/css"></style>
 <style>
-@media print {
-  body {
-    margin: 20px;
-  }
-}
+    .modal-body table td{
+        border: none !important;
+    }
+    @media print {
+        body {
+            margin: 20px;
+        }
+    }
 </style>
 
 @endsection
@@ -30,7 +32,6 @@
                             <li>To view the Communication in full, click the View option from Action.</li>
                             <li>To print the Communication click the Print option from Action.</li>
                         </ol>
-
                     </div>
                 </div>
             </div>
@@ -124,7 +125,8 @@
     {{-- end notes --}}
 
 <iframe id="emailIframe"
-        style="display:none;"></iframe>
+        style="display:none;">
+</iframe>
 
 
     <div id="manage-route" data-scrf-token="{{ csrf_token() }}"
