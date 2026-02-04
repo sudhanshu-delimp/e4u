@@ -7360,7 +7360,7 @@ table#myTable\ price-sec {
     position: absolute;
     bottom: -4px;
     left: 50%;
-    border-width: 4Wpx;
+    border-width: 4px;
     border-style: solid;
     background-color: var(--peach);
     border-color: var(--peach);
