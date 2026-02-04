@@ -68,7 +68,9 @@ class EscortController extends BaseController
     {
         $result = $this->attemptlogin->findby(auth()->user()->id);
         $result2 = $this->attemptlogin->secondLastlogin(auth()->user()->id);
-
+        if ($result[0]->login_count <= 1 && !session()->has('welcome_popup_closed')) {
+            session(['show_welcome_popup' => true]);
+        }
         $escorts = $this->escort->all();
         $tasks = Task::latest()->paginate(10);
         $viewer_array = DashboardViewer::where('user_id', auth()->id())->first();
@@ -76,7 +78,6 @@ class EscortController extends BaseController
         $notification = $this->getActiveNotification();
         return view('escort.dashboard.index', compact('escorts', 'result', 'result2', 'tasks', 'viewer_array', 'expiringListings','notification'));
     }
-
 
     public function customiseDashboard(Request $request)
     {

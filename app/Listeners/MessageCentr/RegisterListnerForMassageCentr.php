@@ -32,6 +32,6 @@ class RegisterListnerForMassageCentr implements ShouldQueue
     {
         $user = $event->massage;
         Mail::to($user->email)->send(new RegisterEmailForMassageCentr($user));
-        Mail::to($user->email)->send(new NewUserRegistrationConfirmation($user));
+         Mail::to($user->email)->later(now()->addSeconds(5), new NewUserRegistrationConfirmation($user));
     }
 }

@@ -121,23 +121,22 @@ class RegisterController extends Controller
 
     public function register(StoreUserRequest $request)
     {
-        
-        event(new Registered($user = $this->create($request->all())));
-
+        $plainPassword = $request->password;
+        $user = $this->create($request->all());
         if($user) {
-            Mail::to($user->email)->queue( new NewUserRegistrationConfirmation($user));
             $error = 1;
             $phone = $user->phone;
             $otp = $this->user->generateOTP();
             $user->otp = $otp;
             $user->member_id = $user->memberId;
             $user->save();
-
             $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
             //$msg = "Never tell anyone this code. Your E4U one time password code is: ".$otp;
             
             $sendotp = new SendSms();
             $output = $sendotp->send($phone,$msg);
+            $user->password = $plainPassword;
+            event(new Registered($user));
             return response()->json(compact('error','phone','otp'));
         } else {
             $error = 0;

@@ -764,32 +764,14 @@
                         <h2><img src="assets/app/img/tips.svg">Tips</h2>
                     </div>
                     <div class="pt-2">
-                        <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel"
-                            data-interval="5000">
-                            <div class="carousel-inner">
-                                <div class="carousel-item tip_carousel_item_text item-01 active">
-                                    <p>Be on time.</p>
-                                </div>
-
-                                <div class="carousel-item tip_carousel_item_text item-01">
-                                    <p>Do not offer any of your personal information.</p>
-                                </div>
-
-                                <div class="carousel-item tip_carousel_item_text item-01">
-                                    <p>Ask questions; it’s okay.</p>
-                                </div>
-
-                                <div class="carousel-item tip_carousel_item_text item-01">
-                                    <p>Maintain good hygiene.</p>
-                                </div>
-
-                                <div class="carousel-item tip_carousel_item_text item-01">
-                                    <p>Keep your conversation light and non-suggestive.</p>
-                                </div>
-                                
-                                <div class="carousel-item tip_carousel_item_text item-01">
-                                    <p>Be clear about the service you are looking for.</p>
-                                </div>
+                        <div class="text-slider">
+                            <div class="slider-track" id="sliderTrack">
+                                <div class="slide_item">Be on time.</div>
+                                <div class="slide_item">Do not offer any of your personal information.</div>
+                                <div class="slide_item">Ask questions; it’s okay.</div>
+                                <div class="slide_item">Maintain good hygiene.</div>
+                                <div class="slide_item">Keep your conversation light and non-suggestive.</div>
+                                <div class="slide_item">Be clear about the service you are looking for.</div>
                             </div>
                         </div>
                     </div>
@@ -1405,8 +1387,42 @@
 
 @endsection
 @push('scripts')
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+ <script>
+  const track = document.getElementById('sliderTrack');
+  const slides = document.querySelectorAll('.slide_item');
+
+  // Clone first slide and append to end
+  const firstClone = slides[0].cloneNode(true);
+  track.appendChild(firstClone);
+
+  let index = 0;
+  const totalSlides = slides.length + 1;
+
+  function slideNext() {
+    index++;
+    track.style.transform = `translateX(-${index * 100}%)`;
+
+    if (index === totalSlides - 1) {
+      setTimeout(() => {
+        track.style.transition = 'none';
+        index = 0;
+        track.style.transform = `translateX(0%)`;
+      }, 600);
+
+      setTimeout(() => {
+        track.style.transition = 'transform 0.6s ease-in-out';
+      }, 650);
+    }
+  }
+
+  setInterval(slideNext, 5000);
+</script>
+
 
     {{-- <script type="text/javascript">
         $('#like').click(function() {
@@ -1565,4 +1581,7 @@
 
         });
     </script> --}}
+
+
+
 @endpush
