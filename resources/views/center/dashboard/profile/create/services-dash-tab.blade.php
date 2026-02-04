@@ -93,7 +93,7 @@
                             <span class="tooltip-info">Massage with extras +4 hands.</span>
                         </div>
                     </div>
-                    @foreach($durations->whereIn('id',[2,3,4,5,6]) as $duration)
+                    @foreach($durations->whereIn('id',[2,3,4,5,6,7]) as $duration)
                     @php
                     if($duration->id!="")
                     {
@@ -108,7 +108,7 @@
                                     $massage_price = isset($db_duration['pivot']['massage_price']) ? $db_duration['pivot']['massage_price'] : 0;
                                     $incall_price =  isset($db_duration['pivot']['incall_price']) ? $db_duration['pivot']['incall_price'] : 0;
                                     $outcall_price = isset($db_duration['pivot']['outcall_price']) ? $db_duration['pivot']['outcall_price'] : 0;
-                                    $massage_profile_id = isset($db_duration['pivot']['massage_profile_id']) ? $db_duration['pivot']['massage_profile_id'] : "";
+                                    $massage_profile_id = isset($db_duration['pivot']['massage_profile_id']) ? $db_duration['pivot']['massage_profile_id'] : $massage_profile->id;
 
                                     
                                     break;

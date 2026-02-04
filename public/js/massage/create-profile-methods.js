@@ -261,7 +261,7 @@ var updateProgressBar = function(tab_id){
                     progressBar.attr('style', 'width :75%');
                     percentCont.html('75%');
                 } break;
-                case 'playmates-tab': {
+                case 'massuers-tab': {
                     progressBar.attr('style', 'width :100%');
                     percentCont.html('100%');
                 } break;

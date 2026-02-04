@@ -137,7 +137,7 @@
                             <span class="tooltip-info">Massage with extras +4 hands.</span>
                         </div>
                     </div>
-                    @foreach($durations->whereIn('id',[2,3,4,5,6]) as $duration)
+                    @foreach($durations->whereIn('id',[2,3,4,5,6,7]) as $duration)
 
                     @php
                     if($duration->id!="")
@@ -173,7 +173,7 @@
                             <div class="col-3">
                                 <div class="service_rate_dolor_symbol form-group">
                                     <span>$</span>
-                                    <input  placeholder="0" type="text" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="massage_price"   class="form-control update_default_rate" id="massage_price" name="massage_price[]" value="{{ $escort->durationRate($duration->id, 'massage_price') }}" >
+                                    <input  placeholder="0" type="text" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="massage_price"   class="form-control update_default_rate allow_only_numeric" id="massage_price" name="massage_price[]" value="{{ $escort->durationRate($duration->id, 'massage_price') }}" >
                                     <input type="hidden" class="profile_massage_price"  value="{{$massage_price}}" >
                                 
                                 </div>
@@ -181,14 +181,14 @@
                             <div class="col-3">
                                 <div class="service_rate_dolor_symbol form-group">
                                     <span>$</span>
-                                    <input  placeholder="0"  type="text" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="incall_price"  class="form-control update_default_rate" id="incall_price" name="incall_price[]" value="{{ $escort->durationRate($duration->id, 'incall_price') }}" >
+                                    <input  placeholder="0"  type="text" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="incall_price"  class="form-control update_default_rate allow_only_numeric" id="incall_price" name="incall_price[]" value="{{ $escort->durationRate($duration->id, 'incall_price') }}" >
                                     <input type="hidden" class="profile_incall_price"  value="{{$incall_price}}" >
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="service_rate_dolor_symbol form-group">
                                     <span>$</span>
-                                    <input placeholder="0"  type="text" data-duration_id="{{$duration->id}}"  data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="outcall_price"  class="form-control update_default_rate" id="outcall_price" name="outcall_price[]" value="{{ $escort->durationRate($duration->id, 'outcall_price') }}" >
+                                    <input placeholder="0"  type="text" data-duration_id="{{$duration->id}}"  data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="outcall_price"  class="form-control update_default_rate allow_only_numeric" id="outcall_price" name="outcall_price[]" value="{{ $escort->durationRate($duration->id, 'outcall_price') }}" >
                                     <input type="hidden" class="profile_outcall_price"  value="{{$outcall_price}}" >
                                 </div>
                             </div>

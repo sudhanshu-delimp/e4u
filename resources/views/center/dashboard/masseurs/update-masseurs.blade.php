@@ -121,10 +121,14 @@ textarea {
 }
 
 .upld-img {
-   height: 100px !important;
-   width: 133px !important
+   width: 100% !important;
+   object-fit: cover;
 }
-
+.masseur_gallery{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
 .grid-container {
    display: grid;
    grid-template-columns: repeat(5, 1fr);
@@ -370,25 +374,25 @@ textarea {
                                                                                             <div class="col-lg-12">
                                                                                                 <h4 class="banner-sub-heading my-2">Gallery Images</h4>
                                                                                             </div>
-                                                                                            <div class="col-sm-12 d-flex align-item-center justify-content-between gap-10">
+                                                                                            <div class="col-sm-12 masseur_gallery">
                                                                                                 <div class="plate">
                                                                                                     <label class="newbtn" data-toggle="modal"
                                                                                                         data-target="#photo_gallery">
-                                                                                                        <img class="gal-thumb upld-img"
+                                                                                                        <img class="upld-img"
                                                                                                             id="img2"src="{{ asset($masseur->getImagePosition(2, $masseur->id)) }}"  onclick="positionToUpdate(2)">
                                                                                                     </label>
                                                                                                 </div>
                                                                                                 <div class="plate">
                                                                                                     <label class="newbtn" data-toggle="modal"
                                                                                                         data-target="#photo_gallery">
-                                                                                                        <img class="gal-thumb upld-img"
+                                                                                                        <img class="upld-img"
                                                                                                             id="img3"src="{{ asset($masseur->getImagePosition(3, $masseur->id)) }}"  onclick="positionToUpdate(3)">
                                                                                                     </label>
                                                                                                 </div>
                                                                                                 <div class="plate">
                                                                                                     <label class="newbtn" data-toggle="modal"
                                                                                                         data-target="#photo_gallery">
-                                                                                                        <img class="gal-thumb upld-img"
+                                                                                                        <img class="upld-img"
                                                                                                             id="img4"src="{{ asset($masseur->getImagePosition(4, $masseur->id)) }}"  onclick="positionToUpdate(4)">
                                                                                                     </label>
                                                                                                 </div>
@@ -761,7 +765,7 @@ textarea {
                                                 
                                                 <form id="masseur_frm" name="masseur_frm"  method="Post">                                        
                                                     <!-- Rate -->               
-                                                    <div class="mcc-form-tab">
+                                                    <!-- <div class="mcc-form-tab">
                                                         <h2>Rate</h2>
                                                             <div class="row">
                                                                 <div class="col-lg-8 col-md-12 col-sm-12 full-width-for-ipad-select horizontal-scroll-rates pt-5">
@@ -781,7 +785,7 @@ textarea {
                                                                             <span class="tooltip-info">Massage with extras +4 hands.</span>
                                                                         </div>
                                                                     </div>
-                                                                    @foreach($durations->whereIn('id',[2,3,4,5,6]) as $duration)
+                                                                    @foreach($durations->whereIn('id',[2,3,4,5,6,7]) as $duration)
 
                                                                     @php
                                                                     if($duration->id!="")
@@ -818,21 +822,21 @@ textarea {
                                                                             <div class="col-3">
                                                                                 <div class="service_rate_dolor_symbol form-group">
                                                                                     <span>$</span>
-                                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="massage_price" type="text"  class="form-control allow_only_numeric update_default_rate" id="massage_price" value="{{ $masseur->durationRate($duration->id, 'massage_price') }}" name="massage_price[]">
+                                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="massage_price" type="text"  class="form-control allow_only_numeric update_default_rate" id="massage_price" value="{{ $masseur->durationRate($duration->id, 'massage_price') }}" name="massage_price[]" maxlength="6">
                                                                                     <input type="hidden" class="profile_massage_price"  value="{{$massage_price}}" >
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-3">
                                                                                 <div class="service_rate_dolor_symbol form-group">
                                                                                     <span>$</span>
-                                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="incall_price"  type="text"  class="form-control allow_only_numeric update_default_rate" id="incall_price" value="{{ $masseur->durationRate($duration->id, 'incall_price') }}" name="incall_price[]">
+                                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}" data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="incall_price"  type="text"  class="form-control allow_only_numeric update_default_rate" id="incall_price" value="{{ $masseur->durationRate($duration->id, 'incall_price') }}" name="incall_price[]" maxlength="6">
                                                                                     <input type="hidden" class="profile_incall_price"  value="{{$incall_price}}" >
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-3">
                                                                                 <div class="service_rate_dolor_symbol form-group">
                                                                                     <span>$</span>
-                                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}"  data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="outcall_price"   type="text"  class="form-control allow_only_numeric update_default_rate" id="outcall_price"  value="{{ $masseur->durationRate($duration->id, 'outcall_price') }}" name="outcall_price[]">
+                                                                                    <input  placeholder="0" data-duration_id="{{$duration->id}}"  data-massage_profile_id="{{$massage_profile_id}}"  data-data_type="outcall_price"   type="text"  class="form-control allow_only_numeric update_default_rate" id="outcall_price"  value="{{ $masseur->durationRate($duration->id, 'outcall_price') }}" name="outcall_price[]" maxlength="6">
                                                                                     <input type="hidden" class="profile_outcall_price"  value="{{$outcall_price}}" >
                                                                                 </div>
                                                                             </div>
@@ -851,7 +855,7 @@ textarea {
                                                                     <button type="button" id="submitMasseur" class="btn-common save_profile_btn">Update</button>
                                                                 </div>
 
-                                                    </div>
+                                                    </div> -->
                                                     <!-- End Rate --> 
                                                 </form>                             
 
@@ -1924,6 +1928,9 @@ textarea {
 
 
 
+
+
+
 //     $(document).on('click','.modalPopup .item2,.modalPopup .item4', function(e) {
 //        let imageSrc = $(this).find('img').attr('src');
 //        let mediaId = $(this).find('img').data('id');
@@ -1933,7 +1940,9 @@ textarea {
 //    });
 
 
-
+    $(document).on('input', '.allow_only_numeric', function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
 
 
     getAccountMediaGallery();

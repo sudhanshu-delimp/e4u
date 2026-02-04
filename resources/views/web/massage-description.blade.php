@@ -89,13 +89,16 @@
     <div class="container profile_contain">
         <div class="row">
             <div class="col-md-8 col-xl-8 col-sm-12 col-12">
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-md-12 col-xl-8 col-sm-12 col-12">
                         <div class="row mess_row custom_message_types">
 
-                            <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4">
-                                <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="assets/dashboard/img/massage-only.png" alt="Massage">
+                            <div class="col-sm-12 d-flex align-items-center justify-content-center gap-10 flex-wrap">
+                                <div class="d-flex align-items-center justify-content-center gap-10">
+                                    <div class="mc_tooltip_wrap">
+                                        <img src="assets/dashboard/img/massage-only.png" alt="Massage">
+                                        <p class="mc_rate_tooltip">Massage only</p> 
+                                    </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
                                             <h4>Massage</h4>
@@ -105,28 +108,28 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4">
-                                <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="assets/dashboard/img/massage-with2.png" alt="Individual">
+                                <div class="d-flex align-items-center justify-content-center gap-10">
+                                    <div class="mc_tooltip_wrap">
+                                    <img src="assets/dashboard/img/massage-with2.png" alt="Masseur">
+                                     <p class="mc_rate_tooltip">Massage with extras +2 hands.</p> 
+                                    </div>    
                                     <div class="div_contain_text">
                                         <div class="profile_message">
-                                            <h4>Individual</h4>
+                                            <h4>Masseur</h4>
                                         </div>
                                         <div class="profile_hr">
                                             <h4>$120/hr</h4>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4 mx-auto">
-                                <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="assets/dashboard/img/massage-with4.png" alt="2+ Person">
+                                <div class="d-flex align-items-center justify-content-center gap-10">
+                                    <div class="mc_tooltip_wrap">
+                                    <img src="assets/dashboard/img/massage-with4.png" alt="2+ Masseurs">
+                                    <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>   
+                                    </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
-                                            <h4>2+ Person</h4>
+                                            <h4>2+ Masseurs</h4>
                                         </div>
                                         <div class="profile_hr">
                                             <h4>$150/hr</h4>
@@ -158,8 +161,8 @@
                                 <tr>
                                     <th>Rates</th>
                                     <th>Massage</th>
-                                    <th>Individual</th>
-                                    <th>2+ Person</th>
+                                    <th>Masseur</th>
+                                    <th>2+ Masseurs</th>
                                 </tr>
                             </thead>
 
@@ -667,8 +670,8 @@
                     </div>
                     <div class="col-7 text-right">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
-                            data-target="#sendcarlat">
-                            <img src="assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Masseurs
+                            data-target="#reportMcNew">
+                            <img src="assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Masseur
                         </button>
                     </div>
                 </div>
@@ -761,28 +764,14 @@
                         <h2><img src="assets/app/img/tips.svg">Tips</h2>
                     </div>
                     <div class="pt-2">
-                        <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel"
-                            data-interval="5000">
-                            <div class="carousel-inner">
-                                <div class="carousel-item tip_carousel_item_text active">
-                                    <p>Be on time.</p>
-                                </div>
-                                 <div class="carousel-item tip_carousel_item_text">
-                                    <p>Do not offer any of your personal information.</p>
-                                </div>
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Ask questions its ok.</p>
-                                </div>
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Have good hygiene.</p>
-                                </div>
-                                
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Keep your conversation light and nothing suggestive.</p>
-                                </div>
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Be clear about what service you are looking for.</p>
-                                </div>
+                        <div class="text-slider">
+                            <div class="slider-track" id="sliderTrack">
+                                <div class="slide_item">Be on time.</div>
+                                <div class="slide_item">Do not offer any of your personal information.</div>
+                                <div class="slide_item">Ask questions; it’s okay.</div>
+                                <div class="slide_item">Maintain good hygiene.</div>
+                                <div class="slide_item">Keep your conversation light and non-suggestive.</div>
+                                <div class="slide_item">Be clear about the service you are looking for.</div>
                             </div>
                         </div>
                     </div>
@@ -795,14 +784,19 @@
                     </div>
                     <div class="pt-3 row">
                         <div class="col-md-12">
-                            <p class="testimonial"><strong>[MC Name]</strong> has no Reviews.</p>
+                            <p class="testimonial"><strong>[MC Name]</strong> has no Reviews. Why don't you give them their first Review?</p>
                         </div>
                         {{-- <div class="col-md-12 mb-4"></div> --}}
                     </div>
-                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal" data-target="#add_reviews">
-                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                    Add Review
-                                </button>
+                    {{-- <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal" data-target="#add_reviews">
+                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                        Login to Add Review
+                    </button> --}}
+                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box">
+                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
+                    </button>
+                    
                 </div>
 
 
@@ -862,6 +856,34 @@
     </div>
     <!-- model end here 1-->
     <!-- model start here 2-->
+
+    <div class="modal fade" id="reportMcNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color">
+               
+                
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Report Masseur </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
+                </button>
+            </div>
+            <!-- if viewer not login -->
+            <div class="modal-body pb-0 teop-text" >
+                <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
+                    <span id="Lname">Report Masseur is only available to Viewers. Please log in or Register to access Report Masseur.</span>
+                </h6>
+                <div class="modal-footer text-center justify-content-center" >
+                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
+                <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
+                </div>
+            </div>
+            <!--- end -->
+
+        </div>
+    </div>
+</div>
+
     <div class="modal fade ss" id="sendcarlat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -1365,8 +1387,42 @@
 
 @endsection
 @push('scripts')
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+ <script>
+  const track = document.getElementById('sliderTrack');
+  const slides = document.querySelectorAll('.slide_item');
+
+  // Clone first slide and append to end
+  const firstClone = slides[0].cloneNode(true);
+  track.appendChild(firstClone);
+
+  let index = 0;
+  const totalSlides = slides.length + 1;
+
+  function slideNext() {
+    index++;
+    track.style.transform = `translateX(-${index * 100}%)`;
+
+    if (index === totalSlides - 1) {
+      setTimeout(() => {
+        track.style.transition = 'none';
+        index = 0;
+        track.style.transform = `translateX(0%)`;
+      }, 600);
+
+      setTimeout(() => {
+        track.style.transition = 'transform 0.6s ease-in-out';
+      }, 650);
+    }
+  }
+
+  setInterval(slideNext, 5000);
+</script>
+
 
     {{-- <script type="text/javascript">
         $('#like').click(function() {
@@ -1525,4 +1581,7 @@
 
         });
     </script> --}}
+
+
+
 @endpush

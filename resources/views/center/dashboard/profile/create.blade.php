@@ -27,10 +27,10 @@
     color: #fff !important;
 }
   
-/* .disabled-form-tab {
+.disabled-form-tab {
     pointer-events: none;
     opacity: 0.5;
-} */
+}
 
 
 
@@ -417,20 +417,20 @@ var edit_mode = false;
             //console.log('logs====>', $('a.nav-link.active').parent().index());
 
 
-            // if (isFirstTab) 
-            // {
+            if (isFirstTab) 
+            {
 
-            //     if(!checkProfileDynamicMedia()){
-            //     return false;
-            //     }
-            // }
+                if(!checkProfileDynamicMedia()){
+                return false;
+                }
+            }
 
-            // if(isSecondTab)
-            // {
+            if(isSecondTab)
+            {
 
-            //     if(!validateSecondTab())
-            //      return false;    
-            // }
+                if(!validateSecondTab())
+                 return false;    
+            }
 
             if(isThirdTab)
             {
@@ -581,18 +581,14 @@ var edit_mode = false;
 
     // ########### Messasure List ############### //////
 
-           
-
-
-    
-
-
+        
 </script>
+
+
 
 
 <script type="text/javascript"  src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
-
 var masseurTable = null;
 var currentAvailability = null;
 var currentSelectedList = [];
@@ -657,97 +653,7 @@ var currentSelectedList = [];
         toggleSaveProfileButton();
     });
 
-
-    // function load_landing_masseur_data_table(my_availability)
-    // {
-    //     currentAvailability = my_availability; 
-    
-    //     if ($.fn.DataTable.isDataTable('#masseurs_Tab')) {
-    //         $('#masseurs_Tab').DataTable().ajax.reload();
-    //         return;
-    //     }
-
-    //     console.log('load_landing_masseur_data_table');
-
-    //     masseurTable =  $("#masseurs_Tab").DataTable({
-    //         processing: true,
-    //         serverSide: true,
-    //         paging: false,
-    //         searching: false,
-    //         info: false,
-    //         lengthChange: false,
-    //         ordering: false,
-
-    //         ajax: {
-    //             url: "{{ route('center.masseur-option-list') }}",
-    //             type: "POST",
-    //             headers: {
-    //                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
-    //             },
-    //             data: function (d) {
-    //                 d.type = 'player';
-    //                 d.availability = currentAvailability; 
-    //             }
-    //         },
-
-    //         columns: [
-    //             { data: 'checkbox', orderable: false, searchable: false },
-    //             { data: 'profile' },
-    //             { data: 'days' },
-    //             { data: 'ethnicity' },
-    //             { data: 'nationality' }
-    //         ]
-    //     });
-
-    // }
-
-    // function refresh_masseur_data_table(my_availability)
-    // {
-    //     var currentAvailability = my_availability; 
-    //     var currentSelectedList = getSelectedMasseurIds();
-
-    //         console.log(currentSelectedList);
-
-
-    //     if ($.fn.DataTable.isDataTable('#masseurs_Tab')) {
-    //         masseurTable.ajax.reload(null, false);
-    //         return;
-    //     }
-
-    //     console.log('refresh_masseur_data_table');
-
-    //     masseurTable = $("#masseurs_Tab").DataTable({
-    //         processing: true,
-    //         serverSide: true,
-    //         paging: false,
-    //         searching: false,
-    //         info: false,
-    //         lengthChange: false,
-    //         ordering: false,
-
-    //         ajax: {
-    //             url: "{{ route('center.masseur-option-list') }}",
-    //             type: "POST",
-    //             headers: {
-    //                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
-    //             },
-    //             data: function (d) {
-    //                 d.type = 'player';
-    //                 d.availability = currentAvailability; 
-    //                 d.selectedList = currentSelectedList;
-    //             }
-    //         },
-
-    //         columns: [
-    //             { data: 'checkbox', orderable: false, searchable: false },
-    //             { data: 'profile' },
-    //             { data: 'days' },
-    //             { data: 'ethnicity' },
-    //             { data: 'nationality' }
-    //         ]
-    //     });
-
-    // }
+   
 
 
 function load_masseur_data_table(my_availability,currentList)
@@ -756,8 +662,6 @@ function load_masseur_data_table(my_availability,currentList)
     currentAvailability = my_availability || currentAvailability;
     currentSelectedList = currentList || currentSelectedList;
     
-
-    // ✅ if table already exists → reload only
     if ($.fn.DataTable.isDataTable('#masseurs_Tab')) {
         masseurTable.ajax.reload(null, false);
         return;
@@ -882,101 +786,6 @@ function load_masseur_data_table(my_availability,currentList)
             swal_error_popup('Error occured while calculating availability');
         });
     }
-
-    // function calculateTime()
-    // {
-
-    //         // let form = $('#my-avail-time');
-    //         // let formData = new FormData(form[0]);
-    //         //swal_waiting_popup({'title':'Calculating Availability...'});
-
-            
-    //         let formData = new FormData();
-
-    //         $('#my-avail-time').find('input, select, textarea').each(function () {
-    //             let el = $(this);
-    //             let name = el.attr('name');
-
-    //             if (!name) return; // skip elements without name
-
-    //             // handle radio buttons
-    //             if (el.is(':radio')) {
-    //                 if (el.is(':checked')) {
-    //                     formData.append(name, el.val());
-    //                 }
-    //             }
-
-    //             // handle checkboxes
-    //             else if (el.is(':checkbox')) {
-    //                 if (el.is(':checked')) {
-    //                     formData.append(name, el.val());
-    //                 }
-    //             }
-
-    //             // handle multiple select
-    //             else if (el.is('select') && el.prop('multiple')) {
-    //                 let values = el.val(); // this is array or null
-    //                 if (values) {
-    //                     values.forEach(function (v) {
-    //                         formData.append(name, v);
-    //                     });
-    //                 }
-    //             }
-
-    //             // normal input / single select / textarea
-    //             else {
-    //                 formData.append(name, el.val());
-    //             }
-    //         });
-
-
-    //         $.ajax({
-    //             url: "{{ route('center.make-time-json') }}",
-    //             type: 'POST',
-    //             data: formData,
-    //             processData: false,
-    //             contentType: false,
-    //             success: function (response) {
-
-    //                 console.log('availability',response.data);
-    //                 //my_availability = response.data;
-
-    //                 let my_availability = {
-    //                     monday:    { status: "custom", from: "01:00 AM", to: "11:30 PM" },
-    //                     tuesday:   { status: "custom", from: "01:00 AM", to: "11:30 PM" },
-    //                     wednesday: { status: "custom", from: "01:00 AM", to: "11:30 PM" },
-    //                     thursday:  { status: "custom", from: "01:00 AM", to: "11:30 PM" },
-    //                     friday:    { status: "custom", from: "01:00 AM", to: "11:30 PM" },
-    //                     saturday:  { status: "custom", from: "01:00 AM", to: "11:30 PM" },
-    //                     sunday:    { status: "custom", from: "01:00 AM", to: "11:30 PM" }
-    //                 };
-
-
-    //                 if (my_availability && Object.keys(my_availability).length > 0) {
-    //                  load_masseur_table(my_availability);
-    //                  }
-
-    //                 // Swal.close();
-    //                 // if (response.success === true && response.massage_profile_id) {
-    //                 //     swal_success_popup(response.message ?? 'Profile created successfully');
-    //                 //     setTimeout(function () {
-    //                 //         window.location = 'update-profile/' + response.massage_profile_id;
-    //                 //     }, 2000); // 2 seconds
-
-    //                 // } 
-    //                 // else 
-    //                 // {
-    //                 //     swal_error_popup('Something went wrong');
-    //                 // }
-    //             },
-
-    //             error: function (xhr) {
-    //                 let message = 'Error occured while calculating availability';
-    //                 swal_error_popup(message);
-    //             }
-    //         });
-    // }
-
 
  toggleSaveProfileButton();
 
