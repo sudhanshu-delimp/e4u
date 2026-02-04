@@ -1,4 +1,11 @@
 @extends('layouts.web')
+@section('style')
+<style>
+    .mc_profile_table .table th{
+    padding: .8rem .55rem !important;
+}
+    </style>
+    @stop
 @section('content')
     <div class="container profile_description_banner custom--profile custommassage--profile--page"
         style="background: url('assets/app/img/massage/massage_2.jpg');
@@ -82,13 +89,16 @@
     <div class="container profile_contain">
         <div class="row">
             <div class="col-md-8 col-xl-8 col-sm-12 col-12">
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-md-12 col-xl-8 col-sm-12 col-12">
-                        <div class="row mess_row">
+                        <div class="row mess_row custom_message_types">
 
-                            <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4">
-                                <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="assets/app/img/handwithhart.png">
+                            <div class="col-sm-12 d-flex align-items-center justify-content-center gap-10 flex-wrap">
+                                <div class="d-flex align-items-center justify-content-center gap-10">
+                                    <div class="mc_tooltip_wrap">
+                                        <img src="assets/dashboard/img/massage-only.png" alt="Massage">
+                                        <p class="mc_rate_tooltip">Massage only</p> 
+                                    </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
                                             <h4>Massage</h4>
@@ -98,28 +108,28 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4">
-                                <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="assets/app/img/areodownimg.png">
+                                <div class="d-flex align-items-center justify-content-center gap-10">
+                                    <div class="mc_tooltip_wrap">
+                                    <img src="assets/dashboard/img/massage-with2.png" alt="Masseur">
+                                     <p class="mc_rate_tooltip">Massage with extras +2 hands.</p> 
+                                    </div>    
                                     <div class="div_contain_text">
                                         <div class="profile_message">
-                                            <h4>Individual</h4>
+                                            <h4>Masseur</h4>
                                         </div>
                                         <div class="profile_hr">
                                             <h4>$120/hr</h4>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4 mx-auto">
-                                <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="assets/app/img/aeroupimg.png">
+                                <div class="d-flex align-items-center justify-content-center gap-10">
+                                    <div class="mc_tooltip_wrap">
+                                    <img src="assets/dashboard/img/massage-with4.png" alt="2+ Masseurs">
+                                    <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>   
+                                    </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
-                                            <h4>2+ Person</h4>
+                                            <h4>2+ Masseurs</h4>
                                         </div>
                                         <div class="profile_hr">
                                             <h4>$150/hr</h4>
@@ -144,39 +154,51 @@
                 <div class="row mc_profile_table">
                     <div class="col-lg-6 col-md-12">
 
-                        <div style="width: 100%">
-                            <iframe width="100%" height="153" frameborder="0" scrolling="no" marginheight="0"
-                                marginwidth="0"
-                                src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=nema%20san%20francisco&t=&z=14&ie=UTF8&iwloc=B&output=embed"
-                                style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
-                            </iframe>
-                        </div>
+                        
 
                         <table class="table table_striped">
                             <thead>
                                 <tr>
                                     <th>Rates</th>
                                     <th>Massage</th>
-                                    <th>Individual</th>
-                                    <th>2+ Person</th>
+                                    <th>Masseur</th>
+                                    <th>2+ Masseurs</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <tr>
-                                    <td>60 Minutes</td>
+                                    <td>15 Minutes</td>
                                     <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
                                     <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
                                     <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
                                 </tr>
                                 <tr>
-                                    <td>90 Minutes</td>
+                                    <td>30 Minutes</td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
+                                </tr>
+                                 <tr>
+                                    <td>45 Minutes</td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
+                                </tr>
+                                 <tr>
+                                    <td>1 Hour</td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
+                                </tr>
+                                <tr>
+                                    <td>1.5 Hours</td>
                                     <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
                                     <td><div class="public-num-value-table"> <span>$ </span>180</div></td>
                                     <td class="text-center"><span class="na-label ">N/A</span></td>
                                 </tr>
                                 <tr>
-                                    <td>120 Minutes</td>
+                                    <td>2 Hours</td>
                                     <td><div class="public-num-value-table"> <span>$ </span>200</div></td>
                                     <td class="text-center"><span class="na-label text-center">N/A</span></td>
                                     <td><div class="public-num-value-table"> <span>$ </span>250</div></td>
@@ -191,6 +213,7 @@
                                 </tr>
                             </thead>
                         </table>
+                        
                     </div>
 
                     <div class="col-lg-6 col-md-12">
@@ -235,6 +258,16 @@
                         </table>
 
                         
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div style="width: 100%">
+                            <iframe width="100%" height="153" frameborder="0" scrolling="no" marginheight="0"
+                                marginwidth="0"
+                                src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=nema%20san%20francisco&t=&z=14&ie=UTF8&iwloc=B&output=embed"
+                                style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
+                            </iframe>
+                        </div>
                     </div>
                 </div>
 
@@ -289,11 +322,7 @@
                                     <span class="about_box_small_heading">Loyalty program:</span>
                                     <span class="about_box_small_heading_value">Available</span>
                                 </div>
-                                <div>
-                                    <span class="about_box_small_heading">Languages:</span>
-                                    <span class="about_box_small_heading_value">English</span>
-                                    <span class="about_box_small_heading_value">Spanish</span>
-                                </div>
+                                
                             </div>
 
                         </div>
@@ -304,14 +333,16 @@
                                     <span class="about_box_small_heading">Address:</span>
                                     <span class="about_box_small_heading_value">123 Sample Street, City</span>
                                 </p>
-
+                                <p class="mb-0">
+                                    <span class="about_box_small_heading">Languages:</span>
+                                    <span class="about_box_small_heading_value">English, Spanish</span>
+                                </p>
                                 <p class="mb-0">
                                     <span class="about_box_small_heading">Massage Service:</span>
                                     <span class="about_box_small_heading_value">
                                         Swedish Massage, Deep Tissue, Relaxation
                                     </span>
                                 </p>
-
                                 <p>
                                     <span class="about_box_small_heading">Other Service Types:</span>
                                     <span class="about_box_small_heading_value">
@@ -328,9 +359,8 @@
                     <div class="profile_card_border profile_page_box_heading">
                         <h2>Who are we?</h2>
                     </div>
-
                     <div class="padding_20_tob_btm_side">
-                        <div class="padding_20_tob_btm_side">
+                        <div class="text-justify">
                             I am a professional massage therapist who focuses on creating a calm,
                             relaxing, and respectful experience. My goal is to help you unwind,
                             relieve stress, and feel completely at ease in a clean and comfortable
@@ -347,9 +377,9 @@
                     </div>
 
                     <div class="padding_20_tob_btm_side">
-                        <p>
-                            Check out our experienced masseurs. All services are conducted in private.
-                            Feel free to ask us or any of our masseurs any questions about our services.
+                        <p class="text-justify">
+                            Check out our experienced Masseurs. All services are conducted in private.
+                            Feel free to ask us or any of our Masseurs any questions about our services.
                         </p>
 
                         <div class="row">
@@ -357,7 +387,7 @@
                                 <div class="d-flex align-items-center gap_between_text_and_img our-masseurs"
                                     data-toggle="modal" data-target="#product_view">
                                     <div><img src="assets/app/img/profile_photo.png"></div>
-                                    <p>Sierra</p>
+                                    <p class="mb-0">Sierra</p>
                                 </div>
                             </div>
                         </div>
@@ -367,20 +397,20 @@
 
                 <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
                     <div class="profile_card_border profile_page_box_heading">
-                        <h2>My Service</h2>
+                        <h2>Our Services</h2>
                     </div>
 
                     <div class="padding_20_tob_btm_side">
-                        <p>
-                            Check out what I enjoy the most with you in private. Let's have some fun.
-                            Feel free to ask me any questions about my services.
+                        <p class="text-justify">
+                            Check out what services are available.
+                            Feel free to ask us or your Masseur any questions about our services.
                         </p>
 
                         <div class="accordion-container">
-                            <!-- On You - Fun Stuff -->
+                            <!-- All Massage Services -->
                             <div class="set">
                                 <a>
-                                    On You - Fun Stuff
+                                    All Massage Services
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="content" style="display: none;">
@@ -400,7 +430,7 @@
                                                             <tr>
                                                                 <td class="table_border_dash_left">Oral</td>
                                                                 <td class="table_border_solid_left"><span
-                                                                        class=" ">N/A</span></td>
+                                                                        class="if_data_not_available">N/A</span></td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="table_border_dash_left">Masturbation</td>
@@ -460,10 +490,10 @@
                                 </div>
                             </div>
 
-                            <!-- On You - Kinky Stuff -->
+                            <!--  All Other Service Types -->
                             <div class="set">
                                 <a>
-                                    On You - Kinky Stuff
+                                    All Other Service Types
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="content" style="display: none;">
@@ -525,77 +555,6 @@
                                 </div>
                             </div>
 
-                            <!-- On Me - Fun Stuff -->
-                            <div class="set">
-                                <a>
-                                    On Me - Fun Stuff
-                                    <i class="fa fa-angle-down"></i>
-                                </a>
-                                <div class="content" style="display: none;">
-                                    <div class="accodien_manage_padding_content">
-                                        <div class="table-responsive">
-                                            <div class="row margin_zero_for_table table-grid">
-
-                                                <div class="padding_none">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr class="background_color_table_head_color">
-                                                                <th scope="col">Description</th>
-                                                                <th scope="col">Extra</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="table_border_dash_left">Oral</td>
-                                                                <td class="table_border_solid_left"><span
-                                                                        class="if_data_not_available">N/A</span></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-                                                <div class="padding_none">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr class="background_color_table_head_color">
-                                                                <th scope="col">Description</th>
-                                                                <th scope="col">Extra</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="table_border_dash_left">Masturbation</td>
-                                                                <td class="table_border_solid_left"><span
-                                                                        class="if_data_not_available">N/A</span></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-                                                <div class="padding_none">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr class="background_color_table_head_color">
-                                                                <th scope="col">Description</th>
-                                                                <th scope="col">Extra</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="table_border_dash_left">Spanish</td>
-                                                                <td class="table_border_solid_left"><span
-                                                                        class="if_data_not_available">N/A</span></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -610,10 +569,11 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12 px-0">
-                            <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel"
+                            <div id="carouselExampleInterval" class="carousel slide mc_view_media" data-ride="carousel"
                                 data-interval="false">
+                                <span class="mc_tooltip" data-toggle="modal" data-target="#exampleModal">Click to view My Media.</span>
                                 <div class="carousel-inner">
-
+                                    
                                     <!-- Carousel Item 1 -->
                                     <div class="carousel-item active" data-interval="10000">
                                         <div class="row">
@@ -710,8 +670,8 @@
                     </div>
                     <div class="col-7 text-right">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
-                            data-target="#sendcarlat">
-                            <img src="assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Masseurs
+                            data-target="#reportMcNew">
+                            <img src="assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Masseur
                         </button>
                     </div>
                 </div>
@@ -736,14 +696,14 @@
                 </div>
 
                 <!-- Playmates Section -->
-                <div class="box_shadow manage_padding_margin_bg_color">
+                {{-- <div class="box_shadow manage_padding_margin_bg_color">
                     <div class="profile_card_border profile_description_contect">
                         <h2><img src="assets/app/img/bedroom.svg"> Playmates</h2>
                     </div>
                     <div class="padding_20_tob_btm_side reduse_pad">
                         <p class="profile_description_contect_pera">Alina does not have any Playmates.</p>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Contacting Me Section -->
                 <div class="box_shadow manage_padding_margin_bg_color">
@@ -752,12 +712,11 @@
                     </div>
                     <div class="padding_20_tob_btm_side reduse_pad">
                         <span class="span_display_block connecting_me_chat_phone">
-                            You can contact me by:
-                            <br>
-                            <b>When texting me please say:</b>
+                            You can contact us by:<br>
+                            <p class="font-weight-bold mb-0 mt-2">When texting us please say:</p>
                             <p class="profile_description_contect_pera">
-                                <b><i>Hi Alina, I found you on Escorts4U ...</i></b>
-                                on my number 1438 028 743
+                                <b><i>Hi, I found you on Escorts4U ...</i></b>
+                                on our number 1438 028 743
                             </p>
                         </span>
                     </div>
@@ -774,13 +733,13 @@
                 <div class="accordion-container-new">
                     <div class="set">
                         <a class="pb-1 pt-1">
-                            My Pricing Policy
+                           Our Pricing Policy
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <div class="content">
                             <div class="accodien_manage_padding_content">
-                                <p>Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is
-                                    rate + taxi to and from my location.</p>
+                                <p class="text-justify">Prices are all inclusive unless an extra is listed in Our Services,
+                                     or you reach an agreement separately with the Masseur.</p>
                             </div>
                         </div>
                     </div>
@@ -791,8 +750,8 @@
                         </a>
                         <div class="content">
                             <div class="accodien_manage_padding_content">
-                                <p>Donations are for my companionship and nothing else. It is not an offer or promise for
-                                    prostitution or illegal activity. Anything that may occur between us is our choice as
+                                <p class="text-justify">Any companionship which is agreed to between the Masseur and the client is not an offer or promise for
+                                    prostitution or illegal activity. Anything that may occur between the Masseur and the client is their choice as
                                     consenting adults.</p>
                             </div>
                         </div>
@@ -805,33 +764,14 @@
                         <h2><img src="assets/app/img/tips.svg">Tips</h2>
                     </div>
                     <div class="pt-2">
-                        <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel"
-                            data-interval="2500">
-                            <div class="carousel-inner">
-                                <div class="carousel-item tip_carousel_item_text active">
-                                    <p>Do not offer any of your personal information.</p>
-                                </div>
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Ask questions and become informed.</p>
-                                </div>
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Protect your details, use our contact form.</p>
-                                </div>
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>If it seems too good to be true, it probably is.</p>
-                                </div>
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Report any suspicious Profiles.</p>
-                                </div>
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Only meet Advertisers who seem trustworthy.</p>
-                                </div>
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Trust your instincts.</p>
-                                </div>
-                                <div class="carousel-item tip_carousel_item_text">
-                                    <p>Avoid using email, use our messaging centre.</p>
-                                </div>
+                        <div class="text-slider">
+                            <div class="slider-track" id="sliderTrack">
+                                <div class="slide_item">Be on time.</div>
+                                <div class="slide_item">Do not offer any of your personal information.</div>
+                                <div class="slide_item">Ask questions; it’s okay.</div>
+                                <div class="slide_item">Maintain good hygiene.</div>
+                                <div class="slide_item">Keep your conversation light and non-suggestive.</div>
+                                <div class="slide_item">Be clear about the service you are looking for.</div>
                             </div>
                         </div>
                     </div>
@@ -842,12 +782,21 @@
                     <div class="profile_card_border profile_page_box_heading">
                         <h2 class="custom--review"><img src="assets/app/img/review-custom.png"> Reviews</h2>
                     </div>
-                    <div class="py-3 row">
+                    <div class="pt-3 row">
                         <div class="col-md-12">
-                            <p class="testimonial"><strong>Alina</strong> has no Reviews.</p>
+                            <p class="testimonial"><strong>[MC Name]</strong> has no Reviews. Why don't you give them their first Review?</p>
                         </div>
-                        <div class="col-md-12 mb-4"></div>
+                        {{-- <div class="col-md-12 mb-4"></div> --}}
                     </div>
+                    {{-- <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal" data-target="#add_reviews">
+                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                        Login to Add Review
+                    </button> --}}
+                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box">
+                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
+                    </button>
+                    
                 </div>
 
 
@@ -907,6 +856,34 @@
     </div>
     <!-- model end here 1-->
     <!-- model start here 2-->
+
+    <div class="modal fade" id="reportMcNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color">
+               
+                
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Report Masseur </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
+                </button>
+            </div>
+            <!-- if viewer not login -->
+            <div class="modal-body pb-0 teop-text" >
+                <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
+                    <span id="Lname">Report Masseur is only available to Viewers. Please log in or Register to access Report Masseur.</span>
+                </h6>
+                <div class="modal-footer text-center justify-content-center" >
+                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
+                <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
+                </div>
+            </div>
+            <!--- end -->
+
+        </div>
+    </div>
+</div>
+
     <div class="modal fade ss" id="sendcarlat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -988,7 +965,7 @@
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color">
                     <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="custompopicon">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Add review for Carla Brasil
+                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Add review for [MC Name]
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
@@ -1010,63 +987,82 @@
                             </div>
                         </div>
                         <div class="revew-myratings">
-                            <p class="mb-0">Rating:</p>
-                            <div class="rating">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                    viewBox="0 0 22 22" fill="none">
-                                    <path
-                                        d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z"
-                                        stroke="#FF3C5F" stroke-width="3" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
+                            <p class="mb-0" style="font-size: 20px;">Rating:</p>
+                            <div class="rating-stars">
+                                <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
                                 </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                    viewBox="0 0 22 22" fill="none">
-                                    <path
-                                        d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z"
-                                        stroke="#FF3C5F" stroke-width="3" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
+                                 <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
                                 </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                    viewBox="0 0 22 22" fill="none">
-                                    <path
-                                        d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z"
-                                        stroke="#FF3C5F" stroke-width="3" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
+                                 <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
                                 </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                    viewBox="0 0 22 22" fill="none">
-                                    <path
-                                        d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z"
-                                        stroke="#FF3C5F" stroke-width="3" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
+                                 <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
                                 </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                    viewBox="0 0 22 22" fill="none">
-                                    <path
-                                        d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z"
-                                        stroke="#FF3C5F" stroke-width="3" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
+                                 <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
                                 </svg>
+                                
                             </div>
                         </div>
 
                         <hr style="background-color: #0C223D">
                         <p class="mb-1 mt-3"><b>Notes :</b></p>
                         <ol>
-                            <li>Only review if you had direct contact with the Escort.</li>
+                            <li>Only review if you had direct contact with the Massage Centre.</li>
                             <li>Do not write fake or abusive reviews, as they will not be published.</li>
-                            <li>To contact this Escort click on <a href="{{ route('user.viewer-messages') }}"
-                                    style="color: #ff3c5f;" class="custom_links_design">Message Me</a>.
+                            <li>To contact this Massage Centre click on <a href="{{ route('user.viewer-messages') }}"
+                                    style="color: #ff3c5f;" class="custom_links_design">Message Us</a>.
                             </li>
                         </ol>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn-success-modal">Post Reviews</button>
+                        <button type="button" class="btn-success-modal" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn-success-modal">Submit Reviews</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    {{-- confirmation review modal --}}
+        <div class="modal fade" id="review-submitted-popup" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content custome_modal_max_width">
+        
+                    <!-- Header with navy background and [X] -->
+                    <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
+                        <img src="{{ asset('assets/app/img/tick.png')}}"
+                                        class="custompopicon">
+                        <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Review Submitted</h5>
+                        <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
+                        <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        </button>
+                    </div>
+        
+                    <!-- if logi Body content -->
+                
+                    <div class="modal-body text-center">
+                        <h5 class="popu_heading_style mt-4">Thank you for your Review.</h5>
+                        <h6 class="popu_heading_style mb-4 mt-2">
+                        
+                            Your Review for <span id="review-escort-name"></span> has been submitted for approval.
+                        </h6>
+                    
+                    </div>
+                    <div class="modal-footer pt-0" style="justify-content: center; ">
+                        <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                            id="close">Ok</button>
+                    </div>
+        
+                </div>
+            </div>
+        </div>
+    {{-- end --}}
+
+
     <!-- model start here 1-->
     <div class="modal fade" id="newmodal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -1126,10 +1122,13 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade product_view" id="product_view">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header border-0">
+                     <h5 class="mc_member_id"> <img src="{{ asset('assets/app/img/Vector-31.png') }}" class="img-responsive"
+                                    > Member ID: M60124-001 </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -1137,10 +1136,15 @@
                 </div>
                 <div class="modal-body pb-4 mb-2 pt-1">
                     <div class="row">
-                        <div class="col-md-4 product_img pr-0">
+
+                        <div class="col-md-4 product_img mc_profile_img pr-0">
                             <img src="{{ asset('assets/app/img/Frame-4181.png') }}" class="img-responsive"
                                 style="width: 305px;height: 374px;object-fit: cover;">
+                            <div class="veryfy_img">
+                                <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                            </div>
                         </div>
+
                         <div class="col-md-1 product_img pl-0" style="display: grid;gap: 8px;">
                             <img src="{{ asset('assets/app/img/Frame-4201.png') }}" class="img-responsive"
                                 style="width: 108px;height: 119px;object-fit: cover;">
@@ -1149,49 +1153,92 @@
                                 src="{{ asset('assets/app/img/Frame-4222.png') }}" class="img-responsive"
                                 style="width: 108px;height: 119px;object-fit: cover;">
                         </div>
-                        <div class="col-md-7 product_content pl-5 pt-1" style="">                            
-                                <div class="mc_profile_info">
-                                    <h3>Jane Doe</h3>
-                                    <span>AGE: <b>21</b></span>  
-                                </div>
-                            
-                            
 
-                            <div class="mc_profile_modal">
-                                
-                              
-
-                                <span>Nationality: <span class="about_box_small_heading_value">Australian</span></span>
-
-                                <span>Ethnicity: <span class="about_box_small_heading_value">Thai</span></span>
-
-                                <span>Available Days: <span class="about_box_small_heading_value">M T W T F </span></span>
-                                <span>Available Time: <span class="about_box_small_heading_value">8am - 7pm</span></span>
-
-                                <span>Mobile Number: <span class="about_box_small_heading_value">0438 028 728</span></span>
-
-                                <span>Vaccination: <span class="about_box_small_heading_value">Vaccinated, up to date</span></span>
-
-                            </div>
-                            
-                            <p class=" py-1 mb-2 text-justify">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy
-                                the thrill of being with that quite little girl who secretely really is that office slut. I
-                                am tall, slim and naughty when it matters. With smooth skin and long hair to run your hands
-                                through, and of course something...</p>
-                           
-                                    <div class="massage_type">
-                                         <h5 class="mc_member_id"> <img src="{{ asset('assets/app/img/Vector-31.png') }}" class="img-responsive"
-                                    > Member ID: M60124-001 </h5>
-                                        <div class="massage_type_info">
-                                            <a href="#">
-                                                <img src="{{ asset('assets/app/img/handwithhart.png') }}">
-                                            </a>
-                                            <div class="profile_message">
-                                                <h4>Massage</h4>
-                                                <h5>200/hr</h5>
+                        <div class="col-md-7 product_content pl-5 pt-1 d-flex flex-column justify-content-between" style=""> 
+                                                       
+                                <div>
+                                    <div class="mc_profile_info">
+                                        <h3 class="mb-0">Jane Doe</h3>
+                                        <span>AGE: <b>21</b></span>
+                                       
+                                        <div class="massage_type">                                       
+                                            <div class="massage_type_info">                                           
+                                                <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">                                             
+                                                <p class="mc_rate_tooltip">Massage only</p>                                         
                                             </div>
-                                        </div>
+                                            <div class="massage_type_info">                                           
+                                                    <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
+                                            <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>                                      
+                                            </div>
+                                            <div class="massage_type_info">                                            
+                                                    <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
+                                                <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>                                    
+                                            </div>                                        
+                                        </div> 
+                                    </div> 
+                                <div class="mc_profile_modal">                                    
+                                    <span><b>Mobile Number:</b> <span class="about_box_small_heading_value">0438 028 728</span></span>
+                                    <span><b>Vaccination:</b> <span class="about_box_small_heading_value">Vaccinated, up to date</span></span>
+                                </div>
+                                <div class="mc_profile_modal">
+                                    <span><b>Nationality:</b> <span class="about_box_small_heading_value">Australian</span></span>
+                                    <span><b>Ethnicity:</b> <span class="about_box_small_heading_value">Thai</span></span>
+                                </div>
+                                <div class="mc_profile_modal d-block">
+                                    <span><b>Massage Services:</b> <span class="about_box_small_heading_value">Deep tissue, Foot</span></span>
+                                </div>
+
+                                 <div class="mc_profile_modal d-block">
+                                    <span><b>Other Service Types:</b> <span class="about_box_small_heading_value">Back stepping</span></span>
+                                </div>
+                                
+                                
+                                </div>
+                                
+                               <div>
+                                    <h5 class="mb-0" style="color: #000">About Me</h5>
+                                    <p class=" mt-0 text-justify">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy
+                                        the thrill of being with that quite little girl who secretely really is that office slut. I
+                                        am tall, slim and naughty when it matters. With smooth skin and long hair to run your hands
+                                        through, and of course something...</p>
                                     </div>
+                                </div>
+                               
+                            
+
+                            
+                        </div>
+                        
+                        <div class="col-lg-12 mt-2 p-0">
+                            <div class="table-responsive-sm mc_avail_table">
+                                <table class="table table-bordered">
+                                    <thead class="bg-first">
+                                        <tr>
+                                            <th colspan="7" class="text-center">Availability</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="width:14.2%">Monday</th>
+                                            <th style="width:14.2%">Tuesday</th>
+                                            <th style="width:14.2%">Wednesday</th>
+                                            <th style="width:14.2%">Thursday</th>
+                                            <th style="width:14.2%">Friday</th>
+                                            <th style="width:14.2%">Saturday</th>
+                                            <th style="width:14.2%">Sunday</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="na-label ">N/A</span></td>
+                                            <td><span class="na-label ">N/A</span></td>
+                                            <td>9:30am - 9:00pm</td>
+                                            <td>9:30am - 9:00pm</td>
+                                           <td><span class="na-label ">N/A</span></td>
+                                            <td>10:00am - 9:00pm</td>
+                                            <td>11:00am - 7:00pm</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1340,8 +1387,42 @@
 
 @endsection
 @push('scripts')
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+ <script>
+  const track = document.getElementById('sliderTrack');
+  const slides = document.querySelectorAll('.slide_item');
+
+  // Clone first slide and append to end
+  const firstClone = slides[0].cloneNode(true);
+  track.appendChild(firstClone);
+
+  let index = 0;
+  const totalSlides = slides.length + 1;
+
+  function slideNext() {
+    index++;
+    track.style.transform = `translateX(-${index * 100}%)`;
+
+    if (index === totalSlides - 1) {
+      setTimeout(() => {
+        track.style.transition = 'none';
+        index = 0;
+        track.style.transform = `translateX(0%)`;
+      }, 600);
+
+      setTimeout(() => {
+        track.style.transition = 'transform 0.6s ease-in-out';
+      }, 650);
+    }
+  }
+
+  setInterval(slideNext, 5000);
+</script>
+
 
     {{-- <script type="text/javascript">
         $('#like').click(function() {
@@ -1500,4 +1581,7 @@
 
         });
     </script> --}}
+
+
+
 @endpush

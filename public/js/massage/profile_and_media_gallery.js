@@ -115,6 +115,7 @@ let currentPageUrl = window.location.href;
 var bannerDefaultImage;
 var pinupDefaultImage;
 var allFiles = [];
+var MaxSize = 50;
 
 let selectedVideoId = null;
 let selectedVideoPosition = null;
@@ -127,7 +128,7 @@ function preview_image(event)
             const fileSizeMB = file.size / (1024 * 1024);
             const index = previousSelectedImagesCount + i;
     
-            if (fileSizeMB <= 2) {
+            if (fileSizeMB <= MaxSize) {
                 allFiles.push(file); 
                 const imgURL = URL.createObjectURL(file);
                 $('#image_preview').append(`
@@ -144,7 +145,7 @@ function preview_image(event)
                     </a>
                 `);
             } else {
-                Swal.fire('Media', "Can't upload more than 2 MB", 'error');
+                Swal.fire('Media', "Can't upload more than 5 MB", 'error');
             }
         });
         input.value = '';

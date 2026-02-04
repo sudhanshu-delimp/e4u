@@ -31,7 +31,6 @@ class RegisterListenerForEscort implements ShouldQueue
     {
         $user = $event->escort;
         Mail::to($user->email)->send(new RegisterEmailForEscort($user));
-        Mail::to($user->email)->send(new NewUserRegistrationConfirmation($user));
-
+        Mail::to($user->email)->later(now()->addSeconds(5), new NewUserRegistrationConfirmation($user));
     }
 }

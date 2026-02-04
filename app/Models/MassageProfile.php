@@ -237,7 +237,7 @@ class MassageProfile extends Model
             if($image = $this->gallary()->wherePivot('position', 1)->first()) {
                 return $image->path;
             } else {
-                return url('assets/app/img/upload-thum-1.png');
+                return url('assets/app/img/img-11.png');
             }
             //return url('assets/app/img/upload-thum-1.png');
         } elseif($val == 8) {
@@ -252,7 +252,7 @@ class MassageProfile extends Model
             if($image = $this->gallary()->wherePivot('position', 9)->first()) {
                 return $image->path;
             } else {
-                return url('assets/app/img/upload-3.png');
+                return url('assets/app/img/img-13.png');
             }
         }
         elseif($val == 10) {

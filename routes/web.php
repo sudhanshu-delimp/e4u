@@ -74,7 +74,7 @@ Route::middleware('guest')->group(function () {
 
 
 Route::post('/get-pinup-profile', [PinUpsController::class,'getPinupProfile'])->name('web.get_pinup_profile');
-
+Route::post('/welcome-popup-closed', [UserController::class, 'welcomePopupClosed'])->name('welcome-popup-closed');
 Route::middleware('auth')->group(function () {
 
         ################ All Authencated User Url #################################

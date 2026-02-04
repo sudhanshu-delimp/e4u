@@ -10,7 +10,7 @@
         .icon-col {
             font-size: 18px;
             text-align: left;
-            color: var(--blue--text);
+            color: var(--blue--text); 
         }
 
         h5 {
@@ -39,7 +39,7 @@
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                        <p></p>
+                        
                         <ol>
                             <li>This page is a summary of all the Fees you have spent on the Services.</li>
                             <li>To assist you in keeping an idea of your spend with E4U, we have provided information on
