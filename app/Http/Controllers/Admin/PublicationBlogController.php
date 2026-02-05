@@ -86,7 +86,8 @@ class PublicationBlogController extends Controller
                     return basicDateFormat($row->created_at);
                 })
                 ->editColumn('status', function ($row) {
-                    return "<spam class='custom_badge badge_published'>{$row->status} </spam>" ;
+                     $badgeClass = getStatusBadgeClass($row->status);
+                    return "<spam class='custom_badge {$badgeClass}'>{$row->status} </spam>" ;
                 })
                 ->orderColumn('status', function ($query, $order) {
                     $query->orderBy('status', $order);
@@ -113,16 +114,6 @@ class PublicationBlogController extends Controller
                         }
                     }
 
-                    // If completed -> offer remove
-                    if ($status === 'Suspended') {
-                        if ($this->editAccessEnabled) {
-                            $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
-                        }
-                    }
-
-                    // Common actions
-                   // $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
-
 
                     $dropdown = '<div class="dropdown no-arrow">'
                         . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
@@ -145,7 +136,7 @@ class PublicationBlogController extends Controller
     {
 
         try {
-            $notification = PublicationBlog::findOrFail($id);
+            $blog = PublicationBlog::findOrFail($id);
             $status = $request->input('status');
             $allowedStatuses = ['Published', 'Suspended', 'Removed'];
 
@@ -154,16 +145,16 @@ class PublicationBlogController extends Controller
             }
 
             if ($status === 'Removed') {
-                $notification->delete();
+                $blog->delete();
                 return success_response(
-                    ['id' => $notification->id, 'status' => 'Removed'],
+                    ['id' => $blog->id, 'status' => 'Removed'],
                     'Notification deleted successfully.'
                 );
             }
 
-            $notification->update(['status' => $status]);
+            $blog->update(['status' => $status]);
             return success_response(
-                ['id' => $notification->id, 'status' => $status],
+                ['id' => $blog->id, 'status' => $status],
                 'Status updated successfully.'
             );
         } catch (\Exception $e) {

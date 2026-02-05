@@ -97,8 +97,8 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createBlog"> <img src="{{ asset('assets/dashboard/img/title-blog.png') }}"
-                            class="custompopicon"> Create Blog</h5>
+                    <h5 class="modal-title" id="createBlogTitle"> <img
+                            src="{{ asset('assets/dashboard/img/title-blog.png') }}" class="custompopicon"> Create Blog</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -153,7 +153,8 @@
 
                         </div>
                         <div class="modal-footer pr-3">
-                            <button type="submit" class="btn-success-modal" id="submitBtn" form="addBlogForm">Save</button>
+                            <button type="submit" class="btn-success-modal" id="submitBtn"
+                                form="addBlogForm">Save</button>
                         </div>
                     </form>
                 </div>
@@ -198,6 +199,7 @@
 
     <div id="manage-route" data-scrf-token="{{ csrf_token() }}"
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
+        data-publications-blog-alert="{{ asset('assets/app/img/alert.png') }}"
         data-publications-blog-icon="{{ asset('assets/dashboard/img/title-blog.png') }}"
         data-publications-blog-status="{{ route('admin.publications.blog.status', ['id' => '__ID__']) }}"
         data-publications-blog-edit="{{ route('admin.publications.blog.edit', ['id' => '__ID__']) }}"
@@ -225,6 +227,7 @@
         endpoint = {
             csrf_token: mmRoot.data('scrf-token'),
             success_image: mmRoot.data('success-image'),
+            alert_image: mmRoot.data('publications-blog-alert'),
             blog_icon: mmRoot.data('publications-blog-icon'),
             publications_blog_status: mmRoot.data('publications-blog-status'),
             publications_blog_edit: mmRoot.data('publications-blog-edit'),
@@ -324,9 +327,9 @@
                         CKEDITOR.instances.description.setData(n.description);
                         $('#meta_title').val(n.meta_title);
                         $('#meta_description').val(n.meta_description);
-                        
+
                         // Change modal title
-                        $('#createBlog').find('h5.modal-title').html(
+                        $('#createBlogTitle').html(
                             `<img src="${endpoint.blog_icon}" alt="alert" class="custompopicon"> Edit Blog`
                         );
                         // Change button text to Update
@@ -345,7 +348,7 @@
 
         function formSubmit(form) {
             let formData = new FormData(form[0]);
-       
+
             $.ajax({
                 url: endpoint.publications_blog_store,
                 method: "POST",
@@ -395,7 +398,7 @@
                     $("#image_icon").attr("src", endpoint.error_image);
                     $('#success_task_title').text('Error');
                     $('#success_form_html').html('<h4>' + (msg ||
-                            'Status updated successfully') +
+                            'Something went wrong.') +
                         '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                     );
                     $('#successModal').modal('show');
@@ -423,6 +426,9 @@
             // Clear YOUR image elements
             $('#edit_blog_id').val('');
             $('#blog_image').val('');
+            $('#createBlogTitle').html(
+                `<img src="${endpoint.blog_icon}" alt="alert" class="custompopicon"> Create Blog`
+            );
             $('#submitBtn').text('Save');
             //$('img.thumb').attr('src', '').hide();
         });
@@ -497,6 +503,80 @@
                 CKEDITOR.instances[instance].updateElement();
             }
         }
+
+        //Uodate Blog Status
+        $(document).on('click', '.js-withdrawn, .js-publish, .js-remove, .js-suspend', function(e) {
+            e.preventDefault();
+            const id = $(this).data('id');
+            let status = '';
+            let confirmMsg = '';
+
+            if ($(this).hasClass('js-suspend')) {
+                status = "Suspended";
+                confirmMsg = 'Are you sure you want suspend this blog ?';
+            } else if ($(this).hasClass('js-publish')) {
+                status = 'Published';
+                confirmMsg = 'Are you sure you want to publish this blog  ?';
+            } else if ($(this).hasClass('js-remove')) {
+                status = 'Removed';
+                confirmMsg = 'Are you sure you want to remove the blog ?';
+            }
+
+            const modal = $('#successModal');
+            const body = $('#success_form_html');
+            const title = $('#success_task_title').text('Confirmation');
+            const img = $('#image_icon');
+            img.attr('src', endpoint.alert_image);
+
+            body.html(
+                `<h4>${confirmMsg}</h4>
+                <div class="d-flex justify-content-center gap-10 mt-3">
+                    <button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button>
+                    <button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button>
+                </div>`
+            );
+            modal.modal('show');
+            body.off('click', '#confirmRemove').on('click', '#confirmRemove', function() {
+                $(this).prop('disabled', true);
+
+                $.ajax({
+                    url: endpoint.publications_blog_status.replace('__ID__', id),
+                    type: 'POST',
+                    data: {
+                        _token: endpoint.csrf_token,
+                        status: status
+                    },
+                    success: function(response) {
+                        console.log(response, 'success');
+                        $('#success_task_title').text('Success');
+                        $('#image_icon').attr('src', endpoint.success_image);
+                        $('#success_form_html').html(`
+                        <h4> ${(response.message || 'Status updated successfully')} </h4>
+                        <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>
+                        `);
+                        setTimeout(function() {
+                            modal.modal('hide');
+                            table.ajax.reload(null, false);
+                        }, 1000);
+                    },
+                    error: function(xhr) {
+                         console.log(xhr, 'error');
+                        let msg = 'Something went wrong';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            msg = xhr.responseJSON.message;
+                        }
+                        $('#success_task_title').text('Error');
+                        $('#image_icon').attr('src', endpoint.alert_image);
+                        $('#success_form_html').html('<h4>' + (msg ||
+                                'Something went wrong.') +
+                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                        );
+                    }
+                })
+            })
+
+
+        });
     </script>
 
     <script>
