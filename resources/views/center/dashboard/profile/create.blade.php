@@ -29,11 +29,11 @@
         color: #fff !important;
     }
 
-    /* .disabled-form-tab {
+    .disabled-form-tab {
         pointer-events: none;
         opacity: 0.5;
     }
- */
+
 
 
     .defult-image {
@@ -53,6 +53,41 @@
         border-color: #ccc;
         /* optional */
     }
+   .superfix {
+    background: #262d30;
+    padding: 2px 6px;
+    color: #fff !important;
+    border-radius: 69px;
+    font-size: 11px;
+    margin-left: 4px;
+    font-weight: bold;
+
+    } 
+    #masseurs_Tab thead tr th {
+    text-align: center;
+    }
+    #masseurs_Tab tbody tr td {
+    text-align: center;
+    }
+
+    .list_profile_name {
+    display: block;
+    margin-top: 7px;
+    }
+
+    #selected_masseur thead tr th {
+    text-align: center;
+    }
+    #selected_masseur tbody tr td {
+    text-align: center;
+    }
+    .masseur_cus_width{
+        width: 40%;
+    }
+    .action_cus_width{
+        width: 10%;
+    }
+    
 </style>
 @endsection
 @section('content')
@@ -473,7 +508,7 @@
                 if (!validateThirdTab())
                     return false;
 
-                load_landing_messures_table();
+                // load_landing_messures_table();
 
             }
 
@@ -606,9 +641,9 @@
 
 
 
-    $(document).on('click', '#massuers-tab', function(e) {
-        load_landing_messures_table();
-    });
+    // $(document).on('click', '#massuers-tab', function(e) {
+    //     load_landing_messures_table();
+    // });
 
 
 
@@ -662,7 +697,7 @@
                     <td>${days}</td>
                     <td>${nationality}</td>
                     <td>${ethnicity}</td>
-                    <td> <button type="button" class="btn-danger btn-sm remove-row">Remove</button></td>
+                    <td> <button type="button" class="btn-cancel-modal py-1 btn-sm remove-row">Remove</button></td>
 
                     
                     
@@ -731,7 +766,7 @@
                     data: 'profile'
                 },
                 {
-                    data: 'days'
+                    data: 'days', class:'masseur_cus_width'
                 },
                 {
                     data: 'ethnicity'
@@ -802,16 +837,16 @@
     }
 
 
-    function load_landing_messures_table() {
-        calculateTime()
-            .done(function(response) {
-                let my_availability = response.data;
-                load_masseur_data_table(my_availability);
-            })
-            .fail(function() {
-                swal_error_popup('Error occured while calculating availability');
-            });
-    }
+    // function load_landing_messures_table() {
+    //     calculateTime()
+    //         .done(function(response) {
+    //             let my_availability = response.data;
+    //             load_masseur_data_table(my_availability);
+    //         })
+    //         .fail(function() {
+    //             swal_error_popup('Error occured while calculating availability');
+    //         });
+    // }
 
 
     function refresh_masseur_table() {
@@ -898,16 +933,19 @@
 
             columns: [
             
-                { data: 'profile' },
-                { data: 'days' },
+                { data: 'profile'},
+                { data: 'days' , class:'masseur_cus_width'},
                 { data: 'ethnicity' },
                 { data: 'nationality' },
-                { data: 'action', orderable: false, searchable: false } 
+                { data: 'action', orderable: false, searchable: false, class:'action_cus_width' } 
             ],
 
 
             initComplete: function () {
                 toggleSaveProfileButton(); 
+                currentList = getSelectedMasseurIds();
+                let my_availability = [];
+                load_masseur_data_table(my_availability,currentList);
             }
 
     });

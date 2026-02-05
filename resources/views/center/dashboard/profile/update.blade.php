@@ -33,7 +33,40 @@
 } */
 
 
-    
+   .superfix {
+    background: #262d30;
+    padding: 2px 6px;
+    color: #fff !important;
+    border-radius: 69px;
+    font-size: 11px;
+    margin-left: 4px;
+    font-weight: bold;
+
+    } 
+    #masseurs_Tab thead tr th {
+    text-align: center;
+    }
+    #masseurs_Tab tbody tr td {
+    text-align: center;
+    }
+
+    .list_profile_name {
+    display: block;
+    margin-top: 7px;
+    }
+
+    #selected_masseur thead tr th {
+    text-align: center;
+    }
+    #selected_masseur tbody tr td {
+    text-align: center;
+    }
+    .masseur_cus_width{
+        width: 40%;
+    }
+    .action_cus_width{
+        width: 10%;
+    }    
 
 </style>
 @endsection
@@ -781,7 +814,7 @@ console.log('profileId',profileId);
             columns: [
                 { data: 'checkbox', orderable: false, searchable: false },
                 { data: 'profile' },
-                { data: 'days' },
+                { data: 'days',class:'masseur_cus_width' },
                 { data: 'ethnicity' },
                 { data: 'nationality' }
             ]
@@ -857,7 +890,7 @@ console.log('profileId',profileId);
         columns: [
         
             { data: 'profile' },
-            { data: 'days' },
+            { data: 'days', class:'masseur_cus_width' },
             { data: 'ethnicity' },
             { data: 'nationality' },
             { data: 'action', orderable: false, searchable: false } 

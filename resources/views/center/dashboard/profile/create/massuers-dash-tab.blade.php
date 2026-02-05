@@ -86,20 +86,15 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive py-3 list-sec" >
-                            <table id="masseurs_Tab" class="table table-striped" width="100%">
+                            <table id="masseurs_Tab" class="table table-striped" style="width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <div class="ckbox">
-                                                <!-- <input type="checkbox" id="checkbox1"> -->
-                                            </div>
-                                        </th>
-                                        <th>Profile</th>
-                                        <!-- <th>Available Time</th> -->
-                                        <th>Available Days</th>
-                                        <th>Ethnicity</th>
-                                        <th>Nationality</th>
-                                        <!-- <th class="text-center">Action</th> -->
+                                        <th style="width: 5%;"></th>
+                                        <th style="width: 15%;">Profile</th>
+                                        <th style="width: 40%;">Available Days</th>
+                                        <th style="width: 20%;">Ethnicity</th>
+                                        <th style="width: 20%;">Nationality</th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>

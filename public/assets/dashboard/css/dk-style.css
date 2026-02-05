@@ -7121,7 +7121,7 @@ table#myTable\ price-sec {
 .legend_container {
     display: flex;
     gap: 5px;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
