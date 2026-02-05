@@ -53,10 +53,10 @@ Route::post('/update-account', [CenterController::class, 'update'])->name('cente
 // 		return view('center.my-account.change-password');
 // 	})->name('center.my-account.change-password');
 
-// Route::get('/my-account/upload-avatar', function()
-// 	{
-// 		return view('center.my-account.upload-avatar');
-// 	})->name('center.my-account.upload-avatar');
+ Route::get('/profile-completed', function()
+ 	{
+ 		return view('center.dashboard.profile-completed');
+ 	})->name('center.profile-completed');
 
 // Route::get('/my-account/edit-my-account', function()
 // 	{
