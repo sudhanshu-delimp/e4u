@@ -186,9 +186,12 @@ class OperatorstaffController extends BaseController
                 break;  
              case 10:
                 $staff->orderBy('status', $dir);
-                break;       
+                break; 
+              case 11:
+                $staff->orderBy('id', 'DESC');
+                break;           
             default:
-                $staff->orderBy('member_id', 'DESC');
+                $staff->orderBy('id', 'DESC');
                 break;
         }
 

@@ -540,11 +540,18 @@ class User extends Authenticatable
                 }
             }
         });
+    }
 
-        // BEFORE update
-        static::updating(function ($user) {
-            if (Auth::check()) {
-                $user->updated_by = Auth::id();
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::updating(function ($model) {
+            if (auth()->check()) {
+                $model->updated_by = auth()->id();
             }
         });
     }

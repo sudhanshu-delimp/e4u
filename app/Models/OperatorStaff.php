@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use App\Models\OperatorStaffDetail;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class OperatorStaff extends Model
@@ -22,6 +23,29 @@ class OperatorStaff extends Model
         return $this->hasOne('App\Models\OperatorStaffSetting', 'staff_id');
     }
 
+    /**
+     * Indicates if the model should have created_by and updated_by fields.
+     *
+     * @var bool
+     */
+    public $createdUpdatedBy = true;
+
+    /**
+     * Get the created by that owns the details.
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by');
+    }
+
+    /**
+     * Get the updated by that owns the details.
+     */
+    public function updatedBy()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by');
+    }
+
     public function getPhoneAttribute($value)
     {
       return formatMobileNumber($value);
@@ -35,7 +59,7 @@ class OperatorStaff extends Model
     }
 
 
-    protected static function boot()
+    /* protected static function boot()
     {
           parent::boot();
 
@@ -46,5 +70,6 @@ class OperatorStaff extends Model
                   'twofa' => '2',
               ]);
           });
-    }
+    } */
+
 }

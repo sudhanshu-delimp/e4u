@@ -35,7 +35,7 @@ trait HasCreatedUpdatedBy {
     {
         $userId = $this->getAuthUserId();
 
-        $updatedByColumn = $this->getUpdatedBYColumn();
+        $updatedByColumn = $this->getUpdatedByColumn();
 
         if (! is_null($updatedByColumn) && $this->isDirty() && ! $this->isDirty($updatedByColumn)) {
             $this->setUpdatedBy($userId);
@@ -100,7 +100,7 @@ trait HasCreatedUpdatedBy {
      * @return string|null
      */
     public function getCreatedByColumn()
-    {
+    {  
         return static::CREATED_BY;
     }
 
