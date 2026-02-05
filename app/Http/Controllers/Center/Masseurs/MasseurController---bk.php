@@ -664,7 +664,7 @@ class MasseurController extends AppController
                    
                     'checkbox' => '<input type="checkbox" class="select-masseur" value="'.$row->id.'">',
                     
-                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">('.$row->id.')',
+                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"> <span>'.$row->name.'</span>('.$row->id.')',
 
                     'days' => $avail_list,
 
@@ -720,7 +720,7 @@ class MasseurController extends AppController
                    
                     'checkbox' => '<input type="checkbox" class="select-masseur" value="'.$row->id.'">',
                     
-                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">('.$row->id.')',
+                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"><span>'.$row->name.'</span>('.$row->id.')',
 
                     'days' => $avail_list,
 
@@ -753,7 +753,7 @@ class MasseurController extends AppController
                    
                     'id' => $row->id,
                     
-                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"> ('.$row->id.')',
+                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"> <span>'.$row->name.'</span>('.$row->id.')',
 
                     'days' => $avail_list,
 

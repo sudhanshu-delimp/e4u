@@ -331,7 +331,7 @@ textarea {
                                             data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
                                             <img class="img-fluid profile-gallery" data-type="banner" id="img9"
                                                 src="{{ asset($escort->imagePosition(9)) }}"
-                                                style="height: 230.578px;width: 1066.640px;object-fit: cover;">
+                                                style="height: 167.578px;width: 1066.640px;object-fit: cover;">
                                         </label>
                                     </div>
                                 </div>
