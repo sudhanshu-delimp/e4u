@@ -577,7 +577,7 @@
                                                                 <input type="radio"
                                                                     name="availability_time[{{ $dayKey }}]"
                                                                     value="closed">
-                                                                NA
+                                                                Not Available
                                                             </label>
 
 
@@ -594,91 +594,6 @@
                                     </div>
                                     <!-- End My Availability -->
 
-
-                                    <!-- Rate -->
-                                    <!-- <div class="mcc-form-tab">
-                                                            <h2>Rate</h2>
-                                                                <div class="row">
-                                                                    <div class="col-lg-8 col-md-12 col-sm-12 full-width-for-ipad-select horizontal-scroll-rates pt-5">
-                                                                        <div class="rate_first_row row">
-                                                                            <div class="col-3">
-                                                                            </div>
-                                                                            <div class="col-3 rate-img-center rate-tooltip">
-                                                                                <img src="{{ asset('assets/dashboard/img/massage-only.png') }}" class="w-50">
-                                                                                <span class="tooltip-info">Massage only</span>
-                                                                            </div>
-                                                                            <div class="col-3 rate-img-center rate-tooltip">
-                                                                                <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}" class="w-50">
-                                                                                <span class="tooltip-info">Massage with extras +2 hands.</span>
-                                                                            </div>
-                                                                            <div class="col-3 rate-img-center rate-tooltip">
-                                                                                <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}" class="w-50">
-                                                                                <span class="tooltip-info">Massage with extras +4 hands.</span>
-                                                                            </div>
-                                                                        </div>
-                                                                        @foreach ($durations->whereIn('id', [2, 3, 4, 5, 6, 7]) as $duration)
-    @php
-        if ($duration->id != '') {
-            $massage_price = $incall_price = $outcall_price = $massage_profile_id = '';
-            if (!empty($massage_durations)) {
-                foreach ($massage_durations as $db_duration) {
-                    if (
-                        isset($db_duration['pivot']['duration_id']) &&
-                        $db_duration['pivot']['duration_id'] == $duration->id
-                    ) {
-                        $massage_price = isset($db_duration['pivot']['massage_price'])
-                            ? $db_duration['pivot']['massage_price']
-                            : 0;
-                        $incall_price = isset($db_duration['pivot']['incall_price'])
-                            ? $db_duration['pivot']['incall_price']
-                            : 0;
-                        $outcall_price = isset($db_duration['pivot']['outcall_price'])
-                            ? $db_duration['pivot']['outcall_price']
-                            : 0;
-                        $massage_profile_id = isset($db_duration['pivot']['massage_profile_id'])
-                            ? $db_duration['pivot']['massage_profile_id']
-                            : '';
-
-                        break;
-                    }
-                }
-            }
-        }
-
-    @endphp
-
-                                                                        <div class="rate_first_row">
-                                                                            <input type="hidden" name="duration_id[]" value="{{ $duration->id }}">
-                                                                            <div class="form-group row">
-                                                                                <label class="col-3 label" for="exampleFormControlSelect1">{{ $duration->name == '1 Hour' ? '1 Hour' : $duration->name }} : </label>
-                                                                                <div class="col-3">
-                                                                                    <div class="service_rate_dolor_symbol form-group">
-                                                                                        <span>$</span>
-                                                                                        <input  placeholder="0" data-duration_id="{{ $duration->id }}" data-massage_profile_id="{{ $massage_profile_id }}"  data-data_type="massage_price" type="text"  class="form-control allow_only_numeric update_default_rate" id="massage_price" value="{{ $massage_price }}" name="massage_price[]" maxlength="6"
-                                                                                        <input type="hidden" class="profile_massage_price"  value="{{ $massage_price }}" >
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-3">
-                                                                                    <div class="service_rate_dolor_symbol form-group">
-                                                                                        <span>$</span>
-                                                                                        <input  placeholder="0" data-duration_id="{{ $duration->id }}" data-massage_profile_id="{{ $massage_profile_id }}"  data-data_type="incall_price"  type="text"  class="form-control allow_only_numeric update_default_rate" id="incall_price" value="{{ $incall_price }}" name="incall_price[]" maxlength="6">
-                                                                                        <input type="hidden" class="profile_incall_price"  value="{{ $incall_price }}" >
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-3">
-                                                                                    <div class="service_rate_dolor_symbol form-group">
-                                                                                        <span>$</span>
-                                                                                        <input  placeholder="0" data-duration_id="{{ $duration->id }}"  data-massage_profile_id="{{ $massage_profile_id }}"  data-data_type="outcall_price"   type="text"  class="form-control allow_only_numeric update_default_rate" id="outcall_price"  value="{{ $outcall_price }}" name="outcall_price[]" maxlength="6">
-                                                                                        <input type="hidden" class="profile_outcall_price"  value="{{ $outcall_price }}" >
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-    @endforeach
-                                                                    </div>
-                                                                </div>
-                                                        </div> -->
-                                    <!-- End Rate -->
 
 
                                     <div class="d-flex justify-content-end py-3">
@@ -1342,6 +1257,7 @@
 
         let selectedVideoId = null;
         let selectedVideoPosition = null;
+        let selectedFiles = [];
 
         function preview_image(event) {
             const input = document.getElementById("upload_file");
@@ -1751,6 +1667,7 @@
 
         })
 
+
         $(document).on('click', '.deleteId', function(e) {
             e.preventDefault();
             let index = $(this).attr('data-id');
@@ -1759,6 +1676,8 @@
             $(`.rm_${index}`).remove();
             updateInputFiles();
         });
+
+
 
 
         function updateInputFiles() {

@@ -3,52 +3,91 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
 <style type="text/css">
     .parsley-errors-list {
-    list-style: none;
-    color: rgb(248, 0, 0);
-    padding: 0;
+        list-style: none;
+        color: rgb(248, 0, 0);
+        padding: 0;
     }
-    .parsley-errors-list li{
-    font-size: 14px;
-    line-height: 18px;
-    margin-top: 6px;
+
+    .parsley-errors-list li {
+        font-size: 14px;
+        line-height: 18px;
+        margin-top: 6px;
     }
 
     .prev_step_btn {
-    border: 1px solid transparent;
-    padding: 10px 21px 10px 20px;
-    font-size: 1rem;
-    line-height: 1.5;
-    background: #FF3C5F;
-    color: #fff;
-    border-radius: 0.35rem;
-    transition: 0.5s;
-}
-.prev_step_btn .fa-arrow-left {
-    color: #fff !important;
-}
-  
-.disabled-form-tab {
-    pointer-events: none;
-    opacity: 0.5;
-}
+        border: 1px solid transparent;
+        padding: 10px 21px 10px 20px;
+        font-size: 1rem;
+        line-height: 1.5;
+        background: #FF3C5F;
+        color: #fff;
+        border-radius: 0.35rem;
+        transition: 0.5s;
+    }
+
+    .prev_step_btn .fa-arrow-left {
+        color: #fff !important;
+    }
+
+    .disabled-form-tab {
+        pointer-events: none;
+        opacity: 0.5;
+    }
 
 
 
- .defult-image{
+    .defult-image {
         width: 202px !important;
         height: 182px !important;
     }
 
 
-#submit_form_massage:disabled,
-#submit_form_massage:disabled:hover {
-    pointer-events: none;   /* 🚫 no hover / click */
-    cursor: not-allowed;
-    opacity: 0.6;
-    background-color: #ccc; /* optional */
-    border-color: #ccc;     /* optional */
-}
+    #submit_form_massage:disabled,
+    #submit_form_massage:disabled:hover {
+        pointer-events: none;
+        /* 🚫 no hover / click */
+        cursor: not-allowed;
+        opacity: 0.6;
+        background-color: #ccc;
+        /* optional */
+        border-color: #ccc;
+        /* optional */
+    }
+   .superfix {
+    background: #262d30;
+    padding: 2px 6px;
+    color: #fff !important;
+    border-radius: 69px;
+    font-size: 11px;
+    margin-left: 4px;
+    font-weight: bold;
 
+    } 
+    #masseurs_Tab thead tr th {
+    text-align: center;
+    }
+    #masseurs_Tab tbody tr td {
+    text-align: center;
+    }
+
+    .list_profile_name {
+    display: block;
+    margin-top: 7px;
+    }
+
+    #selected_masseur thead tr th {
+    text-align: center;
+    }
+    #selected_masseur tbody tr td {
+    text-align: center;
+    }
+    .masseur_cus_width{
+        width: 40%;
+    }
+    .action_cus_width{
+        width: 10%;
+    }
+    
 </style>
 @endsection
 @section('content')
@@ -67,63 +106,63 @@
                 </div>
                 <div class="col-md-12 mb-4">
                     <div class="card collapse" id="notes" style="">
-                    <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                        <p></p>
-                        <ol>
-                                
-                        </ol>
-                    </div>
+                        <div class="card-body">
+                            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                            <p></p>
+                            <ol>
+
+                            </ol>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                   <div class="row">
-                      <div class="col-lg-2">
-                         <div class="form_process">
-                            <div class="steps_to_filled_from">Step 1</div>
-                            <p>About us</p>
-                         </div>
-                      </div>
-                      <div class="col-lg-3">
-                         <div class="form_process">
-                            <div class="steps_to_filled_from">Step 2</div>
-                            <p>Services &amp; Rates</p>
-                         </div>
-                      </div>
-                    
-                      <div class="col-lg-3">
-                        <div class="form_process">
-                           <div class="steps_to_filled_from">Step 3</div>
-                           <p>Open times</p>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="form_process">
+                                <div class="steps_to_filled_from">Step 1</div>
+                                <p>About us</p>
+                            </div>
                         </div>
-                     </div>
-                      
-                      <div class="col-lg-3">
-                         <div class="form_process">
-                            <div class="steps_to_filled_from">Step 4</div>
-                            <p>Masseurs</p>
-                         </div>
-                      </div>
-                      {{-- <div class="col-lg-3">
+                        <div class="col-lg-3">
+                            <div class="form_process">
+                                <div class="steps_to_filled_from">Step 2</div>
+                                <p>Services &amp; Rates</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="form_process">
+                                <div class="steps_to_filled_from">Step 3</div>
+                                <p>Open times</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="form_process">
+                                <div class="steps_to_filled_from">Step 4</div>
+                                <p>Masseurs</p>
+                            </div>
+                        </div>
+                        {{-- <div class="col-lg-3">
                          <div class="form_process">
                             <div class="steps_to_filled_from">Step 5</div>
                             <p>Check fee summary and pay</p>
                          </div>
                       </div> --}}
-                      <div class="col-lg-1">
-                        <p id="percent" style="font-size: 48px;font-weight: 700;">25%</p>
-                      </div>
-                   </div>
-                   <div class="manage_process_bar_padding">
-                      <div class="progress define_process_bar_width">
-                         <div class="progress-bar define_process_bar_color" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                         </div>
-                      </div>
-                   </div>
+                        <div class="col-lg-1">
+                            <p id="percent" style="font-size: 48px;font-weight: 700;">25%</p>
+                        </div>
+                    </div>
+                    <div class="manage_process_bar_padding">
+                        <div class="progress define_process_bar_width">
+                            <div class="progress-bar define_process_bar_color" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-             </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <!-- Begin Page Content -->
@@ -131,32 +170,32 @@
                         <div class="col-md-12 remove_padding_in_ph" id="tabs">
                             <ul class="dk-tab nav gap_between_btns mb-3" id="myTab" role="tablist">
                                 <li class="nav-item m-0">
-                                   <a class="nav-link active" id="home-tab" data-toggle="tab" href="#aboutme" role="tab" aria-controls="home" aria-selected="true">About us</a>
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#aboutme" role="tab" aria-controls="home" aria-selected="true">About us</a>
                                 </li>
                                 <li class="nav-item m-0">
-                                   <a class="nav-link" id="profile-tab" data-toggle="tab" href="#services" role="tab" aria-controls="profile" aria-selected="false">Services &amp; Rates</a>
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#services" role="tab" aria-controls="profile" aria-selected="false">Services &amp; Rates</a>
                                 </li>
                                 <li class="nav-item m-0">
-                                   <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available" role="tab" aria-controls="contact" aria-selected="false">Open Times</a>
+                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available" role="tab" aria-controls="contact" aria-selected="false">Open Times</a>
                                 </li>
                                 <li class="nav-item m-0 masseurs_tab">
-                                   <a class="nav-link" id="massuers-tab" data-toggle="tab" href="#massuers" role="tab" aria-controls="massuers" aria-selected="false">Masseurs</a>
+                                    <a class="nav-link" id="massuers-tab" data-toggle="tab" href="#massuers" role="tab" aria-controls="massuers" aria-selected="false">Masseurs</a>
                                 </li>
                                 {{-- <li class="nav-item m-0">
                                    <a class="nav-link" id="pricing-tab" data-toggle="tab" href="#pricing" role="tab" aria-controls="contact" aria-selected="false">Check fee summary and pay</a>
                                 </li> --}}
-                                
-                                
+
+
                             </ul>
                             <form id="my_massage_profile" action="{{ route('center.create-profile')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="tab-content custom-tab-bg-mc" id="myTabContent">
-                                    
+
                                     @include('center.dashboard.profile.create.aboutme-dash-tab')
                                     @include('center.dashboard.profile.create.services-dash-tab')
                                     @include('center.dashboard.profile.create.available-dash-tab')
                                     @include('center.dashboard.profile.create.massuers-dash-tab')
-                                    
+
                                 </div>
                             </form>
                         </div>
@@ -173,42 +212,76 @@
 
 
 <div class="modal programmatic" id="update_info" style="display: none">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content custome_modal_max_width">
-         <div class="modal-header main_bg_color border-0">
-            <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color border-0">
+                <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}"
+                            class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form name="update_single_data" method="post" action="{{route('center.update-single-data')}}">
+                    <input type="hidden" name="post_field" id="post_field" value="">
+                    <input type="hidden" name="post_value" id="post_value" value="">
+
+                    <input type="hidden" name="post_json" id="post_json" value="">
+                    <input type="hidden" name="post_type" id="post_type" value="">
+
+                    <h3 class="my-2"><span id="Lname">
+                            <p>Would you like to update <b>
+                                    <span id="field_name"></span>
+                                </b> in your 'Our Information' page for future Profiles?</p>
+                        </span> </h3>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
+                            value="close" id="close_change">No</button>
+                        <button type="button" class="btn-success-modal" id="update_new_value">Yes</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal create_messure" id="create_messure" style="display: none">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color border-0">
+                <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Masseur Profile</h5>
+                <!-- <button class="close" type="button" data-dismiss="modal" aria-label="Close"> 
             <span aria-hidden="true">
             <img src="{{ asset('assets/app/img/newcross.png') }}"
                class="img-fluid img_resize_in_smscreen">
             </span>
             </button>
-         </div>
-         <div class="modal-body">
+            -->
+            </div>
+            <div class="modal-body">
 
-            <form name="update_single_data" method="post" action="{{route('center.update-single-data')}}">
-            <input type="hidden" name="post_field" id="post_field" value="">
-            <input type="hidden" name="post_value" id="post_value" value="">
+                <h4>
+                    <div class="text-center">
+                        <p>You don’t have any masseur profiles yet.</p>
+                        <p>Please click the <strong>Create Masseur</strong> button below to add a masseur profiles.</p>
 
-             <input type="hidden" name="post_json" id="post_json" value="">
-            <input type="hidden" name="post_type" id="post_type" value="">
-                
-                <h3 class="my-2"><span id="Lname"><p>Would you like to update <b>
-                                <span id="field_name"></span>       
-                </b> in your 'My Information' page for future Profiles?</p></span> </h3>
-                <div class="modal-footer">
-                <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
-                    value="close" id="close_change">No</button>
-                <button type="button" class="btn-success-modal" id="update_new_value">Yes</button>
-                </div>
-            </form>
+                        <button type="button" class="btn-success-modal mt-3" id="create_messure_profile">
+                            Create Masseur
+                        </button>
+                    </div>
+                </h4>
 
 
-         </div>
-      </div>
-   </div>
+            </div>
+        </div>
+    </div>
 </div>
-
 
 
 
@@ -237,89 +310,87 @@
 <script src="{{ asset('assets/dashboard/vendor/ckeditor/ckeditor.js') }}"></script>
 
 <script>
-window.defaultImagesUrl = "{{ route('center.get.default.images') }}";
-window.postdefaultImageUrl = "{{ route('center.default.images') }}";
-var textarea = document.getElementById('about_us_box');
-CKEDITOR.replace('about_us_box');
-var updatePosition = 0;
-var edit_mode = false;
-
+    window.defaultImagesUrl = "{{ route('center.get.default.images') }}";
+    window.postdefaultImageUrl = "{{ route('center.default.images') }}";
+    var textarea = document.getElementById('about_us_box');
+    CKEDITOR.replace('about_us_box');
+    var updatePosition = 0;
+    var edit_mode = false;
 </script>
 
 
-<script src="{{ asset('js/massage/create-profile-methods.js') }}"></script> 
+<script src="{{ asset('js/massage/create-profile-methods.js') }}"></script>
 <script src="{{ asset('js/massage/profile_and_media_gallery.js') }}"></script>
 
 
 
 <script>
-
     var my_availability = [];
 
     $("body").on("click", "#defaultImg", setDefaults);
-   
-    $ (document).ready(function(e) {
+
+    $(document).ready(function(e) {
 
 
-        $('#language').change(function(){
+        $('#language').change(function() {
             var languageValue = $('#language').val();
             $("#show_language").show();
             $(".select_lang").hide();
             var selectedLanguage = $(this).children("option:selected", this).data("name");
-            $("#show_language").append("  <div class='selecated_languages' style='display: inline-block'><span class='languages_choosed_from_drop_down'>"+ selectedLanguage +" <small class='remove-lang'>×</small></span> </div> ");
-            $("#container_language").append("<input type='hidden' name='language[]' value="+ languageValue +">");
-            $("#language option[value='"+languageValue+"']").remove();
+            $("#show_language").append("  <div class='selecated_languages' style='display: inline-block'><span class='languages_choosed_from_drop_down'>" + selectedLanguage + " <small class='remove-lang'>×</small></span> </div> ");
+            $("#container_language").append("<input type='hidden' name='language[]' value=" + languageValue + ">");
+            $("#language option[value='" + languageValue + "']").remove();
         });
 
-         $(document).on('click', '.remove-lang , span.custom--help', function () {
-            $(this).closest('.selecated_languages').remove();            
+        $(document).on('click', '.remove-lang , span.custom--help', function() {
+            $(this).closest('.selecated_languages').remove();
             $(this).closest('.custom-help-contain').toggleClass('help-note-toggle');
         });
 
         //// ----------- Update Single Data ------------ ///////
-         $('.update_profile_data').on('blur change', function () {
+        $('.update_profile_data').on('blur change', function() {
 
-                var current_feild  = $(this).attr('id');
-                var current_value  = $(this).val();
-                
-                if(current_value==="")
-                return false;    
+            var current_feild = $(this).attr('id');
+            var current_value = $(this).val();
+
+            if (current_value === "")
+                return false;
 
 
-                var old_value  = $('#profile_'+current_feild).val();
+            var old_value = $('#profile_' + current_feild).val();
 
-                if(current_feild=='about_title')
-                    current_feild = 'about_us_box'
+            if (current_feild == 'about_title')
+                current_feild = 'about_us_box'
 
-                if (current_value !== old_value) {
+            if (current_value !== old_value) {
                 $('#post_field').val(current_feild);
                 $('#post_value').val(current_value);
                 $('#field_name').text(formatProfileName(current_feild));
                 $('#update_info').modal('show');
-                }
-         });
+            }
+        });
 
 
-         $('.update_default_rate').on('blur', function () {
+        $('.update_default_rate').on('blur', function() {
 
-                var duration_id  = $(this).data('duration_id');
-                var massage_profile_id  = $(this).data('massage_profile_id');
-                var data_type  = $(this).data('data_type');
-
-
-                var current_value  = $(this).val();
-                var current_feild  = $(this).attr('id');
-
-                var current_old_input = 'profile_'+current_feild;
-                var old_value  =  $(this).closest('.service_rate_dolor_symbol').find('.'+current_old_input).val();
-
-               
-            
-                if(current_value==="")
-                return false;    
+            var duration_id = $(this).data('duration_id');
+            var massage_profile_id = $(this).data('massage_profile_id');
+            var data_type = $(this).data('data_type');
 
 
-                if (current_value !== old_value) {
+            var current_value = $(this).val();
+            var current_feild = $(this).attr('id');
+
+            var current_old_input = 'profile_' + current_feild;
+            var old_value = $(this).closest('.service_rate_dolor_symbol').find('.' + current_old_input).val();
+
+
+
+            if (current_value === "")
+                return false;
+
+
+            if (current_value !== old_value) {
 
                 let postData = {
                     duration_id: duration_id,
@@ -332,55 +403,57 @@ var edit_mode = false;
                 $('#post_type').val('rate');
                 $('#field_name').text('Rate');
                 $('#update_info').modal('show');
-                }
-         });
-
-
-            function formatProfileName(text) {
-
-                let formattedText = text
-                    .split('_')
-                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(' ');
-
-                switch (formattedText) {
-                    case 'Phone':
-                        return 'Mobile No';
-
-                        case 'About Us Box':
-                        return 'Who are We';
-                    
-                    default:
-                        return formattedText;
-                }
             }
+        });
 
-            $('#update_new_value').on('click', function (e) {
-                e.preventDefault();
-                swal_waiting_popup({'title':'Updating Data.'});
-                let form = $('form[name="update_single_data"]');
 
-                $.ajax({
-                    url: form.attr('action'),
-                    type: 'POST',
-                    data: form.serialize(),
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function (response) {
-                        Swal.close();
-                        $('#update_info').modal('hide');    
-                    },
-                    error: function (xhr) {
-                       Swal.close();
-                       $('#update_info').modal('hide');
-                    },
-                    complete: function () {
-                         Swal.close();
-                         $('#update_info').modal('hide');
-                    }
-                });
-            });    
+        function formatProfileName(text) {
+
+            let formattedText = text
+                .split('_')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+
+            switch (formattedText) {
+                case 'Phone':
+                    return 'Mobile No';
+
+                case 'About Us Box':
+                    return 'Who are We';
+
+                default:
+                    return formattedText;
+            }
+        }
+
+        $('#update_new_value').on('click', function(e) {
+            e.preventDefault();
+            swal_waiting_popup({
+                'title': 'Updating Data.'
+            });
+            let form = $('form[name="update_single_data"]');
+
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: form.serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    Swal.close();
+                    $('#update_info').modal('hide');
+                },
+                error: function(xhr) {
+                    Swal.close();
+                    $('#update_info').modal('hide');
+                },
+                complete: function() {
+                    Swal.close();
+                    $('#update_info').modal('hide');
+                }
+            });
+        });
 
         ///////// End Update Single Data //////////////////      
 
@@ -389,7 +462,7 @@ var edit_mode = false;
 
 
         const validator = $('#my_massage_profile').validate({
-            ignore: function (index, element) {
+            ignore: function(index, element) {
                 return $(element).closest('.tab-pane').length &&
                     !$(element).closest('.tab-pane').hasClass('active');
             },
@@ -400,7 +473,7 @@ var edit_mode = false;
 
 
 
-        $('.nex_sterp_btn').on('click', function () {
+        $('.nex_sterp_btn').on('click', function() {
 
             syncCKEditor();
             let isValid = true;
@@ -409,40 +482,37 @@ var edit_mode = false;
             let isThirdTab = $('a.nav-link.active').parent().index() === 2;
             let fouthTab = $('a.nav-link.active').parent().index() === 3;
 
-            console.log('isFirstTab',isFirstTab);
-            console.log('isSecondTab',isSecondTab);
-            console.log('isThirdTab',isThirdTab);
-            console.log('fouthTab',fouthTab);
+            console.log('isFirstTab', isFirstTab);
+            console.log('isSecondTab', isSecondTab);
+            console.log('isThirdTab', isThirdTab);
+            console.log('fouthTab', fouthTab);
 
             //console.log('logs====>', $('a.nav-link.active').parent().index());
 
 
-            if (isFirstTab) 
-            {
+            if (isFirstTab) {
 
-                if(!checkProfileDynamicMedia()){
-                return false;
+                if (!checkProfileDynamicMedia()) {
+                    return false;
                 }
             }
 
-            if(isSecondTab)
-            {
+            if (isSecondTab) {
 
-                if(!validateSecondTab())
-                 return false;    
+                if (!validateSecondTab())
+                    return false;
             }
 
-            if(isThirdTab)
-            {
-               
-                if(!validateThirdTab())
-                 return false; 
+            if (isThirdTab) {
 
-                 load_landing_messures_table();
-            
+                if (!validateThirdTab())
+                    return false;
+
+                // load_landing_messures_table();
+
             }
-        
-            $('.tab-pane.active :input').each(function () {
+
+            $('.tab-pane.active :input').each(function() {
                 if (!validator.element(this)) {
                     isValid = false;
                 }
@@ -456,7 +526,7 @@ var edit_mode = false;
             //         return false;  
             // }
 
-            
+
             if (!validateCKEditor()) {
                 isValid = false;
             }
@@ -464,22 +534,22 @@ var edit_mode = false;
             if (!isValid) return false;
 
 
-                let nextTab = $('a.nav-link.active')
-                    .parent()
-                    .next()
-                    .find('a[data-toggle="tab"]');
+            let nextTab = $('a.nav-link.active')
+                .parent()
+                .next()
+                .find('a[data-toggle="tab"]');
 
-               if (nextTab.length) {
-                   
-                    nextTab.tab('show');
-                    nextTab.removeClass('disabled-form-tab'); 
-                    updateProgressBar(nextTab.attr('id'));
-                }
-        
+            if (nextTab.length) {
+
+                nextTab.tab('show');
+                nextTab.removeClass('disabled-form-tab');
+                updateProgressBar(nextTab.attr('id'));
+            }
+
 
         });
 
-        $('.prev_step_btn').on('click', function () {
+        $('.prev_step_btn').on('click', function() {
 
             let prevTab = $('a.nav-link.active')
                 .parent()
@@ -492,136 +562,133 @@ var edit_mode = false;
         });
 
 
-          
-                
-          initDragDrop();
-
-          $("#img1, #img2, #img3, #img4, #img5, #img6, #img7, #img9").on('click', function(e) {
-                if ($(this).attr('id') == 'img9') {
-                    $(".uploadModalTrigger").find("button").attr('data-target', '#upload-sec-banner');
-
-                } else {
-                    $(".uploadModalTrigger").find("button").attr('data-target', '#exampleModal');
-
-                }
-            });
-
-            $(".uploadModalTrigger").on('click', 'button', function() {
-                $("#photo_gallery").modal("hide");
-                $("#photo_gallery_banner").modal("hide");
-            });
 
 
+        initDragDrop();
+
+        $("#img1, #img2, #img3, #img4, #img5, #img6, #img7, #img9").on('click', function(e) {
+            if ($(this).attr('id') == 'img9') {
+                $(".uploadModalTrigger").find("button").attr('data-target', '#upload-sec-banner');
+
+            } else {
+                $(".uploadModalTrigger").find("button").attr('data-target', '#exampleModal');
+
+            }
+        });
+
+        $(".uploadModalTrigger").on('click', 'button', function() {
+            $("#photo_gallery").modal("hide");
+            $("#photo_gallery_banner").modal("hide");
+        });
 
 
 
-    
 
 
 
-        $('#my_massage_profile').on('submit', function (e) {
+
+
+
+        $('#my_massage_profile').on('submit', function(e) {
             e.preventDefault();
             submit_form_massage();
+        });
+
+        function submit_form_massage() {
+            let form = $('#my_massage_profile');
+            let formData = new FormData(form[0]);
+
+
+            let masseurIds = getSelectedMasseurIds();
+            formData.append('masseur_ids', JSON.stringify(masseurIds));
+
+
+            swal_waiting_popup({
+                'title': 'Creating Profile'
             });
+            $.ajax({
+                url: "{{ route('center.create.profile') }}",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    Swal.close();
+                    if (response.success === true && response.massage_profile_id) {
+                        swal_success_popup(response.message ?? 'Profile created successfully');
+                        setTimeout(function() {
+                            window.location = 'update-profile/' + response.massage_profile_id;
+                        }, 2000); // 2 seconds
 
-            function submit_form_massage() 
-            {
-                let form = $('#my_massage_profile');
-                let formData = new FormData(form[0]);
-
-
-                let masseurIds = getSelectedMasseurIds();
-                formData.append('masseur_ids', JSON.stringify(masseurIds));
-
-
-                swal_waiting_popup({'title':'Creating Profile'});
-                $.ajax({
-                    url: "{{ route('center.create.profile') }}",
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        Swal.close();
-                        if (response.success === true && response.massage_profile_id) {
-                            swal_success_popup(response.message ?? 'Profile created successfully');
-                            setTimeout(function () {
-                                window.location = 'update-profile/' + response.massage_profile_id;
-                            }, 2000); // 2 seconds
-
-                        } 
-                        else 
-                        {
-                            swal_error_popup('Something went wrong');
-                        }
-                    },
-
-                    error: function (xhr) {
-                        Swal.close();
-                        let message = 'Error while saving profile';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            message = xhr.responseJSON.message;
-                        }
-                        swal_error_popup(message);
+                    } else {
+                        swal_error_popup('Something went wrong');
                     }
-                });
-            }
-        
+                },
+
+                error: function(xhr) {
+                    Swal.close();
+                    let message = 'Error while saving profile';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        message = xhr.responseJSON.message;
+                    }
+                    swal_error_popup(message);
+                }
+            });
+        }
+
     });
 
 
 
 
-    $(document).on('click', '#massuers-tab', function (e) {
-        load_landing_messures_table();
-    });
+    // $(document).on('click', '#massuers-tab', function(e) {
+    //     load_landing_messures_table();
+    // });
 
 
 
 
     // ########### Messasure List ############### //////
-
-        
 </script>
 
 
 
 
-<script type="text/javascript"  src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
-var masseurTable = null;
-var currentAvailability = null;
-var currentSelectedList = [];
+    var masseurTable = null;
+    var currentAvailability = null;
+    var currentSelectedList = [];
 
 
-// const my_availability = {
-//     monday:    { status: "custom", from: "01:00 PM", to: "11:30 PM" },
-//     tuesday:   { status: "custom", from: "01:00 AM", to: "11:30 PM" },
-//     wednesday: { status: "custom", from: "01:00 AM", to: "11:30 PM" },
-//     thursday:  { status: "custom", from: "01:00 AM", to: "11:30 PM" },
-//     friday:    { status: "custom", from: "01:00 AM", to: "11:30 PM" },
-//     saturday:  { status: "custom", from: "01:00 AM", to: "11:30 PM" },
-//     sunday:    { status: "custom", from: "01:00 AM", to: "10:00 PM" }
-// };
+    // const my_availability = {
+    //     monday:    { status: "custom", from: "01:00 PM", to: "11:30 PM" },
+    //     tuesday:   { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+    //     wednesday: { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+    //     thursday:  { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+    //     friday:    { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+    //     saturday:  { status: "custom", from: "01:00 AM", to: "11:30 PM" },
+    //     sunday:    { status: "custom", from: "01:00 AM", to: "10:00 PM" }
+    // };
 
 
-  
 
-    $('.add_masseurs').on('click', function () {
 
-        $('#masseurs_Tab tbody input.select-masseur:checked').each(function () {
+    $('.add_masseurs').on('click', function() {
+
+        $('#masseurs_Tab tbody input.select-masseur:checked').each(function() {
 
             let $row = $(this).closest('tr');
-            let id   = $(this).val();
+            let id = $(this).val();
 
-            
-            if ($('#selected_masseur tbody tr[data-id="'+id+'"]').length) {
+
+            if ($('#selected_masseur tbody tr[data-id="' + id + '"]').length) {
                 return;
             }
 
-            let profile     = $row.find('td:eq(1)').html();
-            let days        = $row.find('td:eq(2)').html();
-            let ethnicity   = $row.find('td:eq(3)').text();
+            let profile = $row.find('td:eq(1)').html();
+            let days = $row.find('td:eq(2)').html();
+            let ethnicity = $row.find('td:eq(3)').text();
             let nationality = $row.find('td:eq(4)').text();
 
             let html = `
@@ -630,7 +697,7 @@ var currentSelectedList = [];
                     <td>${days}</td>
                     <td>${nationality}</td>
                     <td>${ethnicity}</td>
-                    <td> <button type="button" class="btn-danger btn-sm remove-row">Remove</button></td>
+                    <td> <button type="button" class="btn-cancel-modal py-1 btn-sm remove-row">Remove</button></td>
 
                     
                     
@@ -647,92 +714,101 @@ var currentSelectedList = [];
     });
 
 
-    $(document).on('click', '.remove-row', function () {
+    $(document).on('click', '.remove-row', function() {
         $(this).closest('tr').remove();
         refresh_masseur_table();
         toggleSaveProfileButton();
     });
 
-   
 
 
-function load_masseur_data_table(my_availability,currentList)
-{
-    // update global state
-    currentAvailability = my_availability || currentAvailability;
-    currentSelectedList = currentList || currentSelectedList;
-    
-    if ($.fn.DataTable.isDataTable('#masseurs_Tab')) {
-        masseurTable.ajax.reload(null, false);
-        return;
+
+    function load_masseur_data_table(my_availability, currentList) {
+        // update global state
+        currentAvailability = my_availability || currentAvailability;
+        currentSelectedList = currentList || currentSelectedList;
+
+        if ($.fn.DataTable.isDataTable('#masseurs_Tab')) {
+            masseurTable.ajax.reload(null, false);
+            return;
+        }
+
+        console.log('Initializing DataTable');
+
+        masseurTable = $("#masseurs_Tab").DataTable({
+            processing: true,
+            serverSide: true,
+            paging: false,
+            searching: false,
+            info: false,
+            lengthChange: false,
+            ordering: false,
+
+            ajax: {
+                url: "{{ route('center.masseur-option-list') }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: function(d) {
+                    d.type = 'player';
+                    d.availability = currentAvailability;
+                    d.selectedList = currentSelectedList;
+                }
+            },
+
+            columns: [{
+                    data: 'checkbox',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'profile'
+                },
+                {
+                    data: 'days', class:'masseur_cus_width'
+                },
+                {
+                    data: 'ethnicity'
+                },
+                {
+                    data: 'nationality'
+                }
+            ]
+        });
     }
 
-    console.log('Initializing DataTable');
-
-    masseurTable = $("#masseurs_Tab").DataTable({
-        processing: true,
-        serverSide: true,
-        paging: false,
-        searching: false,
-        info: false,
-        lengthChange: false,
-        ordering: false,
-
-        ajax: {
-            url: "{{ route('center.masseur-option-list') }}",
-            type: "POST",
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            data: function (d) {
-                d.type = 'player';
-                d.availability = currentAvailability;
-                d.selectedList = currentSelectedList;
-            }
-        },
-
-        columns: [
-            { data: 'checkbox', orderable: false, searchable: false },
-            { data: 'profile' },
-            { data: 'days' },
-            { data: 'ethnicity' },
-            { data: 'nationality' }
-        ]
-    });
-}
 
 
-
-    function getSelectedMasseurIds() 
-    {
+    function getSelectedMasseurIds() {
         let ids = [];
-        $('#selected_masseur tbody tr[data-id]').each(function () {
+        $('#selected_masseur tbody tr[data-id]').each(function() {
             ids.push($(this).data('id'));
         });
 
         return ids;
     }
 
-    function toggleSaveProfileButton() 
-    {
+    function toggleSaveProfileButton() {
 
-            let ids = [];
-            const count = $('#selected_masseur tbody tr[data-id]').length;
-            
+        let ids = [];
+        const count = $('#selected_masseur tbody tr[data-id]').length;
 
-            if (count > 0) {
-                $('#submit_form_massage').prop('disabled', false);
-            } else {
-                $('#submit_form_massage').prop('disabled', true);
-            }
+        console.log('selected_masseur',count);
+
+
+        if (count > 0) {
+            $('#submit_form_massage').prop('disabled', false);
+        } else {
+            $('#submit_form_massage').prop('disabled', true);
+        }
     }
 
 
-    function calculateTime() 
-    {
+    function calculateTime() {
         let formData = new FormData();
 
-        $('#my-avail-time').find('input, select, textarea').each(function () {
+        $('#my-avail-time').find('input, select, textarea').each(function() {
             let el = $(this);
             let name = el.attr('name');
             if (!name) return;
@@ -761,33 +837,124 @@ function load_masseur_data_table(my_availability,currentList)
     }
 
 
-    function load_landing_messures_table()
-    {
+    // function load_landing_messures_table() {
+    //     calculateTime()
+    //         .done(function(response) {
+    //             let my_availability = response.data;
+    //             load_masseur_data_table(my_availability);
+    //         })
+    //         .fail(function() {
+    //             swal_error_popup('Error occured while calculating availability');
+    //         });
+    // }
+
+
+    function refresh_masseur_table() {
         calculateTime()
-            .done(function (response) {
+            .done(function(response) {
                 let my_availability = response.data;
-                load_masseur_data_table(my_availability);
+                currentList = getSelectedMasseurIds();
+
+                console.log('currentList',currentList);
+
+                load_masseur_data_table(my_availability, currentList);
             })
-            .fail(function () {
+            .fail(function() {
                 swal_error_popup('Error occured while calculating availability');
             });
     }
 
+   
 
-    function refresh_masseur_table()
-    {
-        calculateTime()
-        .done(function (response) {
-            let my_availability = response.data;
-            currentList = getSelectedMasseurIds();
-            load_masseur_data_table(my_availability,currentList);
-        })
-        .fail(function () {
-            swal_error_popup('Error occured while calculating availability');
+
+    $(document).ready(function() {
+
+
+        $.ajax({
+            url: "{{ route('center.check-messure-profile') }}",
+            type: 'GET',
+            processData: false,
+            contentType: false,
+            success: function(response) {
+
+                if (response.messure_count < 1) {
+                    $('#create_messure').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                }
+
+            },
+
+            error: function(xhr) {
+                Swal.close();
+                let message = 'Error while saving profile';
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    message = xhr.responseJSON.message;
+                }
+                swal_error_popup(message);
+            }
         });
-    }
 
- toggleSaveProfileButton();
+    })
 
-</script>    
+
+
+    // ########## Load Default Massure ################ //
+        var table = $("#selected_masseur").DataTable({
+        processing: true,
+        serverSide: false,
+        paging: false,        
+        searching: false,    
+        info: false,          
+        lengthChange: false,  
+        ordering: false,      
+
+        ajax: {
+            url: "{{ route('center.load-default-masseur-list') }}",
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            data: function (d) {
+                d.type = 'player';
+                return JSON.stringify(d);
+            },
+
+        
+        },
+
+        createdRow: function (row, data, dataIndex) {
+            console.log(data);
+                $(row).attr('data-id', data.id); 
+            },
+
+            columns: [
+            
+                { data: 'profile'},
+                { data: 'days' , class:'masseur_cus_width'},
+                { data: 'ethnicity' },
+                { data: 'nationality' },
+                { data: 'action', orderable: false, searchable: false, class:'action_cus_width' } 
+            ],
+
+
+            initComplete: function () {
+                toggleSaveProfileButton(); 
+                currentList = getSelectedMasseurIds();
+                let my_availability = [];
+                load_masseur_data_table(my_availability,currentList);
+            }
+
+    });
+
+     // ########## Load Default Massure ################ //
+
+
+    $('#create_messure_profile').on('click', function() {
+        window.location.href = 'create-new-masseur';
+    });
+</script>
 @endpush

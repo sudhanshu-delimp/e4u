@@ -116,8 +116,9 @@
                                     <th scope="col">Mobile</th>
                                     <th scope="col">Ethnicity</th>
                                     <th scope="col">Nationality</th>
-                                    <th scope="col">Created Date</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Default Profile</th>
+                                    <th scope="col">Created Date</th>
                                     <th scope="col" class="text-center">Action</th>
                                     </tr>
                                  </thead>
@@ -212,13 +213,100 @@ var table = $("#masseurs_list").DataTable({
             { data: 'mobile', name: 'mobile', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'ethnicity', name: 'ethnicity', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'nationality', name: 'nationality', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'created_at', name: 'created_at', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'status', name: 'status', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'default_profile', name: 'default_profile', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'created_at', name: 'created_at', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
     ],
 
 
 });
+
+
+$(document).on('click', '.masseur_action', async function () {
+
+      let current_id = $(this).attr('id');
+      var mess = "";
+      let rowId = $(this).data('row-id');
+      let action = "";
+
+      if(!current_id || !rowId )
+      return false;
+
+      if(current_id=='row_deactive')
+      {
+          mess =   'Are you sure you want to deactivate this profile?' 
+          action = current_id;
+      }
+     
+      else if(current_id=='row_active')
+      {
+         mess =   'Do you want to activate this profile?';
+         action = current_id;
+      }
+       
+
+      else if(current_id=='row_default')
+      {
+         mess =   'Do you want to mark this as default?' 
+         action = current_id;
+      }
+
+      else if(current_id=='row_undefault')
+      {
+         mess =   'Do you want to remove this as default?' 
+         action = current_id;
+      }
+
+
+      let mess_data = {
+         'title' : 'NA',
+         'text' : mess,
+      }
+
+      let post_data = {
+         'action' : action,
+         'profile_id':rowId
+      }
+   
+      if(await isConfirm(mess_data))
+      {
+            swal_waiting_popup({
+                'title': 'Updating...'
+            });
+
+            $.ajax({
+               url: "{{ route('center.action-messure-profile') }}",
+               type: 'POST',
+               data: post_data,
+               success: function(response) {
+                  Swal.close();
+                  if (response.success) {
+                    table.ajax.reload(null, false);
+                    swal_success_popup(response.message);
+
+                  }
+               },
+
+               error: function(xhr) {
+                  Swal.close();
+                  let message = 'Error while saving profile';
+                  if (xhr.responseJSON && xhr.responseJSON.message) {
+                     message = xhr.responseJSON.message;
+                  }
+                  swal_error_popup(message);
+               }
+         });
+      }
+
+      
+
+
+
+})
+
+
+
 
  </script>
 

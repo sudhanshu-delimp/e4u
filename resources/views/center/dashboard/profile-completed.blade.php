@@ -8,9 +8,9 @@
             <div class="col-lg-6 offset-lg-3 d-flex align-items-center justify-content-center" style="min-height: 80vh;">
                 <div class="card text-center shadow-sm">
                     <div class="card-body pb-4">
-                        <h1 class="card-title font-weight-bold">Profile Completed</h1>
-                        <p class="card-text">Your profile has been completed successfully. You can now access all the features of your account. Thank you for providing the necessary information.</p>
-                        <a href="{{ route('center.dashboard') }}" class="btn-success-modal text-white">Go to Dashboard</a> 
+                        <h1 class="card-title font-weight-bold">Profile Already Created</h1>
+                        <p class="card-text mb-4">Your profile has already been created. Please go to Our Profile to view the details.</p>
+                        <a href="{{ route('center.list') }}" class="btn-success-modal text-white mb-4">Go to Our Profile</a> 
                     </div>
                 </div>
             </div>
