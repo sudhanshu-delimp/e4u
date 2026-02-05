@@ -29,11 +29,11 @@
         color: #fff !important;
     }
 
-    .disabled-form-tab {
+    /* .disabled-form-tab {
         pointer-events: none;
         opacity: 0.5;
     }
-
+ */
 
 
     .defult-image {
@@ -759,6 +759,8 @@
         let ids = [];
         const count = $('#selected_masseur tbody tr[data-id]').length;
 
+        console.log('selected_masseur',count);
+
 
         if (count > 0) {
             $('#submit_form_massage').prop('disabled', false);
@@ -817,6 +819,9 @@
             .done(function(response) {
                 let my_availability = response.data;
                 currentList = getSelectedMasseurIds();
+
+                console.log('currentList',currentList);
+
                 load_masseur_data_table(my_availability, currentList);
             })
             .fail(function() {
@@ -824,7 +829,7 @@
             });
     }
 
-    toggleSaveProfileButton();
+   
 
 
     $(document).ready(function() {
@@ -857,6 +862,57 @@
         });
 
     })
+
+
+
+    // ########## Load Default Massure ################ //
+        var table = $("#selected_masseur").DataTable({
+        processing: true,
+        serverSide: false,
+        paging: false,        
+        searching: false,    
+        info: false,          
+        lengthChange: false,  
+        ordering: false,      
+
+        ajax: {
+            url: "{{ route('center.load-default-masseur-list') }}",
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            data: function (d) {
+                d.type = 'player';
+                return JSON.stringify(d);
+            },
+
+        
+        },
+
+        createdRow: function (row, data, dataIndex) {
+            console.log(data);
+                $(row).attr('data-id', data.id); 
+            },
+
+            columns: [
+            
+                { data: 'profile' },
+                { data: 'days' },
+                { data: 'ethnicity' },
+                { data: 'nationality' },
+                { data: 'action', orderable: false, searchable: false } 
+            ],
+
+
+            initComplete: function () {
+                toggleSaveProfileButton(); 
+            }
+
+    });
+
+     // ########## Load Default Massure ################ //
 
 
     $('#create_messure_profile').on('click', function() {

@@ -114,6 +114,10 @@ Route::post('default_photos_masseur', [MasseurController ::class, 'defaultImages
 Route::post('masseur-option-list', [MasseurController ::class, 'masseur_option_list'])->name('center.masseur-option-list');
 Route::post('get-masseur-option-list', [MasseurController ::class, 'get_masseur_option_list'])->name('center.get-masseur-option-list');
 Route::post('filter-masseur-option-list', [MasseurController ::class, 'get_filter_masseur_option_list'])->name('center.filter-masseur-option-list');
+Route::post('load-default-masseur-list', [MasseurController ::class, 'get_load_default_masseur_list'])->name('center.load-default-masseur-list');
+
+
+
 
 
 Route::post('create-action-messure-profile', [MasseurController::class, 'action_messure_profile'])->name('center.action-messure-profile');
