@@ -145,6 +145,7 @@ class PublicationBlogController extends Controller
             }
 
             if ($status === 'Removed') {
+                ImageService::delete($blog->blog_image, 'publication_blog');
                 $blog->delete();
                 return success_response(
                     ['id' => $blog->id, 'status' => 'Removed'],
