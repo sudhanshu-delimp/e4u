@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('fees_support_services', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->mediumText('fee')->nullable();
-            $table->mediumText('frequency')->default('Per Service');
+            $table->mediumText('frequency')->nullable('Per Service')->comment('Per Service');
             $table->decimal('amount')->nullable();
             $table->timestamps();
         });
