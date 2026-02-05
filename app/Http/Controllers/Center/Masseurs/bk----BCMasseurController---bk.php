@@ -625,36 +625,8 @@ class MasseurController extends AppController
             $masseurLists = $masseurLists->get();
             $countries = getCountryList();
 
-            $massaureTime  = [];
-            if($masseurLists->isNotEmpty())
-            {
-                $k=0;
-                foreach($masseurLists as $masseurList)
-                {
-                        $massaureTime[$k]['id'] =  $masseurList->id; 
-                        $massaureTime[$k]['availability'] = $masseurList->availability ? json_decode($masseurList->availability, true) : [];
-                        $k++;
-               }
-            }
-
-           
-
-            $eligible_masseur = [];
-            if((!empty($massageTime)) && (!empty($massaureTime)))
-            {
-               $eligible_masseur = $this->validate_masseur($massageTime,$massaureTime);
-            } 
-
             
-            
-            $eligible_masseur = array_values($eligible_masseur);
-            $query  = Masseur::whereIn('id', $eligible_masseur)->where('status','1')->get();
-
-           // Log::info($query);
-           // exit;
-
-
-             $data = $query->map(function ($row) use ($countries) {
+             $data = $masseurLists->map(function ($row) use ($countries) {
 
                $avail_arr  = $row->availability ? json_decode($row->availability, true) : [];
                $avail_list = $this->weeklyAvailibility($avail_arr);
@@ -664,7 +636,7 @@ class MasseurController extends AppController
                    
                     'checkbox' => '<input type="checkbox" class="select-masseur" value="'.$row->id.'">',
                     
-                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">('.$row->id.')',
+                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"> <span>'.$row->name.'</span>('.$row->id.')',
 
                     'days' => $avail_list,
 
@@ -720,7 +692,7 @@ class MasseurController extends AppController
                    
                     'checkbox' => '<input type="checkbox" class="select-masseur" value="'.$row->id.'">',
                     
-                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">('.$row->id.')',
+                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"><span>'.$row->name.'</span>('.$row->id.')',
 
                     'days' => $avail_list,
 
@@ -753,7 +725,7 @@ class MasseurController extends AppController
                    
                     'id' => $row->id,
                     
-                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"> ('.$row->id.')',
+                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"> <span>'.$row->name.'</span>('.$row->id.')',
 
                     'days' => $avail_list,
 
@@ -832,6 +804,18 @@ class MasseurController extends AppController
     }
 
 
+
+    public function count_messure_profile(Request $request)
+    {
+        $masseurs  = Masseur::where('user_id', auth()->user()->id)->count();
+         return response()->json([
+                'messure_count' => $masseurs
+         ]);
+    }
+
+    
+
+    
 
     
 

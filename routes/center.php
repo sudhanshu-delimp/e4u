@@ -53,10 +53,10 @@ Route::post('/update-account', [CenterController::class, 'update'])->name('cente
 // 		return view('center.my-account.change-password');
 // 	})->name('center.my-account.change-password');
 
-// Route::get('/my-account/upload-avatar', function()
-// 	{
-// 		return view('center.my-account.upload-avatar');
-// 	})->name('center.my-account.upload-avatar');
+ Route::get('/profile-completed', function()
+ 	{
+ 		return view('center.dashboard.profile-completed');
+ 	})->name('center.profile-completed');
 
 // Route::get('/my-account/edit-my-account', function()
 // 	{
@@ -94,6 +94,9 @@ Route::post('all-massager-list', [MassageController ::class, 'get_all_massager_l
 
 
 
+
+
+
 Route::post('make-time-json',[MassageController::class,'make_time_json'])->name('center.make-time-json');
 
 
@@ -111,12 +114,17 @@ Route::post('default_photos_masseur', [MasseurController ::class, 'defaultImages
 Route::post('masseur-option-list', [MasseurController ::class, 'masseur_option_list'])->name('center.masseur-option-list');
 Route::post('get-masseur-option-list', [MasseurController ::class, 'get_masseur_option_list'])->name('center.get-masseur-option-list');
 Route::post('filter-masseur-option-list', [MasseurController ::class, 'get_filter_masseur_option_list'])->name('center.filter-masseur-option-list');
+Route::post('load-default-masseur-list', [MasseurController ::class, 'get_load_default_masseur_list'])->name('center.load-default-masseur-list');
+
+
+
+
+
+Route::post('create-action-messure-profile', [MasseurController::class, 'action_messure_profile'])->name('center.action-messure-profile');
+Route::get('create-check-messure-profile', [MasseurController::class, 'count_messure_profile'])->name('center.check-messure-profile');
+
+
 Route::post('all-masseur-list', [MasseurController ::class, 'get_all_masseur_list'])->name('center.all-masseur-list');
-
-
-
-
-
 Route::post('masseurs/archives-listing',[MasseurController::class,'masseur_list'])->name('center.archives-listing');
 
 Route::post('center.massuers-media-upload-gallery',[MasseurController::class,'uploadGallery'])->name('center.massuers-media-upload-gallery');

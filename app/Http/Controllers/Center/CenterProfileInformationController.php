@@ -90,6 +90,8 @@ class CenterProfileInformationController extends BaseController
         
         $user = auth()->user()->id;
 
+       
+
         if(!$massage_profile = $this->massage_profile->findDefault($user,1)) {
             $massage_profile = $this->massage_profile->make();
         }
@@ -108,6 +110,9 @@ class CenterProfileInformationController extends BaseController
         $availability = $massage_profile->availability ? json_decode($massage_profile->availability->availability_time, true) : [];
         $social_links = $massage_profile->social_links ? json_decode($massage_profile->social_links, true) : [];
   
+
+     
+
         return view('center.my-account.profile-information',compact('massage_profile','service_one','service_two','service_three','availability','durations','social_links','massage_durations'));
     }
 

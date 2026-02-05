@@ -255,6 +255,25 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        
+
+
+                        <div class="card custom-help-contain">
+                            <div class="card-header">
+                                <a class="collapsed card-link" data-toggle="collapse" href="#my_available_times">
+                                Our open times
+                                </a>
+                            </div>
+                            <div id="my_available_times" class="collapse" data-parent="#accordion">
+                                <div class="card-body pb-0">                                    
+                                    @include('center.my-account.partials.available-dash-tab')
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="card custom-help-contain">
                             <div class="card-header">
                                 <a class="collapsed card-link" data-toggle="collapse" href="#my_rates">
@@ -270,18 +289,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card custom-help-contain">
-                            <div class="card-header">
-                                <a class="collapsed card-link" data-toggle="collapse" href="#my_available_times">
-                                Our open times
-                                </a>
-                            </div>
-                            <div id="my_available_times" class="collapse" data-parent="#accordion">
-                                <div class="card-body pb-0">                                    
-                                    @include('center.my-account.partials.available-dash-tab')
-                                </div>
-                            </div>
-                        </div>
+
+
                     <div class="card custom-help-contain">
                         <div class="card-header">
                             <a class="collapsed card-link" data-toggle="collapse" href="#my_service_tags">

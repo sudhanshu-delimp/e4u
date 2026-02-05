@@ -456,9 +456,6 @@ class MasseurController extends AppController
             /* ================== End Rates ================== */
 
     }
-
-
-
     
     public function masseur_list(Request $request)
     {
@@ -612,6 +609,53 @@ class MasseurController extends AppController
     }
 
 
+    public function  get_load_default_masseur_list(Request $request)
+    {
+
+            $massageTime = $request->availability; 
+            $masseurProfileIds = $request->selectedList;
+            $masseurLists = Masseur::where(['user_id' => auth()->user()->id,'status'=>'1','is_default'=>'1']);
+            
+            if(!empty($masseurProfileIds))
+            $masseurLists = $masseurLists->whereNotIn('id', $masseurProfileIds);    
+
+            $masseurLists = $masseurLists->get();
+            $countries = getCountryList();
+
+        
+             $data = $masseurLists->map(function ($row) use ($countries) {
+
+               $avail_arr  = $row->availability ? json_decode($row->availability, true) : [];
+               $avail_list = $this->weeklyAvailibility($avail_arr);
+
+               $default_profile = "";
+               if($row->is_default =='1')
+               $default_profile = '<sup class="text-muted superfix">D</sup>';
+
+                return [
+                   
+                    'id' => $row->id,
+                    'checkbox' => '<input type="checkbox" class="select-masseur" value="'.$row->id.'">',
+                    
+                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"><span class="list_profile_name">'.$row->name.$default_profile.'</span>',
+
+                    'days' => $avail_list,
+
+                    'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
+
+                    'nationality' => $countries[$row->nationality] ?? 'NA',
+                    'action' => '<button type="button" class="btn-cancel-modal py-1 btn-sm remove-row">Remove</button>'
+                    
+
+                ];
+            });  
+
+            return response()->json([
+                'data' => $data
+            ]);
+           
+    }
+
     public function  masseur_option_list(Request $request)
     {
 
@@ -625,46 +669,23 @@ class MasseurController extends AppController
             $masseurLists = $masseurLists->get();
             $countries = getCountryList();
 
-            $massaureTime  = [];
-            if($masseurLists->isNotEmpty())
-            {
-                $k=0;
-                foreach($masseurLists as $masseurList)
-                {
-                        $massaureTime[$k]['id'] =  $masseurList->id; 
-                        $massaureTime[$k]['availability'] = $masseurList->availability ? json_decode($masseurList->availability, true) : [];
-                        $k++;
-               }
-            }
-
-           
-
-            $eligible_masseur = [];
-            if((!empty($massageTime)) && (!empty($massaureTime)))
-            {
-               $eligible_masseur = $this->validate_masseur($massageTime,$massaureTime);
-            } 
-
-            
-            
-            $eligible_masseur = array_values($eligible_masseur);
-            $query  = Masseur::whereIn('id', $eligible_masseur)->where('status','1')->get();
-
-           // Log::info($query);
-           // exit;
-
-
-             $data = $query->map(function ($row) use ($countries) {
+        
+             $data = $masseurLists->map(function ($row) use ($countries) {
 
                $avail_arr  = $row->availability ? json_decode($row->availability, true) : [];
                $avail_list = $this->weeklyAvailibility($avail_arr);
+
+               $default_profile = "";
+               if($row->is_default =='1')
+               $default_profile = '<sup class="text-muted superfix">D</sup>';
+
 
 
                 return [
                    
                     'checkbox' => '<input type="checkbox" class="select-masseur" value="'.$row->id.'">',
                     
-                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">('.$row->id.')',
+                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"><span class="list_profile_name">'.$row->name.$default_profile.'</span>',
 
                     'days' => $avail_list,
 
@@ -685,155 +706,321 @@ class MasseurController extends AppController
 
 
 
-   public function weeklyAvailibility($avail_arr)
-   {
-        $avail = "";
-        $avail .= (isset($avail_arr['monday']) && $avail_arr['monday'] == 'closed') ? '<span style="color:red;">M</span>': 'M';
-        $avail .= (isset($avail_arr['tuesday']) && $avail_arr['tuesday'] == 'closed') ? '<span style="color:red;">T</span>': 'T';
-        $avail .= (isset($avail_arr['wednesday']) && $avail_arr['wednesday'] == 'closed') ? '<span style="color:red;">W</span>': 'W';
-        $avail .= (isset($avail_arr['thursday']) && $avail_arr['thursday'] == 'closed') ? '<span style="color:red;">T</span>': 'T';
-        $avail .= (isset($avail_arr['friday']) && $avail_arr['friday'] == 'closed') ? '<span style="color:red;">F</span>': 'F';
-        $avail .= (isset($avail_arr['saturday']) && $avail_arr['saturday'] == 'closed') ? '<span style="color:red;">S</span>': 'S';
-        $avail .= (isset($avail_arr['sunday']) && $avail_arr['sunday'] == 'closed') ? '<span style="color:red;">S</span>': 'S';
-        return '<span class="available_d">'.$avail.'</span>';
-   } 
+    public function weeklyAvailibility($avail_arr)
+    {
+
+
+    $avail = "";
+
+    if((isset($avail_arr['monday']) && $avail_arr['monday']['status'] == 'closed'))
+    {
+    $avail .=  '<div class="legend_item not_available"><span class="legend_box">M</span><small class="legend_text">Not Available</small></div>';
+    }
+    else
+    {
+    $avail .=  '<div class="legend_item"><span class="legend_box">M</span><small class="legend_text">Available</small></div>';
+    }
+
+
+    if((isset($avail_arr['tuesday']) && $avail_arr['tuesday']['status'] == 'closed'))
+    {
+    $avail .=  '<div class="legend_item not_available"><span class="legend_box">T</span><small class="legend_text">Not Available</small></div>';
+    }
+    else
+    {
+    $avail .=  '<div class="legend_item"><span class="legend_box">T</span><small class="legend_text">Available</small></div>';
+    }
+
+    if((isset($avail_arr['wednesday']) && $avail_arr['wednesday']['status'] == 'closed'))
+    {
+    $avail .=  '<div class="legend_item not_available"><span class="legend_box">W</span><small class="legend_text">Not Available</small></div>';
+    }
+    else
+    {
+    $avail .=  '<div class="legend_item"><span class="legend_box">W</span><small class="legend_text">Available</small></div>';
+    }
+
+    if((isset($avail_arr['thursday']) && $avail_arr['thursday']['status'] == 'closed'))
+    {
+    $avail .=  '<div class="legend_item not_available"><span class="legend_box">T</span><small class="legend_text">Not Available</small></div>';
+    }
+    else
+    {
+    $avail .=  '<div class="legend_item"><span class="legend_box">T</span><small class="legend_text">Available</small></div>';
+    }
+
+    if((isset($avail_arr['friday']) && $avail_arr['friday']['status'] == 'closed'))
+    {
+    $avail .=  '<div class="legend_item not_available"><span class="legend_box">F</span><small class="legend_text">Not Available</small></div>';
+    }
+    else
+    {
+    $avail .=  '<div class="legend_item"><span class="legend_box">F</span><small class="legend_text">Available</small></div>';
+    }
+
+    if((isset($avail_arr['saturday']) && $avail_arr['saturday']['status'] == 'closed'))
+    {
+    $avail .=  '<div class="legend_item not_available"><span class="legend_box">S</span><small class="legend_text">Not Available</small></div>';
+    }
+    else
+    {
+    $avail .=  '<div class="legend_item"><span class="legend_box">S</span><small class="legend_text">Available</small></div>';
+    }
+
+
+    if((isset($avail_arr['sunday']) && $avail_arr['sunday']['status'] == 'closed'))
+    {
+    $avail .=  '<div class="legend_item not_available"><span class="legend_box">sun closed</span><small class="legend_text">Not Available</small></div>';
+    }
+    else
+    {
+    $avail .=  '<div class="legend_item"><span class="legend_box">S</span><small class="legend_text">Available</small></div>';
+    }
+
+
+    return ' <div class="legend_container">'.$avail.'</div>';
+
+
+    return '
+    <div class="legend_container">
+
+    <div class="legend_item">
+        <span class="legend_box">M</span>
+        <small class="legend_text">Monday</small>
+    </div>
+
+
+    <div class="legend_item not_available">
+        <span class="legend_box">T</span>
+        <small class="legend_text">Tuesday</small>  
+    </div>
+    <div class="legend_item">
+        <span class="legend_box">W</span>
+        <small class="legend_text">Wednesday</small>
+    </div>
+    <div class="legend_item not_available">
+        <span class="legend_box">T</span>
+        <small class="legend_text">Thursday</small>
+    </div>
+    <div class="legend_item">
+        <span class="legend_box">F</span>
+        <small class="legend_text">Friday</small> 
+    </div>
+    <div class="legend_item">
+        <span class="legend_box">S</span>
+        <small class="legend_text">Saturday</small>  
+    </div>
+    <div class="legend_item not_available">
+        <span class="legend_box">S</span>
+        <small class="legend_text">Sunday</small> 
+    </div>
+    </div>
+
+    ';
+    } 
 
     public function  get_filter_masseur_option_list(Request $request)
     {
+
+    $selected_masseur = $request->selectedList;
+    $query = Masseur::where('user_id',auth()->user()->id)
+                        ->whereNotIn('id', $selected_masseur)
+                        ->where('status','1')
+                        ->get();
+
+
+
+        $countries = getCountryList();
+        $data = $query->map(function ($row) use ($countries) {
+
+        $avail_arr  = $row->availability ? json_decode($row->availability, true) : [];
+        $avail_list = $this->weeklyAvailibility($avail_arr);
+
+
+        $default_profile = "";
+        if($row->is_default =='1')
+        $default_profile = '<sup class="text-muted superfix">D</sup>';
+
+
+        return [
             
-            $selected_masseur = $request->selectedList;
-            $query = Masseur::where('user_id',auth()->user()->id)
-                                ->whereNotIn('id', $selected_masseur)
-                                ->where('status','1')
-                                ->get();
+            'checkbox' => '<input type="checkbox" class="select-masseur" value="'.$row->id.'">',
+            
+            'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"><span>'.$row->name.$default_profile.'</span>',
 
+            'days' => $avail_list,
+
+            'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
+
+            'nationality' => $countries[$row->nationality] ?? 'NA',
             
 
-             $countries = getCountryList();
-             $data = $query->map(function ($row) use ($countries) {
+        ];
+    });  
 
-               $avail_arr  = $row->availability ? json_decode($row->availability, true) : [];
-               $avail_list = $this->weeklyAvailibility($avail_arr);
-
-
-                return [
-                   
-                    'checkbox' => '<input type="checkbox" class="select-masseur" value="'.$row->id.'">',
-                    
-                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon">('.$row->id.')',
-
-                    'days' => $avail_list,
-
-                    'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
-
-                    'nationality' => $countries[$row->nationality] ?? 'NA',
-                    
-
-                ];
-            });  
-
-            return response()->json([
-                'data' => $data
-            ]);
+    return response()->json([
+        'data' => $data
+    ]);
     }
 
     public function  get_masseur_option_list(Request $request)
     {
+    $masseur  = MassagerMasseur::with('masseur')->where(['massage_profile_id'=>$request->massage_profile_id])->get();
+    $masseurs = $masseur->pluck('masseur')->filter();
+    $countries = getCountryList();
 
-            $masseur  = MassagerMasseur::with('masseur')->where(['massage_profile_id'=>$request->massage_profile_id])->get();
-            $masseurs = $masseur->pluck('masseur')->filter();
-            $countries = getCountryList();
+    $data = $masseurs->map(function ($row) use ($countries) {
 
-            $data = $masseurs->map(function ($row) use ($countries) {
+        $avail_arr  = $row->availability ? json_decode($row->availability, true) : [];
+        $avail_list = $this->weeklyAvailibility($avail_arr);
 
-               $avail_arr  = $row->availability ? json_decode($row->availability, true) : [];
-               $avail_list = $this->weeklyAvailibility($avail_arr);
+        $default_profile = "";
+        if($row->is_default =='1')
+        $default_profile = '<sup class="text-muted superfix">D</sup>';
 
-                return [
-                   
-                    'id' => $row->id,
-                    
-                    'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"> ('.$row->id.')',
+        return [
+            
+            'id' => $row->id,
+            
+            'profile' => '<img src="'.asset('assets/dashboard/img/avatar.png').'" class="custompopicon"> <span class="list_profile_name">'.$row->name.$default_profile.'</span>',
 
-                    'days' => $avail_list,
+            'days' => $avail_list,
 
-                    'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
+            'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
 
-                    'nationality' => $countries[$row->nationality] ?? 'NA',
-                     'action' => '',
+            'nationality' => $countries[$row->nationality] ?? 'NA',
+                'action' => '',
 
-                    //  'action' => '<button 
-                    //     type="button"  
-                    //     class="btn-danger btn-sm remove-row delete-masseur" 
-                    //     data-id="'.$row->id.'">
-                    //     Remove
-                    // </button>',
+            //  'action' => '<button 
+            //     type="button"  
+            //     class="btn-danger btn-sm remove-row delete-masseur" 
+            //     data-id="'.$row->id.'">
+            //     Remove
+            // </button>',
 
-                ];
-            });  
+        ];
+    });  
 
 
-            return response()->json([
-                'data' => $data
-            ]);
+    return response()->json([
+        'data' => $data
+    ]);
 
- 
+
     }
 
 
     public function  get_all_masseur_list(Request $request)
     {
 
-            $masseurs  = Masseur::where('user_id', auth()->user()->id)->get();
-            $countries = getCountryList();
+    $masseurs  = Masseur::where('user_id', auth()->user()->id)->get();
+    $countries = getCountryList();
 
-            $data = $masseurs->map(function ($row) use ($countries) {
+    $data = $masseurs->map(function ($row) use ($countries) {
 
-                if($row->status==1)
-                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Deactivate</a>';   
-                 else
-                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-circle"></i> Activate</a>';     
-               
-               
-                 $action = '<div class="dropdown no-arrow">
-                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                 </a>
-                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
-                                                   <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
-                                                   <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="../update-masseur/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
-                                                   <div class="dropdown-divider"></div>'.$status.
-                                                  
-                                                   
-                            '</div>';
+        if($row->status==1)
+        $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_deactive" href="javascript:void(0)">   <i class="fa fa-ban"></i> Deactivate</a>';   
+            else
+        $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
+        
+        
+        if($row->is_default==1)
+        $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_undefault" href="javascript:void(0)">   <i class="fa fa-ban"></i> Remove Default</a>';   
+            else
+        $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_default"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Make Default</a>';     
+        
 
-
-                return [
-                   
-                    'name' => $row->name,
-                    'stage_name' => $row->stage_name,
-                    'mobile' => $row->mobile,
-                    'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
-                    'nationality' => $countries[$row->nationality] ?? 'NA',
-                    'created_at' => date('d M Y', strtotime($row->created_at)),
-                    'status' => ($row->status==1) ? 'Active' : 'InActive',
-                    'action' => $action
-
-                ];
-            });  
+        
+            $action = '<div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
+                                            
+                                            
+                                            <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="../update-masseur/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
+                                            <div class="dropdown-divider"></div>'.$status.'<div class="dropdown-divider"></div>'.$default;
+                                            
+                                            
+                                            
+                    '</div>';
+        //<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>            
 
 
-            return response()->json([
-                'data' => $data
-            ]);
+        return [
+            
+            'name' => $row->name,
+            'stage_name' => $row->stage_name,
+            'mobile' => $row->mobile,
+            'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
+            'nationality' => $countries[$row->nationality] ?? 'NA',
+            'created_at' => date('d M Y', strtotime($row->created_at)),
+            'status' => ($row->status==1) ? 'Active' : 'Deactive',
+            'default_profile' => ($row->is_default==1) ? 'Yes' : 'No',
+            'action' => $action
 
- 
+        ];
+    });  
+
+
+    return response()->json([
+        'data' => $data
+    ]);
+
+
     }
 
 
 
+    public function count_messure_profile(Request $request)
+    {
+        $masseurs  = Masseur::where('user_id', auth()->user()->id)->count();
+         return response()->json([
+                'messure_count' => $masseurs
+         ]);
+    }
     
+
+    public function action_messure_profile(Request $request)
+    {
+        $masseurs  = Masseur::where(['user_id' => auth()->user()->id,'id'=>$request->profile_id])->first();
+        if($masseurs)
+        {
+
+            if($request->action == 'row_deactive')
+            {
+                $masseurs->status = '0';    
+                $mess = 'Profile deactivated successfully.';  
+                MassagerMasseur::where('masseur_profile_id',$request->profile_id)->delete();
+            }
+            else if($request->action == 'row_active')
+            {
+                $masseurs->status = '1';  
+                $mess = 'Profile activated successfully.'; 
+            }
+
+            else if($request->action == 'row_default')
+            {
+                 $masseurs->is_default = '1';  
+                 $mess = 'Profile set as default successfully.'; 
+            }
+
+            else if($request->action == 'row_undefault')
+            {
+                $masseurs->is_default = '0';  
+                $mess = 'Profile removed as default successfully.'; 
+            }
+
+
+             $masseurs->save();
+
+            return response()->json([
+                'success' =>true,
+                'message' => $mess
+            ]);
+        }
+        
+    }
 
     ################## Validate Mmasseur ##########################
 

@@ -44,7 +44,7 @@
                                         @php
                                             $dayData = $availability[$dayKey] ?? [];
 
-                                            $status = $dayData['status'] ?? 'closed';
+                                            $status = $dayData['status'] ?? '';
 
                                             [$fromTime, $fromAmPm] = splitTime($dayData['from'] ?? null);
                                             [$toTime, $toAmPm]     = splitTime($dayData['to'] ?? null);
@@ -113,7 +113,7 @@
                                             Til late
                                         </label>
 
-                                        <label class="ms-2">
+                                        <label class="ms-2" style="display: none;">
                                             <input type="radio"
                                                 name="availability_time[{{ $dayKey }}]"
                                                 value="24_hours"
@@ -121,7 +121,7 @@
                                             Open 24 Hours
                                         </label>
 
-                                        <label class="ms-2">
+                                        <label class="ms-2"> 
                                             <input type="radio"
                                                 name="availability_time[{{ $dayKey }}]"
                                                 value="closed"

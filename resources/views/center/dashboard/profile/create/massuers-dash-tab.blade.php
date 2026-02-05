@@ -39,51 +39,7 @@
                         </thead>
                         <tbody>
                            
-                            <!-- <tr>
-                                <td><img src="{{ asset('assets/dashboard/img/avatar.png') }}" class="custompopicon"></td>
-                                <td>8am - 7pm</td>
-                                <td><span class="available_d"><span style="color:red;">M</span>T<span style="color:red;">W</span>THF</span></td>
-                                <td>Australian </td>
-                                <td>Thai</td>
-                               
-                                <td>
-                                    <div class="edit_option">
-                                        <div class="dropdown no-arrow">
-                                            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                                                <a class="dropdown-item d-flex justify-content-start gap-10" href="#"><i class="fa fa-fw fa-pen"></i> Edit </a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex justify-content-start gap-10" href="#"><i class="fa fa-fw fa-trash"></i> Remove </a>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                           
-
-                            <tr>
-                                <td><img src="{{ asset('assets/dashboard/img/avatar.png') }}" class="custompopicon"></td>
-                                <td>8am - 7pm</td>
-                                <td><span class="available_d"><span style="color:red;">M</span>T<span style="color:red;">W</span>THF</span></td>
-                                <td>Australian </td>
-                                <td>Thai</td>
-                               
-                                <td>
-                                <div class="edit_option">
-                                    <div class="dropdown no-arrow archive-dropdown">
-                                        <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                                            <a class="dropdown-item d-flex justify-content-start gap-10" href="#"><i class="fa fa-fw fa-pen"></i> Edit </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex justify-content-start gap-10" href="#"><i class="fa fa-fw fa-trash"></i> Remove </a>
-                                         <a class="dropdown-item d-flex justify-content-start gap-10" href="#">Duplicate <i class="fa fa-fw fa-clone"></i> </a> --> 
-                                        </div>
-                                    </div>
-                                </div>
-                                </td>
-                            </tr> 
-                            <!-- end tr -->
+                            
 
 
                         </tbody>
@@ -130,20 +86,15 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive py-3 list-sec" >
-                            <table id="masseurs_Tab" class="table table-striped" width="100%">
+                            <table id="masseurs_Tab" class="table table-striped" style="width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <div class="ckbox">
-                                                <input type="checkbox" id="checkbox1">
-                                            </div>
-                                        </th>
-                                        <th>Profile</th>
-                                        <!-- <th>Available Time</th> -->
-                                        <th>Available Days</th>
-                                        <th>Ethnicity</th>
-                                        <th>Nationality</th>
-                                        <!-- <th class="text-center">Action</th> -->
+                                        <th style="width: 5%;"></th>
+                                        <th style="width: 15%;">Profile</th>
+                                        <th style="width: 40%;">Available Days</th>
+                                        <th style="width: 20%;">Ethnicity</th>
+                                        <th style="width: 20%;">Nationality</th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -696,8 +696,6 @@
                     },
                     success: function(data) {
                         Swal.close();
-
-                        console.log(data);
                         var ph = data.phone;
                         $("#phoneId").attr('value', ph);
                         if (data.error == 1) {
@@ -760,9 +758,9 @@
                                         console.log(data);
                                         Swal.close();
                                         if (data.error == true) {
-                                            //console.log(data);
-                                            window.location.href =
-                                                "{{ route('find.all') }}";
+                                            window.location.href ="{{ route('user.dashboard') }}";
+                                            // window.location.href =
+                                            //     "{{ route('find.all') }}";
 
                                         }
 

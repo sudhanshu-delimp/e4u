@@ -82,7 +82,7 @@ class MassageController extends Controller
     public function  get_all_massager_list(Request $request)
     {
 
-            $masseurs  = MassageProfile::where('user_id', auth()->user()->id)->get();
+            $masseurs  = MassageProfile::where('user_id', auth()->user()->id)->where('default_setting','=',0)->get();
             $countries = getCountryList();
 
             $data = $masseurs->map(function ($row) use ($countries) {
@@ -200,6 +200,13 @@ class MassageController extends Controller
     public function index($id = null)
     {
         $user = auth()->user();
+        $is_already_profile = MassageProfile::where(['user_id'=>$user->id,'default_setting'=>0])->count();
+
+        if($is_already_profile>0)
+        {
+           return view('center.dashboard.profile-completed');      
+        }
+        
         $escort = $this->massage_profile->findDefault($user->id,1);
         if(!$escort) {
             $escort = $this->massage_profile->make();

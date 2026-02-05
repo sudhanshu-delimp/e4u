@@ -19,6 +19,7 @@ use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Admin\CommunicationController;
 use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
+use App\Http\Controllers\Admin\PublicationBlogController;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Admin\PublicationAlertController;
 use App\Http\Controllers\Admin\AdvertiserReviewsController;
@@ -490,9 +491,19 @@ Route::post('publications/notice/store', [PublicationAlertController::class, 'no
 Route::get('/publications/notice/show', [PublicationAlertController::class, 'noticeShow'])->name('admin.publications.alert.noticeShow');
 
 
+//Publication Blog
+Route::get('publications/blog/list', [PublicationBlogController::class, 'index'])->name('admin.publications.blog.index');
+Route::post('/publications/blog/store', [PublicationBlogController::class, 'store'])->name('admin.publications.blog.store');
+Route::get('/publications/blog/{id}/show', [PublicationBlogController::class, 'show'])->name('admin.publications.blog.show');
+Route::post('/publications/blog/{id}/status', [PublicationBlogController::class, 'updateStatus'])->name('admin.publications.blog.status');
+Route::get('/publications/blog/pdf-download/{id}', [PublicationBlogController::class, 'pdfDownload'])->name('admin.publications.blog.pdf.download');
+Route::get('/publications/blog/{id}/edit', [PublicationBlogController::class, 'edit'])->name('admin.publications.blog.edit');
+Route::post('/publications/blog/{id}/update', [PublicationBlogController::class, 'update'])->name('admin.publications.blog.update');
+
 //communications module
 Route::get('/reports/communication/list', [CommunicationController::class, 'index'])->name('admin.reports.communication.index');
 Route::get('/reports/communication/{id}/show',[CommunicationController::class, 'show'])->name('admin.reports.communication.show');
+
 
 
 // Route::get('/notifications/shareholders',function(){
@@ -746,9 +757,9 @@ Route::get('/management/post-office', function () {
 //     return view('admin.notifications.escorts');
 // })->name('admin.escorts');
 
-Route::get('/publications/blog', function () {
-    return view('admin.publications.blog');
-})->name('admin.blog');
+// Route::get('/publications/blog', function () {
+//     return view('admin.publications.blog.index');
+// })->name('admin.blog');
 
 Route::get('publications/alerts', function () {
     return view('admin.publications.alerts');
