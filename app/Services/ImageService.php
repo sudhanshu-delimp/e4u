@@ -17,7 +17,7 @@ class ImageService
 
     private static function paths($module = null)
     {
-        return config("image.moduls.$module") ?? config('image.default');
+        return config("image.modules.$module") ?? config('image.default');
     }
 
     /**
@@ -38,9 +38,10 @@ class ImageService
         $withThumb = true
     ) {
 
+ 
 
         $disk = config('image.disk');
-        $paths = self::paths($disk);
+        $paths = self::paths($module);
 
         $manager = new ImageManager(new Driver());
 
@@ -94,7 +95,7 @@ class ImageService
     ) {
 
         $disk  = config('image.disk');
-        $paths = self::paths($disk);
+        $paths = self::paths($module);
 
         $files = [$paths['original'] . $imageName];
 
@@ -102,7 +103,7 @@ class ImageService
             $files[] = $paths['thumb'] . $imageName;
         }
 
-        Storage::disk($paths)->delete($files);
+        Storage::disk($disk)->delete($files);
     }
 
     /**
@@ -119,10 +120,10 @@ class ImageService
             return null;
         }
         $disk = config('image.disk');
-        $paths = self::paths($disk);
+        $paths = self::paths($module);
 
         $fullPath = $paths[$type] . $imageName;
-        // // Check file exist
+        // Check file exist
         if (Storage::disk($disk)->exists($fullPath)) {
             return Storage::url($fullPath);
         }

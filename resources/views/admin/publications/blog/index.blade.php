@@ -74,7 +74,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="table-content">
-                                                 
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -106,27 +106,30 @@
                 </div>
                 <div class="modal-body pb-0">
                     <form id="addBlogForm" method="POST" accept="" enctype="multipart/form-data">
+                        <input type="hidden" name="edit_blog_id" id="edit_blog_id">
                         @csrf
                         <div class="row">
                             <!-- Blog Title -->
                             <div class="col-12 mb-3">
-                                <input type="text" class="form-control rounded-0 fw-bold" name="title"
-                                    id="title" placeholder="Blog Title" />
+                                <input type="text" class="form-control rounded-0 fw-bold" name="title" id="title"
+                                    placeholder="Blog Title" />
                             </div>
 
                             <!-- Upload Image Section (Top of Form) -->
                             <div class="col-12 mb-4">
-                                <div id="drop-area" class="upload-box text-center p-4">
-                                    <input type="file" id="blog_image" name="blog_image" accept="image/*"
-                                        onchange="handleFiles(this.files)" hidden>
-                                    <label for="blog_image" id="fileLabel">
-                                        <img src="{{ asset('assets/dashboard/img/cloud-image.png') }}" width="50" />
-                                        <p class="mb-1 font-weight-bold">Drop your image here, or <span
-                                                style="color: var(--peach)">browse</span></p>
-                                        <small class="text-muted">Supports: JPG, JPEG, PNG</small>
-                                    </label>
-                                    <div id="preview" class="mt-3"></div>
-                                </div>
+                                <label for="blog_image" id="fileLabel" class="w-100">
+                                    <div id="drop-area" class="upload-box text-center p-4 w-100">
+                                        <div id="imageshowHide">
+                                            <input type="file" id="blog_image" name="blog_image" accept="image/*"
+                                                onchange="handleFiles(this.files)" hidden>
+                                            <img src="{{ asset('assets/dashboard/img/cloud-image.png') }}" width="50" />
+                                            <p class="mb-1 font-weight-bold">Drop your image here, or <span
+                                                    style="color: var(--peach)">browse</span></p>
+                                            <small class="text-muted">Supports: JPG, JPEG, PNG</small>
+                                        </div>
+                                        <div id="preview" class="mt-3"></div>
+                                    </div>
+                                </label>
                             </div>
 
 
@@ -150,7 +153,7 @@
 
                         </div>
                         <div class="modal-footer pr-3">
-                            <button type="submit" class="btn-success-modal" form="addBlogForm">Save</button>
+                            <button type="submit" class="btn-success-modal" id="submitBtn" form="addBlogForm">Save</button>
                         </div>
                     </form>
                 </div>
@@ -222,7 +225,7 @@
         endpoint = {
             csrf_token: mmRoot.data('scrf-token'),
             success_image: mmRoot.data('success-image'),
-            blog_icon: mmRoot.data('blog-icon'),
+            blog_icon: mmRoot.data('publications-blog-icon'),
             publications_blog_status: mmRoot.data('publications-blog-status'),
             publications_blog_edit: mmRoot.data('publications-blog-edit'),
             publications_blog_store: mmRoot.data('publications-blog-store'),
@@ -237,14 +240,14 @@
         //Remove Validation Message
         function removeValidationMsg() {
             $('.server-error').remove();
-            $('..is-invalid').removeClass('is-invalid');
+            $('.is-invalid').removeClass('is-invalid');
         }
 
         //DataTable initialization
         var table = $("#BlogListTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Ref"
+                searchPlaceholder: "Search by Ref or Title"
             },
             processing: true,
             serverSide: true,
@@ -290,55 +293,6 @@
             pageLength: 10
         });
 
-        var table = $("#AlertTable").DataTable({
-            language: {
-                search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Ref"
-            },
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: endpoint.publications_blog_index,
-                type: 'GET'
-            },
-            columns: [{
-                    data: 'ref',
-                    name: 'ref'
-                },
-                {
-                    data: 'image',
-                    name: 'image',
-
-                },
-                {
-                    data: 'title',
-                    name: 'title'
-                },
-                {
-                    data: 'post_date',
-                    name: 'post_date'
-                },
-                {
-                    data: 'status',
-                    name: 'status',
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false,
-                    className: 'text-center'
-                },
-            ],
-            order: [],
-            lengthMenu: [
-                [10, 25, 50, 100],
-                [10, 25, 50, 100]
-            ],
-            pageLength: 10
-        });
-
-
 
         $('#addBlogForm').on('submit', function(e) {
             e.preventDefault();
@@ -347,11 +301,51 @@
             formSubmit(form);
         });
 
+        //Edit Blog form
+        $(document).on('click', '.js-edit', function(e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            removeValidationMsg();
+            //call ajax
+            $.ajax({
+                url: endpoint.publications_blog_edit.replace('__ID__', id),
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === true) {
+                        let n = response.data;
+                        console.log(n);
+                        $('#edit_blog_id').val(n.id);
+                        $("#title").val(n.title);
+                        if (n.blog_image) {
+                            $('#preview').html(
+                                `<img src="${n.blog_image}" style="max-width: 200px;"  alt="Preview Image">`
+                            );
+                        }
+                        CKEDITOR.instances.description.setData(n.description);
+                        $('#meta_title').val(n.meta_title);
+                        $('#meta_description').val(n.meta_description);
+                        
+                        // Change modal title
+                        $('#createBlog').find('h5.modal-title').html(
+                            `<img src="${endpoint.blog_icon}" alt="alert" class="custompopicon"> Edit Blog`
+                        );
+                        // Change button text to Update
+                        $('#submitBtn').text('Update');
+                        $('#createBlog').modal('show');
+                    } else {
+                        alert('data not found...');
+                    }
+
+
+                }
+            })
+
+        });
+
 
         function formSubmit(form) {
             let formData = new FormData(form[0]);
-            console.log(form);
-
+       
             $.ajax({
                 url: endpoint.publications_blog_store,
                 method: "POST",
@@ -427,7 +421,9 @@
 
 
             // Clear YOUR image elements
+            $('#edit_blog_id').val('');
             $('#blog_image').val('');
+            $('#submitBtn').text('Save');
             //$('img.thumb').attr('src', '').hide();
         });
 

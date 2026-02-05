@@ -6,11 +6,11 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Services\ImageService;
 
+use App\Models\PublicationBlog;
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserInterface;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\StorePublicationRequest;
-use App\Models\PublicationBlog;
+use App\Http\Requests\StorePublicationBlogRequest;
 
 class PublicationBlogController extends Controller
 {
@@ -114,14 +114,14 @@ class PublicationBlogController extends Controller
                     }
 
                     // If completed -> offer remove
-                    if ($status === 'Completed') {
+                    if ($status === 'Suspended') {
                         if ($this->editAccessEnabled) {
                             $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
                         }
                     }
 
                     // Common actions
-                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
+                   // $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
 
 
                     $dropdown = '<div class="dropdown no-arrow">'
@@ -192,11 +192,12 @@ class PublicationBlogController extends Controller
         }
     }
 
-    public function store(StorePublicationRequest $request)
+    public function store(StorePublicationBlogRequest $request)
     {
 
         //Check condition 
         $blogId = $request->edit_blog_id;
+     
 
         try {
             $blog = $blogId ? PublicationBlog::findOrFail($blogId) : new PublicationBlog();
@@ -205,7 +206,7 @@ class PublicationBlogController extends Controller
             $blog->description = $request->description;
             $blog->slug = $this->generateUniqueSlug($request->title, $blog->title, $blog->id);
             $blog->meta_title  = $request->meta_title;
-            $blog->description = $request->meta_description;
+            $blog->meta_description = $request->meta_description;
             // Single image logic (works for both)
             if ($request->hasFile('blog_image')) {
                 $blog_image = ImageService::uploadOrUpdate(
@@ -258,12 +259,15 @@ class PublicationBlogController extends Controller
     public function edit($id)
     {
         try {
-            $notification = PublicationBlog::findOrFail($id);
-            $notification->start_date = basicDateFormat($notification->start_date);
-            $notification->end_date = basicDateFormat($notification->end_date);
-            // Return raw date format for edit form
-            $notificationData = $notification->toArray();
-            return success_response($notificationData, 'Notification view');
+            $blog = PublicationBlog::findOrFail($id);
+            $imagePath = ImageService::url($blog->blog_image,'original', 'publication_blog');
+            if($imagePath){
+                $blog['blog_image'] =  asset($imagePath);
+            }else{
+                $blog['blog_image'] = '';
+            }
+            $blogData = $blog->toArray();
+            return success_response($blogData, 'Notification view');
         } catch (\Exception $e) {
             return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);
         }

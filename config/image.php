@@ -11,7 +11,7 @@ return [
 
     'modules' => [
 
-        'blog' => [
+        'publication_blog' => [
             'original' => 'uploads/blog/original/',
             'thumb' => 'uploads/blog/thumb',
         ],

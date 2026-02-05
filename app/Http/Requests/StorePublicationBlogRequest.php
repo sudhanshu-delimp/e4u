@@ -7,7 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
 
-class StorePublicationRequest extends FormRequest
+class StorePublicationBlogRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
