@@ -39,7 +39,7 @@ class AddNewStaff extends FormRequest
             'kin_mobile' => 'nullable||min:10|max:14',
             'kin_email' => 'nullable|email:rfc,filter|max:100',
             //'position' => 'bail|required|string|max:100',
-            'location' => 'required',
+            'country_id' => 'required',
             'commenced_date' => 'bail|required|string|max:100',
             'security_level' => 'bail|required',
             'employment_status' => 'bail|required',
@@ -53,6 +53,8 @@ class AddNewStaff extends FormRequest
     public function messages()
     {
         return [
+            'country_id.required' => 'please select your territory.',
+            'country_id.exists' => 'please select your territory.',
             'operator_id.required'  => 'please select operator.',
             'state_id.required'  => 'please select your territory.',
             'state_id.exists'  => 'please select your territory.',

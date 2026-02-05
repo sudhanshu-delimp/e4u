@@ -396,7 +396,7 @@ Route::post('/active-operator-staff-account', [OperatorstaffController::class, '
 Route::get('/edit-operator-staff/{id}', [OperatorstaffController::class, 'editStaff'])->name('admin.operator.edit-staff');
 Route::post('/store-operator-staff', [OperatorstaffController::class, 'update_staff'])->name('admin.operator.store-staff');
 Route::get('/view-operator-staff/{id}', [OperatorstaffController::class, 'viewStaff'])->name('admin.operator.view-staff');
-Route::post('/approve-operator-staff-account', [OperatorstaffController::class, 'approve_staff_account'])->name('admin.approve_staff_account');
+Route::post('/approve-operator-staff-account', [OperatorstaffController::class, 'approve_staff_account'])->name('admin.operator.approve_staff_account');
 Route::post('/print-operator-staff', [OperatorstaffController::class, 'printStaffDetails'])->name('admin.operator.print_staff');
 
 

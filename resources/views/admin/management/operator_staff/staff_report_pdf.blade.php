@@ -102,40 +102,45 @@
 
 <body style="margin:0;width:100%">
     <div class="container1">
-        @php
-            $employmentStatuss = config('staff.employment_status');
-            $employmentStatus = isset($employmentStatuss[$staff->staff_detail->employment_status])
-                ? $employmentStatuss[$staff->staff_detail->employment_status]
-                : '';
-            $securityLevels = config('staff.security_level');
-            $securityLevel = isset($securityLevels[$staff->staff_detail->security_level])
-                ? $securityLevels[$staff->staff_detail->security_level]
-                : '';
-            $genders = config('escorts.profile.genders');
-            $gender = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
-            $cities = config('escorts.profile.cities');
-            $city = isset($cities[$staff->city_id]) ? $cities[$staff->city_id] : '';
-
-            $setting = $staff->staff_setting ?? null;
-            $idle_preference_times = config('staff.idle_preference_time');
-            $idle_preference_time = '';
-            $twofa = '';
-            if (isset($setting) && isset($setting->idle_preference_time)) {
-                $idle_preference_time = isset($idle_preference_times[(string) $setting->idle_preference_time])
-                    ? $idle_preference_times[$setting->idle_preference_time]
-                    : '';
-            }
-            $twofas = config('staff.twofa');
-            if (isset($setting) && isset($setting->twofa)) {
-                $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : '';
-            }
-        @endphp
+           @php
+       $staff_detail = $staff->operator_staff_detail;
+        $setting = $staff->operator_staff_setting ?? null;    
+        $employmentStatuss = config('operator_staff.employment_status');
+        $employmentStatus = isset($employmentStatuss[$staff_detail->employment_status])
+            ? $employmentStatuss[$staff_detail->employment_status] : '';
+        $securityLevels = config('operator_staff.security_level');
+        $securityLevel = isset($securityLevels[$staff_detail->security_level])
+            ? $securityLevels[$staff_detail->security_level]
+            : '';
+        $genders = config('escorts.profile.genders');
+        $gender = isset($genders[$staff->gender]) ? $genders[$staff->gender] : '';
+        $idle_preference_times = config('operator_staff.idle_preference_time');
+        $idle_preference_time = "";
+         $twofa = "";
+        if(isset( $setting) && (isset($setting->idle_preference_time))) {
+            $idle_preference_time = isset($idle_preference_times[(string)$setting->idle_preference_time]) ? $idle_preference_times[$setting->idle_preference_time] : "";
+        }
+        $twofas = config('staff.twofa');
+        if(isset( $setting) && isset($setting->twofa)) {
+        $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
+        }
+        $countries = config('operator.country');
+        $countryName = isset($countries[$staff->country_id]['name']) ? $countries[$staff->country_id]['name'] : '';
+        $operatorName = isset($staff->operator->name) ? $staff->operator->name." (".$staff->operator->member_id.")" : '';
+    @endphp
         <div class="col-md-12 ">
             <div class="my-account-card">
                 <div class="card-head" style="display: flex; justify-content:space-between;align-items:center;">
-                    <h2>Staff Member Report</h2>
+                    <h2>Operator Staff Member Report</h2>
                 </div>
-
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th width="40%">Operator</th>
+                            <td width="60%">{{ $operatorName }}</td>
+                        </tr>
+                     </tbody>
+                </table>   
                 <h6 class=" pb-1 text-blue-primary">Personal Details</h6>
                 <table class="table table-bordered">
                     <tbody>
@@ -149,7 +154,7 @@
                         </tr>
                         <tr>
                             <th>Address</th>
-                            <td> {{ $staff->staff_detail->address }}</td>
+                            <td> {{ $staff_detail->address }}</td>
                         </tr>
                         <tr>
                             <th>Phone</th>
@@ -174,19 +179,19 @@
                     <tbody>
                         <tr>
                             <th width="40%">Name of Kin</th>
-                            <td width="60%">{{ $staff->staff_detail->kin_name }}</td>
+                            <td width="60%">{{ $staff_detail->kin_name }}</td>
                         </tr>
                         <tr>
                             <th>Relationship</th>
-                            <td> {{ $staff->staff_detail->kin_relationship }}</td>
+                            <td> {{ $staff_detail->kin_relationship }}</td>
                         </tr>
                         <tr>
                             <th>Mobile</th>
-                            <td>{{ $staff->staff_detail->kin_mobile }}</td>
+                            <td>{{ $staff_detail->kin_mobile }}</td>
                         </tr>
                         <tr>
                             <th>Email (optional)</th>
-                            <td>{{ $staff->staff_detail->kin_email }}</td>
+                            <td>{{ $staff_detail->kin_email }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -203,16 +208,16 @@
                         </tr>
                         <tr>
                             <th width="40%">Position</th>
-                            <td width="60%">{{ $staff->staff_detail->position($staff->staff_detail->position) }}
+                            <td width="60%">{{ $staff_detail->position($staff_detail->position) }}
                             </td>
                         </tr>
                         <tr>
                             <th>Location</th>
-                            <td> {{ $city }}</td>
+                            <td> {{ $countryName }}</td>
                         </tr>
                         <tr>
                             <th>Commenced Date</th>
-                            <td>{{ showDateWithFormat($staff->staff_detail->commenced_date, 'd-m-Y') }}</td>
+                            <td>{{ showDateWithFormat($staff_detail->commenced_date, 'd-m-Y') }}</td>
                         </tr>
 
                         <tr>
@@ -221,7 +226,7 @@
                         </tr>
                         <tr>
                             <th>Employment Agreement</th>
-                            <td>{{ ucfirst($staff->staff_detail->employment_agreement) }}</td>
+                            <td>{{ ucfirst($staff_detail->employment_agreement) }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -233,15 +238,15 @@
                     <tbody>
                         <tr>
                             <th width="40%">Building Security</th>
-                            <td width="60%">{{ ucfirst($staff->staff_detail->building_access_code) }}</td>
+                            <td width="60%">{{ ucfirst($staff_detail->building_access_code) }}</td>
                         </tr>
                         <tr>
                             <th>Key Provided?</th>
-                            <td> {{ ucfirst($staff->staff_detail->keys_issued) }}</td>
+                            <td> {{ ucfirst($staff_detail->keys_issued) }}</td>
                         </tr>
                         <tr>
                             <th>Car Park?</th>
-                            <td>{{ ucfirst($staff->staff_detail->car_parking) }}</td>
+                            <td>{{ ucfirst($staff_detail->car_parking) }}</td>
                         </tr>
                     </tbody>
                 </table>

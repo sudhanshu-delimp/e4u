@@ -10,9 +10,9 @@ use App\Models\OperatorStaffSetting;
 use App\Models\StaffSetting;
 use App\Models\AccountSetting;
 use App\Events\StaffRegistered;
-use App\Mail\StaffApprovalEmail;
-use App\Mail\StaffSuspendEmail;
-use App\Mail\StaffActivateEmail;
+use App\Mail\OperatorStaff\StaffApprovalEmail;
+use App\Mail\OperatorStaff\StaffSuspendEmail;
+use App\Mail\OperatorStaff\StaffActivateEmail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Repositories\BaseRepository;
@@ -81,8 +81,9 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
                     'name' => $data['name'] ?? null,
                     'phone' => $data['phone'] ?? null,
                     'email' => $data['email'] ?? null,
-                    //'state_id' => $data['location'] ?? null,
-                    'city_id' => $data['location'] ?? null,
+                    //'city_id' => $data['location'] ?? null,
+                    'country_id' => $data['country_id'] ?? null,
+                    'operator_id' => $data['operator_id'] ?? null,
                     'gender' => $data['gender'] ?? null,
                 ];
 
@@ -90,7 +91,7 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
                     $user = $this->staff->where('id', $data['user_id'])->first();
                     if ($user) {
                         $user->update($staffData);
-                        $message = 'Staff updated successfully.';
+                        $message = 'Operator staff updated successfully.';
                     } else {
                         $this->response = ['status' => false, 'message' => 'Staff not found.'];
                         return $this->response;
@@ -98,8 +99,8 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
                 } else {
                     $staffData['enabled'] = 1;
                     $staffData['status'] = 2;
-                    $staffData['type'] = (string) config('staff.staff_role_type');
-                    $message = 'New staff added successfully.';
+                    $staffData['type'] = (string) config('operator_staff.staff_role_type');
+                    $message = 'New operator staff added successfully.';
                     $user = User::create($staffData);
                     if ($user) {
                         $this->setting->create_account_setting($user);
@@ -107,7 +108,7 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
                 }
 
                 /// Update staff detail
-                $staff = $user->staff_detail ?? $user->staff_detail()->create(['user_id' => $user->id]);
+                $staff = $user->operator_staff_detail ?? $user->operator_staff_detail()->create(['user_id' => $user->id]);
 
                 $staff->update([
                     'name' => $data['name'] ?? null,
@@ -118,7 +119,10 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
                     'kin_email' => $data['kin_email'] ?? null,
 
                     'location' => $data['location'] ?? null,
-                    'commenced_date' => $data['commenced_date'] ?? null,
+
+                    'commenced_date' => !empty($data['commenced_date'])
+                        ? Carbon::parse($data['commenced_date'])->format('Y-m-d')
+                        : null,
                     'security_level' => $data['security_level'] ?? null,
                     //'position' => $data['position'] ?? null,
                     'position' => $data['security_level'] ?? null,
@@ -156,7 +160,7 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
             $password  = random_string($type = 'alnum', $len = 8);
             $user->update(['status' =>  $data['status'], 'password' => Hash::make($password)]);
             $this->sendApprovalEmail($user, $password);
-            return $this->response = ['status' => true, 'message' => 'Staff account approved successfully.'];
+            return $this->response = ['status' => true, 'message' => 'Operator staff account approved successfully.'];
         } else {
             return $this->response = ['status' => true, 'message' => 'Error occured while approving the user.'];
         }
@@ -169,7 +173,7 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
         if ($user && $data['status'] != "") {
             $user->update(['status' => '1']);
             $this->sendActiveEmail($user);
-            return $this->response = ['status' => true, 'message' => 'Staff account activated successfully.'];
+            return $this->response = ['status' => true, 'message' => 'Operator staff account activated successfully.'];
         } else {
             return $this->response = ['status' => true, 'message' => 'Error occured while activating the user.'];
         }

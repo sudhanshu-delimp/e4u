@@ -12,12 +12,12 @@ class OperatorStaff extends Model
     protected $guarded = ['id'];
     protected $table = "users";
 
-    public function staff_detail()
+    public function operator_staff_detail()
     {
       return $this->belongsTo(OperatorStaffDetail::class,  'id','user_id');  
     }
     
-     public function setting()
+     public function operator_staff_setting()
     {
         return $this->hasOne('App\Models\OperatorStaffSetting', 'staff_id');
     }

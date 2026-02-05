@@ -61,6 +61,8 @@
                                                         <th scope="col">Position</th>
                                                         <th scope="col" style="width: 86px;">Mobile</th>
                                                         <th scope="col">Email</th>
+                                                        <th scope="col">Operator</th>
+                                                        <th scope="col">Created By</th>
                                                         <th scope="col">Logins</th>
                                                         <th scope="col" style="width: 180px;">Last Login</th>
                                                         <th scope="col">Status</th>
@@ -78,7 +80,7 @@
                                                         <th colspan="3" class="text-center">Refresh time:
                                                             <span class="refreshSeconds"> 15</span>
                                                         </th>
-                                                        <th colspan="4" class="text-right">Up time:
+                                                        <th colspan="6" class="text-right">Up time:
                                                             <span class="uptimeClass">{{ getAppUptime() }}</span>
                                                         </th>
                                                     </tr>
@@ -236,7 +238,7 @@
                                 </select>
                                 <span class="text-danger error-position"></span>
                             </div>
-                            <div class="col-6 mb-3">
+                           {{--  <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="location" id="location">
                                     <option value="">Select Location</option>
                                     @foreach (config('escorts.profile.cities') as $skey => $city)
@@ -245,10 +247,23 @@
 
                                 </select>
                                 <span class="text-danger error-location"></span>
+                            </div> --}}
+                            <div class="col-6 mb-3">
+                                <select class="form-control rounded-0" name="country_id" id="country_id">
+                                    <option value="">Select Territory</option>
+                                    @foreach (config('operator.country') as $skey => $country)
+                                    @if($skey == 14)
+                                        <option value="{{ $skey }}" selected>{{ $country['name'] }}</option>
+                                    @else
+                                     <option value="{{ $skey }}">{{ $country['name'] }}</option>
+                                    @endif     
+                                    @endforeach
+                                </select>
+                                <span class="text-danger error-country_id"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" name="commenced_date" id="commenced_date"
-                                    class="form-control rounded-0" placeholder="Commenced Date"
+                                    class="form-control rounded-0 js_datepicker" placeholder="Commenced Date"
                                     onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
                                 <span class="text-danger error-commenced_date"></span>
 
@@ -464,14 +479,14 @@
                     {
                         data: 'security_level',
                         name: 'Security Level',
-                        searchable: true,
-                        orderable: true,
+                        searchable: false,
+                        orderable: false,
                         defaultContent: 'NA'
                     },
                     {
                         data: 'position',
                         name: 'Position',
-                        searchable: true,
+                        searchable: false,
                         orderable: false,
                         defaultContent: 'NA'
                     },
@@ -497,9 +512,23 @@
                         defaultContent: 'NA'
                     },
                     {
+                        data: 'operator_name',
+                        name: 'operator_name',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'created_by',
+                        name: 'created_by',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
                         data: 'login_count',
                         name: 'login_count',
-                        searchable: true,
+                        searchable: false,
                         orderable: false,
                         defaultContent: 0
                     },
@@ -515,7 +544,7 @@
                         data: 'status',
                         name: 'status',
                         searchable: false,
-                        orderable: false,
+                        orderable: true,
                         defaultContent: 'NA'
                     },
                     {
@@ -639,7 +668,7 @@
                         'title': 'Approving Account'
                     });
                     $.ajax({
-                        url: "{{ route('admin.approve_staff_account') }}",
+                        url: "{{ route('admin.operator.approve_staff_account') }}",
                         method: 'POST',
                         data: {
                             'user_id': $(this).attr('data-id'),
@@ -700,7 +729,7 @@
                 type: 'GET',
                 success: function(response) {
                     if ($.trim(response) === "") {
-                        swal_error_popup("Staff data not found");
+                        swal_error_popup("Operator staff data not found");
                     } else {
                         $('#modalStaffEditContent').html(response);
                         $('#staffEditModal').modal('show');
