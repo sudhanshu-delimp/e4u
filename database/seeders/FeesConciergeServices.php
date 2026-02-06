@@ -17,35 +17,35 @@ class FeesConciergeServices extends Seeder
     {
         DB::table('fees_concierge_services')->insert([
             [
-                'fee' => 'Accommodation',
+                'service_type' => 'Accommodation',
                 'frequency' => 'Per Service',
                 'amount' => 250.00,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'fee' => 'Email Account',
+                'service_type' => 'Email Account',
                 'frequency' => 'Per Service',
                 'amount' => 50.00,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'fee' => 'Mobile SIM',
+                'service_type' => 'Mobile SIM',
                 'frequency' => 'Per Service',
                 'amount' => 30.00,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'fee' => 'Travel',
+                'service_type' => 'Travel',
                 'frequency' => 'Per Service',
                 'amount' => 500.00,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'fee' => 'Visa Migration & Education Placement',
+                'service_type' => 'Visa Migration & Education Placement',
                 'frequency' => 'Per Service',
                 'amount' => 1000.00,
                 'created_at' => Carbon::now(),
