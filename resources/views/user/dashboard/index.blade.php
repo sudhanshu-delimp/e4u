@@ -249,11 +249,10 @@
             <!-- Header -->
 
 
-            <div class="modal-header">
-
-                <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/welcome.png') }}"
+           <div class="modal-header gap-20">
+                 <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/welcome.png') }}"
                         class="custompopicon">
-                    Welcome to Escorts4U!! <span>Member ID: {{auth()->user()->member_id}}</span></h5>
+                    Welcome to Escorts4U!! </h5> <span>Member ID: {{auth()->user()->member_id}}</span>
                 <a href="" class="close" data-dismiss="modal" aria-label="Close">
                     <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
                 </a>
@@ -298,7 +297,7 @@
                                             more of your details, as a once off, these include :
                                             <ul
                                                 style="padding-left: 20px; font-size: 15px; line-height: 1.6;list-style-type: disc;">
-                                                <li>Completing your business information, such as About Us.</li>
+                                                <li>Completing your personal information, such as About me.</li>
                                                 <li>Setting your Notifications & Features.</li>
                                                 <li>Uploading your avatar (optional, not made public).</li>
 
@@ -340,7 +339,7 @@
                                             to your city.</li>
                                         <li>My Notebox. Keep a diary of your favorite Advertisers.</li>
                                     </ul>
-                                    <p>And a Profile system that delivers relevant information for you. Out Website has two Profile
+                                    <p>And a Profile system that delivers relevant information for you. Our Website has two Profile
                                         types, one for the Escorts and one for Massage Centres (a world first). Some great features
                                         in the Profiles include:</p>
                                     <ul style="padding-left: 20px; font-size: 15px; line-height: 1.6;">

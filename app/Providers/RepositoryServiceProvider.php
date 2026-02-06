@@ -181,6 +181,11 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Operator\OperatorInterface',
             'App\Repositories\Operator\OperatorRepository'
         );
+         $this->app->bind(
+            'App\Repositories\OperatorStaff\OperatorStaffInterface',
+            'App\Repositories\OperatorStaff\OperatorStaffRepository'
+        );
+        
     }
 
     /**

@@ -19,7 +19,7 @@
                 <div class="row">
                     <!-- Page Heading -->
                     <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1">Manage Staff </h1>
+                        <h1 class="h1">Manage Operator Staff </h1>
                         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                             style="font-size:16px"><b>Help?</b> </span>
                     </div>
@@ -28,7 +28,7 @@
                             <div class="card-body">
                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                 <ol>
-                                    <li>Create and manage Staff here.</li>
+                                    <li>Create and manage Operator Staff here.</li>
                                     <li>Set the security level for Staff as well as granting access.</li>
                                 </ol>
                             </div>
@@ -46,7 +46,7 @@
                                             <div class="col-lg-12 col-md-12 col-sm-12">
                                                 <div class="bothsearch-form" style="gap: 10px;">
                                                     <button type="button" class="btn-common" data-toggle="modal"
-                                                        data-target="#addStaffnew">Add New Staff Member</button>
+                                                        data-target="#addStaffnew">Add New Operator Staff Member</button>
                                                 </div>
                                             </div>
                                             @endif
@@ -61,6 +61,8 @@
                                                         <th scope="col">Position</th>
                                                         <th scope="col" style="width: 86px;">Mobile</th>
                                                         <th scope="col">Email</th>
+                                                        <th scope="col">Operator</th>
+                                                        <th scope="col">Created By</th>
                                                         <th scope="col">Logins</th>
                                                         <th scope="col" style="width: 180px;">Last Login</th>
                                                         <th scope="col">Status</th>
@@ -78,7 +80,7 @@
                                                         <th colspan="3" class="text-center">Refresh time:
                                                             <span class="refreshSeconds"> 15</span>
                                                         </th>
-                                                        <th colspan="4" class="text-right">Up time:
+                                                        <th colspan="6" class="text-right">Up time:
                                                             <span class="uptimeClass">{{ getAppUptime() }}</span>
                                                         </th>
                                                     </tr>
@@ -117,7 +119,7 @@
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addStaffnewTitle"><img
-                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon"> Add New Staff
+                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon"> Add New Operator Staff
                         Member</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -125,9 +127,22 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form name="add_staff" id="add_staff" method="POST" action="{{ route('admin.add-staff') }}"
+                    <form name="add_staff" id="add_staff" method="POST" action="{{ route('admin.operator.add-staff') }}"
                         enctype="multipart/form-data">
                         <div class="row" style="max-height: 500px; overflow:auto;">
+                            <div class="col-12 my-2">
+                                <h6 class="border-bottom pb-1 text-blue-primary">Operator</h6>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <select class="form-control" name="operator_id" id="operator_id">
+                                    <option value="">Select Operator</option>
+                                    @foreach ($operators as $key => $name)
+                                        <option value="{{ $key }}">{{ $name }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="text-danger error-operator_id"></span>
+                            </div>
+                             
                             <!-- Section: Personal Details -->
                             <div class="col-12 my-2">
                                 <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
@@ -204,8 +219,8 @@
                             <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="security_level" id="security_level">
                                     <option value="">Security Level</option>
-                                    @foreach (config('staff.security_level') as $seckey => $secLevel)
-                                        <option value="{{ $seckey }}" {{ $seckey == 3 ? 'selected' : '' }}>
+                                    @foreach (config('operator_staff.security_level') as $seckey => $secLevel)
+                                        <option value="{{ $seckey }}" {{ $seckey == 2 ? 'selected' : '' }}>
                                             {{ $secLevel }}
                                         </option>
                                     @endforeach
@@ -215,15 +230,15 @@
                             <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="position" id="position" disabled>
                                     <option value="">Position</option>
-                                    @foreach (config('staff.position') as $pkey => $position)
-                                        <option value="{{ $pkey }}" {{ $pkey == 3 ? 'selected' : '' }}>
+                                    @foreach (config('operator_staff.position') as $pkey => $position)
+                                        <option value="{{ $pkey }}" {{ $pkey == 2 ? 'selected' : '' }}>
                                             {{ $position }}
                                         </option>
                                     @endforeach
                                 </select>
                                 <span class="text-danger error-position"></span>
                             </div>
-                            <div class="col-6 mb-3">
+                           {{--  <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="location" id="location">
                                     <option value="">Select Location</option>
                                     @foreach (config('escorts.profile.cities') as $skey => $city)
@@ -232,10 +247,23 @@
 
                                 </select>
                                 <span class="text-danger error-location"></span>
+                            </div> --}}
+                            <div class="col-6 mb-3">
+                                <select class="form-control rounded-0" name="country_id" id="country_id">
+                                    <option value="">Select Territory</option>
+                                    @foreach (config('operator.country') as $skey => $country)
+                                    @if($skey == 14)
+                                        <option value="{{ $skey }}" selected>{{ $country['name'] }}</option>
+                                    @else
+                                     <option value="{{ $skey }}">{{ $country['name'] }}</option>
+                                    @endif     
+                                    @endforeach
+                                </select>
+                                <span class="text-danger error-country_id"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" name="commenced_date" id="commenced_date"
-                                    class="form-control rounded-0" placeholder="Commenced Date"
+                                    class="form-control rounded-0 js_datepicker" placeholder="Commenced Date"
                                     onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
                                 <span class="text-danger error-commenced_date"></span>
 
@@ -365,7 +393,7 @@
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editStaffnewTitle"><img
-                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">Edit Staff
+                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">Edit Operator Staff
                         Member </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -385,7 +413,7 @@
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="viewStaffnewTitle"><img
-                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">View Staff
+                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">View Operator Staff
                         Member</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -413,8 +441,8 @@
         $(document).ready(function() {
             var table = $("#staff_data_table").DataTable({
                 language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Staff ID",
+                    search: "Search: _INPUT_", 
+                    searchPlaceholder: "Search by Operator Staff ID",
                     lengthMenu: "Show _MENU_ entries",
                     zeroRecords: "No matching records found",
                     info: "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -429,7 +457,7 @@
                 bStateSave: false,
 
                 ajax: {
-                    url: "{{ route('admin.staff_list_data_table') }}",
+                    url: "{{ route('admin.operator.staff_list_data_table') }}",
                     data: function(d) {
                         d.type = 'player';
                     }
@@ -451,14 +479,14 @@
                     {
                         data: 'security_level',
                         name: 'Security Level',
-                        searchable: true,
-                        orderable: true,
+                        searchable: false,
+                        orderable: false,
                         defaultContent: 'NA'
                     },
                     {
                         data: 'position',
                         name: 'Position',
-                        searchable: true,
+                        searchable: false,
                         orderable: false,
                         defaultContent: 'NA'
                     },
@@ -484,6 +512,20 @@
                         defaultContent: 'NA'
                     },
                     {
+                        data: 'operator_name',
+                        name: 'operator_name',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'created_by',
+                        name: 'created_by',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
                         data: 'login_count',
                         name: 'login_count',
                         searchable: false,
@@ -502,7 +544,7 @@
                         data: 'status_name',
                         name: 'status_name',
                         searchable: false,
-                        orderable: false,
+                        orderable: true,
                         defaultContent: 'NA'
                     },
                     {
@@ -515,7 +557,7 @@
                 ],
 
                 order: [
-                    [1, 'DESC']
+                    [11, 'DESC']
                 ],
                 lengthMenu: [
                     [10, 25, 50, 100],
@@ -552,7 +594,7 @@
                 //  return false
 
                 $.ajax({
-                    url: "{{ route('admin.add-staff') }}",
+                    url: "{{ route('admin.operator.add-staff') }}",
                     method: 'POST',
                     data: formData,
                     contentType: false,
@@ -594,7 +636,7 @@
                         'title': 'Suspending Account'
                     });
                     ajaxRequest({
-                        url: "{{ route('admin.suspend-staff') }}",
+                        url: "{{ route('admin.operator.suspend-staff') }}",
                         method: 'POST',
                         data: {
                             id: $(this).data('id'),
@@ -626,7 +668,7 @@
                         'title': 'Approving Account'
                     });
                     $.ajax({
-                        url: "{{ route('admin.approve_staff_account') }}",
+                        url: "{{ route('admin.operator.approve_staff_account') }}",
                         method: 'POST',
                         data: {
                             'user_id': $(this).attr('data-id'),
@@ -660,7 +702,7 @@
                         'title': 'Activating Account'
                     });
                     $.ajax({
-                        url: "{{ route('admin.active-staff-account') }}",
+                        url: "{{ route('admin.operator.active-staff-account') }}",
                         method: 'POST',
                         data: {
                             'user_id': $(this).attr('data-id'),
@@ -683,11 +725,11 @@
         $(document).on('click', '.edit-staff-btn', function() {
             let id = $(this).data('id');
             $.ajax({
-                url: "/admin-dashboard/edit-staff/" + id,
+                url: "/admin-dashboard/edit-operator-staff/" + id,
                 type: 'GET',
                 success: function(response) {
                     if ($.trim(response) === "") {
-                        swal_error_popup("Staff data not found");
+                        swal_error_popup("Operator staff data not found");
                     } else {
                         $('#modalStaffEditContent').html(response);
                         $('#staffEditModal').modal('show');
@@ -703,7 +745,7 @@
         $(document).on('click', '.view-staff-btn', function() {
             let id = $(this).data('id');
             $.ajax({
-                url: "/admin-dashboard/view-staff/" + id,
+                url: "/admin-dashboard/view-operator-staff/" + id,
                 type: 'GET',
                 success: function(response) {
                     if ($.trim(response) === "") {

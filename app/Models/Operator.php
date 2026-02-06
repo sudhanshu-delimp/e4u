@@ -64,4 +64,36 @@ class Operator extends Model
               ]);
           });
     }
+    
+    /**
+     * Get opertor list
+     * @param string $status
+     * @param array $columns
+     * @return App\Models\Operator $operators
+     */
+    public function getList($status = "", $columns = []) 
+    {
+        $selectColoums = ['id', 'member_id', 'email','phone','country_id', 'city_id', 'state_id', 'status', 'name', 'type', 'gender', 'operator_id', 'created_by', 'updated_by', 'created_at', 'business_name'];
+        if(is_array($columns) && count($columns) > 0) {
+            $selectColoums = $columns;
+        }
+        if((int)$status > 0) {
+            $operators = $this->select($selectColoums)->where('status', $status)->where('type', '7')->get();
+        } else {
+          $operators = $this->select($selectColoums)->where('type', '7')->get();  
+        }
+        return $operators;
+    }
+
+    /**
+     * Get operator list for dropdown
+     * 
+     * @param string $status
+     * @return App\Models\Operator $operators
+     */
+    public function getDropdownList($status = "") 
+    {
+        $operators = $this->getList($status, ['id', 'business_name', 'name'])->pluck('name', 'id');
+        return $operators;
+    }
 }

@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Operator;
 use Illuminate\Http\Request;
 
 use Laravel\Ui\Presets\React;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Staff\AddNewStaff;
-use App\Models\Staff;
-use App\Repositories\Staff\StaffInterface;
+use App\Http\Requests\OperatorStaff\AddNewStaff;
+use App\Models\OperatorStaff;
+use App\Repositories\OperatorStaff\OperatorStaffInterface;
 use PDF;
 
-class StaffController extends BaseController
+class OperatorstaffController extends BaseController
 {
     protected $current_date_time;
     protected $staffRepo;
@@ -22,7 +23,7 @@ class StaffController extends BaseController
     protected $addAccessEnabled;
     protected $sidebar;
 
-    public function __construct(StaffInterface $staffRepo)
+    public function __construct(OperatorStaffInterface $staffRepo)
     {
         $this->current_date_time = date('Y-m-d H:i:s');
         $this->staffRepo = $staffRepo;
@@ -51,7 +52,18 @@ class StaffController extends BaseController
     }
 
     /**
-     * Add staff
+     * View operator staff list
+     */
+    public function staff_list()
+    {
+        $operatorObj = (new Operator);
+        $operators = $operatorObj->getDropdownList();
+      
+        return view('admin.management.operator_staff.staff', compact('operators'));
+    }
+
+    /**
+     * Add operator staff
      * 
      * @param \Illuminate\Http\Request $request
      */
@@ -66,22 +78,24 @@ class StaffController extends BaseController
     }
 
     /**
-     * Edit staff
+     * Edit operator staff
      * 
      * @param integer $id
      */
     public function editStaff($id)
     {
-        $staff = User::with('staff_detail', 'staff_setting')->where("id", $id)->first();
+        $operatorObj = (new Operator);
+        $operators = $operatorObj->getDropdownList();
+        $staff = User::with('operator_staff_detail', 'operator_staff_setting')->where("id", $id)->first();
         if ($staff) {
-            return view('admin.management.staff.staff-edit', compact('staff'));
+            return view('admin.management.operator_staff.staff-edit', compact('staff', 'operators'));
         } else {
             return "";
         }
     }
 
     /**
-     * Store staff
+     * Store operator staff
      * 
      * @param \Illuminate\Http\Request $request
      */
@@ -95,29 +109,22 @@ class StaffController extends BaseController
             return $this->validationError($resposne['message']);
     }
     /**
-     * View staff
+     * View operator staff
      * 
      * @param integer $id
      */
     public function viewStaff($id)
     {
-        $staff = User::with('staff_detail')->where("id", $id)->first();
+        $staff = User::with('operator_staff_detail', 'operator_staff_setting', 'operator')->where("id", $id)->first();
         if ($staff) {
-            return view('admin.management.staff.staff-view', compact('staff'));
+            return view('admin.management.operator_staff.staff-view', compact('staff'));
         } else {
             return "";
         }
     }
-    /**
-     * View staff list
-     */
-    public function staff_list()
-    {
-        return view('admin.management.staff.staff');
-    }
 
     /**
-     * Get all staff list
+     * Get all operator staff list
      */
     public function staff_data_list()
     {
@@ -138,7 +145,7 @@ class StaffController extends BaseController
     }
 
     /**
-     *  Get all staff list with filter
+     *  Get all operator staff list with filter
      * 
      * @param integer $start
      * @param integer $limit
@@ -147,8 +154,8 @@ class StaffController extends BaseController
      */
     public function staff_data_pagination($start, $limit, $order_key, $dir)
     {
-        $staff = User::with('state', 'staff_detail', 'account_setting', 'LoginStatus')
-            ->where('type', config('staff.staff_role_type')); //Type = 6 
+        $staff = User::with('operator', 'operator_staff_detail', 'createddBy', 'account_setting', 'LoginStatus')
+            ->where('type', config('operator_staff.staff_role_type')); //Type = 9 
 
         $search = request()->input('search.value');
 
@@ -157,10 +164,10 @@ class StaffController extends BaseController
                 $query->where('member_id', 'like', "%{$search}%")
                     ->orWhere('name', 'like', "%{$search}%")
                     ->orWhere('phone', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%")
-                    ->orWhereHas('state', function ($q) use ($search) {
+                    ->orWhere('email', 'like', "%{$search}%");
+                    /* ->orWhereHas('state', function ($q) use ($search) {
                         $q->where('name', 'like', "%{$search}%");
-                    });
+                    }) */
             });
         }
 
@@ -169,13 +176,22 @@ class StaffController extends BaseController
                 $staff->orderBy('member_id', $dir);
                 break;
             case 1:
-                $staff->orderBy('id', $dir);
-                break;
-            case 2:
                 $staff->orderBy('name', $dir);
                 break;
+            case 4:
+                $staff->orderBy('phone', $dir);
+                break; 
+            case 5:
+                $staff->orderBy('email', $dir);
+                break;  
+             case 10:
+                $staff->orderBy('status', $dir);
+                break; 
+              case 11:
+                $staff->orderBy('id', 'DESC');
+                break;           
             default:
-                $staff->orderBy('member_id', 'DESC');
+                $staff->orderBy('id', 'DESC');
                 break;
         }
 
@@ -189,11 +205,15 @@ class StaffController extends BaseController
             $item->login_count = (isset($logAndStatus->login_count) && $logAndStatus->login_count > 0) ? $logAndStatus->login_count : 0;
             $item->sfaff_id = $item->id;
             $item->territory = isset($item->state->name) ? $item->state->name : 'NA';
-            $item->security_level = isset($item->staff_detail->security_level) ? $item->staff_detail->securityLevel($item->staff_detail->security_level) : 'NA';
-            $item->position = isset($item->staff_detail->position) ? $item->staff_detail->position($item->staff_detail->position) : 'NA';
+            $item->security_level = isset($item->operator_staff_detail->security_level) ? $item->operator_staff_detail->securityLevel($item->operator_staff_detail->security_level) : 'NA';
+            $item->position = isset($item->operator_staff_detail->position) ? $item->operator_staff_detail->position($item->operator_staff_detail->position) : 'NA';
+            $item->operator_name = isset($item->operator->name) ? $item->operator->name."(".$item->operator->member_id.")" : 'NA';
+            $item->created_by = isset($item->createddBy->name) ? $item->createddBy->name."(".$item->createddBy->member_id.")" :'NA';
             $suspend_html = "";
             $activate_html = "";
             $dropdownsub = "";
+            
+            //
             $edit = "";
             /*  if ($item->status != 'Suspended') {
                 $suspend_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-ban"></i> Suspend</a><div class="dropdown-divider"></div>';
@@ -257,7 +277,8 @@ class StaffController extends BaseController
             }
             
             $dropdown .= '</div></div>';
-             $item->status_name = '<span class="custom_badge '.getStatusBadgeClass($item->status).'">'.$item->status.' </span>';
+
+            $item->status_name = '<span class="custom_badge '.getStatusBadgeClass($item->status).'">'.$item->status.' </span>';
 
             $item->action = $dropdown;
             $i++;
@@ -265,7 +286,7 @@ class StaffController extends BaseController
         return [$staffs, $total_staffs];
     }
     /**
-     *  Suspent the access of staff dashboard
+     *  Suspent the access of operator staff dashboard
      * 
      * @param \Illuminate\Http\Request $request
      */
@@ -308,7 +329,7 @@ class StaffController extends BaseController
     /**
      *  Change the staff status
      * 
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $requestoperator
      */
     public function approve_staff_account(Request $request)
     {
@@ -322,7 +343,7 @@ class StaffController extends BaseController
     }
 
     /**
-     *  Approve the staff
+     *  Approve the operator staff
      * 
      * @param \Illuminate\Http\Request $request
      */
@@ -343,11 +364,12 @@ class StaffController extends BaseController
             return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
         }
         $userId  = $request->user_id;
-        $staff = User::with('staff_detail')->where("id", $userId)->first();
+      
+          $staff = User::with('operator_staff_detail', 'operator_staff_setting', 'operator')->where("id", $userId)->first();
         if ($staff) {
-            //return view('admin.management.staff.staff_report', ['staff' => $staff]);
+            //return view('admin.management.operator_staff.staff_report', ['staff' => $staff]);
             $pdf = PDF::loadView(
-                'admin.management.staff.staff_report_pdf',
+                'admin.management.operator_staff.staff_report_pdf',
                 ['staff' => $staff]
             )->setOption(['isRemoteEnabled' => true]);
             return $pdf->stream('staff_report.pdf');
