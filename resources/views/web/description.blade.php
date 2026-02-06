@@ -209,25 +209,25 @@
                     </li>
                 </ul>
             </div>
-<div class="d-flex align-items-center justify-content-start gap-10 px-3">
-               
+                <div class="d-flex align-items-center justify-content-start gap-10 px-3">
+                            
 
-<div class="d-flex align-items-center justify-content-start">
-    <div class="my-play-box-profile-icon">
-        <a href="{{ url('playbox') }}" target="_blank">
-            <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
-        </a>
-        <div class="custom-tooltip">I don't have any Playbox.</div>
-    </div>
-    @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
-        <div class="my-play-box-profile-icon">
-            <a href="#">
-                <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
-            </a>
-            <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
-        </div>
-    @endif
-</div>
+                <div class="d-flex align-items-center justify-content-start">
+                    <div class="my-play-box-profile-icon">
+                        <a href="{{ url('playbox') }}" target="_blank">
+                            <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
+                        </a>
+                        <div class="custom-tooltip">I don't have any Playbox.</div>
+                    </div>
+                    @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
+                        <div class="my-play-box-profile-icon">
+                            <a href="#">
+                                <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
+                            </a>
+                            <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
+                        </div>
+                    @endif
+                </div>
                 <ul class="profile_page_social_profiles">
                
                     @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
@@ -279,7 +279,11 @@
                         <div class="row mess_row">
                             <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4">
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="{{ asset('assets/app/img/handwithhart.png') }}">
+                                    <div class="mc_tooltip_wrap">
+                                         <img src="{{ asset('assets/app/img/handwithhart.png') }}">
+                                        <p class="mc_rate_tooltip">You come to me.</p>
+                                    </div>
+                                   
                                     <div class="div_contain_text">
                                         <div class="profile_message">
                                             <h4>Massage</h4>
@@ -298,7 +302,11 @@
                             </div>
                             <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4">
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="{{ asset('assets/app/img/areodownimg.png') }}">
+                                     <div class="mc_tooltip_wrap">
+                                          <img src="{{ asset('assets/app/img/areodownimg.png') }}">
+                                        <p class="mc_rate_tooltip">You come to me.</p>
+                                     </div>
+                                   
                                     <div class="div_contain_text">
                                         <div class="profile_message">
                                             <h4>Incalls</h4>
@@ -317,7 +325,11 @@
                             </div>
                             <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4 mx-auto">
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
+                                    
+                                     <div class="mc_tooltip_wrap">
+                                         <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
+                                        <p class="mc_rate_tooltip">I come to you.</p>
+                                     </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
                                             <h4>Outcalls</h4>

@@ -18,8 +18,8 @@ class AlterPurchaseChangeStausType extends Migration
     {
         DB::statement("
             ALTER TABLE purchase
-            MODIFY status ENUM('pending','listed','expire')
-            DEFAULT 'pending'
+            MODIFY status ENUM('per day','per week','Per Registration')
+            DEFAULT 'per day'
         ");
     }
 }

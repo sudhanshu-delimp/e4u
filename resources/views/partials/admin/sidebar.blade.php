@@ -910,7 +910,7 @@
                                 <span style="{{ request()->segment(3) == 'agent' ? 'color: #FF3C5F;' : '' }}">Agents</span>
                             </a>
                             <a class="collapse-item" href="{{ route('admin.manage-influencers') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/influencer-marketing.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'manage-influencers' ? 'color: #FF3C5F;' : '' }}">
                                     Influencer</span>
@@ -932,13 +932,13 @@
                                     
                                     
                                      <a class="collapse-item" href="{{ route('admin.operator-manage') }}">
-                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/manage-operator.png') }}">
                                         <span
                                             style="{{ request()->segment(3) == 'operator-manage' ? 'color: #FF3C5F;' : '' }}">Manage Operator</span>
                                     </a>
 
                                     <a class="collapse-item" href="{{ route('admin.operator.staff') }}">
-                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/manage-staff.png') }}">
                                         <span
                                             style="{{ request()->segment(3) == 'operator-staff' ? 'color: #FF3C5F;' : '' }}">Manage Staff</span>
                                     </a>
@@ -948,7 +948,7 @@
                             <!-- end --> 
 
                             <a class="collapse-item" href="{{ route('admin.manage-shareholders') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/shareholder.png') }}">
                                 <span style="{{ request()->segment(3) == 'manage-shareholders' ? 'color: #FF3C5F;' : '' }}">
                                     Shareholders</span>
                             </a>
@@ -956,12 +956,12 @@
                             
 
                             <a class="collapse-item" href="{{ route('admin.staff') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/e4u-staff.png') }}">
                                 <span style="{{ request()->segment(3) == 'staff' ? 'color: #FF3C5F;' : '' }}">
                                     E4U Staff</span>
                             </a>
                             <a class="collapse-item" href="{{ route('admin.manage-suppliers') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/vendor.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'manage-suppliers' ? 'color: #FF3C5F;' : '' }}">
                                     Suppliers</span>
