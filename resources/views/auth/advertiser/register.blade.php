@@ -75,16 +75,16 @@
                         <ol class="pl-4 text-justify">
                             <li>Victorian Advertisers can voluntarily provide their SWA exception number or license number,
                                 like for
-                                example, SWA20188XE. The license number will be displayed on any Profile you publish.
+                                example, SWA20188XE. The license number will be displayed on any Profile you List.
                             </li>
                             <li>Massage Centres in Queensland must have their business telephone number registered with
                                 the Prostitution Licensing Authority (Queensland) and display the number on any Profile
-                                it publishes.
+                                it Lists.
                             </li>
                             <li>
                                 Click <a href="https://www.esafety.gov.au/parents/resources/online-safety-book"
                                     target="_blank" class="termsandconditions_text_color">here to read</a> the eSafety
-                                Commissioner’s Online Safety Guide before registering as a Member.
+                                Commissioner's Online Safety Guide before registering as a Member.
                             </li>
                         </ol>
                     </div>
@@ -95,7 +95,7 @@
                         <form id="escort_registration" action="{{ route('advertiser.register') }}" method="post">
                             @csrf
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">Name / Business Name</label>
                                 <input type="txt" class="form-control" id="name" aria-describedby="emailHelp"
                                     name="name" required placeholder="Name"
                                     data-parsley-required-message="Your name is required" value="{{ old('name') }}">
@@ -216,7 +216,7 @@
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="type" id="inlineRadio2"
                                             value="4"{{ old('type') == 4 ? ' checked' : null }}>
-                                        <label class="form-check-label" for="inlineRadio2">I am a Massage Centre</label>
+                                        <label class="form-check-label" for="inlineRadio2">We are a Massage Centre</label>
                                     </div>
                                 </div>
                             </div>
@@ -342,7 +342,7 @@
                                         <td style="border-left: 2px solid #000000;">
                                             Platinum Membership always ranks at the top of the Escort Listing page.
                                             <p><b>Grid View:</b> Your Thumbnail is displayed with a hover over
-                                                details the salient points about you, such as your hourly rate,
+                                                detailing the salient points about you, such as your hourly rate,
                                                 services, gender, orientation, together with your rating are all included in the display.
                                                   Grid view is the default Listing.</p>
                                             <p><b>List View:</b> A more detailed summary, your Thumbnail is displayed with some key 
@@ -350,7 +350,7 @@
                                                 available to, verification and the introduction to your 'Who I am' are displayed.</p>
                                             <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
                                                 Thumbnail is displayed here together with 6 additional photos
-                                                and 3 videos. All of your Media is available individually or in a pop up.
+                                                and 3 videos (optional). All of your Media is available individually or in a pop up.
                                             </p>
                                         </td>
                                     </tr>
@@ -361,7 +361,7 @@
                                         <td style="border-left: 2px solid #000000;">
                                             Gold Membership ranks behind Platinum and before Silver.
                                             <p><b>Grid View:</b> Your Thumbnail is displayed with a hover over
-                                                details the salient points about you, such as your hourly rate,
+                                                detailing the salient points about you, such as your hourly rate,
                                                 services, gender, orientation, together with your rating are all included in the display.
                                                   Grid view is the default Listing.</p>
                                             <p><b>List View:</b> A more detailed summary, your Thumbnail is displayed with some key 
@@ -369,7 +369,7 @@
                                                 available to, verification and the introduction to your 'Who I am' are displayed.</p>
                                             <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
                                                 Thumbnail is displayed here together with 6 additional photos
-                                                and 3 videos. All of your Media is available individually or in a pop up.
+                                                and 3 videos (optional). All of your Media is available individually or in a pop up.
                                             </p>
                                         </td>
                                     </tr>
@@ -381,7 +381,7 @@
                                         <td style="border-left: 2px solid #000000;">
                                             Silver Membership ranks behind Gold and before Free.
                                             <p><b>Grid View:</b> Your Thumbnail is displayed with a hover over
-                                                details the salient points about you, such as your hourly rate,
+                                                detailing the salient points about you, such as your hourly rate,
                                                 services, gender, orientation, together with your rating are all included in the display.
                                                   Grid view is the default Listing.</p>
                                             <p><b>List View:</b> A more detailed summary, your Thumbnail is displayed with some key 
@@ -389,7 +389,7 @@
                                                 available to, verification and the introduction to your 'Who I am' are displayed.</p>
                                             <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
                                                 Thumbnail is displayed here together with 6 additional photos
-                                                and 3 videos. All of your Media is available individually or in a pop up.
+                                                and 3 videos (optional). All of your Media is available individually or in a pop up.
                                             </p>
                                         </td>
                                     </tr>
@@ -410,7 +410,7 @@
                                             </p>
                                             <p><b>Profile Page:</b> A comprehensive and informative summary about you. Your
                                                 Thumbnail is displayed here together with 6 additional photos
-                                                and 3 videos. All of your Media is available individually or in a pop up.</p>
+                                                and 3 videos (optional). All of your Media is available individually or in a pop up.</p>
                                             <p>If you receive over a certain number of Profile views or telephone number
                                                 clicks during the free 14 day period you will be informed and notified to
                                                 upgrade to a paying Membership Type.</p>
@@ -450,7 +450,7 @@
                     </a>
                     <div class="content">
                         <div class="accodien_manage_padding_content">
-                            <p>Escorts4U has partnered with the Condom Man where you can order products online and they
+                            <p>Escorts4U has partnered with a leading supplier of adult products which you can order online.  They
                                 will be delivered to your door or by post deparding on your Location. For more information about ordering products
                                 go to <span class=""><a href="{{ url('terms-conditions') }}"
                                         class="termsandconditions_text_color">Part G Concierge Services Products</a></span>.</p>
@@ -555,7 +555,7 @@
                                 </div>
                                 <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Reset
                                         Password</strong></h4>
-                                <p class="text-center pb-2">We’ll send you a reset password link on your email.</p>
+                                <p class="text-center pb-2">We will send you a reset password link to your email.</p>
                                 <input type="txt" required class="form-control" name="email" id="email"
                                     aria-describedby="emailHelp" placeholder="Email Address"
                                     data-parsley-required-message="Your Email is required" value="{{ old('email') }}">
@@ -819,7 +819,7 @@
                                                     <li>Uploading and verifying your Media, such as photos and video, and
                                                         selecting
                                                         which uploads will act as your default Media.</li>
-                                                    <li>Uploading the Masseur’s media.</li>
+                                                    <li>Uploading the Masseur's media.</li>
                                                 </ul>
                                                 If you forget to complete any of the above, you can edit your account
                                                 anytime, or in
