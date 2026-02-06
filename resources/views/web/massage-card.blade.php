@@ -47,6 +47,11 @@
                         <span class="title">Building:</span>
                         <span class="decs">Shop</span>
                     </div>
+
+                     <div class="items">
+                        <span class="title">Shower:</span>
+                        <span class="decs">Yes</span>
+                    </div>
                 </div>
             </a>
             <div class="mc_card_footer">
@@ -98,6 +103,10 @@
                     <div class="items">
                         <span class="title">Building:</span>
                         <span class="decs">Shop</span>
+                    </div>
+                    <div class="items">
+                        <span class="title">Shower:</span>
+                        <span class="decs">Yes</span>
                     </div>
                 </div>
             </a>
@@ -152,6 +161,10 @@
                         <span class="title">Building:</span>
                         <span class="decs">Shop</span>
                     </div>
+                    <div class="items">
+                        <span class="title">Shower:</span>
+                        <span class="decs">Yes</span>
+                    </div>
                 </div>
             </a>
             <div class="mc_card_footer">
@@ -205,6 +218,10 @@
                         <span class="title">Building:</span>
                         <span class="decs">Shop</span>
                     </div>
+                    <div class="items">
+                        <span class="title">Shower:</span>
+                        <span class="decs">Yes</span>
+                    </div>
                 </div>
             </a>
             <div class="mc_card_footer">
@@ -257,6 +274,10 @@
                     <div class="items">
                         <span class="title">Building:</span>
                         <span class="decs">Shop</span>
+                    </div>
+                    <div class="items">
+                        <span class="title">Shower:</span>
+                        <span class="decs">Yes</span>
                     </div>
                 </div>
             </a>

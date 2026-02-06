@@ -1626,14 +1626,13 @@
             }
             
             .shops_border {
-                padding: 20px 5px;
+                padding: 20px;
                 border: 1px solid #c2cfe0;
                 min-height: 200px;
                 align-items: center;
-                justify-content: center;
+                justify-content: flex-start;
                 flex-direction: column;
                 display: flex;
-                padding: 0px 20px;
             }
             
             .shops_border p {
@@ -5793,7 +5792,7 @@ i.fa.fa-heart-o{
             .mc_card_container {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
-                gap: 15px;
+                gap: 24px;
             }
             
             .mc_card {
@@ -5843,7 +5842,6 @@ i.fa.fa-heart-o{
                 align-items: center;
                 justify-content: space-between;
                 font-size: 12px;
-                font-weight: bold;
                 margin-bottom: 10px;
             }
             
@@ -6020,7 +6018,7 @@ i.fa.fa-heart-o{
                 border: 1px solid #ddd;
                 margin-bottom: 15px;
                 align-items: start;
-                min-height: 375px;
+                min-height: 360px;
                 width: 100%;
             }
             
@@ -6090,7 +6088,7 @@ i.fa.fa-heart-o{
                 justify-content: space-between;
                 gap: 20px;
                 flex-wrap: wrap;
-                padding: 7px 0;
+                padding: 3px 0;
             }
             
             .mc_list_desc {
@@ -6139,6 +6137,10 @@ i.fa.fa-heart-o{
             
             .mc_list_time table thead th {
                 padding: 13px !important;
+            }
+            
+            .mc_list_time table tbody td {
+                padding: 7px 13px !important;
             }
             
             .mc_time_header {
@@ -8288,12 +8290,12 @@ i.fa.fa-heart-o{
             /* Loader Spinner */
             
             .loader {
-                border: 6px solid rgba(255, 255, 255, 0.2);
-                border-top: 6px solid #ffffff;
+                border: 5px solid #f3f3f3;
+                border-top: 5px solid #ff3c5f;
                 border-radius: 50%;
-                width: 60px;
-                height: 60px;
-                animation: spin 1s linear infinite;
+                width: 50px;
+                height: 50px;
+                animation: spin 0.8s linear infinite;
             }
             /* News bar */
             
