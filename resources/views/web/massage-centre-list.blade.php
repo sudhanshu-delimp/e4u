@@ -1,26 +1,44 @@
 @extends('layouts.web')
 @section('style')
     <style>
-        .loader {
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
-            -webkit-animation: spin 2s linear infinite;
-            /* Safari */
-            animation: spin 2s linear infinite;
+        /* default stroke */
+        #view_list svg path,
+        #view_grid svg path {
+            stroke: #000;
+            transition: stroke 0.3s;
         }
 
-        /* Safari */
-        @-webkit-keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
+        /* hover stroke */
+        #view_list:hover svg path,
+        #view_grid:hover svg path {
+            stroke: #fff;
+        }
 
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
+        /* active stroke */
+        .view-active svg path {
+            stroke: #ff3c5f !important;
+        }
+
+        #page_loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 34, 61, 0.7);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #ff3c5f;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 0.8s linear infinite;
         }
 
         @keyframes spin {
@@ -31,20 +49,6 @@
             100% {
                 transform: rotate(360deg);
             }
-        }
-
-        .list-view {
-            padding-top: 25px;
-            padding-bottom: 30px;
-        }
-
-        .custom--service-tag {
-            display: flex !important;
-            gap: 10px !important;
-        }
-
-        .fiter_btns select {
-            text-transform: capitalize;
         }
     </style>
 @endsection
@@ -282,20 +286,6 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        {{-- <div class="row pr-3" style="float: right;">
-                                        <div class="display_inline_block mb-1 mr-2">
-                                            <button type="button" class="btn verified_btn_bg_color verified_text_color" data-toggle="tooltip" title="View Verified Photos only">
-                                            <img src="{{ asset('assets/img/e4u-verified-dark.png')}}">
-                                            </button>
-                                        </div>
-                                        <div class="display_inline_block mb-1 mr-2">
-                                            <button type="submit" class="btn reset_filter" data-toggle="tooltip" title="Apply filters - Search
-                                                ">
-                                            Apply Filters
-                                            </button>
-                                        </div>
-                                    </div> --}}
-
                                     </form>
                                     <div class="row grid_list_part p-0 m-0">
                                         <div
@@ -305,9 +295,8 @@
                                                 <span>{{ count($escorts) }}</span>
                                             </div>
                                             <div>
-                                                <div class="grid_list_icon_box display_inline_block grid--btn"
-                                                    data-toggle="modal1" data-target="#" data-url="grid-escort-list">
-                                                    <a href="#" class="active" id="grid-modal">
+                                                <div class="grid_list_icon_box display_inline_block grid--btn">
+                                                    <a href="#" class="active" id="view_grid">
                                                         <span class="custom-toltip">Grid View</span>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="30"
                                                             height="30" viewBox="0 0 30 30" fill="none">
@@ -331,7 +320,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="grid_list_icon_box display_inline_block list-btn">
-                                                    <a href="#" id="grid-list">
+                                                    <a href="#" id="view_list">
                                                         <span class="custom-toltip">List View</span>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="27"
                                                             height="24" viewBox="0 0 27 24" fill="none">
@@ -428,19 +417,93 @@
                         </div>
                     </div>
                 </div>
-            </div>        
+            </div>
         </div>
 
         {{-- mc_card_container --}}
-        
-       <div class="container my-5">
-            <div class="row">
-                 @include('web.massage-card')
-            </div>
-       </div>
-        
 
-        
+        <div class="container my-5">
+            <div class="row">
+                @include('web.massage-card')
+                <div id="page_loader" style="display:none;">
+                    <div class="loader"></div>
+                </div>
+
+            </div>
+            {{-- pagination --}}
+            <div class="row mt-5">
+                <div class="col-lg-12">
+                    <nav aria-label="Page navigation" class="custom-pagination">
+
+                        <ul class="list-unstyled d-flex justify-content-center align-items-center">
+
+                            <!-- First -->
+                            <li class="mx-1 disabled">
+                                <a href="#" style="pointer-events:none; opacity:0.5;">
+                                    <i class="fa fa-angle-double-left"></i> First
+                                </a>
+                            </li>
+
+                            <!-- Previous -->
+                            <li class="mx-1 disabled">
+                                <a href="#" style="pointer-events:none; opacity:0.5;">
+                                    <i class="fa fa-angle-left"></i> Previous
+                                </a>
+                            </li>
+
+                            <!-- Ellipsis -->
+                            {{-- <li class="mx-1">
+                  <a href="#">...</a>
+                  </li> --}}
+
+                            <!-- Page Numbers -->
+                            {{-- <li class="mx-1">
+                  <a href="#" style="background:#0C223d; color:#fff;">3</a>
+                  </li> --}}
+
+                            <li class="mx-1">
+                                <a href="#" style="background:#F2F2F2; color:#ff3c5f; font-weight:bold;">1</a>
+                            </li>
+
+                            <li class="mx-1">
+                                <a href="#" style="background:#0C223d; color:#fff;">2</a>
+                            </li>
+
+                            <!-- Ellipsis -->
+                            {{-- <li class="mx-1">
+                  <a href="#">...</a>
+                  </li> --}}
+
+                            <!-- Next -->
+                            <li class="mx-1">
+                                <a href="#">
+                                    Next <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+
+                            <!-- Last -->
+                            <li class="mx-1">
+                                <a href="#">
+                                    Last <i class="fa fa-angle-double-right"></i>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <!-- Page Info -->
+                        <div class="text-center mt-2 mb-5 col-sm-12" style="color:#ff3c5f; font-weight:400;">
+                            Page 1 of 1 | Showing 3 to 3 of 3 Listings
+                        </div>
+
+                    </nav>
+                </div>
+
+            </div>
+            {{-- end pagination --}}
+        </div>
+
+
+
         <div class="modal fade hh" id="add_wishlist" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content custome_modal_max_width">
@@ -470,7 +533,7 @@
             </div>
         </div>
 
-         <div class="modal fade hh" id="my_legbox" style="display: none">
+        <div class="modal fade hh" id="my_legbox" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content custome_modal_max_width">
                     <div class="modal-header main_bg_color border-0">
@@ -486,7 +549,8 @@
                     </div>
                     <div class="modal-body">
                         <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
-                            <span id="Lname " class="my_legbox_title">My Legbox is only available to Viewers. Please log in
+                            <span id="Lname " class="my_legbox_title">My Legbox is only available to Viewers. Please
+                                log in
                                 or Register to access your Legbox.</span>
                         </h1>
                     </div>
@@ -531,7 +595,8 @@
             $('.btn-search i').toggleClass('rotate-180');
         })
     </script>
-    <script>
+
+    {{-- <script>
         $('#grid-modal').on('click', function() {
 
             var val = $('#grid-modal').attr('class');
@@ -863,6 +928,95 @@
 
             console.log(cid[1] + "-" + Eid);
             console.log(cidcl);
+
+        });
+    </script> --}}
+    {{-- add read more js for list view profile desc --}}
+    
+    {{-- script --}}
+    <script>
+        function truncateWords(element, maxWords, redirectUrl) {
+            const text = element.innerText.trim();
+            const words = text.split(/\s+/);
+
+            if (words.length <= maxWords) return;
+
+            const truncated = words.slice(0, maxWords).join(" ");
+
+            element.innerHTML =
+                truncated +
+                '... <a href="' + redirectUrl + '" class="read-more-link">Read More</a>';
+        }
+
+        // apply to all elements
+        document.querySelectorAll(".mc_list_desc").forEach(function(el) {
+            truncateWords(el, 40, "{{ route('web.massage-description') }}");
+        });
+    </script>
+
+    {{-- hide show list view and grid view --}}
+    <script>
+        $(document).ready(function() {
+
+            // show loader on initial load
+            $('#page_loader').show();
+
+            // default state → GRID ACTIVE
+            $('#list_view').hide();
+            $('#grid_view').show();
+
+            $('#view_grid').addClass('view-active');
+            $('#view_list').removeClass('view-active');
+
+            // hide loader after page ready
+            setTimeout(function() {
+                $('#page_loader').fadeOut(300);
+            }, 300);
+
+
+            function showLoader() {
+                $('#page_loader').fadeIn(200);
+            }
+
+            function hideLoader() {
+                $('#page_loader').fadeOut(200);
+            }
+
+
+            // LIST VIEW CLICK
+            $('#view_list').click(function() {
+
+                showLoader();
+
+                setTimeout(function() {
+                    $('#list_view').show();
+                    $('#grid_view').hide();
+
+                    $('#view_list').addClass('view-active');
+                    $('#view_grid').removeClass('view-active');
+
+                    hideLoader();
+                }, 300);
+
+            });
+
+
+            // GRID VIEW CLICK
+            $('#view_grid').click(function() {
+
+                showLoader();
+
+                setTimeout(function() {
+                    $('#list_view').hide();
+                    $('#grid_view').show();
+
+                    $('#view_grid').addClass('view-active');
+                    $('#view_list').removeClass('view-active');
+
+                    hideLoader();
+                }, 300);
+
+            });
 
         });
     </script>
