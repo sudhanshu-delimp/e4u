@@ -33,14 +33,16 @@
 }
 
 .custom_badge {
-    display: inline-block;
-    padding: 4px 10px;
+    padding: 7px 8px;
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     color: #fff;
     line-height: 1;
     white-space: nowrap;
+    min-width: 100px;
+    display: inline-block;
+    text-align: center;
 }
 
 .badge_active {

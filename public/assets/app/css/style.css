@@ -34,14 +34,16 @@
             /* custome badge */
             
             .custom_badge {
-                display: inline-block;
-                padding: 4px 10px;
+                padding: 7px 8px;
                 border-radius: 5px;
-                font-size: 12px;
+                font-size: 14px;
                 font-weight: 500;
                 color: #fff;
                 line-height: 1;
                 white-space: nowrap;
+                min-width: 100px;
+                display: inline-block;
+                text-align: center;
             }
             
             .badge_active {
@@ -2432,7 +2434,7 @@ i.fa.fa-heart-o{
             
             .five_column_content_top {
                 color: white;
-                background: rgba(12, 34, 61, 0.5);
+                background: rgb(12, 34, 61, 0.5);
                 position: absolute;
                 top: 0;
                 height: 40px;
@@ -2451,7 +2453,7 @@ i.fa.fa-heart-o{
             
             .six_column_content_top {
                 color: white;
-                background: rgba(12, 34, 61, 0.5);
+                background: rgba(12, 34, 61);
                 position: absolute;
                 top: 0;
                 height: 40px;
@@ -2486,7 +2488,7 @@ i.fa.fa-heart-o{
             
             .seven_column_content_top {
                 color: white;
-                background: rgba(12, 34, 61, 0.5);
+                background: rgba(12, 34, 61);
                 position: absolute;
                 top: 0;
                 /*height: 40px;*/
@@ -2502,7 +2504,7 @@ i.fa.fa-heart-o{
             
             .five_column_bottom_content {
                 color: white;
-                background: rgba(12, 34, 61, 0.5);
+                background: rgba(170, 170, 170, 0.8);
                 position: absolute;
                 bottom: -100px;
                 left: 0;
@@ -5785,6 +5787,201 @@ i.fa.fa-heart-o{
             .massage_type_info img:hover+.mc_rate_tooltip {
                 display: block;
             }
+            /* end */
+            /* mc_card_container */
+            
+            .mc_card_container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+                gap: 15px;
+            }
+            
+            .mc_card {
+                position: relative;
+                min-height: 375px;
+                width: 100%;
+                object-fit: cover;
+                border: 1px solid rgb(12, 34, 61);
+            }
+            
+            .mc_card_link {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                /* z-index: 10; */
+            }
+            
+            .mc_card_header {
+                background-color: rgba(12, 34, 61, 0.5);
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: absolute;
+                width: 100%;
+                z-index: 1;
+            }
+            
+            .mc_card_content {
+                background-color: rgba(170, 170, 170, 0.9);
+                padding: 10px;
+                position: absolute;
+                width: 100%;
+                height: 35px;
+                overflow: hidden;
+                z-index: 1;
+                bottom: 40px;
+                left: 0;
+                right: 0;
+                transition: 0.3s linear;
+            }
+            
+            .mc_card_content .items {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 12px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            
+            .mc_card_content .decs {
+                color: #fff;
+            }
+            
+            .mc_card_content .items .title {
+                color: #fff;
+            }
+            
+            .mc_card_content .items .mc_star i {
+                color: var(--peach);
+            }
+            
+            .mc_profile_img:hover+.mc_card_content,
+            .mc_card_content:hover {
+                height: 150px;
+            }
+            
+            .mc_card_footer {
+                background-color: rgba(12, 34, 61);
+                padding: 10px;
+                position: absolute;
+                width: 100%;
+                z-index: 1;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                text-align: center;
+            }
+            
+            .mc_card_footer a {
+                color: var(--peach);
+                text-decoration: none;
+                font-size: 13px;
+            }
+            
+            .mc_card .mc_title {
+                color: #fff;
+                font-size: 13px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 15ch;
+                display: block;
+            }
+            
+            .mc_profile_img {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            
+            .mc_profile_img img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            
+            .mc_card_header .my_legbox_icon {
+                color: var(--peach);
+                font-size: 18px;
+                position: relative;
+            }
+            
+            .mc_card_header .verify_icon {
+                position: relative;
+                cursor: pointer;
+            }
+            
+            .mc_card_header .verify_icon img {
+                max-width: 18px;
+                width: 100%;
+            }
+            
+            .mc_media_tooltip {
+                position: absolute;
+                left: 25px;
+                top: 0;
+                z-index: 999;
+                width: max-content;
+                background: #ff3c5f;
+                color: #fff;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 5px;
+                border-radius: 3px;
+                cursor: pointer;
+                display: none;
+            }
+            
+            .mc_media_tooltip::after {
+                position: absolute;
+                left: 0%;
+                top: 50%;
+                content: '';
+                border-width: 6px;
+                border-style: solid;
+                border-color: var(--peach) transparent transparent transparent;
+                transform: rotate(90deg) translate(-50%, 100%);
+            }
+            
+            .verify_icon:hover .mc_media_tooltip {
+                display: block;
+            }
+            
+            .mc_legbox_tooltip {
+                position: absolute;
+                right: 25px;
+                top: 0;
+                z-index: 999;
+                width: max-content;
+                background: #ff3c5f;
+                color: #fff;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 5px;
+                border-radius: 3px;
+                cursor: pointer;
+                display: none;
+            }
+            
+            .mc_legbox_tooltip::after {
+                position: absolute;
+                right: 0%;
+                top: 50%;
+                content: '';
+                border-width: 6px;
+                border-style: solid;
+                border-color: var(--peach) transparent transparent transparent;
+                transform: rotate(270deg) translate(50%, 100%);
+            }
+            
+            .my_legbox_icon:hover .mc_legbox_tooltip {
+                display: block;
+            }
+            /* end */
             /* slide tips */
             
             .text-slider {
@@ -5804,6 +6001,158 @@ i.fa.fa-heart-o{
                 font-size: 15px;
                 font-weight: 400;
                 color: #000;
+            }
+            /* mc_list_card */
+            
+            .mc_view_title {
+                font-size: 24px;
+                font-weight: 500;
+                color: #0c223d;
+                border-bottom: 1px solid #022c3d;
+                margin-bottom: 15px;
+            }
+            
+            .mc_list_card {
+                display: grid;
+                grid-template-columns: 300px 1fr 300px;
+                gap: 15px;
+                background: #fff;
+                border: 1px solid #ddd;
+                margin-bottom: 15px;
+                align-items: start;
+                min-height: 375px;
+                width: 100%;
+            }
+            
+            .mc_list_card .verify_icon {
+                position: absolute;
+                bottom: 0px;
+                right: 0px;
+                width: max-content;
+                background: rgba(12, 34, 61);
+                z-index: 10;
+                width: 100px;
+                padding: 5px;
+            }
+            
+            .mc_list_card .verify_icon img {
+                width: 100%;
+            }
+            
+            .mc_list_content {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
+            }
+            
+            .mc_list_img {
+                position: relative;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+            
+            .mc_list_img img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            
+            .mc_list_header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 0px;
+            }
+            
+            .mc_list_title {
+                font-size: 22px;
+                font-weight: bold;
+                color: var(--peach);
+            }
+            
+            .mc_list_rating i {
+                color: var(--peach);
+            }
+            
+            .mc_list_address {
+                margin: 0;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .mc_list_meta {
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+                flex-wrap: wrap;
+                padding: 7px 0;
+            }
+            
+            .mc_list_desc {
+                line-height: 20px;
+                font-size: 14px;
+                text-align: justify;
+            }
+            
+            .read-more-link {
+                color: var(--peach);
+                text-decoration: none;
+                cursor: pointer;
+            }
+            
+            .read-more-link:hover {
+                text-decoration: underline;
+                color: var(--peach);
+            }
+            
+            .mc_btn_shortlist {
+                background: rgb(12, 34, 61);
+                color: var(--peach);
+                padding: 8px 15px;
+                text-decoration: none;
+                display: inline-block;
+                text-decoration: none;
+                font-size: 14px;
+            }
+            
+            .mc_list_legbox {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+            }
+            
+            .my_legbox_icon {
+                position: relative;
+                cursor: pointer;
+            }
+            
+            .mc_btn_shortlist:hover {
+                text-decoration: none;
+                color: #fff;
+                background-color: var(--peach);
+            }
+            
+            .mc_list_time table thead th {
+                padding: 13px !important;
+            }
+            
+            .mc_time_header {
+                background: #0d223a;
+                color: #fff;
+                padding: 8px;
+                font-weight: bold;
+            }
+            
+            .mc_time_row {
+                display: flex;
+                justify-content: space-between;
+                padding: 6px 8px;
+                border-top: 1px solid #ddd;
             }
             /* end */
             
