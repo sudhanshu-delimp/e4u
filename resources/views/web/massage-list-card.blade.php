@@ -1,5 +1,6 @@
 {{-- Grid view --}}
         <div class="col-sm-12">
+             <h2 class="mc_view_title">Grid View</h2>
             <div class="mc_card_container">
                 <div class="mc_card">
                    
@@ -266,6 +267,7 @@
 {{-- List View  --}}
         
 <div class="col-sm-12 mt-5">
+    <h2 class="mc_view_title">List View</h2>
     <div class="mc_list_container">
 
 
@@ -290,7 +292,6 @@
             <div class="mc_list_content_inner">
                 <div class="mc_list_header">
                     <span class="mc_list_title">[name]</span>
-
                     <span class="mc_list_rating">
                         <i class="fa fa-star-o"></i>
                         <i class="fa fa-star-o"></i>
@@ -301,7 +302,7 @@
                 </div>
 
                 <div class="mc_list_address">
-                    <i class="fa fa-map-marker"></i>
+                    <img src="{{ asset('assets/app/img/gps.png') }}" alt="address" class="custompopicon"> 
                     123 Massage St, Perth, WA 6000
                 </div>
 
@@ -329,11 +330,11 @@
             <!-- Right Open Times -->
             <div class="mc_list_time">
 
-                <table class="table table-striped">
+                <table class="table table-striped mb-0">
                     <thead class="bg-first">
                         <tr>
                             <th colspan="2">
-                                <i class="fa fa-clock-o"></i> Open Times
+                                <div class="d-flex gap-20 align-items-center"><img src="{{ asset('assets/app/img/open-time.png') }}" alt="Open Times" class="custompopicon"> Open Times</div>
                             </th>
                         </tr>
                     </thead>
@@ -341,37 +342,37 @@
                     <tbody>
                         <tr>
                             <td>Monday:</td>
-                            <td>Closed</td>
+                            <td class="text-right">Closed</td>
                         </tr>
 
                         <tr>
                             <td>Tuesday:</td>
-                            <td>9:30 am to 10:00 pm</td>
+                            <td class="text-right">9:30 am to 10:00 pm</td>
                         </tr>
 
                         <tr>
                             <td>Wednesday:</td>
-                            <td>9:30 am to 10:00 pm</td>
+                            <td class="text-right">9:30 am to 10:00 pm</td>
                         </tr>
 
                         <tr>
                             <td>Thursday:</td>
-                            <td>9:30 am to 10:00 pm</td>
+                            <td class="text-right">9:30 am to 10:00 pm</td>
                         </tr>
 
                         <tr>
                             <td>Friday:</td>
-                            <td>9:30 am to 10:00 pm</td>
+                            <td class="text-right">9:30 am to 10:00 pm</td>
                         </tr>
 
                         <tr>
                             <td>Saturday:</td>
-                            <td>9:30 am to 10:00 pm</td>
+                            <td class="text-right">9:30 am to 10:00 pm</td>
                         </tr>
 
                         <tr>
                             <td>Sunday:</td>
-                            <td>Closed</td>
+                            <td class="text-right">Closed</td>
                         </tr>
                     </tbody>
 
