@@ -6014,7 +6014,7 @@ i.fa.fa-heart-o{
             
             .mc_list_card {
                 display: grid;
-                grid-template-columns: 300px 1fr 1fr;
+                grid-template-columns: 300px 1fr 300px;
                 gap: 15px;
                 background: #fff;
                 border: 1px solid #ddd;
@@ -6091,6 +6091,23 @@ i.fa.fa-heart-o{
                 gap: 20px;
                 flex-wrap: wrap;
                 padding: 7px 0;
+            }
+            
+            .mc_list_desc {
+                line-height: 20px;
+                font-size: 14px;
+                text-align: justify;
+            }
+            
+            .read-more-link {
+                color: var(--peach);
+                text-decoration: none;
+                cursor: pointer;
+            }
+            
+            .read-more-link:hover {
+                text-decoration: underline;
+                color: var(--peach);
             }
             
             .mc_btn_shortlist {

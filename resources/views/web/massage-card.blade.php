@@ -274,7 +274,9 @@
         <div class="mc_list_card">
             
             <!-- Left Image -->
+            
             <div class="mc_list_img">
+                <a href="{{ route('web.massage-description') }}" class="mc_card_link">
                 <img src="{{ asset('assets/app/img/massage/mc2.jpg') }}" alt="">
                 <span class="verify_icon">
                     <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}" alt="">                   
@@ -285,6 +287,7 @@
                             <span class="mc_legbox_tooltip">Add to My Legbox</span>
                     </span>
                 </div>
+                </a>
             </div>
 
             <!-- Middle Content -->
@@ -309,16 +312,33 @@
                     <div class="mc_list_meta">
                         <span><strong>Parking:</strong> Front</span>
                         <span><strong>Entry:</strong> Front</span>
+                        <span><strong>Shower:</strong> Yes</span>
                     </div>
 
                     <div class="mc_list_meta">
                         <span><strong>Building:</strong> Shop</span>
                         <span><strong>Type:</strong> Table</span>
+                        <span><strong>Security:</strong> Yes</span>
+                    </div>
+
+                    <div class="mc_list_meta">
+                        <span><strong>Massage Services:</strong> Swedish Massage, Deep Tissue</span>
+                    </div>
+                    <div class="mc_list_meta">
+                        <span><strong>Other Service Types:</strong> Aromatherapy, Body Scrub</span>
                     </div>
 
                 <div class="mc_list_about">
                     <strong>About Us</strong><br>
+                   {{-- <p class="mc_list_desc"> Beautiful Girls Available Every Day in Rockingham, Mandurah, and Fremantle.</p> --}}
+                   <p class="mc_list_desc">
                     Beautiful Girls Available Every Day in Rockingham, Mandurah, and Fremantle.
+                    This is extra text added to make sure the content exceeds four lines so we can test
+                    the read more link functionality properly and append the link at the end of the fourth line correctly.
+                     Beautiful Girls Available Every Day in Rockingham, Mandurah, and Fremantle.
+                    This is extra text added to make sure the content exceeds four lines so we can test
+                    the read more link functionality properly and append the link at the end of the fourth line correctly.
+                    </p>
                 </div>
             </div>
                 <div class="mc_list_footer">
@@ -389,3 +409,23 @@
 </div>
 
 {{-- end list view --}}
+{{-- script --}}<script>
+function truncateWords(element, maxWords, redirectUrl) {
+  const text = element.innerText.trim();
+  const words = text.split(/\s+/);
+
+  if (words.length <= maxWords) return;
+
+  const truncated = words.slice(0, maxWords).join(" ");
+
+  element.innerHTML =
+    truncated +
+    '... <a href="' + redirectUrl + '" class="read-more-link">Read More</a>';
+}
+
+// apply to all elements
+document.querySelectorAll(".mc_list_desc").forEach(function(el) {
+  truncateWords(el, 40, "{{ route('web.massage-description') }}");
+});
+</script>
+

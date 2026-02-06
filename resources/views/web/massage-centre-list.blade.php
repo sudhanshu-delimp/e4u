@@ -435,7 +435,7 @@
         
        <div class="container my-5">
             <div class="row">
-                 @include('web.massage-list-card')
+                 @include('web.massage-card')
             </div>
        </div>
         
