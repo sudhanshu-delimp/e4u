@@ -29,7 +29,7 @@ class AlterRateColumnVariablAgentOperators extends Migration
     public function down()
     {
         DB::statement("
-            ALTER TABLE purchase
+            ALTER TABLE variabl_agent_operators
             MODIFY status ENUM('pending','listed','expire')
             DEFAULT 'pending'
         ");
