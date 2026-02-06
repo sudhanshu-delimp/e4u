@@ -92,6 +92,7 @@ class MassageController extends Controller
                  else
                 $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-circle"></i> Activate</a>';     
                
+                $status = "";
                
                  $action = '<div class="dropdown no-arrow">
                                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -101,7 +102,7 @@ class MassageController extends Controller
                                                    
                                                   
                                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-profile/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
-                                                   <div class="dropdown-divider"></div>'.$status.
+                                                   '.$status.
                                                   
                                                    
                             '</div>';
@@ -115,7 +116,7 @@ class MassageController extends Controller
                     'business_no' => $row->business_no,
                     'phone' => $row->phone,
                     'created_at' => date('d M Y', strtotime($row->created_at)),
-                    'status' => ($row->enabled==1) ? 'Active' : 'InActive',
+                    'status' => ($row->enabled==1) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Deactive</span>',
                     'action' => $action
 
                 ];
@@ -131,7 +132,6 @@ class MassageController extends Controller
 
 
 
-
     public function make_time_json(Request $request)
     {
          $request_data     = $request->all();
@@ -142,7 +142,6 @@ class MassageController extends Controller
                 'data' => $availability
          ], 200);
     }
-
 
 
     public function makeAvailability($request_data)
