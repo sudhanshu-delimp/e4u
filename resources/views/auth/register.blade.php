@@ -21,13 +21,13 @@
                             <h1 class="text-uppercase">Viewer Registration</h1>
                             <h2>Registration with us is anonymous and free</h2>
                             <p class="text-justify">You do not have to register with us to view an Advertiser's Profile however, if you
-                                register you will recieve the following benefits:</p>
+                                do register you will recieve the following benefits:</p>
                             <div class="">
                                 <ul class="pl-4 text-justify">
                                     <li>Flag a Profile and produce a Shortlist of your preferred Advertisers (per session)</li>
                                     <li>After logging on, view your favourite Profiles (My Legbox)</li>
                                     <li>Receive Alerts when your favourite Escort is visiting your Location</li>
-                                    <li>Have a discreet conversation with an Advertiser (provided they have enabled that
+                                    <li>Have a discreet conversation with an Advertiser (provided they have enabled the
                                         feature)</li>
                                     <li>Write a review about your experience with an Advertiser</li>
                                     <li>Complete a private Note (My Notebox) about your experience with an Advertiser (from
@@ -281,13 +281,13 @@
                                         <td><span class="accordien_color_table">A customised array of features at your finger tips.</span></td>
                                     </tr>
                                     <tr>
-                                        <td><span class="accordien_color_table">Favorites</span></td>
+                                        <td><span class="accordien_color_table">Shortlist</span></td>
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
                                         <td><span class="accordien_color_table">Flag your favorite Escorts while searching
-                                                and then view your shortlist.</span></td>
+                                                and then view your Shortlist.</span></td>
                                     </tr>
                                     <tr>
                                         <td><span class="accordien_color_table">My Legbox</span></td>
@@ -307,7 +307,7 @@
                                                 class="correct_symbole_font_weight accordien_color_table">&#x2717;</span>
                                         </td>
                                         <td><span class="accordien_color_table">Send a message to an Escort (provided they
-                                                have enabled this feature).</span></td>
+                                                have enabled the feature).</span></td>
                                     </tr>
                                     <tr>
                                         <td><span class="accordien_color_table">My Notes</span></td>
@@ -344,7 +344,7 @@
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
                                         <td class="text-center"><span
-                                                class="correct_symbole_font_weight accordien_color_table">✓</span></td>
+                                                class="correct_symbole_font_weight accordien_color_table">&#x2717;</span></td>
                                         <td><span class="accordien_color_table">Have direct access to an Escort's Playbox.</span></td>
                                     </tr>
                                     <tr>
@@ -362,7 +362,7 @@
                                         <td class="text-center"><span
                                                 class="correct_symbole_font_weight accordien_color_table">✓</span></td>
                                         <td class="text-center"><span
-                                                class="correct_symbole_font_weight accordien_color_table">✓</span></td>
+                                                class="correct_symbole_font_weight accordien_color_table">&#x2717;</span></td>
                                         <td><span class="accordien_color_table">Our Website is a secure environment so that
                                                 we can maintain your anonymity.  Select the level of security you want to apply.</span></td>
                                     </tr>
