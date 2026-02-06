@@ -16,7 +16,7 @@ class AlterRateColumnVariablAgentOperators extends Migration
     {
         DB::statement("
             ALTER TABLE variabl_agent_operators
-            MODIFY status ENUM('1','2','3')
+            MODIFY rate ENUM('1','2','3')
             DEFAULT '1'
         ");
     }
@@ -30,7 +30,7 @@ class AlterRateColumnVariablAgentOperators extends Migration
     {
         DB::statement("
             ALTER TABLE variabl_agent_operators
-            MODIFY status ENUM('pending','listed','expire')
+            MODIFY rate ENUM('pending','listed','expire')
             DEFAULT 'pending'
         ");
     }
