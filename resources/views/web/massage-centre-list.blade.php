@@ -42,7 +42,8 @@
             display: flex !important;
             gap: 10px !important;
         }
-        .fiter_btns  select{
+
+        .fiter_btns select {
             text-transform: capitalize;
         }
     </style>
@@ -50,16 +51,15 @@
 @section('content')
     <section class="">
         <div class="container filter-contain mt-3">
-            
-
             <div class="accordion custom_accordian" id="accordionExample">
                 <div class="card">
                     <div class="card-header all_filter_accordain" id="headingOne">
                         <h2 class="mb-0">
-                            <button class="btn btn-block text-left btn-search" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch">
-                           Find Massage Centre
-                            <i class="fa fa-angle-down"></i>
-                            </button>                        
+                            <button class="btn btn-block text-left btn-search" type="button" data-toggle="collapse"
+                                data-target="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch">
+                                Find Massage Centre
+                                <i class="fa fa-angle-down"></i>
+                            </button>
                         </h2>
                     </div>
 
@@ -73,19 +73,18 @@
                                                 <div class="custom-search-help mb-2 ">
                                                     <h5 class="normal_heading mb-0">Filters</h5>
                                                     <div class="display_inline_block helpquation">
-                                                        <a href="#" data-toggle="modal" data-target="#forhelp"
-                                                            >
+                                                        <a href="#" data-toggle="modal" data-target="#forhelp">
                                                             Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every 30 minutes. </span>
+                                                <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every
+                                                    30 minutes. </span>
                                             </div>
                                             <div class="col-md-8 ryt_srch_btn">
                                                 <div class="display_inline_block">
                                                     <div class="location_radio_filter">
-                                                        <div class="d-flex align-items-start" style="padding-top: 2px;"
-                                                            >
+                                                        <div class="d-flex align-items-start" style="padding-top: 2px;">
                                                             <input type="radio" name="locationByRadio" checked="checked"
                                                                 value="your_location" id="yourLocation">
                                                             <label for="yourLocation"
@@ -95,7 +94,8 @@
                                                         </div>
 
                                                         <div class="d-flex align-items-start">
-                                                            <input type="radio" name="locationByRadio" value="australia" id="australia">
+                                                            <input type="radio" name="locationByRadio" value="australia"
+                                                                id="australia">
                                                             <label for="australia"
                                                                 style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
                                                                 Australia
@@ -109,10 +109,12 @@
                                                         class="input-group custome_form_control managefilter_search_btn_style rounded search_btn_profile custom_search_btn_profile">
 
                                                         <!-- Hidden input to hold selected search type -->
-                                                        <input type="hidden" name="search_by_radio" id="search_by_radio" value="0">
+                                                        <input type="hidden" name="search_by_radio" id="search_by_radio"
+                                                            value="0">
 
                                                         <!-- Search input -->
-                                                        <input type="search" name="name" class="form-control remove_border_btm rounded"
+                                                        <input type="search" name="name"
+                                                            class="form-control remove_border_btm rounded"
                                                             placeholder="Search by Member ID or Name" aria-label="Search"
                                                             aria-describedby="search-addon" value="">
 
@@ -126,7 +128,8 @@
                                                 </div>
                                                 <div class="display_inline_block   item_dis">
                                                     <span class="item-head">Display item</span>
-                                                    <select class="custome_form_control_border_radus padding_five_px" name="limit">
+                                                    <select class="custome_form_control_border_radus padding_five_px"
+                                                        name="limit">
                                                         <option value="25">25</option>
                                                         <option value="50">50</option>
                                                         <option value="75">75</option>
@@ -134,8 +137,8 @@
                                                     </select>
                                                     <div class="display_inline_block custom-refreshbuton">
                                                         <div class="margin_btn_reset">
-                                                            <input type="hidden" name="apply_pagination_rule" id="apply_pagination_rule"
-                                                                value="0">
+                                                            <input type="hidden" name="apply_pagination_rule"
+                                                                id="apply_pagination_rule" value="0">
                                                             <button type="submit"
                                                                 class="btn reset_filter filter-tooltip-wrap apply_pagination_button"
                                                                 data-toggle="tooltip" title="" id="">
@@ -147,12 +150,16 @@
                                                 </div>
                                                 <div class="display_inline_block">
                                                     <div class="margin_btn_reset">
-                                                        <button type="button" class="btn reset_filter filter-tooltip-wrap" id="v_wishlist">
+                                                        <button type="button" class="btn reset_filter filter-tooltip-wrap"
+                                                            id="v_wishlist">
                                                             <a href="{{ route('find.massage.centre') }}"
                                                                 class="text-decoration-none">
-                                                                <div class="d-flex align-items-center justify-content-center gap-5">
-                                                                    <i class="fa fa-list" aria-hidden="true" style="line-height: 23px;"></i>
-                                                                    <span class="badge badge-pill badge-danger" id="session_count">0</span>
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-center gap-5">
+                                                                    <i class="fa fa-list" aria-hidden="true"
+                                                                        style="line-height: 23px;"></i>
+                                                                    <span class="badge badge-pill badge-danger"
+                                                                        id="session_count">0</span>
                                                                 </div>
                                                                 <span class="filter-tooltip">View Shortlist</span>
                                                             </a>
@@ -160,8 +167,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="display_inline_block mb-1">
-                                                    <a type="submit" href="{{ route('web.massage-show-list') }}" class="btn reset_filter "
-                                                        data-toggle="tooltip" title="">
+                                                    <a type="submit" href="{{ route('web.massage-show-list') }}"
+                                                        class="btn reset_filter " data-toggle="tooltip" title="">
                                                         Clear Shortlist
                                                     </a>
                                                 </div>
@@ -170,29 +177,31 @@
                                         </div>
                                         <div class="fiter_btns slect__btn_tab pb-2">
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px" id=""
-                                                    name="city">
+                                                <select class="custome_form_control_border_radus padding_five_px"
+                                                    id="" name="city">
                                                     <option value="" selected>All Cities</option>
                                                     @foreach (@config('escorts.profile.cities') as $key => $city)
                                                         <option value="{{ $key }}"
-                                                            {{ request()->get('city') == $key ? 'selected' : '' }}>{{ $city }}
+                                                            {{ request()->get('city') == $key ? 'selected' : '' }}>
+                                                            {{ $city }}
                                                         </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
-                                                    name="premises">
+                                                <select class="custome_form_control_border_radus padding_five_px"
+                                                    id="select2-dropdown" name="premises">
                                                     @foreach (@config('escorts.profile.premises') as $key => $value)
                                                         <option value="{{ $key }}"
-                                                            {{ request()->get('premises') == $key ? 'selected' : '' }}>{{ $value }}
+                                                            {{ request()->get('premises') == $key ? 'selected' : '' }}>
+                                                            {{ $value }}
                                                         </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
-                                                    name="masseur_types">
+                                                <select class="custome_form_control_border_radus padding_five_px"
+                                                    id="select2-dropdown" name="masseur_types">
                                                     @foreach (@config('escorts.profile.masseur-types') as $key => $value)
                                                         <option value="{{ $key }}"
                                                             {{ request()->get('masseur_types') == $key ? 'selected' : '' }}>
@@ -201,31 +210,42 @@
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
-                                                    name="age">
+                                                <select class="custome_form_control_border_radus padding_five_px"
+                                                    id="select2-dropdown" name="age">
                                                     <option value="" selected>All Ages</option>
-                                                    <option value="18-25"{{ request()->get('age') == '18-25' ? 'selected' : '' }}>18 -
+                                                    <option
+                                                        value="18-25"{{ request()->get('age') == '18-25' ? 'selected' : '' }}>
+                                                        18 -
                                                         25</option>
-                                                    <option value="26-35"{{ request()->get('age') == '26-35' ? 'selected' : '' }}>26 -
+                                                    <option
+                                                        value="26-35"{{ request()->get('age') == '26-35' ? 'selected' : '' }}>
+                                                        26 -
                                                         35</option>
-                                                    <option value="36-45"{{ request()->get('age') == '36-45' ? 'selected' : '' }}>36 -
+                                                    <option
+                                                        value="36-45"{{ request()->get('age') == '36-45' ? 'selected' : '' }}>
+                                                        36 -
                                                         45</option>
-                                                    <option value="46-80"{{ request()->get('age') == '46-80' ? 'selected' : '' }}>Over
+                                                    <option
+                                                        value="46-80"{{ request()->get('age') == '46-80' ? 'selected' : '' }}>
+                                                        Over
                                                         45</option>
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
-                                                    name="prices" value="{{ request()->get('prices') }}">
+                                                <select class="custome_form_control_border_radus padding_five_px"
+                                                    id="select2-dropdown" name="prices"
+                                                    value="{{ request()->get('prices') }}">
                                                     @foreach (@config('escorts.profile.prices') as $key => $value)
                                                         <option value="{{ $key }}"
-                                                            {{ request()->get('prices') == $key ? 'selected' : '' }}>{{ $value }}
+                                                            {{ request()->get('prices') == $key ? 'selected' : '' }}>
+                                                            {{ $value }}
                                                         </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px with_eight_em"
+                                                <select
+                                                    class="custome_form_control_border_radus padding_five_px with_eight_em"
                                                     id="" name="massage_services">
                                                     <option value="">All Massage Services</option>
                                                     @foreach (@config('escorts.profile.massage-services') as $key => $value)
@@ -236,7 +256,8 @@
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px with_eight_em"
+                                                <select
+                                                    class="custome_form_control_border_radus padding_five_px with_eight_em"
                                                     id=""name="other_services">
                                                     <option value="">All Other Service Types</option>
                                                     @foreach (@config('escorts.profile.other-services') as $key => $value)
@@ -247,7 +268,8 @@
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px with_eight_em"
+                                                <select
+                                                    class="custome_form_control_border_radus padding_five_px with_eight_em"
                                                     id="verification"name="verification">
                                                     <option value="all">Verification</option>
                                                     <option value="unverified">Unverified</option>
@@ -276,43 +298,45 @@
 
                                     </form>
                                     <div class="row grid_list_part p-0 m-0">
-                                        <div class="col-12 custom--service-tag mc_tags d-flex justify-content-between align-items-center">
+                                        <div
+                                            class="col-12 custom--service-tag mc_tags d-flex justify-content-between align-items-center">
                                             <div class="total--list">
                                                 <strong>Total Listings:</strong>
-                                                <span>{{count($escorts)}}</span>
+                                                <span>{{ count($escorts) }}</span>
                                             </div>
                                             <div>
-                                                <div class="grid_list_icon_box display_inline_block grid--btn" data-toggle="modal1"
-                                                    data-target="#" data-url="grid-escort-list">
+                                                <div class="grid_list_icon_box display_inline_block grid--btn"
+                                                    data-toggle="modal1" data-target="#" data-url="grid-escort-list">
                                                     <a href="#" class="active" id="grid-modal">
-                                                    <span class="custom-toltip">Grid View</span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                                        viewBox="0 0 30 30" fill="none">
-                                                        <path
-                                                            d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z"
-                                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path
-                                                            d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z"
-                                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path
-                                                            d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z"
-                                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path
-                                                            d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z"
-                                                            stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                    </svg>
+                                                        <span class="custom-toltip">Grid View</span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30"
+                                                            height="30" viewBox="0 0 30 30" fill="none">
+                                                            <path
+                                                                d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z"
+                                                                stroke="#0C223D" stroke-width="3" stroke-linecap="round"
+                                                                stroke-linejoin="round" />
+                                                            <path
+                                                                d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z"
+                                                                stroke="#0C223D" stroke-width="3" stroke-linecap="round"
+                                                                stroke-linejoin="round" />
+                                                            <path
+                                                                d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z"
+                                                                stroke="#0C223D" stroke-width="3" stroke-linecap="round"
+                                                                stroke-linejoin="round" />
+                                                            <path
+                                                                d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z"
+                                                                stroke="#0C223D" stroke-width="3" stroke-linecap="round"
+                                                                stroke-linejoin="round" />
+                                                        </svg>
                                                     </a>
                                                 </div>
                                                 <div class="grid_list_icon_box display_inline_block list-btn">
                                                     <a href="#" id="grid-list">
                                                         <span class="custom-toltip">List View</span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24"
-                                                            viewBox="0 0 27 24" fill="none">
-                                                            <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="27"
+                                                            height="24" viewBox="0 0 27 24" fill="none">
+                                                            <path
+                                                                d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
                                                                 stroke="#0C223D" stroke-width="3" stroke-linecap="round"
                                                                 stroke-linejoin="round" />
                                                         </svg>
@@ -327,12 +351,8 @@
                         </div>
                     </div>
                 </div>
-            </div> 
-            
-            <!-- ================     service provider start here     ========================= -->
-
-            {{-- <div class="modal defult-modal" id="forhelp"> --}}
-            <div class="modal fade defult-modal" id="forhelp"> 
+            </div>
+            <div class="modal fade defult-modal" id="forhelp">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content rounded-0">
                         <!-- Modal body -->
@@ -363,7 +383,8 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div class="tab-pane p-3 active show" id="tabs-1" role="tabpanel">
-                                        <p>Your Geolocation will automatically determine your Location and list Profiles according to that Location. You can:</p>
+                                        <p>Your Geolocation will automatically determine your Location and list Profiles
+                                            according to that Location. You can:</p>
                                         <ol class="pl-3">
                                             <li>Filter the search criteria by selecting your preferred filter and then
                                                 selecting the refresh button ‘Apply Filters’.</li>
@@ -375,7 +396,8 @@
                                     </div>
                                     <div class="tab-pane p-3" id="tabs-2" role="tabpanel">
                                         <ol class="pl-3">
-                                            <li>You can undertake a search for an Massage Centre within your Location, which is the default, or Australia wide
+                                            <li>You can undertake a search for an Massage Centre within your Location, which
+                                                is the default, or Australia wide
                                                 by selecting ‘Australia’.</li>
                                             <li>Searching by Member ID is the most efficient manner. </li>
                                         </ol>
@@ -406,38 +428,26 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div id="grid-template" class="text-center"></div>
-
-            <div class="space_between_row" style="display:block">
-                <div class="row responsive_colums_in_lg_five_col escost_list">
-                    @foreach ($escorts as $key => $escort)
-                        {{-- @if ($key <= 4) --}}
-                        <?php $pName[] = explode(' ', $escort->name); ?>
-                        @include('web.partials.grid.massage-gold')
-                        {{-- @endif --}}
-                    @endforeach
-                </div>
-            </div>
-            <div class="grid list-view " style="display: none">
-                @foreach ($escorts as $key => $escort)
-                    {{-- @if ($key <= 2) --}}
-                    <?php $pName[] = explode(' ', $escort->name); ?>
-                    @include('web.partials.list.massage-gold')
-                    {{-- @endif --}}
-                @endforeach
-            </div>
+            </div>        
         </div>
 
-        </div>
-        </div>
-        <div class="modal hh" id="add_wishlist" style="display: none">
+        {{-- mc_card_container --}}
+        
+       <div class="container my-5">
+            <div class="row">
+                 @include('web.massage-card')
+            </div>
+       </div>
+        
+
+        
+        <div class="modal fade hh" id="add_wishlist" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content custome_modal_max_width">
                     <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/dashboard/img/short-list-profile.png') }}"
-                            class="custompopicon"> Add To Shortlist</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"><img
+                                src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
+                                class="popup_modal_title_new">Add To Shortlist</span></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
                                 <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -445,13 +455,13 @@
                             </span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
-                            <span id="Lname"></span>
-                            <span class="class_msg"></span>
+                    <div class="modal-body pb-0" style="padding: 15px 0px;">
+                        <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                            <span id="Lname">[MC Name]</span>
+                            has been added to your Shortlist.
                         </h1>
                     </div>
-                    <div class="modal-footer" style="justify-content: center;">
+                    <div class="modal-footer pt-0" style="justify-content: center;">
                         <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
                             id="close">Ok</button>
                     </div>
@@ -459,12 +469,14 @@
 
             </div>
         </div>
-        <div class="modal hh" id="my_legbox" style="display: none">
+
+         <div class="modal fade hh" id="my_legbox" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content custome_modal_max_width">
                     <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"><img src="{{ asset('assets/app/img/my-legbox.png') }}"
-                            class="custompopicon"> My Legbox</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"> <img
+                                src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
+                                class=" popup_modal_title_new">My Legbox</span></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
                                 <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -473,84 +485,27 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
-                            <span id="Lname">Please log in or Register to access your Legbox</span>
+                        <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                            <span id="Lname " class="my_legbox_title">My Legbox is only available to Viewers. Please log in
+                                or Register to access your Legbox.</span>
                         </h1>
                     </div>
-                    <div class="modal-footer" style="justify-content: center;">
-                        <a href="{{ route('viewer.login') }}" type="button" class="btn main_bg_color site_btn_primary"
-                            id="loginUrl">Login</a>
-                        <a href="{{ route('register') }}" type="button" class="btn main_bg_color site_btn_primary"
-                            id="regUrl" style="width: 26%;">Register</a>
+                    <div class="modal-footer my_legbox_footer" style="justify-content: center;">
+                        <a href="{{ route('viewer.login') }}" type="button"
+                            class="btn-cancel-modal text-decoration-none text-white" id="loginUrl">Login</a>
+                        <a href="{{ route('register') }}" type="button"
+                            class="btn-success-modal text-decoration-none text-white" id="regUrl">Register</a>
                     </div>
 
                 </div>
             </div>
         </div>
-{{-- {!! $escorts->links('pagination::bootstrap-4') !!} --}}
-
-         {{-- <nav aria-label="Page navigation" class="custom-pagination">
-                <ul class="d-flex justify-content-center list-unstyled">
-
-                    <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
-                        <a href="{{ $paginator->onFirstPage() ? '#' : $paginator->url(1) }}"
-                        style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
-                            <i class="fa fa-angle-double-left"></i> First
-                        </a>
-                    </li>
-
-                    <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
-                        <a href="{{ $paginator->onFirstPage() ? '#' : $paginator->previousPageUrl() }}"
-                        style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
-                            <i class="fa fa-angle-left"></i> Previous
-                        </a>
-                    </li>
-
-                    @php
-                        $total = $paginator->lastPage();
-                        $current = $paginator->currentPage();
-                        $start = max(1, $current - 2);
-                        $end = min($total, $current + 2);
-                    @endphp
-
-                    @if($start > 1)
-                        <li class="disabled mx-1"><span>...</span></li>
-                    @endif
-
-                    @for ($i = $start; $i <= $end; $i++)
-                        <li>
-                            <a href="{{ $paginator->url($i) }}"
-                                        style="background-color: {{ $i == $paginator->currentPage() ? '#F2F2F2' : '#0C223d'}}; font-weight: {{ $i == $paginator->currentPage() ? 'bold' : 'normal' }}; color: {{ $i == $paginator->currentPage() ? '#ff3c5f' : '#fff' }};">
-                                            {{ $i }}
-                                        </a>
-                        </li>
-                    @endfor
-                    @if($end < $total)
-                        <li class="disabled mx-1"><span>...</span></li>
-                    @endif
-
-                    <li class="mx-1 {{ !$paginator->hasMorePages() ? 'disabled' : '' }}">
-                        <a href="{{ $paginator->hasMorePages() ? $paginator->nextPageUrl() : '#' }}"
-                        style="{{ !$paginator->hasMorePages() ? 'pointer-events:none; opacity:0.5;' : '' }}">
-                            Next <i class="fa fa-angle-right"></i>
-                        </a>
-                    </li>
-
-                    <li class="mx-1 {{ $current == $total ? 'disabled' : '' }}">
-                        <a href="{{ $current == $total ? '#' : $paginator->url($total) }}"
-                        style="{{ $current == $total ? 'pointer-events:none; opacity:0.5;' : '' }}">
-                            Last <i class="fa fa-angle-double-right"></i>
-                        </a>
-                    </li>
-
-                </ul>
-            </nav> --}}
 
     </section>
 @endsection
 @push('scripts')
-<script>
-      document.addEventListener("DOMContentLoaded", function () {
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
 
             // Restore after refresh
             let opened = sessionStorage.getItem("accordionOpen");
@@ -559,7 +514,7 @@
             }
 
             // When user clicks the accordion
-            document.querySelector('[data-target="#collapseSearch"]').addEventListener("click", function () {
+            document.querySelector('[data-target="#collapseSearch"]').addEventListener("click", function() {
 
                 let isOpen = document.getElementById("collapseSearch").classList.contains("show");
 
@@ -572,10 +527,9 @@
 
         });
 
-        $('.btn-search').on('click', function(){
+        $('.btn-search').on('click', function() {
             $('.btn-search i').toggleClass('rotate-180');
         })
-
     </script>
     <script>
         $('#grid-modal').on('click', function() {
@@ -586,7 +540,7 @@
                 $('.grid').hide();
                 $('#grid-template').html(
                     '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
-                    );
+                );
 
                 setTimeout(function() {
                     $('.spinner-border').css('display', 'none');
@@ -608,7 +562,7 @@
 
                 $('#grid-template').html(
                     '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
-                    );
+                );
 
                 setTimeout(function() {
                     $('.spinner-border').css('display', 'none');
@@ -770,7 +724,7 @@
                         $('#add_wishlist').modal('show');
                         $('.myescort_' + Eid).html(
                             '<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_btn.svg') }}"> Remove from Shortlist'
-                            )
+                        )
                         $('#session_count').text(data.count_session);
                         //
 
@@ -794,7 +748,7 @@
                                     $('#add_wishlist').modal('show');
                                     $('.myescort_' + Eid).html(
                                         '<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_btn.svg') }}"> Add to Shortlist'
-                                        )
+                                    )
                                     $('#session_count').text(data.count_session);
                                 }
 
@@ -854,7 +808,7 @@
                 $(this).addClass('null');
                 $('#legboxId_' + Eid).html(
                     "<i class='fa fa-heart' style='color: #ff3c5f;' title='Remove from legbox' aria-hidden='true'></i>"
-                    );
+                );
                 var url = "{{ route('user.save.massage.legbox', ':id') }} ";
                 url = url.replace(':id', Eid);
                 $('.class_msg').text(name + ' added to your Legbox');
@@ -875,7 +829,7 @@
                 $(this).removeClass('null');
                 $(this).addClass('fill');
                 $('#legboxId_' + Eid).html(
-                "<i class='fa fa-heart-o' title='Add to legbox' aria-hidden='true'></i>");
+                    "<i class='fa fa-heart-o' title='Add to legbox' aria-hidden='true'></i>");
                 var url = "{{ route('user.delete.massage.legbox', ':id') }} ";
                 url = url.replace(':id', Eid);
                 $('.class_msg').text(name + ' has been removed from your Legbox ');
