@@ -31,9 +31,9 @@
           <tr>
             <td style="padding: 30px;">
               <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$operator['business_name']}},</p>
-                <p style="font-size: 16px; margin: 20px 0 15px 0;">Your Account has been approved.Your login credentials are :</p>
+                <p style="font-size: 16px; margin: 20px 0 15px 0;">Your company has been approved. You can now manage your staff.</p>
                 <!-- Details Table -->
-                <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
+                {{-- <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
                   <tr>
                     <td style="font-weight: bold; padding: 10px 0px;">Email Address :</td>
                     <td style="padding: 10px 0px 10px 10px">{{$operator['email'] ?? ''}}</td>
@@ -46,7 +46,7 @@
                     <td style="font-weight: bold; padding: 10px 0px;">Login url:</td>
                     <td style="padding: 10px 0px 10px 10px">{{route('operator.login')}}</td>
                   </tr>
-                </table>
+                </table> --}}
                 <p style="font-size: 15px; margin-top: 20px;">
                     Regards,<br>
                     <b>E4U - Operations</b>
