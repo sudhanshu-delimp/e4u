@@ -408,20 +408,20 @@
                     {
                         data: 'totalAgents',
                         name: 'totalAgents',
-                        searchable: true,
+                        searchable: false,
                         orderable: false,
                         defaultContent: 'NA'
                     },
                     {
                         data: 'last_login',
                         name: 'last_login',
-                        searchable: true,
+                        searchable: false,
                         orderable: false,
                         defaultContent: 'NA'
                     },
                     {
-                        data: 'status',
-                        name: 'status',
+                        data: 'status_name',
+                        name: 'status_name',
                         searchable: false,
                         orderable: false,
                         defaultContent: 'NA'

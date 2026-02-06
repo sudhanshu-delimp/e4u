@@ -541,8 +541,8 @@
                     },
 
                     {
-                        data: 'status',
-                        name: 'status',
+                        data: 'status_name',
+                        name: 'status_name',
                         searchable: false,
                         orderable: true,
                         defaultContent: 'NA'

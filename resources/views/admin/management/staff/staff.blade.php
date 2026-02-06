@@ -486,7 +486,7 @@
                     {
                         data: 'login_count',
                         name: 'login_count',
-                        searchable: true,
+                        searchable: false,
                         orderable: false,
                         defaultContent: 0
                     },
@@ -499,8 +499,8 @@
                     },
 
                     {
-                        data: 'status',
-                        name: 'status',
+                        data: 'status_name',
+                        name: 'status_name',
                         searchable: false,
                         orderable: false,
                         defaultContent: 'NA'

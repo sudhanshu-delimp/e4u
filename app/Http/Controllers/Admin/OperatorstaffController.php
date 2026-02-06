@@ -212,6 +212,8 @@ class OperatorstaffController extends BaseController
             $suspend_html = "";
             $activate_html = "";
             $dropdownsub = "";
+            
+            //
             $edit = "";
             /*  if ($item->status != 'Suspended') {
                 $suspend_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-ban"></i> Suspend</a><div class="dropdown-divider"></div>';
@@ -275,6 +277,8 @@ class OperatorstaffController extends BaseController
             }
             
             $dropdown .= '</div></div>';
+
+            $item->status_name = '<span class="custom_badge '.getStatusBadgeClass($item->status).'">'.$item->status.' </span>';
 
             $item->action = $dropdown;
             $i++;
