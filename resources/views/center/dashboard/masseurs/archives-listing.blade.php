@@ -248,13 +248,13 @@ $(document).on('click', '.masseur_action', async function () {
 
       else if(current_id=='row_default')
       {
-         mess =   'Do you want to add this profile as the default on the Masseur tab in the Create MC Profile page?' 
+         mess =   'Do you want to add this profile as the default listing on the Masseur tab in the Create MC Profile page?' 
          action = current_id;
       }
 
       else if(current_id=='row_undefault')
       {
-         mess =   'Do you want to remove this as default?' 
+         mess =   'Do you want to remove this profile as the default listing from the Masseur tab on the Create MC Profile page?' 
          action = current_id;
       }
 

@@ -889,9 +889,9 @@ class MasseurController extends AppController
             
             
             if($row->is_default==1)
-            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_undefault" href="javascript:void(0)">   <i class="fa fa-ban"></i> Remove Default</a>';   
+            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_undefault" href="javascript:void(0)">   <i class="fa fa-ban"></i> Remove Default Listing</a>';   
                 else
-            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_default"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Make Default</a>';     
+            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_default"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Make Default Listing</a>';     
             
 
             
