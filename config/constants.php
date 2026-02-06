@@ -7,11 +7,8 @@ return [
     'agent_default_icon' => 'avatars/default/need_image.png',
     'staff_default_icon' => 'avatars/default/staff_default.png',
     'operator_default_icon' => 'avatars/default/operator_default.png',
+    'operator_staff_default_icon' => 'avatars/default/operator_staff_default.png',
     'socket_url' => (env('APP_ENV') === 'production' ? 'https' : 'http') . '://' .env('SOCKET_HOST').':'.env('SOCKET_PORT'),
-
-
-
-
 
     'NotificationIcon' => [
         'general' => '<i class="fas fas fa-comments text-white"></i>',

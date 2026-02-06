@@ -583,14 +583,13 @@
             <!-- Header -->
 
 
-            <div class="modal-header">
-
-                <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/welcome.png') }}"
+           <div class="modal-header gap-20">
+                 <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/welcome.png') }}"
                         class="custompopicon">
-                    Welcome to Escorts4U! <span>Member ID: {{auth()->user()->member_id}}</span></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    Welcome to Escorts4U!! </h5> <span>Member ID: {{auth()->user()->member_id}}</span>
+                <a href="" class="close" data-dismiss="modal" aria-label="Close">
                     <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
-                </button>
+                </a>
             </div>
             <!-- Body -->
             <div class="modal-body" style="padding: 20px;">

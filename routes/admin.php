@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\OperatorstaffController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\VisitorController;
 use App\Http\Controllers\Admin\OperatorController;
@@ -386,6 +387,18 @@ Route::post('/print-operator', [OperatorController::class, 'printOperatorDetails
 Route::post('/suspend-operator', [OperatorController::class, 'suspend_operator'])->name('admin.suspend-operator');
 Route::post('/active-operator-account', [OperatorController::class, 'activate_user'])->name('admin.active-operator-account');
 Route::post('/approve-operator-account', [OperatorController::class, 'approve_operator_account'])->name('admin.approve_operator_account');
+
+/** Operator Staff */
+Route::get('/management/operator-staff', [OperatorstaffController::class, 'staff_list'])->name('admin.operator.staff');
+Route::post('/management/operator-add-staff', [OperatorstaffController::class, 'add_sfaff'])->name('admin.operator.add-staff');
+Route::get('operator-staff_list_data_table', [OperatorstaffController::class, 'staff_data_list'])->name('admin.operator.staff_list_data_table');
+Route::post('/suspend-operator-staff', [OperatorstaffController::class, 'suspend_staff'])->name('admin.operator.suspend-staff');
+Route::post('/active-operator-staff-account', [OperatorstaffController::class, 'activate_user'])->name('admin.operator.active-staff-account');
+Route::get('/edit-operator-staff/{id}', [OperatorstaffController::class, 'editStaff'])->name('admin.operator.edit-staff');
+Route::post('/store-operator-staff', [OperatorstaffController::class, 'update_staff'])->name('admin.operator.store-staff');
+Route::get('/view-operator-staff/{id}', [OperatorstaffController::class, 'viewStaff'])->name('admin.operator.view-staff');
+Route::post('/approve-operator-staff-account', [OperatorstaffController::class, 'approve_staff_account'])->name('admin.operator.approve_staff_account');
+Route::post('/print-operator-staff', [OperatorstaffController::class, 'printStaffDetails'])->name('admin.operator.print_staff');
 
 
 Route::get('/management/agent', [AgentController::class, 'agent_list'])->name('admin.agent');

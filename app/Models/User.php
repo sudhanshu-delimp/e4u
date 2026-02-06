@@ -11,8 +11,11 @@ use App\Models\AccountSetting;
 use App\Models\MassageSetting;
 use App\Models\AgentBankDetail;
 use App\Models\PasswordSecurity;
+use App\Models\Operator;
 use App\Models\OperatorDetail;
 use App\Models\OperatorSetting;
+use App\Models\OperatorStaffDetail;
+use App\Models\OperatorStaffSetting;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Traits\HasRoles;
@@ -21,6 +24,7 @@ use App\Models\ViewerNotificationSetting;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -84,12 +88,12 @@ class User extends Authenticatable
 
     public function getPhoneAttribute($value)
     {
-      return formatMobileNumber($value);
+        return formatMobileNumber($value);
     }
 
     public function setPhoneAttribute($value)
     {
-    
+
         $clean = removeSpaceFromString($value);
         $this->attributes['phone'] = $clean;
     }
@@ -156,8 +160,11 @@ class User extends Authenticatable
             case 'staff':
                 $type = 6;
                 break;
-             case 'operator':
+            case 'operator':
                 $type = 7;
+                break;
+            case 'Operator-Staff':
+                $type = 9;
                 break;
             default:
                 $type = 0;
@@ -198,9 +205,12 @@ class User extends Authenticatable
             case (6):
                 return "Staff";
                 break;
-             case (7):
+            case (7):
                 return "Operator";
-                break;    
+                break;
+            case (9):
+                return "Operator-Staff";
+                break;
         }
     }
     public function getUserTypeAttribute()
@@ -234,9 +244,12 @@ class User extends Authenticatable
             case (6):
                 return "ST";
                 break;
-             case (7):
+            case (7):
                 return "O";
-                break;    
+                break;
+            case (9): // Operator's staff
+                return "OS";
+                break;
         }
     }
     public function getLevelTypeAttribute()
@@ -269,9 +282,12 @@ class User extends Authenticatable
             case (6):
                 return 6;
                 break;
-              case (7):
+            case (7):
                 return 7;
-                break;    
+                break;
+            case (9): // Operator's staff
+                return 9;
+                break;
             case (0):
                 return 4;
                 break;
@@ -409,7 +425,7 @@ class User extends Authenticatable
     public function generateMemberId()
     {
         if ($this->type == 1) {
-           // return 'S' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+            // return 'S' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
             $staffPrefix = config('staff.staff_member_id_prefix');
             //$memberId = $staffPrefix . $this->city_id . sprintf("%04d", $this->id);
             $staff = User::select(['id', 'name', 'member_id'])
@@ -447,22 +463,31 @@ class User extends Authenticatable
         if ($this->type == 4) {
             return 'M' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
-        if ($this->type == 9) {
-            return 'UP' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
-        }
         if ($this->type == 10) {
             return 'DL' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
-         if ($this->type == 7) {
+        // Operator
+        if ($this->type == 7) {
             $countryAbrs = config('operator.countryAbr');
-           // return 'O' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
-        
-           if(isset($countryAbrs[$this->country_id])) {
-             $cid = $countryAbrs[$this->country_id];
-           } else {
-             $cid = $this->country_id;
-           }
+            // return 'O' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+
+            if (isset($countryAbrs[$this->country_id])) {
+                $cid = $countryAbrs[$this->country_id];
+            } else {
+                $cid = $this->country_id;
+            }
             return 'O' .  $cid . sprintf("%04d", $this->id);
+        }
+        if ($this->type == 9) {
+            $countryAbrs = config('operator.countryAbr');
+            // return 'O' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
+
+            if (isset($countryAbrs[$this->country_id])) {
+                $cid = $countryAbrs[$this->country_id];
+            } else {
+                $cid = $this->country_id;
+            }
+            return 'OS' .  $cid . sprintf("%04d", $this->id);
         }
         if ($this->type == 6) {
             $staffPrefix = config('staff.staff_member_id_prefix');
@@ -510,11 +535,52 @@ class User extends Authenticatable
             if (empty($user->member_id)) {
                 if ($user->generateMemberId()) {
                     $user->member_id = $user->generateMemberId();
+                    $user->created_by = Auth::id();
                     $user->save();
                 }
             }
         });
+    }
 
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::updating(function ($model) {
+            if (auth()->check()) {
+                $model->updated_by = auth()->id();
+            }
+        });
+    }
+
+
+
+    public function createddBy()
+    {
+        return $this->belongsTo(User::class, 'created_by')
+            ->select('id', 'member_id', 'name', 'business_name');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by')
+            ->select('id', 'member_id', 'name', 'business_name');
+    }
+
+    /**
+     * Get current auth user id.
+     *
+     * @return int
+     */
+    public function getAuthUserId()
+    {
+        if (Auth::check()) {
+            return Auth::user()->id;
+        }
+        return 0;
     }
 
     public function escorts()
@@ -663,7 +729,7 @@ class User extends Authenticatable
 
         // Return default image based on user type
         switch ($this->type) {
-             case 1: //for Staff
+            case 1: //for Staff
                 return config('constants.staff_default_icon');
             case 3: //for escort
                 return config('constants.escort_default_icon');
@@ -674,7 +740,9 @@ class User extends Authenticatable
             case 6: //for Staff
                 return config('constants.agent_default_icon');
             case 7: //for Operator
-                return config('constants.operator_default_icon');    
+                return config('constants.operator_default_icon');
+            case 9: //for Operator staff
+                return config('constants.operator_staff_default_icon');
             case 0: // For Viewers
                 return config('constants.viewer_default_icon');
             default:
@@ -728,10 +796,15 @@ class User extends Authenticatable
     {
         return $this->belongsTo(StaffSetting::class, 'id', 'user_id');
     }
+    public function operator()
+    {
+        return $this->belongsTo(User::class, 'operator_id', 'id')->select('id', 'member_id', 'name', 'business_name');;
+    }
     public function operator_setting()
     {
         return $this->belongsTo(OperatorSetting::class, 'id', 'user_id');
     }
+
     public function staff_detail()
     {
         return $this->belongsTo(StaffDetail::class,  'id', 'user_id');
@@ -740,52 +813,50 @@ class User extends Authenticatable
     {
         return $this->belongsTo(OperatorDetail::class,  'id', 'user_id');
     }
+    public function operator_staff_detail()
+    {
+        return $this->belongsTo(OperatorStaffDetail::class,  'id', 'user_id');
+    }
+    public function operator_staff_setting()
+    {
+        return $this->belongsTo(OperatorStaffSetting::class, 'id', 'user_id');
+    }
 
     public function generateOTP()
     {
         $otp = '123456';
         //$otp = mt_rand(1000,9999);
         return $otp;
-      
     }
 
-    public function sendOtpNotification($user_id,$otp)
+    public function sendOtpNotification($user_id, $otp)
     {
-            $user = User::where('id',$user_id)->first();
+        $user = User::where('id', $user_id)->first();
 
-            if ($user->type == '0') {
-                $settings = $user->viewer_settings;
-            } 
-            elseif ($user->type == '1') {
-                $settings = $user->staff_setting;
-            }
-            elseif ($user->type == '3') {
-                $settings = $user->escort_settings;
-            }
-            elseif ($user->type == '4') {
-                $settings = $user->massage_settings;
-            } 
-            elseif ($user->type == '5') {
-                $settings = $user->agent_settings;
-            }
-            elseif ($user->type == '7') {
-                $settings = $user->operator_settings;
-            }
-     
-            if (isset($settings->twofa) && ($settings->twofa == '1' && $user->email != "")) {
-                sendLoginOtpEmail($otp, $user);
-            }
+        if ($user->type == '0') {
+            $settings = $user->viewer_settings;
+        } elseif ($user->type == '1') {
+            $settings = $user->staff_setting;
+        } elseif ($user->type == '3') {
+            $settings = $user->escort_settings;
+        } elseif ($user->type == '4') {
+            $settings = $user->massage_settings;
+        } elseif ($user->type == '5') {
+            $settings = $user->agent_settings;
+        } elseif ($user->type == '7') {
+            $settings = $user->operator_settings;
+        }
 
-            else if(isset($settings->twofa) &&  ($settings->twofa == '2' && $user->phone != "")) {
-                //sendLoginOtpSms($otp, $user);
-            }
-            else
-            {
-                //sendLoginOtpSms($otp, $user);
-            }
+        if (isset($settings->twofa) && ($settings->twofa == '1' && $user->email != "")) {
+            sendLoginOtpEmail($otp, $user);
+        } else if (isset($settings->twofa) &&  ($settings->twofa == '2' && $user->phone != "")) {
+            //sendLoginOtpSms($otp, $user);
+        } else {
+            //sendLoginOtpSms($otp, $user);
+        }
     }
 
-    
+
 
 
     public function update_last_login($user)
