@@ -117,7 +117,7 @@
                                     <th scope="col">Ethnicity</th>
                                     <th scope="col">Nationality</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Default Profile</th>
+                                    <th scope="col">Default Listing</th>
                                     <th scope="col">Created Date</th>
                                     <th scope="col" class="text-center">Action</th>
                                     </tr>
@@ -248,7 +248,7 @@ $(document).on('click', '.masseur_action', async function () {
 
       else if(current_id=='row_default')
       {
-         mess =   'Do you want to mark this as default?' 
+         mess =   'Do you want to add this profile as the default on the Masseur tab in the Create MC Profile page?' 
          action = current_id;
       }
 
