@@ -795,7 +795,7 @@
                                                             <input type="radio"
                                                                 name="availability_time[{{ $dayKey }}]"
                                                                 value="closed" {{ $isClosed ? 'checked' : '' }}>
-                                                            NA
+                                                            Not Available
                                                         </label>
 
                                                         <div class="resetdays-icon"> <input type="button" value="Reset"
@@ -942,15 +942,7 @@
 
 
 
-
-
-
-
-
-
-        </div>
-    </div>
-    </div>
+                                                
 
 
     </div>
@@ -1787,8 +1779,20 @@
                 e.preventDefault();
                 let index = $(this).attr('data-id');
                 allFiles[index] = null;
+                $(`#atag_${index}`).remove();
                 $(`.rm_${index}`).remove();
+                updateInputFiles();
             });
+
+            function updateInputFiles() 
+            {
+                const dt = new DataTransfer();
+                selectedFiles.forEach(file => {
+                    dt.items.add(file);
+                });
+
+                document.getElementById('upload_file').files = dt.files;
+            }
 
 
 
@@ -1868,9 +1872,11 @@
         var bannerDefaultImage;
         var pinupDefaultImage;
         var allFiles = [];
+        var max_file = 50;
 
         let selectedVideoId = null;
         let selectedVideoPosition = null;
+        let selectedFiles = [];
 
         function preview_image(event) {
             const input = document.getElementById("upload_file");
@@ -1880,7 +1886,7 @@
                 const fileSizeMB = file.size / (1024 * 1024);
                 const index = previousSelectedImagesCount + i;
 
-                if (fileSizeMB <= 2) {
+                if (fileSizeMB <= max_file) {
                     allFiles.push(file);
                     const imgURL = URL.createObjectURL(file);
                     $('#image_preview').append(`

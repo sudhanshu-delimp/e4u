@@ -25,6 +25,12 @@ class makeDefaultMassagers extends Seeder
             DB::table('massage_medias')->truncate();
             DB::table('massage_gallery')->truncate();
 
+            DB::table('masseurs')->truncate();
+            DB::table('masseur_galleries')->truncate();
+            DB::table('masseur_rate')->truncate();
+            DB::table('massuers_profile')->truncate();
+            
+
             
             
             $users = User::where('type', '4')->get();

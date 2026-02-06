@@ -33,7 +33,40 @@
 } */
 
 
-    
+   .superfix {
+    background: #262d30;
+    padding: 2px 6px;
+    color: #fff !important;
+    border-radius: 69px;
+    font-size: 11px;
+    margin-left: 4px;
+    font-weight: bold;
+
+    } 
+    #masseurs_Tab thead tr th {
+    text-align: center;
+    }
+    #masseurs_Tab tbody tr td {
+    text-align: center;
+    }
+
+    .list_profile_name {
+    display: block;
+    margin-top: 7px;
+    }
+
+    #selected_masseur thead tr th {
+    text-align: center;
+    }
+    #selected_masseur tbody tr td {
+    text-align: center;
+    }
+    .masseur_cus_width{
+        width: 40%;
+    }
+    .action_cus_width{
+        width: 10%;
+    }    
 
 </style>
 @endsection
@@ -48,7 +81,7 @@
             <!--middle content-->
             <div class="row">
                 <div class="custom-heading-wrapper col-md-12">
-                    <h1 class="h1">New Profile</h1>
+                    <h1 class="h1">Update Profile</h1>
                     <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
                 </div>
                 <div class="col-md-12 mb-4">
@@ -176,7 +209,7 @@
                 
                 <h3 class="my-2"><span id="Lname"><p>Would you like to update <b>
                                 <span id="field_name"></span>       
-                </b> in your 'My Information' page for future Profiles?</p></span> </h3>
+                </b> in your 'Our Information' page for future Profiles?</p></span> </h3>
                 <div class="modal-footer">
                 <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
                     value="close" id="close_change">No</button>
@@ -781,7 +814,7 @@ console.log('profileId',profileId);
             columns: [
                 { data: 'checkbox', orderable: false, searchable: false },
                 { data: 'profile' },
-                { data: 'days' },
+                { data: 'days',class:'masseur_cus_width' },
                 { data: 'ethnicity' },
                 { data: 'nationality' }
             ]
@@ -857,7 +890,7 @@ console.log('profileId',profileId);
         columns: [
         
             { data: 'profile' },
-            { data: 'days' },
+            { data: 'days', class:'masseur_cus_width' },
             { data: 'ethnicity' },
             { data: 'nationality' },
             { data: 'action', orderable: false, searchable: false } 
