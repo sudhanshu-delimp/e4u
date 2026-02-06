@@ -266,7 +266,7 @@ class MassageProfile extends Model
             if($image = $this->gallary()->wherePivot('position', $val)->first()) {
                 return $image->path;
             } else {
-                return url('assets/app/img/frame-main-thum.png');
+                return url('assets/app/img/img-12.png');
             }
         }
 
