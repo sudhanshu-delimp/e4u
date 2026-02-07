@@ -120,6 +120,24 @@
                 $(".ui-datepicker-trigger").removeAttr("title");
             }
         </script>
+          <script>
+       var initJsDatePickerEdit = function() {
+                var $inputs = $(".js_datepicker_edit");
+                if ($inputs.length > 0) {
+                    $inputs.attr('placeholder', 'DD-MM-YYYY');
+                    $inputs.attr('autocomplete', 'off');
+                    $inputs.datepicker({
+                        dateFormat: "dd-mm-yy",
+                        changeMonth: true,
+                        changeYear: true,
+                        showAnim: "slideDown",
+                        onSelect: function(dateText) {
+                            $(this).trigger('change');
+                        }
+                    });
+                }
+            }
+  </script>
         @section('script')
         @show
         @stack('script')

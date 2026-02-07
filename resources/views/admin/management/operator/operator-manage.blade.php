@@ -459,6 +459,11 @@
                         } else {
                             $('#modalOperatorEditContent').html(response);
                             $('#editOperatorModel').modal('show');
+                            initJsDatePickerEdit();
+                             $(document).on('change', '.js_datepicker_edit', function () {
+                this.value = $(this).val();
+                //$("#commenced_date_edit").val($(this).val());
+            });
                         }
                     },
                     error: function() {

@@ -33,7 +33,7 @@ if (is_array($operator->contact_type)) {
             <input type="text" class="form-control rounded-0" placeholder="Operator ID" value="{{ $operator->member_id }}" readonly >
         </div>
         <div class="col-6 mb-3">
-            <input type="text" name="date_appointed" id="date_appointed" class="form-control rounded-0 js_datepicker" placeholder="Date Appointed(DD-MM-YYYY)"  value="{{ showDateWithFormat($operator->operator_detail->date_appointed, 'd-m-Y') }}" >
+            <input type="text" name="date_appointed" id="date_appointed_edit" class="form-control rounded-0 js_datepicker_edit" placeholder="Date Appointed(DD-MM-YYYY)"  value="{{ showDateWithFormat($operator->operator_detail->date_appointed, 'd-m-Y') }}" >
             <span class="text-danger error-date_appointed"></span>
         </div>
         <div class="col-6 mb-3">
@@ -114,7 +114,7 @@ if (is_array($operator->contact_type)) {
             <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
         </div>
         <div class="col-6 mb-3">
-        <input type="text" name="agreement_date" id="opt_agreement_date" class="form-control rounded-0 js_datepicker" value="{{ showDateWithFormat($operator->operator_detail->agreement_date, "d-m-Y") }}" placeholder="Agreement Date (DD-MM-YYYY)" />
+        <input type="text" name="agreement_date" id="opt_agreement_date" class="form-control rounded-0 js_datepicker_edit" value="{{ showDateWithFormat($operator->operator_detail->agreement_date, "d-m-Y") }}" placeholder="Agreement Date (DD-MM-YYYY)" />
             <span class="text-danger error-agreement_date"></span>
         </div>
         <div class="col-6 mb-3">
@@ -159,25 +159,3 @@ if (is_array($operator->contact_type)) {
     </div>
     
 </form>
-  <script>
-       var initJsDatePicker = function() {
-                var $inputs = $(".js_datepicker");
-                if ($inputs.length > 0) {
-                    $inputs.attr('placeholder', 'DD-MM-YYYY');
-                    $inputs.attr('autocomplete', 'off');
-                    $inputs.datepicker({
-                        dateFormat: "dd-mm-yy",
-                        changeMonth: true,
-                        changeYear: true,
-                        showAnim: "slideDown",
-                        onSelect: function(dateText) {
-                            $(this).trigger('change');
-                        }
-                    });
-                }
-            }
-
-            $(document).ready(function() {
-                initJsDatePicker();
-            });
-  </script>
