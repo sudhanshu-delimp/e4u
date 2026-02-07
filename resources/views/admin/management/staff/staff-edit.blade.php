@@ -122,8 +122,8 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
              <span class="text-danger error-location"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="date" name="commenced_date" id="commenced_date" class="form-control rounded-0"
-                placeholder="Commenced Date"  value="{{ $staff->staff_detail->commenced_date }}">
+            <input type="text" name="commenced_date" id="commenced_date_edit" class="form-control rounded-0 js_datepicker_edit"
+            placeholder="Commenced Date" value="{{showDateWithFormat( $staff->staff_detail->commenced_date, 'd-m-Y') }}">
             <span class="text-danger error-commenced_date"></span>
 
         </div>

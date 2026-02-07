@@ -115,9 +115,10 @@ class StaffRepository extends BaseRepository implements StaffInterface
                     'kin_relationship' => $data['kin_relationship'] ?? null,
                     'kin_mobile' => $data['kin_mobile'] ?? null,
                     'kin_email' => $data['kin_email'] ?? null,
-
                     'location' => $data['location'] ?? null,
-                    'commenced_date' => $data['commenced_date'] ?? null,
+                    'commenced_date' => !empty($data['commenced_date'])
+                        ? Carbon::parse($data['commenced_date'])->format('Y-m-d')
+                        : null,
                     'security_level' => $data['security_level'] ?? null,
                     //'position' => $data['position'] ?? null,
                     'position' => $data['security_level'] ?? null,

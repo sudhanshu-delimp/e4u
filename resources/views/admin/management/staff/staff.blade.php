@@ -235,8 +235,7 @@
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" name="commenced_date" id="commenced_date"
-                                    class="form-control rounded-0" placeholder="Commenced Date"
-                                    onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
+                                    class="form-control rounded-0 js_datepicker" placeholder="Commenced Date">
                                 <span class="text-danger error-commenced_date"></span>
 
                             </div>
@@ -691,6 +690,8 @@
                     } else {
                         $('#modalStaffEditContent').html(response);
                         $('#staffEditModal').modal('show');
+                        initJsDatePickerEdit();
+                         
                     }
                 },
                 error: function() {
@@ -698,6 +699,10 @@
                 }
             });
         });
+        $(document).on('change', '.js_datepicker_edit', function () {
+                this.value = $(this).val();
+                $("#commenced_date_edit").val($(this).val());
+            });
 
         /*** Edit the staff */
         $(document).on('click', '.view-staff-btn', function() {

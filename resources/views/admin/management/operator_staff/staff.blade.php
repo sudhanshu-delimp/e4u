@@ -733,6 +733,7 @@
                     } else {
                         $('#modalStaffEditContent').html(response);
                         $('#staffEditModal').modal('show');
+                         initJsDatePickerEdit();
                     }
                 },
                 error: function() {
@@ -740,6 +741,7 @@
                 }
             });
         });
+       
 
         /*** Edit the staff */
         $(document).on('click', '.view-staff-btn', function() {

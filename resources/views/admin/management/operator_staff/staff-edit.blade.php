@@ -142,8 +142,7 @@
             <span class="text-danger error-country_id"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="date" name="commenced_date" id="commenced_date" class="form-control rounded-0 js_datepicker_edit"
-                placeholder="Commenced Date" value="{{ $staff_detail->commenced_date }}">
+            <input type="text" name="commenced_date" id="commenced_date_edit" class="form-control rounded-0 js_datepicker_edit" placeholder="Commenced Date" value="{{showDateWithFormat( $staff_detail->commenced_date, 'd-m-Y') }}">
             <span class="text-danger error-commenced_date"></span>
 
         </div>
@@ -270,6 +269,7 @@
         <button type="submit" class="btn-success-modal mr-3">Save</button>
     </div>
 </form>
+    
 <script>
     $(document).ready(function() {
         $("#security_level_edit").on("change", function() {
@@ -278,27 +278,8 @@
             $("#position_edit").val(level).trigger("change");
             $("#position_edit").prop("disabled", true);
         });
-
-         var initJsDatePickerEdit = function() {
-                var $inputs = $(".js_datepicker_edit");
-                if ($inputs.length > 0) {
-                    $inputs.attr('placeholder', 'DD-MM-YYYY');
-                    $inputs.attr('autocomplete', 'off');
-                    $inputs.datepicker({
-                        dateFormat: "dd-mm-yy",
-                        changeMonth: true,
-                        changeYear: true,
-                        showAnim: "slideDown",
-                        onSelect: function(dateText) {
-                            $(this).trigger('change');
-                        }
-                    });
-                }
-            }
-
-            $(document).ready(function() {
-                initJsDatePickerEdit();
-            });
+        
     });
+
 </script>
 
