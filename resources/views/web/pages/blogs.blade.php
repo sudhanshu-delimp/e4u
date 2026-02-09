@@ -1,8 +1,64 @@
 @extends('layouts.web')
 @section('style')
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <style>
-
+        
+            .ui-datepicker table {
+                display: none !important;
+            }
+            
+            .ui-state-default.ui-state-highlight {
+                background-color: var(--peach) !important;
+                border-color: #ccc !important;
+            }
+            
+            .ui-state-default.ui-state-active {
+                background-color: var(--blue--text) !important;
+                border-color: var(--blue--text) !important;
+            }
+            
+            .filter-date:focus {
+                outline: none;
+                border: 2px solid var(--peach);
+            }
+            /* Header background */
+            
+            .ui-widget.ui-widget-content {
+                width: 290px !important;
+                width: 100%;
+                border-radius: 5px;
+                border: none !important;
+            }
+            
+            .ui-datepicker .ui-datepicker-title {
+                margin: 0 2.3em;
+                line-height: 1.8em;
+                text-align: center;
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+            }
+            
+            .ui-datepicker {
+                background: #ffffff;
+                border-radius: 10px;
+                border: 1px solid #ccc;
+            }
+            
+            .ui-datepicker-header {
+                background: #fff;
+                color: #fff;
+                border: none;
+            }
+            /* Month & Year dropdown */
+            
+            .ui-datepicker select {
+                background: #022c3d;
+                color: #fff;
+                border: none;
+                padding: 5px;
+                border-radius: 5px;
+            }
     </style>
 @endsection
 @section('content')
@@ -160,10 +216,10 @@
                                     <!-- Search Form -->
                                     <form class="archive-form">
                                         <label for="archive-date">Search By Year & Month</label>
-                                        <input type="text" class="filter-date" placeholder="Select Month and Year">
+                                         <input type="text" class="filter-date" placeholder="Select Month and Year">
                                     </form>
 
-
+                                    
 
 
                                     <!-- Archive List -->
@@ -267,31 +323,28 @@
     </section>
 @endsection
 @push('scripts')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-    <script>
-        $(function() {
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+     <script>
+        $(function(){
 
-            $(".filter-date").datepicker({
-                dateFormat: "dd MM yy",
-                changeMonth: true,
-                changeYear: true,
-                showButtonPanel: true,
+    $(".filter-date").datepicker({
+        dateFormat: "MM yy",   // Example: February 2026
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
 
-                onClose: function(dateText, inst) {
-                    var day = inst.selectedDay;
-                    var month = inst.selectedMonth;
-                    var year = inst.selectedYear;
+        beforeShow: function(input, inst) {
+            $(".ui-datepicker-calendar").hide();
+        },
 
-                    if (day !== undefined && month !== undefined && year !== undefined) {
-                        $(this).val($.datepicker.formatDate(
-                            'dd MM yy',
-                            new Date(year, month, day)
-                        ));
-                    }
-                }
-            });
+        onClose: function(dateText, inst) {
+            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+            $(this).val($.datepicker.formatDate('MM yy', new Date(year, month, 1)));
+        }
+    });
 
-        });
+});
     </script>
 @endpush

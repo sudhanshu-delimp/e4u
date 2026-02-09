@@ -271,59 +271,6 @@
                 font-size: 16px;
             }
             
-            .ui-state-default.ui-state-highlight {
-                background-color: var(--peach) !important;
-                border-color: #ccc !important;
-            }
-            
-            .ui-state-default.ui-state-active {
-                background-color: var(--blue--text) !important;
-                border-color: var(--blue--text) !important;
-            }
-            
-            .filter-date:focus {
-                outline: none;
-                border: 2px solid var(--peach);
-            }
-            /* Header background */
-            
-            .ui-widget.ui-widget-content {
-                width: 290px !important;
-                width: 100%;
-                border-radius: 5px;
-                border: none !important;
-            }
-            
-            .ui-datepicker .ui-datepicker-title {
-                margin: 0 2.3em;
-                line-height: 1.8em;
-                text-align: center;
-                display: flex;
-                gap: 10px;
-                justify-content: center;
-            }
-            
-            .ui-datepicker {
-                background: #ffffff;
-                border-radius: 10px;
-                border: 1px solid #ccc;
-            }
-            
-            .ui-datepicker-header {
-                background: #ff3c5f;
-                color: #fff;
-                border: 2px solid #ff3c5f;
-            }
-            /* Month & Year dropdown */
-            
-            .ui-datepicker select {
-                background: #022c3d;
-                color: #fff;
-                border: none;
-                padding: 5px;
-                border-radius: 5px;
-            }
-            
             .archive-form label {
                 display: block;
                 font-weight: 600;

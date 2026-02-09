@@ -2,6 +2,63 @@
 @section('style')
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <style>
+   
+            .ui-datepicker table {
+                display: none !important;
+            }
+            
+            .ui-state-default.ui-state-highlight {
+                background-color: var(--peach) !important;
+                border-color: #ccc !important;
+            }
+            
+            .ui-state-default.ui-state-active {
+                background-color: var(--blue--text) !important;
+                border-color: var(--blue--text) !important;
+            }
+            
+            .filter-date:focus {
+                outline: none;
+                border: 2px solid var(--peach);
+            }
+            /* Header background */
+            
+            .ui-widget.ui-widget-content {
+                width: 290px !important;
+                width: 100%;
+                border-radius: 5px;
+                border: none !important;
+            }
+            
+            .ui-datepicker .ui-datepicker-title {
+                margin: 0 2.3em;
+                line-height: 1.8em;
+                text-align: center;
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+            }
+            
+            .ui-datepicker {
+                background: #ffffff;
+                border-radius: 10px;
+                border: 1px solid #ccc;
+            }
+            
+            .ui-datepicker-header {
+                background: #fff;
+                color: #fff;
+                border: none;
+            }
+            /* Month & Year dropdown */
+            
+            .ui-datepicker select {
+                background: #022c3d;
+                color: #fff;
+                border: none;
+                padding: 5px;
+                border-radius: 5px;
+            }
 </style>
 @endsection
 @section('content')
@@ -10,7 +67,23 @@
       <div class="row">
          <div class="col-lg-12">
             <div class="breadcrumb">
-           <a href="{{ url('blogs') }}">Blog</a> &gt;
+           <a href="{{ url('blogs') }}">Blog <svg fill="#ff3c5f"
+                                                    width="10px" height="10px" viewBox="0 0 1920 1920"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <g fill-rule="evenodd">
+                                                            <path
+                                                                d="M0 92.168 92.299 0l959.931 959.935L92.299 1920 0 1827.57l867.636-867.635L0 92.168Z">
+                                                            </path>
+                                                            <path
+                                                                d="M868 92.168 960.299 0l959.931 959.935L960.299 1920 868 1827.57l867.64-867.635L868 92.168Z">
+                                                            </path>
+                                                        </g>
+                                                    </g>
+                                                </svg></a>
             <span> Deep Throat Tips You Should Know </span>
             </div>
 
@@ -126,28 +199,25 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <script>
-       $(function() {
+        $(function(){
 
-            $(".filter-date").datepicker({
-                dateFormat: "dd MM yy", 
-                changeMonth: true,
-                changeYear: true,
-                showButtonPanel: true,
+    $(".filter-date").datepicker({
+        dateFormat: "MM yy",   // Example: February 2026
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
 
-                onClose: function(dateText, inst) {
-                    var day = inst.selectedDay;
-                    var month = inst.selectedMonth;
-                    var year = inst.selectedYear;
+        beforeShow: function(input, inst) {
+            $(".ui-datepicker-calendar").hide();
+        },
 
-                    if (day !== undefined && month !== undefined && year !== undefined) {
-                        $(this).val($.datepicker.formatDate(
-                            'dd MM yy',
-                            new Date(year, month, day)
-                        ));
-                    }
-                }
-            });
+        onClose: function(dateText, inst) {
+            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+            $(this).val($.datepicker.formatDate('MM yy', new Date(year, month, 1)));
+        }
+    });
 
-        });
+});
     </script>
 @endpush
