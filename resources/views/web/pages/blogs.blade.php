@@ -1,6 +1,8 @@
 @extends('layouts.web')
 @section('style')
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <style>
+
     </style>
 @endsection
 @section('content')
@@ -158,18 +160,10 @@
                                     <!-- Search Form -->
                                     <form class="archive-form">
                                         <label for="archive-date">Search By Year & Month</label>
-                                        <input type="month" id="archive-date" name="archive">
+                                        <input type="text" class="filter-date" placeholder="Select Month and Year">
                                     </form>
 
-                                    <script>
-                                        const monthInput = document.getElementById("archive-date");
-                                        const today = new Date();
 
-                                        const year = today.getFullYear();
-                                        const month = String(today.getMonth() + 1).padStart(2, '0');
-
-                                        monthInput.value = `${year}-${month}`;
-                                    </script>
 
 
                                     <!-- Archive List -->
@@ -273,5 +267,31 @@
     </section>
 @endsection
 @push('scripts')
-    <script></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script>
+        $(function() {
+
+            $(".filter-date").datepicker({
+                dateFormat: "dd MM yy",
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+
+                onClose: function(dateText, inst) {
+                    var day = inst.selectedDay;
+                    var month = inst.selectedMonth;
+                    var year = inst.selectedYear;
+
+                    if (day !== undefined && month !== undefined && year !== undefined) {
+                        $(this).val($.datepicker.formatDate(
+                            'dd MM yy',
+                            new Date(year, month, day)
+                        ));
+                    }
+                }
+            });
+
+        });
+    </script>
 @endpush

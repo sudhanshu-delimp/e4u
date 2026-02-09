@@ -9,6 +9,9 @@
         #cke_1_contents {
             height: 150px !important;
         }
+        .custom_w_blog{
+            max-width: 1000px !important;
+        }
     </style>
 @stop
 @section('content')
@@ -94,7 +97,7 @@
     {{-- add blog popup modal --}}
     <div class="modal fade upload-modal" id="createBlog" tabindex="-1" role="dialog" aria-labelledby="createBlog"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered custom_w_blog" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createBlogTitle"> <img
@@ -108,7 +111,7 @@
                     <form id="addBlogForm" method="POST" accept="" enctype="multipart/form-data">
                         <input type="hidden" name="edit_blog_id" id="edit_blog_id">
                         @csrf
-                        <div class="row">
+                        <div class="row" style="max-height: 600px; overflow-y: auto;">
                             <!-- Blog Title -->
                             <div class="col-12 mb-3">
                                 <input type="text" class="form-control rounded-0 fw-bold" name="title" id="title"
@@ -172,7 +175,7 @@
     <!-- open success popup -->
     <div class="modal fade upload-modal" id="successModal" tabindex="-1" role="dialog"
         aria-labelledby="successModallabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered custom_w_blog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
