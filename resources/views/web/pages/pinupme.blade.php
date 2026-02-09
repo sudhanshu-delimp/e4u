@@ -38,8 +38,9 @@
                         @if($galleryVideos->count()>0)
                             <div class="custom-video-wraper">
                                 <div class="video--icon">
-                                    <a href="#"><img src="/assets/app/img/video_play.svg" class="" alt="logo">
-                                        <span class="custom-icon-hover-tooltip">I have Video</span>
+                                    <a href="#">
+                                        <img src="/assets/app/img/video_play.svg" class="" alt="logo">
+                                        <small class="video-tooltip">I have Video</small>
                                     </a>
                                 </div>
                             </div>
