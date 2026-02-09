@@ -856,20 +856,22 @@
             }
             
             .pin-up-content .media .media-body h4 {
+                margin-bottom: 7px;
                 font-family: Poppins;
-                font-size: 18px;
                 font-style: normal;
-                font-weight: 700;
+                font-weight: bold;
+                font-size: 16px;
                 line-height: 16px;
-                letter-spacing: -0.015em;
-                text-align: left;
-                color: #5D6D7E;
+                color: #0c223d;
             }
             
             .pin-up-content .media .media-body p {
-                font-weight: 700;
-                line-height: 16px;
-                color: #FF3C5F;
+                font-family: Poppins;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 14px;
+                color: var(--peach);
             }
             
             .pin-up-content .social-and-view {
@@ -5758,24 +5760,28 @@ i.fa.fa-heart-o{
             .mc_rate_tooltip {
                 position: absolute;
                 left: 50%;
-                top: -50%;
+                top: -60%;
                 z-index: 999;
                 transform: translate(-50%, -50%);
                 width: max-content;
                 background: #ff3c5f;
                 color: #fff;
-                font-size: 11px;
+                font-size: 13px;
                 font-weight: 500;
-                padding: 3px;
-                border-radius: 2px;
+                line-height: 1.4;
+                padding: 6px 10px;
+                border-radius: 4px;
                 cursor: pointer;
                 display: none;
+                transition: opacity 0.3s;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
             }
             
             .mc_rate_tooltip::after {
                 position: absolute;
                 left: 50%;
-                top: 22px;
+                top: 29px;
                 content: '';
                 border-width: 6px;
                 border-style: solid;

@@ -909,6 +909,11 @@
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/manage-agents.png') }}">
                                 <span style="{{ request()->segment(3) == 'agent' ? 'color: #FF3C5F;' : '' }}">Agents</span>
                             </a>
+                             <a class="collapse-item" href="{{ route('admin.staff') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/e4u-staff.png') }}">
+                                <span style="{{ request()->segment(3) == 'staff' ? 'color: #FF3C5F;' : '' }}">
+                                    E4U Staff</span>
+                            </a>
                             <a class="collapse-item" href="{{ route('admin.manage-influencers') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/influencer-marketing.png') }}">
                                 <span
@@ -920,12 +925,12 @@
 
                             <!--  Operator -->
 
-                            <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse" data-target="#Mnoperator"
+                            {{-- <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse" data-target="#Mnoperator"
                                 aria-expanded="false" aria-controls="Mnoperator">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/operator.png') }}">
                                 <span>Operator</span>
-                            </a>
-                            <div id="Mnoperator" class="collapse @if (in_array(request()->segment(3), ['operator-staff', 'operator-manage'])) show @endif" data-parent="#ShareholdersMenu">
+                            </a> --}}
+                            {{-- <div id="Mnoperator" class="collapse @if (in_array(request()->segment(3), ['operator-manage'])) show @endif" data-parent="#ShareholdersMenu">
 
                                 <div class="py-0 collapse-inner rounded mb-2">
                                     
@@ -944,9 +949,19 @@
                                     </a>
 
                                 </div>
-                            </div>
-                            <!-- end --> 
+                            </div> --}}
 
+                             <a class="collapse-item" href="{{ route('admin.operator-manage') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/manage-operator.png') }}">
+                                <span style="{{ request()->segment(3) == 'operator-manage' ? 'color: #FF3C5F;' : '' }}">
+                                    Operator</span>
+                            </a>
+                            <!-- end --> 
+                             <a class="collapse-item" href="{{ route('admin.operator.staff') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/operator-staff.png') }}">
+                                <span style="{{ request()->segment(3) == 'operator-staff' ? 'color: #FF3C5F;' : '' }}">
+                                    Operator Staff</span>
+                            </a>
                             <a class="collapse-item" href="{{ route('admin.manage-shareholders') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/shareholder.png') }}">
                                 <span style="{{ request()->segment(3) == 'manage-shareholders' ? 'color: #FF3C5F;' : '' }}">
@@ -955,11 +970,7 @@
 
                             
 
-                            <a class="collapse-item" href="{{ route('admin.staff') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/e4u-staff.png') }}">
-                                <span style="{{ request()->segment(3) == 'staff' ? 'color: #FF3C5F;' : '' }}">
-                                    E4U Staff</span>
-                            </a>
+                           
                             <a class="collapse-item" href="{{ route('admin.manage-suppliers') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/vendor.png') }}">
                                 <span
