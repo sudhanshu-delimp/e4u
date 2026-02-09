@@ -85,7 +85,7 @@ if (!function_exists('calculateTotalFee')) {
         $discount_day = 21;
         $pricing = \App\Models\Pricing::where('membership_id', $membership_id)->first();
         if (!$pricing) {
-            return [0, 0, 0];
+            return [0, 0, 0, ];
         }
 
         $normalRate   = $pricing->price;
@@ -94,7 +94,7 @@ if (!function_exists('calculateTotalFee')) {
         if ($days <= $discount_day) {
             $total_rate     = $days * $normalRate;
             $total_discount = 0;
-            return [$total_discount, $total_rate, $total_rate];
+            return [$total_discount, $total_rate, $normalRate, $discountRate];
         }
 
 
@@ -114,7 +114,7 @@ if (!function_exists('calculateTotalFee')) {
 
         $total_discount = $discountDays * ($normalRate - $discountRate);
 
-        return [$total_discount, $total_rate, $total_rate];
+        return [$total_discount, $total_rate, $normalRate, $discountRate];
     }
 }
 
