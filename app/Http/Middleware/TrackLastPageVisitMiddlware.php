@@ -113,9 +113,16 @@ class TrackLastPageVisitMiddlware
                         
                     } 
                 }
-                
+                 
+            } elseif(auth()->user()->type == 7) {
+                $idle_preference_time = (auth()->user()->operator_setting && auth()->user()->operator_setting->idle_preference_time) ? auth()->user()->operator_setting->idle_preference_time : '60';
+                if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
+                auth()->logout();
+                return redirect()->route('operator-login')
+                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+                } 
             }
-
+            
 
             // # logout user if their idle time is more than their preference time
             // if ($lastActivity && now()->diffInMinutes($lastActivity) > (int)auth()->user()->idle_preference_time) {

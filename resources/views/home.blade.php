@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="col-md-7">
-                <p class="primery_color normal_heading">AUSTRALIA’S SEXIEST AND MOST ACCESSIBLE ESCORTS</p>
+                <p class="primery_color normal_heading">AUSTRALIA'S SEXIEST AND MOST ACCESSIBLE ESCORTS</p>
                 <h1 class="home_heading_first">ESCORTS4U DIRECTORY OF:</h1>
                 <h1 class="home_heading_first">
                     <img src="{{ asset('assets/app/img/home/correctsign.png') }}">
@@ -52,8 +52,22 @@
                 <p>The easiest platform to view Escorts and Massage Centres from, without all the
                     fuss.  Escorts4U prides itself on integrity, honesty and value.  The only platform where you pay by the day!
                 </p>
+                @php 
+                    $states = config('escorts.profile.states');
+                        $url    = route('find.all');
+                        if (auth()->check()) {
+                            $stateId = auth()->user()->current_state_id ?? null;
+                            $cities  = $states[$stateId]['cities'] ?? [];
+
+                            if ($cities) {
+                                $url .= (request()->getQueryString() ? '&' : '?')
+                                    . 'city=' . array_key_first($cities);
+                            }
+                        }
+                        
+                @endphp
                 <div class="padding">
-                    <a class="btn btn_advertiser" style="font-weight:500" href="{{ route('find.all') }}" role="button">View Escorts</a>
+                    <a class="btn btn_advertiser" id="view_btn_advertiser" style="font-weight:500" href="{{ $url }}" role="button">View Escorts</a>
                     <a class="btn  btn_become_pin_up" style="font-weight:500" href="become-a-pin-up" role="button">Become a Pin-Up</a>
                 </div>
             </div>
@@ -71,7 +85,7 @@
             </div>
             <div class="welcome_msg_peraone">
                 <p class="text-white">Welcome to the preferred website where Private Escorts and erotic Massage Centres advertise their companionship and services to Viewers who are looking for company.</p>
-                <p class="text-white">Advertisers set out a detailed and informative Profile or Tour where they propose their time and companionship, enabling Viewers to make direct contact. A Massage Centre has its own unique Profile designed to bring detailed Profile information about their business premises, Masseurs and their services directly to you.</p>
+                <p class="text-white">Advertisers set out a detailed and informative Profile, where they propose their time and companionship, enabling Viewers to make direct contact. The only platform where a Massage Centre has its own unique Profile designed to bring detailed Profile information about their business premises, Masseurs and their services directly to you.</p>
             </div>
             <div class="welcome_msg_peratwo">
                 <p class="welcome_text_color">Absolutely no banner advertising, third party marketing or spam!</p>
@@ -88,7 +102,7 @@
                         <h2 class="text-uppercase our">Our services to you</h2>
                     </div>
                     <div class="our_service_peragraph">
-                        <p>In addition to providing advertising services, we also assist with industry information for Advertisers and Viewers,<br> located in the footer, together with our My Playbox and Concierge Services.</p>
+                        <p>In addition to providing advertising services, we also assist with industry information for Advertisers and Viewers,<br> located in the footer, together with our Concierge Services and My Playbox.</p>
                     </div>
                 </div>
             </div>
@@ -117,7 +131,7 @@
                     </li>
                     <li>
                         <img src="{{ asset('assets/app/img/home/profits.png') }}">
-                        <p>A cost effective service for Advertisers</p>
+                        <p>A cost effective service for Advertisers (pay by the day)</p>
                     </li>
                     <li>
                         <img src="{{ asset('assets/app/img/home/encrypted.png') }}">
@@ -131,8 +145,8 @@
                 <h3 class="text-white">What is our point of difference?</h3>
                 <div class="point_of_diff_peragrapg">
                     <p class="text-white">It became apparent to us after talking with Advertisers and Viewers that there were a number of concerns about the quality and integrity of the services and offerings websites brought to Private Escorts and Massage Centres.</p>
-                    <p class="text-white">Those discussions helped bring about this Website, ensuring also that it complies with the Local Laws. Features such as verified photos, reviews, guides, concierge services, notes and Alerts are designed to make your experience a pleasant one.</p>
-                    <p class="text-white"> We also offer a loyalty program.</p>
+                    <p class="text-white">Those discussions helped bring about this Website, ensuring also that it complies with the Local Laws. Features such as verified photos, reviews, guides, concierge services, notes and Alerts are designed to make your experience a pleasant and easy one.</p>
+                    <p class="text-white"> We also offer a generous loyalty program to Advertisers.</p>
                 </div>
             </div>
         </div>
@@ -214,8 +228,8 @@
                         <h2 class="primery-color" style="line-height: 30px;">REGISTER NOW!</h2>
                     </div>
                     <div class="reg_now_pera">
-                        <p class="  pt-3">There are no fees when your create an Account. Fees only apply when you post a Profile or Tour where you are charged according to the number of days and the Membership Type you select (Book by the day!). See also <a href = "help-for-escorts" class="termsandconditions_text_color" >Help for Escorts</a></p>
-                        <p class="" >Massage Centres are also looked after with a uniquely designed Profile just for them.  List up to eight Masseurs on the one Profile.</p>
+                        <p class="  pt-3">There are no fees when your create an Account. Fees only apply when you List a Profile or create a Tour where you are charged according to the number of days and the Membership Type you select (Book and pay by the day!). See also <a href = "help-for-escorts" class="termsandconditions_text_color" >Help for Escorts</a>.</p>
+                        <p class="" >Massage Centres are also looked after with a uniquely designed Profile just for them.  A world first, set out your business information and list up to eight Masseurs all on the one Profile.</p>
                     </div>
                     </br>
                     <div class="padding">
@@ -264,6 +278,7 @@
                 $("#preloader").removeClass('pre-active');
             }
         });
-    }        
+    }
+    
 </script>
 @endpush

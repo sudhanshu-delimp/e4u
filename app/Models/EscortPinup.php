@@ -41,6 +41,11 @@ class EscortPinup extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function tourProfile()
+    {
+        return $this->hasOne(TourProfile::class, 'is_pinup', 'id');
+    }
+
     public function scopeActive($query)
     {
         return $query->where('utc_start_time', '<=', Carbon::now('UTC'))

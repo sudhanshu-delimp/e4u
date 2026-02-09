@@ -13,7 +13,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreUserRequest;
+use App\Mail\NewUserRegistrationConfirmation;
 use Illuminate\Auth\Events\Registered;
+use Mail;
 use Carbon\Carbon;
 
 
@@ -119,9 +121,8 @@ class RegisterController extends Controller
 
     public function register(StoreUserRequest $request)
     {
-        
-        event(new Registered($user = $this->create($request->all())));
-
+        $plainPassword = $request->password;
+        $user = $this->create($request->all());
         if($user) {
             $error = 1;
             $phone = $user->phone;
@@ -134,6 +135,8 @@ class RegisterController extends Controller
             
             $sendotp = new SendSms();
             $output = $sendotp->send($phone,$msg);
+            $user->password = $plainPassword;
+            event(new Registered($user));
             return response()->json(compact('error','phone','otp'));
         } else {
             $error = 0;

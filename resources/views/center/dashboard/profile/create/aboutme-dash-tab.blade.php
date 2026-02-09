@@ -112,9 +112,9 @@ textarea {
    border-bottom: 1px solid #0c223d;
 }
 
-.upld-img {
+/* .upld-img {
    height: 82px !important;
-}
+} */
 
 .grid-container {
    display: grid;
@@ -324,7 +324,7 @@ textarea {
                                             data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
                                             <img class="img-fluid profile-gallery" data-type="banner" id="img9"
                                                 src="{{ asset($escort->imagePosition(9)) }}"
-                                                style="height: 230.578px;width: 1066.640px;object-fit: cover;">
+                                                style="height: 167.578px;width: 1066.640px;object-fit: cover;">
                                         </label>
                                     </div>
                                 </div>
@@ -442,9 +442,6 @@ textarea {
                                                                                     <span class="badge badge-red">Banner</span>
                                                                                 @break
 
-                                                                                @case(10)
-                                                                                    <span class="badge badge-red">Pin Up</span>
-                                                                                @break
 
                                                                                 @default
                                                                                     <span

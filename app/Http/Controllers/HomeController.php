@@ -108,6 +108,9 @@ class HomeController extends Controller
             case 6:
                 return redirect()->route('staff.dashboard');
                 break;
+             case 7:
+                return redirect()->route('operator.index');
+                break;    
 
             default:
                 return back();

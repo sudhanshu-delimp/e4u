@@ -94,59 +94,36 @@
                         <div class="tab-pane fade active show" id="tab3warning">
                            <div class="row pb-3">
 
-                              <div class="col-md-12 col-sm-12">
-                                 <div class="bothsearch-form d-flex align-items-center justify-content-end" style="gap: 10px;">
-                                    <div class="total_listing">
-                                       <div><span>Current Active : </span></div>
-                                       <div><span id="totalViewerLegboxList">1</span></div>
+                                 <!-- <div class="col-md-12 col-sm-12">
+                                    <div class="bothsearch-form d-flex align-items-center justify-content-end" style="gap: 10px;">
+                                       <div class="total_listing">
+                                          <div><span>Current Active : </span></div>
+                                          <div><span id="totalViewerLegboxList">1</span></div>
+                                       </div>
+                                       
                                     </div>
-                                    
-                                 </div>
-                              </div>
+                                 </div> -->
                            </div>
                            <div class="table-responsive-xl">
-                              <table class="table mb-3" id="massage-profile">
+
+
+                              <table class="table mb-3" id="masseurs_list">
                                  <thead class="table-bg">
                                     <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Created</th>
+                                   
                                     <th scope="col">Name</th>
-                                    <th scope="col">Mobile</th>
-                                    <th scope="col">Email</th>
                                     <th scope="col">Stage Name</th>
-                                    <th scope="col">Available</th>
+                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Ethnicity</th>
+                                    <th scope="col">Nationality</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Default Listing</th>
+                                    <th scope="col">Created Date</th>
                                     <th scope="col" class="text-center">Action</th>
                                     </tr>
                                  </thead>
                                  <tbody class="table-content">
-                                       <tr>
-                                          <td>004</td>
-                                          <td>25-09-2025</td>
-                                          <td>Marianne Smith</td>
-                                          <td>0438 028 728</td>
-                                          <td>info@condomma.com.au</td>
-                                          <td>Two Lips</td>
-                                          <td>Mon, Tue, Wed, Thu, Fri</td>
-                                          <td>Active</td>
-                                          <td class="text-center">
-                                             <div class="dropdown no-arrow">
-                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                 </a>
-                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
-                                                   <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
-                                                   <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-target="#editMasseur" data-toggle="modal"> <i class="fa fa-pen"></i> Edit profile </a>
-                                                   <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-circle"></i> Activate</a>
-                                                   <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Deactivate</a>
-                                                   
-                                                </div>
-                                             </div>
-                                         </td>
-                                       </tr>
+                                       
                                  </tbody>
                               </table>
                            </div>
@@ -204,11 +181,9 @@ function showCheckboxes() {
 </script>
 </script>
 <script>
-   var table = $("#massage-profile").DataTable({
-    language: {
-        search: "Search: _INPUT_",
-        searchPlaceholder: "Search by Profile Name"
-    },
+   
+
+var table = $("#masseurs_list").DataTable({
     info: true,
     paging: true,
     lengthChange: true,
@@ -216,20 +191,122 @@ function showCheckboxes() {
     bStateSave: true,
     order: [[1, 'desc']],
     lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10,
-         columns: [
-            { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'created', name: 'created', searchable: true, orderable:true ,defaultContent: 'NA'},
+    pageLength: 10,    
+
+    ajax: {
+        url: "{{ route('center.all-masseur-list') }}",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        data: function (d) {
+            d.type = 'player';
+            return JSON.stringify(d);
+        }
+    },
+
+    columns: [
             { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'mobile', name: 'mobile', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'email', name: 'email', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'stage_name', name: 'stage_name', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'available', name: 'available', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'mobile', name: 'mobile', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'ethnicity', name: 'ethnicity', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'nationality', name: 'nationality', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'status', name: 'status', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'default_profile', name: 'default_profile', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'created_at', name: 'created_at', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
-            ],
+    ],
+
 
 });
+
+
+$(document).on('click', '.masseur_action', async function () {
+
+      let current_id = $(this).attr('id');
+      var mess = "";
+      let rowId = $(this).data('row-id');
+      let action = "";
+
+      if(!current_id || !rowId )
+      return false;
+
+      if(current_id=='row_deactive')
+      {
+          mess =   'Are you sure you want to deactivate this profile?' 
+          action = current_id;
+      }
+     
+      else if(current_id=='row_active')
+      {
+         mess =   'Do you want to activate this profile?';
+         action = current_id;
+      }
+       
+
+      else if(current_id=='row_default')
+      {
+         mess =   'Do you want to add this profile as the default listing on the Masseur tab in the Create MC Profile page?' 
+         action = current_id;
+      }
+
+      else if(current_id=='row_undefault')
+      {
+         mess =   'Do you want to remove this profile as the default listing from the Masseur tab on the Create MC Profile page?' 
+         action = current_id;
+      }
+
+
+      let mess_data = {
+         'title' : 'NA',
+         'text' : mess,
+      }
+
+      let post_data = {
+         'action' : action,
+         'profile_id':rowId
+      }
+   
+      if(await isConfirm(mess_data))
+      {
+            swal_waiting_popup({
+                'title': 'Updating...'
+            });
+
+            $.ajax({
+               url: "{{ route('center.action-messure-profile') }}",
+               type: 'POST',
+               data: post_data,
+               success: function(response) {
+                  Swal.close();
+                  if (response.success) {
+                    table.ajax.reload(null, false);
+                    swal_success_popup(response.message);
+
+                  }
+               },
+
+               error: function(xhr) {
+                  Swal.close();
+                  let message = 'Error while saving profile';
+                  if (xhr.responseJSON && xhr.responseJSON.message) {
+                     message = xhr.responseJSON.message;
+                  }
+                  swal_error_popup(message);
+               }
+         });
+      }
+
+      
+
+
+
+})
+
+
+
 
  </script>
 

@@ -11,7 +11,7 @@
             top: 28px;
             right: 15px;
             cursor: pointer;
-            z-index: 2;
+            z-index: 2; 
             color: #6c757d;
         }
 

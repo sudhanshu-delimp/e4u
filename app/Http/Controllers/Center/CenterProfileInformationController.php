@@ -21,7 +21,7 @@ use App\Repositories\Escort\EscortInterface;
 use App\Http\Requests\Escort\StoreRateRequest;
 use App\Repositories\Service\ServiceInterface;
 use App\Http\Requests\Escort\UpdateRequestAbout;
-use App\Repositories\Duration\DurationInterface;
+use App\Repositories\Duration\MassageDurationInterface;
 use App\Http\Requests\Escort\StoreServiceRequest;
 use App\Http\Requests\Escort\UpdateRequestPolicy;
 use App\Repositories\Escort\EscortMediaInterface;
@@ -56,7 +56,7 @@ class CenterProfileInformationController extends BaseController
     
 
 
-    public function __construct(MassageProfileInterface $massage_profile, UserInterface $user,   EscortInterface $escort, MassageAvailabilityInterface $massage_availability,  ServiceInterface $service, DurationInterface $duration, MassageMediaInterface $media)
+    public function __construct(MassageProfileInterface $massage_profile, UserInterface $user,   EscortInterface $escort, MassageAvailabilityInterface $massage_availability,  ServiceInterface $service, MassageDurationInterface $duration, MassageMediaInterface $media)
     {
         $this->escort = $escort;
         $this->massage_availability = $massage_availability;
@@ -89,18 +89,31 @@ class CenterProfileInformationController extends BaseController
     {
         
         $user = auth()->user()->id;
+
+       
+
         if(!$massage_profile = $this->massage_profile->findDefault($user,1)) {
             $massage_profile = $this->massage_profile->make();
         }
         //dd($massage_profile);
         list($service_one, $service_two, $service_three) = $this->service->findByCategory([1,2,3]);
         $durations = $this->duration->all();
+        $massage_durations = (isset($massage_profile->durations) && count($massage_profile->durations)>0) ? $massage_profile->durations->toArray() : [];
+
+        // echo '<pre>';
+        // print_r($massage_durations);
+        // exit;
+        // dd($massage_durations);
+        
         //dd($massage_profile->massage_services()->where('category_id', 1)->get());
         //dd($massage_profile->massage_services);
         $availability = $massage_profile->availability ? json_decode($massage_profile->availability->availability_time, true) : [];
         $social_links = $massage_profile->social_links ? json_decode($massage_profile->social_links, true) : [];
   
-        return view('center.my-account.profile-information',compact('massage_profile','service_one','service_two','service_three','availability','durations','social_links'));
+
+     
+
+        return view('center.my-account.profile-information',compact('massage_profile','service_one','service_two','service_three','availability','durations','social_links','massage_durations'));
     }
 
     public function storeAboutMe(UpdateRequestAboutMe $request)

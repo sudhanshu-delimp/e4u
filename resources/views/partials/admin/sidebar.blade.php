@@ -110,11 +110,11 @@
                     'shareholders-guidelines',
                     'reports',
                     'send-reports',
-                    'alerts',
+                    'alert',
                     'blog',
                     'credit',
                     'agent-requests',
-                    'num','punterbox','communications',
+                    'num','punterbox','communication',
                     'transaction-summary',
                     'advertiser-suspensions',
                     'registrations-reports',
@@ -373,14 +373,15 @@
                         <span>Publications</span>
                     </a>
                     <div id="Publications" class="collapse @if (request()->segment(3) == 'alerts' || request()->segment(3) == 'blog' || request()->segment(2) == 'feedback') show @endif;" data-parent="#Administration">
+                    <!-- <div id="Publications" class="collapse @if (request()->segment(3) == 'alert' || request()->segment(3) == 'blog') show @endif;" data-parent="#Administration"> -->
                         <div class="py-0 collapse-inner rounded mb-2">
-                            <a class="nav-link collapsed" href="{{ route('admin.alerts') }}">
+                            <a class="nav-link collapsed" href="{{ route('admin.publications.alert.index') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/alert.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'alerts' ? 'color: #FF3C5F;' : '' }}">Alerts</span>
+                                    style="{{ request()->segment(3) == 'alert' ? 'color: #FF3C5F;' : '' }}">Alerts</span>
                             </a>
-                            <a class="nav-link collapsed" href="{{ route('admin.blog') }}">
+                            <a class="nav-link collapsed" href="{{ route('admin.publications.blog.index') }}">
                                 <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="64px" height="64px"
                                     viewBox="0 0 512 512" xml:space="preserve" fill="#000000">
@@ -434,7 +435,7 @@
                             request()->is('*registrations-reports*') ||
                             request()->is('*advertiser-reports*') ||
                             request()->is('*punterbox*') ||
-                            request()->is('*communications*') ||
+                            request()->is('*communication*') ||
                             request()->is('*advertiser-reviews*')) show @endif;" data-parent="#Administration">
                         <div class="py-0 collapse-inner rounded mb-2">
 
@@ -461,10 +462,10 @@
                                     Requests</span>
                             </a>
                            
-                            <a class="nav-link collapsed" href="{{ route('admin.communications') }}">
+                            <a class="nav-link collapsed" href="{{ route('admin.reports.communication.index') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/communication.png') }}">
-                                <span style="{{ request()->is('*communications*') ? 'color: #FF3C5F;' : '' }}">communications</span>
+                                <span style="{{ request()->is('*communication*') ? 'color: #FF3C5F;' : '' }}">communications</span>
                             </a>
                              <a class="nav-link collapsed" href="{{ route('admin.credit') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
@@ -558,7 +559,7 @@
                         'viewer-templates',
                         'set-fees',
                         'manage-user',
-                        'memberships','product',
+                        'memberships','product','sim',
                         'legbox-report',
                         'agents-monthly-report',
                         'punterbox-reports',
@@ -567,10 +568,10 @@
                         'competitor-database',
                         'monthly-fee-reports',
                         'commission-summary',
-                        'operator-manage',
+                        'operator-manage','staff-manage',
                         'profile',
                         'agent',
-                        'manage-suppliers','manage-influencers',
+                        'manage-suppliers','manage-influencers','manage-shareholders','-dashboard',
                         'dashboard',
                         'All-user',
                         'email-templates',
@@ -589,12 +590,21 @@
                         'revenue','influencer',
                         'application',
                         'revision',
-                        'security','shareholder','share-value'
+                        'security','shareholder','share-value',
+                        'operator-staff',
                     ]) || in_array(request()->segment(4), ['legal','community','other','about','concierge','global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications'])) show @endif"
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
                     <div class="py-0 collapse-inner rounded mb-2">
-
+                            <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                                <svg width="15" height="15" viewBox="0 0 18 19" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0.720703V6.7207H18V0.720703H10ZM10 18.7207H18V8.7207H10V18.7207ZM0 18.7207H8V12.7207H0V18.7207ZM0 10.7207H8V0.720703H0V10.7207Z"
+                                        fill="#c2cfe0" />
+                                </svg>
+                                <span style="{{ request()->segment(3) == 'dashboard' ? 'color: #FF3C5F;' : '' }}">Dashboard</span>
+                            </a>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse"
                             data-target="#manageAgentMenu" aria-expanded="false" aria-controls="manageAgentMenu">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
@@ -603,11 +613,7 @@
                         <div id="manageAgentMenu"
                             class="collapse @if (in_array(request()->segment(3), ['agent', 'agents-monthly-report'])) show @endif" data-parent="#Management">
 
-                            <a class="collapse-item" href="{{ route('admin.agent') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/manage-agents.png') }}">
-                                <span style="{{ request()->segment(3) == 'agent' ? 'color: #FF3C5F;' : '' }}">Manage
-                                    Agents</span>
-                            </a>
+                            
 
                             <a class="collapse-item" href="{{ route('admin.agents-monthly-report') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
@@ -905,24 +911,68 @@
                             <span>Manage People</span>
                         </a>
                         <div id="managePeopleMenu"
-                            class="collapse @if (in_array(request()->segment(3), ['staff', 'manage-suppliers', 'manage-influencers'])) show @endif"
+                            class="collapse @if (in_array(request()->segment(3), ['staff', 'manage-suppliers', 'manage-influencers','operator-manage','manage-shareholders','agent', 'staff-manage', 'operator-staff'])) show @endif"
                             data-parent="#Management">
-                            <a class="collapse-item" href="{{ route('admin.staff') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span style="{{ request()->segment(3) == 'staff' ? 'color: #FF3C5F;' : '' }}">
-                                    Staff</span>
-                            </a>
-                            <a class="collapse-item" href="{{ route('admin.manage-suppliers') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'manage-suppliers' ? 'color: #FF3C5F;' : '' }}">
-                                    Suppliers</span>
+                            <a class="collapse-item" href="{{ route('admin.agent') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/manage-agents.png') }}">
+                                <span style="{{ request()->segment(3) == 'agent' ? 'color: #FF3C5F;' : '' }}">Agents</span>
                             </a>
                             <a class="collapse-item" href="{{ route('admin.manage-influencers') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/influencer-marketing.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'manage-influencers' ? 'color: #FF3C5F;' : '' }}">
                                     Influencer</span>
+                            </a>                            
+                           
+
+
+                            <!--  Operator -->
+
+                            <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse" data-target="#Mnoperator"
+                                aria-expanded="false" aria-controls="Mnoperator">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/operator.png') }}">
+                                <span>Operator</span>
+                            </a>
+                            <div id="Mnoperator" class="collapse @if (in_array(request()->segment(3), ['operator-staff', 'operator-manage'])) show @endif" data-parent="#ShareholdersMenu">
+
+                                <div class="py-0 collapse-inner rounded mb-2">
+                                    
+                                    
+                                    
+                                     <a class="collapse-item" href="{{ route('admin.operator-manage') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/manage-operator.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'operator-manage' ? 'color: #FF3C5F;' : '' }}">Manage Operator</span>
+                                    </a>
+
+                                    <a class="collapse-item" href="{{ route('admin.operator.staff') }}">
+                                        <img src="{{ asset('assets/dashboard/img/menu-icon/manage-staff.png') }}">
+                                        <span
+                                            style="{{ request()->segment(3) == 'operator-staff' ? 'color: #FF3C5F;' : '' }}">Manage Staff</span>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <!-- end --> 
+
+                            <a class="collapse-item" href="{{ route('admin.manage-shareholders') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/shareholder.png') }}">
+                                <span style="{{ request()->segment(3) == 'manage-shareholders' ? 'color: #FF3C5F;' : '' }}">
+                                    Shareholders</span>
+                            </a>
+
+                            
+
+                            <a class="collapse-item" href="{{ route('admin.staff') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/e4u-staff.png') }}">
+                                <span style="{{ request()->segment(3) == 'staff' ? 'color: #FF3C5F;' : '' }}">
+                                    E4U Staff</span>
+                            </a>
+                            <a class="collapse-item" href="{{ route('admin.manage-suppliers') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/vendor.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'manage-suppliers' ? 'color: #FF3C5F;' : '' }}">
+                                    Suppliers</span>
                             </a>
                         </div>
 
@@ -935,24 +985,19 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/operator.png') }}">
                             <span>Operator</span>
                         </a>
-                        <div id="operatorMenu" class="collapse @if (in_array(request()->segment(3), ['monthly-fee-reports', 'commission-summary', 'operator-manage'])) show @endif"  data-parent="#Management">
-                            <a class="collapse-item" href="{{ route('admin.monthly-fee-reports') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'monthly-fee-reports' ? 'color: #FF3C5F;' : '' }}">Monthly
-                                    Fee Reports</span>
-                            </a>
+                        <div id="operatorMenu" class="collapse @if (in_array(request()->segment(3), ['monthly-fee-reports', 'commission-summary'])) show @endif"  data-parent="#Management">
+                           
                             <a class="collapse-item" href="{{ route('admin.commission-summary') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'commission-summary' ? 'color: #FF3C5F;' : '' }}">Fees
                                     Summary</span>
                             </a>
-                            <a class="collapse-item" href="{{ route('admin.operator-manage') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                             <a class="collapse-item" href="{{ route('admin.monthly-fee-reports') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'operator-manage' ? 'color: #FF3C5F;' : '' }}">Manage
-                                    Operator</span>
+                                    style="{{ request()->segment(3) == 'monthly-fee-reports' ? 'color: #FF3C5F;' : '' }}">Monthly
+                                    Fee Reports</span>
                             </a>
                         </div>
 
@@ -1250,7 +1295,7 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/statistic.png') }}">
                             <span>Statistics</span>
                         </a>
-                        <div id="statisticsMenu" class="collapse @if (in_array(request()->segment(3), ['tours', 'profile','product', 'memberships','email'])) show @endif " data-parent="#Management">
+                        <div id="statisticsMenu" class="collapse @if (in_array(request()->segment(3), ['tours', 'profile','product', 'memberships','email','sim'])) show @endif " data-parent="#Management">
                            
 
                             <a class="collapse-item" href="{{ route('admin.email') }}">
@@ -1273,12 +1318,16 @@
                                 <span
                                     style="{{ request()->segment(3) == 'profile' ? 'color: #FF3C5F;' : '' }}">Profile</span>
                             </a>
-                            <a class="collapse-item" href="{{ route('admin.tours') }}">
+                            <a class="collapse-item" href="{{ route('admin.sim') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'sim' ? 'color: #FF3C5F;' : '' }}">SIM</span>
+                            </a>
+                             <a class="collapse-item" href="{{ route('admin.tours') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'tours' ? 'color: #FF3C5F;' : '' }}">Tours</span>
                             </a>
-
                         </div>
                     </div>
                 </div>

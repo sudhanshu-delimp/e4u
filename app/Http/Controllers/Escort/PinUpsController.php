@@ -8,6 +8,8 @@ use App\Models\Escort;
 use App\Models\PinUps;
 use App\Models\Pricing;
 use App\Models\EscortPinup;
+use App\Models\TourLocation;
+use App\Models\TourProfile;
 use App\Models\EscortMedia;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -193,7 +195,7 @@ class PinUpsController extends AppController
             $localEnd = Carbon::createFromFormat('Y-m-d', $endDate, $profileTimezone)->endOfDay();
             $utcStart = $localStart->copy()->setTimezone('UTC');
             $utcEnd = $localEnd->copy()->setTimezone('UTC');
-            EscortPinup::create([
+            $escortPinup = EscortPinup::create([
                 'user_id' => auth()->user()->id,
                 'escort_id' => $escortDetail->id,
                 'state_id' => $escortDetail->state_id,
@@ -203,7 +205,10 @@ class PinUpsController extends AppController
                 'utc_start_time' => $utcStart,
                 'utc_end_time' => $utcEnd,
             ]);
-
+            if($request->tour_location_id){
+                TourLocation::where('id',$request->tour_location_id)->update(['is_pinup'=>'1']);
+                TourProfile::where(['tour_location_id'=>$request->tour_location_id,'escort_id'=>$escortId])->update(['is_pinup'=>$escortPinup->id]);
+            }
             return response()->json([
                 'success' => true,
                 'message' => 'Pinup slot booked successfully!'

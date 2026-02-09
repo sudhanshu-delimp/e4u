@@ -12,16 +12,20 @@
         <div class="d-user-info">
             <div class="common_top_menu">
                 <span>
-                    <b>Welcome back : </b><span class="user-values">Operator</span>
+                    <b>Welcome back : </b><span class="user-values">{{ auth()->user()->business_name }}</span>
                 </span>
                 <span>
                     <span class="separator">|</span>
-                    <b>Membership ID : </b><span class="user-values">OP123456</span>
-               
+                    <b>Membership ID : </b><span class="user-values">{{ auth()->user()->member_id }}</span>
+
                 </span>
                 <span>
-                    <b>Home State : </b>
-                    <span class="user-values"> Perth escort Services</span>
+                    <b>Territory : </b>
+                    @php
+                     $countries = config('operator.country');
+                        $countryName = isset($countries[auth()->user()->country_id]['name']) ? $countries[auth()->user()->country_id]['name'] : '';
+            @endphp
+                    <span class="user-values"> {{  $countryName }}</span>
                 </span>
 
             </div>
@@ -35,7 +39,8 @@
 
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
 
-        <form class="form-inline form-inline-custom navbar-search custom-nav-search opr-itmes d-none" style="width: 23rem;">
+        <form class="form-inline form-inline-custom navbar-search custom-nav-search opr-itmes d-none"
+            style="width: 23rem;">
             <div class="input-group dk-border-radius">
                 <div class="input-group-append">
                     <button class="btn" type="button">
@@ -96,48 +101,46 @@
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="top-icon-bg fas fa-bell fa-fw"></i>
             </a>
-
-
             <div class="dropdown-list  dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header">Alerts Center</h6>
                 <div class="alert_notify_html">
-
                     <div class="text-center">No new notification</div>
-
                 </div>
             </div>
         </li>
-
-
-
         <div class=" d-none d-sm-block"></div>
-
+        @php
+            $defaultImg = asset(config('constants.operator_default_icon'));
+            $path = auth()->user()->avatar_img;
+            $avtar = !empty(auth()->user()->avatar_img) ? 'avatars/' .$path : $defaultImg;
+        @endphp
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow opr-itmes">
             <a class="nav-link dropdown-toggle pr-0" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
-                <img src="{{-- {{ asset(auth()->user()->avatar_url) }} ---}}" class="img-profile rounded-circle avatarName">
+                <img src="{{ asset( $avtar) }}" class="img-profile rounded-circle avatarName">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                 aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-user.png') }}">
-                    Member ID: OP123456
+                    Member ID: {{ auth()->user()->member_id }}
                 </a>
                 <a class="dropdown-item" href="#">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-user.png') }}">
-                     User Name: Wayne Primrose
+                    User Name: {{ auth()->user()->business_name }}
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('operator.edit-my-account') }}">
-                   <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-profile.png') }}">
+                    <img class="profile_icons"
+                        src="{{ asset('assets/dashboard/img/profile-icons/edit-profile.png') }}">
                     Edit My Account
                 </a>
                 <a class="dropdown-item" href="{{ route('operator.change-password') }}">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-reset-password.png') }}">
+                    <img class="profile_icons"
+                        src="{{ asset('assets/dashboard/img/profile-icons/opr-reset-password.png') }}">
                     Change Password
                 </a>
 
@@ -147,13 +150,15 @@
                     List Agents
                 </a>
                 <a class="dropdown-item" href="{{ route('operator.agents-monthly-report') }}">
-                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-report.png') }}">
+                    <img class="profile_icons"
+                        src="{{ asset('assets/dashboard/img/profile-icons/opr-report.png') }}">
                     Monthly Report
                 </a>
 
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                   <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-logout.png') }}">
+                    <img class="profile_icons"
+                        src="{{ asset('assets/dashboard/img/profile-icons/opr-logout.png') }}">
                     Logout
                 </a>
             </div>

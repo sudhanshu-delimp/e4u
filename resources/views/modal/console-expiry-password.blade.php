@@ -20,6 +20,9 @@ if (auth()->check())
             if($user->type==1)
             $open_pop_up = $user?->account_setting?->is_first_login === "1";
 
+            if($user->type==7)
+            $open_pop_up = $user?->account_setting?->is_first_login === "1";
+
 
             $password_updated_date = $user?->account_setting?->password_updated_date;
             $password_expiry_days = $user?->account_setting?->password_expiry_days;
@@ -51,12 +54,23 @@ if (auth()->check())
 
             if( $user->type==1)
             $submit_url  = 'admin.change.password';
+
+            if( $user->type==7)
+            $submit_url  = 'operator.update-password';
     
 }
 @endphp
 
 
-
+<style type="text/css">
+    .toogle_eye_form_wrap{
+        position: relative;
+    }
+    .toogle-eye-password{
+        position: absolute;  right: 10px;
+  top: 40px;
+    }
+</style>
 
 
 @if($open_pop_up)
@@ -210,22 +224,16 @@ if (auth()->check())
             else {
             myform = true;
             }
-
-            console.log('myform',myform);
-
+           
             if(!myform)
             return false;    
-
 
             formData.append("current_password", formData.get("modal_current_password"));
             formData.append("new_password", formData.get("modal_new_password"));
             formData.append("new_password_confirmation", formData.get("modal_new_password_confirmation"));
-
-        
             formData.delete("modal_current_password");
             formData.delete("modal_new_password");
             formData.delete("modal_new_password_confirmation");
-
 
             $('span.text-danger').text('');
             var submitUrl = {!! json_encode(route($submit_url)) !!};
@@ -243,17 +251,23 @@ if (auth()->check())
                         swal_success_popup(response.message);
                 },
                 error: function(xhr) {
-                    
                         Swal.close();
-                        console.log(xhr);
-                        if (xhr.status === 422) {
+                        var msg = 0;
+                        if (xhr.status === 422) { 
                         $('span.text-danger').text('');
                         let errors = xhr.responseJSON.errors;
+                        
                         $.each(errors, function(field, messages) {
-                        $('.error-' + field).text(messages[0]); 
+                            msg = 1;
+                            $('.error-' + field).text(messages[0]); 
                         });
+                        if(msg === 0 && xhr.responseJSON.message !="") {
+                             swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                        }
                         } else {
-                        swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                            if(msg === 0 ) { console.log("Message2 ",msg);
+                                swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                            }
                         }
                 }
             });

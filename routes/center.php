@@ -15,6 +15,7 @@ use App\Http\Controllers\Center\MassageGalleryController;
 use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\UpdateController;
 use App\Http\Controllers\Center\Profile\MassageController;
+use App\Http\Controllers\Center\Masseurs\MasseurController;
 use App\Http\Controllers\Center\MassageCenterAccountController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Center\CenterProfileInformationController;
@@ -22,7 +23,6 @@ use App\Http\Controllers\Center\MassageViewerInteractionController;
 
 
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
-Route::get('/list', [CenterController::class, 'escortList'])->name('center.list');
 Route::get('/list/data-table', [CenterController::class, 'dataTable'])->name('center.list.dataTable');
 Route::post('/profile-contact-permission', [EscortController::class, 'profileTourPermissionUpdate'])->name('center.account.profile.contact.update');
 //Route::get('profile/{id}',[CenterController::class,'updateProfile'])->name('center.update.profile');
@@ -53,10 +53,10 @@ Route::post('/update-account', [CenterController::class, 'update'])->name('cente
 // 		return view('center.my-account.change-password');
 // 	})->name('center.my-account.change-password');
 
-// Route::get('/my-account/upload-avatar', function()
-// 	{
-// 		return view('center.my-account.upload-avatar');
-// 	})->name('center.my-account.upload-avatar');
+ Route::get('/profile-completed', function()
+ 	{
+ 		return view('center.dashboard.profile-completed');
+ 	})->name('center.profile-completed');
 
 // Route::get('/my-account/edit-my-account', function()
 // 	{
@@ -89,12 +89,53 @@ Route::post('update-single-data',[MassageController::class,'update_single_data']
 Route::post('our-business',[MassageController::class,'ourBusiness'])->name('center.our-business');
 Route::get('update-profile/{id?}',[MassageController::class,'getProfile'])->name('center.update-profile');
 Route::post('update-massage-profile',[MassageController::class,'updateprofile'])->name('center.update-massage-profile');
+Route::get('/list', [MassageController::class, 'massager_list'])->name('center.list');
+Route::post('all-massager-list', [MassageController ::class, 'get_all_massager_list'])->name('center.all-massager-list');
+
+
+
+
+
+
+Route::post('make-time-json',[MassageController::class,'make_time_json'])->name('center.make-time-json');
+
 
 Route::get('archive-view-photos', [CenterProfileInformationController ::class, 'galleries'])->name('cen.archive-view-photos');
 Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
 
- 
 
+Route::get('create-new-masseur', [MasseurController::class, 'index'])->name('center.create-new-masseur');
+Route::post('create-new-masseur', [MasseurController::class, 'add_masseur'])->name('center.create-new-masseur');
+Route::get('update-masseur/{id?}',[MasseurController::class,'edit_masseur'])->name('center.update-masseur');
+Route::post('update-masseur',[MasseurController::class,'update_masseur'])->name('center.update-masseur');
+Route::post('delete-masseur-photos/{id}', [MasseurController ::class, 'ImagesDelete'])->name('center.delete-masseur-photos');
+Route::post('default_photos_masseur', [MasseurController ::class, 'defaultImages'])->name('center.masseur.default.images');
+
+Route::post('masseur-option-list', [MasseurController ::class, 'masseur_option_list'])->name('center.masseur-option-list');
+Route::post('get-masseur-option-list', [MasseurController ::class, 'get_masseur_option_list'])->name('center.get-masseur-option-list');
+Route::post('filter-masseur-option-list', [MasseurController ::class, 'get_filter_masseur_option_list'])->name('center.filter-masseur-option-list');
+Route::post('load-default-masseur-list', [MasseurController ::class, 'get_load_default_masseur_list'])->name('center.load-default-masseur-list');
+
+
+
+
+
+Route::post('create-action-messure-profile', [MasseurController::class, 'action_messure_profile'])->name('center.action-messure-profile');
+Route::get('create-check-messure-profile', [MasseurController::class, 'count_messure_profile'])->name('center.check-messure-profile');
+
+
+Route::post('all-masseur-list', [MasseurController ::class, 'get_all_masseur_list'])->name('center.all-masseur-list');
+Route::post('masseurs/archives-listing',[MasseurController::class,'masseur_list'])->name('center.archives-listing');
+
+Route::post('center.massuers-media-upload-gallery',[MasseurController::class,'uploadGallery'])->name('center.massuers-media-upload-gallery');
+Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}',[MasseurController ::class, 'getAccountMediaGallery'])->name('center.massuers.account.gallery');
+
+
+ 
+// Route::get('masseurs/new-listing', function()
+// {
+// 	return view('center.dashboard.masseurs.new-listing');
+// })->name('center.new-listing');
 
 //Route::get('update-profile/{id?}',[CreateController::class,'updateBasicProfile'])->name('center.profile.basic.update');
 //create new profile
@@ -210,10 +251,7 @@ Route::get('listing/past', function()
 
 
 // add Masseurs Profle Route
-Route::get('masseurs/new-listing', function()
-{
-	return view('center.dashboard.masseurs.new-listing');
-})->name('center.new-listing');
+
 
 Route::get('masseurs/archives-listing', function()
 {

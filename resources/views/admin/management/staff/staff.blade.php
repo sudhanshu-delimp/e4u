@@ -171,17 +171,17 @@
 
                             <div class="col-6 mb-3">
                                 <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0"
-                                    placeholder="Name of Kin">
+                                    placeholder="Name of Kin (optional)">
                                 <span class="text-danger error-kin_name"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" name="kin_relationship" id="kin_relationship"
-                                    class="form-control rounded-0" placeholder="Relationship">
+                                    class="form-control rounded-0" placeholder="Relationship (optional)">
                                 <span class="text-danger error-kin_relationship"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile"
-                                    class="form-control rounded-0 no-arrow" placeholder="Mobile" autocomplete="off"
+                                    class="form-control rounded-0 no-arrow" placeholder="Mobile (optional)" autocomplete="off"
                                     oninput="this.value = this.value.replace(/\D/g,'');">
                                 <span class="text-danger error-kin_mobile"></span>
                             </div>
@@ -235,8 +235,7 @@
                             </div>
                             <div class="col-6 mb-3">
                                 <input type="text" name="commenced_date" id="commenced_date"
-                                    class="form-control rounded-0" placeholder="Commenced Date"
-                                    onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
+                                    class="form-control rounded-0 js_datepicker" placeholder="Commenced Date">
                                 <span class="text-danger error-commenced_date"></span>
 
                             </div>
@@ -310,7 +309,7 @@
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="idle_preference_time"
-                                            id="idle_preference_time_60" value="60">
+                                            id="idle_preference_time_60" value="60" checked>
                                         <label class="form-check-label" for="idle_preference_time_60">60 minutes</label>
                                     </div>
 
@@ -330,13 +329,13 @@
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="twofa" id="twofa_1"
-                                            value="1" checked="">
+                                            value="1">
                                         <label class="form-check-label" for="twofa_1">Email</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="twofa" id="twofa_2"
-                                            value="2">
+                                            value="2"  checked>
 
                                         <label class="form-check-label" for="twofa_2">Text</label>
                                     </div>
@@ -486,7 +485,7 @@
                     {
                         data: 'login_count',
                         name: 'login_count',
-                        searchable: true,
+                        searchable: false,
                         orderable: false,
                         defaultContent: 0
                     },
@@ -499,8 +498,8 @@
                     },
 
                     {
-                        data: 'status',
-                        name: 'status',
+                        data: 'status_name',
+                        name: 'status_name',
                         searchable: false,
                         orderable: false,
                         defaultContent: 'NA'
@@ -588,8 +587,11 @@
             $(document).on('click', '.account-suspend-btn', async function(e) {
                 if (await isConfirm({
                         'action': 'Suspend',
-                        'text': ' Suspend This Account.'
+                        'text': 'Are you sure you want to suspend this account?'
                     })) {
+                    swal_waiting_popup({
+                        'title': 'Suspending Account'
+                    });
                     ajaxRequest({
                         url: "{{ route('admin.suspend-staff') }}",
                         method: 'POST',
@@ -613,7 +615,7 @@
                 }
             })
 
-            ///////// Approve Agent //////////////////////////////
+            /* Approve staff */
             $(document).on('click', '.approve_account', async function(e) {
                 if (await isConfirm({
                         'action': 'Approve',
@@ -651,7 +653,7 @@
             $(document).on('click', '.active-account-btn', async function(e) {
                 if (await isConfirm({
                         'action': 'Activate',
-                        'text': ' Activate This Account.'
+                        'text': 'Are you sure you want to activate this account?'
                     })) {
                     swal_waiting_popup({
                         'title': 'Activating Account'
@@ -688,6 +690,8 @@
                     } else {
                         $('#modalStaffEditContent').html(response);
                         $('#staffEditModal').modal('show');
+                        initJsDatePickerEdit();
+                         
                     }
                 },
                 error: function() {
@@ -695,6 +699,10 @@
                 }
             });
         });
+        $(document).on('change', '.js_datepicker_edit', function () {
+                this.value = $(this).val();
+                $("#commenced_date_edit").val($(this).val());
+            });
 
         /*** Edit the staff */
         $(document).on('click', '.view-staff-btn', function() {

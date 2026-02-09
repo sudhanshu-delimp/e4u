@@ -5,6 +5,10 @@
     @endforeach
 @endif
 
+@if(notic_alert())
+ <x-global_frontend.publications_alert  :content="notic_alert()" />
+@endif
+
 <div class="blue-bg-before home--header">
          <nav class="navbar navbar-expand-lg navbar-light blue_and_white_nav_blue_in_small">
          <div class="container-fluid manage_header_padding">
@@ -156,7 +160,7 @@
               <h3><img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}" class="custompopicon menu-icon my--play"> My Playbox</h3>
               <div class="modal-sec pb-0">
                 <h1 class="popu_heading_style mb-3 mt-3" style="text-align: center;">
-                    <span id="Lname " class="my_legbox_title">Full My Playbox content is only available to Viewers. Please Login or Register to access My Playbox.</span>
+                    <span id="Lname " class="my_legbox_title">My Playbox content is only available to Viewers.<br> Please Login or Register to access My Playbox.</span>
                     </h1>
                 
                     

@@ -27,6 +27,11 @@ class RepositoryServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
+            'App\Repositories\Message\MasseurMediaInterface',
+            'App\Repositories\Message\MasseurMediaRepository'
+        );
+
+        $this->app->bind(
             'App\Repositories\MassageProfile\MassageMediaInterface',
             'App\Repositories\MassageProfile\MassageMediaRepository'
         );
@@ -131,9 +136,16 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Thumbnail\ThumbnailRepository'
         );
 
+       
+
         $this->app->bind(
             'App\Repositories\Duration\DurationInterface',
             'App\Repositories\Duration\DurationRepository'
+        );
+
+        $this->app->bind(
+            'App\Repositories\Duration\MassageDurationInterface',
+            'App\Repositories\Duration\MassageDurationRepository'
         );
 
         $this->app->bind(
@@ -165,6 +177,15 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\MassageCenter\MassageCenterInterface',
             'App\Repositories\MassageCenter\MassageCenterRepository'
         );
+         $this->app->bind(
+            'App\Repositories\Operator\OperatorInterface',
+            'App\Repositories\Operator\OperatorRepository'
+        );
+         $this->app->bind(
+            'App\Repositories\OperatorStaff\OperatorStaffInterface',
+            'App\Repositories\OperatorStaff\OperatorStaffRepository'
+        );
+        
     }
 
     /**

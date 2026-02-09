@@ -95,6 +95,8 @@
                 'profile',
                 'list',
                 'create-tour',
+                'current-tour',
+                'past-tour',
                 'list-tour',
                 'create-profile',
                 'archive-view-photos',
@@ -170,7 +172,7 @@
                 </a>
 
                 <div id="AdminTours" class="collapse
-                @if (in_array(request()->segment(2), ['create-tour', 'list-tour'])) show @endif"
+                @if (in_array(request()->segment(2), ['create-tour','current-tour','past-tour','list-tour'])) show @endif"
                     data-parent="#ProfileManagement">
 
                     <a class="collapse-item {{ request()->segment(2) == 'create-tour' ? 'menu-active' : '' }}"
@@ -178,14 +180,13 @@
                         <img src="{{ asset('assets/dashboard/img/menu-icon/registration.png') }}">
                         <span>New</span>
                     </a>
-
-                    <a class="collapse-item {{ request()->is('escort-dashboard/list-tour/current') ? 'menu-active' : '' }}"
+                    <a class="collapse-item {{ (request()->is('escort-dashboard/list-tour/current') || request()->segment(2)=='current-tour') ? 'menu-active' : '' }}"
                         href="{{ url('escort-dashboard/list-tour/current') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/list-current.png') }}">
                         <span>Current</span>
                     </a>
-
-                    <a class="collapse-item {{ request()->is('escort-dashboard/list-tour/past') ? 'menu-active' : '' }}"
+                    
+                    <a class="collapse-item {{ (request()->is('escort-dashboard/list-tour/past') || request()->segment(2)=='past-tour') ? 'menu-active' : '' }}"
                         href="{{ url('escort-dashboard/list-tour/past') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/clipboard.png') }}">
                         <span>Past</span>

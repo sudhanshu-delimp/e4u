@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Mail\RegisterEscort\RegisterEmailForEscort;
+use App\Mail\NewUserRegistrationConfirmation;
 
 class RegisterListenerForEscort implements ShouldQueue
 {
@@ -30,5 +31,6 @@ class RegisterListenerForEscort implements ShouldQueue
     {
         $user = $event->escort;
         Mail::to($user->email)->send(new RegisterEmailForEscort($user));
+        Mail::to($user->email)->later(now()->addSeconds(5), new NewUserRegistrationConfirmation($user));
     }
 }

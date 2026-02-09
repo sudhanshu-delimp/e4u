@@ -19,7 +19,8 @@ class Kernel extends ConsoleKernel
         Commands\DisableEscortProfile::class,
         Commands\PasswordSecurityReset::class,
         Commands\SendPlaymateProfileDeactivationNotification::class,
-        Commands\SendPasswordExpiryNotifications::class
+        Commands\SendPasswordExpiryNotifications::class,
+        Commands\DbBackEndProcess::class
     ];
 
     /**
@@ -30,21 +31,13 @@ class Kernel extends ConsoleKernel
     */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('disable_escort')->everyMinute();
-        // $schedule->command('enable_escort')->everyMinute();
         $schedule->command('sync_escort')->everyMinute();
-        $schedule->command('send:playmate_disable')->daily();
-        $schedule->command('send:playmate_disable')->daily();
         $schedule->command('passwords:send-expiry-notices')->dailyAt('10:00')->timezone('Australia/Perth');
         $schedule->command('escort:send-listing-expiry-reminders')->dailyAt('00:00')->timezone('Australia/Perth');
         $schedule->command('appointments:update-status')->everySixHours();
         $schedule->command('center-notification:expire-check')->dailyAt('00:00')->timezone('Australia/Perth');
-        //$schedule->command('resetPassword')->daily();
+        $schedule->command('db-backend-process:backend-process')->hourly()->timezone('Australia/Perth');
     }
-    // protected function schedule(Schedule $schedule)
-    // {
-    //     // $schedule->command('inspire')->hourly();
-    // }
 
     /**
      * Register the commands for the application.

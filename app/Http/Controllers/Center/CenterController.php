@@ -39,6 +39,7 @@ use App\Http\Requests\Escort\UpdateRequestReadMore;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
 use App\Repositories\MassageProfile\MassageProfileInterface;
+use App\Repositories\AttemptLogin\AttemptLoginRepository;
 
 
 class CenterController extends Controller
@@ -48,20 +49,25 @@ class CenterController extends Controller
     protected $service;
     protected $user;
     protected $massage_profile;
+    protected $attemptlogin;
 
-    public function __construct(MassageProfileInterface $massage_profile, UserInterface $user, EscortInterface $escort, AvailabilityInterface $availability, ServiceInterface $service)
+    public function __construct(AttemptLoginRepository $attemptlogin, MassageProfileInterface $massage_profile, UserInterface $user, EscortInterface $escort, AvailabilityInterface $availability, ServiceInterface $service)
     {
         $this->escort = $escort;
         $this->massage_profile = $massage_profile;
         $this->availability = $availability;
         $this->service = $service;
         $this->user = $user;
+         $this->attemptlogin = $attemptlogin;
     }
 
 
     public function index()
     {
-
+        $result = $this->attemptlogin->findby(auth()->user()->id);
+        if ($result[0]->login_count <= 1 && !session()->has('welcome_popup_closed')) {
+            session(['show_welcome_popup' => true]);
+        }
         $escorts = $this->escort->all();
         $viewer_array = DashboardViewer::where('user_id', auth()->id())->first(); 
         $notification = $this->getActiveNotification(); 
@@ -69,12 +75,7 @@ class CenterController extends Controller
     }
 
 
-    public function escortList()
-    {
-        $escorts = $this->escort->all();
-
-        return view('center.dashboard.list', compact('escorts'));
-    }
+   
     public function dataTable()
     {
         list($escort, $count) = $this->massage_profile->massagePaginated(

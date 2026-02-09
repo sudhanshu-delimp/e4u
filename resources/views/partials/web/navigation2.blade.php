@@ -4,6 +4,10 @@
     @endforeach
 @endif
 
+@if(notic_alert())
+ <x-global_frontend.publications_alert  :content="notic_alert()" />
+@endif
+
 <nav class="navbar navbar-expand-lg navbar-light main_bg_color">
     <div class="container-fluid manage_header_padding">
         <a class="navbar-brand header_logo" href="{{ route('home') }}">

@@ -1,21 +1,27 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\OperatorstaffController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\VisitorController;
+use App\Http\Controllers\Admin\OperatorController;
 use App\Http\Controllers\Admin\AdminNumsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ReportingController;
 use App\Http\Controllers\Admin\PostOfficeController;
 use App\Http\Controllers\Admin\PDF\AgentPdfController;
 use App\Http\Controllers\Agent\AgentRequestController;
+use App\Http\Controllers\Admin\CommunicationController;
 use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
+use App\Http\Controllers\Admin\PublicationBlogController;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
+use App\Http\Controllers\Admin\PublicationAlertController;
 use App\Http\Controllers\Admin\AdvertiserReviewsController;
 use App\Http\Controllers\Admin\AgentNotificationController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
@@ -258,11 +264,6 @@ Route::get('management/commission-summary', function () {
     return view('admin.management.operator.commission-summary');
 })->name('admin.commission-summary');
 
-Route::get('management/operator-manage', function () {
-    return view('admin.management.operator.operator-manage');
-})->name('admin.operator-manage');
-
-
 Route::get('management/tours', function () {
     return view('admin.management.statistics.tours');
 })->name('admin.tours');
@@ -376,6 +377,30 @@ Route::get('/view-staff/{id}', [StaffController::class, 'viewStaff'])->name('adm
 Route::post('/approve-staff-account', [StaffController::class, 'approve_staff_account'])->name('admin.approve_staff_account');
 Route::post('/print-staff', [StaffController::class, 'printStaffDetails'])->name('admin.print_staff');
 
+/** Operator */
+Route::get('/management/operator-manage', [OperatorController::class, 'operator_list'])->name('admin.operator-manage');
+Route::post('/management/add-operator', [OperatorController::class, 'add_operator'])->name('admin.add.operator');
+Route::get('operator_list_data_table', [OperatorController::class, 'operator_data_list'])->name('admin.operator_list_data_table');
+Route::get('/edit-operator/{id}', [OperatorController::class, 'editOperator'])->name('admin.edit-operator');
+Route::post('/store-operator', [OperatorController::class, 'updateOperator'])->name('admin.store-operator');
+Route::get('/view-operator/{id}', [OperatorController::class, 'viewOperator'])->name('admin.view-operator');
+Route::post('/print-operator', [OperatorController::class, 'printOperatorDetails'])->name('admin.print_operator');
+Route::post('/suspend-operator', [OperatorController::class, 'suspend_operator'])->name('admin.suspend-operator');
+Route::post('/active-operator-account', [OperatorController::class, 'activate_user'])->name('admin.active-operator-account');
+Route::post('/approve-operator-account', [OperatorController::class, 'approve_operator_account'])->name('admin.approve_operator_account');
+
+/** Operator Staff */
+Route::get('/management/operator-staff', [OperatorstaffController::class, 'staff_list'])->name('admin.operator.staff');
+Route::post('/management/operator-add-staff', [OperatorstaffController::class, 'add_sfaff'])->name('admin.operator.add-staff');
+Route::get('operator-staff_list_data_table', [OperatorstaffController::class, 'staff_data_list'])->name('admin.operator.staff_list_data_table');
+Route::post('/suspend-operator-staff', [OperatorstaffController::class, 'suspend_staff'])->name('admin.operator.suspend-staff');
+Route::post('/active-operator-staff-account', [OperatorstaffController::class, 'activate_user'])->name('admin.operator.active-staff-account');
+Route::get('/edit-operator-staff/{id}', [OperatorstaffController::class, 'editStaff'])->name('admin.operator.edit-staff');
+Route::post('/store-operator-staff', [OperatorstaffController::class, 'update_staff'])->name('admin.operator.store-staff');
+Route::get('/view-operator-staff/{id}', [OperatorstaffController::class, 'viewStaff'])->name('admin.operator.view-staff');
+Route::post('/approve-operator-staff-account', [OperatorstaffController::class, 'approve_staff_account'])->name('admin.operator.approve_staff_account');
+Route::post('/print-operator-staff', [OperatorstaffController::class, 'printStaffDetails'])->name('admin.operator.print_staff');
+
 
 Route::get('/management/agent', [AgentController::class, 'agent_list'])->name('admin.agent');
 Route::post('/suspend-agent', [AgentController::class, 'suspend_agent'])->name('admin.suspend-agent');
@@ -452,6 +477,34 @@ Route::post('/notifications/escort/{id}/status', [EscortNotificationController::
 Route::get('/notifications/escort/pdf-download/{id}', [EscortNotificationController::class, 'pdfDownload'])->name('admin.escort.pdf.download');
 Route::get('/notifications/escort/{id}/edit', [EscortNotificationController::class, 'edit'])->name('admin.escort.notifications.edit');
 Route::post('/notifications/escort/{id}/update', [EscortNotificationController::class, 'update'])->name('admin.escort.notifications.update');
+
+
+//Public page Alert for Footer section
+Route::get('publications/alert/list', [PublicationAlertController::class, 'index'])->name('admin.publications.alert.index');
+Route::post('/publications/alert/store', [PublicationAlertController::class, 'store'])->name('admin.publications.alert.store');
+Route::get('/publications/alert/{id}/show', [PublicationAlertController::class, 'show'])->name('admin.publications.alert.show');
+Route::post('/publications/alert/{id}/status', [PublicationAlertController::class, 'updateStatus'])->name('admin.publications.alert.status');
+//Route::get('/publications/alert/pdf-download/{id}', [PublicationAlertController::class, 'pdfDownload'])->name('admin.publications.alert.pdf.download');
+Route::get('/publications/alert/{id}/edit', [PublicationAlertController::class, 'edit'])->name('admin.publications.alert.edit');
+Route::post('/publications/alert/{id}/update', [PublicationAlertController::class, 'update'])->name('admin.publications.alert.update');
+//For New Notice
+Route::post('publications/notice/store', [PublicationAlertController::class, 'noticeStore'])->name('admin.publications.alert.noticeStore');
+Route::get('/publications/notice/show', [PublicationAlertController::class, 'noticeShow'])->name('admin.publications.alert.noticeShow');
+
+
+//Publication Blog
+Route::get('publications/blog/list', [PublicationBlogController::class, 'index'])->name('admin.publications.blog.index');
+Route::post('/publications/blog/store', [PublicationBlogController::class, 'store'])->name('admin.publications.blog.store');
+Route::get('/publications/blog/{id}/show', [PublicationBlogController::class, 'show'])->name('admin.publications.blog.show');
+Route::post('/publications/blog/{id}/status', [PublicationBlogController::class, 'updateStatus'])->name('admin.publications.blog.status');
+Route::get('/publications/blog/pdf-download/{id}', [PublicationBlogController::class, 'pdfDownload'])->name('admin.publications.blog.pdf.download');
+Route::get('/publications/blog/{id}/edit', [PublicationBlogController::class, 'edit'])->name('admin.publications.blog.edit');
+Route::post('/publications/blog/{id}/update', [PublicationBlogController::class, 'update'])->name('admin.publications.blog.update');
+
+//communications module
+Route::get('/reports/communication/list', [CommunicationController::class, 'index'])->name('admin.reports.communication.index');
+Route::get('/reports/communication/{id}/show',[CommunicationController::class, 'show'])->name('admin.reports.communication.show');
+
 
 
 // Route::get('/notifications/shareholders',function(){
@@ -585,9 +638,6 @@ Route::get('reports/punterbox',function(){
     return view('admin.reports.punterbox');
 })->name('admin.punterbox');
 
-Route::get('reports/communications',function(){
-    return view('admin.reports.communications');
-})->name('admin.communications');
 
 Route::get('/management/competitor-database',function(){
     return view('admin.management.competitor-database');
@@ -604,6 +654,10 @@ Route::get('/management/product', function () {
 Route::get('/management/email', function () {
     return view('admin.management.statistics.email');
 })->name('admin.email');
+
+Route::get('/management/sim', function () {
+    return view('admin.management.statistics.sim');
+})->name('admin.sim');
 
 Route::get('/reports/credit', function () {
     return view('admin.reports.credit');
@@ -627,6 +681,14 @@ Route::get('/management/logs-staff', function () {
  Route::get('/management/manage-influencers',function(){
     return view('admin.management.influencer.manage-influencers');
 })->name('admin.manage-influencers');
+
+ Route::get('/management/manage-shareholders',function(){
+    return view('admin.management.manage-shareholders');
+})->name('admin.manage-shareholders');
+
+ Route::get('/management/dashboard',function(){
+    return view('admin.management.dashboard');
+})->name('admin.dashboard');
 
 Route::get('/management/application', function () {
     return view('admin.management.logs.application');
@@ -696,9 +758,9 @@ Route::get('/management/post-office', function () {
 //     return view('admin.notifications.escorts');
 // })->name('admin.escorts');
 
-Route::get('/publications/blog', function () {
-    return view('admin.publications.blog');
-})->name('admin.blog');
+// Route::get('/publications/blog', function () {
+//     return view('admin.publications.blog.index');
+// })->name('admin.blog');
 
 Route::get('publications/alerts', function () {
     return view('admin.publications.alerts');

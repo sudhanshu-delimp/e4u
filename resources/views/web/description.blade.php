@@ -209,25 +209,25 @@
                     </li>
                 </ul>
             </div>
-<div class="d-flex align-items-center justify-content-start gap-10 px-3">
-               
+                <div class="d-flex align-items-center justify-content-start gap-10 px-3">
+                            
 
-<div class="d-flex align-items-center justify-content-start">
-    <div class="my-play-box-profile-icon">
-        <a href="{{ url('playbox') }}" target="_blank">
-            <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
-        </a>
-        <div class="custom-tooltip">I don't have any Playbox.</div>
-    </div>
-    @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
-        <div class="my-play-box-profile-icon">
-            <a href="#">
-                <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
-            </a>
-            <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
-        </div>
-    @endif
-</div>
+                <div class="d-flex align-items-center justify-content-start">
+                    <div class="my-play-box-profile-icon">
+                        <a href="{{ url('playbox') }}" target="_blank">
+                            <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
+                        </a>
+                        <div class="custom-tooltip">I don't have any Playbox.</div>
+                    </div>
+                    @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
+                        <div class="my-play-box-profile-icon">
+                            <a href="#">
+                                <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
+                            </a>
+                            <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
+                        </div>
+                    @endif
+                </div>
                 <ul class="profile_page_social_profiles">
                
                     @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
@@ -279,7 +279,11 @@
                         <div class="row mess_row">
                             <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4">
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="{{ asset('assets/app/img/handwithhart.png') }}">
+                                    <div class="mc_tooltip_wrap">
+                                         <img src="{{ asset('assets/app/img/handwithhart.png') }}">
+                                        <p class="mc_rate_tooltip">You come to me.</p>
+                                    </div>
+                                   
                                     <div class="div_contain_text">
                                         <div class="profile_message">
                                             <h4>Massage</h4>
@@ -298,7 +302,11 @@
                             </div>
                             <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4">
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="{{ asset('assets/app/img/areodownimg.png') }}">
+                                     <div class="mc_tooltip_wrap">
+                                          <img src="{{ asset('assets/app/img/areodownimg.png') }}">
+                                        <p class="mc_rate_tooltip">You come to me.</p>
+                                     </div>
+                                   
                                     <div class="div_contain_text">
                                         <div class="profile_message">
                                             <h4>Incalls</h4>
@@ -317,7 +325,11 @@
                             </div>
                             <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4 mx-auto">
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
+                                    
+                                     <div class="mc_tooltip_wrap">
+                                         <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
+                                        <p class="mc_rate_tooltip">I come to you.</p>
+                                     </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
                                             <h4>Outcalls</h4>
@@ -1218,7 +1230,7 @@
 
         </div>
         <div class="pt-2">
-            <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel" data-interval="4000">
+            <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel" data-interval="5000">
                 <!-- Wrapper for carousel items -->
                 <div class="carousel-inner">
                     <div class="carousel-item tip_carousel_item_text active item-01">
@@ -1282,15 +1294,18 @@
                             @endphp
                             
                             <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
-                                <h5>
-                                    @if (!empty($review->user->name))
-                                        {{ Str::title($review->user->name) }}
-                                    @elseif (!empty($review->user->email))
-                                        {{ Str::title(explode('@', $review->user->email)[0]) }}
-                                    @else
-                                        Username
-                                    @endif
-                                </h5>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h5>
+                                        @if (!empty($review->user->name))
+                                            {{ Str::title($review->user->name) }}
+                                        @elseif (!empty($review->user->email))
+                                            {{ Str::title(explode('@', $review->user->email)[0]) }}
+                                        @else
+                                            Username
+                                        @endif
+                                    </h5>
+                                    <p class="custome-text-date mb-0">Reviewed: {{$review->created_at->format('d-m-Y')}}</p>
+                                </div>
                                 <ul class="list-inline mb-0">
                                     @for($i=1; $i<= 5; $i++)
                                         @if($i <= $review->star_rating)
@@ -1301,7 +1316,7 @@
                                     @endfor
                                     {{--<li class="list-inline-item testi_icon_color"><b class="">{{$review->star_rating}}</b></li> --}}
                                 </ul>
-                                <p class="custome-text-date">Reviewed {{$review->created_at->format('d-m-Y')}}</p>
+                                
                                 <div class="review-text">
                                     {{ $review->description }}
                                 </div>
@@ -1357,7 +1372,7 @@
                     }
                 @endphp
                 <p class="testimonial">
-                    <strong>{{ $escortName }}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $escortName}}</strong> their first Review?’ @php } @endphp
+                    <strong>{{ $escortName }}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $escortName}}</strong> their first Review? @php } @endphp
                 </p>
             </div>
             <div class="col-md-12 mb-4">
@@ -1848,10 +1863,7 @@ genuine reports will be considered.</li>
             <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
                 <img src="{{ asset('assets/app/img/tick.png')}}"
                                 class="custompopicon">
-                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">
-                    
-                    Review Submitted
-                    </h5>
+                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Review Submitted</h5>
                 <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
                 <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                 </button>
@@ -1859,9 +1871,11 @@ genuine reports will be considered.</li>
  
             <!-- if logi Body content -->
            
-            <div class="modal-body text-left">
-                  <h6 class="popu_heading_style mb-4 mt-4">
-                    Your Review of <span id="review-escort-name"></span> has been submitted for approval.
+            <div class="modal-body text-center">
+                 <h5 class="popu_heading_style mt-4">Thank you for your Review.</h5>
+                  <h6 class="popu_heading_style mb-4 mt-2">
+                   
+                    Your Review for <span id="review-escort-name"></span> has been submitted for approval.
                 </h6>
              
             </div>

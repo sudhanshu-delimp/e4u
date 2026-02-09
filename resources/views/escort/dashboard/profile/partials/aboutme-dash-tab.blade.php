@@ -2097,7 +2097,7 @@
                     $(".uploadModalTrigger").find("button").attr('data-target', '#upload-sec-banner');
 
                 } else {
-                    $(".uploadModalTrigger").find("button").attr('data-target', '#upload-sec');
+                    $(".uploadModalTrigger").find("button").attr('data-target', '#exampleModal');
 
                 }
             });

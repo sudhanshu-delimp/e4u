@@ -257,6 +257,7 @@ class StaffController extends BaseController
             }
             
             $dropdown .= '</div></div>';
+             $item->status_name = '<span class="custom_badge '.getStatusBadgeClass($item->status).'">'.$item->status.' </span>';
 
             $item->action = $dropdown;
             $i++;

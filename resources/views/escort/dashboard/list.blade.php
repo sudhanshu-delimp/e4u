@@ -90,6 +90,7 @@
                                 View the Profile.</li>
                             <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming"
                                     class="custom_links_design">View Listings</a></li>
+                            <li>When duplicating a Profile, update the Street Address if the new Profile is in a new Location.</li>
                         </ol>
                     </div>
                 </div>

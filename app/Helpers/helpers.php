@@ -12,10 +12,12 @@ use App\Models\State;
 use App\Models\Escort;
 use App\Models\Country;
 use App\Mail\LoginOtpMail;
+use App\Models\AlertNotic;
 use App\Models\EscortMedia;
-use Illuminate\Support\Str;
 
+use Illuminate\Support\Str;
 use App\Models\MassageMedia;
+use App\Models\MasseurMedia;
 use Illuminate\Http\Request;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
@@ -116,15 +118,17 @@ if (!function_exists('calculateTotalFee')) {
     }
 }
 
-if(!function_exists('getPinupFee')){
-    function getPinupFee(){
+if (!function_exists('getPinupFee')) {
+    function getPinupFee()
+    {
         $pricing = \App\Models\Pricing::where('membership_id', 6)->first();
         return !empty($pricing) ? $pricing->price : 0;
     }
 }
 
-if(!function_exists('getBumpupFee')){
-    function getBumpupFee(){
+if (!function_exists('getBumpupFee')) {
+    function getBumpupFee()
+    {
         $pricing = \App\Models\Pricing::where('membership_id', 7)->first();
         return !empty($pricing) ? $pricing->price : 0;
     }
@@ -490,6 +494,21 @@ if (!function_exists('getMassageBannerTemplates')) {
             ->get();
     }
 }
+
+
+if (!function_exists('isMasseursGalleryTemplate')) {
+    function isMasseursGalleryTemplate($media_id = 0)
+    {
+        $media = MasseurMedia::where(['id' => $media_id])->first();
+        if ($media->template) {
+            $template = MasseurMedia::where(['user_id' => NULL, 'template' => '1', 'path' => $media->path])->first('id');
+            return $template->id;
+        } else {
+            return $media_id;
+        }
+    }
+}
+
 
 if (!function_exists('isMassageGalleryTemplate')) {
     function isMassageGalleryTemplate($media_id = 0)
@@ -1007,7 +1026,7 @@ if (!function_exists('formatAccountNumber')) {
             return $number;
         }
         $digiType = '-';
-        if($type !=  null){
+        if ($type !=  null) {
             $digiType =  ' ';
         }
 
@@ -1070,8 +1089,9 @@ if (!function_exists('formatAccountNumber')) {
 }
 
 
-if(!function_exists('global_notifications')){
-    function global_notifications(){
+if (!function_exists('global_notifications')) {
+    function global_notifications()
+    {
         $today = Carbon::today();
         $todayDate = $today->toDateString();
         $notifications = GlobalNotification::where('status', 'Published')->where(function ($query) use ($todayDate) {
@@ -1086,12 +1106,54 @@ if(!function_exists('global_notifications')){
                     ->where('start_date', '<=', $todayDate)
                     ->where('end_date', '>=', $todayDate);
             });
-
-
         })->orderBy('created_at', 'desc')
             ->select('id', 'heading', 'content', 'template_name')
             ->get();
 
         return $notifications;
+    }
+}
+
+if (!function_exists('removeAnythingExceptNumber')) {
+    function removeAnythingExceptNumber($number)
+    {
+        if ($number == null || empty($number)) {
+            return $number;
+        }
+        // Remove anything that is not a digit
+        return preg_replace('/\D/', '', $number);
+    }
+}
+
+if (!function_exists('notic_alert')) {
+    function notic_alert()
+    {
+        $content = AlertNotic::where('action', 'public')->first();
+        return $content ??  null;
+    }
+}
+
+
+//return html status spam tag according status
+if (!function_exists('getStatusBadgeClass')) {
+    function getStatusBadgeClass($status)
+    {
+        $statusMap = [
+            'Published' => 'badge_published',
+            'Suspended' => 'badge_suspended',
+            'Removed' => 'badge_suspended',
+            'Active' => 'badge_active',
+            'Inactive' => 'badge_inactive',
+            'Pending' => 'badge_pending',
+            'Completed' => 'badge_completed',
+            'Accepted' => 'badge_accepted',
+            'Rejected' => 'badge_rejected',
+            'Available' => 'badge_available',
+            'Withdrow' => 'badge_withdraw',
+            'Resolved' => 'badge_resolved',
+        ];
+
+        $status = trim(ucfirst(strtolower($status)));
+        return isset($statusMap[$status]) ? $statusMap[$status] : 'badge_pending';
     }
 }

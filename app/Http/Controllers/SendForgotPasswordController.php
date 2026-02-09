@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Mail\NotificationPasswordReset;
 use Auth;
 use Mail;
 use Carbon\Carbon;
@@ -56,6 +58,8 @@ class SendForgotPasswordController extends Controller
         $body = [
            'url' => $link,
            'name' => !empty($users->name) ? $users->name : $data['email'],
+           'ref'  => $users->id,
+           'member_id' => !empty($users->member_id) ? $users->member_id : ''
         ];
  
         $error = true;
@@ -75,39 +79,40 @@ class SendForgotPasswordController extends Controller
     }
     public function viewerResetPassword(Request $request)
     {
-        //dd($request->all());
-      
-
         $password = $request->password;  
         // Validate the token
         $tokenData = DB::table('password_resets')
         ->where('token', $request->cusotm_token)->first();
-        
+      
+        if (!$tokenData) {
+            return response()->json([
+                'error'   => false,   // as you want
+                'type'    => 'error',
+                'title'   => 'Password Reset Link Expired',
+                'message' => 'Your password reset link is invalid or has expired. Please request a new one.'
+            ], 200);
+        }
+
         // Redirect the user back to the password reset request form if the token is invalid
         if (!$tokenData) {  return redirect()->route('viewer.login'); }
-        // if (!$tokenData) { dd("tokendata"); return view('auth.passwords.email'); }
 
         $user = User::where('email', $tokenData->email)->first();
-      
-        
+       
         // Redirect the user back if the email is invalid
-        if (!$user) { 
-            if($user->type == 0) {
-               return redirect()->route('viewer.login'); 
-            }
-            if($user->type == 1) {
-               return redirect()->route('admin.login'); 
-            }
-            if($user->type == 3) {
-               return redirect()->route('advertiser.login'); 
-            }
-            if($user->type == 5) {
-               return redirect()->route('agent.login'); 
-            }
-            
-            // return redirect()->back()->withErrors(['email' => 'Email not found']);
-        }
-      
+        
+
+        $body = [
+           'new_password' => $password,
+           'name' => !empty($user->name) ? $user->name : $tokenData->email,
+           'ref'  => $user->id,
+           'member_id' => !empty($user->member_id) ? $user->member_id : ''
+        ];
+        
+        Mail::to($tokenData->email)->send(new NotificationPasswordReset($body));
+        $msg = 'Your request to reset your password has been completed. Your new password is: ' . $password;
+        $sendotp = new SendSms();
+        $output = $sendotp->send($user->phone, $msg);
+        
         //Hash and update the new password
         $user->password = Hash::make($password);
         $error = false;

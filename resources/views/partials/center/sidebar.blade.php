@@ -155,13 +155,13 @@
 
                 <div id="CenterMasseurs"
                     class="collapse
-                    @if (in_array(request()->segment(3), ['new-listing', 'archives-listing'])) show @endif"
+                    @if (in_array(request()->segment(3), ['create-new-masseur', 'archives-listing'])) show @endif"
                     data-parent="#ProfileManagement">
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(3) == 'new-listing' ? 'menu-active' : '' }}"
-                            href="{{ route('center.new-listing') }}">
+                        <a class="collapse-item {{ request()->segment(3) == 'create-new-masseur' ? 'menu-active' : '' }}"
+                            href="{{ route('center.create-new-masseur') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png') }}">
                             <span>New</span>
                         </a>

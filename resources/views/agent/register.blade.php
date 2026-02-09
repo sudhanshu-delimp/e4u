@@ -129,9 +129,9 @@
         </div>
     </div>
 </section>
-<section class="padding_two_fifty_two_top padding_bottom_eight_px">
+<section class="padding_one_thiry_top padding_bottom_eight_px">
    <div class="container">
-   <h1 class="home_heading_first margin_btm_twenty_px page-title">Help for Agents</h1>
+   {{-- <h1 class="home_heading_first margin_btm_twenty_px page-title">Help for Agents</h1> --}}
    <div class="accordion-container">
       <div class="set">
          <a class="active">
@@ -142,20 +142,20 @@
              <div class="accodien_manage_padding_content">
                <div class="border_top_one_px padding_ten_px_top_btm">
                  <div class="row">
-                     <div class="col-lg-3 col-md-4 col-12">
+                     <div class="col-md-4 col-12">
                        <ul class="padding_zero_px_ul_ol list_style_none font_size_forteenpx mb-0 register_ul">
                            <li><span class="correct_symbole_font_weight">✓</span> At least 1 lowercase character</li>
                            <li><span class="correct_symbole_font_weight">✓</span> At least 1 number</li>
                        </ul>
                      </div>
-                     <div class="col-lg-3 col-md-4 col-12">
+                     <div class="col-md-4 col-12">
                        <ul class="padding_zero_px_ul_ol list_style_none font_size_forteenpx mb-0 register_ul">
                            <li><span class="correct_symbole_font_weight">✓</span> At least 1 uppercase character</li>
                            <li><span class="correct_symbole_font_weight">✓</span> At least 1 special character</li>
 
                        </ul>
                      </div>
-                     <div class="col-lg-3 col-md-4 col-12">
+                     <div class="col-md-4 col-12">
                        <ul class="padding_zero_px_ul_ol list_style_none font_size_forteenpx register_ul">
                            <li><span class="correct_symbole_font_weight">✓</span> 8 characters minimum</li>
                            <li><span class="correct_symbole_font_weight">✓</span> 50 characters maximum</li>
@@ -175,18 +175,18 @@
             <div class="accodien_manage_padding_content text-justify">
                 <p><b>Q: How do I apply to become an Agent?</b></p>
                 <ul style="list-style:none;" class="mb-1 pl-3">
-                    <li>Step 1. When you land on the Website hover over “Register” located at the top right hand corner and click “Lodge Enquiry”. </li>
-                    <li>Step 2. Complete the information fields.</li>
-                    <li>Step 3. Click the “Register” button.</li>
+                    <li>Step 1. Complete the Registration form.</li>
+                    <li>Step 2. Once you have submitted the the Registration form, someone from our office will be in touch with you to explain the role in detail.</li>
+                    <li>Step 3. If you appear to be suitable for the role, a more formal process will begin.</li>
                 </ul>     
-                <p>Someone from our support team will be in touch with you within 24 hours.</p>
                 <p><b>Q: Will I get a confirmation of my application to become an Agent?</b></p>
                 <ul class="list-unstyled pl-3">
-                   <li>Yes you will. Escorts4U will forward to you by email a confirmation that we have received your application. The confirmation will contain a reference number for you to quote if any follow up is required.</li>
+                   <li>Yes you will. Escorts4U will forward to you by email a confirmation that we have received your application. The confirmation will contain 
+                    a reference number for you to quote if any follow up is required.</li>
                 </ul>
                 <p><b>Q: How do I get in touch with Escorts4U if I have any queries?</b></p>
                 <ul class="list-unstyled pl-3">
-                   <li>You can forward an email to our <a href="#" class="termsandconditions_text_color">support team</a> anytime. Please allow us some time to get back to you. We will get back to you within 24 hours, usually sooner.</li>
+                   <li>You can contact our <a href="{{ url('contact-us')}}" class="termsandconditions_text_color">support team</a> anytime. Please allow us some time to get back to you. We will get back to you within 24 hours, usually sooner.</li>
                 </ul>
                 <p><b>Q: Do I have to be a registered business to be an Agent?</b></p>
                 <ul class="list-unstyled pl-3">
@@ -195,7 +195,7 @@
                 </ul>
                 <p><b>Q: Can Escorts4U put me in touch with an accountant?</b></p>
                 <ul class="list-unstyled pl-3">
-                   <li class="mb-2">Yes we can. We have a list of accounting practices in each State who have an understanding of the Escorts4U business model. Simply <a href="#" class="termsandconditions_text_color">request</a> the details and then choose an accountant that is nearest to you. When you contact the accounting practice, mention you are wanting to make an appointment to discuss becoming an Agent for Escorts4U.</li>
+                   <li class="mb-2">Yes we can. We have a list of accounting practices in each State who have an understanding of the Escorts4U business model. Simply request the details and then choose an accountant that is nearest to you. When you contact the accounting practice, mention you are wanting to make an appointment to discuss becoming an Agent for Escorts4U.</li>
                    <li>Escorts4U has no financial arrangements with any of the accounting practices. We do not pay any commissions to the accounting practices.</li>
                 </ul>
                 <p><b>Q: Will I have exclusivity to the area I am appointed in?</b></p>

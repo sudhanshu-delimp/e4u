@@ -40,6 +40,8 @@ class sendForgotPassword extends Mailable
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'))
-        ->markdown('emails.forgotPassword')->with('body',$this->body);
+        ->markdown('emails.forgotPassword')
+         ->subject('Reset Password - Request')
+        ->with('body',$this->body);
     }
 }
