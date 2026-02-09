@@ -588,7 +588,10 @@ class DashboardController extends BaseController
             $item->date =   isset($item->created_at) ? showDateWithFormat($item->created_at) : 'NA';
             $item->subject = isset($subjects[$item->subject_id]) ? $subjects[$item->subject_id] : 'NA';
             $item->email = isset($item->email) ? $item->email : 'NA';
-            $item->status = isset($item->status) ? $item->status_text : 'NA';
+            $statusText = $item->status_text ?? 'NA';
+            $badgeClass = getStatusBadgeClass($statusText);
+            $item->status = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+
             if($item->status ==  "Pending"){
             $completedHtml =  '<a class="dropdown-item completed_btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '>  
                 <i class="fa fa-check "></i> Completed</a><div class="dropdown-divider"></div>';
@@ -609,12 +612,59 @@ class DashboardController extends BaseController
         $feedback = Feedback::findOrFail($request->id);
         $feedback->status = $request->status;
         $feedback->save();
-
+        $pendingCount   = Feedback::where('status', 1)->count();
+        $completedCount = Feedback::where('status', 2)->count();
         return response()->json([
-            'success' => true,
-            'message' => $request->status == 2 
-                ? 'Feedback marked as Completed.' 
+            'success'   => true,
+            'completed'=> $completedCount,
+            'pending'  => $pendingCount,
+            'message'  => $request->status == 2
+                ? 'Feedback marked as Completed.'
                 : 'Feedback marked as Pending.'
         ]);
+
     }
+
+    public function feedback(Request $request)
+    {
+        $pendingCount   = Feedback::where('status', 1)->count();
+        $completedCount = Feedback::where('status', 2)->count();
+        $todayCount     = Feedback::whereDate('created_at', today())->count();
+        $totalCount     = Feedback::count();
+
+        return view('admin.feedback.feedback-list', compact(
+            'pendingCount',
+            'completedCount',
+            'todayCount',
+            'totalCount'
+        ));
+    }
+
+
+    public function getSingleFeedbacktReport(Request $request)
+    {
+        $subjects = config('common.feedback_subject');
+        $feedback = Feedback::with('option')
+            ->where('id', $request->feedback_id)
+            ->first();
+
+        if ($feedback) {
+            $feedback->formatted_created_at = $feedback->created_at
+                ? $feedback->created_at->format('d-m-Y')
+                : 'NA';
+
+            $feedback->subject_text = $subjects[$feedback->subject_id] ?? 'NA';
+        }
+
+        $data = [
+            "status"  => 200,
+            "error"   => false,
+            "message" => "Feedback report successfully fetched.",
+            "data"    => $feedback,
+        ];
+
+        return response()->json($data);
+    }
+
+
 }

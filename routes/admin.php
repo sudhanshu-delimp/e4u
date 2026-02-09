@@ -766,9 +766,12 @@ Route::get('publications/alerts', function () {
     return view('admin.publications.alerts');
 })->name('admin.alerts');
 
-Route::get('feedback', function () {
-    return view('admin.feedback.feedback-list');
-})->name('admin.feedback');
+
+Route::get('feedback', [DashboardController::class, 'feedback'])
+    ->name('admin.feedback');
+    
+Route::get('feedback-reports-ajax', [DashboardController::class, 'getSingleFeedbacktReport'])->name('admin.feedback-reports-ajax');
+
 
 Route::get('feedback-list', [DashboardController::class, 'feedbackList'])
     ->name('admin.feedback.dataTable');
