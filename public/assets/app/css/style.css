@@ -1561,12 +1561,14 @@
                 line-height: 27px;
                 background-color: var(--blue--text);
                 border-color: var(--blue--text);
-                margin: 0px 10px 10px 0px;
+                margin: 0px 10px 10px 20px;
                 padding: 8px 20px;
             }
             
             .btn_become_pin_up:hover {
                 color: #fff;
+                background-color: var(--peach);
+                border-color: var(--peach);
             }
             
             .welcome_text_color {
@@ -1671,13 +1673,15 @@
                 font-size: 16px;
                 padding: 8px 20px;
                 line-height: 27px;
-                background-color: #ff3c5f;
-                border-color: #ff3c5f;
+                background-color: var(--peach);
+                border-color: var(--peach);
                 margin: 0px 10px 10px 0px;
             }
             
             .btn_advertiser:hover {
                 color: #fff;
+                background-color: var(--blue--text);
+                border-color: var(--blue--text);
             }
             
             .btn_viewer {
@@ -5698,6 +5702,42 @@ i.fa.fa-heart-o{
             .mc_view_media {
                 position: relative;
                 cursor: pointer;
+            }
+            
+            .video--icon .video-tooltip {
+                position: absolute;
+                left: 50%;
+                top: -20%;
+                z-index: 999;
+                transform: translate(-50%, -50%);
+                width: max-content;
+                background: #ff3c5f;
+                color: #fff;
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 1.4;
+                padding: 6px 10px;
+                border-radius: 4px;
+                cursor: pointer;
+                display: none;
+                transition: opacity 0.3s;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+            }
+            
+            .video--icon .video-tooltip::after {
+                position: absolute;
+                left: 50%;
+                top: 29px;
+                content: '';
+                border-width: 6px;
+                border-style: solid;
+                border-color: var(--peach) transparent transparent transparent;
+                transform: rotate(0deg) translate(-50%, 0%);
+            }
+            
+            .video--icon:hover .video-tooltip {
+                display: block;
             }
             
             .mc_tooltip {
