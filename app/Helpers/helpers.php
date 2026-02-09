@@ -1157,3 +1157,16 @@ if (!function_exists('getStatusBadgeClass')) {
         return isset($statusMap[$status]) ? $statusMap[$status] : 'badge_pending';
     }
 }
+
+
+if (!function_exists('generate_masseur_member_id')) {
+    function generate_masseur_member_id($masseur_profile_id)
+    {
+        if($masseur_profile_id=="" || (!is_numeric($masseur_profile_id)))
+        return false;
+
+        return auth()->user()->member_id.'-00'.$masseur_profile_id;
+    }
+}
+
+
