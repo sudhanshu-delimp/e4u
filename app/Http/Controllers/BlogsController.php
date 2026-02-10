@@ -19,10 +19,16 @@ class BlogsController extends Controller
     public function blogsDetail($slug)
     {
         $blogDetail = PublicationBlog::where('status', 'Published')->where('slug', $slug)->first();
-        $blogDetail->blog_image = asset(ImageService::url($blogDetail->blog_image, 'original', 'publication_blog'));
+        if(!$blogDetail){
+            abort(404);
+        }
+        if($blogDetail->blog_image){
+            $blogDetail->blog_image = asset(ImageService::url($blogDetail->blog_image, 'original', 'publication_blog'));
+        }
+       
 
         //Next page
-        $previousBlog = PublicationBlog::where('status', 'Published')->where(function($query) use ($blogDetail) {
+        $previousBlog = PublicationBlog::where(function($query) use ($blogDetail) {
                 $query->whereDate('created_at', $blogDetail->created_at)
                       ->where('id', '<', $blogDetail->id);
             })
@@ -30,10 +36,11 @@ class BlogsController extends Controller
             ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc')
             ->select('id','title', 'slug')
+            ->where('status', 'Published')
             ->first();
 
             // Next Blog 
-        $nextBlog = PublicationBlog::where('status', 'Published')->where(function($query) use ($blogDetail) {
+        $nextBlog = PublicationBlog::where(function($query) use ($blogDetail) {
                 $query->whereDate('created_at', $blogDetail->created_at)
                       ->where('id', '>', $blogDetail->id);
             })
@@ -41,6 +48,7 @@ class BlogsController extends Controller
             ->orderBy('created_at', 'asc')
             ->orderBy('id', 'asc')
             ->select('id','title', 'slug')
+            ->where('status', 'Published')
             ->first();
         if($blogDetail){
             return view('web.pages.blog.blogs-single',compact('blogDetail', 'previousBlog', 'nextBlog'));
