@@ -152,9 +152,9 @@
          </div>
          <div class="row">
             <div class="col-md-12">
-               <div class="table-responsive pl-1 pt-3 list-sec" id="sailorTableArea">
-                  <table id="sailorTable" class="table table-striped" width="100%">
-                     <thead>
+               <div class="table-responsive" id="sailorTableArea">
+                  <table id="sailorTable" class="table w-100" width="100%">
+                     <thead class="table-bg">
                         <tr>
                            <th>ID</th>
                            <th>Tour Name</th>
@@ -218,7 +218,7 @@
          { data: 'end_date', name: 'end_date' , searchable: false },
          { data: 'days_number', name: 'days_number' , searchable: false },
          { data: 'status', name: 'status' , orderable: false, searchable: false, visible: '{{$type == "past"?false:true}}'},
-         { data: 'action', name: 'Action', orderable: false, searchable: false },
+         { data: 'action', name: 'Action', orderable: false, searchable: false, class: 'text-center' },
       ]
    });
 

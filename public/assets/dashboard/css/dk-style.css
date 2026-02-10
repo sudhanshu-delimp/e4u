@@ -8735,8 +8735,8 @@ div#listings_wrapper .custom--common-table {
 }
 
 .membership--inner th {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
     background: #0C223D;
     color: #fff;
     font-size: 14px;

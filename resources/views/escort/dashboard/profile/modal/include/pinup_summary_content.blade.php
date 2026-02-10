@@ -13,8 +13,9 @@
     <!-- Modal Body with Static Table -->
     <div class="modal-body px-4">
         <div class="d-flex align-items-center justify-content-between gap-10 flex-wrap">
-        <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>Location:</strong> <span>{{!empty($escort->profile_name)?$escort->profile_name:''}}</span></div>
-        <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>Profile:</strong> <span>{{!empty($escort->profile_name)?$escort->state->name:''}}</span></div>
+            <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>Profile:</strong> <span>{{!empty($escort->profile_name)?$escort->state->name:''}}</span></div>
+        
+            <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>Location:</strong> <span>{{!empty($escort->profile_name)?$escort->profile_name:''}}</span></div>
         </div>
         <div class="d-flex align-items-center justify-content-between gap-10 flex-wrap">
         <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>Start Date::</strong> <span>{{!empty($escort->latestActivePinup)?$escort->latestActivePinup->start_date:''}}</span></div>
@@ -27,7 +28,7 @@
         <hr style="background-color: #0C223D" class="mt-4">
         <p class="mb-1"><b>Notes:</b></p>
         <ol class="pl-4">
-            <li>The standard Fee for a Pin Up has ben applied.</li>
+            <li>The standard Fee for a Pin Up has been applied.</li>
             <li>Your Pin Up listing will be automatically removed if you Suspend or Cancel the
                 Profile listing.</li>
         </ol>

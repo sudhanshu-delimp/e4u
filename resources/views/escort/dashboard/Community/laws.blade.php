@@ -47,9 +47,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div id="about_me" class="collapse show" data-parent="#accordion" style="">
-                        <div class="table-responsive list-sec" id="sailorTableArea">
-                            <table id="myTable price-sec" class="table dataTable" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                                <thead class="text-center">
+                        <div class="table-responsive" id="sailorTableArea">
+                            <table id="myTable price-sec" class="table dataTable" width="100%" role="grid" aria-describedby="myTable_info">
+                                <thead class="text-center table-bg">
                                 <tr role="row">
                                     <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 75px; text-align:left;">State</th>
                                     <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Legislation<sup>(1)</sup></th>
