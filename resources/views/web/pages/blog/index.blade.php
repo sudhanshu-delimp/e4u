@@ -99,23 +99,8 @@
                                     </form>
 
                                     <!-- Archive List -->
-                                    <div class="archive-list">
-                                        <ul>
-                                            <li><a href="#"> Deep Throat Tips You Should Know</a></li>
-                                            <li><a href="#"> Edging Tips For Better Orgasms</a></li>
-                                            <li><a href="#"> Keeping Your Sanity - Tips For Escorts</a></li>
-                                            <li><a href="#"> How To Have Kinky Dreams</a></li>
-                                            <li><a href="#"> How To Pick An Outfit For Sex Work</a></li>
-                                            <li><a href="#"> Learn How To Master Conversation With An Escort</a></li>
-                                            <li><a href="#"> Tips On Avoiding Nausea After Sex</a></li>
-                                            <li><a href="#"> Summer Date Ideas With Your Elite Escort</a></li>
-                                            <li><a href="#"> Difference Between PSE and GFE You Should Know</a></li>
-                                            <li><a href="#"> Top Nightspots in Launceston To Take Your Escort</a>
-                                            </li>
-                                            <li><a href="#"> Tips for Giving an Unforgettable Massage</a></li>
-                                            <li><a href="#"> The Art of Teasing and Denial</a></li>
-                                            <li><a href="#"> Tips on Talking Dirty to Your Clients</a></li>
-                                        </ul>
+                                    <div class="archive-list" id="archive-list">
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -132,6 +117,7 @@
         $(document).ready(function() {
             const LOADER = $('#blogsLoader');
             const GRID = $('#blogsGrid');
+            const ARCHIVELIST = $('#archive-list');
             let currentParams = {
                 month: getCurrentMonth()
             };
@@ -163,7 +149,9 @@
                     },
                     data: params,
                     success: function(response) {
+                        console.log(response.data.archive);
                         GRID.html(response.data.card);
+                        ARCHIVELIST.html(response.data.archive)
                         hideLoader();
                     }
                 });

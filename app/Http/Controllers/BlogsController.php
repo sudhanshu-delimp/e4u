@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Services\ImageService;
 use App\Models\PublicationBlog;
@@ -27,33 +28,56 @@ class BlogsController extends Controller
 
 
         try {
-            $query  = PublicationBlog::select('id', 'title', 'slug', 'blog_image', 'description', 'created_at');
-            //Month Filter
-            if ($month) {
-                [$year,$month]  = explode('-', $month);
-                $query->whereYear('created_at', $year)
-                    ->whereMonth('created_at', $month);
-            }
 
-            //Search Filter
+            $currentDate = $month
+                ? Carbon::createFromFormat('Y-m', $month)->startOfMonth()
+                : Carbon::now()->startOfMonth();
+
+
+            $previousDate  = $month ?  $currentDate :  $currentDate->copy()->subMonth();
+
+            //Baisc Query
+            $baseQuery = PublicationBlog::query();
+
             if ($search) {
-                $query->where('title', "like", "%{$search}%");
+                $baseQuery->where('title', "like", "%{$search}%");
             }
 
-            $blogs = $query->orderBy('created_at', 'desc')->get()->map(function($blog){
-                $blog->blog_image = asset(ImageService::url($blog->blog_image, 'original', 'publication_blog'));
-                return $blog;
-    
-            });
+            //Current Month Blogs
+            $currentBlogs = (clone $baseQuery)
+                ->select('id', 'title', 'slug', 'blog_image', 'description', 'created_at')
+                ->whereYear('created_at', $currentDate->year)
+                ->whereMonth('created_at', $currentDate->month)
+                ->orderByDesc('created_at')
+                ->get()
+                ->map(function ($query) {
+                    $query->blog_image = asset(ImageService::url($query->blog_image, 'original', 'publication_blog'));
+                    return $query;
+                });
 
-            
+
+            //Previous Month Blogs (Archive)
+
+            $previousBlogs = (clone $baseQuery)
+                ->select('id', 'title', 'slug')
+                ->whereYear('created_at', $previousDate->year)
+                ->whereMonth('created_at', $previousDate->month)
+                ->orderByDesc('created_at')
+                ->get();
+
+
 
             // html blog render 
-            $htmlBlog =   view('web.pages.blog.dynamic-card', ['blogs' => $blogs])->render();
+            $htmlBlog =   view('web.pages.blog.dynamic-card', ['blogs' => $currentBlogs])->render();
+            $preHtml = view('web.pages.blog.archive-list', ['archives' => $previousBlogs])->render();
 
-            //Archive blog list
+            return success_response([
+                'card'       => $htmlBlog,
+                'archive'    => $preHtml,
+                'month'      => $currentDate->format('Y-m'),
+                'pre_month'  => $previousDate->format('Y-m'),
+            ]);
 
-            return success_response(['card' => $htmlBlog]);
         } catch (\Exception $e) {
             dd($e);
             return error_response($e->getMessage());
