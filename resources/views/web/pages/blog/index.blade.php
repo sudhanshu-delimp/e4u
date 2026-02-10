@@ -1,5 +1,67 @@
 @extends('layouts.web')
 @section('style')
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <style>
+        .ui-datepicker table {
+            display: none !important;
+        }
+
+        .ui-state-default.ui-state-highlight {
+            background-color: var(--peach) !important;
+            border-color: #ccc !important;
+        }
+
+        .ui-state-default.ui-state-active {
+            background-color: var(--blue--text) !important;
+            border-color: var(--blue--text) !important;
+        }
+
+        .filter-date:focus {
+            outline: none;
+            border: 2px solid var(--peach);
+        }
+
+        /* Header background */
+
+        .ui-widget.ui-widget-content {
+            width: 290px !important;
+            width: 100%;
+            border-radius: 5px;
+            border: none !important;
+        }
+
+        .ui-datepicker .ui-datepicker-title {
+            margin: 0 2.3em;
+            line-height: 1.8em;
+            text-align: center;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .ui-datepicker {
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .ui-datepicker-header {
+            background: #fff;
+            color: #fff;
+            border: none;
+        }
+
+        /* Month & Year dropdown */
+
+        .ui-datepicker select {
+            background: #022c3d;
+            color: #fff;
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+
     <style>
         .loader {
             display: none;
@@ -8,7 +70,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #007bff;
+            border-top: 4px solid #ff3c5f;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -93,14 +155,14 @@
                                 <h2 class="blog_head">Blog Archive</h2>
                                 <div class="arc_blog_list">
                                     <!-- Search Form -->
-                                    <form class="archive-form">
+                                    <div class="archive-form">
                                         <label for="archive-date">Search By Year & Month</label>
-                                        <input type="month" name="month" id="archive-date">
-                                    </form>
+                                        <input type="text" class="filter-date" name="month" id="archive-date">
+                                    </div>
 
                                     <!-- Archive List -->
                                     <div class="archive-list" id="archive-list">
-                                       
+
                                     </div>
                                 </div>
                             </div>
@@ -113,6 +175,9 @@
     <div id="base-url" data-blog-list="{{ route('blogs.list') }}"></div>
 @endsection
 @push('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
     <script>
         $(document).ready(function() {
             const LOADER = $('#blogsLoader');
@@ -149,19 +214,22 @@
                     },
                     data: params,
                     success: function(response) {
-                        console.log(response.data.archive);
                         GRID.html(response.data.card);
                         ARCHIVELIST.html(response.data.archive)
+                        hideLoader();
+                    },
+                    error: function(xhr) {
+                        console.error(xhr);
                         hideLoader();
                     }
                 });
             }
 
             //Initial Load
-              const params = {
-                    month:  getCurrentMonth()
-                };
-              
+            const params = {
+                month: getCurrentMonth()
+            };
+
             loadBlogs(params);
 
             //On change Month
@@ -177,9 +245,9 @@
             $('#searchBtn').click(debounce(function() {
                 const params = {
                     search: $('.search-text').val(),
-                   // month: $('#archive-date').val() || getCurrentMonth(),
+                    // month: $('#archive-date').val() || getCurrentMonth(),
                 }
-              
+
                 loadBlogs(params);
             }, 300));
 
@@ -200,15 +268,33 @@
             }
 
 
+            function initDatePicker() {
+                $(".filter-date").datepicker({
+                    dateFormat: "MM yy", // Example: February 2026
+                    changeMonth: true,
+                    changeYear: true,
+                    showButtonPanel: true,
+
+                    beforeShow: function(input, inst) {
+                        $(".ui-datepicker-calendar").hide();
+                    },
+
+                    onClose: function(dateText, inst) {
+                        var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                        var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                        var mon = `${year}-${month}`;
+                        var params = {
+                            month: mon ?? getCurrentMonth()
+                        };
+                        loadBlogs(params);
+                        // call here ajax function not ajax
+                        $(this).val($.datepicker.formatDate('MM yy', new Date(year, month, 1)));
+                    }
+                });
+            }
+            initDatePicker();
+
+
         });
-
-
-        const monthInput = document.getElementById("archive-date");
-        const today = new Date();
-
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-
-        monthInput.value = `${year}-${month}`;
     </script>
 @endpush

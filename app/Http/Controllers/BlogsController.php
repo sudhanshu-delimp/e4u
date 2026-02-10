@@ -18,7 +18,35 @@ class BlogsController extends Controller
 
     public function blogsDetail($slug)
     {
-        return view('web.pages.blog.blogs-single');
+        $blogDetail = PublicationBlog::where('slug', $slug)->first();
+        $blogDetail->blog_image = asset(ImageService::url($blogDetail->blog_image, 'original', 'publication_blog'));
+
+        //Next page
+        $previousBlog = PublicationBlog::where(function($query) use ($blogDetail) {
+                $query->whereDate('created_at', $blogDetail->created_at)
+                      ->where('id', '<', $blogDetail->id);
+            })
+            ->orWhere('created_at', '<', $blogDetail->created_at)
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
+            ->select('id','title', 'slug')
+            ->first();
+
+            // Next Blog 
+        $nextBlog = PublicationBlog::where(function($query) use ($blogDetail) {
+                $query->whereDate('created_at', $blogDetail->created_at)
+                      ->where('id', '>', $blogDetail->id);
+            })
+            ->orWhere('created_at', '>', $blogDetail->created_at)
+            ->orderBy('created_at', 'asc')
+            ->orderBy('id', 'asc')
+            ->select('id','title', 'slug')
+            ->first();
+        if($blogDetail){
+            return view('web.pages.blog.blogs-single',compact('blogDetail', 'previousBlog', 'nextBlog'));
+        }
+        abort(404);
+        
     }
 
     public function blogsList(Request $request)
