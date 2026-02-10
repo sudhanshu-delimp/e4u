@@ -28,7 +28,7 @@ class BlogsController extends Controller
        
 
         //Next page
-        $previousBlog = PublicationBlog::where(function($query) use ($blogDetail) {
+        $previousBlog = PublicationBlog::where('status', 'Published')->where(function($query) use ($blogDetail) {
                 $query->whereDate('created_at', $blogDetail->created_at)
                       ->where('id', '<', $blogDetail->id);
             })
@@ -40,15 +40,16 @@ class BlogsController extends Controller
             ->first();
 
             // Next Blog 
-        $nextBlog = PublicationBlog::where(function($query) use ($blogDetail) {
+        $nextBlog = PublicationBlog::where('status', 'Published')->where(function($query) use ($blogDetail) {
                 $query->whereDate('created_at', $blogDetail->created_at)
                       ->where('id', '>', $blogDetail->id);
             })
+            
             ->orWhere('created_at', '>', $blogDetail->created_at)
             ->orderBy('created_at', 'asc')
             ->orderBy('id', 'asc')
             //->select('id','title', 'slug')
-            ->where('status', 'Published')
+            
             ->first();
             dd($previousBlog, $nextBlog);
         if($blogDetail){
