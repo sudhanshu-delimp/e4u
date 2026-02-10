@@ -184,7 +184,7 @@
                             @endif
 
                             @if (!empty($nextBlog))
-                                <div class="border"></div>
+                                {{-- <div class="border"></div> --}}
                                 <a class="posts-next" href="{{ route('blogs.detail', $nextBlog['slug']) }}">
                                     <div class="posts-next-item pt-4 pt-lg-0">
                                         <span class="nav-posts-desc text-lg-right text-md-right text-color d-block">- Next
