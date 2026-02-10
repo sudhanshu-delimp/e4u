@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Pricing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -400,7 +401,16 @@ Route::get('help-for-escorts', [App\Http\Controllers\WebController::class,'help_
 Route::get('/help-for-agents', function() { return view('web.pages.help-for-agents'); });
 Route::get('/help-for-massage-centres', function() { return view('web.pages.help-for-massage-centres'); });
 Route::get('/help-for-viewers', function() { return view('web.pages.help-for-viewers'); });
-Route::get('/become-a-pin-up', function() { return view('web.pages.pinup'); });
+
+
+Route::get('/become-a-pin-up', function () {
+    $advertings = Pricing::with('memberships')->get();
+    return view('web.pages.pinup', compact('advertings'));
+});
+
+
+
+
 Route::get('/agents', function() { return view('web.pages.agents'); });
 Route::get('/centres', function() { return view('web.pages.centres'); });
 Route::get('/playbox', function() { return view('web.pages.playbox'); });
