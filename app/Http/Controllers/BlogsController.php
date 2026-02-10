@@ -50,6 +50,7 @@ class BlogsController extends Controller
             ->select('id','title', 'slug')
             ->where('status', 'Published')
             ->first();
+            dd($previousBlog, $nextBlog);
         if($blogDetail){
             return view('web.pages.blog.blogs-single',compact('blogDetail', 'previousBlog', 'nextBlog'));
         }
