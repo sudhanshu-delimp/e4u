@@ -66,7 +66,7 @@
                            <td>04-05-2025</td>
                            <td><a href="mailto:julie.1996@gmail.com">julie.1996@gmail.com</a></td>
                            <td>E40161 04052025 04 003</td>
-                           <td><span class="badge badge-warning">Pending</span></td>
+                           <td><span class="custom_badge badge_pending">Pending</span></td>
                            <td class="text-center"> 
                               @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
@@ -93,7 +93,7 @@
                            <td>03-05-2025</td>
                            <td><a href="mailto:mary.1995@gmail.com">mary.1995@gmail.com</a></td>
                            <td>E50167 03052025 05 002</td>
-                           <td><span class="badge badge-secondary">On Hold</span></td>
+                           <td><span class="custom_badge badge_onHold">On Hold</span></td>
                            <td class="text-center"> 
                                @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
@@ -120,7 +120,7 @@
                            <td>02-05-2025</td>
                            <td><a href="mailto:jane.1999@gmail.com">jane.1999@gmail.com</a></td>
                            <td>E60112 02052025 06 001</td>
-                           <td><span class="badge badge-success">Active</span></td>
+                           <td><span class="custom_badge badge_active">Active</span></td>
                            <td class="text-center"> 
                               @if($editAccessEnabled)
                               <div class="dropdown no-arrow">

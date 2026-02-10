@@ -173,7 +173,23 @@
                             <a class="post-prev align-items-center"
                                 href="{{ route('blogs.detail', $previousBlog['slug']) }}">
                                 <div class="posts-prev-item mb-4 mb-lg-0">
-                                    <span class="nav-posts-desc text-color">- Previous Post</span>
+                                    <span class="nav-posts-desc text-color">Previous Post <svg fill="#6c757d"
+                                                    width="10px" height="10px" viewBox="0 0 1920 1920"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <g fill-rule="evenodd">
+                                                            <path
+                                                                d="M0 92.168 92.299 0l959.931 959.935L92.299 1920 0 1827.57l867.636-867.635L0 92.168Z">
+                                                            </path>
+                                                            <path
+                                                                d="M868 92.168 960.299 0l959.931 959.935L960.299 1920 868 1827.57l867.64-867.635L868 92.168Z">
+                                                            </path>
+                                                        </g>
+                                                    </g>
+                                                </svg></span>
                                     <h6 class="nav-posts-title mt-1">
                                         {{ $previousBlog['title'] ?? '' }}
                                     </h6>
@@ -185,8 +201,24 @@
                             <div class="border"></div>
                             <a class="posts-next" href="{{ route('blogs.detail', $nextBlog['slug']) }}">
                                 <div class="posts-next-item pt-4 pt-lg-0">
-                                    <span class="nav-posts-desc text-lg-right text-md-right text-color d-block">- Next
-                                        Post</span>
+                                    <span class="nav-posts-desc text-lg-right text-md-right text-color d-block"> Next 
+                                        Post <svg fill="#6c757d"
+                                                    width="10px" height="10px" viewBox="0 0 1920 1920"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <g fill-rule="evenodd">
+                                                            <path
+                                                                d="M0 92.168 92.299 0l959.931 959.935L92.299 1920 0 1827.57l867.636-867.635L0 92.168Z">
+                                                            </path>
+                                                            <path
+                                                                d="M868 92.168 960.299 0l959.931 959.935L960.299 1920 868 1827.57l867.64-867.635L868 92.168Z">
+                                                            </path>
+                                                        </g>
+                                                    </g>
+                                                </svg></span>
                                     <h6 class="nav-posts-title mt-1">
                                         {{ $nextBlog['title'] ?? '' }}
                                     </h6>

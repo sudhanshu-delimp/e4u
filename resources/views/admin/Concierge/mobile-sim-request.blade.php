@@ -60,7 +60,7 @@
                            <td>04-05-2025</td>
                            <td>Level 2, 310 Main Street, Brisbane</td>
                            <td>E40161 04052025 04 003</td>
-                           <td><span class="badge badge-warning">Pending</span></td>
+                           <td><span class="custom_badge badge_pending">Pending</span></td>
                            <td class="text-center"> 
                                @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
@@ -87,7 +87,7 @@
                            <td>03-05-2025</td>
                            <td>Level 2, 310 Main Street, Adelaide</td>
                            <td>E50167 03052025 05 002</td>
-                           <td><span class="badge badge-secondary">On Hold</span></td>
+                           <td><span class="custom_badge badge_onHold">On Hold</span></td>
                            <td class="text-center"> 
                                @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
@@ -114,7 +114,7 @@
                            <td>02-05-2025</td>
                            <td>Level 2, 310 Main Street, Perth</td>
                            <td>E60112 02052025 06 001</td>
-                           <td><span class="badge badge-success">Completed</span></td>
+                           <td><span class="custom_badge badge_completed">Completed</span></td>
                            <td class="text-center"> 
                                @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
