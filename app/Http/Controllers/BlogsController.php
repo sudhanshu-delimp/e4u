@@ -35,7 +35,7 @@ class BlogsController extends Controller
             ->orWhere('created_at', '<', $blogDetail->created_at)
             ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc')
-            ->select('id','title', 'slug')
+           // ->select('id','title', 'slug')
             ->where('status', 'Published')
             ->first();
 
@@ -47,7 +47,7 @@ class BlogsController extends Controller
             ->orWhere('created_at', '>', $blogDetail->created_at)
             ->orderBy('created_at', 'asc')
             ->orderBy('id', 'asc')
-            ->select('id','title', 'slug')
+            //->select('id','title', 'slug')
             ->where('status', 'Published')
             ->first();
             dd($previousBlog, $nextBlog);
