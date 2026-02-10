@@ -18,11 +18,11 @@ class BlogsController extends Controller
 
     public function blogsDetail($slug)
     {
-        $blogDetail = PublicationBlog::where('slug', $slug)->first();
+        $blogDetail = PublicationBlog::where('status', 'Published')->where('slug', $slug)->first();
         $blogDetail->blog_image = asset(ImageService::url($blogDetail->blog_image, 'original', 'publication_blog'));
 
         //Next page
-        $previousBlog = PublicationBlog::where(function($query) use ($blogDetail) {
+        $previousBlog = PublicationBlog::where('status', 'Published')->where(function($query) use ($blogDetail) {
                 $query->whereDate('created_at', $blogDetail->created_at)
                       ->where('id', '<', $blogDetail->id);
             })
@@ -33,7 +33,7 @@ class BlogsController extends Controller
             ->first();
 
             // Next Blog 
-        $nextBlog = PublicationBlog::where(function($query) use ($blogDetail) {
+        $nextBlog = PublicationBlog::where('status', 'Published')->where(function($query) use ($blogDetail) {
                 $query->whereDate('created_at', $blogDetail->created_at)
                       ->where('id', '>', $blogDetail->id);
             })
@@ -54,7 +54,6 @@ class BlogsController extends Controller
         $month = $request->get('month');
         $search = $request->get('search');
 
-
         try {
 
             $currentDate = $month
@@ -66,6 +65,8 @@ class BlogsController extends Controller
 
             //Baisc Query
             $baseQuery = PublicationBlog::query();
+
+            $baseQuery->where('status', 'Published');
 
             if ($search) {
                 $baseQuery->where('title', "like", "%{$search}%");
