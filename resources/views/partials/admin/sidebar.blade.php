@@ -583,7 +583,7 @@
                         'application',
                         'revision',
                         'security','shareholder','share-value',
-                        'operator-staff',
+                        'operator-staff','concierge-payments'
                     ]) || in_array(request()->segment(4), ['legal','community','other','about','concierge','global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications'])) show @endif"
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
@@ -597,6 +597,17 @@
                                 </svg>
                                 <span style="{{ request()->segment(3) == 'dashboard' ? 'color: #FF3C5F;' : '' }}">Dashboard</span>
                             </a>
+
+                            <a class="nav-link" href="{{ route('admin.concierge-payments') }}">
+                                <svg width="15" height="15" viewBox="0 0 18 19" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0.720703V6.7207H18V0.720703H10ZM10 18.7207H18V8.7207H10V18.7207ZM0 18.7207H8V12.7207H0V18.7207ZM0 10.7207H8V0.720703H0V10.7207Z"
+                                        fill="#c2cfe0" />
+                                </svg>
+                                <span style="{{ request()->segment(3) == 'concierge-payments' ? 'color: #FF3C5F;' : '' }}">Concierge Payments</span>
+                            </a>
+
                         <a class="nav-link collapsed" href="#" data-toggle="collapse"
                             data-target="#manageAgentMenu" aria-expanded="false" aria-controls="manageAgentMenu">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">

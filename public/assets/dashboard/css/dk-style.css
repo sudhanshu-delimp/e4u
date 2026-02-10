@@ -1427,6 +1427,16 @@ button.btn:focus {
 
 /* end */
 
+
+/* reconciliation_table */
+
+.reconciliation_table td {
+    border: none;
+}
+
+
+/* end */
+
 @media only screen and (max-width:1024px) {
     .main--chat--wrapper {
         flex-direction: column;

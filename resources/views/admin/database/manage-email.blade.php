@@ -73,7 +73,7 @@
                            <td>11-06-2025</td>
                            <td>E60125</a></td>
                            <td>12 months</td>
-                           <td><span class="badge badge-warning">Pending</span></td>
+                           <td><span class="custom_badge badge_pending">Pending</span></td>
                            <td class="text-center"> 
                                @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
@@ -100,7 +100,7 @@
                            <td>11-06-2025</td>
                            <td>E60125</a></td>
                            <td>12 months</td>
-                           <td><span class="badge badge-secondary">On Hold</span></td>
+                           <td><span class="custom_badge badge_onHold">On Hold</span></td>
                            <td class="text-center"> 
                                @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
@@ -127,7 +127,7 @@
                            <td>11-06-2025</td>
                            <td>E60125</a></td>
                            <td>12 months</td>
-                           <td><span class="badge badge-success">Active</span></td>
+                           <td><span class="custom_badge badge_active">Active</span></td>
                            <td class="text-center"> 
                                @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
