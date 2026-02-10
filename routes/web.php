@@ -242,13 +242,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('state-name', [App\Http\Controllers\HomeController::class, 'getGioLocation'])->name('web.state.name');
 
-//Route::post('/ip-state', [HomeController::class,'ipTrack'])->name('home.ip.track');
-// Auth::routes();
 
-
-// Route::get('/mail', function () {
-//    return new sendPlaymateAccountDisableMail();
-// });
 //**************SUPPORT TICKET*******************//
 Route::get('submit_ticket', [SupportTicketsController::class,'create'])->name('support-ticket.form_create');
 Route::post('submit_ticket', [SupportTicketsController::class,'submit_ticket'])->name('support-ticket.create');
@@ -293,14 +287,6 @@ Route::post('send-otp-for-pin-change',[AdvertiserLoginController::class,'sendOtp
 
 Route::get('/advertiser-forgot', [AdvertiserLoginController::class,'forgotpassword'])->name('advertiser.forgot');
 
-
-// Route::get('/agent-forgot', [AdvertiserLoginController::class,'forgotpassword'])->name('agent.forgot');
-
-// Route::get('/forgotAgent', function(){
-// 	return view('agent.forgot');
-// })->name('agent.forgot');
-
-
 Route::get('/viewer-forgot/{token?}', [AdvertiserLoginController::class,'viewerForgotPassword'])->name('viewer.forgot');
 Route::get('/agent-forgot/{token?}', [AdvertiserLoginController::class,'agentForgotPassword'])->name('agent.forgot');
 Route::get('/admin-forgot/{token?}', [AdvertiserLoginController::class,'adminForgotPassword'])->name('admin.forgot');
@@ -318,8 +304,8 @@ Route::get('/massage-centres-list', [App\Http\Controllers\WebController::class,'
 Route::post('/location/filter', [App\Http\Controllers\WebController::class, 'filterLocation'])->name('location.filter');
 
 Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class,'gridEscortList'])->name('grid.escort.list');
-//Route::get('/advertiser',function() { return view('escort.index_escort'); });
-//Route::resource('/agentdashboard',EscortController::class);
+
+
 
 /********** ADMIN **********/
 Route::get('admin-login', [App\Http\Controllers\Admin\AuthController::class,'showLoginForm'])->name('admin.login');
@@ -380,8 +366,8 @@ Route::post('/advertiser-spam-report', [AdvertiserSpamReportController::class,'s
 Route::get('/page/{slug}', [App\Http\Controllers\WebController::class,'showFooterLink'])->name('page.show');
 Route::get('/acceptable-usage-policy', function() { return view('web.pages.acceptable-use-policy');  });
 
-//Route::get('/acceptable-usage-policy',[App\Http\Controllers\WebController::class,'usagePolicy']);
-//Route::get('/acceptable-use-policy', function() { return view('web.pages.policynew'); });
+
+
 
 // Other Pages
 Route::get('alerts', [WebController::class, 'alerts'])->name('alerts');
@@ -397,7 +383,7 @@ Route::get('/spam-policy', function() { return view('web.pages.spam-policy'); })
 Route::get('/terms-conditions', function() { return view('web.pages.terms-conditions'); })->name('pages.terms-conditions');
 Route::get('/abbreviations', function() { return view('web.pages.abbreviations'); });
 //Route::get('/alerts', function() { return view('web.pages.alerts'); });
-Route::get('/blog', function() { return view('web.pages.blog'); });
+
 //Route::get('/contact-us', function() { return view('web.pages.contact-us'); })
 
 Route::get('/etiquette', function() { return view('web.pages.etiquette'); });
@@ -426,13 +412,18 @@ Route::get('/email-hosting', function() { return view('web.pages.email-hosting')
 Route::get('/mobile-read-sim', function() { return view('web.pages.mobile-read-sim'); });
 Route::get('/professional-product', function() { return view('web.pages.professional-product'); });
 Route::get('/travel', function() { return view('web.pages.travel'); });
-Route::get('/blogs', function() { return view('web.pages.blogs'); });
+
 // Route::get('/blogsingle', function() { return view('web.pages.blogs'); });
 Route::get('/visa-migration', function() { return view('web.pages.visa-migration'); });
 Route::get('/cookie-policy', function() { return view('web.pages.cookie-policy'); })->name('web.cookie-policy');
 Route::get('/pin-up/{escort_id}', [PinUpsController::class,'index'])->name('web.pinup');
-// Route::post('/blogs',[BlogsController::class, 'index'])->name('blogs.index');
-Route::get('/blogs-single',[BlogsController::class, 'blogsSingle'])->name('blogs.single');
+
+
+Route::get('/blogs',[BlogsController::class, 'index'])->name('blogs.index');
+Route::post('/blogs-list',[BlogsController::class, 'blogsList'])->name('blogs.list');
+
+Route::get('/blogs-detail/{slug}',[BlogsController::class, 'blogsDetail'])->name('blogs.detail');
+
 
 Route::post('/mobile-read-sim',[ConciergeController::class, 'mobileReadSim'])->name('mobile-read-sim');
 Route::post('/mobile-order-sim-payment',[ConciergeController::class, 'mobileOrderSimPayment'])->name('mobile-order-sim-payment');
