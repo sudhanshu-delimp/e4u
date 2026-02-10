@@ -167,6 +167,7 @@
                         </div>
                     </div>
                 </div>
+                
                 @if (!empty($previousBlog) || !empty($nextBlog))
                     <div class="col-lg-12 mb-5">
                         <div class="posts-nav bg-white p-5 d-lg-flex d-md-flex justify-content-between ">
