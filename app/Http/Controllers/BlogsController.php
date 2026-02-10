@@ -28,33 +28,33 @@ class BlogsController extends Controller
 
 
         //Next page
-        $previousBlog = PublicationBlog::where(function ($query) use ($blogDetail) {
-                        $query->where(function ($q) use ($blogDetail) {
-                            $q->whereDate('created_at', $blogDetail->created_at)
-                                ->where('id', '<', $blogDetail->id);
-                        })
-                            ->orWhere('created_at', '<', $blogDetail->created_at);
-                    })
-            ->where('status', 'Published')
-            ->orderBy('created_at', 'desc')
-            ->orderBy('id', 'desc')
-            ->first();
+        // $previousBlog = PublicationBlog::where(function ($query) use ($blogDetail) {
+        //                 $query->where(function ($q) use ($blogDetail) {
+        //                     $q->whereDate('created_at', $blogDetail->created_at)
+        //                         ->where('id', '<', $blogDetail->id);
+        //                 })
+        //                     ->orWhere('created_at', '<', $blogDetail->created_at);
+        //             })
+        //     ->where('status', 'Published')
+        //     ->orderBy('created_at', 'desc')
+        //     ->orderBy('id', 'desc')
+        //     ->first();
 
         // Next Blog 
-        $nextBlog = PublicationBlog::where(function ($query) use ($blogDetail) {
-                    $query->where(function ($q) use ($blogDetail) {
-                        $q->whereDate('created_at', $blogDetail->created_at)
-                            ->where('id', '>', $blogDetail->id);
-                    })
-                        ->orWhere('created_at', '>', $blogDetail->created_at);
-                })
-            ->where('status', 'Published')
-            ->orderBy('created_at', 'asc')
-            ->orderBy('id', 'asc')
-            ->first();
+        // $nextBlog = PublicationBlog::where(function ($query) use ($blogDetail) {
+        //             $query->where(function ($q) use ($blogDetail) {
+        //                 $q->whereDate('created_at', $blogDetail->created_at)
+        //                     ->where('id', '>', $blogDetail->id);
+        //             })
+        //                 ->orWhere('created_at', '>', $blogDetail->created_at);
+        //         })
+        //     ->where('status', 'Published')
+        //     ->orderBy('created_at', 'asc')
+        //     ->orderBy('id', 'asc')
+        //     ->first();
 
         if ($blogDetail) {
-            return view('web.pages.blog.blogs-single', compact('blogDetail', 'previousBlog', 'nextBlog'));
+            return view('web.pages.blog.blogs-single', compact('blogDetail'));
         }
         abort(404);
     }
