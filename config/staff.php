@@ -5,7 +5,7 @@ return [
         'full_time' => 'Full Time',
         'part_time' => 'Part Time',
         'casual'  => 'Casual',
-        'contractor' > 'Contractor',
+        'contractor' => 'Contractor',
     ],
     'security_level' => [
         '1' => 'Level 1',

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\OperatorStaffDetail;
-//use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use App\Models\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -17,10 +17,15 @@ class OperatorStaff extends Model
     {
       return $this->belongsTo(OperatorStaffDetail::class,  'id','user_id');  
     }
+
+    public function operator()
+    {
+        return $this->belongsTo(User::class, 'operator_id', 'id');
+    }
     
      public function operator_staff_setting()
     {
-        return $this->hasOne('App\Models\OperatorStaffSetting', 'staff_id');
+        return $this->hasOne('App\Models\OperatorStaffSetting', 'user_id');
     }
 
     /**
@@ -58,18 +63,15 @@ class OperatorStaff extends Model
         $this->attributes['phone'] = $clean;
     }
 
-
-    /* protected static function boot()
+    public function getBusinessNumberAttribute($value)
     {
-          parent::boot();
+      return formatMobileNumber($value);
+    }
 
-          static::created(function ($staff) {
-              \App\Models\OperatorStaffSetting::create([
-                  'staff_id' => $staff->id, // staff_detail.id
-                  'idle_preference_time' => '30',
-                  'twofa' => '2',
-              ]);
-          });
-    } */
+    public function setBusinessNumberAttribute($value)
+    {
+        $clean = removeSpaceFromString($value);
+        $this->attributes['business_number'] = $clean;
+    }
 
 }

@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin\ShareholderNotificationController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
+use App\Http\Controllers\User\Dashboard\UserController;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
@@ -43,6 +44,7 @@ Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin
 Route::post('/update-account', [DashboardController::class, 'update'])->name('admin.account.update');
 Route::get('/change-password', [DashboardController::class, 'editPassword'])->name('admin.change.password');
 Route::post('/change-password', [DashboardController::class, 'updatePassword'])->name('admin.update.password');
+Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('admin.update.password.expiry');
 //Route::get('/profile-information', [EscortController::class, 'ProfileInformation'])->name('escort.profile.information');
 Route::get('/upload-my-avatar', [DashboardController::class, 'uploadAvatar'])->name('admin.profile.avatar');
 Route::post('upload-avatar/{id}', [DashboardController::class, 'storeMyAvatar'])->name('admin.save.avatar');

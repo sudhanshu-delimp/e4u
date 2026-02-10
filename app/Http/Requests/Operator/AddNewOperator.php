@@ -32,7 +32,7 @@ class AddNewOperator extends FormRequest
 
         return [
             //'company_name' => 'bail|required|string|max:100',
-            'company_name' => ['bail','required','string','max:100',Rule::unique('users', 'name')->where('type', 7)->ignore($userId)],
+            'company_name' => ['bail', 'required', 'string', 'max:100', Rule::unique('users', 'name')->where('type', 7)->ignore($userId)],
             'business_name' => 'bail|required|string|max:100',
             'abn' => 'required|digits:11',
             'business_address' => 'bail|required|string|max:255',
@@ -53,6 +53,15 @@ class AddNewOperator extends FormRequest
             'commission_advertising_percent' => 'required',
             'commission_massage_centre_percent' => 'required',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->has('abn')) {
+            $this->merge([
+                'abn' => preg_replace('/\D/', '', $this->input('abn')),
+            ]);
+        }
     }
 
     public function messages()

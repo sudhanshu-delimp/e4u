@@ -239,8 +239,6 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        console.log(data, 'data');
-
                         if (data.status == true) {
                             $('input[type=password]').each(function() {
                                 $(this).val('');

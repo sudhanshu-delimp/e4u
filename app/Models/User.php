@@ -114,6 +114,28 @@ class User extends Authenticatable
         return false;
     }
 
+    public function getAbnAttribute($value)
+    { 
+      return formatAbnNumber($value);
+    }
+
+    public function setAbnAttribute($value)
+    {
+        $clean = removeSpaceFromString($value);
+        $this->attributes['phone'] = $clean;
+    }
+
+    public function getBusinessNumberAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
+
+    public function setBusinessNumberAttribute($value)
+    {
+        $clean = removeSpaceFromString($value);
+        $this->attributes['business_number'] = $clean;
+    }
+
     public function getStatusAttribute($value)
     {
         $map = [
@@ -244,7 +266,7 @@ class User extends Authenticatable
             case (6):
                 return "ST";
                 break;
-            case (7):
+            case (7)://operator
                 return "O";
                 break;
             case (9): // Operator's staff
@@ -283,7 +305,7 @@ class User extends Authenticatable
                 return 6;
                 break;
             case (7):
-                return 7;
+                return 7;//operator
                 break;
             case (9): // Operator's staff
                 return 9;
@@ -798,7 +820,7 @@ class User extends Authenticatable
     }
     public function operator()
     {
-        return $this->belongsTo(User::class, 'operator_id', 'id')->select('id', 'member_id', 'name', 'business_name');;
+        return $this->belongsTo(User::class, 'operator_id', 'id')->select('id', 'member_id', 'name', 'business_name');
     }
     public function operator_setting()
     {

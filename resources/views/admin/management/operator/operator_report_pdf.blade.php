@@ -203,7 +203,7 @@
                         </tr>
                         <tr>
                             <th>Territory</th>
-                            <td>{{ $countries }}</td>
+                            <td>{{ $countryName }}</td>
                         </tr>
                         <tr>
                             <th>Method of Contact</th>
