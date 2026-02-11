@@ -8,7 +8,7 @@ return [
     'staff_default_icon' => 'avatars/default/staff_default.png',
     'operator_default_icon' => 'avatars/default/operator_default.png',
     'operator_staff_default_icon' => 'avatars/default/operator_staff_default.png',
-    'socket_url' => (env('APP_ENV') === 'production' ? 'https' : 'http') . '://' .env('SOCKET_HOST').':'.env('SOCKET_PORT'),
+    'socket_url' => (env('APP_ENV') === 'production' ? 'https' : 'http') . '://' . env('SOCKET_HOST') . ':' . env('SOCKET_PORT'),
 
     'NotificationIcon' => [
         'general' => '<i class="fas fas fa-comments text-white"></i>',
@@ -16,8 +16,6 @@ return [
         'agent_follow_up' => '<i class="fas fa-exclamation-triangle text-white"></i>',
         'support_ticket' => '<i class="fas fa-ticket-alt text-white"></i>',
         'legbox_notification' => '<i class="fas fas fa-comments text-white"></i>',
-
-        
     ],
 
     'twilio' => [
@@ -26,109 +24,94 @@ return [
         'from'  => env('TWILIO_FROM'),
     ],
 
-     'sms_api' => [
+    'sms_api' => [
         'key'   => env('SMS_API_KEY'),
         'secret' => env('SMS_API_SECRET'),
     ],
 
-
-    
-    
- 
-
-    
     'app_env' => env('APP_ENV'),
     'dashboard_viewer' => [
+        'escort' => [
+            // [
+            //     'key'   =>  'My_Legbox_Viewers',
+            //     'name'  =>  'My Legbox Viewers',
+            //     'text'  =>  'View a complete summary of your Legbox Viewers.',
+            //     'icon'  =>  'boxicon/icon_mylegbox.png',
+            //     'link'  =>   '#',
+            // ],
 
-            'escort' => [
-                            // [
-                            //     'key'   =>  'My_Legbox_Viewers',
-                            //     'name'  =>  'My Legbox Viewers',
-                            //     'text'  =>  'View a complete summary of your Legbox Viewers.',
-                            //     'icon'  =>  'boxicon/icon_mylegbox.png',
-                            //     'link'  =>   '#',
-                            // ],
+            // [
+            //     'key'   =>  'My_Playbox_Summary',
+            //     'name'  =>  'My Playbox Summary',
+            //     'text'  =>  'View a complete financial and analytical summary of your My Playbox service.',
+            //     'icon'  =>  'boxicon/icon_myplaybox.png',
+            //     'link'  =>   'escort-dashboard/archive-myplaybox',
+            // ],
 
-                            // [
-                            //     'key'   =>  'My_Playbox_Summary',
-                            //     'name'  =>  'My Playbox Summary',
-                            //     'text'  =>  'View a complete financial and analytical summary of your My Playbox service.',
-                            //     'icon'  =>  'boxicon/icon_myplaybox.png',
-                            //     'link'  =>   'escort-dashboard/archive-myplaybox',
-                            // ],
+            [
+                'key'   =>  'Manage_Media',
+                'name'  =>  'Manage Media',
+                'text'  =>  'Manage all of your photos and video content from here.',
+                'icon'  =>  'boxicon/icon_manage-media.png',
+                'link'  =>   'escort-dashboard/archive-view-photos',
+            ],
 
-                            [
-                                'key'   =>  'Manage_Media',
-                                'name'  =>  'Manage Media',
-                                'text'  =>  'Manage all of your photos and video content from here.',
-                                'icon'  =>  'boxicon/icon_manage-media.png',
-                                'link'  =>   'escort-dashboard/archive-view-photos',
-                            ],
+            [
+                'key'   => 'Support_Tickets',
+                'name'  =>  'Support Tickets',
+                'text'  =>  'View your Support Tickets.',
+                'icon'  =>  'boxicon/icon_support-tickets.png',
+                'link'  =>   'submit_ticket'
+            ],
 
-                            [
-                                'key'   => 'Support_Tickets',
-                                'name'  =>  'Support Tickets',
-                                'text'  =>  'View your Support Tickets.',
-                                'icon'  =>  'boxicon/icon_support-tickets.png',
-                                'link'  =>   'submit_ticket'
-                            ],
-        
-                        ],
-                        
-             'center' => [
+        ],
 
-                            [
-                                'key'   =>  'media_views',
-                                'name'  =>  'Media Views',
-                                'text'  =>  'View a complete summary of your Media Views.',
-                                'icon'  =>  'boxicon/center/media-views-today.png',
-                                'link'  =>   '#',
-                            ],
+        'center' => [
 
-                            [
-                                'key'   => 'Support_Tickets',
-                                'name'  =>  'Support Tickets',
-                                'text'  =>  'View a complete summary of your Support Tickets.',
-                                'icon'  =>  'boxicon/icon_support-tickets.png',
-                                'link'  =>   'submit_ticket'
-                            ],
+            [
+                'key'   =>  'media_views',
+                'name'  =>  'Media Views',
+                'text'  =>  'View a complete summary of your Media Views.',
+                'icon'  =>  'boxicon/center/media-views-today.png',
+                'link'  =>   '#',
+            ],
 
-                            [
-                                'key'   =>  'profile_views',
-                                'name'  =>  'Profile Views',
-                                'text'  =>  'View a complete summary of your Profile Views.',
-                                'icon'  =>  'boxicon/center/profile-views-today.png',
-                                'link'  =>   'center-dashboard/profile-informations',
-                            ],
+            [
+                'key'   => 'Support_Tickets',
+                'name'  =>  'Support Tickets',
+                'text'  =>  'View a complete summary of your Support Tickets.',
+                'icon'  =>  'boxicon/icon_support-tickets.png',
+                'link'  =>   'submit_ticket'
+            ],
 
-                            [
-                                'key'   =>  'recommendations',
-                                'name'  =>  'Recommendations',
-                                'text'  =>  'View a complete summary of your Recommendations.',
-                                'icon'  =>  'boxicon/center/recommendations-this-week.png',
-                                'link'  =>   '#',
-                            ],
+            [
+                'key'   =>  'profile_views',
+                'name'  =>  'Profile Views',
+                'text'  =>  'View a complete summary of your Profile Views.',
+                'icon'  =>  'boxicon/center/profile-views-today.png',
+                'link'  =>   'center-dashboard/profile-informations',
+            ],
 
-                            [
-                                'key'   =>  'reviews_posted',
-                                'name'  =>  'Reviews Posted',
-                                'text'  =>  'View a complete summary of your Reviews Posted.',
-                                'icon'  =>  'boxicon/center/reviews-posted-this-week.png',
-                                'link'  =>   '#',
-                            ],
+            [
+                'key'   =>  'recommendations',
+                'name'  =>  'Recommendations',
+                'text'  =>  'View a complete summary of your Recommendations.',
+                'icon'  =>  'boxicon/center/recommendations-this-week.png',
+                'link'  =>   '#',
+            ],
 
-                            
-        
-            ]        
+            [
+                'key'   =>  'reviews_posted',
+                'name'  =>  'Reviews Posted',
+                'text'  =>  'View a complete summary of your Reviews Posted.',
+                'icon'  =>  'boxicon/center/reviews-posted-this-week.png',
+                'link'  =>   '#',
+            ],
 
+        ]
+    ],
 
-
-         ],
-
-
+    'current_password_placeholder' => env('CURRENT_PASSWORD_PLACEHOLDER', 'Your Current Password appears encrypted'),
+    'new_password_placeholder' => env('NEW_PASSWORD_PLACEHOLDER', 'Your New Password appears encrypted'),
+    'confirm_password_placeholder' => env('CONFIRM_PASSWORD_PLACEHOLDER', 'Your confirm Password appears encrypted'),
 ];
-
-
-
-
-

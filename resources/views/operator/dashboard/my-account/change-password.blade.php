@@ -53,7 +53,7 @@
                     <div class="col-md-12">
                         <div class="form-group position-relative">
                             <label for="current_password">Current password</label>
-                            <input type="password" class="form-control" name="password" id="current_password" placeholder="Current password" data-parsley-required-message="Current password is required" required>
+                            <input type="password" class="form-control" name="password" id="current_password" placeholder="{{config('constants.current_password_placeholder')}}" data-parsley-required-message="Current password is required" required>
                             <span class="toggle-password" toggle="#current_password">
                                 <i class="fa fa-eye"></i>
                             </span>
