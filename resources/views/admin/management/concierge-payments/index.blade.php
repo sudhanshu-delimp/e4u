@@ -14,10 +14,10 @@
                   <ol>
                      <li>The following report sets out the sales for Concierge Services by type.</li>                     
                      <li>Select Approve from the Action list to review the results for the billing period. If the
-reconciliation is correct, select the Approve button.</li>
-                     <li>Once the reconciliation is approved, by selecting Email from the Action list, the report
-is emailed to the Supplier.</li>
-<li>Print report and process payment.</li>
+                        reconciliation is correct, select the Approve button.</li>
+                                            <li>Once the reconciliation is approved, by selecting Email from the Action list, the report
+                        is emailed to the Supplier.</li>
+                        <li>Print report and process payment.</li>
                   </ol>
                </div>
          </div>
@@ -89,6 +89,138 @@ is emailed to the Supplier.</li>
                                         </div>
                                     </td>
                                 </tr>
+                                 <tr>
+                                    <td>30-06-2025</td>
+                                    <td>01-06-2025 to 30-06-2025</td>
+                                    <td>SIM</td>
+                                    <td><div class="num_value">$<span>850.00</span></div></td>
+                                    <td><div class="num_value">$<span>600.00</span></div></td>
+                                    <td><div class="num_value">$<span>225.00</span></div></td>
+                                    <td><span class="custom_badge badge_pending">Pending</span></td>
+                                    <td>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button"
+                                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="custom-tooltip-container"><a
+                                                        class="dropdown-item align-item-custom toggle-massage-notification"
+                                                        href="#" title="Click to disable notification">
+                                                    </a>
+                                                    <a class="dropdown-item align-item-custom" href="#" data-toggle="modal" data-target="#viewReports"> <i
+                                                            class="fa fa-check-circle"   aria-hidden="true"></i>
+                                                        Approve</a>
+                                                    <div class="dropdown-divider"></div>
+                                                     <a class="dropdown-item align-item-custom" href="#"
+                                                        data-toggle="modal" data-target="#viewReports"> <i
+                                                            class="fa fa-eye" aria-hidden="true"></i>
+                                                        View Report</a>
+
+                                                         <div class="dropdown-divider"></div>
+                                                     <a class="dropdown-item align-item-custom" href="#"> <i
+                                                            class="fa fa-at" aria-hidden="true"></i>
+                                                        Email</a>
+
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item align-item-custom"  data-toggle="modal" data-target="#viewReports" href="#"> <i class="fa fa-eye" aria-hidden="true"></i>
+                                                        View Supplier</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>30-06-2025</td>
+                                    <td>01-06-2025 to 30-06-2025</td>
+                                    <td>Product</td>
+                                    <td><div class="num_value">$<span>1,225.00</span></div></td>
+                                    <td><div class="num_value">$<span>1,000.00</span></div></td>
+                                    <td><div class="num_value">$<span>225.00</span></div></td>
+                                    <td><span class="custom_badge badge_resolved">Reconciled</span></td>
+                                    <td>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button"
+                                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="custom-tooltip-container"><a
+                                                        class="dropdown-item align-item-custom toggle-massage-notification"
+                                                        href="#" title="Click to disable notification">
+                                                    </a>
+                                                    <a class="dropdown-item align-item-custom" href="#" data-toggle="modal" data-target="#viewReports"> <i
+                                                            class="fa fa-check-circle"   aria-hidden="true"></i>
+                                                        Approve</a>
+                                                    <div class="dropdown-divider"></div>
+                                                     <a class="dropdown-item align-item-custom" href="#"
+                                                        data-toggle="modal" data-target="#viewReports"> <i
+                                                            class="fa fa-eye" aria-hidden="true"></i>
+                                                        View Report</a>
+
+                                                         <div class="dropdown-divider"></div>
+                                                     <a class="dropdown-item align-item-custom" href="#"> <i
+                                                            class="fa fa-at" aria-hidden="true"></i>
+                                                        Email</a>
+
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item align-item-custom"  data-toggle="modal" data-target="#viewReports" href="#"> <i class="fa fa-eye" aria-hidden="true"></i>
+                                                        View Supplier</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>30-06-2025</td>
+                                    <td>01-06-2025 to 30-06-2025</td>
+                                    <td>SIM</td>
+                                    <td><div class="num_value">$<span>850.00</span></div></td>
+                                    <td><div class="num_value">$<span>600.00</span></div></td>
+                                    <td><div class="num_value">$<span>225.00</span></div></td>
+                                    <td><span class="custom_badge badge_resolved">Reconciled</span></td>
+                                    <td>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button"
+                                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="custom-tooltip-container"><a
+                                                        class="dropdown-item align-item-custom toggle-massage-notification"
+                                                        href="#" title="Click to disable notification">
+                                                    </a>
+                                                    <a class="dropdown-item align-item-custom" href="#" data-toggle="modal" data-target="#viewReports"> <i
+                                                            class="fa fa-check-circle"   aria-hidden="true"></i>
+                                                        Approve</a>
+                                                    <div class="dropdown-divider"></div>
+                                                     <a class="dropdown-item align-item-custom" href="#"
+                                                        data-toggle="modal" data-target="#viewReports"> <i
+                                                            class="fa fa-eye" aria-hidden="true"></i>
+                                                        View Report</a>
+
+                                                         <div class="dropdown-divider"></div>
+                                                     <a class="dropdown-item align-item-custom" href="#"> <i
+                                                            class="fa fa-at" aria-hidden="true"></i>
+                                                        Email</a>
+
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item align-item-custom"  data-toggle="modal" data-target="#viewReports" href="#"> <i class="fa fa-eye" aria-hidden="true"></i>
+                                                        View Supplier</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -100,7 +232,7 @@ is emailed to the Supplier.</li>
 
 {{-- end --}}
 
-{{-- View Report --}}
+{{-- this is common modal you can use same for all  View Report --}}
 
 <div class="modal fade upload-modal" id="viewReports" tabindex="-1" role="dialog"
     aria-labelledby="viewReportsLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -110,7 +242,7 @@ is emailed to the Supplier.</li>
 
 
                 <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
-                        class="custompopicon"> Payments Report Product - [Supplier name] (Period Ending 30-06-2025) :</h5>
+                        class="custompopicon"> Payments Report Product - [Supplier name] (Period Ending 30-06-2025)</h5>
                 <a href="" class="close" data-dismiss="modal" aria-label="Close">
                     <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
                 </a>
@@ -282,20 +414,378 @@ is emailed to the Supplier.</li>
                             <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
                                 <div class="num_value">$<span>160.00</div></td>
                         </tr>
+
+                        {{-- 4th --}}
+                        <tr>
+                        <td>CM04</td>
+                        <td>E60125</td>
+                        <td class="text-center">WA</td>
+                        <td class="text-center">Door</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E50148</td>
+                        <td class="text-center">SA</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E20248</td>
+                        <td class="text-center">NSW</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>M40125</td>
+                        <td class="text-center">Qld</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+                       <tr>
+                            <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
+                           
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>105.00</div></td>
+                                    <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>40.00</div></td>
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>160.00</div></td>
+                        </tr>
+
+                        {{-- 5th --}}
+                        <tr>
+                        <td>CM05</td>
+                        <td>E60125</td>
+                        <td class="text-center">WA</td>
+                        <td class="text-center">Door</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E50148</td>
+                        <td class="text-center">SA</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E20248</td>
+                        <td class="text-center">NSW</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>M40125</td>
+                        <td class="text-center">Qld</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+                       <tr>
+                            <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
+                           
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>105.00</div></td>
+                                    <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>40.00</div></td>
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>160.00</div></td>
+                        </tr>
+                        {{-- 6th --}}
+                        <tr>
+                        <td>CM06</td>
+                        <td>E60125</td>
+                        <td class="text-center">WA</td>
+                        <td class="text-center">Door</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E50148</td>
+                        <td class="text-center">SA</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E20248</td>
+                        <td class="text-center">NSW</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>M40125</td>
+                        <td class="text-center">Qld</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+                       <tr>
+                            <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
+                           
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>105.00</div></td>
+                                    <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>40.00</div></td>
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>160.00</div></td>
+                        </tr>
+                        {{-- 7th --}}
+                        <tr>
+                        <td>CM07</td>
+                        <td>E60125</td>
+                        <td class="text-center">WA</td>
+                        <td class="text-center">Door</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E50148</td>
+                        <td class="text-center">SA</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E20248</td>
+                        <td class="text-center">NSW</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>M40125</td>
+                        <td class="text-center">Qld</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+                       <tr>
+                            <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
+                           
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>105.00</div></td>
+                                    <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>40.00</div></td>
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>160.00</div></td>
+                        </tr>
+                        {{-- 8th --}}
+                        <tr>
+                        <td>CM08</td>
+                        <td>E60125</td>
+                        <td class="text-center">WA</td>
+                        <td class="text-center">Door</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E50148</td>
+                        <td class="text-center">SA</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E20248</td>
+                        <td class="text-center">NSW</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>M40125</td>
+                        <td class="text-center">Qld</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+                       <tr>
+                            <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
+                           
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>105.00</div></td>
+                                    <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>40.00</div></td>
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>160.00</div></td>
+                        </tr>
+                        {{-- 9th --}}
+                        <tr>
+                        <td>CM09</td>
+                        <td>E60125</td>
+                        <td class="text-center">WA</td>
+                        <td class="text-center">Door</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E50148</td>
+                        <td class="text-center">SA</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E20248</td>
+                        <td class="text-center">NSW</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>M40125</td>
+                        <td class="text-center">Qld</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+                       <tr>
+                            <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
+                           
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>105.00</div></td>
+                                    <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>40.00</div></td>
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>160.00</div></td>
+                        </tr>
+                        {{-- 10th --}}
+                        <tr>
+                        <td>CM10</td>
+                        <td>E60125</td>
+                        <td class="text-center">WA</td>
+                        <td class="text-center">Door</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E50148</td>
+                        <td class="text-center">SA</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>E20248</td>
+                        <td class="text-center">NSW</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+
+                       <tr>
+                        <td></td>
+                        <td>M40125</td>
+                        <td class="text-center">Qld</td>
+                        <td class="text-center">Post</td>
+                        <td> <div class="num_value">$<span>50.00</div></td>
+                        <td> <div class="num_value">$<span>10.00</div></td>
+                        <td> <div class="num_value">$<span>40.00</div></td>
+                       </tr>
+                       <tr>
+                            <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
+                           
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>105.00</div></td>
+                                    <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>40.00</div></td>
+                            <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                                <div class="num_value">$<span>160.00</div></td>
+                        </tr>
+
                     </tbody>
+                    
                     <tfoot>
                          <!-- ========= total ========= -->
-
+                        <tr>
+                            <td class="mt-5" colspan="7"></td>
+                        </tr>
                         
                         <tr>
                             <td colspan="4" class="text-right"><strong>Total:</strong></td>
                           
                             <td style="border-top: 2px solid#444; border-bottom:6px double #444;font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>315.00</div></td>
+                                <div class="num_value">$<span>2,000.00 </div></td>
                                       <td style="border-top: 2px solid#444; border-bottom:6px double #444;font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>400.00</div></td>
+                                <div class="num_value">$<span>$ 400.00</div></td>
                             <td style="border-top: 2px solid#444; border-bottom:6px double #444;font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>480.00</div></td>
+                                <div class="num_value">$<span>1,600.00
+                                </div>
+                            </td>
                         </tr>
 
                     </tfoot>
@@ -305,11 +795,14 @@ is emailed to the Supplier.</li>
 
             <div class="modal-footer">
                 <button type="button" class="btn-success-modal">Print</button>
-                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+                <button type="button" class="btn-success-modal" data-dismiss="modal">Approved</button>
+
+                {{-- <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button> --}}
             </div>
         </div>
     </div>
 </div>
+{{-- end --}}
 
 {{-- end --}}
 @endsection
