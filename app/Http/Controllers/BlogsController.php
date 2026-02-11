@@ -64,6 +64,10 @@ class BlogsController extends Controller
         $month = $request->get('month');
         $search = $request->get('search');
 
+
+        
+  
+
         try {
 
             $currentDate = $month
@@ -73,6 +77,7 @@ class BlogsController extends Controller
 
             $previousDate  = $month ?  $currentDate :  $currentDate->copy()->subMonth();
 
+        
             //Baisc Query
             $baseQuery = PublicationBlog::query();
 
