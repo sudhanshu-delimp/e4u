@@ -219,9 +219,9 @@
 
 
                 function initDatePicker() {
-                    loadBlogs({
-                        month: getCurrentMonth()
-                    });
+                    // loadBlogs({
+                    //     month: getCurrentMonth()
+                    // });
 
                     $(".filter-date").datepicker({
                         dateFormat: "MM yy", // Example: February 2026
@@ -244,7 +244,7 @@
                             let params = {
                                 month: `${year}-${monthIndex + 1}`
                             };
-                            console.log(params, 'params');
+
                             loadBlogs(params);
 
                             $(this).val(
