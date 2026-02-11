@@ -226,11 +226,11 @@
             }
 
             //Initial Load
-            const params = {
-                month: getCurrentMonth()
-            };
+            // const params = {
+            //     month: getCurrentMonth()
+            // };
 
-            loadBlogs(params);
+            loadBlogs();
 
             //On change Month
 
