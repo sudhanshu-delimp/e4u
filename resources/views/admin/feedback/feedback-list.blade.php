@@ -26,6 +26,11 @@
         line-height: 29px;
         color: #0C223D;
     }
+    .details-row div {
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
 </style>
 <div id="wrapper">
     <div id="content-wrapper" class="d-flex flex-column">
@@ -43,7 +48,7 @@
                                 <div class="stat-card">
                                     <div class="stat-top">
                                         <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
-                                        <div class="stat-label">New Today</div>
+                                        <div class="stat-label">Today</div>
                                     </div>
                                     <div class="stat-number">{{$todayCount}}</div>
                                 </div>
@@ -52,17 +57,17 @@
                                     <div class="stat-top">
                                         <div class="stat-icon"> <i class="far fa-clock" aria-hidden="true"></i></div>
                                         <!-- <div class="stat-icon"><i class="fas fa-calendar-week"></i></div> -->
-                                        <div class="stat-label">Pending</div>
+                                        <div class="stat-label">This Month</div>
                                     </div>
-                                    <div class="stat-number" id="pendingFeedback">{{$pendingCount}}</div>
+                                    <div class="stat-number" id="pendingFeedback">{{$thisMonthCount}}</div>
                                 </div>
 
                                 <div class="stat-card">
                                     <div class="stat-top">
                                         <div class="stat-icon"><i class="fa fa-check"></i></div>
-                                        <div class="stat-label">Completed</div>
+                                        <div class="stat-label">This Year</div>
                                     </div>
-                                    <div class="stat-number" id="complatedFeedback">{{$completedCount}}</div>
+                                    <div class="stat-number" id="complatedFeedback">{{$yearCount}}</div>
                                 </div>
 
                                 <div class="stat-card">
@@ -127,39 +132,51 @@
                             <table class="table  w-100 table-report-info">
                                 <tr class="details-row">
                                     <td colspan="7">
-                                        <div>
-                                            <table class="table border-0 table-report-info">
-                                                <tbody>
-                                                    <tr>
-                                                        <th>Ref:</th>
-                                                        <td class="ref">#30</td>
-                                                        <th>Date:</th>
-                                                        <td class="report_member_id">14-05-2025</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Subject:</th>
-                                                        <td class="report_type">14-05-2025</td>
-                                                        <th>Option:</th>
-                                                        <td class="report_viewer_id">14-05-2025</td>
+                                        <div class="container-fluid">
 
+                                            <!-- Row 1 -->
+                                            <div class="row mb-4">
+                                                <div class="col-md-2 col-4"><strong>Ref:</strong></div>
+                                                <div class="col-md-4 col-8 ref">#30</div>
 
-                                                        {{-- <th>Status:</th>
-                                  <td class="report_viewer_id">14-05-2025</td> --}}
-                                                        {{-- <td class="report_escort_id">14-05-2025</td> --}}
+                                                <div class="col-md-2 col-4"><strong>Date:</strong></div>
+                                                <div class="col-md-4 col-8 feedback_date">14-05-2025</div>
+                                            </div>
 
-                                                    </tr>
+                                            <!-- Row 2 -->
+                                            <div class="row mb-4">
+                                                <div class="col-md-2 col-4"><strong>Subject:</strong></div>
+                                                <div class="col-md-4 col-8 subject_text">
+                                                    Very long subject text will wrap properly without breaking layout
+                                                </div>
 
-                                                    <tr>
-                                                        <th>Email:</th>
-                                                        <td class="report_advertiser_id">14-05-2025</td>
-                                                        <th>Comment:</th>
-                                                        <td class="report_stage_name">WA - Perth</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                <div class="col-md-2 col-4"><strong>Option:</strong></div>
+                                                <div class="col-md-4 col-8 option_text">NA</div>
+                                            </div>
+
+                                            <!-- Row 3 -->
+                                            <div class="row mb-4">
+                                                <div class="col-md-2 col-4"><strong>Email:</strong></div>
+                                                <div class="col-md-4 col-8 email_text">
+                                                    verylongemailaddress@exampledomain.com
+                                                </div>
+
+                                                <div class="col-md-2 col-4"><strong>Status:</strong></div>
+                                                <div class="col-md-4 col-8 status_text">Completed</div>
+                                            </div>
+
+                                            <!-- Row 4 (Full width comment) -->
+                                            <div class="row">
+                                                <div class="col-md-2 col-4"><strong>Comment:</strong></div>
+                                                <div class="col-md-10 col-8 comment_text">
+                                                    Very long comment text will automatically wrap and stay responsive on all screen sizes.
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </td>
                                 </tr>
+
                             </table>
                             <div class="notes-section">
                                 <div class="notes-label">Notes:</div>
@@ -258,6 +275,13 @@ confirm-popup
 
 <script>
     $(document).ready(function() {
+        $(document).on('click', '.print-btns', function(e) {
+            e.preventDefault();
+
+            var printReportId = $("#printReportId").val();
+            var printUrl = "{{route('admin.print.single-feedback-reports')}}?report_id=" + printReportId;
+            location.href = printUrl;
+        });
         $("#print-feedback-report").slideUp();
         var table = $("#feedbackReportTable").DataTable({
             processing: true,
@@ -356,8 +380,6 @@ confirm-popup
 
         $(document).on('click', '.view-feedback-btn', function(e) {
             e.preventDefault();
-
-            // Get the data-id value
             var feedbackId = $(this).data('id');
             $("#printReportId").val(feedbackId);
             let routeUrl = '{{route("admin.feedback-reports-ajax")}}';
@@ -376,27 +398,20 @@ confirm-popup
 
         function viewFeedbackReportAjax(feedbackId, routeUrl) {
             $.ajax({
-                url: routeUrl, // replace with your actual route
+                url: routeUrl,
                 method: 'GET',
                 data: {
                     'feedback_id': feedbackId
                 },
                 success: function(response) {
                     if (response.error == false) {
-                        let status = (response.data.report_status == 'pending') ? 'Current' : response.data.report_status;
-                        $(".ref").text('#' + response.data.id + '' + response.data.escort_id);
-                        $(".report_date").text(response.data.formatted_created_at);
-                        $(".report_member_id").text(response.data.escort.user.member_id);
-                        $(".report_escort_id").text(response.data.escort_id);
-                        $(".report_viewer_id").text(response.data.viewer_id);
-                        $(".report_status").text(capitalizeFirstLetter(status));
-                        $(".report_home_state").text(response.data.escort.user.state_id);
-                        $(".report_comment").text(capitalizeFirstLetter(response.data.report_desc));
-                        $(".report_mobile").text(response.data.escort.user.phone);
-                        $(".report_viewer_mobile").text(response.data.viewer.phone);
-                        $(".report_stage_name").text(response.data.escort.name);
-                        $(".report_type").text(response.data.report_tag);
-                        $(".report_advertiser_id").text(response.data.escort_id);
+                        $(".ref").text('#' + response.data.id + '' + response.data.id);
+                        $(".feedback_date").text((response.data) ? response.data.feedback_created_at : "NA");
+                        $(".subject_text").text((response.data) ? response.data.subject_text : "NA");
+                        $(".option_text").text((response.data.option) ? response.data.option.name : "NA");
+                        $(".email_text").text((response.data) ? response.data.email : "NA");
+                        $(".comment_text").text((response.data) ? response.data.comment : "NA");
+                        $(".status_text").text((response.data) ? response.data.status_text : "NA");
                     }
                 },
                 error: function(xhr) {

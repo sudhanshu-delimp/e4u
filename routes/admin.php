@@ -783,6 +783,8 @@ Route::get('feedback-list', [DashboardController::class, 'feedbackList'])
 Route::post('feedback-status-change', [DashboardController::class, 'feedbackStatusChange'])
     ->name('admin.feedback.status.change');
 
+Route::get('print-single-feedback-reports', [DashboardController::class, 'printSingleFeedbackReport'])->name('admin.print.single-feedback-reports');
+
 Route::get('/management/punterbox-reports', function () {
     return view('admin.management.punterbox-report');
 })->name('admin.punterbox-reports');

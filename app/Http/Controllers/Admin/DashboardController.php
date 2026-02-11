@@ -54,7 +54,7 @@ class DashboardController extends BaseController
     protected $viewAccessEnabled;
     protected $editAccessEnabled;
     protected $addAccessEnabled;
-    
+
     public function __construct(TourInterface $tour, UserInterface $user, DurationInterface $duration, EscortInterface $escort, AvailabilityInterface $availability, ServiceInterface $service, EscortMediaInterface $media, AdminInterface $staffRepo)
     {
         $this->escort = $escort;
@@ -246,7 +246,8 @@ class DashboardController extends BaseController
      * Remove saved avtar
      */
     public function removeMyAvatar()
-    { try {
+    {
+        try {
             $user = $this->user->find(auth()->user()->id);
 
             if (!$user) {
@@ -345,7 +346,7 @@ class DashboardController extends BaseController
      */
     public function staff_list()
     {
-        if(!$this->viewAccessEnabled){
+        if (!$this->viewAccessEnabled) {
             //return response()->redirectTo('/dashboard')->with('error', __(accessDeniedMsg()));
         }
         return view('admin.management.staff.staff');
@@ -509,7 +510,6 @@ class DashboardController extends BaseController
                 "data"            => $result
             );
             return response()->json($data);
-
         } catch (\Exception $e) {
             \Log::error('Feedback DataTable Error: ' . $e->getMessage());
             return response()->json([
@@ -545,7 +545,7 @@ class DashboardController extends BaseController
                 }
             }
         }
-       
+
         if ($search !== '') {
             $feedback->where(function ($query) use ($search, $statusSearch, $matchedSubjectIds) {
 
@@ -562,14 +562,14 @@ class DashboardController extends BaseController
         }
 
         $columns = [
-            0 => 'id',   
+            0 => 'id',
             1 => 'created_at',
             2 => 'subject_id',
-            3 => 'email',  
-            4 => 'status',  
+            3 => 'email',
+            4 => 'status',
         ];
-      
-        $order_key = (int) $order_key; 
+
+        $order_key = (int) $order_key;
         $dir = strtolower($dir) === 'asc' ? 'asc' : 'desc';
 
         if (isset($columns[$order_key])) {
@@ -580,29 +580,28 @@ class DashboardController extends BaseController
 
         $total_feedback = $feedback->count();
         $feedbacks = $feedback->offset($start)->limit($limit)->get();
-    
+
         foreach ($feedbacks as $key => $item) {
 
-            $completedHtml ='';
+            $completedHtml = '';
             $item->ref_number = $item->id;
             $item->date =   isset($item->created_at) ? showDateWithFormat($item->created_at) : 'NA';
             $item->subject = isset($subjects[$item->subject_id]) ? $subjects[$item->subject_id] : 'NA';
             $item->email = isset($item->email) ? $item->email : 'NA';
             $statusText = $item->status_text ?? 'NA';
             $badgeClass = getStatusBadgeClass($statusText);
-            $item->status = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
-
-            if($item->status ==  "Pending"){
-            $completedHtml =  '<a class="dropdown-item completed_btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '>  
+            if ($item->status ===  "1") {
+                $completedHtml =  '<a class="dropdown-item completed_btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '>  
                 <i class="fa fa-check "></i> Completed</a><div class="dropdown-divider"></div>';
             }
 
             $dropdown = '<div class="dropdown no-arrow ml-3">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                '.$completedHtml.'<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-feedback-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-eye"></i> View</a>
+                ' . $completedHtml . '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-feedback-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-eye"></i> View</a>
                 </div></div>';
 
-            $item->action = $dropdown; 
+            $item->action = $dropdown;
+            $item->status = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
         }
         return [$feedbacks, $total_feedback];
     }
@@ -616,25 +615,30 @@ class DashboardController extends BaseController
         $completedCount = Feedback::where('status', 2)->count();
         return response()->json([
             'success'   => true,
-            'completed'=> $completedCount,
+            'completed' => $completedCount,
             'pending'  => $pendingCount,
             'message'  => $request->status == 2
                 ? 'Feedback marked as Completed.'
                 : 'Feedback marked as Pending.'
         ]);
-
     }
 
     public function feedback(Request $request)
     {
-        $pendingCount   = Feedback::where('status', 1)->count();
-        $completedCount = Feedback::where('status', 2)->count();
+
+        $yearCount = Feedback::whereYear('created_at', Carbon::now()->year)
+            ->count();
+
+        $thisMonthCount = Feedback::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->count();
+
         $todayCount     = Feedback::whereDate('created_at', today())->count();
         $totalCount     = Feedback::count();
 
         return view('admin.feedback.feedback-list', compact(
-            'pendingCount',
-            'completedCount',
+            'yearCount',
+            'thisMonthCount',
             'todayCount',
             'totalCount'
         ));
@@ -655,7 +659,8 @@ class DashboardController extends BaseController
 
             $feedback->subject_text = $subjects[$feedback->subject_id] ?? 'NA';
         }
-
+        $feedback->feedback_created_at = basicDateFormat($feedback->created_at);
+        $feedback->status_text = $feedback->status_text;
         $data = [
             "status"  => 200,
             "error"   => false,
@@ -666,5 +671,25 @@ class DashboardController extends BaseController
         return response()->json($data);
     }
 
+    public function printSingleFeedbackReport(Request $request)
+    {
+        $report_id = $request->report_id;
 
+        $subjects = config('common.feedback_subject');
+        $feedback = Feedback::with('option')
+            ->where('id', $report_id)
+            ->first();
+
+        if ($feedback) {
+            $feedback->formatted_created_at = $feedback->created_at
+                ? $feedback->created_at->format('d-m-Y')
+                : 'NA';
+
+            $feedback->subject_text = $subjects[$feedback->subject_id] ?? 'NA';
+        }
+        $feedback->feedback_created_at = basicDateFormat($feedback->created_at);
+        $feedback->status_text = $feedback->status_text;
+
+        return view('admin.prints_file.feedback_print', ['feedback' => $feedback]);
+    }
 }
