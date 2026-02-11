@@ -39,9 +39,9 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="table-responsive custom-table-responsive  list-sec">
+                        <div class="table-responsive custom-table-responsive">
                             <table id="pastListings" class="table  custom--common-table" width="100%">
-                                <thead>
+                                <thead class="table-bg">
                                     <tr>
                                         <th>ID</th>
                                         <th>Profile Name</th>

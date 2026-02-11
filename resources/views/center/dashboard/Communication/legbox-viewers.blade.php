@@ -87,9 +87,9 @@ communicate with you, while logged onto the Website.</li>
                <div><span id="totalViewerLegboxList">0</span></div>
             </div>
          </div>
-         <div class="table-responsive list-sec">
+         <div class="table-responsive">
             <table class="table w-100" id="legboxNotificationTable">
-               <thead>
+               <thead class="table-bg">
                   <tr>
                      <th>Viewer ID</th>
                      <th>Business Name</th>
