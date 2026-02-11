@@ -96,7 +96,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group position-relative">
                                             <label for="current_password">Current password</label>
-                                            <input type="password" class="form-control" value="{{ old('password') }}" name="password" id="passwordN" placeholder="Current password" data-parsley-required-message="Current password is required" required>
+                                            <input type="password" class="form-control" value="{{ old('password') }}" name="password" id="passwordN" placeholder="{{config('constants.current_password_placeholder')}}" data-parsley-required-message="Current password is required" required>
                                             <span class="toggle-password" toggle="#passwordN">
                                                 <i class="fa fa-eye"></i>
                                             </span>
