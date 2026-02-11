@@ -87,7 +87,7 @@ class PublicationBlogController extends Controller
                 })
                 ->editColumn('status', function ($row) {
                      $badgeClass = getStatusBadgeClass($row->status);
-                    return "<spam class='custom_badge {$badgeClass}'>{$row->status} </spam>" ;
+                    return "<span class='custom_badge {$badgeClass}'>{$row->status}</span>" ;
                 })
                 ->orderColumn('status', function ($query, $order) {
                     $query->orderBy('status', $order);
