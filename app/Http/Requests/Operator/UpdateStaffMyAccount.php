@@ -38,7 +38,7 @@ class UpdateStaffMyAccount extends FormRequest
             //'gender' => 'bail|required|in:1,2,3,4,6',
             //'kin_name' => 'bail|required|string|max:100',
             //'kin_relationship' => 'bail|required|string|max:100',
-            'kin_mobile' => 'nullable||min:10|max:14',
+            'kin_mobile' => 'nullable|min:10|max:14',
             'kin_email' => 'nullable|email:rfc,filter|max:100',
             //'position' => 'bail|required|string|max:100',
             /* 'location' => 'required',
