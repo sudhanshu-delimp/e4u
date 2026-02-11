@@ -31,6 +31,7 @@ use App\Http\Controllers\Agent\AgentRegisterController;
 use App\Http\Controllers\User\Dashboard\UserController;
 use App\Http\Controllers\AdvertiserSpamReportController;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
+use App\Http\Controllers\Center\Profile\MassageController;
 use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Http\Controllers\Admin\ManagePeopleStaffController;
 use App\Http\Controllers\Escort\EscortStatisticsController;
@@ -761,6 +762,7 @@ Route::post('/save-user-loggged-details', [WebController::class, 'userLoggedDeta
 Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('update-password');
 
 
+Route::get('mc-ajax-list', [MassageController::class, 'mcAjaxList'])->name('mc-ajax-list');
 
 
 Route::get('/testscript', function(){

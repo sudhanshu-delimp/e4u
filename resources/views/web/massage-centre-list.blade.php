@@ -1,1023 +1,278 @@
 @extends('layouts.web')
 @section('style')
-    <style>
-        /* default stroke */
-        #view_list svg path,
-        #view_grid svg path {
-            stroke: #000;
-            transition: stroke 0.3s;
+<style>
+    #view_list svg path,
+    #view_grid svg path {
+        stroke: #000;
+        transition: stroke 0.3s;
+    }
+
+
+    #view_list:hover svg path,
+    #view_grid:hover svg path {
+        stroke: #fff;
+    }
+
+
+    .view-active svg path {
+        stroke: #ff3c5f !important;
+    }
+
+    #page_loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(12, 34, 61, 0.7);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .loader {
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #ff3c5f;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 0.8s linear infinite;
+    }
+    
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
         }
 
-        /* hover stroke */
-        #view_list:hover svg path,
-        #view_grid:hover svg path {
-            stroke: #fff;
+        100% {
+            transform: rotate(360deg);
         }
+    }
 
-        /* active stroke */
-        .view-active svg path {
-            stroke: #ff3c5f !important;
-        }
+    .page-link-custom {
+        background: #0C223d;
+        color: #fff;
+        padding: 6px 12px;
+        display: inline-block;
+        border-radius: 4px;
+        text-decoration: none;
+    }
 
-        #page_loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(12, 34, 61, 0.7);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .page-link-custom.active-page {
+        background: #F2F2F2;
+        color: #ff3c5f;
+        font-weight: bold;
+    }
 
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #ff3c5f;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 0.8s linear infinite;
-        }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
+</style>
 @endsection
 @section('content')
-    <section class="">
-        <div class="container filter-contain mt-3">
-            <div class="accordion custom_accordian" id="accordionExample">
-                <div class="card">
-                    <div class="card-header all_filter_accordain" id="headingOne">
-                        <h2 class="mb-0">
-                            <button class="btn btn-block text-left btn-search" type="button" data-toggle="collapse"
-                                data-target="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch">
-                                Find Massage Centre
-                                <i class="fa fa-angle-down"></i>
-                            </button>
-                        </h2>
-                    </div>
+<section class="">
+   
+    @include('web.mc.mc-filter')
 
-                    <div id="collapseSearch" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                        <div class="card-body">
-                            <div class="search_filters">
-                                <div class="search_filters_inside">
-                                    <form method="" action="">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="custom-search-help mb-2 ">
-                                                    <h5 class="normal_heading mb-0">Filters</h5>
-                                                    <div class="display_inline_block helpquation">
-                                                        <a href="#" data-toggle="modal" data-target="#forhelp">
-                                                            Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every
-                                                    30 minutes. </span>
-                                            </div>
-                                            <div class="col-md-8 ryt_srch_btn">
-                                                <div class="display_inline_block">
-                                                    <div class="location_radio_filter">
-                                                        <div class="d-flex align-items-start" style="padding-top: 2px;">
-                                                            <input type="radio" name="locationByRadio" checked="checked"
-                                                                value="your_location" id="yourLocation">
-                                                            <label for="yourLocation"
-                                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
-                                                                Your Location
-                                                            </label>
-                                                        </div>
 
-                                                        <div class="d-flex align-items-start">
-                                                            <input type="radio" name="locationByRadio" value="australia"
-                                                                id="australia">
-                                                            <label for="australia"
-                                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
-                                                                Australia
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
+   
 
-                                                <div class="display_inline_block w-100">
-                                                    <div
-                                                        class="input-group custome_form_control managefilter_search_btn_style rounded search_btn_profile custom_search_btn_profile">
+    <div class="container my-5">
 
-                                                        <!-- Hidden input to hold selected search type -->
-                                                        <input type="hidden" name="search_by_radio" id="search_by_radio"
-                                                            value="0">
-
-                                                        <!-- Search input -->
-                                                        <input type="search" name="name"
-                                                            class="form-control remove_border_btm rounded"
-                                                            placeholder="Search by Member ID or Name" aria-label="Search"
-                                                            aria-describedby="search-addon" value="">
-
-                                                        <!-- Search button -->
-                                                        <button
-                                                            class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn"
-                                                            id="search-addon" type="submit">
-                                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="display_inline_block   item_dis">
-                                                    <span class="item-head">Display item</span>
-                                                    <select class="custome_form_control_border_radus padding_five_px"
-                                                        name="limit">
-                                                        <option value="25">25</option>
-                                                        <option value="50">50</option>
-                                                        <option value="75">75</option>
-                                                        <option value="100">100</option>
-                                                    </select>
-                                                    <div class="display_inline_block custom-refreshbuton">
-                                                        <div class="margin_btn_reset">
-                                                            <input type="hidden" name="apply_pagination_rule"
-                                                                id="apply_pagination_rule" value="0">
-                                                            <button type="submit"
-                                                                class="btn reset_filter filter-tooltip-wrap apply_pagination_button"
-                                                                data-toggle="tooltip" title="" id="">
-                                                                <span class="filter-tooltip">Apply Change</span>
-                                                                <i class="fa fa-repeat" aria-hidden="true"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="display_inline_block">
-                                                    <div class="margin_btn_reset">
-                                                        <button type="button" class="btn reset_filter filter-tooltip-wrap"
-                                                            id="v_wishlist">
-                                                            <a href="{{ route('find.massage.centre') }}"
-                                                                class="text-decoration-none">
-                                                                <div
-                                                                    class="d-flex align-items-center justify-content-center gap-5">
-                                                                    <i class="fa fa-list" aria-hidden="true"
-                                                                        style="line-height: 23px;"></i>
-                                                                    <span class="badge badge-pill badge-danger"
-                                                                        id="session_count">0</span>
-                                                                </div>
-                                                                <span class="filter-tooltip">View Shortlist</span>
-                                                            </a>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="display_inline_block mb-1">
-                                                    <a type="submit" href="{{ route('web.massage-show-list') }}"
-                                                        class="btn reset_filter " data-toggle="tooltip" title="">
-                                                        Clear Shortlist
-                                                    </a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="fiter_btns slect__btn_tab pb-2">
-                                            <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px"
-                                                    id="" name="city">
-                                                    <option value="" selected>All Cities</option>
-                                                    @foreach (@config('escorts.profile.cities') as $key => $city)
-                                                        <option value="{{ $key }}"
-                                                            {{ request()->get('city') == $key ? 'selected' : '' }}>
-                                                            {{ $city }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px"
-                                                    id="select2-dropdown" name="premises">
-                                                    @foreach (@config('escorts.profile.premises') as $key => $value)
-                                                        <option value="{{ $key }}"
-                                                            {{ request()->get('premises') == $key ? 'selected' : '' }}>
-                                                            {{ $value }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px"
-                                                    id="select2-dropdown" name="masseur_types">
-                                                    @foreach (@config('escorts.profile.masseur-types') as $key => $value)
-                                                        <option value="{{ $key }}"
-                                                            {{ request()->get('masseur_types') == $key ? 'selected' : '' }}>
-                                                            {{ $value }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px"
-                                                    id="select2-dropdown" name="age">
-                                                    <option value="" selected>All Ages</option>
-                                                    <option
-                                                        value="18-25"{{ request()->get('age') == '18-25' ? 'selected' : '' }}>
-                                                        18 -
-                                                        25</option>
-                                                    <option
-                                                        value="26-35"{{ request()->get('age') == '26-35' ? 'selected' : '' }}>
-                                                        26 -
-                                                        35</option>
-                                                    <option
-                                                        value="36-45"{{ request()->get('age') == '36-45' ? 'selected' : '' }}>
-                                                        36 -
-                                                        45</option>
-                                                    <option
-                                                        value="46-80"{{ request()->get('age') == '46-80' ? 'selected' : '' }}>
-                                                        Over
-                                                        45</option>
-                                                </select>
-                                            </div>
-                                            <div class="display_inline_block mb-1 mr-2">
-                                                <select class="custome_form_control_border_radus padding_five_px"
-                                                    id="select2-dropdown" name="prices"
-                                                    value="{{ request()->get('prices') }}">
-                                                    @foreach (@config('escorts.profile.prices') as $key => $value)
-                                                        <option value="{{ $key }}"
-                                                            {{ request()->get('prices') == $key ? 'selected' : '' }}>
-                                                            {{ $value }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="display_inline_block mb-1 mr-2">
-                                                <select
-                                                    class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                                    id="" name="massage_services">
-                                                    <option value="">All Massage Services</option>
-                                                    @foreach (@config('escorts.profile.massage-services') as $key => $value)
-                                                        <option value="{{ $key }}"
-                                                            {{ request()->get('massage_services') == $key ? 'selected' : '' }}>
-                                                            {{ $value }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="display_inline_block mb-1 mr-2">
-                                                <select
-                                                    class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                                    id=""name="other_services">
-                                                    <option value="">All Other Service Types</option>
-                                                    @foreach (@config('escorts.profile.other-services') as $key => $value)
-                                                        <option value="{{ $key }}"
-                                                            {{ request()->get('other_services') == $key ? 'selected' : '' }}>
-                                                            {{ $value }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="display_inline_block mb-1 mr-2">
-                                                <select
-                                                    class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                                    id="verification"name="verification">
-                                                    <option value="all">Verification</option>
-                                                    <option value="unverified">Unverified</option>
-                                                    <option value="verified">Verified</option>
-                                                </select>
-                                            </div>
-                                            <div class="display_inline_block mb-1">
-                                                <button type="submit" class="btn reset_filter">
-                                                    Apply Filters
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <div class="row grid_list_part p-0 m-0">
-                                        <div
-                                            class="col-12 custom--service-tag mc_tags d-flex justify-content-between align-items-center">
-                                            <div class="total--list">
-                                                <strong>Total Listings:</strong>
-                                                <span>{{ count($escorts) }}</span>
-                                            </div>
-                                            <div>
-                                                <div class="grid_list_icon_box display_inline_block grid--btn">
-                                                    <a href="#" class="active" id="view_grid">
-                                                        <span class="custom-toltip">Grid View</span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30"
-                                                            height="30" viewBox="0 0 30 30" fill="none">
-                                                            <path
-                                                                d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z"
-                                                                stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                                stroke-linejoin="round" />
-                                                            <path
-                                                                d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z"
-                                                                stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                                stroke-linejoin="round" />
-                                                            <path
-                                                                d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z"
-                                                                stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                                stroke-linejoin="round" />
-                                                            <path
-                                                                d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z"
-                                                                stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                                stroke-linejoin="round" />
-                                                        </svg>
-                                                    </a>
-                                                </div>
-                                                <div class="grid_list_icon_box display_inline_block list-btn">
-                                                    <a href="#" id="view_list">
-                                                        <span class="custom-toltip">List View</span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="27"
-                                                            height="24" viewBox="0 0 27 24" fill="none">
-                                                            <path
-                                                                d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
-                                                                stroke="#0C223D" stroke-width="3" stroke-linecap="round"
-                                                                stroke-linejoin="round" />
-                                                        </svg>
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade defult-modal" id="forhelp">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content rounded-0">
-                        <!-- Modal body -->
-                        <div class="modal-body p-0">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <img src="{{ asset('assets/app/img/newcross.png') }}" class=" ">
-                            </button>
-                            <h3><img src="{{ asset('assets/app/img/help.png') }}" class="custompopicon">Help</h3>
-                            <div class="modal-sec help--filter">
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active show" data-toggle="tab" href="#tabs-1" role="tab"
-                                            aria-selected="true">Search Filters</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                                            aria-selected="false">Search Field</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                            aria-selected="false">Shortlist</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab"
-                                            aria-selected="false">Service Tags</a>
-                                    </li>
-                                </ul>
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <div class="tab-pane p-3 active show" id="tabs-1" role="tabpanel">
-                                        <p>Your Geolocation will automatically determine your Location and list Profiles
-                                            according to that Location. You can:</p>
-                                        <ol class="pl-3">
-                                            <li>Filter the search criteria by selecting your preferred filter and then
-                                                selecting the refresh button ‘Apply Filters’.</li>
-                                            <li>Change your Location by selecting your preferred city.</li>
-                                            <li>Change the number of listings displayed by changing the ‘Displayed item’
-                                                filter to your
-                                                preferred value.</li>
-                                        </ol>
-                                    </div>
-                                    <div class="tab-pane p-3" id="tabs-2" role="tabpanel">
-                                        <ol class="pl-3">
-                                            <li>You can undertake a search for an Massage Centre within your Location, which
-                                                is the default, or Australia wide
-                                                by selecting ‘Australia’.</li>
-                                            <li>Searching by Member ID is the most efficient manner. </li>
-                                        </ol>
-                                    </div>
-                                    <div class="tab-pane p-3" id="tabs-3" role="tabpanel">
-                                        <p>The Shortlist feature will only remain current for the session. You can:</p>
-                                        <ol class="pl-3">
-                                            <li>Add or remove Profiles by clicking the Short List button displayed on the
-                                                Profile.</li>
-                                            <li>To view your Shortlist, click the List tally that is located in the Search
-                                                Filters panel.</li>
-                                            <li>To clear the Shortlist, click the ‘Clear Shortlist’ button in the Search
-                                                Filters panel.</li>
-                                        </ol>
-                                    </div>
-                                    <div class="tab-pane p-3" id="tabs-4" role="tabpanel">
-                                        <ol class="pl-3">
-                                            <li>Your selected Service Tags will be listed below the Service Tag selection
-                                                list in the panel.</li>
-                                            <li>You can remove any Service Tag you selected by clicking the ‘X’ located on
-                                                the tag, or all of
-                                                the Service Tags you selected by clicking the ‘Clear Tags’ link in the
-                                                panel.</li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- mc_card_container --}}
-
-        <div class="container my-5">
             <div class="row">
-                @include('web.massage-card')
-                <div id="page_loader" style="display:none;">
+
+                <!-- ////// Grid View ///////////////// -->
+                <div class="col-sm-12" id="grid_view">
+                    <h2 class="mc_view_title">Grid View</h2>
+                    <div class="mc_card_container"></div>
+                </div>
+
+                <!-- ////// List View ///////////////// -->
+                <div class="col-sm-12" id="list_view">
+                    <h2 class="mc_view_title">List View</h2>
+                    <div class="mc_list_container"></div>
+                </div>
+
+
+                <div id="page_loader">
                     <div class="loader"></div>
                 </div>
 
             </div>
-            {{-- pagination --}}
-            <div class="row mt-5">
-                <div class="col-lg-12">
-                    <nav aria-label="Page navigation" class="custom-pagination">
 
-                        <ul class="list-unstyled d-flex justify-content-center align-items-center">
+            <!-- ////// Pagination ///////////////// -->
+             <div id="common_pagination"></div>
+             <!-- ////// End Pagination ///////////////// -->
 
-                            <!-- First -->
-                            <li class="mx-1 disabled">
-                                <a href="#" style="pointer-events:none; opacity:0.5;">
-                                    <i class="fa fa-angle-double-left"></i> First
-                                </a>
-                            </li>
+  </div>
 
-                            <!-- Previous -->
-                            <li class="mx-1 disabled">
-                                <a href="#" style="pointer-events:none; opacity:0.5;">
-                                    <i class="fa fa-angle-left"></i> Previous
-                                </a>
-                            </li>
 
-                            <!-- Ellipsis -->
-                            {{-- <li class="mx-1">
-                  <a href="#">...</a>
-                  </li> --}}
 
-                            <!-- Page Numbers -->
-                            {{-- <li class="mx-1">
-                  <a href="#" style="background:#0C223d; color:#fff;">3</a>
-                  </li> --}}
-
-                            <li class="mx-1">
-                                <a href="#" style="background:#F2F2F2; color:#ff3c5f; font-weight:bold;">1</a>
-                            </li>
-
-                            <li class="mx-1">
-                                <a href="#" style="background:#0C223d; color:#fff;">2</a>
-                            </li>
-
-                            <!-- Ellipsis -->
-                            {{-- <li class="mx-1">
-                  <a href="#">...</a>
-                  </li> --}}
-
-                            <!-- Next -->
-                            <li class="mx-1">
-                                <a href="#">
-                                    Next <i class="fa fa-angle-right"></i>
-                                </a>
-                            </li>
-
-                            <!-- Last -->
-                            <li class="mx-1">
-                                <a href="#">
-                                    Last <i class="fa fa-angle-double-right"></i>
-                                </a>
-                            </li>
-
-                        </ul>
-
-                        <!-- Page Info -->
-                        <div class="text-center mt-2 mb-5 col-sm-12" style="color:#ff3c5f; font-weight:400;">
-                            Page 1 of 1 | Showing 3 to 3 of 3 Listings
-                        </div>
-
-                    </nav>
+    <div class="modal fade hh" id="add_wishlist" style="display: none">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custome_modal_max_width">
+                <div class="modal-header main_bg_color border-0">
+                    <h5 class="modal-title" id="exampleModalLabel"><img
+                            src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
+                            class="popup_modal_title_new">Add To Shortlist</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
                 </div>
-
+                <div class="modal-body pb-0" style="padding: 15px 0px;">
+                    <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                        <span id="Lname">[MC Name]</span>
+                        has been added to your Shortlist.
+                    </h1>
+                </div>
+                <div class="modal-footer pt-0" style="justify-content: center;">
+                    <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                        id="close">Ok</button>
+                </div>
             </div>
-            {{-- end pagination --}}
+
         </div>
+    </div>
 
-
-
-        <div class="modal fade hh" id="add_wishlist" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title" id="exampleModalLabel"><img
-                                src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
-                                class="popup_modal_title_new">Add To Shortlist</span></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">
-                                <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                    class="img-fluid img_resize_in_smscreen">
-                            </span>
-                        </button>
-                    </div>
-                    <div class="modal-body pb-0" style="padding: 15px 0px;">
-                        <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
-                            <span id="Lname">[MC Name]</span>
-                            has been added to your Shortlist.
-                        </h1>
-                    </div>
-                    <div class="modal-footer pt-0" style="justify-content: center;">
-                        <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
-                            id="close">Ok</button>
-                    </div>
+    <div class="modal fade hh" id="my_legbox" style="display: none">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custome_modal_max_width">
+                <div class="modal-header main_bg_color border-0">
+                    <h5 class="modal-title" id="exampleModalLabel"> <img
+                            src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
+                            class=" popup_modal_title_new">My Legbox</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                        <span id="Lname " class="my_legbox_title">My Legbox is only available to Viewers. Please
+                            log in
+                            or Register to access your Legbox.</span>
+                    </h1>
+                </div>
+                <div class="modal-footer my_legbox_footer" style="justify-content: center;">
+                    <a href="{{ route('viewer.login') }}" type="button"
+                        class="btn-cancel-modal text-decoration-none text-white" id="loginUrl">Login</a>
+                    <a href="{{ route('register') }}" type="button"
+                        class="btn-success-modal text-decoration-none text-white" id="regUrl">Register</a>
                 </div>
 
             </div>
         </div>
-
-        <div class="modal fade hh" id="my_legbox" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title" id="exampleModalLabel"> <img
-                                src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
-                                class=" popup_modal_title_new">My Legbox</span></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">
-                                <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                    class="img-fluid img_resize_in_smscreen">
-                            </span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
-                            <span id="Lname " class="my_legbox_title">My Legbox is only available to Viewers. Please
-                                log in
-                                or Register to access your Legbox.</span>
-                        </h1>
-                    </div>
-                    <div class="modal-footer my_legbox_footer" style="justify-content: center;">
-                        <a href="{{ route('viewer.login') }}" type="button"
-                            class="btn-cancel-modal text-decoration-none text-white" id="loginUrl">Login</a>
-                        <a href="{{ route('register') }}" type="button"
-                            class="btn-success-modal text-decoration-none text-white" id="regUrl">Register</a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-    </section>
+    </div>
+<input type="hidden" id="activeView" value="grid">
+</section>
 @endsection
+
+
 @push('scripts')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-
-            // Restore after refresh
-            let opened = sessionStorage.getItem("accordionOpen");
-            if (opened === "collapseSearch") {
-                document.getElementById("collapseSearch").classList.add("show");
-            }
-
-            // When user clicks the accordion
-            document.querySelector('[data-target="#collapseSearch"]').addEventListener("click", function() {
-
-                let isOpen = document.getElementById("collapseSearch").classList.contains("show");
-
-                if (!isOpen) {
-                    sessionStorage.setItem("accordionOpen", "collapseSearch");
-                } else {
-                    sessionStorage.removeItem("accordionOpen");
-                }
-            });
-
-        });
-
-        $('.btn-search').on('click', function() {
-            $('.btn-search i').toggleClass('rotate-180');
-        })
-    </script>
-
-    {{-- <script>
-        $('#grid-modal').on('click', function() {
-
-            var val = $('#grid-modal').attr('class');
-            $('.preChanges').text('MASSAGE CENTRE GRID VIEW')
-            if (val != "active") {
-                $('.grid').hide();
-                $('#grid-template').html(
-                    '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
-                );
-
-                setTimeout(function() {
-                    $('.spinner-border').css('display', 'none');
-                    $('.space_between_row').show();
-                    $('#grid-modal').addClass('active');
-                    $('#grid-list').removeClass('active');
-                }, 1000);
-
-            }
-            //    
-
-        });
-        $('#grid-list').on('click', function() {
-            var grid = $('#grid-list').attr('class');
-            $('.preChanges').text('MASSAGE CENTRE List VIEW')
-            if (grid != "active") {
-                console.log(grid);
-                $('.space_between_row').hide();
-
-                $('#grid-template').html(
-                    '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
-                );
-
-                setTimeout(function() {
-                    $('.spinner-border').css('display', 'none');
-                    $('#grid-list').addClass('active');
-                    $('#grid-modal').removeClass('active');
-                    $('.grid').show();
-
-                }, 1000);
-            }
-
-
-
-
-        });
-
-        $(document).ready(function() {
-            $('body').on('click', '.akh1', function() {
-                var id = $(this).attr('id');
-                var val = $(this).data('val');
-                var name = $(this).data('sname');
-                $('#hideenclassOne_' + val).remove();
-
-                $("#service_id_one").append("<option id='" + name + "' value='" + val + "'>" + name +
-                    "</option>");
-                console.log("click " + name);
-            });
-        });
-        $(document).ready(function() {
-            $('body').on('click', '.akh2', function() {
-                var id = $(this).attr('id');
-                var val = $(this).data('val');
-                var name = $(this).data('sname');
-                $('#hideenclassTwo_' + val).remove();
-
-                $("#service_id_two").append("<option id='" + name + "' value='" + val + "'>" + name +
-                    "</option>");
-                console.log("click " + name);
-            });
-        });
-        $(document).ready(function() {
-            $('body').on('click', '.akh3', function() {
-                var id = $(this).attr('id');
-                var val = $(this).data('val');
-                var name = $(this).data('sname');
-                $('#hideenclassThree_' + val).remove();
-
-                $("#service_id_three").append("<option id='" + name + "' value='" + val + "'>" + name +
-                    "</option>");
-                console.log("click " + name);
-            });
-        });
-
-        $('#resetAll').click(function() {
-            $("#selectedService li").remove();
-            $("ul input").remove();
-        });
-
-        $('body').on('change', '#service_id_one', function() {
-            var selectedIdOne = $('#service_id_one').val();
-            var getNameOne = $(this).children(":selected").attr("id");
-            if (selectedIdOne) {
-                $("#selectedService").append(" <li class='seleceted_service_text_and_icon' id='hideenclassOne_" +
-                    selectedIdOne + "'><p>" + getNameOne +
-                    "</p><i class='fa fa-times-circle-o akh1' data-sname='" + getNameOne + "' data-val=" +
-                    selectedIdOne + " aria-hidden='true' id='id_" + selectedIdOne +
-                    "'></i> <input type='hidden' name='services[]' value='" + selectedIdOne + "'></li> ");
-                $("#service_id_one option[value=" + selectedIdOne + "]").attr('disabled', 'disabled');
-                $("#service_id_one option[value=" + selectedIdOne + "]").remove();
-
-                console.log('serviceOne=' + getNameOne);
-            }
-        });
-        $('body').on('change', '#service_id_two', function() {
-            $("#selectedService").show();
-            var selectedIdOne = $('#service_id_two').val();
-            var getNameOne = $(this).children(":selected").attr("id");
-            if (selectedIdOne) {
-                $("#selectedService").append(" <li class='seleceted_service_text_and_icon' id='hideenclassTwo_" +
-                    selectedIdOne + "'><p>" + getNameOne +
-                    "</p><i class='fa fa-times-circle-o akh2' data-sname='" + getNameOne + "' data-val=" +
-                    selectedIdOne + " aria-hidden='true' id='id_" + selectedIdOne +
-                    "'></i><input type='hidden' name='services[]' value='" + selectedIdOne + "'> </li> ");
-                $("#service_id_two option[value=" + selectedIdOne + "]").attr('disabled', 'disabled');
-                $("#service_id_two option[value=" + selectedIdOne + "]").remove();
-
-                console.log('service_two=' + getNameOne);
-            }
-        });
-        $('body').on('change', '#service_id_three', function() {
-            var selectedIdOne = $('#service_id_three').val();
-            var getNameOne = $(this).children(":selected").attr("id");
-            if (selectedIdOne) {
-                $("#selectedService").append(" <li class='seleceted_service_text_and_icon' id='hideenclassThree_" +
-                    selectedIdOne + "'><p>" + getNameOne +
-                    "</p><i class='fa fa-times-circle-o akh3' data-sname='" + getNameOne + "' data-val=" +
-                    selectedIdOne + " aria-hidden='true' id='id_" + selectedIdOne +
-                    "'></i><input type='hidden' name='services[]' value='" + selectedIdOne + "'> </li> ");
-                $("#service_id_three option[value=" + selectedIdOne + "]").attr('disabled', 'disabled');
-                $("#service_id_three option[value=" + selectedIdOne + "]").remove();
-
-                console.log('service_three=' + getNameOne);
-            }
-        });
-
-        $('body').on('change', '#service_id_two', function() {
-            var selectedIdTwo = $('#service_id_two').val();
-            var getNameTwo = $(this).children(":selected").attr("id");
-            if (selectedIdTwo) {
-                $("#selected_service_two").append(" <li id=" + selectedIdTwo +
-                    "><div class='my_service_anal hideenclassTwo" + selectedIdTwo +
-                    "'><span class='dollar-sign'>" + getNameTwo +
-                    "</span><input type='number' class='dollar-before input_border' name='price[]' placeholder='' min='0' oninput='this.value = Math.abs(this.value)'><input type='hidden' name='service_id[]' value=" +
-                    selectedIdTwo + " placeholder=''><span><i class='fas fa-times-circle' id='id_" +
-                    selectedIdTwo + "' value=" + selectedIdTwo + "></i></span></div></li> ");
-                $("#service_id_two option[value=" + selectedIdTwo + "]").attr('disabled', 'disabled');
-                console.log('change=' + selectedIdTwo);
-            }
-        });
-
-        $('body').on('change', '#service_id_three', function() {
-            var selectedIdThree = $('#service_id_three').val();
-            var getNameThree = $(this).children(":selected").attr("id");
-            if (selectedIdThree) {
-                $("#selected_service_three").append(" <li id=" + selectedIdThree +
-                    "><div class='my_service_anal hideenclassThree" + selectedIdThree +
-                    "'><span class='dollar-sign'>" + getNameThree +
-                    "</span><input type='number' class='dollar-before  input_border' name='price[]' placeholder='' min='0' oninput='this.value = Math.abs(this.value)'><input type='hidden' name='service_id[]' value=" +
-                    selectedIdThree + " placeholder=''><span><i class='fas fa-times-circle' id='id_" +
-                    selectedIdThree + "' value=" + selectedIdThree + "></i></span></div></li> ");
-                $("#service_id_three option[value=" + selectedIdThree + "]").attr('disabled', 'disabled');
-                console.log('change=' + selectedIdThree);
-            }
-        });
-
-        $(document).on('click', '.shortlist', function() {
-            var name = $(this).attr('data-name');
-            var Eid = $(this).attr('data-escortId');
-            var Uid = $(this).attr('data-userId');
-            var url = "{{ route('web.save.mcMyShortListCart', ':id') }}";
-            url = url.replace(':id', Eid);
-
-            console.log(Uid);
-            $.ajax({
-                method: "POST",
-                url: url,
-                data: {
-                    escortId: Eid,
-                    userId: Uid
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                },
-                success: function(data) {
-                    console.log("count = " + data.count_session);
-                    console.log(data);
-                    if (data.error == 1) {
-
-                        $('.class_msg').text(name + ' has been added to your Shortlist');
-                        $('#add_wishlist').modal('show');
-                        $('.myescort_' + Eid).html(
-                            '<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_btn.svg') }}"> Remove from Shortlist'
-                        )
-                        $('#session_count').text(data.count_session);
-                        //
-
-                    } else {
-
-                        $.ajax({
-                            method: "POST",
-                            url: "{{ route('web.remove.mcMyShortListCart') }}",
-                            data: {
-                                escortId: Eid,
-                                userId: Uid
-                            },
-                            headers: {
-                                'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                            },
-                            success: function(data) {
-                                console.log(data);
-                                if (data.error == 1) {
-                                    $('.class_msg').text(name +
-                                        ' has been remove from your Shortlist');
-                                    $('#add_wishlist').modal('show');
-                                    $('.myescort_' + Eid).html(
-                                        '<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_btn.svg') }}"> Add to Shortlist'
-                                    )
-                                    $('#session_count').text(data.count_session);
-                                }
-
-                            }
-                        });
-
-                    }
-                }
-            });
-
-
-        });
-        $(document).on('click', '.removeshortlist', function() {
-            var name = $(this).attr('data-name');
-            var Eid = $(this).attr('data-escortId');
-            var Uid = $(this).attr('data-userId');
-            console.log(name);
-            $.ajax({
-                method: "POST",
-                url: "{{ route('web.remove.mcMyShortListCart') }}",
-                data: {
-                    escortId: Eid,
-                    userId: Uid
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                },
-                success: function(data) {
-                    console.log(data);
-                    if (data.error == 1) {
-
-                        $('#add_wishlist').modal('show');
-                        $('.class_msg').text(name + ' has been remove from your Shortlist');
-                        $('.myescort_' + Eid).text('Add to Shortlist');
-                        $('#session_count').text(data.count_session);
-                        $("#close").click(function() {
-                            location.reload();
-                        });
-
-                    }
-
-
-                }
-            });
-        });
-        $(document).on('click', '.add_to_favrate', function() {
-
-            var name = $(this).attr('data-name');
-
-            var Eid = $(this).attr('data-escortId');
-            console.log("name==" + Eid);
-            var Uid = $(this).attr('data-userId');
-            var cidcl = $(this).attr('class');
-            var cid = cidcl.split(' ');
-            if (cid[1] == 'fill') {
-                $(this).removeClass('fill');
-                $(this).addClass('null');
-                $('#legboxId_' + Eid).html(
-                    "<i class='fa fa-heart' style='color: #ff3c5f;' title='Remove from legbox' aria-hidden='true'></i>"
-                );
-                var url = "{{ route('user.save.massage.legbox', ':id') }} ";
-                url = url.replace(':id', Eid);
-                $('.class_msg').text(name + ' added to your Legbox');
-                $('#add_wishlist').modal('show');
-                $.ajax({
-                    type: "post",
-                    url: url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        console.log(data);
-
-                    }
-                });
-                console.log("fill");
-            } else if (cid[1] == 'null') {
-                $(this).removeClass('null');
-                $(this).addClass('fill');
-                $('#legboxId_' + Eid).html(
-                    "<i class='fa fa-heart-o' title='Add to legbox' aria-hidden='true'></i>");
-                var url = "{{ route('user.delete.massage.legbox', ':id') }} ";
-                url = url.replace(':id', Eid);
-                $('.class_msg').text(name + ' has been removed from your Legbox ');
-                $('#add_wishlist').modal('show');
-                $.ajax({
-                    type: "post",
-                    url: url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        console.log(data);
-
-                    }
-                });
-                console.log("null");
-            } else {
-                $('#my_legbox').modal('show');
-
-                var login_url = "{!! route('viewer.login', [':id', ':path']) !!}";
-                var regurl = "{{ route('register', ':id') }}";
-                var loginurl = login_url.replace(':id', 'MclegboxId=' + Eid);
-                var loginurl2 = loginurl.replace(':path', 'path=' + window.location.pathname);
-                console.log(loginurl2);
-                regurl = regurl.replace(':id', 'MclegboxId=' + Eid)
-                $('#loginUrl').attr('href', loginurl2)
-                $('#regUrl').attr('href', regurl)
-            }
-
-
-
-            console.log(cid[1] + "-" + Eid);
-            console.log(cidcl);
-
-        });
-    </script> --}}
-    {{-- add read more js for list view profile desc --}}
-    
-    {{-- script --}}
-    <script>
-        function truncateWords(element, maxWords, redirectUrl) {
-            const text = element.innerText.trim();
-            const words = text.split(/\s+/);
-
-            if (words.length <= maxWords) return;
-
-            const truncated = words.slice(0, maxWords).join(" ");
-
-            element.innerHTML =
-                truncated +
-                '... <a href="' + redirectUrl + '" class="read-more-link">Read More</a>';
-        }
-
-        // apply to all elements
-        document.querySelectorAll(".mc_list_desc").forEach(function(el) {
-            truncateWords(el, 40, "{{ route('web.massage-description') }}");
-        });
-    </script>
-
-    {{-- hide show list view and grid view --}}
-    <script>
-        $(document).ready(function() {
-
-            // show loader on initial load
-            $('#page_loader').show();
-
-            // default state → GRID ACTIVE
-            $('#list_view').hide();
-            $('#grid_view').show();
-
-            $('#view_grid').addClass('view-active');
-            $('#view_list').removeClass('view-active');
-
-            // hide loader after page ready
-            setTimeout(function() {
-                $('#page_loader').fadeOut(300);
-            }, 300);
-
-
-            function showLoader() {
-                $('#page_loader').fadeIn(200);
-            }
-
-            function hideLoader() {
-                $('#page_loader').fadeOut(200);
-            }
-
-
-            // LIST VIEW CLICK
-            $('#view_list').click(function() {
-
-                showLoader();
-
-                setTimeout(function() {
-                    $('#list_view').show();
-                    $('#grid_view').hide();
-
-                    $('#view_list').addClass('view-active');
-                    $('#view_grid').removeClass('view-active');
-
-                    hideLoader();
-                }, 300);
-
-            });
-
-
-            // GRID VIEW CLICK
-            $('#view_grid').click(function() {
-
-                showLoader();
-
-                setTimeout(function() {
+<script>
+$(document).ready(function () {
+
+    let activeView = 'grid';
+    loadData();
+
+    /* ===============================
+       VIEW SWITCH
+    =============================== */
+
+    $('#view_grid').on('click', function () {
+        activeView = 'grid';
+        $('#activeView').val('grid');
+
+        $('#list_view').hide();
+        $('#grid_view').show();
+
+        $('.view-active').removeClass('view-active');
+        $(this).addClass('view-active');
+    });
+
+    $('#view_list').on('click', function () {
+        activeView = 'list';
+        $('#activeView').val('list');
+
+        $('#grid_view').hide();
+        $('#list_view').show();
+
+        $('.view-active').removeClass('view-active');
+        $(this).addClass('view-active');
+    });
+
+
+
+    /* ===============================
+       PAGINATION 
+    =============================== */
+
+    $(document).on('click', '.custom-pagination a', function (e) {
+        e.preventDefault();
+
+        let url = $(this).attr('href');
+        if (!url || url === '#') return;
+
+        let page = getParameterByName('page', url);
+        if (!page) page = 1;
+
+        loadData(page);
+    });
+
+
+
+    /* ===============================
+       AJAX LOAD FUNCTION
+    =============================== */
+
+    function loadData(page = 1) 
+    {
+
+        $('#page_loader').show();
+
+        $.ajax({
+            url: "{{ route('mc-ajax-list') }}",
+            data: { page: page },
+            success: function (res) {
+
+               
+                $('.mc_card_container').html(res.grid);
+                $('.mc_list_container').html(res.list);
+
+                
+                $('#common_pagination').html(res.pagination);
+
+                if ($('#activeView').val() === 'grid') {
                     $('#list_view').hide();
                     $('#grid_view').show();
-
-                    $('#view_grid').addClass('view-active');
-                    $('#view_list').removeClass('view-active');
-
-                    hideLoader();
-                }, 300);
-
-            });
-
+                } else {
+                    $('#grid_view').hide();
+                    $('#list_view').show();
+                }
+            },
+            complete: function () {
+                $('#page_loader').hide();
+            }
         });
-    </script>
+    }
+
+
+    function getParameterByName(name, url) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+        let results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+});
+
+</script>
+
 @endpush

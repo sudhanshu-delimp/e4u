@@ -46,6 +46,7 @@ use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 //use Illuminate\Http\Request;
 
@@ -872,6 +873,22 @@ class MassageController extends Controller
 
 
         return response()->json(compact('error','message'));
+    }
+
+
+
+    public function mcAjaxList(Request $request)
+    {
+       
+       $listings = MassageProfile::where('default_setting','!=','1')
+                ->paginate(1)
+                ->onEachSide(1);
+
+        return response()->json([
+            'grid' => view('web.mc.mc-grid-data', compact('listings'))->render(),
+            'list' => view('web.mc.mc-list-data', compact('listings'))->render(),
+            'pagination' => view('web.mc.mc-pagination', compact('listings'))->render(),
+        ]);
     }
 
 
