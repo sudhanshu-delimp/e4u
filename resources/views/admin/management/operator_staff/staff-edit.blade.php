@@ -66,7 +66,7 @@
         <div class="col-6 mb-3">
             <select class="form-control" name="gender" id="gender">
                 <option value="">Select Gender</option>
-                @foreach (config('staff.genders') as $key => $gender)
+                @foreach (config('operator_staff.genders') as $key => $gender)
                     <option value="{{ $key }}" {{ $staff->gender == $key ? 'selected' : '' }}>
                         {{ $gender }}</option>
                 @endforeach
@@ -149,7 +149,7 @@
         <div class="col-6 mb-3">
             <select class="form-control rounded-0" name="employment_status" id="employment_status">
                 <option value="">Select Employment Status</option>
-                @foreach (config('staff.employment_status') as $empkey => $empStatus)
+                @foreach (config('operator_staff.employment_status') as $empkey => $empStatus)
                     <option value="{{ $empkey }}"
                         {{ $staff_detail->employment_status == $empkey ? 'selected' : '' }}>{{ $empStatus }}
                     </option>
@@ -225,8 +225,8 @@
 
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="idle_preference_time"
-                        id="edit_idle_preference_time_never" value="{{ config('staff.idle_vever_minute') }}"
-                        {{ $setting && $setting->idle_preference_time === config('staff.idle_vever_minute') ? 'checked' : '' }}>
+                        id="edit_idle_preference_time_never" value="{{ config('operator_staff.idle_vever_minute') }}"
+                        {{ $setting && $setting->idle_preference_time === config('operator_staff.idle_vever_minute') ? 'checked' : '' }}>
                     <label class="form-check-label" for="edit_idle_preference_time_never">Never</label>
                 </div>
 

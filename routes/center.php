@@ -120,6 +120,7 @@ Route::post('load-default-masseur-list', [MasseurController ::class, 'get_load_d
 
 
 
+
 Route::post('create-action-messure-profile', [MasseurController::class, 'action_messure_profile'])->name('center.action-messure-profile');
 Route::get('create-check-messure-profile', [MasseurController::class, 'count_messure_profile'])->name('center.check-messure-profile');
 

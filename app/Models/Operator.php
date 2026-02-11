@@ -53,6 +53,17 @@ class Operator extends Model
         $this->attributes['business_number'] = $clean;
     }
 
+    public function getAbnAttribute($value)
+    { 
+      return formatAbnNumber($value);
+    }
+
+    public function setAbnAttribute($value)
+    {
+        $clean = removeSpaceFromString($value);
+        $this->attributes['abn'] = $clean;
+    }
+
     protected static function boot()
     {
           parent::boot();

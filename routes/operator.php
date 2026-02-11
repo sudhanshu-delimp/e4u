@@ -15,7 +15,7 @@ Route::get('/change-password', [OperatorController::class, 'editPassword'])->nam
 Route::get('/upload-avatar', [OperatorController::class, 'uploadAvatar'])->name('operator.upload-avatar');
 Route::post('upload-avatar/{id}', [OperatorController::class, 'storeMyAvatar'])->name('operator.save.avatar');
 Route::post('remove-avatar', [OperatorController::class, 'removeMyAvatar'])->name('operator.avatar.remove');
-
+Route::post('/update-staff-account', [OperatorController::class, 'updateStaff'])->name('operator.staff.account.update');
 Route::post('/update-password', [OperatorController::class, 'changePassword'])->name('operator.update-password');
 Route::post('/change-password', [UserController::class, 'updatePassword'])->name('operator.update.password');
 Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('operator.update.password.expiry');

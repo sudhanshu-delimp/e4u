@@ -1158,6 +1158,37 @@ if (!function_exists('getStatusBadgeClass')) {
     }
 }
 
+if (!function_exists('formatAbnNumber')) {
+    function formatAbnNumber($number)
+    {
+        $number = preg_replace('/\D/', '', $number);
+        $length = strlen($number);
+
+        // If 2 or fewer digits → return as is
+        if ($length <= 2) {
+            return $number;
+        }
+
+        // First 2 digits
+        $part1 = substr($number, 0, 2);
+        $remaining = substr($number, 2);
+
+        // Split remaining into groups of 3, last can be 1 or 2 digits
+        $groups = [];
+
+        while (strlen($remaining) > 3) {
+            $groups[] = substr($remaining, 0, 3);
+            $remaining = substr($remaining, 3);
+        }
+
+        // Add last 1–3 digit remainder
+        if (strlen($remaining) > 0) {
+            $groups[] = $remaining;
+        }
+
+        return $part1 . ' ' . implode(' ', $groups);
+    }
+}
 
 if (!function_exists('generate_masseur_member_id')) {
     function generate_masseur_member_id($masseur_profile_id)

@@ -1,4 +1,7 @@
-{{-- Grid view --}}
+
+
+<!-- ////////// Grid View ////////// -->
+
 <div class="col-sm-12" id="grid_view">
     <h2 class="mc_view_title">Grid View</h2>
     <div class="mc_card_container">
@@ -288,10 +291,9 @@
         <!-- Add more massage centre cards as needed -->
     </div>
 </div>
-{{-- end grid view --}}
 
-{{-- List View  --}}
 
+<!-- ////////// List View ////////// -->
 <div class="col-sm-12" id="list_view">
     <h2 class="mc_view_title">List View</h2>
     <div class="mc_list_container">
@@ -440,4 +442,3 @@
 
 </div>
 
-{{-- end list view --}}
