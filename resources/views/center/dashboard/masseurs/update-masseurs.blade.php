@@ -183,7 +183,7 @@
             <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
                 <div class="row">
                     <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1">Update Masseur</h1>
+                        <h1 class="h1">Update Masseur </h1>
                         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                             aria-expanded="true"><b>Help?</b></span>
                     </div>
@@ -216,7 +216,7 @@
                             <form id="masseur_frm_about" name="masseur_frm_about" method="Post">
                                 <!-- About The Masseur -->
                                 <div class="mcc-form-tab">
-                                    <h2 class="mcc-heading">About The Masseur</h2>
+                                    <h2 class="mcc-heading">About The Masseur  ({{ $masseur->member_id}})</h2>
                                     <div class="business-info-field pt-4">
                                         <!-- Personal Info -->
                                         <div class="form-group business-field">
@@ -233,7 +233,7 @@
                                         </div>
                                         <div class="form-group business-field">
                                             <label for="mobile" class="mb-1">Mobile</label>
-                                            <input type="text" id="mobile" name="mobile"
+                                            <input type="text" id="mobile" name="mobile" data-ajax="phone"
                                                 class="form-control rounded-0" placeholder="Enter Mobile"
                                                 value="{{ $masseur->mobile }}" required>
                                         </div>
@@ -1323,6 +1323,7 @@
 
                 let form = $('#' + formId);
                 let isValid = true;
+                let ajaxRequests = [];
 
                 // reset errors
                 form.find('.is-invalid').removeClass('is-invalid');
@@ -1378,6 +1379,38 @@
                         showError(field, label + ' must be at least ' + field.attr('min'));
                         return;
                     }
+
+
+                    if (field.data('ajax') === 'phone') 
+                    {
+                       
+                        let request = $.ajax({
+                            url: "{{ route('center.validate-phone') }}",
+                            type: 'POST',
+                            data: {
+                                masseur_id : "{{ $masseur->id }}",
+                                form_type: 'edit',
+                                phone: field.val(),
+                                _token: $('meta[name="csrf-token"]').attr('content')
+                            },
+                            async: false,
+                            success: function (res) {
+                                if (!res.valid) {
+                                    showError(field, res.message || 'Invalid phone number');
+                                }
+                            },
+                            error: function () {
+                                showError(field, 'Unable to validate phone number');
+                            }
+                        });
+
+                        ajaxRequests.push(request);
+                    }
+
+
+
+
+
                 });
 
                 return isValid;

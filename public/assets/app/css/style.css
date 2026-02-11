@@ -224,6 +224,14 @@
             
             .our_latest_blog .card-content .card-img {
                 position: relative;
+                height: 250px;
+                width: 100%;
+                object-fit: cover;
+            }
+            
+            .our_latest_blog .card-content .card-img img {
+                width: 100%;
+                height: 100%;
             }
             
             .our_latest_blog .card-content .card-img small {
@@ -260,6 +268,15 @@
                 padding: clamp(10px, 3vw, 15px);
                 background-color: var(--blue--text);
                 border-radius: 8px;
+            }
+            /* Input box */
+            
+            .filter-date {
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: none;
+                font-size: 16px;
             }
             
             .archive-form label {
@@ -856,20 +873,22 @@
             }
             
             .pin-up-content .media .media-body h4 {
+                margin-bottom: 7px;
                 font-family: Poppins;
-                font-size: 18px;
                 font-style: normal;
-                font-weight: 700;
+                font-weight: bold;
+                font-size: 16px;
                 line-height: 16px;
-                letter-spacing: -0.015em;
-                text-align: left;
-                color: #5D6D7E;
+                color: #0c223d;
             }
             
             .pin-up-content .media .media-body p {
-                font-weight: 700;
-                line-height: 16px;
-                color: #FF3C5F;
+                font-family: Poppins;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 14px;
+                color: var(--peach);
             }
             
             .pin-up-content .social-and-view {
@@ -1550,12 +1569,14 @@
                 line-height: 27px;
                 background-color: var(--blue--text);
                 border-color: var(--blue--text);
-                margin: 0px 10px 10px 0px;
+                margin: 0px 10px 10px 20px;
                 padding: 8px 20px;
             }
             
             .btn_become_pin_up:hover {
                 color: #fff;
+                background-color: var(--peach);
+                border-color: var(--peach);
             }
             
             .welcome_text_color {
@@ -1660,13 +1681,15 @@
                 font-size: 16px;
                 padding: 8px 20px;
                 line-height: 27px;
-                background-color: #ff3c5f;
-                border-color: #ff3c5f;
+                background-color: var(--peach);
+                border-color: var(--peach);
                 margin: 0px 10px 10px 0px;
             }
             
             .btn_advertiser:hover {
                 color: #fff;
+                background-color: var(--blue--text);
+                border-color: var(--blue--text);
             }
             
             .btn_viewer {
@@ -5689,6 +5712,42 @@ i.fa.fa-heart-o{
                 cursor: pointer;
             }
             
+            .video--icon .video-tooltip {
+                position: absolute;
+                left: 50%;
+                top: -20%;
+                z-index: 999;
+                transform: translate(-50%, -50%);
+                width: max-content;
+                background: #ff3c5f;
+                color: #fff;
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 1.4;
+                padding: 6px 10px;
+                border-radius: 4px;
+                cursor: pointer;
+                display: none;
+                transition: opacity 0.3s;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+            }
+            
+            .video--icon .video-tooltip::after {
+                position: absolute;
+                left: 50%;
+                top: 29px;
+                content: '';
+                border-width: 6px;
+                border-style: solid;
+                border-color: var(--peach) transparent transparent transparent;
+                transform: rotate(0deg) translate(-50%, 0%);
+            }
+            
+            .video--icon:hover .video-tooltip {
+                display: block;
+            }
+            
             .mc_tooltip {
                 position: absolute;
                 left: 50%;
@@ -5758,24 +5817,28 @@ i.fa.fa-heart-o{
             .mc_rate_tooltip {
                 position: absolute;
                 left: 50%;
-                top: -50%;
+                top: -60%;
                 z-index: 999;
                 transform: translate(-50%, -50%);
                 width: max-content;
                 background: #ff3c5f;
                 color: #fff;
-                font-size: 11px;
+                font-size: 13px;
                 font-weight: 500;
-                padding: 3px;
-                border-radius: 2px;
+                line-height: 1.4;
+                padding: 6px 10px;
+                border-radius: 4px;
                 cursor: pointer;
                 display: none;
+                transition: opacity 0.3s;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
             }
             
             .mc_rate_tooltip::after {
                 position: absolute;
                 left: 50%;
-                top: 22px;
+                top: 29px;
                 content: '';
                 border-width: 6px;
                 border-style: solid;
@@ -8027,7 +8090,7 @@ i.fa.fa-heart-o{
             
             .single-blog-item img {
                 width: 100%;
-                height: auto;
+                height: 450px;
                 object-fit: cover;
                 padding-bottom: 0 !important;
             }

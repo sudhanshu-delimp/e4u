@@ -112,10 +112,10 @@ class ImageService
 
     public static function url(
         $imageName,
-        $type = 'thumb',
+        $type = 'thumb', //original, thumb
         $module = null
     ) {
-
+ 
         if (empty($imageName)) {
             return null;
         }

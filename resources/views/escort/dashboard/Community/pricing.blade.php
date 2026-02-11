@@ -68,10 +68,10 @@ padding: 2px 8px 2px 8px !important;
                                 </div>
                                 <div id="about_me" class="collapse" data-parent="#accordion" style="">
                                     <div class="card-body p-0">
-                                        <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
+                                        <div class="table-responsive" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                 <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                                                    <thead class="text-center">
+                                                 <table id="myTable price-sec" class="table dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                    <thead class="text-center table-bg">
                                                         <tr role="row" style="border-bottom: 2px solid white;">
                                                             <th class="sorting_disabled" rowspan="1" colspan="4" style="width: 212px; border-right: 2px solid white;" aria-label="Fees">
                                                                 <p><b>Fees</b></p>
@@ -172,11 +172,11 @@ padding: 2px 8px 2px 8px !important;
                                 <div id="other_fees_concierge_services" class="collapse"
                                         data-parent="#accordion" style="">
                                     <div class="card-body p-0">
-                                        <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
+                                        <div class="table-responsive" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                                {{--                                                        <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                                                    <thead class="text-center">
+                                                                
+                                                <table id="myTable price-sec" class="table dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                    <thead class="text-center table-bg">
                                                     <tr role="row">
                                                         <th class="sorting_disabled" rowspan="1" colspan="3" style="width: 212px;" aria-label="Fees">
                                                             <p><b>Support Fees for setting up Concierge & Support Services</b></p>
@@ -228,11 +228,11 @@ padding: 2px 8px 2px 8px !important;
                                             </div>
                                         </div>
 
-                                        <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
+                                        <div class="table-responsive" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 {{--                                                        <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                                                    <thead class="text-center">
+                                                <table id="myTable price-sec" class="table  dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                    <thead class="text-center table-bg">
                                                     <tr role="row">
                                                         <th class="sorting_disabled" rowspan="1" colspan="3" style="width: 212px;" aria-label="Fees">
                                                             <p><b>Concierge & Support Services</b></p>
@@ -308,11 +308,11 @@ padding: 2px 8px 2px 8px !important;
                                 </div>
                                 <div id="profile_and_tour_options" class="collapse" data-parent="#accordion" style="">
                                     <div class="card-body p-0">
-                                        <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
+                                        <div class="table-responsive" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 {{--                                                        <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
-                                                <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                                                    <thead class="text-center">
+                                                <table id="myTable price-sec" class="table dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                    <thead class="text-center table-bg">
                                                     <tr role="row">
                                                         <th class="sorting_disabled" rowspan="1" colspan="3" style="width: 212px;" aria-label="Fees">
                                                             <p><b>Other Support Fees - Support Services</b></p>

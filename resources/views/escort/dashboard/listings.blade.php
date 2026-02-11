@@ -93,9 +93,9 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="table-responsive custom-table-responsive pl-1 pt-3 list-sec">
-                            <table id="listings" class="table table-striped custom--common-table" width="100%">
-                                <thead>
+                        <div class="table-responsive">
+                            <table id="listings" class="table w-100 custom--common-table">
+                                <thead  id="table-sec" class="table-bg">
                                     <tr>
                                         <th>ID</th>
                                         <th>Profile Name</th>

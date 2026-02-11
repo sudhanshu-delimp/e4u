@@ -1427,6 +1427,16 @@ button.btn:focus {
 
 /* end */
 
+
+/* reconciliation_table */
+
+.reconciliation_table td {
+    border: none;
+}
+
+
+/* end */
+
 @media only screen and (max-width:1024px) {
     .main--chat--wrapper {
         flex-direction: column;
@@ -7324,7 +7334,7 @@ table#myTable\ price-sec {
 
 .pin-up-content p {
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -8735,8 +8745,8 @@ div#listings_wrapper .custom--common-table {
 }
 
 .membership--inner th {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
     background: #0C223D;
     color: #fff;
     font-size: 14px;

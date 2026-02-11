@@ -99,7 +99,7 @@
         <div id="content">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="box-body table table-hover">
+                    <div class="box-body">
                         @if ($type != 'past')
                             <div>
                                 <div class="add--list listingActionButtons">
@@ -597,7 +597,8 @@
                         name: 'edit',
                         searchable: false,
                         orderable: false,
-                        defaultContent: 'NA'
+                        defaultContent: 'NA',
+                        class: 'text-center'
                     },
                 ],
                 order: [1, 'asc'],

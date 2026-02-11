@@ -68,7 +68,7 @@
                 <li><p class="mb-0">Maximise your exposure by booking the Pin Up, in advance, for each Location on a Tour.</p></li>    
             </ul>
             <h2 class="primery_color normal_heading">Cost and availability</h2>
-            <p>The Pin UP feature is available in weekly increments, Monday through to Sunday, at $475.00 per week.  You can register 
+            <p>The Pin UP feature is available in weekly increments, Monday through to Sunday, at {{ isset($advertings[5]['price']) ? '$'.$advertings[5]['price'] : ''}} per week.  You can register 
                 as often as you like to re-appear as our Pin Up providing you have a current Listed Profile and the week you are seeking is available.</p>
                 <p>Remember, you can only appear as a Pin Up in a Location that you have a Listed Profile and the week you are seeking is available.  Get ahead of everyone else 
                     and register your Profile as a Pin Up!

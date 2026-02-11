@@ -68,6 +68,7 @@
                 @endphp
                 <div class="padding">
                     <a class="btn btn_advertiser" id="view_btn_advertiser" style="font-weight:500" href="{{ $url }}" role="button">View Escorts</a>
+                    <a class="btn btn_advertiser" style="font-weight:500" href="{{ route('find.massage.centre') }}" role="button">View Massage Centres</a>
                     <a class="btn  btn_become_pin_up" style="font-weight:500" href="become-a-pin-up" role="button">Become a Pin-Up</a>
                 </div>
             </div>

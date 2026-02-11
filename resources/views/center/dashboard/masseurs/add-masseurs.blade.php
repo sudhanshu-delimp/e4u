@@ -227,8 +227,8 @@
                                         </div>
                                         <div class="form-group business-field">
                                             <label for="mobile" class="mb-1">Mobile</label>
-                                            <input type="text" id="mobile" name="mobile"
-                                                class="form-control rounded-0" placeholder="Enter Mobile" required>
+                                            <input type="text" id="mobile" name="mobile" data-ajax="phone"
+                                                class="form-control rounded-0 allow_only_numeric" placeholder="Enter Mobile" required>
                                         </div>
 
 
@@ -1109,10 +1109,13 @@
                 return isValid;
             }
 
-            function validateForm(formId) {
+            function validateForm(formId) 
+            {
 
                 let form = $('#' + formId);
                 let isValid = true;
+                let ajaxRequests = [];
+                let form_field = $(this);
 
                 // reset errors
                 form.find('.is-invalid').removeClass('is-invalid');
@@ -1168,7 +1171,42 @@
                         showError(field, label + ' must be at least ' + field.attr('min'));
                         return;
                     }
+
+
+                    if (field.data('ajax') === 'phone') 
+                    {
+                        console.log('ajax-phone');
+
+
+                        let request = $.ajax({
+                            url: "{{ route('center.validate-phone') }}",
+                            type: 'POST',
+                            data: {
+                                form_type: 'add',
+                                phone: field.val(),
+                                _token: $('meta[name="csrf-token"]').attr('content')
+                            },
+                            async: false,
+                            success: function (res) {
+                                if (!res.valid) {
+                                    showError(field, res.message || 'Invalid phone number');
+                                }
+                            },
+                            error: function () {
+                                showError(field, 'Unable to validate phone number');
+                            }
+                        });
+
+                        ajaxRequests.push(request);
+                    }
+
+
+
+
                 });
+
+
+                    
 
                 return isValid;
             }
@@ -1239,6 +1277,7 @@
                     }
                 }
 
+             
 
 
                 swal_waiting_popup({

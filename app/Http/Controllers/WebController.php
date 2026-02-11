@@ -1576,5 +1576,13 @@ class WebController extends Controller
        return view('web.pages.alerts', compact('alertData'));
     }
 
+    //Blog Public url
+
+    public function blog()
+    {
+        //$blogs = Blog::where('status', 'published')->latest()->paginate(10);
+        return view('web.pages.blogs');
+    }   
+
 
 }
