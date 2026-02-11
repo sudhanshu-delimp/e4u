@@ -87,7 +87,7 @@
                            <td>11-06-2025</td>
                            <td>E60125</a></td>
                            <td>12 months</td>
-                           <td><span class="badge badge-warning">Available</span></td>
+                           <td><span class="custom_badge badge_available">Available</span></td>
                            <td class="text-center">
                                @if($editAccessEnabled) 
                               <div class="dropdown no-arrow">

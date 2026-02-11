@@ -167,35 +167,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12 mb-5">
-                    <div class="posts-nav bg-white p-5 d-lg-flex d-md-flex justify-content-between ">
-                        @if ($previousBlog)
-                            <a class="post-prev align-items-center"
-                                href="{{ route('blogs.detail', $previousBlog['slug']) }}">
-                                <div class="posts-prev-item mb-4 mb-lg-0">
-                                    <span class="nav-posts-desc text-color">- Previous Post</span>
-                                    <h6 class="nav-posts-title mt-1">
-                                        {{ $previousBlog['title'] ?? '' }}
-                                    </h6>
-                                </div>
-                            </a>
-                        @endif
 
-                        @if (!empty($nextBlog))
-                            <div class="border"></div>
-                            <a class="posts-next" href="{{ route('blogs.detail', $nextBlog['slug']) }}">
-                                <div class="posts-next-item pt-4 pt-lg-0">
-                                    <span class="nav-posts-desc text-lg-right text-md-right text-color d-block">- Next
-                                        Post</span>
-                                    <h6 class="nav-posts-title mt-1">
-                                        {{ $nextBlog['title'] ?? '' }}
-                                    </h6>
-                                </div>
-                            </a>
-                        @endif
-
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -247,9 +219,9 @@
 
 
                 function initDatePicker() {
-                    loadBlogs({
-                        month: getCurrentMonth()
-                    });
+                    // loadBlogs({
+                    //     month: getCurrentMonth()
+                    // });
 
                     $(".filter-date").datepicker({
                         dateFormat: "MM yy", // Example: February 2026
@@ -260,17 +232,24 @@
                         beforeShow: function(input, inst) {
                             $(".ui-datepicker-calendar").hide();
                         },
-
                         onClose: function(dateText, inst) {
-                            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                            var mon = `${year}-${month}`;
-                            var params = {
-                                month: mon ?? getCurrentMonth()
+                            let monthIndex = parseInt(
+                                $("#ui-datepicker-div .ui-datepicker-month :selected").val(),
+                                10
+                            );
+                            let year = parseInt(
+                                $("#ui-datepicker-div .ui-datepicker-year :selected").val(),
+                                10
+                            );
+                            let params = {
+                                month: `${year}-${monthIndex + 1}`
                             };
+
                             loadBlogs(params);
-                            // call here ajax function not ajax
-                            $(this).val($.datepicker.formatDate('MM yy', new Date(year, month, 1)));
+
+                            $(this).val(
+                                $.datepicker.formatDate('MM yy', new Date(year, monthIndex, 1))
+                            );
                         }
                     });
                 }

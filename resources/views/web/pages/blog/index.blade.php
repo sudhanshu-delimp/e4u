@@ -157,7 +157,7 @@
                                     <!-- Search Form -->
                                     <div class="archive-form">
                                         <label for="archive-date">Search By Year & Month</label>
-                                        <input type="text" class="filter-date" name="month" id="archive-date">
+                                        <input type="text" autocomplete="off" class="filter-date" name="month" id="archive-date">
                                     </div>
 
                                     <!-- Archive List -->
@@ -226,11 +226,11 @@
             }
 
             //Initial Load
-            const params = {
-                month: getCurrentMonth()
-            };
+            // const params = {
+            //     month: getCurrentMonth()
+            // };
 
-            loadBlogs(params);
+            loadBlogs();
 
             //On change Month
 
@@ -278,17 +278,24 @@
                     beforeShow: function(input, inst) {
                         $(".ui-datepicker-calendar").hide();
                     },
-
                     onClose: function(dateText, inst) {
-                        var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                        var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                        var mon = `${year}-${month}`;
-                        var params = {
-                            month: mon ?? getCurrentMonth()
+                        let monthIndex = parseInt(
+                            $("#ui-datepicker-div .ui-datepicker-month :selected").val(),
+                            10
+                        ); 
+
+                        let year = parseInt(
+                            $("#ui-datepicker-div .ui-datepicker-year :selected").val(),
+                            10
+                        );
+                        let params = {
+                            month: `${year}-${monthIndex + 1}`
                         };
                         loadBlogs(params);
-                        // call here ajax function not ajax
-                        $(this).val($.datepicker.formatDate('MM yy', new Date(year, month, 1)));
+
+                        $(this).val(
+                            $.datepicker.formatDate('MM yy', new Date(year, monthIndex, 1))
+                        );
                     }
                 });
             }
