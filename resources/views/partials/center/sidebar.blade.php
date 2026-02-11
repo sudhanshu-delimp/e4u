@@ -272,18 +272,18 @@
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(2) == 'profiles-tours' ? 'menu-active' : '' }}"
-                            href="{{ route('profiles-tours') }}">
-                            <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
-                            <span>Profiles</span>
-                        </a>
 
                          <a class="collapse-item {{ request()->segment(2) == 'masseurs' ? 'menu-active' : '' }}"
                             href="{{ route('masseurs') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/profiles.png') }}">
                             <span>Masseurs</span>
                         </a>
-
+                        
+                        <a class="collapse-item {{ request()->segment(2) == 'profiles-tours' ? 'menu-active' : '' }}"
+                            href="{{ route('profiles-tours') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
+                            <span>Profiles</span>
+                        </a>
                         <a class="collapse-item {{ request()->segment(2) == 'social-media' ? 'menu-active' : '' }}"
                             href="{{ route('social-media') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
