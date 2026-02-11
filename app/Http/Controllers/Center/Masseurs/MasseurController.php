@@ -51,6 +51,34 @@ class MasseurController extends AppController
     
     }
 
+
+    public function validate_phone(Request $request)
+    {
+        if($request->form_type=='add')
+        {
+            $exist =  Masseur::where(['user_id' => auth()->user()->id,'mobile' => $request->phone])->exists();
+            if($exist)
+            return response()->json(['valid'   => false,'message'=> 'Mobile number already exists']);
+            else
+            return response()->json(['valid'   => true,'message'=> 'mobile number not found']);
+                
+        }
+
+        if($request->form_type=='edit')
+        {
+            $exist =  Masseur::where('id', '!=', $request->masseur_id)
+                                ->where('user_id',  '=',  auth()->user()->id)
+                                ->where('mobile',   '=',   $request->phone)
+                                ->exists();
+            if($exist)
+            return response()->json(['valid'   => false,'message'=> 'Mobile number already exists']);
+            else
+            return response()->json(['valid'   => true,'message'=> 'mobile number not found']);
+                
+        }
+         
+    }   
+
     public function makeAvailability($request_data)
     {
         $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
@@ -160,12 +188,18 @@ class MasseurController extends AppController
             $masseur->vaccination           = $request->filled('vaccination') ? $request->vaccination : null;
             $masseur->commentary            = $request->filled('commentary') ? $request->commentary : null;
 
-            $masseur->token_id            = $request->filled('page_token') ? $request->page_token : null;
+            $masseur->token_id              = $request->filled('page_token') ? $request->page_token : null;
 
-            $masseur->availability            = $availabilityJson;
-            
+            $masseur->availability          = $availabilityJson;
+
+                        
             $masseur->save();
             $masseur_profile_id = $masseur->id;
+
+            $member_id = generate_masseur_member_id($masseur_profile_id);
+            
+            $masseur->member_id   = ($member_id) ? $member_id : '';
+            $masseur->save();
 
             
         
@@ -889,9 +923,9 @@ class MasseurController extends AppController
             
             
             if($row->is_default==1)
-            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_undefault" href="javascript:void(0)">   <i class="fa fa-ban"></i> Remove Default</a>';   
+            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_undefault" href="javascript:void(0)">   <i class="fa fa-ban"></i> Remove Default Listing</a>';   
                 else
-            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_default"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Make Default</a>';     
+            $default = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action" data-row-id="'.$row->id.'" id="row_default"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Make Default Listing</a>';     
             
 
             

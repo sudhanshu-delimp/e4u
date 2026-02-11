@@ -227,8 +227,8 @@
                                         </div>
                                         <div class="form-group business-field">
                                             <label for="mobile" class="mb-1">Mobile</label>
-                                            <input type="text" id="mobile" name="mobile"
-                                                class="form-control rounded-0" placeholder="Enter Mobile" required>
+                                            <input type="text" id="mobile" name="mobile" data-ajax="phone"
+                                                class="form-control rounded-0 allow_only_numeric" placeholder="Enter Mobile" required>
                                         </div>
 
 
@@ -336,7 +336,7 @@
                                                                 <div class="plate">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
-                                                                        <img class="w-100 gal-thumb-first upld-img"
+                                                                        <img class="w-100 gal-thumb-first upld-img profile-gallery"
                                                                             id="img1"
                                                                             src="{{ asset('assets/app/img/mcc-default-thumbnail.png') }}"
                                                                             onclick="positionToUpdate(1)">
@@ -349,7 +349,7 @@
                                                                     <div class="plate">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
-                                                                            <img class="upld-img"
+                                                                            <img class="upld-img profile-gallery"
                                                                                 id="img2"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
                                                                                 onclick="positionToUpdate(2)">
                                                                         </label>
@@ -357,7 +357,7 @@
                                                                     <div class="plate">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
-                                                                            <img class="upld-img"
+                                                                            <img class="upld-img profile-gallery"
                                                                                 id="img3"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
                                                                                 onclick="positionToUpdate(3)">
                                                                         </label>
@@ -365,7 +365,7 @@
                                                                     <div class="plate">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
-                                                                            <img class="upld-img"
+                                                                            <img class="upld-img profile-gallery"
                                                                                 id="img4"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
                                                                                 onclick="positionToUpdate(4)">
                                                                         </label>
@@ -1109,10 +1109,13 @@
                 return isValid;
             }
 
-            function validateForm(formId) {
+            function validateForm(formId) 
+            {
 
                 let form = $('#' + formId);
                 let isValid = true;
+                let ajaxRequests = [];
+                let form_field = $(this);
 
                 // reset errors
                 form.find('.is-invalid').removeClass('is-invalid');
@@ -1168,24 +1171,102 @@
                         showError(field, label + ' must be at least ' + field.attr('min'));
                         return;
                     }
+
+
+                    if (field.data('ajax') === 'phone') 
+                    {
+                        console.log('ajax-phone');
+
+
+                        let request = $.ajax({
+                            url: "{{ route('center.validate-phone') }}",
+                            type: 'POST',
+                            data: {
+                                form_type: 'add',
+                                phone: field.val(),
+                                _token: $('meta[name="csrf-token"]').attr('content')
+                            },
+                            async: false,
+                            success: function (res) {
+                                if (!res.valid) {
+                                    showError(field, res.message || 'Invalid phone number');
+                                }
+                            },
+                            error: function () {
+                                showError(field, 'Unable to validate phone number');
+                            }
+                        });
+
+                        ajaxRequests.push(request);
+                    }
+
+
+
+
                 });
+
+
+                    
 
                 return isValid;
             }
 
+            
+
+
+            function checkProfileDynamicMedia() 
+            {
+                    let dynamic_image = 0;
+                    let imageSlots = document.querySelectorAll('.profile-gallery');
+                    let thumbnailSlot = imageSlots.item(0);
+                    let bannerSlot = imageSlots[imageSlots.length - 1];
+                    if(['mcc-default-thumbnail.png'].includes(thumbnailSlot.getAttribute('src').substring(thumbnailSlot.getAttribute('src').lastIndexOf('/') + 1))){
+                        Swal.fire('Media',
+                            'Please attach media to this Profile from the Media Repository or upload a new file (Thumbnail is mendatory)',
+                            'warning');
+                        return dynamic_image;
+                    }
+                    
+                    else{
+                        imageSlots.forEach(img => {
+                            let src = img.getAttribute('src');
+                            let basename = src.substring(src.lastIndexOf('/') + 1);
+                            if (!['frame-main-thum.png', 'mcc-default-thumbnail.png'].includes(basename)) {
+                            dynamic_image++
+                            }
+                        });
+                        if (dynamic_image < 3) {
+                            dynamic_image = 0;
+                            Swal.fire('Media',
+                            'Please attach media to this Profile from the Media Repository or upload a new file (Atleast 3 are mendatory including Thumbnail and Gallery Images)',
+                            'warning');
+                        }
+                        return dynamic_image;
+                    }
+            }
+
+
             $('#submitMasseur').on('click', function(e) {
                 e.preventDefault();
 
-                var hasError = validateAvailability();
-                let existRates = checkRates();
+               
 
-
+                // let existRates = checkRates();
                 // if (!existRates) 
                 // {
                 //      swal_error_warning('Rate','You must complete at least one rate value to proceed.')
                 //      return false;
                 // }
+                
 
+
+                if (!checkProfileDynamicMedia()) {
+                    return false;
+                }
+
+                var hasError = validateAvailability();
+              
+              
                 if (hasError) {
                     swal_error_warning('My Availability',
                         'Please select a time range or choose an availability option for each day.')
@@ -1196,6 +1277,7 @@
                     }
                 }
 
+             
 
 
                 swal_waiting_popup({
@@ -1735,6 +1817,9 @@
         $(document).on('input', '.allow_only_numeric', function() {
             this.value = this.value.replace(/[^0-9]/g, '');
         });
+
+
+
 
 
 

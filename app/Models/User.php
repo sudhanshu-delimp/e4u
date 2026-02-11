@@ -122,7 +122,7 @@ class User extends Authenticatable
     public function setAbnAttribute($value)
     {
         $clean = removeSpaceFromString($value);
-        $this->attributes['phone'] = $clean;
+        $this->attributes['abn'] = $clean;
     }
 
     public function getBusinessNumberAttribute($value)

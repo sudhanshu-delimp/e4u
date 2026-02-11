@@ -61,7 +61,7 @@ class Operator extends Model
     public function setAbnAttribute($value)
     {
         $clean = removeSpaceFromString($value);
-        $this->attributes['phone'] = $clean;
+        $this->attributes['abn'] = $clean;
     }
 
     protected static function boot()

@@ -221,8 +221,8 @@
 
    <div class="row">
       <div class="col-md-12 mt-2">
-         <div id="" class="table-responsive-xl">
-            <table class="table" id="bankAccountTable">
+         <div class="table-responsive">
+            <table class="table w-100" id="bankAccountTable">
                <thead class="table-bg">
                   <tr>
                      <th scope="col">Bank</th>
@@ -1093,7 +1093,8 @@
                name: 'edit',
                searchable: false,
                orderable: false,
-               defaultContent: 'NA'
+               defaultContent: 'NA',
+               class: 'text-center'
             }, // only this no sorting
          ],
          initComplete: function() {

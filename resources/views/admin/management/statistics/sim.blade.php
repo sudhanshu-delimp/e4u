@@ -67,7 +67,7 @@
                   </tr>
                   <tr style="border: 1px solid white;">
                      <th colspan="" style="border: 1px solid white;">Location</th>
-                     <th style="border: 1px solid white;">Product</th>
+                     <th style="border: 1px solid white;">Term</th>
                      <th style="border: 1px solid white;">Total</th>
                      <th style="border: 1px solid white;">$</th>
                      <th style="border: 1px solid white;">%</th>
@@ -104,8 +104,8 @@
                   <!-- middle Content -->
                   <tr class="collapse-row group-1">
                      <td></td>
-                     <td>CM01</td>
-                     <td class="text-right">250</td>
+                     <td>VA01</td>
+                     <td class="text-right">85</td>
                      <td class="text-right">250</td>
                      <td><span class="text-danger"><div class="num_value">- <span>0</span></div></span></td>
                      <td><span class="text-danger"><div class="num_value">- <span>0.0</span></div></span></span></td>
@@ -119,8 +119,8 @@
                   </tr>
                   <tr class="collapse-row group-1">
                      <td></td>
-                     <td>CM02</td>
-                     <td class="text-right">250</td>
+                     <td>VA02</td>
+                     <td class="text-right">170</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -134,24 +134,8 @@
                   </tr>
                   <tr class="collapse-row group-1">
                      <td></td>
-                     <td>CM03</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  
-                  <tr class="collapse-row group-1">
-                     <td></td>
-                     <td>CM04</td>
-                     <td class="text-right">250</td>
+                     <td>VA03</td>
+                     <td class="text-right">255</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -166,8 +150,24 @@
                   
                   <tr class="collapse-row group-1">
                      <td></td>
-                     <td>CM05</td>
-                     <td class="text-right">250</td>
+                     <td>VA04</td>
+                     <td class="text-right">340</td>
+                     <td class="text-right">0</td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
+                     <td class="text-right"><span class="text-danger">1,000</span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
+                     <td></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
+
+                  </tr>
+                  
+                  <tr class="collapse-row group-1">
+                     <td></td>
+                     <td>VA05</td>
+                     <td class="text-right">425</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -181,68 +181,8 @@
                   </tr>
                   <tr class="collapse-row group-1">
                      <td></td>
-                     <td>CM06</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-1">
-                     <td></td>
-                     <td>CM07</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-1">
-                     <td></td>
-                     <td>CM08</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-1">
-                     <td></td>
-                     <td>CM09</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-1">
-                     <td></td>
-                     <td>CM10</td>
-                     <td class="text-right">250</td>
+                     <td>VA06</td>
+                     <td class="text-right">510</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -259,7 +199,7 @@
                   <tr class="collapse-row group-1 font-weight-bold">
                      <td></td>
                       <td class="text-right">Total</td>
-                     <td class="text-right">5,000</td>
+                     <td class="text-right">1,785</td>
                      <td class="text-right">250</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -290,12 +230,11 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 258</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 21.32</span></div></span></td>
                   </tr>
-                  
                   <!-- middle Content -->
                   <tr class="collapse-row group-2">
                      <td></td>
-                     <td>CM01</td>
-                     <td class="text-right">250</td>
+                     <td>VA01</td>
+                     <td class="text-right">85</td>
                      <td class="text-right">250</td>
                      <td><span class="text-danger"><div class="num_value">- <span>0</span></div></span></td>
                      <td><span class="text-danger"><div class="num_value">- <span>0.0</span></div></span></span></td>
@@ -309,8 +248,8 @@
                   </tr>
                   <tr class="collapse-row group-2">
                      <td></td>
-                     <td>CM02</td>
-                     <td class="text-right">250</td>
+                     <td>VA02</td>
+                     <td class="text-right">170</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -324,24 +263,8 @@
                   </tr>
                   <tr class="collapse-row group-2">
                      <td></td>
-                     <td>CM03</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  
-                  <tr class="collapse-row group-2">
-                     <td></td>
-                     <td>CM04</td>
-                     <td class="text-right">250</td>
+                     <td>VA03</td>
+                     <td class="text-right">255</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -356,8 +279,24 @@
                   
                   <tr class="collapse-row group-2">
                      <td></td>
-                     <td>CM05</td>
-                     <td class="text-right">250</td>
+                     <td>VA04</td>
+                     <td class="text-right">340</td>
+                     <td class="text-right">0</td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
+                     <td class="text-right"><span class="text-danger">1,000</span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
+                     <td></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
+
+                  </tr>
+                  
+                  <tr class="collapse-row group-2">
+                     <td></td>
+                     <td>VA05</td>
+                     <td class="text-right">425</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -371,68 +310,8 @@
                   </tr>
                   <tr class="collapse-row group-2">
                      <td></td>
-                     <td>CM06</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-2">
-                     <td></td>
-                     <td>CM07</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-2">
-                     <td></td>
-                     <td>CM08</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-2">
-                     <td></td>
-                     <td>CM09</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-2">
-                     <td></td>
-                     <td>CM10</td>
-                     <td class="text-right">250</td>
+                     <td>VA06</td>
+                     <td class="text-right">510</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -449,7 +328,7 @@
                   <tr class="collapse-row group-2 font-weight-bold">
                      <td></td>
                       <td class="text-right">Total</td>
-                     <td class="text-right">5,000</td>
+                     <td class="text-right">1,785</td>
                      <td class="text-right">250</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -460,8 +339,8 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 387</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 10.1</span></div></span></td>
 
-                  </tr>        
-                  <!-- end 2 -->
+                  </tr>                  
+                  <!-- end 1 -->
 
                   <!-- GROUP 3: Vic -->
                   <tr data-toggle="toggle-row" data-target=".group-3" data-parent="#collapse-accordion" style="cursor: pointer;">
@@ -480,12 +359,11 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 258</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 21.32</span></div></span></td>
                   </tr>
-                 
                   <!-- middle Content -->
                   <tr class="collapse-row group-3">
                      <td></td>
-                     <td>CM01</td>
-                     <td class="text-right">250</td>
+                     <td>VA01</td>
+                     <td class="text-right">85</td>
                      <td class="text-right">250</td>
                      <td><span class="text-danger"><div class="num_value">- <span>0</span></div></span></td>
                      <td><span class="text-danger"><div class="num_value">- <span>0.0</span></div></span></span></td>
@@ -499,8 +377,8 @@
                   </tr>
                   <tr class="collapse-row group-3">
                      <td></td>
-                     <td>CM02</td>
-                     <td class="text-right">250</td>
+                     <td>VA02</td>
+                     <td class="text-right">170</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -514,24 +392,8 @@
                   </tr>
                   <tr class="collapse-row group-3">
                      <td></td>
-                     <td>CM03</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  
-                  <tr class="collapse-row group-3">
-                     <td></td>
-                     <td>CM04</td>
-                     <td class="text-right">250</td>
+                     <td>VA03</td>
+                     <td class="text-right">255</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -546,8 +408,24 @@
                   
                   <tr class="collapse-row group-3">
                      <td></td>
-                     <td>CM05</td>
-                     <td class="text-right">250</td>
+                     <td>VA04</td>
+                     <td class="text-right">340</td>
+                     <td class="text-right">0</td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
+                     <td class="text-right"><span class="text-danger">1,000</span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
+                     <td></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
+
+                  </tr>
+                  
+                  <tr class="collapse-row group-3">
+                     <td></td>
+                     <td>VA05</td>
+                     <td class="text-right">425</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -561,68 +439,8 @@
                   </tr>
                   <tr class="collapse-row group-3">
                      <td></td>
-                     <td>CM06</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-3">
-                     <td></td>
-                     <td>CM07</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-3">
-                     <td></td>
-                     <td>CM08</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-3">
-                     <td></td>
-                     <td>CM09</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-3">
-                     <td></td>
-                     <td>CM10</td>
-                     <td class="text-right">250</td>
+                     <td>VA06</td>
+                     <td class="text-right">510</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -639,7 +457,7 @@
                   <tr class="collapse-row group-3 font-weight-bold">
                      <td></td>
                       <td class="text-right">Total</td>
-                     <td class="text-right">5,000</td>
+                     <td class="text-right">1,785</td>
                      <td class="text-right">250</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -650,8 +468,8 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 387</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 10.1</span></div></span></td>
 
-                  </tr>  
-                  <!-- end 3 -->
+                  </tr>                  
+                  <!-- end 1 -->
 
                   <!-- GROUP 4: Qld -->
                   <tr data-toggle="toggle-row" data-target=".group-4" data-parent="#collapse-accordion" style="cursor: pointer;">
@@ -670,12 +488,11 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 258</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 21.32</span></div></span></td>
                   </tr>
-                  
                   <!-- middle Content -->
                   <tr class="collapse-row group-4">
                      <td></td>
-                     <td>CM01</td>
-                     <td class="text-right">250</td>
+                     <td>VA01</td>
+                     <td class="text-right">85</td>
                      <td class="text-right">250</td>
                      <td><span class="text-danger"><div class="num_value">- <span>0</span></div></span></td>
                      <td><span class="text-danger"><div class="num_value">- <span>0.0</span></div></span></span></td>
@@ -689,8 +506,8 @@
                   </tr>
                   <tr class="collapse-row group-4">
                      <td></td>
-                     <td>CM02</td>
-                     <td class="text-right">250</td>
+                     <td>VA02</td>
+                     <td class="text-right">170</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -704,24 +521,8 @@
                   </tr>
                   <tr class="collapse-row group-4">
                      <td></td>
-                     <td>CM03</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  
-                  <tr class="collapse-row group-4">
-                     <td></td>
-                     <td>CM04</td>
-                     <td class="text-right">250</td>
+                     <td>VA03</td>
+                     <td class="text-right">255</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -736,8 +537,24 @@
                   
                   <tr class="collapse-row group-4">
                      <td></td>
-                     <td>CM05</td>
-                     <td class="text-right">250</td>
+                     <td>VA04</td>
+                     <td class="text-right">340</td>
+                     <td class="text-right">0</td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
+                     <td class="text-right"><span class="text-danger">1,000</span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
+                     <td></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
+
+                  </tr>
+                  
+                  <tr class="collapse-row group-4">
+                     <td></td>
+                     <td>VA05</td>
+                     <td class="text-right">425</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -751,68 +568,8 @@
                   </tr>
                   <tr class="collapse-row group-4">
                      <td></td>
-                     <td>CM06</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-4">
-                     <td></td>
-                     <td>CM07</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-4">
-                     <td></td>
-                     <td>CM08</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-4">
-                     <td></td>
-                     <td>CM09</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-4">
-                     <td></td>
-                     <td>CM10</td>
-                     <td class="text-right">250</td>
+                     <td>VA06</td>
+                     <td class="text-right">510</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -829,7 +586,7 @@
                   <tr class="collapse-row group-4 font-weight-bold">
                      <td></td>
                       <td class="text-right">Total</td>
-                     <td class="text-right">5,000</td>
+                     <td class="text-right">1,785</td>
                      <td class="text-right">250</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -840,8 +597,8 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 387</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 10.1</span></div></span></td>
 
-                  </tr>  
-                  <!-- end 4 -->
+                  </tr>                  
+                  <!-- end 1 -->
 
                   <!-- GROUP 5: SA -->
                   <tr data-toggle="toggle-row" data-target=".group-5" data-parent="#collapse-accordion" style="cursor: pointer;">
@@ -860,12 +617,11 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 258</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 21.32</span></div></span></td>
                   </tr>
-                  
                   <!-- middle Content -->
                   <tr class="collapse-row group-5">
                      <td></td>
-                     <td>CM01</td>
-                     <td class="text-right">250</td>
+                     <td>VA01</td>
+                     <td class="text-right">85</td>
                      <td class="text-right">250</td>
                      <td><span class="text-danger"><div class="num_value">- <span>0</span></div></span></td>
                      <td><span class="text-danger"><div class="num_value">- <span>0.0</span></div></span></span></td>
@@ -879,8 +635,8 @@
                   </tr>
                   <tr class="collapse-row group-5">
                      <td></td>
-                     <td>CM02</td>
-                     <td class="text-right">250</td>
+                     <td>VA02</td>
+                     <td class="text-right">170</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -894,24 +650,8 @@
                   </tr>
                   <tr class="collapse-row group-5">
                      <td></td>
-                     <td>CM03</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  
-                  <tr class="collapse-row group-5">
-                     <td></td>
-                     <td>CM04</td>
-                     <td class="text-right">250</td>
+                     <td>VA03</td>
+                     <td class="text-right">255</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -926,8 +666,24 @@
                   
                   <tr class="collapse-row group-5">
                      <td></td>
-                     <td>CM05</td>
-                     <td class="text-right">250</td>
+                     <td>VA04</td>
+                     <td class="text-right">340</td>
+                     <td class="text-right">0</td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
+                     <td class="text-right"><span class="text-danger">1,000</span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
+                     <td></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
+
+                  </tr>
+                  
+                  <tr class="collapse-row group-5">
+                     <td></td>
+                     <td>VA05</td>
+                     <td class="text-right">425</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -941,68 +697,8 @@
                   </tr>
                   <tr class="collapse-row group-5">
                      <td></td>
-                     <td>CM06</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-5">
-                     <td></td>
-                     <td>CM07</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-5">
-                     <td></td>
-                     <td>CM08</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-5">
-                     <td></td>
-                     <td>CM09</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-5">
-                     <td></td>
-                     <td>CM10</td>
-                     <td class="text-right">250</td>
+                     <td>VA06</td>
+                     <td class="text-right">510</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1019,7 +715,7 @@
                   <tr class="collapse-row group-5 font-weight-bold">
                      <td></td>
                       <td class="text-right">Total</td>
-                     <td class="text-right">5,000</td>
+                     <td class="text-right">1,785</td>
                      <td class="text-right">250</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1030,8 +726,8 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 387</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 10.1</span></div></span></td>
 
-                  </tr>  
-                  <!-- end 5 -->
+                  </tr>                  
+                  <!-- end 1 -->
 
                   <!-- GROUP 6: WA -->
                   <tr data-toggle="toggle-row" data-target=".group-6" data-parent="#collapse-accordion" style="cursor: pointer;">
@@ -1050,12 +746,11 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 258</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 21.32</span></div></span></td>
                   </tr>
-                  
                   <!-- middle Content -->
                   <tr class="collapse-row group-6">
                      <td></td>
-                     <td>CM01</td>
-                     <td class="text-right">250</td>
+                     <td>VA01</td>
+                     <td class="text-right">85</td>
                      <td class="text-right">250</td>
                      <td><span class="text-danger"><div class="num_value">- <span>0</span></div></span></td>
                      <td><span class="text-danger"><div class="num_value">- <span>0.0</span></div></span></span></td>
@@ -1069,8 +764,8 @@
                   </tr>
                   <tr class="collapse-row group-6">
                      <td></td>
-                     <td>CM02</td>
-                     <td class="text-right">250</td>
+                     <td>VA02</td>
+                     <td class="text-right">170</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1084,24 +779,8 @@
                   </tr>
                   <tr class="collapse-row group-6">
                      <td></td>
-                     <td>CM03</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  
-                  <tr class="collapse-row group-6">
-                     <td></td>
-                     <td>CM04</td>
-                     <td class="text-right">250</td>
+                     <td>VA03</td>
+                     <td class="text-right">255</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1116,8 +795,24 @@
                   
                   <tr class="collapse-row group-6">
                      <td></td>
-                     <td>CM05</td>
-                     <td class="text-right">250</td>
+                     <td>VA04</td>
+                     <td class="text-right">340</td>
+                     <td class="text-right">0</td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
+                     <td class="text-right"><span class="text-danger">1,000</span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
+                     <td></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
+
+                  </tr>
+                  
+                  <tr class="collapse-row group-6">
+                     <td></td>
+                     <td>VA05</td>
+                     <td class="text-right">425</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1131,68 +826,8 @@
                   </tr>
                   <tr class="collapse-row group-6">
                      <td></td>
-                     <td>CM06</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-6">
-                     <td></td>
-                     <td>CM07</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-6">
-                     <td></td>
-                     <td>CM08</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-6">
-                     <td></td>
-                     <td>CM09</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-6">
-                     <td></td>
-                     <td>CM10</td>
-                     <td class="text-right">250</td>
+                     <td>VA06</td>
+                     <td class="text-right">510</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1209,7 +844,7 @@
                   <tr class="collapse-row group-6 font-weight-bold">
                      <td></td>
                       <td class="text-right">Total</td>
-                     <td class="text-right">5,000</td>
+                     <td class="text-right">1,785</td>
                      <td class="text-right">250</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1220,8 +855,8 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 387</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 10.1</span></div></span></td>
 
-                  </tr>  
-                  <!-- end 6 -->
+                  </tr>                  
+                  <!-- end 1 -->
 
 
                   <!-- GROUP 7: Tas -->
@@ -1241,12 +876,11 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 258</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 21.32</span></div></span></td>
                   </tr>
-                  
                   <!-- middle Content -->
                   <tr class="collapse-row group-7">
                      <td></td>
-                     <td>CM01</td>
-                     <td class="text-right">250</td>
+                     <td>VA01</td>
+                     <td class="text-right">85</td>
                      <td class="text-right">250</td>
                      <td><span class="text-danger"><div class="num_value">- <span>0</span></div></span></td>
                      <td><span class="text-danger"><div class="num_value">- <span>0.0</span></div></span></span></td>
@@ -1260,8 +894,8 @@
                   </tr>
                   <tr class="collapse-row group-7">
                      <td></td>
-                     <td>CM02</td>
-                     <td class="text-right">250</td>
+                     <td>VA02</td>
+                     <td class="text-right">170</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1275,24 +909,8 @@
                   </tr>
                   <tr class="collapse-row group-7">
                      <td></td>
-                     <td>CM03</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  
-                  <tr class="collapse-row group-7">
-                     <td></td>
-                     <td>CM04</td>
-                     <td class="text-right">250</td>
+                     <td>VA03</td>
+                     <td class="text-right">255</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1307,8 +925,24 @@
                   
                   <tr class="collapse-row group-7">
                      <td></td>
-                     <td>CM05</td>
-                     <td class="text-right">250</td>
+                     <td>VA04</td>
+                     <td class="text-right">340</td>
+                     <td class="text-right">0</td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
+                     <td class="text-right"><span class="text-danger">1,000</span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
+                     <td></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
+
+                  </tr>
+                  
+                  <tr class="collapse-row group-7">
+                     <td></td>
+                     <td>VA05</td>
+                     <td class="text-right">425</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1322,68 +956,8 @@
                   </tr>
                   <tr class="collapse-row group-7">
                      <td></td>
-                     <td>CM06</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-7">
-                     <td></td>
-                     <td>CM07</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-7">
-                     <td></td>
-                     <td>CM08</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-7">
-                     <td></td>
-                     <td>CM09</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-7">
-                     <td></td>
-                     <td>CM10</td>
-                     <td class="text-right">250</td>
+                     <td>VA06</td>
+                     <td class="text-right">510</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1400,7 +974,7 @@
                   <tr class="collapse-row group-7 font-weight-bold">
                      <td></td>
                       <td class="text-right">Total</td>
-                     <td class="text-right">5,000</td>
+                     <td class="text-right">1,785</td>
                      <td class="text-right">250</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1411,8 +985,8 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 387</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 10.1</span></div></span></td>
 
-                  </tr>  
-                  <!-- end 7 -->
+                  </tr>                  
+                  <!-- end 1 -->
 
 
                   <!-- GROUP 8: NT -->
@@ -1432,12 +1006,11 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 258</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 21.32</span></div></span></td>
                   </tr>
-                  
                   <!-- middle Content -->
                   <tr class="collapse-row group-8">
                      <td></td>
-                     <td>CM01</td>
-                     <td class="text-right">250</td>
+                     <td>VA01</td>
+                     <td class="text-right">85</td>
                      <td class="text-right">250</td>
                      <td><span class="text-danger"><div class="num_value">- <span>0</span></div></span></td>
                      <td><span class="text-danger"><div class="num_value">- <span>0.0</span></div></span></span></td>
@@ -1451,8 +1024,8 @@
                   </tr>
                   <tr class="collapse-row group-8">
                      <td></td>
-                     <td>CM02</td>
-                     <td class="text-right">250</td>
+                     <td>VA02</td>
+                     <td class="text-right">170</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1466,24 +1039,8 @@
                   </tr>
                   <tr class="collapse-row group-8">
                      <td></td>
-                     <td>CM03</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  
-                  <tr class="collapse-row group-8">
-                     <td></td>
-                     <td>CM04</td>
-                     <td class="text-right">250</td>
+                     <td>VA03</td>
+                     <td class="text-right">255</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1498,8 +1055,24 @@
                   
                   <tr class="collapse-row group-8">
                      <td></td>
-                     <td>CM05</td>
-                     <td class="text-right">250</td>
+                     <td>VA04</td>
+                     <td class="text-right">340</td>
+                     <td class="text-right">0</td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
+                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
+                     <td class="text-right"><span class="text-danger">1,000</span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
+                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
+                     <td></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
+                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
+
+                  </tr>
+                  
+                  <tr class="collapse-row group-8">
+                     <td></td>
+                     <td>VA05</td>
+                     <td class="text-right">425</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1513,68 +1086,8 @@
                   </tr>
                   <tr class="collapse-row group-8">
                      <td></td>
-                     <td>CM06</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-8">
-                     <td></td>
-                     <td>CM07</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-8">
-                     <td></td>
-                     <td>CM08</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-8">
-                     <td></td>
-                     <td>CM09</td>
-                     <td class="text-right">250</td>
-                     <td class="text-right">0</td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
-                     <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
-                     <td class="text-right"><span class="text-danger">1,000</span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 750</span></div></span></td>
-                     <td><span class="text-danger"><div class="num_value">↓<span> 25.0</span></div></span></td>
-                     <td></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 95</span></div></span></td>
-                     <td><span class="text-success"><div class="num_value">↑<span> 7.6</span></div></span></td>
-
-                  </tr>
-                  <tr class="collapse-row group-8">
-                     <td></td>
-                     <td>CM10</td>
-                     <td class="text-right">250</td>
+                     <td>VA06</td>
+                     <td class="text-right">510</td>
                      <td class="text-right">0</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1591,7 +1104,7 @@
                   <tr class="collapse-row group-8 font-weight-bold">
                      <td></td>
                       <td class="text-right">Total</td>
-                     <td class="text-right">5,000</td>
+                     <td class="text-right">1,785</td>
                      <td class="text-right">250</td>
                      <td><span class="text-success"><div class="num_value">↑ <span>250</span></div></span></span></td>
                      <td><span class="text-success"><div class="num_value">↑ <span>100</span></div></span></span></td>
@@ -1602,8 +1115,8 @@
                      <td><span class="text-success"><div class="num_value">↑<span> 387</span></div></span></td>
                      <td><span class="text-success"><div class="num_value">↑<span> 10.1</span></div></span></td>
 
-                  </tr>  
-                  <!-- end 8 -->
+                  </tr>                  
+                  <!-- end 1 -->
 
                   <!-- GROUP 9: Total Summary -->
                   

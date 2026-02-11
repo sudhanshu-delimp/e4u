@@ -33,14 +33,16 @@
 }
 
 .custom_badge {
-    display: inline-block;
-    padding: 4px 10px;
+    padding: 7px 8px;
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     color: #fff;
     line-height: 1;
     white-space: nowrap;
+    min-width: 100px;
+    display: inline-block;
+    text-align: center;
 }
 
 .badge_active {
@@ -1420,6 +1422,16 @@ button.btn:focus {
 
 .show_details .stage-close:hover~.details_tooltip {
     display: none;
+}
+
+
+/* end */
+
+
+/* reconciliation_table */
+
+.reconciliation_table td {
+    border: none;
 }
 
 
@@ -7322,7 +7334,7 @@ table#myTable\ price-sec {
 
 .pin-up-content p {
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -8733,8 +8745,8 @@ div#listings_wrapper .custom--common-table {
 }
 
 .membership--inner th {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
     background: #0C223D;
     color: #fff;
     font-size: 14px;

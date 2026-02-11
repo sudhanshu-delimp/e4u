@@ -175,18 +175,18 @@
             <div class="accodien_manage_padding_content text-justify">
                 <p><b>Q: How do I apply to become an Agent?</b></p>
                 <ul style="list-style:none;" class="mb-1 pl-3">
-                    <li>Step 1. When you land on the Website hover over “Register” located at the top right hand corner and click “Lodge Enquiry”. </li>
-                    <li>Step 2. Complete the information fields.</li>
-                    <li>Step 3. Click the “Register” button.</li>
+                    <li>Step 1. Complete the Registration form.</li>
+                    <li>Step 2. Once you have submitted the the Registration form, someone from our office will be in touch with you to explain the role in detail.</li>
+                    <li>Step 3. If you appear to be suitable for the role, a more formal process will begin.</li>
                 </ul>     
-                <p>Someone from our support team will be in touch with you within 24 hours.</p>
                 <p><b>Q: Will I get a confirmation of my application to become an Agent?</b></p>
                 <ul class="list-unstyled pl-3">
-                   <li>Yes you will. Escorts4U will forward to you by email a confirmation that we have received your application. The confirmation will contain a reference number for you to quote if any follow up is required.</li>
+                   <li>Yes you will. Escorts4U will forward to you by email a confirmation that we have received your application. The confirmation will contain 
+                    a reference number for you to quote if any follow up is required.</li>
                 </ul>
                 <p><b>Q: How do I get in touch with Escorts4U if I have any queries?</b></p>
                 <ul class="list-unstyled pl-3">
-                   <li>You can forward an email to our <a href="#" class="termsandconditions_text_color">support team</a> anytime. Please allow us some time to get back to you. We will get back to you within 24 hours, usually sooner.</li>
+                   <li>You can contact our <a href="{{ url('contact-us')}}" class="termsandconditions_text_color">support team</a> anytime. Please allow us some time to get back to you. We will get back to you within 24 hours, usually sooner.</li>
                 </ul>
                 <p><b>Q: Do I have to be a registered business to be an Agent?</b></p>
                 <ul class="list-unstyled pl-3">
@@ -195,7 +195,7 @@
                 </ul>
                 <p><b>Q: Can Escorts4U put me in touch with an accountant?</b></p>
                 <ul class="list-unstyled pl-3">
-                   <li class="mb-2">Yes we can. We have a list of accounting practices in each State who have an understanding of the Escorts4U business model. Simply <a href="#" class="termsandconditions_text_color">request</a> the details and then choose an accountant that is nearest to you. When you contact the accounting practice, mention you are wanting to make an appointment to discuss becoming an Agent for Escorts4U.</li>
+                   <li class="mb-2">Yes we can. We have a list of accounting practices in each State who have an understanding of the Escorts4U business model. Simply request the details and then choose an accountant that is nearest to you. When you contact the accounting practice, mention you are wanting to make an appointment to discuss becoming an Agent for Escorts4U.</li>
                    <li>Escorts4U has no financial arrangements with any of the accounting practices. We do not pay any commissions to the accounting practices.</li>
                 </ul>
                 <p><b>Q: Will I have exclusivity to the area I am appointed in?</b></p>

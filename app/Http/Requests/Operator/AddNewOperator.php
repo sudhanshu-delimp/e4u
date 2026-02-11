@@ -38,8 +38,10 @@ class AddNewOperator extends FormRequest
             'business_address' => 'bail|required|string|max:255',
             'business_number' => "bail|required|min:10|max:14",
             'point_of_contact' => 'bail|required|string|max:100', // Point of contact
-            'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}", //Mobile
-            'email' => "bail|required|email|max:100|email:rfc,filter|unique:users,email,{$userId}",
+            //'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}", //Mobile
+            'phone' => "bail|required|min:10|max:14", //Mobile
+            //'email' => "bail|required|email|max:100|email:rfc,filter|unique:users,email,{$userId}",
+            'email' => "bail|required|email|max:100|email:rfc,filter",
             //'state_id' => 'required',
             'country_id' => 'required',
             'contact_type' => 'required',

@@ -583,7 +583,7 @@
                         'application',
                         'revision',
                         'security','shareholder','share-value',
-                        'operator-staff',
+                        'operator-staff','concierge-payments'
                     ]) || in_array(request()->segment(4), ['legal','community','other','about','concierge','global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications'])) show @endif"
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
@@ -597,6 +597,17 @@
                                 </svg>
                                 <span style="{{ request()->segment(3) == 'dashboard' ? 'color: #FF3C5F;' : '' }}">Dashboard</span>
                             </a>
+
+                            <a class="nav-link" href="{{ route('admin.concierge-payments') }}">
+                                <svg width="15" height="15" viewBox="0 0 18 19" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0.720703V6.7207H18V0.720703H10ZM10 18.7207H18V8.7207H10V18.7207ZM0 18.7207H8V12.7207H0V18.7207ZM0 10.7207H8V0.720703H0V10.7207Z"
+                                        fill="#c2cfe0" />
+                                </svg>
+                                <span style="{{ request()->segment(3) == 'concierge-payments' ? 'color: #FF3C5F;' : '' }}">Concierge Payments</span>
+                            </a>
+
                         <a class="nav-link collapsed" href="#" data-toggle="collapse"
                             data-target="#manageAgentMenu" aria-expanded="false" aria-controls="manageAgentMenu">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
@@ -896,6 +907,7 @@
                             </div>
                         </div>
                         {{-- end --}}
+                        
                         <!-- Manage People -->
                         <a class="nav-link collapsed" href="#" data-toggle="collapse"
                             data-target="#managePeopleMenu" aria-expanded="false" aria-controls="managePeopleMenu">
@@ -909,59 +921,40 @@
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/manage-agents.png') }}">
                                 <span style="{{ request()->segment(3) == 'agent' ? 'color: #FF3C5F;' : '' }}">Agents</span>
                             </a>
-                            <a class="collapse-item" href="{{ route('admin.manage-influencers') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'manage-influencers' ? 'color: #FF3C5F;' : '' }}">
-                                    Influencer</span>
-                            </a>                            
-                           
 
-
-                            <!--  Operator -->
-
-                            <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse" data-target="#Mnoperator"
-                                aria-expanded="false" aria-controls="Mnoperator">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/operator.png') }}">
-                                <span>Operator</span>
-                            </a>
-                            <div id="Mnoperator" class="collapse @if (in_array(request()->segment(3), ['operator-staff', 'operator-manage'])) show @endif" data-parent="#ShareholdersMenu">
-
-                                <div class="py-0 collapse-inner rounded mb-2">
-                                    
-                                    
-                                    
-                                     <a class="collapse-item" href="{{ route('admin.operator-manage') }}">
-                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                        <span
-                                            style="{{ request()->segment(3) == 'operator-manage' ? 'color: #FF3C5F;' : '' }}">Manage Operator</span>
-                                    </a>
-
-                                    <a class="collapse-item" href="{{ route('admin.operator.staff') }}">
-                                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                        <span
-                                            style="{{ request()->segment(3) == 'operator-staff' ? 'color: #FF3C5F;' : '' }}">Manage Staff</span>
-                                    </a>
-
-                                </div>
-                            </div>
-                            <!-- end --> 
-
-                            <a class="collapse-item" href="{{ route('admin.manage-shareholders') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
-                                <span style="{{ request()->segment(3) == 'manage-shareholders' ? 'color: #FF3C5F;' : '' }}">
-                                    Shareholders</span>
-                            </a>
-
-                            
-
-                            <a class="collapse-item" href="{{ route('admin.staff') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                             <a class="collapse-item" href="{{ route('admin.staff') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/e4u-staff.png') }}">
                                 <span style="{{ request()->segment(3) == 'staff' ? 'color: #FF3C5F;' : '' }}">
                                     E4U Staff</span>
                             </a>
+
+                            <a class="collapse-item" href="{{ route('admin.manage-influencers') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/influencer-marketing.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'manage-influencers' ? 'color: #FF3C5F;' : '' }}">
+                                    Influencer</span>
+                            </a> 
+
+                             <a class="collapse-item" href="{{ route('admin.operator-manage') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/manage-operator.png') }}">
+                                <span style="{{ request()->segment(3) == 'operator-manage' ? 'color: #FF3C5F;' : '' }}">
+                                    Operator</span>
+                            </a>
+                            
+                             <a class="collapse-item" href="{{ route('admin.operator.staff') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/operator-staff.png') }}">
+                                <span style="{{ request()->segment(3) == 'operator-staff' ? 'color: #FF3C5F;' : '' }}">
+                                    Operator Staff</span>
+                            </a>
+
+                            <a class="collapse-item" href="{{ route('admin.manage-shareholders') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/shareholder.png') }}">
+                                <span style="{{ request()->segment(3) == 'manage-shareholders' ? 'color: #FF3C5F;' : '' }}">
+                                    Shareholders</span>
+                            </a>  
+                           
                             <a class="collapse-item" href="{{ route('admin.manage-suppliers') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/vendor.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'manage-suppliers' ? 'color: #FF3C5F;' : '' }}">
                                     Suppliers</span>

@@ -16,7 +16,7 @@ class VariablAgentOperatorsSeeder extends Seeder
     {
          DB::table('variabl_agent_operators')->insert([
             [
-                'rate' => 'per day',
+                'rate' => '1',
                 'amount' => 5.00,
                 'percent' => '5.00%',
                 'discription' => 'Commission - Advertising',
@@ -24,7 +24,7 @@ class VariablAgentOperatorsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'rate' => 'per Registration',
+                'rate' => '2',
                 'amount' => 20.00,
                 'percent' => '20.00%',
                 'discription' => 'Commission - Massage Centre sign up',
@@ -32,7 +32,7 @@ class VariablAgentOperatorsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'rate' => 'per day',
+                'rate' => '3',
                 'amount' => 2.00,
                 'percent' => '5.00%',
                 'discription' => 'Commission - Operator',

@@ -103,7 +103,7 @@ Route::post('make-time-json',[MassageController::class,'make_time_json'])->name(
 Route::get('archive-view-photos', [CenterProfileInformationController ::class, 'galleries'])->name('cen.archive-view-photos');
 Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
 
-
+Route::post('validate-phone', [MasseurController::class, 'validate_phone'])->name('center.validate-phone');;
 Route::get('create-new-masseur', [MasseurController::class, 'index'])->name('center.create-new-masseur');
 Route::post('create-new-masseur', [MasseurController::class, 'add_masseur'])->name('center.create-new-masseur');
 Route::get('update-masseur/{id?}',[MasseurController::class,'edit_masseur'])->name('center.update-masseur');

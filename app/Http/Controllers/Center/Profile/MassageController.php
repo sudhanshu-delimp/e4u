@@ -198,14 +198,7 @@ class MassageController extends Controller
 
     public function index($id = null)
     {
-        $user = auth()->user();
-        $is_already_profile = MassageProfile::where(['user_id'=>$user->id,'default_setting'=>0])->count();
-
-        if($is_already_profile>0)
-        {
-           return view('center.dashboard.profile-completed');      
-        }
-        
+        $user = auth()->user();    
         $escort = $this->massage_profile->findDefault($user->id,1);
         if(!$escort) {
             $escort = $this->massage_profile->make();

@@ -2,8 +2,8 @@
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
 
                                                 {{--  <h5 class="price-sec">Profile &amp; Tour Fees</h5>--}}
-                                                <table id="reckoner" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                                                    <thead class="text-center">
+                                                <table id="reckoner" class="table dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                    <thead class="text-center table-bg">
                                                         <tr role="row">
                                                             <th class="sorting_disabled" rowspan="1" colspan="4" style="width: 212px;" aria-label="Fees">
                                                                 <p style="padding-left: 100px;"><b>Profile / Tour Ready Reckoner</b></p>

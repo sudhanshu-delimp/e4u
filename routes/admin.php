@@ -691,6 +691,10 @@ Route::get('/management/logs-staff', function () {
     return view('admin.management.dashboard');
 })->name('admin.dashboard');
 
+ Route::get('/management/concierge-payments',function(){
+    return view('admin.management.concierge-payments.index');
+})->name('admin.concierge-payments');
+
 Route::get('/management/application', function () {
     return view('admin.management.logs.application');
 })->name('admin.application');

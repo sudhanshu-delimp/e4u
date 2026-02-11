@@ -1161,8 +1161,6 @@ if (!function_exists('getStatusBadgeClass')) {
 if (!function_exists('formatAbnNumber')) {
     function formatAbnNumber($number)
     {
-
-
         $number = preg_replace('/\D/', '', $number);
         $length = strlen($number);
 
@@ -1191,3 +1189,15 @@ if (!function_exists('formatAbnNumber')) {
         return $part1 . ' ' . implode(' ', $groups);
     }
 }
+
+if (!function_exists('generate_masseur_member_id')) {
+    function generate_masseur_member_id($masseur_profile_id)
+    {
+        if($masseur_profile_id=="" || (!is_numeric($masseur_profile_id)))
+        return false;
+
+        return auth()->user()->member_id.'-00'.$masseur_profile_id;
+    }
+}
+
+
