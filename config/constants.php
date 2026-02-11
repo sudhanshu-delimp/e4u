@@ -111,7 +111,7 @@ return [
         ]
     ],
 
-    'current_password_placeholder' => env('CURRENT_PASSWORD_PLACEHOLDER', 'Your Current Password appears encrypted'),
-    'new_password_placeholder' => env('NEW_PASSWORD_PLACEHOLDER', 'Your New Password appears encrypted'),
-    'confirm_password_placeholder' => env('CONFIRM_PASSWORD_PLACEHOLDER', 'Your confirm Password appears encrypted'),
+    'current_password_placeholder' => env('CURRENT_PASSWORD_PLACEHOLDER', 'Your Current Password appears encrypted.'),
+    'new_password_placeholder' => env('NEW_PASSWORD_PLACEHOLDER', 'Your New Password appears encrypted.'),
+    'confirm_password_placeholder' => env('CONFIRM_PASSWORD_PLACEHOLDER', 'Your confirm Password appears encrypted.'),
 ];
