@@ -120,7 +120,7 @@
         if(isset( $setting) && (isset($setting->idle_preference_time))) {
             $idle_preference_time = isset($idle_preference_times[(string)$setting->idle_preference_time]) ? $idle_preference_times[$setting->idle_preference_time] : "";
         }
-        $twofas = config('staff.twofa');
+        $twofas = config('operator_staff.twofa');
         if(isset( $setting) && isset($setting->twofa)) {
         $twofa = isset($twofas[$setting->twofa]) ? $twofas[$setting->twofa] : "";
         }

@@ -67,22 +67,7 @@
                                                         <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="table-content">
-
-                                                </tbody>
-                                                <tfoot class="bg-first">
-                                                    <tr>
-                                                        <th colspan="3" class="text-left">Server time:
-                                                            <span class="serverTime">{{ getServertime() }}</span>
-                                                        </th>
-                                                        <th colspan="3" class="text-center">Refresh time:
-                                                            <span class="refreshSeconds"> 15</span>
-                                                        </th>
-                                                        <th colspan="4" class="text-right">Up time:
-                                                            <span class="uptimeClass">{{ getAppUptime() }}</span>
-                                                        </th>
-                                                    </tr>
-                                                </tfoot>
+                                                <tbody class="table-content"></tbody>
                                             </table>
                                         </div>
                                     </div>

@@ -96,8 +96,12 @@ class AuthController extends Controller
                 ], 401);
             }
         }
-
-        if ($user->type == 1 || $user->type == 2 || $user->type == 7) {
+        /**
+         * 1 for Admin
+         * 2 for Sub Admin
+         * 9 for Operator Staff
+         */
+        if ($user->type == 1 || $user->type == 2 || $user->type == 9) {
             $hasher = app('hash');
             $error = 0;
             //            if (Hash::check($request->password, $user->password)) { //TODO::Enable
@@ -204,8 +208,9 @@ class AuthController extends Controller
         if (!empty($request->get('type_staff'))) {
             $input['type'] = 2;
         }
+        //Operator staff
         if (!empty($request->get('type_operator'))) {
-            $input['type'] = 7;
+            $input['type'] = 9;
         }
 
 
