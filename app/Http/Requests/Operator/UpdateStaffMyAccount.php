@@ -28,7 +28,7 @@ class UpdateStaffMyAccount extends FormRequest
             $userId = $request->user_id;
         }
         $authUser = auth()->user(); 
-        $securityLevel = isset($authUser->staff_detail->security_level) ? $authUser->staff_detail->security_level : 0;  
+        $securityLevel = isset($authUser->operator_staff_detail->security_level) ? $authUser->operator_staff_detail->security_level : 0;  
         if( $securityLevel == 1){
         return [
            // 'name' => 'bail|required|string|max:100',
@@ -57,7 +57,7 @@ class UpdateStaffMyAccount extends FormRequest
             'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}",
             'kin_name' => 'bail|required|string|max:100',
             'kin_relationship' => 'bail|required|string|max:100',
-            'kin_mobile' => 'required||min:10|max:14',
+            'kin_mobile' => 'nullable||min:10|max:14',
             'kin_email' => 'nullable|email:rfc,filter|max:100',
         ];
     }
