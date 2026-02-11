@@ -81,7 +81,7 @@
                                             <i class="fa fa-eye"></i>
                                         </span>
                                         <div class="pt-1">
-                                            <small><i>Case sensitive</i></small>
+                                            <small><i>{{config('constants.current_password_notify')}}</i></small>
                                         </div>
                                     </div>
                                 </div>

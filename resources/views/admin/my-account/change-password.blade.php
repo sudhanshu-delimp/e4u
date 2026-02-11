@@ -118,7 +118,7 @@
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                                 <div class="pt-1">
-                                                    <small id="emailHelp"><i>Case sensitive</i></small>
+                                                    <small id="emailHelp"><i>{{config('constants.current_password_notify')}}</i></small>
                                                 </div>
                                             </div>
                                         </div>

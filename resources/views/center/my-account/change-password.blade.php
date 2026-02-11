@@ -67,7 +67,7 @@
                                 </span>
                                 <div id="formerror"></div>
                                 <div class="pt-1">
-                                    <small><i>Case sensitive</i></small>
+                                    <small><i>{{config('constants.current_password_notify')}}</i></small>
                                 </div>
                             </div>
 
