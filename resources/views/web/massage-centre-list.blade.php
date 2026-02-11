@@ -261,7 +261,6 @@ $(document).ready(function () {
         });
     }
 
-
     function getParameterByName(name, url) {
         name = name.replace(/[\[\]]/g, '\\$&');
         let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');

@@ -870,8 +870,6 @@ class MassageController extends Controller
         }
         ########### End Update masseur #####################
 
-
-
         return response()->json(compact('error','message'));
     }
 
