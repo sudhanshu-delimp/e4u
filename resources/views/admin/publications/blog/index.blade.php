@@ -7,9 +7,10 @@
         }
 
         #cke_1_contents {
-            height: 150px !important;
+            height: 250px !important;
         }
-        .custom_w_blog{
+
+        .custom_w_blog {
             max-width: 1000px !important;
         }
     </style>
@@ -440,6 +441,11 @@
 
 
         CKEDITOR.editorConfig = function(config) {
+
+            config.allowedContent = true; // Allow all HTML content
+            config.pasteFilter = null; // Disable paste filtering
+            config.forcePasteAsPlainText = false;
+
             config.toolbarGroups = [{
                     name: 'clipboard',
                     groups: ['clipboard', 'undo']
@@ -563,7 +569,7 @@
                         }, 1000);
                     },
                     error: function(xhr) {
-                         console.log(xhr, 'error');
+                        console.log(xhr, 'error');
                         let msg = 'Something went wrong';
                         if (xhr.responseJSON && xhr.responseJSON.message) {
                             msg = xhr.responseJSON.message;
