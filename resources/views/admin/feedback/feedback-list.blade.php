@@ -77,7 +77,7 @@
                                         <!-- <div class="stat-icon"><i class="fas fa-calendar-week"></i></div> -->
                                         <div class="stat-label">This Month</div>
                                     </div>
-                                    <div class="stat-number" id="pendingFeedback">{{$thisMonthCount}}</div>
+                                    <div class="stat-number">{{$thisMonthCount}}</div>
                                 </div>
 
                                 <div class="stat-card">
@@ -85,7 +85,7 @@
                                         <div class="stat-icon"><i class="fa fa-check"></i></div>
                                         <div class="stat-label">This Year</div>
                                     </div>
-                                    <div class="stat-number" id="complatedFeedback">{{$yearCount}}</div>
+                                    <div class="stat-number" id="">{{$yearCount}}</div>
                                 </div>
 
                                 <div class="stat-card">
@@ -372,8 +372,7 @@ confirm-popup
                     $(".head_modal_title").html("Feedback Updated");
                     $('.comman_msg').html("The feedback status has been successfully changed to Completed.");
                     $('#comman_modal').modal('show');
-                    $('#pendingFeedback').text(data.pending);
-                    $('#complatedFeedback').text(data.completed);
+                    
                 }
             })
         });

@@ -611,12 +611,8 @@ class DashboardController extends BaseController
         $feedback = Feedback::findOrFail($request->id);
         $feedback->status = $request->status;
         $feedback->save();
-        $pendingCount   = Feedback::where('status', 1)->count();
-        $completedCount = Feedback::where('status', 2)->count();
         return response()->json([
             'success'   => true,
-            'completed' => $completedCount,
-            'pending'  => $pendingCount,
             'message'  => $request->status == 2
                 ? 'Feedback marked as Completed.'
                 : 'Feedback marked as Pending.'
