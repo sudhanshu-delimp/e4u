@@ -49,7 +49,7 @@
                     <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
                 </div>
                 <div class="col-md-12">
-                    <form class="v-form-design" id="userProfile" action="{{ route('escort.update.password') }}"
+                    <form class="v-form-design" autocomplete="off" id="userProfile" action="{{ route('escort.update.password') }}"
                         method="POST" autocomplete="off">
                         @csrf
                         <div class="row">

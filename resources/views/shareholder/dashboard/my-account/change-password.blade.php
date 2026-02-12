@@ -44,7 +44,7 @@
                     <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
                 </div>
                 <div class="col-md-12">
-                    <form class="v-form-design" id="userProfile" action="{{ route('escort.update.password') }}"
+                    <form class="v-form-design" autocomplete="off" id="userProfile" action="{{ route('escort.update.password') }}"
                         method="POST">
                         @csrf
                         <div class="row">
@@ -56,6 +56,7 @@
                                         <div class="form-group position-relative">
                                             <label for="current_password">Current password</label>
                                             <input type="password" class="form-control" name="password"
+                                                autocomplete="current-password"
                                                 id="current_password" placeholder="{{config('constants.current_password_placeholder')}}"
                                                 data-parsley-required-message="Current password is required" required>
                                             <span class="toggle-password" toggle="#current_password">
@@ -92,6 +93,7 @@
                                         <div class="form-group position-relative">
                                             <label for="confirm_password">Confirm password</label>
                                             <input type="password" class="form-control" placeholder="Confirm password"
+                                                autocomplete="confirm-password"
                                                 id="confirm_password" name="password_confirmation"
                                                 data-parsley-equalto="#new_password"
                                                 data-parsley-equalto-message="Confirm password should be the same password"
