@@ -875,20 +875,20 @@ class MassageController extends Controller
 
 
 
-    public function mcAjaxList(Request $request)
-    {
+    // public function mcAjaxList(Request $request)
+    // {
        
-       $listings = MassageProfile::where('default_setting','!=','1')
-                ->paginate(1)
-                ->onEachSide(1);
+    //    $listings = MassageProfile::where('default_setting','!=','1')
+    //             ->paginate(1)
+    //             ->onEachSide(1);
 
-        return response()->json([
-            'grid' => view('web.mc.mc-grid-data', compact('listings'))->render(),
-            'list' => view('web.mc.mc-list-data', compact('listings'))->render(),
-            'pagination' => view('web.mc.mc-pagination', compact('listings'))->render(),
-            'total_count' => $listings->total()
-        ]);
-    }
+    //     return response()->json([
+    //         'grid' => view('web.mc.mc-grid-data', compact('listings'))->render(),
+    //         'list' => view('web.mc.mc-list-data', compact('listings'))->render(),
+    //         'pagination' => view('web.mc.mc-pagination', compact('listings'))->render(),
+    //         'total_count' => $listings->total()
+    //     ]);
+    // }
 
 
     // public function updateProfile($id)

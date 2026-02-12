@@ -2,6 +2,22 @@
 
 
  @foreach($listings as $listing)
+
+        @php 
+        $relativePath   =  $listing->imagePosition(1);
+        $currentImage   = asset($relativePath);
+        if(str_contains($currentImage, 'img-11.png'))
+        {
+            $massage_thumb = config('escorts.escort_default_thumb');
+        }
+        else
+        {
+             if($currentImage!= "" && file_exists($relativePath))
+             $massage_thumb  = $currentImage;
+             else
+             $massage_thumb = config('escorts.escort_default_thumb');
+        }
+         @endphp   
         <div class="mc_card">
 
             <div class="mc_card_header">
@@ -17,8 +33,12 @@
             </div>
             <a href="{{ route('web.massage-description') }}" class="mc_card_link">
                 <div class="mc_profile_img">
-                    <img src="{{ asset('assets/app/img/massage/mc1.jpg') }}" alt="Massage Centre 1"
+
+                
+
+                <img src="{{ $massage_thumb }}" alt="Massage Centre 1"
                         class="mc_card_image">
+                 
                 </div>
 
                 <div class="mc_card_content">
@@ -40,22 +60,23 @@
 
                     <div class="items">
                         <span class="title">Parking:</span>
-                        <span class="decs">Front</span>
+                        <span class="decs">{{ config('escorts.profile.Parking.' . $listing->parking, 'N/A') }}</span>
                     </div>
 
                     <div class="items">
                         <span class="title">Building:</span>
-                        <span class="decs">Shop</span>
+                        <span class="decs">{{ config('escorts.profile.Building.' . $listing->parking, 'N/A') }}</span>
                     </div>
 
                      <div class="items">
-                        <span class="title">Shower:</span>
-                        <span class="decs">Yes</span>
+                        <span class="title">Shower:</span> 
+                        <span class="decs">{{ config('escorts.profile.Shower.' . $listing->parking, 'N/A') }}</span>
                     </div>
                 </div>
             </a>
             <div class="mc_card_footer">
                 <a href="#" data-target="#add_wishlist" data-toggle="modal">Add to Shortlist</a>
+                
             </div>
         </div>
         @endforeach

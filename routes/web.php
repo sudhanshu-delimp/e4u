@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
+use App\Http\Controllers\MassageCentre;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\BlogsController;
@@ -301,7 +302,7 @@ Route::post('/advertiser-login', [AdvertiserLoginController::class, 'login']);
 Route::post('/advertiser-logout', [AdvertiserLoginController::class,'logout'])->name('advertiser.logout');
 Route::get('/all-escorts-list', [App\Http\Controllers\WebController::class,'allEscortList'])->name('find.all');
 // Route::get('/all-escorts-list/{gender?}', [App\Http\Controllers\WebController::class,'allEscortList'])->name('find.all');
-Route::get('/massage-centres-list', [App\Http\Controllers\WebController::class,'massageList'])->name('find.massage.centre');
+
 //Route::get('/search-filter', [App\Http\Controllers\WebController::class,'searchfilter'])->name('web.search.filter');
 Route::post('/location/filter', [App\Http\Controllers\WebController::class, 'filterLocation'])->name('location.filter');
 
@@ -762,10 +763,16 @@ Route::post('/save-user-loggged-details', [WebController::class, 'userLoggedDeta
 Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('update-password');
 
 
-Route::get('mc-ajax-list', [MassageController::class, 'mcAjaxList'])->name('mc-ajax-list');
+
 
 
 Route::get('/testscript', function(){
      $num = removeSpaceFromString('456464 645644 4444');
     echo  $num ;
 });
+
+
+
+################### Massage Centre Profile Page Url ###############
+Route::get('massage-centres-list', [MassageCentre::class,'massageList'])->name('find.massage.centre');
+Route::get('mc-ajax-list', [MassageCentre::class, 'mcAjaxList'])->name('mc-ajax-list');

@@ -1,11 +1,32 @@
  @foreach($listings as $listing)
+
+
+        @php 
+        $other_services   = "";
+        $massage_services = "";
+        $relativePath   =  $listing->imagePosition(1);
+        $currentImage   = asset($relativePath);
+        if(str_contains($currentImage, 'img-11.png'))
+        {
+            $massage_thumb = config('escorts.escort_default_thumb');
+        }
+        else
+        {
+             if($currentImage!= "" && file_exists($relativePath))
+             $massage_thumb  = $currentImage;
+             else
+             $massage_thumb = config('escorts.escort_default_thumb');
+        }
+         @endphp   
+
+
         <div class="mc_list_card">
 
             <!-- Left Image -->
 
             <div class="mc_list_img">
                 <a href="{{ route('web.massage-description') }}" class="mc_card_link">
-                    <img src="{{ asset('assets/app/img/massage/mc2.jpg') }}" alt="">
+                    <img src="{{ $massage_thumb }}" alt="">
                 </a>
                     <span class="verify_icon">
                         <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}" alt="">
@@ -21,7 +42,7 @@
 
             <!-- Middle Content -->
             <div class="mc_list_content">
-                <div class="mc_list_content_inner">
+                <div class="mc_list_content_inner w-100">
                     <div class="mc_list_header">
                         <span class="mc_list_title">{{$listing->profile_name}}</span>
                         <span class="mc_list_rating">
@@ -35,40 +56,58 @@
 
                     <div class="mc_list_address">
                         <img src="{{ asset('assets/app/img/gps.png') }}" alt="address" class="custompopicon">
-                        123 Massage St, Perth, WA 6000
+                        {{$listing->address}}
                     </div>
 
                     <div class="mc_list_meta">
-                        <span><strong>Parking:</strong> Front</span>
-                        <span><strong>Entry:</strong> Front</span>
-                        <span><strong>Shower:</strong> Yes</span>
+                        <span><strong>Parking :</strong> {{ config('escorts.profile.Parking.' . $listing->parking, 'N/A') }}</span>
+                        <span><strong>Entry :</strong> {{ config('escorts.profile.Entry.' . $listing->entry, 'N/A') }}</span>
+                        <span><strong>Shower :</strong> {{ config('escorts.profile.Shower.' . $listing->parking, 'N/A') }}</span>
                     </div>
 
                     <div class="mc_list_meta">
-                        <span><strong>Building:</strong> Shop</span>
-                        <span><strong>Type:</strong> Table</span>
-                        <span><strong>Security:</strong> Yes</span>
+                        <span><strong>Building :</strong> {{ config('escorts.profile.Building.' . $listing->parking, 'N/A') }}</span>
+                        <span><strong>Type :</strong> {{ config('escorts.profile.furniture_types.' . $listing->furniture_types, 'N/A') }}</span>
+                        <span><strong>Security :</strong> {{ config('escorts.profile.Security.' . $listing->security, 'N/A') }}</span>
                     </div>
 
                     <div class="mc_list_meta">
-                        <span><strong>Massage Services:</strong> Swedish Massage, Deep Tissue</span>
+                        <span><strong>Massage Services:</strong> 
+                    
+                             @foreach ($listing->massage_services()->where('category_id', 1)->get() as $value)
+                                @php
+                                    $massage_services .= config('escorts.profile.massage-services')[$value->service_id] . ', ';
+                                @endphp
+                            @endforeach
+
+                            {{ rtrim($massage_services, ', ') }}
+                    </span>
                     </div>
+
+
                     <div class="mc_list_meta">
-                        <span><strong>Other Service Types:</strong> Aromatherapy, Body Scrub</span>
+                        <span><strong>Other Service Types:</strong> 
+                        
+                        @foreach ($listing->massage_services()->where('category_id', 2)->get() as $value)
+                                @php
+                                    $other_services .= config('escorts.profile.other-services')[$value->service_id]   . ', ';
+                                @endphp
+                            @endforeach
+
+                            {{ rtrim($other_services, ', ') }}
+                    
+                    
+                    </span>
                     </div>
 
                     <div class="mc_list_about">
                         <strong>About Us</strong><br>
                         {{-- <p class="mc_list_desc"> Beautiful Girls Available Every Day in Rockingham, Mandurah, and Fremantle.</p> --}}
                         <p class="mc_list_desc">
-                            Beautiful Girls Available Every Day in Rockingham, Mandurah, and Fremantle.
-                            This is extra text added to make sure the content exceeds four lines so we can test
-                            the read more link functionality properly and append the link at the end of the fourth line
-                            correctly.
-                            Beautiful Girls Available Every Day in Rockingham, Mandurah, and Fremantle.
-                            This is extra text added to make sure the content exceeds four lines so we can test
-                            the read more link functionality properly and append the link at the end of the fourth line
-                            correctly.<a href="#" class="read-more-link">Read More</a>
+
+                         {{ Str::limit($listing->about_us_box, 230) }}
+
+                            <a href="#" class="read-more-link">Read More</a>
                         </p>
                     </div>
                 </div>

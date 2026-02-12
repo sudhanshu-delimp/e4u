@@ -1212,7 +1212,22 @@ if (!function_exists('get_working_hours')) {
 
            if($current_day_data['status'] == 'til_late')
            {
-                return 
+              return strtolower($current_day_data['from']).'...'.' Till late';
+           }
+
+           else if($current_day_data['status'] == 'closed')
+           {
+              return 'Closed';
+           }
+
+          else if($current_day_data['status'] == '24_hours')
+           {
+              return strtolower($current_day_data['from']).' to '.$current_day_data['to'];
+           }
+
+           else if($current_day_data['status'] == 'custom')
+           {
+              return strtolower($current_day_data['from']).' to '.$current_day_data['to'];
            }
 
            
