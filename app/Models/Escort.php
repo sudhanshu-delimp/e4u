@@ -187,12 +187,14 @@ class Escort extends Model
 
     public function latestActivePinup(){
         return $this->hasOne(EscortPinup::class)
+        ->whereNotNull('start_date')
         ->where('utc_end_time', '>=', Carbon::now('UTC'))
         ->latestOfMany('utc_end_time');
     }
 
     public function currentActivePinup(){
         return $this->hasOne(EscortPinup::class)
+        ->whereNotNull('start_date')
         ->where('utc_start_time', '<=', now('UTC'))
         ->where('utc_end_time', '>=', now('UTC'))
         ->latestOfMany('utc_end_time');

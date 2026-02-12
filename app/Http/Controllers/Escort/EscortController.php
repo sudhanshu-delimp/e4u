@@ -213,6 +213,7 @@ class EscortController extends BaseController
             ->get();
 
         $activePinup = EscortPinup::where('user_id', auth()->user()->id)
+            ->whereNotNull('start_date')
             ->where('utc_end_time', '>=', $today) // still active (today or future)
             ->exists();
 
