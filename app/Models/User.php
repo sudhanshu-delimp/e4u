@@ -865,8 +865,8 @@ class User extends Authenticatable
             $settings = $user->massage_settings;
         } elseif ($user->type == '5') {
             $settings = $user->agent_settings;
-        } elseif ($user->type == '7') {
-            $settings = $user->operator_settings;
+        } elseif ($user->type == '9') {
+            $settings = $user->operator_staff_setting;
         }
 
         if (isset($settings->twofa) && ($settings->twofa == '1' && $user->email != "")) {

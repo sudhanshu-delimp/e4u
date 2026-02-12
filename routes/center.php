@@ -429,13 +429,17 @@ Route::get('visa',function(){
     return view('center.dashboard.Concierge.visa');
 })->name('center.visa');
 
-Route::get('profiles-tours',function(){
-    return view('center.dashboard.Annalytics.profiles-tours');
-})->name('profiles-tours');
+Route::get('profiles',function(){
+    return view('center.dashboard.Annalytics.profiles');
+})->name('profiles');
 
 Route::get('masseurs',function(){
     return view('center.dashboard.Annalytics.masseurs');
 })->name('masseurs');
+
+Route::get('feedback',function(){
+    return view('center.dashboard.Annalytics.feedback');
+})->name('feedback');
 
 Route::get('social-media',function(){
     return view('center.dashboard.Annalytics.social-media');

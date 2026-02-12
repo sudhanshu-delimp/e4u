@@ -55,11 +55,12 @@
                     <div class="col-md-6 mb-5">
                         <!-- Change Password Form -->
                         <form class="v-form-design" id="userProfile" action="{{ route('center.update.password') }}"
-                            method="POST" novalidate>
+                            method="POST" autocomplete="off" novalidate>
                             @csrf
                             <div class="form-group position-relative">
                                 <label for="current_password">Current Password</label>
                                 <input type="password" class="form-control" name="password" id="current_password"
+                                    autocomplete="current-password"
                                     placeholder="{{config('constants.current_password_placeholder')}}"
                                     data-parsley-required-message="Current password is required" required>
                                 <span class="toggle-password" toggle="#current_password">
@@ -90,7 +91,7 @@
                                 <label for="confirm_password">Confirm Password</label>
                                 <input type="password" class="form-control" name="password_confirmation"
                                     id="confirm_password" placeholder="Confirm password" required
-                                    autocomplete="new-password" data-parsley-equalto="#new_password"
+                                    autocomplete="confirm-password" data-parsley-equalto="#new_password"
                                     data-parsley-equalto-message="Confirm password must match.">
                                 <span class="toggle-password" toggle="#confirm_password">
                                     <i class="fa fa-eye"></i>

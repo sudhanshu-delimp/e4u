@@ -13,12 +13,12 @@
  
   .tooltip-wrapper .tooltip-text {
     visibility: hidden;
-    background-color: #2B3D50;
+    background-color: #ff3c5f;
     color: #fff;
     text-align: center;
     border-radius: 5px;
     font-size: 12px;
-    padding: 5px 8px;
+    padding: 2px 5px;
     position: absolute;
     z-index: 1;
     bottom: 110%; /* tooltip upar show ho */
@@ -38,7 +38,7 @@
     transform: translateX(-50%);
     border-width: 5px;
     border-style: solid;
-    border-color: #2B3D50 transparent transparent transparent; /* top arrow */
+    border-color: #ff3c5f transparent transparent transparent; /* top arrow */
   }
  
   .tooltip-wrapper:hover .tooltip-text {
@@ -274,10 +274,10 @@
         <div class="row">
            
             <div class="col-md-8 col-xl-8 col-sm-12 col-12">
-                <div class="row">
-                    <div class="col-md-12 col-xl-8 col-sm-12 col-12">
+                <div class="row mb-3">
+                    <div class="col-md-12 col-xl-12 col-sm-12 col-12">
                         <div class="row mess_row">
-                            <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4">
+                            <div class="col-sm-12 d-flex align-items-center justify-content-between flex-wrap ">
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
                                     <div class="mc_tooltip_wrap">
                                          <img src="{{ asset('assets/app/img/handwithhart.png') }}">
@@ -299,8 +299,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4">
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
                                      <div class="mc_tooltip_wrap">
                                           <img src="{{ asset('assets/app/img/areodownimg.png') }}">
@@ -322,8 +320,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-4 col-md-4 col-sm-6 col-6 mb-4 mx-auto">
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
                                     
                                      <div class="mc_tooltip_wrap">
@@ -345,17 +341,14 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-xl-4 col-sm-12 text-center">
-                        <button type="button" class="btn my_legbox all_btn_flx" id="legbox_btn">
+                                {{-- button --}}
+                                <button type="button" class="btn my_legbox all_btn_flx" id="legbox_btn">
                             @if(auth()->user())
                                 @if(auth()->user()->type == 0)
                                     <span class="add_to_favrate @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif"
                                         id="legboxId_{{$escort->id}}" data-escortId="{{$escort->id}}"
                                         data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
-                        @if(!empty($user_type))
+                                        @if(!empty($user_type))
                                             @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
                                                 <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
                                             @else
@@ -375,7 +368,37 @@
                                 @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
                             </span>
                         </button>
+                            </div>
+                        </div>
                     </div>
+                    {{-- <div class="col-md-12 col-xl-4 col-sm-12 text-center">
+                        <button type="button" class="btn my_legbox all_btn_flx" id="legbox_btn">
+                            @if(auth()->user())
+                                @if(auth()->user()->type == 0)
+                                    <span class="add_to_favrate @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif"
+                                        id="legboxId_{{$escort->id}}" data-escortId="{{$escort->id}}"
+                                        data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
+                                        @if(!empty($user_type))
+                                            @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
+                                                <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
+                                            @else
+                                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                            @endif
+                                        @endif
+                                    </span>
+                                @else
+                                    <span class="add_to_favrate"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                                @endif
+                            @else
+                                <span class="add_to_favrate" data-escortId="{{$escort->id}}"
+                                      data-name="{{$escort->name}}"><i class="fa fa-heart-o"
+                                                                       aria-hidden="true"></i></span>
+                            @endif
+                            <span class="label save-my-legbox-btn">
+                                @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
+                            </span>
+                        </button>
+                    </div> --}}
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-12 table-width-dk mb-2 table-responsive">

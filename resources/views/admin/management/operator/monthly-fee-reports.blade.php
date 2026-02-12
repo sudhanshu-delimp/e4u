@@ -76,20 +76,19 @@
                                                         class="dropdown-item align-item-custom toggle-massage-notification"
                                                         href="#" title="Click to disable notification">
                                                     </a>
-                                                     <div class="dropdown-divider"></div>
+                                                     
                                                     <a class="dropdown-item align-item-custom" data-toggle="modal"
                                                         data-target="#payAgentreport" href=""> <i
                                                             class="fa fa-check-circle" aria-hidden="true"></i>
                                                         Approve</a>
                                                     <div class="dropdown-divider"></div>
-                                                </div>
-
-                                                <div class="custom-tooltip-container">
                                                     <a class="dropdown-item align-item-custom" href="#"
                                                         data-toggle="modal" data-target="#viewAgentreport"> <i
                                                             class="fa fa-eye" aria-hidden="true"></i>
                                                         View Report</a>
                                                 </div>
+
+                                                
                                             </div>
 
                                         </div>

@@ -103,8 +103,8 @@
     </style>
 @endsection
 @section('content')
-    <section class="padding_bottom_eight_px myblog-design details-card">
-        <div class="blog-hero-section py-5">
+    <section class="myblog-design details-card">
+        <div class="blog-hero-section pt-5">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-6 mb-3 mb-md-0">

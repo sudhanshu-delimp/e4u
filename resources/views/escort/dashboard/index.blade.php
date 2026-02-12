@@ -629,7 +629,7 @@
 
                             <tr>
                                 <td style="padding: 30px; text-align: justify;">
-                                    <h4>Hello {{auth()->user()->name}},</h4>
+                                    <p>Hello {{auth()->user()->name}},</p>
                                     <p>
                                         Thank you for selecting E4U to advertise your companionship. The team at E4U is
                                         here to

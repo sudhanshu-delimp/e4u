@@ -39,6 +39,7 @@ use App\Http\Controllers\User\Dashboard\UserController;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
+    
 });
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
 Route::post('/update-account', [DashboardController::class, 'update'])->name('admin.account.update');
@@ -771,6 +772,20 @@ Route::get('publications/alerts', function () {
     return view('admin.publications.alerts');
 })->name('admin.alerts');
 
+
+Route::get('feedback', [DashboardController::class, 'feedback'])
+    ->name('admin.feedback');
+    
+Route::get('feedback-reports-ajax', [DashboardController::class, 'getSingleFeedbacktReport'])->name('admin.feedback-reports-ajax');
+
+
+Route::get('feedback-list', [DashboardController::class, 'feedbackList'])
+    ->name('admin.feedback.dataTable');
+    
+Route::post('feedback-status-change', [DashboardController::class, 'feedbackStatusChange'])
+    ->name('admin.feedback.status.change');
+
+Route::get('print-single-feedback-reports', [DashboardController::class, 'printSingleFeedbackReport'])->name('admin.print.single-feedback-reports');
 
 Route::get('/management/punterbox-reports', function () {
     return view('admin.management.punterbox-report');
