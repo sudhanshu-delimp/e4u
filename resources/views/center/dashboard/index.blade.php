@@ -411,7 +411,7 @@
 
                             <tr>
                                 <td style="padding: 30px; text-align: justify;">
-                                    <h4>Hello {{auth()->user()->name}},</h4>
+                                    <p>Hello {{auth()->user()->name}},</p>
                                     <p>
                                         Thank you for selecting E4U to advertise your business. The team at E4U is here to help
                                         you. Here is some important information you need to know:
@@ -447,13 +447,6 @@
                                             information you have not completed.</li>
                                     </ol>
 
-                                    <form action="">
-
-                                        <input type="checkbox" name="registration" id="goToAboutMe">
-                                        <label for="goToAboutMe">Do you want to complete your Registration now? (Recommended, only takes a few
-                                            minutes)</label>
-                                    </form>
-
                                     <h4 style="margin-top: 25px;">Heads Up!</h4>
                                     <p>
                                         We have designed a unique Profile creator that enables you to complete many functions to
@@ -470,7 +463,12 @@
                                     <p>You can create as many Profiles as you want, especially if you have more than one Massage
                                         Centre. You can do that by duplicating Profiles. Create the first one, and then duplicate it
                                         for as many times as you want.</p>
+                                            <form action="">
 
+                                        <input type="checkbox" name="registration" id="goToAboutMe">
+                                        <label for="goToAboutMe">Do you want to complete your Registration now? (Recommended, only takes a few
+                                            minutes)</label>
+                                    </form>
 
                                 </td>
                             </tr>

@@ -42,6 +42,24 @@
                         <h1 class="h1">Feedback</h1>
                         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                     </div>
+                    
+                    <div class="col-md-12 mb-4">
+                        <div class="card collapse" id="notes">
+                            <div class="card-body">
+                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                <ol>
+                                    <li>Feedback is generated from the public Website.</li>
+                                    <li>When Feedback is received, print and refer the Feedback to the Managing
+                                        Director.</li>
+                                    <li>No action is to be taken on Feedback without the Managing Director’s approval.
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
                     <div class="col-md-12 mb-4">
                         <div class="stats-container">
                             <div class="stat-card-wrapper">
@@ -77,20 +95,6 @@
                                     </div>
                                     <div class="stat-number">{{$totalCount}}</div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 mb-4">
-                        <div class="card collapse" id="notes">
-                            <div class="card-body">
-                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                <ol>
-                                    <li>Feedback is generated from the public Website.</li>
-                                    <li>When Feedback is received, print and refer the Feedback to the Managing
-                                        Director.</li>
-                                    <li>No action is to be taken on Feedback without the Managing Director’s approval.
-                                    </li>
-                                </ol>
                             </div>
                         </div>
                     </div>
@@ -222,8 +226,6 @@
             </div>
         </div>
     </div>
-
-
 </div>
 
 <!-- confirm modal here  -->
