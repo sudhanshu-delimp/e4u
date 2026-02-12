@@ -114,8 +114,8 @@ class TrackLastPageVisitMiddlware
                     } 
                 }
                  
-            } elseif(auth()->user()->type == 7) {
-                $idle_preference_time = (auth()->user()->operator_setting && auth()->user()->operator_setting->idle_preference_time) ? auth()->user()->operator_setting->idle_preference_time : '60';
+            } elseif(auth()->user()->type == 9) {
+                $idle_preference_time = (auth()->user()->operator_staff_setting && auth()->user()->operator_staff_setting->idle_preference_time) ? auth()->user()->operator_staff_setting->idle_preference_time : '60';
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
                 return redirect()->route('operator-login')

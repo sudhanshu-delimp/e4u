@@ -81,8 +81,8 @@
             style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="#" data-toggle="collapse" data-target="#Administration"
+        <li class="nav-item ">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Administration"
                 aria-expanded="false" aria-controls="Administration">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/administration.png') }}">
                 <span>Administration</span>
@@ -534,7 +534,7 @@
                 style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed {{request()->segment(2) == 'feedback' ? '': 'collapsed'}}" href="#" data-toggle="collapse" data-target="#Management"
+                <a class="nav-link {{request()->segment(2) == 'feedback' ? '' : 'collapsed'}}" href="#" data-toggle="collapse" data-target="#Management"
                     aria-expanded="false" aria-controls="Management">
                     <img width="16" height="17"
                         src="{{ asset('assets/dashboard/img/menu-icon/management.png') }}">
