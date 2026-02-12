@@ -145,7 +145,7 @@ class PinUpsController extends AppController
                 // Only include if full week is within profile listing range
             
                 //if ($weekStart->gte(Carbon::parse($escort->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($escort->end_date)->endOfDay()) && $weekEnd->gte($today->startOfDay())) {
-                if (1==1) {
+                if ($weekEnd->gte($today->startOfDay())) {
                     $weeks->push([
                         'start' => $weekStart->toDateString(),
                         'end' => $weekEnd->toDateString()
