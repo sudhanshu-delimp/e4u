@@ -188,7 +188,9 @@
             var form = $(this);
             var url = form.attr('action');
             var data = new FormData($('#myfeedback')[0]);
-            $('#btnSubmit').prop('disabled', true);
+                if (!form.parsley().isValid()) {
+                    return false; // ❌ validation fail → AJAX nahi jayega
+                }
             $.ajax({
                 method: form.attr('method'),
                 url:url,

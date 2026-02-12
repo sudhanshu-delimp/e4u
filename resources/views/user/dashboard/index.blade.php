@@ -287,7 +287,7 @@
 
                             <tr>
                                 <td style="padding: 30px; text-align: justify;">
-                                    <h4>Hello {{auth()->user()->name ?? auth()->user()->email}},</h4>
+                                    <p>Hello {{auth()->user()->name ?? auth()->user()->email}},</p>
                                     <p>
                                         Thank you for selecting E4U as your preferred Website for locating companionship. The
                                         team at E4U is here to help you. Here is some important information you need to know:
