@@ -349,7 +349,7 @@
                 var form = $(this);
                 var url = form.attr('action');
                 var formData = new FormData($("#admin_login")[0]);
-                console.log(formData);
+                //console.log(formData);
                 var token = $('input[name="_token"]').attr('value');
 
                 $.ajax({
@@ -363,7 +363,7 @@
                         'X-CSRF-Token': token
                     },
                     success: function(data) {
-                        console.log(data);
+                       // console.log(data);
                         $('#formerror').html('');
                         Swal.close();
                         var ph = data.phone;
