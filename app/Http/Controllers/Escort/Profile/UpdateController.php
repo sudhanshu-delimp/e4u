@@ -1434,6 +1434,7 @@ class UpdateController extends AppController
         $escort->images()->delete();
         $escort->videos()->delete();
         $escort->messages()->delete();
+        $escort->pinup()->update(['start_date'=>null,'end_date'=>null]);
         $this->escort->destroy($id);
         $error = 1;
 
