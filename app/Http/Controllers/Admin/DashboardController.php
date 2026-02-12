@@ -101,8 +101,8 @@ class DashboardController extends BaseController
     }
     public function editPassword()
     {
-        $escort = $this->user->find(auth()->user()->id);
-        return view('admin.my-account.change-password');
+        $user = $this->user->find(auth()->user()->id);
+        return view('admin.my-account.change-password', compact('user'));
     }
 
     /**

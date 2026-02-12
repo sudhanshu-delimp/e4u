@@ -44,12 +44,12 @@
                             style="{{ request()->segment(2) == 'change-password'  ? 'color: #f5841f;' : '' }}">Change
                             password</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('operator.upload-avatar') }}">
+                   {{--  <a class="collapse-item" href="{{ route('operator.upload-avatar') }}">
                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'upload-avatar' ? 'color: #f5841f;' : '' }}">Upload
                             my avatar</span>
-                    </a>
+                    </a> --}}
                     <a class="collapse-item" href="{{ route('operator.bank-account') }}">
                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                         <span

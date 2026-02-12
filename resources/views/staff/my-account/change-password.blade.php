@@ -88,7 +88,7 @@
                     </div>
                     @endif
 
-                    <form class="v-form-design" id="userProfile" action="{{ route('staff.update.password')}}" method="POST">
+                    <form class="v-form-design"  autocomplete="off" id="userProfile" action="{{ route('staff.update.password')}}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
@@ -96,7 +96,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group position-relative">
                                             <label for="current_password">Current password</label>
-                                            <input type="password" class="form-control" value="{{ old('password') }}" name="password" id="passwordN" placeholder="Current password" data-parsley-required-message="Current password is required" required>
+                                            <input type="password" class="form-control"  autocomplete="current-password" value="{{ old('password') }}" name="password" id="passwordN" placeholder="{{config('constants.current_password_placeholder')}}" data-parsley-required-message="Current password is required" required>
                                             <span class="toggle-password" toggle="#passwordN">
                                                 <i class="fa fa-eye"></i>
                                             </span>
@@ -104,7 +104,7 @@
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                             <div class="pt-1">
-                                                <small id="emailHelp"><i>Case sensitive</i></small>
+                                                <small id="emailHelp"><i>{{config('constants.current_password_notify')}}</i></small>
                                             </div>
                                         </div>
                                     </div>
@@ -128,7 +128,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group position-relative">
                                             <label for="confirm_password">Confirm password</label>
-                                            <input type="password" class="form-control" placeholder="Confirm password" id="confirm_password" aria-describedby="emailHelp" name="password_confirmation" data-parsley-equalto="#new_password" data-parsley-equalto-message="Confirm password should be the same password." required="true" autocomplete="new-password" data-parsley-required-message="Confirm password is required">
+                                            <input type="password" class="form-control" placeholder="Confirm password" id="confirm_password" aria-describedby="emailHelp" name="password_confirmation" data-parsley-equalto="#new_password" data-parsley-equalto-message="Confirm password should be the same password." required="true" autocomplete="confirm-password" data-parsley-required-message="Confirm password is required">
                                             <span class="toggle-password" toggle="#confirm_password">
                                                 <i class="fa fa-eye"></i>
                                             </span>

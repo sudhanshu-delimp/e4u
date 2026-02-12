@@ -12,7 +12,7 @@
         <div class="d-user-info">
             <div class="common_top_menu">
                 <span>
-                    <b>Welcome back : </b><span class="user-values">{{ auth()->user()->business_name }}</span>
+                    <b>Welcome back : </b><span class="user-values">{{ auth()->user()->name }}</span>
                 </span>
                 <span>
                     <span class="separator">|</span>
@@ -130,7 +130,7 @@
                 </a>
                 <a class="dropdown-item" href="#">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/opr-user.png') }}">
-                    User Name: {{ auth()->user()->business_name }}
+                    User Name: {{ auth()->user()->name }}
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('operator.edit-my-account') }}">

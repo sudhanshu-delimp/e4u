@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Operator\AddNewOperator;
 use App\Models\Operator;
+use App\Models\OperatorStaff;
+use App\Http\Requests\Operator\UpdateStaffMyAccount;
 use App\Repositories\Operator\OperatorInterface;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\Operator\UpdateMyAccountOperator;
@@ -41,14 +43,64 @@ class OperatorController extends BaseController
      */
     public function editMyaccount()
     {
-        $operator = Operator::with('operator_detail', 'operator_setting')->where("id", auth()->user()->id)->first();
-        return view('operator.dashboard.my-account.edit-my-account', compact('operator'));
+        $staff = OperatorStaff::with('operator')->where("id", auth()->user()->id)->first();
+        $operator = $staff->operator;
+        return view('operator.dashboard.my-account.edit-my-account', compact('staff', 'operator'));
     }
 
     public function editPassword()
     {
-         $user = $this->user->find(auth()->user()->id);
+        $user = $this->user->find(auth()->user()->id);
         return view('operator.dashboard.my-account.change-password', compact('user'));
+    }
+
+    /**
+     * Update My Account
+     *
+     * @param  UpdateStaffMyAccount  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateStaff(UpdateStaffMyAccount $request)
+    {
+        $data = [];
+        $data = [
+            //'name' => $request->name,
+            //'gender' => $request->gender,
+            'phone' =>  $request->phone,
+            //'city_id' =>  $request->location,
+            //'gender' =>  $request->gender,
+        ];
+
+        $error = true;
+        if ($this->user->store($data, auth()->user()->id)) {
+            $data = $request->all();
+            $user = OperatorStaff::where('id', $data['user_id'])->first();
+            $staff = $user->operator_staff_detail;
+            $staff->update([
+                //'name' => $data['name'] ?? $staff->name,
+                'address' => $data['address'] ?? $staff->address,
+                'kin_name' => $data['kin_name'] ?? "",
+                'kin_relationship' => $data['kin_relationship'] ?? "",
+                'kin_mobile' => $data['kin_mobile'] ?? "",
+                'kin_email' => $data['kin_email'] ?? "",
+                //'location' => $data['location'] ?? $staff->location,
+                //'security_level' => $data['security_level'] ?? 3,
+                //'position' => $data['security_level'] ?? 3,
+                //'commenced_date' => $data['commenced_date'] ?? $staff->commenced_date,
+                //'employment_status' => $data['employment_status'] ?? $staff->employment_status,
+                //'employment_agreement' => $data['employment_agreement'] ?? $staff->employment_agreement,
+                //'building_access_code' => $data['building_access_code'] ?? $staff->building_access_code,
+                //'keys_issued' => $data['keys_issued'] ?? $staff->keys_issued,
+                //'car_parking' => $data['car_parking'] ?? $staff->car_parking,
+            ]);
+            $staffSetting = \App\Models\OperatorStaffSetting::firstOrNew(['user_id' => $user->id]);
+            $staffSetting->idle_preference_time = $data['idle_preference_time'] ?? null;
+            $staffSetting->twofa = $data['twofa'] ?? '2';
+            $staffSetting->save();
+            $error = false;
+        }
+        return response()->json(compact('error'));
     }
 
     /**
@@ -67,7 +119,7 @@ class OperatorController extends BaseController
             'abn' => $request->abn ?? null,
             'business_address' => $request->business_address ?? null,
             'business_number' => $request->business_number ?? null,
-            'contact_type' => isset( $request->contact_type)  ? json_encode($request->contact_type) : null,
+            'contact_type' => isset($request->contact_type)  ? json_encode($request->contact_type) : null,
         ];
 
         $error = true;
@@ -117,6 +169,7 @@ class OperatorController extends BaseController
      */
     public function uploadAvatar()
     {
+        return response()->redirectTo('/operator-dashboard');
         return view('operator.dashboard.my-account.upload-avatar');
     }
     public function storeMyAvatar(StoreAvatarMediaRequest $request, $id)

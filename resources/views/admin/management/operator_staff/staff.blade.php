@@ -70,21 +70,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-content">
-
                                                 </tbody>
-                                                <tfoot class="bg-first">
-                                                    <tr>
-                                                        <th colspan="3" class="text-left">Server time:
-                                                            <span class="serverTime">{{ getServertime() }}</span>
-                                                        </th>
-                                                        <th colspan="3" class="text-center">Refresh time:
-                                                            <span class="refreshSeconds"> 15</span>
-                                                        </th>
-                                                        <th colspan="6" class="text-right">Up time:
-                                                            <span class="uptimeClass">{{ getAppUptime() }}</span>
-                                                        </th>
-                                                    </tr>
-                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>
@@ -172,7 +158,7 @@
                             <div class="col-6 mb-3">
                                 <select class="form-control" name="gender" id="gender">
                                     <option value="">Select Gender</option>
-                                    @foreach (config('staff.genders') as $key => $gender)
+                                    @foreach (config('operator_staff.genders') as $key => $gender)
                                         <option value="{{ $key }}">{{ $gender }}</option>
                                     @endforeach
                                 </select>
@@ -272,7 +258,7 @@
                             <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="employment_status" id="employment_status">
                                     <option value="">Select Employment Status</option>
-                                    @foreach (config('staff.employment_status') as $key => $empStatus)
+                                    @foreach (config('operator_staff.employment_status') as $key => $empStatus)
                                         <option value="{{ $key }}">{{ $empStatus }}</option>
                                     @endforeach
                                 </select>
@@ -345,7 +331,7 @@
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="idle_preference_time"
                                             id="idle_preference_time_never"
-                                            value="{{ config('staff.idle_vever_minute') }}">
+                                            value="{{ config('operator_staff.idle_vever_minute') }}">
                                         <label class="form-check-label" for="idle_preference_time_never">Never</label>
                                     </div>
 

@@ -94,7 +94,7 @@
                                                                 </select>
                                                             </span>
                                                         </td>
-                                                        <td colspan="2" class="text-center"><b>YoY<sup>(1)</sup>
+                                                        <td colspan="2" class="text-center"><b>YoY<sup>(2)</sup>
                                                                 Growth<sup>(5)</sup></b> </td>
                                                         <td colspan="3" class="text-center bg-first">
                                                             <b>
@@ -201,7 +201,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="text-right">Registrations</td>
-                                                        <td>$ 0.00</td>
+                                                        <td>N/A</td>
                                                         <td>$ 40.00</td>
                                                         <td>2</td>
                                                         <td>$ 53.00</td>
@@ -576,12 +576,11 @@
                                                                     <td class="bg-first text-right"><b>Select FY</b></td>
                                                                     <td>
                                                                         <select class="rounded-0 w-100">
-                                                                            <option class="text-secondary">Select Date
-                                                                            </option>
-                                                                            <option class="text-secondary">2022</option>
-                                                                            <option class="text-secondary"ssssssselect>
+                                                                            <option class="text-secondary">Select Date</option>
+                                                                            <option class="text-secondary">2025</option>
+                                                                            <option class="text-secondary">2026</option>
                                                                     </td>
-                                                                    <td class="bg-first text-right"><b>Average (p / A)</b>
+                                                                    <td class="bg-first text-right"><b>Average (P / Advertiser)</b>
                                                                     </td>
                                                                     <td class="text-right">$ 121.65</td>
                                                                 </tr>
@@ -817,7 +816,7 @@
                         <div class="row mb-2">
                             <div class="col-sm-8">
                                 <div class="card border-0">
-                                    <div class="table-responsive membership--inner">
+                                    <div class="table-responsive">
                                         <table class="table table-bordered  mb-0">
                                             <thead class="bg-first">
                                                 <tr>
@@ -1128,7 +1127,7 @@
                         <div class="row mb-2">
                             <div class="col-sm-5 pl-0">
                                 <div class="card border-0">
-                                    <div class="table-responsive membership--inner">
+                                    <div class="table-responsive">
                                         <table class="table table-bordered mb-0">
                                             <thead class="bg-first">
                                                 <tr>

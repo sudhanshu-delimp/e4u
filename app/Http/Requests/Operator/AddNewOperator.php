@@ -32,14 +32,16 @@ class AddNewOperator extends FormRequest
 
         return [
             //'company_name' => 'bail|required|string|max:100',
-            'company_name' => ['bail','required','string','max:100',Rule::unique('users', 'name')->where('type', 7)->ignore($userId)],
+            'company_name' => ['bail', 'required', 'string', 'max:100', Rule::unique('users', 'name')->where('type', 7)->ignore($userId)],
             'business_name' => 'bail|required|string|max:100',
             'abn' => 'required|digits:11',
             'business_address' => 'bail|required|string|max:255',
             'business_number' => "bail|required|min:10|max:14",
             'point_of_contact' => 'bail|required|string|max:100', // Point of contact
-            'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}", //Mobile
-            'email' => "bail|required|email|max:100|email:rfc,filter|unique:users,email,{$userId}",
+            //'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}", //Mobile
+            'phone' => "bail|required|min:10|max:14", //Mobile
+            //'email' => "bail|required|email|max:100|email:rfc,filter|unique:users,email,{$userId}",
+            'email' => "bail|required|email|max:100|email:rfc,filter",
             //'state_id' => 'required',
             'country_id' => 'required',
             'contact_type' => 'required',
@@ -53,6 +55,15 @@ class AddNewOperator extends FormRequest
             'commission_advertising_percent' => 'required',
             'commission_massage_centre_percent' => 'required',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->has('abn')) {
+            $this->merge([
+                'abn' => preg_replace('/\D/', '', $this->input('abn')),
+            ]);
+        }
     }
 
     public function messages()

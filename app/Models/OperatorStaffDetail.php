@@ -84,4 +84,16 @@ class OperatorStaffDetail extends Model
                 return 'N/A';
         }
     }
+
+    public function getKinMobileAttribute($value)
+    {
+      return formatMobileNumber($value);
+    }
+
+    public function setKinMobileAttribute($value)
+    {
+    
+        $clean = removeSpaceFromString($value);
+        $this->attributes['kin_mobile'] = $clean;
+    }
 }

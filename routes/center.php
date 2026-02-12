@@ -120,6 +120,7 @@ Route::post('load-default-masseur-list', [MasseurController ::class, 'get_load_d
 
 
 
+
 Route::post('create-action-messure-profile', [MasseurController::class, 'action_messure_profile'])->name('center.action-messure-profile');
 Route::get('create-check-messure-profile', [MasseurController::class, 'count_messure_profile'])->name('center.check-messure-profile');
 
@@ -221,9 +222,9 @@ Route::get('manage-media',function(){
     return view('center.dashboard.manage-media');
 })->name('center.dashboard.manage-media');
 
-Route::get('masseurs-statistics',function(){
-    return view('center.dashboard.masseurs-statistics');
-})->name('center.dashboard.masseurs-statistics');
+// Route::get('masseurs-statistics',function(){
+//     return view('center.dashboard.masseurs-statistics');
+// })->name('center.dashboard.masseurs-statistics');
 
 // Route::get('logs-and-status',function(){
 //     return view('center.dashboard.logs-and-status');
@@ -431,6 +432,10 @@ Route::get('visa',function(){
 Route::get('profiles-tours',function(){
     return view('center.dashboard.Annalytics.profiles-tours');
 })->name('profiles-tours');
+
+Route::get('masseurs',function(){
+    return view('center.dashboard.Annalytics.masseurs');
+})->name('masseurs');
 
 Route::get('social-media',function(){
     return view('center.dashboard.Annalytics.social-media');

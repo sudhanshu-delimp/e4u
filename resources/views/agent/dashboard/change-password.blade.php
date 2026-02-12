@@ -64,7 +64,7 @@
 
         <div class="row">
             <div class="col-md-12 mb-5">
-                <form class="v-form-design" id="userProfile" action="{{ route('agent.update.password') }}" method="POST">
+                <form class="v-form-design" autocomplete="off"  id="userProfile" action="{{ route('agent.update.password') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -75,13 +75,14 @@
                                     <div class="form-group position-relative">
                                         <label for="current_password">Current password</label>
                                         <input type="password" class="form-control" name="password" id="current_password"
-                                            placeholder="Current password"
+                                            placeholder="{{config('constants.current_password_placeholder')}}"
+                                            autocomplete="current-password"
                                             data-parsley-required-message="Current password is required" required>
                                         <span class="toggle-password" toggle="#current_password">
                                             <i class="fa fa-eye"></i>
                                         </span>
                                         <div class="pt-1">
-                                            <small><i>Case sensitive</i></small>
+                                            <small><i>{{config('constants.current_password_notify')}}</i></small>
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +115,7 @@
                                             id="confirm_password" name="password_confirmation"
                                             data-parsley-equalto="#new_password"
                                             data-parsley-equalto-message="Confirm password should be the same password"
-                                            required autocomplete="new-password"
+                                            required autocomplete="confirm-password"
                                             data-parsley-required-message="Confirm password is required">
                                         <span class="toggle-password" toggle="#confirm_password">
                                             <i class="fa fa-eye"></i>
