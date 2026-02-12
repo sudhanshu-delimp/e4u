@@ -20,7 +20,7 @@ if (auth()->check())
             if($user->type==1)
             $open_pop_up = $user?->account_setting?->is_first_login === "1";
 
-            if($user->type==7)
+            if($user->type==9)
             $open_pop_up = $user?->account_setting?->is_first_login === "1";
 
 
@@ -55,7 +55,7 @@ if (auth()->check())
             if( $user->type==1)
             $submit_url  = 'admin.change.password';
 
-            if( $user->type==7)
+            if( $user->type==9)
             $submit_url  = 'operator.update-password';
     
 }

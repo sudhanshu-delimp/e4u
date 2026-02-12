@@ -23,7 +23,7 @@ class OperatorAuth
             return redirect()->route('operator.login');
         }
 
-        if($user->type != 7) {
+        if($user->type != 9) {
             return redirect('/');
         }
 

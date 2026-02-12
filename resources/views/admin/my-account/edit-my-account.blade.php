@@ -304,8 +304,8 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email" class="my-agent">Idle Time
-                                                                Preference</label>
+                                                            
+                                                    <h5 class="border-bottom pb-1 text-blue-primary">Idle Time Preference</h5>
                                                             {{--  <p class="input_not_edit">{{$idle_preference_time }}</p>  --}}
                                                             <p>
                                                             <div class="form-check-inline">
@@ -354,8 +354,7 @@
                                                     <div class="col-md-6">
 
                                                         <div class="form-group">
-                                                            <label for="email" class="my-agent">2FA
-                                                                Authentication</label>
+                                                        <h5 class="border-bottom pb-1 text-blue-primary">2FA Authentication</h5>
                                                             <p>
                                                                 {{--  <p class="input_not_edit">{{$twofa }}</p> --}}
                                                             <div class="form-check-inline">

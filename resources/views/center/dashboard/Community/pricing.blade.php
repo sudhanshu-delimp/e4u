@@ -59,10 +59,10 @@
                                 </div>
                                 <div id="about_me" class="collapse" data-parent="#accordion" style="">
                                     <div class="card-body p-0">
-                                        <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
+                                        <div class="table-responsive" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                                                    <thead class="text-center">
+                                                    <thead class="text-center table-bg">
                                                         <tr role="row">
                                                             <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
                                                                 <p><b>Advertising Fees</b></p>

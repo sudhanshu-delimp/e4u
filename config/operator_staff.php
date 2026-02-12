@@ -5,7 +5,7 @@ return [
         'full_time' => 'Full Time',
         'part_time' => 'Part Time',
         'casual'  => 'Casual',
-        'contractor' > 'Contractor',
+        'contractor' => 'Contractor',
     ],
     'security_level' => [
         '1' => 'Level 1',
@@ -13,6 +13,19 @@ return [
         //'3' => 'Level 3',
        // '4' => 'Level 4',
     ],
+
+    'idle_preference_time' => [
+        '15' => '15 minutes',
+        '30' => '30 minutes',
+        '60' => '60 minutes',
+        '99999999' => 'Never',
+    ],
+
+    'twofa' => [
+        '1' => 'Email',
+        '2' => 'Text',
+    ],
+
     'position' => [
         '1' => 'Admin',
         '2' => 'Staff',
@@ -29,3 +42,5 @@ return [
 		],
     'idle_vever_minute' => '99999999',
 ];
+
+

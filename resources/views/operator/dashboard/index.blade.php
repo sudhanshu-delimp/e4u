@@ -25,6 +25,19 @@
     </div>
 
     <div class="row mb-4">
+         <div class="col-lg-4 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="#">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/operator/Manage-Agents.png') }}" alt="Manage Agent">
+                  </div>
+                  <h2>
+                     Manage Staff
+                  </h2>
+              </a>
+
+          </div>
+      </div>
       
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
