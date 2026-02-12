@@ -100,7 +100,7 @@
                                 <button type="submit" class="btn site_btn_primary" id="updatePasswordBtn">Update Password </button>
                                 <h6>Or</h6>
                                 <a href="{{ $user_info 
-                                        ? ($user_info->type == 7 ? route('operator.login') : route('admin.login')) 
+                                        ? ($user_info->type == 9 ? route('operator.login') : route('admin.login')) 
                                         : route('home') 
                                     }}">
                                     <h5>Login</h5>
