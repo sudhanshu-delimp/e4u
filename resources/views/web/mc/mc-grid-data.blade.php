@@ -35,7 +35,7 @@
 
                     <div class="items">
                         <span class="title">Hours:</span>
-                        <span class="decs">10:00 am ... Till late</span>
+                        <span class="decs">{{get_working_hours($listing)}}</span>
                     </div>
 
                     <div class="items">

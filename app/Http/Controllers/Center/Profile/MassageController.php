@@ -886,6 +886,7 @@ class MassageController extends Controller
             'grid' => view('web.mc.mc-grid-data', compact('listings'))->render(),
             'list' => view('web.mc.mc-list-data', compact('listings'))->render(),
             'pagination' => view('web.mc.mc-pagination', compact('listings'))->render(),
+            'total_count' => $listings->total()
         ]);
     }
 

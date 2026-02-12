@@ -239,7 +239,7 @@
                                         class="col-12 custom--service-tag mc_tags d-flex justify-content-between align-items-center">
                                         <div class="total--list">
                                             <strong>Total Listings:</strong>
-                                            <span>{{ count($escorts) }}</span>
+                                            <span class="total_count"></span>
                                         </div>
                                         <div>
                                             <div class="grid_list_icon_box display_inline_block grid--btn">

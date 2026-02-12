@@ -1169,4 +1169,28 @@ if (!function_exists('generate_masseur_member_id')) {
     }
 }
 
+ 
+if (!function_exists('get_working_hours')) {
+    function get_working_hours($listing)
+    {
+        if(isset($listing->availability->availability_time) && (!empty($listing->availability->availability_time)))
+        {
+           $availability = $listing->availability->availability_time ? json_decode($listing->availability->availability_time, true) : [];
+           $current_day = strtolower(Carbon::now()->format('l'));
+           $current_day_data = $availability[$current_day];
+
+           if($current_day_data['status'] == 'til_late')
+           {
+                return 
+           }
+
+           
+         
+        }
+
+        return 'NA';
+    }
+}
+
+
 

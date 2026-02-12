@@ -74,9 +74,6 @@
    
     @include('web.mc.mc-filter')
 
-
-   
-
     <div class="container my-5">
 
             <div class="row">
@@ -243,6 +240,8 @@ $(document).ready(function () {
                
                 $('.mc_card_container').html(res.grid);
                 $('.mc_list_container').html(res.list);
+                $('.total_count').html(res.total_count);
+                
 
                 
                 $('#common_pagination').html(res.pagination);
