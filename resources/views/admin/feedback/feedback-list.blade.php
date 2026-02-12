@@ -73,7 +73,7 @@
 
                                 <div class="stat-card">
                                     <div class="stat-top">
-                                        <div class="stat-icon"> <i class="far fa-clock" aria-hidden="true"></i></div>
+                                        <div class="stat-icon"> <i class="fas fa-calendar-week" aria-hidden="true"></i></div>
                                         <!-- <div class="stat-icon"><i class="fas fa-calendar-week"></i></div> -->
                                         <div class="stat-label">This Month</div>
                                     </div>
@@ -82,7 +82,7 @@
 
                                 <div class="stat-card">
                                     <div class="stat-top">
-                                        <div class="stat-icon"><i class="fa fa-check"></i></div>
+                                        <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
                                         <div class="stat-label">This Year</div>
                                     </div>
                                     <div class="stat-number" id="">{{$yearCount}}</div>
