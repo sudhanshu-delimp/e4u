@@ -224,8 +224,9 @@
         <div id="AdminTab" class="collapse
                 @if (in_array(request()->segment(3), []) ||
                         in_array(request()->segment(2), [
-                            'profiles-tours',
+                            'profiles',
                             'social-media',
+                            'feedback',
                             'bookkeeping',
                             'agent-request',
                             'agent-messages',
@@ -267,20 +268,25 @@
 
                 <div id="CenterAnalytics"
                     class="collapse
-                        @if (in_array(request()->segment(2), ['profiles-tours', 'social-media', 'masseurs'])) show @endif"
+                        @if (in_array(request()->segment(2), ['feedback', 'profiles', 'social-media', 'masseurs'])) show @endif"
                     data-parent="#AdminTab">
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
-
+                        <a class="collapse-item {{ request()->segment(2) == 'feedback' ? 'menu-active' : '' }}"
+                            href="{{ route('feedback') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/feedback-22.png') }}">
+                            <span>Feedback</span>
+                        </a>
+                        
                          <a class="collapse-item {{ request()->segment(2) == 'masseurs' ? 'menu-active' : '' }}"
                             href="{{ route('masseurs') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/profiles.png') }}">
                             <span>Masseurs</span>
                         </a>
                         
-                        <a class="collapse-item {{ request()->segment(2) == 'profiles-tours' ? 'menu-active' : '' }}"
-                            href="{{ route('profiles-tours') }}">
+                        <a class="collapse-item {{ request()->segment(2) == 'profiles' ? 'menu-active' : '' }}"
+                            href="{{ route('profiles') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
                             <span>Profiles</span>
                         </a>

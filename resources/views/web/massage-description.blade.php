@@ -90,10 +90,10 @@
         <div class="row">
             <div class="col-md-8 col-xl-8 col-sm-12 col-12">
                 <div class="row mb-3">
-                    <div class="col-md-12 col-xl-8 col-sm-12 col-12">
-                        <div class="row mess_row custom_message_types">
+                    <div class="col-md-12 col-xl-12 col-sm-12 col-12">
+                        <div class="row custom_message_types">
 
-                            <div class="col-sm-12 d-flex align-items-center justify-content-center gap-10 flex-wrap">
+                            <div class="col-sm-12 d-flex align-items-center justify-content-between gap-10 flex-wrap">
                                 <div class="d-flex align-items-center justify-content-center gap-10">
                                     <div class="mc_tooltip_wrap">
                                         <img src="assets/dashboard/img/massage-only.png" alt="Massage">
@@ -136,18 +136,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                 <button type="button" class="btn mc_my_legbox_btn" data-target="#my_legbox" data-toggle="modal">
+                                    <span class="add_to_favrate">
+                                        <i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i>
+                                    </span>
+                                    Save to My Legbox
+                                </button>
                             </div>
 
                         </div>
-                    </div>
-
-                    <div class="col-md-12 col-xl-4 col-sm-12 text-center">
-                        <button type="button" class="btn mc_my_legbox_btn" data-target="#my_legbox" data-toggle="modal">
-                            <span class="add_to_favrate">
-                                <i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i>
-                            </span>
-                            Save to My Legbox
-                        </button>
                     </div>
                 </div>
 
