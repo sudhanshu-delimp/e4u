@@ -108,7 +108,7 @@ class CenterProfileInformationController extends BaseController
         //dd($massage_profile->massage_services()->where('category_id', 1)->get());
         //dd($massage_profile->massage_services);
         $availability = $massage_profile->availability ? json_decode($massage_profile->availability->availability_time, true) : [];
-        $social_links = $massage_profile->social_links ? json_decode($massage_profile->social_links, true) : [];
+        $social_links = $massage_profile->social_links ? $massage_profile->social_links : [];
   
 
      

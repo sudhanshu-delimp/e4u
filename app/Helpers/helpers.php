@@ -1239,4 +1239,56 @@ if (!function_exists('get_working_hours')) {
 }
 
 
+if (!function_exists('get_weelly_availibility')) {
+    function get_weelly_availibility($listing)
+    {
+        if(isset($listing->availability->availability_time) && (!empty($listing->availability->availability_time)))
+        {
+           $availability = $listing->availability->availability_time ? json_decode($listing->availability->availability_time, true) : [];
+            
+           
+
+           if(empty($availability))
+            return '<tr><td colspan="2" style="background-color:#fff;border:none"><center>NA</center></td></tr>';
+           
+           else
+           {    
+                $avail = '';
+                foreach ($availability as $day => $data) 
+                {
+
+                    $status = $data['status'];
+
+                        if( $status == 'til_late')
+                        $time =  strtolower($data['from']).'...'.' Till late'; 
+
+                    
+                        else if($data['status'] == '24_hours')
+                        {
+                             $time = strtolower($data['from']).' to '.strtolower($data['to']);
+                        }
+
+                        else if($data['status'] == 'custom')
+                        {
+                             $time = strtolower($data['from']).' to '.strtolower($data['to']);
+                        }
+
+                        else if($data['status'] == 'closed')
+                        {
+                             $time = 'Closed';
+                        }
+
+                    $avail .= '<tr> <td>' . ucfirst($day) . '</td><td class="text-right">' . $time  . '</td> </tr>';
+                }
+
+                return $avail;
+           }
+        }
+
+
+
+    }
+}
+
+
 

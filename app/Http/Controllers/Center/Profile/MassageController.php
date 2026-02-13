@@ -258,8 +258,16 @@ class MassageController extends Controller
            
             $defaultServiceIds = $escortDefault->services()->pluck('service_id')->toArray();
             $edit_mode = true;
+
+           
+
+            
+            $social_links = $escort->social_links;
+
+            
+            
             //dd($escort->imagePosition(9));
-            return view('center.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'edit_mode','massage_durations','massage_default'));
+            return view('center.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'edit_mode','massage_durations','massage_default','social_links'));
         }
         
     }
@@ -388,6 +396,9 @@ class MassageController extends Controller
             $massage->payment         = $request->filled('payment') ? $request->payment : null;
             $massage->loyalty         = $request->filled('loyalty') ? $request->loyalty : null;
             $massage->language        = $request->filled('language')? array_map('strval', $request->language) : null;
+
+            $social_links             = (!empty($request->social_links)) ? $request->social_links : null;
+            $massage->social_links    = $social_links;
 
             $massage->save();
 
@@ -535,7 +546,8 @@ class MassageController extends Controller
             'business_name'=>$request->business_name,
             'business_no'=>$request->business_no,
             'phone'=>$request->phone,
-            'address'=>$request->address,
+            'address'=> $request->address,
+            'social_links' => (!empty($request->social_links)) ? $request->social_links : null
             ];
 
             $message = 'Business information updated successfully.';
@@ -815,16 +827,16 @@ class MassageController extends Controller
         ######### Update Who We ###########################
         if($request->type=='social_links')
         {
-                $input = [
-                'social_links' => (!empty($request->$request->social_links)) ? $request->$request->social_links : null,
-                ];
+                // $input = [
+                // 'social_links' => (!empty($request->social_links)) ? $request->social_links : null,
+                // ];
 
             $message = 'Updated successfully.';
             $profile = MassageProfile::where(['id'=>$request->massage_id])->first();
             if($profile)
             {
                 $profile->default_setting = 1;
-                $profile->social_links = json_encode($request->social_links);
+                $profile->social_links = $request->social_links;
                 $profile->save();
             }
 

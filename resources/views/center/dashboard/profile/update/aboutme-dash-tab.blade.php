@@ -197,6 +197,43 @@ textarea {
 
                 </div>
 
+
+
+        <div class="fill_profile_headings_global">          
+            <h2>Our Social Media</h2>
+         </div>
+         <div class="business-info-field pt-4">
+                <div class="padding_20_all_side pb-0">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group row align-items-center">
+                                <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><i class="fab fa-facebook-f"></i></span></label>
+                                <div class="col-sm-7 col-lg-7 col-md-7 col-10">
+                                     <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Facebook" name="social_links[facebook]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ isset($social_links['facebook']) ? $social_links['facebook'] : '' }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                                                <div class="form-group row align-items-center">
+                                <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><i class="fab fa-instagram"></i></span></label>
+                                <div class="col-sm-7 col-lg-7 col-md-7 col-10">
+                                    <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Instagram" name="social_links[insta]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ isset($social_links['insta']) ? $social_links['insta'] : '' }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group row align-items-center">
+                                <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><img src="https://e4u.local/assets/img/twitter-new.png" alt="" class="cutom-social-icon"></span></label>
+                                <div class="col-sm-7 col-lg-7 col-md-7 col-12">
+                                   <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="X" name="social_links[twitter]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ isset($social_links['twitter']) ? $social_links['twitter'] : '' }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+        </div>
+
                 
                 <div class="">
                         <div class="col-md-12 text-right">

@@ -39,7 +39,7 @@ class MassageCentre extends Controller
     }
 
 
-    public function massageList()
+    public function  massageList()
     {
         
         

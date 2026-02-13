@@ -846,6 +846,6 @@ return [
 	'current_location' => env('CURRENT_LOCATION'),
 
 
-	'escort_default_thumb' => '../../assets/app/img/service-provider/Frame-408.png',
+	'escort_default_thumb' => '../../assets/app/img/service-provider/mc_default.png',
 
 ];
