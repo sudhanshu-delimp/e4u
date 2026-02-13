@@ -15,9 +15,10 @@ use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\Operator\UpdateMyAccountOperator;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Facades\Hash;
 class OperatorController extends BaseController
 {
     protected $user;

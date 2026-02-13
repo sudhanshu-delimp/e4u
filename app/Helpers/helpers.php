@@ -14,7 +14,7 @@ use App\Models\Country;
 use App\Mail\LoginOtpMail;
 use App\Models\AlertNotic;
 use App\Models\EscortMedia;
-
+use Exception;
 use Illuminate\Support\Str;
 use App\Models\MassageMedia;
 use App\Models\MasseurMedia;
@@ -820,9 +820,17 @@ if (!function_exists('getAgentTotalAdvertisers')) {
 
 
 if (!function_exists('staffPageAccessPermission')) {
-    function staffPageAccessPermission($securityLevel = "0", $pageKey = "sidebar")
+    /**
+     * Type 1 for Admin, Type 9 for operator staff
+     */
+    function staffPageAccessPermission($securityLevel = "0", $pageKey = "sidebar", $type = 1)
     {
-        $pageAccess = config('staff.page_access');
+        
+        if( $type == 9) {
+            $pageAccess = config('operator_staff.page_access');
+        } else {
+            $pageAccess = config('staff.page_access');
+        }
         if (isset($pageAccess[$securityLevel])) {
             $levelArray = $pageAccess[$securityLevel];
             if (isset($levelArray[$pageKey])) {

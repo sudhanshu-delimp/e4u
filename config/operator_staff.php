@@ -41,6 +41,27 @@ return [
 			'1' => 'Male',
 		],
     'idle_vever_minute' => '99999999',
+
+    /**
+     * Permission to access pages
+     */
+    "page_access" => [
+        "1" => [ //Level 1: Admin,  All access
+            "sidebar" => ['management' => ['yesNo' => 'yes']],
+            "view" => ['yesNo' => 'yes'],
+            "edit" => ['yesNo' => 'yes'],
+            "add" => ['yesNo' => 'yes'],
+            "delete" => ['yesNo' => 'yes'],
+        ],
+        "2" => [ //Level 2: Staff
+            "sidebar" => ['management' =>  ['yesNo' => 'no']],
+            "view" => ['yesNo' => 'yes'],
+            "edit" => ['yesNo' => 'no'],
+            "add" => ['yesNo' => 'no'],
+            "delete" => ['yesNo' => 'no'],
+        ]
+        
+    ],
 ];
 
 
