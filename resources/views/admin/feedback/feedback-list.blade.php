@@ -337,9 +337,7 @@ confirm-popup
                 [10, 25, 50, 100]
             ],
 
-            order: [
-                [0, 'desc']
-            ],
+             order: [],
             pageLength: 10
         });
 
