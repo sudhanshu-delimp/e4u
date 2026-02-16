@@ -18,16 +18,16 @@
 
     {{-- our Account --}}
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ourAccount"
+        <a class="nav-link collapsed" href="javascript:void(0)" data-toggle="collapse" data-target="#ourAccount"
             aria-expanded="true" aria-controls="ourAccount">
 
             <img src="{{ asset('assets/dashboard/img/menu-icon/man.png') }}">
             <span>Our Account - the Operator</span>
         </a>
-        <div id="ourAccount" class="collapse @if (request()->segment(2) == '') show @endif;"
+        <div id="ourAccount" class="collapse @if (request()->segment(2) == 'view-my-account') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
-                <a class="collapse-item" href="javscript:void(0)">
+                <a class="collapse-item" href="{{route('operator.my-operator')}}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                     <span style="{{ request()->segment(2) == 'view-my-account' ? 'color: #f5841f;' : '' }}">
                         View our account</span>
@@ -112,12 +112,29 @@
             <img src="{{ asset('assets/dashboard/img/menu-icon/administration.png') }}">
             <span>Management</span>
         </a>
-
-
-        <div id="Management" class="collapse  @if (in_array(request()->segment(2), ['advertiser-list', 'calculate-reckoner']) || in_array(request()->segment(2), ['agents-monthly-report', 'operator-monthly-report' ])) show @endif"
+        <!-- Manage People -->
+        <div id="Management" class="collapse  @if (in_array(request()->segment(3), ['agents-monthly-report', 'operator-monthly-report', 'staff', 'agent'])) show @endif"
             data-parent="#accordionSidebar">
             <div class="collapse-inner">
-                
+                <a class="nav-link collapsed" href="#" data-toggle="collapse"
+                            data-target="#managePeopleMenu" aria-expanded="false" aria-controls="managePeopleMenu">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
+                            <span>Manage People</span>
+                        </a>
+
+                        <div id="managePeopleMenu"
+                            class="collapse @if (in_array(request()->segment(3), ['staff','agent'])) show @endif"
+                            data-parent="#Management">
+                             <a class="collapse-item" href="{{ route('operator.operator.staff') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/operator-staff.png') }}">
+                                <span style="{{ request()->segment(3) == 'staff' ? 'color: #f5841f;' : '' }}">Staff</span>
+                            </a>
+                            <a class="collapse-item" href="javascript:void(0)">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/manage-agents.png') }}">
+                                <span style="{{ request()->segment(3) == 'agent' ? 'color: #f5841f;' : '' }}">Agents</span>
+                            </a>
+                        </div>
+
 
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Commission"
                     aria-expanded="true" aria-controls="Commission">
