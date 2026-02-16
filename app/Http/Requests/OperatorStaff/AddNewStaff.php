@@ -28,7 +28,7 @@ class AddNewStaff extends FormRequest
             $userId = $request->user_id;
         }
         return [
-            'operator_id' => 'bail|required',
+            //'operator_id' => 'bail|required',
             'name' => 'bail|required|string|max:100',
             'address' => 'bail|required|string|max:255',
             'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}",

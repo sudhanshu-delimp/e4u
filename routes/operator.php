@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Operator\OperatorController;
+use App\Http\Controllers\Operator\OperatorstaffController;
 use App\Http\Controllers\User\Dashboard\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,15 @@ Route::post('/change-password-expiry', [UserController::class, 'updatePasswordEx
 Route::get('/bank-account', [OperatorController::class, 'bankAccount'])->name('operator.bank-account');
 Route::get('/agents-monthly-report', [OperatorController::class, 'agentMonthlyreport'])->name('operator.agents-monthly-report');
 Route::get('/operator-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.operator-monthly-report');
+
+/** Operator Staff */
+Route::get('/management/operator-staff', [OperatorstaffController::class, 'staff_list'])->name('operator.operator.staff');
+Route::post('/management/operator-add-staff', [OperatorstaffController::class, 'add_sfaff'])->name('operator.operator.add-staff');
+Route::get('operator-staff_list_data_table', [OperatorstaffController::class, 'staff_data_list'])->name('operator.operator.staff_list_data_table');
+Route::post('/suspend-operator-staff', [OperatorstaffController::class, 'suspend_staff'])->name('operator.operator.suspend-staff');
+Route::post('/active-operator-staff-account', [OperatorstaffController::class, 'activate_user'])->name('operator.operator.active-staff-account');
+Route::get('/edit-operator-staff/{id}', [OperatorstaffController::class, 'editStaff'])->name('operator.operator.edit-staff');
+Route::post('/store-operator-staff', [OperatorstaffController::class, 'update_staff'])->name('operator.operator.store-staff');
+Route::get('/view-operator-staff/{id}', [OperatorstaffController::class, 'viewStaff'])->name('operator.operator.view-staff');
+Route::post('/approve-operator-staff-account', [OperatorstaffController::class, 'approve_staff_account'])->name('operator.operator.approve_staff_account');
+Route::post('/print-operator-staff', [OperatorstaffController::class, 'printStaffDetails'])->name('operator.operator.print_staff');

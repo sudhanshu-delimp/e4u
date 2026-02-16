@@ -561,8 +561,9 @@
                                         </div>
                                     </div>
                                     <!-- End 2FA -->
-                                    <input type="submit" value="save" class="btn btn-primary shadow-none float-right"
-                                        name="submit">
+                                    <div class="text-right"> 
+                                        <button type="submit" class="opr-common-btn float-righ" name="submit">Save</button>
+                                    </div>
                                 </form>
 
                                 <!-- End content area -->
