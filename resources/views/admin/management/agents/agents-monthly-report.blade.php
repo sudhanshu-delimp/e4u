@@ -355,7 +355,7 @@
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details3"
                             aria-expanded="false" aria-controls="details3">
                             <td class="text-left">M612380</td>
-                            <td class="opr_expand_arrow">Lin’s Massage <i class="fa fa-chevron-down"></i></td>
+                            <td class="opr_expand_arrow">Lin’s Massage</td>
                             <td>WA</td>
                             <td></td>
                             <td>35</td>
@@ -363,7 +363,7 @@
                             <td class="text-left"><div class="num_value">$<span>34.15</div></td>
                         </tr>
 
-                        <tr class="detail-row" data-group="details3">
+                        {{-- <tr class="detail-row" data-group="details3">
                             <td></td>
                             <td></td>
                             <td></td>
@@ -407,7 +407,7 @@
                                 <div class="num_value">$<span>683.00</div></td>
                             <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
                                <div class="num_value">$<span>34.15</div> </td>
-                        </tr>
+                        </tr> --}}
 
                          {{-- space --}}
                         <tr>
