@@ -830,6 +830,54 @@ class EscortController extends BaseController
     }
 
 
+    public function getUpgradeAmount(Request $request)
+    {
+        try {
+            $profileId = $request->profieId;
+            $membershipId = $request->membershipId;
+            $profileDetail = getEscortDetail($profileId);
+            $refundAmount = getListingRefundAmount($profileDetail);
+            list($newDicount, $newAmount) = calculateTotalFee($membershipId, $profileDetail->days_left);
+            $net_paid_amount = number_format($newAmount-$refundAmount,2);
+
+            return response()->json([
+                'success' => true,
+                'net_amount' => $net_paid_amount,
+                'newAmount' => $newAmount,
+                'message' => ''
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong while booking the Pinup.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function upgradeList(Request $request){
+        try {
+            $profileId = $request->profile_id;
+            $membershipId = $request->membership;
+            $profileDetail = getEscortDetail($profileId);
+            $profileDetail->membership = $membershipId;
+            $profileDetail->save();
+            return response()->json([
+                'success' => true,
+                'message' => 'Listing has been upgraded.'
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong while booking the Pinup.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+
     public function getActiveNotification()
     {
         $userId = auth()->user()->member_id;

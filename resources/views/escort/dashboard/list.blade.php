@@ -1264,4 +1264,5 @@
     </script>
     <script src="{{ asset('js/escort/pinup.js') }}"></script>
     <script src="{{ asset('js/escort/bumpup.js') }}"></script>
+    <script src="{{ asset('js/escort/upgrade.js') }}"></script>
 @endpush
