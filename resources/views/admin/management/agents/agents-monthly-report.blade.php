@@ -83,16 +83,13 @@
                                                 <div class="custom-tooltip-container"><a
                                                         class="dropdown-item align-item-custom toggle-massage-notification"
                                                         href="#" title="Click to disable notification">
-                                                    </a> <div class="dropdown-divider"></div>
+                                                    </a>
                                                     <a class="dropdown-item align-item-custom" data-toggle="modal"
                                                         data-target="#payAgentreport" href=""> <i
                                                             class="fa fa-star" aria-hidden="true"></i>
                                                         Pay</a>
                                                     <div class="dropdown-divider"></div>
-                                                </div>
-
-                                                <div class="custom-tooltip-container">
-                                                    <a class="dropdown-item align-item-custom" href="#"
+                                                     <a class="dropdown-item align-item-custom" href="#"
                                                         data-toggle="modal" data-target="#viewAgentreport"> <i
                                                             class="fa fa-eye" aria-hidden="true"></i>
                                                         View Report</a>
@@ -370,7 +367,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>P</td>
+                            <td></td>
                             <td>22</td>
                             <td class="text-left"><div class="num_value">$<span>176.00</div></td>
                             <td class="text-left"><div class="num_value">$<span>8.80</div></td>
@@ -379,7 +376,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>G</td>
+                            <td></td>
                             <td>4</td>
                             <td class="text-left"><div class="num_value">$<span>24.00</div></td>
                             <td class="text-left"><div class="num_value">$<span>1.20</div></td>
@@ -388,7 +385,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>S</td>
+                            <td></td>
                             <td>2</td>
                             <td class="text-left"><div class="num_value">$<span>8.00</div></td>
                             <td class="text-left"><div class="num_value">$<span>0.40</div></td>
@@ -397,7 +394,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>PU</td>
+                            <td></td>
                             <td>7</td>
                             <td class="text-left"><div class="num_value">$<span>475.00</div></td>
                             <td class="text-left"><div class="num_value">$<span>23.75</div></td>
