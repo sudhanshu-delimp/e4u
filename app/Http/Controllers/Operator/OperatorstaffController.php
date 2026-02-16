@@ -6,8 +6,6 @@ use App\Models\User;
 use App\Models\Operator;
 use Illuminate\Http\Request;
 use Exception;
-use Laravel\Ui\Presets\React;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\OperatorStaff\AddNewStaff;
 use App\Models\OperatorStaff;
@@ -43,7 +41,7 @@ class OperatorstaffController extends BaseController
             $editAccess = staffPageAccessPermission($securityLevel, 'edit', 9);
             $addAccess = staffPageAccessPermission($securityLevel, 'add', 9);
             $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar', 9);
-           
+
             $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
             $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
             $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
@@ -64,8 +62,12 @@ class OperatorstaffController extends BaseController
         $operatorObj = (new Operator);
         $operators = $operatorObj->getDropdownList();
         $operatorName = $this->operatorName;
-      
-        return view('operator.management.operator_staff.staff', compact('operators', 'operatorName'));
+
+        $viewAccessEnabled = $this->viewAccessEnabled;
+        $addAccessEnabled = $this->addAccessEnabled;
+        $editAccessEnabled = $this->editAccessEnabled;
+
+        return view('operator.management.operator_staff.staff', compact('operators', 'operatorName', 'viewAccessEnabled', 'addAccessEnabled', 'editAccessEnabled'));
     }
 
     /**
@@ -93,7 +95,7 @@ class OperatorstaffController extends BaseController
     {
         $operatorObj = (new Operator);
         $operators = $operatorObj->getDropdownList();
-         $operatorName = $this->operatorName;
+        $operatorName = $this->operatorName;
         $staff = User::with('operator_staff_detail', 'operator_staff_setting')->where("id", $id)->first();
         if ($staff) {
             return view('operator.management.operator_staff.staff-edit', compact('staff', 'operators', 'operatorName'));
@@ -164,8 +166,8 @@ class OperatorstaffController extends BaseController
     public function staff_data_pagination($start, $limit, $order_key, $dir)
     {
         $staff = User::with('operator', 'operator_staff_detail', 'createddBy', 'account_setting', 'LoginStatus')
-        ->where('operator_id', $this->operatorId)
-        ->where('type', config('operator_staff.staff_role_type')); //Type = 9 
+            ->where('operator_id', $this->operatorId)
+            ->where('type', config('operator_staff.staff_role_type')); //Type = 9 
 
         $search = request()->input('search.value');
 
@@ -175,7 +177,7 @@ class OperatorstaffController extends BaseController
                     ->orWhere('name', 'like', "%{$search}%")
                     ->orWhere('phone', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%");
-                    /* ->orWhereHas('state', function ($q) use ($search) {
+                /* ->orWhereHas('state', function ($q) use ($search) {
                         $q->where('name', 'like', "%{$search}%");
                     }) */
             });
@@ -190,16 +192,16 @@ class OperatorstaffController extends BaseController
                 break;
             case 4:
                 $staff->orderBy('phone', $dir);
-                break; 
+                break;
             case 5:
                 $staff->orderBy('email', $dir);
-                break;  
-             case 10:
+                break;
+            case 10:
                 $staff->orderBy('status', $dir);
-                break; 
-              case 11:
+                break;
+            case 11:
                 $staff->orderBy('id', 'DESC');
-                break;           
+                break;
             default:
                 $staff->orderBy('id', 'DESC');
                 break;
@@ -217,12 +219,12 @@ class OperatorstaffController extends BaseController
             $item->territory = isset($item->state->name) ? $item->state->name : 'NA';
             $item->security_level = isset($item->operator_staff_detail->security_level) ? $item->operator_staff_detail->securityLevel($item->operator_staff_detail->security_level) : 'NA';
             $item->position = isset($item->operator_staff_detail->position) ? $item->operator_staff_detail->position($item->operator_staff_detail->position) : 'NA';
-            $item->operator_name = isset($item->operator->name) ? $item->operator->name."(".$item->operator->member_id.")" : 'NA';
-            $item->created_by = isset($item->createddBy->name) ? $item->createddBy->name."(".$item->createddBy->member_id.")" :'NA';
+            //$item->operator_name = isset($item->operator->name) ? $item->operator->name . "(" . $item->operator->member_id . ")" : 'NA';
+            $item->created_by = isset($item->createddBy->name) ? $item->createddBy->name . "(" . $item->createddBy->member_id . ")" : 'NA';
             $suspend_html = "";
             $activate_html = "";
             $dropdownsub = "";
-            
+
             //
             $edit = "";
             /*  if ($item->status != 'Suspended') {
@@ -242,53 +244,53 @@ class OperatorstaffController extends BaseController
                 if (auth()->user()->member_id != $item->member_id) {
                     $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
                 }
-            }    
+            }
 
             if ($item->status == 'Pending') {
                 $dropdownsub .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center approve_account" href="javascript:void(0)" data-id=' . $item->id . '> <i class="fa fa-check"></i>Approve</a><div class="dropdown-divider"></div>';
                 /* 
                 $dropdownsub .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-ban"></i>Suspend</a><div class="dropdown-divider"></div>'; */
-                 if (auth()->user()->member_id == $item->member_id) {
+                if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
-                 } else {
-                     if ($this->editAccessEnabled) {
-                    $dropdown .= $dropdownsub. $edit.  $view;
+                } else {
+                    if ($this->editAccessEnabled) {
+                        $dropdown .= $dropdownsub . $edit .  $view;
                     } else {
                         $dropdown .= $view;
                     }
-                 }
+                }
             }
 
             if ($item->status == 'Active') {
                 $dropdownsub = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-ban"></i>Suspend</a>';
                 if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
-                 } else {
+                } else {
                     if ($this->editAccessEnabled) {
-                     $dropdown .= $edit . $dropdownsub.  $view;
-                     } else {
+                        $dropdown .= $edit . $dropdownsub .  $view;
+                    } else {
                         $dropdown .= $view;
                     }
-                 }
+                }
             }
 
             if ($item->status == 'Suspended') {
                 $dropdownsub = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center active-account-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-check"></i>Activate</a><div class="dropdown-divider"></div>';
-               
+
                 if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
-                 } else {
+                } else {
                     if ($this->editAccessEnabled) {
-                      $dropdown .= $dropdownsub. $edit.  $view;
+                        $dropdown .= $dropdownsub . $edit .  $view;
                     } else {
                         $dropdown .= $view;
                     }
-                 }
+                }
             }
-            
+
             $dropdown .= '</div></div>';
 
-            $item->status_name = '<span class="custom_badge '.getStatusBadgeClass($item->status).'">'.$item->status.' </span>';
+            $item->status_name = '<span class="custom_badge ' . getStatusBadgeClass($item->status) . '">' . $item->status . ' </span>';
 
             $item->action = $dropdown;
             $i++;
@@ -310,8 +312,8 @@ class OperatorstaffController extends BaseController
             $user->status = '3';
             $response = $user->save();
 
-            if ($response){
-                 $resposne = $this->staffRepo->sendSuspendEmail($user);
+            if ($response) {
+                $resposne = $this->staffRepo->sendSuspendEmail($user);
                 return $this->successResponse('Account Suspended Successfully.');
             } else
                 return $this->successResponse('Error Occurred while Account Suspending.');
@@ -374,8 +376,8 @@ class OperatorstaffController extends BaseController
             return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
         }
         $userId  = $request->user_id;
-      
-          $staff = User::with('operator_staff_detail', 'operator_staff_setting', 'operator')->where("id", $userId)->first();
+
+        $staff = User::with('operator_staff_detail', 'operator_staff_setting', 'operator')->where("id", $userId)->first();
         if ($staff) {
             $pdf = PDF::loadView(
                 'operator.management.operator_staff.staff_report_pdf',

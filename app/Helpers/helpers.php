@@ -14,7 +14,6 @@ use App\Models\Country;
 use App\Mail\LoginOtpMail;
 use App\Models\AlertNotic;
 use App\Models\EscortMedia;
-use Exception;
 use Illuminate\Support\Str;
 use App\Models\MassageMedia;
 use App\Models\MasseurMedia;
@@ -922,7 +921,7 @@ if (!function_exists('sendLoginOtpEmail')) {
                 });
 
                 return true;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 logErrorLocal($e);
             }
         }

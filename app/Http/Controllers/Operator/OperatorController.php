@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers\Operator;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Operator\AddNewOperator;
 use App\Models\Operator;
 use App\Models\OperatorStaff;
 use App\Http\Requests\Operator\UpdateStaffMyAccount;
-use App\Repositories\Operator\OperatorInterface;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\Operator\UpdateMyAccountOperator;
 use App\Repositories\User\UserInterface;

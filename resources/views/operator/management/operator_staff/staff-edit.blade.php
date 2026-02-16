@@ -4,7 +4,8 @@
     $securityLevel = isset($securityLevels[$staff_detail->security_level])
         ? $securityLevels[$staff_detail->security_level]
         : '';
-    $setting = $staff->operator_staff_setting ?? null;    
+    $setting = $staff->operator_staff_setting ?? null;
+    $operatorName = isset($staff->operator->name) ? $staff->operator->name." (".$staff->operator->member_id.")" : '';
 @endphp
 <style>
     /* Chrome, Safari, Edge, Opera */
@@ -26,14 +27,7 @@
             <h6 class="border-bottom pb-1 text-blue-primary">Operator</h6>
         </div>
         <div class="col-12 mb-3">
-            <select class="form-control" name="operator_id" id="operator_id">
-                <option value="">Select Operator</option>
-                @foreach ($operators as $key => $name)
-                    <option value="{{ $key }}" {{ $staff->operator_id == $key ? 'selected' : '' }}>
-                        {{ $name }}</option>
-                @endforeach
-            </select>
-            <span class="text-danger error-operator_id"></span>
+            <span class="form-control form-back">{{$operatorName}}</span>
         </div>
 
         <!-- Section: Personal Details -->

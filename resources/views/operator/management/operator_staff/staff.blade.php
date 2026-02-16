@@ -5,11 +5,8 @@
 @stop
 @section('content')
 @php
-   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
-   $addAccess = staffPageAccessPermission($securityLevel, 'add');
-   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+$operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator->name." (".auth()->user()->operator->member_id.")" : '';
 @endphp
-
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
@@ -45,7 +42,7 @@
                                              @if($addAccessEnabled)
                                             <div class="col-lg-12 col-md-12 col-sm-12">
                                                 <div class="bothsearch-form" style="gap: 10px;">
-                                                    <button type="button" class="btn-common" data-toggle="modal"
+                                                    <button type="button" class="opr-btn-common" data-toggle="modal"
                                                         data-target="#addStaffnew">Add New Operator Staff Member</button>
                                                 </div>
                                             </div>
@@ -61,7 +58,7 @@
                                                         <th scope="col">Position</th>
                                                         <th scope="col" style="width: 86px;">Mobile</th>
                                                         <th scope="col">Email</th>
-                                                        <th scope="col">Operator</th>
+                                                        {{-- <th scope="col">Operator</th> --}}
                                                         <th scope="col">Created By</th>
                                                         <th scope="col">Logins</th>
                                                         <th scope="col" style="width: 180px;">Last Login</th>
@@ -120,13 +117,7 @@
                                 <h6 class="border-bottom pb-1 text-blue-primary">Operator</h6>
                             </div>
                             <div class="col-12 mb-3">
-                                <select class="form-control" name="operator_id" id="operator_id">
-                                    <option value="">Select Operator</option>
-                                    @foreach ($operators as $key => $name)
-                                        <option value="{{ $key }}">{{ $name }}</option>
-                                    @endforeach
-                                </select>
-                                <span class="text-danger error-operator_id"></span>
+                                <span class="form-control form-back">{{$operatorName}}</span>
                             </div>
                              
                             <!-- Section: Personal Details -->
@@ -495,13 +486,13 @@
                         orderable: true,
                         defaultContent: 'NA'
                     },
-                    {
+                    /* {
                         data: 'operator_name',
                         name: 'operator_name',
                         searchable: false,
                         orderable: false,
                         defaultContent: 'NA'
-                    },
+                    }, */
                     {
                         data: 'created_by',
                         name: 'created_by',
@@ -541,7 +532,7 @@
                 ],
 
                 order: [
-                    [11, 'DESC']
+                    [10, 'DESC']
                 ],
                 lengthMenu: [
                     [10, 25, 50, 100],
