@@ -1313,4 +1313,29 @@ if (!function_exists('get_massage_member_id')) {
   }
 }
 
+if (!function_exists('get_massage_images')) {
+  function get_massage_images($listing,$position)
+  {
+        $image = "";
+        
+        if(!$listing || !$position)
+        return false;   
+    
+        $relativePath   =  $listing->imagePosition($position);
+        $currentImage   = asset($relativePath);
+        if(str_contains($currentImage, 'img-12.png'))
+        {
+            $image = false;
+        }
+        else
+        {
+             if($currentImage!= "" && file_exists($relativePath))
+             $image  = $currentImage;
+             else
+             $image  = false;
+        }
+        return  $image;
+  }
+}
+
 

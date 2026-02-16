@@ -15,6 +15,21 @@
         $massage_banner  = $currentImage;
         else
         $massage_banner = asset('assets/app/img/massage/massage_2.jpg');
+
+
+    $images = [];
+    $validImages = [];
+    $photo = 1;
+
+    for ($i = 1; $i <= 7; $i++) {
+        $img = get_massage_images($listing, $i);
+        $images[$i] = $img;
+
+        if ($img !== false) {
+            $validImages[$i] = $img;
+        }
+    }
+
     @endphp
 
 
@@ -273,7 +288,7 @@
                         <div style="width: 100%">
                             <iframe width="100%" height="153" frameborder="0" scrolling="no" marginheight="0"
                                 marginwidth="0"
-                                src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=nema%20san%20francisco&t=&z=14&ie=UTF8&iwloc=B&output=embed"
+                                src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=Perth%20Western%20Australia&t=&z=14&ie=UTF8&iwloc=B&output=embed"
                                 style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
                             </iframe>
                         </div>
@@ -395,7 +410,7 @@
                             <div class="col-md-3 col-sm-6 mb-4">
                                 <div class="d-flex align-items-center gap_between_text_and_img our-masseurs"
                                     data-toggle="modal" data-target="#product_view">
-                                    <div><img src="assets/app/img/profile_photo.png"></div>
+                                    <div><img src="../assets/app/img/profile_photo.png"></div>
                                     <p class="mb-0">Sierra</p>
                                 </div>
                             </div>
@@ -584,70 +599,24 @@
                                 <div class="carousel-inner">
                                     
                                     <!-- Carousel Item 1 -->
-                                    <div class="carousel-item active" data-interval="10000">
-                                        <div class="row">
-                                            <div class="col-12 remove_padding_for_carousel">
-                                                <img src="../assets/app/img/massage/mc7.jpg"
-                                                    class="d-block w-100" alt="Gallery Image" data-toggle="modal"
-                                                    data-target="#exampleModal">
+                                   
+                                    @foreach ($validImages as $index => $image)
+                                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="10000">
+                                            <div class="row">
+                                                <div class="col-12 remove_padding_for_carousel">
+                                                    <img src="{{ $image }}"
+                                                        class="d-block w-100"
+                                                        alt="Gallery Image"
+                                                        data-toggle="modal"
+                                                        data-target="#exampleModal">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
 
-                                    <!-- Carousel Item 2 -->
-                                    <div class="carousel-item" data-interval="10000">
-                                        <div class="row">
-                                            <div class="col-12 remove_padding_for_carousel">
-                                                <img src="../assets/app/img/massage/mc6.jpg"
-                                                    class="d-block w-100" alt="Gallery Image" data-toggle="modal"
-                                                    data-target="#exampleModal">
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
 
-                                    <!-- Carousel Item 3 -->
-                                    <div class="carousel-item" data-interval="10000">
-                                        <div class="row">
-                                            <div class="col-12 remove_padding_for_carousel">
-                                                <img src="../assets/app/img/massage/mc5.jpg"
-                                                    class="d-block w-100" alt="Gallery Image" data-toggle="modal"
-                                                    data-target="#exampleModal">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Carousel Item 4 -->
-                                    <div class="carousel-item" data-interval="10000">
-                                        <div class="row">
-                                            <div class="col-12 remove_padding_for_carousel">
-                                                <img src="../assets/app/img/massage/mc4.jpg"
-                                                    class="d-block w-100" alt="Gallery Image" data-toggle="modal"
-                                                    data-target="#exampleModal">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Carousel Item 5 -->
-                                    <div class="carousel-item" data-interval="10000">
-                                        <div class="row">
-                                            <div class="col-12 remove_padding_for_carousel">
-                                                <img src="../assets/app/img/massage/mc3.jpg"
-                                                    class="d-block w-100" alt="Gallery Image" data-toggle="modal"
-                                                    data-target="#exampleModal">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Carousel Item 6 -->
-                                    <div class="carousel-item" data-interval="10000">
-                                        <div class="row">
-                                            <div class="col-12 remove_padding_for_carousel">
-                                                <img src="../assets/app/img/massage/mc2.jpg"
-                                                    class="d-block w-100" alt="Gallery Image" data-toggle="modal"
-                                                    data-target="#exampleModal">
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
                                 </div>
 
@@ -1223,7 +1192,7 @@
                                 <table class="table table-bordered">
                                     <thead class="bg-first">
                                         <tr>
-                                            <th colspan="7" class="text-center">Availability</th>
+                                            <th colspan="7" class="text-center">My Availability</th>
                                         </tr>
                                         <tr>
                                             <th style="width:14.2%">Monday</th>
@@ -1285,61 +1254,26 @@
                 <div class="modal-body p-1">
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
-                            {{-- <div class="gallery">
-                                @if($escort->gallary->isNotEmpty())
+                            
+                            <div class="gallery">
 
+                                @foreach ($validImages as $index => $image)
+                                    @if($loop->first )
+                                    <div class="gallery__item gallery__item--lg"><img src="{{  $image }}" alt="main"></div>
+                                    @endif    
+                                  @endforeach    
 
-                                        <div class="gallery__item gallery__item--lg">
-                                            <img src="{{ ($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()) ? asset($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()->path) : ''}}" alt="">
-                                            
-                                        </div>
-                                        <div class="small-images">
-                                        @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[2,3,4,5,6,7])->orderBy('position','asc')->get() as $key=>$media)
-                                        
+                                <div class="small-images">
+
+                                        @foreach ($validImages as $index => $image)
+
+                                            @continue($loop->first)
+
                                             <div class="gallery__item">
-                                                <img src="{{ asset($media->path) }}" alt="">
+                                                <img src="{{ $image }}" alt="gallery image">
                                             </div>
 
-                                        @endforeach
-                                    </div>
-                                @endif
-                            </div> --}}
-                            <div class="gallery">
-                                <div class="gallery__item gallery__item--lg">
-                                    <img src="{{ asset('assets/app/img/massage/mc7.jpg') }}" alt="main">
-
-                                    </div>
-                                    <div class="small-images">
-                                                                
-                                    <div class="gallery__item">
-                                        <img src="{{ asset('assets/app/img/massage/mc6.jpg') }}" alt="main">
-                                    </div>
-
-                                                                
-                                    <div class="gallery__item">
-                                        <img src="{{ asset('assets/app/img/massage/mc5.jpg') }}" alt="main">
-                                    </div>
-
-                                                                
-                                    <div class="gallery__item">
-                                       <img src="{{ asset('assets/app/img/massage/mc4.jpg') }}" alt="main">
-                                    </div>
-
-                                                                
-                                    <div class="gallery__item">
-                                        <img src="{{ asset('assets/app/img/massage/mc3.jpg') }}" alt="main">
-                                    </div>
-
-                                                                
-                                    <div class="gallery__item">
-                                        <img src="{{ asset('assets/app/img/massage/mc2.jpg') }}" alt="main">
-                                    </div>
-
-                                                                
-                                    <div class="gallery__item">
-                                        <img src="{{ asset('assets/app/img/massage/mc1.jpg') }}" alt="main">
-                                    </div>
-
+                                        @endforeach   
                                 </div>
                             </div>
                         </div>
