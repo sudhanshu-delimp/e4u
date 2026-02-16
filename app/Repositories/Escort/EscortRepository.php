@@ -178,6 +178,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->stage_name = $item->name;
             $item->phone = $item->phone ? $item->phone : "NA";
             $item->gender = $item->gender ? $item->gender : "NA";
+            $item->membership_number = $item->membership ? $item->membership : 0;
             $item->membership = $item->membership ? $item->membershipType : "NA";
             $item->homeState = $item->user ? $item->user->state->iso2 : "NA";
             $item->vaccine = $item->covidreport ? $item->covidreport : "NA";
@@ -198,9 +199,15 @@ class EscortRepository extends BaseRepository implements EscortInterface
             if($item->enabled=='Active'){
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', ['id' => $item->id, 'tab' => 'my-playmates']) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Include Playmates</a><div class="dropdown-divider"></div>';
             }
+            
             if($item->latestActivePinup && empty($item->activeUpcomingSuspend)){
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary"><i class="fa fa-hand-pointer"></i>Pin Up Summary</a><div class="dropdown-divider"></div>';
             }
+
+            if($item->membership_number > 1){
+                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '" data-membership="' . $item->membership_number . '"  data-toggle="modal" data-target="#upgrade_modal"><i class="fa fa-wrench"></i>Upgrade</a><div class="dropdown-divider"></div>';
+            }
+
             $item->action .= ' <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
             $item->action .= '</div>';
 

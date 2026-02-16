@@ -56,6 +56,8 @@ Route::get('/list/{type}', [EscortController::class, 'escortList'])->name('escor
 Route::get('/pinup-available-weeks/{escort}', [PinUpsController::class, 'pinup_available_weeks'])->name('escort.pinup_available_weeks');
 Route::post('/pinup-register', [PinUpsController::class, 'register'])->name('pinup.register');
 Route::post('/bumpup-register', [EscortController::class, 'bumpup_register'])->name('escort.bumpup_register');
+Route::post('/get-upgrade-amount', [EscortController::class, 'getUpgradeAmount'])->name('escort.upgrade_amount');
+Route::post('/upgrade-list', [EscortController::class, 'upgradeList'])->name('escort.upgrade_list');
 Route::get('/pinup-summary/{escort}', [PinUpsController::class, 'pinupSummary'])->name('escort.pinup_summary');
 Route::get('/list/data-table/{type?}', [EscortController::class, 'dataTable'])->name('escort.list.dataTable');
 Route::get('/list/data-table-listing/{type?}', [EscortController::class, 'dataTableListing'])->name('escort.list.dataTableListing');
