@@ -376,14 +376,14 @@
                     data-parent="#Administration">
                     <div class="py-0 collapse-inner rounded mb-2">
                         <a class="collapse-item show" href="{{ url('submit_ticket') }}">
-                            <img src="{{ asset('assets/app/img/right-30.png') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/submit-ticket.png') }}">
                             <span
                                 style="{{ request()->segment(1) == 'submit_ticket' ? 'color: #e5365a;' : '' }}">Submit
                             </span>
                         </a>
 
                         <a class="collapse-item" href="{{ route('support-ticket.list') }}">
-                            <img src="{{ asset('assets/app/img/view-48.png') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/reply.png') }}">
                             <span style="{{ request()->segment(2) == 'ticket-list' ? 'color: #e5365a;' : '' }}">View &
                                 reply
                             </span>

@@ -394,7 +394,7 @@
 
                     <a class="collapse-item" href="{{ route('shareholder.submit', ['from' => 'sidebar']) }}">
                         <img 
-                            src="{{ asset('assets/app/img/right-30.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/submit-ticket.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'submit' ? 'color: #ff3c5f;' : '' }}">
                            Submit</span>
@@ -403,7 +403,7 @@
                     
                     <a class="collapse-item" href="{{ route('shareholder.view-and-reply', ['from' => 'sidebar']) }}">
                         <img 
-                            src="{{ asset('assets/app/img/view-48.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/reply.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'view-and-reply' ? 'color: #ff3c5f;' : '' }}">
                            View & Reply</span>

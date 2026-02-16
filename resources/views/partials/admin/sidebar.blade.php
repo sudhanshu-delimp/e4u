@@ -516,12 +516,12 @@
 
                         <a class="collapse-item {{ request()->segment(2) == 'submit_ticket' ? 'menu-active' : '' }}"
                             href="{{ route('support-ticket.create.admin') }}">
-                            <img src="{{ asset('assets/app/img/right-30.png') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/submit-ticket.png') }}">
                             <span>Submit Ticket</span>
                         </a>
                         <a class="collapse-item {{ request()->segment(2) == 'support_tickets' ? 'menu-active' : '' }}"
                             href="{{ route('admin.support-ticket.list') }}">
-                            <img src="{{ asset('assets/app/img/view-48.png') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/reply.png') }}">
                             <span>View & Reply</span>
                         </a>
                     </div>
