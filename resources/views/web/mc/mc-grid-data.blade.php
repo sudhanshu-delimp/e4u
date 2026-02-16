@@ -35,7 +35,7 @@
                     <span class="mc_legbox_tooltip">Add to My Legbox</span>
                 </span>
             </div>
-            <a href="{{ route('web.massage-description') }}" class="mc_card_link">
+            <a href="{{ route('web.massage-description',$listing->id) }}" class="mc_card_link">
                 <div class="mc_profile_img">
 
                 

@@ -453,10 +453,7 @@ Route::post('/asend-otpt-passord', [App\Http\Controllers\SendForgotPasswordContr
 Route::post('/like-dislike', [App\Http\Controllers\WebController::class,'likeDislike'])->name('web.likeDislike');
 Route::post('/massage-like-dislike', [App\Http\Controllers\WebController::class,'massageLikeDislike'])->name('web.massageLikeDislike');
 
-Route::get('/massage-description', function()
-	{
-		return view('web.massage-description');
-	})->name('web.massage-description');
+
 
 Route::post('/add-to-massage-shortlist/{id}', [App\Http\Controllers\WebController::class,'addToMcCart'])->name('web.save.mcMyShortListCart');
 Route::post('/massage-shortlist', [App\Http\Controllers\WebController::class,'saveMcShortList'])->name('web.save.mc.shortlist');
@@ -776,3 +773,4 @@ Route::get('/testscript', function(){
 ################### Massage Centre Profile Page Url ###############
 Route::get('massage-centres-list', [MassageCentre::class,'massageList'])->name('find.massage.centre');
 Route::get('mc-ajax-list', [MassageCentre::class, 'mcAjaxList'])->name('mc-ajax-list');
+Route::get('massage-description/{id}', [MassageCentre::class, 'massage_description'])->name('web.massage-description');

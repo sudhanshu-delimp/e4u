@@ -1,15 +1,27 @@
 @extends('layouts.web')
 @section('style')
 <style>
-    .mc_profile_table .table th{
+.mc_profile_table .table th{
     padding: .8rem .55rem !important;
 }
-    </style>
+</style>
     @stop
-@section('content')
-    <div class="container profile_description_banner custom--profile custommassage--profile--page"
-        style="background: url('assets/app/img/massage/massage_2.jpg');
-    background-position: center; background-repeat:no-repeat">
+    @section('content')
+
+    @php 
+        $relativePath   =  $listing->imagePosition(9);
+        $currentImage   = asset($relativePath);
+        if($currentImage!= "" && file_exists($relativePath))
+        $massage_banner  = $currentImage;
+        else
+        $massage_banner = asset('assets/app/img/massage/massage_2.jpg');
+    @endphp
+
+
+   <div class="container profile_description_banner custom--profile custommassage--profile--page"
+     style="background-image: url('{{ $massage_banner }}');
+            background-position: center;
+            background-repeat: no-repeat;">
 
         <div class="container-fluid back_to_search_btn pt-2">
             <a href="#" class="back--search">
@@ -22,11 +34,11 @@
 
         <div class="container">
             <div class="profile_page_title">
-                <h2 class="display_inline_block p-0">Profile Name</h2>
+                <h2 class="display_inline_block p-0">{{ $listing->profile_name ?? 'N/A' }}</h2>
             </div>
 
             <div class="profile_page_name_and_phno">
-                <p>City Name - 000 000 0000</p>
+                <p>City Name - {{ get_massage_home_state($listing->user_id) }} </p>
             </div>
 
             <div class="profile_page_location_and_id">
@@ -35,13 +47,13 @@
                         <span class="profile_location_icon">
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                         </span>
-                        <p class="display_inline_block">Full Address Here</p>
+                        <p class="display_inline_block">{{  $listing->address ?? 'N/A' }}</p>
                     </li>
                     <li>
                         <span class="profile_location_icon">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
-                        <p class="display_inline_block">Member ID: 123456</p>
+                        <p class="display_inline_block">Member ID: {{   get_massage_member_id($listing->id) }}</p>
                     </li>
                 </ul>
             </div>
@@ -50,19 +62,19 @@
                 <ul class="profile_page_social_profiles ml-0">
                     <li class="social-media-profile">
                         <a href="https://www.facebook.com/" target="_blank">
-                            <img src="{{ asset('assets/app/img/facebook.png') }}" class="facebook-logo" alt="logo">
+                            <img src="{{ asset('../assets/app/img/facebook.png') }}" class="facebook-logo" alt="logo">
                         </a>
                     </li>
 
                     <li class="social-media-profile">
                         <a href="https://www.instagram.com/" target="_blank">
-                            <img src="{{ asset('assets/app/img/instagram.png') }}" class="instagram-logo" alt="logo">
+                            <img src="{{ asset('../assets/app/img/instagram.png') }}" class="instagram-logo" alt="logo">
                         </a>
                     </li>
 
                     <li class="social-media-profile">
                         <a href="https://x.com/" target="_blank">
-                            <img src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo">
+                            <img src="{{ asset('../assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo">
                         </a>
                     </li>
                 </ul>
@@ -96,7 +108,7 @@
                             <div class="col-sm-12 d-flex align-items-center justify-content-between gap-10 flex-wrap">
                                 <div class="d-flex align-items-center justify-content-center gap-10">
                                     <div class="mc_tooltip_wrap">
-                                        <img src="assets/dashboard/img/massage-only.png" alt="Massage">
+                                        <img src="../assets/dashboard/img/massage-only.png" alt="Massage">
                                         <p class="mc_rate_tooltip">Massage only</p> 
                                     </div>
                                     <div class="div_contain_text">
@@ -110,7 +122,7 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center gap-10">
                                     <div class="mc_tooltip_wrap">
-                                    <img src="assets/dashboard/img/massage-with2.png" alt="Masseur">
+                                    <img src="../assets/dashboard/img/massage-with2.png" alt="Masseur">
                                      <p class="mc_rate_tooltip">Massage with extras +2 hands.</p> 
                                     </div>    
                                     <div class="div_contain_text">
@@ -124,7 +136,7 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center gap-10">
                                     <div class="mc_tooltip_wrap">
-                                    <img src="assets/dashboard/img/massage-with4.png" alt="2+ Masseurs">
+                                    <img src="../assets/dashboard/img/massage-with4.png" alt="2+ Masseurs">
                                     <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>   
                                     </div>
                                     <div class="div_contain_text">
@@ -575,7 +587,7 @@
                                     <div class="carousel-item active" data-interval="10000">
                                         <div class="row">
                                             <div class="col-12 remove_padding_for_carousel">
-                                                <img src="assets/app/img/massage/mc7.jpg"
+                                                <img src="../assets/app/img/massage/mc7.jpg"
                                                     class="d-block w-100" alt="Gallery Image" data-toggle="modal"
                                                     data-target="#exampleModal">
                                             </div>
@@ -586,7 +598,7 @@
                                     <div class="carousel-item" data-interval="10000">
                                         <div class="row">
                                             <div class="col-12 remove_padding_for_carousel">
-                                                <img src="assets/app/img/massage/mc6.jpg"
+                                                <img src="../assets/app/img/massage/mc6.jpg"
                                                     class="d-block w-100" alt="Gallery Image" data-toggle="modal"
                                                     data-target="#exampleModal">
                                             </div>
@@ -597,7 +609,7 @@
                                     <div class="carousel-item" data-interval="10000">
                                         <div class="row">
                                             <div class="col-12 remove_padding_for_carousel">
-                                                <img src="assets/app/img/massage/mc5.jpg"
+                                                <img src="../assets/app/img/massage/mc5.jpg"
                                                     class="d-block w-100" alt="Gallery Image" data-toggle="modal"
                                                     data-target="#exampleModal">
                                             </div>
@@ -608,7 +620,7 @@
                                     <div class="carousel-item" data-interval="10000">
                                         <div class="row">
                                             <div class="col-12 remove_padding_for_carousel">
-                                                <img src="assets/app/img/massage/mc4.jpg"
+                                                <img src="../assets/app/img/massage/mc4.jpg"
                                                     class="d-block w-100" alt="Gallery Image" data-toggle="modal"
                                                     data-target="#exampleModal">
                                             </div>
@@ -619,7 +631,7 @@
                                     <div class="carousel-item" data-interval="10000">
                                         <div class="row">
                                             <div class="col-12 remove_padding_for_carousel">
-                                                <img src="assets/app/img/massage/mc3.jpg"
+                                                <img src="../assets/app/img/massage/mc3.jpg"
                                                     class="d-block w-100" alt="Gallery Image" data-toggle="modal"
                                                     data-target="#exampleModal">
                                             </div>
@@ -630,7 +642,7 @@
                                     <div class="carousel-item" data-interval="10000">
                                         <div class="row">
                                             <div class="col-12 remove_padding_for_carousel">
-                                                <img src="assets/app/img/massage/mc2.jpg"
+                                                <img src="../assets/app/img/massage/mc2.jpg"
                                                     class="d-block w-100" alt="Gallery Image" data-toggle="modal"
                                                     data-target="#exampleModal">
                                             </div>
@@ -662,13 +674,13 @@
                     <div class="col-5">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
                             data-target="#mysendmessage">
-                            <img src="assets/app/img/smallsmsicon.png" class="image_20px_msg">Message Us
+                            <img src="../assets/app/img/smallsmsicon.png" class="image_20px_msg">Message Us
                         </button>
                     </div>
                     <div class="col-7 text-right">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
                             data-target="#reportMcNew">
-                            <img src="assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Masseur
+                            <img src="../assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Masseur
                         </button>
                     </div>
                 </div>
@@ -695,7 +707,7 @@
                 <!-- Playmates Section -->
                 {{-- <div class="box_shadow manage_padding_margin_bg_color">
                     <div class="profile_card_border profile_description_contect">
-                        <h2><img src="assets/app/img/bedroom.svg"> Playmates</h2>
+                        <h2><img src="../assets/app/img/bedroom.svg"> Playmates</h2>
                     </div>
                     <div class="padding_20_tob_btm_side reduse_pad">
                         <p class="profile_description_contect_pera">Alina does not have any Playmates.</p>
@@ -705,7 +717,7 @@
                 <!-- Contacting Me Section -->
                 <div class="box_shadow manage_padding_margin_bg_color">
                     <div class="profile_card_border profile_description_contect">
-                        <h2><img src="assets/app/img/contact_me.svg"> Contacting us</h2>
+                        <h2><img src="../assets/app/img/contact_me.svg"> Contacting us</h2>
                     </div>
                     <div class="padding_20_tob_btm_side reduse_pad">
                         <span class="span_display_block connecting_me_chat_phone">
@@ -722,7 +734,7 @@
                 <!-- Vaccination Status -->
                 <div class="vax-btn">
                     <button type="button" class="btn my_legbox single-prof-btn">
-                        <img src="assets/app/img/vaccinated.svg">Vaccinated, up to date
+                        <img src="../assets/app/img/vaccinated.svg">Vaccinated, up to date
                     </button>
                 </div>
 
@@ -777,7 +789,7 @@
                 <!-- Reviews Section -->
                 <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
                     <div class="profile_card_border profile_page_box_heading">
-                        <h2 class="custom--review"><img src="assets/app/img/review-custom.png"> Reviews</h2>
+                        <h2 class="custom--review"><img src="../assets/app/img/review-custom.png"> Reviews</h2>
                     </div>
                     <div class="pt-3 row">
                         <div class="col-md-12">
@@ -786,11 +798,11 @@
                         {{-- <div class="col-md-12 mb-4"></div> --}}
                     </div>
                     {{-- <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal" data-target="#add_reviews">
-                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                        <img src="{{ asset('../assets/app/img/feedbackicon.png') }}">
                         Login to Add Review
                     </button> --}}
                     <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box">
-                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                        <img src="{{ asset('../assets/app/img/feedbackicon.png') }}">
                         <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
                     </button>
                     
@@ -810,7 +822,7 @@
                 <div class="modal-header main_bg_color">
 
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img
-                            src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Us </h5>
+                            src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Us </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -862,7 +874,7 @@
                     
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Report Masseur </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
+                    <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
                 <!-- if viewer not login -->
@@ -886,13 +898,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color">
-                    <img src="{{ asset('assets/app/img/alert.png') }}" class="custompopicon">
+                    <img src="{{ asset('../assets/app/img/alert.png') }}" class="custompopicon">
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Report {{-- [Name] --}} to
                         our team.
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                            <img src="{{ asset('../assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
@@ -961,12 +973,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color">
-                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="custompopicon">
+                    <img src="{{ asset('../assets/app/img/feedbackicon.png') }}" class="custompopicon">
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Add review for [MC Name]
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                            <img src="{{ asset('../assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
@@ -1031,11 +1043,11 @@
         
                     <!-- Header with navy background and [X] -->
                     <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
-                        <img src="{{ asset('assets/app/img/tick.png')}}"
+                        <img src="{{ asset('../assets/app/img/tick.png')}}"
                                         class="custompopicon">
                         <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Review Submitted</h5>
                         <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
-                        <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        <img src="{{ asset('../assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                         </button>
                     </div>
         
@@ -1066,13 +1078,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color">
-                    <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="icustompopicon">
+                    <img src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="icustompopicon">
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img
-                            src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="img-fluid"> Send New Harmony
+                            src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="img-fluid"> Send New Harmony
                         Nature Massage a
                         message</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                        <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
@@ -1124,10 +1136,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header border-0">
-                     <h5 class="mc_member_id"> <img src="{{ asset('assets/app/img/Vector-31.png') }}" class="img-responsive"
+                     <h5 class="mc_member_id"> <img src="{{ asset('../assets/app/img/Vector-31.png') }}" class="img-responsive"
                                     > Member ID: M60124-001 </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                        <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
@@ -1138,7 +1150,7 @@
                             <img src="{{ asset('assets/app/img/Frame-4181.png') }}" class="img-responsive"
                                 style="width: 305px;height: 374px;object-fit: cover;">
                             <div class="veryfy_img">
-                                <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                <img src="{{ asset('../assets/app/img/verify/unverified_light.png') }}">
                             </div>
                         </div>
 

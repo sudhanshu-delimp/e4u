@@ -63,4 +63,19 @@ class MassageCentre extends Controller
         ]);
     }
 
+
+    public function massage_description(Request $request, $id)
+    {
+        if(!$id)
+        {
+            return redirect(route('find.massage.centre'));
+        }
+
+         $listing = MassageProfile::where('id','=',$id)->first();
+        
+        return view('web.massage-description',compact('listing'));
+    }
+
+    
+
 }

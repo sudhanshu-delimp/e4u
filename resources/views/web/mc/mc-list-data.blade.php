@@ -28,7 +28,7 @@ $social_links = $listing->social_links;
      <!-- Left Image -->
 
      <div class="mc_list_img">
-         <a href="{{ route('web.massage-description') }}" class="mc_card_link">
+         <a href="{{ route('web.massage-description',$listing->id) }}" class="mc_card_link">
              <img src="{{ $massage_thumb }}" alt="">
          </a>
          <span class="verify_icon">

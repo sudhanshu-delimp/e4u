@@ -1302,4 +1302,15 @@ if (!function_exists('get_massage_home_state')) {
   }
 }
 
+if (!function_exists('get_massage_member_id')) {
+  function get_massage_member_id($user_id)
+  {
+        $user = User::select('member_id')->where('id',$user_id)->first();
+        if($user->member_id)
+        return $user->member_id;
+        else
+        return 'NA';
+  }
+}
+
 
