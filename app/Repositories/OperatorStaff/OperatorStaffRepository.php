@@ -9,7 +9,6 @@ use App\Models\OperatorStaff;
 use App\Models\OperatorStaffSetting;
 use App\Models\StaffSetting;
 use App\Models\AccountSetting;
-use App\Events\StaffRegistered;
 use App\Mail\OperatorStaff\StaffApprovalEmail;
 use App\Mail\OperatorStaff\StaffSuspendEmail;
 use App\Mail\OperatorStaff\StaffActivateEmail;
@@ -81,9 +80,8 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
                     'name' => $data['name'] ?? null,
                     'phone' => $data['phone'] ?? null,
                     'email' => $data['email'] ?? null,
-                    //'city_id' => $data['location'] ?? null,
                     'country_id' => $data['country_id'] ?? null,
-                    'operator_id' => $data['operator_id'] ?? null,
+                    'operator_id' => auth()->user()->operator_id,
                     'gender' => $data['gender'] ?? null,
                 ];
 

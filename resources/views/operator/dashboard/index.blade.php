@@ -27,7 +27,7 @@
     <div class="row mb-4">
          <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="#">
+              <a href="{{route('operator.operator.staff')}}">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/operator/Manage-Agents.png') }}" alt="Manage Agent">
                   </div>
