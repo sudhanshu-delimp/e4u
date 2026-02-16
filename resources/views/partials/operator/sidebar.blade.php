@@ -33,13 +33,13 @@
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
                     <a class="collapse-item" href="{{ route('operator.edit-my-account') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'edit-my-account' ? 'color: #f5841f;' : '' }}">
                             Edit my account</span>
                     </a>
                     <a class="collapse-item" href="{{ route('operator.change-password') }}">
-                       <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                       <img src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'change-password'  ? 'color: #f5841f;' : '' }}">Change
                             password</span>
@@ -51,7 +51,7 @@
                             my avatar</span>
                     </a> --}}
                     <a class="collapse-item" href="{{ route('operator.bank-account') }}">
-                       <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                       <img src="{{ asset('assets/dashboard/img/menu-icon/bank.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'bank-account' ? 'color: #f5841f;' : '' }}">Bank Account</span>
                     </a>
@@ -105,12 +105,12 @@
 
                 <div class="collapse-inner rounded mb-2">
                     <a class="collapse-item" href="{{ route('operator.agents-monthly-report') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                          <span style="{{ request()->segment(2) == 'agents-monthly-report' ? 'color: #f5841f;' : '' }}">Agents Monthly</span>
                     </a>
 
                     <a class="collapse-item" href="{{ route('operator.operator-monthly-report') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'operator-monthly-report' ? 'color: #f5841f;' : '' }}">
                             Operator Monthly</span>

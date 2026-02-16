@@ -6920,7 +6920,7 @@ video::-webkit-media-controls-panel {
 }
 
 .custom_admin_modal .modal-body {
-    max-height: 400px;
+    max-height: 550px;
     overflow: auto;
 }
 
