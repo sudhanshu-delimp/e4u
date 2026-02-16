@@ -76,9 +76,11 @@
 
      {{-- devider --}}
     <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
+        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:10px 30px 15px 15px;">
     </li>
     {{-- end --}}
+
+    
 
     {{-- end --}}
     {{-- Management --}}
@@ -245,7 +247,7 @@
 
     {{-- devider --}}
     <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
+        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:10px 30px 15px 15px;">
     </li>
     {{-- end --}}
 
