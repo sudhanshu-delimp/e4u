@@ -1,4 +1,7 @@
 <!-- Topbar -->
+@php
+$operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator->name : '';
+@endphp
 <nav
     class="db-custom-topbar opr navbar justify-navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 ">
 
@@ -27,6 +30,23 @@
             @endphp
                     <span class="user-values"> {{  $countryName }}</span>
                 </span>
+                <span>
+                    <span class="separator">|</span>
+                    <b>Our Operator :</b> @if (auth()->user()->operator)
+                        <span class="user-values" title="Our Operator ID : {{ auth()->user()->operator->member_id }}">
+                            {{ \Illuminate\Support\Str::limit(
+                                \Illuminate\Support\Str::title(
+                                    auth()->user()?->operator?->name ?? (auth()->user()?->operator?->name ?? ''),
+                                ),
+                                20,
+                                '..',
+                            ) }}
+                        </span>
+                @endif        
+
+                </span>
+
+                
 
             </div>
         </div>
