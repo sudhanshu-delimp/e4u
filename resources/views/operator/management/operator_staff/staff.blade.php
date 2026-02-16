@@ -96,18 +96,17 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
     </a>
 
     <!-- add new staff member popupform -->
-    <div class="modal fade upload-modal" id="addStaffnew" tabindex="-1" role="dialog" aria-labelledby="addStaffnewLabel"
+    <div class="modal fade opr-modal" id="addStaffnew" tabindex="-1" role="dialog" aria-labelledby="addStaffnewLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addStaffnewTitle"><img
-                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon"> Add New Operator Staff
+                    <h5 class="modal-title text-white" id="addStaffnewTitle"><img
+                            src="{{ asset('assets/dashboard/img/operator-staff-member.png') }}" class="custompopicon"> Add New Operator Staff
                         Member</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
+                        <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
+                        </a>
                 </div>
                 <div class="modal-body">
                     <form name="add_staff" id="add_staff" method="POST" action="{{ route('operator.operator.add-staff') }}"
@@ -345,7 +344,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                         </div>
 
                         <div class="modal-footer p-0">
-                            <button type="submit" class="btn-success-modal mr-3">Save</button>
+                            <button type="submit" class="opr-common-btn">Save</button>
                         </div>
                     </form>
                 </div>

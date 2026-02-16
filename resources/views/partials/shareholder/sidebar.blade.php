@@ -33,14 +33,14 @@
                 <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
                     <a class="collapse-item" href="{{ route('shareholder.edit-my-account') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'edit-my-account' ? 'color: #ff3c5f;' : '' }}">
                             Edit my account</span>
                     </a>
                     <a class="collapse-item" href="{{ route('shareholder.change-password') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'change-password'  ? 'color: #ff3c5f;' : '' }}">Change
                             password</span>
@@ -48,13 +48,13 @@
 
                     <a class="collapse-item" href="{{ route('shareholder.notifications') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/alert.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'notifications' ? 'color: #ff3c5f;' : '' }}">Notifications</span>
                     </a>
                     <a class="collapse-item" href="{{ route('shareholder.upload-my-avatar') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #ff3c5f;' : '' }}">Upload
                             my avatar</span>
@@ -82,21 +82,21 @@
                 <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
                     <a class="collapse-item" href="{{ route('shareholder.annualreport') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'annual-report' ? 'color: #ff3c5f;' : '' }}">
                             Annual Report</span>
                     </a>
                     <a class="collapse-item" href="{{ route('shareholder.directors', ['from' => 'sidebar']) }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/directors.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'directors' ? 'color: #ff3c5f;' : '' }}">
                            Directors</span>
                     </a>
                     <a class="collapse-item" href="{{ route('shareholder.financials') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/financials.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'financials' ? 'color: #ff3c5f;' : '' }}">
                             Financials</span>
@@ -104,7 +104,7 @@
 
                     <a class="collapse-item" href="{{ route('shareholder.portfolio') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/portfolio.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'portfolio' ? 'color: #ff3c5f;' : '' }}">
                             Portfolio</span>
@@ -137,7 +137,7 @@
                 <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
                     <a class="collapse-item" href="{{ route('shareholder.shareholder-notices') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/share-notice.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'shareholder-notices' ? 'color: #ff3c5f;' : '' }}">
                             Shareholder Notices</span>
@@ -145,7 +145,7 @@
 
                     <a class="collapse-item" href="{{ route('shareholder.newsletter') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/newsletter.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'newsletter' ? 'color: #ff3c5f;' : '' }}">
                            Newsletter</span>
@@ -173,7 +173,7 @@
 
                      <a class="collapse-item" href="{{ route('shareholder.escort-statistics', ['from' => 'sidebar']) }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/statistic.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'escort-statistics' ? 'color: #ff3c5f;' : '' }}">
                            Escort Statistics</span>
@@ -182,14 +182,14 @@
                     
                     <a class="collapse-item" href="{{ route('shareholder.massage-centre-statistics', ['from' => 'sidebar']) }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/statistic.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'massage-centre-statistics' ? 'color: #ff3c5f;' : '' }}">
                            Massage Centre Statistics</span>
                     </a>
                     <a class="collapse-item" href="{{ route('shareholder.registrations', ['from' => 'sidebar']) }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/registration.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'registrations' ? 'color: #ff3c5f;' : '' }}">
                             Registrations</span>
@@ -197,7 +197,7 @@
 
                     <a class="collapse-item" href="{{ route('shareholder.revenue', ['from' => 'sidebar']) }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/revenue.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'revenue' ? 'color: #ff3c5f;' : '' }}">
                            Revenue</span>
@@ -222,7 +222,7 @@
                 <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
                     <a class="collapse-item" href="{{ route('shareholder.escort-listings', ['from' => 'sidebar']) }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'escort-listings' ? 'color: #ff3c5f;' : '' }}">
                             Escort Listings</span>
@@ -230,7 +230,7 @@
 
                     <a class="collapse-item" href="{{ route('shareholder.massage-centre-listings') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'massage-centre-listings' ? 'color: #ff3c5f;' : '' }}">
                            Massage Centre Listings</span>
@@ -239,7 +239,7 @@
                     
                     <a class="collapse-item" href="{{ route('shareholder.pin-up-listing') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/visitors.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'pin-up-listing' ? 'color: #ff3c5f;' : '' }}">
                            Pin Up Listing</span>
@@ -267,21 +267,21 @@
                     
                     <a class="collapse-item" href="{{ route('shareholder.constitution') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/constitution.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'constitution' ? 'color: #ff3c5f;' : '' }}">
                            Constitution</span>
                     </a>
                     <a class="collapse-item" href="{{ route('shareholder.shareholder-minutes') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/share-time.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'shareholder-minutes' ? 'color: #ff3c5f;' : '' }}">
                            Shareholder Minutes</span>
                     </a>
                     <a class="collapse-item" href="{{ route('shareholder.shareholder-updates') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/share-upload.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'shareholder-updates' ? 'color: #ff3c5f;' : '' }}">
                            Shareholder Updates</span>
@@ -306,7 +306,7 @@
                 <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
                     <a class="collapse-item" href="{{ route('shareholder.overview') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/overview.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'overview' ? 'color: #ff3c5f;' : '' }}">
                             Overview</span>
@@ -314,7 +314,7 @@
 
                     <a class="collapse-item" href="{{ route('shareholder.shareholders', ['from' => 'sidebar']) }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/shareholder.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'shareholders' ? 'color: #ff3c5f;' : '' }}">
                            Shareholders</span>
@@ -323,7 +323,7 @@
                     
                     <a class="collapse-item" href="{{ route('shareholder.share-value') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/share-value.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'share-value' ? 'color: #ff3c5f;' : '' }}">
                            Share Value</span>
@@ -339,7 +339,7 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Subsidiaries"
                 aria-expanded="true" aria-controls="Subsidiaries">
                 
-                <img src="{{ asset('assets/dashboard/img/menu-icon/branch.png') }}">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/subsidiaries.png') }}">
                 <span>Subsidiaries</span>
             </a>
             <div id="Subsidiaries" class="collapse @if (request()->segment(2) == 'overview-and-portfolio' ||
@@ -349,7 +349,7 @@
                 <div class=" collapse-inner rounded pb-0 mb-0 pt-0">
                     <a class="collapse-item" href="{{ route('shareholder.overview-and-portfolio') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/overview.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'overview-and-portfolio' ? 'color: #ff3c5f;' : '' }}">
                            Overview & Portfolio</span>
@@ -357,7 +357,7 @@
 
                     <a class="collapse-item" href="{{ route('shareholder.profit-and-loss') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'profit-and-loss' ? 'color: #ff3c5f;' : '' }}">
                            Annual Profit & Loss</span>
@@ -366,7 +366,7 @@
                     
                     <a class="collapse-item" href="{{ route('shareholder.balance-sheets') }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/balance-sheet.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'balance-sheets' ? 'color: #ff3c5f;' : '' }}">
                            Balance Sheet</span>
@@ -394,7 +394,7 @@
 
                     <a class="collapse-item" href="{{ route('shareholder.submit', ['from' => 'sidebar']) }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/submit-ticket.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'submit' ? 'color: #ff3c5f;' : '' }}">
                            Submit</span>
@@ -403,7 +403,7 @@
                     
                     <a class="collapse-item" href="{{ route('shareholder.view-and-reply', ['from' => 'sidebar']) }}">
                         <img 
-                            src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
+                            src="{{ asset('assets/dashboard/img/menu-icon/reply.png') }}">
                         <span
                             style="{{ request()->segment(2) == 'view-and-reply' ? 'color: #ff3c5f;' : '' }}">
                            View & Reply</span>

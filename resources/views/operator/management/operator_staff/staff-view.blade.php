@@ -173,8 +173,10 @@
                 {{ csrf_field() }}
                 <input name="user_id" type="hidden" id="user_print_id" class="user_print_id"
                     value="{{ $staff->id }}">
-                <button type="submit" class="print-btn m-0">🖨️ Print Report</button>
-                <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
+                                   
+                    <button type="submit" class="opr-common-btn">🖨️ Print Report</button>
+                    <button type="submit" class="opr-common-btn" data-dismiss="modal" aria-label="Close">Close</button>
+               
             </form>
         </div>
         </div>
