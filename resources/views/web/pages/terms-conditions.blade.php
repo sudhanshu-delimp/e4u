@@ -139,8 +139,8 @@
                                                     <b>Ownership</b>
                                                 </li>
                                                 <li class="cms-list-item"> <span class="pl-4">This Website is owned and operated by Blackbox Tech Pty Ltd ACN: 664 919 975,
-                                who is referred to in these Terms and Conditions as E4U, Escorts4U, we, us, our and
-                                similar grammatical forms.</span>
+                                                    who is referred to in these Terms and Conditions as E4U, Escorts4U, we, us, our and
+                                                    similar grammatical forms.</span>
                                                 </li>
                                                 <li class="cms-list-item"><span class="cms-list-span"><b>2.</b></span>
                                                     <b>Agreement to these terms and conditions</b></li>
@@ -2710,11 +2710,34 @@
                     </div>
                 </div>
 
-                
-                <!-- Part H - My Playbox -->
+                <!-- Part H - Influencer -->
                 <div class="set cms-accordion">
                     <a class="cms-accordion-title">
-                        Part H - My Playbox
+                        Part H - Influencer
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <div class="content ">
+                        <div class="accodien_manage_padding_content">
+                            <div class="border_top_one_px padding_ten_px_top_btm">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="cms-accordion-content-area">
+                                            <!-- level 1 list -->
+                                            <ol type="1" class="cms-lvl1-list pl-0">
+                                                <li class=" cms-lvl1-list-title"><span class="cms-list-span"><b>36.</b></span>General Terms</li>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Part I - My Playbox -->
+                <div class="set cms-accordion">
+                    <a class="cms-accordion-title">
+                        Part I - My Playbox
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <div class="content ">
@@ -2766,14 +2789,11 @@
                         </div>
                     </div>
                 </div>
-
-
-
                 
-                        <!-- Part I - General -->
+                        <!-- Part J - General -->
                 <div class="set cms-accordion">
                     <a class="cms-accordion-title">
-                        Part I - General
+                        Part J - General
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <div class="content ">

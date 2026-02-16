@@ -497,11 +497,15 @@ class DashboardController extends BaseController
     public function feedbackList(Request $request)
     {
         try {
+            $order_key = request()->input('order.0.column');
+            $dir       = request()->input('order.0.dir');
+            $dir = $dir === 'asc' ? 'asc' : 'desc';
+
             list($result, $count) = $this->feedback_data_pagination(
                 request()->get('start'),
                 request()->get('length'),
-                (request()->get('order')[0]['column']),
-                request()->get('order')[0]['dir']
+                ($order_key),
+                $dir
             );
             $data = array(
                 "draw"            => intval(request()->input('draw')),
@@ -569,13 +573,14 @@ class DashboardController extends BaseController
             4 => 'status',
         ];
 
-        $order_key = (int) $order_key;
         $dir = strtolower($dir) === 'asc' ? 'asc' : 'desc';
 
-        if (isset($columns[$order_key])) {
-            $feedback = $feedback->orderBy($columns[$order_key], $dir);
+        if ($order_key !== null && is_numeric($order_key) && isset($columns[$order_key])) {
+            $feedback->orderBy($columns[$order_key], $dir);
         } else {
-            $feedback = $feedback->orderBy('id', 'desc');
+            // Default sorting
+            $feedback->orderBy('status', 'asc')
+                    ->orderBy('created_at', 'desc');
         }
 
         $total_feedback = $feedback->count();
