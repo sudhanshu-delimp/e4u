@@ -320,13 +320,13 @@
             aria-labelledby="headingten" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
                 <a class="collapse-item show" href="{{ url('user-dashboard/submitticket') }}">
-                    <img src="{{ asset('assets/app/img/right-30.png') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/submit-ticket.png') }}">
                     <span
                         style="{{ request()->segment(2) == 'submitticket' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">Submit</span>
                 </a>
 
                 <a class="collapse-item" href="{{ route('user.view-and-reply-ticket') }}">
-                    <img src="{{ asset('assets/app/img/view-48.png') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/reply.png') }}">
                     <span
                         style="{{ request()->segment(2) == 'view-and-reply-ticket' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">View & reply</span>
                 </a>
