@@ -215,16 +215,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                                 </select>
                                 <span class="text-danger error-position"></span>
                             </div>
-                           {{--  <div class="col-6 mb-3">
-                                <select class="form-control rounded-0" name="location" id="location">
-                                    <option value="">Select Location</option>
-                                    @foreach (config('escorts.profile.cities') as $skey => $city)
-                                        <option value="{{ $skey }}">{{ $city }}</option>
-                                    @endforeach
-
-                                </select>
-                                <span class="text-danger error-location"></span>
-                            </div> --}}
+                           
                             <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="country_id" id="country_id">
                                     <option value="">Select Territory</option>

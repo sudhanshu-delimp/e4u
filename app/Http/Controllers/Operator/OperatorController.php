@@ -23,6 +23,20 @@ class OperatorController extends BaseController
     {
         $this->user = $user;
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function myOperator()
+    {
+         $staff = OperatorStaff::with('operator')->where("id", auth()->user()->id)->first();
+        $operator = $staff->operator;
+        return view('operator.dashboard.my-account.my-operator', compact('staff', 'operator'));
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -32,6 +46,7 @@ class OperatorController extends BaseController
     {
         return view('operator.dashboard.index');
     }
+
 
     /**
      * View my account

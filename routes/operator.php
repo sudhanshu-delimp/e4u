@@ -21,6 +21,8 @@ Route::post('/update-password', [OperatorController::class, 'changePassword'])->
 Route::post('/change-password', [UserController::class, 'updatePassword'])->name('operator.update.password');
 Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('operator.update.password.expiry');
 
+Route::get('/my-operator', [OperatorController::class, 'myOperator'])->name('operator.my-operator');
+
 Route::get('/bank-account', [OperatorController::class, 'bankAccount'])->name('operator.bank-account');
 Route::get('/agents-monthly-report', [OperatorController::class, 'agentMonthlyreport'])->name('operator.agents-monthly-report');
 Route::get('/operator-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.operator-monthly-report');
