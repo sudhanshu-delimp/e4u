@@ -175,6 +175,7 @@
 $(document).ready(function () {
 
     let activeView = 'grid';
+    $('#view_grid').addClass('view-active');
     loadData();
 
     /* ===============================
@@ -189,7 +190,7 @@ $(document).ready(function () {
         $('#grid_view').show();
 
         $('.view-active').removeClass('view-active');
-        $(this).addClass('view-active');
+        $(this).addClass('view-active active');
     });
 
     $('#view_list').on('click', function () {
@@ -199,8 +200,8 @@ $(document).ready(function () {
         $('#grid_view').hide();
         $('#list_view').show();
 
-        $('.view-active').removeClass('view-active');
-        $(this).addClass('view-active');
+        $('.view-active').removeClass('view-active active');
+        $(this).addClass('view-active active');
     });
 
 

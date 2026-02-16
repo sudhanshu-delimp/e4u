@@ -4,6 +4,8 @@
  @foreach($listings as $listing)
 
         @php 
+
+
         $relativePath   =  $listing->imagePosition(1);
         $currentImage   = asset($relativePath);
         if(str_contains($currentImage, 'img-11.png'))
@@ -16,6 +18,8 @@
              $massage_thumb  = $currentImage;
              else
              $massage_thumb = config('escorts.escort_default_thumb');
+
+             
         }
          @endphp   
         <div class="mc_card">
@@ -43,7 +47,7 @@
 
                 <div class="mc_card_content">
                     <div class="items">
-                        <span class="title">Perth</span>
+                        <span class="title">{{  get_massage_home_state($listing->user_id) }}</span>
                         <span class="mc_star">
                             <i class="fa fa-star-o"></i>
                             <i class="fa fa-star-o"></i>

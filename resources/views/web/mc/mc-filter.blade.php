@@ -243,7 +243,7 @@
                                         </div>
                                         <div>
                                             <div class="grid_list_icon_box display_inline_block grid--btn">
-                                                <a href="javascript:void(0)" class="active" id="view_grid">
+                                                <a href="javascript:void(0)" class="" id="view_grid">
                                                     <span class="custom-toltip">Grid View</span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="30"
                                                         height="30" viewBox="0 0 30 30" fill="none">

@@ -17,7 +17,10 @@
  else
  $massage_thumb = config('escorts.escort_default_thumb');
  }
- @endphp
+
+$social_links = $listing->social_links;
+ 
+@endphp
 
 
  <div class="mc_list_card">
@@ -112,6 +115,7 @@
                  </p>
 
 
+                   
 
              </div>
 
@@ -130,17 +134,26 @@
 
 
                      <div class="d-flex justify-content-between gap-10">
-                         <div class="s_icon">
-                             <a href="https://x.com/NMugs32853" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/facebook.png" alt="logo"></a>
-                         </div>
 
+                        @if(isset($social_links['facebook']) && $social_links['facebook']!="")
                          <div class="s_icon">
-                             <a href="https://x.com/NMugs32853" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/instagram.png" alt="logo"></a>
+                             <a href="{{$social_links['facebook']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/facebook.png" alt="logo"></a>
                          </div>
+                        @endif
 
+                         @if(isset($social_links['insta']) && $social_links['insta']!="")
                          <div class="s_icon">
-                             <a href="https://x.com/NMugs32853" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" alt="logo"></a>
+                             <a href="{{$social_links['insta']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/instagram.png" alt="logo"></a>
                          </div>
+                         @endif
+
+                        @if(isset($social_links['twitter']) && $social_links['twitter']!="")
+                         <div class="s_icon">
+                             <a href="{{$social_links['twitter']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" alt="logo"></a>
+                         </div>
+                        @endif
+
+
                      </div>
 
                  </div>

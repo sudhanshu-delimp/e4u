@@ -1291,4 +1291,15 @@ if (!function_exists('get_weelly_availibility')) {
 }
 
 
+if (!function_exists('get_massage_home_state')) {
+  function get_massage_home_state($user_id)
+  {
+        $user = User::select('state_id')->where('id',$user_id)->first();
+        if($user->state_id)
+        return config('escorts.profile.states')[$user->state_id]['stateName'];
+        else
+        return '';
+  }
+}
+
 
