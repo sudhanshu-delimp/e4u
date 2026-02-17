@@ -1214,7 +1214,7 @@ if (!function_exists('getListingRefundAmount')) {
         $purchase = $escortDetail->mainPurchase;
         if(!empty($purchase)){
             $membership = $purchase->membership;
-            $total_days = $escortDetail->days_number;
+            $total_days = $purchase->days_number;
             $remaining_days = $escortDetail->left_listing_days;
             list($usedDicount, $usedAmount) = calculateTotalFee($membership, ($total_days - $remaining_days));
             $refundAmount = $purchase->paid_rate-$usedAmount;
