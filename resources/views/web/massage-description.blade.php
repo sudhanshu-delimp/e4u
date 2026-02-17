@@ -492,24 +492,34 @@
                                         <div class="table-responsive">
                                             <div class="row margin_zero_for_table table-grid">
 
+                                                @if($listing->massage_services()->where('category_id', 1)->count()>0)
                                                 <div class="padding_none">
                                                     <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
-                                                                <th scope="col">Extra</th>
+                                                                <th scope="col">Rate</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+
+                                                         @foreach ($listing->massage_services()->where('category_id', 1)->get()->values()->filter(fn($item, $index) => $index % 2 == 0) as $value)
                                                             <tr>
-                                                                <td class="table_border_dash_left">Oral</td>
-                                                                <td class="table_border_solid_left"><span
-                                                                        class="if_data_not_available">N/A</span></td>
+                                                                <td class="table_border_dash_left">{{config('escorts.profile.massage-services')[$value->service_id]  }}</td>
+                                                                <td class="table_border_solid_left">
+                                                                   
+
+                                                                    @if($value->price)
+                                                                    <div class="public-num-value-table"> <span>$ </span>{{ $value->price }}</div>
+                                                                    @else
+                                                                    <span class="if_data_not_available">N/A</span>
+                                                                    @endif
+                                                                
+                                                                </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td class="table_border_dash_left">Masturbation</td>
-                                                                <td class="table_border_solid_left"><div class="public-num-value-table"> <span>$ </span>150</div></td>
-                                                            </tr>
+                                                        @endforeach
+                                                           
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -523,20 +533,36 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td class="table_border_dash_left">Kissing</td>
-                                                                <td class="table_border_solid_left"><span
-                                                                        class="if_data_not_available">N/A</span></td>
+                                                            
+                                                         @foreach (
+                                                                    $listing->massage_services()
+                                                                        ->where('category_id', 1)
+                                                                        ->get()
+                                                                        ->values()
+                                                                        ->filter(fn($item, $index) => $index % 2 != 0)
+                                                                    as $value
+                                                                )
+                                                           <tr>
+                                                               
+                                                                <td class="table_border_dash_left">{{config('escorts.profile.massage-services')[$value->service_id]  }}</td>
+                                                                <td class="table_border_solid_left">
+                                                                   
+
+                                                                    @if($value->price)
+                                                                    <div class="public-num-value-table"> <span>$ </span>{{ $value->price }}</div>
+                                                                    @else
+                                                                    <span class="if_data_not_available">N/A</span>
+                                                                    @endif
+                                                                
+                                                                </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td class="table_border_dash_left">Deep throat</td>
-                                                                <td class="table_border_solid_left"><span
-                                                                        class="if_data_not_available">N/A</span></td>
+
+                                                            @endforeach
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
-
+                                                @else
                                                 <div class="padding_none">
                                                     <table class="table">
                                                         <thead>
@@ -557,6 +583,27 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                                <div class="padding_none">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr class="background_color_table_head_color">
+                                                                <th scope="col">Description</th>
+                                                                <th scope="col">Extra</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="table_border_dash_left">&nbsp;</td>
+                                                                <td class="table_border_solid_left"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="table_border_dash_left">&nbsp;</td>
+                                                                <td class="table_border_solid_left"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                @endif
 
                                             </div>
                                         </div>
@@ -573,24 +620,42 @@
                                 <div class="content" style="display: none;">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
+
                                             <div class="row margin_zero_for_table table-grid">
-                                                <div class="padding_none" style="padding: 1px;">
+
+                                                @if($listing->massage_services()->where('category_id', 2)->count()>0)
+                                                <div class="padding_none">
                                                     <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
-                                                                <th scope="col">Extra</th>
+                                                                <th scope="col">Rate</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+
+                                                         @foreach ($listing->massage_services()->where('category_id', 2)->get()->values()->filter(fn($item, $index) => $index % 2 == 0) as $value)
                                                             <tr>
-                                                                <td colspan="2" class="let-talk-about border-0"></td>
+                                                                <td class="table_border_dash_left">{{config('escorts.profile.other-services')[$value->service_id]  }}</td>
+                                                                <td class="table_border_solid_left">
+                                                                   
+
+                                                                    @if($value->price)
+                                                                    <div class="public-num-value-table"> <span>$ </span>{{ $value->price }}</div>
+                                                                    @else
+                                                                    <span class="if_data_not_available">N/A</span>
+                                                                    @endif
+                                                                
+                                                                </td>
                                                             </tr>
+                                                        @endforeach
+                                                           
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
 
-                                                <div class="padding_none" style="padding: 1px;">
+                                                <div class="padding_none">
                                                     <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
@@ -599,15 +664,37 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td colspan="2" style="padding-top: 15px;"
-                                                                    class="let-talk-about border-0">Let's talk about it.</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                            
+                                                         @foreach (
+                                                                    $listing->massage_services()
+                                                                        ->where('category_id', 2)
+                                                                        ->get()
+                                                                        ->values()
+                                                                        ->filter(fn($item, $index) => $index % 2 != 0)
+                                                                    as $value
+                                                                )
+                                                           <tr>
+                                                               
+                                                                <td class="table_border_dash_left">{{config('escorts.profile.other-services')[$value->service_id]  }}</td>
+                                                                <td class="table_border_solid_left">
+                                                                   
 
-                                                <div class="padding_none" style="padding: 1px;">
+                                                                    @if($value->price)
+                                                                    <div class="public-num-value-table"> <span>$ </span>{{ $value->price }}</div>
+                                                                    @else
+                                                                    <span class="if_data_not_available">N/A</span>
+                                                                    @endif
+                                                                
+                                                                </td>
+                                                            </tr>
+
+                                                            @endforeach
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                @else
+                                                <div class="padding_none">
                                                     <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
@@ -617,13 +704,41 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td colspan="2" class="let-talk-about border-0"></td>
+                                                                <td class="table_border_dash_left">&nbsp;</td>
+                                                                <td class="table_border_solid_left"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="table_border_dash_left">&nbsp;</td>
+                                                                <td class="table_border_solid_left"></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                                <div class="padding_none">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr class="background_color_table_head_color">
+                                                                <th scope="col">Description</th>
+                                                                <th scope="col">Extra</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="table_border_dash_left">&nbsp;</td>
+                                                                <td class="table_border_solid_left"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="table_border_dash_left">&nbsp;</td>
+                                                                <td class="table_border_solid_left"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                @endif
 
                                             </div>
+
+
                                         </div>
                                     </div>
                                 </div>
