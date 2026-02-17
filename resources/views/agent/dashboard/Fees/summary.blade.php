@@ -73,11 +73,18 @@
                                                         <td colspan="3" class="text-center bg-first">
                                                             <select class="rounded-0 w-75"
                                                                 style="outline:none; color: #022c3d;">
-                                                                <option class="text-secondary">Select Date</option>
-                                                                <option class="text-secondary">2025</option>
-                                                                <option class="text-secondary">2026</option>
-                                                                <option class="text-secondary">2027</option>
-                                                                <option class="text-secondary">2028</option>
+                                                               
+                                                                <option class="text-secondary">2025 / 2026</option>
+                                                                    <option class="text-secondary">2026 / 2027</option>
+                                                                    <option class="text-secondary">2027 / 2028</option>
+                                                                    <option class="text-secondary">2028 / 2029</option>
+                                                                    <option class="text-secondary">2029 / 2030</option>
+                                                                    <option class="text-secondary">2030 / 2031</option>
+                                                                    <option class="text-secondary">2031 / 2032</option>
+                                                                    <option class="text-secondary">2032 / 2033</option>
+                                                                    <option class="text-secondary">2033 / 2034</option>
+                                                                    <option class="text-secondary">2034 / 2035</option>
+                                                                    <option class="text-secondary">2035 / 2036</option>
                                                             </select>
                                                         </td>
                                                         <td class="text-center" colspan="3"><b>This
@@ -87,10 +94,17 @@
                                                             <span class="ml-5">
                                                                 <select class="rounded-0 w-50"
                                                                     style="outline:none; color: #022c3d;">
-                                                                    <option class="text-secondary">2026</option>
-                                                                    <option class="text-secondary">2027</option>
-                                                                    <option class="text-secondary">2028</option>
-                                                                    <option class="text-secondary">2029</option>
+                                                                    <option class="text-secondary">2025 / 2026</option>
+                                                                    <option class="text-secondary">2026 / 2027</option>
+                                                                    <option class="text-secondary">2027 / 2028</option>
+                                                                    <option class="text-secondary">2028 / 2029</option>
+                                                                    <option class="text-secondary">2029 / 2030</option>
+                                                                    <option class="text-secondary">2030 / 2031</option>
+                                                                    <option class="text-secondary">2031 / 2032</option>
+                                                                    <option class="text-secondary">2032 / 2033</option>
+                                                                    <option class="text-secondary">2033 / 2034</option>
+                                                                    <option class="text-secondary">2034 / 2035</option>
+                                                                    <option class="text-secondary">2035 / 2036</option>
                                                                 </select>
                                                             </span>
                                                         </td>
@@ -102,10 +116,17 @@
                                                                 <span class="ml-5">
                                                                     <select class="rounded-0 w-50"
                                                                         style="outline:none; color: #022c3d;">
-                                                                        <option class="text-secondary">2026</option>
-                                                                        <option class="text-secondary">2027</option>
-                                                                        <option class="text-secondary">2028</option>
-                                                                        <option class="text-secondary">2029</option>
+                                                                    <option class="text-secondary">2025 / 2026</option>
+                                                                    <option class="text-secondary">2026 / 2027</option>
+                                                                    <option class="text-secondary">2027 / 2028</option>
+                                                                    <option class="text-secondary">2028 / 2029</option>
+                                                                    <option class="text-secondary">2029 / 2030</option>
+                                                                    <option class="text-secondary">2030 / 2031</option>
+                                                                    <option class="text-secondary">2031 / 2032</option>
+                                                                    <option class="text-secondary">2032 / 2033</option>
+                                                                    <option class="text-secondary">2033 / 2034</option>
+                                                                    <option class="text-secondary">2034 / 2035</option>
+                                                                    <option class="text-secondary">2035 / 2036</option>
                                                                     </select>
                                                                 </span>
                                                             </b>
@@ -577,8 +598,18 @@
                                                                     <td>
                                                                         <select class="rounded-0 w-100">
                                                                             <option class="text-secondary">Select Date</option>
-                                                                            <option class="text-secondary">2025</option>
-                                                                            <option class="text-secondary">2026</option>
+                                                                            
+                                                                    <option class="text-secondary">2025 / 2026</option>
+                                                                    <option class="text-secondary">2026 / 2027</option>
+                                                                    <option class="text-secondary">2027 / 2028</option>
+                                                                    <option class="text-secondary">2028 / 2029</option>
+                                                                    <option class="text-secondary">2029 / 2030</option>
+                                                                    <option class="text-secondary">2030 / 2031</option>
+                                                                    <option class="text-secondary">2031 / 2032</option>
+                                                                    <option class="text-secondary">2032 / 2033</option>
+                                                                    <option class="text-secondary">2033 / 2034</option>
+                                                                    <option class="text-secondary">2034 / 2035</option>
+                                                                    <option class="text-secondary">2035 / 2036</option>
                                                                     </td>
                                                                     <td class="bg-first text-right"><b>Average (P / Advertiser)</b>
                                                                     </td>
