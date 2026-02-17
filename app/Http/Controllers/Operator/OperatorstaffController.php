@@ -196,7 +196,7 @@ class OperatorstaffController extends BaseController
             case 5:
                 $staff->orderBy('email', $dir);
                 break;
-            case 10:
+            case 9:
                 $staff->orderBy('status', $dir);
                 break;
             case 11:
