@@ -21,12 +21,14 @@ Route::post('/update-password', [OperatorController::class, 'changePassword'])->
 Route::post('/change-password', [UserController::class, 'updatePassword'])->name('operator.update.password');
 Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('operator.update.password.expiry');
 
+Route::get('/view-my-account', [OperatorController::class, 'myOperator'])->name('operator.my-operator');
+
 Route::get('/bank-account', [OperatorController::class, 'bankAccount'])->name('operator.bank-account');
 Route::get('/agents-monthly-report', [OperatorController::class, 'agentMonthlyreport'])->name('operator.agents-monthly-report');
 Route::get('/operator-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.operator-monthly-report');
 
 /** Operator Staff */
-Route::get('/management/operator-staff', [OperatorstaffController::class, 'staff_list'])->name('operator.operator.staff');
+Route::get('/management/staff', [OperatorstaffController::class, 'staff_list'])->name('operator.operator.staff');
 Route::post('/management/operator-add-staff', [OperatorstaffController::class, 'add_sfaff'])->name('operator.operator.add-staff');
 Route::get('operator-staff_list_data_table', [OperatorstaffController::class, 'staff_data_list'])->name('operator.operator.staff_list_data_table');
 Route::post('/suspend-operator-staff', [OperatorstaffController::class, 'suspend_staff'])->name('operator.operator.suspend-staff');

@@ -15,14 +15,62 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+
 class OperatorController extends BaseController
 {
+
+    protected $current_date_time;
+    protected $staffRepo;
+    protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    protected $sidebar;
     protected $user;
+    protected $operatorId;
+    protected $operatorName;
 
     public function __construct(UserInterface $user)
     {
         $this->user = $user;
+        $this->middleware(function ($request, $next) {
+
+            $this->user = $user = auth()->user();   // works here
+            $this->operatorId =  $user->operator->id;
+            $this->operatorName = $user->operator->name;
+
+            // Now do everything that needs user data
+            $securityLevel = isset($user->operator_staff_detail->security_level) ? $user->operator_staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view', 9);
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit', 9);
+            $addAccess = staffPageAccessPermission($securityLevel, 'add', 9);
+            $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar', 9);
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+            if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
+               // return response()->redirectTo('/operator-dashboard')->with('error', __(accessDeniedMsg()));
+            }
+
+            return $next($request);
+        });
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function myOperator()
+    {
+        $staff = OperatorStaff::with('operator')->where("id", auth()->user()->id)->first();
+        $operator = $staff->operator;
+        return view('operator.dashboard.my-account.my-operator', compact('staff', 'operator'));
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -32,6 +80,7 @@ class OperatorController extends BaseController
     {
         return view('operator.dashboard.index');
     }
+
 
     /**
      * View my account

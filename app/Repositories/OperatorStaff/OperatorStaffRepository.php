@@ -81,7 +81,8 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
                     'phone' => $data['phone'] ?? null,
                     'email' => $data['email'] ?? null,
                     'country_id' => $data['country_id'] ?? null,
-                    'operator_id' => auth()->user()->operator_id,
+                    //'operator_id' => auth()->user()->operator_id,
+                     'operator_id' =>  $data['operator_id'] ?? null,
                     'gender' => $data['gender'] ?? null,
                 ];
 

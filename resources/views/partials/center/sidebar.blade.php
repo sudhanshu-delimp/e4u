@@ -611,13 +611,13 @@
 
                         <a class="collapse-item {{ request()->segment(1) == 'submit_ticket' ? 'menu-active' : '' }}"
                             href="{{ url('submit_ticket') }}">
-                            <img src="{{ asset('assets/app/img/right-30.png') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/submit-ticket.png') }}">
                             <span>Submit</span>
                         </a>
 
                         <a class="collapse-item {{ request()->segment(2) == 'ticket-list' ? 'menu-active' : '' }}"
                             href="{{ route('support-ticket.list') }}">
-                            <img src="{{ asset('assets/app/img/view-48.png') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/reply.png') }}">
                             <span>View & Reply</span>
                         </a>
 

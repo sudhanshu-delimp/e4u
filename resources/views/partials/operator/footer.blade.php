@@ -30,18 +30,15 @@
                 </div>
             </div>
         </div>
-        <!-- Bootstrap core JavaScript-->
+       <!-- Bootstrap core JavaScript-->
         <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <!-- Core plugin JavaScript-->
         <script src="{{ asset('assets/dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-        <script src="{{ asset('assets/dashboard/vendor/ckeditor/ckeditor.js') }}"></script>
-        <!-- Custom scripts for all pages-->
-        <script src="{{ asset('assets/dashboard/js/sb-admin-2.min.js') }}"></script>
         <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
-        
-        <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="{{ asset('assets/app/js/jquery-ui.min.js') }}"></script>
+        <script src="{{ asset('assets/js/common.js') }}"></script>
         <script src="{{ asset('assets/js/common.js') }}"></script>
 
         <script>
@@ -71,8 +68,52 @@
             }
 
             $(document).ready(function() {
-               // initJsDatePicker();
+                initJsDatePicker();
             });
+
+            function int_datePicker(ele) {
+                let datePickerOptions = {
+                    showAnim: 'slideDown',
+                    dateFormat: 'dd-mm-yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    showOn: "both",
+                    buttonImageOnly: true,
+                    buttonImage: "{{ asset('assets/img/calendar.svg') }}"
+                };
+                var dynamicOptions = $(ele).data('options') ? $(ele).data('options').split(', ') : '';
+                $(dynamicOptions).each(function(index, element) {
+                    var item = element.split(':');
+                    datePickerOptions[item[0]] = item[1];
+                });
+                if ($(ele).data('min')) {
+                    datePickerOptions['minDate'] = new Date($(ele).data('min'));
+                }
+                $(ele).datepicker(datePickerOptions);
+
+                //THis is to remove icon from the input when the input is disabled
+                if ($(ele).prop('disabled')) {
+                    $(ele).find('.ui-datepicker-trigger').hide();
+                }
+                $(".ui-datepicker-trigger").removeAttr("title");
+            }
+
+            var initJsDatePickerEdit = function() {
+                var $inputs = $(".js_datepicker_edit");
+                if ($inputs.length > 0) {
+                    $inputs.attr('placeholder', 'DD-MM-YYYY');
+                    $inputs.attr('autocomplete', 'off');
+                    $inputs.datepicker({
+                        dateFormat: "dd-mm-yy",
+                        changeMonth: true,
+                        changeYear: true,
+                        showAnim: "slideDown",
+                        onSelect: function(dateText) {
+                            $(this).trigger('change');
+                        }
+                    });
+                }
+            }
             </script>
 
         @section('script')

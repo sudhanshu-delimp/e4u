@@ -1207,7 +1207,25 @@ if (!function_exists('generate_masseur_member_id')) {
     }
 }
 
- 
+
+if (!function_exists('getListingRefundAmount')) {
+    function getListingRefundAmount($profile){
+        $refundAmount = 0.00;
+        $escortDetail = is_object($profile)?$profile:getEscortDetail($profile);
+        $purchase = $escortDetail->mainPurchase;
+        if(!empty($purchase)){
+            $membership = $purchase->membership;
+            $total_days = $escortDetail->days_number;
+            $remaining_days = $escortDetail->left_listing_days;
+            list($usedDicount, $usedAmount) = calculateTotalFee($membership, ($total_days - $remaining_days));
+            $refundAmount = $purchase->paid_rate-$usedAmount;
+        }
+        return $refundAmount;
+    }
+}
+
+
+
 if (!function_exists('get_working_hours')) {
     function get_working_hours($listing)
     {

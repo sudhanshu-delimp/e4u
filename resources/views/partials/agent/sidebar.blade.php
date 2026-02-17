@@ -76,9 +76,11 @@
 
      {{-- devider --}}
     <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
+        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:10px 30px 15px 15px;">
     </li>
     {{-- end --}}
+
+    
 
     {{-- end --}}
     {{-- Management --}}
@@ -245,7 +247,7 @@
 
     {{-- devider --}}
     <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
+        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:10px 30px 15px 15px;">
     </li>
     {{-- end --}}
 
@@ -376,14 +378,14 @@
                     data-parent="#Administration">
                     <div class="py-0 collapse-inner rounded mb-2">
                         <a class="collapse-item show" href="{{ url('submit_ticket') }}">
-                            <img src="{{ asset('assets/app/img/right-30.png') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/submit-ticket.png') }}">
                             <span
                                 style="{{ request()->segment(1) == 'submit_ticket' ? 'color: #e5365a;' : '' }}">Submit
                             </span>
                         </a>
 
                         <a class="collapse-item" href="{{ route('support-ticket.list') }}">
-                            <img src="{{ asset('assets/app/img/view-48.png') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/reply.png') }}">
                             <span style="{{ request()->segment(2) == 'ticket-list' ? 'color: #e5365a;' : '' }}">View &
                                 reply
                             </span>

@@ -16,7 +16,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                 <div class="row">
                     <!-- Page Heading -->
                     <div class="operator-heading-wrapper col-md-12">
-                        <h1 class="h1">Manage Operator Staff </h1>
+                        <h1 class="h1">Manage Staff </h1>
                         <span class="oprhelpNote" data-toggle="collapse" data-target="#notes"
                             style="font-size:16px"><b>Help?</b> </span>
                     </div>
@@ -25,7 +25,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                             <div class="card-body">
                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                 <ol>
-                                    <li>Create and manage Operator Staff here.</li>
+                                    <li>Create and manage Staff here.</li>
                                     <li>Set the security level for Staff as well as granting access.</li>
                                 </ol>
                             </div>
@@ -43,7 +43,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                                             <div class="col-lg-12 col-md-12 col-sm-12">
                                                 <div class="bothsearch-form" style="gap: 10px;">
                                                     <button type="button" class="opr-btn-common" data-toggle="modal"
-                                                        data-target="#addStaffnew">Add New Operator Staff Member</button>
+                                                        data-target="#addStaffnew">Add New Staff Member</button>
                                                 </div>
                                             </div>
                                             @endif
@@ -96,18 +96,16 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
     </a>
 
     <!-- add new staff member popupform -->
-    <div class="modal fade upload-modal" id="addStaffnew" tabindex="-1" role="dialog" aria-labelledby="addStaffnewLabel"
+    <div class="modal fade opr-modal" id="addStaffnew" tabindex="-1" role="dialog" aria-labelledby="addStaffnewLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addStaffnewTitle"><img
-                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon"> Add New Operator Staff
-                        Member</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
+                    <h5 class="modal-title text-white" id="addStaffnewTitle"><img
+                            src="{{ asset('assets/dashboard/img/operator-staff-member.png') }}" class="custompopicon"> Add New Staff Member</h5>
+                        <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
+                        </a>
                 </div>
                 <div class="modal-body">
                     <form name="add_staff" id="add_staff" method="POST" action="{{ route('operator.operator.add-staff') }}"
@@ -215,16 +213,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                                 </select>
                                 <span class="text-danger error-position"></span>
                             </div>
-                           {{--  <div class="col-6 mb-3">
-                                <select class="form-control rounded-0" name="location" id="location">
-                                    <option value="">Select Location</option>
-                                    @foreach (config('escorts.profile.cities') as $skey => $city)
-                                        <option value="{{ $skey }}">{{ $city }}</option>
-                                    @endforeach
-
-                                </select>
-                                <span class="text-danger error-location"></span>
-                            </div> --}}
+                           
                             <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="country_id" id="country_id">
                                     <option value="">Select Territory</option>
@@ -354,7 +343,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                         </div>
 
                         <div class="modal-footer p-0">
-                            <button type="submit" class="btn-success-modal mr-3">Save</button>
+                            <button type="submit" class="opr-common-btn">Save</button>
                         </div>
                     </form>
                 </div>
@@ -370,7 +359,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title text-white" id="editStaffnewTitle"><img
-                            src="{{ asset('assets/dashboard/img/operator-staff-member.png') }}" class="custompopicon">Edit Operator Staff
+                            src="{{ asset('assets/dashboard/img/operator-staff-member.png') }}" class="custompopicon">Edit Staff
                         Member </h5>
                     <a href="" class="close" data-dismiss="modal" aria-label="Close">
                     <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
@@ -389,7 +378,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title text-white" id="viewStaffnewTitle"><img
-                            src="{{ asset('assets/dashboard/img/operator-staff-member.png') }}" class="custompopicon">View Operator Staff
+                            src="{{ asset('assets/dashboard/img/operator-staff-member.png') }}" class="custompopicon">View Staff
                         Member</h5>
                     <a href="" class="close" data-dismiss="modal" aria-label="Close">
                         <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
@@ -417,7 +406,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
             var table = $("#staff_data_table").DataTable({
                 language: {
                     search: "Search: _INPUT_", 
-                    searchPlaceholder: "Search by Operator Staff ID",
+                    searchPlaceholder: "Search by Staff ID",
                     lengthMenu: "Show _MENU_ entries",
                     zeroRecords: "No matching records found",
                     info: "Showing _START_ to _END_ of _TOTAL_ entries",
