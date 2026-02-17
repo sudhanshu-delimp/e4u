@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="table-responsive membership--inner">
+        <div class="table-responsive">
             <table class="table table-bordered text-center mb-0">
                <colgroup>
                   <col style="width: 7%;">

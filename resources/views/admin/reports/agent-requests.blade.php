@@ -37,7 +37,7 @@
                 <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
                 </h6>
             </div>
-             @if (request('from') !== 'sidebar')
+             @if (request('from') == 'dashboard')
             <div class="back-to-dashboard">
                 <a href="{{ url()->previous() ?? route('dashboard.home') }}">
                     <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
@@ -64,8 +64,8 @@
                <div><span class="totalCompletedTask"></span></div>
             </div>
            </div>
-        <div class="table-responsive-xl membership--inner">
-            <table class="table" id="agentRequestreportTable">
+        <div class="table-responsive">
+            <table class="table w-100" id="agentRequestreportTable">
                  <thead class="table-bg">
                    <tr>
                     <th>Ref</th>

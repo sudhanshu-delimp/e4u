@@ -22,7 +22,7 @@
                   <div class="total-memberships">
                      Total Memberships: <span>4,211</span>
                   </div>
-                  <div class="table-responsive membership--inner">
+                  <div class="table-responsive">
                      <table class="table table-bordered">
                         <thead>
                            <tr>

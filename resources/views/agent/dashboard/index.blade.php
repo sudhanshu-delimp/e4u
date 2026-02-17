@@ -82,7 +82,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.advertiser-list') }}">
+              <a href="{{ route('agent.advertiser-list') }}?from=dashboard">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-advertisers.png') }}" alt="My Advertisers">
                   </div>
@@ -114,7 +114,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
          <div class="my-custom-box shadow-sm">
-             <a href="{{ route('agent.database-centers') }}">
+             <a href="{{ route('agent.database-centers') }}?from=dashboard">
                  <div class="box-icon">
                      <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt=" Database (Centers)">
                  </div>
@@ -129,7 +129,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ route('Fees.my-income') }}">
+              <a href="{{ route('Fees.my-income') }}?from=dashboard">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-income.png') }}" alt="My Income">
                   </div>
@@ -144,7 +144,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ url('submit_ticket') }}">
+              <a href="{{ url('submit_ticket') }}?from=dashboard">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/icon_support-tickets.png') }}" alt="Support Tickets">
                   </div>

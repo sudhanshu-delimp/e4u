@@ -51,13 +51,13 @@
                     <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
                     </h6>
                 </div>
-                 @if (request('from') !== 'sidebar')
-            <div class="back-to-dashboard">
-                <a href="{{ url()->previous() ?? route('dashboard.home') }}">
-                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
-                </a>
-            </div>
-             @endif 
+                 @if (request('from') == 'dashboard')
+                    <div class="back-to-dashboard">
+                        <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                            <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                        </a>
+                    </div>
+                @endif 
             </div>
             <div class="col-md-12 mb-4" id="profile_and_tour_options">
                 <div class="card collapse" id="notes">

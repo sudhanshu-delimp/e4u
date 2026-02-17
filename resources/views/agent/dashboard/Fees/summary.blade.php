@@ -588,7 +588,7 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <td class="bg-first text-right"><b>Current FY</b></td>
-                                                                    <td class="text-center">2025 / 2026</td>
+                                                                    <td class="text-center" id="current-fy">2025 / 2026</td>
                                                                     <td class="bg-first text-right"><b>Total Earnings</b>
                                                                     </td>
                                                                     <td class="text-right">$ 486.60</td>
@@ -596,20 +596,20 @@
                                                                 <tr>
                                                                     <td class="bg-first text-right"><b>Select FY</b></td>
                                                                     <td>
-                                                                        <select class="rounded-0 w-100">
-                                                                            <option class="text-secondary">Select Date</option>
-                                                                            
-                                                                    <option class="text-secondary">2025 / 2026</option>
-                                                                    <option class="text-secondary">2026 / 2027</option>
-                                                                    <option class="text-secondary">2027 / 2028</option>
-                                                                    <option class="text-secondary">2028 / 2029</option>
-                                                                    <option class="text-secondary">2029 / 2030</option>
-                                                                    <option class="text-secondary">2030 / 2031</option>
-                                                                    <option class="text-secondary">2031 / 2032</option>
-                                                                    <option class="text-secondary">2032 / 2033</option>
-                                                                    <option class="text-secondary">2033 / 2034</option>
-                                                                    <option class="text-secondary">2034 / 2035</option>
-                                                                    <option class="text-secondary">2035 / 2036</option>
+                                                                        <select class="rounded-0 w-100" id="select-fy" name="select-fy">
+
+                                                                            <option class="text-secondary" value="2025-2026">2025 / 2026</option>
+                                                                            <option class="text-secondary" value="2026-2027">2026 / 2027</option>
+                                                                            <option class="text-secondary" value="2027-2028">2027 / 2028</option>
+                                                                            <option class="text-secondary" value="2028-2029">2028 / 2029</option>
+                                                                            <option class="text-secondary" value="2029-2030">2029 / 2030</option>
+                                                                            <option class="text-secondary" value="2030-2031">2030 / 2031</option>
+                                                                            <option class="text-secondary" value="2031-2032">2031 / 2032</option>
+                                                                            <option class="text-secondary" value="2032-2033">2032 / 2033</option>
+                                                                            <option class="text-secondary" value="2033-2034">2033 / 2034</option>
+                                                                            <option class="text-secondary" value="2034-2035">2034 / 2035</option>
+                                                                            <option class="text-secondary" value="2035-2036">2035 / 2036</option>
+                                                                        </select>    
                                                                     </td>
                                                                     <td class="bg-first text-right"><b>Average (P / Advertiser)</b>
                                                                     </td>
@@ -1446,6 +1446,13 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 
     <script>
+        $(document).ready(function(){
+            $('#select-fy').on('change', function(){
+                const selectedFY = $(this).val();
+                $('#current-fy').text(selectedFY.replace('-', ' / '));
+            })
+        })
+
         $(document).ready(function() {
             let isHidden = false;
 

@@ -35,12 +35,13 @@
                 <h1 class="h1">My Legbox</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
                </div>
-                
+                @if (request('from') == 'dashboard')
                 <div class="back-to-dashboard">
                     <a href="{{ url()->previous() ?? route('user-dashboard') }}">
                         <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
                     </a>
                 </div>
+                @endif
             </div>
         </div>
 
