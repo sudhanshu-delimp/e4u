@@ -1291,7 +1291,7 @@ textarea {
                                         <option value="" selected="">-- Not Set --</option>
                                         @foreach(config('escorts.profile.Payments') as $key =>$PaymentType)
                                         <option value="{{$key}}" {{ ($escort->payment == $key)? 'selected' : ''}} data-name="{{$PaymentType}}">{{$PaymentType}}</option>
-                                        @endforeach>
+                                        @endforeach
                                         </select>
                                          <input type="hidden" value="{{ $massage_default->payment}}" class="form-control" id="profile_payment">
                                         @if(!empty($escort->payment)) 

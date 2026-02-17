@@ -4,11 +4,18 @@
 .mc_profile_table .table th{
     padding: .8rem .55rem !important;
 }
+.timing_data td{
+    text-align: center;
+}
 </style>
     @stop
     @section('content')
 
     @php 
+
+        $other_services = "";
+        $massage_services = "";
+
         $relativePath   =  $listing->imagePosition(9);
         $currentImage   = asset($relativePath);
         if($currentImage!= "" && file_exists($relativePath))
@@ -29,6 +36,17 @@
             $validImages[$i] = $img;
         }
     }
+
+    $social_links = $listing->social_links;
+    $rates_header = "";
+
+    $payType = '';
+    foreach(config('escorts.profile.Payments') as $key => $PaymentType) {
+        if ($listing->payment == $key) {
+            $payType = $PaymentType;
+            break; 
+        }
+                                                    }
 
     @endphp
 
@@ -75,23 +93,33 @@
 
             <div class="d-flex align-items-center justify-content-start gap-10">
                 <ul class="profile_page_social_profiles ml-0">
+
+                 @if(isset($social_links['facebook']) && $social_links['facebook']!="")
                     <li class="social-media-profile">
-                        <a href="https://www.facebook.com/" target="_blank">
+                        <a href="{{$social_links['facebook']}}" target="_blank">
                             <img src="{{ asset('../assets/app/img/facebook.png') }}" class="facebook-logo" alt="logo">
                         </a>
                     </li>
+                 @endif   
 
+                  @if(isset($social_links['insta']) && $social_links['insta']!="")
                     <li class="social-media-profile">
-                        <a href="https://www.instagram.com/" target="_blank">
+                        <a href="{{$social_links['insta']}}" target="_blank">
                             <img src="{{ asset('../assets/app/img/instagram.png') }}" class="instagram-logo" alt="logo">
                         </a>
                     </li>
+                  @endif  
 
+
+                @if(isset($social_links['twitter']) && $social_links['twitter']!="")
                     <li class="social-media-profile">
-                        <a href="https://x.com/" target="_blank">
+                        <a href="{{$social_links['twitter']}}" target="_blank">
                             <img src="{{ asset('../assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo">
                         </a>
                     </li>
+                @endif  
+                    
+
                 </ul>
             </div>
         </div>
@@ -131,7 +159,7 @@
                                             <h4>Massage</h4>
                                         </div>
                                         <div class="profile_hr">
-                                            <h4>$100/hr</h4>
+                                            <h4 class="header_rate_massage">$100/hr</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -145,7 +173,7 @@
                                             <h4>Masseur</h4>
                                         </div>
                                         <div class="profile_hr">
-                                            <h4>$120/hr</h4>
+                                            <h4 class="header_rate_masseur">$120/hr</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -156,10 +184,10 @@
                                     </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
-                                            <h4>2+ Masseurs</h4>
+                                            <h4 >2+ Masseurs</h4>
                                         </div>
                                         <div class="profile_hr">
-                                            <h4>$150/hr</h4>
+                                            <h4 class="header_rate_two_masseur">$150/hr</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -191,48 +219,89 @@
                             </thead>
 
                             <tbody>
+
+                            @foreach($durations->whereIn('id',[2,3,4,5,6,7]) as $duration)
+
+                            @php
+                            if($duration->id!="")
+                            {
+
+                                if(!empty($massage_durations))
+                                {
+                                    foreach($massage_durations as $db_duration)  
+                                    {
+                                        if(isset($db_duration['pivot']['duration_id']) && $db_duration['pivot']['duration_id']==$duration->id)
+                                        {
+                                            
+                                                $massage_price = isset($db_duration['pivot']['massage_price']) ? $db_duration['pivot']['massage_price'] : null;
+                                                $incall_price = isset($db_duration['pivot']['incall_price']) ? $db_duration['pivot']['incall_price'] : null;
+                                                $outcall_price = isset($db_duration['pivot']['outcall_price']) ? $db_duration['pivot']['outcall_price'] : null;
+
+
+                                                if($duration->id==5)
+                                                {
+                                                    $rates_header = [
+                                                        'massage'   => $massage_price,
+                                                        'incall'    => $incall_price,
+                                                        'outcall'   => $outcall_price,
+                                                    ];
+                                                }
+
+                                            
+                                            break;
+                                            
+                                        } 
+                                    }   
+                                }
+                            }
+                            @endphp
+
+                                    
+
+
                                 <tr>
-                                    <td>15 Minutes</td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
+                                    <td> {{$duration->name}} </td>
+                                    <td>
+
+                                           @if($massage_price)
+                                                <div class="public-num-value-table">
+                                                    <span>$ </span>{{ $massage_price }}
+                                                </div>
+                                            @else
+                                                <span class="na-label">N/A</span>
+                                            @endif
+
+                                    </td>
+
+                                    <td>
+                                        @if($incall_price)
+                                                <div class="public-num-value-table">
+                                                    <span>$ </span>{{ $incall_price }}
+                                                </div>
+                                            @else
+                                                <span class="na-label">N/A</span>
+                                            @endif
+                                    </td>
+                                    <td>
+
+                                            @if($outcall_price)
+                                                <div class="public-num-value-table">
+                                                    <span>$ </span>{{ $outcall_price }}
+                                                </div>
+                                            @else
+                                                <span class="na-label">N/A</span>
+                                            @endif
+
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>30 Minutes</td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
-                                </tr>
-                                 <tr>
-                                    <td>45 Minutes</td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
-                                </tr>
-                                 <tr>
-                                    <td>1 Hour</td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
-                                </tr>
-                                <tr>
-                                    <td>1.5 Hours</td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>180</div></td>
-                                    <td class="text-center"><span class="na-label ">N/A</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2 Hours</td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>200</div></td>
-                                    <td class="text-center"><span class="na-label text-center">N/A</span></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>250</div></td>
-                                </tr>
+                            @endforeach    
+                                
                             </tbody>
 
                             <thead>
                                 <tr>
                                     <th colspan="4">
-                                        Payment ($AUS): Cash, Card
+                                        Payment ($AUS) : {{ $payType }}
                                     </th>
                                 </tr>
                             </thead>
@@ -241,7 +310,7 @@
                     </div>
 
                     <div class="col-lg-6 col-md-12">
-                        <table class="table table_striped">
+                        <table class="table table_striped timing_data">
                             <thead>
                                 <tr>
                                     <th scope="col">Day</th>
@@ -250,34 +319,7 @@
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>Monday</td>
-                                    <td>9:00 AM - 6:00 PM</td>
-                                </tr>
-                                <tr>
-                                    <td>Tuesday</td>
-                                    <td>9:00 AM - 6:00 PM</td>
-                                </tr>
-                                <tr>
-                                    <td>Wednesday</td>
-                                    <td>9:00 AM - 6:00 PM</td>
-                                </tr>
-                                <tr>
-                                    <td>Thursday</td>
-                                    <td>9:00 AM - 6:00 PM</td>
-                                </tr>
-                                <tr>
-                                    <td>Friday</td>
-                                    <td>9:00 AM - 8:00 PM</td>
-                                </tr>
-                                <tr>
-                                    <td>Saturday</td>
-                                    <td>10:00 AM - 5:00 PM</td>
-                                </tr>
-                                <tr>
-                                    <td>Sunday</td>
-                                    <td>Closed</td>
-                                </tr>
+                                <?php echo get_weelly_availibility($listing); ?>
                             </tbody>
                         </table>
 
@@ -306,45 +348,45 @@
                             <div class="col-md-4">
                                 <div>
                                     <span class="about_box_small_heading">Building:</span>
-                                    <span class="about_box_small_heading_value">Apartment</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Building.' . $listing->parking, 'N/A') }}</span>
                                 </div>
                                 <div>
                                     <span class="about_box_small_heading">Parking:</span>
-                                    <span class="about_box_small_heading_value">Available</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Parking.' . $listing->parking, 'N/A') }}</span>
                                 </div>
                                 <div>
                                     <span class="about_box_small_heading">Entry:</span>
-                                    <span class="about_box_small_heading_value">Private</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Entry.' . $listing->entry, 'N/A') }}</span>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div>
                                     <span class="about_box_small_heading">Type:</span>
-                                    <span class="about_box_small_heading_value">Modern</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.furniture_types.' . $listing->furniture_types, 'N/A') }}</span>
                                 </div>
                                 <div>
                                     <span class="about_box_small_heading">Shower:</span>
-                                    <span class="about_box_small_heading_value">Yes</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Shower.' . $listing->parking, 'N/A') }}</span>
                                 </div>
                                 <div>
                                     <span class="about_box_small_heading">Ambiance:</span>
-                                    <span class="about_box_small_heading_value">Relaxing</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Ambiance.' . $listing->ambiance, 'N/A') }}</span>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div>
                                     <span class="about_box_small_heading">Security:</span>
-                                    <span class="about_box_small_heading_value">On-site</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Security.' . $listing->security, 'N/A') }}</span>
                                 </div>
                                 <div>
                                     <span class="about_box_small_heading">Payment:</span>
-                                    <span class="about_box_small_heading_value">Cash, Card</span>
+                                    <span class="about_box_small_heading_value">{{ $payType }}</span>
                                 </div>
                                 <div>
                                     <span class="about_box_small_heading">Loyalty program:</span>
-                                    <span class="about_box_small_heading_value">Available</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Loyalty.' . $listing->loyalty, 'N/A') }}</span>
                                 </div>
                                 
                             </div>
@@ -355,7 +397,7 @@
                             <div class="col-md-12 pt-2">
                                 <p class="mb-0">
                                     <span class="about_box_small_heading">Address:</span>
-                                    <span class="about_box_small_heading_value">123 Sample Street, City</span>
+                                    <span class="about_box_small_heading_value">{{$listing->address}}</span>
                                 </p>
                                 <p class="mb-0">
                                     <span class="about_box_small_heading">Languages:</span>
@@ -364,13 +406,25 @@
                                 <p class="mb-0">
                                     <span class="about_box_small_heading">Massage Service:</span>
                                     <span class="about_box_small_heading_value">
-                                        Swedish Massage, Deep Tissue, Relaxation
+                                    @foreach ($listing->massage_services()->where('category_id', 1)->get() as $value)
+                                    @php
+                                    $massage_services .= config('escorts.profile.massage-services')[$value->service_id] . ', ';
+                                    @endphp
+                                    @endforeach
+
+                                    {{ rtrim($massage_services, ', ') }}
                                     </span>
                                 </p>
                                 <p>
                                     <span class="about_box_small_heading">Other Service Types:</span>
                                     <span class="about_box_small_heading_value">
-                                        Aromatherapy, Body Scrub
+                                        @foreach ($listing->massage_services()->where('category_id', 2)->get() as $value)
+                                        @php
+                                        $other_services .= config('escorts.profile.other-services')[$value->service_id] . ', ';
+                                        @endphp
+                                        @endforeach
+
+                                        {{ rtrim($other_services, ', ') }}
                                     </span>
                                 </p>
                             </div>
@@ -385,11 +439,7 @@
                     </div>
                     <div class="padding_20_tob_btm_side">
                         <div class="text-justify">
-                            I am a professional massage therapist who focuses on creating a calm,
-                            relaxing, and respectful experience. My goal is to help you unwind,
-                            relieve stress, and feel completely at ease in a clean and comfortable
-                            environment. Every session is tailored to your needs, ensuring privacy,
-                            discretion, and quality service at all times.
+                            {!! $listing->about_us_box !!}
                         </div>
                     </div>
                 </div>
@@ -1328,6 +1378,8 @@
 
     {{-- end --}}
 
+
+
 @endsection
 @push('scripts')
 
@@ -1363,168 +1415,51 @@
     }
   }
 
-  setInterval(slideNext, 5000);
+setInterval(slideNext, 5000);
+
+
+
+$(document).ready(function(){
+
+    let ratesHeader = @json($rates_header);
+
+    if(ratesHeader.outcall)
+    {
+        $('.header_rate_two_masseur').html('$'+ratesHeader.outcall+'/hr');
+    }
+    
+    else
+    {
+        $('.header_rate_two_masseur').html('NA');    
+    }
+
+    if(ratesHeader.incall)
+    {
+        $('.header_rate_masseur').html('$'+ratesHeader.incall+'/hr');
+    }
+    
+    else
+    {
+        $('.header_rate_masseur').html('NA');    
+    }
+
+    if(ratesHeader.massage)
+    {
+        $('.header_rate_massage').html('$'+ratesHeader.massage+'/hr');
+    }
+    
+    else
+    {
+        $('.header_rate_massage').html('NA');    
+    }
+
+
+})
+
 </script>
 
 
-    {{-- <script type="text/javascript">
-        $('#like').click(function() {
-            var id = $("#eid").val();
-            console.log("isdfsdf=", id);
-            if (id != '') {
-                $(this).removeClass('fa-thumbs-o-up');
-                $("#dislike").removeClass('fa fa-thumbs-down');
-                $(this).addClass('fa-thumbs-up');
-                $("#dislike").addClass('fa fa-thumbs-o-down');
-                var url = "{{ route('web.massageLikeDislike') }}"
-                
-                var id = "{{ $escort->id }}";
-                $.post({
-                    url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                    },
-                    data: {
-                        "like": 1,
-                        "massageId": id
-                    }
-                }).done(function(data) {
-                    console.log(data);
-                    if (data.error == 2) {
-                        $("#like").removeClass('fa fa-thumbs-up');
-                        $("#dislike").removeClass('fa fa-thumbs-down');
-                        $("#like").addClass('fa fa-thumbs-o-up');
-                        $("#dislike").addClass('fa fa-thumbs-o-down');
-
-                    }
-                    $(".like").val(data.lp);
-                    $("#like_per").html("<p>" + data.lp + "%</p>");
-
-                    $(".dislike").val(data.dp);
-                    $("#dis_per").html("<p>" + data.dp + "%</p>");
-                }).fail(function(data) {
-
-                });
-            }
-        });
-
-        $('#dislike').click(function() {
-            var id = $("#eid").val();
-            if (id != '') {
-                $(this).removeClass('fa-thumbs-o-down');
-                $("#like").removeClass('fa fa-thumbs-up');
-                $(this).addClass('fa-thumbs-down');
-                $("#like").addClass('fa fa-thumbs-o-up');
-                var url = "{{ route('web.massageLikeDislike') }}"
-                var id = "{{ $escort->id }}";
-                $.post({
-                    url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                    },
-                    data: {
-                        "like": 0,
-                        "massageId": id
-                    }
-                }).done(function(data) {
-
-                    console.log(data);
-                    if (data.error == 2) {
-                        $("#like").removeClass('fa fa-thumbs-up');
-                        $("#dislike").removeClass('fa fa-thumbs-down');
-                        $("#like").addClass('fa fa-thumbs-o-up');
-                        $("#dislike").addClass('fa fa-thumbs-o-down');
-
-                    }
-                    $(".dislike").val(data.dp);
-                    $("#dis_per").html("<p>" + data.dp + "%</p>");
-
-                    $(".like").val(data.lp);
-                    $("#like_per").html("<p>" + data.lp + "%</p>");
-
-
-
-                }).fail(function(data) {
-                    console.log("Try again champ!", $('input[name="_token"]').val());
-                });
-            }
-
-        });
-        $(document).on('click', '.add_to_favrate', function() {
-
-            var name = $(this).attr('data-name');
-
-            var Eid = $(this).attr('data-escortId');
-            console.log("name==" + Eid);
-            var Uid = $(this).attr('data-userId');
-            var cidcl = $(this).attr('class');
-            var cid = cidcl.split(' ');
-            if (cid[1] == 'fill') {
-                $(this).removeClass('fill');
-                $(this).addClass('null');
-                $('#legboxId_' + Eid).html(
-                    "<i class='fa fa-heart' style='color: #ff3c5f;' title='Remove from legbox' aria-hidden='true'></i>"
-                );
-                var url = "{{ route('user.save.massage.legbox', ':id') }} ";
-                url = url.replace(':id', Eid);
-                $('.class_msg').text(name + ' added to your Legbox');
-                $('#add_wishlist').modal('show');
-                $.ajax({
-                    type: "post",
-                    url: url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        console.log(data);
-
-                    }
-                });
-                console.log("fill");
-            } else if (cid[1] == 'null') {
-                $(this).removeClass('null');
-                $(this).addClass('fill');
-                $('#legboxId_' + Eid).html(
-                    "<i class='fa fa-heart-o' title='Add to legbox' aria-hidden='true'></i>");
-                var url = "{{ route('user.delete.massage.legbox', ':id') }} ";
-                url = url.replace(':id', Eid);
-                $('.class_msg').text(name + ' has been removed from your Legbox ');
-                $('#add_wishlist').modal('show');
-                $.ajax({
-                    type: "post",
-                    url: url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        console.log(data);
-
-                    }
-                });
-                console.log("null");
-            } else {
-                $('#my_legbox').modal('show');
-                var login_url = "{!! route('viewer.login', [':id', 'path' => 'center-profile']) !!}";
-                var loginurl = login_url.replace(':id', 'MclegboxId=' + Eid);
-                
-                console.log(loginurl);
-
-                
-                var regurl = "{{ route('register', ':id') }}";
-
-                regurl = regurl.replace(':id', 'MclegboxId=' + Eid)
-                $('#loginUrl').attr('href', loginurl)
-                $('#regUrl').attr('href', regurl)
-            }
-
-
-
-            console.log(cid[1] + "-" + Eid);
-            console.log(cidcl);
-
-        });
-    </script> --}}
-
+    
 
 
 @endpush
