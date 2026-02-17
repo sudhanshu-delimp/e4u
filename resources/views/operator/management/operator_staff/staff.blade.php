@@ -116,6 +116,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                             </div>
                             <div class="col-12 mb-3">
                                 <span class="form-control form-back">{{$operatorName}}</span>
+                                <input type="hidden" name="operator_id" value="{{ auth()->user()->operator_id }}">
                             </div>
                              
                             <!-- Section: Personal Details -->
@@ -521,7 +522,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                 ],
 
                 order: [
-                    [10, 'DESC']
+                    [9, 'DESC']
                 ],
                 lengthMenu: [
                     [10, 25, 50, 100],
@@ -529,18 +530,6 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                 ],
                 pageLength: 10,
             });
-
-            let countdown = 15;
-            setInterval(() => {
-                countdown--;
-                $(".refreshSeconds").text(' ' + countdown);
-
-                if (countdown <= 0) {
-                    $('#listings').DataTable().ajax.reload(null, false);
-                    countdown = 15;
-                }
-
-            }, 1000);
 
             $('#customSearch').on('keyup', function() {
                 $('#listings').DataTable().search(this.value).draw();

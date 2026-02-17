@@ -28,6 +28,7 @@
         </div>
         <div class="col-12 mb-3">
             <span class="form-control form-back">{{$operatorName}}</span>
+            <input type="hidden" name="operator_id" value="{{ auth()->user()->operator_id }}">
         </div>
 
         <!-- Section: Personal Details -->
