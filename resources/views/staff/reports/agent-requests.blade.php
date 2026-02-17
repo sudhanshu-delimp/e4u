@@ -70,7 +70,7 @@
                <div><span class="totalCompletedTask"></span></div>
             </div>
            </div>
-        <div class="table-responsive-xl membership--inner">
+        <div class="table-responsive">
             <table class="table table-bordered text-center" id="agentRequestreportTable">
                  <thead id="table-sec" class="table-bg">
                    <tr>

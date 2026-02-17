@@ -47,23 +47,23 @@
                     request()->is('*visitors*') ||
                     request()->is('*pinup-listings*')) show @endif">
                 <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="collapse-item" href="{{ route('admin.escort-listings', ['from' => 'sidebar']) }}">
+                    <a class="collapse-item" href="{{ route('admin.escort-listings') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png') }}">
                         <span style="{{ request()->is('*escort-listings*') ? 'color: #FF3C5F;' : '' }}">Escort
                             Listings</span>
                     </a>
 
-                    <a class="collapse-item" href="{{ route('admin.massage-centre-listings', ['from' => 'sidebar']) }}">
+                    <a class="collapse-item" href="{{ route('admin.massage-centre-listings') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png') }}">
                         <span style="{{ request()->is('*massage-centre-listings*') ? 'color: #FF3C5F;' : '' }}">Massage
                             Centre Listings</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.pin-up-listings', ['from' => 'sidebar']) }}">
+                    <a class="collapse-item" href="{{ route('admin.pin-up-listings') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/visitors.png') }}">
                         <span style="{{ request()->is('*pinup-listings*') ? 'color: #FF3C5F;' : '' }}">Pin Up
                             Listings</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.logged-in-users', ['from' => 'sidebar']) }}">
+                    <a class="collapse-item" href="{{ route('admin.logged-in-users') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/login-user.png') }}">
                         <span style="{{ request()->is('*logged-in-users*') ? 'color: #FF3C5F;' : '' }}">Users Logged
                             In</span>
@@ -449,7 +449,7 @@
                                     Reviews</span>
                             </a>
                             <a class="nav-link collapsed"
-                                href="{{ route('admin.agent-requests', ['from' => 'sidebar']) }}">
+                                href="{{ route('admin.agent-requests') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/agent-request.png') }}">
                                 <span style="{{ request()->is('*agent-requests*') ? 'color: #FF3C5F;' : '' }}">Agent
@@ -477,7 +477,7 @@
                                 <span style="{{ request()->is('*punterbox*') ? 'color: #FF3C5F;' : '' }}">Punterbox</span>
                             </a>
                             <a class="nav-link collapsed"
-                                href="{{ route('admin.registrations-reports', ['from' => 'sidebar']) }}">
+                                href="{{ route('admin.registrations-reports') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/registration-reports.png') }}">
                                 <span
@@ -490,7 +490,7 @@
                                     style="{{ request()->is('*advertiser-suspensions*') ? 'color: #FF3C5F;' : '' }}">Suspensions</span>
                             </a>
                             <a class="nav-link collapsed"
-                                href="{{ route('admin.transaction-summary', ['from' => 'sidebar']) }}">
+                                href="{{ route('admin.transaction-summary') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/transaction-summary.png') }}">
                                 <span
@@ -499,7 +499,7 @@
                         </div>
                     </div>
 
-                    {{-- <a class="nav-link collapsed {{ request()->routeIs('admin.support-ticket.list', ['from' => 'sidebar']) ? 'menu-active' : '' }}" href="{{ route('admin.support-ticket.list') }}">   
+                    {{-- <a class="nav-link collapsed {{ request()->routeIs('admin.support-ticket.list') ? 'menu-active' : '' }}" href="{{ route('admin.support-ticket.list') }}">   
                         <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
                         <span>Support Tickets </span>
                     </a> --}}

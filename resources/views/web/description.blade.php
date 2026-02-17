@@ -149,7 +149,7 @@
                     
                 @endphp
                 <div class="col-12">
-                    <a href="{{ $finalUrl }}" class="back--search"> Back to Search <span class="previous_icon"><i class="fa fa-chevron-up text-white" aria-hidden="true"></i></span></a>
+                    <a href="{{ $finalUrl }}" class="back--search"> <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span> Back to Search </a>
                 </div>
             </div>
         </div>

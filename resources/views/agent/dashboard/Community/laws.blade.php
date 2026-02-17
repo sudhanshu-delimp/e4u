@@ -44,9 +44,9 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="table-responsive-xl  list-sec" id="sailorTableArea">
+                        <div class="table-responsive" id="sailorTableArea">
                             <table id="myTable" class="table dataTable" style="width: 100%;">
-                                <thead class="text-center">
+                                <thead class="text-center table-bg">
                                     <tr role="row">
                                         <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 75px; text-align:left;">State</th>
                                         <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 250px;">Legislation<sup>(1)</sup></th>
