@@ -364,7 +364,9 @@
                                     <th>Incident Create:</th>
                                     <td class="border-0">${formatDate(data.created_at) ?? 'N/A'}</td>
                                     <th>Status:</th>
-                                    <td class="border-0">${data.status ?? 'N/A'}</td>
+                                    <td class="border-0">
+                                        ${data.status ? data.status.replace(/<[^>]*>/g, '') : 'N/A'}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>Summary of Incident:</th>
