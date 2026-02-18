@@ -6220,6 +6220,13 @@ i.fa.fa-heart-o{
                 padding: 6px 8px;
                 border-top: 1px solid #ddd;
             }
+            
+            .text_truncate {
+                width: 100px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
             /* end */
             
             @media (max-width: 768px) {
