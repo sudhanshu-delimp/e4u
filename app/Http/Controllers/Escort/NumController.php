@@ -93,7 +93,7 @@ class NumController extends Controller
 
     public function showReportOnDashboardAjax(Request $request)
     {
-        $nums = Num::whereNotIn('status', ['pending'])->with('state')->get();
+        $nums = Num::whereNotIn('status', ['pending'])->with('state')->orderBy('incident_date', 'desc')->get();
 
         if($request->ajax()){
 
@@ -106,9 +106,7 @@ class NumController extends Controller
                 ->addColumn('status', fn($row) => formatLabelAttribute($row->status))
                 ->addColumn('rating', fn($row) => formatLabelAttribute($row->rating))
                 ->addColumn('incident_date', function($row) {
-                    return $row->incident_date 
-                        ? \Carbon\Carbon::parse($row->incident_date)->format('d-m-Y') 
-                        : '';
+                    return $row->incident_date ;
                 })
                 ->addColumn('location', function($row) {
                     if ($row->incident_state) {
@@ -117,12 +115,19 @@ class NumController extends Controller
                     }
                     return '';
                 })
+                ->addColumn('status', function ($row) {
+                    $statusText = $row->status 
+                        ? Str::title(Str::replace('_', ' ', $row->status)) 
+                        : 'NA';
+                    $badgeClass = getStatusBadgeClass($statusText);
+                    return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+                })
                 ->addColumn('actions', function($row) {
                     return ' <a href="javascript:void(0);" class="toggle-details">
                                 <i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="View"></i>
                             </a>';
                 })
-                ->rawColumns(['ref','actions']) // only 'action' needs HTML rendering
+                ->rawColumns(['ref','actions','status']) // only 'action' needs HTML rendering
                 ->make(true);
 
         }
