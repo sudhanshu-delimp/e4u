@@ -48,6 +48,7 @@ $(document).on('submit','#upgrade_modal_form', function(e){
             form.find('button[type="submit"]').attr('disabled','disabled');
         },
         success: function (response) {
+            console.log(response);
             if (response.success) {
                 Swal.fire({
                     icon: 'success',

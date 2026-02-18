@@ -491,7 +491,7 @@
                                 <div class="d-flex align-items-center gap_between_text_and_img our-masseurs"
                                     data-toggle="modal" data-target="#product_view">
                                     <div><img src="{{ $profile_img }}" width="50" height="50"  class="profile_img"></div>
-                                    <p class="mb-0">{{ $masseur->name}}</p>
+                                    <p class="mb-0 text_truncate">{{ $masseur->name}}</p>
                                 </div>
                             </div>
                               @endforeach
@@ -1587,7 +1587,7 @@
                                             <td><span class="na-label ">N/A</span></td>
                                             <td>9:30am - 9:00pm</td>
                                             <td>9:30am - 9:00pm</td>
-                                           <td><span class="na-label ">N/A</span></td>
+                                            <td><span class="na-label ">N/A</span></td>
                                             <td>10:00am - 9:00pm</td>
                                             <td>11:00am - 7:00pm</td>
                                         </tr>

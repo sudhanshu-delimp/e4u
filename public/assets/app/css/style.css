@@ -6220,6 +6220,13 @@ i.fa.fa-heart-o{
                 padding: 6px 8px;
                 border-top: 1px solid #ddd;
             }
+            
+            .text_truncate {
+                width: 100px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
             /* end */
             
             @media (max-width: 768px) {
@@ -6344,6 +6351,19 @@ i.fa.fa-heart-o{
                 .p_for_sm {
                     padding: 0px;
                 }
+                .box_shad_pad {
+                    box-shadow: 0px 1px 12px rgb(0 0 0 / 25%) !important;
+                    margin-top: 1.5em !important;
+                    padding: 25px!important;
+                }
+                /* a.back--search {
+                    position: relative;
+                    top: 5px;
+                    right: 0px;
+                }
+                .next-preview-fixed>div>div {
+                    position: relative;
+                } */
             }
             
             .total--list {

@@ -167,6 +167,7 @@ class Escort extends Model
     public function isListingExtended(){
         $purchases = $this->purchase()
         ->where('utc_end_time', '>=', Carbon::now('UTC'))
+        ->where('parent_id',0)
         ->orderBy('utc_end_time', 'desc')
         ->get();
         return (object)[

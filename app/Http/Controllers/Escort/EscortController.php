@@ -860,12 +860,43 @@ class EscortController extends BaseController
         try {
             $profileId = $request->profile_id;
             $membershipId = $request->membership;
-            $profileDetail = getEscortDetail($profileId);
-            $profileDetail->membership = $membershipId;
-            $profileDetail->save();
+            
+            DB::transaction(function () use ($profileId, $membershipId){
+                $profileDetail = getEscortDetail($profileId);
+                $oldPurchase = $profileDetail->mainPurchase;
+                $newPurchase = $oldPurchase->replicate();
+
+                list($usedDicount, $usedAmount) = calculateTotalFee($oldPurchase->membership, ($oldPurchase->days_number - $profileDetail->left_listing_days));
+                list($dicount, $amount, $unitAmount, $unitDiscount) = calculateTotalFee($membershipId, $profileDetail->days_left);
+
+                $today = Carbon::today($profileDetail->TimeZone);
+                $startOfToady = $today->copy()->startOfDay()->setTimezone('UTC');
+                $endOfToady = $today->copy()->endOfDay()->setTimezone('UTC');
+
+                $oldPurchase->end_date = $today->format('d-m-Y');
+                $oldPurchase->status = 'expire';
+                $oldPurchase->utc_end_time = $endOfToady;
+                $oldPurchase->paid_rate = $usedAmount;
+                $oldPurchase->save();
+
+                $newPurchase->parent_id = $oldPurchase->id;
+                $newPurchase->membership = $membershipId;
+                $newPurchase->start_date =  $today->copy()->format('d-m-Y');
+                $newPurchase->utc_start_time =  $startOfToady;
+                $newPurchase->rate = $unitAmount;
+                $newPurchase->discount_rate = $unitDiscount;
+                $newPurchase->total_rate = $profileDetail->days_left*$unitAmount;
+                $newPurchase->paid_rate = $amount;
+                $newPurchase->save();
+
+                $profileDetail->purchase_id = $newPurchase->id;
+                $profileDetail->membership = $membershipId;
+                $profileDetail->save();
+            });
+
             return response()->json([
                 'success' => true,
-                'message' => 'Listing has been upgraded.'
+                'message' => 'Listing has been upgraded.',
             ]);
 
         } catch (Exception $e) {

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use DataTables;
+use Illuminate\Support\Str;
 
 class CenterNumController extends Controller
 {
@@ -104,9 +105,7 @@ class CenterNumController extends Controller
                 ->addColumn('status', fn($row) => formatLabelAttribute($row->status))
                 ->addColumn('rating', fn($row) => formatLabelAttribute($row->rating))
                 ->addColumn('incident_date', function($row) {
-                    return $row->incident_date 
-                        ? \Carbon\Carbon::parse($row->incident_date)->format('d-m-Y') 
-                        : '';
+                    return $row->incident_date;
                 })
                 ->addColumn('location', function($row) {
                     if ($row->incident_state) {
@@ -115,12 +114,20 @@ class CenterNumController extends Controller
                     }
                     return '';
                 })
+
+                 ->addColumn('status', function ($row) {
+                    $statusText = $row->status 
+                        ? Str::title(Str::replace('_', ' ', $row->status)) 
+                        : 'NA';
+                    $badgeClass = getStatusBadgeClass($statusText);
+                    return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+                })
                 ->addColumn('actions', function($row) {
                     return ' <a href="javascript:void(0);" class="toggle-details">
                                 <i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="View"></i>
                             </a>';
                 })
-                ->rawColumns(['ref','actions']) // only 'action' needs HTML rendering
+                ->rawColumns(['ref','actions','status']) // only 'action' needs HTML rendering
                 ->make(true);
 
         }
@@ -131,9 +138,8 @@ class CenterNumController extends Controller
     public function showMyReportByAjax(Request $request)
     {
         $userId = Auth::user()->id;
-        $nums = Num::where('user_id',$userId)->whereNotIn('status', ['pending'])->with('state')->get();
+        $nums = Num::where('user_id',$userId)->whereNotIn('status', ['pending'])->with('state')->orderBy('incident_date' , 'desc')->get();
         // $nums = Num::where('user_id',$userId)->whereNotIn('status', ['pending'])->with('state')->get();
-
         $timeZone = config('escorts.profile.states')[Auth::user()->state_id] ?? 'UTC';
 
         # Date Filters
@@ -153,7 +159,8 @@ class CenterNumController extends Controller
                 ->count(),
 
             'this_year' => Num::where('user_id',$userId)->whereNotIn('status', ['pending'])
-                ->whereBetween('incident_date', [$yearStart->format('Y-m-d'), $now->format('Y-m-d')])
+                // ->whereBetween('incident_date', [$yearStart->format('Y-m-d'), $now->format('Y-m-d')])
+                ->whereYear('incident_date', $now->year)
                 ->count(),
 
             'all_time' => Num::where('user_id',$userId)->whereNotIn('status', ['pending'])->count(),
@@ -170,9 +177,7 @@ class CenterNumController extends Controller
                 ->addColumn('status', fn($row) => formatLabelAttribute($row->status))
                 ->addColumn('rating', fn($row) => formatLabelAttribute($row->rating))
                 ->addColumn('incident_date', function($row) {
-                    return $row->incident_date 
-                        ? Carbon::parse($row->incident_date)->format('d-m-Y') 
-                        : '';
+                    return $row->incident_date ;
                 })
                 ->addColumn('location', function($row) {
                     if ($row->incident_state) {
@@ -180,6 +185,13 @@ class CenterNumController extends Controller
                         return $states['stateName'] ?? 'N/A';
                     }
                     return '';
+                })
+                ->addColumn('status', function ($row) {
+                    $statusText = $row->status 
+                        ? Str::title(Str::replace('_', ' ', $row->status)) 
+                        : 'NA';
+                    $badgeClass = getStatusBadgeClass($statusText);
+                    return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
                 })
                 ->addColumn('actions', function($row) {
                     return '<div class="dropdown no-arrow"> 
@@ -189,7 +201,7 @@ class CenterNumController extends Controller
                     <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 edit_report" href="'.route('center.edit-my-reports',$row->id).'" data-id="'.$row->id.'"> <i class="fa fa-pen"></i> Edit</a>
                   </div></div>';
                 })
-                ->rawColumns(['ref','actions']) // only 'action' needs HTML rendering
+                ->rawColumns(['ref','actions','status']) // only 'action' needs HTML rendering
                 ->with($counts)
                 ->make(true);
 

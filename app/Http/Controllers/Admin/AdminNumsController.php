@@ -94,11 +94,13 @@ class AdminNumsController extends Controller
                     }
                     return 'N/A';
                 })
+                
                 ->addColumn('status', function ($row) {
-                    if ($row->status) {
-                        return Str::title(Str::replace('_', ' ', $row->status)) ?? 'N/A';
-                    }
-                    return '';
+                    $statusText = $row->status 
+                        ? Str::title(Str::replace('_', ' ', $row->status)) 
+                        : 'NA';
+                    $badgeClass = getStatusBadgeClass($statusText);
+                    return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
                 })
                 ->addColumn('actions', function ($row) {
 

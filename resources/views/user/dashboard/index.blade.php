@@ -59,7 +59,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('user.my-legbox', ['escort']) }}">
+                <a href="{{ route('user.my-legbox', ['escort']) }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/icon_mylegbox.png') }}" alt=" My Legbox">
                     </div>
@@ -74,7 +74,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('user.punterbox.dashboard') }}">
+                <a href="{{ route('user.punterbox.dashboard') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/icon_punterbox.png') }}" alt="Punterbox">
                     </div>
@@ -151,7 +151,7 @@
 {{-- box start --}}
 <div class="col-lg-4 box-wrapper">
     <div class="my-custom-box shadow-sm">
-        <a href="{{ route('user.list') }}">
+        <a href="{{ route('user.list') }}?from=dashboard">
             <div class="box-icon">
                 <img src="{{ asset('assets/dashboard/img/MyNotebox.png') }}" alt="Logs & Status">
             </div>

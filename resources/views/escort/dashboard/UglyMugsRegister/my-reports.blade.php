@@ -120,6 +120,7 @@
               <th>Incident Type</th>
               <th>Incident Date </th>
               <th>Location</th>
+              <th>Status</th>
               <th class="text-center">Action</th>
             </tr>
           </thead>
@@ -132,6 +133,7 @@
                       <td>{{ $num->incident_date }}</td>
                       <td>{{ $num->state ? $num->state->iso2 : '' }} - {{ $num->state ? $num->state->name : '' }}
                       </td>
+                       <td>{{ $num->status }}</td>
                       <td class="text-center">
                           <a href="javascript:void(0);" class="toggle-details"
                               data-target="details-{{ $num->id }}">
@@ -167,6 +169,7 @@
                 "zeroRecords": "No Record Found!",
                 searchPlaceholder: "Search by Mobile Number"
             },
+             order: [[3, 'desc']],
             paging: true,
             processing: false,
             serverSide: false,
@@ -207,11 +210,23 @@
                 },
                 {
                     data: 'incident_date',
-                    name: 'incident_date'
+                    render: function(data, type) {
+
+                        if (type === 'display') {
+                            let parts = data.split('-');
+                            return parts[2] + '-' + parts[1] + '-' + parts[0];
+                        }
+
+                        return data; 
+                    }
                 },
                 {
                     data: 'location',
                     name: 'location'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
                 },
                 {
                     data: 'actions',

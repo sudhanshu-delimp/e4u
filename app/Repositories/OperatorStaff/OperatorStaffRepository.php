@@ -86,11 +86,16 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
                     'gender' => $data['gender'] ?? null,
                 ];
 
+                $userType = auth()->user()->type;
+
                 if (isset($data['user_id']) && (!empty($data['user_id']))) {
                     $user = $this->staff->where('id', $data['user_id'])->first();
                     if ($user) {
                         $user->update($staffData);
                         $message = 'Operator staff updated successfully.';
+                        if($userType == 9) {
+                            $message = 'Staff updated successfully.';
+                        }
                     } else {
                         $this->response = ['status' => false, 'message' => 'Staff not found.'];
                         return $this->response;
@@ -100,6 +105,9 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
                     $staffData['status'] = 2;
                     $staffData['type'] = (string) config('operator_staff.staff_role_type');
                     $message = 'New operator staff added successfully.';
+                    if($userType == 9) {
+                            $message = 'New staff added successfully.';
+                        }
                     $user = User::create($staffData);
                     if ($user) {
                         $this->setting->create_account_setting($user);

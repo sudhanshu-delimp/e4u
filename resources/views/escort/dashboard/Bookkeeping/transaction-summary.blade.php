@@ -42,8 +42,8 @@
    <!--middle content-->
    <div class="row">      
     <div class="col-md-12">        
-        <div class="membership--inner">
-            <table class="table" id="transactionSummaryTable">
+        <div class="table-responsive">
+            <table class="table w-100" id="transactionSummaryTable">
                  <thead class="table-bg">
                    <tr>
                     <th>Ref</th>
@@ -162,15 +162,7 @@
 <script>
    $(document).ready(function() {
       var table = $("#transactionSummaryTable").DataTable({
-         language: {
-            search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID or Agent ID...",
-            lengthMenu: "Show _MENU_ entries",
-            zeroRecords: "No matching records found",
-            info: "Showing _START_ to _END_ of _TOTAL_ entries",
-            infoEmpty: "No entries available",
-            infoFiltered: "(filtered from _MAX_ total entries)"
-         },
+         
          initComplete: function() {
                     if ($('#returnToReportBtn').length === 0) {
                         $('.dataTables_filter').append(
@@ -184,7 +176,7 @@
                 },
                 "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
-                    searchPlaceholder: "Search by Member ID or Agent ID..."
+                    searchPlaceholder: "Search by Member ID or Agent ID"
                 },
          processing: true,
          serverSide: true,

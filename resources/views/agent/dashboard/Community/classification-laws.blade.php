@@ -46,9 +46,9 @@
             {{-- end --}}
             <div class="row">
                <div class="col-md-12">
-                  <div class="table-responsive-xl list-sec">
+                  <div class="table-responsive">
                      <table class="table dataTable" style="width: 100%;">
-                        <thead>
+                        <thead class="table-bg">
                            <tr role="row">
                               <th class="text-left">State</th>
                               <th class="text-center">Legislation<sup>(1)</sup></th>
@@ -117,7 +117,7 @@
                </div>
             </div>
             <div class="row">
-               <div class="col-md-10">
+               <div class="col-md-12">
                   
                   <div class="row">
                      <div class="col-md-12">

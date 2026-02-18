@@ -29,7 +29,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('admin.escort-listings') }}">
+                <a href="{{ route('admin.escort-listings') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/escort-listings.png') }}" class="my-svg-icons" alt="Escort Listings">
                     </div>
@@ -44,7 +44,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('admin.massage-centre-listings') }}">
+                <a href="{{ route('admin.massage-centre-listings') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/mcc.png') }}" class="my-svg-icons" alt="Massage Centre Listings">
                     </div>
@@ -60,7 +60,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('admin.pin-up-listings') }}">
+                <a href="{{ route('admin.pin-up-listings') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/pinup.png') }}" class="my-svg-icons" alt="Pin Up Listings">
                     </div>
@@ -76,7 +76,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('admin.agent-requests') }}">
+                <a href="{{ route('admin.agent-requests') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/agent-requests.png') }}" class="my-svg-icons" alt=" Agent Requests">
                     </div>
@@ -91,7 +91,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a  href="{{ route('admin.registrations-reports') }}">
+                <a  href="{{ route('admin.registrations-reports') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/registratios.png') }}" class="my-svg-icons" alt="Registrations">
                     </div>
@@ -106,7 +106,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('admin.logged-in-users') }}">
+                <a href="{{ route('admin.logged-in-users') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/user-loged-in.png') }}" class="my-svg-icons" alt="Users Logged In">
                     </div>
@@ -121,7 +121,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('admin.support-ticket.list') }}">
+                <a href="{{ route('admin.support-ticket.list') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/support-tickets.png') }}" class="my-svg-icons" alt="Support Tickets">
                     </div>
@@ -136,7 +136,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('admin.global.notification.index') }}">
+                <a href="{{ route('admin.global.notification.index') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/notifications.png') }}" class="my-svg-icons" alt="Notifications (Global)">
                     </div>
@@ -151,7 +151,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('admin.transaction-summary') }}">
+                <a href="{{ route('admin.transaction-summary') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/transaction-summary.png') }}" alt="Transaction Summary">
                     </div>

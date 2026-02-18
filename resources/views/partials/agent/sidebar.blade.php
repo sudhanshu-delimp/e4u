@@ -138,7 +138,7 @@
 
 
 
-                        <a class="collapse-item" href="{{ route('agent.advertiser-list', ['from' => 'sidebar']) }}">
+                        <a class="collapse-item" href="{{ route('agent.advertiser-list') }}">
 
                             <img src="{{ asset('assets/dashboard/img/menu-icon/list-current.png') }}">
                             <span
@@ -185,7 +185,7 @@
                         </a>
 
 
-                        <a class="collapse-item" href="{{ route('Fees.my-income', ['from' => 'sidebar']) }}">
+                        <a class="collapse-item" href="{{ route('Fees.my-income') }}">
                             <img
                                 src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
                             <span style="{{ request()->segment(3) == 'my-income' ? 'color: #e5365a;' : '' }}">My
@@ -211,7 +211,7 @@
                         request()->segment(3) == 'saved-reports') show @endif;"
                     data-parent="#Management">
                     <div class="py-0 collapse-inner rounded mb-2">
-                        <a class="collapse-item" href="{{ route('agent.database-centers', ['from' => 'sidebar']) }}">
+                        <a class="collapse-item" href="{{ route('agent.database-centers') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/data-center.png') }}">
                             <span
                                 style="{{ request()->segment(3) == 'database-centers' ? 'color: #e5365a;' : '' }}">Database
@@ -224,7 +224,7 @@
                                 Packages</span>
                         </a>
                         <a class="collapse-item"
-                            href="{{ route('marketing.agencreate-prospect', ['from' => 'sidebar']) }}">
+                            href="{{ route('marketing.agencreate-prospect') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/prospect.png') }}">
                             <span
                                 style="{{ request()->segment(3) == 'create-prospect' ? 'color: #e5365a;' : '' }}">Prospect
