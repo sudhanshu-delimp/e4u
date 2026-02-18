@@ -7,12 +7,20 @@
 .timing_data td{
     text-align: center;
 }
+
+.profile_img {
+    border-radius: 23px;
+}
+.our-masseurs {
+    border-radius: 23px;
+
+}
 </style>
     @stop
     @section('content')
 
     @php 
-
+        $massager_name = $listing->profile_name;
         $other_services = "";
         $massage_services = "";
 
@@ -47,6 +55,9 @@
             break; 
         }
                                                     }
+     
+    $galleryVideos = $listing->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
+                        
 
     @endphp
 
@@ -328,11 +339,16 @@
 
                     <div class="col-sm-12">
                         <div style="width: 100%">
-                            <iframe width="100%" height="153" frameborder="0" scrolling="no" marginheight="0"
-                                marginwidth="0"
-                                src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=Perth%20Western%20Australia&t=&z=14&ie=UTF8&iwloc=B&output=embed"
-                                style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
-                            </iframe>
+                                                <iframe 
+                            width="100%" 
+                            height="153" 
+                            frameborder="0" 
+                            scrolling="no" 
+                            marginheight="0"
+                            marginwidth="0"
+                            src="https://maps.google.com/maps?q={{ urlencode($listing->address ?? 'Perth, Western Australia') }}&hl=en&z=14&output=embed"
+                            style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
+                        </iframe>
                         </div>
                     </div>
                 </div>
@@ -457,13 +473,30 @@
                         </p>
 
                         <div class="row">
+                            @if($listing->massagerMasseurs->count()>0)
+                             @foreach($listing->massagerMasseurs as $masseur)
+
+                            @php
+                               
+                                $imageUrl = asset($masseur->getImagePosition(1, $masseur->id));
+
+                                if (Str::contains($imageUrl, 'mcc-default-thumbnail.png') || empty($imageUrl)) {
+                                    $profile_img = asset('assets/app/img/def-masseur-therapy.avif');
+                                } else {
+                                    $profile_img = $imageUrl;
+                                }
+                            @endphp
+
                             <div class="col-md-3 col-sm-6 mb-4">
                                 <div class="d-flex align-items-center gap_between_text_and_img our-masseurs"
                                     data-toggle="modal" data-target="#product_view">
-                                    <div><img src="../assets/app/img/profile_photo.png"></div>
-                                    <p class="mb-0">Sierra</p>
+                                    <div><img src="{{ $profile_img }}" width="50" height="50"  class="profile_img"></div>
+                                    <p class="mb-0">{{ $masseur->name}}</p>
                                 </div>
                             </div>
+                              @endforeach
+                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -704,13 +737,9 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td class="table_border_dash_left">&nbsp;</td>
-                                                                <td class="table_border_solid_left"></td>
+                                                               <td class="table_border_dash_left" colspan="2">Let's talk about it.</td>
                                                             </tr>
-                                                            <tr>
-                                                                <td class="table_border_dash_left">&nbsp;</td>
-                                                                <td class="table_border_solid_left"></td>
-                                                            </tr>
+                                                           
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -724,13 +753,10 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td class="table_border_dash_left">&nbsp;</td>
-                                                                <td class="table_border_solid_left"></td>
+                                                                <td class="table_border_dash_left" colspan="2">Let's talk about it.</td>
+                                                                
                                                             </tr>
-                                                            <tr>
-                                                                <td class="table_border_dash_left">&nbsp;</td>
-                                                                <td class="table_border_solid_left"></td>
-                                                            </tr>
+                                                          
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -750,11 +776,11 @@
 
 
             </div>
-            <!-- ffffffffff -->
-            <!-- sssssssssssssssss -->
-            <div class="col-md-4 profile-sidebar-margin-top">
-                <!-- video crousal start -->
+     
+         
 
+
+            <div class="col-md-4 profile-sidebar-margin-top">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12 px-0">
@@ -853,16 +879,72 @@
                     <div class="profile_card_border profile_description_contect">
                         <h2><img src="../assets/app/img/contact_me.svg"> Contacting us</h2>
                     </div>
-                    <div class="padding_20_tob_btm_side reduse_pad">
-                        <span class="span_display_block connecting_me_chat_phone">
-                            You can contact us by:<br>
-                            <p class="font-weight-bold mb-0 mt-2">When texting us please say:</p>
-                            <p class="profile_description_contect_pera">
-                                <b><i>Hi, I found you on Escorts4U ...</i></b>
-                                on our number 1438 028 743
-                            </p>
-                        </span>
+                     <div class="padding_20_tob_btm_side reduse_pad">
+            <span class="span_display_block connecting_me_chat_phone">
+                You can contact us by:
+
+                    @php
+                        $contactType = $listing->contact != null ? $listing->contact : '';
+                    @endphp
+                    @if($contactType == 1)
+                    <div class="tooltip-wrapper">
+                        <img src="{{ asset('assets/app/img/email-me.png') }}">
+                        <div class="tooltip-text">Email me</div>
                     </div>
+                    
+                    
+                    @endif
+ 
+                    @if($contactType == 4 || $contactType == 5)
+                        <div class="tooltip-wrapper">
+                            <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
+                            <div class="tooltip-text">Call me</div>
+                            @if($contactType == 5)
+                                <span>or</span>
+                            @endif
+                        </div>
+                    @endif
+                    @if($contactType == 2 || $contactType == 5)
+                        <div class="tooltip-wrapper">
+                                <img src="{{ asset('assets/app/img/wechat.svg') }}">
+                                <div class="tooltip-text">Text me</div>
+                        </div>
+                    @endif
+            </br>
+            @php
+
+
+            $from = $listing->phone;
+            $number = sprintf("%s-%s-%s",
+            substr($from, 0, 3),
+            substr($from, 3, 3),
+            substr($from, 6));
+            //dd($number);
+            @endphp
+            <p class="font-weight-bold mb-0 mt-2">When texting us please say:</p>
+            <p class="profile_description_contect_pera">
+                <b><i>Hi {{ $massager_name }}, I found you on Escorts4U ... </i></b>
+                @php
+                    $formattedNumber = $listing->phone;
+                    $contactTypes = $listing->contact != null ? $listing->contact : '';
+                   
+                @endphp
+
+                @if($contactTypes != '')
+                    @if($contactTypes == 1)
+                        on our email {{ $listing->user->email ?? '' }}
+                    @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
+                        on our number {{ $formattedNumber }}.
+                    @else
+                        on our number --++
+                    @endif
+                @else
+                    {{-- on our number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
+                    on our number --====
+                @endif
+            </p>
+            </span>
+        </div>
                 </div>
 
                 <!-- Vaccination Status -->
@@ -904,7 +986,7 @@
                 <!-- Tips Carousel -->
                 <div class="box_shadow padding_twelve_px">
                     <div class="profile_card_border profile_description_contect position-relative">
-                        <h2><img src="assets/app/img/tips.svg">Tips</h2>
+                        <h2><img src="../assets/app/img/tips.svg">Tips</h2>
                     </div>
                     <div class="pt-2">
                         <div class="text-slider">
@@ -925,20 +1007,139 @@
                     <div class="profile_card_border profile_page_box_heading">
                         <h2 class="custom--review"><img src="../assets/app/img/review-custom.png"> Reviews</h2>
                     </div>
-                    <div class="pt-3 row">
-                        <div class="col-md-12">
-                            <p class="testimonial"><strong>[MC Name]</strong> has no Reviews. Why don't you give them their first Review?</p>
+
+
+                        @php
+                            $reviewAlreadyExist = false;
+                            $reviewExistsMessage = '';
+                            $reviewExistsStarRating = 0;
+                        @endphp
+                        @if(count($reviews) > 0)
+                        <div class="padding_20_tob_btm_side">
+                            <!-- new-review-card -->
+                            <div class="review-card mx-auto position-relative">
+                                <!-- Carousel -->
+                                <div id="reviewCarousel" class="carousel slide carousel-slide " data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        
+                                        @foreach($reviews as $key => $review)
+                                            @php
+                                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id && $review->escort_id == $listing->id){
+                                                    $reviewAlreadyExist = true;
+                                                    $reviewExistsMessage = $review->description;
+                                                    $reviewExistsStarRating = $review->star_rating;
+                                                }
+                                            @endphp
+                                            
+                                            <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <h5>
+                                                        @if (!empty($review->user->name))
+                                                            {{ Str::title($review->user->name) }}
+                                                        @elseif (!empty($review->user->email))
+                                                            {{ Str::title(explode('@', $review->user->email)[0]) }}
+                                                        @else
+                                                            Username
+                                                        @endif
+                                                    </h5>
+                                                    <p class="custome-text-date mb-0">Reviewed: {{$review->created_at->format('d-m-Y')}}</p>
+                                                </div>
+                                                <ul class="list-inline mb-0">
+                                                    @for($i=1; $i<= 5; $i++)
+                                                        @if($i <= $review->star_rating)
+                                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                                        @else
+                                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
+                                                        @endif
+                                                    @endfor
+                                                    {{--<li class="list-inline-item testi_icon_color"><b class="">{{$review->star_rating}}</b></li> --}}
+                                                </ul>
+                                                
+                                                <div class="review-text">
+                                                    {{ $review->description }}
+                                                </div>
+                                            </div>
+                                            
+                                        @endforeach
+
+                                    </div>
+
+                                    <!-- Custom Nav Buttons -->
+                                    <div class="d-flex justify-content-start my-3 carousel-nav-btn-wrapper">
+                                        <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
+                                        <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
+                                    </div>
+                                </div>
+                                <!-- Carousel controls -->
+                                <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
+                                    <div class="col-md-12 mb-4">
+                                    @if(auth()->user())
+                                            @if(auth()->user()->type == 0)
+                                                @if(!$reviewAlreadyExist)
+                                                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
+                                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                    Add Review
+                                                </button>
+                                                @else
+                                                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
+                                                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                        Edit Review
+                                                    </button>
+                                                @endif
+
+                                            @endif
+                                        @else
+                                            <button type="button" class="btn add_reviews_btn all_btn_flx">
+                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
+                                            </button>
+                                        @endif
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        {{-- <div class="col-md-12 mb-4"></div> --}}
+                        @endif
+
+
+
+                    <div class="pt-3 row">
+                            <div class="col-md-12">
+                                @php
+                                    $mesageForViewer = true;
+                                    if(auth()->user() && auth()->user()->type != 0){
+                                        $mesageForViewer = false;
+                                    }
+                                @endphp
+                                <p class="testimonial">
+                                    <strong>{{ $massager_name }}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $massager_name}}</strong> their first Review? @php } @endphp
+                                </p>
+                            </div>
+                       
+
+                        <div class="col-md-12 mb-4">
+
+                            @if(auth()->user())
+                                @if(auth()->user()->type == 0)
+                                    <button type="button" class="btn add_reviews_btn all_btn_flx open_review_box disabled-button">
+                                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                        Add Review
+                                    </button>
+                                @endif
+                            @else
+                                <button type="button" class="btn add_reviews_btn all_btn_flx">
+                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                    <a href="{{route('viewer.login')}}" style="color: white;">Login to Add Review</a>
+                                </button>
+                            @endif
+                        </div>
+
+
+
+
+
                     </div>
-                    {{-- <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal" data-target="#add_reviews">
-                        <img src="{{ asset('../assets/app/img/feedbackicon.png') }}">
-                        Login to Add Review
-                    </button> --}}
-                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box">
-                        <img src="{{ asset('../assets/app/img/feedbackicon.png') }}">
-                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
-                    </button>
+                    
                     
                 </div>
 
@@ -1102,73 +1303,84 @@
         </div>
     </div>
     <!-- model start here 3-->
-    <div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color">
-                    <img src="{{ asset('../assets/app/img/feedbackicon.png') }}" class="custompopicon">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Add review for [MC Name]
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('../assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
-                </div>
-                <form id="reviewAdvertiser" action="#" method="post">
-                    <input type="hidden" name="_token" value="UuIFvrcEqKkKmQRBOgnpguuLsEYEUO1qHwlvC49U">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group popup_massage_box">
-                                    <p class="font-weight-bold">Tell us about your experience:</p>
-                                    <textarea name="description" class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="5"
-                                        placeholder="Message (250 characters)"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="revew-myratings">
-                            <p class="mb-0" style="font-size: 20px;">Rating:</p>
-                            <div class="rating-stars">
-                                <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                                </svg>
-                                 <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                                </svg>
-                                 <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                                </svg>
-                                 <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                                </svg>
-                                 <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                                </svg>
-                                
-                            </div>
-                        </div>
-
-                        <hr style="background-color: #0C223D">
-                        <p class="mb-1 mt-3"><b>Notes :</b></p>
-                        <ol>
-                            <li>Only review if you had direct contact with the Massage Centre.</li>
-                            <li>Do not write fake or abusive reviews, as they will not be published.</li>
-                            <li>To contact this Massage Centre click on <a href="{{ route('user.viewer-messages') }}"
-                                    style="color: #ff3c5f;" class="custom_links_design">Message Us</a>.
-                            </li>
-                        </ol>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn-success-modal" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn-success-modal">Submit Reviews</button>
-                    </div>
-                </form>
+   <div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custome_modal_max_width">
+            
+        
+        <div class="modal-header main_bg_color">
+                <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $massager_name }}
+                </h5>
+                <button type="button" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif class="close" aria-label="Close">
+                <span aria-hidden="true">
+                <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                </span>
+                </button>
             </div>
+
+
+            <!-- <form id="reviewAdvertiser" action="{{ route('review.advertiser',[$listing->id])}}" method="post" data-parsley-validate> -->
+              <form id="reviewAdvertiser" action="#" method="post" data-parsley-validate>
+            @csrf
+               
+                <div class="modal-body">                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group popup_massage_box">
+                                <p class="font-weight-bold">Tell us about your experience:</p>
+                                <textarea name="description" 
+                                class="form-control popup_massage_box p-2" id="review_textarea" rows="5" 
+                                placeholder="Message (500 characters)"
+                                 required
+                                    data-parsley-required-message="Please enter your review"
+                                    data-parsley-maxlength="500"
+                                    data-parsley-maxlength-message="Maximum 500 characters allowed">
+                                
+                                {{$reviewExistsMessage}}
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="revew-myratings">
+                        <p class="mb-0" style="font-size: 20px;">Rating:</p>
+                        <div class="rating-stars">
+                            <!-- Repeatable SVG stars -->
+                            @for($i =1; $i <= 5; $i++)
+                                @if($i<= $reviewExistsStarRating)
+                                        <svg class="star filled" data-value="{{$i}}" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
+                                    </svg>
+                                @else
+                                        <svg class="star" data-value="{{$i}}" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
+                                    </svg>
+                                @endif
+                            @endfor
+                        </div>
+                        <input type="hidden" id="userRating" name="rating" value="{{$reviewExistsStarRating}}">
+                    </div>
+                    
+                    <hr style="background-color: #0C223D">
+                    <p class="mb-1 mt-3"><b>Notes:</b></p>
+                            <ol>
+                                <li>Only review if you had direct contact with the Escort.</li>
+                                <li>Do not write fake or abusive reviews, as they will not be published.</li>
+                                <li>To contact this Escort click on <a href="{{ route('user.viewer-messages') }}" style="color: #ff3c5f;" class="custom_links_design">Message Me</span></a>.</li>
+                            </ol>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn site_btn_primary main_bg_color" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif>
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn main_bg_color site_btn_primary rounded">{{$reviewAlreadyExist ? 'Update' : "Submit"}} Review</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
     {{-- confirmation review modal --}}
         <div class="modal fade" id="review-submitted-popup" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
@@ -1405,11 +1617,11 @@
                         <li class="nav-item">
                             <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">My Photos</a>
                         </li>
-                        {{-- @if ($galleryVideos->count()>0) --}}
+                        @if ($galleryVideos->count()>0) 
                             <li class="nav-item">
                                 <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">My Videos</a>
                             </li>
-                        {{-- @endif --}}
+                        @endif
                     </ul>
                     <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
                         <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
@@ -1418,8 +1630,8 @@
                 
                 <div class="modal-body p-1">
                     <div class="tab-content" id="myTabContent">
+
                         <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
-                            
                             <div class="gallery">
 
                                 @foreach ($validImages as $index => $image)
@@ -1442,18 +1654,20 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="contact-tab">
+                            
                             <div class="row px-3 pb-2" id="dvSource">
                                 
-                                        {{-- @foreach($galleryVideos as $key=>$media) --}}
+                                        @foreach($galleryVideos as $key=>$media) 
                                             <div class="col-md-4" id="dm_2">
                                                 <a href="#">
-                                                    {{-- <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
+                                                    <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
                                                         <source src="{{ asset($media->path) }}" type="video/mp4">
-                                                    </video> --}}
+                                                    </video> 
                                                 </a>
                                             </div>
-                                        {{-- @endforeach --}}
+                                        @endforeach 
                                     
 
                             </div>
@@ -1498,11 +1712,22 @@
 @endsection
 @push('scripts')
 
+
+
+
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
  <script>
+
+ window.authUser = {
+        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+        auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
+        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
+        write_reviews_disable: {{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }},
+   };
+
   const track = document.getElementById('sliderTrack');
   const slides = document.querySelectorAll('.slide_item');
 
@@ -1545,7 +1770,7 @@ $(document).ready(function(){
     
     else
     {
-        $('.header_rate_two_masseur').html('NA');    
+        $('.header_rate_two_masseur').html('N/A ');    
     }
 
     if(ratesHeader.incall)
@@ -1555,7 +1780,7 @@ $(document).ready(function(){
     
     else
     {
-        $('.header_rate_masseur').html('NA');    
+        $('.header_rate_masseur').html('N/A ');    
     }
 
     if(ratesHeader.massage)
@@ -1565,11 +1790,48 @@ $(document).ready(function(){
     
     else
     {
-        $('.header_rate_massage').html('NA');    
+        $('.header_rate_massage').html('N/A ');    
     }
 
 
 })
+
+
+$(document).on('click', '.open_review_box', function (e) {
+        e.preventDefault();
+       if (window.authUser.write_reviews_disable && window.authUser.auth_user_type=='0') {
+            swal_error_warning('Reviews','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
+            return false;
+        } else {
+            $('#add_reviews').modal('show');
+        }
+    });
+
+ if (window.authUser.write_reviews_disable && window.authUser.auth_user_type=='0') {
+
+        $('.disabled-button').css({
+        'background-color': '#ccc',
+        'border-color': '#ccc',
+        'color': '#646464',
+        'opacity': '0.9',
+       
+    });
+    }   
+    
+    $('.rating-stars .star').on('click', function () {
+    const rating = $(this).data('value');
+    $('#userRating').val(rating);
+
+    // Remove 'filled' class from all stars
+    $('.rating-stars .star').removeClass('filled');
+
+    // Add 'filled' class to selected stars
+    $('.rating-stars .star').each(function () {
+      if ($(this).data('value') <= rating) {
+        $(this).addClass('filled');
+      }
+    });
+  });
 
 </script>
 

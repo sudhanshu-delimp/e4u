@@ -72,13 +72,17 @@ class MassageCentre extends Controller
         }
 
          $listing = MassageProfile::where('id','=',$id)->first();
+         $reviews = $listing->reviews;
          $massage_durations = (isset($listing->durations) && count($listing->durations)>0) ? $listing->durations->toArray() : [];
 
     
 
          $durations = $this->duration->all();
         
-        return view('web.massage-description',compact('listing','durations','massage_durations'));
+
+         $galleryVideos = $listing->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
+
+        return view('web.massage-description',compact('listing','durations','massage_durations','reviews'));
     }
 
     

@@ -1206,7 +1206,7 @@
                     on my number --
                 @endif
             </p>
-
+            </span>
         </div>
     </div>
     <div class="vax-btn">
