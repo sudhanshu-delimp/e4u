@@ -84,7 +84,6 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="submit" class="btn-success-modal">Verify Media</button>
                         <button type="submit" class="btn-success-modal">Upload</button>
                     </div>
                 </div>
