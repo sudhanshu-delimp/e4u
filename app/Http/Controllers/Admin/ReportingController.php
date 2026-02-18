@@ -139,7 +139,13 @@ class ReportingController extends BaseController
             $item->territory = isset($item->state->iso2) ? $item->state->iso2 :  '---';
 
             $dropdown = '<div class="dropdown no-arrow" data-current-status="' . (int) $item->getRawOriginal('status') . '"><a class="dropdown-toggle" href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
-            $item->status_name = ($item->status == 'Active') ? "Registered" : $item->status;
+            // $item->status_name = ($item->status == 'Active') ? "Registered" : $item->status;
+            $statusText = ($item->status == 'Active') 
+                ? 'Registered' 
+                : $item->status;
+            $badgeClass = getStatusBadgeClass($statusText);
+            $item->status_name = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+
             //$item->status_name = $item->status;
             if ($this->editAccessEnabled) {
                 /* if ($item->status != 'Active') {

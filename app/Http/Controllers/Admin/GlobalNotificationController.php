@@ -74,12 +74,15 @@ class GlobalNotificationController extends Controller
                 })
                 ->editColumn('status', function ($row) {
                     $start_date = $row->start_date;
-                    $status = $row->status;
+                   $status = $row->status;
                     if ($status === 'Published' && $start_date > date('Y-m-d')) {
-                        return 'Upcoming';
+                        $statusText = 'Upcoming';
                     } else {
-                        return $status;
+                        $statusText = $status ?? 'NA';
                     }
+
+                    $badgeClass = getStatusBadgeClass($statusText);
+                    return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
                 })
                 ->editColumn('type', function ($row) {
                     return $row->type;

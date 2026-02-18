@@ -1146,18 +1146,24 @@ if (!function_exists('getStatusBadgeClass')) {
     function getStatusBadgeClass($status)
     {
         $statusMap = [
-            'Published' => 'badge_published',
-            'Suspended' => 'badge_suspended',
-            'Removed' => 'badge_suspended',
-            'Active' => 'badge_active',
-            'Inactive' => 'badge_inactive',
-            'Pending' => 'badge_pending',
-            'Completed' => 'badge_completed',
-            'Accepted' => 'badge_accepted',
-            'Rejected' => 'badge_rejected',
-            'Available' => 'badge_available',
-            'Withdrow' => 'badge_withdraw',
-            'Resolved' => 'badge_resolved',
+            'Published'         => 'badge_published',
+            'Suspended'         => 'badge_suspended',
+            'Removed'           => 'badge_suspended',
+            'Active'            => 'badge_active',
+            'Inactive'          => 'badge_inactive',
+            'Pending'           => 'badge_pending',
+            'Completed'         => 'badge_completed',
+            'Accepted'          => 'badge_accepted',
+            'Rejected'          => 'badge_rejected',
+            'Available'         => 'badge_available',
+            'Withdrow'          => 'badge_withdraw',
+            'Resolved'          => 'badge_resolved',
+            'Open'              => 'badge_open',
+            'Registered'        => 'badge_registered',
+            'Cancelled'         => 'badge_inactive',
+            'In-progress'       => 'badge_inProgress',
+            'Upcoming'          => 'badge_upcoming',
+            'Withdrawn'         => 'badge_withdraw',
         ];
 
         $status = trim(ucfirst(strtolower($status)));
