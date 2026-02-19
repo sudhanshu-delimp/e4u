@@ -18,7 +18,7 @@
                                         <div class="col-sm-12 p-0 text-center">
                                             <div class="{{request()->segment(2) == 'archive-view-photos'?'col-lg-12':'col-lg-6'}} text-center">
                                                 <div class="plate"><label class="newbtn">
-                                                    <img id="blah9" class="img-fluid pl-2 pr-2 js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/upload-3.png')}}" style="width: 400px;object-fit: cover; height:100%">
+                                                    <img id="blah9" class="img-fluid px-2 js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/upload-media.png')}}" style="width: 400px;object-fit: cover; height:100%">
                                                     <input name="banner" id="upload_banner" class="pis galleryMedia" onchange="readImageURL(this);" type="file" accept="image/*" >
                                                     <input type="hidden" name="position[]" id="mediaBanner">
                                                     </label>
@@ -47,12 +47,12 @@
                                     <hr>
                                     <div class="row pt-1">
                                         <div class="col-sm-12">
-                                            <h4>Notes:</h4>
+                                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
 
-                                            <ul style="text-align: justify;">
+                                            <ol style="text-align: justify;">
                                               <li>Upload a selfie with your Username, Membership ID and Mobile number printed (can be hand written) on a sheet of paper held up to the side of you and not obscuring any part of you.</li>
                                               <li>A drivers licence or passport which matches your Username and Home State is acceptable.</li>
-                                            </ul>
+                                            </ol>
                                         </div>
                                         
                                     </div>
