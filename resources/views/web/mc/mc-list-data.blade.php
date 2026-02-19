@@ -111,7 +111,7 @@ $social_links = $listing->social_links;
                 
                      {{ Str::limit(strip_tags($listing->about_us_box), 140) }}
 
-                     <a href="#" class="read-more-link">Read More</a>
+                     <a href="{{ route('web.massage-description',$listing->id) }}" class="read-more-link">Read More</a>
                  </p>
 
 

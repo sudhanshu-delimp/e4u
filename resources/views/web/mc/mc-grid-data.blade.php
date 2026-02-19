@@ -78,8 +78,12 @@
                     </div>
                 </div>
             </a>
-            <div class="mc_card_footer">
-                <a href="#" data-target="#add_wishlist" data-toggle="modal">Add to Shortlist</a>
+            <div class="mc_card_footer wishlist_footer">
+                @if(in_array($listing->id, session('wishlist', [])))
+                <a href="javascript:void(0)" data-id="{{ $listing->id }}" class="m_removelist"  >Remove to Shortlist</a>
+                @else
+                <a href="javascript:void(0)" data-id="{{ $listing->id }}" class="m_wishlist"  >Add to Shortlist</a>
+                @endif
                 
             </div>
         </div>

@@ -219,7 +219,7 @@
                                                                     <select class="form-control form-control-sm select_tag_remove_box_sadow" id="language" name="languages">
                                                                         <option value="" selected="">-- Not Set --</option>
                                                                         @foreach(config('escorts.profile.languages') as $key =>$language)
-                                                                        <option value="{{$key}}"  @if(!empty($massage_profile->language)) @if(in_array($key ,$massage_profile->language)) selected @endif @endif data-name="{{ $language }}">{{$language}}</option>
+                                                                        <option value="{{$key}}" {{ ($massage_profile->language == $key)? 'selected' : ''}} data-name="{{ $language }}">{{$language}}</option>
                                                                         @endforeach>
                                                                     </select>
                                                                     @if(!empty($massage_profile->language)) 
@@ -240,6 +240,29 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
+
+
+
+                                                         <div class="col-lg-4 col-md-12 col-sm-12">
+                                                            <div class="form-group row tab-about-me-row-padding">
+                                                                <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Contact us
+                                                                </label>
+                                                                <div class="col-sm-8">
+                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="contact" name="contact">
+                                                                        <option value="" selected="">-- Not Set --</option>
+                                                                        @foreach(config('escorts.profile.contact-me') as $key =>$contact)
+                                                                        <option value="{{$key}}"   {{ ($massage_profile->contact == $key)? 'selected' : ''}} >{{$contact}}</option>
+                                                                        @endforeach>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+
+
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-12 text-right">

@@ -120,7 +120,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0" style="padding: 15px 0px;">
-                    <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                    <h1 class="popu_heading_style mb-4 mt-4 user_short_list" style="text-align: center;">
                         <span id="Lname">[MC Name]</span>
                         has been added to your Shortlist.
                     </h1>
@@ -260,6 +260,69 @@ $(document).ready(function () {
             }
         });
     }
+
+
+
+    ///////  Short List /////////////
+
+    $(document).on('click', '.m_wishlist', function () {
+        $('#page_loader').show();
+        var wishlist_id = $(this).data('id');
+        var currentRow = $(this).closest('.wishlist_footer'); 
+        $.ajax({
+            url: "{{ route('web.store-short-list') }}",
+            type: 'POST',
+            data: {
+                wishlist_id: wishlist_id,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                  $('#page_loader').hide();
+                   let response  = res;  
+                   if(response.status)
+                   {
+                        $('#session_count').html(response.session_count);
+                        currentRow.html('<a href="javascript:void(0)" data-id="'+wishlist_id+'" class="m_removelist"  >Remove to Shortlist</a>');
+                        $('.user_short_list').html( `<span id="Lname">${response.data.profile_name}</span> has been added to your Shortlist.`);
+                        $('#add_wishlist').modal('show');
+
+                   }
+            }
+        });
+
+    });
+
+    $(document).on('click', '.m_removelist', function () {
+        $('#page_loader').show();
+        var wishlist_id = $(this).data('id');
+        var currentRow = $(this).closest('.wishlist_footer'); 
+        $.ajax({
+            url: "{{ route('web.remove-short-list') }}",
+            type: 'POST',
+            data: {
+                wishlist_id: wishlist_id,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                  $('#page_loader').hide();
+                   let response  = res;  
+                   if(response.status)
+                   {    $('#session_count').html(response.session_count);
+                        currentRow.html('<a href="javascript:void(0)" data-id="'+wishlist_id+'" class="m_wishlist">Add to Shortlist</a>');
+                        $('.user_short_list').html( `<span id="Lname">${response.data.profile_name}</span> has been remove from your Shortlist.`);
+                        $('#add_wishlist').modal('show');
+
+                   }
+            }
+        });
+
+    });
+
+    
+
+    /////// Short List ///////////////
+
+
 
     function getParameterByName(name, url) {
         name = name.replace(/[\[\]]/g, '\\$&');

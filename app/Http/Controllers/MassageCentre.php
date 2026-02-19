@@ -85,6 +85,45 @@ class MassageCentre extends Controller
         return view('web.massage-description',compact('listing','durations','massage_durations','reviews'));
     }
 
+
+    public function storeShortList(Request $request)
+    {
+        $wishlist = session()->get('wishlist', []);
+
+        if (!in_array($request->wishlist_id, $wishlist)) {
+            $wishlist[] = $request->wishlist_id;
+        }
+
+        $profile = MassageProfile::where('id','=',$request->wishlist_id)->first();
+        session(['wishlist' => $wishlist]);
+        return response()->json([
+            'status' => true,
+            'session_count' => count($wishlist),
+            'data' => $profile,
+            'message' => 'Added to wishlist'
+        ]);
+    }
+
+    public function removeShortList(Request $request)
+    {
+        $wishlist = session()->get('wishlist', []);
+        if (($key = array_search($request->wishlist_id, $wishlist)) !== false) {
+            unset($wishlist[$key]);
+        }
+
+        // Re-index array (important)
+        $wishlist = array_values($wishlist);
+
+            $profile = MassageProfile::where('id','=',$request->wishlist_id)->first();
+            session(['wishlist' => $wishlist]);
+            return response()->json([
+                'status' => true,
+                'session_count' => count($wishlist),
+                'data' => $profile,
+                'message' => 'Added to wishlist'
+        ]);
+    }
+    
     
 
 }

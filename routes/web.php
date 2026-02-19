@@ -774,3 +774,7 @@ Route::get('/testscript', function(){
 Route::get('massage-centres-list', [MassageCentre::class,'massageList'])->name('find.massage.centre');
 Route::get('mc-ajax-list', [MassageCentre::class, 'mcAjaxList'])->name('mc-ajax-list');
 Route::get('massage-description/{id}', [MassageCentre::class, 'massage_description'])->name('web.massage-description');
+Route::post('/store-short-list', [MassageCentre::class, 'storeShortList'])->name('web.store-short-list');
+Route::post('/remove-short-list', [MassageCentre::class, 'removeShortList'])->name('web.remove-short-list');
+
+

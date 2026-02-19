@@ -15,6 +15,29 @@
     border-radius: 23px;
 
 }
+
+.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.tooltip-wrapper .tooltip-text {
+    visibility: hidden;
+    background-color: #ff3c5f;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 2px 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
 </style>
     @stop
     @section('content')
@@ -82,7 +105,7 @@
             </div>
 
             <div class="profile_page_name_and_phno">
-                <p>City Name - {{ get_massage_home_state($listing->user_id) }} </p>
+                <p> {{ get_massage_home_state($listing->user_id) }}  </p>
             </div>
 
             <div class="profile_page_location_and_id">
@@ -879,72 +902,70 @@
                     <div class="profile_card_border profile_description_contect">
                         <h2><img src="../assets/app/img/contact_me.svg"> Contacting us</h2>
                     </div>
-                     <div class="padding_20_tob_btm_side reduse_pad">
-            <span class="span_display_block connecting_me_chat_phone">
-                You can contact us by:
+                        <div class="padding_20_tob_btm_side reduse_pad">
+                            <span class="span_display_block connecting_me_chat_phone">
+                                You can contact us by:
 
-                    @php
-                        $contactType = $listing->contact != null ? $listing->contact : '';
-                    @endphp
-                    @if($contactType == 1)
-                    <div class="tooltip-wrapper">
-                        <img src="{{ asset('assets/app/img/email-me.png') }}">
-                        <div class="tooltip-text">Email me</div>
-                    </div>
-                    
-                    
-                    @endif
- 
-                    @if($contactType == 4 || $contactType == 5)
-                        <div class="tooltip-wrapper">
-                            <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
-                            <div class="tooltip-text">Call me</div>
-                            @if($contactType == 5)
-                                <span>or</span>
-                            @endif
+                                    @php
+                                        $contactType = $listing->contact != null ? $listing->contact : '';
+                                    @endphp
+                                    @if($contactType == 1)
+                                    <div class="tooltip-wrapper">
+                                        <img src="{{ asset('assets/app/img/email-me.png') }}">
+                                        <div class="tooltip-text">Email me</div>
+                                    </div>
+                                    
+                                    
+                                    @endif
+                
+                                    @if($contactType == 4 || $contactType == 5)
+                                        <div class="tooltip-wrapper">
+                                            <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
+                                            <div class="tooltip-text">Call me</div>
+                                            @if($contactType == 5)
+                                                <span>or</span>
+                                            @endif
+                                        </div>
+                                    @endif
+                                    @if($contactType == 2 || $contactType == 5)
+                                        <div class="tooltip-wrapper">
+                                                <img src="{{ asset('assets/app/img/wechat.svg') }}">
+                                                <div class="tooltip-text">Text me</div>
+                                        </div>
+                                    @endif
+                            </br>
+                                        @php
+                                        $from = $listing->phone;
+                                        $number = sprintf("%s-%s-%s",
+                                        substr($from, 0, 3),
+                                        substr($from, 3, 3),
+                                        substr($from, 6));
+                                        //dd($number);
+                                        @endphp
+                                        <p class="font-weight-bold mb-0 mt-2">When texting us please say :</p>
+                                        <p class="profile_description_contect_pera">
+                                            <b><i>Hi {{ $massager_name }}, I found you on Escorts4U ... </i></b>
+                                            @php
+                                                $formattedNumber = $listing->phone;
+                                                $contactTypes = $listing->contact != null ? $listing->contact : '';
+                                            
+                                            @endphp
+
+                                            @if($contactTypes != '')
+                                                @if($contactTypes == 1)
+                                                    on our email {{ $listing->user->email ?? '' }}
+                                                @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
+                                                    on our number {{ $formattedNumber }}.
+                                                @else
+                                                    on our number --++
+                                                @endif
+                                            @else
+                                                {{-- on our number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
+                                                on our number --====
+                                            @endif
+                                        </p>
+                            </span>
                         </div>
-                    @endif
-                    @if($contactType == 2 || $contactType == 5)
-                        <div class="tooltip-wrapper">
-                                <img src="{{ asset('assets/app/img/wechat.svg') }}">
-                                <div class="tooltip-text">Text me</div>
-                        </div>
-                    @endif
-            </br>
-            @php
-
-
-            $from = $listing->phone;
-            $number = sprintf("%s-%s-%s",
-            substr($from, 0, 3),
-            substr($from, 3, 3),
-            substr($from, 6));
-            //dd($number);
-            @endphp
-            <p class="font-weight-bold mb-0 mt-2">When texting us please say:</p>
-            <p class="profile_description_contect_pera">
-                <b><i>Hi {{ $massager_name }}, I found you on Escorts4U ... </i></b>
-                @php
-                    $formattedNumber = $listing->phone;
-                    $contactTypes = $listing->contact != null ? $listing->contact : '';
-                   
-                @endphp
-
-                @if($contactTypes != '')
-                    @if($contactTypes == 1)
-                        on our email {{ $listing->user->email ?? '' }}
-                    @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
-                        on our number {{ $formattedNumber }}.
-                    @else
-                        on our number --++
-                    @endif
-                @else
-                    {{-- on our number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
-                    on our number --====
-                @endif
-            </p>
-            </span>
-        </div>
                 </div>
 
                 <!-- Vaccination Status -->

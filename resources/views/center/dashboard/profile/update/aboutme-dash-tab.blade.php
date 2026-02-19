@@ -1351,6 +1351,24 @@ textarea {
                                         </div>
                                     
                                     </div>
+
+
+
+                                 <div class="form-group business-field">
+                                    <label for="exampleFormControlSelect1">Contact us </label>
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="contact" name="contact">
+                                       <option value="" selected="">-- Not Set --</option>
+                                       @foreach(config('escorts.profile.contact-me') as $key =>$contact)
+                                       <option value="{{$key}}" {{ ($escort->contact == $key)? 'selected' : ''}} >{{$contact}}</option>
+                                       @endforeach
+                                    </select>
+                                    <input type="hidden" value="{{ $massage_default->contact}}" class="form-control" id="profile_contact">
+                                 </div>
+
+
+
+
+
                                 </div>
                             </div>
                         </div>

@@ -106,8 +106,15 @@
                                                                 class="d-flex align-items-center justify-content-center gap-5">
                                                                 <i class="fa fa-list" aria-hidden="true"
                                                                     style="line-height: 23px;"></i>
-                                                                <span class="badge badge-pill badge-danger"
-                                                                    id="session_count">0</span>
+                                                                <span class="badge badge-pill badge-danger" id="session_count">
+
+                                                                    @if(count(session('wishlist', [])) > 0)
+                                                                        {{ count(session('wishlist', [])) }} 
+                                                                    @else
+                                                                     {{ 0 }}    
+                                                                    @endif
+
+                                                                </span>
                                                             </div>
                                                             <span class="filter-tooltip">View Shortlist</span>
                                                         </a>

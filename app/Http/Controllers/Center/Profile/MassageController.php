@@ -400,6 +400,8 @@ class MassageController extends Controller
             $social_links             = (!empty($request->social_links)) ? $request->social_links : null;
             $massage->social_links    = $social_links;
 
+            $massage->contact         = $request->filled('contact') ? $request->contact : null;
+
             $massage->save();
 
             $massage_profile_id = $massage->id;
@@ -571,6 +573,8 @@ class MassageController extends Controller
                 'payment'         => $request->filled('payment') ? $request->payment : null,
                 'loyalty'         => $request->filled('loyalty') ? $request->loyalty : null,
                 'language'        => $request->filled('language') ? array_map('strval', $request->language) : null,
+                'contact'         => $request->filled('contact') ? $request->contact : null,
+
                 ];
 
             $message = 'Updated successfully.';
