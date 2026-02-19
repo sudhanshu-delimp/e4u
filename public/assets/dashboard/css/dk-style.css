@@ -2955,6 +2955,34 @@ button.btn:focus {
     gap: 10px;
 }
 
+.view_img_gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-height: 500px;
+    min-height: 200px;
+    overflow: auto;
+}
+
+.view_img_gallery .gallery_item {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    border: 5px solid #efefef;
+    border-radius: 5px;
+}
+
+.view_img_gallery .gallery_item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.verify_ing_masseurs table td {
+    text-align: center;
+}
+
 @media screen and (max-width: 600px) {
     .business-field {
         flex: 1 1 100%;
