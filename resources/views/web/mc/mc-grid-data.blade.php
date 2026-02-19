@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </a>
-            <div class="mc_card_footer wishlist_footer">
+            <div class="mc_card_footer wishlist_footer" id="wishlist_footer_id{{ $listing->id }}">
                 @if(in_array($listing->id, session('wishlist', [])))
                 <a href="javascript:void(0)" data-id="{{ $listing->id }}" class="m_removelist"  >Remove to Shortlist</a>
                 @else

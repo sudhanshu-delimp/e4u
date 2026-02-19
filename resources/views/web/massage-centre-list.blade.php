@@ -268,7 +268,13 @@ $(document).ready(function () {
     $(document).on('click', '.m_wishlist', function () {
         $('#page_loader').show();
         var wishlist_id = $(this).data('id');
-        var currentRow = $(this).closest('.wishlist_footer'); 
+        var wishlist_footer_id = 'wishlist_footer_id'+wishlist_id;
+        var list_button_wrap_id ='list_button_wrap_id'+wishlist_id;
+
+       var listbuton =  `<button type="button" class="m_removelist btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887" data-id="${wishlist_id}">
+        <img class="listiconprofilelistview" src="../assets/app/img/filter_view.png"> Remove from Shortlist
+        </button>`;
+
         $.ajax({
             url: "{{ route('web.store-short-list') }}",
             type: 'POST',
@@ -282,7 +288,8 @@ $(document).ready(function () {
                    if(response.status)
                    {
                         $('#session_count').html(response.session_count);
-                        currentRow.html('<a href="javascript:void(0)" data-id="'+wishlist_id+'" class="m_removelist"  >Remove to Shortlist</a>');
+                        $('#'+list_button_wrap_id).html(listbuton);
+                        $('#'+wishlist_footer_id).html('<a href="javascript:void(0)" data-id="'+wishlist_id+'" class="m_removelist"  >Remove to Shortlist</a>');
                         $('.user_short_list').html( `<span id="Lname">${response.data.profile_name}</span> has been added to your Shortlist.`);
                         $('#add_wishlist').modal('show');
 
@@ -295,7 +302,14 @@ $(document).ready(function () {
     $(document).on('click', '.m_removelist', function () {
         $('#page_loader').show();
         var wishlist_id = $(this).data('id');
-        var currentRow = $(this).closest('.wishlist_footer'); 
+
+        var wishlist_footer_id = 'wishlist_footer_id'+wishlist_id;
+        var list_button_wrap_id ='list_button_wrap_id'+wishlist_id;
+
+         var listbuton =  `<button type="button" class="m_wishlist btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887" data-id="${wishlist_id}">
+        <img class="listiconprofilelistview" src="../assets/app/img/filter_view.png"> Add to Shortlist
+        </button>`;
+        
         $.ajax({
             url: "{{ route('web.remove-short-list') }}",
             type: 'POST',
@@ -308,7 +322,8 @@ $(document).ready(function () {
                    let response  = res;  
                    if(response.status)
                    {    $('#session_count').html(response.session_count);
-                        currentRow.html('<a href="javascript:void(0)" data-id="'+wishlist_id+'" class="m_wishlist">Add to Shortlist</a>');
+                        $('#'+wishlist_footer_id).html('<a href="javascript:void(0)" data-id="'+wishlist_id+'" class="m_wishlist">Add to Shortlist</a>');
+                        $('#'+list_button_wrap_id).html(listbuton);
                         $('.user_short_list').html( `<span id="Lname">${response.data.profile_name}</span> has been remove from your Shortlist.`);
                         $('#add_wishlist').modal('show');
 

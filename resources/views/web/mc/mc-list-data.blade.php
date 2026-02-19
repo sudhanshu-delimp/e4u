@@ -125,41 +125,56 @@ $social_links = $listing->social_links;
 
 
              <div class="social_media_icons w-100">
-                 <div class="social_media_wrapper">
+                    <div class="social_media_wrapper">
 
-                     <div class="s_icon ec_playbox_icon">
-                         <a href="https://e4udev2.perth-cake1.powerwebhosting.com.au/playbox" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/MyPlaybox.png" alt="logo"></a>
-                         <div class="custom-tooltip">I don't have any Playbox.</div>
-                     </div>
-
-
-                     <div class="d-flex justify-content-between gap-10">
-
-                        @if(isset($social_links['facebook']) && $social_links['facebook']!="")
-                         <div class="s_icon">
-                             <a href="{{$social_links['facebook']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/facebook.png" alt="logo"></a>
-                         </div>
-                        @endif
-
-                         @if(isset($social_links['insta']) && $social_links['insta']!="")
-                         <div class="s_icon">
-                             <a href="{{$social_links['insta']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/instagram.png" alt="logo"></a>
-                         </div>
-                         @endif
-
-                        @if(isset($social_links['twitter']) && $social_links['twitter']!="")
-                         <div class="s_icon">
-                             <a href="{{$social_links['twitter']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" alt="logo"></a>
-                         </div>
-                        @endif
+                        <div class="s_icon ec_playbox_icon">
+                            <a href="https://e4udev2.perth-cake1.powerwebhosting.com.au/playbox" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/MyPlaybox.png" alt="logo"></a>
+                            <div class="custom-tooltip">I don't have any Playbox.</div>
+                        </div>
 
 
-                     </div>
+                        <div class="d-flex justify-content-between gap-10">
 
-                 </div>
+                            @if(isset($social_links['facebook']) && $social_links['facebook']!="")
+                            <div class="s_icon">
+                                <a href="{{$social_links['facebook']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/facebook.png" alt="logo"></a>
+                            </div>
+                            @endif
 
-                 <button type="button" class="btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887" id="escort_1887" data-name="FNippo" data-escortid="1887" data-userid="NA"><img class="listiconprofilelistview" src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/filter_view.png">
-                     Add to Shortlist </button>
+                            @if(isset($social_links['insta']) && $social_links['insta']!="")
+                            <div class="s_icon">
+                                <a href="{{$social_links['insta']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/instagram.png" alt="logo"></a>
+                            </div>
+                            @endif
+
+                            @if(isset($social_links['twitter']) && $social_links['twitter']!="")
+                            <div class="s_icon">
+                                <a href="{{$social_links['twitter']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" alt="logo"></a>
+                            </div>
+                            @endif
+
+
+                        </div>
+
+                    </div>
+
+                    @php
+                        $inWishlist = in_array($listing->id, session('wishlist', []));
+                    @endphp
+
+
+                    <span class="list_button_wrap" id="list_button_wrap_id{{ $listing->id }}">
+                        <button type="button"
+                            class="{{ $inWishlist ? 'm_removelist' : 'm_wishlist' }} btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887"
+                            data-id="{{ $listing->id }}">
+
+                            <img class="listiconprofilelistview" src="../assets/app/img/filter_view.png">
+                            {{ $inWishlist ? 'Remove from Shortlist' : 'Add to Shortlist' }}
+                        </button>
+                    </span>
+
+                
+
              </div>
 
 
