@@ -90,9 +90,8 @@ class CenterNumController extends Controller
     }
 
     public function showReportOnDashboardAjax(Request $request)
-    {
-        $nums = Num::whereNotIn('status', ['pending'])->with('state')->get();
-
+    {   $userId = Auth::user()->id;
+        $nums = Num::where('status', 'published')->where('user_id',$userId)->with('state')->orderBy('incident_date', 'desc')->get();
         if($request->ajax()){
 
            return DataTables::of($nums) // formatPhone
