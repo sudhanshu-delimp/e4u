@@ -228,11 +228,11 @@
                             style="{{ request()->segment(2) == 'upload-avatar' ? 'color: #f5841f;' : '' }}">Upload
                             my avatar</span>
                     </a> --}}
-                <a class="collapse-item" href="{{ route('operator.bank-account') }}">
+               {{--  <a class="collapse-item" href="{{ route('operator.bank-account') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/bank.png') }}">
                     <span style="{{ request()->segment(2) == 'bank-account' ? 'color: #f5841f;' : '' }}">Bank
                         Account</span>
-                </a>
+                </a> --}}
             </div>
         </div>
     </li>
