@@ -115,4 +115,22 @@ return [
     'current_password_notify' => env('CURRENT_PASSWORD_PLACEHOLDER', 'Current Password appears encrypted.'),
     'new_password_notify' => env('NEW_PASSWORD_PLACEHOLDER', 'Your New Password appears encrypted.'),
     'confirm_password_notify' => env('CONFIRM_PASSWORD_PLACEHOLDER', 'Your confirm Password appears encrypted.'),
+
+    'wrong_console_login_msg' => [
+        '1' => "You are not authorized to login admin console.",
+        '3' => "You are not authorized to login escort console.",
+        '4' => "You are not authorized to login massage centre console.",
+        '5' => "You are not authorized to login agent console.",
+        '8' => "You are not authorized to login shareholder console.",
+        '9' => "You are not authorized to login operator console.",
+    ],
+
+    'login_url_endpoint' => [
+        '1' => "admin-login",
+        '3' => "advertiser-login",
+        '4' => "advertiser-login",
+        '5' => "agent-login",
+        '8' => "shareholder-login",
+        '9' => "operator-login",
+    ],
 ];
