@@ -24,6 +24,10 @@ Route::post('/change-password-expiry', [UserController::class, 'updatePasswordEx
 Route::get('/view-my-account', [OperatorController::class, 'myOperator'])->name('operator.my-operator');
 
 Route::get('/bank-account', [OperatorController::class, 'bankAccount'])->name('operator.bank-account');
+Route::post('save-bank-details',[OperatorController::class,'saveBankDetails'])->name('operator.save.bank.details');
+Route::post('check-bank-otp',[OperatorController::class,'checkOTP'])->name('agent.checkOTP');
+Route::post('delete-agent-bank',[OperatorController::class,'deleteOperatorBank'])->name('operator.delete-operator-bank');
+Route::get('bank-details',[OperatorController::class,'BankDataTable'])->name('operator.bankDetail.dataTable');
 Route::get('/agents-monthly-report', [OperatorController::class, 'agentMonthlyreport'])->name('operator.agents-monthly-report');
 Route::get('/operator-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.operator-monthly-report');
 
