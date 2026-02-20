@@ -38,7 +38,7 @@
 
             @endphp
             <div class="operator-heading-wrapper col-lg-12">
-                <h1 class="h1">View My Account</h1>
+                <h1 class="h1">View Our Account</h1>
                 <span class="oprhelpNote font-weight-bold" data-toggle="collapse" data-target="#notes"
                     aria-expanded="true">Help?</span>
             </div>
@@ -66,7 +66,7 @@
                     <div class="card">
                         <div class="card-header">
                             <a class="card-link collapsed" data-toggle="collapse" href="#abbrieviations"
-                                aria-expanded="false">My Operator</a>
+                                aria-expanded="false">About Us</a>
                         </div>
                         <div id="abbrieviations" class="collapse" data-parent="#accordion" style="">
                             <div class="card-body">

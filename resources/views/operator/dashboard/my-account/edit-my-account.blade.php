@@ -105,7 +105,7 @@
                     <div class="card">
                         <div class="card-header">
                             <a class="card-link" data-toggle="collapse" href="#Abbreviations" aria-expanded="true">
-                                About Us
+                                About Me
                             </a>
                         </div>
                         <div id="Abbreviations" class="collapse" data-parent="#accordion" style="">

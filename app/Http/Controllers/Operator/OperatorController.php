@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use App\Repositories\OperatorBank\OperatorBankDetailInterface;
 
 class OperatorController extends BaseController
 {
@@ -28,15 +29,18 @@ class OperatorController extends BaseController
     protected $user;
     protected $operatorId;
     protected $operatorName;
+    protected $operatorBankDetail;
 
-    public function __construct(UserInterface $user)
+    public function __construct(UserInterface $user, OperatorBankDetailInterface $operatorBankDetail)
     {
         $this->user = $user;
+        $this->operatorBankDetail = $operatorBankDetail;
         $this->middleware(function ($request, $next) {
 
             $this->user = $user = auth()->user();   // works here
             $this->operatorId =  $user->operator->id;
             $this->operatorName = $user->operator->name;
+           
 
             // Now do everything that needs user data
             $securityLevel = isset($user->operator_staff_detail->security_level) ? $user->operator_staff_detail->security_level : 0;
@@ -51,7 +55,7 @@ class OperatorController extends BaseController
             $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
 
             if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
-               // return response()->redirectTo('/operator-dashboard')->with('error', __(accessDeniedMsg()));
+                // return response()->redirectTo('/operator-dashboard')->with('error', __(accessDeniedMsg()));
             }
 
             return $next($request);
@@ -320,6 +324,79 @@ class OperatorController extends BaseController
     public function bankAccount()
     {
         return view('operator.dashboard.my-account.bank-account');
+    }
+
+    public function saveBankDetails(Request $request, $id = null)
+    {
+        if ($request->bankId == "") {
+            $data = [
+                'bank_name' => $request->bank_name,
+                'bsb' => $request->bsb,
+                'account_name' => $request->account_name,
+                'account_number' => $request->account_number,
+                'state' => $request->state,
+                'user_id' => auth()->user()->id,
+                'replace' => $request->replace,
+            ];
+            $resposne = $this->operatorBankDetail->saveOperatorBankDetails($data);
+        } else {
+            $data = [
+                'bank_name' => $request->bank_name,
+                'bsb' => $request->bsb,
+                'account_name' => $request->account_name,
+                'account_number' => $request->account_number,
+                'state' => $request->state,
+                'user_id' => auth()->user()->id,
+                'bankId' => $request->bankId,
+                'replace' => $request->replace,
+            ];
+            $resposne = $this->operatorBankDetail->updateOperatorBankDetails($data);
+        }
+
+        if ($resposne['status'])
+            return $this->successResponse($resposne['message']);
+        else
+            return $this->validationError($resposne['message']);
+    }
+
+     public function BankDataTable() 
+    {
+        list($operatorBankDetail, $count, $primary_account,$primary_bank_acc_id) = $this->operatorBankDetail->paginatedByOperatorBankDetail(
+            request()->get('start'),
+            request()->get('length'),
+            request()->get('order')[0]['column'],
+            request()->get('order')[0]['dir'],
+            request()->get('columns'),
+            request()->get('search')['value'],
+            auth()->user()->id,
+        );
+
+        $data = array(
+            "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "primary_account" => intval($primary_account),
+            "primary_bank_acc_id" => intval($primary_bank_acc_id),
+            "data"            => $operatorBankDetail
+        );
+
+        return response()->json($data);
+    }
+
+
+    public function generateOTP()
+    {
+        $otp = mt_rand(1000, 9999);
+        return $otp;
+    }
+    public function deleteOperatorBank(Request $request)
+    {
+        $deleted = $this->operatorBankDetail->deleteOperatorBankDetail($request->id);
+        if ($deleted['status']) {
+            return $this->successResponse($deleted['message']);
+        } else {
+            return $this->validationError($deleted['message']);
+        }
     }
     public function agentMonthlyreport()
     {
