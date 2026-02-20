@@ -91,7 +91,7 @@ class CenterNumController extends Controller
 
     public function showReportOnDashboardAjax(Request $request)
     {   $userId = Auth::user()->id;
-        $nums = Num::where('status', 'published')->where('user_id',$userId)->with('state')->orderBy('incident_date', 'desc')->get();
+        $nums = Num::where('status', 'published')->with('state')->orderBy('incident_date', 'desc')->get();
         if($request->ajax()){
 
            return DataTables::of($nums) // formatPhone
