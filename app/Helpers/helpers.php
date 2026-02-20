@@ -1264,8 +1264,8 @@ if (!function_exists('get_working_hours')) {
 }
 
 
-if (!function_exists('get_weelly_availibility')) {
-    function get_weelly_availibility($listing)
+if (!function_exists('get_weakly_availibility')) {
+    function get_weakly_availibility($listing)
     {
         if(isset($listing->availability->availability_time) && (!empty($listing->availability->availability_time)))
         {
@@ -1315,6 +1315,58 @@ if (!function_exists('get_weelly_availibility')) {
     }
 }
 
+if (!function_exists('get_messure_weakly_availibility')) {
+    function get_messure_weakly_availibility($messure)
+    {
+        if(isset($messure->availability) && (!empty($messure->availability)))
+        {
+           $availability = $messure->availability ? json_decode($messure->availability, true) : [];
+            
+           if(empty($availability))
+            return '<tr><td colspan="7" style="background-color:#fff;border:none"><span class="na-label ">N/A</span></td></tr>';
+           
+           else
+           {    
+               
+                $avail = '<tr>';
+                foreach ($availability as $day => $data) 
+                {
+
+                    $status = $data['status'];
+
+                        if( $status == 'til_late')
+                        $time =  strtolower($data['from']).'...'.' Till late'; 
+
+                    
+                        else if($data['status'] == '24_hours')
+                        {
+                             $time = strtolower($data['from']).' to '.strtolower($data['to']);
+                        }
+
+                        else if($data['status'] == 'custom')
+                        {
+                             $time = strtolower($data['from']).' to '.strtolower($data['to']);
+                        }
+
+                        else if($data['status'] == 'closed')
+                        {
+                             $time = '<span class="na-label ">N/A</span>';
+                        }
+
+                    $avail .= '<td>' . $time  . '</td>';
+                }
+
+                  $avail .= '</tr>';
+
+                return $avail;
+           }
+        }
+
+
+
+    }
+}
+
 
 if (!function_exists('get_massage_home_state')) {
   function get_massage_home_state($user_id)
@@ -1337,6 +1389,7 @@ if (!function_exists('get_massage_member_id')) {
         return 'NA';
   }
 }
+
 
 if (!function_exists('get_massage_images')) {
   function get_massage_images($listing,$position)
@@ -1362,5 +1415,34 @@ if (!function_exists('get_massage_images')) {
         return  $image;
   }
 }
+
+
+if (!function_exists('get_messure_images')) {
+  function get_messure_images($masseur,$position)
+  {
+        $image = "";
+        
+        if(!$masseur || !$position)
+        return false;   
+                    
+        $relativePath   =  $masseur->getImagePosition($position,$masseur->id);
+        $currentImage   = asset($relativePath);
+
+        if(str_contains($currentImage, 'mcc-default-thumbnail.png'))
+        {
+            $image = false;
+        }
+        else
+        {
+             if($currentImage!= "" && file_exists($relativePath))
+             $image  = $currentImage;
+             else
+             $image  = false;
+        }
+        return  $image;
+  }
+}
+
+
 
 

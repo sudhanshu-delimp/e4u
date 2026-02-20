@@ -194,7 +194,7 @@ $social_links = $listing->social_links;
                  </tr>
              </thead>
 
-             <tbody><?php echo get_weelly_availibility($listing); ?> </tbody>
+             <tbody><?php echo get_weakly_availibility($listing); ?> </tbody>
 
          </table>
 

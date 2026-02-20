@@ -47,6 +47,12 @@
         $other_services = "";
         $massage_services = "";
 
+
+        $massage_price  = false;
+        $incall_price   = false;
+        $outcall_price  = false;
+
+
         $relativePath   =  $listing->imagePosition(9);
         $currentImage   = asset($relativePath);
         if($currentImage!= "" && file_exists($relativePath))
@@ -55,18 +61,19 @@
         $massage_banner = asset('assets/app/img/massage/massage_2.jpg');
 
 
-    $images = [];
-    $validImages = [];
-    $photo = 1;
+        $images = [];
+        $validImages = [];
+        $photo = 1;
 
-    for ($i = 1; $i <= 7; $i++) {
-        $img = get_massage_images($listing, $i);
-        $images[$i] = $img;
+        for ($i = 1; $i <= 7; $i++) {
+            $img = get_massage_images($listing, $i);
+            $images[$i] = $img;
 
-        if ($img !== false) {
-            $validImages[$i] = $img;
+            if ($img !== false) {
+                $validImages[$i] = $img;
+            }
         }
-    }
+
 
     $social_links = $listing->social_links;
     $rates_header = "";
@@ -120,7 +127,7 @@
                         <span class="profile_location_icon">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
-                        <p class="display_inline_block">Member ID: {{   get_massage_member_id($listing->id) }}</p>
+                        <p class="display_inline_block">Member ID: {{   get_massage_member_id($listing->user_id) }}</p>
                     </li>
                 </ul>
             </div>
@@ -255,7 +262,6 @@
                             <tbody>
 
                             @foreach($durations->whereIn('id',[2,3,4,5,6,7]) as $duration)
-
                             @php
                             if($duration->id!="")
                             {
@@ -353,7 +359,7 @@
                             </thead>
 
                             <tbody>
-                                <?php echo get_weelly_availibility($listing); ?>
+                                <?php echo get_weakly_availibility($listing); ?>
                             </tbody>
                         </table>
 
@@ -508,15 +514,186 @@
                                 } else {
                                     $profile_img = $imageUrl;
                                 }
+
+
+                                    $messure_images = [];
+                                    $messure_validImages = [];
+                                    $photo = 1;
+
+                                    for ($i = 1; $i <= 4; $i++) {
+                                        $img = get_messure_images($masseur, $i);
+                                        $images[$i] = $img;
+
+                                        if ($img !== false) {
+                                            $messure_validImages[$i] = $img;
+                                        }
+                                    }
+
                             @endphp
 
                             <div class="col-md-3 col-sm-6 mb-4">
                                 <div class="d-flex align-items-center gap_between_text_and_img our-masseurs"
-                                    data-toggle="modal" data-target="#product_view">
+                                    data-toggle="modal" data-target="#product_view_{{$masseur->id}}">
                                     <div><img src="{{ $profile_img }}" width="50" height="50"  class="profile_img"></div>
                                     <p class="mb-0 text_truncate">{{ $masseur->name}}</p>
                                 </div>
                             </div>
+
+
+                                <!-- /////////// Messeur Modal //////////////// -->
+                                <div class="modal fade product_view" id="product_view_{{$masseur->id}}">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header border-0">
+                                            <h5 class="mc_member_id"> <img src="{{ asset('../assets/app/img/Vector-31.png') }}" class="img-responsive"> Member ID: {{ $masseur->member_id ?? 'N/A' }} </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}"
+                                                        class="img-fluid img_resize_in_smscreen"></span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body pb-4 mb-2 pt-1">
+                                            <div class="row">
+
+                                                <div class="col-md-4 product_img mc_profile_img pr-0">
+
+                                                            @foreach ($messure_validImages as $index => $image)
+                                                                @if($loop->first)
+                                                                <img src="{{  $image }}" class="img-responsive"
+                                                                style="width: 305px;height: 374px;object-fit: cover;">
+                                                                @endif
+                                                            @endforeach
+
+                                                    <div class="veryfy_img">
+                                                        <img src="{{ asset('../assets/app/img/verify/unverified_light.png') }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-1 product_img pl-0" style="display: flex; flex-direction: column;  gap: 8px;justify-content: flex-start;">
+
+                                                        @foreach ($messure_validImages as $index => $image)
+                                                            @if(!$loop->first)
+                                                            <img src="{{ $image }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
+                                                            @endif
+                                                        @endforeach
+                                                </div>
+
+                                                <div class="col-md-7 product_content pl-5 pt-1 d-flex flex-column justify-content-between" style="">
+
+                                                    <div>
+                                                        <div class="mc_profile_info">
+                                                            <h3 class="mb-0">{{ $masseur->name ?? 'N/A' }}</h3>
+                                                            <span>AGE : <b>{{ $masseur->age ?? 'N/A' }}</b></span>
+
+                                                            <div class="massage_type">
+                                                                <div class="massage_type_info">
+                                                                    <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">
+                                                                    <p class="mc_rate_tooltip">Massage only</p>
+                                                                </div>
+                                                                <div class="massage_type_info">
+                                                                    <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
+                                                                    <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>
+                                                                </div>
+                                                                <div class="massage_type_info">
+                                                                    <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
+                                                                    <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mc_profile_modal">
+                                                            <span><b>Mobile Number :</b> <span class="about_box_small_heading_value">{{ $masseur->mobile ?? 'N/A' }}</span></span>
+                                                            <span><b>Vaccination :</b> <span class="about_box_small_heading_value">
+                                                                @switch($masseur->vaccination)
+
+                                                                     @case(1)
+                                                                        Vaccinated, not up to date
+                                                                        @break
+
+                                                                    @case(2)
+                                                                        Vaccinated, up to date
+                                                                        @break
+
+                                                                    @case(3)
+                                                                        Not Vaccinated
+                                                                        @break
+
+                                                                    @default
+                                                                        Not Set
+
+                                                                @endswitch
+                                                            </span></span>
+
+                                                        </div>
+                                                        <div class="mc_profile_modal">
+                                                            <span><b>Nationality :</b> <span class="about_box_small_heading_value">
+
+                                                                {{ getCountryList()[$masseur->nationality] ?? 'N/A' }}
+
+                                                            </span></span>
+                                                            
+                                                            <span><b>Ethnicity :</b> <span class="about_box_small_heading_value">
+                                                                 {{  config('escorts.profile.ethnicities')[$masseur->ethnicity] ??  'N/A' }}
+                                                            </span></span>
+                                                        </div>
+                                                        <div class="mc_profile_modal d-block">
+                                                            <span><b>Massage Services:</b> <span class="about_box_small_heading_value">
+                                                                    {{ rtrim($massage_services, ', ') }}
+                                                            </span></span>
+                                                        </div>
+
+                                                        <div class="mc_profile_modal d-block">
+                                                            <span><b>Other Service Types :</b> <span class="about_box_small_heading_value">
+                                                                    {{ rtrim($other_services, ', ') }}
+
+                                                            </span></span>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div>
+                                                        <h5 class="mb-0" style="color: #000">About Me : </h5>
+                                                        <p class=" mt-0 text-justify">{!! $masseur->commentary ?? 'N/A' !!}</p>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+
+                                            <div class="col-lg-12 mt-2 p-0">
+                                                <div class="table-responsive-sm mc_avail_table">
+                                                    <table class="table table-bordered">
+                                                        <thead class="bg-first">
+                                                            <tr>
+                                                                <th colspan="7" class="text-center">My Availability</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th style="width:14.2%">Monday</th>
+                                                                <th style="width:14.2%">Tuesday</th>
+                                                                <th style="width:14.2%">Wednesday</th>
+                                                                <th style="width:14.2%">Thursday</th>
+                                                                <th style="width:14.2%">Friday</th>
+                                                                <th style="width:14.2%">Saturday</th>
+                                                                <th style="width:14.2%">Sunday</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                          {!! get_messure_weakly_availibility($masseur) !!}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <!-- /////////// Messeur Modal //////////////// -->
+
+
+
+
+
                               @endforeach
                             @endif
 
@@ -1324,7 +1501,7 @@
         </div>
     </div>
     <!-- model start here 3-->
-   <div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content custome_modal_max_width">
             
@@ -1499,134 +1676,7 @@
         </div>
     </div>
 
-    <div class="modal fade product_view" id="product_view">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header border-0">
-                     <h5 class="mc_member_id"> <img src="{{ asset('../assets/app/img/Vector-31.png') }}" class="img-responsive"
-                                    > Member ID: M60124-001 </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body pb-4 mb-2 pt-1">
-                    <div class="row">
-
-                        <div class="col-md-4 product_img mc_profile_img pr-0">
-                            <img src="{{ asset('assets/app/img/Frame-4181.png') }}" class="img-responsive"
-                                style="width: 305px;height: 374px;object-fit: cover;">
-                            <div class="veryfy_img">
-                                <img src="{{ asset('../assets/app/img/verify/unverified_light.png') }}">
-                            </div>
-                        </div>
-
-                        <div class="col-md-1 product_img pl-0" style="display: grid;gap: 8px;">
-                            <img src="{{ asset('assets/app/img/Frame-4201.png') }}" class="img-responsive"
-                                style="width: 108px;height: 119px;object-fit: cover;">
-                            <img src="{{ asset('assets/app/img/Frame-4211.png') }}" class="img-responsive"
-                                style="width: 108px;height: 119px;object-fit: cover;"><img
-                                src="{{ asset('assets/app/img/Frame-4222.png') }}" class="img-responsive"
-                                style="width: 108px;height: 119px;object-fit: cover;">
-                        </div>
-
-                        <div class="col-md-7 product_content pl-5 pt-1 d-flex flex-column justify-content-between" style=""> 
-                                                       
-                                <div>
-                                    <div class="mc_profile_info">
-                                        <h3 class="mb-0">Jane Doe</h3>
-                                        <span>AGE: <b>21</b></span>
-                                       
-                                        <div class="massage_type">                                       
-                                            <div class="massage_type_info">                                           
-                                                <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">                                             
-                                                <p class="mc_rate_tooltip">Massage only</p>                                         
-                                            </div>
-                                            <div class="massage_type_info">                                           
-                                                    <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
-                                            <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>                                      
-                                            </div>
-                                            <div class="massage_type_info">                                            
-                                                    <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
-                                                <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>                                    
-                                            </div>                                        
-                                        </div> 
-                                    </div> 
-                                <div class="mc_profile_modal">                                    
-                                    <span><b>Mobile Number:</b> <span class="about_box_small_heading_value">0438 028 728</span></span>
-                                    <span><b>Vaccination:</b> <span class="about_box_small_heading_value">Vaccinated, up to date</span></span>
-                                </div>
-                                <div class="mc_profile_modal">
-                                    <span><b>Nationality:</b> <span class="about_box_small_heading_value">Australian</span></span>
-                                    <span><b>Ethnicity:</b> <span class="about_box_small_heading_value">Thai</span></span>
-                                </div>
-                                <div class="mc_profile_modal d-block">
-                                    <span><b>Massage Services:</b> <span class="about_box_small_heading_value">Deep tissue, Foot</span></span>
-                                </div>
-
-                                 <div class="mc_profile_modal d-block">
-                                    <span><b>Other Service Types:</b> <span class="about_box_small_heading_value">Back stepping</span></span>
-                                </div>
-                                
-                                
-                                </div>
-                                
-                               <div>
-                                    <h5 class="mb-0" style="color: #000">About Me</h5>
-                                    <p class=" mt-0 text-justify">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy
-                                        the thrill of being with that quite little girl who secretely really is that office slut. I
-                                        am tall, slim and naughty when it matters. With smooth skin and long hair to run your hands
-                                        through, and of course something...</p>
-                                    </div>
-                                </div>
-                               
-                            
-
-                            
-                        </div>
-                        
-                        <div class="col-lg-12 mt-2 p-0">
-                            <div class="table-responsive-sm mc_avail_table">
-                                <table class="table table-bordered">
-                                    <thead class="bg-first">
-                                        <tr>
-                                            <th colspan="7" class="text-center">My Availability</th>
-                                        </tr>
-                                        <tr>
-                                            <th style="width:14.2%">Monday</th>
-                                            <th style="width:14.2%">Tuesday</th>
-                                            <th style="width:14.2%">Wednesday</th>
-                                            <th style="width:14.2%">Thursday</th>
-                                            <th style="width:14.2%">Friday</th>
-                                            <th style="width:14.2%">Saturday</th>
-                                            <th style="width:14.2%">Sunday</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><span class="na-label ">N/A</span></td>
-                                            <td><span class="na-label ">N/A</span></td>
-                                            <td>9:30am - 9:00pm</td>
-                                            <td>9:30am - 9:00pm</td>
-                                            <td><span class="na-label ">N/A</span></td>
-                                            <td>10:00am - 9:00pm</td>
-                                            <td>11:00am - 7:00pm</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- model end here 1-->
-
-
-
-
-
+   
 
     {{-- My Photos --}}
 
