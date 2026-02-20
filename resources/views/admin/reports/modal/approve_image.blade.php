@@ -11,12 +11,37 @@
                     </span>
                 </button>
             </div>
-            <div class="modal-body" >
+           <div class="modal-body" >
+                <div class="view_img_gallery">
 
-                    <div>
-                        <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}" class="w-100"
+                    <div class="gallery_item">
+                        <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}"
                             alt="view image gallery">
                     </div>
+                    <div class="gallery_item">
+                        <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}"
+                            alt="view image gallery">
+                    </div>
+                    <div class="gallery_item">
+                        <img src="{{ asset('assets/dashboard/img/view_img/b3.jpg') }}"
+                            alt="view image gallery">
+                    </div>
+
+                    <div class="gallery_item">
+                        <img src="{{ asset('assets/dashboard/img/view_img/b4.jpg') }}"
+                            alt="view image gallery">
+                    </div>
+                    <div class="gallery_item">
+                        <img src="{{ asset('assets/dashboard/img/view_img/b5.jpg') }}"
+                            alt="view image gallery">
+                    </div>
+                    <div class="gallery_item">
+                        <img src="{{ asset('assets/dashboard/img/view_img/b6.jpg') }}"
+                            alt="view image gallery">
+                    </div>
+
+
+                </div>
             </div>
 
             <div class="modal-footer">

@@ -134,16 +134,6 @@
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view_image"> <i
                                                     class="fa fa-eye"></i> View Image</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-centre"> <i
-                                                    class="fa fa-eye"></i> View Centre</a>
-
                                         </div>
                                     </div>
                                 </td>
@@ -166,25 +156,9 @@
                                         <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink" style="">
 
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-check-circle"></i> Approve</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-ban"></i> Reject</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_image"> <i
-                                                    class="fa fa-eye"></i> View Image</a>
-                                            <div class="dropdown-divider"></div>
-
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag</a>
+                                                    class="fa fa-eye"></i> View Tag<sup class="badge badge-danger">4</sup></a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-centre"> <i
@@ -226,15 +200,6 @@
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view_image"> <i
                                                     class="fa fa-eye"></i> View Image</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-centre"> <i
-                                                    class="fa fa-eye"></i> View Centre</a>
 
                                         </div>
                                     </div>
@@ -272,15 +237,6 @@
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view_image"> <i
                                                     class="fa fa-eye"></i> View Image</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-centre"> <i
-                                                    class="fa fa-eye"></i> View Centre</a>
 
                                         </div>
                                     </div>
@@ -304,25 +260,9 @@
                                         <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink" style="">
 
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-check-circle"></i> Approve</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-ban"></i> Reject</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_image"> <i
-                                                    class="fa fa-eye"></i> View Image</a>
-                                            <div class="dropdown-divider"></div>
-
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag</a>
+                                                    class="fa fa-eye"></i> View Tag<sup class="badge badge-danger">4</sup></a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-centre"> <i
@@ -352,23 +292,8 @@
 
 
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-check-circle"></i> Approve</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-ban"></i> Reject</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_image"> <i
-                                                    class="fa fa-eye"></i> View Image</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag</a>
+                                                    class="fa fa-eye"></i> View Tag<sup class="badge badge-danger">4</sup></a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-centre"> <i
