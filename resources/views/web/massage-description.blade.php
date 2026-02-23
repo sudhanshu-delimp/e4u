@@ -58,7 +58,7 @@
 
         $relativePath   =  $listing->imagePosition(9);
         $currentImage   = asset($relativePath);
-        if($currentImage!= "" && file_exists($relativePath))
+        if($currentImage!= "" && is_file(public_path($relativePath)))
         $massage_banner  = $currentImage;
         else
         $massage_banner = asset('assets/app/img/massage/massage_2.jpg');
