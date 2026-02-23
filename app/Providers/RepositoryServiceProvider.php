@@ -21,7 +21,7 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Message\MessageInterface',
             'App\Repositories\Message\MessageRepository'
         );
-         $this->app->bind(
+        $this->app->bind(
             'App\Repositories\Message\MessageMediaInterface',
             'App\Repositories\Message\MessageMediaRepository'
         );
@@ -140,7 +140,7 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Thumbnail\ThumbnailRepository'
         );
 
-       
+
 
         $this->app->bind(
             'App\Repositories\Duration\DurationInterface',
@@ -181,15 +181,18 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\MassageCenter\MassageCenterInterface',
             'App\Repositories\MassageCenter\MassageCenterRepository'
         );
-         $this->app->bind(
+        $this->app->bind(
             'App\Repositories\Operator\OperatorInterface',
             'App\Repositories\Operator\OperatorRepository'
         );
-         $this->app->bind(
+        $this->app->bind(
             'App\Repositories\OperatorStaff\OperatorStaffInterface',
             'App\Repositories\OperatorStaff\OperatorStaffRepository'
         );
-        
+        $this->app->bind(
+            'App\Repositories\OperatorBank\OperatorBankDetailInterface',
+            'App\Repositories\OperatorBank\OperatorBankDetailRepository'
+        );
     }
 
     /**
