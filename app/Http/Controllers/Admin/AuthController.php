@@ -95,13 +95,13 @@ class AuthController extends Controller
                         'message' => isset($wrongConsoleLoginMsg[$userType]) ? $wrongConsoleLoginMsg[$userType] : "You are not authorized to login this console."
                     ], 401);
                 }
-                $endPoint = isset($loginUrlEndpoint[$user->type]) ? $loginUrlEndpoint[$user->type] : $webUrlEndPoint;
+                /* $endPoint = isset($loginUrlEndpoint[$user->type]) ? $loginUrlEndpoint[$user->type] : $webUrlEndPoint;
                 if ($webUrlEndPoint != $endPoint) {
                     return response()->json([
                         'status' => false,
                         'message' => isset($wrongConsoleLoginMsg[$userType]) ? $wrongConsoleLoginMsg[$userType] : "You are not authorized to login this console."
                     ], 401);
-                }
+                } */
 
                 if (!Hash::check($request->password, $user->password)) {
                     return response()->json([
