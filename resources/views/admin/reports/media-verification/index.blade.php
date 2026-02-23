@@ -111,7 +111,7 @@
                                 <td>N/A</td>
                                 <td>Selfie</td>
                                 <td><span class="custom_badge badge_pending">Pending</span></td>
-                                <td class="text-center">
+                                 <td class="text-center">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -119,8 +119,7 @@
                                         </a>
                                         <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink" style="">
-
-
+                                            
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-profile"> <i
                                                     class="fa fa-check-circle"></i> Approve</a>
@@ -134,6 +133,16 @@
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view_image"> <i
                                                     class="fa fa-eye"></i> View Image</a>
+                                            <div class="dropdown-divider"></div>
+
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
+                                                    class="fa fa-eye"></i> View Tag</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view-centre"> <i
+                                                    class="fa fa-eye"></i> View Centre</a>
+
                                         </div>
                                     </div>
                                 </td>
@@ -155,10 +164,25 @@
                                         </a>
                                         <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink" style="">
+                                            
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
+                                                    class="fa fa-check-circle"></i> Approve</a>
+                                            <div class="dropdown-divider"></div>
+
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
+                                                    class="fa fa-ban"></i> Reject</a>
+                                            <div class="dropdown-divider"></div>
+
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view_image"> <i
+                                                    class="fa fa-eye"></i> View Image</a>
+                                            <div class="dropdown-divider"></div>
 
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag<sup class="badge badge-danger">4</sup></a>
+                                                    class="fa fa-eye"></i> View Tag</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-centre"> <i
@@ -185,8 +209,7 @@
                                         </a>
                                         <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink" style="">
-
-
+                                            
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-profile"> <i
                                                     class="fa fa-check-circle"></i> Approve</a>
@@ -200,6 +223,15 @@
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view_image"> <i
                                                     class="fa fa-eye"></i> View Image</a>
+                                            <div class="dropdown-divider"></div>
+
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
+                                                    class="fa fa-eye"></i> View Tag</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view-centre"> <i
+                                                    class="fa fa-eye"></i> View Centre</a>
 
                                         </div>
                                     </div>
@@ -222,8 +254,7 @@
                                         </a>
                                         <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink" style="">
-
-
+                                            
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-profile"> <i
                                                     class="fa fa-check-circle"></i> Approve</a>
@@ -237,6 +268,15 @@
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view_image"> <i
                                                     class="fa fa-eye"></i> View Image</a>
+                                            <div class="dropdown-divider"></div>
+
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
+                                                    class="fa fa-eye"></i> View Tag</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view-centre"> <i
+                                                    class="fa fa-eye"></i> View Centre</a>
 
                                         </div>
                                     </div>
@@ -259,10 +299,25 @@
                                         </a>
                                         <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink" style="">
+                                            
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
+                                                    class="fa fa-check-circle"></i> Approve</a>
+                                            <div class="dropdown-divider"></div>
+
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
+                                                    class="fa fa-ban"></i> Reject</a>
+                                            <div class="dropdown-divider"></div>
+
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view_image"> <i
+                                                    class="fa fa-eye"></i> View Image</a>
+                                            <div class="dropdown-divider"></div>
 
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag<sup class="badge badge-danger">4</sup></a>
+                                                    class="fa fa-eye"></i> View Tag</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-centre"> <i
@@ -281,7 +336,7 @@
                                 <td>A40025</td>
                                 <td>Selfie</td>
                                 <td><span class="custom_badge badge_rejected">Rejected</span></td>
-                                <td class="text-center">
+                               <td class="text-center">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -289,11 +344,25 @@
                                         </a>
                                         <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink" style="">
+                                            
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
+                                                    class="fa fa-check-circle"></i> Approve</a>
+                                            <div class="dropdown-divider"></div>
 
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
+                                                    class="fa fa-ban"></i> Reject</a>
+                                            <div class="dropdown-divider"></div>
+
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view_image"> <i
+                                                    class="fa fa-eye"></i> View Image</a>
+                                            <div class="dropdown-divider"></div>
 
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag<sup class="badge badge-danger">4</sup></a>
+                                                    class="fa fa-eye"></i> View Tag</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-centre"> <i
@@ -317,7 +386,7 @@
     @include('admin.reports.modal.view_image')
     @include('admin.reports.modal.view_tag')
     @include('admin.reports.modal.view_centre')
-    @include('admin.reports.modal.approve_image')
+    @include('admin.reports.modal.verify_masseur_images')
 @endsection
 @section('script')
     <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>

@@ -30,8 +30,8 @@
                             <td>18-02-2026</td>
                             <td>Lia</td>
                             <td>
-                                <a href="" data-target="#approve_image" data-toggle="modal">
-                                     image name
+                                <a href="" data-target="#verify_masseur_images" data-toggle="modal">
+                                    View image <sup class="badge badge-danger">4</sup>
                                 </a>
                             </td>
                             <td>
@@ -67,7 +67,11 @@
                             <td>002</td>
                             <td>18-02-2026</td>
                             <td>Jane</td>
-                            <td>image name </td>
+                            <td>
+                                <a href="" data-target="#verify_masseur_images" data-toggle="modal">
+                                    View image <sup class="badge badge-danger">4</sup>
+                                </a>
+                            </td>
                             <td>
                                 <span class="custom_badge badge_pending">Pending image</span>
                             </td>
@@ -101,7 +105,11 @@
                             <td>003</td>
                             <td>16-02-2026</td>
                             <td>Ming</td>
-                            <td>image name </td>
+                            <td>
+                                <a href="" data-target="#verify_masseur_images" data-toggle="modal">
+                                    View image <sup class="badge badge-danger">4</sup>
+                                </a>
+                            </td>
                             <td>
                                 <span class="custom_badge badge_pending">Pending image</span>
                             </td>
@@ -135,7 +143,11 @@
                             <td>001</td>
                             <td>31-01-2026</td>
                             <td>Joy</td>
-                            <td>image name </td>
+                            <td>
+                                <a href="" data-target="#verify_masseur_images" data-toggle="modal">
+                                    View image <sup class="badge badge-danger">4</sup>
+                                </a>
+                            </td>
                             <td>
                                 <span class="custom_badge badge_pending">Pending image</span>
                             </td>
