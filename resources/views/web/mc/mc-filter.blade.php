@@ -61,22 +61,25 @@
                                                         value="0">
 
                                                     <!-- Search input -->
-                                                    <input type="search" name="name"
+                                                    <input type="search" name="by_name_member" id="by_name_member"
                                                         class="form-control remove_border_btm rounded"
                                                         placeholder="Search by Member ID or Name" aria-label="Search"
                                                         aria-describedby="search-addon" value="">
 
                                                     <!-- Search button -->
                                                     <button
-                                                        class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn"
+                                                        class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn upper_filter"
                                                         id="search-addon" type="submit">
                                                         <i class="fa fa-search" aria-hidden="true"></i>
                                                     </button>
+
+                                                        <input type="hidden" name="lat" id="set_lat" value="">
+                                                        <input type="hidden" name="lng" id="set_lng" value="">
                                                 </div>
                                             </div>
                                             <div class="display_inline_block   item_dis">
                                                 <span class="item-head">Display item</span>
-                                                <select class="custome_form_control_border_radus padding_five_px"
+                                                <select class="custome_form_control_border_radus padding_five_px" name="per_page" id="per_page"
                                                     name="limit">
                                                     <option value="25">25</option>
                                                     <option value="50">50</option>
@@ -87,8 +90,8 @@
                                                     <div class="margin_btn_reset">
                                                         <input type="hidden" name="apply_pagination_rule"
                                                             id="apply_pagination_rule" value="0">
-                                                        <button type="submit"
-                                                            class="btn reset_filter filter-tooltip-wrap apply_pagination_button"
+                                                        <button type="button"
+                                                            class="btn reset_filter filter-tooltip-wrap apply_pagination_button upper_filter"
                                                             data-toggle="tooltip" title="" id="">
                                                             <span class="filter-tooltip">Apply Change</span>
                                                             <i class="fa fa-repeat" aria-hidden="true"></i>
@@ -133,7 +136,7 @@
                                     <div class="fiter_btns slect__btn_tab pb-2">
                                         <div class="display_inline_block mb-1 mr-2">
                                             <select class="custome_form_control_border_radus padding_five_px"
-                                                id="" name="city">
+                                                id="profile_city" name="profile_city">
                                                 <option value="" selected>All Cities</option>
                                                 @foreach (@config('escorts.profile.cities') as $key => $city)
                                                 <option value="{{ $key }}"
@@ -143,9 +146,9 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="display_inline_block mb-1 mr-2">
+                                        <!-- <div class="display_inline_block mb-1 mr-2">
                                             <select class="custome_form_control_border_radus padding_five_px"
-                                                id="select2-dropdown" name="premises">
+                                                id="profile_state"  name="profile_state">
                                                 @foreach (@config('escorts.profile.premises') as $key => $value)
                                                 <option value="{{ $key }}"
                                                     {{ request()->get('premises') == $key ? 'selected' : '' }}>
@@ -153,10 +156,11 @@
                                                 </option>
                                                 @endforeach
                                             </select>
-                                        </div>
-                                        <div class="display_inline_block mb-1 mr-2">
+                                        </div> -->
+
+                                        <!-- <div class="display_inline_block mb-1 mr-2">
                                             <select class="custome_form_control_border_radus padding_five_px"
-                                                id="select2-dropdown" name="masseur_types">
+                                                id="masseur_types" name="masseur_types">
                                                 @foreach (@config('escorts.profile.masseur-types') as $key => $value)
                                                 <option value="{{ $key }}"
                                                     {{ request()->get('masseur_types') == $key ? 'selected' : '' }}>
@@ -164,10 +168,12 @@
                                                 </option>
                                                 @endforeach
                                             </select>
-                                        </div>
+                                        </div> -->
+
+
                                         <div class="display_inline_block mb-1 mr-2">
                                             <select class="custome_form_control_border_radus padding_five_px"
-                                                id="select2-dropdown" name="age">
+                                                id="profile_age" name="profile_age">
                                                 <option value="" selected>All Ages</option>
                                                 <option
                                                     value="18-25" {{ request()->get('age') == '18-25' ? 'selected' : '' }}>
@@ -187,9 +193,10 @@
                                                     45</option>
                                             </select>
                                         </div>
-                                        <div class="display_inline_block mb-1 mr-2">
+
+                                        <!-- <div class="display_inline_block mb-1 mr-2">
                                             <select class="custome_form_control_border_radus padding_five_px"
-                                                id="select2-dropdown" name="prices"
+                                                id="profile_price" name="profile_price"
                                                 value="{{ request()->get('prices') }}">
                                                 @foreach (@config('escorts.profile.prices') as $key => $value)
                                                 <option value="{{ $key }}"
@@ -198,11 +205,12 @@
                                                 </option>
                                                 @endforeach
                                             </select>
-                                        </div>
+                                        </div> -->
+
                                         <div class="display_inline_block mb-1 mr-2">
                                             <select
                                                 class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                                id="" name="massage_services">
+                                                id="massage_services" name="massage_services">
                                                 <option value="">All Massage Services</option>
                                                 @foreach (@config('escorts.profile.massage-services') as $key => $value)
                                                 <option value="{{ $key }}"
@@ -215,7 +223,7 @@
                                         <div class="display_inline_block mb-1 mr-2">
                                             <select
                                                 class="custome_form_control_border_radus padding_five_px with_eight_em"
-                                                id="" name="other_services">
+                                                id="other_services" name="other_services">
                                                 <option value="">All Other Service Types</option>
                                                 @foreach (@config('escorts.profile.other-services') as $key => $value)
                                                 <option value="{{ $key }}"
@@ -235,7 +243,7 @@
                                             </select>
                                         </div>
                                         <div class="display_inline_block mb-1">
-                                            <button type="submit" class="btn reset_filter">
+                                            <button type="button" class="btn reset_filter lower_filter">
                                                 Apply Filters
                                             </button>
                                         </div>

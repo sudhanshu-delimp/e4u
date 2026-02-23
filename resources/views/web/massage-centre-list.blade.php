@@ -228,14 +228,18 @@ $(document).ready(function () {
        AJAX LOAD FUNCTION
     =============================== */
 
-    function loadData(page = 1) 
+    function loadData(page = 1,filter_by_location = {},filter_by_feild = {}) 
     {
 
         $('#page_loader').show();
 
         $.ajax({
             url: "{{ route('mc-ajax-list') }}",
-            data: { page: page },
+            data: { 
+                page: page,
+                 filter_by_location,
+                 filter_by_feild
+            },
             success: function (res) {
 
                
@@ -338,6 +342,42 @@ $(document).ready(function () {
     /////// Short List ///////////////
 
 
+    $(document).on('click', '.upper_filter', function(e){
+        e.preventDefault();
+
+        let filter_by_feild = {};
+        let filter_by_location = {
+            locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+            by_name_member: $('#by_name_member').val(),
+            set_lat: $('#set_lat').val(),
+            set_lng: $('#set_lng').val(),
+            per_page: $('#per_page').val()
+        };
+
+        loadData(1,filter_by_location,filter_by_feild); 
+    });
+
+
+    $(document).on('click', '.lower_filter', function(e){
+        e.preventDefault();
+
+        let filter_by_location = {};
+        let filter_by_feild = {
+            profile_state: $('#profile_state').val(),
+            profile_city: $('#profile_city').val(),
+            masseur_types: $('#masseur_types').val(),
+            profile_age: $('#profile_age').val(),
+            profile_price: $('#profile_price').val(),
+            massage_services: $('#massage_services').val(),
+            other_services: $('#other_services').val(),
+            verification: $('#verification').val(),
+            
+        };
+
+        loadData(1,filter_by_location,filter_by_feild); 
+    });
+
+
 
     function getParameterByName(name, url) {
         name = name.replace(/[\[\]]/g, '\\$&');
@@ -349,6 +389,48 @@ $(document).ready(function () {
     }
 
 });
+
+
+
+
+    // ########## Searching Script Start Here ############## /////////
+    navigator.geolocation.getCurrentPosition(async function(position) 
+    {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        $("#set_lat").val(latitude);
+        $("#set_lng").val(longitude);
+        console.log(longitude, latitude, ' rizk-onload')
+
+    });
+
+
+    $('input[name="locationByRadio"]').on('change', function() 
+    {
+        let selectedLocation = {};
+        selectedLocation.location = $(this).attr('id');
+        if (selectedLocation.location == 'yourLocation') 
+        {
+                navigator.geolocation.getCurrentPosition(async function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                selectedLocation.lat = latitude;
+                selectedLocation.lng = longitude;
+
+                $("#set_lat").val(latitude);
+                $("#set_lng").val(longitude);
+                console.log(longitude, latitude, ' rizk')
+            });
+
+        } 
+        else 
+        {
+            $("#set_lat").val('');
+            $("#set_lng").val('');
+        }
+
+    });
 
 </script>
 

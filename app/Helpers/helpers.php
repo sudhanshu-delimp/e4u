@@ -1514,6 +1514,18 @@ if (!function_exists('get_messure_images')) {
   }
 }
 
+if (!function_exists('getStateIdByCityId')) {
+function getStateIdByCityId($states, $cityId)
+{
+    foreach ($states as $stateId => $stateData) {
+        if (isset($stateData['cities'][$cityId])) {
+            return $stateId;
+        }
+    }
+    return null; // agar city na mile
+}
+}
+
 
 
 

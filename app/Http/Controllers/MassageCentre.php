@@ -6,6 +6,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\MassageProfile;
 use App\Models\MassageReviews;
+use App\Models\Masseur;
+use App\Models\Service;
+use App\Models\State;
+use App\Models\User;
 use App\Repositories\Duration\MassageDurationInterface;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
@@ -15,6 +19,8 @@ use App\Repositories\Message\MessageMediaInterface;
 use App\Repositories\Service\ServiceInterface;
 use App\Repositories\Thumbnail\ThumbnailInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 
 class MassageCentre extends Controller
@@ -54,14 +60,170 @@ class MassageCentre extends Controller
     }
 
 
-    public function mcAjaxList(Request $request)
-    {
-       
-       $media = $this->media;
-       $listings = MassageProfile::where('default_setting','!=','1')
-                ->paginate(5)
-                ->onEachSide(1);
 
+    public function getRealTimeGeolocationOfUsers($lat, $lng)
+    {
+        try {
+            $apiKey = config('services.google_map.api_key'); 
+            $geoUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$lat},{$lng}&key={$apiKey}";
+            $response = Http::get($geoUrl);
+        
+            $state = 'Unknown';
+        
+            if ($response->successful()) {
+                foreach ($response['results'][0]['address_components'] as $component) {
+                    if (in_array('administrative_area_level_1', $component['types'])) {
+                        $state = $component['long_name'];
+                        break;
+                    }
+                }
+            }
+
+            $stateFromDb = State::where('name','like','%'.$state.'%')->first();
+            $stateCapital = config('escorts.profile.states')[$stateFromDb->id] ?? null;
+
+            $parms =[
+                'state'=> $stateFromDb ? $stateFromDb->id : null,
+                'city'=> $stateCapital ? array_key_first($stateCapital['cities']) : null,
+            ];
+
+            return $parms;
+        } catch (\Exception $e) {
+            //throw $th;
+            $parms =[
+                'state'=>null,
+                'city'=>null,
+            ];
+
+            return $parms;
+        }
+        
+    }
+
+   public function mcAjaxList(Request $request)
+    {
+        $per_page = 25;
+        $massage_centers_ids = [];
+
+
+         $filter_by_location = $request->input('filter_by_location', []);
+         $filter_by_feild    = $request->input('filter_by_feild', []);
+         $massage_users = User::where('type', 5); 
+         $massage = MassageProfile::where('default_setting', '!=', '1');
+
+        ######### Upper Filter ##################### 
+        if ((!empty($filter_by_location)) || (!empty($filter_by_feild))) 
+        {
+            if(!empty($filter_by_location))
+            {
+                $location   = $filter_by_location['locationByRadio'] ?? null;
+                $member     = $filter_by_location['by_name_member'] ?? null;
+                $set_lat    = $filter_by_location['set_lat'] ?? null;
+                $set_lng    = $filter_by_location['set_lng'] ?? null;
+                $per_page   = $filter_by_location['per_page'] ?? null;
+                
+
+                if($location=='your_location' &&  $set_lat!="" &&  $set_lng!="")
+                {
+                    $userLocation = $this->getRealTimeGeolocationOfUsers($set_lat, $set_lng);
+                    $lat_state = $userLocation['state'];
+                    $lng_city = $userLocation['city'];
+                    $massage_users = $massage_users->where('state_id', $lat_state); 
+                
+                    if ($member!= "") {
+                        $massage_users = $massage_users->where(function ($query) use ($member) {
+                            $query->where('member_id', 'LIKE', "%{$member}%")
+                                ->orWhere('name', 'LIKE', "%{$member}%");
+                        });
+                    }
+
+                    $massage_users = $massage_users->pluck('id')->toArray(); 
+                    $massage_centers_ids = $massage_users;
+                }
+
+                if($location=='australia' &&  $set_lat=="" &&  $set_lng=="")
+                {
+                    if ($member!= "") {
+                        $massage_users = $massage_users->where(function ($query) use ($member) {
+                            $query->where('member_id', 'LIKE', "%{$member}%")
+                                ->orWhere('name', 'LIKE', "%{$member}%");
+                        });
+                    }
+
+                    $massage_users = $massage_users->pluck('id')->toArray(); 
+                    $massage_centers_ids = $massage_users;
+                }
+            }
+
+            if(!empty($filter_by_feild))
+            {
+                $profile_state      = $filter_by_feild['profile_state'] ?? null;
+                $profile_city       = $filter_by_feild['profile_city'] ?? null;
+                $masseur_types      = $filter_by_feild['masseur_types'] ?? null;
+                $profile_price      = $filter_by_feild['profile_price'] ?? null;
+                $profile_age        = $filter_by_feild['profile_age'] ?? null;
+                $massage_services   = $filter_by_feild['massage_services'] ?? null;
+                $other_services     = $filter_by_feild['other_services'] ?? null;
+                $verification       = $filter_by_feild['verification'] ?? null;
+
+
+               if($profile_city!="")
+               {
+                    $state_id = getStateIdByCityId(config('escorts.profile.states'), $profile_city);
+                    $massage_users = $massage_users->where('state_id', $state_id); 
+                    $massage_users = $massage_users->pluck('id')->toArray(); 
+                    $massage_centers_ids = $massage_users;
+
+                     Log::info($state_id);
+               }
+               
+                if(!empty($massage_centers_ids))
+                {
+                    $massage = $massage->whereIn('user_id', $massage_centers_ids);
+                }
+
+                if($profile_age!="")
+                {
+                    $ages = explode('-', $profile_age);
+                    list($min_age, $max_age) = array_map('intval', explode('-', $profile_age));
+                    $user_id = Masseur::whereBetween('age', [$min_age, $max_age])->distinct()->pluck('user_id')->toArray();
+
+                    if(!empty($user_id))
+                    $massage = $massage->whereIn('user_id', $user_id);      
+                } 
+                
+                if($massage_services!="")
+                {
+                    $massage_profile_id = Service::where('service_id',$massage_services)->distinct()->pluck('massage_profile_id')->toArray();
+                    if(!empty($massage_profile_id))
+                    $massage = $massage->whereIn('id', $massage_profile_id);      
+                }  
+                
+                if($other_services!="")
+                {
+                    $massage_profile_id = Service::where('service_id',$other_services)->distinct()->pluck('massage_profile_id')->toArray();
+                    if(!empty($massage_profile_id))
+                    $massage = $massage->whereIn('id', $massage_profile_id);      
+                }  
+                
+
+
+            }
+
+            
+        }
+        // else
+        // {
+        //     $massage = MassageProfile::where('default_setting', '!=', '1');
+        // }
+        ######### End Upper Filter ##################### 
+
+     
+
+       $listings = $massage->paginate($per_page)->onEachSide(1);
+       $media = $this->media;
+      
+                
         return response()->json([
             'grid' => view('web.mc.mc-grid-data', compact('listings','media'))->render(),
             'list' => view('web.mc.mc-list-data', compact('listings'))->render(),
@@ -69,6 +231,7 @@ class MassageCentre extends Controller
             'total_count' => $listings->total()
         ]);
     }
+    
 
 
     public function massage_description(Request $request, $id)
