@@ -36,6 +36,22 @@
 
     <link rel="stylesheet" href="{{asset('assets/app/css/jquery-ui.css')}}">
     <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
+    <style type="text/css">
+     .swal2-popup {
+    width: auto !important;
+    padding: 18px !important;
+}
+
+.swal2-styled.swal2-confirm, .swal2-styled.swal2-cancel{
+    background-color: var(--color-teal-dark) !important;
+}
+.swal2-styled.swal2-confirm:hover, .swal2-cancel:hover{
+  background-color: var(--color-orange) !important;
+}
+.swal2-cancel{
+    background-color: var(--color-teal-dark) !important;
+}
+</style>
     @section('style')
     @show
 </head>

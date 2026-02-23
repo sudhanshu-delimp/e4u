@@ -30,7 +30,7 @@ class CenterNumController extends Controller
             'incident_state'    => 'required',
             'incident_date'    => 'required',
             'incident_location' => 'required',
-            'offender_mobile'   => 'required|min:8',
+            'offender_mobile'   => 'required|min:8|max:10',
             'incident_nature'   => 'required',
             'profile_link'      => 'nullable',
             'what_happened'     => 'required|string',
@@ -90,9 +90,8 @@ class CenterNumController extends Controller
     }
 
     public function showReportOnDashboardAjax(Request $request)
-    {
-        $nums = Num::whereNotIn('status', ['pending'])->with('state')->get();
-
+    {   $userId = Auth::user()->id;
+        $nums = Num::where('status', 'published')->with('state')->orderBy('incident_date', 'desc')->get();
         if($request->ajax()){
 
            return DataTables::of($nums) // formatPhone
@@ -224,7 +223,7 @@ class CenterNumController extends Controller
             'incident_state'    => 'required',
             'incident_date'    => 'required',
             'incident_location' => 'required',
-            'offender_mobile'   => 'required|min:8',
+            'offender_mobile'   => 'required|min:8|max:10',
             'incident_nature'   => 'required',
             'profile_link'      => 'nullable',
             'what_happened'     => 'required|string',

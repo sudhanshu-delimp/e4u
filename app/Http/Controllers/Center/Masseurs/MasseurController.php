@@ -803,7 +803,7 @@ class MasseurController extends AppController
 
             if((isset($avail_arr['sunday']) && $avail_arr['sunday']['status'] == 'closed'))
             {
-            $avail .=  '<div class="legend_item not_available"><span class="legend_box">sun closed</span><small class="legend_text">Not Available</small></div>';
+            $avail .=  '<div class="legend_item not_available"><span class="legend_box">S</span><small class="legend_text">Not Available</small></div>';
             }
             else
             {

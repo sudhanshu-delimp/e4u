@@ -37,6 +37,16 @@ class MassageProfile extends Model
         return $this->belongsTo('App\Models\User', 'user_id');
     }
 
+    public function massagerMasseurs()
+    {
+          return $this->belongsToMany(
+            Masseur::class,         
+            'massager_masseurs',     
+            'massage_profile_id',    
+            'masseur_profile_id'     
+        );
+    }
+
     public function city()
     {
         return $this->belongsTo('App\Models\City','city_id');
@@ -367,4 +377,10 @@ class MassageProfile extends Model
     {
         return $this->belongsToMany('App\Models\City', 'tour_location', 'profile_id', 'city_id');
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(MassageReviews::class, 'massage_id', 'id');
+    }
+
 }
