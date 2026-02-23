@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="items">
-                        <span class="title">Hours: {{ file_exists($thumnail) }}</span>
+                        <span class="title">Hours: {{ $thumnail  }}</span>
                         <span class="decs">{{get_working_hours($listing)}}</span>
                     </div>
 
