@@ -95,7 +95,7 @@
             <td>Manning</td>
             <td>Western Australia</td>
             <td><a href="download.pdf">22072025_6152</a></td>
-            <td>Pending</td>
+            <td><span class="custom_badge badge_pending">Pending</span></td>
             <td>
                <div class="dropdown no-arrow">
                    <a class="dropdown-toggle" href="#" role="button"
