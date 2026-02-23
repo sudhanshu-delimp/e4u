@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="items">
-                        <span class="title">Hours: {{ is_file(public_path($relativePath)) ? 'exist' : 'Not' }}</span>
+                        <span class="title">Hours: </span>
                         <span class="decs">{{get_working_hours($listing)}}</span>
                     </div>
 
