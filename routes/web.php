@@ -776,5 +776,6 @@ Route::get('mc-ajax-list', [MassageCentre::class, 'mcAjaxList'])->name('mc-ajax-
 Route::get('massage-description/{id}', [MassageCentre::class, 'massage_description'])->name('web.massage-description');
 Route::post('/store-short-list', [MassageCentre::class, 'storeShortList'])->name('web.store-short-list');
 Route::post('/remove-short-list', [MassageCentre::class, 'removeShortList'])->name('web.remove-short-list');
+Route::post('/review-massage/{id}', [MassageCentre::class,'SaveReviewMassage'])->name('web.review-massage');
 
 

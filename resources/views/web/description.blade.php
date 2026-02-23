@@ -1385,7 +1385,7 @@
             </div>
         </div>
         @endif
-        <!--- if escort has no review then show this section -->
+      
         <div class="py-3 row {{count($reviews) == 0 ? '': 'd-none'}}">
             <div class="col-md-12">
                 @php

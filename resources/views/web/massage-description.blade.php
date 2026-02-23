@@ -38,6 +38,9 @@
     opacity: 0;
     transition: opacity 0.3s;
 }
+.mc_avail_table table td {
+    padding: 5px 0px !important;
+}
 </style>
     @stop
     @section('content')
@@ -1301,7 +1304,7 @@
 
 
 
-                    <div class="pt-3 row">
+                    <div class="pt-3 row {{count($reviews) == 0 ? '': 'd-none'}}">
                             <div class="col-md-12">
                                 @php
                                     $mesageForViewer = true;
@@ -1442,7 +1445,8 @@
                         </span>
                     </button>
                 </div>
-                <form id="reviewAdvertiser" action="#" method="post">
+                
+                <form id="reviewAdvertiser_OLD" action="#" method="post">
                     <input type="hidden" name="_token" value="UuIFvrcEqKkKmQRBOgnpguuLsEYEUO1qHwlvC49U">
                     <div class="modal-body">
                         <div class="row">
@@ -1518,9 +1522,9 @@
             </div>
 
 
-            <!-- <form id="reviewAdvertiser" action="{{ route('review.advertiser',[$listing->id])}}" method="post" data-parsley-validate> -->
-              <form id="reviewAdvertiser" action="#" method="post" data-parsley-validate>
-            @csrf
+           
+              <form id="reviewAdvertiser" action="{{ route('web.review-massage',[$listing->id])}}" method="post" data-parsley-validate>
+              
                
                 <div class="modal-body">                    
                     <div class="row">
@@ -1830,42 +1834,6 @@ setInterval(slideNext, 5000);
 
 
 
-$(document).ready(function(){
-
-    let ratesHeader = @json($rates_header);
-
-    if(ratesHeader.outcall)
-    {
-        $('.header_rate_two_masseur').html('$'+ratesHeader.outcall+'/hr');
-    }
-    
-    else
-    {
-        $('.header_rate_two_masseur').html('N/A ');    
-    }
-
-    if(ratesHeader.incall)
-    {
-        $('.header_rate_masseur').html('$'+ratesHeader.incall+'/hr');
-    }
-    
-    else
-    {
-        $('.header_rate_masseur').html('N/A ');    
-    }
-
-    if(ratesHeader.massage)
-    {
-        $('.header_rate_massage').html('$'+ratesHeader.massage+'/hr');
-    }
-    
-    else
-    {
-        $('.header_rate_massage').html('N/A ');    
-    }
-
-
-})
 
 
 $(document).on('click', '.open_review_box', function (e) {
@@ -1878,15 +1846,15 @@ $(document).on('click', '.open_review_box', function (e) {
         }
     });
 
- if (window.authUser.write_reviews_disable && window.authUser.auth_user_type=='0') {
+    if (window.authUser.write_reviews_disable && window.authUser.auth_user_type=='0') 
+    {
 
-        $('.disabled-button').css({
-        'background-color': '#ccc',
-        'border-color': '#ccc',
-        'color': '#646464',
-        'opacity': '0.9',
-       
-    });
+            $('.disabled-button').css({
+            'background-color': '#ccc',
+            'border-color': '#ccc',
+            'color': '#646464',
+            'opacity': '0.9',
+            });
     }   
     
     $('.rating-stars .star').on('click', function () {
@@ -1904,10 +1872,117 @@ $(document).on('click', '.open_review_box', function (e) {
     });
   });
 
+
+   $(document).on('submit', '#reviewAdvertiser',function(e)
+    {
+        e.preventDefault();
+        var form = $(this);
+
+        if (form.parsley().isValid()) 
+        {
+
+            var url = form.attr('action');
+            var data = new FormData($('#reviewAdvertiser')[0]);
+            
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: data,
+                contentType: false,
+                processData: false,  
+                success: function (data) {
+                    $('#reviewAdvertiser')[0].reset();
+                    //$('#add_reviews').modal("hide");
+                    $('#add_reviews').toggle(); 
+                    $('#review-submitted-popup').modal("show");
+                    $('#review-escort-name').text("{{ $listing->profile_name  }}");
+                    
+                    if(!data.error){
+                        
+                       
+                        $.toast({
+                            heading: 'Success',
+                            text: 'Record successfully updated',
+                            icon: 'success',
+                            loader: true,
+                            position: 'top-right',     
+                            loaderBg: '#9EC600' 
+                        });
+                    } else {
+                        $.toast({
+                            heading: 'Error',
+                            text: 'Failed to save the review',
+                            icon: 'error',
+                            loader: true,
+                            position: 'top-right',     
+                            loaderBg: '#9EC600'  
+                        });
+                    }
+                }
+            });
+        }
+    });
+
+
+    $('#review-submitted-popup #close').on('click', function() {
+        $('#review-submitted-popup').toggle();
+        $('.modal-backdrop').remove();
+    });
+
+    // Close when X icon clicked
+    $('#review-submitted-popup .close').on('click', function() {
+    $('#review-submitted-popup').toggle();
+    $('.modal-backdrop').remove();
+    });
+
+
+
+    $(document).ready(function()
+    {
+
+            let ratesHeader = @json($rates_header);
+
+            if(ratesHeader.outcall)
+            {
+                $('.header_rate_two_masseur').html('$'+ratesHeader.outcall+'/hr');
+            }
+            
+            else
+            {
+                $('.header_rate_two_masseur').html('N/A ');    
+            }
+
+            if(ratesHeader.incall)
+            {
+                $('.header_rate_masseur').html('$'+ratesHeader.incall+'/hr');
+            }
+            
+            else
+            {
+                $('.header_rate_masseur').html('N/A ');    
+            }
+
+            if(ratesHeader.massage)
+            {
+                $('.header_rate_massage').html('$'+ratesHeader.massage+'/hr');
+            }
+            
+            else
+            {
+                $('.header_rate_massage').html('N/A ');    
+            }
+
+
+
+            $('#review_textarea').val('');
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+    });
+
+
 </script>
-
-
-    
-
-
 @endpush

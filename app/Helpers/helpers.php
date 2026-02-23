@@ -4,29 +4,30 @@
  * Custom helper functions
  */
 
-use Carbon\Carbon;
-use App\Models\City;
-use App\Models\User;
-use App\Sms\SendSms;
-use App\Models\State;
-use App\Models\Escort;
-use App\Models\Country;
 use App\Mail\LoginOtpMail;
 use App\Models\AlertNotic;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\Escort;
 use App\Models\EscortMedia;
-use Illuminate\Support\Str;
-use App\Models\MassageMedia;
-use App\Models\MasseurMedia;
-use Illuminate\Http\Request;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use App\Models\MassageMedia;
+use App\Models\MassageStatistics;
+use App\Models\MasseurMedia;
+use App\Models\State;
+use App\Models\User;
+use App\Sms\SendSms;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 if (!function_exists('old_calculateTotalFee')) {
     function old_calculateTotalFee($plan = 0, $days = 0)
@@ -686,6 +687,76 @@ if (!function_exists('saving_escort_stats')) {
     }
 }
 
+if (!function_exists('saving_massage_stats')) {
+
+    function saving_massage_stats($userId, $massage_id, $profileViewType)
+    {
+        $today     = now(config('app.escort_server_timezone'))->toDateString();
+        $todayDateUnderscore = str_replace('-', '_', $today);
+
+        # --- Clear yesterday's _massage session keys ---
+        if (Session::get('last_session_date') !== $today) {
+            # Only clear _massage-related session keys, keep other session data safe
+            foreach (Session::all() as $key => $value) {
+                if (str_starts_with($key, 'massage_stat_')) {
+                    Session::forget($key);
+                }
+            }
+            Session::put('last_session_date', $today);
+            Session::save();
+        }
+
+        # --- Unique session key per _massage per day ---
+        $sessionKey = "massage_id_{$massage_id}_date_{$todayDateUnderscore}_" . $profileViewType;
+
+        # Already profile viewed today?
+        if (Session::get($sessionKey) === $sessionKey) {
+            return false; // Already counted
+        }
+
+        # Save session for this _massage
+        Session::put([$sessionKey => $sessionKey]);
+        Session::save(); // media_views_count
+
+        $field = [
+            'profile_views_count' => $profileViewType == 'profile_views_count' ? 1 : 0,
+            'media_views_count' => $profileViewType == 'media_views_count' ? 1 : 0,
+            'playbox_views_count' => $profileViewType == 'playbox_views_count' ? 1 : 0,
+            'reviews_count' => $profileViewType == 'reviews_count' ? 1 : 0,
+            'recommendation_count' => $profileViewType == 'recommendation_count' ? 1 : 0,
+        ];
+
+        // --- Update statistics in DB ---
+        $stat = MassageStatistics::where('user_id', $userId)
+            ->where('massage_id', $massage_id)
+            ->where('date', $today)
+            ->first();
+
+        if ($stat) {
+            $stat->profile_views_count  += $field['profile_views_count'] ?? 0;
+            $stat->media_views_count    += $field['media_views_count'] ?? 0;
+            $stat->playbox_views_count  += $field['playbox_views_count'] ?? 0;
+            $stat->reviews_count        += $field['reviews_count'] ?? 0;
+            $stat->recommendation_count += $field['recommendation_count'] ?? 0;
+            $stat->save();
+        } else {
+            MassageStatistics::create([
+                'user_id'               => $userId,
+                'massage_id'             => $massage_id,
+                'date'                  => $today,
+                'profile_views_count'   => $field['profile_views_count'] ?? 0,
+                'media_views_count'     => $field['media_views_count'] ?? 0,
+                'playbox_views_count'   => $field['playbox_views_count'] ?? 0,
+                'reviews_count'         => $field['reviews_count'] ?? 0,
+                'recommendation_count'  => $field['recommendation_count'] ?? 0,
+            ]);
+        }
+
+        return true;
+    }
+}
+
+
 function print_this($array, $die = false)
 {
     echo '<pre>';
@@ -1340,12 +1411,12 @@ if (!function_exists('get_messure_weakly_availibility')) {
                     
                         else if($data['status'] == '24_hours')
                         {
-                             $time = strtolower($data['from']).' to '.strtolower($data['to']);
+                             $time = strtolower($data['from']).' - '.strtolower($data['to']);
                         }
 
                         else if($data['status'] == 'custom')
                         {
-                             $time = strtolower($data['from']).' to '.strtolower($data['to']);
+                             $time = strtolower($data['from']).' - '.strtolower($data['to']);
                         }
 
                         else if($data['status'] == 'closed')

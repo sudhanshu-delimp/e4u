@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Http\Request;
-use App\Models\MassageProfile;
 use App\Http\Controllers\Controller;
-use App\Repositories\Service\ServiceInterface;
-use App\Repositories\MassageProfile\MassageProfileInterface;
-use App\Repositories\Message\MessageMediaInterface;
-use App\Repositories\Thumbnail\ThumbnailInterface;
+use App\Models\MassageProfile;
+use App\Models\MassageReviews;
 use App\Repositories\Duration\MassageDurationInterface;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
+use App\Repositories\MassageProfile\MassageProfileInterface;
+use App\Repositories\MassageReview\MassageReviewInterface;
 use App\Repositories\Message\MessageInterface;
+use App\Repositories\Message\MessageMediaInterface;
+use App\Repositories\Service\ServiceInterface;
+use App\Repositories\Thumbnail\ThumbnailInterface;
+use Illuminate\Http\Request;
 
 
 class MassageCentre extends Controller
@@ -26,8 +28,12 @@ class MassageCentre extends Controller
     protected $media;
     protected $massage_media;
     protected $massage_profile;
+    protected $reviews;
+  
 
-    public function __construct(MassageProfileInterface $massage_profile ,MessageInterface $massage, MessageMediaInterface $media, ThumbnailInterface $thumbnail,  ServiceInterface $service, MassageDurationInterface $duration,MassageAvailabilityInterface $massage_availability)
+   
+
+    public function __construct(MassageReviewInterface $reviews, MassageProfileInterface $massage_profile ,MessageInterface $massage, MessageMediaInterface $media, ThumbnailInterface $thumbnail,  ServiceInterface $service, MassageDurationInterface $duration,MassageAvailabilityInterface $massage_availability)
     {
         $this->massage = $massage;
         $this->massage_availability = $massage_availability;
@@ -35,6 +41,7 @@ class MassageCentre extends Controller
         $this->duration = $duration;
         $this->media = $media;
         $this->massage_profile = $massage_profile;
+        $this->reviews = $reviews;
       
     }
 
@@ -122,6 +129,42 @@ class MassageCentre extends Controller
                 'data' => $profile,
                 'message' => 'Added to wishlist'
         ]);
+    }
+    
+
+    public function SaveReviewMassage(Request $request, $massage_id)
+    {
+        $error = true;
+        if(auth()->user() && auth()->user()->type == 0) {
+            $data = [
+                'description' => $request->description,
+                'star_rating' => $request->rating ? $request->rating : NULL,
+                'user_id' => auth()->user()->id,
+                'massage_id' => $massage_id,
+                'status' => 'pending',  
+            ];
+            $id = null;
+            $reviewExist = MassageReviews::where('user_id', auth()->user()->id)->where('massage_id',$massage_id)->first();
+            if($reviewExist != null){
+                MassageReviews::where('id',$reviewExist->id)->update($data);
+                $error = false;
+            }else{
+                if($this->reviews->store($data, $id))
+                {
+                    $error = false;
+                }
+            }
+            
+        } else {
+            $data = 'You are not allowed to give review';
+        }
+
+        # add statistics for escort profile view and added stats for reviews and recommendation
+        $userId = MassageReviews::where('id', $massage_id)->pluck('user_id');
+        saving_massage_stats($userId, $massage_id,'reviews_count');
+        saving_massage_stats($userId, $massage_id,'recommendation_count');
+
+        return response()->json(compact('data','error'));
     }
     
     
