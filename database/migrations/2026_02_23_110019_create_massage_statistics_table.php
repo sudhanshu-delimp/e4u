@@ -32,9 +32,7 @@ class CreateMassageStatisticsTable extends Migration
 
             $table->timestamps();
 
-            // Optional Foreign Keys (agar tables exist karti hain)
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('massage_id')->references('id')->on('massage_profiles')->onDelete('cascade');
+           
         });
     }
 
