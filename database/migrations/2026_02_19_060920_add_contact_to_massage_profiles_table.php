@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddContactToMassageProfilesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+         Schema::table('massage_profiles', function (Blueprint $table) {
+            $table->enum('contact', ['1', '2', '4', '5'])
+                  ->nullable()
+                  ->after('enabled'); 
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('massage_profiles', function (Blueprint $table) {
+            //
+        });
+    }
+}

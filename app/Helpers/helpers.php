@@ -4,29 +4,30 @@
  * Custom helper functions
  */
 
-use Carbon\Carbon;
-use App\Models\City;
-use App\Models\User;
-use App\Sms\SendSms;
-use App\Models\State;
-use App\Models\Escort;
-use App\Models\Country;
 use App\Mail\LoginOtpMail;
 use App\Models\AlertNotic;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\Escort;
 use App\Models\EscortMedia;
-use Illuminate\Support\Str;
-use App\Models\MassageMedia;
-use App\Models\MasseurMedia;
-use Illuminate\Http\Request;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use App\Models\MassageMedia;
+use App\Models\MassageStatistics;
+use App\Models\MasseurMedia;
+use App\Models\State;
+use App\Models\User;
+use App\Sms\SendSms;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 if (!function_exists('old_calculateTotalFee')) {
     function old_calculateTotalFee($plan = 0, $days = 0)
@@ -686,6 +687,76 @@ if (!function_exists('saving_escort_stats')) {
     }
 }
 
+if (!function_exists('saving_massage_stats')) {
+
+    function saving_massage_stats($userId, $massage_id, $profileViewType)
+    {
+        $today     = now(config('app.escort_server_timezone'))->toDateString();
+        $todayDateUnderscore = str_replace('-', '_', $today);
+
+        # --- Clear yesterday's _massage session keys ---
+        if (Session::get('last_session_date') !== $today) {
+            # Only clear _massage-related session keys, keep other session data safe
+            foreach (Session::all() as $key => $value) {
+                if (str_starts_with($key, 'massage_stat_')) {
+                    Session::forget($key);
+                }
+            }
+            Session::put('last_session_date', $today);
+            Session::save();
+        }
+
+        # --- Unique session key per _massage per day ---
+        $sessionKey = "massage_id_{$massage_id}_date_{$todayDateUnderscore}_" . $profileViewType;
+
+        # Already profile viewed today?
+        if (Session::get($sessionKey) === $sessionKey) {
+            return false; // Already counted
+        }
+
+        # Save session for this _massage
+        Session::put([$sessionKey => $sessionKey]);
+        Session::save(); // media_views_count
+
+        $field = [
+            'profile_views_count' => $profileViewType == 'profile_views_count' ? 1 : 0,
+            'media_views_count' => $profileViewType == 'media_views_count' ? 1 : 0,
+            'playbox_views_count' => $profileViewType == 'playbox_views_count' ? 1 : 0,
+            'reviews_count' => $profileViewType == 'reviews_count' ? 1 : 0,
+            'recommendation_count' => $profileViewType == 'recommendation_count' ? 1 : 0,
+        ];
+
+        // --- Update statistics in DB ---
+        $stat = MassageStatistics::where('user_id', $userId)
+            ->where('massage_id', $massage_id)
+            ->where('date', $today)
+            ->first();
+
+        if ($stat) {
+            $stat->profile_views_count  += $field['profile_views_count'] ?? 0;
+            $stat->media_views_count    += $field['media_views_count'] ?? 0;
+            $stat->playbox_views_count  += $field['playbox_views_count'] ?? 0;
+            $stat->reviews_count        += $field['reviews_count'] ?? 0;
+            $stat->recommendation_count += $field['recommendation_count'] ?? 0;
+            $stat->save();
+        } else {
+            MassageStatistics::create([
+                'user_id'               => $userId,
+                'massage_id'             => $massage_id,
+                'date'                  => $today,
+                'profile_views_count'   => $field['profile_views_count'] ?? 0,
+                'media_views_count'     => $field['media_views_count'] ?? 0,
+                'playbox_views_count'   => $field['playbox_views_count'] ?? 0,
+                'reviews_count'         => $field['reviews_count'] ?? 0,
+                'recommendation_count'  => $field['recommendation_count'] ?? 0,
+            ]);
+        }
+
+        return true;
+    }
+}
+
+
 function print_this($array, $die = false)
 {
     echo '<pre>';
@@ -1207,6 +1278,7 @@ if (!function_exists('generate_masseur_member_id')) {
     }
 }
 
+
 if (!function_exists('getListingRefundAmount')) {
     function getListingRefundAmount($profile){
         $refundAmount = 0.00;
@@ -1222,6 +1294,226 @@ if (!function_exists('getListingRefundAmount')) {
         return $refundAmount;
     }
 }
+
+
+
+if (!function_exists('get_working_hours')) {
+    function get_working_hours($listing)
+    {
+        if(isset($listing->availability->availability_time) && (!empty($listing->availability->availability_time)))
+        {
+           $availability = $listing->availability->availability_time ? json_decode($listing->availability->availability_time, true) : [];
+           $current_day = strtolower(Carbon::now()->format('l'));
+           $current_day_data = $availability[$current_day];
+
+           if($current_day_data['status'] == 'til_late')
+           {
+              return strtolower($current_day_data['from']).'...'.' Till late';
+           }
+
+           else if($current_day_data['status'] == 'closed')
+           {
+              return 'Closed';
+           }
+
+          else if($current_day_data['status'] == '24_hours')
+           {
+              return strtolower($current_day_data['from']).' to '.$current_day_data['to'];
+           }
+
+           else if($current_day_data['status'] == 'custom')
+           {
+              return strtolower($current_day_data['from']).' to '.$current_day_data['to'];
+           }
+
+           
+         
+        }
+
+        return 'NA';
+    }
+}
+
+
+if (!function_exists('get_weakly_availibility')) {
+    function get_weakly_availibility($listing)
+    {
+        if(isset($listing->availability->availability_time) && (!empty($listing->availability->availability_time)))
+        {
+           $availability = $listing->availability->availability_time ? json_decode($listing->availability->availability_time, true) : [];
+            
+           
+
+           if(empty($availability))
+            return '<tr><td colspan="2" style="background-color:#fff;border:none"><center>NA</center></td></tr>';
+           
+           else
+           {    
+                $avail = '';
+                foreach ($availability as $day => $data) 
+                {
+
+                    $status = $data['status'];
+
+                        if( $status == 'til_late')
+                        $time =  strtolower($data['from']).'...'.' Till late'; 
+
+                    
+                        else if($data['status'] == '24_hours')
+                        {
+                             $time = strtolower($data['from']).' to '.strtolower($data['to']);
+                        }
+
+                        else if($data['status'] == 'custom')
+                        {
+                             $time = strtolower($data['from']).' to '.strtolower($data['to']);
+                        }
+
+                        else if($data['status'] == 'closed')
+                        {
+                             $time = 'Closed';
+                        }
+
+                    $avail .= '<tr> <td>' . ucfirst($day) . '</td><td class="text-right">' . $time  . '</td> </tr>';
+                }
+
+                return $avail;
+           }
+        }
+
+
+
+    }
+}
+
+if (!function_exists('get_messure_weakly_availibility')) {
+    function get_messure_weakly_availibility($messure)
+    {
+        if(isset($messure->availability) && (!empty($messure->availability)))
+        {
+           $availability = $messure->availability ? json_decode($messure->availability, true) : [];
+            
+           if(empty($availability))
+            return '<tr><td colspan="7" style="background-color:#fff;border:none"><span class="na-label ">N/A</span></td></tr>';
+           
+           else
+           {    
+               
+                $avail = '<tr>';
+                foreach ($availability as $day => $data) 
+                {
+
+                    $status = $data['status'];
+
+                        if( $status == 'til_late')
+                        $time =  strtolower($data['from']).'...'.' Till late'; 
+
+                    
+                        else if($data['status'] == '24_hours')
+                        {
+                             $time = strtolower($data['from']).' - '.strtolower($data['to']);
+                        }
+
+                        else if($data['status'] == 'custom')
+                        {
+                             $time = strtolower($data['from']).' - '.strtolower($data['to']);
+                        }
+
+                        else if($data['status'] == 'closed')
+                        {
+                             $time = '<span class="na-label ">N/A</span>';
+                        }
+
+                    $avail .= '<td>' . $time  . '</td>';
+                }
+
+                  $avail .= '</tr>';
+
+                return $avail;
+           }
+        }
+
+
+
+    }
+}
+
+
+if (!function_exists('get_massage_home_state')) {
+  function get_massage_home_state($user_id)
+  {
+        $user = User::select('state_id')->where('id',$user_id)->first();
+        if($user->state_id)
+        return config('escorts.profile.states')[$user->state_id]['stateName'];
+        else
+        return '';
+  }
+}
+
+if (!function_exists('get_massage_member_id')) {
+  function get_massage_member_id($user_id)
+  {
+        $user = User::select('member_id')->where('id',$user_id)->first();
+        if($user->member_id)
+        return $user->member_id;
+        else
+        return 'NA';
+  }
+}
+
+
+if (!function_exists('get_massage_images')) {
+  function get_massage_images($listing,$position)
+  {
+        $image = "";
+        
+        if(!$listing || !$position)
+        return false;   
+    
+        $relativePath   =  $listing->imagePosition($position);
+        $currentImage   = asset($relativePath);
+        if(str_contains($currentImage, 'img-12.png'))
+        {
+            $image = false;
+        }
+        else
+        {
+             if($currentImage!= "" && file_exists($relativePath))
+             $image  = $currentImage;
+             else
+             $image  = false;
+        }
+        return  $image;
+  }
+}
+
+
+if (!function_exists('get_messure_images')) {
+  function get_messure_images($masseur,$position)
+  {
+        $image = "";
+        
+        if(!$masseur || !$position)
+        return false;   
+                    
+        $relativePath   =  $masseur->getImagePosition($position,$masseur->id);
+        $currentImage   = asset($relativePath);
+
+        if(str_contains($currentImage, 'mcc-default-thumbnail.png'))
+        {
+            $image = false;
+        }
+        else
+        {
+             if($currentImage!= "" && file_exists($relativePath))
+             $image  = $currentImage;
+             else
+             $image  = false;
+        }
+        return  $image;
+  }
+}
+
 
 
 

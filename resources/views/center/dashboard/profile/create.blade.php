@@ -45,7 +45,6 @@
     #submit_form_massage:disabled,
     #submit_form_massage:disabled:hover {
         pointer-events: none;
-        /* 🚫 no hover / click */
         cursor: not-allowed;
         opacity: 0.6;
         background-color: #ccc;

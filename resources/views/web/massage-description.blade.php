@@ -1,15 +1,104 @@
 @extends('layouts.web')
 @section('style')
 <style>
-    .mc_profile_table .table th{
+.mc_profile_table .table th{
     padding: .8rem .55rem !important;
 }
-    </style>
+.timing_data td{
+    text-align: center;
+}
+
+.profile_img {
+    border-radius: 23px;
+}
+.our-masseurs {
+    border-radius: 23px;
+
+}
+
+.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.tooltip-wrapper .tooltip-text {
+    visibility: hidden;
+    background-color: #ff3c5f;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 2px 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.mc_avail_table table td {
+    padding: 5px 0px !important;
+}
+</style>
     @stop
-@section('content')
-    <div class="container profile_description_banner custom--profile custommassage--profile--page"
-        style="background: url('assets/app/img/massage/massage_2.jpg');
-    background-position: center; background-repeat:no-repeat">
+    @section('content')
+
+    @php 
+        $massager_name = $listing->profile_name;
+        $other_services = "";
+        $massage_services = "";
+
+
+        $massage_price  = false;
+        $incall_price   = false;
+        $outcall_price  = false;
+
+
+        $relativePath   =  $listing->imagePosition(9);
+        $currentImage   = asset($relativePath);
+        if($currentImage!= "" && file_exists($relativePath))
+        $massage_banner  = $currentImage;
+        else
+        $massage_banner = asset('assets/app/img/massage/massage_2.jpg');
+
+
+        $images = [];
+        $validImages = [];
+        $photo = 1;
+
+        for ($i = 1; $i <= 7; $i++) {
+            $img = get_massage_images($listing, $i);
+            $images[$i] = $img;
+
+            if ($img !== false) {
+                $validImages[$i] = $img;
+            }
+        }
+
+
+    $social_links = $listing->social_links;
+    $rates_header = "";
+
+    $payType = '';
+    foreach(config('escorts.profile.Payments') as $key => $PaymentType) {
+        if ($listing->payment == $key) {
+            $payType = $PaymentType;
+            break; 
+        }
+                                                    }
+     
+    $galleryVideos = $listing->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
+                        
+
+    @endphp
+
+
+   <div class="container profile_description_banner custom--profile custommassage--profile--page"
+     style="background-image: url('{{ $massage_banner }}');
+            background-position: center;
+            background-repeat: no-repeat;">
 
         <div class="container-fluid back_to_search_btn pt-2">
             <a href="#" class="back--search">
@@ -22,11 +111,11 @@
 
         <div class="container">
             <div class="profile_page_title">
-                <h2 class="display_inline_block p-0">Profile Name</h2>
+                <h2 class="display_inline_block p-0">{{ $listing->profile_name ?? 'N/A' }}</h2>
             </div>
 
             <div class="profile_page_name_and_phno">
-                <p>City Name - 000 000 0000</p>
+                <p> {{ get_massage_home_state($listing->user_id) }}  </p>
             </div>
 
             <div class="profile_page_location_and_id">
@@ -35,36 +124,46 @@
                         <span class="profile_location_icon">
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                         </span>
-                        <p class="display_inline_block">Full Address Here</p>
+                        <p class="display_inline_block">{{  $listing->address ?? 'N/A' }}</p>
                     </li>
                     <li>
                         <span class="profile_location_icon">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
-                        <p class="display_inline_block">Member ID: 123456</p>
+                        <p class="display_inline_block">Member ID: {{   get_massage_member_id($listing->user_id) }}</p>
                     </li>
                 </ul>
             </div>
 
             <div class="d-flex align-items-center justify-content-start gap-10">
                 <ul class="profile_page_social_profiles ml-0">
-                    <li class="social-media-profile">
-                        <a href="https://www.facebook.com/" target="_blank">
-                            <img src="{{ asset('assets/app/img/facebook.png') }}" class="facebook-logo" alt="logo">
-                        </a>
-                    </li>
 
+                 @if(isset($social_links['facebook']) && $social_links['facebook']!="")
                     <li class="social-media-profile">
-                        <a href="https://www.instagram.com/" target="_blank">
-                            <img src="{{ asset('assets/app/img/instagram.png') }}" class="instagram-logo" alt="logo">
+                        <a href="{{$social_links['facebook']}}" target="_blank">
+                            <img src="{{ asset('../assets/app/img/facebook.png') }}" class="facebook-logo" alt="logo">
                         </a>
                     </li>
+                 @endif   
 
+                  @if(isset($social_links['insta']) && $social_links['insta']!="")
                     <li class="social-media-profile">
-                        <a href="https://x.com/" target="_blank">
-                            <img src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo">
+                        <a href="{{$social_links['insta']}}" target="_blank">
+                            <img src="{{ asset('../assets/app/img/instagram.png') }}" class="instagram-logo" alt="logo">
                         </a>
                     </li>
+                  @endif  
+
+
+                @if(isset($social_links['twitter']) && $social_links['twitter']!="")
+                    <li class="social-media-profile">
+                        <a href="{{$social_links['twitter']}}" target="_blank">
+                            <img src="{{ asset('../assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo">
+                        </a>
+                    </li>
+                @endif  
+                    
+
                 </ul>
             </div>
         </div>
@@ -96,7 +195,7 @@
                             <div class="col-sm-12 d-flex align-items-center justify-content-between gap-10 flex-wrap">
                                 <div class="d-flex align-items-center justify-content-center gap-10">
                                     <div class="mc_tooltip_wrap">
-                                        <img src="assets/dashboard/img/massage-only.png" alt="Massage">
+                                        <img src="../assets/dashboard/img/massage-only.png" alt="Massage">
                                         <p class="mc_rate_tooltip">Massage only</p> 
                                     </div>
                                     <div class="div_contain_text">
@@ -104,13 +203,13 @@
                                             <h4>Massage</h4>
                                         </div>
                                         <div class="profile_hr">
-                                            <h4>$100/hr</h4>
+                                            <h4 class="header_rate_massage">$100/hr</h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center gap-10">
                                     <div class="mc_tooltip_wrap">
-                                    <img src="assets/dashboard/img/massage-with2.png" alt="Masseur">
+                                    <img src="../assets/dashboard/img/massage-with2.png" alt="Masseur">
                                      <p class="mc_rate_tooltip">Massage with extras +2 hands.</p> 
                                     </div>    
                                     <div class="div_contain_text">
@@ -118,21 +217,21 @@
                                             <h4>Masseur</h4>
                                         </div>
                                         <div class="profile_hr">
-                                            <h4>$120/hr</h4>
+                                            <h4 class="header_rate_masseur">$120/hr</h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center gap-10">
                                     <div class="mc_tooltip_wrap">
-                                    <img src="assets/dashboard/img/massage-with4.png" alt="2+ Masseurs">
+                                    <img src="../assets/dashboard/img/massage-with4.png" alt="2+ Masseurs">
                                     <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>   
                                     </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
-                                            <h4>2+ Masseurs</h4>
+                                            <h4 >2+ Masseurs</h4>
                                         </div>
                                         <div class="profile_hr">
-                                            <h4>$150/hr</h4>
+                                            <h4 class="header_rate_two_masseur">$150/hr</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -164,48 +263,88 @@
                             </thead>
 
                             <tbody>
+
+                            @foreach($durations->whereIn('id',[2,3,4,5,6,7]) as $duration)
+                            @php
+                            if($duration->id!="")
+                            {
+
+                                if(!empty($massage_durations))
+                                {
+                                    foreach($massage_durations as $db_duration)  
+                                    {
+                                        if(isset($db_duration['pivot']['duration_id']) && $db_duration['pivot']['duration_id']==$duration->id)
+                                        {
+                                            
+                                                $massage_price = isset($db_duration['pivot']['massage_price']) ? $db_duration['pivot']['massage_price'] : null;
+                                                $incall_price = isset($db_duration['pivot']['incall_price']) ? $db_duration['pivot']['incall_price'] : null;
+                                                $outcall_price = isset($db_duration['pivot']['outcall_price']) ? $db_duration['pivot']['outcall_price'] : null;
+
+
+                                                if($duration->id==5)
+                                                {
+                                                    $rates_header = [
+                                                        'massage'   => $massage_price,
+                                                        'incall'    => $incall_price,
+                                                        'outcall'   => $outcall_price,
+                                                    ];
+                                                }
+
+                                            
+                                            break;
+                                            
+                                        } 
+                                    }   
+                                }
+                            }
+                            @endphp
+
+                                    
+
+
                                 <tr>
-                                    <td>15 Minutes</td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
+                                    <td> {{$duration->name}} </td>
+                                    <td>
+
+                                           @if($massage_price)
+                                                <div class="public-num-value-table">
+                                                    <span>$ </span>{{ $massage_price }}
+                                                </div>
+                                            @else
+                                                <span class="na-label">N/A</span>
+                                            @endif
+
+                                    </td>
+
+                                    <td>
+                                        @if($incall_price)
+                                                <div class="public-num-value-table">
+                                                    <span>$ </span>{{ $incall_price }}
+                                                </div>
+                                            @else
+                                                <span class="na-label">N/A</span>
+                                            @endif
+                                    </td>
+                                    <td>
+
+                                            @if($outcall_price)
+                                                <div class="public-num-value-table">
+                                                    <span>$ </span>{{ $outcall_price }}
+                                                </div>
+                                            @else
+                                                <span class="na-label">N/A</span>
+                                            @endif
+
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>30 Minutes</td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
-                                </tr>
-                                 <tr>
-                                    <td>45 Minutes</td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
-                                </tr>
-                                 <tr>
-                                    <td>1 Hour</td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>100</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>120</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
-                                </tr>
-                                <tr>
-                                    <td>1.5 Hours</td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>150</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>180</div></td>
-                                    <td class="text-center"><span class="na-label ">N/A</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2 Hours</td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>200</div></td>
-                                    <td class="text-center"><span class="na-label text-center">N/A</span></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>250</div></td>
-                                </tr>
+                            @endforeach    
+                                
                             </tbody>
 
                             <thead>
                                 <tr>
                                     <th colspan="4">
-                                        Payment ($AUS): Cash, Card
+                                        Payment ($AUS) : {{ $payType }}
                                     </th>
                                 </tr>
                             </thead>
@@ -214,7 +353,7 @@
                     </div>
 
                     <div class="col-lg-6 col-md-12">
-                        <table class="table table_striped">
+                        <table class="table table_striped timing_data">
                             <thead>
                                 <tr>
                                     <th scope="col">Day</th>
@@ -223,34 +362,7 @@
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>Monday</td>
-                                    <td>9:00 AM - 6:00 PM</td>
-                                </tr>
-                                <tr>
-                                    <td>Tuesday</td>
-                                    <td>9:00 AM - 6:00 PM</td>
-                                </tr>
-                                <tr>
-                                    <td>Wednesday</td>
-                                    <td>9:00 AM - 6:00 PM</td>
-                                </tr>
-                                <tr>
-                                    <td>Thursday</td>
-                                    <td>9:00 AM - 6:00 PM</td>
-                                </tr>
-                                <tr>
-                                    <td>Friday</td>
-                                    <td>9:00 AM - 8:00 PM</td>
-                                </tr>
-                                <tr>
-                                    <td>Saturday</td>
-                                    <td>10:00 AM - 5:00 PM</td>
-                                </tr>
-                                <tr>
-                                    <td>Sunday</td>
-                                    <td>Closed</td>
-                                </tr>
+                                <?php echo get_weakly_availibility($listing); ?>
                             </tbody>
                         </table>
 
@@ -259,11 +371,16 @@
 
                     <div class="col-sm-12">
                         <div style="width: 100%">
-                            <iframe width="100%" height="153" frameborder="0" scrolling="no" marginheight="0"
-                                marginwidth="0"
-                                src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=Perth%20Western%20Australia&t=&z=14&ie=UTF8&iwloc=B&output=embed"
-                                style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
-                            </iframe>
+                                                <iframe 
+                            width="100%" 
+                            height="153" 
+                            frameborder="0" 
+                            scrolling="no" 
+                            marginheight="0"
+                            marginwidth="0"
+                            src="https://maps.google.com/maps?q={{ urlencode($listing->address ?? 'Perth, Western Australia') }}&hl=en&z=14&output=embed"
+                            style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
+                        </iframe>
                         </div>
                     </div>
                 </div>
@@ -279,45 +396,45 @@
                             <div class="col-md-4">
                                 <div>
                                     <span class="about_box_small_heading">Building:</span>
-                                    <span class="about_box_small_heading_value">Apartment</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Building.' . $listing->parking, 'N/A') }}</span>
                                 </div>
                                 <div>
                                     <span class="about_box_small_heading">Parking:</span>
-                                    <span class="about_box_small_heading_value">Available</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Parking.' . $listing->parking, 'N/A') }}</span>
                                 </div>
                                 <div>
                                     <span class="about_box_small_heading">Entry:</span>
-                                    <span class="about_box_small_heading_value">Private</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Entry.' . $listing->entry, 'N/A') }}</span>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div>
                                     <span class="about_box_small_heading">Type:</span>
-                                    <span class="about_box_small_heading_value">Modern</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.furniture_types.' . $listing->furniture_types, 'N/A') }}</span>
                                 </div>
                                 <div>
                                     <span class="about_box_small_heading">Shower:</span>
-                                    <span class="about_box_small_heading_value">Yes</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Shower.' . $listing->parking, 'N/A') }}</span>
                                 </div>
                                 <div>
                                     <span class="about_box_small_heading">Ambiance:</span>
-                                    <span class="about_box_small_heading_value">Relaxing</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Ambiance.' . $listing->ambiance, 'N/A') }}</span>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div>
                                     <span class="about_box_small_heading">Security:</span>
-                                    <span class="about_box_small_heading_value">On-site</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Security.' . $listing->security, 'N/A') }}</span>
                                 </div>
                                 <div>
                                     <span class="about_box_small_heading">Payment:</span>
-                                    <span class="about_box_small_heading_value">Cash, Card</span>
+                                    <span class="about_box_small_heading_value">{{ $payType }}</span>
                                 </div>
                                 <div>
                                     <span class="about_box_small_heading">Loyalty program:</span>
-                                    <span class="about_box_small_heading_value">Available</span>
+                                    <span class="about_box_small_heading_value">{{ config('escorts.profile.Loyalty.' . $listing->loyalty, 'N/A') }}</span>
                                 </div>
                                 
                             </div>
@@ -328,7 +445,7 @@
                             <div class="col-md-12 pt-2">
                                 <p class="mb-0">
                                     <span class="about_box_small_heading">Address:</span>
-                                    <span class="about_box_small_heading_value">123 Sample Street, City</span>
+                                    <span class="about_box_small_heading_value">{{$listing->address}}</span>
                                 </p>
                                 <p class="mb-0">
                                     <span class="about_box_small_heading">Languages:</span>
@@ -337,13 +454,25 @@
                                 <p class="mb-0">
                                     <span class="about_box_small_heading">Massage Service:</span>
                                     <span class="about_box_small_heading_value">
-                                        Swedish Massage, Deep Tissue, Relaxation
+                                    @foreach ($listing->massage_services()->where('category_id', 1)->get() as $value)
+                                    @php
+                                    $massage_services .= config('escorts.profile.massage-services')[$value->service_id] . ', ';
+                                    @endphp
+                                    @endforeach
+
+                                    {{ rtrim($massage_services, ', ') }}
                                     </span>
                                 </p>
                                 <p>
                                     <span class="about_box_small_heading">Other Service Types:</span>
                                     <span class="about_box_small_heading_value">
-                                        Aromatherapy, Body Scrub
+                                        @foreach ($listing->massage_services()->where('category_id', 2)->get() as $value)
+                                        @php
+                                        $other_services .= config('escorts.profile.other-services')[$value->service_id] . ', ';
+                                        @endphp
+                                        @endforeach
+
+                                        {{ rtrim($other_services, ', ') }}
                                     </span>
                                 </p>
                             </div>
@@ -358,11 +487,7 @@
                     </div>
                     <div class="padding_20_tob_btm_side">
                         <div class="text-justify">
-                            I am a professional massage therapist who focuses on creating a calm,
-                            relaxing, and respectful experience. My goal is to help you unwind,
-                            relieve stress, and feel completely at ease in a clean and comfortable
-                            environment. Every session is tailored to your needs, ensuring privacy,
-                            discretion, and quality service at all times.
+                            {!! $listing->about_us_box !!}
                         </div>
                     </div>
                 </div>
@@ -380,13 +505,201 @@
                         </p>
 
                         <div class="row">
+                            @if($listing->massagerMasseurs->count()>0)
+                             @foreach($listing->massagerMasseurs as $masseur)
+
+                            @php
+                               
+                                $imageUrl = asset($masseur->getImagePosition(1, $masseur->id));
+
+                                if (Str::contains($imageUrl, 'mcc-default-thumbnail.png') || empty($imageUrl)) {
+                                    $profile_img = asset('assets/app/img/def-masseur-therapy.avif');
+                                } else {
+                                    $profile_img = $imageUrl;
+                                }
+
+
+                                    $messure_images = [];
+                                    $messure_validImages = [];
+                                    $photo = 1;
+
+                                    for ($i = 1; $i <= 4; $i++) {
+                                        $img = get_messure_images($masseur, $i);
+                                        $images[$i] = $img;
+
+                                        if ($img !== false) {
+                                            $messure_validImages[$i] = $img;
+                                        }
+                                    }
+
+                            @endphp
+
                             <div class="col-md-3 col-sm-6 mb-4">
                                 <div class="d-flex align-items-center gap_between_text_and_img our-masseurs"
-                                    data-toggle="modal" data-target="#product_view">
-                                    <div><img src="assets/app/img/profile_photo.png"></div>
-                                    <p class="mb-0 text_truncate">Sierra</p>
+                                    data-toggle="modal" data-target="#product_view_{{$masseur->id}}">
+                                    <div><img src="{{ $profile_img }}" width="50" height="50"  class="profile_img"></div>
+                                    <p class="mb-0 text_truncate">{{ $masseur->name}}</p>
                                 </div>
                             </div>
+
+
+                                <!-- /////////// Messeur Modal //////////////// -->
+                                <div class="modal fade product_view" id="product_view_{{$masseur->id}}">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header border-0">
+                                            <h5 class="mc_member_id"> <img src="{{ asset('../assets/app/img/Vector-31.png') }}" class="img-responsive"> Member ID: {{ $masseur->member_id ?? 'N/A' }} </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}"
+                                                        class="img-fluid img_resize_in_smscreen"></span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body pb-4 mb-2 pt-1">
+                                            <div class="row">
+
+                                                <div class="col-md-4 product_img mc_profile_img pr-0">
+
+                                                            @foreach ($messure_validImages as $index => $image)
+                                                                @if($loop->first)
+                                                                <img src="{{  $image }}" class="img-responsive"
+                                                                style="width: 305px;height: 374px;object-fit: cover;">
+                                                                @endif
+                                                            @endforeach
+
+                                                    <div class="veryfy_img">
+                                                        <img src="{{ asset('../assets/app/img/verify/unverified_light.png') }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-1 product_img pl-0" style="display: flex; flex-direction: column;  gap: 8px;justify-content: flex-start;">
+
+                                                        @foreach ($messure_validImages as $index => $image)
+                                                            @if(!$loop->first)
+                                                            <img src="{{ $image }}" class="img-responsive"  style="width: 108px;height: 119px;object-fit: cover;">
+                                                            @endif
+                                                        @endforeach
+                                                </div>
+
+                                                <div class="col-md-7 product_content pl-5 pt-1 d-flex flex-column justify-content-between" style="">
+
+                                                    <div>
+                                                        <div class="mc_profile_info">
+                                                            <h3 class="mb-0">{{ $masseur->name ?? 'N/A' }}</h3>
+                                                            <span>AGE : <b>{{ $masseur->age ?? 'N/A' }}</b></span>
+
+                                                            <div class="massage_type">
+                                                                <div class="massage_type_info">
+                                                                    <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">
+                                                                    <p class="mc_rate_tooltip">Massage only</p>
+                                                                </div>
+                                                                <div class="massage_type_info">
+                                                                    <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
+                                                                    <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>
+                                                                </div>
+                                                                <div class="massage_type_info">
+                                                                    <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
+                                                                    <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mc_profile_modal">
+                                                            <span><b>Mobile Number :</b> <span class="about_box_small_heading_value">{{ $masseur->mobile ?? 'N/A' }}</span></span>
+                                                            <span><b>Vaccination :</b> <span class="about_box_small_heading_value">
+                                                                @switch($masseur->vaccination)
+
+                                                                     @case(1)
+                                                                        Vaccinated, not up to date
+                                                                        @break
+
+                                                                    @case(2)
+                                                                        Vaccinated, up to date
+                                                                        @break
+
+                                                                    @case(3)
+                                                                        Not Vaccinated
+                                                                        @break
+
+                                                                    @default
+                                                                        Not Set
+
+                                                                @endswitch
+                                                            </span></span>
+
+                                                        </div>
+                                                        <div class="mc_profile_modal">
+                                                            <span><b>Nationality :</b> <span class="about_box_small_heading_value">
+
+                                                                {{ getCountryList()[$masseur->nationality] ?? 'N/A' }}
+
+                                                            </span></span>
+                                                            
+                                                            <span><b>Ethnicity :</b> <span class="about_box_small_heading_value">
+                                                                 {{  config('escorts.profile.ethnicities')[$masseur->ethnicity] ??  'N/A' }}
+                                                            </span></span>
+                                                        </div>
+                                                        <div class="mc_profile_modal d-block">
+                                                            <span><b>Massage Services:</b> <span class="about_box_small_heading_value">
+                                                                    {{ rtrim($massage_services, ', ') }}
+                                                            </span></span>
+                                                        </div>
+
+                                                        <div class="mc_profile_modal d-block">
+                                                            <span><b>Other Service Types :</b> <span class="about_box_small_heading_value">
+                                                                    {{ rtrim($other_services, ', ') }}
+
+                                                            </span></span>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div>
+                                                        <h5 class="mb-0" style="color: #000">About Me : </h5>
+                                                        <p class=" mt-0 text-justify">{!! $masseur->commentary ?? 'N/A' !!}</p>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+
+                                            <div class="col-lg-12 mt-2 p-0">
+                                                <div class="table-responsive-sm mc_avail_table">
+                                                    <table class="table table-bordered">
+                                                        <thead class="bg-first">
+                                                            <tr>
+                                                                <th colspan="7" class="text-center">My Availability</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th style="width:14.2%">Monday</th>
+                                                                <th style="width:14.2%">Tuesday</th>
+                                                                <th style="width:14.2%">Wednesday</th>
+                                                                <th style="width:14.2%">Thursday</th>
+                                                                <th style="width:14.2%">Friday</th>
+                                                                <th style="width:14.2%">Saturday</th>
+                                                                <th style="width:14.2%">Sunday</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                          {!! get_messure_weakly_availibility($masseur) !!}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <!-- /////////// Messeur Modal //////////////// -->
+
+
+
+
+
+                              @endforeach
+                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -415,24 +728,34 @@
                                         <div class="table-responsive">
                                             <div class="row margin_zero_for_table table-grid">
 
+                                                @if($listing->massage_services()->where('category_id', 1)->count()>0)
                                                 <div class="padding_none">
                                                     <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
-                                                                <th scope="col">Extra</th>
+                                                                <th scope="col">Rate</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+
+                                                         @foreach ($listing->massage_services()->where('category_id', 1)->get()->values()->filter(fn($item, $index) => $index % 2 == 0) as $value)
                                                             <tr>
-                                                                <td class="table_border_dash_left">Oral</td>
-                                                                <td class="table_border_solid_left"><span
-                                                                        class="if_data_not_available">N/A</span></td>
+                                                                <td class="table_border_dash_left">{{config('escorts.profile.massage-services')[$value->service_id]  }}</td>
+                                                                <td class="table_border_solid_left">
+                                                                   
+
+                                                                    @if($value->price)
+                                                                    <div class="public-num-value-table"> <span>$ </span>{{ $value->price }}</div>
+                                                                    @else
+                                                                    <span class="if_data_not_available">N/A</span>
+                                                                    @endif
+                                                                
+                                                                </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td class="table_border_dash_left">Masturbation</td>
-                                                                <td class="table_border_solid_left"><div class="public-num-value-table"> <span>$ </span>150</div></td>
-                                                            </tr>
+                                                        @endforeach
+                                                           
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -446,20 +769,36 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td class="table_border_dash_left">Kissing</td>
-                                                                <td class="table_border_solid_left"><span
-                                                                        class="if_data_not_available">N/A</span></td>
+                                                            
+                                                         @foreach (
+                                                                    $listing->massage_services()
+                                                                        ->where('category_id', 1)
+                                                                        ->get()
+                                                                        ->values()
+                                                                        ->filter(fn($item, $index) => $index % 2 != 0)
+                                                                    as $value
+                                                                )
+                                                           <tr>
+                                                               
+                                                                <td class="table_border_dash_left">{{config('escorts.profile.massage-services')[$value->service_id]  }}</td>
+                                                                <td class="table_border_solid_left">
+                                                                   
+
+                                                                    @if($value->price)
+                                                                    <div class="public-num-value-table"> <span>$ </span>{{ $value->price }}</div>
+                                                                    @else
+                                                                    <span class="if_data_not_available">N/A</span>
+                                                                    @endif
+                                                                
+                                                                </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td class="table_border_dash_left">Deep throat</td>
-                                                                <td class="table_border_solid_left"><span
-                                                                        class="if_data_not_available">N/A</span></td>
+
+                                                            @endforeach
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
-
+                                                @else
                                                 <div class="padding_none">
                                                     <table class="table">
                                                         <thead>
@@ -480,6 +819,27 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                                <div class="padding_none">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr class="background_color_table_head_color">
+                                                                <th scope="col">Description</th>
+                                                                <th scope="col">Extra</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="table_border_dash_left">&nbsp;</td>
+                                                                <td class="table_border_solid_left"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="table_border_dash_left">&nbsp;</td>
+                                                                <td class="table_border_solid_left"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                @endif
 
                                             </div>
                                         </div>
@@ -496,24 +856,42 @@
                                 <div class="content" style="display: none;">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
+
                                             <div class="row margin_zero_for_table table-grid">
-                                                <div class="padding_none" style="padding: 1px;">
+
+                                                @if($listing->massage_services()->where('category_id', 2)->count()>0)
+                                                <div class="padding_none">
                                                     <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
-                                                                <th scope="col">Extra</th>
+                                                                <th scope="col">Rate</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+
+                                                         @foreach ($listing->massage_services()->where('category_id', 2)->get()->values()->filter(fn($item, $index) => $index % 2 == 0) as $value)
                                                             <tr>
-                                                                <td colspan="2" class="let-talk-about border-0"></td>
+                                                                <td class="table_border_dash_left">{{config('escorts.profile.other-services')[$value->service_id]  }}</td>
+                                                                <td class="table_border_solid_left">
+                                                                   
+
+                                                                    @if($value->price)
+                                                                    <div class="public-num-value-table"> <span>$ </span>{{ $value->price }}</div>
+                                                                    @else
+                                                                    <span class="if_data_not_available">N/A</span>
+                                                                    @endif
+                                                                
+                                                                </td>
                                                             </tr>
+                                                        @endforeach
+                                                           
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
 
-                                                <div class="padding_none" style="padding: 1px;">
+                                                <div class="padding_none">
                                                     <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
@@ -522,15 +900,37 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td colspan="2" style="padding-top: 15px;"
-                                                                    class="let-talk-about border-0">Let's talk about it.</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                            
+                                                         @foreach (
+                                                                    $listing->massage_services()
+                                                                        ->where('category_id', 2)
+                                                                        ->get()
+                                                                        ->values()
+                                                                        ->filter(fn($item, $index) => $index % 2 != 0)
+                                                                    as $value
+                                                                )
+                                                           <tr>
+                                                               
+                                                                <td class="table_border_dash_left">{{config('escorts.profile.other-services')[$value->service_id]  }}</td>
+                                                                <td class="table_border_solid_left">
+                                                                   
 
-                                                <div class="padding_none" style="padding: 1px;">
+                                                                    @if($value->price)
+                                                                    <div class="public-num-value-table"> <span>$ </span>{{ $value->price }}</div>
+                                                                    @else
+                                                                    <span class="if_data_not_available">N/A</span>
+                                                                    @endif
+                                                                
+                                                                </td>
+                                                            </tr>
+
+                                                            @endforeach
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                @else
+                                                <div class="padding_none">
                                                     <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
@@ -540,13 +940,34 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td colspan="2" class="let-talk-about border-0"></td>
+                                                               <td class="table_border_dash_left" colspan="2">Let's talk about it.</td>
                                                             </tr>
+                                                           
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                                <div class="padding_none">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr class="background_color_table_head_color">
+                                                                <th scope="col">Description</th>
+                                                                <th scope="col">Extra</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="table_border_dash_left" colspan="2">Let's talk about it.</td>
+                                                                
+                                                            </tr>
+                                                          
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                @endif
 
                                             </div>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -558,11 +979,11 @@
 
 
             </div>
-            <!-- ffffffffff -->
-            <!-- sssssssssssssssss -->
-            <div class="col-md-4 profile-sidebar-margin-top">
-                <!-- video crousal start -->
+     
+         
 
+
+            <div class="col-md-4 profile-sidebar-margin-top">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12 px-0">
@@ -572,70 +993,24 @@
                                 <div class="carousel-inner">
                                     
                                     <!-- Carousel Item 1 -->
-                                    <div class="carousel-item active" data-interval="10000">
-                                        <div class="row">
-                                            <div class="col-12 remove_padding_for_carousel">
-                                                <img src="assets/app/img/massage/mc7.jpg"
-                                                    class="d-block w-100" alt="Gallery Image" data-toggle="modal"
-                                                    data-target="#exampleModal">
+                                   
+                                    @foreach ($validImages as $index => $image)
+                                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="10000">
+                                            <div class="row">
+                                                <div class="col-12 remove_padding_for_carousel">
+                                                    <img src="{{ $image }}"
+                                                        class="d-block w-100"
+                                                        alt="Gallery Image"
+                                                        data-toggle="modal"
+                                                        data-target="#exampleModal">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
 
-                                    <!-- Carousel Item 2 -->
-                                    <div class="carousel-item" data-interval="10000">
-                                        <div class="row">
-                                            <div class="col-12 remove_padding_for_carousel">
-                                                <img src="assets/app/img/massage/mc6.jpg"
-                                                    class="d-block w-100" alt="Gallery Image" data-toggle="modal"
-                                                    data-target="#exampleModal">
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
 
-                                    <!-- Carousel Item 3 -->
-                                    <div class="carousel-item" data-interval="10000">
-                                        <div class="row">
-                                            <div class="col-12 remove_padding_for_carousel">
-                                                <img src="assets/app/img/massage/mc5.jpg"
-                                                    class="d-block w-100" alt="Gallery Image" data-toggle="modal"
-                                                    data-target="#exampleModal">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Carousel Item 4 -->
-                                    <div class="carousel-item" data-interval="10000">
-                                        <div class="row">
-                                            <div class="col-12 remove_padding_for_carousel">
-                                                <img src="assets/app/img/massage/mc4.jpg"
-                                                    class="d-block w-100" alt="Gallery Image" data-toggle="modal"
-                                                    data-target="#exampleModal">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Carousel Item 5 -->
-                                    <div class="carousel-item" data-interval="10000">
-                                        <div class="row">
-                                            <div class="col-12 remove_padding_for_carousel">
-                                                <img src="assets/app/img/massage/mc3.jpg"
-                                                    class="d-block w-100" alt="Gallery Image" data-toggle="modal"
-                                                    data-target="#exampleModal">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Carousel Item 6 -->
-                                    <div class="carousel-item" data-interval="10000">
-                                        <div class="row">
-                                            <div class="col-12 remove_padding_for_carousel">
-                                                <img src="assets/app/img/massage/mc2.jpg"
-                                                    class="d-block w-100" alt="Gallery Image" data-toggle="modal"
-                                                    data-target="#exampleModal">
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
                                 </div>
 
@@ -662,13 +1037,13 @@
                     <div class="col-5">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
                             data-target="#mysendmessage">
-                            <img src="assets/app/img/smallsmsicon.png" class="image_20px_msg">Message Us
+                            <img src="../assets/app/img/smallsmsicon.png" class="image_20px_msg">Message Us
                         </button>
                     </div>
                     <div class="col-7 text-right">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
                             data-target="#reportMcNew">
-                            <img src="assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Masseur
+                            <img src="../assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Masseur
                         </button>
                     </div>
                 </div>
@@ -695,7 +1070,7 @@
                 <!-- Playmates Section -->
                 {{-- <div class="box_shadow manage_padding_margin_bg_color">
                     <div class="profile_card_border profile_description_contect">
-                        <h2><img src="assets/app/img/bedroom.svg"> Playmates</h2>
+                        <h2><img src="../assets/app/img/bedroom.svg"> Playmates</h2>
                     </div>
                     <div class="padding_20_tob_btm_side reduse_pad">
                         <p class="profile_description_contect_pera">Alina does not have any Playmates.</p>
@@ -705,24 +1080,78 @@
                 <!-- Contacting Me Section -->
                 <div class="box_shadow manage_padding_margin_bg_color">
                     <div class="profile_card_border profile_description_contect">
-                        <h2><img src="assets/app/img/contact_me.svg"> Contacting us</h2>
+                        <h2><img src="../assets/app/img/contact_me.svg"> Contacting us</h2>
                     </div>
-                    <div class="padding_20_tob_btm_side reduse_pad">
-                        <span class="span_display_block connecting_me_chat_phone">
-                            You can contact us by:<br>
-                            <p class="font-weight-bold mb-0 mt-2">When texting us please say:</p>
-                            <p class="profile_description_contect_pera">
-                                <b><i>Hi, I found you on Escorts4U ...</i></b>
-                                on our number 1438 028 743
-                            </p>
-                        </span>
-                    </div>
+                        <div class="padding_20_tob_btm_side reduse_pad">
+                            <span class="span_display_block connecting_me_chat_phone">
+                                You can contact us by:
+
+                                    @php
+                                        $contactType = $listing->contact != null ? $listing->contact : '';
+                                    @endphp
+                                    @if($contactType == 1)
+                                    <div class="tooltip-wrapper">
+                                        <img src="{{ asset('assets/app/img/email-me.png') }}">
+                                        <div class="tooltip-text">Email me</div>
+                                    </div>
+                                    
+                                    
+                                    @endif
+                
+                                    @if($contactType == 4 || $contactType == 5)
+                                        <div class="tooltip-wrapper">
+                                            <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
+                                            <div class="tooltip-text">Call me</div>
+                                            @if($contactType == 5)
+                                                <span>or</span>
+                                            @endif
+                                        </div>
+                                    @endif
+                                    @if($contactType == 2 || $contactType == 5)
+                                        <div class="tooltip-wrapper">
+                                                <img src="{{ asset('assets/app/img/wechat.svg') }}">
+                                                <div class="tooltip-text">Text me</div>
+                                        </div>
+                                    @endif
+                            </br>
+                                        @php
+                                        $from = $listing->phone;
+                                        $number = sprintf("%s-%s-%s",
+                                        substr($from, 0, 3),
+                                        substr($from, 3, 3),
+                                        substr($from, 6));
+                                        //dd($number);
+                                        @endphp
+                                        <p class="font-weight-bold mb-0 mt-2">When texting us please say :</p>
+                                        <p class="profile_description_contect_pera">
+                                            <b><i>Hi {{ $massager_name }}, I found you on Escorts4U ... </i></b>
+                                            @php
+                                                $formattedNumber = $listing->phone;
+                                                $contactTypes = $listing->contact != null ? $listing->contact : '';
+                                            
+                                            @endphp
+
+                                            @if($contactTypes != '')
+                                                @if($contactTypes == 1)
+                                                    on our email {{ $listing->user->email ?? '' }}
+                                                @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
+                                                    on our number {{ $formattedNumber }}.
+                                                @else
+                                                    on our number --++
+                                                @endif
+                                            @else
+                                                {{-- on our number {{$formattedNumber != '' ? $formattedNumber : '--'}}. --}}
+                                                on our number --====
+                                            @endif
+                                        </p>
+                            </span>
+                        </div>
                 </div>
 
                 <!-- Vaccination Status -->
                 <div class="vax-btn">
                     <button type="button" class="btn my_legbox single-prof-btn">
-                        <img src="assets/app/img/vaccinated.svg">Vaccinated, up to date
+                        <img src="../assets/app/img/vaccinated.svg">Vaccinated, up to date
                     </button>
                 </div>
 
@@ -758,7 +1187,7 @@
                 <!-- Tips Carousel -->
                 <div class="box_shadow padding_twelve_px">
                     <div class="profile_card_border profile_description_contect position-relative">
-                        <h2><img src="assets/app/img/tips.svg">Tips</h2>
+                        <h2><img src="../assets/app/img/tips.svg">Tips</h2>
                     </div>
                     <div class="pt-2">
                         <div class="text-slider">
@@ -777,22 +1206,141 @@
                 <!-- Reviews Section -->
                 <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
                     <div class="profile_card_border profile_page_box_heading">
-                        <h2 class="custom--review"><img src="assets/app/img/review-custom.png"> Reviews</h2>
+                        <h2 class="custom--review"><img src="../assets/app/img/review-custom.png"> Reviews</h2>
                     </div>
-                    <div class="pt-3 row">
-                        <div class="col-md-12">
-                            <p class="testimonial"><strong>[MC Name]</strong> has no Reviews. Why don't you give them their first Review?</p>
+
+
+                        @php
+                            $reviewAlreadyExist = false;
+                            $reviewExistsMessage = '';
+                            $reviewExistsStarRating = 0;
+                        @endphp
+                        @if(count($reviews) > 0)
+                        <div class="padding_20_tob_btm_side">
+                            <!-- new-review-card -->
+                            <div class="review-card mx-auto position-relative">
+                                <!-- Carousel -->
+                                <div id="reviewCarousel" class="carousel slide carousel-slide " data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        
+                                        @foreach($reviews as $key => $review)
+                                            @php
+                                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id && $review->escort_id == $listing->id){
+                                                    $reviewAlreadyExist = true;
+                                                    $reviewExistsMessage = $review->description;
+                                                    $reviewExistsStarRating = $review->star_rating;
+                                                }
+                                            @endphp
+                                            
+                                            <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <h5>
+                                                        @if (!empty($review->user->name))
+                                                            {{ Str::title($review->user->name) }}
+                                                        @elseif (!empty($review->user->email))
+                                                            {{ Str::title(explode('@', $review->user->email)[0]) }}
+                                                        @else
+                                                            Username
+                                                        @endif
+                                                    </h5>
+                                                    <p class="custome-text-date mb-0">Reviewed: {{$review->created_at->format('d-m-Y')}}</p>
+                                                </div>
+                                                <ul class="list-inline mb-0">
+                                                    @for($i=1; $i<= 5; $i++)
+                                                        @if($i <= $review->star_rating)
+                                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                                        @else
+                                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
+                                                        @endif
+                                                    @endfor
+                                                    {{--<li class="list-inline-item testi_icon_color"><b class="">{{$review->star_rating}}</b></li> --}}
+                                                </ul>
+                                                
+                                                <div class="review-text">
+                                                    {{ $review->description }}
+                                                </div>
+                                            </div>
+                                            
+                                        @endforeach
+
+                                    </div>
+
+                                    <!-- Custom Nav Buttons -->
+                                    <div class="d-flex justify-content-start my-3 carousel-nav-btn-wrapper">
+                                        <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
+                                        <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
+                                    </div>
+                                </div>
+                                <!-- Carousel controls -->
+                                <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
+                                    <div class="col-md-12 mb-4">
+                                    @if(auth()->user())
+                                            @if(auth()->user()->type == 0)
+                                                @if(!$reviewAlreadyExist)
+                                                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
+                                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                    Add Review
+                                                </button>
+                                                @else
+                                                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
+                                                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                        Edit Review
+                                                    </button>
+                                                @endif
+
+                                            @endif
+                                        @else
+                                            <button type="button" class="btn add_reviews_btn all_btn_flx">
+                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
+                                            </button>
+                                        @endif
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        {{-- <div class="col-md-12 mb-4"></div> --}}
+                        @endif
+
+
+
+                    <div class="pt-3 row {{count($reviews) == 0 ? '': 'd-none'}}">
+                            <div class="col-md-12">
+                                @php
+                                    $mesageForViewer = true;
+                                    if(auth()->user() && auth()->user()->type != 0){
+                                        $mesageForViewer = false;
+                                    }
+                                @endphp
+                                <p class="testimonial">
+                                    <strong>{{ $massager_name }}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $massager_name}}</strong> their first Review? @php } @endphp
+                                </p>
+                            </div>
+                       
+
+                        <div class="col-md-12 mb-4">
+
+                            @if(auth()->user())
+                                @if(auth()->user()->type == 0)
+                                    <button type="button" class="btn add_reviews_btn all_btn_flx open_review_box disabled-button">
+                                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                        Add Review
+                                    </button>
+                                @endif
+                            @else
+                                <button type="button" class="btn add_reviews_btn all_btn_flx">
+                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                    <a href="{{route('viewer.login')}}" style="color: white;">Login to Add Review</a>
+                                </button>
+                            @endif
+                        </div>
+
+
+
+
+
                     </div>
-                    {{-- <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal" data-target="#add_reviews">
-                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                        Login to Add Review
-                    </button> --}}
-                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box">
-                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
-                    </button>
+                    
                     
                 </div>
 
@@ -810,7 +1358,7 @@
                 <div class="modal-header main_bg_color">
 
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img
-                            src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Us </h5>
+                            src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Us </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -862,7 +1410,7 @@
                     
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Report Masseur </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
+                    <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
                 <!-- if viewer not login -->
@@ -886,18 +1434,19 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color">
-                    <img src="{{ asset('assets/app/img/alert.png') }}" class="custompopicon">
+                    <img src="{{ asset('../assets/app/img/alert.png') }}" class="custompopicon">
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Report {{-- [Name] --}} to
                         our team.
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                            <img src="{{ asset('../assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
                 </div>
-                <form id="reviewAdvertiser" action="#" method="post">
+                
+                <form id="reviewAdvertiser_OLD" action="#" method="post">
                     <input type="hidden" name="_token" value="UuIFvrcEqKkKmQRBOgnpguuLsEYEUO1qHwlvC49U">
                     <div class="modal-body">
                         <div class="row">
@@ -956,73 +1505,84 @@
         </div>
     </div>
     <!-- model start here 3-->
-    <div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color">
-                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="custompopicon">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Add review for [MC Name]
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
-                </div>
-                <form id="reviewAdvertiser" action="#" method="post">
-                    <input type="hidden" name="_token" value="UuIFvrcEqKkKmQRBOgnpguuLsEYEUO1qHwlvC49U">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group popup_massage_box">
-                                    <p class="font-weight-bold">Tell us about your experience:</p>
-                                    <textarea name="description" class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="5"
-                                        placeholder="Message (250 characters)"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="revew-myratings">
-                            <p class="mb-0" style="font-size: 20px;">Rating:</p>
-                            <div class="rating-stars">
-                                <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                                </svg>
-                                 <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                                </svg>
-                                 <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                                </svg>
-                                 <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                                </svg>
-                                 <svg class="star" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                                </svg>
-                                
-                            </div>
-                        </div>
-
-                        <hr style="background-color: #0C223D">
-                        <p class="mb-1 mt-3"><b>Notes :</b></p>
-                        <ol>
-                            <li>Only review if you had direct contact with the Massage Centre.</li>
-                            <li>Do not write fake or abusive reviews, as they will not be published.</li>
-                            <li>To contact this Massage Centre click on <a href="{{ route('user.viewer-messages') }}"
-                                    style="color: #ff3c5f;" class="custom_links_design">Message Us</a>.
-                            </li>
-                        </ol>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn-success-modal" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn-success-modal">Submit Reviews</button>
-                    </div>
-                </form>
+<div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custome_modal_max_width">
+            
+        
+        <div class="modal-header main_bg_color">
+                <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $massager_name }}
+                </h5>
+                <button type="button" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif class="close" aria-label="Close">
+                <span aria-hidden="true">
+                <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                </span>
+                </button>
             </div>
+
+
+           
+              <form id="reviewAdvertiser" action="{{ route('web.review-massage',[$listing->id])}}" method="post" data-parsley-validate>
+              
+               
+                <div class="modal-body">                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group popup_massage_box">
+                                <p class="font-weight-bold">Tell us about your experience:</p>
+                                <textarea name="description" 
+                                class="form-control popup_massage_box p-2" id="review_textarea" rows="5" 
+                                placeholder="Message (500 characters)"
+                                 required
+                                    data-parsley-required-message="Please enter your review"
+                                    data-parsley-maxlength="500"
+                                    data-parsley-maxlength-message="Maximum 500 characters allowed">
+                                
+                                {{$reviewExistsMessage}}
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="revew-myratings">
+                        <p class="mb-0" style="font-size: 20px;">Rating:</p>
+                        <div class="rating-stars">
+                            <!-- Repeatable SVG stars -->
+                            @for($i =1; $i <= 5; $i++)
+                                @if($i<= $reviewExistsStarRating)
+                                        <svg class="star filled" data-value="{{$i}}" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
+                                    </svg>
+                                @else
+                                        <svg class="star" data-value="{{$i}}" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
+                                    </svg>
+                                @endif
+                            @endfor
+                        </div>
+                        <input type="hidden" id="userRating" name="rating" value="{{$reviewExistsStarRating}}">
+                    </div>
+                    
+                    <hr style="background-color: #0C223D">
+                    <p class="mb-1 mt-3"><b>Notes:</b></p>
+                            <ol>
+                                <li>Only review if you had direct contact with the Escort.</li>
+                                <li>Do not write fake or abusive reviews, as they will not be published.</li>
+                                <li>To contact this Escort click on <a href="{{ route('user.viewer-messages') }}" style="color: #ff3c5f;" class="custom_links_design">Message Me</span></a>.</li>
+                            </ol>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn site_btn_primary main_bg_color" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif>
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn main_bg_color site_btn_primary rounded">{{$reviewAlreadyExist ? 'Update' : "Submit"}} Review</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
     {{-- confirmation review modal --}}
         <div class="modal fade" id="review-submitted-popup" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
@@ -1031,11 +1591,11 @@
         
                     <!-- Header with navy background and [X] -->
                     <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
-                        <img src="{{ asset('assets/app/img/tick.png')}}"
+                        <img src="{{ asset('../assets/app/img/tick.png')}}"
                                         class="custompopicon">
                         <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Review Submitted</h5>
                         <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
-                        <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        <img src="{{ asset('../assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                         </button>
                     </div>
         
@@ -1066,13 +1626,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color">
-                    <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="icustompopicon">
+                    <img src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="icustompopicon">
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img
-                            src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="img-fluid"> Send New Harmony
+                            src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="img-fluid"> Send New Harmony
                         Nature Massage a
                         message</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                        <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
@@ -1120,134 +1680,7 @@
         </div>
     </div>
 
-    <div class="modal fade product_view" id="product_view">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header border-0">
-                     <h5 class="mc_member_id"> <img src="{{ asset('assets/app/img/Vector-31.png') }}" class="img-responsive"
-                                    > Member ID: M60124-001 </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body pb-4 mb-2 pt-1">
-                    <div class="row">
-
-                        <div class="col-md-4 product_img mc_profile_img pr-0">
-                            <img src="{{ asset('assets/app/img/Frame-4181.png') }}" class="img-responsive"
-                                style="width: 305px;height: 374px;object-fit: cover;">
-                            <div class="veryfy_img">
-                                <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
-                            </div>
-                        </div>
-
-                        <div class="col-md-1 product_img pl-0" style="display: grid;gap: 8px;">
-                            <img src="{{ asset('assets/app/img/Frame-4201.png') }}" class="img-responsive"
-                                style="width: 108px;height: 119px;object-fit: cover;">
-                            <img src="{{ asset('assets/app/img/Frame-4211.png') }}" class="img-responsive"
-                                style="width: 108px;height: 119px;object-fit: cover;"><img
-                                src="{{ asset('assets/app/img/Frame-4222.png') }}" class="img-responsive"
-                                style="width: 108px;height: 119px;object-fit: cover;">
-                        </div>
-
-                        <div class="col-md-7 product_content pl-5 pt-1 d-flex flex-column justify-content-between" style=""> 
-                                                       
-                                <div>
-                                    <div class="mc_profile_info">
-                                        <h3 class="mb-0">Jane Doe</h3>
-                                        <span>AGE: <b>21</b></span>
-                                       
-                                        <div class="massage_type">                                       
-                                            <div class="massage_type_info">                                           
-                                                <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">                                             
-                                                <p class="mc_rate_tooltip">Massage only</p>                                         
-                                            </div>
-                                            <div class="massage_type_info">                                           
-                                                    <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
-                                            <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>                                      
-                                            </div>
-                                            <div class="massage_type_info">                                            
-                                                    <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
-                                                <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>                                    
-                                            </div>                                        
-                                        </div> 
-                                    </div> 
-                                <div class="mc_profile_modal">                                    
-                                    <span><b>Mobile Number:</b> <span class="about_box_small_heading_value">0438 028 728</span></span>
-                                    <span><b>Vaccination:</b> <span class="about_box_small_heading_value">Vaccinated, up to date</span></span>
-                                </div>
-                                <div class="mc_profile_modal">
-                                    <span><b>Nationality:</b> <span class="about_box_small_heading_value">Australian</span></span>
-                                    <span><b>Ethnicity:</b> <span class="about_box_small_heading_value">Thai</span></span>
-                                </div>
-                                <div class="mc_profile_modal d-block">
-                                    <span><b>Massage Services:</b> <span class="about_box_small_heading_value">Deep tissue, Foot</span></span>
-                                </div>
-
-                                 <div class="mc_profile_modal d-block">
-                                    <span><b>Other Service Types:</b> <span class="about_box_small_heading_value">Back stepping</span></span>
-                                </div>
-                                
-                                
-                                </div>
-                                
-                               <div>
-                                    <h5 class="mb-0" style="color: #000">About Me</h5>
-                                    <p class=" mt-0 text-justify">Hi everyone, I am Melani and I am here in Perth for all those guys who enjoy
-                                        the thrill of being with that quite little girl who secretely really is that office slut. I
-                                        am tall, slim and naughty when it matters. With smooth skin and long hair to run your hands
-                                        through, and of course something...</p>
-                                    </div>
-                                </div>
-                               
-                            
-
-                            
-                        </div>
-                        
-                        <div class="col-lg-12 mt-2 p-0">
-                            <div class="table-responsive-sm mc_avail_table">
-                                <table class="table table-bordered">
-                                    <thead class="bg-first">
-                                        <tr>
-                                            <th colspan="7" class="text-center">Availability</th>
-                                        </tr>
-                                        <tr>
-                                            <th style="width:14.2%">Monday</th>
-                                            <th style="width:14.2%">Tuesday</th>
-                                            <th style="width:14.2%">Wednesday</th>
-                                            <th style="width:14.2%">Thursday</th>
-                                            <th style="width:14.2%">Friday</th>
-                                            <th style="width:14.2%">Saturday</th>
-                                            <th style="width:14.2%">Sunday</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><span class="na-label ">N/A</span></td>
-                                            <td><span class="na-label ">N/A</span></td>
-                                            <td>9:30am - 9:00pm</td>
-                                            <td>9:30am - 9:00pm</td>
-                                            <td><span class="na-label ">N/A</span></td>
-                                            <td>10:00am - 9:00pm</td>
-                                            <td>11:00am - 7:00pm</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- model end here 1-->
-
-
-
-
-
+   
 
     {{-- My Photos --}}
 
@@ -1259,11 +1692,11 @@
                         <li class="nav-item">
                             <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">My Photos</a>
                         </li>
-                        {{-- @if ($galleryVideos->count()>0) --}}
+                        @if ($galleryVideos->count()>0) 
                             <li class="nav-item">
                                 <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">My Videos</a>
                             </li>
-                        {{-- @endif --}}
+                        @endif
                     </ul>
                     <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
                         <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
@@ -1272,77 +1705,44 @@
                 
                 <div class="modal-body p-1">
                     <div class="tab-content" id="myTabContent">
+
                         <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
-                            {{-- <div class="gallery">
-                                @if($escort->gallary->isNotEmpty())
+                            <div class="gallery">
 
+                                @foreach ($validImages as $index => $image)
+                                    @if($loop->first )
+                                    <div class="gallery__item gallery__item--lg"><img src="{{  $image }}" alt="main"></div>
+                                    @endif    
+                                  @endforeach    
 
-                                        <div class="gallery__item gallery__item--lg">
-                                            <img src="{{ ($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()) ? asset($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()->path) : ''}}" alt="">
-                                            
-                                        </div>
-                                        <div class="small-images">
-                                        @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[2,3,4,5,6,7])->orderBy('position','asc')->get() as $key=>$media)
-                                        
+                                <div class="small-images">
+
+                                        @foreach ($validImages as $index => $image)
+
+                                            @continue($loop->first)
+
                                             <div class="gallery__item">
-                                                <img src="{{ asset($media->path) }}" alt="">
+                                                <img src="{{ $image }}" alt="gallery image">
                                             </div>
 
-                                        @endforeach
-                                    </div>
-                                @endif
-                            </div> --}}
-                            <div class="gallery">
-                                <div class="gallery__item gallery__item--lg">
-                                    <img src="{{ asset('assets/app/img/massage/mc7.jpg') }}" alt="main">
-
-                                    </div>
-                                    <div class="small-images">
-                                                                
-                                    <div class="gallery__item">
-                                        <img src="{{ asset('assets/app/img/massage/mc6.jpg') }}" alt="main">
-                                    </div>
-
-                                                                
-                                    <div class="gallery__item">
-                                        <img src="{{ asset('assets/app/img/massage/mc5.jpg') }}" alt="main">
-                                    </div>
-
-                                                                
-                                    <div class="gallery__item">
-                                       <img src="{{ asset('assets/app/img/massage/mc4.jpg') }}" alt="main">
-                                    </div>
-
-                                                                
-                                    <div class="gallery__item">
-                                        <img src="{{ asset('assets/app/img/massage/mc3.jpg') }}" alt="main">
-                                    </div>
-
-                                                                
-                                    <div class="gallery__item">
-                                        <img src="{{ asset('assets/app/img/massage/mc2.jpg') }}" alt="main">
-                                    </div>
-
-                                                                
-                                    <div class="gallery__item">
-                                        <img src="{{ asset('assets/app/img/massage/mc1.jpg') }}" alt="main">
-                                    </div>
-
+                                        @endforeach   
                                 </div>
                             </div>
                         </div>
+
                         <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="contact-tab">
+                            
                             <div class="row px-3 pb-2" id="dvSource">
                                 
-                                        {{-- @foreach($galleryVideos as $key=>$media) --}}
+                                        @foreach($galleryVideos as $key=>$media) 
                                             <div class="col-md-4" id="dm_2">
                                                 <a href="#">
-                                                    {{-- <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
+                                                    <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
                                                         <source src="{{ asset($media->path) }}" type="video/mp4">
-                                                    </video> --}}
+                                                    </video> 
                                                 </a>
                                             </div>
-                                        {{-- @endforeach --}}
+                                        @endforeach 
                                     
 
                             </div>
@@ -1382,14 +1782,27 @@
 
     {{-- end --}}
 
+
+
 @endsection
 @push('scripts')
+
+
+
 
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
  <script>
+
+ window.authUser = {
+        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+        auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
+        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
+        write_reviews_disable: {{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }},
+   };
+
   const track = document.getElementById('sliderTrack');
   const slides = document.querySelectorAll('.slide_item');
 
@@ -1417,168 +1830,159 @@
     }
   }
 
-  setInterval(slideNext, 5000);
+setInterval(slideNext, 5000);
+
+
+
+
+
+$(document).on('click', '.open_review_box', function (e) {
+        e.preventDefault();
+       if (window.authUser.write_reviews_disable && window.authUser.auth_user_type=='0') {
+            swal_error_warning('Reviews','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
+            return false;
+        } else {
+            $('#add_reviews').modal('show');
+        }
+    });
+
+    if (window.authUser.write_reviews_disable && window.authUser.auth_user_type=='0') 
+    {
+
+            $('.disabled-button').css({
+            'background-color': '#ccc',
+            'border-color': '#ccc',
+            'color': '#646464',
+            'opacity': '0.9',
+            });
+    }   
+    
+    $('.rating-stars .star').on('click', function () {
+    const rating = $(this).data('value');
+    $('#userRating').val(rating);
+
+    // Remove 'filled' class from all stars
+    $('.rating-stars .star').removeClass('filled');
+
+    // Add 'filled' class to selected stars
+    $('.rating-stars .star').each(function () {
+      if ($(this).data('value') <= rating) {
+        $(this).addClass('filled');
+      }
+    });
+  });
+
+
+   $(document).on('submit', '#reviewAdvertiser',function(e)
+    {
+        e.preventDefault();
+        var form = $(this);
+
+        if (form.parsley().isValid()) 
+        {
+
+            var url = form.attr('action');
+            var data = new FormData($('#reviewAdvertiser')[0]);
+            
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: data,
+                contentType: false,
+                processData: false,  
+                success: function (data) {
+                    $('#reviewAdvertiser')[0].reset();
+                    //$('#add_reviews').modal("hide");
+                    $('#add_reviews').toggle(); 
+                    $('#review-submitted-popup').modal("show");
+                    $('#review-escort-name').text("{{ $listing->profile_name  }}");
+                    
+                    if(!data.error){
+                        
+                       
+                        $.toast({
+                            heading: 'Success',
+                            text: 'Record successfully updated',
+                            icon: 'success',
+                            loader: true,
+                            position: 'top-right',     
+                            loaderBg: '#9EC600' 
+                        });
+                    } else {
+                        $.toast({
+                            heading: 'Error',
+                            text: 'Failed to save the review',
+                            icon: 'error',
+                            loader: true,
+                            position: 'top-right',     
+                            loaderBg: '#9EC600'  
+                        });
+                    }
+                }
+            });
+        }
+    });
+
+
+    $('#review-submitted-popup #close').on('click', function() {
+        $('#review-submitted-popup').toggle();
+        $('.modal-backdrop').remove();
+    });
+
+    // Close when X icon clicked
+    $('#review-submitted-popup .close').on('click', function() {
+    $('#review-submitted-popup').toggle();
+    $('.modal-backdrop').remove();
+    });
+
+
+
+    $(document).ready(function()
+    {
+
+            let ratesHeader = @json($rates_header);
+
+            if(ratesHeader.outcall)
+            {
+                $('.header_rate_two_masseur').html('$'+ratesHeader.outcall+'/hr');
+            }
+            
+            else
+            {
+                $('.header_rate_two_masseur').html('N/A ');    
+            }
+
+            if(ratesHeader.incall)
+            {
+                $('.header_rate_masseur').html('$'+ratesHeader.incall+'/hr');
+            }
+            
+            else
+            {
+                $('.header_rate_masseur').html('N/A ');    
+            }
+
+            if(ratesHeader.massage)
+            {
+                $('.header_rate_massage').html('$'+ratesHeader.massage+'/hr');
+            }
+            
+            else
+            {
+                $('.header_rate_massage').html('N/A ');    
+            }
+
+
+
+            $('#review_textarea').val('');
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+    });
+
+
 </script>
-
-
-    {{-- <script type="text/javascript">
-        $('#like').click(function() {
-            var id = $("#eid").val();
-            console.log("isdfsdf=", id);
-            if (id != '') {
-                $(this).removeClass('fa-thumbs-o-up');
-                $("#dislike").removeClass('fa fa-thumbs-down');
-                $(this).addClass('fa-thumbs-up');
-                $("#dislike").addClass('fa fa-thumbs-o-down');
-                var url = "{{ route('web.massageLikeDislike') }}"
-                
-                var id = "{{ $escort->id }}";
-                $.post({
-                    url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                    },
-                    data: {
-                        "like": 1,
-                        "massageId": id
-                    }
-                }).done(function(data) {
-                    console.log(data);
-                    if (data.error == 2) {
-                        $("#like").removeClass('fa fa-thumbs-up');
-                        $("#dislike").removeClass('fa fa-thumbs-down');
-                        $("#like").addClass('fa fa-thumbs-o-up');
-                        $("#dislike").addClass('fa fa-thumbs-o-down');
-
-                    }
-                    $(".like").val(data.lp);
-                    $("#like_per").html("<p>" + data.lp + "%</p>");
-
-                    $(".dislike").val(data.dp);
-                    $("#dis_per").html("<p>" + data.dp + "%</p>");
-                }).fail(function(data) {
-
-                });
-            }
-        });
-
-        $('#dislike').click(function() {
-            var id = $("#eid").val();
-            if (id != '') {
-                $(this).removeClass('fa-thumbs-o-down');
-                $("#like").removeClass('fa fa-thumbs-up');
-                $(this).addClass('fa-thumbs-down');
-                $("#like").addClass('fa fa-thumbs-o-up');
-                var url = "{{ route('web.massageLikeDislike') }}"
-                var id = "{{ $escort->id }}";
-                $.post({
-                    url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                    },
-                    data: {
-                        "like": 0,
-                        "massageId": id
-                    }
-                }).done(function(data) {
-
-                    console.log(data);
-                    if (data.error == 2) {
-                        $("#like").removeClass('fa fa-thumbs-up');
-                        $("#dislike").removeClass('fa fa-thumbs-down');
-                        $("#like").addClass('fa fa-thumbs-o-up');
-                        $("#dislike").addClass('fa fa-thumbs-o-down');
-
-                    }
-                    $(".dislike").val(data.dp);
-                    $("#dis_per").html("<p>" + data.dp + "%</p>");
-
-                    $(".like").val(data.lp);
-                    $("#like_per").html("<p>" + data.lp + "%</p>");
-
-
-
-                }).fail(function(data) {
-                    console.log("Try again champ!", $('input[name="_token"]').val());
-                });
-            }
-
-        });
-        $(document).on('click', '.add_to_favrate', function() {
-
-            var name = $(this).attr('data-name');
-
-            var Eid = $(this).attr('data-escortId');
-            console.log("name==" + Eid);
-            var Uid = $(this).attr('data-userId');
-            var cidcl = $(this).attr('class');
-            var cid = cidcl.split(' ');
-            if (cid[1] == 'fill') {
-                $(this).removeClass('fill');
-                $(this).addClass('null');
-                $('#legboxId_' + Eid).html(
-                    "<i class='fa fa-heart' style='color: #ff3c5f;' title='Remove from legbox' aria-hidden='true'></i>"
-                );
-                var url = "{{ route('user.save.massage.legbox', ':id') }} ";
-                url = url.replace(':id', Eid);
-                $('.class_msg').text(name + ' added to your Legbox');
-                $('#add_wishlist').modal('show');
-                $.ajax({
-                    type: "post",
-                    url: url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        console.log(data);
-
-                    }
-                });
-                console.log("fill");
-            } else if (cid[1] == 'null') {
-                $(this).removeClass('null');
-                $(this).addClass('fill');
-                $('#legboxId_' + Eid).html(
-                    "<i class='fa fa-heart-o' title='Add to legbox' aria-hidden='true'></i>");
-                var url = "{{ route('user.delete.massage.legbox', ':id') }} ";
-                url = url.replace(':id', Eid);
-                $('.class_msg').text(name + ' has been removed from your Legbox ');
-                $('#add_wishlist').modal('show');
-                $.ajax({
-                    type: "post",
-                    url: url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        console.log(data);
-
-                    }
-                });
-                console.log("null");
-            } else {
-                $('#my_legbox').modal('show');
-                var login_url = "{!! route('viewer.login', [':id', 'path' => 'center-profile']) !!}";
-                var loginurl = login_url.replace(':id', 'MclegboxId=' + Eid);
-                
-                console.log(loginurl);
-
-                
-                var regurl = "{{ route('register', ':id') }}";
-
-                regurl = regurl.replace(':id', 'MclegboxId=' + Eid)
-                $('#loginUrl').attr('href', loginurl)
-                $('#regUrl').attr('href', regurl)
-            }
-
-
-
-            console.log(cid[1] + "-" + Eid);
-            console.log(cidcl);
-
-        });
-    </script> --}}
-
-
-
 @endpush

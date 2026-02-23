@@ -74,9 +74,6 @@
    
     @include('web.mc.mc-filter')
 
-
-   
-
     <div class="container my-5">
 
             <div class="row">
@@ -123,7 +120,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0" style="padding: 15px 0px;">
-                    <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                    <h1 class="popu_heading_style mb-4 mt-4 user_short_list" style="text-align: center;">
                         <span id="Lname">[MC Name]</span>
                         has been added to your Shortlist.
                     </h1>
@@ -178,6 +175,7 @@
 $(document).ready(function () {
 
     let activeView = 'grid';
+    $('#view_grid').addClass('view-active');
     loadData();
 
     /* ===============================
@@ -192,7 +190,7 @@ $(document).ready(function () {
         $('#grid_view').show();
 
         $('.view-active').removeClass('view-active');
-        $(this).addClass('view-active');
+        $(this).addClass('view-active active');
     });
 
     $('#view_list').on('click', function () {
@@ -202,8 +200,8 @@ $(document).ready(function () {
         $('#grid_view').hide();
         $('#list_view').show();
 
-        $('.view-active').removeClass('view-active');
-        $(this).addClass('view-active');
+        $('.view-active').removeClass('view-active active');
+        $(this).addClass('view-active active');
     });
 
 
@@ -243,6 +241,8 @@ $(document).ready(function () {
                
                 $('.mc_card_container').html(res.grid);
                 $('.mc_list_container').html(res.list);
+                $('.total_count').html(res.total_count);
+                
 
                 
                 $('#common_pagination').html(res.pagination);
@@ -260,6 +260,84 @@ $(document).ready(function () {
             }
         });
     }
+
+
+
+    ///////  Short List /////////////
+
+    $(document).on('click', '.m_wishlist', function () {
+        $('#page_loader').show();
+        var wishlist_id = $(this).data('id');
+        var wishlist_footer_id = 'wishlist_footer_id'+wishlist_id;
+        var list_button_wrap_id ='list_button_wrap_id'+wishlist_id;
+
+       var listbuton =  `<button type="button" class="m_removelist btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887" data-id="${wishlist_id}">
+        <img class="listiconprofilelistview" src="../assets/app/img/filter_view.png"> Remove from Shortlist
+        </button>`;
+
+        $.ajax({
+            url: "{{ route('web.store-short-list') }}",
+            type: 'POST',
+            data: {
+                wishlist_id: wishlist_id,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                  $('#page_loader').hide();
+                   let response  = res;  
+                   if(response.status)
+                   {
+                        $('#session_count').html(response.session_count);
+                        $('#'+list_button_wrap_id).html(listbuton);
+                        $('#'+wishlist_footer_id).html('<a href="javascript:void(0)" data-id="'+wishlist_id+'" class="m_removelist"  >Remove to Shortlist</a>');
+                        $('.user_short_list').html( `<span id="Lname">${response.data.profile_name}</span> has been added to your Shortlist.`);
+                        $('#add_wishlist').modal('show');
+
+                   }
+            }
+        });
+
+    });
+
+    $(document).on('click', '.m_removelist', function () {
+        $('#page_loader').show();
+        var wishlist_id = $(this).data('id');
+
+        var wishlist_footer_id = 'wishlist_footer_id'+wishlist_id;
+        var list_button_wrap_id ='list_button_wrap_id'+wishlist_id;
+
+         var listbuton =  `<button type="button" class="m_wishlist btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887" data-id="${wishlist_id}">
+        <img class="listiconprofilelistview" src="../assets/app/img/filter_view.png"> Add to Shortlist
+        </button>`;
+        
+        $.ajax({
+            url: "{{ route('web.remove-short-list') }}",
+            type: 'POST',
+            data: {
+                wishlist_id: wishlist_id,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                  $('#page_loader').hide();
+                   let response  = res;  
+                   if(response.status)
+                   {    $('#session_count').html(response.session_count);
+                        $('#'+wishlist_footer_id).html('<a href="javascript:void(0)" data-id="'+wishlist_id+'" class="m_wishlist">Add to Shortlist</a>');
+                        $('#'+list_button_wrap_id).html(listbuton);
+                        $('.user_short_list').html( `<span id="Lname">${response.data.profile_name}</span> has been remove from your Shortlist.`);
+                        $('#add_wishlist').modal('show');
+
+                   }
+            }
+        });
+
+    });
+
+    
+
+    /////// Short List ///////////////
+
+
 
     function getParameterByName(name, url) {
         name = name.replace(/[\[\]]/g, '\\$&');

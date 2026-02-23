@@ -201,6 +201,45 @@ textarea {
 
          </div>
 
+
+         
+
+
+        <div class="fill_profile_headings_global">          
+            <h2>Our Social Media</h2>
+         </div>
+         <!-- <div class="business-info-field pt-4"> -->
+                <div class="padding_20_all_side pb-0">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group row align-items-center">
+                                <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><i class="fab fa-facebook-f"></i></span></label>
+                                <div class="col-sm-7 col-lg-7 col-md-7 col-10">
+                                    <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Facebook" name="social_links[facebook]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                                                <div class="form-group row align-items-center">
+                                <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><i class="fab fa-instagram"></i></span></label>
+                                <div class="col-sm-7 col-lg-7 col-md-7 col-10">
+                                    <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Instagram" name="social_links[insta]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group row align-items-center">
+                                <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><img src="https://e4u.local/assets/img/twitter-new.png" alt="" class="cutom-social-icon"></span></label>
+                                <div class="col-sm-7 col-lg-7 col-md-7 col-12">
+                                    <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="X" name="social_links[twitter]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+        <!-- </div> -->
+
         
       </div>
        
@@ -936,7 +975,7 @@ textarea {
                                     <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="building" name="building" required="">
                                        <option value="" selected="">-- Not Set --</option>
                                        @foreach(config('escorts.profile.Building') as $key =>$buldingName)
-                                       <option value="{{$key}}" >{{$buldingName}}</option>
+                                       <option value="{{$key}}" {{ ($escort->building == $key)? 'selected' : ''}} >{{$buldingName}}</option>
                                        @endforeach
                                     </select>
 
@@ -949,7 +988,7 @@ textarea {
                                     <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="parking" name="parking">
                                        <option value="" selected="">-- Not Set --</option>
                                        @foreach(config('escorts.profile.Parking') as $key =>$ParkingName)
-                                       <option value="{{$key}}"  >{{$ParkingName}}</option>
+                                       <option value="{{$key}}" {{ ($escort->parking == $key)? 'selected' : ''}}  >{{$ParkingName}}</option>
                                        @endforeach
                                     </select>
                                     <input type="hidden" value="{{ $escort->parking}}" class="form-control" id="profile_parking">
@@ -959,7 +998,7 @@ textarea {
                                     <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="entry" name="entry">
                                        <option value="" selected="">-- Not Set --</option>
                                        @foreach(config('escorts.profile.Entry') as $key =>$EntryName)
-                                       <option value="{{$key}}" >{{$EntryName}}</option>
+                                       <option value="{{$key}}" {{ ($escort->entry == $key)? 'selected' : ''}} >{{$EntryName}}</option>
                                        @endforeach
                                     </select>
                                     <input type="hidden" value="{{ $escort->entry}}" class="form-control" id="profile_entry">
@@ -969,7 +1008,7 @@ textarea {
                                     <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="furniture_types" name="furniture_types">
                                        <option value="" selected="">-- Not Set --</option>
                                        @foreach(config('escorts.profile.furniture_types') as $key =>$furniture_type)
-                                       <option value="{{$key}}"  >{{$furniture_type}}</option>
+                                       <option value="{{$key}}" {{ ($escort->furniture_types == $key)? 'selected' : ''}}  >{{$furniture_type}}</option>
                                        @endforeach
                                     </select>
                                     <input type="hidden" value="{{ $escort->furniture_types}}" class="form-control" id="profile_furniture_types">
@@ -980,7 +1019,7 @@ textarea {
                                     <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="shower" name="shower">
                                        <option value="" selected="">-- Not Set --</option>
                                        @foreach(config('escorts.profile.Shower') as $key =>$Type)
-                                       <option value="{{$key}}" >{{$Type}}</option>
+                                       <option value="{{$key}}" {{ ($escort->shower == $key)? 'selected' : ''}}  >{{$Type}}</option>
                                        @endforeach
                                     </select>
                                      <input type="hidden" value="{{ $escort->shower}}" class="form-control" id="profile_shower">
@@ -990,7 +1029,7 @@ textarea {
                                     <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="ambiance" name="ambiance">
                                        <option value="" selected="">-- Not Set --</option>
                                        @foreach(config('escorts.profile.Ambiance') as $key =>$AmbianceName)
-                                       <option value="{{$key}}"  >{{$AmbianceName}}</option>
+                                       <option value="{{$key}}" {{ ($escort->ambiance == $key)? 'selected' : ''}}  >{{$AmbianceName}}</option>
                                        @endforeach
                                     </select>
                                     <input type="hidden" value="{{ $escort->ambiance}}" class="form-control" id="profile_ambiance">
@@ -1002,17 +1041,18 @@ textarea {
                                     <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="security" name="security">
                                        <option value="" selected="">-- Not Set --</option>
                                        @foreach(config('escorts.profile.Security') as $key =>$SecurityName)
-                                       <option value="{{$key}}"  data-name="{{$SecurityName}}">{{$SecurityName}}</option>
+                                       <option value="{{$key}}" {{ ($escort->security == $key)? 'selected' : ''}}   data-name="{{$SecurityName}}">{{$SecurityName}}</option>
                                        @endforeach
                                     </select>
                                     <input type="hidden" value="{{ $escort->security}}" class="form-control" id="profile_security">
                                  </div>
+
                                  <div class="form-group business-field">
                                     <label for="exampleFormControlSelect1">Payment</label>                                       
                                     <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="payment" name="payment">
                                        <option value="" selected="">-- Not Set --</option>
                                        @foreach(config('escorts.profile.Payments') as $key =>$PaymentType)
-                                       <option value="{{$key}}"  data-name="{{$PaymentType}}">{{$PaymentType}}</option>
+                                       <option value="{{$key}}" {{ ($escort->payment == $key)? 'selected' : ''}}  data-name="{{$PaymentType}}">{{$PaymentType}}</option>
                                        @endforeach>
                                     </select>
                                     <input type="hidden" value="{{ $escort->payment}}" class="form-control" id="profile_payment">
@@ -1032,7 +1072,7 @@ textarea {
                                     <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="loyalty" name="loyalty">
                                        <option value="" selected="">-- Not Set --</option>
                                        @foreach(config('escorts.profile.Loyalty') as $key =>$LoyaltyType)
-                                       <option value="{{$key}}" >{{$LoyaltyType}}</option>
+                                       <option value="{{$key}}" {{ ($escort->loyalty == $key)? 'selected' : ''}} >{{$LoyaltyType}}</option>
                                        @endforeach>
                                     </select>
                                     <input type="hidden" value="{{ $escort->loyalty}}" class="form-control" id="profile_loyalty">
@@ -1054,6 +1094,19 @@ textarea {
                                     <div id="show_language" style="display:none"></div>
                                    
                                  </div>
+
+
+                                <div class="form-group business-field">
+                                    <label for="exampleFormControlSelect1">Contact us </label>
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_profile_data" id="contact" name="contact">
+                                       <option value="" selected="">-- Not Set --</option>
+                                       @foreach(config('escorts.profile.contact-me') as $key =>$contact)
+                                       <option value="{{$key}}" {{ ($escort->contact == $key)? 'selected' : ''}} >{{$contact}}</option>
+                                       @endforeach
+                                    </select>
+                                    <input type="hidden" value="{{ $escort->contact}}" class="form-control" id="profile_contact">
+                                 </div>
+
                               </div>
                         </div>
                      </div>
