@@ -106,8 +106,15 @@
                                                                 class="d-flex align-items-center justify-content-center gap-5">
                                                                 <i class="fa fa-list" aria-hidden="true"
                                                                     style="line-height: 23px;"></i>
-                                                                <span class="badge badge-pill badge-danger"
-                                                                    id="session_count">0</span>
+                                                                <span class="badge badge-pill badge-danger" id="session_count">
+
+                                                                    @if(count(session('wishlist', [])) > 0)
+                                                                        {{ count(session('wishlist', [])) }} 
+                                                                    @else
+                                                                     {{ 0 }}    
+                                                                    @endif
+
+                                                                </span>
                                                             </div>
                                                             <span class="filter-tooltip">View Shortlist</span>
                                                         </a>
@@ -239,11 +246,11 @@
                                         class="col-12 custom--service-tag mc_tags d-flex justify-content-between align-items-center">
                                         <div class="total--list">
                                             <strong>Total Listings:</strong>
-                                            <span>{{ count($escorts) }}</span>
+                                            <span class="total_count"></span>
                                         </div>
                                         <div>
                                             <div class="grid_list_icon_box display_inline_block grid--btn">
-                                                <a href="javascript:void(0)" class="active" id="view_grid">
+                                                <a href="javascript:void(0)" class="" id="view_grid">
                                                     <span class="custom-toltip">Grid View</span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="30"
                                                         height="30" viewBox="0 0 30 30" fill="none">

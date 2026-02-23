@@ -68,6 +68,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Message\MessageRepository'
         );
         $this->app->bind(
+            'App\Repositories\MassageReview\MassageReviewInterface',
+            'App\Repositories\MassageReview\MassageReviewRepository'
+        );
+         $this->app->bind(
             'App\Repositories\Review\ReviewInterface',
             'App\Repositories\Review\ReviewRepository'
         );
