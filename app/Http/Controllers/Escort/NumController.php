@@ -32,7 +32,7 @@ class NumController extends Controller
             'incident_state'    => 'required',
             'incident_date'    => 'required',
             'incident_location' => 'required',
-            'offender_mobile'   => 'required|min:8',
+            'offender_mobile'   => 'required|min:8|max:10',
             'incident_nature'   => 'required',
             'profile_link'      => 'nullable',
             'what_happened'     => 'required|string',
@@ -92,8 +92,9 @@ class NumController extends Controller
     }
 
     public function showReportOnDashboardAjax(Request $request)
-    {
-        $nums = Num::whereNotIn('status', ['pending'])->with('state')->orderBy('incident_date', 'desc')->get();
+    {   
+        $userId = Auth::user()->id;
+        $nums = Num::where('status', 'published')->with('state')->orderBy('incident_date', 'desc')->get();
 
         if($request->ajax()){
 
@@ -115,19 +116,13 @@ class NumController extends Controller
                     }
                     return '';
                 })
-                ->addColumn('status', function ($row) {
-                    $statusText = $row->status 
-                        ? Str::title(Str::replace('_', ' ', $row->status)) 
-                        : 'NA';
-                    $badgeClass = getStatusBadgeClass($statusText);
-                    return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
-                })
+                
                 ->addColumn('actions', function($row) {
                     return ' <a href="javascript:void(0);" class="toggle-details">
                                 <i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="View"></i>
                             </a>';
                 })
-                ->rawColumns(['ref','actions','status']) // only 'action' needs HTML rendering
+                ->rawColumns(['ref','actions']) // only 'action' needs HTML rendering
                 ->make(true);
 
         }
@@ -228,7 +223,7 @@ class NumController extends Controller
             'incident_state'    => 'required',
             'incident_date'    => 'required',
             'incident_location' => 'required',
-            'offender_mobile'   => 'required|min:8',
+            'offender_mobile'   => 'required|min:8|max:10',
             'incident_nature'   => 'required',
             'profile_link'      => 'nullable',
             'what_happened'     => 'required|string',

@@ -1,10 +1,6 @@
 @extends('layouts.escort')
 
 @section('style')
-    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
-
     <style>
         .parsley-errors-list {
             list-style: none;
@@ -89,7 +85,6 @@
                             <th>Incident Type</th>
                             <th>Incident Date</th>
                             <th>Location</th>
-                            <th>Status</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -102,7 +97,6 @@
                                 <td>{{ $num->incident_date }}</td>
                                 <td>{{ $num->state ? $num->state->iso2 : '' }} - {{ $num->state ? $num->state->name : '' }}
                                 </td>
-                                <td>{{ $num->status }}</td>
                                 <td class="text-center">
                                     {{-- <a href="javascript:void(0);" class="toggle-details"
                                         data-target="details-{{ $num->id }}">
@@ -167,9 +161,18 @@
                         name: 'ref'
                     },
                     {
-                        data: 'offender_mobile',
-                        name: 'offender_mobile'
-                    },
+                    data: 'offender_mobile',
+                    name: 'offender_mobile',
+                    render: function(data, type, row) {
+
+                        let clean = $('<div>').html(data).text();
+                        let normalized = clean.replace(/\s+/g, '');
+                        if (type === 'sort' || type === 'filter') {
+                            return normalized;
+                        }
+                        return data;
+                    }
+                },
                     {
                         data: 'incident_nature',
                         name: 'incident_nature'
@@ -190,10 +193,7 @@
                         data: 'location',
                         name: 'location'
                     },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
+                   
                     {
                         data: 'actions',
                         name: 'actions',
@@ -243,7 +243,7 @@
                                     <th>Ref:</th>
                                     <td class="border-0">${data.ref ?? 'N/A'}</td>
                                     <th>Incident Date:</th>
-                                    <td class="border-0">${data.incident_date ?? 'N/A'}</td>
+                                    <td class="border-0">${formatDate(data.incident_date) ?? 'N/A'}</td>
                                 </tr>
                                 <tr>
                                     <th>Offender's Name:</th>

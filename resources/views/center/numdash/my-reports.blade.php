@@ -208,8 +208,17 @@
           name: 'ref'
         },
         {
-          data: 'offender_mobile',
-          name: 'offender_mobile'
+            data: 'offender_mobile',
+            name: 'offender_mobile',
+            render: function(data, type, row) {
+
+                let clean = $('<div>').html(data).text();
+                let normalized = clean.replace(/\s+/g, '');
+                if (type === 'sort' || type === 'filter') {
+                    return normalized;
+                }
+                return data;
+            }
         },
         {
           data: 'incident_nature',
