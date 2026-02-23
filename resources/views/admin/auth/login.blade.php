@@ -63,6 +63,7 @@
                     @csrf
                     <input type="hidden" name="type_admin" value="1">
                     <input type="hidden" name="type_staff" value="2">
+                    <input type="hidden" name="type" value="1">
                         <div class="form-group label_margin_zero_for_login">
                            <label for="email">Email Address</label>
 
@@ -382,7 +383,7 @@ $(document).ready(function() {
                'X-CSRF-Token': token
          },
             success: function(data) {
-               console.log(data);
+               //console.log(data);
                 $('#formerror').html('');
                  Swal.close();
                 console.log(data);
