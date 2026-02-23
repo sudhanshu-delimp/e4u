@@ -83,6 +83,14 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-12 mb-2">
+               <div class="d-flex justify-content-end ">
+                 <div class="total_listing">
+                    <div><span>Pending Verifications: : </span></div>
+                    <div><span class="totalInprogressTask">2</span></div>
+                </div>
+               </div>
+            </div>
             <div class="col-md-12">
                 <div class="table-responsive">
                     <table class="table" id="mediaverifyTable">
