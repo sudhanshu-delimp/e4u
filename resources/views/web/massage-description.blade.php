@@ -58,7 +58,7 @@
 
         $relativePath   =  $listing->imagePosition(9);
         $currentImage   = asset($relativePath);
-        if($currentImage!= "" && file_exists($relativePath))
+        if($currentImage!= "" && is_file(public_path($relativePath)))
         $massage_banner  = $currentImage;
         else
         $massage_banner = asset('assets/app/img/massage/massage_2.jpg');
@@ -371,7 +371,7 @@
 
                     <div class="col-sm-12">
                         <div style="width: 100%">
-                                                <iframe 
+                            <!-- <iframe 
                             width="100%" 
                             height="153" 
                             frameborder="0" 
@@ -380,7 +380,18 @@
                             marginwidth="0"
                             src="https://maps.google.com/maps?q={{ urlencode($listing->address ?? 'Perth, Western Australia') }}&hl=en&z=14&output=embed"
                             style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
+                        </iframe> -->
+                        <iframe 
+                            width="100%" 
+                            height="153" 
+                            frameborder="0" 
+                            scrolling="no" 
+                            marginheight="0"
+                            marginwidth="0"
+                            src="https://maps.google.com/maps?q={{ urlencode('Perth, Western Australia') }}&hl=en&z=14&output=embed"
+                            style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));">
                         </iframe>
+                        
                         </div>
                     </div>
                 </div>

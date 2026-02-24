@@ -26,6 +26,7 @@
                             <form id="admin_login" action="{{ route('admin.login') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="type_operator" value="9">
+                                <input type="hidden" name="type" value="9">
 
                                 <div class="form-group label_margin_zero_for_login">
                                     <label for="email">Email Address</label>

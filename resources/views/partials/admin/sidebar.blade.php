@@ -112,7 +112,7 @@
                     'send-reports',
                     'alert',
                     'blog',
-                    'credit',
+                    'credit','media-verification',
                     'agent-requests',
                     'num','punterbox','communication',
                     'transaction-summary',
@@ -430,6 +430,7 @@
                             request()->is('*advertiser-reports*') ||
                             request()->is('*punterbox*') ||
                             request()->is('*communication*') ||
+                            request()->is('*media-verification*') ||
                             request()->is('*advertiser-reviews*')) show @endif;" data-parent="#Administration">
                         <div class="py-0 collapse-inner rounded mb-2">
 
@@ -465,6 +466,12 @@
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/credits.png') }}">
                                 <span style="{{ request()->is('*credit*') ? 'color: #FF3C5F;' : '' }}">Credits</span>
+                            </a>
+
+                            <a class="nav-link collapsed" href="{{ route('admin.media-verification') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/image-verify.png') }}">
+                                <span style="{{ request()->is('*media-verification*') ? 'color: #FF3C5F;' : '' }}">Media Verification</span>
                             </a>
                             <a class="nav-link collapsed" href="{{ route('admin.num') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"

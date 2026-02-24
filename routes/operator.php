@@ -3,7 +3,6 @@
 use App\Http\Controllers\Operator\OperatorController;
 use App\Http\Controllers\Operator\OperatorstaffController;
 use App\Http\Controllers\User\Dashboard\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //Route::get('operator-login', [App\Http\Controllers\Admin\AuthController::class,'showOperatorLoginForm'])->name('operator.login');

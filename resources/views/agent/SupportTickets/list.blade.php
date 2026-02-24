@@ -23,9 +23,9 @@
         right: 5%;
         /*bottom: 0;*/
     }
-    .modal-body {
+    /* .modal-body {
         min-height: 200px;
-    }
+    } */
     .messageBox {
         border-radius: 10px;
     }

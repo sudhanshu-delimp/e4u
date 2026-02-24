@@ -1484,7 +1484,7 @@ if (!function_exists('get_massage_images')) {
         }
         else
         {
-             if($currentImage!= "" && file_exists($relativePath))
+             if($currentImage!= "" &&  is_file(public_path($relativePath)))
              $image  = $currentImage;
              else
              $image  = false;
@@ -1511,7 +1511,7 @@ if (!function_exists('get_messure_images')) {
         }
         else
         {
-             if($currentImage!= "" && file_exists($relativePath))
+             if($currentImage!= "" && is_file(public_path($relativePath)))
              $image  = $currentImage;
              else
              $image  = false;

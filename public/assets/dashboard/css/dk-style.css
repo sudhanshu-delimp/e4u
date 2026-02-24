@@ -2955,6 +2955,121 @@ button.btn:focus {
     gap: 10px;
 }
 
+.view_img_gallery {
+    display: grid;
+    grid-template-columns: 2fr 400px 2fr;
+    gap: 10px;
+    margin: auto;
+}
+
+
+/* Make all images fill properly */
+
+.view_img_gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+
+/* Left Thumbnail */
+
+.view_img_gallery .thumbnail {
+    height: 100%;
+}
+
+
+/* Center 6 Images Grid */
+
+.view_img_gallery .other_images {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 150px);
+    gap: 10px;
+}
+
+
+/* Right Verification */
+
+.view_img_gallery .verification {
+    height: 100%;
+}
+
+.view_img_gallery .other_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.view_img_gallery .thumbnail,
+.view_img_gallery .verification {
+    display: flex;
+    flex-direction: column;
+}
+
+.thumbnail img,
+.verification img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.verify_ing_masseurs table td {
+    text-align: center;
+}
+
+.view_img_gallery_masseur {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    gap: 10px;
+    margin: 0 auto;
+}
+
+.view_img_gallery_masseur .other_images {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.view_img_gallery_masseur img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+
+/* Right Verification */
+
+.view_img_gallery_masseur .verification {
+    height: 100%;
+}
+
+.view_img_gallery_masseur .thumbnail,
+.view_img_gallery_masseur .verification {
+    display: flex;
+    flex-direction: column;
+}
+
+.view_img_gallery_masseur .thumbnail img,
+.view_img_gallery_masseur .verification img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .view_img_gallery,
+    .view_img_gallery_masseur {
+        grid-template-columns: 1fr;
+    }
+    .other_images {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+    }
+}
+
 @media screen and (max-width: 600px) {
     .business-field {
         flex: 1 1 100%;

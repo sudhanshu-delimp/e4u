@@ -15,7 +15,7 @@
         }
         else
         {
-             if($currentImage!= "" && file_exists($relativePath))
+             if($currentImage!= "" && is_file(public_path($relativePath)))
              $massage_thumb  = $currentImage;
              else
              $massage_thumb = config('escorts.escort_default_thumb');
@@ -41,7 +41,7 @@
 
                 
 
-                <img src="{{ $thumnail  }}" alt="Massage Centre 1"
+                <img src="{{ $massage_thumb  }}" alt="Massage Centre 1"
                         class="mc_card_image">
                  
                 </div>
@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="items">
-                        <span class="title">Hours: {{ file_exists($thumnail) }}</span>
+                        <span class="title">Hours: </span>
                         <span class="decs">{{get_working_hours($listing)}}</span>
                     </div>
 

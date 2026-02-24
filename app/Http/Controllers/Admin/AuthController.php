@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Sms\SendSms;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
+use Mockery\Expectation;
 
 class AuthController extends Controller
 {
@@ -62,98 +63,133 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        //print_r($request->all());die;
+        try {
+            //print_r($request->all());die;
 
-        if (! is_null($request->phone)) {
+            /*  if (! is_null($request->phone)) {
             //$user = User::where('phone','=',$request->phone)->first();
             $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?", [$request->phone])->first();
             if ($user == null) {
                 return $this->sendFailedLoginResponse($request);
             }
-        }
-        if (! is_null($request->email)) {
-            $user = User::where('email', '=', $request->email)->first();
-            if (!$user || !Hash::check($request->password, $user->password)) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Invalid email or password.',
-                ], 401);
-            }
-             if ($user->status == 'Pending') {
-                 return response()->json([
-                    'status' => false,
-                    'message' => 'Your account is currently pending approval. You will be notified via email once it has been approved.',
-                ], 401);
-            } else if ($user->status == 'Suspended') {
-                 return response()->json([
-                    'status' => false,
-                    'message' => "Your account has been suspended until further notice."
-                ], 401);
-            } else if ($user->status != 'Active') {
-                 return response()->json([
-                    'status' => false,
-                    'message' => "Your account has been " . strtolower($user->status) . ". Please contact to admin."
-                ], 401);
-            }
-        }
-        /**
-         * 1 for Admin
-         * 2 for Sub Admin
-         * 9 for Operator Staff
-         */
-        if ($user->type == 1 || $user->type == 2 || $user->type == 9) {
-            $hasher = app('hash');
-            $error = 0;
-            //            if (Hash::check($request->password, $user->password)) { //TODO::Enable
-            if (true) {
-                $error = 1;
-                $phone = removeSpaceFromString($user->phone);
-                $otp = $this->user->generateOTP();
-                $user->otp = $otp;
-                $user->save();
+        } */
+            $wrongConsoleLoginMsg = config('constants.wrong_console_login_msg');
+            $loginUrlEndpoint = config('constants.login_url_endpoint');
+            $webUrlEndPoint = strtolower($request->segment(1));
+            $userType =  $request->input('type', "");
+            if (! is_null($request->email)) {
+                $user = User::where('email', '=', $request->email)
+                    //->where('type', '=', $userType)
+                    ->first();
 
-                // $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
-                // $sendotp = new SendSms();
-                // $output = $sendotp->send($phone,$msg);
-                // $id = $user->id;
+                if (!$user) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Invalid email or password.',
+                    ], 401);
+                }
 
-                $this->user->sendOtpNotification($user->id, $otp);
-                //TODO:: Don't send otp in the response object so remove from bellow
-                return response()->json(compact('error', 'phone', 'otp'));
+                if ($user->type != $userType) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => isset($wrongConsoleLoginMsg[$userType]) ? $wrongConsoleLoginMsg[$userType] : "You are not authorized to login this console."
+                    ], 401);
+                }
+                /* $endPoint = isset($loginUrlEndpoint[$user->type]) ? $loginUrlEndpoint[$user->type] : $webUrlEndPoint;
+                if ($webUrlEndPoint != $endPoint) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => isset($wrongConsoleLoginMsg[$userType]) ? $wrongConsoleLoginMsg[$userType] : "You are not authorized to login this console."
+                    ], 401);
+                } */
+
+                if (!Hash::check($request->password, $user->password)) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Invalid email or password.',
+                    ], 401);
+                }
+
+                if ($user->status == 'Pending') {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Your account is currently pending approval. You will be notified via email once it has been approved.',
+                    ], 401);
+                } else if ($user->status == 'Suspended') {
+                    return response()->json([
+                        'status' => false,
+                        'message' => "Your account has been suspended until further notice."
+                    ], 401);
+                } else if ($user->status != 'Active') {
+                    return response()->json([
+                        'status' => false,
+                        'message' => "Your account has been " . strtolower($user->status) . ". Please contact to admin."
+                    ], 401);
+                }
+            }
+
+            /**
+             * 1 for Admin
+             * 2 for Sub Admin
+             * 9 for Operator Staff
+             */
+            if ($user->type == 1 || $user->type == 8 || $user->type == 9) {
+                $hasher = app('hash');
+                $error = 0;
+                //            if (Hash::check($request->password, $user->password)) { //TODO::Enable
+                if (true) {
+                    $error = 1;
+                    $phone = removeSpaceFromString($user->phone);
+                    $otp = $this->user->generateOTP();
+                    $user->otp = $otp;
+                    $user->save();
+
+                    // $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+                    // $sendotp = new SendSms();
+                    // $output = $sendotp->send($phone,$msg);
+                    // $id = $user->id;
+
+                    $this->user->sendOtpNotification($user->id, $otp);
+                    //TODO:: Don't send otp in the response object so remove from bellow
+                    return response()->json(compact('error', 'phone', 'otp'));
+                } else {
+                    return $this->sendFailedLoginResponse($request);
+                    //dd("hellog user");
+                }
             } else {
                 return $this->sendFailedLoginResponse($request);
-                //dd("hellog user");
             }
-        } else {
-            return $this->sendFailedLoginResponse($request);
+
+
+
+            // If the class is using the ThrottlesLogins trait, we can automatically throttle
+            // the login attempts for this application. We'll key this by the username and
+            // the IP address of the client making these requests into this application.
+            // if (method_exists($this, 'hasTooManyLoginAttempts') &&
+            //     $this->hasTooManyLoginAttempts($request)) {
+            //     $this->fireLockoutEvent($request);
+
+            //     return $this->sendLockoutResponse($request);
+            // }
+
+            // if ($this->attemptLogin($request)) {
+            //     if ($request->hasSession()) {
+            //         $request->session()->put('auth.password_confirmed_at', time());
+            //     }
+
+            //     return $this->sendLoginResponse($request);
+            // }
+
+            // // If the login attempt was unsuccessful we will increment the number of attempts
+            // // to login and redirect the user back to the login form. Of course, when this
+            // // user surpasses their maximum number of attempts they will get locked out.
+            // $this->incrementLoginAttempts($request);
+        } catch (\Expectation $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 401);
         }
-
-
-
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
-        // if (method_exists($this, 'hasTooManyLoginAttempts') &&
-        //     $this->hasTooManyLoginAttempts($request)) {
-        //     $this->fireLockoutEvent($request);
-
-        //     return $this->sendLockoutResponse($request);
-        // }
-
-        // if ($this->attemptLogin($request)) {
-        //     if ($request->hasSession()) {
-        //         $request->session()->put('auth.password_confirmed_at', time());
-        //     }
-
-        //     return $this->sendLoginResponse($request);
-        // }
-
-        // // If the login attempt was unsuccessful we will increment the number of attempts
-        // // to login and redirect the user back to the login form. Of course, when this
-        // // user surpasses their maximum number of attempts they will get locked out.
-        // $this->incrementLoginAttempts($request);
-
-
     }
 
     protected function checkOTP(Request $request)
@@ -201,6 +237,7 @@ class AuthController extends Controller
         $input = [
             'email' => $request->get('email'),
             'password' => $request->get('password'),
+            'type' => $request->get('user_type')
         ];
         if (!empty($request->get('type_admin'))) {
             $input['type'] = 1;

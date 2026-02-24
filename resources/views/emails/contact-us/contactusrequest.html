@@ -11,21 +11,19 @@
         <tr>
             <td align="center">
                 <!-- Main container -->
-                <table width="600" cellpadding="0" cellspacing="0"
-                    style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
                     <!-- Header with background and logo -->
                     <tr>
                         <td style="background-color:#0c223d; padding: 20px;">
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
-                                            style="height: 50px;">
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
                                         <h1 style="margin: 0;font-size: 22px;">Contact Us Request</h1>
                                         <div style="font-weight: 500;">[(Ref: [insert ref number)]</div>
-                                        
+
                                     </td>
                                 </tr>
                             </table>
@@ -37,13 +35,12 @@
                             <!-- Greeting -->
                             <p style="font-size: 18px; margin: 0 0 15px 0;"><b>Attention Operations</b></p>
 
-                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
+                            <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
                                 A User has logged a request for contact. Details are:
                             </p>
 
                             <!-- Info Table -->
-                            <table cellpadding="8" cellspacing="0" border="0"
-                                style="width: 100%; font-size: 14px; border-collapse: collapse;">
+                            <table cellpadding="8" cellspacing="0" border="0" style="width: 100%; font-size: 14px; border-collapse: collapse;">
                                 <tr>
                                     <td style=" width: 180px; padding-left: 0;">First Name:</td>
                                     <td>{{ $body['first_name'] }}</td>
@@ -60,7 +57,7 @@
                                     <td style="padding-left: 0;">Comments (by Escort):</td>
                                     <td>{{ $body['message'] }}</td>
                                 </tr>
-                               
+
                             </table>
                             <!-- Closing -->
                             <p style="font-size: 15px; margin-top: 20px;">
@@ -71,12 +68,10 @@
                     </tr>
                 </table>
                 <!-- Footer -->
-                <table width="600" cellpadding="0" cellspacing="0"
-                    style="background-color:#0c223d; padding: 15px 30px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color:#0c223d; padding: 15px 30px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
                     <tr>
-                        <td style="line-height: 21px;">
-                            This is an automatically generated email by the Escorts4U Operations Centre.<br>
-                            &copy; Copyright 2025 Blackbox Tech Pty Ltd. All rights reserved.
+                        <td style="line-height: 21px; text-align:center;">
+                            This is an automatically generated email by the Escorts4U Operations Centre.<br> &copy; Copyright 2025 Blackbox Tech Pty Ltd. All rights reserved.
                         </td>
                     </tr>
                 </table>
@@ -84,4 +79,5 @@
         </tr>
     </table>
 </body>
+
 </html>

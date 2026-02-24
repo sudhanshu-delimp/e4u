@@ -73,7 +73,7 @@
                      <td>WA</td>
                      <td class="text-left"><div class="num_value">$<span>4,749.00</span></div></td>
                      <td class="text-left"><div class="num_value">$<span>237.45</span></div></td>
-                     <td><span class="custom_badge badge_published">Approved</span></td>
+                     <td><span class="custom_badge badge_accepted">Approved</span></td>
                      <td>01-11-2025</td>
                      <td>
                         <div class="dropdown no-arrow">
