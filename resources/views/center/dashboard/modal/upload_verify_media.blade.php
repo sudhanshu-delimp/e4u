@@ -34,10 +34,10 @@
                         <div class="row pt-1">
                             <div class="col-sm-12">
                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
-
                                 <ol style="text-align: justify;">
                                     <li>Upload a photo of the Business premises which displays the name of the Business
                                         and the Business number.</li>
+                                    <li>Please ensure your photo clearly identifies your Business.</li>
                                 </ol>
                             </div>
 
