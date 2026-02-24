@@ -31,7 +31,7 @@
                             <td>Lia</td>
                             <td>
                                 <a href="" data-target="#verify_masseur_images" data-toggle="modal">
-                                    View image <sup class="badge badge-danger">4</sup>
+                                    View image <sup class="badge badge-danger pt-1">4</sup>
                                 </a>
                             </td>
                             <td>
@@ -69,7 +69,7 @@
                             <td>Jane</td>
                             <td>
                                 <a href="" data-target="#verify_masseur_images" data-toggle="modal">
-                                    View image <sup class="badge badge-danger">4</sup>
+                                    View image <sup class="badge badge-danger pt-1">4</sup>
                                 </a>
                             </td>
                             <td>
@@ -107,7 +107,7 @@
                             <td>Ming</td>
                             <td>
                                 <a href="" data-target="#verify_masseur_images" data-toggle="modal">
-                                    View image <sup class="badge badge-danger">4</sup>
+                                    View image <sup class="badge badge-danger pt-1">4</sup>
                                 </a>
                             </td>
                             <td>
@@ -145,7 +145,7 @@
                             <td>Joy</td>
                             <td>
                                 <a href="" data-target="#verify_masseur_images" data-toggle="modal">
-                                    View image <sup class="badge badge-danger">4</sup>
+                                    View image <sup class="badge badge-danger pt-1">4</sup>
                                 </a>
                             </td>
                             <td>
