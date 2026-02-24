@@ -862,7 +862,7 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/package-variant-closed.png') }}">
                             <span>Concierge</span>
                         </a>
-                        <div id="ConciergeMenu" class="collapse @if (in_array(request()->segment(3), ['email-management', 'sim-management'])) show @endif"
+                        <div id="ConciergeMenu" class="collapse @if (in_array(request()->segment(3), ['email-management', 'sim-management', 'concierge-payments'])) show @endif"
                             data-parent="#Management">
                             <a class="collapse-item" href="{{ route('admin.email-management') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
@@ -870,7 +870,11 @@
                                     style="{{ request()->segment(3) == 'email-management' ? 'color: #FF3C5F;' : '' }}">Email
                                     Management</span>
                             </a>
-
+                            
+                        <a class="collapse-item" href="{{ route('admin.concierge-payments') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/reconciliation.png') }}" alt="">
+                                <span style="{{ request()->segment(3) == 'concierge-payments' ? 'color: #FF3C5F;' : '' }}">Concierge Payments</span>
+                            </a>
                             <a class="collapse-item" href="{{ route('sim-management') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/cellphone-text.png') }}">
                                 <span
@@ -881,10 +885,6 @@
                         {{-- end --}}
 
                         
-                        <a class="nav-link" href="{{ route('admin.concierge-payments') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/reconciliation.png') }}" alt="">
-                                <span style="{{ request()->segment(3) == 'concierge-payments' ? 'color: #FF3C5F;' : '' }}">Concierge Payments</span>
-                            </a>
 
                         {{-- logs --}}
                         <a class="nav-link collapsed" href="#" data-toggle="collapse"
