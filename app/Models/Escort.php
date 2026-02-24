@@ -716,6 +716,11 @@ class Escort extends Model
         return getEscortTimezone($this);
     }
 
+    public function getTodayAttribute(){
+        $escortTimeZone = $this->time_zone;
+        return getEscortLocalTime(now(), $escortTimeZone);
+    }
+
     public function getLeftListingDaysAttribute(){
         $escortTimeZone = $this->time_zone;
         $todayDate = getEscortLocalTime(now(), $escortTimeZone);

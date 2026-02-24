@@ -70,5 +70,10 @@ class Tour extends Model
             'id'                  // Local key on tour_locations table
         );
     }
+
+    public function transactions()
+    {
+        return $this->morphMany(CreditTransaction::class, 'transactionable');
+    }
 }
 

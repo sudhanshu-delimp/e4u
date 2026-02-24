@@ -13,15 +13,18 @@ use App\Models\EscortPinup;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Repositories\Tour\TourInterface;
+use App\Services\WalletService;
 
 class EscortTourScheduleContoller extends Controller
 {
     protected $tour;
+    protected $walletService;
 
-    public function __construct(TourInterface $tour)
+    public function __construct(TourInterface $tour, WalletService $walletService)
     {
        
         $this->tour = $tour;
+        $this->walletService = $walletService;
     }
 
     public function index()
@@ -198,38 +201,66 @@ class EscortTourScheduleContoller extends Controller
     public function cancelTourLocation(Request $request){
         try {
             $response['success'] = false;
+            $user = auth()->user();
             $itemId = $request->item_id;
             $tourLocation = TourLocation::find($itemId);
             
             $tourLocationProfiles = $tourLocation->profiles();
             $items = $tourLocationProfiles->with('escort')->get();
+            $refundAmount = 0.00;
             if($tourLocation->days_left < $tourLocation->days_total){
                 foreach($items as $item){
                     $escortDetail = $item->escort;
                     $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
                     $localEndDateTime = Carbon::today($profileTimezone)->endOfDay();
                     $utcEndTime = $localEndDateTime->copy()->setTimezone('UTC');
-                    Purchase::where(['id'=>$escortDetail->purchase_id])->update(['end_date'=>$localEndDateTime,'utc_end_time'=>$utcEndTime]);
+                    $purchase = Purchase::where(['id'=>$escortDetail->purchase_id])->first();
+
+                    $refundAmount  += $purchase->refund_amount;
+
+                    $purchase->end_date = $localEndDateTime;
+                    $purchase->utc_end_time = $utcEndTime;
+                    $purchase->save();
                     Escort::where(['id'=>$escortDetail->id])->update(['end_date'=>$localEndDateTime->format('Y-m-d'),'utc_end_time'=>$utcEndTime]);
                     if(!empty($item->is_pinup)){
                         EscortPinup::where('id', $item->is_pinup)->whereDate('end_date', '>', $localEndDateTime->format('Y-m-d'))->update(['end_date'=>$localEndDateTime->format('Y-m-d'),'utc_end_time'=>$utcEndTime]);
                     }
                 }
+                $response['refundAmount'] = $refundAmount;
             }
             else{
                 foreach($items as $item){
                     $escortDetail = $item->escort;
-                    Purchase::where(['tour_location_id'=>$item->id,'escort_id'=>$escortDetail->id])->update(['status' => 'cancel','utc_start_time'=>NULL,'utc_end_time'=>NULL]);
+                    $purchase = Purchase::where(['tour_location_id'=>$item->tour_location_id,'escort_id'=>$escortDetail->id])->first();
+
+                    $refundAmount  += $purchase->refund_amount;
+
+                    $purchase->status = 'cancel';
+                    $purchase->utc_start_time = NULL;
+                    $purchase->utc_end_time = NULL;
+                    $purchase->save();
+
                     if(!empty($item->is_pinup)){
                         EscortPinup::where('id', $item->is_pinup)->update(['utc_start_time'=>NULL,'utc_end_time'=>NULL]);
                     }
                 }
+                $response['refundAmount'] = $refundAmount;
                 $tourLocation->delete();
                 $tourLocationProfiles->delete();
             }
+
+            $this->walletService->credit(
+                $user,
+                $refundAmount,
+                $tourLocation,
+                'Cancel tour location.',
+                [
+                    'user_id' => $user->id,
+                    'tour_location_id' => $tourLocation->id
+                ]
+            );
+
             $response['success'] = true;
-            $response['days_left'] = $tourLocation->days_left;
-            $response['days_total'] = $tourLocation->days_total;
             return response()->json($response);
 
         } catch (Exception $e) {
@@ -243,21 +274,40 @@ class EscortTourScheduleContoller extends Controller
     public function cancelTour(Request $request){
         try {
             $response['success'] = false;
+            $user = auth()->user();
             $itemId = $request->item_id;
             $tour = Tour::find($itemId);
             $tourLocations = $tour->locations();
             $items = $tourLocations->get();
+            $refundAmount = 0.00;
             foreach($items as $item){
                 $tourLocationProfiles = $item->profiles();
                 foreach($tourLocationProfiles->with('escort')->get() as $locationProfile){
                     $escortDetail = $locationProfile->escort;
-                    Purchase::where(['id'=>$escortDetail->purchase_id])->update(['status' => 'expire']);
+                    $purchase = Purchase::where(['tour_location_id'=>$locationProfile->tour_location_id,'escort_id'=>$escortDetail->id])->first();
+                    
+                    $refundAmount  += $purchase->refund_amount;
+
+                    $purchase->status = 'expire';
+                    $purchase->save();
+
                     if(!empty($locationProfile->is_pinup)){
                         EscortPinup::where('id', $locationProfile->is_pinup)->update(['utc_start_time'=>NULL,'utc_end_time'=>NULL]);
                     }
                 }
                 $tourLocationProfiles->delete();
             }
+            $response['refundAmount'] = $refundAmount;
+            $this->walletService->credit(
+                $user,
+                $refundAmount,
+                $tour,
+                'Cancel tour.',
+                [
+                    'user_id' => $user->id,
+                    'tour_id' => $tour->id
+                ]
+            );
             $tourLocations->delete();
             $tour->delete();
             

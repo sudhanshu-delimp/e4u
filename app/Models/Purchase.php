@@ -92,7 +92,29 @@ class Purchase extends Model
         if($attribute =  $availability->{$day.'_to'}) {
             return Carbon::createFromFormat('H:i:s', $attribute)->format('A');
         }
-
         return null;
+    }
+
+    public function getLeftListingDaysAttribute(){
+        $todayDate = $this->escort->today;
+        $listEndDate = getEscortLocalTime($this->utc_end_time, $this->escort->timezone);
+        return $todayDate->diffInDays($listEndDate);
+    }
+
+    public function getRefundAmountAttribute(){
+        $todayDate = $this->escort->today;
+        if($todayDate->gte($this->start_date)){ /* To Know Listing has been started or not  */
+            list($usedDicount, $amount) = calculateTotalFee($this->membership, ($this->days_number - $this->left_listing_days));
+            $amount = $this->paid_rate-$amount;
+        }
+        else{
+            list($usedDicount, $amount) = calculateTotalFee($this->membership, $this->days_number);
+        }
+        return number_format($amount,2);
+    }
+
+    public function transactions()
+    {
+        return $this->morphMany(CreditTransaction::class, 'transactionable');
     }
 }
