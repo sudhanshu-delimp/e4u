@@ -13,7 +13,6 @@ use App\Http\Controllers\BlogsController;
 use App\Mail\sendPlaymateAccountDisableMail;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\NotificationSetting;
-use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\InfluencerController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Center\CenterController;
@@ -116,14 +115,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/massage-legbox-listing', [UserController::class, 'legboxMassageDataTable'])->name('user.legbox.massagedataTable');
 
 
-        # Dashboard escort tasks
-        Route::get('/task-fetch',[TaskController::class,'fetchTask'])->name('dashboard.ajax-fetch-task');
-        Route::post('/task-add',[TaskController::class,'addTask'])->name('dashboard.ajax-add-task');
-        Route::post('/task-edit',[TaskController::class,'editTask'])->name('dashboard.ajax-edit-task');
-        Route::post('/task-update',[TaskController::class,'updateTask'])->name('dashboard.ajax-update-task');
-        Route::post('/task-status',[TaskController::class,'statusTask'])->name('dashboard.ajax-change-status');
-        Route::post('/task-open',[TaskController::class,'openTask'])->name('dashboard.ajax-open-task');
-        Route::post('/task-delete',[TaskController::class,'destroy'])->name('dashboard.ajax-delete-task');
+
 
         Route::get('/my-legbox-notes',function(){
             return view('user.dashboard.legbox.notes');
@@ -508,9 +500,9 @@ Route::get('/user-dashboard/viewer-messages',function(){
     return view('user.dashboard.communication.viewer-messages');
 })->name('user.viewer-messages');
 
-Route::get('/escort-dashboard/task-list',function(){
-    return view('escort.dashboard.task-list');
-})->name('escort.dashboard.task-list');
+// Route::get('/escort-dashboard/task-list',function(){
+//     return view('escort.dashboard.task-list');
+// })->name('escort.dashboard.task-list');
 
 Route::get('/escort-dashboard/my-spend',function(){
     return view('escort.dashboard.my-spend');
