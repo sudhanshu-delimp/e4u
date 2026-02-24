@@ -37,7 +37,7 @@
          </div>
      </div>
     <div class="col-md-12">        
-        <div class="table-responsive membership--inner">
+        <div class="table-responsive">
             <table class="table" id="advertiserSuspenstionTable">
                  <thead class="table-bg">
                    <tr>

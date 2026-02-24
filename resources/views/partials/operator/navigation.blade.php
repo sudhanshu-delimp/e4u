@@ -32,7 +32,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                 </span>
                 <span>
                     <span class="separator">|</span>
-                    <b>Our Operator :</b> @if (auth()->user()->operator)
+                    <b>Operator :</b> @if (auth()->user()->operator)
                         <span class="user-values" title="Our Operator ID : {{ auth()->user()->operator->member_id }}">
                             {{ \Illuminate\Support\Str::limit(
                                 \Illuminate\Support\Str::title(

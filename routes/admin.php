@@ -278,6 +278,10 @@ Route::get('/management/statistics/num', function () {
     return view('admin.management.statistics.num');
 })->name('admin.num');
 
+Route::get('/reports/media-verification', function () {
+    return view('admin.reports.media-verification.index');
+})->name('admin.media-verification');
+
 Route::get('support-tickets', function () {
     return view('admin.support-tickets');
 })->name('admin.support-tickets');
@@ -693,7 +697,7 @@ Route::get('/management/logs-staff', function () {
 })->name('admin.dashboard');
 
  Route::get('/management/concierge-payments',function(){
-    return view('admin.management.concierge-payments.index');
+    return view('admin.Concierge.payment-reconciliation');
 })->name('admin.concierge-payments');
 
 Route::get('/management/application', function () {

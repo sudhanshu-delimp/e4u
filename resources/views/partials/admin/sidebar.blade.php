@@ -112,7 +112,7 @@
                     'send-reports',
                     'alert',
                     'blog',
-                    'credit',
+                    'credit','media-verification',
                     'agent-requests',
                     'num','punterbox','communication',
                     'transaction-summary',
@@ -430,6 +430,7 @@
                             request()->is('*advertiser-reports*') ||
                             request()->is('*punterbox*') ||
                             request()->is('*communication*') ||
+                            request()->is('*media-verification*') ||
                             request()->is('*advertiser-reviews*')) show @endif;" data-parent="#Administration">
                         <div class="py-0 collapse-inner rounded mb-2">
 
@@ -465,6 +466,12 @@
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                     src="{{ asset('assets/dashboard/img/menu-icon/credits.png') }}">
                                 <span style="{{ request()->is('*credit*') ? 'color: #FF3C5F;' : '' }}">Credits</span>
+                            </a>
+
+                            <a class="nav-link collapsed" href="{{ route('admin.media-verification') }}">
+                                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                    src="{{ asset('assets/dashboard/img/menu-icon/image-verify.png') }}">
+                                <span style="{{ request()->is('*media-verification*') ? 'color: #FF3C5F;' : '' }}">Media Verification</span>
                             </a>
                             <a class="nav-link collapsed" href="{{ route('admin.num') }}">
                                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
@@ -863,7 +870,8 @@
                                     style="{{ request()->segment(3) == 'email-management' ? 'color: #FF3C5F;' : '' }}">Email
                                     Management</span>
                             </a>
-
+                            
+                       
                             <a class="collapse-item" href="{{ route('sim-management') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/cellphone-text.png') }}">
                                 <span
@@ -874,10 +882,6 @@
                         {{-- end --}}
 
                         
-                        <a class="nav-link" href="{{ route('admin.concierge-payments') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/reconciliation.png') }}" alt="">
-                                <span style="{{ request()->segment(3) == 'concierge-payments' ? 'color: #FF3C5F;' : '' }}">Concierge Payments</span>
-                            </a>
 
                         {{-- logs --}}
                         <a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -992,19 +996,22 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                             <span>Reporting</span>
                         </a>
-                        <div id="ReportingMenu" class="collapse @if (in_array(request()->segment(3), ['credits', 'revenue'])) show @endif"
+                        <div id="ReportingMenu" class="collapse @if (in_array(request()->segment(3), ['credits', 'revenue', 'concierge-payments'])) show @endif"
                             data-parent="#Management">
 
-
-                            <a class="collapse-item" href="{{ route('admin.revenue') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/revenue-2.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'revenue' ? 'color: #FF3C5F;' : '' }}">Revenue</span>
+                             <a class="collapse-item" href="{{ route('admin.concierge-payments') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/reconciliation.png') }}" alt="">
+                                <span style="{{ request()->segment(3) == 'concierge-payments' ? 'color: #FF3C5F;' : '' }}">Concierge Payments</span>
                             </a>
                             <a class="collapse-item" href="{{ route('admin.credits') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/income.png') }}">
                                 <span
                                     style="{{ request()->segment(3) == 'credits' ? 'color: #FF3C5F;' : '' }}">Credits</span>
+                            </a>
+                            <a class="collapse-item" href="{{ route('admin.revenue') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/revenue-2.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'revenue' ? 'color: #FF3C5F;' : '' }}">Revenue</span>
                             </a>
 
                         </div>
