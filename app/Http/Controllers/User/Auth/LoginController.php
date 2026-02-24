@@ -43,15 +43,17 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-    
         $this->validateLogin($request);
         $path = null;
         $show_id = null;
+        $wrongConsoleLoginMsg = config('constants.wrong_console_login_msg');
+        $loginUrlEndpoint = config('constants.login_url_endpoint');
+        $userType =  $request->input('type', "");
 
         if(! is_null($request->phone)) {
 
             $mobile_num = removeSpaceFromString($request->phone);
-            $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$mobile_num])->first();
+            $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$mobile_num])->where('type', '!=', '7')->first();
             //$user = User::where('phone','=',$request->phone)->first();
             if($user == null || $user->type != 0) {
                 return $this->sendFailedLoginResponse($request);
@@ -64,7 +66,7 @@ class LoginController extends Controller
             }
         }
         if(! is_null($request->email)) {
-            $user = User::where('email','=',$request->email)->first();
+            $user = User::where('email','=',$request->email)->where('type', '!=', '7')->first();
 
             if($user == null || $user->type != 0) {
                 return $this->sendFailedLoginResponse($request);
@@ -75,6 +77,20 @@ class LoginController extends Controller
                         'email' => ["Your account has been " . $user->status . ". Please contact to admin."],
                     ]);
                 }
+        }
+
+        if ($user->type != $userType) {
+            $userType = (string) $userType;
+            if($user->type == 0) {
+                 throw ValidationException::withMessages([
+                    'email' => isset($wrongConsoleLoginMsg[$userType]) ? $wrongConsoleLoginMsg[$userType] : "You are not authorized to login this console.",
+                ]);
+            } else {
+                 throw ValidationException::withMessages([
+                    'phone' => isset($wrongConsoleLoginMsg[$userType]) ? $wrongConsoleLoginMsg[$userType] : "You are not authorized to login this console.",
+                ]);
+            }
+
         }
 
         if($user->type == 0){
@@ -172,10 +188,10 @@ class LoginController extends Controller
         // echo "viewer";
         // dd($request->all());
         if(! is_null($request->phone)) {
-            $user = User::where('phone','=',$request->phone)->first();
+            $user = User::where('phone','=',$request->phone)->where('type', '!=', '7')->first();
         }
         if(! is_null($request->email)) {
-            $user = User::where('email','=',$request->email)->first();
+            $user = User::where('email','=',$request->email)->where('type', '!=', '7')->first();
         }
         //$user = User::where('phone','=',$request->phone)->first();
         $error = false;
