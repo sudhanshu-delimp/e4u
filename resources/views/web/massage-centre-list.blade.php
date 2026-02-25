@@ -176,7 +176,39 @@ $(document).ready(function () {
 
     let activeView = 'grid';
     $('#view_grid').addClass('view-active');
-    loadData();
+
+
+    async function initPage() {
+    try 
+    {
+        const position = await getCurrentLocation();
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        $("#set_lat").val(latitude);
+        $("#set_lng").val(longitude);
+
+        console.log(longitude, latitude, 'rizk-onload');
+
+        let filter_by_feild = {};
+        let filter_by_location = {
+            locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+            by_name_member: $('#by_name_member').val(),
+            set_lat: $('#set_lat').val(),
+            set_lng: $('#set_lng').val(),
+            per_page: $('#per_page').val()
+        };
+
+        await loadData(1,filter_by_location,filter_by_feild); 
+        } catch (error) {
+        console.error("Location error:", error);
+        await loadData(null, null);
+        }
+    }
+
+    initPage();
+    
+    //loadData();
 
     /* ===============================
        VIEW SWITCH
@@ -228,7 +260,7 @@ $(document).ready(function () {
        AJAX LOAD FUNCTION
     =============================== */
 
-    function loadData(page = 1,filter_by_location = {},filter_by_feild = {}) 
+    async function loadData(page = 1,filter_by_location = {},filter_by_feild = {}) 
     {
 
         $('#page_loader').show();
@@ -342,7 +374,7 @@ $(document).ready(function () {
     /////// Short List ///////////////
 
 
-    $(document).on('click', '.upper_filter', function(e){
+    $(document).on('click', '.upper_filter', async function(e){
         e.preventDefault();
 
         let filter_by_feild = {};
@@ -354,11 +386,11 @@ $(document).ready(function () {
             per_page: $('#per_page').val()
         };
 
-        loadData(1,filter_by_location,filter_by_feild); 
+        await loadData(1,filter_by_location,filter_by_feild); 
     });
 
 
-    $(document).on('click', '.lower_filter', function(e){
+    $(document).on('click', '.lower_filter', async function(e){
         e.preventDefault();
 
         let filter_by_location = {};
@@ -374,12 +406,24 @@ $(document).ready(function () {
             
         };
 
-        loadData(1,filter_by_location,filter_by_feild); 
+        await loadData(1,filter_by_location,filter_by_feild); 
     });
 
+   
+});
 
 
-    function getParameterByName(name, url) {
+
+    function getCurrentLocation() {
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(
+                position => resolve(position),
+                error => reject(error)
+            );
+        });
+    }
+
+     function getParameterByName(name, url) {
         name = name.replace(/[\[\]]/g, '\\$&');
         let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
         let results = regex.exec(url);
@@ -388,41 +432,21 @@ $(document).ready(function () {
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 
-});
-
-
-
 
     // ########## Searching Script Start Here ############## /////////
-    navigator.geolocation.getCurrentPosition(async function(position) 
-    {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-
-        $("#set_lat").val(latitude);
-        $("#set_lng").val(longitude);
-        console.log(longitude, latitude, ' rizk-onload')
-
-    });
-
-
-    $('input[name="locationByRadio"]').on('change', function() 
+    $('input[name="locationByRadio"]').on('change', async function() 
     {
         let selectedLocation = {};
         selectedLocation.location = $(this).attr('id');
         if (selectedLocation.location == 'yourLocation') 
         {
-                navigator.geolocation.getCurrentPosition(async function(position) {
+                const position = await getCurrentLocation();
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
-                selectedLocation.lat = latitude;
-                selectedLocation.lng = longitude;
 
                 $("#set_lat").val(latitude);
                 $("#set_lng").val(longitude);
-                console.log(longitude, latitude, ' rizk')
-            });
-
+                console.log(longitude, latitude, ' rizk==change');
         } 
         else 
         {

@@ -1439,12 +1439,25 @@ if (!function_exists('get_messure_weakly_availibility')) {
 }
 
 
-if (!function_exists('get_massage_home_state')) {
-  function get_massage_home_state($user_id)
+if (!function_exists('get_massage_home_city')) {
+  function get_massage_home_city($user_id)
   {
-        $user = User::select('state_id')->where('id',$user_id)->first();
-        if($user->state_id)
-        return config('escorts.profile.states')[$user->state_id]['stateName'];
+        $user = User::select('state_id','subrub_city')->where('id',$user_id)->first();
+        if($user)
+        {
+            if($user->subrub_city!="")
+            return $user->subrub_city;
+            else
+            {
+                if (isset(config('escorts.profile.states')[$user->state_id]['stateName'])) {
+                    $city = reset(config('escorts.profile.states')[$user->state_id]['cities']);
+                    $cityName = $city['cityName'] ?? null;
+                    return $cityName;
+                }
+                else
+                return '';
+            }
+        }
         else
         return '';
   }

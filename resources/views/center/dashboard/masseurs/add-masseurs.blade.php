@@ -297,6 +297,9 @@
 
                                     </div>
 
+
+                                    
+
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <!-- Commentary -->
@@ -307,6 +310,43 @@
                                             </div>
                                         </div>
                                     </div>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                          
+                                            <div class="form-group">
+                                            <label class="label">Services</label>
+                                            <div class="d-flex justify-content-start gap-10">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="service[]" value="massage"
+                                                        value="1" required data-label="Vaccination">
+                                                    <label class="form-check-label">
+                                                        Massage
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"  name="service[]" value="2_hand"
+                                                        value="2">
+                                                    <label class="form-check-label">
+                                                        +2 Hands
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="service[]"  value="4_hand"
+                                                        value="3">
+                                                    <label class="form-check-label">
+                                                        +4 Hands.
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+
+                                    
+
+
                                     <!-- End About The Masseur -->
 
                                     <!-- Media -->
@@ -777,7 +817,7 @@
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="page_token" id="page_token" value="{{ $page_token }}">
-                            <button type="submit" class="btn-success-modal">Verify Media</button>
+                            <!-- <button type="submit" class="btn-success-modal">Verify Media</button> -->
                             <button type="submit" class="btn-success-modal">Upload</button>
                         </div>
                     </div>
