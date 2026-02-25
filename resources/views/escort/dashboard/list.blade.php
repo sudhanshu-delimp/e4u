@@ -282,9 +282,6 @@
                                     <div class="container p-0">
                                         <div class="form-group row">
                                             <label class="col-sm-3" for=""> Profile:</label>
-                                            <input type="hidden" name="hiddenSuspendPlanId" id="hiddenSuspendPlanId">
-                                            <input type="hidden" id="hiddenSuspendProfileId">
-                                            <input type="hidden" id="hiddenDiffDays" name="diffDays">
                                             <div class="col-sm-8">
                                                 <select
                                                     class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
@@ -292,15 +289,6 @@
                                                     data-parsley-errors-container="#profile-errors" required
                                                     data-parsley-required-message="Select Profile">
                                                     <option value="">Select Profile</option>
-                                                    @foreach ($suspended_escorts as $profile)
-                                                        <option data-membership="{{ $profile['membership'] }}"
-                                                            value="{{ $profile['id'] }}"
-                                                            profile_name="{{ $profile['profile_name'] }}">
-                                                            {{ $profile['id'] }} - {{ $profile['name'] }} @if (isset($profile['state']['name']))
-                                                                - {{ $profile['state']['name'] }}
-                                                            @endif
-                                                        </option>
-                                                    @endforeach
                                                 </select>
                                                 <span id="profile-errors"></span>
                                             </div>
@@ -309,14 +297,10 @@
                                         <div class="form-group row">
                                             <label class="col-sm-3" for=""> Suspension Period:</label>
                                             <div class="col-sm-9 row">
-                                                @php
-                                                    $minDate = \Carbon\Carbon::now()->addDay()->format('Y-m-d');
-                                                @endphp
                                                 <div class="col-sm-5">
-                                                    <input type="date" id="suspendStartDate" required
-                                                        min="{{ $minDate }}"
-                                                        class="form-control form-control-sm removebox_shdow"
-                                                        value="{{ $minDate }}" name="start_date"
+                                                    <input type="text" id="suspendStartDate" required
+                                                        class="form-control form-control-sm removebox_shdow js_datepicker"
+                                                        name="start_date"
                                                         data-parsley-type="" data-parsley-type-message="">
                                                     <span id="brb-time-errors"></span>
                                                 </div>
@@ -324,10 +308,9 @@
                                                     <span>to:</span>
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <input type="date" id="suspendEndDate" required
-                                                        min="{{ $minDate }}" max=""
-                                                        class="form-control form-control-sm removebox_shdow"
-                                                        name="end_date" data-parsley-type="" value="{{ $minDate }}"
+                                                    <input type="text" id="suspendEndDate" required
+                                                        class="form-control form-control-sm removebox_shdow js_datepicker"
+                                                        name="end_date" data-parsley-type=""
                                                         data-parsley-type-message="">
                                                     <span id="brb-time-errors"></span>
                                                 </div>
@@ -455,6 +438,10 @@
                     let records = settings.json;
                     let $select = $('#extendProfileId');
                     $select.empty();
+
+                    let $selectSuspend = $('#suspendProfileId');
+                    $selectSuspend.empty();
+
                     let $selectBumpUp = $('#bumpUpProfileId');
                     $selectBumpUp.empty();
                     let $selectPinUp = $('#pinup_profile_id');
@@ -475,6 +462,19 @@
                                     })
                                 );
                             }
+                        });
+
+                        $selectSuspend.append('<option value="">-- Select Profile --</option>');
+                        $.each(records.data, function (i, item) {
+                            $selectSuspend.append(
+                                $('<option>', {
+                                value: item.id,
+                                text: `${item.id} - ${item.name} - ${item.state.name}`,
+                                'data-start': item.start_date_formatted,
+                                'data-end': item.end_date_formatted,
+                                'data-membership':item.membership_number,
+                                })
+                            );
                         });
 
                         $selectBumpUp.append('<option value="">-- Select Profile --</option>');
@@ -1152,67 +1152,64 @@
         });
 
         $(document).ready(function() {
-            $('#suspendStartDate, #suspendEndDate').on('change', function() {
-                let startDate = $('#suspendStartDate').val();
-                let endDate = $('#suspendEndDate').val();
+            /* start handle suspend modal start and end date calendars */
+            let suspendProfileObject = $('#suspendProfileId');
+            let suspendStartDateObject = $('#suspendStartDate');
+            let suspendEndDateObject   = $('#suspendEndDate');
 
-                calculateCredit(startDate, endDate);
+            suspendStartDateObject.datepicker('setDate', +1);
+            suspendStartDateObject.datepicker('option', 'minDate', +1);
+            suspendEndDateObject.datepicker('setDate', +1);
+            suspendEndDateObject.datepicker('option', 'minDate', +1);
+
+            suspendStartDateObject.datepicker('option', 'onSelect', function () {
+                suspendEndDateObject.datepicker('option', 'minDate', $(this).val());
+                suspendEndDateObject.datepicker('option', 'setDate', $(this).val());
+                calculateCredit();
             });
 
-            function calculateCredit(startDate, endDate) {
-                if (startDate && endDate) {
-                    let start = new Date(startDate);
-                    let end = new Date(endDate);
+            suspendEndDateObject.datepicker('option', 'onSelect', function () {
+                suspendStartDateObject.datepicker('option', 'maxDate', $(this).val());
+                calculateCredit();
+            });
 
-                    // Set time to start of day for both
-                    start.setHours(0, 0, 0, 0);
-                    end.setHours(0, 0, 0, 0);
+            suspendProfileObject.on('change', function() {
+                let selectedOption = $(this).find(':selected');
+                let listingMembership = selectedOption.data('membership');
+                let listingStartDate = selectedOption.data('start');
+                let listingEndDate = selectedOption.data('end');
+                let profileId = selectedOption.val();
 
-                    // Calculate the difference in days (inclusive)
-                    let diffTime = end - start;
-                    let diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
-                    let planId = $('#hiddenSuspendPlanId').val();
-                    var profileId = $('#hiddenSuspendProfileId').val();
-                    $('#hiddenDiffDays').val(diffDays);
+                console.log(`${listingMembership} ${listingStartDate} ${listingEndDate} ${profileId}`);
+                suspendStartDateObject.datepicker('option', 'maxDate', listingEndDate);
+                suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
 
+                // calculateCredit(startDate, endDate);
+            });
+
+            function calculateCredit() {
+                let selectedOption = suspendProfileObject.find(':selected');
+                let planId = selectedOption.data('membership')
+                if (planId) {
                     $.ajax({
-                        url: '{{ route('suspend.calculate.credit.live') }}',
+                        url: "{{ route('suspend.calculate.credit.live') }}",
                         method: 'POST',
                         data: {
                             plan_id: planId,
-                            days: diffDays,
-                            profile_id: profileId,
+                            start_date: suspendStartDateObject.val(),
+                            end_date: suspendEndDateObject.val(),
+                            profile_id: selectedOption.val(),
                             _token: '{{ csrf_token() }}'
                         },
                         success: function(response) {
-                            console.log('response')
                             console.log(response)
                             $('#creditCalculationLive').text(response.total_rate);
-                            $('#suspendEndDate').attr('max', response.end_date);
-                            $('#suspendStartDate').attr('max', response.start_date);
-
-                            console.log($('#suspendEndDate').attr('max'), $('#suspendStartDate').attr(
-                                'max'), ' jite');
                         }
                     });
                 }
             }
 
-            $('#suspendProfileId').on('change', function() {
-                // var selectedPlanId = $(this).data('membership'); // Get selected profile ID
-                var selectedPlanId = $(this).find(':selected').data('membership');
-                var profileId = $(this).val();
-
-                console.log("plan range " + selectedPlanId, profileId);
-
-                $('#hiddenSuspendProfileId').val(profileId); // Set to hidden input
-                $('#hiddenSuspendPlanId').val(selectedPlanId); // Set to hidden input
-
-                let startDate = $('#suspendStartDate').val();
-                let endDate = $('#suspendEndDate').val();
-
-                calculateCredit(startDate, endDate);
-            });
+             /* end handle suspend modal start and end date calendars */
         });
 
         $("#suspend_form").on('submit', function(e) {

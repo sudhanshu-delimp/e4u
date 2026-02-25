@@ -8,23 +8,19 @@ return new class extends Migration {
 
     public function up(): void
     {
-        Schema::table('credit_transactions', function (Blueprint $table) {
+        Schema::dropIfExists('credit_transactions');
 
-            // 1. Fix amount precision
-            $table->decimal('amount', 15, 2)->change();
-
-            // 2. Remove old columns
-            if (Schema::hasColumn('credit_transactions', 'module')) {
-                $table->dropColumn('module');
-            }
-
-            if (Schema::hasColumn('credit_transactions', 'reference_id')) {
-                $table->dropColumn('reference_id');
-            }
-
+        Schema::create('credit_transactions', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('wallet_id');
+            $table->enum('type', ['credit', 'debit']);
+            $table->decimal('amount', 15, 2);
+            $table->json('meta')->nullable();
+            $table->index(['wallet_id', 'module']);
             // 3. Polymorphic relation (manual to avoid long index name)
             $table->string('transactionable_type')->nullable();
             $table->unsignedBigInteger('transactionable_id')->nullable();
+            $table->timestamps();
 
             $table->index(
                 ['transactionable_type', 'transactionable_id'],

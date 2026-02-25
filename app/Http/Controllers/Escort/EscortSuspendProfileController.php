@@ -15,16 +15,13 @@ class EscortSuspendProfileController extends Controller
     public function suspendProfileCredit(Request $request)
     {
         // Get the inputs from the request
-        $planId = $request->input('plan_id');
-        $diffDays = $request->input('days');
-
-        // Validate input (optional but recommended)
-        if (!$planId || !$diffDays) {
-            return response()->json(['error' => 'Select profile first.'], 400);
-        }
+        $profileId = $request->profile_id;
+        $planId = $request->plan_id;
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
 
         // Call your function to calculate the fee
-        [$total_dis, $total_rate] = calculateFee($planId, $diffDays);
+       // [$total_dis, $total_rate] = calculateTotalFee($planId, $diffDays);
 
         // Return the result
         return response()->json([
