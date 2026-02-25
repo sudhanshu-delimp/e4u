@@ -35,6 +35,7 @@
                 <button type="button" class="btn-success-modal">Print</button>
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal" >Close</button>
                 <button type="button" class="btn-success-modal">Approve</button>
+                <button type="button" class="btn-success-modal" data-dismiss="modal">Reject</button>
             </div>
 
         </div>

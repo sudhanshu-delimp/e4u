@@ -13,10 +13,7 @@
             </div>
             <div class="modal-body">
                 <div class="view_img_gallery">
-                    <div class="thumbnail">
-                        <span class="banner-sub-heading mt-2">Thumbnail</span>
-                        <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}" alt="view image gallery">
-                    </div>
+                    
                     <div class="other_wrapper">
                         <span class="banner-sub-heading mt-2">Gallery Images</span>
                          <div class="other_images">
@@ -26,6 +23,17 @@
                             <img src="{{ asset('assets/dashboard/img/view_img/b5.jpg') }}" alt="view image gallery">
                             <img src="{{ asset('assets/dashboard/img/view_img/b6.jpg') }}" alt="view image gallery">
                             <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}" alt="view image gallery">
+                            <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" alt="view image gallery">
+                            <img src="{{ asset('assets/dashboard/img/view_img/b3.jpg') }}" alt="view image gallery">
+                            <img src="{{ asset('assets/dashboard/img/view_img/b4.jpg') }}" alt="view image gallery">
+                            <img src="{{ asset('assets/dashboard/img/view_img/b5.jpg') }}" alt="view image gallery">
+                            <img src="{{ asset('assets/dashboard/img/view_img/b6.jpg') }}" alt="view image gallery">
+                            <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}" alt="view image gallery">
+                            <img src="{{ asset('assets/dashboard/img/view_img/b6.jpg') }}" alt="view image gallery">
+                            <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}" alt="view image gallery">
+                            <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" alt="view image gallery">
+                            <img src="{{ asset('assets/dashboard/img/view_img/b3.jpg') }}" alt="view image gallery">
+                            <img src="{{ asset('assets/dashboard/img/view_img/b4.jpg') }}" alt="view image gallery">
                          </div>
                     </div>
                     <div class="verification">
