@@ -69,5 +69,10 @@ class TourLocation extends Model
         return $query->where('start_date', '<=', $formatted_end)
                      ->where('end_date', '>=', $formatted_start);
     }
+
+    public function transactions()
+    {
+        return $this->morphMany(CreditTransaction::class, 'transactionable');
+    }
 }
 
