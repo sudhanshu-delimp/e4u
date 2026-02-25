@@ -200,7 +200,6 @@
 
             $(".showDateLabel").hide();
             // Reusable click event
-            // $('.create-tour-sec').on('click', function(e) {
             $(document).on('click', '.create-tour-sec-dropdown, .create-tour-sec', function(e) {
                 e.preventDefault();
                 $(".showDateLabel").hide();
@@ -208,10 +207,6 @@
                 let buttonId = $(this).attr('id');
                 let taskId = $(this).data('id');
                 let taskName = $(this).text();
-
-                console.log('hell', buttonId);
-                console.log('taskId ', taskId);
-
 
                 if (buttonId == 'new_task') {
                     $(".task_title_img").attr('src',"{{ asset('assets/dashboard/img/add-task.png') }}");
@@ -249,8 +244,6 @@
                 let formData = $('#task_form').serialize(); // serialize form data
                 let actionUrl = $('#task_form').attr('action');  
 
-                console.log(formData, actionUrl, ' jitemn');
-
                 callAjax(formData, actionUrl);
                 
             });
@@ -261,16 +254,14 @@
             $(this).next('.task-form-body').slideToggle();
             $(this).toggleClass('open');
 
-            console.log('Toggle clicked');
-
             if ($(this).hasClass('open')) {
                 $(this).find('i').removeClass('top-icon-bg fas fa-chevron-down fa-fw');
                 $(this).find('i').addClass('top-icon-bg fas fa-chevron-up fa-fw');
-                console.log('Toggle open');
+
             } else {
                 $(this).find('i').removeClass('top-icon-bg fas fa-chevron-up fa-fw');
                 $(this).find('i').addClass('top-icon-bg fas fa-chevron-down fa-fw');
-                console.log('Toggle close');
+
             }
         });
 
@@ -320,13 +311,10 @@
             $("#cancel_button").text('Cancel');
             $(".showDateLabel").show();
            
-            console.log('hey new task');
         }
 
         function editTask(taskId) 
         {
-            console.log('checkboxInputs');
-
             let selectedTask = 1;
             let editNewTaskHtml = ``;
                 editNewTaskHtml += `
@@ -431,8 +419,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
                 },
                 success: function(response) {
-                    console.log(response)
-                    console.log(response.task)
                     if(response.task){
                         $("#edit_title").val(response.task.title);
                         $('input[name="task_priority"][value="' + response.task.priority + '"]').prop('checked', true);
@@ -470,8 +456,6 @@
             $("#cancel_button").text('Cancel');
             let actionStatusUrl = "{{route('agent.dashboard.ajax-change-status')}}";
 
-            console.log('actionStatusUrl');
-            console.log(actionStatusUrl);
             $('#task_form').attr('action', actionStatusUrl)
             $("#change_task_id").val(taskId);
         }
@@ -579,9 +563,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
                 },
                 success: function(response) {
-                    console.log(response);
-                    // console.log('response');
-
                     if(response.task_name == 'open'){
                         $('.totalOpenTask').text(response.data.open);
                         $('.totalInprogressTask').text(response.data.inprogress);
@@ -650,9 +631,6 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
                     },
                     success: function(response) {
-                        console.log(response, response.data)
-                        console.log('response, response.data.data')
-                        
                         renderTasks(response.data.data); 
                         renderPagination(response.data);  
                     },
@@ -664,20 +642,29 @@
             }
 
             function renderTasks(tasks) {
+                console.log(tasks, 'tasks');
                
                 let html = '';
                 var taskBadgeColor = '#9d1d08 ';
                 var priorityColor = 'text-high';
 
                 $.each(tasks, function (index, task) {
-
-                    if(task.status == 'inprogress'){
-                        taskBadgeColor = '#4e73df ';
+                    let statusLabel = task.status;
+                    if (task.status === 'inprogress') {
+                        statusLabel = 'In Progress';
+                    } else if (task.status === 'open') {
+                        statusLabel = 'Open';
+                    } else if (task.status === 'completed') {
+                        statusLabel = 'Completed';
                     }
 
-                    if(task.status == 'completed'){
-                        taskBadgeColor = '#1cc88a';
-                    }
+                    // if(task.status == 'inprogress'){
+                    //     taskBadgeColor = '#4e73df ';
+                    // }
+
+                    // if(task.status == 'completed'){
+                    //     taskBadgeColor = '#1cc88a';
+                    // }
 
                     
                     if(task.priority == 'medium'){
@@ -705,7 +692,7 @@
                                 class="fas fa-circle `+priorityColor+` taski mr-2"></i>`+task.title+`
                             </label></td>
                         <td class="td-actions text-center ">
-                            <span class="badge badge-danger-lighten task-1" style="background: `+taskBadgeColor+`; padding:5px 10px; max-width:120px; width:100%;">`+task.status+`</span>
+                            <span class="custom_badge `+task.status_color_class+`">`+statusLabel+`</span>
                         </td>
                         <td class="theme-color text-center bg-white ">
                             <div class="dropdown no-arrow">

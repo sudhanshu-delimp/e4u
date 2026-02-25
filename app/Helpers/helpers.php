@@ -1229,6 +1229,8 @@ if (!function_exists('getStatusBadgeClass')) {
             'Available' => 'badge_available',
             'Withdrow' => 'badge_withdraw',
             'Resolved' => 'badge_resolved',
+            'In Progress' => 'badge_inProgress',
+            'Open' => 'badge_open',
         ];
 
         $status = trim(ucfirst(strtolower($status)));
