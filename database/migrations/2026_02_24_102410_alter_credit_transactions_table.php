@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->enum('type', ['credit', 'debit']);
             $table->decimal('amount', 15, 2);
             $table->json('meta')->nullable();
-            $table->index(['wallet_id', 'module']);
             // 3. Polymorphic relation (manual to avoid long index name)
             $table->string('transactionable_type')->nullable();
             $table->unsignedBigInteger('transactionable_id')->nullable();
