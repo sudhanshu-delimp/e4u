@@ -15,19 +15,17 @@ return new class extends Migration {
             $table->unsignedBigInteger('wallet_id');
             $table->enum('type', ['credit', 'debit']);
             $table->decimal('amount', 15, 2);
-            $table->json('meta')->nullable();
             // 3. Polymorphic relation (manual to avoid long index name)
             $table->string('transactionable_type')->nullable();
             $table->unsignedBigInteger('transactionable_id')->nullable();
+            $table->string('description')->nullable();
+            $table->json('meta')->nullable();
             $table->timestamps();
 
             $table->index(
                 ['transactionable_type', 'transactionable_id'],
                 'ct_transactionable_idx'
             );
-
-            // 4. Description
-            $table->string('description')->nullable();
 
             // 5. Wallet FK (safe)
             $table->foreign('wallet_id')
