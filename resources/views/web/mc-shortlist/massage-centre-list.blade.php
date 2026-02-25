@@ -1,0 +1,535 @@
+@extends('layouts.web')
+@section('style')
+<style>
+    
+    #view_list svg path,
+    #view_grid svg path {
+        stroke: #000;
+        transition: stroke 0.3s;
+    }
+
+
+    #view_list:hover svg path,
+    #view_grid:hover svg path {
+        stroke: #fff;
+    }
+
+
+    .view-active svg path {
+        stroke: #ff3c5f !important;
+    }
+
+    #page_loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(12, 34, 61, 0.7);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .loader {
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #ff3c5f;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 0.8s linear infinite;
+    }
+    
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .page-link-custom {
+        background: #0C223d;
+        color: #fff;
+        padding: 6px 12px;
+        display: inline-block;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+
+    .page-link-custom.active-page {
+        background: #F2F2F2;
+        color: #ff3c5f;
+        font-weight: bold;
+    }
+
+    .filter-contain .my-shortlist ul {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        margin-left: 40px;
+    }
+
+    .filter-contain .my-shortlist ul li h3 {
+        font-family: Poppins;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 32px;
+        letter-spacing: 0em;
+        text-align: left;
+        text-transform: uppercase;
+        margin-bottom: 0;
+        margin-right: 30px;
+    }
+
+    .filter-contain .my-shortlist ul li {
+        font-family: Montserrat;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: -0.015em;
+        text-align: end;
+        color: #0C223D;
+    }
+
+    .filter-contain .my-shortlist ul li a {
+        font-family: Montserrat;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: -0.015em;
+        text-align: center;
+        color: #0C223D;
+        text-decoration: none;
+    }
+
+    .filter-contain .my-shortlist ul li i.fa {
+        color: #FF3C5F;
+        margin-left: 12px;
+    }
+
+</style>
+@endsection
+
+@section('content')
+<section class="">
+   
+    @include('web.mc-shortlist.mc-filter')
+
+    <div class="container my-5">
+
+
+            <div class="row grid_list_part grid_wishlist_part mb-0 filter-contain" id="v_li_wishlist" style="display: block;">
+                
+                <div class="col-12 align-items-left">
+                    <div class="my-shortlist">
+                        <ul class="mb-4 mt-1 pt-1 ml-0">
+                            <li>
+                                <h3>My Shortlist</h3>
+                            </li>
+                            
+                            
+                             <li class="fiter_btns slect__btn_tab">
+                                <div class="display_inline_block mb-1 mr-2 ">
+                                    <a type="submit" href="https://e4udev2.perth-cake1.powerwebhosting.com.au/all-escorts-list?gender=6%3Flat&amp;view=list" class="btn reset_filter p-1" data-toggle="tooltip">
+                                        
+                                        <i class="fa fa-arrow-left ml-0" aria-hidden="true" style="padding: 5px;font-size: 16px;"></i>
+                                       <span class="hide-on-sm" style="margin-right: 10px;"> Back To Listings</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- ////// Grid View ///////////////// -->
+                <div class="col-sm-12" id="grid_view">
+                    <h2 class="mc_view_title">Grid View</h2>
+                    <div class="mc_card_container"></div>
+                </div>
+
+                <!-- ////// List View ///////////////// -->
+                <div class="col-sm-12" id="list_view">
+                    <h2 class="mc_view_title">List View</h2>
+                    <div class="mc_list_container"></div>
+                </div>
+
+
+                <div id="page_loader">
+                    <div class="loader"></div>
+                </div>
+
+            </div>
+
+            <!-- ////// Pagination ///////////////// -->
+             <div id="common_pagination"></div>
+             <!-- ////// End Pagination ///////////////// -->
+
+  </div>
+
+
+
+    <div class="modal fade hh" id="add_wishlist" style="display: none">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custome_modal_max_width">
+                <div class="modal-header main_bg_color border-0">
+                    <h5 class="modal-title" id="exampleModalLabel"><img
+                            src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
+                            class="popup_modal_title_new">Add To Shortlist</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0" style="padding: 15px 0px;">
+                    <h1 class="popu_heading_style mb-4 mt-4 user_short_list" style="text-align: center;">
+                        <span id="Lname">[MC Name]</span>
+                        has been added to your Shortlist.
+                    </h1>
+                </div>
+                <div class="modal-footer pt-0" style="justify-content: center;">
+                    <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                        id="close">Ok</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade hh" id="my_legbox" style="display: none">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custome_modal_max_width">
+                <div class="modal-header main_bg_color border-0">
+                    <h5 class="modal-title" id="exampleModalLabel"> <img
+                            src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
+                            class=" popup_modal_title_new">My Legbox</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                        <span id="Lname " class="my_legbox_title">My Legbox is only available to Viewers. Please
+                            log in
+                            or Register to access your Legbox.</span>
+                    </h1>
+                </div>
+                <div class="modal-footer my_legbox_footer" style="justify-content: center;">
+                    <a href="{{ route('viewer.login') }}" type="button"
+                        class="btn-cancel-modal text-decoration-none text-white" id="loginUrl">Login</a>
+                    <a href="{{ route('register') }}" type="button"
+                        class="btn-success-modal text-decoration-none text-white" id="regUrl">Register</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="activeView" value="grid">
+</section>
+@endsection
+
+
+@push('scripts')
+<script>
+$(document).ready(function () {
+
+    let activeView = 'grid';
+    $('#view_grid').addClass('view-active');
+
+
+    async function initPage() {
+    try 
+    {
+        const position = await getCurrentLocation();
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        $("#set_lat").val(latitude);
+        $("#set_lng").val(longitude);
+
+        console.log(longitude, latitude, 'rizk-onload');
+
+        let filter_by_feild = {};
+        let filter_by_location = {
+            locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+            by_name_member: $('#by_name_member').val(),
+            set_lat: $('#set_lat').val(),
+            set_lng: $('#set_lng').val(),
+            per_page: $('#per_page').val()
+        };
+
+        await loadData(1,filter_by_location,filter_by_feild); 
+        } catch (error) {
+        console.error("Location error:", error);
+        await loadData(null, null);
+        }
+    }
+
+
+    /* ===============================
+       VIEW SWITCH
+    =============================== */
+
+    $('#view_grid').on('click', function () {
+        activeView = 'grid';
+        $('#activeView').val('grid');
+
+        $('#list_view').hide();
+        $('#grid_view').show();
+
+        $('.view-active').removeClass('view-active');
+        $(this).addClass('view-active active');
+    });
+
+    $('#view_list').on('click', function () {
+        activeView = 'list';
+        $('#activeView').val('list');
+
+        $('#grid_view').hide();
+        $('#list_view').show();
+
+        $('.view-active').removeClass('view-active active');
+        $(this).addClass('view-active active');
+    });
+
+
+
+    /* ===============================
+       PAGINATION 
+    =============================== */
+
+    $(document).on('click', '.custom-pagination a', function (e) {
+        e.preventDefault();
+
+        let url = $(this).attr('href');
+        if (!url || url === '#') return;
+
+        let page = getParameterByName('page', url);
+        if (!page) page = 1;
+
+        loadData(page);
+    });
+
+
+
+    /* ===============================
+       AJAX LOAD FUNCTION
+    =============================== */
+
+    async function loadData(page = 1,filter_by_location = {},filter_by_feild = {}) 
+    {
+
+        $('#page_loader').show();
+
+        $.ajax({
+            url: "{{ route('shortlist-mc-ajax-list') }}",
+            data: { 
+                page: page,
+                 filter_by_location,
+                 filter_by_feild
+            },
+            success: function (res) {
+
+               
+                $('.mc_card_container').html(res.grid);
+                $('.mc_list_container').html(res.list);
+                $('.total_count').html(res.total_count);
+                
+
+                
+                $('#common_pagination').html(res.pagination);
+
+                if ($('#activeView').val() === 'grid') {
+                    $('#list_view').hide();
+                    $('#grid_view').show();
+                } else {
+                    $('#grid_view').hide();
+                    $('#list_view').show();
+                }
+            },
+            complete: function () {
+                $('#page_loader').hide();
+            }
+        });
+    }
+
+
+
+    ///////  Short List /////////////
+
+    $(document).on('click', '.m_wishlist', function () {
+        $('#page_loader').show();
+        var wishlist_id = $(this).data('id');
+        var wishlist_footer_id = 'wishlist_footer_id'+wishlist_id;
+        var list_button_wrap_id ='list_button_wrap_id'+wishlist_id;
+
+       var listbuton =  `<button type="button" class="m_removelist btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887" data-id="${wishlist_id}">
+        <img class="listiconprofilelistview" src="../assets/app/img/filter_view.png"> Remove from Shortlist
+        </button>`;
+
+        $.ajax({
+            url: "{{ route('web.store-short-list') }}",
+            type: 'POST',
+            data: {
+                wishlist_id: wishlist_id,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                  $('#page_loader').hide();
+                   let response  = res;  
+                   if(response.status)
+                   {
+                        $('#session_count').html(response.session_count);
+                        $('#'+list_button_wrap_id).html(listbuton);
+                        $('#'+wishlist_footer_id).html('<a href="javascript:void(0)" data-id="'+wishlist_id+'" class="m_removelist"  >Remove to Shortlist</a>');
+                        $('.user_short_list').html( `<span id="Lname">${response.data.profile_name}</span> has been added to your Shortlist.`);
+                        $('#add_wishlist').modal('show');
+
+                   }
+            }
+        });
+
+    });
+
+    $(document).on('click', '.m_removelist', function () {
+        $('#page_loader').show();
+        var wishlist_id = $(this).data('id');
+
+        var wishlist_footer_id = 'wishlist_footer_id'+wishlist_id;
+        var list_button_wrap_id ='list_button_wrap_id'+wishlist_id;
+
+         var listbuton =  `<button type="button" class="m_wishlist btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887" data-id="${wishlist_id}">
+        <img class="listiconprofilelistview" src="../assets/app/img/filter_view.png"> Add to Shortlist
+        </button>`;
+        
+        $.ajax({
+            url: "{{ route('web.remove-short-list') }}",
+            type: 'POST',
+            data: {
+                wishlist_id: wishlist_id,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                  $('#page_loader').hide();
+                   let response  = res;  
+                   if(response.status)
+                   {    $('#session_count').html(response.session_count);
+                        $('#'+wishlist_footer_id).html('<a href="javascript:void(0)" data-id="'+wishlist_id+'" class="m_wishlist">Add to Shortlist</a>');
+                        $('#'+list_button_wrap_id).html(listbuton);
+                        $('.user_short_list').html( `<span id="Lname">${response.data.profile_name}</span> has been remove from your Shortlist.`);
+                        $('#add_wishlist').modal('show');
+
+                   }
+            }
+        });
+
+    });
+
+    
+
+    /////// Short List ///////////////
+
+    $(document).on('click', '.upper_filter', async function(e){
+        e.preventDefault();
+
+        let filter_by_feild = {};
+        let filter_by_location = {
+            locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+            by_name_member: $('#by_name_member').val(),
+            set_lat: $('#set_lat').val(),
+            set_lng: $('#set_lng').val(),
+            per_page: $('#per_page').val()
+        };
+
+        await loadData(1,filter_by_location,filter_by_feild); 
+    });
+
+
+    $(document).on('click', '.lower_filter', async function(e){
+        e.preventDefault();
+
+        let filter_by_location = {};
+        let filter_by_feild = {
+            profile_state: $('#profile_state').val(),
+            profile_city: $('#profile_city').val(),
+            masseur_types: $('#masseur_types').val(),
+            profile_age: $('#profile_age').val(),
+            profile_price: $('#profile_price').val(),
+            massage_services: $('#massage_services').val(),
+            other_services: $('#other_services').val(),
+            verification: $('#verification').val(),
+            
+        };
+
+        await loadData(1,filter_by_location,filter_by_feild); 
+    });
+
+    initPage();
+    setInterval(function() {
+    location.reload();
+    }, 1800000); 
+
+
+});
+
+
+
+    function getCurrentLocation() {
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(
+                position => resolve(position),
+                error => reject(error)
+            );
+        });
+    }
+
+     function getParameterByName(name, url) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+        let results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+
+    // ########## Searching Script Start Here ############## /////////
+    $('input[name="locationByRadio"]').on('change', async function() 
+    {
+        let selectedLocation = {};
+        selectedLocation.location = $(this).attr('id');
+        if (selectedLocation.location == 'yourLocation') 
+        {
+                const position = await getCurrentLocation();
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                $("#set_lat").val(latitude);
+                $("#set_lng").val(longitude);
+                console.log(longitude, latitude, ' rizk==change');
+        } 
+        else 
+        {
+            $("#set_lat").val('');
+            $("#set_lng").val('');
+        }
+
+    });
+</script>
+
+@endpush

@@ -23,7 +23,7 @@
              
         }
          @endphp   
-        <div class="mc_card">
+        <div class="mc_card" id="grid_view_{{$listing->id}}">
 
             <div class="mc_card_header">
                 <span class="verify_icon">

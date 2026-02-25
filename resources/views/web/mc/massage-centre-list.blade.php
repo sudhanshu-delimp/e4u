@@ -1,6 +1,7 @@
 @extends('layouts.web')
 @section('style')
 <style>
+    
     #view_list svg path,
     #view_grid svg path {
         stroke: #000;
@@ -66,9 +67,9 @@
         font-weight: bold;
     }
 
-
 </style>
 @endsection
+
 @section('content')
 <section class="">
    
@@ -165,7 +166,7 @@
             </div>
         </div>
     </div>
-<input type="hidden" id="activeView" value="grid">
+    <input type="hidden" id="activeView" value="grid">
 </section>
 @endsection
 
@@ -206,9 +207,6 @@ $(document).ready(function () {
         }
     }
 
-    initPage();
-    
-    //loadData();
 
     /* ===============================
        VIEW SWITCH
@@ -373,7 +371,6 @@ $(document).ready(function () {
 
     /////// Short List ///////////////
 
-
     $(document).on('click', '.upper_filter', async function(e){
         e.preventDefault();
 
@@ -409,7 +406,12 @@ $(document).ready(function () {
         await loadData(1,filter_by_location,filter_by_feild); 
     });
 
-   
+    initPage();
+    setInterval(function() {
+    location.reload();
+    }, 1800000); 
+
+
 });
 
 
@@ -455,7 +457,6 @@ $(document).ready(function () {
         }
 
     });
-
 </script>
 
 @endpush
