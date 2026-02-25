@@ -175,6 +175,7 @@
 <script>
 $(document).ready(function () {
 
+    let default_lsiting = 'australia';
     let activeView = 'grid';
     $('#view_grid').addClass('view-active');
 
@@ -182,12 +183,18 @@ $(document).ready(function () {
     async function initPage() {
     try 
     {
-        const position = await getCurrentLocation();
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-
-        $("#set_lat").val(latitude);
-        $("#set_lng").val(longitude);
+        if(default_lsiting == 'australia' )
+        {
+            $('#australia').prop('checked', true);
+        }
+        else
+        {
+            const position = await getCurrentLocation();
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+             $("#set_lat").val(latitude);
+             $("#set_lng").val(longitude);
+        }
 
         console.log(longitude, latitude, 'rizk-onload');
 
