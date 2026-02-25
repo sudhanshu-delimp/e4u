@@ -174,8 +174,7 @@
 @push('scripts')
 <script>
 $(document).ready(function () {
-
-    let default_lsiting = 'australia';
+    
     let activeView = 'grid';
     $('#view_grid').addClass('view-active');
 
@@ -183,21 +182,17 @@ $(document).ready(function () {
     async function initPage() {
     try 
     {
-        if(default_lsiting == 'australia' )
-        {
-            $('#australia').prop('checked', true);
-        }
-        else
+        if ($('input[name="locationByRadio"]:checked').val() !== 'australia') 
         {
             const position = await getCurrentLocation();
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-             $("#set_lat").val(latitude);
-             $("#set_lng").val(longitude);
+            $("#set_lat").val(latitude);
+            $("#set_lng").val(longitude);
+            console.log(longitude, latitude, 'rizk-onload');
         }
-
-        console.log(longitude, latitude, 'rizk-onload');
-
+       
+       
         let filter_by_feild = {};
         let filter_by_location = {
             locationByRadio: $('input[name="locationByRadio"]:checked').val(),
