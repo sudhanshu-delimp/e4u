@@ -21,13 +21,13 @@
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <!--middle content-->
-        <div class="row mt-5">
+        <div class="row">
             <div class="custom-heading-wrapper col-md-12">
                 <h1 class="h1">Media Verification</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
-            <div class="col-md-12 ">
-                <div class="card collapse mb-4" id="notes">
+            <div class="col-md-12 mb-4">
+                <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12 mb-2">
+            <div class="col-lg-12 my-3">
                <div class="d-flex justify-content-end ">
                  <div class="total_listing">
                     <div><span>Pending Verifications: : </span></div>

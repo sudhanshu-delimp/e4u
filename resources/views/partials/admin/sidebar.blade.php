@@ -618,7 +618,11 @@
                             class="collapse @if (in_array(request()->segment(3), ['agent', 'agents-monthly-report'])) show @endif" data-parent="#Management">
 
                             
-
+                             <a class="collapse-item" href="javascript:void(0)">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == '' ? 'color: #FF3C5F;' : '' }}">Data List (Centres)</span>
+                            </a>
                             <a class="collapse-item" href="{{ route('admin.agents-monthly-report') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                                 <span

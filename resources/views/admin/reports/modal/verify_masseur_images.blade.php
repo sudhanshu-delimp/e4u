@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header main_bg_color border-0">
                 <h5 class="modal-title" style="color: white;"><img src="{{ asset('assets/dashboard/img/verify-image.png') }}"
-                        class="custompopicon"> Verification Image - Masseur
+                        class="custompopicon"> Verification Image - [Member ID]
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
@@ -34,7 +34,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn-success-modal">Print</button>
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal" >Close</button>
-                <button type="button" class="btn-success-modal">Approved</button>
+                <button type="button" class="btn-success-modal">Approve</button>
             </div>
 
         </div>
