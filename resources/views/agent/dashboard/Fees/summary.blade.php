@@ -25,6 +25,19 @@
         .table-bordered{
          border-color: #022c3d !important; 
         }
+          .custom_fees_tab li a{
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            padding: 10px;
+            background: #022c3d;
+            border-radius: 3px;
+            color: #fff;
+          }
+        .custom_fees_tab li a.active{
+            background-color: #ff3c5f !important;
+            color: #fff !important;
+        }
     </style>
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <!--middle content end here-->
@@ -48,9 +61,9 @@
                 </div>
             </div>
             <div class="col-md-12 mt-4">
-                <ul class="nav nav-tabs tab-sec">
-                    <li class="active"><a href="#one" data-toggle="tab" class="active">Fees Summary (YoY)</a></li>
-                    <li><a href="#two" data-toggle="tab" class="">Fees Summary (Advertiser)</a></li>
+                <ul class="nav nav-tabs tab-sec custom_fees_tab">
+                    <li class="active"><a href="#one" data-toggle="tab" class="active">Fees Summary (Advertiser)</a></li>
+                    <li><a href="#two" data-toggle="tab">Fees Summary (YoY)</a></li>
                 </ul>
             </div>
             <div class="col-md-12 mt-4">
@@ -59,10 +72,288 @@
                         <div class="col-sm-12">
                             <div class="card mb-4 border-0">
                                 <div class="tab-content" id="myTabContent">
+                                    
 
                                     {{-- 1 --}}
-                                    <div class="tab-pane fade active show" id="one" role="tabpanel"
-                                        aria-labelledby="one-tab">
+                                    <div class="tab-pane fade  active show" id="one" role="tabpanel" aria-labelledby="one-tab">
+                                        <div class="row my-3">
+                                            <div class="col-lg-3">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <table class="table table-bordered summery-border">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td
+                                                                        class="border-left-0 border-bottom-0 border-top-0 text-right">
+                                                                        <b>Advertisers</b>
+                                                                    </td>
+                                                                    <td class="border-0 bg-white text-left">All Advertisers
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        class="border-left-0 border-bottom-0 border-top-0 text-right">
+                                                                        <b>Report Generated</b>
+                                                                    </td>
+                                                                    <td class="border-0 bg-white text-left">12-12-2019</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        class="border-left-0 border-bottom-0 border-top-0 text-right">
+                                                                        <b>Produced For</b>
+                                                                    </td>
+                                                                    <td class="border-0 bg-white text-left">Well Done
+                                                                        Accounts</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <table class="table table-bordered">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="bg-first text-right"><b>Current FY</b></td>
+                                                                    <td class="text-center" id="current-fy" style="width:27%;">2025 / 2026</td>
+                                                                    <td class="bg-first text-right"><b>Total Earnings</b>
+                                                                    </td>
+                                                                    <td class="text-right" style="width:20%;">$ 486.60</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="bg-first text-right"><b>Select FY</b></td>
+                                                                    <td style="width:27%;">
+                                                                        <select class="rounded-0 w-100" id="select-fy" name="select-fy">
+
+                                                                            <option class="text-secondary" value="2025-2026">2025 / 2026</option>
+                                                                            <option class="text-secondary" value="2026-2027">2026 / 2027</option>
+                                                                            <option class="text-secondary" value="2027-2028">2027 / 2028</option>
+                                                                            <option class="text-secondary" value="2028-2029">2028 / 2029</option>
+                                                                            <option class="text-secondary" value="2029-2030">2029 / 2030</option>
+                                                                            <option class="text-secondary" value="2030-2031">2030 / 2031</option>
+                                                                            <option class="text-secondary" value="2031-2032">2031 / 2032</option>
+                                                                            <option class="text-secondary" value="2032-2033">2032 / 2033</option>
+                                                                            <option class="text-secondary" value="2033-2034">2033 / 2034</option>
+                                                                            <option class="text-secondary" value="2034-2035">2034 / 2035</option>
+                                                                            <option class="text-secondary" value="2035-2036">2035 / 2036</option>
+                                                                        </select>    
+                                                                    </td>
+                                                                    <td class="bg-first text-right"><b>Average (P / Advertiser)</b>
+                                                                    </td>
+                                                                    <td class="text-right" style="width:20%;">$ 121.65</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="bg-first text-right"><b>Display Type</b>
+                                                                    </td>
+                                                                    <td style="width:27%;">
+                                                                        <select class="rounded-0 w-100">
+                                                                            <option class="text-secondary">Member ID
+                                                                            </option>
+                                                                            <option class="text-secondary">Membership Type
+                                                                            </option>
+                                                                            <option class="text-secondary">Highest Spend
+                                                                            </option>
+                                                                            <option class="text-secondary">Lowest Spend
+                                                                            </option>
+                                                                            <option class="text-secondary">Highest
+                                                                                Fees
+                                                                            </option>
+                                                                            <option class="text-secondary">Lowest Fees
+                                                                            </option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td class="bg-first text-right"><b>Total
+                                                                            Advertisers</b></td>
+                                                                    <td class="text-right" style="width:20%;">4</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive mb-5">
+                                            <table class="table table-bordered">
+                                                <thead class="bg-first">
+                                                    <tr class="text-center">
+                                                        <th colspan="3"><b>Advertisers</b></th>
+                                                        <th colspan="6"><b>Advertisers Gross Spend (Year to Date)
+                                                                Earnings
+                                                            </b>
+                                                        </th>
+                                                        <th colspan="3"><b>Earnings</b></th>
+                                                    </tr>
+                                                    <tr class="text-center">
+                                                        <th><b>Member ID</b></th>
+                                                        <th><b>Advertiser</b></th>
+                                                        <th><b>Joined</b> </th>
+                                                        <th><b>Platinum</b></th>
+                                                        <th><b>Gold</b></th>
+                                                        <th><b>Silver</b></th>
+                                                        <th><b>PinUp</b></th>
+                                                        <th><b>Fixed</b></th>
+                                                        <th><b>Total Spend</b></th>
+                                                        <th><b>Fees</b></th>
+                                                        <th><b>Action</b></th>
+                                                    </tr>
+                                                    <tr>
+                                                </thead>
+                                                <tbody>
+
+
+                                                    <td class="text-left">E612345 </td>
+                                                    <td class="text-left">Oxi Daisy</td>
+                                                    <td class="text-center">01/01/2022</td>
+                                                    <td class="text-right">$ 960.00</td>
+                                                    <td class="text-right">$ 336.00</td>
+                                                    <td class="text-right">$ 348.00</td>
+                                                    <td class="text-right">$ 950.00</td>
+                                                    <td> </td>
+                                                    <td class="text-right">$ 2,594.00</td>
+                                                    <td class="text-right">$ 129.70</td>
+                                                    <td class="text-center">
+                                                        <div class="dropdown no-arrow">
+                                                            <a class="dropdown-toggle" href="#" role="button"
+                                                                id="dropdownMenuLink" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <i
+                                                                    class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                            </a>
+                                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                                aria-labelledby="dropdownMenuLink" style="">
+                                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                                    href="#" data-toggle="modal"
+                                                                    data-target="#commission-report"> <i
+                                                                        class="fa fa-eye"></i> View Advertiser
+                                                                    Report</a>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                                    href="#" data-toggle="modal" data-target="#">
+                                                                    <i class="fa fa-print"></i> Print
+                                                                    Advertiser Report</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-left">E612356</td>
+                                                        <td class="text-left">Josephine Miller</td>
+                                                        <td class="text-center">01/01/2022</td>
+                                                        <td class="text-right">$ 960.00</td>
+                                                        <td class="text-right">$ 336.00</td>
+                                                        <td class="text-right">$ 348.00</td>
+                                                        <td class="text-right">$ 950.00</td>
+                                                        <td> </td>
+                                                        <td class="text-right">$ 2,594.00</td>
+                                                        <td class="text-right">$ 129.70</td>
+                                                        <td class="text-center">
+                                                            <div class="dropdown no-arrow">
+                                                                <a class="dropdown-toggle" href="#" role="button"
+                                                                    id="dropdownMenuLink" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false">
+                                                                    <i
+                                                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                                </a>
+                                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                                    aria-labelledby="dropdownMenuLink" style="">
+                                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                                        href="#" data-toggle="modal"
+                                                                        data-target="#commission-report"> <i
+                                                                            class="fa fa-eye"></i> View Advertiser
+                                                                        Report</a>
+                                                                    <div class="dropdown-divider"></div>
+                                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                                        href="#" data-toggle="modal"
+                                                                        data-target="#"> <i class="fa fa-print"></i> Print
+                                                                        Advertiser Report</a>
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-left">E612398</td>
+                                                        <td class="text-left">Marry Smith</td>
+                                                        <td class="text-center">01/01/2022</td>
+                                                        <td class="text-right">$ 960.00</td>
+                                                        <td class="text-right">$ 336.00</td>
+                                                        <td class="text-right">$ 348.00</td>
+                                                        <td class="text-right">$ 950.00</td>
+                                                        <td> </td>
+                                                        <td class="text-right">$ 2,594.00</td>
+                                                        <td class="text-right">$ 129.70</td>
+                                                        <td class="text-center">
+                                                            <div class="dropdown no-arrow">
+                                                                <a class="dropdown-toggle" href="#" role="button"
+                                                                    id="dropdownMenuLink" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false">
+                                                                    <i
+                                                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                                </a>
+                                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                                    aria-labelledby="dropdownMenuLink" style="">
+                                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                                        href="#" data-toggle="modal"
+                                                                        data-target="#commission-report"> <i
+                                                                            class="fa fa-eye"></i> View Advertiser
+                                                                        Report</a>
+                                                                    <div class="dropdown-divider"></div>
+                                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                                        href="#" data-toggle="modal"
+                                                                        data-target="#"> <i class="fa fa-print"></i> Print
+                                                                        Advertiser Report</a>
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-left">M612465</td>
+                                                        <td class="text-left">Lin’s Massage</td>
+                                                        <td class="text-center">01/01/2022</td>
+                                                        <td> </td>
+                                                        <td> </td>
+                                                        <td> </td>
+                                                        <td> </td>
+                                                        <td class="text-right">$ 1,950.00</td>
+                                                        <td class="text-right">$ 1,950.00</td>
+                                                        <td class="text-right">$ 97.50</td>
+                                                        <td class="text-center">
+                                                            <div class="dropdown no-arrow">
+                                                                <a class="dropdown-toggle" href="#" role="button"
+                                                                    id="dropdownMenuLink" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false">
+                                                                    <i
+                                                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                                </a>
+                                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                                    aria-labelledby="dropdownMenuLink" style="">
+                                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                                        href="#" data-toggle="modal"
+                                                                        data-target="#message-report"> <i
+                                                                            class="fa fa-eye"></i> View Masseur
+                                                                        Report</a>
+                                                                    <div class="dropdown-divider"></div>
+                                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                                        href="#" data-toggle="modal"
+                                                                        data-target="#"> <i class="fa fa-print"></i> Print
+                                                                        Masseur Report</a>
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    {{-- 2 --}}
+                                    <div class="tab-pane fade" id="two" role="tabpanel"
+                                        aria-labelledby="two-tab">
 
 
                                         <div class="table-responsive membership--inner">
@@ -489,9 +780,10 @@
                                         </div>
 
 
-                                        <div class="col-lg-12">
-                                            <h5 class="font-weight-bold my-3" style="cursor: pointer"
-                                                data-toggle="collapse" data-target="#notes2" aria-expanded="true">Notes :
+                                        <div class="notes">
+                                            <h5 class="font-weight-bold my-3 d-flex justify-content-between align-items-center border p-3" style="cursor: pointer; border-color: #022c3d !important;"
+                                                data-toggle="collapse" data-target="#notes2" aria-expanded="true">
+                                                Notes <span class="mr-2"><i class="fa fa-chevron-down"></i></span>
                                             </h5>
 
                                             <div class="card collapse" id="notes2" style="">
@@ -542,284 +834,6 @@
 
                                     </div>
 
-
-                                    {{-- 2 --}}
-                                    <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
-                                        <div class="row my-3">
-                                            <div class="col-lg-3">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <table class="table table-bordered summery-border">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td
-                                                                        class="border-left-0 border-bottom-0 border-top-0 text-right">
-                                                                        <b>Advertisers</b>
-                                                                    </td>
-                                                                    <td class="border-0 bg-white text-left">All Advertisers
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td
-                                                                        class="border-left-0 border-bottom-0 border-top-0 text-right">
-                                                                        <b>Report Generated</b>
-                                                                    </td>
-                                                                    <td class="border-0 bg-white text-left">12-12-2019</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td
-                                                                        class="border-left-0 border-bottom-0 border-top-0 text-right">
-                                                                        <b>Produced For</b>
-                                                                    </td>
-                                                                    <td class="border-0 bg-white text-left">Well Done
-                                                                        Accounts</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                            </div>
-                                            <div class="col-lg-5">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <table class="table table-bordered">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="bg-first text-right"><b>Current FY</b></td>
-                                                                    <td class="text-center" id="current-fy">2025 / 2026</td>
-                                                                    <td class="bg-first text-right"><b>Total Earnings</b>
-                                                                    </td>
-                                                                    <td class="text-right">$ 486.60</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="bg-first text-right"><b>Select FY</b></td>
-                                                                    <td>
-                                                                        <select class="rounded-0 w-100" id="select-fy" name="select-fy">
-
-                                                                            <option class="text-secondary" value="2025-2026">2025 / 2026</option>
-                                                                            <option class="text-secondary" value="2026-2027">2026 / 2027</option>
-                                                                            <option class="text-secondary" value="2027-2028">2027 / 2028</option>
-                                                                            <option class="text-secondary" value="2028-2029">2028 / 2029</option>
-                                                                            <option class="text-secondary" value="2029-2030">2029 / 2030</option>
-                                                                            <option class="text-secondary" value="2030-2031">2030 / 2031</option>
-                                                                            <option class="text-secondary" value="2031-2032">2031 / 2032</option>
-                                                                            <option class="text-secondary" value="2032-2033">2032 / 2033</option>
-                                                                            <option class="text-secondary" value="2033-2034">2033 / 2034</option>
-                                                                            <option class="text-secondary" value="2034-2035">2034 / 2035</option>
-                                                                            <option class="text-secondary" value="2035-2036">2035 / 2036</option>
-                                                                        </select>    
-                                                                    </td>
-                                                                    <td class="bg-first text-right"><b>Average (P / Advertiser)</b>
-                                                                    </td>
-                                                                    <td class="text-right">$ 121.65</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="bg-first text-right"><b>Display Type</b>
-                                                                    </td>
-                                                                    <td>
-                                                                        <select class="rounded-0 w-100">
-                                                                            <option class="text-secondary">Member ID
-                                                                            </option>
-                                                                            <option class="text-secondary">Membership Type
-                                                                            </option>
-                                                                            <option class="text-secondary">Highest Spend
-                                                                            </option>
-                                                                            <option class="text-secondary">Lowest Spend
-                                                                            </option>
-                                                                            <option class="text-secondary">Highest
-                                                                                Fees
-                                                                            </option>
-                                                                            <option class="text-secondary">Lowest Fees
-                                                                            </option>
-                                                                        </select>
-                                                                    </td>
-                                                                    <td class="bg-first text-right"><b>Total
-                                                                            Advertisers</b></td>
-                                                                    <td class="text-right">4</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="table-responsive mb-5">
-                                            <table class="table table-bordered">
-                                                <thead class="bg-first">
-                                                    <tr class="text-center">
-                                                        <th colspan="3"><b>Advertisers</b></th>
-                                                        <th colspan="6"><b>Advertisers Gross Spend (Year to Date)
-                                                                Earnings
-                                                            </b>
-                                                        </th>
-                                                        <th colspan="3"><b>Earnings</b></th>
-                                                    </tr>
-                                                    <tr class="text-center">
-                                                        <th><b>Member ID</b></th>
-                                                        <th><b>Advertiser</b></th>
-                                                        <th><b>Joined</b> </th>
-                                                        <th><b>Platinum</b></th>
-                                                        <th><b>Gold</b></th>
-                                                        <th><b>Silver</b></th>
-                                                        <th><b>PinUp</b></th>
-                                                        <th><b>Fixed</b></th>
-                                                        <th><b>Total Spend</b></th>
-                                                        <th><b>Fees</b></th>
-                                                        <th><b>Action</b></th>
-                                                    </tr>
-                                                    <tr>
-                                                </thead>
-                                                <tbody>
-
-
-                                                    <td class="text-left">E612345 </td>
-                                                    <td class="text-left">Oxi Daisy</td>
-                                                    <td class="text-center">01/01/2022</td>
-                                                    <td class="text-right">$ 960.00</td>
-                                                    <td class="text-right">$ 336.00</td>
-                                                    <td class="text-right">$ 348.00</td>
-                                                    <td class="text-right">$ 950.00</td>
-                                                    <td> </td>
-                                                    <td class="text-right">$ 2,594.00</td>
-                                                    <td class="text-right">$ 129.70</td>
-                                                    <td class="text-center">
-                                                        <div class="dropdown no-arrow">
-                                                            <a class="dropdown-toggle" href="#" role="button"
-                                                                id="dropdownMenuLink" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                                <i
-                                                                    class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                            </a>
-                                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                                aria-labelledby="dropdownMenuLink" style="">
-                                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                    href="#" data-toggle="modal"
-                                                                    data-target="#commission-report"> <i
-                                                                        class="fa fa-eye"></i> View Advertiser
-                                                                    Report</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                    href="#" data-toggle="modal" data-target="#">
-                                                                    <i class="fa fa-print"></i> Print
-                                                                    Advertiser Repor</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-left">E612356</td>
-                                                        <td class="text-left">Josephine Miller</td>
-                                                        <td class="text-center">01/01/2022</td>
-                                                        <td class="text-right">$ 960.00</td>
-                                                        <td class="text-right">$ 336.00</td>
-                                                        <td class="text-right">$ 348.00</td>
-                                                        <td class="text-right">$ 950.00</td>
-                                                        <td> </td>
-                                                        <td class="text-right">$ 2,594.00</td>
-                                                        <td class="text-right">$ 129.70</td>
-                                                        <td class="text-center">
-                                                            <div class="dropdown no-arrow">
-                                                                <a class="dropdown-toggle" href="#" role="button"
-                                                                    id="dropdownMenuLink" data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="false">
-                                                                    <i
-                                                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                                </a>
-                                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                                    aria-labelledby="dropdownMenuLink" style="">
-                                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                        href="#" data-toggle="modal"
-                                                                        data-target="#commission-report"> <i
-                                                                            class="fa fa-eye"></i> View Advertiser
-                                                                        Report</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                        href="#" data-toggle="modal"
-                                                                        data-target="#"> <i class="fa fa-print"></i> Print
-                                                                        Advertiser Repor</a>
-
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-left">E612398</td>
-                                                        <td class="text-left">Marry Smith</td>
-                                                        <td class="text-center">01/01/2022</td>
-                                                        <td class="text-right">$ 960.00</td>
-                                                        <td class="text-right">$ 336.00</td>
-                                                        <td class="text-right">$ 348.00</td>
-                                                        <td class="text-right">$ 950.00</td>
-                                                        <td> </td>
-                                                        <td class="text-right">$ 2,594.00</td>
-                                                        <td class="text-right">$ 129.70</td>
-                                                        <td class="text-center">
-                                                            <div class="dropdown no-arrow">
-                                                                <a class="dropdown-toggle" href="#" role="button"
-                                                                    id="dropdownMenuLink" data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="false">
-                                                                    <i
-                                                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                                </a>
-                                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                                    aria-labelledby="dropdownMenuLink" style="">
-                                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                        href="#" data-toggle="modal"
-                                                                        data-target="#commission-report"> <i
-                                                                            class="fa fa-eye"></i> View Advertiser
-                                                                        Report</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                        href="#" data-toggle="modal"
-                                                                        data-target="#"> <i class="fa fa-print"></i> Print
-                                                                        Advertiser Repor</a>
-
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-left">M612465</td>
-                                                        <td class="text-left">Lin’s Massage</td>
-                                                        <td class="text-center">01/01/2022</td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td class="text-right">$ 1,950.00</td>
-                                                        <td class="text-right">$ 1,950.00</td>
-                                                        <td class="text-right">$ 97.50</td>
-                                                        <td class="text-center">
-                                                            <div class="dropdown no-arrow">
-                                                                <a class="dropdown-toggle" href="#" role="button"
-                                                                    id="dropdownMenuLink" data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="false">
-                                                                    <i
-                                                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                                </a>
-                                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                                    aria-labelledby="dropdownMenuLink" style="">
-                                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                        href="#" data-toggle="modal"
-                                                                        data-target="#message-report"> <i
-                                                                            class="fa fa-eye"></i> View Masseur
-                                                                        Report</a>
-                                                                    <div class="dropdown-divider"></div>
-                                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                        href="#" data-toggle="modal"
-                                                                        data-target="#"> <i class="fa fa-print"></i> Print
-                                                                        Masseur Repor</a>
-
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

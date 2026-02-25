@@ -75,11 +75,14 @@
                                         Each Masseur’s status is addressed separately. Where a Masseur’s
                                         Verification Image is approved, then the Masseur’s Media is displayed as
                                         Verified, regardless of the Centre’s Media status.</li>
-                                    The status of a Masseur is recorded separately and reflected according to the
-                                    Masseur’s Verification Image outcome.
+                                   
                                 </ol>
+                                 
                             </li>
+                            The status of a Masseur is recorded separately and reflected according to the
+                                    Masseur’s Verification Image outcome.
                         </ol>
+                        
                     </div>
                 </div>
             </div>
@@ -142,11 +145,6 @@
                                                 href="#" data-toggle="modal" data-target="#view_image"> <i
                                                     class="fa fa-eye"></i> View Image</a>
                                             <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag</a>
-                                            <div class="dropdown-divider"></div>
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-centre"> <i
                                                     class="fa fa-eye"></i> View Centre</a>
@@ -155,10 +153,11 @@
                                     </div>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td>M50248</td>
                                 <td>17-02-2026</td>
-                                <td>Lin’s Massage Place</td>
+                                <td>Lin’s Massage Place <sup class="badge badge-danger pt-1">4</sup></td>
                                 <td>1438 028 228</td>
                                 <td>Agent</td>
                                 <td>A50489</td>
@@ -200,6 +199,7 @@
                                     </div>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td>E20147</td>
                                 <td>15-02-2026</td>
@@ -232,11 +232,6 @@
                                                 href="#" data-toggle="modal" data-target="#view_image"> <i
                                                     class="fa fa-eye"></i> View Image</a>
                                             <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag</a>
-                                            <div class="dropdown-divider"></div>
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-centre"> <i
                                                     class="fa fa-eye"></i> View Centre</a>
@@ -245,6 +240,7 @@
                                     </div>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td>E40258</td>
                                 <td>10-02-2026</td>
@@ -277,11 +273,6 @@
                                                 href="#" data-toggle="modal" data-target="#view_image"> <i
                                                     class="fa fa-eye"></i> View Image</a>
                                             <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag</a>
-                                            <div class="dropdown-divider"></div>
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-centre"> <i
                                                     class="fa fa-eye"></i> View Centre</a>
@@ -290,10 +281,11 @@
                                     </div>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td>M30147</td>
                                 <td>05-02-2026</td>
-                                <td>Perth Massage Centre</td>
+                                <td>Perth Massage Centre <sup class="badge badge-danger pt-1">4</sup></td>
                                 <td>1438 028 328</td>
                                 <td>Centre</td>
                                 <td>N/A</td>
@@ -335,10 +327,11 @@
                                     </div>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td>M40895</td>
                                 <td>30-01-2026</td>
-                                <td>By The River Massage</td>
+                                <td>By The River Massage <sup class="badge badge-danger pt-1">4</sup></td>
                                 <td>1438 028 159</td>
                                 <td>Agent</td>
                                 <td>A40025</td>
