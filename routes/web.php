@@ -779,3 +779,11 @@ Route::post('/remove-short-list', [MassageCentre::class, 'removeShortList'])->na
 Route::post('/review-massage/{id}', [MassageCentre::class,'SaveReviewMassage'])->name('web.review-massage');
 
 
+
+
+
+################### Massage Centre Shortlist Url ###############
+Route::get('massage-shortlist', [MassageCentre::class,'shortlist_massageList'])->name('find.massage.shortlist');
+Route::get('shortlist-mc-ajax-list', [MassageCentre::class, 'shortlist_mcAjaxList'])->name('shortlist-mc-ajax-list');
+
+

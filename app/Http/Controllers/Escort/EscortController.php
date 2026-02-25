@@ -42,6 +42,7 @@ use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Repositories\Purchase\PurchaseInterface;
 use App\Repositories\AttemptLogin\AttemptLoginRepository;
 use App\Models\EscortNotification;
+use App\Services\WalletService;
 
 class EscortController extends BaseController
 {
@@ -55,13 +56,15 @@ class EscortController extends BaseController
     protected $purchase;
     protected $user;
     protected $attemptlogin;
+    protected $walletService;
 
-    public function __construct(AttemptLoginRepository $attemptlogin, EscortInterface $escort, UserInterface $user, PurchaseInterface $purchase)
+    public function __construct(AttemptLoginRepository $attemptlogin, EscortInterface $escort, UserInterface $user, PurchaseInterface $purchase, WalletService $walletService)
     {
         $this->escort = $escort;
         $this->purchase = $purchase;
         $this->user = $user;
         $this->attemptlogin = $attemptlogin;
+        $this->walletService = $walletService;
     }
 
     public function index()
@@ -862,9 +865,12 @@ class EscortController extends BaseController
             $membershipId = $request->membership;
             
             DB::transaction(function () use ($profileId, $membershipId){
+                $user = auth()->user();
                 $profileDetail = getEscortDetail($profileId);
                 $oldPurchase = $profileDetail->mainPurchase;
                 $newPurchase = $oldPurchase->replicate();
+
+                $refundAmount = getListingRefundAmount($profileDetail);
 
                 list($usedDicount, $usedAmount) = calculateTotalFee($oldPurchase->membership, ($oldPurchase->days_number - $profileDetail->left_listing_days));
                 list($dicount, $amount, $unitAmount, $unitDiscount) = calculateTotalFee($membershipId, $profileDetail->days_left);

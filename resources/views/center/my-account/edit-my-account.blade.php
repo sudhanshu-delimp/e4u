@@ -175,6 +175,16 @@
                                                         </div>
 
 
+                                                         <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="email" class="my-agent">City (Subrub).</label>
+                                                                <input type="text" class="form-control" placeholder=" "
+                                                                    name="subrub_city" aria-describedby="emailHelp"
+                                                                    value=" {{ $escort->subrub_city ? $escort->subrub_city : ''}}">
+                                                            </div>
+                                                        </div>
+
+
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="email">My Agent</label>
@@ -195,6 +205,10 @@
                                                                 </label>
                                                             </div>
                                                         </div>
+
+
+                                                       
+
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label for="email">Method of contact:</label>

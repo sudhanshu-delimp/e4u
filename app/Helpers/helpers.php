@@ -1287,7 +1287,8 @@ if (!function_exists('getListingRefundAmount')) {
         if(!empty($purchase)){
             $membership = $purchase->membership;
             $total_days = $purchase->days_number;
-            $remaining_days = $escortDetail->left_listing_days;
+            $remaining_days = $purchase->left_listing_days;
+            //$remaining_days = $escortDetail->left_listing_days;
             list($usedDicount, $usedAmount) = calculateTotalFee($membership, ($total_days - $remaining_days));
             $refundAmount = $purchase->paid_rate-$usedAmount;
         }
@@ -1439,12 +1440,25 @@ if (!function_exists('get_messure_weakly_availibility')) {
 }
 
 
-if (!function_exists('get_massage_home_state')) {
-  function get_massage_home_state($user_id)
+if (!function_exists('get_massage_home_city')) {
+  function get_massage_home_city($user_id)
   {
-        $user = User::select('state_id')->where('id',$user_id)->first();
-        if($user->state_id)
-        return config('escorts.profile.states')[$user->state_id]['stateName'];
+        $user = User::select('state_id','subrub_city')->where('id',$user_id)->first();
+        if($user)
+        {
+            if($user->subrub_city!="")
+            return $user->subrub_city;
+            else
+            {
+                if (isset(config('escorts.profile.states')[$user->state_id]['stateName'])) {
+                    $city = reset(config('escorts.profile.states')[$user->state_id]['cities']);
+                    $cityName = $city['cityName'] ?? null;
+                    return $cityName;
+                }
+                else
+                return '';
+            }
+        }
         else
         return '';
   }
@@ -1512,6 +1526,18 @@ if (!function_exists('get_messure_images')) {
         }
         return  $image;
   }
+}
+
+if (!function_exists('getStateIdByCityId')) {
+function getStateIdByCityId($states, $cityId)
+{
+    foreach ($states as $stateId => $stateData) {
+        if (isset($stateData['cities'][$cityId])) {
+            return $stateId;
+        }
+    }
+    return null; // agar city na mile
+}
 }
 
 

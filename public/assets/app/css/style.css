@@ -5854,14 +5854,14 @@ i.fa.fa-heart-o{
             
             .mc_card_container {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 208px));
+                grid-template-columns: repeat(auto-fit, minmax(200px, 202px));
                 gap: 17px;
                 justify-content: start;
             }
             
             .mc_card {
                 position: relative;
-                min-height: 375px;
+                min-height: 310px;
                 width: 100%;
                 object-fit: cover;
                 border: 1px solid rgb(12, 34, 61);

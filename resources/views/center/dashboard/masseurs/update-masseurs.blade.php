@@ -323,9 +323,39 @@
                                             </div>
                                         </div>
 
+                                    </div>
 
 
-
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                          
+                                            <div class="form-group">
+                                            <label class="label">Services</label>
+                                            <div class="d-flex justify-content-start gap-10">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="service[]" value="massage"
+                                                        {{ in_array('massage', $services) ? 'checked' : '' }} required data-label="Vaccination">
+                                                    <label class="form-check-label">
+                                                        Massage
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"  name="service[]" value="2_hand"
+                                                         {{ in_array('2_hand', $services) ? 'checked' : '' }}>
+                                                    <label class="form-check-label">
+                                                        +2 Hands
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="service[]"  value="4_hand"
+                                                       {{ in_array('4_hand', $services) ? 'checked' : '' }}>
+                                                    <label class="form-check-label">
+                                                        +4 Hands.
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
                                     </div>
 
                                     <div class="d-flex justify-content-end py-3">

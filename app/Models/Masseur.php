@@ -10,6 +10,8 @@ class Masseur extends Model
 {
     use HasFactory;
 
+    protected $casts = ['service' => 'array'];
+
 
     public function durations()
     {

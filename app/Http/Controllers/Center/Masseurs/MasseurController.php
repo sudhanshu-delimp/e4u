@@ -192,6 +192,8 @@ class MasseurController extends AppController
 
             $masseur->availability          = $availabilityJson;
 
+            $masseur->service = $request->filled('service') ? $request->service : [];
+
                         
             $masseur->save();
             $masseur_profile_id = $masseur->id;
@@ -285,11 +287,12 @@ class MasseurController extends AppController
         $massage_durations = (isset($massage_default->durations) && count($massage_default->durations)>0) ? $massage_default->durations->toArray() : [];
         ########## End default profile data ########
 
-         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, $masseur->token_id,[]);
+        $media = $this->media->with_Or_withoutPosition(auth()->user()->id, $masseur->token_id,[]);
+        $services = $masseur->service ?? [];
 
         
 
-        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur','media'));
+        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur','media','services'));
     }
 
     public function update_masseur(Request $request)
@@ -319,6 +322,8 @@ class MasseurController extends AppController
 
                         $masseur->vaccination           = $request->vaccination;
                         $masseur->commentary            = $request->commentary;
+
+                        $masseur->service = $request->filled('service') ? $request->service : [];
 
                     
                         $masseur->save();

@@ -142,10 +142,11 @@
                         </div>
                     </div>
                 </div>
-                    <div class="col-md-12 mb-3 d-flex justify-content-end">
+                    <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">
                         <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
+                        <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#veryfy_media">Media Verification</button>
                     </div>
-        </div>
+                </div>
                     <div class="row">
                         <div class="col-lg-4">
                         <div class="upload-photo-sec">
@@ -399,212 +400,214 @@
                         </div>
                     </div>
                 @include('center.dashboard.modal.upload_gallery_image')
+                @include('center.dashboard.modal.upload_verify_media')
+
             <div class="modal" id="photo_gallery" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title" style="color: white;"><img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Photo</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">
-                                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                                </span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="gallery_modal_container" class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
-                            @foreach($media  as $keyId => $image)
-                                @if(!in_array($image->position, [9, 10])/*$image->position != 8*/)
-                                    <div class="item4">
-                                        <img class="img-thumbnail defult-image select_image" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
-                                    </div>
-                                @endif
-                            @endforeach
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content custome_modal_max_width">
+                        <div class="modal-header main_bg_color border-0">
+                            <h5 class="modal-title" style="color: white;"><img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Photo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">
+                                    <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                                    </span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="gallery_modal_container" class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
+                                @foreach($media  as $keyId => $image)
+                                    @if(!in_array($image->position, [9, 10])/*$image->position != 8*/)
+                                        <div class="item4">
+                                            <img class="img-thumbnail defult-image select_image" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
 
 
            <div class="modal" id="photo_gallery_banner" style="display: none">
-   <div class="modal-dialog modal-dialog-centered">
-       <div class="modal-content custome_modal_max_width">
-           <div class="modal-header main_bg_color border-0">
-               <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Banner</h5>
-              
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">
-            <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-            </span>
-               </button>
-           </div>
-           <div class="modal-body">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs my-custompop-tabs" id="myTab" role="tablist">
-                
-                <li class="nav-item">
-                    <a class="nav-link active" id="upload-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="upload" aria-selected="false">
-                        Uploaded
-                    </a>
-                    </li>
-                <li class="nav-item">
-                <a class="nav-link" id="default-tab" data-toggle="tab" href="#default" role="tab" aria-controls="default" aria-selected="true">
-                    Templates
-                </a>
-                </li>
-            </ul>
-               <div class="modalPopup" style="max-height: 350px; overflow:auto;">
-                    
-                    <div class="tab-content mt-3">
-                        <!-- Tab panes -->
-                        <div class="tab-pane fade show active" id="upload" role="tabpanel" aria-labelledby="upload-tab">
-                            <div id="banner_modal_container" class="modal-tab">
-                                @foreach($media  as $keyId => $image)
-                                    @if(in_array($image->position, [9]))                                    
-                                    <!-- upload Template Tab -->
-                                            <div class="item2">
-                                                <img class="img-thumbnail defult-image select_image"
-                                                    src="{{ asset($image->path) }}"
-                                                    alt=" "
-                                                    data-id="{{$image->id}}"
-                                                    data-position="{{$image->position ? $image->position : ''}}">
-                                            </div>              
-                                                
-                                    @endif
-                                @endforeach                                     
-                            </div>                           
-                        </div>     
-                        <!-- default Banner Tab -->
-                        {{-- <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
-                            @php  
-                            $bannerTemplates = getMassageBannerTemplates();
-                            @endphp
-                            <div class="modal-tab">
-                                @if(!empty($bannerTemplates))
-                                @foreach($bannerTemplates as $keyId => $image)
-                                <div class="item2">
-                                    <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
-                                </div>
-                                @endforeach
-                                @endif
-                            </div>
-                        </div> --}}
-
-                         {{-- Issko remove nahi karna hai Bhai Log --}}
-                                <!-- Templates Tab -->
-                                    <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
-
-                                        <!-- Nested Tabs (Static) -->
-                                        <ul class="sub-nav-tabs nav nav-tabs mt-3">
-                                            <li class="nav-item">
-                                                <a class="sub-nav nav-link active" data-toggle="tab" href="#bdsm">BDSM</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="sub-nav nav-link" data-toggle="tab" href="#lingerie">Lingerie</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="sub-nav nav-link" data-toggle="tab" href="#passive">Passive</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="sub-nav nav-link" data-toggle="tab" href="#sheets">Sheets</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="sub-nav nav-link" data-toggle="tab" href="#subtle">Subtle</a>
-                                            </li>
-                                        </ul>
-
-                                        <div class="tab-content mt-3">
-
-                                            <!-- GROUP 1 STATIC -->
-                                            <div class="tab-pane fade show active" id="bdsm">
-                                                @php  
-                                                    $bannerTemplates = getMassageBannerTemplates(1);
-                                                @endphp
-                                                <div class="modal-tab">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content custome_modal_max_width">
+                        <div class="modal-header main_bg_color border-0">
+                            <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Banner</h5>
+                            
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                            </span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs my-custompop-tabs" id="myTab" role="tablist">
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="upload-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="upload" aria-selected="false">
+                                        Uploaded
+                                    </a>
+                                    </li>
+                                <li class="nav-item">
+                                <a class="nav-link" id="default-tab" data-toggle="tab" href="#default" role="tab" aria-controls="default" aria-selected="true">
+                                    Templates
+                                </a>
+                                </li>
+                            </ul>
+                            <div class="modalPopup" style="max-height: 350px; overflow:auto;">
+                                    
+                                    <div class="tab-content mt-3">
+                                        <!-- Tab panes -->
+                                        <div class="tab-pane fade show active" id="upload" role="tabpanel" aria-labelledby="upload-tab">
+                                            <div id="banner_modal_container" class="modal-tab">
+                                                @foreach($media  as $keyId => $image)
+                                                    @if(in_array($image->position, [9]))                                    
+                                                    <!-- upload Template Tab -->
+                                                            <div class="item2">
+                                                                <img class="img-thumbnail defult-image select_image"
+                                                                    src="{{ asset($image->path) }}"
+                                                                    alt=" "
+                                                                    data-id="{{$image->id}}"
+                                                                    data-position="{{$image->position ? $image->position : ''}}">
+                                                            </div>              
+                                                                
+                                                    @endif
+                                                @endforeach                                     
+                                            </div>                           
+                                        </div>     
+                                        <!-- default Banner Tab -->
+                                        {{-- <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
+                                            @php  
+                                            $bannerTemplates = getMassageBannerTemplates();
+                                            @endphp
+                                            <div class="modal-tab">
                                                 @if(!empty($bannerTemplates))
-                                                    @foreach($bannerTemplates as $keyId => $image)
-                                                        <div class="item2">
-                                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
-                                                        </div>
-                                                    @endforeach
-                                                @endif
+                                                @foreach($bannerTemplates as $keyId => $image)
+                                                <div class="item2">
+                                                    <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
                                                 </div>
+                                                @endforeach
+                                                @endif
                                             </div>
+                                        </div> --}}
 
-                                            <!-- GROUP 2 STATIC -->
-                                            <div class="tab-pane fade" id="lingerie">
-                                                @php  
-                                                    $bannerTemplates = getMassageBannerTemplates(2);
-                                                @endphp
-                                                <div class="modal-tab">
-                                                    @if(!empty($bannerTemplates))
-                                                        @foreach($bannerTemplates as $keyId => $image)
-                                                            <div class="item2">
-                                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                        {{-- Issko remove nahi karna hai Bhai Log --}}
+                                                <!-- Templates Tab -->
+                                                    <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
+
+                                                        <!-- Nested Tabs (Static) -->
+                                                        <ul class="sub-nav-tabs nav nav-tabs mt-3">
+                                                            <li class="nav-item">
+                                                                <a class="sub-nav nav-link active" data-toggle="tab" href="#bdsm">BDSM</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="sub-nav nav-link" data-toggle="tab" href="#lingerie">Lingerie</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="sub-nav nav-link" data-toggle="tab" href="#passive">Passive</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="sub-nav nav-link" data-toggle="tab" href="#sheets">Sheets</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="sub-nav nav-link" data-toggle="tab" href="#subtle">Subtle</a>
+                                                            </li>
+                                                        </ul>
+
+                                                        <div class="tab-content mt-3">
+
+                                                            <!-- GROUP 1 STATIC -->
+                                                            <div class="tab-pane fade show active" id="bdsm">
+                                                                @php  
+                                                                    $bannerTemplates = getMassageBannerTemplates(1);
+                                                                @endphp
+                                                                <div class="modal-tab">
+                                                                @if(!empty($bannerTemplates))
+                                                                    @foreach($bannerTemplates as $keyId => $image)
+                                                                        <div class="item2">
+                                                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                                        </div>
+                                                                    @endforeach
+                                                                @endif
+                                                                </div>
                                                             </div>
-                                                        @endforeach
-                                                    @endif
-                                                    </div>
-                                            </div>
 
-                                            <!-- GROUP 3 STATIC -->
-                                            <div class="tab-pane fade" id="passive">
-                                                @php  
-                                                    $bannerTemplates = getMassageBannerTemplates(3);
-                                                @endphp
-                                                <div class="modal-tab">
-                                                    @if(!empty($bannerTemplates))
-                                                        @foreach($bannerTemplates as $keyId => $image)
-                                                            <div class="item2">
-                                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                            <!-- GROUP 2 STATIC -->
+                                                            <div class="tab-pane fade" id="lingerie">
+                                                                @php  
+                                                                    $bannerTemplates = getMassageBannerTemplates(2);
+                                                                @endphp
+                                                                <div class="modal-tab">
+                                                                    @if(!empty($bannerTemplates))
+                                                                        @foreach($bannerTemplates as $keyId => $image)
+                                                                            <div class="item2">
+                                                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                                            </div>
+                                                                        @endforeach
+                                                                    @endif
+                                                                    </div>
                                                             </div>
-                                                        @endforeach
-                                                    @endif
-                                                    </div>
-                                            </div>
 
-                                            <!-- GROUP 4 STATIC -->
-                                            <div class="tab-pane fade" id="sheets">
-                                                @php  
-                                                    $bannerTemplates = getMassageBannerTemplates(4);
-                                                @endphp
-                                                <div class="modal-tab">
-                                                    @if(!empty($bannerTemplates))
-                                                        @foreach($bannerTemplates as $keyId => $image)
-                                                            <div class="item2">
-                                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                            <!-- GROUP 3 STATIC -->
+                                                            <div class="tab-pane fade" id="passive">
+                                                                @php  
+                                                                    $bannerTemplates = getMassageBannerTemplates(3);
+                                                                @endphp
+                                                                <div class="modal-tab">
+                                                                    @if(!empty($bannerTemplates))
+                                                                        @foreach($bannerTemplates as $keyId => $image)
+                                                                            <div class="item2">
+                                                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                                            </div>
+                                                                        @endforeach
+                                                                    @endif
+                                                                    </div>
                                                             </div>
-                                                        @endforeach
-                                                    @endif
-                                                    </div>
-                                            </div>
 
-                                            <!-- GROUP 5 STATIC -->
-                                            <div class="tab-pane fade" id="subtle">
-                                                @php  
-                                                    $bannerTemplates = getMassageBannerTemplates(5);
-                                                @endphp
-                                                <div class="modal-tab">
-                                                    @if(!empty($bannerTemplates))
-                                                        @foreach($bannerTemplates as $keyId => $image)
-                                                            <div class="item2">
-                                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                            <!-- GROUP 4 STATIC -->
+                                                            <div class="tab-pane fade" id="sheets">
+                                                                @php  
+                                                                    $bannerTemplates = getMassageBannerTemplates(4);
+                                                                @endphp
+                                                                <div class="modal-tab">
+                                                                    @if(!empty($bannerTemplates))
+                                                                        @foreach($bannerTemplates as $keyId => $image)
+                                                                            <div class="item2">
+                                                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                                            </div>
+                                                                        @endforeach
+                                                                    @endif
+                                                                    </div>
                                                             </div>
-                                                        @endforeach
-                                                    @endif
+
+                                                            <!-- GROUP 5 STATIC -->
+                                                            <div class="tab-pane fade" id="subtle">
+                                                                @php  
+                                                                    $bannerTemplates = getMassageBannerTemplates(5);
+                                                                @endphp
+                                                                <div class="modal-tab">
+                                                                    @if(!empty($bannerTemplates))
+                                                                        @foreach($bannerTemplates as $keyId => $image)
+                                                                            <div class="item2">
+                                                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                                            </div>
+                                                                        @endforeach
+                                                                    @endif
+                                                                    </div>
+                                                            </div>
+
+                                                        </div>
+
                                                     </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                    {{-- end --}}
-                    </div>    
-               </div>
-           </div>
-       </div>
-   </div>
-</div>
+                                                    {{-- end --}}
+                                    </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <div class="modal" id="photo_gallery_pinup" style="display: none">
         <div class="modal-dialog modal-dialog-centered">

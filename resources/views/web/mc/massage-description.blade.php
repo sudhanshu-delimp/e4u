@@ -4,8 +4,8 @@
 .mc_profile_table .table th{
     padding: .8rem .55rem !important;
 }
-.timing_data td{
-    text-align: center;
+.timing_data tbody td{
+    text-align: left !important;
 }
 
 .profile_img {
@@ -38,6 +38,22 @@
     opacity: 0;
     transition: opacity 0.3s;
 }
+ .tooltip-wrapper .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* tooltip box ke bottom se */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #ff3c5f transparent transparent transparent; /* top arrow */
+  }
+ 
+  .tooltip-wrapper:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+
 .mc_avail_table table td {
     padding: 5px 0px !important;
 }
@@ -49,6 +65,8 @@
         $massager_name = $listing->profile_name;
         $other_services = "";
         $massage_services = "";
+
+        
 
 
         $massage_price  = false;
@@ -115,7 +133,7 @@
             </div>
 
             <div class="profile_page_name_and_phno">
-                <p> {{ get_massage_home_state($listing->user_id) }}  </p>
+                <p> {{ get_massage_home_city($listing->user_id) .'-'.formatMobileNumber($listing->phone) }}   </p>
             </div>
 
             <div class="profile_page_location_and_id">
@@ -520,6 +538,8 @@
                              @foreach($listing->massagerMasseurs as $masseur)
 
                             @php
+
+                                $masseur_services = $masseur->service ?? [];
                                
                                 $imageUrl = asset($masseur->getImagePosition(1, $masseur->id));
 
@@ -599,22 +619,35 @@
                                                             <span>AGE : <b>{{ $masseur->age ?? 'N/A' }}</b></span>
 
                                                             <div class="massage_type">
+                                                               
+                                                            
+
+
+                                                            @if(in_array('massage', $masseur_services))
                                                                 <div class="massage_type_info">
                                                                     <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">
                                                                     <p class="mc_rate_tooltip">Massage only</p>
                                                                 </div>
+                                                            @endif    
+
+                                                            @if(in_array('2_hand', $masseur_services))
                                                                 <div class="massage_type_info">
                                                                     <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
                                                                     <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>
                                                                 </div>
+                                                             @endif       
+
+                                                            @if(in_array('4_hand', $masseur_services))
                                                                 <div class="massage_type_info">
                                                                     <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
                                                                     <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>
                                                                 </div>
+                                                             @endif   
+
                                                             </div>
                                                         </div>
                                                         <div class="mc_profile_modal">
-                                                            <span><b>Mobile Number :</b> <span class="about_box_small_heading_value">{{ $masseur->mobile ?? 'N/A' }}</span></span>
+                                                            <span><b>Mobile Number :</b> <span class="about_box_small_heading_value">{{ formatMobileNumber($masseur->mobile) ?? 'N/A' }}</span></span>
                                                             <span><b>Vaccination :</b> <span class="about_box_small_heading_value">
                                                                 @switch($masseur->vaccination)
 
@@ -757,7 +790,7 @@
                                                                    
 
                                                                     @if($value->price)
-                                                                    <div class="public-num-value-table"> <span>$ </span>{{ $value->price }}</div>
+                                                                    <div class="public-num-value-table"> <span>$ </span> {{ number_format($value->price, 2) }}</div>
                                                                     @else
                                                                     <span class="if_data_not_available">N/A</span>
                                                                     @endif
@@ -796,7 +829,7 @@
                                                                    
 
                                                                     @if($value->price)
-                                                                    <div class="public-num-value-table"> <span>$ </span>{{ $value->price }}</div>
+                                                                    <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
                                                                     @else
                                                                     <span class="if_data_not_available">N/A</span>
                                                                     @endif
@@ -888,7 +921,7 @@
                                                                    
 
                                                                     @if($value->price)
-                                                                    <div class="public-num-value-table"> <span>$ </span>{{ $value->price }}</div>
+                                                                    <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
                                                                     @else
                                                                     <span class="if_data_not_available">N/A</span>
                                                                     @endif
@@ -927,7 +960,7 @@
                                                                    
 
                                                                     @if($value->price)
-                                                                    <div class="public-num-value-table"> <span>$ </span>{{ $value->price }}</div>
+                                                                    <div class="public-num-value-table"> <span>$ </span>{{ number_format($value->price, 2) }}</div>
                                                                     @else
                                                                     <span class="if_data_not_available">N/A</span>
                                                                     @endif
@@ -1054,7 +1087,7 @@
                     <div class="col-7 text-right">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
                             data-target="#reportMcNew">
-                            <img src="../assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Masseur
+                            <img src="../assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Centre
                         </button>
                     </div>
                 </div>
@@ -1701,11 +1734,11 @@
                 <div class="modal-header d-flex justify-content-between align-items-center">                                       
                     <ul class="nav nav-tabs justify-content-center border-0">
                         <li class="nav-item">
-                            <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">My Photos</a>
+                            <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">Our Photos</a>
                         </li>
                         @if ($galleryVideos->count()>0) 
                             <li class="nav-item">
-                                <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">My Videos</a>
+                                <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">Our Videos</a>
                             </li>
                         @endif
                     </ul>
@@ -1813,38 +1846,6 @@
         myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
         write_reviews_disable: {{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }},
    };
-
-  const track = document.getElementById('sliderTrack');
-  const slides = document.querySelectorAll('.slide_item');
-
-  // Clone first slide and append to end
-  const firstClone = slides[0].cloneNode(true);
-  track.appendChild(firstClone);
-
-  let index = 0;
-  const totalSlides = slides.length + 1;
-
-  function slideNext() {
-    index++;
-    track.style.transform = `translateX(-${index * 100}%)`;
-
-    if (index === totalSlides - 1) {
-      setTimeout(() => {
-        track.style.transition = 'none';
-        index = 0;
-        track.style.transform = `translateX(0%)`;
-      }, 600);
-
-      setTimeout(() => {
-        track.style.transition = 'transform 0.6s ease-in-out';
-      }, 650);
-    }
-  }
-
-setInterval(slideNext, 5000);
-
-
-
 
 
 $(document).on('click', '.open_review_box', function (e) {
@@ -1992,8 +1993,43 @@ $(document).on('click', '.open_review_box', function (e) {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+
+
+        
+    const track = document.getElementById('sliderTrack');
+    const slides = document.querySelectorAll('.slide_item');
+
+    // Clone first slide and append to end
+    const firstClone = slides[0].cloneNode(true);
+    track.appendChild(firstClone);
+
+    let index = 0;
+    const totalSlides = slides.length + 1;
+
+    function slideNext() {
+        index++;
+        track.style.transform = `translateX(-${index * 100}%)`;
+
+        if (index === totalSlides - 1) {
+        setTimeout(() => {
+            track.style.transition = 'none';
+            index = 0;
+            track.style.transform = `translateX(0%)`;
+        }, 600);
+
+        setTimeout(() => {
+            track.style.transition = 'transform 0.6s ease-in-out';
+        }, 650);
+        }
+    }
+
+    setInterval(slideNext, 5000);
+
+
+
+
+
     });
-
-
 </script>
 @endpush

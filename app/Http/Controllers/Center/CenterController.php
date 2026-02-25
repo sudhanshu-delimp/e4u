@@ -264,6 +264,7 @@ class CenterController extends Controller
             //'social_links'=>$request->social_links,
             'pay_id_name'=>$request->payID_name,
             'pay_id_no'=>$request->paID_no,
+            'subrub_city'=>$request->subrub_city,
         ];
 
         $error = true;
