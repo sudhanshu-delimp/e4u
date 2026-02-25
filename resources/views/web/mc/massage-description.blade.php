@@ -38,6 +38,22 @@
     opacity: 0;
     transition: opacity 0.3s;
 }
+ .tooltip-wrapper .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* tooltip box ke bottom se */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #ff3c5f transparent transparent transparent; /* top arrow */
+  }
+ 
+  .tooltip-wrapper:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+
 .mc_avail_table table td {
     padding: 5px 0px !important;
 }
