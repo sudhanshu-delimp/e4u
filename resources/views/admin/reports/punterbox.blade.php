@@ -47,7 +47,7 @@
                                 <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
                                 <div class="stat-label">This Month</div>
                             </div>
-                            <div class="stat-number">25</div>
+                            <div class="stat-number">{{number_format(25)}}</div>
                         </div>
 
                         <div class="stat-card">
@@ -55,7 +55,7 @@
                                 <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
                                 <div class="stat-label">This Year</div>
                             </div>
-                            <div class="stat-number">125</div>
+                            <div class="stat-number">{{number_format(125)}}</div>
                         </div>
 
                         <div class="stat-card">
@@ -63,7 +63,7 @@
                                 <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
                                 <div class="stat-label">All Time</div>
                             </div>
-                            <div class="stat-number">1258</div>
+                            <div class="stat-number">{{number_format(1258)}}</div>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                                 <td>Peter</td>
                                 <td>03-05-2025</td>
                                 <td>Brisbane</td>
-                                <td>Pending</td>
+                                <td><span class="custom_badge badge_pending">Pending</span></td>
                                 <td>
                                     <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button"
@@ -119,7 +119,52 @@
                                                             class="fa fa-times-circle " aria-hidden="true"></i>
                                                         Rejected  </a>
                                                          <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item align-item-custom view_report" href="#"
+                                                        data-toggle="modal" data-target="#viewAgentreport"> <i
+                                                            class="fa fa-eye" aria-hidden="true"></i>
+                                                        View Report </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>1233</td>
+                                <td>V401613</td>
+                                <td>Peter1</td>
+                                <td>03-03-2025</td>
+                                <td>Brisbane2</td>
+                                <td><span class="custom_badge badge_published">Published</span></td>
+                                <td>
+                                    <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button"
+                                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="custom-tooltip-container">
+                                                    <a
+                                                        class="dropdown-item align-item-custom toggle-massage-notification"
+                                                        href="#" title="Click to disable notification">
+                                                    </a> 
+                                                    <a class="dropdown-item align-item-custom" data-toggle="modal"
+                                                        data-target="#confirm-popup" href=""> <i
+                                                            class="fa fa-ban" aria-hidden="true"></i>On Hold</a>
+                                                    <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item align-item-custom" href="#"
+                                                        data-toggle="modal" data-target="#confirm-popup"> <i
+                                                            class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        Publish </a>
+                                                         <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item align-item-custom" href="#"
+                                                        data-toggle="modal" data-target="#confirm-popup"> <i
+                                                            class="fa fa-times-circle " aria-hidden="true"></i>
+                                                        Rejected  </a>
+                                                         <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item align-item-custom view_report" href="#"
                                                         data-toggle="modal" data-target="#viewAgentreport"> <i
                                                             class="fa fa-eye" aria-hidden="true"></i>
                                                         View Report </a>
@@ -343,7 +388,7 @@
         searching: true,
         bStateSave: true,
         order: [
-            [1, 'desc']
+            [3, 'desc']
         ],
         lengthMenu: [
             [10, 25, 50, 100],
@@ -351,8 +396,8 @@
         ],
         pageLength: 10,
             columns: [{
-                    data: 'Ref',
-                    name: 'Ref',
+                    data: 'ref',
+                    name: 'ref',
                     searchable: true,
                     orderable: false,
                     defaultContent: 'NA'
@@ -403,7 +448,80 @@
             ]
         });
 
+        $('#PunterboxReportTable tbody').on('click', '.view_report', function(e) {
+                e.preventDefault();
 
-      
+                const tr = $(this).closest('tr');
+                const row = table.row(tr);
+
+                row.child(format(row.data())).show();
+                tr.addClass('shown');
+                $(this).addClass('open');
+            });
+
+            // CLOSE BUTTON HANDLER (only closes, no toggle)
+            $(document).on('click', '.close_report_btn', function (e) {
+                e.preventDefault();
+
+                const tr = $(this).closest('tr').parent();
+                const row = table.row(tr);
+
+                tr.removeClass('shown');
+                $(this).closest('tr').hide()
+            });
+
+            function formatDate(dateString) {
+                if (!dateString) return 'N/A';
+                const date = new Date(dateString);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}-${month}-${year}`;
+            }
+
+            function format(data) { 
+                console.log('Row data:', data); // Debugging log
+                return `
+                    <div class="details-content p-3 bg-light border rounded">
+                        <div class="mb-3 d-flex justify-content-end">
+                            <button class="btn-sm btn-cancel-modal close_report_btn" type="button"> Close</button>
+                        </div>
+                        <table class="table mb-0">
+                            <tbody>
+                                <tr>
+                                    <th>Ref:</th>
+                                    <td class="border-0">${data.ref ?? 'N/A'}</td>
+                                    <th>Incident Date:</th>
+                                    <td class="border-0">${data.incident_date ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Member ID:</th>
+                                    <td class="border-0">${data.member_id ?? 'N/A'}</td>
+                                    <th>Member Name:</th>
+                                    <td class="border-0">${data.member ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Incident Type:</th>
+                                    <td class="border-0">${data.incident_nature ?? 'N/A'}</td>
+                                    <th>Location:</th>
+                                    <td class="border-0">${data.incident_location ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Incident Create:</th>
+                                    <td class="border-0">${formatDate(data.created_at) ?? 'N/A'}</td>
+                                    <th>Status:</th>
+                                    <td class="border-0">
+                                        ${data.status_name ? data.status_name.replace(/<[^>]*>/g, '') : 'N/A'}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Summary of Incident:</th>
+                                    <td colspan="3" class="border-0">${data.what_happened ?? 'N/A'}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
     </script>
 @endpush
