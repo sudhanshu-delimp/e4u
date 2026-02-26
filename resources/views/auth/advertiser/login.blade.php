@@ -23,7 +23,7 @@
                   <h4 class="welcome_sub_login_heading text-uppercase"><strong>Advertiser LOGIN</strong></h4>
                   <form id="escort_login" action="{{ route('advertiser.login')}}" method="post">
                       @csrf
-                        {{-- <input type="hidden" name="type" value="3"> --}}
+                        <input type="hidden" name="type" value="3">
                         <div class="form-group label_margin_zero_for_login">
                            <label for="exampleInputmobilenumber">Mobile Number</label>
                            <input type="text" required class="form-control" name="phone" id="mobileno" aria-describedby="emailHelp" placeholder="Mobile Number" data-parsley-required-message="Phone Number is required" value="{{ old('phone') }}">
