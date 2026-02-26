@@ -466,14 +466,14 @@
                                                                         <a class="nav-link active" id="menu_all"
                                                                             data-toggle="tab" href="#home">All</a>
                                                                     </li>
-                                                                    <!-- <li class="nav-item">
-                                                                                                                    <a class="nav-link" id="menu_varified" data-toggle="tab"
-                                                                                                                        href="#menu1">Verified</a>
-                                                                                                                </li>
-                                                                                                                <li class="nav-item">
-                                                                                                                    <a class="nav-link" id="menu_unverified" data-toggle="tab"
-                                                                                                                        href="#menu2">Unverified</a>
-                                                                                                                </li> -->
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" id="menu_varified" data-toggle="tab"
+                                                                            href="#menu1">Verified</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" id="menu_unverified" data-toggle="tab"
+                                                                            href="#menu2">Unverified</a>
+                                                                    </li>
                                                                 </ul>
                                                             </div>
                                                             <div class="col-md-2 pt-1">

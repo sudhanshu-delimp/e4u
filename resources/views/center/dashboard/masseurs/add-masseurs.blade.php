@@ -433,14 +433,14 @@
                                                                             <a class="nav-link active" id="menu_all"
                                                                                 data-toggle="tab" href="#home">All</a>
                                                                         </li>
-                                                                        <!-- <li class="nav-item">
+                                                                        <li class="nav-item">
                                                                             <a class="nav-link" id="menu_varified" data-toggle="tab"
                                                                                 href="#menu1">Verified</a>
                                                                         </li>
                                                                         <li class="nav-item">
                                                                             <a class="nav-link" id="menu_unverified" data-toggle="tab"
                                                                                 href="#menu2">Unverified</a>
-                                                                        </li> -->
+                                                                        </li>
                                                                     </ul>
                                                                 </div>
                                                                 <div class="col-md-2 pt-1">
@@ -850,15 +850,15 @@
                         style="max-height: 500px; overflow-y:scroll;">
 
                         <!-- @foreach ($media as $keyId => $image)
-    @if (!in_array($image->position, [9, 10]))
-    <div class="item4">
-                                    <img class="img-thumbnail defult-image select_image"
-                                        src="{{ asset($image->path) }}" alt=" "
-                                        data-id="{{ $image->id }}"
-                                        data-position="{{ $image->position ? $image->position : '' }}">
-                                </div>
-    @endif
-    @endforeach -->
+                                @if (!in_array($image->position, [9, 10]))
+                                <div class="item4">
+                                                                <img class="img-thumbnail defult-image select_image"
+                                                                    src="{{ asset($image->path) }}" alt=" "
+                                                                    data-id="{{ $image->id }}"
+                                                                    data-position="{{ $image->position ? $image->position : '' }}">
+                                                            </div>
+                                @endif
+                            @endforeach -->
                     </div>
                 </div>
 

@@ -423,11 +423,11 @@
 
 
                                     @for ($i = 0;
-        $i <
-        ceil(
-            collect($media)->whereNotIn('position', [9, 10])->count() / 10,
-        );
-        $i++)
+                                        $i <
+                                        ceil(
+                                            collect($media)->whereNotIn('position', [9, 10])->count() / 10,
+                                        );
+                                        $i++)
                                         <li class="page-item " id="pageItem_{{ $i }}"
                                             data-id="{{ $i }}">
                                             <a data-target="#carouselExampleIndicators"
