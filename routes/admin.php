@@ -35,7 +35,9 @@ use App\Http\Controllers\Admin\ShareholderNotificationController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
+use App\Http\Controllers\PunterboxController;
 use App\Http\Controllers\User\Dashboard\UserController;
+
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
@@ -644,6 +646,7 @@ Route::get('reports/punterbox',function(){
     return view('admin.reports.punterbox');
 })->name('admin.punterbox');
 
+Route::post('reports-punterbox-ajax', [PunterboxController::class, 'showReportOnDashboardAjax'])->name('admin.punterbox.ajax');
 
 Route::get('/management/competitor-database',function(){
     return view('admin.management.competitor-database');

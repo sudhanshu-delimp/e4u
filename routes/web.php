@@ -46,6 +46,7 @@ use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
+use App\Http\Controllers\PunterboxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -215,6 +216,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/notebox/edit',function(){
             return view('user.dashboard.notebox.edit-notebox');
         })->name('user.edit-notebox');
+
+        Route::post('/punterbox/store', [PunterboxController::class, 'storePunterboxReport'])->name('punterbox.store');
 
         Route::get('/punterbox/dashboard',function(){
             return view('user.dashboard.punterbox.dashboard');
