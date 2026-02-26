@@ -32,7 +32,9 @@ $social_links = $listing->social_links;
              <img src="{{ $massage_thumb }}" alt="">
          </a>
          <span class="verify_icon">
-             <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}" alt="">
+             {{-- <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}" alt=""> --}}
+             {{-- <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}" alt=""> --}}
+              <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" alt="pending">
          </span>
          <div class="mc_list_legbox">
              <span class="my_legbox_icon" data-target="#my_legbox" data-toggle="modal">

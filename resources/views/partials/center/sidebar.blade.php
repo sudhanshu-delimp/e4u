@@ -81,8 +81,8 @@
         </a>
 
         <div id="ProfileManagement" class="collapse
-                @if (in_array(request()->segment(3), ['add-listing', 'current', 'past', 'new-listing', 'archives-listing', 'videos']) ||
-                        in_array(request()->segment(2), ['create-profile', 'list', 'archive-view-photos'])) show @endif"
+                @if (in_array(request()->segment(3), ['add-listing', 'current', 'past', 'new-listing', 'videos']) ||
+                        in_array(request()->segment(2), ['create-profile', 'list', 'archive-view-photos', 'create-new-masseur','archives-listing'])) show @endif"
             data-parent="#accordionSidebar">
 
             <div class="collapse-inner">
@@ -155,18 +155,18 @@
 
                 <div id="CenterMasseurs"
                     class="collapse
-                    @if (in_array(request()->segment(3), ['create-new-masseur', 'archives-listing'])) show @endif"
+                    @if (in_array(request()->segment(2), ['create-new-masseur','archives-listing'] )) show @endif"
                     data-parent="#ProfileManagement">
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
-                        <a class="collapse-item {{ request()->segment(3) == 'create-new-masseur' ? 'menu-active' : '' }}"
+                        <a class="collapse-item {{ request()->segment(2) == 'create-new-masseur' ? 'menu-active' : '' }}"
                             href="{{ route('center.create-new-masseur') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png') }}">
                             <span>New</span>
                         </a>
 
-                        <a class="collapse-item {{ request()->segment(3) == 'archives-listing' ? 'menu-active' : '' }}"
+                        <a class="collapse-item {{ request()->segment(2) == 'archives-listing' ? 'menu-active' : '' }}"
                             href="{{ route('center.archives-listing') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png') }}">
                             <span>Archives</span>
