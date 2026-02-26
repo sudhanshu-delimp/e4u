@@ -2957,7 +2957,7 @@ button.btn:focus {
 
 .view_img_gallery {
     display: grid;
-    grid-template-columns: 2fr 400px 2fr;
+    grid-template-columns: 3fr 2fr;
     gap: 10px;
     margin: auto;
 }
@@ -2985,8 +2985,10 @@ button.btn:focus {
 .view_img_gallery .other_images {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 150px);
+    /* grid-template-rows: repeat(2, 150px); */
     gap: 10px;
+    height: 400px;
+    overflow: auto;
 }
 
 

@@ -1,6 +1,7 @@
 @extends('layouts.web')
 @section('style')
 <style>
+    
     #view_list svg path,
     #view_grid svg path {
         stroke: #000;
@@ -66,15 +67,88 @@
         font-weight: bold;
     }
 
+    .filter-contain .my-shortlist ul {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        margin-left: 40px;
+    }
+
+    .filter-contain .my-shortlist ul li h3 {
+        font-family: Poppins;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 32px;
+        letter-spacing: 0em;
+        text-align: left;
+        text-transform: uppercase;
+        margin-bottom: 0;
+        margin-right: 30px;
+    }
+
+    .filter-contain .my-shortlist ul li {
+        font-family: Montserrat;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: -0.015em;
+        text-align: end;
+        color: #0C223D;
+    }
+
+    .filter-contain .my-shortlist ul li a {
+        font-family: Montserrat;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: -0.015em;
+        text-align: center;
+        color: #0C223D;
+        text-decoration: none;
+    }
+
+    .filter-contain .my-shortlist ul li i.fa {
+        color: #FF3C5F;
+        margin-left: 12px;
+    }
 
 </style>
 @endsection
+
 @section('content')
 <section class="">
    
-    @include('web.mc.mc-filter')
+    @include('web.mc-shortlist.mc-filter')
 
     <div class="container my-5">
+
+
+            <div class="row grid_list_part grid_wishlist_part mb-0 filter-contain" id="v_li_wishlist" style="display: block;">
+                
+                <div class="col-12 align-items-left">
+                    <div class="my-shortlist">
+                        <ul class="mb-4 mt-1 pt-1 ml-0">
+                            <li>
+                                <h3>My Shortlist</h3>
+                            </li>
+                            
+                            
+                             <li class="fiter_btns slect__btn_tab">
+                                <div class="display_inline_block mb-1 mr-2 ">
+                                    <a type="submit" href="https://e4udev2.perth-cake1.powerwebhosting.com.au/all-escorts-list?gender=6%3Flat&amp;view=list" class="btn reset_filter p-1" data-toggle="tooltip">
+                                        
+                                        <i class="fa fa-arrow-left ml-0" aria-hidden="true" style="padding: 5px;font-size: 16px;"></i>
+                                       <span class="hide-on-sm" style="margin-right: 10px;"> Back To Listings</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
 
@@ -165,7 +239,7 @@
             </div>
         </div>
     </div>
-<input type="hidden" id="activeView" value="grid">
+    <input type="hidden" id="activeView" value="grid">
 </section>
 @endsection
 
@@ -206,9 +280,6 @@ $(document).ready(function () {
         }
     }
 
-    initPage();
-    
-    //loadData();
 
     /* ===============================
        VIEW SWITCH
@@ -266,7 +337,7 @@ $(document).ready(function () {
         $('#page_loader').show();
 
         $.ajax({
-            url: "{{ route('mc-ajax-list') }}",
+            url: "{{ route('shortlist-mc-ajax-list') }}",
             data: { 
                 page: page,
                  filter_by_location,
@@ -373,7 +444,6 @@ $(document).ready(function () {
 
     /////// Short List ///////////////
 
-
     $(document).on('click', '.upper_filter', async function(e){
         e.preventDefault();
 
@@ -409,7 +479,12 @@ $(document).ready(function () {
         await loadData(1,filter_by_location,filter_by_feild); 
     });
 
-   
+    initPage();
+    setInterval(function() {
+    location.reload();
+    }, 1800000); 
+
+
 });
 
 
@@ -455,7 +530,6 @@ $(document).ready(function () {
         }
 
     });
-
 </script>
 
 @endpush

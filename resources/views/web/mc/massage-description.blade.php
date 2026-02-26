@@ -38,6 +38,22 @@
     opacity: 0;
     transition: opacity 0.3s;
 }
+ .tooltip-wrapper .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* tooltip box ke bottom se */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #ff3c5f transparent transparent transparent; /* top arrow */
+  }
+ 
+  .tooltip-wrapper:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+
 .mc_avail_table table td {
     padding: 5px 0px !important;
 }
@@ -49,6 +65,8 @@
         $massager_name = $listing->profile_name;
         $other_services = "";
         $massage_services = "";
+
+        
 
 
         $massage_price  = false;
@@ -520,6 +538,8 @@
                              @foreach($listing->massagerMasseurs as $masseur)
 
                             @php
+
+                                $masseur_services = $masseur->service ?? [];
                                
                                 $imageUrl = asset($masseur->getImagePosition(1, $masseur->id));
 
@@ -599,18 +619,31 @@
                                                             <span>AGE : <b>{{ $masseur->age ?? 'N/A' }}</b></span>
 
                                                             <div class="massage_type">
+                                                               
+                                                            
+
+
+                                                            @if(in_array('massage', $masseur_services))
                                                                 <div class="massage_type_info">
                                                                     <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">
                                                                     <p class="mc_rate_tooltip">Massage only</p>
                                                                 </div>
+                                                            @endif    
+
+                                                            @if(in_array('2_hand', $masseur_services))
                                                                 <div class="massage_type_info">
                                                                     <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
                                                                     <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>
                                                                 </div>
+                                                             @endif       
+
+                                                            @if(in_array('4_hand', $masseur_services))
                                                                 <div class="massage_type_info">
                                                                     <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
                                                                     <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>
                                                                 </div>
+                                                             @endif   
+
                                                             </div>
                                                         </div>
                                                         <div class="mc_profile_modal">
