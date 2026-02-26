@@ -1,6 +1,6 @@
 
-
-
+@if(count($listings)>0)
+               
  @foreach($listings as $listing)
 
         @php 
@@ -90,6 +90,10 @@
         </div>
         @endforeach
 
-
-        
+        @else
+        <div class="no_listing">
+            <p><i>There are no listings for your search criteria.</i></p>
+        </div>
+        @endif
+ 
 

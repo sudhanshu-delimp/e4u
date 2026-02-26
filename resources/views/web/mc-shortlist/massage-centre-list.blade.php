@@ -114,7 +114,12 @@
         color: #FF3C5F;
         margin-left: 12px;
     }
-
+    .reset_container {
+        margin-top: 80px;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: unset !important;
+    }
 </style>
 @endsection
 
@@ -127,7 +132,6 @@
 
 
             <div class="row grid_list_part grid_wishlist_part mb-0 filter-contain" id="v_li_wishlist" style="display: block;">
-                
                 <div class="col-12 align-items-left">
                     <div class="my-shortlist">
                         <ul class="mb-4 mt-1 pt-1 ml-0">
@@ -138,7 +142,7 @@
                             
                              <li class="fiter_btns slect__btn_tab">
                                 <div class="display_inline_block mb-1 mr-2 ">
-                                    <a type="submit" href="https://e4udev2.perth-cake1.powerwebhosting.com.au/all-escorts-list?gender=6%3Flat&amp;view=list" class="btn reset_filter p-1" data-toggle="tooltip">
+                                    <a type="submit" href="./massage-centres-list" class="btn reset_filter p-1" data-toggle="tooltip">
                                         
                                         <i class="fa fa-arrow-left ml-0" aria-hidden="true" style="padding: 5px;font-size: 16px;"></i>
                                        <span class="hide-on-sm" style="margin-right: 10px;"> Back To Listings</span>
@@ -149,6 +153,7 @@
                     </div>
                 </div>
             </div>
+
 
             <div class="row">
 
@@ -246,24 +251,30 @@
 
 @push('scripts')
 <script>
+    
+var current_filter_flag = "upper_filter";
+var activeView = 'grid';
+var default_filter = $('input[name="locationByRadio"]:checked').val(); 
 $(document).ready(function () {
 
-    let activeView = 'grid';
+   
     $('#view_grid').addClass('view-active');
-
-
     async function initPage() {
     try 
     {
-        const position = await getCurrentLocation();
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-
-        $("#set_lat").val(latitude);
-        $("#set_lng").val(longitude);
-
-        console.log(longitude, latitude, 'rizk-onload');
-
+        if (default_filter!== 'australia') 
+        {
+            const position = await getCurrentLocation();
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            $("#set_lat").val(latitude);
+            $("#set_lng").val(longitude);
+            console.log(longitude, latitude, 'rizk-onload');
+          
+        }
+        
+       
+        
         let filter_by_feild = {};
         let filter_by_location = {
             locationByRadio: $('input[name="locationByRadio"]:checked').val(),
@@ -344,15 +355,18 @@ $(document).ready(function () {
                  filter_by_feild
             },
             success: function (res) {
-
-               
                 $('.mc_card_container').html(res.grid);
                 $('.mc_list_container').html(res.list);
                 $('.total_count').html(res.total_count);
-                
-
-                
                 $('#common_pagination').html(res.pagination);
+                if ($('.mc_card_container').find('.no_listing').length) {
+                $('.mc_card_container').addClass('reset_container');
+                $('.mc_view_title').html('');
+                }
+                else
+                {
+                  $('.mc_card_container').removeClass('reset_container');
+                }
 
                 if ($('#activeView').val() === 'grid') {
                     $('#list_view').hide();
@@ -372,46 +386,14 @@ $(document).ready(function () {
 
     ///////  Short List /////////////
 
-    $(document).on('click', '.m_wishlist', function () {
+    $(document).on('click', '.m_removelist', async function () {
         $('#page_loader').show();
         var wishlist_id = $(this).data('id');
-        var wishlist_footer_id = 'wishlist_footer_id'+wishlist_id;
-        var list_button_wrap_id ='list_button_wrap_id'+wishlist_id;
-
-       var listbuton =  `<button type="button" class="m_removelist btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887" data-id="${wishlist_id}">
-        <img class="listiconprofilelistview" src="../assets/app/img/filter_view.png"> Remove from Shortlist
-        </button>`;
-
-        $.ajax({
-            url: "{{ route('web.store-short-list') }}",
-            type: 'POST',
-            data: {
-                wishlist_id: wishlist_id,
-                _token: $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (res) {
-                  $('#page_loader').hide();
-                   let response  = res;  
-                   if(response.status)
-                   {
-                        $('#session_count').html(response.session_count);
-                        $('#'+list_button_wrap_id).html(listbuton);
-                        $('#'+wishlist_footer_id).html('<a href="javascript:void(0)" data-id="'+wishlist_id+'" class="m_removelist"  >Remove to Shortlist</a>');
-                        $('.user_short_list').html( `<span id="Lname">${response.data.profile_name}</span> has been added to your Shortlist.`);
-                        $('#add_wishlist').modal('show');
-
-                   }
-            }
-        });
-
-    });
-
-    $(document).on('click', '.m_removelist', function () {
-        $('#page_loader').show();
-        var wishlist_id = $(this).data('id');
+        var grid_id = 'grid_view_'+wishlist_id;
+        
 
         var wishlist_footer_id = 'wishlist_footer_id'+wishlist_id;
-        var list_button_wrap_id ='list_button_wrap_id'+wishlist_id;
+        var grid_view ='#grid_view_'+wishlist_id;
 
          var listbuton =  `<button type="button" class="m_wishlist btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_1887" data-id="${wishlist_id}">
         <img class="listiconprofilelistview" src="../assets/app/img/filter_view.png"> Add to Shortlist
@@ -424,15 +406,19 @@ $(document).ready(function () {
                 wishlist_id: wishlist_id,
                 _token: $('meta[name="csrf-token"]').attr('content')
             },
-            success: function (res) {
+            success: async function (res) {
                   $('#page_loader').hide();
                    let response  = res;  
                    if(response.status)
                    {    $('#session_count').html(response.session_count);
-                        $('#'+wishlist_footer_id).html('<a href="javascript:void(0)" data-id="'+wishlist_id+'" class="m_wishlist">Add to Shortlist</a>');
-                        $('#'+list_button_wrap_id).html(listbuton);
+                        ///$('#'+wishlist_footer_id).html('<a href="javascript:void(0)" data-id="'+wishlist_id+'" class="m_wishlist">Add to Shortlist</a>');
+                        // $('#'+list_button_wrap_id).html(listbuton);
                         $('.user_short_list').html( `<span id="Lname">${response.data.profile_name}</span> has been remove from your Shortlist.`);
                         $('#add_wishlist').modal('show');
+                        $('.mc_card_container '+grid_view+'').remove();
+                        const { filter_by_location, filter_by_feild }  = get_current_filter();
+                        console.log('filter_by_location',filter_by_location);
+                        await loadData(1,filter_by_location,filter_by_feild); 
 
                    }
             }
@@ -447,6 +433,7 @@ $(document).ready(function () {
     $(document).on('click', '.upper_filter', async function(e){
         e.preventDefault();
 
+        current_filter_flag = 'upper_filter';
         let filter_by_feild = {};
         let filter_by_location = {
             locationByRadio: $('input[name="locationByRadio"]:checked').val(),
@@ -463,6 +450,7 @@ $(document).ready(function () {
     $(document).on('click', '.lower_filter', async function(e){
         e.preventDefault();
 
+        current_filter_flag = 'lower_filter';
         let filter_by_location = {};
         let filter_by_feild = {
             profile_state: $('#profile_state').val(),
@@ -488,6 +476,45 @@ $(document).ready(function () {
 });
 
 
+    function get_current_filter()
+    {
+        if(current_filter_flag=='lower_filter')
+        {
+            let filter_by_location = {};
+            let filter_by_feild = {
+            profile_state: $('#profile_state').val(),
+            profile_city: $('#profile_city').val(),
+            masseur_types: $('#masseur_types').val(),
+            profile_age: $('#profile_age').val(),
+            profile_price: $('#profile_price').val(),
+            massage_services: $('#massage_services').val(),
+            other_services: $('#other_services').val(),
+            verification: $('#verification').val(),
+            };
+
+            return {
+                filter_by_location: filter_by_location,
+                filter_by_feild: filter_by_feild
+                };
+        }
+
+        if(current_filter_flag=='upper_filter')
+        {
+            let filter_by_feild = {};
+            let filter_by_location = {
+                locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+                by_name_member: $('#by_name_member').val(),
+                set_lat: $('#set_lat').val(),
+                set_lng: $('#set_lng').val(),
+                per_page: $('#per_page').val()
+            };
+
+            return {
+            filter_by_location: filter_by_location,
+            filter_by_feild: filter_by_feild
+            };
+        } 
+    }
 
     function getCurrentLocation() {
         return new Promise((resolve, reject) => {
