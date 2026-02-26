@@ -188,11 +188,12 @@ class LoginController extends BaseController
         $wrongConsoleLoginMsg = config('constants.wrong_console_login_msg');
         $loginUrlEndpoint = config('constants.login_url_endpoint');
         $userType =  $request->input('type', "");
-        $userTypeList = [$userType];
+        $userTypeList = [$user->type];
         if ($user->type == 3 || $user->type == 4) {
              $userTypeList = [3,4];
         }
-        if (!in_array($userType, $userTypeList)) {
+        
+        if (!in_array((int)$userType, $userTypeList)) {
             $userType = (string) $userType;
             if($user->type == 0) {
                  throw ValidationException::withMessages([
