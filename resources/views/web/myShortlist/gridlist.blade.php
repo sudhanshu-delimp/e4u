@@ -35,7 +35,7 @@
                                         class="img-fluid height_for_platinum">
 
                                     <div class="verify-image-custom">
-                                        <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                        <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
                                     </div>
                                     <div class="siliver_logo_icon"><img src="{{ $imagePath }}">
                                     </div>
