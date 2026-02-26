@@ -132,7 +132,12 @@
                         
                     </div>
                     <div class="modal-footer" style="justify-content: center;">
-                        <a href="{{route('advertiser.login')}}" class="btn main_bg_color site_btn_primary">Click Hear To Login</a>
+                        <a href="{{ $user_info 
+                                        ? ($user_info->type == 9 ? route('operator.login') : route('admin.login')) 
+                                        : route('home') 
+                                }}" class="btn main_bg_color site_btn_primary">
+                            Click Hear To Login
+                        </a>
                     </div>
                 </div>
             </div>

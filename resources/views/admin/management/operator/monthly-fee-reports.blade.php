@@ -61,7 +61,7 @@
                                     <td>WA</td>
                                     <td><div class="num_value">$ <span>1,250,900.00</span></div></td>
                                     <td><div class="num_value">$ <span>25,018.00</span></div></td>
-                                    <td>Pending</td>
+                                    <td><span class="custom_badge badge_pending">Pending</span></td>
                                     <td>04-11-2025</td>
                                     <td class="text-center">
                                         <div class="dropdown no-arrow">

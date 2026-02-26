@@ -90,7 +90,7 @@
                                 <td>Peter</td>
                                 <td>03-05-2025</td>
                                 <td>Brisbane</td>
-                                <td>Pending</td>
+                                <td><span class="custom_badge badge_pending">Pending</span></td>
                                 <td>
                                     <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button"

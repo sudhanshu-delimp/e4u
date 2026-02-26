@@ -60,7 +60,7 @@
                   <td>08-06-2025</td>
                   <td>09-06-2025</td>
                   <td>Adhoc</td>
-                  <td>Published</td>
+                  <td><span class="custom_badge badge_published">Published</span></td>
                   <td class="action-icons">
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

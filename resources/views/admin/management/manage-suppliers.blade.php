@@ -68,7 +68,7 @@
                                           <td>Western Australia</td>
                                           <td>0438 028 728</td>
                                           <td>info@condomma.com.au</td>
-                                          <td>Pending</td>
+                                          <td><span class="custom_badge badge_pending">Pending</span></td>
                                           <td>
                                              <div class="dropdown no-arrow">
                                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

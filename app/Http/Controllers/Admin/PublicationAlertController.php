@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use function Symfony\Component\Translation\t;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
-
+use Illuminate\Support\Str;
 
 class PublicationAlertController extends Controller
 {
@@ -60,6 +60,7 @@ class PublicationAlertController extends Controller
                 ->addColumn('ref', function ($row) {
                     return sprintf('#%05d', $row->id);
                 })
+               
                 ->filterColumn('ref', function ($query, $keyword) {
                     $digits = ltrim($keyword, '#0');
                     if ($digits !== '') {
@@ -79,6 +80,13 @@ class PublicationAlertController extends Controller
 
                 ->orderColumn('status', function ($query, $order) {
                     $query->orderBy('status', $order);
+                })
+                ->addColumn('status', function ($row) {
+                    $statusText = $row->status 
+                        ? Str::title(Str::replace('_', ' ', $row->status)) 
+                        : 'NA';
+                    $badgeClass = getStatusBadgeClass($statusText);
+                    return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
                 })
                 ->addColumn('action', function ($row) {
                     $actions = [];

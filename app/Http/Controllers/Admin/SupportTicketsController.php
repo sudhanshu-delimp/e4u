@@ -151,6 +151,10 @@ class SupportTicketsController extends AppController
             $item->sn = ($start+$i);
             $item->member_id = $item->user->member_id;
             $item->created_on = Carbon::parse($item->created_on)->format('d-m-Y');
+            $statusText = $item->status ?? 'NA';
+            $badgeClass = getStatusBadgeClass($statusText);
+            $item->status_badge = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+
             // $item->status_id = $item->getRawOriginal('status');
             // $item->status_mod = "<span data-status-id='".$item->status_id."'>$item->status</span>";
 //            $item->status_mod2 = '<div class="dropdown no-arrow archive-dropdown">

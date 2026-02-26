@@ -439,7 +439,10 @@ class GlobalMonitoringController extends Controller
                     $nestedData['profile_id'] = $item->escort->id;
                     $nestedData['start_date'] = $item->start_date;
                     $nestedData['end_date'] = $item->end_date;
-                    $nestedData['status'] = $item->status;
+                    $statusText = $item->status ?? 'NA';
+                    $badgeClass = getStatusBadgeClass($statusText);
+                    $nestedData['status'] = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+
                     $nestedData['option'] = '<div class="dropdown no-arrow text-center">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

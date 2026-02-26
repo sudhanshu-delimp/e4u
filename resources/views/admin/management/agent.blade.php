@@ -126,7 +126,7 @@
       { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
       { data: 'no_of_client', name: 'no_of_client', searchable: true, orderable:false,defaultContent: 'NA' },
       { data: 'last_login', name: 'last_login', searchable: false, orderable:false,defaultContent: 'NA' },
-      { data: 'status', name: 'status', searchable: false, orderable:false,defaultContent: 'NA' },
+      { data: 'status_text', name: 'status_text', searchable: false, orderable:false,defaultContent: 'NA' },
       { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
       ],
 

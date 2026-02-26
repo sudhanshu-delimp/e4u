@@ -514,21 +514,25 @@ class AgentRequestController extends Controller
 
                 if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)
                 {
-                 foreach ($item->agent_request_users as $index => $agent_user)
-                 {
-                    if($agent_user->status==0)
-                    $agent_status[] = '<p class="accepted-badge">Open</p>';
-                    
-                    if($agent_user->status==1)
-                    $agent_status[] = '<p class="accepted-badge">Accepted</p>';
+                    foreach ($item->agent_request_users as $index => $agent_user)
+                        {
+                            if ($agent_user->status == 0) {
+                                $statusText = 'Open';
+                            }
+                            if ($agent_user->status == 1) {
+                                $statusText = 'Accepted';
+                            }
+                            if ($agent_user->status == 2) {
+                                $statusText = 'Rejected';
+                            }
+                            if ($agent_user->status == 3) {
+                                $statusText = 'Forfeited';
+                            } 
 
-                     if($agent_user->status==2)
-                    $agent_status[] = '<p class="declined-badge" >Rejected</p>';
+                            $badgeClass = getStatusBadgeClass($statusText);
+                            $agent_status[] = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+                        }
 
-                     if($agent_user->status==3)
-                    $agent_status[] = '<p class="forfeited-badge">Forfeited</p>';
-                    
-                 }
                 }
 
                 if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)

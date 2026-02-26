@@ -59,7 +59,14 @@ class AdvertiserReviewsController extends Controller
             ->addColumn('viewer_id', fn($row) => $row->user->member_id ?? '-')
             ->addColumn('mobile', fn($row) => $row->user->phone ?? '-')
           
-            ->addColumn('status', fn($row) => Str::title($row->status) ?? 'Pending')
+            // ->addColumn('status', fn($row) => Str::title($row->status) ?? 'Pending')
+            ->addColumn('status', function ($row) {
+                $statusText = $row->status 
+                    ? Str::title($row->status) 
+                    : 'Pending';
+                $badgeClass = getStatusBadgeClass($statusText);
+                return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+            })
             // ->addColumn('review', fn($row) => $row->description != null && $row->description != '' ? Str::title($row->description) : '-')
             ->addColumn('action', function ($row) {
 
