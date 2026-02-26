@@ -141,32 +141,49 @@
         }
 
         .masseur_upl_img {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap; 
             gap: 5px;
-        }
+            }
+
 
         .masseur_gallery {
-            display: grid;
-            grid-template-columns: 1fr;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            flex-wrap: wrap;
             gap: 3px;
         }
-
+        .masseur_upl_img .gal_img{
+            flex: 1;
+        }
+        .masseur_upl_img .thumnail_img{
+             flex: 2;
+        }
         .gal-thumb-first {
             width: 100% !important;
             height: 340px !important;
         }
-
+        @media(max-width:1024px){
+            .masseur_upl_img {
+                flex-direction: column;
+            }  .masseur_gallery {
+                flex-direction: row;
+            }
+        }
         @media (min-width:600px) and (max-width: 1024px) {
             .grid-container {
                 grid-template-columns: repeat(3, 1fr);
             }
+            
         }
 
         @media (max-width: 600px) {
             .grid-container {
                 grid-template-columns: repeat(2, 1fr);
-            }
+            } 
+
         }
     </style>
 @stop
@@ -354,10 +371,14 @@
                                     <div class="mcc-form-tab">
                                         <h2 class="mcc-heading">Media</h2>
                                         <div class="row">
-                                            <div class="col-md-12 my-3 d-flex justify-content-end">
+                                            <div class="col-md-12 my-3 d-flex justify-content-end gap-10">
                                                 <button type="button" class="create-tour-sec dctour" data-toggle="modal"
                                                     data-target="#add_photo_mcc">Add Photos</button>
+                                                    <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#veryfy_media">Media Verification</button>
                                             </div>
+
+                                            
+
                                             <div class="col-lg-4 col-sm-12">
                                                 <div class="upload-banner p-0">
                                                     <div class="photo-top-header">
@@ -911,6 +932,8 @@
 
 
     @include('center.dashboard.modal.remove_gallary_image')
+    
+    @include('center.dashboard.modal.upload_verify_media')
 
 @endsection
 

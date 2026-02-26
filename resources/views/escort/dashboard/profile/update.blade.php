@@ -259,6 +259,7 @@ $loginAccount = auth()->user();
 </div>
 @include('escort.dashboard.modal.upload_gallery_image')
 @include('escort.dashboard.modal.remove_gallary_image')
+@include('escort.dashboard.modal.verify_media')
 @include('escort.dashboard.modal.upload_gallery_video')
 @include('escort.dashboard.modal.set_default_video')
 @include('escort.dashboard.modal.remove_gallary_video')
