@@ -200,7 +200,7 @@ class LoginController extends BaseController
                 ]);
             } else {
                  throw ValidationException::withMessages([
-                    'phone' => isset($wrongConsoleLoginMsg[$userType]) ? $wrongConsoleLoginMsg[$userType]. json_encode($userTypeList) : "You are not authorized to login this console.",
+                    'phone' => isset($wrongConsoleLoginMsg[$userType]) ? $wrongConsoleLoginMsg[$userType] : "You are not authorized to login this console.",
                 ]);
             }
             
