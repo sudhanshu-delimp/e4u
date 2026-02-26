@@ -611,7 +611,7 @@
                                                         @endforeach
                                                 </div>
 
-                                                <div class="col-md-7 product_content pl-5 pt-1 d-flex flex-column justify-content-between" style="">
+                                                <div class="col-md-7 product_content pl-5 pt-1 d-flex flex-column justify-content-start" style="">
 
                                                     <div>
                                                         <div class="mc_profile_info">
@@ -697,7 +697,7 @@
 
                                                     </div>
 
-                                                    <div>
+                                                    <div class="mt-2">
                                                         <h5 class="mb-0" style="color: #000">About Me : </h5>
                                                         <p class=" mt-0 text-justify">{!! $masseur->commentary ?? 'N/A' !!}</p>
                                                     </div>
