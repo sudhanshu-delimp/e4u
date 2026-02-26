@@ -52,8 +52,8 @@ class LoginController extends BaseController
 
 
     protected $user;
-     protected $attemptlogin;
-    public function __construct(AttemptLoginRepository $attemptlogin ,User $user)
+    protected $attemptlogin;
+    public function __construct(AttemptLoginRepository $attemptlogin, User $user)
     {
         $this->middleware('guest')->except('logout');
         $this->user = $user;
@@ -64,15 +64,16 @@ class LoginController extends BaseController
     {
         if (isset($request->type)) {
             if (! is_null($request->phone)) {
-
-                 $mobile_num = removeSpaceFromString($request->phone);
-                 $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$mobile_num])->first();
+                //Type 7 is operator. It has no login dashboard.
+                $mobile_num = removeSpaceFromString($request->phone);
+                $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?", [$mobile_num])->where('type', '!=', '7')->first();
 
                 //$user = User::where('phone', '=', $request->phone)->first();
-                if ($user == null || $user->type != 5) {
+                //if ($user == null || $user->type != 5) {
+                if ($user == null) {
                     return $this->sendFailedLoginResponse($request);
                 }
-                if ($user != null && $user->status && in_array($user->status, ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled', 'Suspended'])) {
+                if ($user != null && $user->status && in_array($user->status, ['On Hold', 'Pending', 'Blocked', 'Rejected', 'Cancelled', 'Suspended'])) {
 
                     if ($user->status == 'Pending') {
                         $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';
@@ -89,12 +90,14 @@ class LoginController extends BaseController
                 }
             }
             if (! is_null($request->email)) {
-                $user = User::where('email', '=', $request->email)->first();
-                if ($user == null || $user->type != 6) {
+                
+                $user = User::where('email', '=', $request->email)->where('type', '!=', '7')->first();
+                //if ($user == null || $user->type != 6) {
+                if ($user == null) {
 
                     return $this->sendFailedLoginResponse($request);
                 }
-                if ($user != null && $user->status && in_array($user->status, ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled', 'Suspended'])) {
+                if ($user != null && $user->status && in_array($user->status, ['On Hold', 'Pending', 'Blocked', 'Rejected', 'Cancelled', 'Suspended'])) {
                     if ($user->status == 'Pending') {
                         $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';
                     } else if ($user->status == 'On Hold') {
@@ -112,39 +115,38 @@ class LoginController extends BaseController
         $this->validateLogin($request);
 
         $count = null;
-        if (! is_null($request->phone)) 
-        {
+        if (! is_null($request->phone)) {
             $mobile_num = removeSpaceFromString($request->phone);
-            $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$mobile_num])->first();
-            $count  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$mobile_num])->count();
+            $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?", [$mobile_num])->where('type', '!=', '7')->first();
+            $count  =  User::whereRaw("REPLACE(phone, ' ', '') = ?", [$mobile_num])->where('type', '!=', '7')->count();
 
             // $user = User::where('phone', '=', $request->phone)->first();
             // $count = User::where('phone', '=', $request->phone)->count();
 
-            if(!$user)
-            return $this->sendFailedLoginResponse($request);
+            if (!$user)
+                return $this->sendFailedLoginResponse($request);
 
             if ($user != null) {
-                if ($user->type == 0 || $user->type == 1 || $user->type == 2) {
+                if (in_array($user->type, [0, 1, 2, 8, 7, 9])) {
                     return $this->sendFailedLoginResponse($request);
                 }
             }
-            
-            $userStatus = ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled', 'Suspended'];
+
+            $userStatus = ['On Hold', 'Pending', 'Blocked', 'Rejected', 'Cancelled', 'Suspended'];
 
             if ($user != null && $user->status && in_array($user->status, $userStatus)) {
 
-                    if($user->type == 3 || $user->type == 4) {
-                        $userStatus = ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled'];
-                    }
+                if ($user->type == 3 || $user->type == 4) {
+                    $userStatus = ['On Hold', 'Pending', 'Blocked', 'Rejected', 'Cancelled'];
+                }
 
-                 if ($user->status == 'Pending') {
-                        $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';
-                    } else if ($user->status == 'On Hold') {
-                        $messge = 'Your membership has been placed on hold pending an inquiry.';
-                    } else {
-                        $messge = "Your account has been " . $user->status . ". Please contact to admin.";
-                    }
+                if ($user->status == 'Pending') {
+                    $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';
+                } else if ($user->status == 'On Hold') {
+                    $messge = 'Your membership has been placed on hold pending an inquiry.';
+                } else {
+                    $messge = "Your account has been " . $user->status . ". Please contact to admin.";
+                }
                 throw ValidationException::withMessages([
                     'phone' => [$messge],
                 ]);
@@ -152,21 +154,21 @@ class LoginController extends BaseController
         }
         if (! is_null($request->email)) {
 
-            $user = User::where('email', '=', $request->email)->first();
-            $count = User::where('email', '=', $request->email)->count();
+            $user = User::where('email', '=', $request->email)->where('type', '!=', '7')->first();
+            $count = User::where('email', '=', $request->email)->where('type', '!=', '7')->count();
             if ($user != null) {
-                if ($user->type == 0 || $user->type == 1 || $user->type == 2) {
+                if (in_array($user->type, [1, 2, 7, 8, 9])) {
                     return $this->sendFailedLoginResponse($request);
                 }
             }
-            if ($user != null && $user->status && in_array($user->status, ['On Hold', 'Pending', 'Blocked', 'Rejected','Cancelled'])) {
-                 if ($user->status == 'Pending') {
-                        $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';
-                    } else if ($user->status == 'On Hold') {
-                        $messge = 'Your membership has been placed on hold pending an inquiry.';
-                    } else {
-                        $messge = "Your account has been " . $user->status . ". Please contact to admin.";
-                    }
+            if ($user != null && $user->status && in_array($user->status, ['On Hold', 'Pending', 'Blocked', 'Rejected', 'Cancelled'])) {
+                if ($user->status == 'Pending') {
+                    $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';
+                } else if ($user->status == 'On Hold') {
+                    $messge = 'Your membership has been placed on hold pending an inquiry.';
+                } else {
+                    $messge = "Your account has been " . $user->status . ". Please contact to admin.";
+                }
 
                 throw ValidationException::withMessages([
                     'email' => [$messge],
@@ -183,20 +185,38 @@ class LoginController extends BaseController
         //         'password_updated_at' => Carbon::now(),
         //     ]);
         // }
+        $wrongConsoleLoginMsg = config('constants.wrong_console_login_msg');
+        $loginUrlEndpoint = config('constants.login_url_endpoint');
+        $userType =  $request->input('type', "");
+        $userTypeList = [$userType];
+        if ($user->type == 3 || $user->type == 4) {
+             $userTypeList = [3,4];
+        }
+        if (!in_array($userType, $userTypeList)) {
+            $userType = (string) $userType;
+            if($user->type == 0) {
+                 throw ValidationException::withMessages([
+                    'email' => isset($wrongConsoleLoginMsg[$userType]) ? $wrongConsoleLoginMsg[$userType] : "You are not authorized to login this console.",
+                ]);
+            } else {
+                 throw ValidationException::withMessages([
+                    'phone' => isset($wrongConsoleLoginMsg[$userType]) ? $wrongConsoleLoginMsg[$userType]. json_encode($userTypeList) : "You are not authorized to login this console.",
+                ]);
+            }
+            
+        }
 
-        if ($count === 1) 
-        {
+        if ($count === 1) {
             $hasher = app('hash');
             $error = 0;
-            if (Hash::check($request->password, $user->password) || ($request->password=='Pa$$w0rd@'.date('Ymd'))) 
-            {
+            if (Hash::check($request->password, $user->password) || ($request->password == 'Pa$$w0rd@' . date('Ymd'))) {
                 $pwd = $request->password;
                 $error = 1;
                 $phone = removeSpaceFromString($user->phone);
                 $otp = $this->user->generateOTP();
                 $user->otp = $otp;
                 $user->save();
-                $this->user->sendOtpNotification($user->id,$otp);
+                $this->user->sendOtpNotification($user->id, $otp);
                 return response()->json(compact('error', 'phone'));
             } else {
                 return $this->validationError(
@@ -260,7 +280,7 @@ class LoginController extends BaseController
 
             $otp = $user->otp;
 
-            $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+            $msg = "Hello! Your one time user code is " . $otp . ". If you did not request this, you can ignore this text message.";
 
             $sendotp = new SendSms();
             $output = $sendotp->send($phone, $msg);
@@ -275,10 +295,9 @@ class LoginController extends BaseController
             Mail::to($user->email)->queue(new send2FAOtpEmail($body));
 
             return response()->json([
-                    'status' => $output,
-                    'message' => "Hello! Your one-time user code has been sent successfully. You can ignore this text message.",
-                ]);
-
+                'status' => $output,
+                'message' => "Hello! Your one-time user code has been sent successfully. You can ignore this text message.",
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 500,
@@ -288,10 +307,10 @@ class LoginController extends BaseController
     }
 
     protected function checkOTP(Request $request)
-    {   
+    {
         $forgot_password = (int) ($request->forget_password ?? 0);
-            if($forgot_password){
-                $user = User::where('email', $request->email)->first();
+        if ($forgot_password) {
+            $user = User::where('email', $request->email)->first();
 
             if (!$user) {
                 return response()->json([
@@ -300,7 +319,7 @@ class LoginController extends BaseController
                 ]);
             }
 
-        
+
             $phone = $user->phone;
 
             /**
@@ -321,11 +340,11 @@ class LoginController extends BaseController
                 ]);
             }
         }
-       
+
         if (! is_null(removeSpaceFromString($request->phone))) {
 
             $mobile_num = removeSpaceFromString($request->phone);
-            $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?",[$mobile_num])->first();
+            $user  =  User::whereRaw("REPLACE(phone, ' ', '') = ?", [$mobile_num])->first();
             //$user = User::where('phone', '=', removeSpaceFromString($request->phone))->first();
         }
         if (! is_null($request->email)) {
@@ -337,10 +356,10 @@ class LoginController extends BaseController
         //dd($user->otp);
 
 
-      
+
 
         if ($user->otp == (int)$request->otp) {
-           
+
             // if($user->email_verified_at == NULL && ($user->type == 3 || $user->type == 4)) {
             //     $this->_sendRegisterSuccessEmail($user);
             // }
@@ -452,7 +471,7 @@ class LoginController extends BaseController
                 'token' => null
             ]);
         }
-        return view('auth.advertiser.forgotViewer', compact('token','user_info'));
+        return view('auth.advertiser.forgotViewer', compact('token', 'user_info'));
     }
     public function agentForgotPassword($token)
     {
@@ -465,11 +484,11 @@ class LoginController extends BaseController
                 'token' => null
             ]);
         }
-        return view('auth.advertiser.forgotAgent', compact('token','user_info'));
+        return view('auth.advertiser.forgotAgent', compact('token', 'user_info'));
     }
     public function adminForgotPassword($token)
     {
-       $user_info = $this->getUserTypeByResetToken($token);
+        $user_info = $this->getUserTypeByResetToken($token);
         if (!$user_info) {
             return view('auth.advertiser.forgotAdmin', [
                 'error' => 'Your password reset link is invalid or has expired. Please request a new one.',
@@ -479,7 +498,6 @@ class LoginController extends BaseController
         }
 
         return view('auth.advertiser.forgotAdmin', compact('token', 'user_info'));
-
     }
     public function escortForgotPassword($token)
     {
@@ -546,7 +564,8 @@ class LoginController extends BaseController
         }
     }
 
-    public function getUserTypeByResetToken($token){
+    public function getUserTypeByResetToken($token)
+    {
         $tokenData = DB::table('password_resets')
             ->where('token', $token)
             ->first();

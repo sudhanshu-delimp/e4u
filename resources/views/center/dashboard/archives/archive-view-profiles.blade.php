@@ -16,12 +16,12 @@
         <div class="row">
             <div class="col-md-12">
                 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb bread-sec pl-0">
-    <li class="breadcrumb-item"><a href="{{ url('center-dashboard/archive-medias') }}" style="
-"><i class="fas fa-long-arrow-alt-left"></i>&nbsp;&nbsp;Back</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Profiles &amp; Archives</li>
-  </ol>
-</nav>
+                    <ol class="breadcrumb bread-sec pl-0">
+                        <li class="breadcrumb-item"><a href="{{ url('center-dashboard/archive-medias') }}" style="
+                    "><i class="fas fa-long-arrow-alt-left"></i>&nbsp;&nbsp;Back</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Profiles &amp; Archives</li>
+                    </ol>
+                </nav>
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Profiles </h1>
                 </div>

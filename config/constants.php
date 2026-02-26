@@ -117,15 +117,17 @@ return [
     'confirm_password_notify' => env('CONFIRM_PASSWORD_PLACEHOLDER', 'Your confirm Password appears encrypted.'),
 
     'wrong_console_login_msg' => [
+        '0' => "You are not authorized to login viewer console.",
         '1' => "You are not authorized to login admin console.",
-        '3' => "You are not authorized to login escort console.",
-        '4' => "You are not authorized to login massage centre console.",
+        '3' => "You are not authorized to login advertiser console.",
+        '4' => "You are not authorized to login  advertiser console.",
         '5' => "You are not authorized to login agent console.",
         '8' => "You are not authorized to login shareholder console.",
         '9' => "You are not authorized to login operator console.",
     ],
 
     'login_url_endpoint' => [
+        '0' => "viewer-login",
         '1' => "admin-login",
         '3' => "advertiser-login",
         '4' => "advertiser-login",

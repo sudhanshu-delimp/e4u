@@ -159,9 +159,6 @@
      var rowData = table.row($(this).parents('tr')).data();
      let statusData = rowData.list_arr;
      let statusRows = [];
-
-   
-     console.log(statusData);
       for (let i = 0; i < statusData.agent_id.length; i++) {
               statusRows +=  `<tr>
                   <td>${statusData.agent_id[i]}</td>

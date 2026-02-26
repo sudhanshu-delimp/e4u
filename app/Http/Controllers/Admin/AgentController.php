@@ -131,7 +131,9 @@ class AgentController extends BaseController
             $item->agent_id = $item->id;
             	
             $item->territory = isset($item->state->name) ? $item->state->name : 'NA';
-
+            $statusText = $item->status ?? 'NA';
+            $badgeClass = getStatusBadgeClass($statusText);
+            
             $suspend_html = "";
             $activate_html ="";
 
@@ -163,7 +165,7 @@ class AgentController extends BaseController
                                           </div>';
              }
             
-            
+            $item->status_text = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
             $item->action = $dropdown;
             $i++;
         }

@@ -67,8 +67,6 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
         }
         $mainQuery = $query->offset($start)->limit($limit);
         $result = $this->modifyEscorts($mainQuery->get(), $start);
-        
-
         return [$result, $count];
     }
 
@@ -81,7 +79,11 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $item->profile_name = $item->escort->profile_name;
             $item->stage_name = $item->escort->gender=='Transgender'?'TS - '.$item->escort->name:$item->escort->name;
             $item->days_number = $item->days_number;
-            $item->status = $item->escort->enabled == 1 ?'Current':'Upcoming';
+            // $item->status = $item->escort->enabled == 1 ?'Current':'Upcoming';
+            $statusText = $item->escort->enabled == 1 ? 'Current' : 'Upcoming';
+            $badgeClass = getStatusBadgeClass(strtolower($statusText));
+            $item->status = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+            
             $item->location = $locations[$item->escort->state_id]['stateName'];
             [$discount, $rate, $totalAmount] = calculateTotalFee($item->membership, $item->days_number);
             $item->membership = getMembershipType($item->membership);

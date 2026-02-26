@@ -23,7 +23,7 @@
                   <h4 class="welcome_sub_login_heading text-uppercase"><strong>Advertiser LOGIN</strong></h4>
                   <form id="escort_login" action="{{ route('advertiser.login')}}" method="post">
                       @csrf
-                        {{-- <input type="hidden" name="type" value="3"> --}}
+                        <input type="hidden" name="type" value="3">
                         <div class="form-group label_margin_zero_for_login">
                            <label for="exampleInputmobilenumber">Mobile Number</label>
                            <input type="text" required class="form-control" name="phone" id="mobileno" aria-describedby="emailHelp" placeholder="Mobile Number" data-parsley-required-message="Phone Number is required" value="{{ old('phone') }}">
@@ -195,7 +195,7 @@
                   </button>
                </div>
 
-               <div class="modal-body pb-5 pt-5">
+               <div class="modal-body pt-5">
                   <div class="row text-center" style="">
                      <div class="col-md-12">
                         <a href="#"><img src="{{ asset('assets/app/img/tick.png')}}" class="img-fluid" alt="logo"></a>
@@ -207,9 +207,9 @@
                         <p class="comman_msg text-center font-weight-bold"></p>
                      </div>
               </div>
-              <!-- <div class="modal-footer" style="justify-content: center;">
+              <div class="modal-footer" style="justify-content: center;">
                   <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-              </div> -->
+              </div>
             </div>
          </div>
       </div>

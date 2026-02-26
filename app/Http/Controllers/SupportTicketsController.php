@@ -123,7 +123,16 @@ class SupportTicketsController extends AppController
                 $item->ref_number = ($item->unread_notifications_count>0) ? $item->ref_number.' <sup class="badge badge-danger list_badge_class">'.$item->unread_notifications_count.'</sup>' : $item->ref_number;
                 $item->file = ($item->file!="") ? '<a download="true" href = "'.asset('support_tickets/'.$item->file).'">Download</a>' : "No Documents";
                 $item->created_on = \Carbon\Carbon::parse($item->created_on)->format('d-m-Y');
-                $item->status_mod = "<span class='status' data-status-id='".$item->getRawOriginal('status')."'>$item->status</span>";
+                // $item->status_mod = "<span class='status' data-status-id='".$item->getRawOriginal('status')."'>$item->status</span>";
+                $statusText = trim($item->status); // jo already set hai
+                $badgeClass = getStatusBadgeClass(strtolower($statusText));
+                $item->status_mod = "
+                    <span class='status' data-status-id='".$item->getRawOriginal('status')."'>
+                        <span class='custom_badge {$badgeClass}'>
+                            {$statusText}
+                        </span>
+                    </span>";
+
                 $item->action = '<div class="dropdown no-arrow archive-dropdown text-center">
                                     <a class="dropdown-toggle" href="" role="button" class="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
@@ -139,7 +148,7 @@ class SupportTicketsController extends AppController
 
                 $i++;
             }
-
+            
             return [$tickets, $totalTickets];
     }
 

@@ -35,7 +35,7 @@ return [
             "delete" => ['yesNo' => 'yes'],
         ], //All access
         "2" => [ //Level 2: Director
-            "sidebar" => ['management' =>  ['yesNo' => 'no']],
+            "sidebar" => ['management' =>  ['yesNo' => 'yes']],
             "view" => ['yesNo' => 'yes'],
             "edit" => ['yesNo' => 'no'],
             "add" => ['yesNo' => 'no'],

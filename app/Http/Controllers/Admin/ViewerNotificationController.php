@@ -92,11 +92,14 @@ class ViewerNotificationController extends Controller
                 ->editColumn('status', function ($row) {
                     $start_date = $row->start_date;
                     $status = $row->status;
-                    if($status === 'Published' && $start_date > date('Y-m-d')){
-                        return 'Upcoming';
-                    }else{
-                        return $status;
+
+                    if ($status === 'Published' && $start_date > date('Y-m-d')) {
+                        $statusText = 'Upcoming';
+                    } else {
+                        $statusText = $status ?? 'NA';
                     }
+                    $badgeClass = getStatusBadgeClass($statusText);
+                    return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
                 })
 
                 ->addColumn('action', function ($row) {

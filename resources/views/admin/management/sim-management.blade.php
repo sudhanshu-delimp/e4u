@@ -102,7 +102,7 @@
                                  <td class="theme-color">-</td>
                                  <td class="theme-color">-</td>
                                  <td class="theme-color">-</td>
-                                 <td class="theme-color">Available</td>
+                                 <td class="theme-color"><span class="custom_badge badge_available">Available</span></td>
                                  <td class="theme-color">
                                      @if($editAccessEnabled)
                                     <div class="dropdown no-arrow text-center">

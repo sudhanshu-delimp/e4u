@@ -352,6 +352,7 @@
                                 'error'
                             );
                         }
+                        $('#supportTicketsTable').DataTable().ajax.reload(null, false);
                     }
                 });
             }

@@ -66,7 +66,14 @@ class AdvertiserReportContoller extends Controller
             ->addColumn('advertiser_id', fn($row) => $row->escort->id ?? '-')
             ->addColumn('stage_name', fn($row) => $row->escort->name ?? '-')
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
-            ->addColumn('status', fn($row) => $row->report_status == 'pending' ? 'Active' : 'Resolved')
+            // ->addColumn('status', fn($row) => $row->report_status == 'pending' ? 'Active' : 'Resolved')
+            ->addColumn('status', function ($row) {
+                $statusText = $row->report_status == 'pending' 
+                    ? 'Active' 
+                    : 'Resolved';
+                $badgeClass = getStatusBadgeClass($statusText);
+                return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+            })
             ->addColumn('action', function ($row) {
                 
                 $statusActionHtml = '';
@@ -118,7 +125,7 @@ class AdvertiserReportContoller extends Controller
                         </div>
                     </div>';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','status'])
             ->with([
                 'reports' => $reports
             ])

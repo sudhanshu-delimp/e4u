@@ -254,7 +254,7 @@ Route::get('listing/past', function()
 // add Masseurs Profle Route
 
 
-Route::get('masseurs/archives-listing', function()
+Route::get('archives-listing', function()
 {
 	return view('center.dashboard.masseurs.archives-listing');
 })->name('center.archives-listing');

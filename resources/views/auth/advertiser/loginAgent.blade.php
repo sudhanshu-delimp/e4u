@@ -142,7 +142,7 @@
                   </button>
                </div>
 
-               <div class="modal-body pb-5 pt-5">
+               <div class="modal-body pt-5">
                   <div class="row text-center" style="">
                      <div class="col-md-12">
                         <a href="#"><img src="{{ asset('assets/app/img/tick.png')}}" class="img-fluid" alt="logo"></a>
@@ -154,9 +154,9 @@
                         <p class="comman_msg text-center font-weight-bold"></p>
                      </div>
               </div>
-              <!-- <div class="modal-footer" style="justify-content: center;">
+              <div class="modal-footer" style="justify-content: center;">
                   <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-              </div> -->
+              </div>
             </div>
          </div>
       </div>
