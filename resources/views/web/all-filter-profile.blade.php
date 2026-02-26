@@ -235,9 +235,9 @@
                                                     <option
                                                         value="4"{{ $filterGenderId == '4' || request()->segment(2) == 'Cross Dresser' ? 'selected' : '' }}>
                                                         Cross Dresser</option>
-                                                    <option
+                                                    <!-- <option
                                                         value="5"{{ $filterGenderId == '5' || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>
-                                                        Massage Centres</option>
+                                                        Massage Centres</option> -->
                                                 </select>
                                             </div>
                                             <div class="display_inline_block mb-1 mr-2">
