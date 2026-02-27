@@ -166,10 +166,10 @@ class PunterboxController extends Controller
 
                     // Define all possible actions
                     $actions = [
-                        'pending'   => ['icon' => 'fa-pause-circle', 'label' => 'Pending'],
-                        'on_hold'   => ['icon' => 'fa-pause-circle', 'label' => 'On Hold'],
-                        'published' => ['icon' => 'fa-check-circle', 'label' => 'Publish'],
-                        'rejected'  => ['icon' => 'fa-times-circle', 'label' => 'Reject'],
+                        0 => ['icon' => 'fa-pause-circle', 'label' => 'Pending'],
+                        2 => ['icon' => 'fa-pause-circle', 'label' => 'On Hold'],
+                        1 => ['icon' => 'fa-check-circle', 'label' => 'Publish'],
+                        3 => ['icon' => 'fa-times-circle', 'label' => 'Reject'],
                     ];
 
                     $html = '<div class="dropdown no-arrow">
@@ -216,5 +216,66 @@ class PunterboxController extends Controller
         }
 
         return view('admin.reports.punterbox', ['nums' => $punterbox]);
+    }
+
+    public function updateStatus(Request $req)
+    {
+        $report = Punterbox::with('user')->find($req->id);
+
+        if (!$report) {
+            return response()->json(['success' => false, 'error' => true, 'message' => 'Report not found.']);
+        }
+
+        $report->status = $req->status;
+        $report->admin_action = $req->action_reason;
+        $report->save();
+
+        $body = [
+            'ref' => '#' . $report->id,
+            'name' => $report->user->name ?? 'UserID',
+            'member_id' => $report->user->member_id ?? 'MemberID',
+            'report_date' => Carbon::parse($report->created_at)->format('d-m-Y') ?? date(),
+            'subject' => 'NUM report On Hold',
+            'status' => $req->status,
+        ];
+
+        // if ($req->status == 'on_hold') {
+
+        //     $body['subject'] = 'NUM Report On Hold';
+        //     $body['on_hold'] = Carbon::now()->format('d-m-Y') ?? 'N/A';
+
+        //     try {
+        //         Mail::to($report->user->email)->send(new num_on_hold_email($body));
+        //     } catch (\Exception $e) {
+        //         Log::info('NUM On Hold Email sending failed: ' . $e->getMessage());
+        //     }
+        // }
+
+        // if ($req->status == 'published') {
+        //     $body['subject'] = 'NUM Report Published';
+        //     $body['approved_date'] = Carbon::now()->format('d-m-Y') ?? 'N/A';
+
+
+        //     try {
+        //         Mail::to($report->user->email)->queue(new num_published_email($body));
+        //     } catch (\Exception $e) {
+        //         Log::info('NUM On published Email sending failed: ' . $e->getMessage());
+        //     }
+        // }
+
+        // if ($req->status == 'rejected') {
+
+        //     $body['subject'] = 'NUM Report Rejected';
+        //     $body['rejected_date'] = Carbon::now()->format('d-m-Y') ?? 'N/A';
+        //     $body['reason'] = $req->action_reason;
+
+        //     try {
+        //         Mail::to($report->user->email)->queue(new num_rejected_email($body));
+        //     } catch (\Exception $e) {
+        //         Log::info('NUM rejected Email sending failed: ' . $e->getMessage());
+        //     }
+        // }
+
+        return response()->json(['success' => true, 'error' => false, 'message' => 'Report status updated successfully.']);
     }
 }

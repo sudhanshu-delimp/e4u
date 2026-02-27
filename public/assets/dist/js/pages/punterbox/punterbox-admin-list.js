@@ -197,20 +197,20 @@ $(document).ready(function () {
         $(".action_reason_div").css('display', 'none');
 
         let imageUrl = '{{ asset("assets/dashboard/img/rejected.png") }}';
-        if (status == 'published') {
+        if (status == '1') {
             $(".success-modal-title").text('Published');
             imageUrl = '{{ asset("assets/dashboard/img/published.png") }}';
             $("#custompopicon").attr('src', imageUrl);
 
             $(".success-modal-text").text('This report is now Published');
 
-        } else if (status == 'rejected') {
+        } else if (status == '3') {
             $(".success-modal-title").text('Rejected');
             imageUrl = '{{ asset("assets/dashboard/img/rejected.png") }}';
             $("#custompopicon").attr('src', imageUrl);
             $(".success-modal-text").text('This report is now Rejected.');
             $(".action_reason_div").css('display', 'block');
-        } else if (status == 'on_hold') {
+        } else if (status == '2') {
             $(".success-modal-title").text('On Hold');
             $("#custompopicon").attr('src', imageUrl);
             $(".success-modal-text").text('This report is now On Hold.');
