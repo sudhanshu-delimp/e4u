@@ -60,7 +60,6 @@
                                         <th>Contact</th>
                                         <th>Email</th>
                                         <th>Agents</th>
-                                        <th>Last Login</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -96,66 +95,73 @@
                         <div class="row">
                             <!-- Section: Personal Details -->
                             <div class="col-12 my-2">
-                                <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
+                                <h6 class="border-bottom pb-1 text-blue-primary">Operator Details</h6>
                             </div>
 
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Operator ID" readonly>
+                                 <label class="form-check-label" for="operator_id">Operator ID</label>
+                                <input type="text" class="form-control rounded-0" readonly>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Date Appointed" readonly>
+                                 <label class="form-check-label" for="date_ppointed">Date Appointed</label>
+                                <input type="text" class="form-control rounded-0" readonly>
                             </div>
 
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Company Name"
+                                 <label class="form-check-label" for="company_name">Company Name</label>
+                                <input type="text" class="form-control rounded-0" 
                                     name="company_name" id="company_name">
                                 <span class="text-danger error-company_name"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Business Name"
+                                 <label class="form-check-label" for="business_name">Business Name</label>
+                                <input type="text" class="form-control rounded-0" 
                                     name="business_name" id="business_name">
                                 <span class="text-danger error-business_name"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="ABN" name="abn"
+                                 <label class="form-check-label" for="abn">ABN</label>
+                                <input type="text" class="form-control rounded-0"  name="abn"
                                     id="abn" maxlength="11">
                                 <span class="text-danger error-abn"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Business Address"
+                                 <label class="form-check-label" for="business_address">Business Address</label>
+                                <input type="text" class="form-control rounded-0" 
                                     name="business_address" id="business_address">
                                 <span class="text-danger error-business_address"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Business Number"
+                                 <label class="form-check-label" for="business_number">Business Number</label>
+                                <input type="text" class="form-control rounded-0" 
                                     name="business_number" id="business_number"
                                     oninput="this.value = this.value.replace(/\D/g,'');" maxlength="14">
                                 <span class="text-danger error-business_number"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Point of Contact"
+                                 <label class="form-check-label" for="point_of_contact">Point of Contact</label>
+                                <input type="text" class="form-control rounded-0" 
                                     name="point_of_contact" id="point_of_contact">
                                 <span class="text-danger error-point_of_contact"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Mobile" name="phone"
+                                 <label class="form-check-label" for="phone">Mobile</label>
+                                <input type="text" class="form-control rounded-0"  name="phone"
                                     id="phone" oninput="this.value = this.value.replace(/\D/g,'');" maxlength="14">
                                 <span class="text-danger error-phone"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="email" class="form-control rounded-0" placeholder="Email" name="email"
+                                 <label class="form-check-label" for="email">Email</label>
+                                <input type="email" class="form-control rounded-0" name="email"
                                     id="email">
                                 <span class="text-danger error-email"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="country_id">Territory</label>
                                 <select class="form-control rounded-0" name="country_id" id="country_id">
                                     <option value="">Select Territory</option>
                                     @foreach (config('operator.country') as $skey => $country)
-                                    @if($skey == 14)
-                                        <option value="{{ $skey }}" selected>{{ $country['name'] }}</option>
-                                    @else
-                                     <option value="{{ $skey }}">{{ $country['name'] }}</option>
-                                    @endif     
+                                    <option value="{{ $skey }}">{{ $country['name'] }}</option>   
                                     @endforeach
                                 </select>
                                 <span class="text-danger error-country_id"></span>
@@ -189,18 +195,20 @@
                                 <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0 js_datepicker"
-                                    placeholder="Agreement Date (DD-MM-YYYY)" name="agreement_date"
+                                <label class="form-check-label" for="agreement_date">Date</label>
+                                <input type="text" class="form-control rounded-0 js_datepicker" name="agreement_date"
                                     id="agreement_date">
                                 <span class="text-danger error-agreement_date"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Term" name="term"
+                                <label class="form-check-label" for="term">Term</label>
+                                <input type="text" class="form-control rounded-0" name="term"
                                     id="term">
                                 <span class="text-danger error-term"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="fee" name="fee"
+                                <label class="form-check-label" for="term">Fee</label>
+                                <input type="text" class="form-control rounded-0"  name="fee"
                                     id="fee" maxlength="100">
                                 <span class="text-danger error-fee"></span>
                             </div>
@@ -229,6 +237,7 @@
                         </div>
                         <div class="modal-footer p-0 pl-2 pb-4">
                             <button type="submit" class="btn-success-modal mr-2">Save</button>
+                             <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -398,13 +407,7 @@
                         orderable: false,
                         defaultContent: 'NA'
                     },
-                    {
-                        data: 'last_login',
-                        name: 'last_login',
-                        searchable: false,
-                        orderable: false,
-                        defaultContent: 'NA'
-                    },
+                   
                     {
                         data: 'status_name',
                         name: 'status_name',

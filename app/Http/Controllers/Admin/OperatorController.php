@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-
-use Laravel\Ui\Presets\React;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Operator\AddNewOperator;
 use App\Models\Operator;
@@ -22,11 +19,13 @@ class OperatorController extends BaseController
     protected $editAccessEnabled;
     protected $addAccessEnabled;
     protected $sidebar;
+    protected $howManyOperatorSamecountry;
 
     public function __construct(OperatorInterface $operatorRepo)
     {
         $this->current_date_time = date('Y-m-d H:i:s');
         $this->operatorRepo = $operatorRepo;
+        $this->howManyOperatorSamecountry = config('operator.how_many_operator_same_country');
         $this->middleware(function ($request, $next) {
 
             $user = auth()->user();   // works here
@@ -114,6 +113,8 @@ class OperatorController extends BaseController
      */
     public function operator_list()
     {
+        $howManyOperatorSamecountry = $this->howManyOperatorSamecountry;
+        $operatorGreaterThanCountryProvided = (new Operator)->getOperatorGreaterThanCountryProvidedCount($howManyOperatorSamecountry);
         $fees = VariablAgentOperator::get();
         $feeMassage = "";
         $feeAdvertising = "";
@@ -128,7 +129,7 @@ class OperatorController extends BaseController
                $feeAdvertising = $advFee->percent; 
             }
         }
-        return view('admin.management.operator.operator-manage', compact('feeMassage', 'feeAdvertising'));
+        return view('admin.management.operator.operator-manage', compact('feeMassage', 'feeAdvertising', 'operatorGreaterThanCountryProvided'));
     }
 
     /**

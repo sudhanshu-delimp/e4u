@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('style')
     <style>
+        .modal-dialog{max-width: 700px !important;}
     </style>
 @stop
 @section('content')
@@ -46,7 +47,7 @@
                                             <div class="col-lg-12 col-md-12 col-sm-12">
                                                 <div class="bothsearch-form" style="gap: 10px;">
                                                     <button type="button" class="btn-common" data-toggle="modal"
-                                                        data-target="#addStaffnew">Add New Operator Staff Member</button>
+                                                        data-target="#addStaffnew">Add New Staff Member</button>
                                                 </div>
                                             </div>
                                             @endif
@@ -55,14 +56,14 @@
                                             <table class="table mb-3 w-100" id="staff_data_table">
                                                 <thead class="table-bg">
                                                     <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">Staff Member</th>
+                                                        <th scope="col">Staff ID</th>
+                                                        <th scope="col">Name</th>
                                                         <th scope="col">Security</th>
                                                         <th scope="col">Position</th>
                                                         <th scope="col" style="width: 86px;">Mobile</th>
                                                         <th scope="col">Email</th>
                                                         <th scope="col">Operator</th>
-                                                        <th scope="col">Created By</th>
+                                                        {{-- <th scope="col">Created By</th> --}}
                                                         <th scope="col">Logins</th>
                                                         <th scope="col" style="width: 180px;">Last Login</th>
                                                         <th scope="col">Status</th>
@@ -105,7 +106,7 @@
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addStaffnewTitle"><img
-                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon"> Add New Operator Staff
+                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon"> Add New Staff
                         Member</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -135,27 +136,31 @@
                             </div>
 
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Full Name" name="name"
+                                <label class="form-check-label" for="name">Full Name</label>
+                                <input type="text" class="form-control rounded-0" name="name"
                                     id="name">
                                 <span class="text-danger error-name"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Address"
+                                 <label class="form-check-label" for="address">Address</label>
+                                <input type="text" class="form-control rounded-0"
                                     name="address" id="address">
                                 <span class="text-danger error-address"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="tel" maxlength="10" autocomplete="off" class="form-control rounded-0"
-                                    placeholder="Phone" name="phone" id="phone"
+                                <label class="form-check-label" for="phone">Phone</label>
+                                <input type="tel" maxlength="10" autocomplete="off" class="form-control rounded-0" name="phone" id="phone"
                                     oninput="this.value = this.value.replace(/\D/g,'');">
                                 <span class="text-danger error-phone"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="email" class="form-control rounded-0" placeholder="Private Email"
+                                <label class="form-check-label" for="email">Private Email</label>
+                                <input type="email" class="form-control rounded-0" 
                                     name="email" id="email">
                                 <span class="text-danger error-email"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                <label class="form-check-label" for="gender">Gender</label>
                                 <select class="form-control" name="gender" id="gender">
                                     <option value="">Select Gender</option>
                                     @foreach (config('operator_staff.genders') as $key => $gender)
@@ -171,24 +176,27 @@
                             </div>
 
                             <div class="col-6 mb-3">
-                                <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0"
-                                    placeholder="Name of Kin (optional)">
+                                <label class="form-check-label" for="kin_name">Name of Kin</label>
+                                <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0">
                                 <span class="text-danger error-kin_name"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="kin_relationship">Relationship</label>
                                 <input type="text" name="kin_relationship" id="kin_relationship"
-                                    class="form-control rounded-0" placeholder="Relationship (optional)">
+                                    class="form-control rounded-0">
                                 <span class="text-danger error-kin_relationship"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="kin_mobile">Mobile</label>
                                 <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile"
-                                    class="form-control rounded-0 no-arrow" placeholder="Mobile (optional)" autocomplete="off"
+                                    class="form-control rounded-0 no-arrow" autocomplete="off"
                                     oninput="this.value = this.value.replace(/\D/g,'');">
                                 <span class="text-danger error-kin_mobile"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="kin_email">Email</label>
                                 <input type="email" name="kin_email" class="form-control rounded-0"
-                                    placeholder="Email (optional)">
+                                    >
                                 <span class="text-danger error-kin_email"></span>
                             </div>
 
@@ -196,13 +204,8 @@
                             <div class="col-12 my-2">
                                 <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
                             </div>
-
-                            {{-- <div class="col-6 mb-3">
-                                <input type="text" name="position" id="position" class="form-control rounded-0"
-                                    placeholder="Position">
-                                <span class="text-danger error-position"></span>
-                            </div> --}}
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="security_level">Security Level</label>
                                 <select class="form-control rounded-0" name="security_level" id="security_level">
                                     <option value="">Security Level</option>
                                     @foreach (config('operator_staff.security_level') as $seckey => $secLevel)
@@ -214,6 +217,7 @@
                                 <span class="text-danger error-security_level"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                <label class="form-check-label" for="position">Position</label>
                                 <select class="form-control rounded-0" name="position" id="position" disabled>
                                     <option value="">Position</option>
                                     @foreach (config('operator_staff.position') as $pkey => $position)
@@ -235,6 +239,7 @@
                                 <span class="text-danger error-location"></span>
                             </div> --}}
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="country_id">Territory</label>
                                 <select class="form-control rounded-0" name="country_id" id="country_id">
                                     <option value="">Select Territory</option>
                                     @foreach (config('operator.country') as $skey => $country)
@@ -248,14 +253,16 @@
                                 <span class="text-danger error-country_id"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                <label class="form-check-label" for="commenced_date_edit">Commenced Date</label>
                                 <input type="text" name="commenced_date" id="commenced_date"
-                                    class="form-control rounded-0 js_datepicker" placeholder="Commenced Date"
+                                    class="form-control rounded-0 js_datepicker" 
                                     onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
                                 <span class="text-danger error-commenced_date"></span>
 
                             </div>
 
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="employment_status">Employment Status</label>
                                 <select class="form-control rounded-0" name="employment_status" id="employment_status">
                                     <option value="">Select Employment Status</option>
                                     @foreach (config('operator_staff.employment_status') as $key => $empStatus)
@@ -265,6 +272,7 @@
                                 <span class="text-danger error-employment_status"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                <label class="form-check-label" for="employment_agreement">Employment Agreement?</label>
                                 <select class="form-control rounded-0" name="employment_agreement"
                                     id="employment_agreement">
                                     <option value="">Employment Agreement?</option>
@@ -280,6 +288,7 @@
                             </div>
 
                             <div class="col-4 mb-3">
+                                 <label class="form-check-label" for="building_access_code">Access Code Provided?</label>
                                 <select class="form-control rounded-0" name="building_access_code"
                                     id="building_access_code">
                                     <option value="">Access Code Provided?</option>
@@ -289,6 +298,7 @@
                                 <span class="text-danger error-building_access_code"></span>
                             </div>
                             <div class="col-4 mb-3">
+                                 <label class="form-check-label" for="keys_issued">Key Provided?</label>
                                 <select class="form-control rounded-0" name="keys_issued" id="keys_issued">
                                     <option value="">Key Provided?</option>
                                     <option value="yes">Yes</option>
@@ -297,6 +307,7 @@
                                 <span class="text-danger error-keys_issued"></span>
                             </div>
                             <div class="col-4 mb-3">
+                                 <label class="form-check-label" for="car_parking">Car Park?</label>
                                 <select class="form-control rounded-0" name="car_parking" id="car_parking">
                                     <option value="">Car Park?</option>
                                     <option value="yes">Yes</option>
@@ -364,6 +375,7 @@
 
                         <div class="modal-footer p-0">
                             <button type="submit" class="btn-success-modal mr-3">Save</button>
+                             <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -379,8 +391,7 @@
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editStaffnewTitle"><img
-                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">Edit Operator Staff
-                        Member </h5>
+                        src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">Edit Staff Member</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -399,8 +410,7 @@
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="viewStaffnewTitle"><img
-                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">View Operator Staff
-                        Member</h5>
+                    src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">View Staff Member</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -428,7 +438,7 @@
             var table = $("#staff_data_table").DataTable({
                 language: {
                     search: "Search: _INPUT_", 
-                    searchPlaceholder: "Search by Operator Staff ID",
+                    searchPlaceholder: "Search by Staff ID",
                     lengthMenu: "Show _MENU_ entries",
                     zeroRecords: "No matching records found",
                     info: "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -504,13 +514,13 @@
                         orderable: false,
                         defaultContent: 'NA'
                     },
-                    {
+                    /*{
                         data: 'created_by',
                         name: 'created_by',
                         searchable: false,
                         orderable: false,
                         defaultContent: 'NA'
-                    },
+                    },*/
                     {
                         data: 'login_count',
                         name: 'login_count',
@@ -543,7 +553,7 @@
                 ],
 
                 order: [
-                    [11, 'DESC']
+                    [10, 'DESC']
                 ],
                 lengthMenu: [
                     [10, 25, 50, 100],

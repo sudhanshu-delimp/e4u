@@ -20,4 +20,5 @@ return [
         231 => ['name' => 'UAE', 'iso2' => 'AE'],
         232 => ['name' => 'United Kingdom', 'iso2' => 'UK'],
     ],
+    'how_many_operator_same_country' =>  env('HOW_MANY_OPERATOR_SAME_COUNTRY', 2),
 ];

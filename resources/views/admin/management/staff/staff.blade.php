@@ -55,8 +55,8 @@
                                             <table class="table mb-3 w-100" id="staff_data_table">
                                                 <thead class="table-bg">
                                                     <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">Staff Member</th>
+                                                        <th scope="col">Staff ID</th>
+                                                        <th scope="col">Name</th>
                                                         <th scope="col">Security</th>
                                                         <th scope="col">Position</th>
                                                         <th scope="col" style="width: 86px;">Mobile</th>
