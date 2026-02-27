@@ -113,7 +113,7 @@
             <span>Management</span>
         </a>
         <!-- Manage People -->
-        <div id="Management" class="collapse  @if (in_array(request()->segment(3), ['agents-monthly-report', 'operator-monthly-report', 'staff', 'agent'])) show @endif"
+        <div id="Management" class="collapse  @if (in_array(request()->segment(3), ['staff', 'agent']) || in_array(request()->segment(2), ['agents-monthly-report', 'operator-monthly-report'])) show @endif"
             data-parent="#accordionSidebar">
             <div class="collapse-inner">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"

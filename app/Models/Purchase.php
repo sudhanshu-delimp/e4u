@@ -104,13 +104,13 @@ class Purchase extends Model
     public function getRefundAmountAttribute(){
         $todayDate = $this->escort->today;
         if($todayDate->gte($this->start_date)){ /* To Know Listing has been started or not  */
-            list($usedDicount, $amount) = calculateTotalFee($this->membership, ($this->days_number - $this->left_listing_days));
+            list($usedDicount, $amount) = calculateTotalFee($this->membership, ($this->days_number - $this->left_listing_days), $this);
             $amount = $this->paid_rate-$amount;
         }
         else{
-            list($usedDicount, $amount) = calculateTotalFee($this->membership, $this->days_number);
+            list($usedDicount, $amount) = calculateTotalFee($this->membership, $this->days_number, $this);
         }
-        return number_format($amount,2);
+        return number_format($amount, 2, '.', '');
     }
 
     public function transactions()

@@ -137,33 +137,10 @@
     background-color: var(--completed--status);
 }
 
-
-/* img.my-svg-icons {
-filter: invert(14%) sepia(19%) saturate(1577%) hue-rotate(173deg) brightness(91%) contrast(98%);
-} */
-
-
-/* .alert_notify_html, .support_notify_html {
-min-height: 35px;
-max-height: 500px;
-overflow: auto;
-} */
-
-
-/* 
-html {
-    overflow: hidden;
-} */
-
 html,
 body {
     height: 100vh;
 }
-
-
-/* body {
-    overflow: auto;
-} */
 
 .bg-first {
     background-color: var(--blue--text) !important;
@@ -191,6 +168,7 @@ body {
 a {
     text-decoration: none;
     color: #FF3C5F;
+    font-size: 16px;
 }
 
 .text-blue-primary {
@@ -236,10 +214,6 @@ a:hover {
     font-size: 16px;
     padding-left: 16px;
     padding-bottom: 24px;
-}
-
-p>a {
-    font-size: 16px;
 }
 
 p {
@@ -9570,7 +9544,8 @@ border-top: 5px solid var(--peach);
 }
 
 .my-custom-box .box-icon {
-    width: 75px;
+    max-width: 75px;
+    width: 100%;
     height: 75px;
     margin: 10px auto;
 }
@@ -9581,7 +9556,7 @@ border-top: 5px solid var(--peach);
 }
 
 .my-custom-box h2 {
-    font-size: clamp(18px, 3vw, 24px);
+    font-size: clamp(16px, 3vw, 20px);
     color: var(--blue--text);
     font-weight: 500;
 }

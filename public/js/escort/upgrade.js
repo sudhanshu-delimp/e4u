@@ -15,25 +15,30 @@ $(document).on('change','#membershipId', function(){
     let membershipId = $(this).val();
     let profieId = $(this).parents('form').find('input[name="profile_id"]').val();
     console.log(membershipId, profieId);
-    return $.ajax({
-        url: `${window.App.baseUrl}escort-dashboard/get-upgrade-amount`,
-        type: "POST",
-        headers: {
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
-        },
-        dataType: "json",
-        data:{profieId,membershipId},
-        beforeSend: function () {
-            
-        },
-    }).done(function (response) {
-        if (response.success) {
-            console.log(response);
-            $("#upgrade_amount").val(response.net_amount);
-        }
-    }).fail(function (xhr, status, error) {
-        console.error("Error:", error);
-    });
+    if(membershipId){
+        return $.ajax({
+            url: `${window.App.baseUrl}escort-dashboard/get-upgrade-amount`,
+            type: "POST",
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+            },
+            dataType: "json",
+            data:{profieId,membershipId},
+            beforeSend: function () {
+                
+            },
+        }).done(function (response) {
+            if (response.success) {
+                console.log(response);
+                $("#upgrade_amount").val(response.net_amount);
+            }
+        }).fail(function (xhr, status, error) {
+            console.error("Error:", error);
+        });
+    }
+    else{
+        $("#upgrade_amount").val('0.00');
+    }
 });
 
 $(document).on('submit','#upgrade_modal_form', function(e){
