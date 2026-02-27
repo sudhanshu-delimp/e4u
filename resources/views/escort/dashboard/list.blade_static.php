@@ -448,15 +448,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="">Credit:</label>
-                                        <div class="col-sm-8">
-                                            <div class="input-group input-group-sm">
-                                                <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
-                                                <input type="number" readonly class="form-control"  step="0.01" min="0"  name="credit_price" value="0.0" id="credit_price" required>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                         <hr style="background-color: #0C223D" class="mt-4">
                                         <div class="form-group row">
                                             <div class="col-lg-12">

@@ -327,15 +327,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="">Credit:</label>
-                                        <div class="col-sm-8">
-                                            <div class="input-group input-group-sm">
-                                                <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
-                                                <input type="number" readonly class="form-control"  step="0.01" min="0"  name="credit_price" value="0.0" id="credit_price" required>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                     <hr style="background-color: #0C223D" class="mt-4"> 
                                         <div class="form-group row">
                                             <div class="col-lg-12">
@@ -358,7 +349,7 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="text-align: center; display: block;">
-                            <button type="submit" class="btn-success-modal" id="save_brb">Save</button>
+                            <button type="submit" class="btn-success-modal" id="save_brb" disabled>Save</button>
                         </div>
                     </div>
                 </div>
@@ -1159,7 +1150,7 @@
 
             suspendStartDateObject.datepicker('setDate', +1);
             suspendStartDateObject.datepicker('option', 'minDate', +1);
-            suspendEndDateObject.datepicker('setDate', +1);
+           
             suspendEndDateObject.datepicker('option', 'minDate', +1);
 
             suspendStartDateObject.datepicker('option', 'onSelect', function () {
@@ -1180,32 +1171,42 @@
                 let listingEndDate = selectedOption.data('end');
                 let profileId = selectedOption.val();
 
-                console.log(`${listingMembership} ${listingStartDate} ${listingEndDate} ${profileId}`);
+                suspendStartDateObject.datepicker('setDate', +1);
+                suspendStartDateObject.datepicker('option', 'minDate', +1);
                 suspendStartDateObject.datepicker('option', 'maxDate', listingEndDate);
-                suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
 
-                // calculateCredit(startDate, endDate);
+                suspendEndDateObject.datepicker('setDate', null);
+                suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
+                $("#creditCalculationLive").html('0.00');
             });
 
             function calculateCredit() {
                 let selectedOption = suspendProfileObject.find(':selected');
-                let planId = selectedOption.data('membership')
-                if (planId) {
+                if(suspendEndDateObject.val() && suspendStartDateObject.val()){
                     $.ajax({
-                        url: "{{ route('suspend.calculate.credit.live') }}",
-                        method: 'POST',
-                        data: {
-                            plan_id: planId,
-                            start_date: suspendStartDateObject.val(),
-                            end_date: suspendEndDateObject.val(),
-                            profile_id: selectedOption.val(),
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            console.log(response)
-                            $('#creditCalculationLive').text(response.total_rate);
+                    url: "{{ route('suspend.calculate.credit.live') }}",
+                    method: 'POST',
+                    data: {
+                        start_date: suspendStartDateObject.val(),
+                        end_date: suspendEndDateObject.val(),
+                        profile_id: selectedOption.val(),
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        $("#creditCalculationLive").html('0.00');
+                        if(response.success){
+                            $("#creditCalculationLive").html(response.refund_amount);
+                            $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
                         }
-                    });
+                        else {
+                            $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
+                            Swal.fire({
+                                icon: "error",
+                                text: response.message
+                            });
+                        }
+                    }
+                });
                 }
             }
 
@@ -1227,6 +1228,9 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
+                beforeSend: function(){
+                    $("#suspend_form").find('button[type=submit]').attr('disabled','disabled');
+                },
                 success: function(data) {
                     if (data.response.success) {
                         Swal.fire({
@@ -1243,6 +1247,7 @@
                             text: data.response.message
                         });
                     }
+                    $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
                 },
 
             });
