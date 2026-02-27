@@ -7,8 +7,8 @@
 
 <div class="five_column_content_top  d-flex justify-content-between wish_span" style="z-index: 1;width: 91%;">
             <div class="vrf-tooltip-wrap">
-                <span ><img width="18" height="18" src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"></span>            
-                <span class="vrf-tooltip">Media Unverified</span>
+                <span ><img width="18" height="18" src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.svg') }}"></span>            
+                <span class="vrf-tooltip">Media Pending</span>
             </div>
             <span class="card_tit">
                 @if($escort->gender=='Transgender')

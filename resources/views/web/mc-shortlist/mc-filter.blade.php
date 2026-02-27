@@ -33,7 +33,7 @@
                                             <div class="display_inline_block">
                                                 <div class="location_radio_filter">
                                                     <div class="d-flex align-items-start" style="padding-top: 2px;">
-                                                        <input type="radio" name="locationByRadio" checked="checked"
+                                                        <input type="radio" name="locationByRadio" 
                                                             value="your_location" id="yourLocation">
                                                         <label for="yourLocation"
                                                             style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
@@ -42,7 +42,7 @@
                                                     </div>
 
                                                     <div class="d-flex align-items-start">
-                                                        <input type="radio" name="locationByRadio" value="australia"
+                                                        <input type="radio" name="locationByRadio" value="australia" checked="checked"
                                                             id="australia">
                                                         <label for="australia"
                                                             style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">

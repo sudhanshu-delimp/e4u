@@ -1,3 +1,6 @@
+@if(count($listings)>0) 
+ 
+ 
  @foreach($listings as $listing)
 
 
@@ -32,7 +35,7 @@ $social_links = $listing->social_links;
              <img src="{{ $massage_thumb }}" alt="">
          </a>
          <span class="verify_icon">
-             <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}" alt="">
+             <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}" alt="">
          </span>
          <div class="mc_list_legbox">
              <span class="my_legbox_icon" data-target="#my_legbox" data-toggle="modal">
@@ -203,3 +206,10 @@ $social_links = $listing->social_links;
 
  </div>
  @endforeach
+
+
+ @else
+        <div class="no_listing">
+            <p><i>There are no listings for your search criteria.</i></p>
+        </div>
+        @endif

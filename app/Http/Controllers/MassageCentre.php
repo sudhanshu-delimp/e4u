@@ -91,7 +91,6 @@ class MassageCentre extends Controller
 
             return $parms;
         } catch (\Exception $e) {
-            //throw $th;
             $parms =[
                 'state'=>null,
                 'city'=>null,
@@ -409,7 +408,7 @@ class MassageCentre extends Controller
 
     public function shortlist_mcAjaxList(Request $request)
     {
-        $per_page = 5;
+        $per_page = 25;
         $massage_centers_ids = [];
         $mc_ids = session()->get('wishlist', []);
 
@@ -473,21 +472,24 @@ class MassageCentre extends Controller
                          $massage->whereRaw('1 = 0');
                     }
 
-                    $massage = $massage->inRandomOrder()->paginate($per_page)->onEachSide(1);
+                    $massage = $massage->inRandomOrder()->get();
                     if(!empty($mc_ids) && ($massage->count()>0))
                     {
-                         $filtered = $massage->getCollection()->whereIn('id', $mc_ids)->values();
+                        $massage = $massage->whereIn('id', $mc_ids)->values(); 
+                        $page = request()->get('page', 1);
+                        $total = $massage->count();
 
-                         $massage    = new LengthAwarePaginator(
-                                        $filtered,                    
-                                        $filtered->count(),            
-                                        $per_page,                     
-                                        request()->page ?? 1,          
-                                        [
-                                        'path' => request()->url(),
-                                        'query' => request()->query(),
-                                        ]
-                                );
+                        $results = $massage->forPage($page, $per_page)->values();
+                        $massage = (new LengthAwarePaginator(
+                        $results,
+                        $total,
+                        $per_page,
+                        $page,
+                        [
+                            'path' => request()->url(),
+                            'query' => request()->query()
+                        ]
+                        ))->onEachSide(1);
                     }
                     else
                     {
@@ -535,26 +537,32 @@ class MassageCentre extends Controller
                      $massage =  $massage->whereRaw('1 = 0');
                     }
 
-                    $massage = $massage->inRandomOrder()->paginate($per_page)->onEachSide(1);
+                   
+                    $massage = $massage->inRandomOrder()->get();
                     if(!empty($mc_ids) && ($massage->count()>0))
                     {
-                        $filtered   = $massage->getCollection()->whereIn('id', $mc_ids)->values();
-                        $massage    = new LengthAwarePaginator(
-                                        $filtered,                    
-                                        $filtered->count(),            
-                                        $per_page,                     
-                                        request()->page ?? 1,          
-                                        [
-                                        'path' => request()->url(),
-                                        'query' => request()->query(),
-                                        ]
-                                );
+                        $massage = $massage->whereIn('id', $mc_ids)->values(); 
+                        $page = request()->get('page', 1);
+                        $total = $massage->count();
 
-                        
+                        $results = $massage->forPage($page, $per_page)->values();
+                        $massage = (new LengthAwarePaginator(
+                        $results,
+                        $total,
+                        $per_page,
+                        $page,
+                        [
+                            'path' => request()->url(),
+                            'query' => request()->query()
+                        ]
+                        ))->onEachSide(1);
                     }
                     else
                     {
-                       $massage =  $massage->setCollection(collect());
+                        $massage = new LengthAwarePaginator([],
+                        0,$per_page,request()->get('page', 1),
+                        ['path' => request()->url(),
+                        'query' => request()->query()]);
                     }
 
                    
@@ -581,13 +589,14 @@ class MassageCentre extends Controller
                     $massage_users = $massage_users->pluck('id')->toArray(); 
                     $massage_centers_ids = $massage_users;
 
+                    if(!empty($massage_centers_ids))
+                    {
+                        $massage = $massage->whereIn('user_id', $massage_centers_ids);
+                    }
                     
                }
                
-                if(!empty($massage_centers_ids))
-                {
-                    $massage = $massage->whereIn('user_id', $massage_centers_ids);
-                }
+                
 
                 if($profile_age!="")
                 {
@@ -621,16 +630,33 @@ class MassageCentre extends Controller
                 }  
                 
 
-                $massage = $massage->where('default_setting', '!=', '1')->paginate($per_page)->onEachSide(1);
-
+                $massage = $massage->where('default_setting', '!=', '1')->inRandomOrder()->get();
                 if(!empty($mc_ids) && ($massage->count()>0))
                 {
-                        $filtered = $massage->getCollection()->whereIn('id', $mc_ids)->values();
-                        $massage->setCollection($filtered);
+                    $massage = $massage->whereIn('id', $mc_ids)->values(); 
+                    $page = request()->get('page', 1);
+                    $total = $massage->count();
+
+                    $results = $massage->forPage($page, $per_page)->values();
+                    $massage = (new LengthAwarePaginator(
+                    $results,
+                    $total,
+                    $per_page,
+                    $page,
+                    [
+                        'path' => request()->url(),
+                        'query' => request()->query()
+                    ]
+                    ))->onEachSide(1);
+
+                                
                 }
                 else
                 {
-                        $massage->setCollection(collect());
+                       $massage = new LengthAwarePaginator([],
+                                    0,$per_page,request()->get('page', 1),
+                                    ['path' => request()->url(),
+                                    'query' => request()->query()]);
                 }
             }
 

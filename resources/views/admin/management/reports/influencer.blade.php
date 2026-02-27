@@ -173,7 +173,7 @@
                                                     </ul>
                                                 </td>
                                                 <td>28-12-2025</td>
-                                                <td>Pending</td>
+                                                <td><span class="custom_badge badge_pending">Pending</span></td>
                                                 <td>
                                                     
                                                     <div class="dropdown no-arrow">

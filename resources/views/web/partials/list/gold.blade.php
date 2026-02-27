@@ -28,7 +28,7 @@
 
                             </a>
                             <div class="verify-image-custom">
-                                <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
                             </div>
                             <div class="siliver_logo_icon"><img src="{{ asset('images/gold_membership.png') }}"></div>
                             <div class="add_to_fab_list_view_each_sec">

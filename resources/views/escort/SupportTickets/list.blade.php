@@ -233,7 +233,7 @@
                 $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search By Ticket ID');
             });
 
-            // 🟠 Cancel Ticket
+            // Cancel Ticket
             $(document).on('click', ".cancelTicket", function() {
                 Swal.fire({
                     title: 'Are you sure?',
@@ -268,6 +268,7 @@
                                         showConfirmButton: false,
                                         timer: 1500
                                     });
+                                    $('#supportTicketsTable').DataTable().ajax.reload(null, false);
                                 } else {
                                     Swal.fire(
                                         'Oops!',

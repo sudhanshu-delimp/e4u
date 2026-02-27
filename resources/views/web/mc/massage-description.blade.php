@@ -329,7 +329,7 @@
                                                     <span>$ </span>{{ $massage_price }}
                                                 </div>
                                             @else
-                                                <span class="na-label">N/A</span>
+                                               <div class="text-center"><span class="na-label">N/A</span></div> 
                                             @endif
 
                                     </td>
@@ -340,7 +340,7 @@
                                                     <span>$ </span>{{ $incall_price }}
                                                 </div>
                                             @else
-                                                <span class="na-label">N/A</span>
+                                               <div class="text-center"><span class="na-label">N/A</span></div> 
                                             @endif
                                     </td>
                                     <td>
@@ -350,7 +350,7 @@
                                                     <span>$ </span>{{ $outcall_price }}
                                                 </div>
                                             @else
-                                                <span class="na-label">N/A</span>
+                                               <div class="text-center"><span class="na-label">N/A</span></div> 
                                             @endif
 
                                     </td>
@@ -611,7 +611,7 @@
                                                         @endforeach
                                                 </div>
 
-                                                <div class="col-md-7 product_content pl-5 pt-1 d-flex flex-column justify-content-between" style="">
+                                                <div class="col-md-7 product_content pl-5 pt-1 d-flex flex-column justify-content-start" style="">
 
                                                     <div>
                                                         <div class="mc_profile_info">
@@ -697,7 +697,7 @@
 
                                                     </div>
 
-                                                    <div>
+                                                    <div class="mt-2">
                                                         <h5 class="mb-0" style="color: #000">About Me : </h5>
                                                         <p class=" mt-0 text-justify">{!! $masseur->commentary ?? 'N/A' !!}</p>
                                                     </div>
@@ -1410,7 +1410,7 @@
                 </div>
                 @if (auth()->check() && auth()->user()->type == 0)
                     <div class="modal-body">
-                        <h6 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                        <h6 class="popu_heading_style my-4" style="text-align: center;">
                             <span id="Lname">To message Alina please go to your Dashboard and select
                                 Communications > Messages. </span>
                         </h6>
@@ -1428,14 +1428,15 @@
                     </div>
                 @else
                     <!-- if viewer not login -->
-                    <div class="modal-body text-center">
-                        <h5 class="popu_heading_style mb-4 mt-4">
+                    <div class="modal-body pb-0 teop-text text-center">
+                        <h5 class="popu_heading_style my-4">
                             <span id="Lname">Message Us is only available to Viewers.
                                 Please log in or Register to access Message Us.</span>
                         </h5>
-                        <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
-                        <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
-                       
+                        <div class="modal-footer text-center justify-content-center" >
+                            <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
+                            <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
+                        </div>
                     </div>
                 @endif
                 <!--- end -->
@@ -1452,15 +1453,15 @@
                 <div class="modal-header main_bg_color">
                 
                     
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Report Masseur </h5>
+                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Report Centre </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
                 <!-- if viewer not login -->
                 <div class="modal-body pb-0 teop-text" >
-                    <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
-                        <span id="Lname">Report Masseur is only available to Viewers. Please log in or Register to access Report Masseur.</span>
+                    <h6 class="popu_heading_style my-4 " style="text-align: center; color:#0C223D;">
+                        <span id="Lname">Report Centre is only available to Viewers. Please log in or Register to access Report Centre.</span>
                     </h6>
                     <div class="modal-footer text-center justify-content-center" >
                     <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
@@ -1813,12 +1814,14 @@
                     </span>
                     </button>
                 </div>
-                <div class="modal-body text-center">
-                    <h5 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                <div class="modal-body pb-0 teop-text text-center">
+                    <h5 class="popu_heading_style my-4" style="text-align: center;">
                         <span id="Lname">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
                     </h5>
-                    <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
-                    <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
+                    <div class="modal-footer text-center justify-content-center" >
+                        <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
+                        <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
+                    </div>
                 </div>
             </div>
         </div>

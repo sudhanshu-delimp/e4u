@@ -8407,6 +8407,11 @@ label#showCal {
     height: 100%;
 }
 
+#notes ol,
+ul {
+    text-align: justify;
+}
+
 .NotesHeader {
     font-size: 1.2rem;
 }

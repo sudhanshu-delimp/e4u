@@ -79,7 +79,7 @@ class AuthController extends Controller
             $userType =  $request->input('type', "");
             if (! is_null($request->email)) {
                 $user = User::where('email', '=', $request->email)
-                    //->where('type', '=', $userType)
+                    ->where('type', '!=', '7')
                     ->first();
 
                 if (!$user) {

@@ -125,7 +125,7 @@ box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
                         
                     </div>
                     <div class="modal-footer" style="justify-content: center;">
-                        <a href="{{route('advertiser.login')}}" class="btn main_bg_color site_btn_primary">Click Hear To Login</a>
+                        <a href="{{ route('viewer.login')}}" class="btn main_bg_color site_btn_primary">Click Hear To Login</a>
                     </div>
                 </div>
             </div>

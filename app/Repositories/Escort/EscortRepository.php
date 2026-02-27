@@ -163,14 +163,24 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->city_name = $item->city ? $item->city->name : null;
             $item->state_name = $item->state ? $item->state->name : null;
             $localTimeZone = getEscortTimezone($item);
+            // if ($item->enabled == 1) {
+            //     $item->enabled = "Active";
+            // } elseif ($item->enabled == 0) {
+            //     $item->enabled = "Inactive";
+            // } else {
+            //     $item->enabled = "Draft";
+            // }
+
             if ($item->enabled == 1) {
-                $item->enabled = "Active";
+                $statusText = "Active";
             } elseif ($item->enabled == 0) {
-                $item->enabled = "Inactive";
+                $statusText = "Inactive";
             } else {
-                $item->enabled = "Draft";
+                $statusText = "Draft";
             }
-           
+
+            $badgeClass = getStatusBadgeClass(strtolower($statusText));
+            $item->enabled = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
 
             if($item->gender=='Transgender')
             $item->stage_name = 'TS-'.$item->name;
