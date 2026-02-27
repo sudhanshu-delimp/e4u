@@ -1154,7 +1154,7 @@
                                     @if($contactType == 2 || $contactType == 5)
                                         <div class="tooltip-wrapper">
                                                 <img src="{{ asset('assets/app/img/wechat.svg') }}">
-                                                <div class="tooltip-text">Text me</div>
+                                                <div class="tooltip-text">Text us and Call us</div>
                                         </div>
                                     @endif
                             </br>
