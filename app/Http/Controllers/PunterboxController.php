@@ -221,7 +221,7 @@ class PunterboxController extends Controller
     public function updateStatus(Request $req)
     {
         $report = Punterbox::with('user')->find($req->id);
-
+      
         if (!$report) {
             return response()->json(['success' => false, 'error' => true, 'message' => 'Report not found.']);
         }
@@ -277,5 +277,41 @@ class PunterboxController extends Controller
         // }
 
         return response()->json(['success' => true, 'error' => false, 'message' => 'Report status updated successfully.']);
+    }
+
+    public function showCenterReportOnDashboardAjax(Request $request)
+    {   
+        $punterbox = Punterbox::where('status', '1')->with('state')->orderBy('incident_date', 'desc')->get();
+        if($request->ajax()){
+           return DataTables::of($punterbox)
+                ->addColumn('ref', fn($row) => '#' . $row->id)
+                ->addColumn('escort_mobile', function($row) {
+                        return formatPhone($row->escort_mobile);
+                    })
+                ->addColumn('incident_nature', fn($row) => formatLabelAttribute($row->incident_nature))
+                ->addColumn('status', fn($row) => formatLabelAttribute($row->status))
+                ->addColumn('rating', fn($row) => formatLabelAttribute($row->rating))
+                ->addColumn('incident_date', function($row) {
+                    return $row->incident_date ;
+                })
+                ->addColumn('location', function($row) {
+                    if ($row->incident_state) {
+                        $states = config('escorts.profile.states')[$row->incident_state] ?? null;
+                        return $states['stateName'] ?? 'N/A';
+                    }
+                    return '';
+                })
+                
+                ->addColumn('actions', function($row) {
+                    return ' <a href="javascript:void(0);" class="toggle-details">
+                                <i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="View"></i>
+                            </a>';
+                })
+                ->rawColumns(['ref','actions']) // only 'action' needs HTML rendering
+                ->make(true);
+
+        }
+        
+        return view('user.dashboard.punterbox.dashboard',['punterboxReports'=>$punterbox]);
     }
 }

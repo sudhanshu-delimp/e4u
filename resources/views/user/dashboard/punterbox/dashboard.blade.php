@@ -83,7 +83,7 @@
            <thead class="bg-first">
              <tr>
                <th>REF</th>
-               <th>Status</th>
+               <!-- <th>Status</th> -->
                <th>Mobile</th>
                <th>Incident Type</th>
                <th>Incident Date</th>
@@ -92,20 +92,27 @@
              </tr>
            </thead>
            <tbody>
-             <tr>
-               <td>#30</td>
-               <td>Active</td>
-               <td>0450954036</td>
-               <td>Fake</td>
-               <td>14-05-2025</td>
-               <td>WA - Perth</td>
-               <td class="text-center">
-                 <a href="javascript:void(0);" class="toggle-details">
-                   <i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="View"></i>
-                 </a>
-               </td>
-             </tr>
-       
+            @foreach ($punterboxReports as $num)
+                <tr class="data-row">
+                    <td>#{{ $num->id }}</td>
+                    <td>{{ $num->escort_mobile }}</td>
+                    <td>{{ $num->incident_nature }}</td>
+                    <td>{{ $num->incident_date }}</td>
+                    <td>{{ $num->state ? $num->state->iso2 : '' }} - {{ $num->state ? $num->state->name : '' }}
+                    </td>
+                    <td class="text-center">
+                        {{-- <a href="javascript:void(0);" class="toggle-details"
+                            data-target="details-{{ $num->id }}">
+                            <i class="fa fa-search" data-toggle="tooltip" title="View"></i>
+                        </a> --}}
+                        <a href="javascript:void(0);" class="toggle-details">
+                            <i class="fa fa-search" data-toggle="tooltip" data-placement="top"
+                                title="View"></i>
+                        </a>
+                    </td>
+                </tr>            
+            @endforeach
+
              <!-- Hidden expandable row -->
              {{-- <tr class="details-row d-none">
                <td colspan="7">
@@ -168,7 +175,7 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
-<script>
+<!-- <script>
   var table = $("#myReportListTable").DataTable({
       language: {
          search: "Search: _INPUT_",
@@ -188,9 +195,9 @@
     ]
    });
    
-</script>
+</script> -->
 <!-- jQuery Toggle Script -->
-<script>
+<!-- <script>
    $(document).ready(function () {
      $('.toggle-details').on('click', function () {
        const $this = $(this);
@@ -204,10 +211,155 @@
        $nextRow.toggleClass('d-none');
      });
    });
- </script>
-<script>
+ </script> -->
+
+<!-- <script>
    $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
-</script>
+</script> -->
+
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            var table = $('#myReportListTable').DataTable({
+                "language": {
+                    "zeroRecords": "No Record Found!",
+                    searchPlaceholder: "Search by Mobile Number"
+                },
+                order: [[3, 'desc']],
+                paging: true,
+                processing: false,
+                serverSide: false,
+                pageLength: 10,
+                lengthMenu: [
+                    [10, 20, 50, 100],
+                    [10, 20, 50, 100]
+                ],
+                ordering: true,
+                columnDefs: [{
+                        targets: 5,
+                        orderable: false
+                    } // Action column
+                ],
+                ajax: {
+                    url: "{{ route('user.punterbox.dashboard') }}",
+                    type: "GET",
+                },
+                columns: [{
+                        data: 'ref',
+                        name: 'ref'
+                    },
+                    {
+                    data: 'escort_mobile',
+                    name: 'escort_mobile',
+                    
+                },
+                    {
+                        data: 'incident_nature',
+                        name: 'incident_nature'
+                    },
+                    {
+                    data: 'incident_date',
+                    render: function (data, type) {
+                if (type === 'sort' || type === 'type') {
+                    return data;
+                }
+
+                return formatDate(data);
+            }
+                },
+                    {
+                        data: 'location',
+                        name: 'location'
+                    },
+                   
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            });
+
+            // Handle expand/collapse
+            $('#myReportListTable tbody').on('click', '.toggle-details', function(e) {
+                e.preventDefault();
+
+                const tr = $(this).closest('tr');
+                const row = table.row(tr);
+
+                if (row.child.isShown()) {
+                    // Close the details
+                    row.child.hide();
+                    tr.removeClass('shown');
+                    $(this).removeClass('open');
+                } else {
+                    // Open the details
+                    console.log(row.data());
+
+                    row.child(format(row.data())).show();
+                    tr.addClass('shown');
+                    $(this).addClass('open');
+                }
+            });
+
+            function formatDate(dateString) {
+                if (!dateString) return 'N/A';
+                const date = new Date(dateString);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}-${month}-${year}`;
+            }
+
+            function format(data) {
+                console.log(data);
+                return `
+                    <div class="details-content p-3">
+                        <table class="table mb-0 num_view_table">
+                            <tbody>
+                                <tr>
+                                    <th>Ref:</th>
+                                    <td class="border-0">${data.ref ?? 'N/A'}</td>
+                                    <th>Incident Date:</th>
+                                    <td class="border-0">${formatDate(data.incident_date) ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Escort's Name:</th>
+                                    <td class="border-0">${data.escort_name ?? 'N/A'}</td>
+                                    <th>Incident Type:</th>
+                                    <td class="border-0">${data.incident_nature ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Report Date:</th>
+                                    <td class="border-0">${formatDate(data.created_at) ?? 'N/A'}</td>
+                                    <th>Location:</th>
+                                    <td class="border-0">${data.location ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Escort's Email:</th>
+                                    <td class="border-0">${data.escort_email ?? 'N/A'}</td>
+                                    <th>Rating:</th>
+                                    <td class="border-0">${data.rating ?? 'N/A'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status:</th>
+                                     <td class="border-0">
+                                        ${data.status ? data.status.replace(/<[^>]*>/g, '') : 'N/A'}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Summary of Incident:</th>
+                                    <td colspan="3" class="border-0">${data.what_happened ?? 'N/A'}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+
+        });
+    </script>
 @endpush

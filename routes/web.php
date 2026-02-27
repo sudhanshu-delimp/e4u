@@ -218,10 +218,7 @@ Route::middleware('auth')->group(function () {
         })->name('user.edit-notebox');
 
         Route::post('/punterbox/store', [PunterboxController::class, 'storePunterboxReport'])->name('punterbox.store');
-
-        Route::get('/punterbox/dashboard',function(){
-            return view('user.dashboard.punterbox.dashboard');
-        })->name('user.punterbox.dashboard');
+        Route::get('punterbox/dashboard',[PunterboxController::class, 'showCenterReportOnDashboardAjax'])->name('user.punterbox.dashboard');
 
         Route::get('/punterbox/add-report',function(){
             return view('user.dashboard.punterbox.add-report');

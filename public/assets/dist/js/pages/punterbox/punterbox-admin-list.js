@@ -167,12 +167,12 @@ $(document).ready(function () {
         //let st = status == 'published' ? 'publish' : 'reject';
         $(".action_reason_div").css('display', 'none');
 
-        if (status == 'on_hold') {
+        if (status == '2') {
             st = 'mark as on hold';
-        } else if (status == 'rejected') {
+        } else if (status == '3') {
             st = 'reject';
             $(".action_reason_div").css('display', 'block');
-        } else if (status == 'pending') {
+        } else if (status == '0') {
             st = 'pending';
         } else {
             st = 'publish';
@@ -196,17 +196,17 @@ $(document).ready(function () {
 
         $(".action_reason_div").css('display', 'none');
 
-        let imageUrl = '{{ asset("assets/dashboard/img/rejected.png") }}';
+        let imageUrl = '/assets/dashboard/img/rejected.png';
         if (status == '1') {
             $(".success-modal-title").text('Published');
-            imageUrl = '{{ asset("assets/dashboard/img/published.png") }}';
+            imageUrl = '/assets/dashboard/img/published.png';
             $("#custompopicon").attr('src', imageUrl);
 
             $(".success-modal-text").text('This report is now Published');
 
         } else if (status == '3') {
             $(".success-modal-title").text('Rejected');
-            imageUrl = '{{ asset("assets/dashboard/img/rejected.png") }}';
+            imageUrl = '/assets/dashboard/img/rejected.png';
             $("#custompopicon").attr('src', imageUrl);
             $(".success-modal-text").text('This report is now Rejected.');
             $(".action_reason_div").css('display', 'block');
@@ -220,7 +220,7 @@ $(document).ready(function () {
             $(".success-modal-text").text('We’re sorry to inform you that your report has been updated to pending.');
         }
 
-        var url = "{{route('admin.num.status.ajax')}}";
+        var url = $('#PunterboxReportTable').data('status-update-url');
         updateMemberReportStatus(reviewData, url);
     });
 

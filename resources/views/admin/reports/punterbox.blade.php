@@ -71,10 +71,10 @@
 
         <div class="col-sm-12 col-md-12 col-lg-12 ">
             <div class="table-responsive">
-                <table class="table" id="PunterboxReportTable" data-ajax-url="{{ route('admin.punterbox.ajax') }}">
+                <table class="table" id="PunterboxReportTable" data-ajax-url="{{ route('admin.punterbox.ajax') }}" data-status-update-url="{{ route('admin.punterbox.status.ajax') }}">
                     <thead class="table-bg">
                         <tr>
-                            <th>Ref</th>
+                            <th>Ref444</th>
                             <th>Member ID</th>
                             <th>Member</th>
                             <th>Incident Date</th>
@@ -250,6 +250,42 @@
         </div>
     </div>
 </div>
+
+
+  {{-- published modal --}}
+    <div class="modal fade upload-modal" id="confirm_publish_popup" tabindex="-1" role="dialog"
+        aria-labelledby="confirmPopupLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title d-flex align-items-center " id="confirmPopupLabel">
+                        <img src="{{ asset('assets/dashboard/img/published.png') }}" id="custompopicon" alt="published"
+                            class="custompopicon">
+                        <span class="success-modal-title">Published544554</span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+
+                <div class="modal-body text-center">
+                    <h6 class="popu_heading_style mt-2">
+                        <span id="" class="success-modal-text">We’re happy to inform you that your query
+                        has been <br> successfully resolved.</span>
+                    </h6>
+
+                </div>
+
+                <div class="modal-footer justify-content-center border-0 pb-4">
+                    <button type="button" class="btn-success-modal px-4" data-dismiss="modal"
+                        aria-label="Close">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {{-- end notes --}}
 @endsection

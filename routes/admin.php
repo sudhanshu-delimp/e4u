@@ -647,6 +647,7 @@ Route::get('reports/punterbox',function(){
 })->name('admin.punterbox');
 
 Route::post('reports-punterbox-ajax', [PunterboxController::class, 'showReportOnDashboardAjax'])->name('admin.punterbox.ajax');
+Route::post('reports-punterbox-status-ajax', [PunterboxController::class, 'updateStatus'])->name('admin.punterbox.status.ajax');
 
 Route::get('/management/competitor-database',function(){
     return view('admin.management.competitor-database');

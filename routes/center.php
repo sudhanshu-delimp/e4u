@@ -20,7 +20,7 @@ use App\Http\Controllers\Center\MassageCenterAccountController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Center\CenterProfileInformationController;
 use App\Http\Controllers\Center\MassageViewerInteractionController;
-
+use App\Http\Controllers\PunterboxController;
 
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
 Route::get('/list/data-table', [CenterController::class, 'dataTable'])->name('center.list.dataTable');
@@ -98,7 +98,6 @@ Route::post('all-massager-list', [MassageController ::class, 'get_all_massager_l
 
 
 Route::post('make-time-json',[MassageController::class,'make_time_json'])->name('center.make-time-json');
-
 
 Route::get('archive-view-photos', [CenterProfileInformationController ::class, 'galleries'])->name('cen.archive-view-photos');
 Route::get('profile-informations', [CenterProfileInformationController::class, 'showAboutMe'])->name('center.profile.information');
