@@ -22,7 +22,6 @@ class EscortTourScheduleContoller extends Controller
 
     public function __construct(TourInterface $tour, WalletService $walletService)
     {
-       
         $this->tour = $tour;
         $this->walletService = $walletService;
     }
