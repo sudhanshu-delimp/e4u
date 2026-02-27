@@ -36,14 +36,20 @@ $(document).ready(function () {
         },
         {
             data: 'member_id',
-            render: (data, type) =>
-                type === 'display'
-                    ? data
-                    : parseInt(data.replace(/\D/g, ''))
+            searchable: true,
+            render: function (data, type) {
+                if (type === 'sort' || type === 'type') {
+                    return parseInt(data.replace(/\D/g, ''));
+                }
+                if (type === 'filter') {
+                    return data;
+                }
+                return data;
+            }
         },
         {
             data: 'member_name',
-            name: 'member_name'
+            name: 'member_name',
         },
         {
             data: 'incident_date',
@@ -64,6 +70,7 @@ $(document).ready(function () {
             data: 'status',
             name: 'status',
             type: 'status',
+            searchable: false,
 
         },
         {

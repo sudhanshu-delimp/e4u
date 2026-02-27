@@ -129,52 +129,6 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>1233</td>
-                            <td>V401613</td>
-                            <td>Peter1</td>
-                            <td>03-03-2025</td>
-                            <td>Brisbane2</td>
-                            <td><span class="custom_badge badge_published">Published</span></td>
-                            <td>
-                                <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button"
-                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink">
-                                        <div class="custom-tooltip-container">
-                                            <a
-                                                class="dropdown-item align-item-custom toggle-massage-notification"
-                                                href="#" title="Click to disable notification">
-                                            </a>
-                                            <a class="dropdown-item align-item-custom" data-toggle="modal"
-                                                data-target="#confirm-popup" href=""> <i
-                                                    class="fa fa-ban" aria-hidden="true"></i>On Hold</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item align-item-custom" href="#"
-                                                data-toggle="modal" data-target="#confirm-popup"> <i
-                                                    class="fa fa-check-circle" aria-hidden="true"></i>
-                                                Publish </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item align-item-custom" href="#"
-                                                data-toggle="modal" data-target="#confirm-popup"> <i
-                                                    class="fa fa-times-circle " aria-hidden="true"></i>
-                                                Rejected </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item align-item-custom view_report" href="#"
-                                                data-toggle="modal" data-target="#viewAgentreport"> <i
-                                                    class="fa fa-eye" aria-hidden="true"></i>
-                                                View Report </a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </td>
-                        </tr>
-
                     </tbody>
                 </table>
             </div>
