@@ -592,7 +592,7 @@
                         'application',
                         'revision',
                         'security','shareholder','share-value',
-                        'operator-staff','concierge-payments'
+                        'operator-staff','concierge-payments','data-list'
                     ]) || request()->segment(2) == 'feedback' || in_array(request()->segment(4), ['legal','community','other','about','concierge','global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications'])) show @endif"
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
@@ -615,13 +615,13 @@
                             <span>Agents</span>
                         </a>
                         <div id="manageAgentMenu"
-                            class="collapse @if (in_array(request()->segment(3), ['agents-monthly-report'])) show @endif" data-parent="#Management">
+                            class="collapse @if (in_array(request()->segment(3), ['agents-monthly-report', 'data-list'])) show @endif" data-parent="#Management">
 
                             
-                             <a class="collapse-item" href="javascript:void(0)">
+                             <a class="collapse-item" href="{{ route('admin.data-list') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == '' ? 'color: #FF3C5F;' : '' }}">Data List (Centres)</span>
+                                    style="{{ request()->segment(3) == 'data-list' ? 'color: #FF3C5F;' : '' }}">Data List (Centres)</span>
                             </a>
                             <a class="collapse-item" href="{{ route('admin.agents-monthly-report') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">

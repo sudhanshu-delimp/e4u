@@ -120,7 +120,6 @@
         </div>
     </div> 
     {{-- end --}}
-
     {{-- Cancel Tour confirmation Popup --}}
     <div class="modal fade upload-modal" id="cancel_tour_confirm" tabindex="-1" role="dialog" aria-labelledby="cancel_tour_confirm"
         aria-hidden="true" data-backdrop="static">
@@ -136,11 +135,13 @@
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
-                <div class="modal-body pb-0 agent-tour">
-                    <form method="post" action="#">
-                        <h4>Your Tour has been cancelled and all Profiles associated with the Tour removed from the
-                            Website.</h4>
-                    </form>
+                <div class="modal-body text-center">
+                   
+                        <h5 class="popu_heading_style my-4">Your Tour has been cancelled and all Profiles associated with the Tour removed from the
+                            Website.</h5>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button class="btn-cancel-modal" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
