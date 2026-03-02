@@ -1,0 +1,55 @@
+
+    {{-- merge modal --}}
+    <div class="modal fade upload-modal" id="mergeType" tabindex="-1" role="dialog" aria-labelledby="mergeTypelabel"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <img src="{{ asset('assets/dashboard/img/merge.png') }}" class="custompopicon">
+                        <span class="text-white">Merge Type</span>
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0 agent-tour">
+                    <h4 class="my-2">Select the Marketing Information document to merge with:</h4>
+                    <form method="" action="">
+                        <div class="row my-3">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="d-flex align-items-center justify-content-center gap-20">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="mergeType"
+                                                id="single" checked>
+                                            <label class="form-check-label" for="single">Massage Centre (single)</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="mergeType"
+                                                id="multiple" value="massage">
+                                            <label class="form-check-label" for="multiple">Massage Centre
+                                                (Multiple)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Save Button -->
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn-success-modal" id="save_button">Merge</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end --}}

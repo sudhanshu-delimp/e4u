@@ -11,9 +11,26 @@
         .card {
             box-shadow: 0 2px 6px rgba(0, 0, 0, .06);
         }
+
+        #mergeList .table .inner_details {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            align-items: center;
+        }
+
+        #mergeList .table .inner_details strong {
+            width: 110px;
+        }
+        #mergeList table td{
+            vertical-align: middle;
+        }
+         #mergeList table th{
+            text-align: center;
+         }
     </style>
-@endsection 
-    
+@endsection
+
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         {{-- Page Heading --}}
@@ -24,14 +41,15 @@
                     <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
                     </h6>
                 </div>
-                
+
             </div>
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b></p>
                         <ol>
-                            <li>The E4U data list (<b>Data</b>) includes all known Massage Centres located in your Territory.
+                            <li>The E4U data list (<b>Data</b>) includes all known Massage Centres located in your
+                                Territory.
                                 From time to time the Data will be updated. You will be notified when the Data is
                                 updated.</li>
                             <li>Use the search feature to create your prospect list (<b>List</b>). Once you have created the
@@ -43,7 +61,8 @@
                                 </ol>
                             </li>
                             <li>A Massage Centre who becomes a Member will remain in the List.</li>
-                            <li>You can access your Lists anytime from <a href="{{ route('agent.saved-reports') }}" class="custom_links_design">Saved Reports</a>.</li>
+                            <li>You can access your Lists anytime from <a href="{{ route('agent.saved-reports') }}"
+                                    class="custom_links_design">Saved Reports</a>.</li>
                         </ol>
                     </div>
                 </div>
@@ -172,141 +191,18 @@
 
 
     {{-- modal  --}}
-    {{-- merge modal --}}
-    <div class="modal fade upload-modal show" id="mergeType" tabindex="-1" role="dialog"
-        aria-labelledby="mergeTypelabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <img src="{{ asset('assets/dashboard/img/merge.png') }}" class="custompopicon">
-                        <span class="text-white">Merge Type</span>
-                    </h5>
 
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body pb-0 agent-tour">
-                    <h4 class="my-2">Select the Marketing Information document to merge with:</h4>
-                    <form method="POST">
-                        <div class="row my-3">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="d-flex align-items-center justify-content-center gap-20">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="mergeType"
-                                                id="single" checked>
-                                            <label class="form-check-label" for="single">Massage Centre (single)</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="mergeType"
-                                                id="multiple" value="massage">
-                                            <label class="form-check-label" for="multiple">Massage Centre
-                                                (Multiple)</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Trigger Button -->
+        <button type="button" class="btn-success-modal" data-toggle="modal" data-target="#mergeList">
+            Hello
+        </button>
 
-                        <!-- Save Button -->
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <div class="form-group text-center">
-                                    <button type="submit" class="btn-success-modal" id="save_button">Merge</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- end --}}
-
-    {{-- View Modal --}}
-    <div class="modal fade upload-modal bd-example-modal-lg" id="view_list" tabindex="-1" role="dialog"
-        aria-labelledby="view_listLabel" aria-hidden="true">
-        <div class="modal-dialog print-list-modal modal-dialog-centered " role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="view_list"><img
-                            src="{{ asset('assets/dashboard/img/profile-report.png') }}" class="custompopicon">View Report
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="table-responsive profile_summary">
-                        <table cellpadding="8" cellspacing="0" width="100%"
-                            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-
-                            <thead class="bg-first">
-                                <!-- Table Headings -->
-                                <tr>
-                                    <td>ID</td>
-                                    <td>Business Name</td>
-                                    <td>Address</td>
-                                    <td>Post Code</td>
-                                    <td>Mobile Number</td>
-                                    <td>Business Number</td>
-                                    <td>Email</td>
-                                    <td>Website</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>369</td>
-                                    <td>Body Heat Massage</td>
-                                    <td>62 Gordon Rd East Osborne Park</td>
-                                    <td>6000</td>
-                                    <td>0456 665 012</td>
-                                    <td>9236 2587</td>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <td>256</td>
-                                    <td>Healthland</td>
-                                    <td>510 Murray St Perth</td>
-                                    <td>6000</td>
-                                    <td>0426 610 881</td>
-                                    <td>9325 2011</td>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <td>147</td>
-                                    <td>Esquire Spa and Massage</td>
-                                    <td>11 Aberdeen St Perth</td>
-                                    <td>6000</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-                            </tbody>
-
-                        </table>
-                    </div>
-
-                    <div class="modal-footer justify-content-center mt-3">
-                        <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
-                            id="close_change">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- end --}}
+        @include('agent.dashboard.modal.merge-type-modal')
+        @include('agent.dashboard.modal.merge-list-modal')
+        @include('agent.dashboard.modal.view-list-modal')
+        
+    {{-- end modals --}}
+   
 @endsection
 
 @push('script')
@@ -332,14 +228,50 @@
                     [10, 25, 50, 100]
                 ],
                 pageLength: 10,
-            columns: [
-            { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'date_generated', name: 'date_generated', searchable: true, orderable:false ,defaultContent: 'NA'},
-            { data: 'post_code', name: 'post_code', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'listings', name: 'listings', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'merged', name: 'merged', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
-            ],
+                columns: [{
+                        data: 'id',
+                        name: 'id',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'date_generated',
+                        name: 'date_generated',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'post_code',
+                        name: 'post_code',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'listings',
+                        name: 'listings',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'merged',
+                        name: 'merged',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA',
+                        class: 'text-center'
+                    },
+                ],
             });
 
             var table = $("#reportsTable").DataTable({
@@ -359,14 +291,49 @@
                     [10, 25, 50, 100]
                 ],
                 pageLength: 10,
-            columns: [
-            { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'date_generated', name: 'date_generated', searchable: true, orderable:false ,defaultContent: 'NA'},
-            { data: 'post_code', name: 'post_code', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'listings', name: 'listings', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'merged', name: 'merged', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'bussiness_no', name: 'bussiness_no', searchable: false, orderable:false, defaultContent: 'NA',},
-            ],
+                columns: [{
+                        data: 'id',
+                        name: 'id',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'date_generated',
+                        name: 'date_generated',
+                        searchable: true,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'post_code',
+                        name: 'post_code',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'listings',
+                        name: 'listings',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'merged',
+                        name: 'merged',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'bussiness_no',
+                        name: 'bussiness_no',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA',
+                    },
+                ],
             });
         });
     </script>
