@@ -777,6 +777,8 @@ Route::get('massage-description/{id}', [MassageCentre::class, 'massage_descripti
 Route::post('/store-short-list', [MassageCentre::class, 'storeShortList'])->name('web.store-short-list');
 Route::post('/remove-short-list', [MassageCentre::class, 'removeShortList'])->name('web.remove-short-list');
 Route::post('/review-massage/{id}', [MassageCentre::class,'SaveReviewMassage'])->name('web.review-massage');
+Route::post('/clear-short-list', [MassageCentre::class,'clearShortList'])->name('web.clear-short-list');
+
 
 
 

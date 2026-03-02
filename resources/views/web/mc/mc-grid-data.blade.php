@@ -52,7 +52,7 @@
 
                 <div class="mc_card_content">
                     <div class="items">
-                        <span class="title text_truncate">{{  get_massage_home_city($listing->user_id) }}</span>
+                        <span class="title text_truncate">{{  get_massage_home_city($listing->user_id) .'--'.$listing->id }}</span>
                         <span class="mc_star">
                             <i class="fa fa-star-o"></i>
                             <i class="fa fa-star-o"></i>

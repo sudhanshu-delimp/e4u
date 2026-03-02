@@ -103,15 +103,30 @@ class MassageCentre extends Controller
 
     public function mcAjaxList(Request $request)
     {
-        $per_page = 5;
+        $per_page = 25;
         $massage_centers_ids = [];
 
+        
+        //$mc_live_list = [153, 154, 156, 157, 159, 162, 161, 164];
+        $mc_live_list = [];
+        $mc_user_id = [];
+        if(!empty($mc_live_list))
+        $mc_user_id   = MassageProfile::whereIn('id',$mc_live_list)->distinct()->pluck('user_id')->toArray();
+
+    
 
          $filter_by_location = $request->input('filter_by_location', []);
          $filter_by_feild    = $request->input('filter_by_feild', []);
+         
          $massage_users = User::where('type', 5); 
+         if(!empty($mc_user_id))
+         $massage_users = $massage_users->whereIn('id',$mc_user_id);
+            
+
          $massage = MassageProfile::query();
-         //$massage = MassageProfile::where('default_setting', '!=', '1');
+         if(!empty($mc_live_list))
+         $massage = $massage->whereIn('id',$mc_live_list);
+        
 
         ######### Upper Filter ##################### 
         if ((!empty($filter_by_location)) || (!empty($filter_by_feild))) 
@@ -130,37 +145,36 @@ class MassageCentre extends Controller
                     $lat_state = $userLocation['state'];
                     $lng_city = $userLocation['city'];
 
-                   
-
                     $massage_users = $massage_users->where('state_id', $lat_state); 
 
-                    if($member!="")
-                    {
-                         $massage_users = $massage_users->where(function ($query) use ($member) {
+                    if (!empty($member)) {
+                        $massage_users =  $massage_users->where(function ($query) use ($member) {
                             $query->where('member_id', 'LIKE', "%{$member}%")
                                 ->orWhere('name', 'LIKE', "%{$member}%");
                         });
                     }
 
-                    $massage_centers_ids = $massage_users->pluck('id')->toArray(); 
-                    if (!empty($massage_centers_ids)) {
-
-                        $massage->where(function ($query) use ($massage_centers_ids, $member) {
-
+                    $massage_centers_ids = $massage_users->pluck('id')->toArray();
+                  
+                    $massage = $massage->where(function ($query) use ($massage_centers_ids, $member) {
+                        
+                        if(!empty($massage_centers_ids)){
                             $query->whereIn('user_id', $massage_centers_ids)->where('default_setting', '!=', '1');
+                        }
+                        else
+                        {
+                                if (!empty($member)) {
+                                $query->where('profile_name', 'like', "%{$member}%")->where('default_setting', '!=', '1');
+                                }
+                                else
+                                $query->whereRaw('1 = 0');  
 
-                            if (!empty($member)) {
-                                $query->where('profile_name', 'like', "%{$member}%");
-                            }
+                                
+                        }
 
-                        });
+                    });
 
-                    }
-                    else
-                    {
-                    $massage->whereRaw('1 = 0');
-                    }
-
+        
                     $massage = $massage->inRandomOrder()->paginate($per_page)->onEachSide(1);
 
                 }
@@ -174,6 +188,9 @@ class MassageCentre extends Controller
                     {
 
                       $external_search = User::where('type', 5);
+                      if(!empty($mc_user_id))
+                      $external_search = $external_search->whereIn('id',$mc_user_id);
+
                       if (!empty($member)) {
                             $external_search->where(function ($query) use ($member) {
                                 $query->where('member_id', 'like', "%{$member}%");
@@ -184,11 +201,11 @@ class MassageCentre extends Controller
                     }
 
                     $massage_users = $massage_users->distinct()->pluck('id')->toArray(); 
-                    $massage_centers_ids = array_merge($external_search_ids, $massage_users);
+                    $massage_centers_ids = array_unique(array_merge($external_search_ids, $massage_users));
 
                     if (!empty($massage_centers_ids)) {
 
-                        $massage->where(function ($query) use ($massage_centers_ids, $member) {
+                        $massage =  $massage->where(function ($query) use ($massage_centers_ids, $member) {
 
                             $query->whereIn('user_id', $massage_centers_ids)->where('default_setting', '!=', '1');
 
@@ -201,8 +218,10 @@ class MassageCentre extends Controller
                     }
                     else
                     {
-                    $massage->whereRaw('1 = 0');
+                        $massage = $massage->whereRaw('1 = 0');
                     }
+
+
 
                     $massage = $massage->inRandomOrder()->paginate($per_page)->onEachSide(1);
                 }
@@ -220,6 +239,8 @@ class MassageCentre extends Controller
                 $other_services     = $filter_by_feild['other_services'] ?? null;
                 $verification       = $filter_by_feild['verification'] ?? null;
 
+                $massage = $massage->where('default_setting', '!=', '1');
+
 
                if($profile_city!="")
                {
@@ -228,13 +249,16 @@ class MassageCentre extends Controller
                     $massage_users = $massage_users->pluck('id')->toArray(); 
                     $massage_centers_ids = $massage_users;
 
-                    
+                     if(empty($massage_centers_ids))
+                     $massage = $massage->whereRaw('1 = 0');  
+  
                }
                
                 if(!empty($massage_centers_ids))
                 {
                     $massage = $massage->whereIn('user_id', $massage_centers_ids);
                 }
+
 
                 if($profile_age!="")
                 {
@@ -268,14 +292,18 @@ class MassageCentre extends Controller
                 }  
                 
 
-                $massage = $massage->where('default_setting', '!=', '1')->paginate($per_page)->onEachSide(1);
+                $massage = $massage->paginate($per_page)->onEachSide(1);
 
             }
 
         }
         else
         {
-            $massage = $massage->where('default_setting', '!=', '1')->inRandomOrder()->paginate($per_page)->onEachSide(1);
+            $massage = $massage->where('default_setting', '!=', '1');
+            if(!empty($mc_live_list))
+            $massage = $massage->whereIn('id', $mc_live_list);    
+
+            $massage = $massage->inRandomOrder()->paginate($per_page)->onEachSide(1);
         }
         ######### End Upper Filter ##################### 
 
@@ -354,7 +382,17 @@ class MassageCentre extends Controller
                 'message' => 'Added to wishlist'
         ]);
     }
-    
+
+    public function clearShortList(Request $request)
+    {
+       if (session()->has('wishlist')) {
+        session()->forget('wishlist');
+        }
+            return response()->json([
+                'status' => true,
+                'message' => 'Shortlist has been cleared successfully.'
+        ]);
+    }
 
     public function SaveReviewMassage(Request $request, $massage_id)
     {
@@ -393,11 +431,6 @@ class MassageCentre extends Controller
     
     
 
-
-
-
-
-
     ############## Massage Short List #######################
 
     public function  shortlist_massageList()
@@ -412,19 +445,21 @@ class MassageCentre extends Controller
         $massage_centers_ids = [];
         $mc_ids = session()->get('wishlist', []);
 
-
-
+        Log::info('shortlist');
+        Log::info($mc_ids );
 
          $filter_by_location = $request->input('filter_by_location', []);
          $filter_by_feild    = $request->input('filter_by_feild', []);
          $massage_users = User::where('type', 5); 
-         $massage = MassageProfile::query();
+         $massage = MassageProfile::query()->where('default_setting', '!=', '1');
+         
          
         ######### Upper Filter ##################### 
         if ((!empty($filter_by_location)) || (!empty($filter_by_feild))) 
         {
             if(!empty($filter_by_location))
             {
+                
                 $location   = $filter_by_location['locationByRadio'] ?? null;
                 $member     = $filter_by_location['by_name_member'] ?? null;
                 $set_lat    = $filter_by_location['set_lat'] ?? null;
@@ -454,9 +489,10 @@ class MassageCentre extends Controller
 
                    
 
-                    if (!empty($massage_centers_ids)) {
+                    if (!empty($massage_centers_ids)) 
+                    {
 
-                        $massage->where(function ($query) use ($massage_centers_ids, $member) {
+                       $massage = $massage->where(function ($query) use ($massage_centers_ids, $member) {
 
                             $query->whereIn('user_id', $massage_centers_ids)->where('default_setting', '!=', '1');
 
@@ -469,10 +505,11 @@ class MassageCentre extends Controller
                     }
                     else
                     {
-                         $massage->whereRaw('1 = 0');
+                       $massage =  $massage->whereRaw('1 = 0');
                     }
 
                     $massage = $massage->inRandomOrder()->get();
+
                     if(!empty($mc_ids) && ($massage->count()>0))
                     {
                         $massage = $massage->whereIn('id', $mc_ids)->values(); 
@@ -567,11 +604,13 @@ class MassageCentre extends Controller
 
                    
                 }
+
+                  
             }
 
             if(!empty($filter_by_feild))
-            {
-
+            {   
+                $is_found           = false;
                 $profile_state      = $filter_by_feild['profile_state'] ?? null;
                 $profile_city       = $filter_by_feild['profile_city'] ?? null;
                 $masseur_types      = $filter_by_feild['masseur_types'] ?? null;
@@ -584,15 +623,18 @@ class MassageCentre extends Controller
 
                if($profile_city!="")
                {
+
                     $state_id = getStateIdByCityId(config('escorts.profile.states'), $profile_city);
                     $massage_users = $massage_users->where('state_id', $state_id); 
                     $massage_users = $massage_users->pluck('id')->toArray(); 
                     $massage_centers_ids = $massage_users;
+                    $massage->when(empty($massage_centers_ids),function ($query) {$query->whereRaw('1 = 0');},
+                        function ($query) use ($massage_centers_ids) {
+                            $query->whereIn('user_id', $massage_centers_ids);
+                        }
+                    );
 
-                    if(!empty($massage_centers_ids))
-                    {
-                        $massage = $massage->whereIn('user_id', $massage_centers_ids);
-                    }
+                    
                     
                }
                
@@ -630,7 +672,8 @@ class MassageCentre extends Controller
                 }  
                 
 
-                $massage = $massage->where('default_setting', '!=', '1')->inRandomOrder()->get();
+                $massage = $massage->inRandomOrder()->get();
+
                 if(!empty($mc_ids) && ($massage->count()>0))
                 {
                     $massage = $massage->whereIn('id', $mc_ids)->values(); 
