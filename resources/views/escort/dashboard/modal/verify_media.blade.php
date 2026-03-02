@@ -1,7 +1,7 @@
 <div class="modal fade upload-modal" id="mediaVerificationModal" tabindex="-1" role="dialog" aria-labelledby="mediaVerificationModal" data-keyboard="false" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" style="width: 900px;position: absolute;">
-            <form id="mulitiImage" method="POST" action="{{route('escort.upload.gallery')}}" enctype="multipart/form-data">
+            <form id="mediaVerification" method="POST" action="{{ route('escort.media.verification.upload') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content border-0">
                     <div class="modal-header">
@@ -18,9 +18,8 @@
                                         <div class="col-sm-12 p-0 text-center">
                                             <div class="">
                                                 <div class="plate"><label class="newbtn">
-                                                    <img id="blah9" class="img-fluid px-2 js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/upload-media.png')}}" style="width: 400px;object-fit: cover; height:100%">
-                                                    <input name="banner" id="upload_banner" class="pis galleryMedia" onchange="readImageURL(this);" type="file" accept="image/*" >
-                                                    <input type="hidden" name="position[]" id="mediaBanner">
+                                                    <img id="blah9" class="img-fluid px-2   preview-image js_VerificationMedia" src="{{ asset('assets/app/img/upload-media.png')}}" style="width: 400px;object-fit: cover; height:100%">
+                                                    <input name="image" id="upload_varification_img" class="pis galleryMedia" onchange="readVarificationImageURL(this);" type="file" accept="image/*" >
                                                     </label>
                                                 </div>
                                             </div>
@@ -61,7 +60,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="submit" class="btn-success-modal">Verify Media</button>
+                      <button type="submit" class="btn-success-modal" id="verifyMediaBtn">Verify Media</button>
                     </div>
                 </div>
             </form>

@@ -100,6 +100,7 @@
     .my-custompop-tabs .nav-item .nav-link.active{
     color: #fff;
     }
+    
 </style>
 @endsection
 @section('content')
@@ -661,6 +662,7 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/ajax/libs/jquery/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
+<script src="{{ asset('js/escort/media-varification.js') }}"></script>
 <script>
     var updatePosition = 0;
     $("body").on('click','.cropEdit',function(){

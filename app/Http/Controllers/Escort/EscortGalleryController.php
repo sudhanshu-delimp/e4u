@@ -31,6 +31,7 @@ use App\Models\EscortGallery;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use Illuminate\Support\Facades\DB;
+use App\Models\MediaVerification;
 
 use App\Models\EscortCovidReport;
 //use Illuminate\Http\Request;
@@ -610,6 +611,34 @@ class EscortGalleryController extends AppController
         return response()->json([
             'status' => 'file_merged',
             'url' => asset("escorts/{$finalFilePath}") // Returns public URL
+        ]);
+    }
+
+    public function mediaVerificationUpload(Request $request){
+        $request->validate([
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:5120',
+            'verification_type'  => 'required|in:selfie,licence,passport',
+        ]);
+
+        $user = auth()->user();
+        $image = $request->file('image');
+        $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $destination_path = $user->id . '/verifications/' . $fileName;
+        Storage::disk('escorts')->put(
+            $destination_path,
+            file_get_contents($image)
+        );
+
+        MediaVerification::create([
+            'user_id' => $user->id,
+            'image_path' => $destination_path,
+            'type' => $request->verification_type,
+            'status' => MediaVerification::STATUS_PENDING,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Verification uploaded successfully.',
         ]);
     }
 }
