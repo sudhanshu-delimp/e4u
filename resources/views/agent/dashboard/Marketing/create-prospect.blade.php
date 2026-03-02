@@ -31,8 +31,8 @@
                     <div class="card-body">
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b></p>
                         <ol>
-                            <li>The E4U data list (<b>Data</b>) includes all known Massage Centres located in your
-                                Territory. From time to time the Data will be updated. You will be notified when the Data is
+                            <li>The E4U data list (<b>Data</b>) includes all known Massage Centres located in your Territory.
+                                From time to time the Data will be updated. You will be notified when the Data is
                                 updated.</li>
                             <li>Use the search feature to create your prospect list (<b>List</b>). Once you have created the
                                 List, you can then apply the List in the following manner:
@@ -43,7 +43,7 @@
                                 </ol>
                             </li>
                             <li>A Massage Centre who becomes a Member will remain in the List.</li>
-                            <li>You can access your Lists anytime from the Report List.</li>
+                            <li>You can access your Lists anytime from <a href="{{ route('agent.saved-reports') }}" class="custom_links_design">Saved Reports</a>.</li>
                         </ol>
                     </div>
                 </div>
@@ -132,8 +132,8 @@
                                     <th>Business Name</th>
                                     <th>Address</th>
                                     <th>Post Code</th>
-                                    <th>Mobile</th>
-                                    <th>Business No.</th>
+                                    <th>Mobile Number</th>
+                                    <th>Business Number</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -143,17 +143,20 @@
 
                 {{-- Reports Table --}}
                 <div class="prospect-list-table">
-                    <h2>Generated Report List</h2>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2>Generated Report List</h2>
+                        <button class="btn-success-modal mr-0" id="closePreview">Save Report</button>
+                    </div>
                     <div class="table-responsive">
                         <table class="table" id="reportsTable">
                             <thead class="bg-first">
                                 <tr>
                                     <th>ID</th>
-                                    <th>Date</th>
+                                    <th>Date Generated</th>
                                     <th>Post Code</th>
                                     <th>Listings</th>
                                     <th>Merged</th>
-                                    <th>Action</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -407,7 +410,7 @@
                     <td>${rep.postcode}</td>
                     <td>${rep.listings.length}</td>
                     <td>${rep.merged ? 'Yes' : 'No'}</td>
-                    <td>
+                    <td class="text-center">
                           <div class="dropdown no-arrow">
                               <a class="dropdown-toggle" href="#" role="button"
                                   id="dropdownMenuLink" data-toggle="dropdown"
