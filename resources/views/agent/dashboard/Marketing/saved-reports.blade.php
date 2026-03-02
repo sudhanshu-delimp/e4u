@@ -89,10 +89,6 @@
  
   
 <!-- Trigger Button -->
-        <button type="button" class="btn-success-modal" data-toggle="modal" data-target="#mergeList">
-            Hello
-        </button>
-
     
     <!-- Main DataTable (Your Reports Table) -->
     <div class="table-responsive-xl">

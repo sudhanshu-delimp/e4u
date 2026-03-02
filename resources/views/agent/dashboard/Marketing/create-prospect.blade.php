@@ -192,10 +192,6 @@
 
     {{-- modal  --}}
 
-        <!-- Trigger Button -->
-        <button type="button" class="btn-success-modal" data-toggle="modal" data-target="#mergeList">
-            Hello
-        </button>
 
         @include('agent.dashboard.modal.merge-type-modal')
         @include('agent.dashboard.modal.merge-list-modal')
