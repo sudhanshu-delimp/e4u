@@ -1,50 +1,51 @@
 <?php
 
-use App\Models\User;
-use App\Models\Pricing;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Cookie;
-use App\Http\Controllers\MassageCentre;
-use App\Http\Controllers\WebController;
-use App\Http\Controllers\DemoController;
-use App\Http\Controllers\BlogsController;
-use App\Mail\sendPlaymateAccountDisableMail;
-use App\Http\Controllers\ContactUsController;
-use App\Http\Controllers\NotificationSetting;
-use App\Http\Controllers\InfluencerController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\Center\CenterController;
-use App\Http\Controllers\Escort\EscortController;
-use App\Http\Controllers\Escort\PinUpsController;
-use App\Http\Controllers\Viewer\ViewerController;
 use App\Http\Controllers\AccountSettingController;
-use App\Http\Controllers\SupportTicketsController;
-use App\Http\Controllers\User\Auth\LoginController;
-use App\Http\Controllers\Escort\ConciergeController;
-use App\Http\Controllers\Escort\MyPlaymatesContoller;
-use App\Http\Controllers\Agent\AgentAccountController;
-use App\Http\Controllers\Agent\AgentRequestController;
-use App\Http\Controllers\User\Auth\RegisterController;
-use App\Http\Controllers\Agent\AgentRegisterController;
-use App\Http\Controllers\User\Dashboard\UserController;
-use App\Http\Controllers\AdvertiserSpamReportController;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
-use App\Http\Controllers\Center\Profile\MassageController;
-use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Http\Controllers\Admin\ManagePeopleStaffController;
-use App\Http\Controllers\Escort\EscortStatisticsController;
-use App\Http\Controllers\Escort\EscortTourScheduleContoller;
-use App\Http\Controllers\GetCurrentUserGeolocationController;
-use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
-use App\Http\Controllers\Escort\EscortViewerInteractionController;
-use App\Http\Controllers\Viewer\ViewerEscortInteractionController;
-use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
-use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
-use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
+use App\Http\Controllers\AdvertiserSpamReportController;
+use App\Http\Controllers\Agent\AgentAccountController;
+use App\Http\Controllers\Agent\AgentRegisterController;
+use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
+use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
+use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\Center\CenterController;
+use App\Http\Controllers\Center\Profile\MassageController;
+use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\DemoController;
+use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
+use App\Http\Controllers\Escort\ConciergeController;
+use App\Http\Controllers\Escort\EscortController;
+use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
+use App\Http\Controllers\Escort\EscortStatisticsController;
+use App\Http\Controllers\Escort\EscortTourScheduleContoller;
+use App\Http\Controllers\Escort\EscortViewerInteractionController;
+use App\Http\Controllers\Escort\MyPlaymatesContoller;
+use App\Http\Controllers\Escort\PinUpsController;
+use App\Http\Controllers\GetCurrentUserGeolocationController;
+use App\Http\Controllers\InfluencerController;
+use App\Http\Controllers\MassageCentre;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\NotificationSetting;
+use App\Http\Controllers\SupportTicketsController;
+use App\Http\Controllers\User\Auth\LoginController;
+use App\Http\Controllers\User\Auth\RegisterController;
+use App\Http\Controllers\User\Dashboard\UserController;
+use App\Http\Controllers\Viewer\ViewerController;
+use App\Http\Controllers\Viewer\ViewerEscortInteractionController;
+use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
+use App\Http\Controllers\Viewer\ViewerPrefrenceController;
+use App\Http\Controllers\Viewer\ViewerTaskListController;
+use App\Http\Controllers\WebController;
+use App\Mail\sendPlaymateAccountDisableMail;
+use App\Models\Pricing;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -172,10 +173,24 @@ Route::middleware('auth')->group(function () {
         Route::get('logs-and-statistics', [ViewerController::class, 'logsAndStatistics'])->name('user.logs-and-statistics');
         Route::post('update-password-duration', [ViewerController::class, 'updatePasswordDuration'])->name('user.update.password.duration');
 
+        # View tasks list
+        Route::get('task-list',[ViewerTaskListController::class,'index'])->name('viewer.task-list'); 
+        Route::get('task-fetch',[ViewerTaskListController::class,'fetchTask'])->name('viewer.dashboard.ajax-fetch-task');
+        Route::post('task-add',[ViewerTaskListController::class,'addTask'])->name('viewer.dashboard.ajax-add-task');
+        Route::post('task-edit',[ViewerTaskListController::class,'editTask'])->name('viewer.dashboard.ajax-edit-task');
+        Route::post('task-update',[ViewerTaskListController::class,'updateTask'])->name('viewer.dashboard.ajax-update-task');
+        Route::post('task-status',[ViewerTaskListController::class,'statusTask'])->name('viewer.dashboard.ajax-change-status');
+        Route::post('task-open',[ViewerTaskListController::class,'openTask'])->name('viewer.dashboard.ajax-open-task');
+        Route::post('task-delete',[ViewerTaskListController::class,'destroy'])->name('viewer.dashboard.ajax-delete-task');
 
-        Route::get('/favorites-online',function(){
-            return view('user.dashboard.favorites-online');
-        })->name('user.favorites-online');
+
+        # Dashboard > Favorites Online
+        Route::get('favorites-online', [UserController::class, 'favoritesOnline'])->name('user.favorites-online');
+
+
+        // Route::get('/favorites-online',function(){
+        //     return view('user.dashboard.favorites-online');
+        // })->name('user.favorites-online');
 
         Route::get('/punterbox',function(){
             return view('user.dashboard.punterbox');
@@ -187,9 +202,9 @@ Route::middleware('auth')->group(function () {
             return view('user.dashboard.my-statistics');
         })->name('user.my-statistics');
 
-        Route::get('/task-list',function(){
-            return view('user.dashboard.task-list');
-        })->name('user.task-list');
+        // Route::get('/task-list',function(){
+        //     return view('user.dashboard.task-list');
+        // })->name('user.task-list');
 
 
         Route::get('/guide',function(){
@@ -457,6 +472,13 @@ Route::get('/massage-show-list', [App\Http\Controllers\WebController::class,'mcM
 // 		return view('web.massage-show-list');
 // 	})->name('web.massage-show-list');
 
+
+
+
+
+
+
+
 Route::get('pricing',function(){
     return view('user.dashboard.Community.pricing');
 })->name('user.dashboard.Community.pricing');
@@ -500,9 +522,7 @@ Route::get('/user-dashboard/viewer-messages',function(){
     return view('user.dashboard.communication.viewer-messages');
 })->name('user.viewer-messages');
 
-// Route::get('/escort-dashboard/task-list',function(){
-//     return view('escort.dashboard.task-list');
-// })->name('escort.dashboard.task-list');
+
 
 Route::get('/escort-dashboard/my-spend',function(){
     return view('escort.dashboard.my-spend');

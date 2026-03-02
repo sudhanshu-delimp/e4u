@@ -1,5 +1,8 @@
-@extends('layouts.agent')
+@extends('layouts.userDashboard')
 @section('style')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
     <style>
         .toggle-task-form {
             font-size: 16px;
@@ -7,23 +10,24 @@
             display: inline-block;
             margin: 20px 0px;
         }
-        .task-1{
+
+        .task-1 {
             width: clamp(50%, 8vw, 100%) !important;
 
         }
-        .table-responsive{
-            overflow: visible;
-        }
-        @media (max-width:1024px){
-            
-            .task-1{
+
+        @media (max-width:1024px) {
+
+            .task-1 {
                 width: clamp(50%, 40vw, 100%) !important;
 
             }
         }
+
         .agent-tour .card {
             padding: 5px 12px !important;
         }
+
         .page-item:hover .fa {
             color: white !important;
         }
@@ -31,40 +35,47 @@
         .page-item:hover .page-link {
             color: white;
         }
+
         .btn-primary {
             border-color: unset !important;
         }
     </style>
 @endsection
 @section('content')
-    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-        
+    <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
+
         <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between">
-            <div class="custom-heading-wrapper">
-                <h1 class="h1">Task List</h1>
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-            </div>
-            <div class="back-to-dashboard">
-                <a href="{{ url()->previous() ?? route('dashboard.home') }}">
-                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
-                </a>
-            </div>
-        </div>
-        
         <div class="row">
-            <div class="col-md-12 mb-4">
-                <div class="card collapse" id="notes" style="">
-                   <div class="card-body">
-                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                      <p></p>
-                      <ol>
-                            
-                      </ol>
-                   </div>
+            <div class="col-md-12 custom-heading-wrapper justify-content-between">
+                <div class="d-flex align-items-center">
+                    <h1 class="h1">Task List</h1>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                        aria-expanded="true"><b>Help?</b></span>
+                </div>
+
+                <div class="back-to-dashboard">
+                    <a href="{{ url()->previous() ?? route('user-dashboard') }}">
+                        <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                    </a>
                 </div>
             </div>
         </div>
+
+
+        <div class="row">
+            <div class="col-md-12 my-2">
+                <div class="card collapse" id="notes" style="">
+                    <div class="card-body">
+                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+
+                        <ol>
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12 p-0">
@@ -87,20 +98,23 @@
                                 </div>
                             </div>
                             <div class="text-center small d-flex justify-content-end align-items-center gap-10 flex-wrap">
-                                
+
                                 <span class="mr-2 text-uppercase font-weight-bold">Importance:</span>
-                                <span class="d-flex justify-content-start gap-5 align-items-center">High <i class="fas fa-circle text-high mr-2"></i></span>
-                                <span class="d-flex justify-content-start gap-5 align-items-center">Medium  <i class="fas fa-circle text-medium mr-2"></i></span>
-                               
-                                <span class="d-flex justify-content-start gap-5 align-items-center">Low <i class="fas fa-circle text-low"></i></span>
-                                <button type="submit" id="new_task" name="submit"
-                                class="create-tour-sec">New Task</button>
+                                <span class="d-flex justify-content-start gap-5 align-items-center">High <i
+                                        class="fas fa-circle text-high mr-2"></i></span>
+                                <span class="d-flex justify-content-start gap-5 align-items-center">Medium <i
+                                        class="fas fa-circle text-medium mr-2"></i></span>
+
+                                <span class="d-flex justify-content-start gap-5 align-items-center">Low <i
+                                        class="fas fa-circle text-low"></i></span>
+                                <button type="submit" id="new_task" name="submit" class="create-tour-sec">New
+                                    Task</button>
                             </div>
                         </div>
                     </div>
                     <div class="card-body p-0 Dash-table task_table">
                         <div class="table-responsive">
-                            <table class="table table-bordered " >
+                            <table class="table table-bordered ">
                                 <thead class="bg-first">
                                     <tr>
                                         <th>Task</th>
@@ -109,18 +123,18 @@
                                     </tr>
                                 </thead>
                                 <tbody id="taskList">
-                                    
+
                                 </tbody>
                             </table>
                         </div>
                         <div class="d-flex justify-content-end mt-4 custome_paginator">
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 
     <!-- open tour section button -->
     <div class="modal fade upload-modal" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModallabel"
@@ -128,8 +142,10 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" >
-                        <img src="{{ asset('assets/dashboard/img/reject.png') }}" class="task_title_img" style="width:32px; margin-right:10px;" alt="New Task"><span id="task_title">New Task</span></h5>
+                    <h5 class="modal-title">
+                        <img src="{{ asset('assets/dashboard/img/reject.png') }}" class="task_title_img"
+                            style="width:32px; margin-right:10px;" alt="New Task"><span id="task_title">New Task</span>
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -151,9 +167,8 @@
                                     <input type="hidden" name="change_task_id" id="change_task_id">
                                     <button type="submit" class="btn-success-modal float-right ml-2 "
                                         id="save_button">Yes</button>
-                                    <button type="button"
-                                        class="btn-cancel-modal float-right ml-2"
-                                        data-dismiss="modal" aria-label="Close" id="cancel_button">No</button>
+                                    <button type="button" class="btn-cancel-modal float-right ml-2" data-dismiss="modal"
+                                        aria-label="Close" id="cancel_button">No</button>
                                 </div>
                             </div>
                         </div>
@@ -164,40 +179,39 @@
     </div>
 
     <!-- open success popup model -->
-    <div class="modal fade upload-modal" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModallabel"
-        aria-hidden="true" data-backdrop="static">
+    <div class="modal fade upload-modal" id="successModal" tabindex="-1" role="dialog"
+        aria-labelledby="successModallabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id=""><img src="{{ asset('assets/dashboard/img/unblock.png') }}" class="success_task_title_img" style="width:32px; margin-right:10px;" alt="New Task"><span id="success_task_title">Task</span></h5>
+                    <h5 class="modal-title" id=""><img src="{{ asset('assets/dashboard/img/unblock.png') }}"
+                            class="success_task_title_img" style="width:32px; margin-right:10px;" alt="New Task"><span
+                            id="success_task_title">Task</span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                   <div class="py-4 text-center" id="success_form_html">
+                    <div class="py-4 text-center" id="success_form_html">
                         <h4 id="success_msg">Are you sure you want to mark this Appointment as completed?</h4>
-                        <button type="button"
-                    class="btn-success-modal mt-3 shadow-none"
-                    data-dismiss="modal" aria-label="Close" id="cancel_button">OK</button>
+                        <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal"
+                            aria-label="Close" id="cancel_button">OK</button>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
     </div>
 @endsection
-@section('script')
+@push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-
             // calulcate task summery
             let formData = $('#task_form').serialize(); // serialize form data
-            let actionUrl = '{{route("agent.dashboard.ajax-open-task")}}';
-
-             callAjax(formData, actionUrl);
+            let actionUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
+            callAjax(formData, actionUrl);
 
             $(".showDateLabel").hide();
             // Reusable click event
@@ -210,28 +224,25 @@
                 let taskName = $(this).text();
 
                 if (buttonId == 'new_task') {
-                    $(".task_title_img").attr('src',"{{ asset('assets/dashboard/img/add-task.png') }}");
+                    $(".task_title_img").attr('src', "{{ asset('assets/dashboard/img/add-task.png') }}");
                     $('#task_title').text(taskName);
                     newTask();
                 } else if (buttonId == 'edit_task') {
-                    $(".task_title_img").attr('src',"{{ asset('assets/dashboard/img/edit-task.png') }}");
+                    $(".task_title_img").attr('src', "{{ asset('assets/dashboard/img/edit-task.png') }}");
                     $('#task_title').text(taskName);
                     editTask(taskId);
                 } else if (buttonId == 'view_task') {
-                    $(".task_title_img").attr('src',"{{ asset('assets/dashboard/img/website.png') }}");
+                    $(".task_title_img").attr('src', "{{ asset('assets/dashboard/img/website.png') }}");
                     $('#task_title').text(taskName);
                     viewTask(taskId);
                 } else if (buttonId == 'complete_task') {
-                    $(".task_title_img").attr('src',"{{ asset('assets/dashboard/img/complete-appointment.png') }}");
+                    $(".task_title_img").attr('src',
+                        "{{ asset('assets/dashboard/img/complete-appointment.png') }}");
                     $('#task_title').text(taskName);
                     completeTask(taskId);
                 } else if (buttonId == 'open_task') {
-                    $('#task_title').text(taskName);
-                    let formData = $('#task_form').serialize(); // serialize form data
-                    let actionUrl = '{{route("agent.dashboard.ajax-open-task")}}';
-                    callAjax(formData, actionUrl);
-                   // openTask();
-                } 
+
+                }
 
                 // Show modal
                 $('#taskModal').modal('show');
@@ -241,10 +252,10 @@
                 e.preventDefault(); // prevent the default form submission
 
                 let formData = $('#task_form').serialize(); // serialize form data
-                let actionUrl = $('#task_form').attr('action');  
+                let actionUrl = $('#task_form').attr('action');
 
                 callAjax(formData, actionUrl);
-                
+
             });
 
         });
@@ -301,27 +312,26 @@
                 </div>
             `;
 
-            let addUrl = "{{ route('agent.dashboard.ajax-add-task')}}";
-            $('#task_form').attr('action',addUrl); 
+            let addUrl = "{{ route('viewer.dashboard.ajax-add-task') }}";
+            $('#task_form').attr('action', addUrl);
 
             $("#task_form_html").html(addNewTaskHtml);
             $("#save_button").show();
             $("#save_button").text('Add');
             $("#cancel_button").text('Cancel');
             $(".showDateLabel").show();
-           
+
         }
 
-        function editTask(taskId) 
-        {
+        function editTask(taskId) {
             let selectedTask = 1;
             let editNewTaskHtml = ``;
-                editNewTaskHtml += `
+            editNewTaskHtml += `
                     <div class="col-md-12" style="cursor:pointer;">
                              <div class="task-form-body" style="display: block;">
                                 <!-- Your original form HTML -->
                                 <div class="form-group">
-                                    <input name="task_id" value="`+taskId+`" type="hidden" 
+                                    <input name="task_id" value="` + taskId + `" type="hidden" 
                                     <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
                                     <input id="edit_title" placeholder="Enter Title..." name="title" type="text" class="form-control" required>
                                 </div>
@@ -362,28 +372,27 @@
 
             $("#task_form_html").html(editNewTaskHtml);
             formData = {
-                'id':taskId
+                'id': taskId
             }
-            let url = "{{route('agent.dashboard.ajax-edit-task')}}";
+            let url = "{{ route('viewer.dashboard.ajax-edit-task') }}";
 
             $editTaskData = fetchAjaxEditData(formData);
 
-            let updateUrl = "{{ route('agent.dashboard.ajax-update-task')}}";
-            $('#task_form').attr('action',updateUrl); 
+            let updateUrl = "{{ route('viewer.dashboard.ajax-update-task') }}";
+            $('#task_form').attr('action', updateUrl);
 
             $("#task_form_html").html(editNewTaskHtml);
             $("#save_button").show();
             $("#save_button").text('Update');
             $("#cancel_button").text('Cancel');
             $(".showDateLabel").show();
-            
+
         }
 
-        function fetchAllTaskData()
-        {
-            let fetchUrl = "{{ route('agent.dashboard.ajax-fetch-task')}}";
+        function fetchAllTaskData() {
+            let fetchUrl = "{{ route('viewer.dashboard.ajax-fetch-task') }}";
             var formData = new from();
-             $.ajax({
+            $.ajax({
                 url: fetchUrl, // form action URL
                 type: 'POST',
                 data: formData,
@@ -402,11 +411,10 @@
             });
         }
 
-        function fetchAjaxEditData(formData)
-        {
-            let editUrl = "{{ route('agent.dashboard.ajax-edit-task')}}";
+        function fetchAjaxEditData(formData) {
+            let editUrl = "{{ route('viewer.dashboard.ajax-edit-task') }}";
 
-             $.ajax({
+            $.ajax({
                 url: editUrl, // form action URL
                 type: 'POST',
                 data: formData,
@@ -414,13 +422,14 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
                 },
                 success: function(response) {
-                    if(response.task){
+                    if (response.task) {
                         $("#edit_title").val(response.task.title);
-                        $('input[name="task_priority"][value="' + response.task.priority + '"]').prop('checked', true);
+                        $('input[name="task_priority"][value="' + response.task.priority + '"]').prop('checked',
+                            true);
                         $("#edit_status").val(response.task.status);
                         $("#edit_description").text(response.task.description);
                     }
-                    
+
 
                     // handle success
                     //alert('Task marked as completed successfully.');
@@ -449,7 +458,7 @@
             $("#save_button").text('Yes');
             $("#save_button").show();
             $("#cancel_button").text('Cancel');
-            let actionStatusUrl = "{{route('agent.dashboard.ajax-change-status')}}";
+            let actionStatusUrl = "{{ route('viewer.dashboard.ajax-change-status') }}";
 
             $('#task_form').attr('action', actionStatusUrl)
             $("#change_task_id").val(taskId);
@@ -460,12 +469,13 @@
             let viewTaskHtml = ``;
 
             viewTaskHtml += `
-                 <div class="col-md-12" style="cursor:pointer;">
-                     <div class="task-form-body" style="display: block;">
+                <div class="col-md-12" style="cursor:pointer;">
+                   <div class="task-form-body" style="display: block;">
+                       
                         <div class="task-form-body p-2" style="display: block;">
                             <!-- Your original form HTML -->
                             <div class="form-group">
-                                <input name="task_id" value="`+taskId+`" type="hidden" 
+                                <input name="task_id" value="` + taskId + `" type="hidden" 
                                 <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
                                 <input id="edit_title" readonly placeholder="Enter Title..." name="title" type="text" class="form-control" required>
                             </div>
@@ -500,6 +510,7 @@
                                 <textarea class="form-control" readonly id="edit_description" name="description" rows="5" placeholder="Up to 300 characters"></textarea>
                             </div>
                         </div>
+
                     </div>
                     
                 </div>
@@ -507,227 +518,212 @@
 
             $("#task_form_html").html(viewTaskHtml);
             formData = {
-                'id':taskId
+                'id': taskId
             }
-            let url = "{{route('agent.dashboard.ajax-edit-task')}}";
+            let url = "{{ route('viewer.dashboard.ajax-edit-task') }}";
 
             $viewTaskData = fetchAjaxEditData(formData);
             $("#save_button").hide();
             $("#cancel_button").text('Cancel');
         }
 
-        function openTask(openData) {
+        // function openTask(openData) {
 
-            let openHtml = `<div class="col-md-11 mx-auto my-3">
-                <div class="card shadow-sm  rounded-3">
-                    <div class="card-header text-white" style="background:#C2CFE0;">
-                        <h5 class="mb-0 text-dark" >Task Summary</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                            <strong>Open Tasks:</strong>
-                            <span class="badge text-light bg-warning fs-6 p-1 totalOpenTask" >20</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                            <strong>In Progress Tasks:</strong>
-                            <span class="badge bg-primary text-light fs-6 p-1 totalInprogressTask" >30</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center py-2">
-                            <strong>Completed Tasks:</strong>
-                            <span class="badge bg-success text-light fs-6 p-1 totalCompletedTask" >20</span>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
+        //     let openHtml = `<div class="col-md-11 mx-auto my-3">
 
-            $("#task_form_html").html(openHtml);
-            //$("#save_button").text('Yes');
-            $("#save_button").hide();
-            $("#cancel_button").text('Cancel');
-        }
 
-        function callAjax(formData, actionUrl) {
-            $.ajax({
-                url: actionUrl, // form action URL
-                type: 'POST',
-                data: formData,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
-                },
-                success: function(response) {
-                    if(response.task_name == 'open'){
-                        $('.totalOpenTask').text(response.data.open);
-                        $('.totalInprogressTask').text(response.data.inprogress);
-                        $('.totalCompletedTask').text(response.data.completed);
-                        return true;
-                    }
-
-                    if(response.task_name == 'add_task'){
-                        loadTasks(1);
-                        $('#taskModal').modal('hide');
-                        $("#success_msg").text('Task Added sucessfully.');
-                        $('#successModal').modal('show');
-                        return true;
-                    }
-
-                    if(response.task_name == 'update_task'){
-                        loadTasks(1);
-                        let formData = $('#task_form').serialize(); // serialize form data
-                        let actionUrl = '{{route("agent.dashboard.ajax-open-task")}}';
-                        callAjax(formData, actionUrl);
-                        $('#taskModal').modal('hide');
-                        $("#success_msg").text('Task Updated sucessfully.');
-                        $('#successModal').modal('show');
-                        return true;
-                    }
-
-                    if(response.task_name == 'complete_task'){
-                        loadTasks(1);
-                        $('#taskModal').modal('hide');
-                        // calulcate task summery
-                        let formData = $('#task_form').serialize(); // serialize form data
-                        let actionUrl = '{{route("agent.dashboard.ajax-open-task")}}';
-                        callAjax(formData, actionUrl);
-                        $('#taskModal').modal('hide');
-                        $("#success_msg").text('Task has been mark as completed');
-                        $('#successModal').modal('show');
-                        return true;
-                    }
-
-                    //alert('Task marked as completed successfully.');
-                    // Optionally close modal or reset form
-                },
-                error: function(xhr) {
-                    // handle error
-                    alert('Something went wrong. Please try again.');
+    function callAjax(formData, actionUrl) {
+        $.ajax({
+            url: actionUrl, // form action URL
+            type: 'POST',
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+            },
+            success: function(response) {
+              
+                if (response.task_name == 'open') {
+                    $('.totalOpenTask').text(response.data.open);
+                    $('.totalInprogressTask').text(response.data.inprogress);
+                    $('.totalCompletedTask').text(response.data.completed);
+                    return true;
                 }
-            });
-        }
-            loadTasks(1);
 
-            // handle pagination click
-            $(document).on('click', '.page-link', function (e) {
-                e.preventDefault();
-                let page = $(this).data('page');
-                loadTasks(page);
-            });
+                if (response.task_name == 'add_task') {
+                    loadTasks(1);
+                    $('#taskModal').modal('hide');
+                    $("#success_msg").text('Task Added sucessfully.');
+                    $('#successModal').modal('show');
+                    return true;
+                }
 
-            function loadTasks(page = 1) {
-               let baseUrl = "{{ route('agent.dashboard.ajax-fetch-task') }}"+'?page='+page;
-                 $.ajax({
-                    url: baseUrl, // form action URL
-                    type: 'GET',
-                    contentType: 'application/json',
-                    headers: {
-                        'Accept': 'application/json',
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
-                    },
-                    success: function(response) {
-                        renderTasks(response.data.data); 
-                        renderPagination(response.data);  
-                    },
-                    error: function(xhr) {
-                        // handle error
-                        //alert('Something went wrong. Please try again.');
-                    }
-                });
+                if (response.task_name == 'update_task') {
+                    loadTasks(1);
+                    let formData = $('#task_form').serialize(); // serialize form data
+                    let actionUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
+                    callAjax(formData, actionUrl);
+                    $('#taskModal').modal('hide');
+                    $("#success_msg").text('Task Updated sucessfully.');
+                    $('#successModal').modal('show');
+                    return true;
+                }
+
+                if (response.task_name == 'complete_task') {
+                    loadTasks(1);
+                    $('#taskModal').modal('hide');
+                    // calulcate task summery
+                    let formData = $('#task_form').serialize(); // serialize form data
+                    let actionUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
+                    callAjax(formData, actionUrl);
+                    $('#taskModal').modal('hide');
+                    $("#success_msg").text('Task has been mark as completed');
+                    $('#successModal').modal('show');
+                    return true;
+                }
+
+                //alert('Task marked as completed successfully.');
+                // Optionally close modal or reset form
+            },
+            error: function(xhr) {
+                // handle error
+                alert('Something went wrong. Please try again.');
+            }
+        });
+    }
+    loadTasks(1);
+
+    // handle pagination click
+    $(document).on('click', '.page-link', function(e) {
+        e.preventDefault();
+        let page = $(this).data('page');
+        loadTasks(page);
+    });
+
+    function loadTasks(page = 1) {
+        let baseUrl = "{{ route('viewer.dashboard.ajax-fetch-task') }}" + '?page=' + page;
+        $.ajax({
+            url: baseUrl, // form action URL
+            type: 'GET',
+            contentType: 'application/json',
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+            },
+            success: function(response) {
+                renderTasks(response.data.data);
+                renderPagination(response.data);
+            },
+            error: function(xhr) {
+                // handle error
+                //alert('Something went wrong. Please try again.');
+            }
+        });
+    }
+
+    function renderTasks(tasks) {
+        console.log(tasks, 'tasks');
+
+        let html = '';
+        var taskBadgeColor = '#9d1d08 ';
+        var priorityColor = 'text-high';
+
+        $.each(tasks, function(index, task) {
+            let statusLabel = task.status;
+            if (task.status === 'inprogress') {
+                statusLabel = 'In Progress';
+            } else if (task.status === 'open') {
+                statusLabel = 'Open';
+            } else if (task.status === 'completed') {
+                statusLabel = 'Completed';
             }
 
-            function renderTasks(tasks) {
 
-               
-                let html = '';
-                var taskBadgeColor = '#9d1d08 ';
-                var priorityColor = 'text-high';
+            if (task.priority == 'medium') {
+                priorityColor = 'text-medium';
+            }
+            if (task.priority === 'low') {
+                priorityColor = 'text-low';
+            }
+            let checkboxId = 'task_checkbox_' + task.id;
+            let taskId = task.id;
 
-                $.each(tasks, function (index, task) {
-                    let statusLabel = task.status;
-                    if (task.status === 'inprogress') {
-                        statusLabel = 'In Progress';
-                    } else if (task.status === 'open') {
-                        statusLabel = 'Open';
-                    } else if (task.status === 'completed') {
-                        statusLabel = 'Completed';
-                    }
-
-                    
-                    if(task.priority == 'medium'){
-                        priorityColor = 'text-medium';
-                    }
-                    if(task.priority === 'low'){
-                        priorityColor = 'text-low';
-                    }
-                    let checkboxId = 'task_checkbox_' + task.id;
-                    let taskId = task.id;
-
-                    html += `<tr>
-                    <!-- ye check box hai main comment kar rakha hai-->
-                         <!-- <td class=" pr-0">
-                            <div class="form-check m-0 p-0">
-                                <label class="form-check-label" for="`+checkboxId+`">
-                                    <input class="form-check-input" name="task_ids" data-id="`+taskId+`" id="`+checkboxId+`" type="checkbox" value="">
-                                    <span class="form-check-sign"></span>
-                                </label>
-                            </div>
-                        </td>-->
-                        <td class=" task-color">
-                            <label for="`+checkboxId+`" class="mb-0 cursor-pointer">
-                            <i
-                                class="fas fa-circle `+priorityColor+` taski mr-2"></i>`+task.title+`
-                            </label></td>
-                        <td class="td-actions text-center ">
-                            <span class="custom_badge `+task.status_color_class+`">`+statusLabel+`</span>
-                        </td>
-                        <td class="theme-color text-center bg-white ">
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button"
-                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i
-                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink" style="">
-                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="edit_task" data-id=`+taskId+`> <i class="fa fa-pen"></i> Edit Task</a>
-                                        
-                                        <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="complete_task" data-id=`+taskId+`> <i class="fa fa-check-circle"></i> Complete Task</a>
-                                        
-                                        <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="view_task" data-id=`+taskId+`> <i class="fa fa-eye"></i> View</a>
-                                    
+            html += `<tr>
+                        <!-- ye check box hai main comment kar rakha hai-->
+                             <!-- <td class=" pr-0">
+                                <div class="form-check m-0 p-0">
+                                    <label class="form-check-label" for="` + checkboxId + `">
+                                        <input class="form-check-input" name="task_ids" data-id="` + taskId + `" id="` +
+                checkboxId + `" type="checkbox" value="">
+                                        <span class="form-check-sign"></span>
+                                    </label>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>`;
-                });
-                
-                $('#taskList').html(html);
-            }
+                            </td>-->
+                            <td class=" task-color">
+                                <label for="` + checkboxId + `" class="mb-0 cursor-pointer">
+                                <i
+                                    class="fas fa-circle ` + priorityColor + ` taski mr-2"></i>` + task.title + `
+                                </label></td>
+                            <td class="td-actions text-center ">
+                                <span class="custom_badge ` + task.status_color_class + `">` + statusLabel +
+                `</span>
+                            </td>
+                            <td class="theme-color text-center bg-white ">
+                                <div class="dropdown no-arrow">
+                                    <a class="dropdown-toggle" href="#" role="button"
+                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <i
+                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        aria-labelledby="dropdownMenuLink" style="">
+                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="edit_task" data-id=` +
+                taskId +
+                `> <i class="fa fa-pen"></i> Edit Task</a>
+                                            
+                                            <div class="dropdown-divider"></div>
+                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="complete_task" data-id=` +
+                taskId +
+                `> <i class="fa fa-check-circle"></i> Complete Task</a>
+                                            
+                                            <div class="dropdown-divider"></div>
+                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="view_task" data-id=` +
+                taskId + `> <i class="fa fa-eye"></i> View</a>
+                                        
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>`;
+        });
 
-            function renderPagination(data) {
-                let pagination = `<nav><ul class="pagination">`;
+        $('#taskList').html(html);
+    }
 
-                if (data.current_page > 1) {
-                    pagination += `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page - 1}"><i class="fa fa-angle-left"></i></a></li>`;
-                }else{
-                    pagination += `<li class="page-item page-link">Previous</li>`;
-                }
+    function renderPagination(data) {
+        let pagination = `<nav><ul class="pagination">`;
 
-                for (let i = 1; i <= data.last_page; i++) {
-                    pagination += `<li class="page-item ${i === data.current_page ? 'active' : ''}">
-                        <a href="#" class="page-link" data-page="${i}">${i}</a>
-                    </li>`;
-                }
+        if (data.current_page > 1) {
+            pagination +=
+                `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page - 1}"><i class="fa fa-angle-left"></i></a></li>`;
+        } else {
+            pagination += `<li class="page-item page-link">Previous</li>`;
+        }
 
-                if (data.current_page < data.last_page) {
-                    pagination += `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page + 1}"><i class="fa fa-angle-right"></i></a></li>`;
-                }else{
-                    pagination += `<li class="page-item page-link">Next</li>`;
-                }
+        for (let i = 1; i <= data.last_page; i++) {
+            pagination += `<li class="page-item ${i === data.current_page ? 'active' : ''}">
+                            <a href="#" class="page-link" data-page="${i}">${i}</a>
+                        </li>`;
+        }
 
-                pagination += `</ul></nav>`;
-                $('.custome_paginator').html(pagination);
-            }
+        if (data.current_page < data.last_page) {
+            pagination +=
+                `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page + 1}"><i class="fa fa-angle-right"></i></a></li>`;
+        } else {
+            pagination += `<li class="page-item page-link">Next</li>`;
+        }
+
+        pagination += `</ul></nav>`;
+            $('.custome_paginator').html(pagination);
+        }
     </script>
-@endsection
+@endpush
