@@ -267,28 +267,39 @@ class MassageCentre extends Controller
 
                     $ages = explode('-', $profile_age);
                     list($min_age, $max_age) = array_map('intval', explode('-', $profile_age));
-                    $masseur_id = Masseur::whereBetween('age', [$min_age, $max_age])->distinct()->pluck('id')->toArray();
 
+            
+                    $masseur_id = Masseur::where('age', '>=', $min_age)->where('age', '<=', $max_age)->distinct()->pluck('id')->toArray();
 
+        
                     if(!empty($masseur_id))
                     $massage_id = MassagerMasseur::whereIn('masseur_profile_id', $masseur_id)->distinct()->pluck('massage_profile_id')->toArray();
-
+ 
+                   
                     if(!empty($massage_id))
-                    $massage = $massage->whereIn('id', $massage_id);      
+                    $massage = $massage->whereIn('id', $massage_id); 
+                    else
+                    $massage = $massage->whereRaw('1 = 0');   
+
+
                 } 
                 
                 if($massage_services!="")
                 {
                     $massage_profile_id = MassageService::where('service_id',$massage_services)->distinct()->pluck('massage_profile_id')->toArray();
                     if(!empty($massage_profile_id))
-                    $massage = $massage->whereIn('id', $massage_profile_id);      
+                    $massage = $massage->whereIn('id', $massage_profile_id);  
+                    else
+                    $massage = $massage->whereRaw('1 = 0');    
                 }  
                 
                 if($other_services!="")
                 {
                     $massage_profile_id = MassageService::where('service_id',$other_services)->distinct()->pluck('massage_profile_id')->toArray();
                     if(!empty($massage_profile_id))
-                    $massage = $massage->whereIn('id', $massage_profile_id);      
+                    $massage = $massage->whereIn('id', $massage_profile_id);  
+                    else
+                    $massage = $massage->whereRaw('1 = 0');    
                 }  
                 
 
@@ -445,9 +456,7 @@ class MassageCentre extends Controller
         $massage_centers_ids = [];
         $mc_ids = session()->get('wishlist', []);
 
-        Log::info('shortlist');
-        Log::info($mc_ids );
-
+       
          $filter_by_location = $request->input('filter_by_location', []);
          $filter_by_feild    = $request->input('filter_by_feild', []);
          $massage_users = User::where('type', 5); 
@@ -654,21 +663,28 @@ class MassageCentre extends Controller
                     $massage_id = MassagerMasseur::whereIn('masseur_profile_id', $masseur_id)->distinct()->pluck('massage_profile_id')->toArray();
 
                     if(!empty($massage_id))
-                    $massage = $massage->whereIn('id', $massage_id);      
+                    $massage = $massage->whereIn('id', $massage_id);   
+                    else
+                    $massage =  $massage->whereRaw('1 = 0');
+                    
                 } 
                 
                 if($massage_services!="")
                 {
                     $massage_profile_id = MassageService::where('service_id',$massage_services)->distinct()->pluck('massage_profile_id')->toArray();
                     if(!empty($massage_profile_id))
-                    $massage = $massage->whereIn('id', $massage_profile_id);      
+                    $massage = $massage->whereIn('id', $massage_profile_id);  
+                    else
+                    $massage =  $massage->whereRaw('1 = 0');    
                 }  
                 
                 if($other_services!="")
                 {
                     $massage_profile_id = MassageService::where('service_id',$other_services)->distinct()->pluck('massage_profile_id')->toArray();
                     if(!empty($massage_profile_id))
-                    $massage = $massage->whereIn('id', $massage_profile_id);      
+                    $massage = $massage->whereIn('id', $massage_profile_id);  
+                    else
+                    $massage =  $massage->whereRaw('1 = 0');    
                 }  
                 
 
