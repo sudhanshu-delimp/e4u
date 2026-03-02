@@ -612,10 +612,10 @@
                         <a class="nav-link collapsed" href="#" data-toggle="collapse"
                             data-target="#manageAgentMenu" aria-expanded="false" aria-controls="manageAgentMenu">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
-                            <span>Agents </span>
+                            <span>Agents</span>
                         </a>
                         <div id="manageAgentMenu"
-                            class="collapse @if (in_array(request()->segment(3), ['agent', 'agents-monthly-report'])) show @endif" data-parent="#Management">
+                            class="collapse @if (in_array(request()->segment(3), ['agents-monthly-report'])) show @endif" data-parent="#Management">
 
                             
                              <a class="collapse-item" href="javascript:void(0)">

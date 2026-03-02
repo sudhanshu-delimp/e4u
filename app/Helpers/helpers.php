@@ -80,16 +80,21 @@ if (!function_exists('old_calculateTotalFee')) {
 
 
 if (!function_exists('calculateTotalFee')) {
-    function calculateTotalFee($membership_id, $days)
+    function calculateTotalFee($membership_id, $days, $purchaseObject = null)
     {
         $discount_day = 21;
-        $pricing = \App\Models\Pricing::where('membership_id', $membership_id)->first();
-        if (!$pricing) {
-            return [0, 0, 0, ];
+        if(!empty($purchaseObject)){  /* To manage price changes done by Admin , to use same price at the time of purchase */
+            $normalRate   = $purchaseObject->rate;
+            $discountRate = $purchaseObject->discount_rate;
         }
-
-        $normalRate   = $pricing->price;
-        $discountRate = $pricing->discount_amount ?: $normalRate;
+        else{
+            $pricing = \App\Models\Pricing::where('membership_id', $membership_id)->first();
+            if (!$pricing) {
+                return [0, 0, 0, 0];
+            }
+            $normalRate   = $pricing->price;
+            $discountRate = $pricing->discount_amount ?: $normalRate;
+        }
 
         if ($days <= $discount_day) {
             $total_rate     = $days * $normalRate;
@@ -101,9 +106,9 @@ if (!function_exists('calculateTotalFee')) {
         $normalDays   = $discount_day;
         $discountDays = $days - $discount_day;
 
-        if ($pricing->day == 1) {  // frequency 
+        if (!empty($pricing->day) && $pricing->day == 1) {  // frequency 
             $total_rate  = ($normalDays * $normalRate) + ($discountDays * $discountRate);
-        } elseif ($pricing->day == 2) {  // frequency 
+        } elseif (!empty($pricing->day) && $pricing->day == 2) {  // frequency 
             $normalWeeks   = ceil($normalDays / 7);
             $discountWeeks = ceil($discountDays / 7);
 
@@ -1296,10 +1301,31 @@ if (!function_exists('getListingRefundAmount')) {
             $total_days = $purchase->days_number;
             $remaining_days = $purchase->left_listing_days;
             //$remaining_days = $escortDetail->left_listing_days;
-            list($usedDicount, $usedAmount) = calculateTotalFee($membership, ($total_days - $remaining_days));
+            list($usedDicount, $usedAmount) = calculateTotalFee($membership, ($total_days - $remaining_days), $purchase);
             $refundAmount = $purchase->paid_rate-$usedAmount;
         }
-        return $refundAmount;
+        return number_format($refundAmount, 2, '.', '');
+    }
+}
+
+if (!function_exists('getSuspendRefundAmount')) {
+    function getSuspendRefundAmount($profile, $startDate=null, $endDate=null){
+        $refundAmount = 0.00;
+        if(!empty($startDate)  && !empty($endDate) ){
+            $profileDetail = is_object($profile) ? $profile : getEscortDetail($profile);
+            $purchase = $profileDetail->mainPurchase;
+            $piadAmount = $purchase->paid_rate;
+
+            $dayBeforeSuspendStart = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($startDate));
+            $dayTillSuspendEnd = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($endDate))+1;
+            /* In calculateTotalFee third param is optional , to ignore later paln price updates */
+            [$discountOne, $costBeforeSuspendStart] = calculateTotalFee($purchase->membership, $dayBeforeSuspendStart, $purchase);
+            [$discountTwo, $costTillSuspendEnd] = calculateTotalFee($purchase->membership, $dayTillSuspendEnd, $purchase);
+
+            $netAmount = number_format($costTillSuspendEnd-$costBeforeSuspendStart, 2, '.', '');
+            $refundAmount = min($piadAmount,$netAmount);
+        }
+        return number_format($refundAmount, 2, '.', '');
     }
 }
 

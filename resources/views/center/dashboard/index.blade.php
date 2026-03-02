@@ -186,7 +186,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('center.profile.information') }}">
+                <a href="{{ route('center.profile.information') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/center/profile-views-today.png') }}" alt="Profile Views">
                     </div>
@@ -218,7 +218,7 @@
          {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('support-ticket.form_create') }}">
+                <a href="{{ route('support-ticket.form_create') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/icon_support-tickets.png') }}" alt="Support Tickets">
                     </div>
@@ -249,51 +249,11 @@
         {{-- end --}}
 
 
-        <!-- ########## Customise Dashboard ################ -->
-        <?php
-        $viewers = config('constants.dashboard_viewer.center');
-        if (!empty($viewers)) {
-            $my_view = isset($viewer_array->my_view) ? $viewer_array->my_view : [];
-            foreach ($viewers as $view) :
-                $checked = (isset($my_view[$view['key']]) && $my_view[$view['key']]) ? true : false;
-                if (!$checked)
-                    continue;
-        ?>
-                <div class="col-lg-4 box-wrapper">
-                    <div class="my-custom-box shadow-sm">
-                        <a href="{{ url($view['link']) }}">
-                            <div class="box-icon">
-                                <img src="{{ asset('assets/dashboard/img/' . $view['icon'] . '') }}" class="my-svg-icons"
-                                    alt="{{ $view['name'] }}">
-                            </div>
-                            <h2>
-                                {{ $view['name'] }}
-                            </h2>
-                        </a>
-
-                    </div>
-                </div>
-
-        <?php
-            endforeach;
-        }
-        ?>
-        <!-- ########## End Customise Dashboard ################ -->
-
 
 
 
 
     </div>
-    {{-- <div class="row my-3">
-        <div class="col-lg-12">
-            <div class="d-flex align-items-center justify-content-end custom-dash-btn">
-                <a href="{{ route('center.dashboard.customise-dashboard') }}">Customise Dashboard <i
-                        class="fas fa-cog "></i>
-                </a>
-            </div>
-        </div>
-    </div> --}}
 </div>
 
 @include('modal.console-expiry-password')

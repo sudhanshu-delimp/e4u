@@ -174,7 +174,7 @@
                                         My Notebox
                                     </a>
                                     
-                                    <a class="dropdown-item" href="/user-dashboard/punterbox/lookup">
+                                    <a class="dropdown-item" href="{{ route('user.punterbox.dashboard')}}">
                                         <img class="profile_icons" src="{{asset('assets/dashboard/img/boxicon/icon_punterbox.png')}}">
                                         Punterbox
                                     </a>

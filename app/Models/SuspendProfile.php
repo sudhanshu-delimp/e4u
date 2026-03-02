@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,5 +30,18 @@ class SuspendProfile extends Model
     public function user()
     {
         return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function scopeOverlapping($query, $start, $end)
+    {
+        $formatted_start = Carbon::createFromFormat('d-m-Y', $start)->format('Y-m-d');
+        $formatted_end = Carbon::createFromFormat('d-m-Y', $end)->format('Y-m-d');
+
+        return $query->where('start_date', '<=', $formatted_end)->where('end_date', '>=', $formatted_start);
+    }
+
+    public function transactions()
+    {
+        return $this->morphMany(CreditTransaction::class, 'transactionable');
     }
 }

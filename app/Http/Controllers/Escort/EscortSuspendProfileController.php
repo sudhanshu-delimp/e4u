@@ -9,101 +9,64 @@ use App\Models\SuspendProfile;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\WalletService;
 
 class EscortSuspendProfileController extends Controller
 {
+    protected $walletService;
+
+    public function __construct(WalletService $walletService)
+    {
+        $this->walletService = $walletService;
+    }
+
     public function suspendProfileCredit(Request $request)
     {
-        // Get the inputs from the request
-        $planId = $request->input('plan_id');
-        $diffDays = $request->input('days');
-
-        // Validate input (optional but recommended)
-        if (!$planId || !$diffDays) {
-            return response()->json(['error' => 'Select profile first.'], 400);
+        try {
+            $profileId = $request->profile_id;
+            $escortProfile = getEscortDetail($profileId);
+            $startDate = $request->start_date;
+            $endDate = $request->end_date;
+            $refund = getSuspendRefundAmount($escortProfile, $startDate, $endDate);
+            $existSuspendedDate = $escortProfile->suspendProfile()->overlapping($startDate, $endDate)->exists();
+            if($existSuspendedDate){
+                return response()->json([
+                    'success' => false,
+                    'message' => "This date range overlaps with an already suspended period for this listing.",
+                ]);
+            }
+            else{
+                return response()->json([
+                    'success' => true,
+                    'refund_amount' => $refund,
+                ]);
+            }
         }
-
-        // Call your function to calculate the fee
-        [$total_dis, $total_rate] = calculateFee($planId, $diffDays);
-
-        // Return the result
-        return response()->json([
-            'total_dis' => number_format((float)$total_dis, 2, '.', ''),
-            'total_rate' => number_format((float)$total_rate, 2, '.', ''),
-        ]);
+        catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'An error occurred. Please try again.', 'error' => $e->getMessage()], 500);
+        }
     }
 
     function suspendProfile(Request $request) 
     {
-        # retrieved profile listed date range and note - user can't suspend thier profile beyond listed date range 
-        $escortProfile = Escort::where(['enabled' => 1, 'id' => $request->suspend_profile_id])->with(['purchase'=>function($query){
-            $query->where('utc_end_time' ,'>=', Carbon::now(config('app.timezone')))->first();
-        }])->first();
-
-        if(!$escortProfile){
-            $response = [
-                'success' => false,
-                'suspend' => '',
-                'message' => 'Escort profile not found!'
-            ];
-        }
-
-        # get timezone of escort
-        $escortTimezone = config('app.escort_server_timezone');
-        if($escortProfile && $escortProfile->state_id && $escortProfile->city_id){
-            $escortTimezone = config('escorts.profile.states')[$escortProfile->state_id]['cities'][$escortProfile->city_id]['timeZone'];
-        }
-
-        # get purchase start date because we we want escort can't suspend their profile beyond start date
-        $startDate = isset($escortProfile->purchase[0]->start_date) 
-            ? Carbon::parse($escortProfile->purchase[0]->start_date)->startOfDay() 
-            : Carbon::now($escortTimezone)->startOfDay();
-
-        # get purchase end date because we we want escort can't suspend their profile beyond end date
-        $endDate = isset($escortProfile->purchase[0]->end_date) 
-            ? Carbon::parse($escortProfile->purchase[0]->end_date)->endOfDay() 
-            : Carbon::now($escortTimezone)->endOfDay();
-            
-        // $startDate = isset($escortProfile->purchase[0]->start_date) 
-        //     ? Carbon::parse($escortProfile->purchase[0]->start_date, $escortTimezone) 
-        //     : Carbon::now($escortTimezone);
-
-        // $endDate = isset($escortProfile->purchase[0]->end_date) 
-        //     ? Carbon::parse($escortProfile->purchase[0]->end_date, $escortTimezone) 
-        //     : Carbon::now($escortTimezone);
-
-        
-
+        $user = auth()->user();
+        $escortProfile = getEscortDetail($request->suspend_profile_id);
+        $escortTimezone = $escortProfile->time_zone;
         $requestStartDate = Carbon::parse($request->start_date)->startOfDay();
         $requestEndDate = Carbon::parse($request->end_date)->endOfDay();
 
-        # Compare timezone
-        if (!($requestStartDate->greaterThanOrEqualTo($startDate) && $requestEndDate->lessThanOrEqualTo($endDate))) {
-            $response = [
-                'success' => false,
-                'suspend' => '',
-                'message' => 'Please select date range between your listed periods '.$startDate->format('d-m-Y'). ' to '.$endDate->format('d-m-Y'),
-            ];
-            return response()->json(compact('response'));
-        }
-
         # If suspended periods already exists then add future date
-        $existSuspendedDate = SuspendProfile::where('escort_profile_id', $request->suspend_profile_id)->where('status', true)->orderBy('end_date','desc')->first();
+        $existSuspendedDate = $escortProfile->suspendProfile()->overlapping($request->start_date, $request->end_date)->exists();
 
-        if($existSuspendedDate && !($requestStartDate > Carbon::parse($existSuspendedDate->end_date)->endOfDay() && $requestEndDate > Carbon::parse($existSuspendedDate->end_date)->endOfDay())){
-            $response = [
+        if($existSuspendedDate){
+            return response()->json([
                 'success' => false,
-                'suspend' => '',
-                'message' => 'You have already suspended this profile in past. please select future date after '.Carbon::parse(($existSuspendedDate->end_date), $escortTimezone)->format('d-m-Y'),
-            ];
-            return response()->json(compact('response'));
+                'message' => "This date range overlaps with an already suspended period for this listing.",
+            ]);
         }
 
         # calculate credit
-        $planId = $request->hiddenSuspendPlanId;
-        $diffDays = $request->diffDays;
-
-        [$total_dis, $credit] = calculateFee($planId, $diffDays);
+        $refundAmount = getSuspendRefundAmount($escortProfile, $request->start_date, $request->end_date);
 
         $utcStart = Carbon::createFromFormat('Y-m-d H:i:s', $requestStartDate, $escortTimezone)->setTimezone('UTC');
         $utcEnd = Carbon::createFromFormat('Y-m-d H:i:s', $requestEndDate, $escortTimezone)->setTimezone('UTC');
@@ -113,21 +76,34 @@ class EscortSuspendProfileController extends Controller
         $suspendProfile = SuspendProfile::create(
             [
                 'escort_profile_id' => $request->suspend_profile_id,
-                'user_id'=> auth()->user()->id,
+                'user_id'=> $user->id,
                 'start_date' => Carbon::parse($request->start_date),
                 'utc_start_date' => $utcStart,
                 'end_date' => Carbon::parse($request->end_date),
                 'utc_end_date' => $utcEnd,
-                'credit' => $credit,
+                'credit' => $refundAmount,
                 'note' => null,
             ]
         );
 
         if($suspendProfile) {
+            $this->walletService->credit(
+                $user,
+                $refundAmount,
+                $suspendProfile,
+                'Suspend Profile.',
+                [
+                    'user_id' => $user->id,
+                    'escort_id' => $request->suspend_profile_id,
+                    'start_date' => $requestStartDate,
+                    'end_date' => $requestEndDate,
+                ]
+            );
+
             $response = [
                 'success' => true,
                 'suspend' => $suspendProfile,
-                'message' => 'Profile ID '.$request->suspend_profile_id.' has been suspended for '.$diffDays. ' days.',
+                'message' => 'Profile ID '.$request->suspend_profile_id.' has been suspended for '.(Carbon::parse($requestStartDate)->diffInDays(Carbon::parse($requestEndDate))+1). ' days.',
                 'suspended_at' => Carbon::parse($suspendProfile->created_at)->setTimezone($escortTimezone)->format('d-m-Y h:i A'),
                 'profile_id'=>$request->suspend_profile_id,
             ];
