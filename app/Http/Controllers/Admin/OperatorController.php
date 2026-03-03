@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-
-use Laravel\Ui\Presets\React;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Operator\AddNewOperator;
 use App\Models\Operator;
@@ -75,7 +72,8 @@ class OperatorController extends BaseController
     {
         $operator = Operator::with('operator_detail', 'operator_setting')->where("id", $id)->first();
         if ($operator) {
-            return view('admin.management.operator.operator-edit', compact('operator'));
+            $countryNotAssignToOperator = (new Operator)->getCountryNotAssignToOperator($operator->country_id);
+            return view('admin.management.operator.operator-edit', compact('operator', 'countryNotAssignToOperator'));
         } else {
             return "";
         }
@@ -114,9 +112,11 @@ class OperatorController extends BaseController
      */
     public function operator_list()
     {
+        $countryNotAssignToOperator = (new Operator)->getCountryNotAssignToOperator();
         $fees = VariablAgentOperator::get();
         $feeMassage = "";
         $feeAdvertising = "";
+
         if($fees->count() > 0) {
             $msFee = $fees->where('id',2)->first();
             if($msFee) {
@@ -128,7 +128,7 @@ class OperatorController extends BaseController
                $feeAdvertising = $advFee->percent; 
             }
         }
-        return view('admin.management.operator.operator-manage', compact('feeMassage', 'feeAdvertising'));
+        return view('admin.management.operator.operator-manage', compact('feeMassage', 'feeAdvertising', 'countryNotAssignToOperator'));
     }
 
     /**

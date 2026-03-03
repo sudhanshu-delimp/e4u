@@ -5,7 +5,8 @@
         ? $securityLevels[$staff_detail->security_level]
         : '';
     $setting = $staff->operator_staff_setting ?? null;
-    $operatorName = isset($staff->operator->name) ? $staff->operator->name." (".$staff->operator->member_id.")" : '';
+$operatorName = isset($staff->operator->name) ? $staff->operator->name." (".$staff->operator->member_id.")" : '';
+    $staffAddEditUnderSelectedOperatorycounty = config("operator_staff.staff_add_edit_under_selected_operatory_county");
 @endphp
 <style>
     /* Chrome, Safari, Edge, Opera */
@@ -28,6 +29,7 @@
         </div>
         <div class="col-12 mb-3">
             <span class="form-control form-back">{{$operatorName}}</span>
+            <input type="hidden" name="from_admin" value="0">
             <input type="hidden" name="operator_id" value="{{ auth()->user()->operator_id }}">
         </div>
 
@@ -38,27 +40,32 @@
 
         <div class="col-6 mb-3">
             <input type="hidden" name="user_id" value="{{ $staff->id }}">
-            <input type="text" class="form-control rounded-0" placeholder="Full Name" name="name" id="name"
+            <label class="form-check-label" for="name">Full Name</label>
+            <input type="text" class="form-control rounded-0" name="name" id="name"
                 value="{{ $staff->name }}">
             <span class="text-danger error-name"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Address" name="address" id="address"
+              <label class="form-check-label" for="address">Address</label>
+            <input type="text" class="form-control rounded-0"  name="address" id="address"
                 value="{{ $staff->operator_staff_detail->address }}">
             <span class="text-danger error-address"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="tel" maxlength="10" class="form-control rounded-0" placeholder="Phone" name="phone"
+            <label class="form-check-label" for="phone">Phone</label>
+            <input type="tel" maxlength="10" class="form-control rounded-0" name="phone"
                 id="phone" value="{{ $staff->phone }}" oninput="this.value = this.value.replace(/\D/g,'');"
                 autocomplete="off">
             <span class="text-danger error-phone"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="email" class="form-control rounded-0" placeholder="Private Email" name="email"
+            <label class="form-check-label" for="email">Private Email</label>
+            <input type="email" class="form-control rounded-0" name="email"
                 id="email" value="{{ $staff->email }}">
             <span class="text-danger error-email"></span>
         </div>
         <div class="col-6 mb-3">
+              <label class="form-check-label" for="gender">Gender</label>
             <select class="form-control" name="gender" id="gender">
                 <option value="">Select Gender</option>
                 @foreach (config('operator_staff.genders') as $key => $gender)
@@ -75,24 +82,24 @@
         </div>
 
         <div class="col-6 mb-3">
-            <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0"
-                placeholder="Name of Kin (optional)" value="{{ $staff_detail->kin_name }}">
+             <label class="form-check-label" for="kin_name">Name of Kin</label>
+            <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0" value="{{ $staff_detail->kin_name }}">
             <span class="text-danger error-kin_name"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" name="kin_relationship" id="kin_relationship" class="form-control rounded-0"
-                placeholder="Relationship (optional)" value="{{ $staff_detail->kin_relationship }}">
+            <label class="form-check-label" for="kin_relationship">Relationship</label>
+            <input type="text" name="kin_relationship" id="kin_relationship" class="form-control rounded-0" value="{{ $staff_detail->kin_relationship }}">
             <span class="text-danger error-kin_relationship"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile" class="form-control rounded-0"
-                placeholder="Mobile (optional)" value="{{ $staff_detail->kin_mobile }}" autocomplete="off"
+            <label class="form-check-label" for="kin_mobile">Mobile</label>
+            <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile" class="form-control rounded-0" value="{{ $staff_detail->kin_mobile }}" autocomplete="off"
                 oninput="this.value = this.value.replace(/\D/g,'');">
             <span class="text-danger error-kin_mobile"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="email" name="kin_email" class="form-control rounded-0" placeholder="Email (optional)"
-                value="{{ $staff_detail->kin_email }}">
+             <label class="form-check-label" for="kin_email">Email</label>
+            <input type="email" name="kin_email" class="form-control rounded-0" value="{{ $staff_detail->kin_email }}">
             <span class="text-danger error-kin_email"></span>
         </div>
 
@@ -102,8 +109,9 @@
         </div>
 
         <div class="col-6 mb-3">
+             <label class="form-check-label" for="security_level">Security Level</label>
             <select class="form-control rounded-0" name="security_level" id="security_level_edit">
-                <option value="">Security Level</option>
+                <option value="">Select Security Level</option>
                 @foreach (config('operator_staff.security_level') as $seckey => $secLevel)
                     <option value="{{ $seckey }}"
                         {{ $staff_detail->security_level == $seckey ? 'selected' : '' }}>{{ $secLevel }}
@@ -114,8 +122,9 @@
         </div>
 
         <div class="col-6 mb-3">
+            <label class="form-check-label" for="position">Position</label>
             <select class="form-control rounded-0" name="position" id="position_edit" disabled>
-                <option value="">Position</option>
+                <option value="">Select Position</option>
                 @foreach (config('operator_staff.position') as $pkey => $position)
                     <option value="{{ $pkey }}" {{ $staff_detail->position == $pkey ? 'selected' : '' }}>
                         {{ $position }}</option>
@@ -124,8 +133,16 @@
             <span class="text-danger error-position"></span>
         </div>
         <div class="col-6 mb-3">
+             <label class="form-check-label" for="country_id">Territory</label>
             <select class="form-control rounded-0" name="country_id" id="country_id">
                 <option value="">Select Territory</option>
+                @if( $staffAddEditUnderSelectedOperatorycounty)
+                    @if ($staff->operator->country_id == $staff->country_id)
+                    <option value="{{$staff->operator->country_id}}" selected>{{$staff->operator->country->name}}</option>
+                    @else
+                    <option value="{{$staff->operator->country_id}}">{{$staff->operator->country->name}}</option>
+                    @endif
+                @else
                 @foreach (config('operator.country') as $skey => $country)
                     @if ($skey == $staff->country_id)
                         <option value="{{ $skey }}" selected>{{ $country['name'] }}</option>
@@ -133,15 +150,18 @@
                         <option value="{{ $skey }}">{{ $country['name'] }}</option>
                     @endif
                 @endforeach
+               @endif 
             </select>
             <span class="text-danger error-country_id"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" name="commenced_date" id="commenced_date_edit" class="form-control rounded-0 js_datepicker_edit" placeholder="Commenced Date" value="{{showDateWithFormat( $staff_detail->commenced_date, 'd-m-Y') }}">
+             <label class="form-check-label" for="commenced_date_edit">Commenced Date</label>
+            <input type="text" name="commenced_date" id="commenced_date_edit" class="form-control rounded-0 js_datepicker_edit" value="{{showDateWithFormat( $staff_detail->commenced_date, 'd-m-Y') }}">
             <span class="text-danger error-commenced_date"></span>
 
         </div>
         <div class="col-6 mb-3">
+             <label class="form-check-label" for="employment_status">Employment Status</label>
             <select class="form-control rounded-0" name="employment_status" id="employment_status">
                 <option value="">Select Employment Status</option>
                 @foreach (config('operator_staff.employment_status') as $empkey => $empStatus)
@@ -153,8 +173,9 @@
             <span class="text-danger error-employment_status"></span>
         </div>
         <div class="col-6 mb-3">
+             <label class="form-check-label" for="employment_agreement">Employment Agreement?</label>
             <select class="form-control rounded-0" name="employment_agreement" id="employment_agreement">
-                <option value="">Employment Agreement?</option>
+                <option value="">Select Employment Agreement?</option>
                 <option value="yes" {{ $staff_detail->employment_agreement == 'yes' ? 'selected' : '' }}>Yes
                 </option>
                 <option value="no" {{ $staff_detail->employment_agreement == 'no' ? 'selected' : '' }}>No
@@ -169,8 +190,9 @@
         </div>
 
         <div class="col-4 mb-3">
+             <label class="form-check-label" for="building_access_code">Access Code Provided?</label>
             <select class="form-control rounded-0" name="building_access_code" id="building_access_code">
-                <option value="">Access Code Provided?</option>
+                <option value="">Select Access Code Provided?</option>
                 <option value="yes" {{ $staff_detail->building_access_code == 'yes' ? 'selected' : '' }}>Yes
                 </option>
                 <option value="no" {{ $staff_detail->building_access_code == 'no' ? 'selected' : '' }}>No
@@ -179,16 +201,18 @@
             <span class="text-danger error-building_access_code"></span>
         </div>
         <div class="col-4 mb-3">
+            <label class="form-check-label" for="keys_issued">Key Provided?</label>
             <select class="form-control rounded-0" name="keys_issued" id="keys_issued">
-                <option value="">Key Provided?</option>
+                <option value="">Select Key Provided?</option>
                 <option value="yes" {{ $staff_detail->keys_issued == 'yes' ? 'selected' : '' }}>Yes</option>
                 <option value="no" {{ $staff_detail->keys_issued == 'no' ? 'selected' : '' }}>No</option>
             </select>
             <span class="text-danger error-keys_issued"></span>
         </div>
         <div class="col-4 mb-3">
+             <label class="form-check-label" for="car_parking">Car Park?</label>
             <select class="form-control rounded-0" name="car_parking" id="car_parking">
-                <option value="">Car Park?</option>
+                <option value="">Select Car Park?</option>
                 <option value="yes" {{ $staff_detail->car_parking == 'yes' ? 'selected' : '' }}>Yes</option>
                 <option value="no" {{ $staff_detail->car_parking == 'no' ? 'selected' : '' }}>No</option>
             </select>

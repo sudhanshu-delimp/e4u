@@ -19,6 +19,15 @@
 .custom-height{
    height: 40px !important;
 }
+        #mergeList .table .inner_details strong {
+            width: 110px;
+        }
+        #mergeList table td{
+            vertical-align: middle;
+        }
+         #mergeList table th{
+            text-align: center;
+         }
 </style>
 @endsection
 @section('content')
@@ -34,7 +43,14 @@
                <div class="card-body">
                   <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                   <ol>
-                     
+                     <li>Reports generated from <a href="{{ route('marketing.agencreate-prospect') }}" class="custom_links_design">Prospects List</a> are saved here.</li>
+                     <li>Use these Lists to:
+                        <ol>
+                          <li>merge into any of the marketing material provided.</li>
+                          <li>print as a working sheet.</li>
+                          <li>work from your computer screen.</li>
+                        </ol>
+                     </li>
                   </ol>
                </div>
             </div>
@@ -43,7 +59,7 @@
    {{-- end --}}
 
 
-   <div class="row mb-3 justify-content-end">
+   {{-- <div class="row mb-3 justify-content-end">
     <div class="col-lg-12 d-flex align-items-center gap-10 justify-content-end flex-wrap">
       
       <!-- Search Bar -->
@@ -69,33 +85,31 @@
       </button>
   
     </div>
-  </div>
+  </div> --}}
  
   
-
+<!-- Trigger Button -->
     
     <!-- Main DataTable (Your Reports Table) -->
     <div class="table-responsive-xl">
       <table class="table mb-3" id="save_report_table">
         <thead class="table-bg">
           <tr>
-            <th>Report Date</th>
+            <th>ID</th>
+            <th>Date Generated</th>
             <th>Post Code</th>
-            <th>Suburb</th>
-            <th>Location</th>
-            <th>Download</th>
-            <th>Status</th>
+            <th>Listings</th>
+            <th>Merged</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>22-07-2025</td>
+            <td>123</td>
+            <td>01-01-2025</td>
             <td>6152</td>
-            <td>Manning</td>
-            <td>Western Australia</td>
-            <td><a href="download.pdf">22072025_6152</a></td>
-            <td><span class="custom_badge badge_pending">Pending</span></td>
+            <td>15</td>
+            <td>No </td>
             <td>
                <div class="dropdown no-arrow">
                    <a class="dropdown-toggle" href="#" role="button"
@@ -108,17 +122,99 @@
                        aria-labelledby="dropdownMenuLink"
                        x-placement="bottom-end">
                        
+                       
                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                           href="#"> <i class="fa fa-check-circle"></i>
-                           Completed</a>
-                       <div class="dropdown-divider"></div>
-                       <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                           href="#"> <i class="fa fa-bezier-curve"></i>
+                           href="#" data-target="#mergeType" data-toggle="modal"> <i class="fa fa-bezier-curve"></i>
                            Merge</a>
+                           
+                       <div class="dropdown-divider"></div>
+                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
+                           href="{{ route('printreport') }}" target="_blank"> <i class="fa fa-print"></i>
+                           Print</a>
+                       <div class="dropdown-divider"></div>
+                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
+                           href="#" data-target="#view_list" data-toggle="modal"> <i class="fa fa-eye"></i>
+                           View</a>
 
                    </div>
                </div>
-           </td>
+            </td>
+          </tr>
+
+          
+          <tr>
+            <td>105</td>
+            <td>15-12-2024</td>
+            <td>6000 - 6004</td>
+            <td>35</td>
+            <td>Yes </td>
+            <td>
+               <div class="dropdown no-arrow">
+                   <a class="dropdown-toggle" href="#" role="button"
+                       id="dropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="true">
+                       <i
+                           class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                   </a>
+                   <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                       aria-labelledby="dropdownMenuLink"
+                       x-placement="bottom-end">
+                       
+                       
+                       <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
+                           href="#" data-target="#mergeType" data-toggle="modal"> <i class="fa fa-bezier-curve"></i>
+                           Merge</a>
+                           
+                       <div class="dropdown-divider"></div>
+                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
+                           href="{{ route('printreport') }}" target="_blank"> <i class="fa fa-print"></i>
+                           Print</a>
+                       <div class="dropdown-divider"></div>
+                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
+                           href="#" data-target="#view_list" data-toggle="modal"> <i class="fa fa-eye"></i>
+                           View</a>
+
+                   </div>
+               </div>
+            </td>
+          </tr>
+
+          
+          <tr>
+            <td>101</td>
+            <td>01-01-2025</td>
+            <td>All</td>
+            <td>568</td>
+            <td>No</td>
+            <td>
+               <div class="dropdown no-arrow">
+                   <a class="dropdown-toggle" href="#" role="button"
+                       id="dropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="true">
+                       <i
+                           class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                   </a>
+                   <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                       aria-labelledby="dropdownMenuLink"
+                       x-placement="bottom-end">
+                       
+                       
+                       <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
+                           href="#" data-target="#mergeType" data-toggle="modal"> <i class="fa fa-bezier-curve"></i>
+                           Merge</a>
+                           
+                       <div class="dropdown-divider"></div>
+                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
+                           href="{{ route('printreport') }}" target="_blank"> <i class="fa fa-print"></i>
+                           Print</a>
+                       <div class="dropdown-divider"></div>
+                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
+                           href="#" data-target="#view_list" data-toggle="modal"> <i class="fa fa-eye"></i>
+                           View</a>
+
+                   </div>
+               </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -127,6 +223,9 @@
 
 </div>
 
+        @include('agent.dashboard.modal.merge-type-modal')
+        @include('agent.dashboard.modal.merge-list-modal')
+        @include('agent.dashboard.modal.view-list-modal')
 @endsection
 @push('script')
 <!-- file upload plugin start here -->
@@ -141,24 +240,23 @@
   var table = $("#save_report_table").DataTable({
     language: {
       search: "Search: _INPUT_",
-      searchPlaceholder: "Search by Member ID"
+      searchPlaceholder: "Search by Post Code"
     },
     processing: false,
     serverSide: false,
     paging: true,
     lengthChange: false,
-    searching: false, // disable default search
+    searching: true, // disable default search
     bStateSave: true,
     ordering: false,
     lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
     pageLength: 10,
             columns: [
+            { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'report-date', name: 'report-date', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'post_code', name: 'post_code', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'suburb', name: 'suburb', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'location', name: 'location', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'download', name: 'download', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'status', name: 'status', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'listing', name: 'listing', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'merged', name: 'merged', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
             ],
   });

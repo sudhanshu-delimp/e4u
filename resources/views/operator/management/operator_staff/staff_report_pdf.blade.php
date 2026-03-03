@@ -212,7 +212,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>Location</th>
+                            <th>Territory</th>
                             <td> {{ $countryName }}</td>
                         </tr>
                         <tr>

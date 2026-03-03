@@ -76,13 +76,22 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
     {
         return  DB::transaction(function () use ($data) {
             try {
+                $operatorId = $data['operator_id'] ?? null;
+                $countryId =  $data['country_id'] ?? null;
+                $staffAddEditUnderSelectedOperatorycounty = config("operator_staff.staff_add_edit_under_selected_operatory_county");
+                if($staffAddEditUnderSelectedOperatorycounty){
+                   $operator = $this->user_model->select(['id', 'country_id'])->where('id', $operatorId)->first();
+                   if($operator) {
+                    $countryId = $operator->country_id;
+                   }
+                }
                 $staffData  =  [
                     'name' => $data['name'] ?? null,
                     'phone' => $data['phone'] ?? null,
                     'email' => $data['email'] ?? null,
-                    'country_id' => $data['country_id'] ?? null,
+                    'country_id' => $countryId,
                     //'operator_id' => auth()->user()->operator_id,
-                     'operator_id' =>  $data['operator_id'] ?? null,
+                     'operator_id' =>  $operatorId,
                     'gender' => $data['gender'] ?? null,
                 ];
 

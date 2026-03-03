@@ -770,6 +770,9 @@ Route::get('/testscript', function(){
 });
 
 
+Route::get('get_country_by_user_id/{user_id}', [App\Http\Controllers\CountryController::class, 'getCountyByUserId'])->name('web.get_country_by_user_id');
+
+
 
 ################### Massage Centre Profile Page Url ###############
 Route::get('massage-centres-list', [MassageCentre::class,'massageList'])->name('find.massage.centre');
@@ -779,9 +782,6 @@ Route::post('/store-short-list', [MassageCentre::class, 'storeShortList'])->name
 Route::post('/remove-short-list', [MassageCentre::class, 'removeShortList'])->name('web.remove-short-list');
 Route::post('/review-massage/{id}', [MassageCentre::class,'SaveReviewMassage'])->name('web.review-massage');
 Route::post('/clear-short-list', [MassageCentre::class,'clearShortList'])->name('web.clear-short-list');
-
-
-
 
 
 

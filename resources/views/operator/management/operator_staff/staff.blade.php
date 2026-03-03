@@ -1,11 +1,17 @@
 @extends('layouts.operator')
 @section('style')
     <style>
+        .modal-dialog {
+            max-width: 700px !important;
+        }
     </style>
 @stop
 @section('content')
 @php
 $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator->name." (".auth()->user()->operator->member_id.")" : '';
+$operatorCountryId = isset(auth()->user()->operator->country_id) ? auth()->user()->operator->country_id: '';
+$operatorCountryName = isset(auth()->user()->operator->country->name) ? auth()->user()->operator->country->name : '';
+ $staffAddEditUnderSelectedOperatorycounty = config("operator_staff.staff_add_edit_under_selected_operatory_county");
 @endphp
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -115,6 +121,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                                 <h6 class="border-bottom pb-1 text-blue-primary">Operator</h6>
                             </div>
                             <div class="col-12 mb-3">
+                                <input type="hidden" name="from_admin" value="0">
                                 <span class="form-control form-back">{{$operatorName}}</span>
                                 <input type="hidden" name="operator_id" value="{{ auth()->user()->operator_id }}">
                             </div>
@@ -125,27 +132,29 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                             </div>
 
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Full Name" name="name"
+                                <label class="form-check-label" for="name">Full Name</label>
+                                <input type="text" class="form-control rounded-0" name="name"
                                     id="name">
                                 <span class="text-danger error-name"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="text" class="form-control rounded-0" placeholder="Address"
-                                    name="address" id="address">
+                                <label class="form-check-label" for="address">Address</label>
+                                <input type="text" class="form-control rounded-0" name="address" id="address">
                                 <span class="text-danger error-address"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="tel" maxlength="10" autocomplete="off" class="form-control rounded-0"
-                                    placeholder="Phone" name="phone" id="phone"
+                                <label class="form-check-label" for="phone">Phone</label>
+                                <input type="tel" maxlength="10" autocomplete="off" class="form-control rounded-0" name="phone" id="phone"
                                     oninput="this.value = this.value.replace(/\D/g,'');">
                                 <span class="text-danger error-phone"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="email" class="form-control rounded-0" placeholder="Private Email"
-                                    name="email" id="email">
+                                 <label class="form-check-label" for="email">Private Email</label>
+                                <input type="email" class="form-control rounded-0" name="email" id="email">
                                 <span class="text-danger error-email"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                <label class="form-check-label" for="gender">Gender</label>
                                 <select class="form-control" name="gender" id="gender">
                                     <option value="">Select Gender</option>
                                     @foreach (config('operator_staff.genders') as $key => $gender)
@@ -161,24 +170,26 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                             </div>
 
                             <div class="col-6 mb-3">
-                                <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0"
-                                    placeholder="Name of Kin (optional)">
+                                 <label class="form-check-label" for="kin_name">Name of Kin</label>
+                                <input type="text" name="kin_name" id="kin_name" class="form-control rounded-0">
                                 <span class="text-danger error-kin_name"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                <label class="form-check-label" for="kin_relationship">Relationship</label>
                                 <input type="text" name="kin_relationship" id="kin_relationship"
-                                    class="form-control rounded-0" placeholder="Relationship (optional)">
+                                    class="form-control rounded-0">
                                 <span class="text-danger error-kin_relationship"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="kin_mobile">Mobile</label>
                                 <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile"
-                                    class="form-control rounded-0 no-arrow" placeholder="Mobile (optional)" autocomplete="off"
+                                    class="form-control rounded-0 no-arrow" autocomplete="off"
                                     oninput="this.value = this.value.replace(/\D/g,'');">
                                 <span class="text-danger error-kin_mobile"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                <input type="email" name="kin_email" class="form-control rounded-0"
-                                    placeholder="Email (optional)">
+                                <label class="form-check-label" for="kin_email">Email</label>
+                                <input type="email" name="kin_email" class="form-control rounded-0">
                                 <span class="text-danger error-kin_email"></span>
                             </div>
 
@@ -193,8 +204,9 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                                 <span class="text-danger error-position"></span>
                             </div> --}}
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="security_level">Security Level</label>
                                 <select class="form-control rounded-0" name="security_level" id="security_level">
-                                    <option value="">Security Level</option>
+                                    <option value="">Select Security Level</option>
                                     @foreach (config('operator_staff.security_level') as $seckey => $secLevel)
                                         <option value="{{ $seckey }}" {{ $seckey == 2 ? 'selected' : '' }}>
                                             {{ $secLevel }}
@@ -204,6 +216,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                                 <span class="text-danger error-security_level"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="position">Position</label>
                                 <select class="form-control rounded-0" name="position" id="position" disabled>
                                     <option value="">Position</option>
                                     @foreach (config('operator_staff.position') as $pkey => $position)
@@ -216,27 +229,34 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                             </div>
                            
                             <div class="col-6 mb-3">
+                                  <label class="form-check-label" for="country_id">Territory</label>
                                 <select class="form-control rounded-0" name="country_id" id="country_id">
                                     <option value="">Select Territory</option>
-                                    @foreach (config('operator.country') as $skey => $country)
-                                    @if($skey == 14)
-                                        <option value="{{ $skey }}" selected>{{ $country['name'] }}</option>
-                                    @else
-                                     <option value="{{ $skey }}">{{ $country['name'] }}</option>
-                                    @endif     
+                                     @if( $staffAddEditUnderSelectedOperatorycounty)
+                                       <option value="{{$operatorCountryId}}">{{$operatorCountryName}}</option>
+                                    @else 
+                                        @foreach (config('operator.country') as $skey => $country)
+                                        @if($skey == 14)
+                                            <option value="{{ $skey }}" selected>{{ $country['name'] }}</option>
+                                        @else
+                                        <option value="{{ $skey }}">{{ $country['name'] }}</option>
+                                        @endif
+                                      
                                     @endforeach
+                                     @endif
                                 </select>
                                 <span class="text-danger error-country_id"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="commenced_date_edit">Commenced Date</label>
                                 <input type="text" name="commenced_date" id="commenced_date"
-                                    class="form-control rounded-0 js_datepicker" placeholder="Commenced Date"
-                                    onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
+                                    class="form-control rounded-0 js_datepicker" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
                                 <span class="text-danger error-commenced_date"></span>
 
                             </div>
 
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="employment_status">Employment Status</label>
                                 <select class="form-control rounded-0" name="employment_status" id="employment_status">
                                     <option value="">Select Employment Status</option>
                                     @foreach (config('operator_staff.employment_status') as $key => $empStatus)
@@ -246,9 +266,10 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                                 <span class="text-danger error-employment_status"></span>
                             </div>
                             <div class="col-6 mb-3">
+                                 <label class="form-check-label" for="employment_agreement">Employment Agreement?</label>
                                 <select class="form-control rounded-0" name="employment_agreement"
                                     id="employment_agreement">
-                                    <option value="">Employment Agreement?</option>
+                                    <option value="">Select Employment Agreement?</option>
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
@@ -261,25 +282,28 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                             </div>
 
                             <div class="col-4 mb-3">
+                                 <label class="form-check-label" for="building_access_code">Access Code Provided?</label>
                                 <select class="form-control rounded-0" name="building_access_code"
                                     id="building_access_code">
-                                    <option value="">Access Code Provided?</option>
+                                    <option value="">Select Access Code Provided?</option>
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
                                 <span class="text-danger error-building_access_code"></span>
                             </div>
                             <div class="col-4 mb-3">
+                                <label class="form-check-label" for="keys_issued">Key Provided?</label>
                                 <select class="form-control rounded-0" name="keys_issued" id="keys_issued">
-                                    <option value="">Key Provided?</option>
+                                    <option value="">Select Key Provided?</option>
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
                                 <span class="text-danger error-keys_issued"></span>
                             </div>
                             <div class="col-4 mb-3">
+                                 <label class="form-check-label" for="car_parking">Car Park?</label>
                                 <select class="form-control rounded-0" name="car_parking" id="car_parking">
-                                    <option value="">Car Park?</option>
+                                    <option value="">Select Car Park?</option>
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>

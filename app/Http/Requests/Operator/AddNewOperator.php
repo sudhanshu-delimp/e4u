@@ -70,7 +70,7 @@ class AddNewOperator extends FormRequest
     {
         return [
             'contact_type.required' => 'The method of Contact field is required.',
-            'phone.required' => 'The phone number field is required.',
+            'phone.required' => 'The mobile number field is required.',
             'point_of_contact.required' => 'The point of contact field is required.',
             'country_id.required' => 'please select your territory.',
             'country_id.exists' => 'please select your territory.',
