@@ -4,7 +4,8 @@
     $securityLevel = isset($securityLevels[$staff_detail->security_level])
         ? $securityLevels[$staff_detail->security_level]
         : '';
-    $setting = $staff->operator_staff_setting ?? null;    
+    $setting = $staff->operator_staff_setting ?? null;
+    $staffAddEditUnderSelectedOperatorycounty = config("operator_staff.staff_add_edit_under_selected_operatory_county");
 @endphp
 <style>
     /* Chrome, Safari, Edge, Opera */
@@ -26,7 +27,9 @@
             <h6 class="border-bottom pb-1 text-blue-primary">Operator</h6>
         </div>
         <div class="col-12 mb-3">
-            <select class="form-control" name="operator_id" id="operator_id">
+            <input type="hidden" name="from_admin" value="1">
+            <input type="hidden" name="is_same_operator_country" value="{{$staffAddEditUnderSelectedOperatorycounty}}">
+            <select class="form-control" name="operator_id" id="operator_id" @if( $staffAddEditUnderSelectedOperatorycounty) onchange="getCountryByUserId(this, 'edit_')" @endif>
                 <option value="">Select Operator</option>
                 @foreach ($operators as $key => $name)
                     <option value="{{ $key }}" {{ $staff->operator_id == $key ? 'selected' : '' }}>
@@ -130,8 +133,8 @@
 
         <div class="col-6 mb-3">
             <label class="form-check-label" for="position">Position</label>
-            <select class="form-control rounded-0" name="position" id="position_edit" disabled>
-                <option value="">Position</option>
+            <select class="form-control rounded-0" name="position" id="position_edit" >
+                <option value="">Select Position</option>
                 @foreach (config('operator_staff.position') as $pkey => $position)
                     <option value="{{ $pkey }}" {{ $staff_detail->position == $pkey ? 'selected' : '' }}>
                         {{ $position }}</option>
@@ -141,8 +144,9 @@
         </div>
         <div class="col-6 mb-3">
             <label class="form-check-label" for="country_id">Territory</label>
-            <select class="form-control rounded-0" name="country_id" id="country_id">
+            <select class="form-control rounded-0" name="country_id" id="edit_country_id" @if( $staffAddEditUnderSelectedOperatorycounty) disabled @endif>
                 <option value="">Select Territory</option>
+                 @if( !$staffAddEditUnderSelectedOperatorycounty)
                 @foreach (config('operator.country') as $skey => $country)
                     @if ($skey == $staff->country_id)
                         <option value="{{ $skey }}" selected>{{ $country['name'] }}</option>
@@ -150,6 +154,9 @@
                         <option value="{{ $skey }}">{{ $country['name'] }}</option>
                     @endif
                 @endforeach
+                @else 
+                 <option value="{{ $staff->country_id}}" selected>{{ $staff->country->name }}</option>
+                 @endif
             </select>
             <span class="text-danger error-country_id"></span>
         </div>
@@ -191,7 +198,7 @@
         <div class="col-4 mb-3">
             <label class="form-check-label" for="building_access_code">Access Code Provided?</label>
             <select class="form-control rounded-0" name="building_access_code" id="building_access_code">
-                <option value="">Access Code Provided?</option>
+                <option value="">Select Access Code Provided?</option>
                 <option value="yes" {{ $staff_detail->building_access_code == 'yes' ? 'selected' : '' }}>Yes
                 </option>
                 <option value="no" {{ $staff_detail->building_access_code == 'no' ? 'selected' : '' }}>No
@@ -202,7 +209,7 @@
         <div class="col-4 mb-3">
             <label class="form-check-label" for="keys_issued">Key Provided?</label>
             <select class="form-control rounded-0" name="keys_issued" id="keys_issued">
-                <option value="">Key Provided?</option>
+                <option value="">Select Key Provided?</option>
                 <option value="yes" {{ $staff_detail->keys_issued == 'yes' ? 'selected' : '' }}>Yes</option>
                 <option value="no" {{ $staff_detail->keys_issued == 'no' ? 'selected' : '' }}>No</option>
             </select>
@@ -211,7 +218,7 @@
         <div class="col-4 mb-3">
             <label class="form-check-label" for="car_parking">Car Park?</label>
             <select class="form-control rounded-0" name="car_parking" id="car_parking">
-                <option value="">Car Park?</option>
+                <option value="">Select Car Park?</option>
                 <option value="yes" {{ $staff_detail->car_parking == 'yes' ? 'selected' : '' }}>Yes</option>
                 <option value="no" {{ $staff_detail->car_parking == 'no' ? 'selected' : '' }}>No</option>
             </select>

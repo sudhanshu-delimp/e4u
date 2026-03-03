@@ -19,13 +19,11 @@ class OperatorController extends BaseController
     protected $editAccessEnabled;
     protected $addAccessEnabled;
     protected $sidebar;
-    protected $howManyOperatorSamecountry;
 
     public function __construct(OperatorInterface $operatorRepo)
     {
         $this->current_date_time = date('Y-m-d H:i:s');
         $this->operatorRepo = $operatorRepo;
-        $this->howManyOperatorSamecountry = config('operator.how_many_operator_same_country');
         $this->middleware(function ($request, $next) {
 
             $user = auth()->user();   // works here
@@ -74,7 +72,8 @@ class OperatorController extends BaseController
     {
         $operator = Operator::with('operator_detail', 'operator_setting')->where("id", $id)->first();
         if ($operator) {
-            return view('admin.management.operator.operator-edit', compact('operator'));
+            $countryNotAssignToOperator = (new Operator)->getCountryNotAssignToOperator($operator->country_id);
+            return view('admin.management.operator.operator-edit', compact('operator', 'countryNotAssignToOperator'));
         } else {
             return "";
         }
@@ -113,11 +112,11 @@ class OperatorController extends BaseController
      */
     public function operator_list()
     {
-        $howManyOperatorSamecountry = $this->howManyOperatorSamecountry;
-        $operatorGreaterThanCountryProvided = (new Operator)->getOperatorGreaterThanCountryProvidedCount($howManyOperatorSamecountry);
+        $countryNotAssignToOperator = (new Operator)->getCountryNotAssignToOperator();
         $fees = VariablAgentOperator::get();
         $feeMassage = "";
         $feeAdvertising = "";
+
         if($fees->count() > 0) {
             $msFee = $fees->where('id',2)->first();
             if($msFee) {
@@ -129,7 +128,7 @@ class OperatorController extends BaseController
                $feeAdvertising = $advFee->percent; 
             }
         }
-        return view('admin.management.operator.operator-manage', compact('feeMassage', 'feeAdvertising', 'operatorGreaterThanCountryProvided'));
+        return view('admin.management.operator.operator-manage', compact('feeMassage', 'feeAdvertising', 'countryNotAssignToOperator'));
     }
 
     /**

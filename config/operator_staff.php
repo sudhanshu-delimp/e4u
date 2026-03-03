@@ -62,6 +62,10 @@ return [
         ]
         
     ],
+    /**
+     * 1: Staff add/edit only under selected operator
+     */
+    'staff_add_edit_under_selected_operatory_county' => env('STAFF_ADD_EDIT_UNDER_SELECTED_OPERATOR_COUNTY', false),
 ];
 
 

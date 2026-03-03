@@ -1,15 +1,20 @@
 @extends('layouts.admin')
 @section('style')
     <style>
-        .modal-dialog{max-width: 700px !important;}
+        .modal-dialog {
+            max-width: 700px !important;
+        }
     </style>
 @stop
 @section('content')
-@php
-   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
-   $addAccess = staffPageAccessPermission($securityLevel, 'add');
-   $addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
-@endphp
+    @php
+        $securityLevel = isset(auth()->user()->staff_detail->security_level)
+            ? auth()->user()->staff_detail->security_level
+            : 0;
+        $addAccess = staffPageAccessPermission($securityLevel, 'add');
+        $addAccessEnabled = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+        $staffAddEditUnderSelectedOperatorycounty = config("operator_staff.staff_add_edit_under_selected_operatory_county");
+    @endphp
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -43,13 +48,13 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade active show" id="tab3warning">
                                         <div class="row pb-3">
-                                             @if($addAccessEnabled)
-                                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                                <div class="bothsearch-form" style="gap: 10px;">
-                                                    <button type="button" class="btn-common" data-toggle="modal"
-                                                        data-target="#addStaffnew">Add New Staff Member</button>
+                                            @if ($addAccessEnabled)
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    <div class="bothsearch-form" style="gap: 10px;">
+                                                        <button type="button" class="btn-common" data-toggle="modal"
+                                                            data-target="#addStaffnew">Add New Staff Member</button>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             @endif
                                         </div>
                                         <div class="table-responsive">
@@ -121,7 +126,9 @@
                                 <h6 class="border-bottom pb-1 text-blue-primary">Operator</h6>
                             </div>
                             <div class="col-12 mb-3">
-                                <select class="form-control" name="operator_id" id="operator_id">
+                                <input type="hidden" name="from_admin" value="1">
+                                <input type="hidden" name="is_same_operator_country" value="{{$staffAddEditUnderSelectedOperatorycounty}}">
+                                <select class="form-control" name="operator_id" id="operator_id" @if( $staffAddEditUnderSelectedOperatorycounty)onchange="getCountryByUserId(this, 'add_')" @endif>
                                     <option value="">Select Operator</option>
                                     @foreach ($operators as $key => $name)
                                         <option value="{{ $key }}">{{ $name }}</option>
@@ -129,7 +136,7 @@
                                 </select>
                                 <span class="text-danger error-operator_id"></span>
                             </div>
-                             
+
                             <!-- Section: Personal Details -->
                             <div class="col-12 my-2">
                                 <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
@@ -137,26 +144,23 @@
 
                             <div class="col-6 mb-3">
                                 <label class="form-check-label" for="name">Full Name</label>
-                                <input type="text" class="form-control rounded-0" name="name"
-                                    id="name">
+                                <input type="text" class="form-control rounded-0" name="name" id="name">
                                 <span class="text-danger error-name"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                 <label class="form-check-label" for="address">Address</label>
-                                <input type="text" class="form-control rounded-0"
-                                    name="address" id="address">
+                                <label class="form-check-label" for="address">Address</label>
+                                <input type="text" class="form-control rounded-0" name="address" id="address">
                                 <span class="text-danger error-address"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <label class="form-check-label" for="phone">Phone</label>
-                                <input type="tel" maxlength="10" autocomplete="off" class="form-control rounded-0" name="phone" id="phone"
-                                    oninput="this.value = this.value.replace(/\D/g,'');">
+                                <input type="tel" maxlength="10" autocomplete="off" class="form-control rounded-0"
+                                    name="phone" id="phone" oninput="this.value = this.value.replace(/\D/g,'');">
                                 <span class="text-danger error-phone"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <label class="form-check-label" for="email">Private Email</label>
-                                <input type="email" class="form-control rounded-0" 
-                                    name="email" id="email">
+                                <input type="email" class="form-control rounded-0" name="email" id="email">
                                 <span class="text-danger error-email"></span>
                             </div>
                             <div class="col-6 mb-3">
@@ -181,22 +185,21 @@
                                 <span class="text-danger error-kin_name"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                 <label class="form-check-label" for="kin_relationship">Relationship</label>
+                                <label class="form-check-label" for="kin_relationship">Relationship</label>
                                 <input type="text" name="kin_relationship" id="kin_relationship"
                                     class="form-control rounded-0">
                                 <span class="text-danger error-kin_relationship"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                 <label class="form-check-label" for="kin_mobile">Mobile</label>
+                                <label class="form-check-label" for="kin_mobile">Mobile</label>
                                 <input type="tel" maxlength="10" name="kin_mobile" id="kin_mobile"
                                     class="form-control rounded-0 no-arrow" autocomplete="off"
                                     oninput="this.value = this.value.replace(/\D/g,'');">
                                 <span class="text-danger error-kin_mobile"></span>
                             </div>
                             <div class="col-6 mb-3">
-                                 <label class="form-check-label" for="kin_email">Email</label>
-                                <input type="email" name="kin_email" class="form-control rounded-0"
-                                    >
+                                <label class="form-check-label" for="kin_email">Email</label>
+                                <input type="email" name="kin_email" class="form-control rounded-0">
                                 <span class="text-danger error-kin_email"></span>
                             </div>
 
@@ -205,7 +208,7 @@
                                 <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
                             </div>
                             <div class="col-6 mb-3">
-                                 <label class="form-check-label" for="security_level">Security Level</label>
+                                <label class="form-check-label" for="security_level">Security Level</label>
                                 <select class="form-control rounded-0" name="security_level" id="security_level">
                                     <option value="">Security Level</option>
                                     @foreach (config('operator_staff.security_level') as $seckey => $secLevel)
@@ -228,7 +231,7 @@
                                 </select>
                                 <span class="text-danger error-position"></span>
                             </div>
-                           {{--  <div class="col-6 mb-3">
+                            {{--  <div class="col-6 mb-3">
                                 <select class="form-control rounded-0" name="location" id="location">
                                     <option value="">Select Location</option>
                                     @foreach (config('escorts.profile.cities') as $skey => $city)
@@ -239,30 +242,33 @@
                                 <span class="text-danger error-location"></span>
                             </div> --}}
                             <div class="col-6 mb-3">
-                                 <label class="form-check-label" for="country_id">Territory</label>
-                                <select class="form-control rounded-0" name="country_id" id="country_id">
+                                <label class="form-check-label" for="country_id">Territory</label>
+                                <select class="form-control rounded-0" name="country_id" id="add_country_id" @if( $staffAddEditUnderSelectedOperatorycounty) disabled @endif>
                                     <option value="">Select Territory</option>
+                                    @if( !$staffAddEditUnderSelectedOperatorycounty)
                                     @foreach (config('operator.country') as $skey => $country)
-                                    @if($skey == 14)
-                                        <option value="{{ $skey }}" selected>{{ $country['name'] }}</option>
-                                    @else
-                                     <option value="{{ $skey }}">{{ $country['name'] }}</option>
-                                    @endif     
+                                        @if ($skey == 14)
+                                            <option value="{{ $skey }}" selected>{{ $country['name'] }}</option>
+                                        @else
+                                            <option value="{{ $skey }}">{{ $country['name'] }}</option>
+                                        @endif
+                                     
                                     @endforeach
+                                     @endif   
                                 </select>
                                 <span class="text-danger error-country_id"></span>
                             </div>
                             <div class="col-6 mb-3">
                                 <label class="form-check-label" for="commenced_date_edit">Commenced Date</label>
                                 <input type="text" name="commenced_date" id="commenced_date"
-                                    class="form-control rounded-0 js_datepicker" 
-                                    onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
+                                    class="form-control rounded-0 js_datepicker" onfocus="(this.type='date')"
+                                    onblur="if(this.value==''){this.type='text'}">
                                 <span class="text-danger error-commenced_date"></span>
 
                             </div>
 
                             <div class="col-6 mb-3">
-                                 <label class="form-check-label" for="employment_status">Employment Status</label>
+                                <label class="form-check-label" for="employment_status">Employment Status</label>
                                 <select class="form-control rounded-0" name="employment_status" id="employment_status">
                                     <option value="">Select Employment Status</option>
                                     @foreach (config('operator_staff.employment_status') as $key => $empStatus)
@@ -275,7 +281,7 @@
                                 <label class="form-check-label" for="employment_agreement">Employment Agreement?</label>
                                 <select class="form-control rounded-0" name="employment_agreement"
                                     id="employment_agreement">
-                                    <option value="">Employment Agreement?</option>
+                                    <option value="">Select Employment Agreement?</option>
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
@@ -288,28 +294,28 @@
                             </div>
 
                             <div class="col-4 mb-3">
-                                 <label class="form-check-label" for="building_access_code">Access Code Provided?</label>
+                                <label class="form-check-label" for="building_access_code">Access Code Provided?</label>
                                 <select class="form-control rounded-0" name="building_access_code"
                                     id="building_access_code">
-                                    <option value="">Access Code Provided?</option>
+                                    <option value="">Select Access Code Provided?</option>
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
                                 <span class="text-danger error-building_access_code"></span>
                             </div>
                             <div class="col-4 mb-3">
-                                 <label class="form-check-label" for="keys_issued">Key Provided?</label>
+                                <label class="form-check-label" for="keys_issued">Key Provided?</label>
                                 <select class="form-control rounded-0" name="keys_issued" id="keys_issued">
-                                    <option value="">Key Provided?</option>
+                                    <option value="">Select Key Provided?</option>
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
                                 <span class="text-danger error-keys_issued"></span>
                             </div>
                             <div class="col-4 mb-3">
-                                 <label class="form-check-label" for="car_parking">Car Park?</label>
+                                <label class="form-check-label" for="car_parking">Car Park?</label>
                                 <select class="form-control rounded-0" name="car_parking" id="car_parking">
-                                    <option value="">Car Park?</option>
+                                    <option value="">Select Car Park?</option>
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
@@ -361,7 +367,7 @@
 
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="twofa" id="twofa_2"
-                                            value="2"  checked>
+                                            value="2" checked>
 
                                         <label class="form-check-label" for="twofa_2">Text</label>
                                     </div>
@@ -375,7 +381,8 @@
 
                         <div class="modal-footer p-0">
                             <button type="submit" class="btn-success-modal mr-3">Save</button>
-                             <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
+                            <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                                aria-label="Close">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -391,7 +398,8 @@
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editStaffnewTitle"><img
-                        src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">Edit Staff Member</h5>
+                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">Edit Staff
+                        Member</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -410,7 +418,8 @@
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="viewStaffnewTitle"><img
-                    src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">View Staff Member</h5>
+                            src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">View Staff
+                        Member</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -432,12 +441,13 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
 
-
     <script>
+        
         $(document).ready(function() {
+            
             var table = $("#staff_data_table").DataTable({
                 language: {
-                    search: "Search: _INPUT_", 
+                    search: "Search: _INPUT_",
                     searchPlaceholder: "Search by Staff ID",
                     lengthMenu: "Show _MENU_ entries",
                     zeroRecords: "No matching records found",
@@ -729,7 +739,7 @@
                     } else {
                         $('#modalStaffEditContent').html(response);
                         $('#staffEditModal').modal('show');
-                         initJsDatePickerEdit();
+                        initJsDatePickerEdit();
                     }
                 },
                 error: function() {
@@ -737,7 +747,7 @@
                 }
             });
         });
-       
+
 
         /*** Edit the staff */
         $(document).on('click', '.view-staff-btn', function() {

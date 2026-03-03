@@ -89,7 +89,7 @@ if (is_array($operator->contact_type)) {
             <label class="form-check-label" for="country_id">Territory</label>
             <select class="form-control rounded-0" name="country_id" id="country_id">
                 <option  value="">Select Territory</option>
-                @foreach (config('operator.country') as $skey => $country)
+                @foreach ($countryNotAssignToOperator as $skey => $country)
                     <option value="{{ $skey }}" {{ $operator->country_id == $skey ? 'selected' : '' }}>{{ $country['name'] }}</option>
                     
                 @endforeach

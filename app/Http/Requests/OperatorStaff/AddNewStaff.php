@@ -24,11 +24,20 @@ class AddNewStaff extends FormRequest
     public function rules(Request $request)
     {
          $userId = null;
+
         if(isset($request->user_id)) {
             $userId = $request->user_id;
         }
+         $countryIdRequired = 'required';
+         if(isset($request->is_same_operator_country)) {
+            $countryIdRequired = 'nullable';
+        }
+         $operatorIdRequired = 'nullable';
+        if(isset($request->from_admin) && $request->from_admin == 1) {
+            $operatorIdRequired = 'required';
+        }
         return [
-            //'operator_id' => 'bail|required',
+            'operator_id' => $operatorIdRequired,
             'name' => 'bail|required|string|max:100',
             'address' => 'bail|required|string|max:255',
             'phone' => "bail|required|min:10|max:14|unique:users,phone,{$userId}",
@@ -39,7 +48,7 @@ class AddNewStaff extends FormRequest
             'kin_mobile' => 'nullable|min:10|max:14',
             'kin_email' => 'nullable|email:rfc,filter|max:100',
             //'position' => 'bail|required|string|max:100',
-            'country_id' => 'required',
+            'country_id' =>  $countryIdRequired,
             'commenced_date' => 'bail|required|string|max:100',
             'security_level' => 'bail|required',
             'employment_status' => 'bail|required',

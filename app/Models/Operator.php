@@ -115,21 +115,38 @@ class Operator extends Model
      * @param string $status
      * @return App\Models\Operator $operators
      */
-    public function getOperatorGreaterThanCountryProvidedCount($count = 1)
+    public function getOperatorGreaterThanCountryProvidedCount()
     {
+        $howManyOperatorSamecountry = config('operator.how_many_operator_same_country');
         $tableName = $this->getTable();
         $users = DB::table($tableName . ' as u')
             ->select(DB::raw('MIN(u.id) as id'), 'u.country_id')
             ->where('u.type', '7')
-            ->whereIn('u.country_id', function ($query) use ($tableName, $count) {
+            ->whereIn('u.country_id', function ($query) use ($tableName, $howManyOperatorSamecountry) {
                 $query->select('country_id')
                     ->from($tableName)
                     ->where('type', '7')
                     ->groupBy('country_id')
-                    ->havingRaw('COUNT(*) >= ' . $count);
+                    ->havingRaw('COUNT(*) >= ' . $howManyOperatorSamecountry);
             })
             ->groupBy('u.country_id')
             ->get()->pluck('country_id', 'country_id');
         return $users;
+    }
+
+    public function getCountryNotAssignToOperator($editCountry = 0)
+    {
+        $countryList = config('operator.country');
+        $OperatorGreaterThanCountryProvidedCount = $this->getOperatorGreaterThanCountryProvidedCount();
+        if($OperatorGreaterThanCountryProvidedCount->count() > 0) {
+            $OperatorGreaterThanCountryProvidedCount = $OperatorGreaterThanCountryProvidedCount->toArray();
+            if($editCountry > 0) {
+                if(in_array($editCountry,  $OperatorGreaterThanCountryProvidedCount)) {
+                    unset($OperatorGreaterThanCountryProvidedCount[$editCountry]);
+                }
+            }
+            $countryList = array_diff_key($countryList, $OperatorGreaterThanCountryProvidedCount);
+        }
+        return $countryList;
     }
 }
