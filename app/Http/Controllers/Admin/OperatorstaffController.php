@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Operator;
 use Illuminate\Http\Request;
-
-use Laravel\Ui\Presets\React;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\OperatorStaff\AddNewStaff;
 use App\Models\OperatorStaff;
@@ -22,11 +19,13 @@ class OperatorstaffController extends BaseController
     protected $editAccessEnabled;
     protected $addAccessEnabled;
     protected $sidebar;
+    protected $howManyOperatorSamecountry;
 
     public function __construct(OperatorStaffInterface $staffRepo)
     {
         $this->current_date_time = date('Y-m-d H:i:s');
         $this->staffRepo = $staffRepo;
+        $this->howManyOperatorSamecountry = config('operator.how_many_operator_same_country');
         $this->middleware(function ($request, $next) {
 
             $user = auth()->user();   // works here
@@ -58,7 +57,6 @@ class OperatorstaffController extends BaseController
     {
         $operatorObj = (new Operator);
         $operators = $operatorObj->getDropdownList();
-      
         return view('admin.management.operator_staff.staff', compact('operators'));
     }
 

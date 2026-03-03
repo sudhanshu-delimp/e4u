@@ -110,7 +110,7 @@
                             <td width="60%">{{ $staff_detail->position($staff_detail->position) }}</td>
                         </tr>
                         <tr>
-                            <th>Location</th>
+                            <th>Territory</th>
                             <td> {{ $countryName }}</td>
                         </tr>
                         <tr>
