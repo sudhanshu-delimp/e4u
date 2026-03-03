@@ -14,13 +14,12 @@ class CreateMediaVerificationsTable extends Migration
             $table->string('image_path');
 
             // selfie / licence / passport
-            $table->enum('type', ['selfie', 'licence', 'passport']);
+            $table->enum('type', ['0', '1', '2'])
+             ->comment('0 = selfie, 1 = licence, 2 = passport');
 
-            // 0 = pending, 1 = approved, 2 = rejected
-            $table->tinyInteger('status')
-                  ->default(0)
-                  ->comment('0 = pending, 1 = approved, 2 = rejected');
-
+             $table->enum('status', ['0', '1', '2'])
+                ->default('0')
+                ->comment('0 = pending, 1 = approved, 2 = rejected');
             $table->text('comment')->nullable();
 
             $table->unsignedBigInteger('reviewed_by')->nullable();
