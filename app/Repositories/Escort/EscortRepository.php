@@ -163,24 +163,13 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->city_name = $item->city ? $item->city->name : null;
             $item->state_name = $item->state ? $item->state->name : null;
             $localTimeZone = getEscortTimezone($item);
-            // if ($item->enabled == 1) {
-            //     $item->enabled = "Active";
-            // } elseif ($item->enabled == 0) {
-            //     $item->enabled = "Inactive";
-            // } else {
-            //     $item->enabled = "Draft";
-            // }
-
             if ($item->enabled == 1) {
-                $statusText = "Active";
+                $item->enabled = "Active";
             } elseif ($item->enabled == 0) {
-                $statusText = "Inactive";
+                $item->enabled = "Inactive";
             } else {
-                $statusText = "Draft";
+                $item->enabled = "Draft";
             }
-
-            $badgeClass = getStatusBadgeClass(strtolower($statusText));
-            $item->enabled = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
 
             if($item->gender=='Transgender')
             $item->stage_name = 'TS-'.$item->name;
@@ -291,6 +280,9 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->start_date_formatted = $item->start_date_formatted;
             $item->end_date_formatted = $item->end_date_formatted;
             $item->pro_name .= '</span>';
+            $badgeClass = getStatusBadgeClass(strtolower($item->enabled));
+            $item->enabled = "<span class='custom_badge {$badgeClass}'>{$item->enabled}</span>";
+
             $i++;
         }
 
