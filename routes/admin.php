@@ -521,7 +521,9 @@ Route::get('/reports/communication/{id}/show',[CommunicationController::class, '
 //     return view('admin.notifications.global');
 // })->name('admin.global');
 
-
+Route::get('/management/data-list',function(){
+    return view('admin.management.data-list-centres.index');
+})->name('admin.data-list');
 
 
 // ye Operation Management Notification hai administration kanhi 

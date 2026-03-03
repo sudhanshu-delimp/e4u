@@ -73,7 +73,6 @@
                 <th style="border: 1px solid #000; padding: 6px;">Mobile Number</th>
                 <th style="border: 1px solid #000; padding: 6px;">Business Number</th>
                 <th style="border: 1px solid #000; padding: 6px;">Email</th>
-                <th style="border: 1px solid #000; padding: 6px;">Website</th>
                 <th style="border: 1px solid #000; padding: 6px;">Signed</th>
             </tr>
         </thead>
@@ -85,7 +84,6 @@
                 <td style="border: 1px solid #000; padding: 6px;">6000</td>
                 <td style="border: 1px solid #000; padding: 6px;">0456 665 012</td>
                 <td style="border: 1px solid #000; padding: 6px;">9236 2587</td>
-                <td style="border: 1px solid #000; padding: 6px;"></td>
                 <td style="border: 1px solid #000; padding: 6px;"></td>
                 <td style="border: 1px solid #000; padding: 6px; text-align: center;">
                     <input type="checkbox" />
@@ -99,7 +97,6 @@
                 <td style="border: 1px solid #000; padding: 6px;">0426 610 881</td>
                 <td style="border: 1px solid #000; padding: 6px;">9325 2011</td>
                 <td style="border: 1px solid #000; padding: 6px;"></td>
-                <td style="border: 1px solid #000; padding: 6px;"></td>
                 <td style="border: 1px solid #000; padding: 6px; text-align: center;">
                     <input type="checkbox" />
                 </td>
@@ -109,7 +106,6 @@
                 <td style="border: 1px solid #000; padding: 6px;">Esquire Spa and Massage</td>
                 <td style="border: 1px solid #000; padding: 6px;">11 Aberdeen St Perth</td>
                 <td style="border: 1px solid #000; padding: 6px;">6000</td>
-                <td style="border: 1px solid #000; padding: 6px;"></td>
                 <td style="border: 1px solid #000; padding: 6px;"></td>
                 <td style="border: 1px solid #000; padding: 6px;"></td>
                 <td style="border: 1px solid #000; padding: 6px;"></td>
