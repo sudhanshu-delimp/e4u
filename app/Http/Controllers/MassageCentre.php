@@ -9,6 +9,7 @@ use App\Models\MassageReviews;
 use App\Models\MassagerMasseur;
 use App\Models\MassageService;
 use App\Models\Masseur;
+use App\Models\ReportMassageProfile;
 use App\Models\Service;
 use App\Models\State;
 use App\Models\User;
@@ -20,11 +21,11 @@ use App\Repositories\Message\MessageInterface;
 use App\Repositories\Message\MessageMediaInterface;
 use App\Repositories\Service\ServiceInterface;
 use App\Repositories\Thumbnail\ThumbnailInterface;
-
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class MassageCentre extends Controller
@@ -352,7 +353,13 @@ class MassageCentre extends Controller
 
          $galleryVideos = $listing->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
 
-        return view('web.mc.massage-description',compact('listing','durations','massage_durations','reviews'));
+        $spamReportAdvertiser = collect();
+
+        if(Auth::user() && Auth::user()->type == 0){
+            $spamReportAdvertiser = ReportMassageProfile::where('viewer_id',Auth::user()->id)->first();
+        }
+
+        return view('web.mc.massage-description',compact('listing','durations','massage_durations','reviews','spamReportAdvertiser'));
     }
 
 

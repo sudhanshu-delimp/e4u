@@ -1085,8 +1085,7 @@
                         </button>
                     </div>
                     <div class="col-7 text-right">
-                        <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
-                            data-target="#reportMcNew">
+                        <button type="button" class="btn profile_message_btn_cc" id="reportAdvertiserBtn" data-toggle="modal">
                             <img src="../assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Centre
                         </button>
                     </div>
@@ -1491,46 +1490,49 @@
                     </button>
                 </div>
                 
-                <form id="reviewAdvertiser_OLD" action="#" method="post">
-                    <input type="hidden" name="_token" value="UuIFvrcEqKkKmQRBOgnpguuLsEYEUO1qHwlvC49U">
+                <form id="sendReportForm" action="{{ route('massage-spam-report')}}" method="post">
+                @csrf
+                   
                     <div class="modal-body">
                         <div class="row">
                             <div class="col">
                                 <div class="form-group popup_massage_box">
                                     <p class="font-weight-bold">What is wrong:</p>
                                     <textarea name="description" class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="5"
-                                        placeholder="Message (250 characters)"></textarea>
+                                        placeholder="Message (250 characters)" required></textarea>
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="d-flex  align-items-center">
-                                    <p class="diff_font_pera mb-0 mr-2">Why are you reporting this Profile:</p>
-                                    <div class="form-check py-0 mr-2">
-                                        <input class="form-check-input" type="checkbox" name="photo_status"
-                                            id="exampleRadios2" value="1">
-                                        <span class="form-check-label" for="exampleRadios2">
-                                            Fake Media
-                                        </span>
-                                    </div>
-                                    <div class="form-check py-0 mr-2">
-                                        <input class="form-check-input" type="checkbox" name="photo_status"
-                                            id="exampleRadios2" value="0">
-                                        <span class="form-check-label" for="exampleRadios2">
-                                            Spam
-                                        </span>
-                                    </div>
-                                    <div class="form-check py-0">
-                                        <input class="form-check-input" type="checkbox" name="photo_status"
-                                            id="exampleRadios2" value="2">
-                                        <span class="form-check-label" for="exampleRadios2">
-                                            Other
-                                        </span>
-                                    </div>
-                                </div>
+                        <div class="col-md-12">
+                            <div class="d-flex align-items-center">
+                            <p class="diff_font_pera mb-0 mr-2">Why are you reporting this Profile:</p>
+                            
+                            <div class="form-check py-0 mr-2">
+                                <input class="form-check-input" type="radio" name="report_tag" id="fake_media" value="fake_media" {{isset($spamReportAdvertiser->report_tag) && $spamReportAdvertiser->report_tag == 'fake_media' ? 'checked': '' }}>
+                                <label class="form-check-label" for="fake_media">
+                                    Fake Media
+                                </label>
+                            </div>
+
+                            <div class="form-check py-0 mr-2">
+                                <input class="form-check-input" type="radio" name="report_tag" id="spam" value="spam" {{isset($spamReportAdvertiser->report_tag) != null && $spamReportAdvertiser->report_tag == 'spam' ? 'checked': '' }} >
+                                <label class="form-check-label" for="spam">
+                                    Spam
+                                </label>
+                            </div>
+
+                            <div class="form-check py-0">
+                                <input class="form-check-input" type="radio" name="report_tag" id="other" value="other" value="other" {{isset($spamReportAdvertiser->report_tag) != null &&  $spamReportAdvertiser->report_tag == 'other'  ? 'checked': ($spamReportAdvertiser == null ? 'checked' : '') }} >
+                                <label class="form-check-label" for="other">
+                                    Other
+                                </label>
                             </div>
                         </div>
+                        </div>
+                    </div>
 
                         <hr style="background-color: #0C223D">
                         <p class="mb-1 mt-3"><b>Notes:</b></p>
@@ -1543,91 +1545,92 @@
                         </ol>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn-success-modal">Send Report</button>
+                        <input type="hidden" name="massage_id" value="{{$listing->id}}">
+                        <button type="submit"  id="sendReportSubmitBtn" class="btn-success-modal">Send Report</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <!-- model start here 3-->
-<div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content custome_modal_max_width">
+    <div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content custome_modal_max_width">
+                
             
-        
-        <div class="modal-header main_bg_color">
-                <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $massager_name }}
-                </h5>
-                <button type="button" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif class="close" aria-label="Close">
-                <span aria-hidden="true">
-                <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                </span>
-                </button>
-            </div>
+            <div class="modal-header main_bg_color">
+                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">
+                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $massager_name }}
+                    </h5>
+                    <button type="button" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif class="close" aria-label="Close">
+                    <span aria-hidden="true">
+                    <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                    </span>
+                    </button>
+                </div>
 
 
-           
-              <form id="reviewAdvertiser" action="{{ route('web.review-massage',[$listing->id])}}" method="post" data-parsley-validate>
-              
-               
-                <div class="modal-body">                    
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group popup_massage_box">
-                                <p class="font-weight-bold">Tell us about your experience:</p>
-                                <textarea name="description" 
-                                class="form-control popup_massage_box p-2" id="review_textarea" rows="5" 
-                                placeholder="Message (500 characters)"
-                                 required
-                                    data-parsley-required-message="Please enter your review"
-                                    data-parsley-maxlength="500"
-                                    data-parsley-maxlength-message="Maximum 500 characters allowed">
-                                
-                                {{$reviewExistsMessage}}
-                                </textarea>
+            
+                <form id="reviewAdvertiser" action="{{ route('web.review-massage',[$listing->id])}}" method="post" data-parsley-validate>
+                
+                
+                    <div class="modal-body">                    
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group popup_massage_box">
+                                    <p class="font-weight-bold">Tell us about your experience:</p>
+                                    <textarea name="description" 
+                                    class="form-control popup_massage_box p-2" id="review_textarea" rows="5" 
+                                    placeholder="Message (500 characters)"
+                                    required
+                                        data-parsley-required-message="Please enter your review"
+                                        data-parsley-maxlength="500"
+                                        data-parsley-maxlength-message="Maximum 500 characters allowed">
+                                    
+                                    {{$reviewExistsMessage}}
+                                    </textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="revew-myratings">
-                        <p class="mb-0" style="font-size: 20px;">Rating:</p>
-                        <div class="rating-stars">
-                            <!-- Repeatable SVG stars -->
-                            @for($i =1; $i <= 5; $i++)
-                                @if($i<= $reviewExistsStarRating)
-                                        <svg class="star filled" data-value="{{$i}}" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                                    </svg>
-                                @else
-                                        <svg class="star" data-value="{{$i}}" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                                    </svg>
-                                @endif
-                            @endfor
+                        <div class="revew-myratings">
+                            <p class="mb-0" style="font-size: 20px;">Rating:</p>
+                            <div class="rating-stars">
+                                <!-- Repeatable SVG stars -->
+                                @for($i =1; $i <= 5; $i++)
+                                    @if($i<= $reviewExistsStarRating)
+                                            <svg class="star filled" data-value="{{$i}}" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
+                                        </svg>
+                                    @else
+                                            <svg class="star" data-value="{{$i}}" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
+                                        </svg>
+                                    @endif
+                                @endfor
+                            </div>
+                            <input type="hidden" id="userRating" name="rating" value="{{$reviewExistsStarRating}}">
                         </div>
-                        <input type="hidden" id="userRating" name="rating" value="{{$reviewExistsStarRating}}">
+                        
+                        <hr style="background-color: #0C223D">
+                        <p class="mb-1 mt-3"><b>Notes:</b></p>
+                                <ol>
+                                    <li>Only review if you had direct contact with the Escort.</li>
+                                    <li>Do not write fake or abusive reviews, as they will not be published.</li>
+                                    <li>To contact this Escort click on <a href="{{ route('user.viewer-messages') }}" style="color: #ff3c5f;" class="custom_links_design">Message Me</span></a>.</li>
+                                </ol>
                     </div>
-                    
-                    <hr style="background-color: #0C223D">
-                    <p class="mb-1 mt-3"><b>Notes:</b></p>
-                            <ol>
-                                <li>Only review if you had direct contact with the Escort.</li>
-                                <li>Do not write fake or abusive reviews, as they will not be published.</li>
-                                <li>To contact this Escort click on <a href="{{ route('user.viewer-messages') }}" style="color: #ff3c5f;" class="custom_links_design">Message Me</span></a>.</li>
-                            </ol>
-                </div>
-                <div class="modal-footer">
+                    <div class="modal-footer">
 
-                    <button type="button" class="btn site_btn_primary main_bg_color" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif>
-                        Cancel
-                    </button>
+                        <button type="button" class="btn site_btn_primary main_bg_color" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif>
+                            Cancel
+                        </button>
 
-                    <button type="submit" class="btn main_bg_color site_btn_primary rounded">{{$reviewAlreadyExist ? 'Update' : "Submit"}} Review</button>
-                </div>
-            </form>
+                        <button type="submit" class="btn main_bg_color site_btn_primary rounded">{{$reviewAlreadyExist ? 'Update' : "Submit"}} Review</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
     {{-- confirmation review modal --}}
         <div class="modal fade" id="review-submitted-popup" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
@@ -1823,6 +1826,41 @@
                         <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reportLogedIn" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content custome_modal_max_width">
+    
+                <!-- Header with navy background and [X] -->
+                <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
+                    <img src="{{ asset('assets/dashboard/img/request-submit.png') }}"
+                                    class="custompopicon">
+                    <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">
+                        
+                        Report Logged
+                        </h5>
+                    <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
+                    <img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                    </button>
+                </div>
+    
+                <!-- if logi Body content -->
+            
+                <div class="modal-body text-left">
+                    <h6 class="popu_heading_style  mt-2 " style="text-align: center; color:#0C223D;">
+                        <span id="Lname">Thank you for your report. Someone from our team will be in
+                    touch shortly.</span>
+                    </h6>
+                
+                </div>
+                <div class="modal-footer pt-0" style="justify-content: center; ">
+                    <button type="submit" class="btn main_bg_color site_btn_primary reportLogedIn_close" data-dismiss="modal"
+                        id="close">Ok</button>
+                </div>
+    
             </div>
         </div>
     </div>
@@ -2027,12 +2065,102 @@ $(document).on('click', '.open_review_box', function (e) {
         }
     }
 
+
+
+    
+    $('#sendReportForm').submit(function(e) {
+        e.preventDefault();
+
+        var form = $(this);
+        var url = form.attr('action');
+        var formData = new FormData(this);
+        formData.append('type','post');
+        sendReportAjaxCallback(formData, url, 'POST');
+    });
+
+
+    function sendReportAjaxCallback(formData, url, type)
+    {
+        $.ajax({
+            method: type,
+            url: url,
+            data: formData,
+            contentType: type === 'GET' ? 'application/x-www-form-urlencoded; charset=UTF-8' : false,
+            processData: type === 'GET',
+            headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
+            success: function (response) {
+                $('#sendReportForm')[0].reset();
+
+                if(type == 'GET'){
+                    if(response.data){
+                        let desc = response.data.report_desc;
+                        let tag = response.data.report_tag;
+                        //$("#reportDesc").text(desc);
+                         $("#reportDesc").text('');
+                        $('input[name="report_tag"][value="' + response.data.report_tag + '"]').prop('checked', true);
+                    }
+                    
+                }else{
+                    if(!response.error){
+                        /* $.toast({
+                            heading: 'Success',
+                            text: 'Your report for this advertiser has been submitted successfully.',
+                            icon: 'success',
+                            loader: true,
+                            position: 'top-right',      // Change it to false to disable loader
+                            loaderBg: '#9EC600'  // To change the background
+                        }); */
+                        $("#reportLogedIn").modal('show');
+                    } else {
+                        $.toast({
+                            heading: 'Error',
+                            text: 'Failed to save the review',
+                            icon: 'error',
+                            loader: true,
+                            position: 'top-right',      // Change it to false to disable loader
+                            loaderBg: '#9EC600'  // To change the background
+                        });
+                    }
+                    $('#sendcarlat').modal('hide');
+                }
+                
+            }
+        });
+    }
+
+
     setInterval(slideNext, 5000);
 
 
 
+     $('#reportAdvertiserBtn').on('click', function(e) {
+        e.preventDefault(); 
+
+        @if(auth()->check() && auth()->user()->type == 0)
+            $('#sendcarlat').modal('show');
+            var formData = {
+                'massage_id' : '{{$listing->id}}',
+                'viewer_id' : '{{auth()->user ?? auth()->user()->id}}',
+                'type' : 'get',
+                'url': "{{ route('massage-spam-report')}}"
+            }
+            sendReportAjaxCallback(formData, formData.url, 'GET');
+
+        @else 
+            $('#reportAdvertiserNew').modal('show');
+        @endif
+    });
+
+    $(document).on('click', '.reportLogedIn_close, .close', function () {
+    $('#sendcarlat').modal('hide');
+    $('#reportLogedIn').modal('hide');
+    });
 
 
     });
+
+   
+
+
 </script>
 @endpush

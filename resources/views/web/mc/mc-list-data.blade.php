@@ -19,6 +19,11 @@
  }
 
 $social_links = $listing->social_links;
+
+if(isset($social_links['twitter']) && $social_links['twitter']!="")
+$twitter_link =   $social_links['twitter'];
+else
+$twitter_link = "https://x.com/Escorts46919U";     
  
 @endphp
 
@@ -149,11 +154,11 @@ $social_links = $listing->social_links;
                             </div>
                             @endif
 
-                            @if(isset($social_links['twitter']) && $social_links['twitter']!="")
+                           
                             <div class="s_icon">
-                                <a href="{{$social_links['twitter']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" alt="logo"></a>
+                                <a href="{{ $twitter_link  }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" alt="logo"></a>
                             </div>
-                            @endif
+                          
 
 
                         </div>
