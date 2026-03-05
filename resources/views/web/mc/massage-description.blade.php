@@ -96,7 +96,14 @@
         }
 
 
-    $social_links = $listing->social_links;
+    $social_links = get_social_links($listing->user_id);
+    if(isset($social_links['twitter']) && $social_links['twitter']!="")
+    $twitter_link =   $social_links['twitter'];
+    else
+    $twitter_link = "https://x.com/NMugs32853"; 
+
+
+
     $rates_header = "";
 
     $payType = '';
@@ -173,13 +180,13 @@
                   @endif  
 
 
-                @if(isset($social_links['twitter']) && $social_links['twitter']!="")
+               
                     <li class="social-media-profile">
-                        <a href="{{$social_links['twitter']}}" target="_blank">
+                        <a href="{{ $twitter_link  }}" target="_blank">
                             <img src="{{ asset('../assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo">
                         </a>
                     </li>
-                @endif  
+               
                     
 
                 </ul>
@@ -1095,20 +1102,35 @@
                 <input type="hidden" name="escortId" value="123" id="eid">
 
                 <!-- Like / Dislike Bar -->
-                <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx">
-                    <div class="like_img">
-                        <i id="dislike" class="fa fa-thumbs-o-down" title="Dislike" aria-hidden="true"></i>
-                    </div>
-                    <div class="process_bar_width like_mjo">
-                        <div id="vote_bar" class="progress" style="height: 25px;">
-                            <div class="progress-bar bg-danger progress-bar-stripped" style="width: 0%">0%</div>
-                            <div class="progress-bar bg-success" style="width: 100%;">100%</div>
+                 
+                    <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx">
+                        <div class="like_img">
+                            <i id="dislike" class="{{ $massageLike && $massageLike->like == 0 ? 'fa fa-thumbs-down' : 'fa fa-thumbs-o-down'}} " title="Dislike" aria-hidden="true"></i>
+                        <!-- <img class="likeImg" id="dislike" value='0' src="{{ asset('assets/app/img/dislike.png') }}"> -->
+                        </div>
+                        <div class="process_bar_width like_mjo">
+                            <div id="vote_bar" class="progress" style="height: 25px;">
+                                @if($lp || $dp)
+                                <div class="progress-bar bg-danger progress-bar-stripped" style="width: {{$dp}}%">
+                                    {{$dp}}%
+                                </div>
+                                <div class="progress-bar bg-success" style="width: {{$lp}}%;">
+                                    {{$lp}}%
+                                </div>
+                                @else
+                                <div class="progress-bar" style="width: 100%; background-color: grey;">
+                                    No votes
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="like_img">
+                       
+                            <i id="like" class="{{ $massageLike && $massageLike->like == 1 ? 'fa fa-thumbs-up' : 'fa fa-thumbs-o-up'}}" title="Like" aria-hidden="true"></i>
+
                         </div>
                     </div>
-                    <div class="like_img">
-                        <i id="like" class="fa fa-thumbs-o-up" title="Like" aria-hidden="true"></i>
-                    </div>
-                </div>
+
 
                 <!-- Playmates Section -->
                 {{-- <div class="box_shadow manage_padding_margin_bg_color">
@@ -1864,8 +1886,35 @@
             </div>
         </div>
     </div>
-
+    
     {{-- end --}}
+
+    <div class="modal fade" id="reportAdvertiserNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content custome_modal_max_width">
+                    <div class="modal-header main_bg_color">
+                    
+                        
+                        <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Report Centre </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
+                        </button>
+                    </div>
+                    <!-- if viewer not login -->
+                    <div class="modal-body pb-0 teop-text" >
+                        <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
+                            <span id="Lname">Report Centre is only available to Viewers. Please log in or Register to access Report Centre.</span>
+                        </h6>
+                        <div class="modal-footer text-center justify-content-center" >
+                        <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
+                        <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
+                        </div>
+                    </div>
+                    <!--- end -->
+
+                </div>
+            </div>
+    </div>
 
 
 
@@ -2154,7 +2203,56 @@ $(document).on('click', '.open_review_box', function (e) {
     $(document).on('click', '.reportLogedIn_close, .close', function () {
     $('#sendcarlat').modal('hide');
     $('#reportLogedIn').modal('hide');
+    $('#reportAdvertiserNew').modal('hide');
+    
     });
+
+
+    ///////////// Like And Dislike  ///////////////////
+    $('#like, #dislike').click(function(e) {
+        var vote = 0;
+        if($(this).attr('id') == 'like') {
+            vote = 1;
+        }
+        var currentDislikeClickBtn = $(this);
+
+        var url = "{{ route('web.massageLikeDislike') }}";
+        $.ajax({
+            method: 'POST',
+            url: url,
+            data: {'vote' : vote, 'massage_id' : {{$listing->id}} },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(data) {
+                if(data.error) {
+                    Swal.fire(
+                        'Error!',
+                        'Something is wrong please try later.',
+                        'error'
+                    );
+                } else {
+                    if (data.like == 1) {
+                        currentDislikeClickBtn.removeClass('fa-thumbs-o-up').addClass('fa-thumbs-up');
+                        $("#dislike").removeClass('fa-thumbs-down').addClass('fa-thumbs-o-down');
+                    } else {
+                        currentDislikeClickBtn.removeClass('fa-thumbs-o-down').addClass('fa-thumbs-down');
+                        $("#like").removeClass('fa fa-thumbs-up').addClass('fa fa-thumbs-o-up');
+                    }
+                    var vote_bar = '<div class="progress-bar bg-danger progress-bar-stripped" style="width: '+data.dp+'%">' +
+                        '                    '+data.dp+'%' +
+                        '                </div>' +
+                        '                <div class="progress-bar bg-success" style="width: '+data.lp+'%;">' +
+                        '                    '+data.lp+'%' +
+                        '                </div>';
+                    $("#vote_bar").html(vote_bar);
+                }
+            }
+        });
+
+    });
+
+
 
 
     });

@@ -2,12 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AttemptLogin;
+use App\Models\MassageLike;
+use App\Models\MassageProfile;
 use App\Models\ReportMassageProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ReportMassageController extends Controller
 {
+
+   protected $model_massage_profile;
+    public function __construct()
+    {
+        $this->model_massage_profile = new MassageProfile;
+
+    }
+
+
     public function getSpamReportForAdvertiser(Request $request)
     {
         
@@ -82,5 +94,63 @@ class ReportMassageController extends Controller
         }
 
         return response()->json($data);
+    }
+
+
+    public function massageLikeDislike(Request $request)
+    {
+        
+        $userId = !empty(auth()->user()) ? auth()->user()->id : NULL;
+        $ipAddress = AttemptLogin::Where('user_id', $userId)->first();
+
+        if($ipAddress == null){
+           $ipAddress = $this->model_massage_profile->getClientIP();
+        }else{
+            $ipAddress = $ipAddress->ip_address; 
+        }
+       
+        $massage_id = $request->massage_id;
+        $like = $request->vote;
+        //request()->post('userId');
+        $votingData = [
+            'user_id' => $userId,
+            'massage_id' => $massage_id,
+            'like' => $like,
+            'ip_address' => $ipAddress,
+        ];
+
+        $todayVote = $this->model_massage_profile->getUserLikeDislike($massage_id, $ipAddress, $userId);
+       
+        $error = 0;
+        if($todayVote) {
+            $todayVote->like = $like;
+            if(!$todayVote->save()) {
+                $error = 1;
+            }
+        } else {
+            $votingData = MassageLike::create($votingData);
+            if(!$votingData) {
+                $error = 1;
+            }
+        }
+
+        # add stats after like
+        $massageUser = MassageProfile::where('id', $massage_id)->first();
+        if($massageUser != null) {
+            saving_escort_stats($massageUser->user_id, $massage_id, 'recommendation_count');
+        }   
+        
+        $total = MassageLike::where('massage_id', $massage_id)->count();
+        if($total > 0) {
+            $likeCount = MassageLike::where('like',1)->where('massage_id',$massage_id)->count();
+            $dislikeCount = MassageLike::where('like',0)->where('massage_id',$massage_id)->count();
+            $lp = round($likeCount/$total * 100);
+            $dp = round($dislikeCount/$total * 100);
+        } else {
+            $lp = 0;
+            $dp = 0;
+        }
+
+        return response()->json(compact('error','lp','dp', 'like'));
     }
 }

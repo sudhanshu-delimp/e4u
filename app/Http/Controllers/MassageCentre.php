@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\AttemptLogin;
+use App\Models\MassageLike;
 use App\Models\MassageProfile;
 use App\Models\MassageReviews;
 use App\Models\MassagerMasseur;
@@ -40,6 +42,7 @@ class MassageCentre extends Controller
     protected $massage_media;
     protected $massage_profile;
     protected $reviews;
+    protected $model_massage_profile;
   
 
    
@@ -53,6 +56,7 @@ class MassageCentre extends Controller
         $this->media = $media;
         $this->massage_profile = $massage_profile;
         $this->reviews = $reviews;
+        $this->model_massage_profile = new MassageProfile;
       
     }
 
@@ -101,6 +105,8 @@ class MassageCentre extends Controller
         }
         
     }
+
+   
 
     public function mcAjaxList(Request $request)
     {
@@ -359,7 +365,22 @@ class MassageCentre extends Controller
             $spamReportAdvertiser = ReportMassageProfile::where('viewer_id',Auth::user()->id)->first();
         }
 
-        return view('web.mc.massage-description',compact('listing','durations','massage_durations','reviews','spamReportAdvertiser'));
+        $massageLike = null;
+        $userId = !empty(auth()->user()) ? auth()->user()->id : NULL;
+        $massageLike = $this->model_massage_profile->getUserLikeDislike($id, $request->ip(), $userId);
+
+        $total = MassageLike::where('massage_id',$id)->count();
+        if($total > 0) {
+            $likeCount = MassageLike::where('like',1)->where('massage_id',$id)->count();
+            $dislikeCount = MassageLike::where('like',0)->where('massage_id',$id)->count();
+            $lp = round($likeCount/$total * 100);
+            $dp = round($dislikeCount/$total * 100);
+        } else {
+            $lp = 0;
+            $dp = 0;
+        }
+
+        return view('web.mc.massage-description',compact('listing','durations','massage_durations','reviews','spamReportAdvertiser','lp','dp','massageLike'));
     }
 
 
@@ -448,7 +469,7 @@ class MassageCentre extends Controller
     }
     
     
-
+    
     ############## Massage Short List #######################
 
     public function  shortlist_massageList()

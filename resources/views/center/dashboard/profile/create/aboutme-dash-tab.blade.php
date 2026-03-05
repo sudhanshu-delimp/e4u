@@ -204,11 +204,11 @@ textarea {
 
          
 
-
+        <!-- 
         <div class="fill_profile_headings_global">          
             <h2>Our Social Media</h2>
          </div>
-         <!-- <div class="business-info-field pt-4"> -->
+        
                 <div class="padding_20_all_side pb-0">
                     <div class="row">
                         <div class="col-lg-4">
@@ -237,8 +237,7 @@ textarea {
                         </div>
                     </div>
                 
-                </div>
-        <!-- </div> -->
+                </div> -->
 
         
       </div>

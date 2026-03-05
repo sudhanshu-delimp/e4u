@@ -452,7 +452,6 @@ Route::post('/asend-otpt-passord', [App\Http\Controllers\SendForgotPasswordContr
 
 
 Route::post('/like-dislike', [App\Http\Controllers\WebController::class,'likeDislike'])->name('web.likeDislike');
-Route::post('/massage-like-dislike', [App\Http\Controllers\WebController::class,'massageLikeDislike'])->name('web.massageLikeDislike');
 
 
 
@@ -792,6 +791,8 @@ Route::get('shortlist-mc-ajax-list', [MassageCentre::class, 'shortlist_mcAjaxLis
 ################### Report Massage By Viewer ################
 Route::get('/massage-spam-report', [ReportMassageController::class,'getSpamReportForAdvertiser'])->name('massage-spam-report');
 Route::post('/massage-spam-report', [ReportMassageController::class,'saveSpamReportForAdvertiser'])->name('massage-spam-report');
+Route::post('/massage-like-dislike', [ReportMassageController::class,'massageLikeDislike'])->name('web.massageLikeDislike');
+
 
 
 

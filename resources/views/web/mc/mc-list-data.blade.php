@@ -18,12 +18,14 @@
  $massage_thumb = config('escorts.escort_default_thumb');
  }
 
-$social_links = $listing->social_links;
+ $social_links = get_social_links($listing->user_id);
+
+
 
 if(isset($social_links['twitter']) && $social_links['twitter']!="")
 $twitter_link =   $social_links['twitter'];
 else
-$twitter_link = "https://x.com/Escorts46919U";     
+$twitter_link = "https://x.com/NMugs32853";     
  
 @endphp
 
