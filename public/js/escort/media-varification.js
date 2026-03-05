@@ -82,13 +82,7 @@ $(document).on('submit', '#mediaVerification', function (e) {
                 text: response.message ?? 'Verification submitted successfully.'
             });
 
-            form.reset();
-
-            $('#verificationPreview').attr(
-                'src',
-                "{{ asset('assets/app/img/upload-media.png')}}"
-            );
-
+             // form.reset();  // 
             $('#mediaVerificationModal').modal('hide');
         },
         error: function (xhr) {

@@ -34,6 +34,7 @@ use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\Admin\ShareholderNotificationController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
+use App\Http\Controllers\Admin\MediaVerificationController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 use App\Http\Controllers\User\Dashboard\UserController;
 ####### Track user info like device last page visit city ip address etc ########
@@ -278,9 +279,9 @@ Route::get('/management/statistics/num', function () {
     return view('admin.management.statistics.num');
 })->name('admin.num');
 
-Route::get('/reports/media-verification', function () {
-    return view('admin.reports.media-verification.index');
-})->name('admin.media-verification');
+
+route::get('/reports/media-verification', [MediaVerificationController::class, 'index'])->name('admin.media-verification');
+route::get('/reports/media-verification-list', [MediaVerificationController::class, 'mediaVerificationLList'])->name('admin.media-verification-list');
 
 Route::get('support-tickets', function () {
     return view('admin.support-tickets');

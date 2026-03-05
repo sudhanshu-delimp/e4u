@@ -486,7 +486,7 @@
                             </div>
                         </div> --}}
 
-                         {{-- Issko remove nahi karna hai Bhai Log --}}
+                         {{-- Don't Remove This  --}} 
                                 <!-- Templates Tab -->
                                     <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
 

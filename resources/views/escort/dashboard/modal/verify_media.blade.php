@@ -18,7 +18,7 @@
                                         <div class="col-sm-12 p-0 text-center">
                                             <div class="">
                                                 <div class="plate"><label class="newbtn">
-                                                    <img id="blah9" class="img-fluid px-2   preview-image js_VerificationMedia" src="{{ asset('assets/app/img/upload-media.png')}}" style="width: 400px;object-fit: cover; height:100%">
+                                                    <img id="blah9" class="img-fluid px-2   preview-image js_VerificationMedia" src="{{ $imageUrl  }}" style="width: 400px;object-fit: cover; height:100%">
                                                     <input name="image" id="upload_varification_img" class="pis galleryMedia" onchange="readVarificationImageURL(this);" type="file" accept="image/*" >
                                                     </label>
                                                 </div>
@@ -26,17 +26,17 @@
                                             <div class="verification-type mt-3 d-flex justify-content-center gap-20">
 
                                                 <div class="verification-type-title mb-2">
-                                                    <input type="radio" id="selfie" name="verification_type" value="selfie" checked>
+                                                    <input type="radio" id="selfie" name="verification_type" value="0" checked>
                                                     <label for="selfie">Selfie</label>
                                                 </div>
 
                                                 <div class="verification-type-title mb-2">
-                                                    <input type="radio" id="licence" name="verification_type" value="licence">
+                                                    <input type="radio" id="licence" name="verification_type" value="1">
                                                     <label for="licence">Licence</label>
                                                 </div>
 
                                                 <div class="verification-type-title mb-2">
-                                                    <input type="radio" id="passport" name="verification_type" value="passport">
+                                                    <input type="radio" id="passport" name="verification_type" value="2">
                                                     <label for="passport">Passport</label>
                                                 </div>
 

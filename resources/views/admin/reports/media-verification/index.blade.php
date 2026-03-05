@@ -111,9 +111,7 @@
                             </tr>
                         </thead>
                         <tbody>
-
-
-                            <tr>
+                            <!-- <tr>
                                 <td>E60125</td>
                                 <td>18-02-2026</td>
                                 <td>Tiera</td>
@@ -152,231 +150,7 @@
                                         </div>
                                     </div>
                                 </td>
-                            </tr>
-
-                            <tr>
-                                <td>M50248</td>
-                                <td>17-02-2026</td>
-                                <td>Lin’s Massage Place <sup class="badge badge-danger pt-1">4</sup></td>
-                                <td>1438 028 228</td>
-                                <td>Agent</td>
-                                <td>A50489</td>
-                                <td>Selfie</td>
-                                <td><span class="custom_badge badge_pending">Pending</span></td>
-                                <td class="text-center">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" style="">
-                                            
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-check-circle"></i> Approve</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-ban"></i> Reject</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_image"> <i
-                                                    class="fa fa-eye"></i> View Image</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-centre"> <i
-                                                    class="fa fa-eye"></i> View Centre</a>
-
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>E20147</td>
-                                <td>15-02-2026</td>
-                                <td>Julie</td>
-                                <td>1438 028 259</td>
-                                <td>Escort</td>
-                                <td>N/A</td>
-                                <td>Selfie</td>
-                                <td><span class="custom_badge badge_rejected">Rejected</span></td>
-                                <td class="text-center">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" style="">
-                                            
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-check-circle"></i> Approve</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-ban"></i> Reject</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_image"> <i
-                                                    class="fa fa-eye"></i> View Image</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-centre"> <i
-                                                    class="fa fa-eye"></i> View Centre</a>
-
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>E40258</td>
-                                <td>10-02-2026</td>
-                                <td>Josephine</td>
-                                <td>1438 028 128</td>
-                                <td>Agent</td>
-                                <td>A40789</td>
-                                <td>Passport</td>
-                                <td><span class="custom_badge badge_accepted">Verified</span></td>
-                                <td class="text-center">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" style="">
-                                            
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-check-circle"></i> Approve</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-ban"></i> Reject</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_image"> <i
-                                                    class="fa fa-eye"></i> View Image</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-centre"> <i
-                                                    class="fa fa-eye"></i> View Centre</a>
-
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>M30147</td>
-                                <td>05-02-2026</td>
-                                <td>Perth Massage Centre <sup class="badge badge-danger pt-1">4</sup></td>
-                                <td>1438 028 328</td>
-                                <td>Centre</td>
-                                <td>N/A</td>
-                                <td>Selfie</td>
-                                <td><span class="custom_badge badge_accepted">Verified</span></td>
-                                <td class="text-center">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" style="">
-                                            
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-check-circle"></i> Approve</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-ban"></i> Reject</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_image"> <i
-                                                    class="fa fa-eye"></i> View Image</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-centre"> <i
-                                                    class="fa fa-eye"></i> View Centre</a>
-
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>M40895</td>
-                                <td>30-01-2026</td>
-                                <td>By The River Massage <sup class="badge badge-danger pt-1">4</sup></td>
-                                <td>1438 028 159</td>
-                                <td>Agent</td>
-                                <td>A40025</td>
-                                <td>Selfie</td>
-                                <td><span class="custom_badge badge_rejected">Rejected</span></td>
-                               <td class="text-center">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" style="">
-                                            
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-check-circle"></i> Approve</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-profile"> <i
-                                                    class="fa fa-ban"></i> Reject</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_image"> <i
-                                                    class="fa fa-eye"></i> View Image</a>
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
-                                                    class="fa fa-eye"></i> View Tag</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                href="#" data-toggle="modal" data-target="#view-centre"> <i
-                                                    class="fa fa-eye"></i> View Centre</a>
-
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-
-
-
+                            </tr> -->
                         </tbody>
 
                     </table>
@@ -390,34 +164,25 @@
     @include('admin.reports.modal.verify_masseur_images')
 @endsection
 @section('script')
-    <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
 
-
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-    </script>
-
-
-    <script>
+<script>
+    $(document).ready(function() {
         var table = $("#mediaverifyTable").DataTable({
             language: {
-                search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Member ID"
+            search: "Search: _INPUT_",
+            searchPlaceholder: "Search by Member ID"
             },
-            info: true,
-            paging: true,
-            lengthChange: true,
-            searching: true,
-            bStateSave: true,
-            order: [
-                [1, 'desc']
-            ],
-            lengthMenu: [
-                [10, 25, 50, 100],
-                [10, 25, 50, 100]
-            ],
-            pageLength: 10,
 
-            columns: [{
+            processing: true,
+            serverSide: true,
+            lengthChange: true,
+            searchable:false,
+            bStateSave: false,
+            ajax: {
+                url: "{{ route('admin.media-verification-list') }}",
+            },
+            columns: [
+                {
                     data: 'member_id',
                     name: 'member_id',
                     searchable: true,
@@ -425,9 +190,9 @@
                     defaultContent: 'NA'
                 },
                 {
-                    data: 'date',
-                    name: 'date',
-                    searchable: true,
+                    data: 'created_date',
+                    name: 'created_date',
+                    searchable: false,
                     orderable: false,
                     defaultContent: 'NA'
                 },
@@ -467,8 +232,8 @@
                     defaultContent: 'NA'
                 },
                 {
-                    data: 'status',
-                    name: 'status',
+                    data: 'status_text',
+                    name: 'status_text',
                     searchable: false,
                     orderable: false,
                     defaultContent: 'NA'
@@ -482,6 +247,10 @@
                     class: 'text-center'
                 },
             ],
+            order: [[1, 'desc']],
+            lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+            pageLength: 10,
         });
-    </script>
+    });
+</script>
 @endsection

@@ -16,16 +16,10 @@ class AlterTypeVarifiedAndAddMediaVerificationIdToEscortsMediasTable extends Mig
         Schema::table('escorts_medias', function (Blueprint $table) {
 
             // Drop old columns first
-            $table->dropColumn(['type', 'varified']);
+            $table->dropColumn(['varified']);
         });
 
         Schema::table('escorts_medias', function (Blueprint $table) {
-
-            // Recreate columns with enum
-            $table->enum('type', ['0', '1'])
-                  ->nullable()
-                  ->comment('0=>image; 1=>video')
-                  ->after('user_id');
 
             $table->enum('varified', ['1', '2'])
                   ->nullable()

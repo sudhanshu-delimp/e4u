@@ -17,19 +17,19 @@ class MediaVerification extends Model
 
     protected $casts = [
         'reviewed_at' => 'datetime',
+       'status' => 'string',
     ];
 
    
-
-    const STATUS_PENDING  = 0;
-    const STATUS_APPROVED = 1;
-    const STATUS_REJECTED = 2;
+    const STATUS_PENDING  = '0';
+    const STATUS_APPROVED = '1';
+    const STATUS_REJECTED = '2';
 
     public function getStatusAttribute($value)
     {
         switch ($value) {
             case self::STATUS_APPROVED:
-                return 'Approved';
+                return 'Verified';
             case self::STATUS_REJECTED:
                 return 'Rejected';
             default:
@@ -43,11 +43,9 @@ class MediaVerification extends Model
         return $this->attributes['status'];
     }
 
-
-
     public function setStatusAttribute($value)
     {
-        if ($value === 'Approved') {
+        if ($value === 'Verified') {
             $this->attributes['status'] = self::STATUS_APPROVED;
         } elseif ($value === 'Rejected') {
             $this->attributes['status'] = self::STATUS_REJECTED;
@@ -63,8 +61,9 @@ class MediaVerification extends Model
     }
 
     // Jis admin ne review kiya
-    public function reviewer()
-    {
-        return $this->belongsTo(User::class, 'reviewed_by');
-    }
+    // public function reviewer()
+    // {
+    //     return $this->belongsTo(User::class, 'reviewed_by');
+    // }
+
 }
