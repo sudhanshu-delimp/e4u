@@ -18,7 +18,14 @@
  $massage_thumb = config('escorts.escort_default_thumb');
  }
 
-$social_links = $listing->social_links;
+ $social_links = get_social_links($listing->user_id);
+
+
+
+if(isset($social_links['twitter']) && $social_links['twitter']!="")
+$twitter_link =   $social_links['twitter'];
+else
+$twitter_link = "https://x.com/NMugs32853";     
  
 @endphp
 
@@ -129,10 +136,10 @@ $social_links = $listing->social_links;
              <div class="social_media_icons w-100">
                     <div class="social_media_wrapper">
 
-                        <div class="s_icon ec_playbox_icon">
+                        <!-- <div class="s_icon ec_playbox_icon">
                             <a href="https://e4udev2.perth-cake1.powerwebhosting.com.au/playbox" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/MyPlaybox.png" alt="logo"></a>
                             <div class="custom-tooltip">I don't have any Playbox.</div>
-                        </div>
+                        </div> -->
 
 
                         <div class="d-flex justify-content-between gap-10">
@@ -149,11 +156,11 @@ $social_links = $listing->social_links;
                             </div>
                             @endif
 
-                            @if(isset($social_links['twitter']) && $social_links['twitter']!="")
+                           
                             <div class="s_icon">
-                                <a href="{{$social_links['twitter']}}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" alt="logo"></a>
+                                <a href="{{ $twitter_link  }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" alt="logo"></a>
                             </div>
-                            @endif
+                          
 
 
                         </div>

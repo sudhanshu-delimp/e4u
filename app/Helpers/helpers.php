@@ -13,6 +13,7 @@ use App\Models\EscortMedia;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
 use App\Models\MassageMedia;
+use App\Models\MassageProfile;
 use App\Models\MassageStatistics;
 use App\Models\MasseurMedia;
 use App\Models\State;
@@ -1576,5 +1577,17 @@ function getStateIdByCityId($states, $cityId)
 }
 
 
-
+if (!function_exists('get_social_links')) {
+  function get_social_links($user_id)
+  {
+        $user = MassageProfile::where('user_id',$user_id)->where('default_setting',1)->first();
+        if($user)
+        {
+            if($user->social_links!="")
+            return $user->social_links;
+        }
+        else
+        return [];
+  }
+}
 

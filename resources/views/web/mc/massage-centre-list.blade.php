@@ -135,6 +135,64 @@
         </div>
     </div>
 
+
+     <div class="modal fade hh" id="clear_wishlist" style="display: none">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custome_modal_max_width">
+                <div class="modal-header main_bg_color border-0">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-list" style="color:#ff3c5f !important; font-family: FontAwesome !important;"></i><span
+                            class="popup_modal_title_new">  Clear Shortlist</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0" style="padding: 15px 0px;">
+                    <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                       Are you sure you want to clear the shortlist? 
+                    </h1>
+                </div>
+                <div class="modal-footer pt-0" style="justify-content: center;">
+                    <button type="button" class="btn main_bg_color site_btn_primary yes_clear_short_list" id="close">Yes</button>
+                         <button type="button" class="btn main_bg_color site_btn_primary"  data-dismiss="modal"
+                        id="close">No</button>
+                </div>
+            </div>
+
+        </div>
+     </div>
+
+     <div class="modal fade hh" id="clear_wishlist_confirmation" style="display: none">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custome_modal_max_width">
+                <div class="modal-header main_bg_color border-0">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-list" style="color:#ff3c5f !important; font-family: FontAwesome !important;"></i><span
+                            class="popup_modal_title_new">  Clear Shortlist</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0" style="padding: 15px 0px;">
+                    <h1 class="popu_heading_style mb-4 mt-4 clear_wishlist_confirmation_text" style="text-align: center;">
+                       
+                    </h1>
+                </div>
+                <div class="modal-footer pt-0" style="justify-content: center;">
+                <button type="button" class="btn main_bg_color site_btn_primary"  data-dismiss="modal"id="close">ok</button>
+                </div>
+            </div>
+
+        </div>
+     </div>
+
+
+
+
     <div class="modal fade hh" id="my_legbox" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content custome_modal_max_width">
@@ -166,7 +224,7 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="activeView" value="grid">
+    <input type="hidden" id="activeView">
 </section>
 @endsection
 
@@ -175,8 +233,32 @@
 <script>
 $(document).ready(function () {
     
-    let activeView = 'grid';
-    $('#view_grid').addClass('view-active');
+    var activeView = 'grid';
+    var storage_view = localStorage.getItem('storage_view');
+
+    if (!storage_view) {
+    localStorage.setItem('storage_view', activeView);
+    }
+    else{
+    activeView = localStorage.getItem('storage_view');  
+    }
+
+    console.log('activeView',activeView);
+
+    if(activeView=='list')
+    {
+        $('#view_grid').removeClass('view-active');
+        $('#view_list').addClass('view-active active');
+        $('#activeView').val(activeView);
+    }
+
+    if(activeView=='grid')
+    {
+        $('#view_list').removeClass('view-active');
+        $('#view_grid').addClass('view-active active');
+        $('#activeView').val(activeView);
+    }
+   
 
 
     async function initPage() {
@@ -223,6 +305,7 @@ $(document).ready(function () {
 
         $('.view-active').removeClass('view-active');
         $(this).addClass('view-active active');
+        localStorage.setItem('storage_view', activeView);
     });
 
     $('#view_list').on('click', function () {
@@ -234,6 +317,7 @@ $(document).ready(function () {
 
         $('.view-active').removeClass('view-active active');
         $(this).addClass('view-active active');
+        localStorage.setItem('storage_view', activeView);
     });
 
 
@@ -372,7 +456,6 @@ $(document).ready(function () {
     
 
     /////// Short List ///////////////
-
     $(document).on('click', '.upper_filter', async function(e){
         e.preventDefault();
 
@@ -412,6 +495,42 @@ $(document).ready(function () {
     setInterval(function() {
     location.reload();
     }, 1800000); 
+
+
+
+    //////// Clear Short List /////////
+    $(document).on('click', '.clear_short_list', async function(e){
+    var count = parseInt($('#session_count').text().trim(), 10);
+        if (count > 0) 
+        {
+            $('#clear_wishlist').modal({
+                backdrop: 'static',   
+                keyboard: false      
+            });
+        }
+    });
+
+    $(document).on('click', '.yes_clear_short_list', async function(e){
+
+        $.ajax({
+            url: "{{ route('web.clear-short-list') }}",
+            type: 'POST',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                  $('#clear_wishlist').modal('hide');
+                  $('#session_count').html('0');
+                   let response  = res;  
+                   if(response.status)
+                   {   
+                      $('.clear_wishlist_confirmation_text').html(response.message);
+                      $('#clear_wishlist_confirmation').modal({backdrop: 'static',   keyboard: false });
+                   }
+            }
+        });
+    })
+    
 
 
 });
@@ -459,6 +578,30 @@ $(document).ready(function () {
         }
 
     });
+
+
+    /////// Accordion’s open-close state in local storage ////////
+    document.addEventListener('DOMContentLoaded', function () {
+    const collapseEl = document.getElementById('collapseSearch');
+    const savedState = localStorage.getItem('collapseSearchState'); 
+    if (savedState === 'open') {
+        collapseEl.classList.add('show');
+    } else {
+        collapseEl.classList.remove('show');
+    }
+    $(collapseEl).on('shown.bs.collapse', function () {
+        localStorage.setItem('collapseSearchState', 'open');
+    });
+
+    $(collapseEl).on('hidden.bs.collapse', function () {
+        localStorage.setItem('collapseSearchState', 'closed');
+    });
+    ///// Close Accordion’s open-close state in local storage /////
+
+
+});
+
+
 </script>
 
 @endpush
