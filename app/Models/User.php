@@ -820,7 +820,7 @@ class User extends Authenticatable
     }
     public function operator()
     {
-        return $this->belongsTo(User::class, 'operator_id', 'id')->select('id', 'member_id', 'name', 'business_name', 'abn', 'email', 'phone', 'type', 'status', 'created_by');
+        return $this->belongsTo(User::class, 'operator_id', 'id')->select('id', 'member_id', 'name', 'business_name', 'abn', 'email', 'phone', 'type', 'status', 'created_by', 'country_id');
     }
     public function operator_setting()
     {

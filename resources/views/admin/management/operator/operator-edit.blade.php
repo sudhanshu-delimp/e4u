@@ -26,59 +26,70 @@ if (is_array($operator->contact_type)) {
     <div class="row">
         <!-- Section: Personal Details -->
         <div class="col-12 my-2">
-            <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
+            <h6 class="border-bottom pb-1 text-blue-primary">Operator Details</h6>
         </div>
         <div class="col-6 mb-3">
+             <label class="form-check-label" for="operator_id">Operator ID</label>
              <input type="hidden" name="user_id" value="{{ $operator->id }}">
-            <input type="text" class="form-control rounded-0" placeholder="Operator ID" value="{{ $operator->member_id }}" readonly >
+            <input type="text" class="form-control rounded-0"  value="{{ $operator->member_id }}" readonly >
         </div>
         <div class="col-6 mb-3">
-            <input type="text" name="date_appointed" id="date_appointed_edit" class="form-control rounded-0 js_datepicker_edit" placeholder="Date Appointed(DD-MM-YYYY)"  value="{{ showDateWithFormat($operator->operator_detail->date_appointed, 'd-m-Y') }}" >
+            <label class="form-check-label" for="date_ppointed">Date Appointed</label>
+            <input type="text" name="date_appointed" id="date_appointed_edit" class="form-control rounded-0 js_datepicker_edit"  value="{{ showDateWithFormat($operator->operator_detail->date_appointed, 'd-m-Y') }}" >
             <span class="text-danger error-date_appointed"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Company Name" name="company_name"
+            <label class="form-check-label" for="company_name">Company Name</label>
+            <input type="text" class="form-control rounded-0" name="company_name"
                 id="company_name" value="{{ $operator->name }}">
             <span class="text-danger error-company_name"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Business Name" name="business_name"
+            <label class="form-check-label" for="business_name">Business Name</label>
+            <input type="text" class="form-control rounded-0" name="business_name"
                 id="business_name" value="{{ $operator->business_name }}">
             <span class="text-danger error-business_name"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="ABN" name="abn" id="abn"
+             <label class="form-check-label" for="abn">ABN</label>
+            <input type="text" class="form-control rounded-0" name="abn" id="abn"
                 maxlength="11" value="{{ $operator->abn }}">
             <span class="text-danger error-abn"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Business Address" name="business_address"
+             <label class="form-check-label" for="business_address">Business Address</label>
+            <input type="text" class="form-control rounded-0" name="business_address"
                 id="business_address" value="{{ $operator->business_address }}">
             <span class="text-danger error-business_address"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Business Number" name="business_number"
+            <label class="form-check-label" for="business_number">Business Number</label>
+            <input type="text" class="form-control rounded-0" name="business_number"
                 id="business_number" oninput="this.value = this.value.replace(/\D/g,'');" maxlength="14"  value="{{ $operator->business_number }}">
             <span class="text-danger error-business_number"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Point of Contact" name="point_of_contact"
+            <label class="form-check-label" for="point_of_contact">Point of Contact</label>
+            <input type="text" class="form-control rounded-0" name="point_of_contact"
                 id="point_of_contact" value="{{ $operator->operator_detail->point_of_contact }}">
             <span class="text-danger error-point_of_contact"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Mobile" name="phone" id="phone"
+             <label class="form-check-label" for="phone">Mobile</label>
+            <input type="text" class="form-control rounded-0" name="phone" id="phone"
                 oninput="this.value = this.value.replace(/\D/g,'');" maxlength="14" value="{{ $operator->phone }}">
             <span class="text-danger error-phone"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="email" class="form-control rounded-0" placeholder="Email" name="email" id="email" value="{{ $operator->email }}">
+            <label class="form-check-label" for="email">Email</label>
+            <input type="email" class="form-control rounded-0" name="email" id="email" value="{{ $operator->email }}">
             <span class="text-danger error-email"></span>
         </div>
         <div class="col-6 mb-3">
+            <label class="form-check-label" for="country_id">Territory</label>
             <select class="form-control rounded-0" name="country_id" id="country_id">
                 <option  value="">Select Territory</option>
-                @foreach (config('operator.country') as $skey => $country)
+                @foreach ($countryNotAssignToOperator as $skey => $country)
                     <option value="{{ $skey }}" {{ $operator->country_id == $skey ? 'selected' : '' }}>{{ $country['name'] }}</option>
                     
                 @endforeach
@@ -114,15 +125,18 @@ if (is_array($operator->contact_type)) {
             <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
         </div>
         <div class="col-6 mb-3">
-        <input type="text" name="agreement_date" id="opt_agreement_date" class="form-control rounded-0 js_datepicker_edit" value="{{ showDateWithFormat($operator->operator_detail->agreement_date, "d-m-Y") }}" placeholder="Agreement Date (DD-MM-YYYY)" />
+             <label class="form-check-label" for="agreement_date">Date</label>
+        <input type="text" name="agreement_date" id="opt_agreement_date" class="form-control rounded-0 js_datepicker_edit" value="{{ showDateWithFormat($operator->operator_detail->agreement_date, "d-m-Y") }}"/>
             <span class="text-danger error-agreement_date"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Term" name="term" id="term" value="{{ $operator->operator_detail->term }}">
+            <label class="form-check-label" for="term">Term</label>
+            <input type="text" class="form-control rounded-0" name="term" id="term" value="{{ $operator->operator_detail->term }}">
             <span class="text-danger error-term"></span>
         </div>
         <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="fee" name="fee" id="fee"
+            <label class="form-check-label" for="fee">Fee</label>
+            <input type="text" class="form-control rounded-0" name="fee" id="fee"
                 maxlength="100" value="{{ $operator->operator_detail->fee }}">
             <span class="text-danger error-fee"></span>
         </div>
@@ -145,17 +159,10 @@ if (is_array($operator->contact_type)) {
             <span class="text-danger error-commission_massage_centre_percent"></span>
         </div>
     </div>
-     @php
-        $update_button =
-            $operator->status === 'Pending'
-                ? '<button type="button" class="btn-success-modal mr-2 approve_account" data-id=' .
-                    $operator->id .
-                    '>Approve</button>'
-                : '';
-    @endphp
+    
     <div class="modal-footer p-0">
-        {!! $update_button !!}
         <button type="submit" class="btn-success-modal mr-3">Save</button>
+         <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
     </div>
     
 </form>

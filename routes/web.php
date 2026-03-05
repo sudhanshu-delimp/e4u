@@ -786,4 +786,6 @@ Route::post('/review-massage/{id}', [MassageCentre::class,'SaveReviewMassage'])-
 Route::get('massage-shortlist', [MassageCentre::class,'shortlist_massageList'])->name('find.massage.shortlist');
 Route::get('shortlist-mc-ajax-list', [MassageCentre::class, 'shortlist_mcAjaxList'])->name('shortlist-mc-ajax-list');
 
+Route::get('get_country_by_user_id/{user_id}', [App\Http\Controllers\CountryController::class, 'getCountyByUserId'])->name('web.get_country_by_user_id');
+
 

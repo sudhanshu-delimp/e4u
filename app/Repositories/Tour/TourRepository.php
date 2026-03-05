@@ -176,14 +176,7 @@ class TourRepository extends BaseRepository implements TourInterface
         $i = 1;
         foreach ($result as $key => $item) {
             $item->days_number = $item->days_number;
-            // $item->status = Carbon::parse($item->start_date)->lte(today()->format('Y-m-d')) ?'Current':'Upcoming';
-            $statusText = Carbon::parse($item->start_date)
-                ->lte(today()->format('Y-m-d'))
-                ? 'Current'
-                : 'Upcoming';
-
-            $badgeClass = getStatusBadgeClass(strtolower($statusText));
-            $item->status = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
+            $item->status = Carbon::parse($item->start_date)->lte(today()->format('Y-m-d')) ?'Current':'Upcoming';
             
             $is_checkout = $item->tourPurchase->count();
             $action = '<div class="dropdown no-arrow archive-dropdown">
@@ -211,6 +204,8 @@ class TourRepository extends BaseRepository implements TourInterface
                 } break;
             }
             $action .= '</div></div>';
+            $badgeClass = getStatusBadgeClass(strtolower($item->status));
+            $item->status = "<span class='custom_badge {$badgeClass}'>{$item->status}</span>";
             $item->action = $action;
             $i++;
         }

@@ -75,7 +75,59 @@
              </div>    
         </div>
     </div>
-
+    <button class="btn-cancel-modal" data-target="#tour_summary" data-toggle="modal">Test</button>
+    {{-- Tour Summary popup --}}
+    <div class="modal fade upload-modal" id="tour_summary" tabindex="-1" role="dialog" aria-labelledby="tour_summary"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <img src="{{ asset('assets/dashboard/img/travel.png') }}" class="custompopicon">
+                        <span class="text-white" id="tour_summary">Tour Summary</span>                        
+                     </h5>
+                  
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0 agent-tour">
+                    <div class="table-responsive">
+                        <table class="table table-bordered ">
+                           
+                            <tr>
+                                <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0;">Tour start date : </th>
+                                <td class="location_count">10-06-2025</td>
+                                <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0">Tour end date : </th>
+                                <td class="location_current">15-06-2025</td>
+                            </tr>
+                             <tr>
+                                <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0;">Locations : </th>
+                                <td class="location_count">4</td>
+                                <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0">Current Location : </th>
+                                <td class="location_current">Delhi</td>
+                            </tr>
+                            <tr>
+                               
+                                <th style="color: #0C223D; font-weight:600;">Current Profiles : </th>
+                                <td class="current_profile">Priya Sharma</td>
+                                <th style="color: #0C223D; font-weight:600;">Fees : </th>
+                                <td class="current_fees">$1,200</td>
+                            </tr> 
+                            
+                            <tr>
+                                <td colspan="4">
+                                    
+                                    <div class="current_date">Date : <span>{{ now()->format('d-m-Y') }}</span></div>
+                                </td>
+                            </tr>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end --}}
     {{-- Cancel Tour Popup --}}
     <div class="modal fade upload-modal" id="tour_location_cancel" tabindex="-1" aria-labelledby="new-ban-3" data-backdrop="static" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

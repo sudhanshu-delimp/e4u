@@ -264,6 +264,7 @@ return [
 			2  => 'Arab',
 			1  => 'Asian',
 			3  => 'Black',
+			13 => 'Caucasian',
 			10 => 'European',
 			5  => 'Indian',
 			4  => 'Latina',

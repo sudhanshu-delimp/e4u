@@ -56,7 +56,19 @@
           <script src="{{ asset('assets/js/web-socket.js') }}"></script>
           <script src="{{ config('constants.socket_url') }}/socket.io/socket.io.js"></script> -->
         <script>
-            
+            function getCountryByUserId(obj, type) {
+                var operatorId = $(obj).val();
+                 $('#'+type+'country_id').empty();
+                $.get("/get_country_by_user_id/" + operatorId, function(response) {
+                    if (response.status) {
+                        $('#'+type+'country_id').append(
+                            '<option value="' + response.country_id + '">' + response
+                            .country_name +
+                            '</option>'
+                        );
+                    }
+                });
+            }
             var initJsDatePicker = function() {
                 var $inputs = $(".js_datepicker");
                 if ($inputs.length > 0) {
