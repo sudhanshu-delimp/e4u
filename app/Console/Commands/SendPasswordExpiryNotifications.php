@@ -57,6 +57,10 @@ class SendPasswordExpiryNotifications extends Command
                 continue; 
             }
 
+            if ($setting->password_expiry_days == 'never') {
+                continue; 
+            }
+
 
 
             $passwordUpdatedDate = Carbon::parse($setting->password_updated_date);
