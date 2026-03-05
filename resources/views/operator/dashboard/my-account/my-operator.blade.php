@@ -79,7 +79,7 @@
 
                                             <div class="row">
                                                 <div class="col-12 my-2">
-                                                    <h5>Personal Details</h5>
+                                                    <h5>Operator Details</h5>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">

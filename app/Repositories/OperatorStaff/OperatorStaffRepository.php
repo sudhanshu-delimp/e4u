@@ -176,7 +176,7 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
             $password  = random_string($type = 'alnum', $len = 8);
             $user->update(['status' =>  $data['status'], 'password' => Hash::make($password)]);
             $this->sendApprovalEmail($user, $password);
-            return $this->response = ['status' => true, 'message' => 'Operator staff account approved successfully.'];
+            return $this->response = ['status' => true, 'message' => 'Staff account approved successfully.'];
         } else {
             return $this->response = ['status' => true, 'message' => 'Error occured while approving the user.'];
         }
@@ -189,7 +189,7 @@ class OperatorStaffRepository extends BaseRepository implements OperatorStaffInt
         if ($user && $data['status'] != "") {
             $user->update(['status' => '1']);
             $this->sendActiveEmail($user);
-            return $this->response = ['status' => true, 'message' => 'Operator staff account activated successfully.'];
+            return $this->response = ['status' => true, 'message' => 'Staff account activated successfully.'];
         } else {
             return $this->response = ['status' => true, 'message' => 'Error occured while activating the user.'];
         }
