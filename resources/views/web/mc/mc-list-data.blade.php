@@ -136,10 +136,10 @@ $twitter_link = "https://x.com/NMugs32853";
              <div class="social_media_icons w-100">
                     <div class="social_media_wrapper">
 
-                        <div class="s_icon ec_playbox_icon">
+                        <!-- <div class="s_icon ec_playbox_icon">
                             <a href="https://e4udev2.perth-cake1.powerwebhosting.com.au/playbox" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/MyPlaybox.png" alt="logo"></a>
                             <div class="custom-tooltip">I don't have any Playbox.</div>
-                        </div>
+                        </div> -->
 
 
                         <div class="d-flex justify-content-between gap-10">
