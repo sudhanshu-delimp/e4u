@@ -1290,7 +1290,7 @@
                                         
                                         @foreach($reviews as $key => $review)
                                             @php
-                                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id && $review->escort_id == $listing->id){
+                                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id && $review->massage_id == $listing->id){
                                                     $reviewAlreadyExist = true;
                                                     $reviewExistsMessage = $review->description;
                                                     $reviewExistsStarRating = $review->star_rating;

@@ -348,7 +348,11 @@ class MassageCentre extends Controller
             return redirect(route('find.massage.centre'));
         }
 
-         $listing = MassageProfile::where('id','=',$id)->first();
+         $listing = MassageProfile::where('id',$id)->with(['reviews' => function($q){
+            $q->where('status','published');
+        },'reviews.user'])->first();
+
+         //$listing = MassageProfile::where('id','=',$id)->first();
          $reviews = $listing->reviews;
          $massage_durations = (isset($listing->durations) && count($listing->durations)>0) ? $listing->durations->toArray() : [];
 
