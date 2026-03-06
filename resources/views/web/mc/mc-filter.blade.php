@@ -125,8 +125,8 @@
                                                 </div>
                                             </div>
                                             <div class="display_inline_block mb-1">
-                                                <a type="submit" href="{{ route('web.massage-show-list') }}"
-                                                    class="btn reset_filter " data-toggle="tooltip" title="">
+                                                <a type="submit" href="javascript:void(0);"
+                                                    class="btn reset_filter clear_short_list" data-toggle="tooltip" title="">
                                                     Clear Shortlist
                                                 </a>
                                             </div>

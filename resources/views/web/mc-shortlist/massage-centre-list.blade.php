@@ -557,6 +557,28 @@ $(document).ready(function () {
         }
 
     });
+
+    /////// Accordion’s open-close state in local storage ////////
+    document.addEventListener('DOMContentLoaded', function () {
+    const collapseEl = document.getElementById('collapseSearch');
+    const savedState = localStorage.getItem('collapseSearchState'); 
+    if (savedState === 'open') {
+        collapseEl.classList.add('show');
+    } else {
+        collapseEl.classList.remove('show');
+    }
+    $(collapseEl).on('shown.bs.collapse', function () {
+        localStorage.setItem('collapseSearchState', 'open');
+    });
+
+    $(collapseEl).on('hidden.bs.collapse', function () {
+        localStorage.setItem('collapseSearchState', 'closed');
+    });
+    });
+    ///// Close Accordion’s open-close state in local storage /////
+
+
+
 </script>
 
 @endpush

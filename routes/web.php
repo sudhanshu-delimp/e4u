@@ -1,51 +1,52 @@
 <?php
 
-use App\Models\User;
-use App\Models\Pricing;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Cookie;
-use App\Http\Controllers\MassageCentre;
-use App\Http\Controllers\WebController;
-use App\Http\Controllers\DemoController;
-use App\Http\Controllers\BlogsController;
-use App\Mail\sendPlaymateAccountDisableMail;
-use App\Http\Controllers\ContactUsController;
-use App\Http\Controllers\NotificationSetting;
-use App\Http\Controllers\Admin\TaskController;
-use App\Http\Controllers\InfluencerController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\Center\CenterController;
-use App\Http\Controllers\Escort\EscortController;
-use App\Http\Controllers\Escort\PinUpsController;
-use App\Http\Controllers\Viewer\ViewerController;
 use App\Http\Controllers\AccountSettingController;
-use App\Http\Controllers\SupportTicketsController;
-use App\Http\Controllers\User\Auth\LoginController;
-use App\Http\Controllers\Escort\ConciergeController;
-use App\Http\Controllers\Escort\MyPlaymatesContoller;
-use App\Http\Controllers\Agent\AgentAccountController;
-use App\Http\Controllers\Agent\AgentRequestController;
-use App\Http\Controllers\User\Auth\RegisterController;
-use App\Http\Controllers\Agent\AgentRegisterController;
-use App\Http\Controllers\User\Dashboard\UserController;
-use App\Http\Controllers\AdvertiserSpamReportController;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
-use App\Http\Controllers\Center\Profile\MassageController;
-use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Http\Controllers\Admin\ManagePeopleStaffController;
-use App\Http\Controllers\Escort\EscortStatisticsController;
-use App\Http\Controllers\Escort\EscortTourScheduleContoller;
-use App\Http\Controllers\GetCurrentUserGeolocationController;
-use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
-use App\Http\Controllers\Escort\EscortViewerInteractionController;
-use App\Http\Controllers\Viewer\ViewerEscortInteractionController;
-use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
-use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
-use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
+use App\Http\Controllers\Admin\TaskController;
+use App\Http\Controllers\AdvertiserSpamReportController;
+use App\Http\Controllers\Agent\AgentAccountController;
+use App\Http\Controllers\Agent\AgentRegisterController;
+use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
+use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
+use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\Center\CenterController;
+use App\Http\Controllers\Center\Profile\MassageController;
+use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\DemoController;
+use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
+use App\Http\Controllers\Escort\ConciergeController;
+use App\Http\Controllers\Escort\EscortController;
+use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
+use App\Http\Controllers\Escort\EscortStatisticsController;
+use App\Http\Controllers\Escort\EscortTourScheduleContoller;
+use App\Http\Controllers\Escort\EscortViewerInteractionController;
+use App\Http\Controllers\Escort\MyPlaymatesContoller;
+use App\Http\Controllers\Escort\PinUpsController;
+use App\Http\Controllers\GetCurrentUserGeolocationController;
+use App\Http\Controllers\InfluencerController;
+use App\Http\Controllers\MassageCentre;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\NotificationSetting;
+use App\Http\Controllers\ReportMassageController;
+use App\Http\Controllers\SupportTicketsController;
+use App\Http\Controllers\User\Auth\LoginController;
+use App\Http\Controllers\User\Auth\RegisterController;
+use App\Http\Controllers\User\Dashboard\UserController;
+use App\Http\Controllers\Viewer\ViewerController;
+use App\Http\Controllers\Viewer\ViewerEscortInteractionController;
+use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
+use App\Http\Controllers\Viewer\ViewerPrefrenceController;
+use App\Http\Controllers\WebController;
+use App\Mail\sendPlaymateAccountDisableMail;
+use App\Models\Pricing;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -451,7 +452,6 @@ Route::post('/asend-otpt-passord', [App\Http\Controllers\SendForgotPasswordContr
 
 
 Route::post('/like-dislike', [App\Http\Controllers\WebController::class,'likeDislike'])->name('web.likeDislike');
-Route::post('/massage-like-dislike', [App\Http\Controllers\WebController::class,'massageLikeDislike'])->name('web.massageLikeDislike');
 
 
 
@@ -769,6 +769,9 @@ Route::get('/testscript', function(){
 });
 
 
+Route::get('get_country_by_user_id/{user_id}', [App\Http\Controllers\CountryController::class, 'getCountyByUserId'])->name('web.get_country_by_user_id');
+
+
 
 ################### Massage Centre Profile Page Url ###############
 Route::get('massage-centres-list', [MassageCentre::class,'massageList'])->name('find.massage.centre');
@@ -777,8 +780,7 @@ Route::get('massage-description/{id}', [MassageCentre::class, 'massage_descripti
 Route::post('/store-short-list', [MassageCentre::class, 'storeShortList'])->name('web.store-short-list');
 Route::post('/remove-short-list', [MassageCentre::class, 'removeShortList'])->name('web.remove-short-list');
 Route::post('/review-massage/{id}', [MassageCentre::class,'SaveReviewMassage'])->name('web.review-massage');
-
-
+Route::post('/clear-short-list', [MassageCentre::class,'clearShortList'])->name('web.clear-short-list');
 
 
 
@@ -786,6 +788,11 @@ Route::post('/review-massage/{id}', [MassageCentre::class,'SaveReviewMassage'])-
 Route::get('massage-shortlist', [MassageCentre::class,'shortlist_massageList'])->name('find.massage.shortlist');
 Route::get('shortlist-mc-ajax-list', [MassageCentre::class, 'shortlist_mcAjaxList'])->name('shortlist-mc-ajax-list');
 
-Route::get('get_country_by_user_id/{user_id}', [App\Http\Controllers\CountryController::class, 'getCountyByUserId'])->name('web.get_country_by_user_id');
+################### Report Massage By Viewer ################
+Route::get('/massage-spam-report', [ReportMassageController::class,'getSpamReportForAdvertiser'])->name('massage-spam-report');
+Route::post('/massage-spam-report', [ReportMassageController::class,'saveSpamReportForAdvertiser'])->name('massage-spam-report');
+Route::post('/massage-like-dislike', [ReportMassageController::class,'massageLikeDislike'])->name('web.massageLikeDislike');
+
+
 
 

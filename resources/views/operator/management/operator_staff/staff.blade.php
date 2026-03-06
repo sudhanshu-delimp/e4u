@@ -58,14 +58,14 @@ $operatorCountryName = isset(auth()->user()->operator->country->name) ? auth()->
                                             <table class="table mb-3 w-100" id="staff_data_table">
                                                 <thead class="opr-table-bg">
                                                     <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">Staff Member</th>
+                                                        <th scope="col">Staff ID</th>
+                                                        <th scope="col">Name</th>
                                                         <th scope="col">Security</th>
                                                         <th scope="col">Position</th>
                                                         <th scope="col" style="width: 86px;">Mobile</th>
                                                         <th scope="col">Email</th>
                                                         {{-- <th scope="col">Operator</th> --}}
-                                                        <th scope="col">Created By</th>
+                                                       {{--  <th scope="col">Created By</th> --}}
                                                         <th scope="col">Logins</th>
                                                         <th scope="col" style="width: 180px;">Last Login</th>
                                                         <th scope="col">Status</th>
@@ -506,14 +506,14 @@ $operatorCountryName = isset(auth()->user()->operator->country->name) ? auth()->
                         searchable: false,
                         orderable: false,
                         defaultContent: 'NA'
-                    }, */
+                    }, 
                     {
                         data: 'created_by',
                         name: 'created_by',
                         searchable: false,
                         orderable: false,
                         defaultContent: 'NA'
-                    },
+                    },*/
                     {
                         data: 'login_count',
                         name: 'login_count',
