@@ -10,6 +10,7 @@
    .swal-button {
    background-color: #242a2c;
    }
+   
 </style>
 @stop
 @section('content')
@@ -55,9 +56,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="listing-container">
+
                 <form id="socials_link" action="#" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
-            
                     <!-- Header -->
                     <div class="listing-header" style="text-align:right; margin-bottom:15px;">
                         <button type="button" class="nex_sterp_btn" id="add_listing" disabled>Add Listing</button>
@@ -74,47 +75,40 @@
                                 <!-- Choose Profile -->
                                 <div class="listing-field">
                                     <label>Choose Profile:</label>
-                                    <select name="escort_id[]" required>
+                                    <select name="massage_id[]" required>
                                         <option value="">Select One</option>
-                                        <option value="Bunny">Bunny</option>
-                                        {{-- @foreach($centers as $escort)
-                                            <option value="{{$escort->id}}">{{$escort->name}} ({{$escort->profile_name}})</option>
-                                        @endforeach --}}
+                                        @foreach($profiles as $profile)
+                                            <option value="{{$profile->id}}">{{$profile->profile_name}}</option>
+                                        @endforeach 
                                     </select>
                                 </div>
             
-                                <!-- Start Date -->
+                               
                                 <div class="listing-field">
                                     <label>Start Date:</label>
-                                    <input type="date" name="start_date[]" class="profile_start" onkeydown="return false" required>
+                                    <input type="text" name="start_date[]" class="profile_start js_datepicker" onkeydown="return false" required>
+                                    <span class="start-date-error date-error" style="color:red; font-size:12px;"></span>
+                                
                                 </div>
             
-                                <!-- End Date -->
+                              
                                 <div class="listing-field">
                                     <label>End Date:</label>
-                                    <input type="date" name="end_date[]" class="profile_end" onkeydown="return false" required>
+                                    <input type="text" name="end_date[]" class="profile_end js_datepicker" onkeydown="return false" required>
+                                    <span class="end-date-error date-error" style="color:red; font-size:12px;"></span>
                                 </div>
             
-                                <!-- Membership Type -->
-                                <div class="listing-field">
-                                    <label>Membership Type:</label>
-                                    <select name="membership[]" required>
-                                        <option value="">-Not Set-</option>
-                                        <option value="1">Platinum</option>
-                                        <option value="2">Gold</option>
-                                        <option value="3">Silver</option> 
-                                        <option value="4">Free</option>
-                                    </select>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
             
                     <!-- Footer -->
                     <div class="listing-footer" style="text-align:right; margin-top:20px;">
-                        <button type="submit" class="save_profile_btn" id="escort-form-submit-btn">Proceed to Payment</button>
+                        <button type="submit" class="save_profile_btn" id="escort-form-submit-btn" disabled="true">Proceed to Payment</button>
                     </div>
                 </form>
+
             </div>
             
         </div>
@@ -125,10 +119,6 @@
 @endsection
 
 @push('script')
-<!-- file upload plugin start here -->
-
-
-
 <!-- file upload plugin end here -->
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
@@ -137,4 +127,196 @@
 
 <script type="text/javascript">
 
+$(document).ready(function () {
+
+    function checkAllRows() 
+    {
+            let valid = true;
+            $(".eachListing").each(function () {
+
+                let profile = $(this).find('select[name="massage_id[]"]').val();
+                let start = $(this).find('.profile_start').val();
+                let end = $(this).find('.profile_end').val();
+                let error = $(this).find('.date-error').text();
+
+                if (!profile || !start || !end || error !== '') {
+                    valid = false;
+                    is_form_valid  = false;
+                }
+
+            });
+
+            $("#add_listing").prop("disabled", !valid);
+    }
+
+    
+    $(document).on('change', '.profile_start, .profile_end, select[name="massage_id[]"]', function () 
+    {
+
+        var is_form_valid = true;
+        let row = $(this).closest('.eachListing');
+        let start = row.find('.profile_start').val();
+        let end = row.find('.profile_end').val();
+
+        let startError = row.find('.start-date-error');
+        let endError = row.find('.end-date-error');
+
+         startError.text('');
+         endError.text('');
+
+        // Validate End Date > Start Date
+        if (start && end) {
+
+            let startDate = new Date(start);
+            let endDate = new Date(end);
+
+            if (endDate <= startDate) {
+
+                endError.text("End date must be greater than Start date");
+                row.find('.profile_end').val('');
+                $("#add_listing").prop("disabled", true);
+                is_form_valid  = false;
+                return;
+            }
+        }
+
+
+        let prevRow = row.prev('.eachListing');
+        if (prevRow.length) {
+
+            let prevEnd = prevRow.find('.profile_end').val();
+
+            if (prevEnd && start) {
+
+                let prevEndDate = new Date(prevEnd);
+                let startDate = new Date(start);
+
+                if (startDate <= prevEndDate) {
+
+                    startError.text("Start date must be greater than previous listing End date");
+                    row.find('.profile_start').val('');
+                    $("#add_listing").prop("disabled", true);
+                    is_form_valid  = false;
+                    return;
+                }
+            }
+        }
+
+        checkAllRows();
+        checkDateOverlap();
+
+    });
+
+ 
+    $("#add_listing").click(function () {
+
+        let lastRow = $(".eachListing").last();
+        let lastEndDate = lastRow.find(".profile_end").val();
+        let newRow = lastRow.clone();
+        newRow.find("select").val('');
+        newRow.find("input").val('');
+        newRow.find(".date-error").text('');
+        newRow.find(".js_datepicker").removeClass("hasDatepicker").removeAttr("id");
+
+        $(".eachListing").last().after(newRow);
+
+        let minStartDate = 0;
+
+        if (lastEndDate) {
+            let nextDay = new Date(lastEndDate);
+            nextDay.setDate(nextDay.getDate() + 1);
+            minStartDate = nextDay;
+        }
+
+        // start date picker
+        newRow.find(".profile_start").datepicker({
+            dateFormat: "yy-mm-dd",
+            minDate: minStartDate
+        });
+
+        // end date picker
+        newRow.find(".profile_end").datepicker({
+            dateFormat: "yy-mm-dd",
+            minDate: minStartDate
+        });
+
+        $("#add_listing").prop("disabled", true);
+
+    });
+
+    
+    $(document).on("click", ".removeCross", function () {
+        if ($(".eachListing").length > 1) {
+            $(this).closest(".eachListing").remove();
+        }
+
+    });
+
+});
+
+
+function checkDateOverlap() {
+
+    let rows = [];
+    let overlap = false;
+    let incomplete = false;
+
+    $(".eachListing").each(function () {
+
+        let profile = $(this).find("select[name='massage_id[]']").val();
+        let start = $(this).find(".profile_start").val();
+        let end = $(this).find(".profile_end").val();
+
+        if (!profile || !start || !end) {
+            incomplete = true;
+        }
+
+        rows.push({
+            profile: profile,
+            start: start ? new Date(start) : null,
+            end: end ? new Date(end) : null
+        });
+
+    });
+
+    // check overlap
+    for (let i = 0; i < rows.length; i++) {
+
+        for (let j = i + 1; j < rows.length; j++) {
+
+            if (
+                rows[i].profile &&
+                rows[j].profile &&
+                rows[i].profile === rows[j].profile &&
+                rows[i].start &&
+                rows[i].end &&
+                rows[j].start &&
+                rows[j].end
+            ) {
+
+                if (
+                    rows[i].start <= rows[j].end &&
+                    rows[j].start <= rows[i].end
+                ) {
+                    overlap = true;
+                }
+
+            }
+
+        }
+
+    }
+
+    if (overlap || incomplete) {
+        $("#escort-form-submit-btn").prop("disabled", true);
+    } else {
+        $("#escort-form-submit-btn").prop("disabled", false);
+    }
+
+}
+$(".js_datepicker").datepicker({
+    dateFormat: "yy-mm-dd",
+    minDate: 0
+});
+</script>
 @endpush
