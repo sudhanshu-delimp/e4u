@@ -55,7 +55,7 @@
 
                                 <div class="col-md-3">
                                     <label>Select Top Up Amount</label>
-                                    <select class="form-control">
+                                    <select class="form-control" name="amount" id="amount">
                                         <option value="100">AU$100</option>
                                         <option value="200">AU$200</option>
                                         <option value="500">AU$500</option>
@@ -69,7 +69,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">AU$</span>
                                         </div>
-                                        <input type="number" class="form-control" placeholder="Enter amount e.g. 100"
+                                        <input type="text" name="custom_amount" id="custom_amount" class="form-control" placeholder="Enter amount e.g. 100"
                                             disabled>
                                     </div>
 
@@ -92,7 +92,7 @@
 
                     <div class="table-responsive">
 
-                        <table class="table w-100">
+                        <table class="table w-100" id="TransactionTable">
                             <thead class="table-bg">
                                 <tr>
                                     <th>Date</th>
@@ -200,7 +200,17 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-
+    <script>
+        $(document).ready(function(){
+            $('#amount').on('change', function(){
+                if($(this).val() === 'other'){
+                    $('#custom_amount').prop('disabled', false);
+                } else {
+                    $('#custom_amount').prop('disabled', true).val('');
+                }
+            })
+        })
+    </script>
     <script>
         let selectedAmount = 0;
 
@@ -227,14 +237,10 @@
             // Add further integration (2FA, API submission, etc.) here
         }
     </script>
-
     <script type="text/javascript">
         $('#userProfile').parsley({
 
         });
-
-
-
         $('#userProfile').on('submit', function(e) {
             e.preventDefault();
 
@@ -387,4 +393,35 @@
             }
         });
     </script>
+
+    
+<script>
+    var table = $("#TransactionTable").DataTable({
+        language: {
+            search: "Search: _INPUT_",
+            searchPlaceholder: "Search by Payment Type"
+        },
+        info: true,
+        paging: true,
+        lengthChange: true,
+        searching: true,
+        bStateSave: true,
+        order: [
+            [1, 'desc']
+        ],
+        lengthMenu: [
+            [10, 25, 50, 100],
+            [10, 25, 50, 100]
+        ],
+        pageLength: 10,
+
+           columns: [
+               { data: 'date_issued', name: 'date_issued', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'description', name: 'description', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'type', name: 'type', searchable: true, orderable:false ,defaultContent: 'NA'},
+               { data: 'amount', name: 'amount', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'balance', name: 'balance', searchable: true, orderable:true,defaultContent: 'NA' },
+           ],
+    });
+</script>
 @endpush
