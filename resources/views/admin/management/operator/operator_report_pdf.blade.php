@@ -159,7 +159,7 @@
                         </h6>
                     </div>
 
-                    <h6 class=" text-blue-primary">Merchant Details</h6>
+                    <h6 class=" text-blue-primary">Operator Details</h6>
                     <table class="table table-bordered mb-3">
                         <tr>
                             <th width="40%">Operator ID</th>

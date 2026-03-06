@@ -123,9 +123,9 @@ class OperatorController extends BaseController
         ];
 
         $error = true;
-        if ($this->user->store($data, auth()->user()->id)) {
+       if ($this->user->where('id', auth()->user()->id)->update($data)) {
             $data = $request->all();
-            $user = OperatorStaff::where('id', $data['user_id'])->first();
+            $user = OperatorStaff::where('id', auth()->user()->id)->first();
             $staff = $user->operator_staff_detail;
             $staff->update([
                 //'name' => $data['name'] ?? $staff->name,

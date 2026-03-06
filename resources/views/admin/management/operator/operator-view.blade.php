@@ -49,8 +49,8 @@ $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$op
                 <h6 class="mb-0">{{ $operator->name }}</h6>
             </div>
 
-            <!-- Merchant Details -->
-            <h6 class=" text-blue-primary">Merchant Details</h6>
+            <!-- Operator Details -->
+            <h6 class=" text-blue-primary">Operator Details</h6>
             <table class="table table-bordered mb-3">
                 <tr>
                     <th width="40%">Operator ID</th>
