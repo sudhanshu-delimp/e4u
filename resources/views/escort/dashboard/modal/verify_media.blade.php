@@ -18,7 +18,7 @@
                                         <div class="col-sm-12 p-0 text-center">
                                             <div class="">
                                                 <div class="plate"><label class="newbtn">
-                                                    <img id="blah9" class="img-fluid px-2 js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/upload-media.png')}}" style="width: 400px;object-fit: cover; height:100%">
+                                                    <img id="blah9" class="img-fluid px-2 js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/upload-media.png')}}" style="width: 400px;object-fit: cover; height:250px">
                                                     <input name="banner" id="upload_banner" class="pis galleryMedia" onchange="readImageURL(this);" type="file" accept="image/*" >
                                                     <input type="hidden" name="position[]" id="mediaBanner">
                                                     </label>

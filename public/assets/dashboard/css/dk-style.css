@@ -3015,8 +3015,8 @@ button.btn:focus {
 /* Make all images fill properly */
 
 .view_img_gallery img {
-    width: 100%;
-    height: 100%;
+    width: 140px;
+    height: 120px;
     object-fit: cover;
     border-radius: 6px;
 }
@@ -3032,9 +3032,9 @@ button.btn:focus {
 /* Center 6 Images Grid */
 
 .view_img_gallery .other_images {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* grid-template-rows: repeat(2, 150px); */
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     gap: 10px;
     height: 400px;
     overflow: auto;
@@ -3061,7 +3061,7 @@ button.btn:focus {
 
 .thumbnail img,
 .verification img {
-    height: 100%;
+    height: 400px;
     width: 100%;
     object-fit: cover;
 }
@@ -3085,7 +3085,7 @@ button.btn:focus {
 
 .view_img_gallery_masseur img {
     width: 100%;
-    height: 100%;
+    height: 112px;
     object-fit: cover;
     border-radius: 6px;
 }
@@ -3105,7 +3105,7 @@ button.btn:focus {
 
 .view_img_gallery_masseur .thumbnail img,
 .view_img_gallery_masseur .verification img {
-    height: 100%;
+    height: 360px;
     width: 100%;
     object-fit: cover;
 }
