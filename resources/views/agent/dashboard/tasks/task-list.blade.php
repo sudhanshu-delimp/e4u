@@ -75,15 +75,15 @@
                             <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-10">
                                 <div class="total_listing">
                                     <div><span>In Progress Task : </span></div>
-                                    <div><span class="totalInprogressTask">03</span></div>
+                                    <div><span class="totalInprogressTask">0</span></div>
                                 </div>
                                 <div class="total_listing">
                                     <div><span>Open Task : </span></div>
-                                    <div><span class="totalOpenTask">11</span></div>
+                                    <div><span class="totalOpenTask">0</span></div>
                                 </div>
                                 <div class="total_listing">
                                     <div><span>Completed Task : </span></div>
-                                    <div><span class="totalCompletedTask">11</span></div>
+                                    <div><span class="totalCompletedTask">0</span></div>
                                 </div>
                             </div>
                             <div class="text-center small d-flex justify-content-end align-items-center gap-10 flex-wrap">
@@ -196,11 +196,11 @@
             // calulcate task summery
             let formData = $('#task_form').serialize(); // serialize form data
             let actionUrl = '{{route("agent.dashboard.ajax-open-task")}}';
-            callAjax(formData, actionUrl);
+
+             callAjax(formData, actionUrl);
 
             $(".showDateLabel").hide();
             // Reusable click event
-            // $('.create-tour-sec').on('click', function(e) {
             $(document).on('click', '.create-tour-sec-dropdown, .create-tour-sec', function(e) {
                 e.preventDefault();
                 $(".showDateLabel").hide();
@@ -208,10 +208,6 @@
                 let buttonId = $(this).attr('id');
                 let taskId = $(this).data('id');
                 let taskName = $(this).text();
-
-                console.log('hell', buttonId);
-                console.log('taskId ', taskId);
-
 
                 if (buttonId == 'new_task') {
                     $(".task_title_img").attr('src',"{{ asset('assets/dashboard/img/add-task.png') }}");
@@ -234,10 +230,8 @@
                     let formData = $('#task_form').serialize(); // serialize form data
                     let actionUrl = '{{route("agent.dashboard.ajax-open-task")}}';
                     callAjax(formData, actionUrl);
-                    openTask();
-                } else {
-
-                }
+                   // openTask();
+                } 
 
                 // Show modal
                 $('#taskModal').modal('show');
@@ -249,8 +243,6 @@
                 let formData = $('#task_form').serialize(); // serialize form data
                 let actionUrl = $('#task_form').attr('action');  
 
-                console.log(formData, actionUrl, ' jitemn');
-
                 callAjax(formData, actionUrl);
                 
             });
@@ -261,22 +253,20 @@
             $(this).next('.task-form-body').slideToggle();
             $(this).toggleClass('open');
 
-            console.log('Toggle clicked');
-
             if ($(this).hasClass('open')) {
                 $(this).find('i').removeClass('top-icon-bg fas fa-chevron-down fa-fw');
                 $(this).find('i').addClass('top-icon-bg fas fa-chevron-up fa-fw');
-                console.log('Toggle open');
+
             } else {
                 $(this).find('i').removeClass('top-icon-bg fas fa-chevron-up fa-fw');
                 $(this).find('i').addClass('top-icon-bg fas fa-chevron-down fa-fw');
-                console.log('Toggle close');
+
             }
         });
 
         function newTask() {
             let addNewTaskHtml = `
-                <div class="mx-auto my-2 col-md-11">
+                <div class="mx-auto my-2 col-md-12">
                     <div class="form-group ">
                         <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
                         <input id="title" placeholder="Enter Title..." name="title" type="text"
@@ -320,22 +310,15 @@
             $("#cancel_button").text('Cancel');
             $(".showDateLabel").show();
            
-            console.log('hey new task');
         }
 
         function editTask(taskId) 
         {
-            console.log('checkboxInputs');
-
             let selectedTask = 1;
             let editNewTaskHtml = ``;
                 editNewTaskHtml += `
-                    <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
-                        <div class=" col-md-12 card shadow-sm  rounded-3">
-                            <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10" style="background:#C2CFE0; ">
-                                <h6 class="mb-0 text-dark">Task Summary</h6> <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>                            
-                            </div>
-                            <div class="task-form-body p-2" style="display: block;">
+                    <div class="col-md-12" style="cursor:pointer;">
+                             <div class="task-form-body" style="display: block;">
                                 <!-- Your original form HTML -->
                                 <div class="form-group">
                                     <input name="task_id" value="`+taskId+`" type="hidden" 
@@ -373,7 +356,6 @@
                                     <textarea class="form-control" id="edit_description" name="description" rows="5" placeholder="Up to 300 characters"></textarea>
                                 </div>
                             </div>
-                        </div>
                         
                     </div>
                 `;
@@ -394,6 +376,7 @@
             $("#save_button").text('Update');
             $("#cancel_button").text('Cancel');
             $(".showDateLabel").show();
+            
         }
 
         function fetchAllTaskData()
@@ -431,8 +414,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
                 },
                 success: function(response) {
-                    console.log(response)
-                    console.log(response.task)
                     if(response.task){
                         $("#edit_title").val(response.task.title);
                         $('input[name="task_priority"][value="' + response.task.priority + '"]').prop('checked', true);
@@ -462,7 +443,7 @@
             }
 
             completeHtml =
-                `<div class="mx-2 my-3 col-md-12"><h4 id="task_desc">Are you sure you want to mark selected tasks as completed?</h4></div>`;
+                `<div class=" text-center my-3 col-md-12"><h4 id="task_desc">Are you sure you want to mark selected tasks as completed?</h4></div>`;
 
             $("#task_form_html").html(completeHtml);
             $("#save_button").text('Yes');
@@ -470,8 +451,6 @@
             $("#cancel_button").text('Cancel');
             let actionStatusUrl = "{{route('agent.dashboard.ajax-change-status')}}";
 
-            console.log('actionStatusUrl');
-            console.log(actionStatusUrl);
             $('#task_form').attr('action', actionStatusUrl)
             $("#change_task_id").val(taskId);
         }
@@ -481,11 +460,8 @@
             let viewTaskHtml = ``;
 
             viewTaskHtml += `
-                <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
-                    <div class=" col-md-12 card shadow-sm  rounded-3">
-                        <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10" style="background:#C2CFE0; ">
-                            <h6 class="mb-0 text-dark">Task Summary</h6> <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>                            
-                        </div>
+                 <div class="col-md-12" style="cursor:pointer;">
+                     <div class="task-form-body" style="display: block;">
                         <div class="task-form-body p-2" style="display: block;">
                             <!-- Your original form HTML -->
                             <div class="form-group">
@@ -579,9 +555,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
                 },
                 success: function(response) {
-                    console.log(response);
-                    // console.log('response');
-
                     if(response.task_name == 'open'){
                         $('.totalOpenTask').text(response.data.open);
                         $('.totalInprogressTask').text(response.data.inprogress);
@@ -650,9 +623,6 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
                     },
                     success: function(response) {
-                        console.log(response, response.data)
-                        console.log('response, response.data.data')
-                        
                         renderTasks(response.data.data); 
                         renderPagination(response.data);  
                     },
@@ -664,19 +634,20 @@
             }
 
             function renderTasks(tasks) {
+
                
                 let html = '';
                 var taskBadgeColor = '#9d1d08 ';
                 var priorityColor = 'text-high';
 
                 $.each(tasks, function (index, task) {
-
-                    if(task.status == 'inprogress'){
-                        taskBadgeColor = '#4e73df ';
-                    }
-
-                    if(task.status == 'completed'){
-                        taskBadgeColor = '#1cc88a';
+                    let statusLabel = task.status;
+                    if (task.status === 'inprogress') {
+                        statusLabel = 'In Progress';
+                    } else if (task.status === 'open') {
+                        statusLabel = 'Open';
+                    } else if (task.status === 'completed') {
+                        statusLabel = 'Completed';
                     }
 
                     
@@ -705,7 +676,7 @@
                                 class="fas fa-circle `+priorityColor+` taski mr-2"></i>`+task.title+`
                             </label></td>
                         <td class="td-actions text-center ">
-                            <span class="badge badge-danger-lighten task-1" style="background: `+taskBadgeColor+`; padding:5px 10px; max-width:120px; width:100%;">`+task.status+`</span>
+                            <span class="custom_badge `+task.status_color_class+`">`+statusLabel+`</span>
                         </td>
                         <td class="theme-color text-center bg-white ">
                             <div class="dropdown no-arrow">

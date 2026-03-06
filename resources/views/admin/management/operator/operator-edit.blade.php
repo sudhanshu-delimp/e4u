@@ -7,7 +7,8 @@ if (is_array($operator->contact_type)) {
     $contactType = [];
 }
 
-
+$countries = config('operator.country');
+$countryName = isset($countries[$operator->country_id]['name']) ? $countries[$operator->country_id]['name'] : '';
 @endphp
 <style>
     /* Chrome, Safari, Edge, Opera */
@@ -87,13 +88,18 @@ if (is_array($operator->contact_type)) {
         </div>
         <div class="col-6 mb-3">
             <label class="form-check-label" for="country_id">Territory</label>
-            <select class="form-control rounded-0" name="country_id" id="country_id">
+           
+           
+             <input type="hidden" name="country_id" value="{{$operator->country_id }}">
+             <input type="text" class="form-control rounded-0"  value="{{$countryName}}" disabled >
+        
+          {{--   <select class="form-control rounded-0" name="country_id" id="country_id">
                 <option  value="">Select Territory</option>
                 @foreach ($countryNotAssignToOperator as $skey => $country)
                     <option value="{{ $skey }}" {{ $operator->country_id == $skey ? 'selected' : '' }}>{{ $country['name'] }}</option>
                     
                 @endforeach
-            </select>
+            </select> --}}
             <span class="text-danger error-country_id"></span>
         </div>
         <div class="col-12 mb-3 d-flex align-items-center justify-content-start gap-10 flex-wrap">

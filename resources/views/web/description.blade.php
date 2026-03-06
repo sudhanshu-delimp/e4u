@@ -1304,7 +1304,7 @@
             <!-- new-review-card -->
             <div class="review-card mx-auto position-relative">
                 <!-- Carousel -->
-                <div id="reviewCarousel" class="carousel slide carousel-slide " data-bs-ride="carousel">
+                <div id="reviewCarousel" class="carousel slide carousel-slide pb-0" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         
                         @foreach($reviews as $key => $review)
@@ -1350,14 +1350,11 @@
                     </div>
 
                     <!-- Custom Nav Buttons -->
-                    <div class="d-flex justify-content-start my-3 carousel-nav-btn-wrapper">
+                    <div class="d-flex justify-content-start mt-3 carousel-nav-btn-wrapper">
                         <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
                         <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
-                    </div>
-                </div>
-                <!-- Carousel controls -->
-                <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
-                    <div class="col-md-12 mb-4">
+                        <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
+                    <div class="col-md-12">
                     @if(auth()->user())
                             @if(auth()->user()->type == 0)
                                 @if(!$reviewAlreadyExist)
@@ -1381,6 +1378,10 @@
                         @endif
                     </div>
                 </div>
+                    </div>
+                </div>
+                <!-- Carousel controls -->
+                
 
             </div>
         </div>

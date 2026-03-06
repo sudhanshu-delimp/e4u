@@ -56,7 +56,7 @@
                
                 <p style="font-size: 15px; margin-top: 20px;">
                     Regards,<br>
-                    <b>E4U - Operations</b>
+                    <b>E4U - Operations Centre</b>
                 </p>
             </td>
           </tr>

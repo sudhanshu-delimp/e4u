@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Agent;
+namespace App\Http\Controllers\Viewer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
@@ -9,11 +9,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class AgentTaskController extends Controller
+class ViewerTaskListController extends Controller
 {
+    // i re-use for code
+
+    // i m just move right source code from TaskController to TaskListController for escort dashboard task list SHS
+
+
     public function index()
     {
-        return view('agent.dashboard.tasks.task-list');
+        return view('user.dashboard.ticket.task-list');
     }
 
     public function fetchTask(Request $request)
@@ -71,18 +76,18 @@ class AgentTaskController extends Controller
         $task->user_id = Auth::user()->id;
         $task->save();
 
-        return response()->json(['success' => true, 'task' => $task,'task_name' => 'add_task']);
+        return response()->json(['success' => true, 'task' => $task, 'task_name' => 'add_task']);
     }
 
     public function editTask(Request $request)
     {
         $task = Task::where('user_id', Auth::user()->id)->findOrFail($request->id);
-        return response()->json(['success' => true, 'task' => $task,'task_name' => 'edit_task']);
+        return response()->json(['success' => true, 'task' => $task, 'task_name' => 'edit_task']);
     }
 
     public function updateTask(Request $request)
     {
-        $task = Task::where('user_id',Auth::user()->id)->findOrFail($request->task_id);
+        $task = Task::where('user_id', Auth::user()->id)->findOrFail($request->task_id);
 
         $validator = Validator::make($request->all(), [
             'title' => 'required',
@@ -96,30 +101,30 @@ class AgentTaskController extends Controller
         }
 
         $task->update([
-            'title'=>$request->title,
-            'priority'=>$request->task_priority,
-            'description'=>$request->description,
-            'status'=>$request->status,
+            'title' => $request->title,
+            'priority' => $request->task_priority,
+            'description' => $request->description,
+            'status' => $request->status,
         ]);
 
-        return response()->json(['success' => true, 'task' => $task,'task_name' => 'update_task']);
+        return response()->json(['success' => true, 'task' => $task, 'task_name' => 'update_task']);
     }
 
     public function statusTask(Request $request)
     {
-        $task = Task::where('user_id',Auth::user()->id)->findOrFail($request->change_task_id);
+        $task = Task::where('user_id', Auth::user()->id)->findOrFail($request->change_task_id);
         $task->update([
-            'status'=>'completed',
+            'status' => 'completed',
         ]);
 
-        return response()->json(['success' => true, 'task' => $task,'task_name' => 'complete_task']);
+        return response()->json(['success' => true, 'task' => $task, 'task_name' => 'complete_task']);
     }
 
     public function openTask(Request $request)
     {
-        $openCount = Task::where('status', 'open')->where('user_id',Auth::user()->id)->count();
-        $inprogressCount = Task::where('status', 'inprogress')->where('user_id',Auth::user()->id)->count();
-        $completedCount = Task::where('status', 'completed')->where('user_id',Auth::user()->id)->count();
+        $openCount = Task::where('status', 'open')->where('user_id', Auth::user()->id)->count();
+        $inprogressCount = Task::where('status', 'inprogress')->where('user_id', Auth::user()->id)->count();
+        $completedCount = Task::where('status', 'completed')->where('user_id', Auth::user()->id)->count();
 
         return response()->json([
             'status' => true,
@@ -134,7 +139,7 @@ class AgentTaskController extends Controller
 
     public function destroy($id)
     {
-        Task::where('user_id',Auth::user()->id)->findOrFail($id)->delete();
+        Task::where('user_id', Auth::user()->id)->findOrFail($id)->delete();
         return response()->json(['success' => true]);
     }
 }

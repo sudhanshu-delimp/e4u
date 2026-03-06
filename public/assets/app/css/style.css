@@ -1008,6 +1008,7 @@
                 font-size: 14px !important;
                 margin-bottom: 12px;
                 line-height: 19px;
+                text-align: justify;
             }
             
             div#add_wishlist .modal-dialog {

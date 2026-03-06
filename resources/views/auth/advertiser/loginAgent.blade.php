@@ -356,7 +356,9 @@ $(document).ready(function() {
                if(data.error == 1) {
                   $('body').on("click","#resendOtpSubmit",function(){
                      $("#escort_login").submit();
-                     $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>");
+                     /* $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>"); */
+                     var message = "{{ config('common.resend_2fa_verification_code_msg') }}";
+                     $('#senderror').html("<p class='text-center text-success'>" + message + "</p>");
                   });
                   
                   setTimeout(() => {
