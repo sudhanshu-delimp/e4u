@@ -3,22 +3,26 @@
 namespace App\Http\Controllers\User\Dashboard;
 
 
-use Exception;
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\MyLegbox;
-use App\Models\Notification;
-use Illuminate\Http\Request;
-use App\Models\MyMassageLegbox;
-use App\Models\AgentNotification;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAvatarMediaRequest;
+use App\Models\AgentNotification;
+use App\Models\Escort;
+use App\Models\LoginAttempt;
+use App\Models\MyLegbox;
+use App\Models\MyMassageLegbox;
+use App\Models\Notification;
+use App\Models\User;
+use App\Models\ViewerNotification;
+use App\Repositories\User\UserInterface;
+use Carbon\Carbon;
+use Exception;
+use GrahamCampbell\ResultType\Success;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use App\Repositories\User\UserInterface;
-use App\Http\Requests\StoreAvatarMediaRequest;
-use App\Models\ViewerNotification;
-use GrahamCampbell\ResultType\Success;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Mockery\LegacyMockInterface;
 
 class UserController extends Controller
 {
@@ -489,5 +493,29 @@ class UserController extends Controller
         session()->forget('show_welcome_popup');
 
         return response()->json(['success' => true]);
+    }
+
+
+    // Favorites Online
+    public function favoritesOnline()
+    {
+        $auth = auth()->user();
+        $authStateId = $auth->current_state_id ?? $auth->state_id;
+        $authUserId  = $auth->id;
+
+
+        $result = LoginAttempt::join('users', 'login_attempts.user_id', '=', 'users.id')
+            ->join('escorts', 'users.id', '=', 'escorts.user_id')
+            ->join('my_legbox', 'escorts.id', '=', 'my_legbox.escort_id')
+            ->where('my_legbox.user_id', $authUserId)
+            ->where('login_attempts.type', 1)
+            ->where('login_attempts.online', 'yes')
+            ->selectRaw("
+                COUNT(DISTINCT CASE WHEN users.state_id = ? THEN users.id END) as same_state_count,
+                COUNT(DISTINCT CASE WHEN users.state_id != ? THEN users.id END) as outside_state_count,
+                COUNT(DISTINCT users.id) as total_count
+            ", [$authStateId, $authStateId])
+            ->first();
+       return view('user.dashboard.favorites-online', compact('result'));
     }
 }

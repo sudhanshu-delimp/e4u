@@ -39,6 +39,7 @@ use App\Http\Controllers\Viewer\ViewerController;
 use App\Http\Controllers\Viewer\ViewerEscortInteractionController;
 use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
 use App\Http\Controllers\Viewer\ViewerPrefrenceController;
+use App\Http\Controllers\Viewer\ViewerTaskListController;
 use App\Http\Controllers\WebController;
 use App\Mail\sendPlaymateAccountDisableMail;
 use App\Models\Pricing;
@@ -117,14 +118,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/massage-legbox-listing', [UserController::class, 'legboxMassageDataTable'])->name('user.legbox.massagedataTable');
 
 
-        # Dashboard escort tasks
-        Route::get('/task-fetch',[TaskController::class,'fetchTask'])->name('dashboard.ajax-fetch-task');
-        Route::post('/task-add',[TaskController::class,'addTask'])->name('dashboard.ajax-add-task');
-        Route::post('/task-edit',[TaskController::class,'editTask'])->name('dashboard.ajax-edit-task');
-        Route::post('/task-update',[TaskController::class,'updateTask'])->name('dashboard.ajax-update-task');
-        Route::post('/task-status',[TaskController::class,'statusTask'])->name('dashboard.ajax-change-status');
-        Route::post('/task-open',[TaskController::class,'openTask'])->name('dashboard.ajax-open-task');
-        Route::post('/task-delete',[TaskController::class,'destroy'])->name('dashboard.ajax-delete-task');
+
 
         Route::get('/my-legbox-notes',function(){
             return view('user.dashboard.legbox.notes');
@@ -181,10 +175,24 @@ Route::middleware('auth')->group(function () {
         Route::get('logs-and-statistics', [ViewerController::class, 'logsAndStatistics'])->name('user.logs-and-statistics');
         Route::post('update-password-duration', [ViewerController::class, 'updatePasswordDuration'])->name('user.update.password.duration');
 
+        # View tasks list
+        Route::get('task-list',[ViewerTaskListController::class,'index'])->name('viewer.task-list'); 
+        Route::get('task-fetch',[ViewerTaskListController::class,'fetchTask'])->name('viewer.dashboard.ajax-fetch-task');
+        Route::post('task-add',[ViewerTaskListController::class,'addTask'])->name('viewer.dashboard.ajax-add-task');
+        Route::post('task-edit',[ViewerTaskListController::class,'editTask'])->name('viewer.dashboard.ajax-edit-task');
+        Route::post('task-update',[ViewerTaskListController::class,'updateTask'])->name('viewer.dashboard.ajax-update-task');
+        Route::post('task-status',[ViewerTaskListController::class,'statusTask'])->name('viewer.dashboard.ajax-change-status');
+        Route::post('task-open',[ViewerTaskListController::class,'openTask'])->name('viewer.dashboard.ajax-open-task');
+        Route::post('task-delete',[ViewerTaskListController::class,'destroy'])->name('viewer.dashboard.ajax-delete-task');
 
-        Route::get('/favorites-online',function(){
-            return view('user.dashboard.favorites-online');
-        })->name('user.favorites-online');
+
+        # Dashboard > Favorites Online
+        Route::get('favorites-online', [UserController::class, 'favoritesOnline'])->name('user.favorites-online');
+
+
+        // Route::get('/favorites-online',function(){
+        //     return view('user.dashboard.favorites-online');
+        // })->name('user.favorites-online');
 
         Route::get('/punterbox',function(){
             return view('user.dashboard.punterbox');
@@ -196,9 +204,9 @@ Route::middleware('auth')->group(function () {
             return view('user.dashboard.my-statistics');
         })->name('user.my-statistics');
 
-        Route::get('/task-list',function(){
-            return view('user.dashboard.task-list');
-        })->name('user.task-list');
+        // Route::get('/task-list',function(){
+        //     return view('user.dashboard.task-list');
+        // })->name('user.task-list');
 
 
         Route::get('/guide',function(){
@@ -465,6 +473,13 @@ Route::get('/massage-show-list', [App\Http\Controllers\WebController::class,'mcM
 // 		return view('web.massage-show-list');
 // 	})->name('web.massage-show-list');
 
+
+
+
+
+
+
+
 Route::get('pricing',function(){
     return view('user.dashboard.Community.pricing');
 })->name('user.dashboard.Community.pricing');
@@ -508,9 +523,7 @@ Route::get('/user-dashboard/viewer-messages',function(){
     return view('user.dashboard.communication.viewer-messages');
 })->name('user.viewer-messages');
 
-Route::get('/escort-dashboard/task-list',function(){
-    return view('escort.dashboard.task-list');
-})->name('escort.dashboard.task-list');
+
 
 Route::get('/escort-dashboard/my-spend',function(){
     return view('escort.dashboard.my-spend');
