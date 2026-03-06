@@ -503,6 +503,7 @@ class UserController extends Controller
         $authStateId = $auth->current_state_id ?? $auth->state_id;
         $authUserId  = $auth->id;
 
+
         $result = LoginAttempt::join('users', 'login_attempts.user_id', '=', 'users.id')
             ->join('escorts', 'users.id', '=', 'escorts.user_id')
             ->join('my_legbox', 'escorts.id', '=', 'my_legbox.escort_id')

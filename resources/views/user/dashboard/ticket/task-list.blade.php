@@ -208,12 +208,13 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            // calulcate task summery
-            let formData = $('#task_form').serialize(); // serialize form data
-            let actionUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
+            // calculate task summary
+            let formData = $('#task_form').serialize();
+            let actionUrl = '{{ route("viewer.dashboard.ajax-open-task") }}';
             callAjax(formData, actionUrl);
 
             $(".showDateLabel").hide();
+            
             // Reusable click event
             $(document).on('click', '.create-tour-sec-dropdown, .create-tour-sec', function(e) {
                 e.preventDefault();
@@ -223,25 +224,22 @@
                 let taskId = $(this).data('id');
                 let taskName = $(this).text();
 
-                if (buttonId == 'new_task') {
+                if (buttonId === 'new_task') {
                     $(".task_title_img").attr('src', "{{ asset('assets/dashboard/img/add-task.png') }}");
                     $('#task_title').text(taskName);
                     newTask();
-                } else if (buttonId == 'edit_task') {
+                } else if (buttonId === 'edit_task') {
                     $(".task_title_img").attr('src', "{{ asset('assets/dashboard/img/edit-task.png') }}");
                     $('#task_title').text(taskName);
                     editTask(taskId);
-                } else if (buttonId == 'view_task') {
+                } else if (buttonId === 'view_task') {
                     $(".task_title_img").attr('src', "{{ asset('assets/dashboard/img/website.png') }}");
                     $('#task_title').text(taskName);
                     viewTask(taskId);
-                } else if (buttonId == 'complete_task') {
-                    $(".task_title_img").attr('src',
-                        "{{ asset('assets/dashboard/img/complete-appointment.png') }}");
+                } else if (buttonId === 'complete_task') {
+                    $(".task_title_img").attr('src', "{{ asset('assets/dashboard/img/complete-appointment.png') }}");
                     $('#task_title').text(taskName);
                     completeTask(taskId);
-                } else if (buttonId == 'open_task') {
-
                 }
 
                 // Show modal
@@ -250,28 +248,21 @@
 
             $('#save_button').on('click', function(e) {
                 e.preventDefault(); // prevent the default form submission
-
-                let formData = $('#task_form').serialize(); // serialize form data
+                let formData = $('#task_form').serialize();
                 let actionUrl = $('#task_form').attr('action');
-
                 callAjax(formData, actionUrl);
-
             });
-
         });
 
         $(document).on('click', '.toggle-task-form', function() {
             $(this).next('.task-form-body').slideToggle();
             $(this).toggleClass('open');
 
+            let icon = $(this).find('i');
             if ($(this).hasClass('open')) {
-                $(this).find('i').removeClass('top-icon-bg fas fa-chevron-down fa-fw');
-                $(this).find('i').addClass('top-icon-bg fas fa-chevron-up fa-fw');
-
+                icon.removeClass('top-icon-bg fas fa-chevron-down fa-fw').addClass('top-icon-bg fas fa-chevron-up fa-fw');
             } else {
-                $(this).find('i').removeClass('top-icon-bg fas fa-chevron-up fa-fw');
-                $(this).find('i').addClass('top-icon-bg fas fa-chevron-down fa-fw');
-
+                icon.removeClass('top-icon-bg fas fa-chevron-up fa-fw').addClass('top-icon-bg fas fa-chevron-down fa-fw');
             }
         });
 
@@ -282,9 +273,6 @@
                         <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
                         <input id="title" placeholder="Enter Title..." name="title" type="text"
                             class="form-control" required>
-                        @error('title')
-                            <div class="text-danger text-sm">{{ $message }}</div>
-                        @enderror
                     </div>
                     <div class="form-group pt-2 pb-3" data-i="">
                         <label for="exampleFormControlTextarea1"><b>Importance</b><span class="text-danger">*</span>
@@ -308,7 +296,6 @@
                         <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="5"
                             placeholder="Up to 300 character"></textarea>
                     </div>
-                    
                 </div>
             `;
 
@@ -316,96 +303,80 @@
             $('#task_form').attr('action', addUrl);
 
             $("#task_form_html").html(addNewTaskHtml);
-            $("#save_button").show();
-            $("#save_button").text('Add');
+            $("#save_button").show().text('Add');
             $("#cancel_button").text('Cancel');
             $(".showDateLabel").show();
-
         }
 
         function editTask(taskId) {
-            let selectedTask = 1;
-            let editNewTaskHtml = ``;
-            editNewTaskHtml += `
-                    <div class="col-md-12" style="cursor:pointer;">
-                             <div class="task-form-body" style="display: block;">
-                                <!-- Your original form HTML -->
-                                <div class="form-group">
-                                    <input name="task_id" value="` + taskId + `" type="hidden" 
-                                    <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
-                                    <input id="edit_title" placeholder="Enter Title..." name="title" type="text" class="form-control" required>
-                                </div>
-
-                                <div class="pt-2 pb-3">
-                                    <label><b>Importance</b><span class="text-danger">*</span></label><br>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="editinlineRadio1" value="high">
-                                        <label class="form-check-label" for="editinlineRadio1">High</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="editinlineRadio2" value="medium" checked>
-                                        <label class="form-check-label" for="editinlineRadio2">Medium</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="editinlineRadio3" value="low">
-                                        <label class="form-check-label" for="editinlineRadio3">Low</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="status"><b>Status</b><span class="text-danger">*</span></label>
-                                    <select class="custom-select" name="status" id="edit_status">
-                                        <option value="open">Open</option>
-                                        <option value="inprogress">In Progress</option>
-                                        <option value="completed">Completed</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="exampleFormControlTextarea1"><b>Description</b></label>
-                                    <textarea class="form-control" id="edit_description" name="description" rows="5" placeholder="Up to 300 characters"></textarea>
-                                </div>
+            let editNewTaskHtml = `
+                <div class="col-md-12" style="cursor:pointer;">
+                    <div class="task-form-body" style="display: block;">
+                        <div class="form-group">
+                            <input name="task_id" value="${taskId}" type="hidden">
+                            <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
+                            <input id="edit_title" placeholder="Enter Title..." name="title" type="text" class="form-control" required>
+                        </div>
+                        <div class="pt-2 pb-3">
+                            <label><b>Importance</b><span class="text-danger">*</span></label><br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input task_priority" type="radio" name="task_priority" id="editinlineRadio1" value="high">
+                                <label class="form-check-label" for="editinlineRadio1">High</label>
                             </div>
-                        
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input task_priority" type="radio" name="task_priority" id="editinlineRadio2" value="medium" checked>
+                                <label class="form-check-label" for="editinlineRadio2">Medium</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input task_priority" type="radio" name="task_priority" id="editinlineRadio3" value="low">
+                                <label class="form-check-label" for="editinlineRadio3">Low</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="status"><b>Status</b><span class="text-danger">*</span></label>
+                            <select class="custom-select" name="status" id="edit_status">
+                                <option value="open">Open</option>
+                                <option value="inprogress">In Progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1"><b>Description</b></label>
+                            <textarea class="form-control" id="edit_description" name="description" rows="5" placeholder="Up to 300 characters"></textarea>
+                        </div>
                     </div>
-                `;
+                </div>
+            `;
 
             $("#task_form_html").html(editNewTaskHtml);
-            formData = {
-                'id': taskId
-            }
-            let url = "{{ route('viewer.dashboard.ajax-edit-task') }}";
-
-            $editTaskData = fetchAjaxEditData(formData);
+            
+            let formData = { 'id': taskId };
+            fetchAjaxEditData(formData);
 
             let updateUrl = "{{ route('viewer.dashboard.ajax-update-task') }}";
             $('#task_form').attr('action', updateUrl);
 
-            $("#task_form_html").html(editNewTaskHtml);
-            $("#save_button").show();
-            $("#save_button").text('Update');
+            $("#save_button").show().text('Update');
             $("#cancel_button").text('Cancel');
             $(".showDateLabel").show();
-
         }
 
         function fetchAllTaskData() {
             let fetchUrl = "{{ route('viewer.dashboard.ajax-fetch-task') }}";
-            var formData = new from();
+            var formData = new FormData();
             $.ajax({
-                url: fetchUrl, // form action URL
+                url: fetchUrl,
                 type: 'POST',
                 data: formData,
+                processData: false,
+                contentType: false,
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    // handle success
-                    alert('Task marked as completed successfully.');
-                    // Optionally close modal or reset form
+                    // alert('Task marked as completed successfully.');
                 },
                 error: function(xhr) {
-                    // handle error
                     alert('Something went wrong. Please try again.');
                 }
             });
@@ -415,71 +386,49 @@
             let editUrl = "{{ route('viewer.dashboard.ajax-edit-task') }}";
 
             $.ajax({
-                url: editUrl, // form action URL
+                url: editUrl,
                 type: 'POST',
                 data: formData,
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
                     if (response.task) {
                         $("#edit_title").val(response.task.title);
-                        $('input[name="task_priority"][value="' + response.task.priority + '"]').prop('checked',
-                            true);
+                        $('input[name="task_priority"][value="' + response.task.priority + '"]').prop('checked', true);
                         $("#edit_status").val(response.task.status);
                         $("#edit_description").text(response.task.description);
                     }
-
-
-                    // handle success
-                    //alert('Task marked as completed successfully.');
-                    // Optionally close modal or reset form
                 },
                 error: function(xhr) {
-                    // handle error
                     alert('Something went wrong. Please try again.');
                 }
             });
         }
 
         function completeTask(taskId) {
-
-            let selectedTask = 1;
-            let completedTaskIds = [];
-
-            let formData = {
-                'task_id': taskId,
-            }
-
-            completeHtml =
-                `<div class=" text-center my-3 col-md-12"><h4 id="task_desc">Are you sure you want to mark selected tasks as completed?</h4></div>`;
+            let formData = { 'task_id': taskId };
+            let completeHtml = `<div class="text-center my-3 col-md-12"><h4 id="task_desc">Are you sure you want to mark selected tasks as completed?</h4></div>`;
 
             $("#task_form_html").html(completeHtml);
-            $("#save_button").text('Yes');
-            $("#save_button").show();
+            $("#save_button").text('Yes').show();
             $("#cancel_button").text('Cancel');
+            
             let actionStatusUrl = "{{ route('viewer.dashboard.ajax-change-status') }}";
-
-            $('#task_form').attr('action', actionStatusUrl)
+            $('#task_form').attr('action', actionStatusUrl);
             $("#change_task_id").val(taskId);
         }
 
         function viewTask(taskId) {
-            let selectedTask = 1;
-            let viewTaskHtml = ``;
-
-            viewTaskHtml += `
+            let viewTaskHtml = `
                 <div class="col-md-12" style="cursor:pointer;">
                    <div class="task-form-body" style="display: block;">
-                       
                         <div class="task-form-body p-2" style="display: block;">
-                            <!-- Your original form HTML -->
                             <div class="form-group">
-                                <input name="task_id" value="` + taskId + `" type="hidden" 
+                                <input name="task_id" value="${taskId}" type="hidden">
                                 <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
                                 <input id="edit_title" readonly placeholder="Enter Title..." name="title" type="text" class="form-control" required>
                             </div>
-
                             <div class="pt-2 pb-3">
                                 <label><b>Importance</b><span class="text-danger">*</span></label><br>
                                 <div class="form-check form-check-inline">
@@ -495,7 +444,6 @@
                                     <label class="form-check-label" for="editinlineRadio3">Low</label>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label for="status"><b>Status</b><span class="text-danger">*</span></label>
                                 <select class="custom-select" disabled name="status" id="edit_status">
@@ -504,225 +452,189 @@
                                     <option value="completed">Completed</option>
                                 </select>
                             </div>
-
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1"><b>Description</b></label>
                                 <textarea class="form-control" readonly id="edit_description" name="description" rows="5" placeholder="Up to 300 characters"></textarea>
                             </div>
                         </div>
-
                     </div>
-                    
                 </div>
             `;
 
             $("#task_form_html").html(viewTaskHtml);
-            formData = {
-                'id': taskId
-            }
-            let url = "{{ route('viewer.dashboard.ajax-edit-task') }}";
-
-            $viewTaskData = fetchAjaxEditData(formData);
+            
+            let formData = { 'id': taskId };
+            fetchAjaxEditData(formData);
+            
             $("#save_button").hide();
             $("#cancel_button").text('Cancel');
         }
 
-        // function openTask(openData) {
+        function callAjax(formData, actionUrl) {
+            $.ajax({
+                url: actionUrl,
+                type: 'POST',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.task_name === 'open') {
+                        $('.totalOpenTask').text(response.data.open);
+                        $('.totalInprogressTask').text(response.data.inprogress);
+                        $('.totalCompletedTask').text(response.data.completed);
+                        return true;
+                    }
 
-        //     let openHtml = `<div class="col-md-11 mx-auto my-3">
+                    if (response.task_name === 'add_task') {
+                        loadTasks(1);
+                        $('#taskModal').modal('hide');
+                        $("#success_msg").text('Task Added successfully.');
+                        $('#successModal').modal('show');
+                        return true;
+                    }
 
+                    if (response.task_name === 'update_task') {
+                        loadTasks(1);
+                        let openData = $('#task_form').serialize();
+                        let openUrl = '{{ route("viewer.dashboard.ajax-open-task") }}';
+                        callAjax(openData, openUrl);
+                        $('#taskModal').modal('hide');
+                        $("#success_msg").text('Task Updated successfully.');
+                        $('#successModal').modal('show');
+                        return true;
+                    }
 
-    function callAjax(formData, actionUrl) {
-        $.ajax({
-            url: actionUrl, // form action URL
-            type: 'POST',
-            data: formData,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
-            },
-            success: function(response) {
-              
-                if (response.task_name == 'open') {
-                    $('.totalOpenTask').text(response.data.open);
-                    $('.totalInprogressTask').text(response.data.inprogress);
-                    $('.totalCompletedTask').text(response.data.completed);
-                    return true;
+                    if (response.task_name === 'complete_task') {
+                        loadTasks(1);
+                        let openData = $('#task_form').serialize();
+                        let openUrl = '{{ route("viewer.dashboard.ajax-open-task") }}';
+                        callAjax(openData, openUrl);
+                        $('#taskModal').modal('hide');
+                        $("#success_msg").text('Task has been marked as completed');
+                        $('#successModal').modal('show');
+                        return true;
+                    }
+                },
+                error: function(xhr) {
+                    alert('Something went wrong. Please try again.');
                 }
+            });
+        }
 
-                if (response.task_name == 'add_task') {
-                    loadTasks(1);
-                    $('#taskModal').modal('hide');
-                    $("#success_msg").text('Task Added sucessfully.');
-                    $('#successModal').modal('show');
-                    return true;
-                }
+        // Initial load
+        loadTasks(1);
 
-                if (response.task_name == 'update_task') {
-                    loadTasks(1);
-                    let formData = $('#task_form').serialize(); // serialize form data
-                    let actionUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
-                    callAjax(formData, actionUrl);
-                    $('#taskModal').modal('hide');
-                    $("#success_msg").text('Task Updated sucessfully.');
-                    $('#successModal').modal('show');
-                    return true;
-                }
-
-                if (response.task_name == 'complete_task') {
-                    loadTasks(1);
-                    $('#taskModal').modal('hide');
-                    // calulcate task summery
-                    let formData = $('#task_form').serialize(); // serialize form data
-                    let actionUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
-                    callAjax(formData, actionUrl);
-                    $('#taskModal').modal('hide');
-                    $("#success_msg").text('Task has been mark as completed');
-                    $('#successModal').modal('show');
-                    return true;
-                }
-
-                //alert('Task marked as completed successfully.');
-                // Optionally close modal or reset form
-            },
-            error: function(xhr) {
-                // handle error
-                alert('Something went wrong. Please try again.');
+        // handle pagination click
+        $(document).on('click', '.page-link', function(e) {
+            e.preventDefault();
+            let page = $(this).data('page');
+            if (page) {
+                loadTasks(page);
             }
         });
-    }
-    loadTasks(1);
 
-    // handle pagination click
-    $(document).on('click', '.page-link', function(e) {
-        e.preventDefault();
-        let page = $(this).data('page');
-        loadTasks(page);
-    });
+        function loadTasks(page = 1) {
+            let baseUrl = "{{ route('viewer.dashboard.ajax-fetch-task') }}" + '?page=' + page;
+            $.ajax({
+                url: baseUrl,
+                type: 'GET',
+                contentType: 'application/json',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    renderTasks(response.data.data);
+                    renderPagination(response.data);
+                },
+                error: function(xhr) {}
+            });
+        }
 
-    function loadTasks(page = 1) {
-        let baseUrl = "{{ route('viewer.dashboard.ajax-fetch-task') }}" + '?page=' + page;
-        $.ajax({
-            url: baseUrl, // form action URL
-            type: 'GET',
-            contentType: 'application/json',
-            headers: {
-                'Accept': 'application/json',
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
-            },
-            success: function(response) {
-                renderTasks(response.data.data);
-                renderPagination(response.data);
-            },
-            error: function(xhr) {
-                // handle error
-                //alert('Something went wrong. Please try again.');
-            }
-        });
-    }
+        function renderTasks(tasks) {
+            let html = '';
+            
+            $.each(tasks, function(index, task) {
+                let statusLabel = task.status;
+                if (task.status === 'inprogress') {
+                    statusLabel = 'In Progress';
+                } else if (task.status === 'open') {
+                    statusLabel = 'Open';
+                } else if (task.status === 'completed') {
+                    statusLabel = 'Completed';
+                }
 
-    function renderTasks(tasks) {
-        console.log(tasks, 'tasks');
+                let priorityColor = 'text-high';
+                if (task.priority === 'medium') {
+                    priorityColor = 'text-medium';
+                } else if (task.priority === 'low') {
+                    priorityColor = 'text-low';
+                }
+                
+                let checkboxId = 'task_checkbox_' + task.id;
+                let taskId = task.id;
+                let menuId = 'dropdownMenuLink_' + task.id;
 
-        let html = '';
-        var taskBadgeColor = '#9d1d08 ';
-        var priorityColor = 'text-high';
-
-        $.each(tasks, function(index, task) {
-            let statusLabel = task.status;
-            if (task.status === 'inprogress') {
-                statusLabel = 'In Progress';
-            } else if (task.status === 'open') {
-                statusLabel = 'Open';
-            } else if (task.status === 'completed') {
-                statusLabel = 'Completed';
-            }
-
-
-            if (task.priority == 'medium') {
-                priorityColor = 'text-medium';
-            }
-            if (task.priority === 'low') {
-                priorityColor = 'text-low';
-            }
-            let checkboxId = 'task_checkbox_' + task.id;
-            let taskId = task.id;
-
-            html += `<tr>
-                        <!-- ye check box hai main comment kar rakha hai-->
-                             <!-- <td class=" pr-0">
-                                <div class="form-check m-0 p-0">
-                                    <label class="form-check-label" for="` + checkboxId + `">
-                                        <input class="form-check-input" name="task_ids" data-id="` + taskId + `" id="` +
-                checkboxId + `" type="checkbox" value="">
-                                        <span class="form-check-sign"></span>
-                                    </label>
-                                </div>
-                            </td>-->
-                            <td class=" task-color">
-                                <label for="` + checkboxId + `" class="mb-0 cursor-pointer">
-                                <i
-                                    class="fas fa-circle ` + priorityColor + ` taski mr-2"></i>` + task.title + `
-                                </label></td>
-                            <td class="td-actions text-center ">
-                                <span class="custom_badge ` + task.status_color_class + `">` + statusLabel +
-                `</span>
-                            </td>
-                            <td class="theme-color text-center bg-white ">
-                                <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button"
-                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <i
-                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                html += `
+                    <tr>
+                        <td class="task-color">
+                            <label for="${checkboxId}" class="mb-0 cursor-pointer">
+                            <i class="fas fa-circle ${priorityColor} taski mr-2"></i> ${task.title}
+                            </label>
+                        </td>
+                        <td class="td-actions text-center">
+                            <span class="custom_badge ${task.status_color_class || ''}">${statusLabel}</span>
+                        </td>
+                        <td class="theme-color text-center bg-white">
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="${menuId}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="${menuId}">
+                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="edit_task" data-id="${taskId}">
+                                        <i class="fa fa-pen"></i> Edit Task
                                     </a>
-                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink" style="">
-                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="edit_task" data-id=` +
-                taskId +
-                `> <i class="fa fa-pen"></i> Edit Task</a>
-                                            
-                                            <div class="dropdown-divider"></div>
-                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="complete_task" data-id=` +
-                taskId +
-                `> <i class="fa fa-check-circle"></i> Complete Task</a>
-                                            
-                                            <div class="dropdown-divider"></div>
-                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="view_task" data-id=` +
-                taskId + `> <i class="fa fa-eye"></i> View</a>
-                                        
-                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="complete_task" data-id="${taskId}">
+                                        <i class="fa fa-check-circle"></i> Complete Task
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="view_task" data-id="${taskId}">
+                                        <i class="fa fa-eye"></i> View
+                                    </a>
                                 </div>
-                            </td>
-                        </tr>`;
-        });
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
 
-        $('#taskList').html(html);
-    }
-
-    function renderPagination(data) {
-        let pagination = `<nav><ul class="pagination">`;
-
-        if (data.current_page > 1) {
-            pagination +=
-                `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page - 1}"><i class="fa fa-angle-left"></i></a></li>`;
-        } else {
-            pagination += `<li class="page-item page-link">Previous</li>`;
+            $('#taskList').html(html);
         }
 
-        for (let i = 1; i <= data.last_page; i++) {
-            pagination += `<li class="page-item ${i === data.current_page ? 'active' : ''}">
-                            <a href="#" class="page-link" data-page="${i}">${i}</a>
-                        </li>`;
-        }
+        function renderPagination(data) {
+            let pagination = `<nav><ul class="pagination">`;
 
-        if (data.current_page < data.last_page) {
-            pagination +=
-                `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page + 1}"><i class="fa fa-angle-right"></i></a></li>`;
-        } else {
-            pagination += `<li class="page-item page-link">Next</li>`;
-        }
+            if (data.current_page > 1) {
+                pagination += `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page - 1}"><i class="fa fa-angle-left"></i></a></li>`;
+            } else {
+                pagination += `<li class="page-item page-link border-0 text-muted" style="cursor: not-allowed;"><i class="fa fa-angle-left"></i></li>`;
+            }
 
-        pagination += `</ul></nav>`;
+            for (let i = 1; i <= data.last_page; i++) {
+                pagination += `<li class="page-item ${i === data.current_page ? 'active' : ''}">
+                                <a href="#" class="page-link" data-page="${i}">${i}</a>
+                            </li>`;
+            }
+
+            if (data.current_page < data.last_page) {
+                pagination += `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page + 1}"><i class="fa fa-angle-right"></i></a></li>`;
+            } else {
+                pagination += `<li class="page-item page-link border-0 text-muted" style="cursor: not-allowed;"><i class="fa fa-angle-right"></i></li>`;
+            }
+
+            pagination += `</ul></nav>`;
             $('.custome_paginator').html(pagination);
         }
     </script>
