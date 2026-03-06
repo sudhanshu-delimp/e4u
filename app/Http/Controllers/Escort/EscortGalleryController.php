@@ -651,6 +651,7 @@ class EscortGalleryController extends AppController
             'image_path' => $destination_path,
             'type' => (string) $request->verification_type,
             'status' => MediaVerification::STATUS_PENDING,
+            'submited_by' => $user->id,
         ]);
     }
 

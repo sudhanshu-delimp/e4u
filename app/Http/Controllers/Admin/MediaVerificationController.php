@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\EscortMedia;
 use App\Models\MediaVerification;
 use App\Models\User;
 use Carbon\Carbon;
 use Auth;
+
 
 class MediaVerificationController extends Controller
 {
@@ -17,7 +19,7 @@ class MediaVerificationController extends Controller
 
     public function mediaVerificationLList()
     {
-        list($result, $count) = $this->getMediaVerificationData(
+        list($result, $count, $total_pending_verification) = $this->getMediaVerificationData(
             request()->get('start'),
             request()->get('length'),
             (request()->get('order')[0]['column']),
@@ -27,7 +29,8 @@ class MediaVerificationController extends Controller
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
-            "data"            => $result
+            "data"            => $result,
+            "totalPending"    => intval($total_pending_verification)
         );
 
         return response()->json($data);
@@ -46,20 +49,20 @@ class MediaVerificationController extends Controller
         }
 
         if ($search) {
-            $media_verificatiion->where(function($q) use ($search) {
-                $q->whereHas('user', function($q2) use ($search) {
+            $media_verificatiion->where(function ($q) use ($search) {
+                $q->whereHas('user', function ($q2) use ($search) {
                     $q2->where('member_id', 'like', "%$search%")
-                    ->orWhere('name', 'like', "%$search%")
-                    ->orWhere('phone', 'like', "%$search%");
+                        ->orWhere('name', 'like', "%$search%")
+                        ->orWhere('phone', 'like', "%$search%");
                 });
             });
         }
 
-        if ($order_key === null) {
+        if (!request()->has('order')) {
             $media_verificatiion->orderByRaw("FIELD(media_verifications.status,'0','1','2')")
                 ->orderBy('media_verifications.created_at', 'desc');
         }
-
+ 
         switch ($order_key) {
 
             case 0: // member_id (users.member_id)
@@ -98,21 +101,26 @@ class MediaVerificationController extends Controller
 
         $total_media_verificatiion = $media_verificatiion->count();
         $media_verificatiions = $media_verificatiion->offset($start)->limit($limit)->get();
-
+        
+        $total_pending_verification =  0;
         foreach ($media_verificatiions as $key => $item) {
-
-            $item->member_id = $item->user->member_id ?? 'N/A';
-
-            $item->created_date = isset($item->created_at)
-                ? showDateWithFormat($item->created_at)
+            $user = $item->user;
+            $item->member_id = $user->member_id ?? 'N/A';
+            $item->name      = $user->name ?? 'N/A';
+            $item->mobile    = $user->phone ?? 'N/A';
+            $item->created_date = $item->created_at 
+                ? showDateWithFormat($item->created_at) 
                 : 'NA';
+            $submittedUser = User::select('type','member_id')->find($item->submited_by);
+           
+            $item->submitted = $submittedUser 
+                ? getTypeById($submittedUser->type) 
+                : 'N/A';
 
-            $item->name = $item->user->name ?? 'N/A';
-
-            $item->mobile = $item->user->phone ?? 'N/A';
-
-            $item->submitted = getTypeById($item->user->type) ? getTypeById($item->user->type) : '<N>A';
-            $item->agent_id = $item->user->my_agent->member_id ?? 'N/A';
+            $item->agent_id = ($item->submitted === 'Agents') 
+                ? $submittedUser->member_id ?? 'N/A' 
+                : 'N/A';
+                
             $types = [
                 '0' => 'Selfie',
                 '1' => 'Licence',
@@ -142,7 +150,7 @@ class MediaVerificationController extends Controller
             }
 
             $view_image = '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-image-btn"
-                href="javascript:void(0)" data-toggle="modal" data-target="#view_image" data-id="' . $item->id . '">
+                href="javascript:void(0)" data-toggle="modal" data-target="#view_image" data-status="' . $item->status . '" data-id="' . $item->id . '" data-member-id="' . $item->member_id . '" data-user-id="' . $item->user->id . '">
                 <i class="fa fa-eye"></i> View Image
             </a>
             ';
@@ -169,11 +177,71 @@ class MediaVerificationController extends Controller
                 </div>
             </div>';
 
+            if($item->status == 'Pending'){
+                $total_pending_verification ++;
+            }
             $statusText = $item->status ?? 'NA';
             $badgeClass = getStatusBadgeClass($statusText);
             $item->status_text = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
             $item->action = $dropdown;
         }
-        return [$media_verificatiions, $total_media_verificatiion];
+        return [$media_verificatiions, $total_media_verificatiion , $total_pending_verification];
+    }
+
+
+
+    public function mediaVerificationImage()
+    {
+        $id = request()->get('id');
+        $user_id = request()->get('user_id');
+        $media_verification = MediaVerification::where('id', $id)
+            ->where('user_id', $user_id)
+            ->first();
+
+        $escort_medias = EscortMedia::where('user_id', $user_id)->get();
+        $media_verification_image = asset('escorts/'.$media_verification->image_path);
+        $mediaImages = [];
+        foreach ($escort_medias as $escort_media) {
+            $imageUrl = asset($escort_media->path);
+            $mediaImages[] = '<img src="'.$imageUrl.'" alt="view image gallery" style="width:100px;">';
+        }
+    
+        if ($media_verification) {
+            return response()->json([
+                'status' => true,
+                'media_verification_image' => $media_verification_image,
+                'media_img' => $mediaImages,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Media verification not found.'
+            ], 404);
+        }
+    }
+
+    public function approveMediaVerification()
+    {
+        $id = request()->get('id');
+        $media_verification = MediaVerification::find($id);
+
+        if (!$media_verification) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Media verification not found.'
+            ], 404);
+        }
+
+        $media_verification->status = (string) MediaVerification::STATUS_APPROVED;
+        // $media_verification->status = '0';
+        $media_verification->reviewed_by = Auth::id();
+        $media_verification->reviewed_at = Carbon::now();
+        $media_verification->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Media verification approved successfully.',
+            'media_verification_status' => $media_verification->status
+        ]);
     }
 }

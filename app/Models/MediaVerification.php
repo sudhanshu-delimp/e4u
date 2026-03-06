@@ -12,12 +12,13 @@ class MediaVerification extends Model
         'status',
         'comment',
         'reviewed_by',
-        'reviewed_at'
+        'reviewed_at',
+        'submited_by'
     ];
 
     protected $casts = [
         'reviewed_at' => 'datetime',
-       'status' => 'string',
+        'status' => 'string',
     ];
 
    
@@ -45,13 +46,7 @@ class MediaVerification extends Model
 
     public function setStatusAttribute($value)
     {
-        if ($value === 'Verified') {
-            $this->attributes['status'] = self::STATUS_APPROVED;
-        } elseif ($value === 'Rejected') {
-            $this->attributes['status'] = self::STATUS_REJECTED;
-        } else {
-            $this->attributes['status'] = self::STATUS_PENDING;
-        }
+        $this->attributes['status'] = (string) $value;
     }
 
      // Jis user ne verification upload kiya
@@ -59,11 +54,5 @@ class MediaVerification extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    // Jis admin ne review kiya
-    // public function reviewer()
-    // {
-    //     return $this->belongsTo(User::class, 'reviewed_by');
-    // }
 
 }

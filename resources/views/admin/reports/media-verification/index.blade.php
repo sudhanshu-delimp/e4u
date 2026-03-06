@@ -158,6 +158,7 @@
             </div>
         </div>
     </div>
+    
     @include('admin.reports.modal.view_image')
     @include('admin.reports.modal.view_tag')
     @include('admin.reports.modal.view_centre')
@@ -180,6 +181,10 @@
             bStateSave: false,
             ajax: {
                 url: "{{ route('admin.media-verification-list') }}",
+                dataSrc: function (json) {
+                    $('.totalInprogressTask').text(json.totalPending);
+                    return json.data;
+                }                    
             },
             columns: [
                 {
@@ -187,70 +192,157 @@
                     name: 'member_id',
                     searchable: true,
                     orderable: true,
-                    defaultContent: 'NA'
+                    defaultContent: 'N/A'
                 },
                 {
                     data: 'created_date',
                     name: 'created_date',
                     searchable: false,
                     orderable: false,
-                    defaultContent: 'NA'
+                    defaultContent: 'N/A'
                 },
                 {
                     data: 'name',
                     name: 'name',
                     searchable: true,
                     orderable: true,
-                    defaultContent: 'NA'
+                    defaultContent: 'N/A'
                 },
                 {
                     data: 'mobile',
                     name: 'mobile',
                     searchable: true,
                     orderable: true,
-                    defaultContent: 'NA'
+                    defaultContent: 'N/A'
                 },
                 {
                     data: 'submitted',
                     name: 'submitted',
                     searchable: true,
                     orderable: false,
-                    defaultContent: 'NA'
+                    defaultContent: 'N/A'
                 },
                 {
                     data: 'agent_id',
                     name: 'agent_id',
                     searchable: true,
                     orderable: true,
-                    defaultContent: 'NA'
+                    defaultContent: 'N/A'
                 },
                 {
                     data: 'type',
                     name: 'type',
                     searchable: true,
                     orderable: false,
-                    defaultContent: 'NA'
+                    defaultContent: 'N/A'
                 },
                 {
                     data: 'status_text',
                     name: 'status_text',
                     searchable: false,
                     orderable: false,
-                    defaultContent: 'NA'
+                    defaultContent: 'N/A'
                 },
                 {
                     data: 'action',
                     name: 'edit',
                     searchable: false,
                     orderable: false,
-                    defaultContent: 'NA',
+                    defaultContent: 'N/A',
                     class: 'text-center'
                 },
             ],
-            order: [[1, 'desc']],
+            order: [[0, 'desc']],
             lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
             pageLength: 10,
         });
+
+        var mediaVerificationId = 0;
+        $(document).on('click', '.view-image-btn', function () {
+            mediaVerificationId = $(this).data('id');
+            var userId = $(this).data('user-id');
+            var memberId = $(this).data('member-id');
+            var status = $(this).data('status');
+
+            if (status === 'Verified') {
+                $('.approve-btn').hide();
+                $('.reject-btn').hide();
+            }else{
+                $('.approve-btn').show();
+                $('.reject-btn').show();
+            }
+            
+            $('#media-images').html('Loading...');
+            $.ajax({
+                url: "{{ route('admin.media-verification-image') }}",
+                method: "GET",
+                data: {
+                    id: mediaVerificationId,
+                    user_id: userId
+                },
+                success: function (response) {
+                    $('#verification-image').attr('src',response.media_verification_image);
+                    $('#member-id').text(memberId);
+                    if (response.status) {
+                        let mediaImages = '';
+                        $.each(response.media_img, function (key, img) {
+                            mediaImages += img;
+                        });
+                        $('#media-images').html(mediaImages);
+                    } else {
+                        $('#view_image .modal-body').html('<p>No images found</p>');
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+
+        $(document).on('click', '.approve-btn', function () {
+            if($(this).data('id')){
+                mediaVerificationId = $(this).data('id');
+            }
+            
+            $.ajax({
+                url: "{{ route('admin.approve-media-verification') }}",
+                method: "POST",
+                data: {
+                    id: mediaVerificationId,
+                    _token: "{{ csrf_token() }}",
+                },
+                beforeSend: function() {
+                    $('.approve-btn').text('Approving...');
+                },
+                success: function (response) {
+                    if (response.status && response.media_verification_status == 'Verified') {
+                        $('.approve-btn').hide();
+                        $('.reject-btn').hide();
+                        $('#mediaverifyTable').DataTable().ajax.reload();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: response.message ?? 'Media verification approved successfully.'
+                        });
+                    } else {
+                        $('.approve-btn').show();
+                        $('.reject-btn').show();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed',
+                            text: response.message ?? 'Failed to approve media verification.'
+                        });
+                    }
+                },
+                complete: function() {
+                    $('.approve-btn').text('Approve');
+                },
+
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }); 
     });
 </script>
 @endsection

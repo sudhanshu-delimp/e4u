@@ -24,11 +24,9 @@ class CreateMediaVerificationsTable extends Migration
 
             $table->unsignedBigInteger('reviewed_by')->nullable();
             $table->timestamp('reviewed_at')->nullable();
-
+            $table->unsignedBigInteger('submited_by')->nullable();
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('reviewed_by')->references('id')->on('users')->onDelete('set null');
+            
         });
     }
 

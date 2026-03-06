@@ -282,6 +282,8 @@ Route::get('/management/statistics/num', function () {
 
 route::get('/reports/media-verification', [MediaVerificationController::class, 'index'])->name('admin.media-verification');
 route::get('/reports/media-verification-list', [MediaVerificationController::class, 'mediaVerificationLList'])->name('admin.media-verification-list');
+route::get('/reports/media-verification-image', [MediaVerificationController::class, 'mediaVerificationImage'])->name('admin.media-verification-image');
+route::post('/reports/approve-media-verification', [MediaVerificationController::class, 'approveMediaVerification'])->name('admin.approve-media-verification');
 
 Route::get('support-tickets', function () {
     return view('admin.support-tickets');
