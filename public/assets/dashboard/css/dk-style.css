@@ -1410,6 +1410,82 @@ button.btn:focus {
 
 /* end */
 
+
+/* wallet */
+
+
+/* Header */
+
+.wallet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.wallet-header h2 {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.balance-box {
+    background: var(--blue--text);
+    text-align: center;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+
+/* Card */
+
+.wallet-card {
+    background: white;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+
+/* Add money section */
+
+.add-money-box {
+    background: #f7f9fc;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+
+/* Table */
+
+.table thead th {
+    border-top: none;
+}
+
+.credit {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.debit {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.amount-plus {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.amount-minus {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+
+/* wallet */
+
 @media only screen and (max-width:1024px) {
     .main--chat--wrapper {
         flex-direction: column;

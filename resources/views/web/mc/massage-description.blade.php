@@ -1285,7 +1285,7 @@
                             <!-- new-review-card -->
                             <div class="review-card mx-auto position-relative">
                                 <!-- Carousel -->
-                                <div id="reviewCarousel" class="carousel slide carousel-slide " data-bs-ride="carousel">
+                                <div id="reviewCarousel" class="carousel slide carousel-slide pb-0" data-bs-ride="carousel">
                                     <div class="carousel-inner">
                                         
                                         @foreach($reviews as $key => $review)
@@ -1331,14 +1331,12 @@
                                     </div>
 
                                     <!-- Custom Nav Buttons -->
-                                    <div class="d-flex justify-content-start my-3 carousel-nav-btn-wrapper">
+                                    <div class="d-flex justify-content-start mt-3 carousel-nav-btn-wrapper">
                                         <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
                                         <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
-                                    </div>
-                                </div>
-                                <!-- Carousel controls -->
+                                        
                                 <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
-                                    <div class="col-md-12 mb-4">
+                                    <div class="col-md-12">
                                     @if(auth()->user())
                                             @if(auth()->user()->type == 0)
                                                 @if(!$reviewAlreadyExist)
@@ -1362,6 +1360,9 @@
                                         @endif
                                     </div>
                                 </div>
+                                    </div>
+                                </div>
+                                <!-- Carousel controls -->
 
                             </div>
                         </div>
@@ -1636,9 +1637,9 @@
                         <hr style="background-color: #0C223D">
                         <p class="mb-1 mt-3"><b>Notes:</b></p>
                                 <ol>
-                                    <li>Only review if you had direct contact with the Escort.</li>
+                                    <li>Only review if you had direct contact with the Centre.</li>
                                     <li>Do not write fake or abusive reviews, as they will not be published.</li>
-                                    <li>To contact this Escort click on <a href="{{ route('user.viewer-messages') }}" style="color: #ff3c5f;" class="custom_links_design">Message Me</span></a>.</li>
+                                    <li>To contact this Centre click on <a href="{{ route('user.viewer-messages') }}" style="color: #ff3c5f;" class="custom_links_design">Message Us</span></a>.</li>
                                 </ol>
                     </div>
                     <div class="modal-footer">
