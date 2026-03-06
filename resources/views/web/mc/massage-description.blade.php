@@ -1331,7 +1331,7 @@
                                     </div>
 
                                     <!-- Custom Nav Buttons -->
-                                    <div class="d-flex justify-content-start mt-3 carousel-nav-btn-wrapper">
+                                    <div class="d-flex justify-content-start mt-3 carousel-nav-btn-wrapper flex-wrap">
                                         <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
                                         <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
                                         
