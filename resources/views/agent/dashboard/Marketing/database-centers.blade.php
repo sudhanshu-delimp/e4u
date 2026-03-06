@@ -132,7 +132,7 @@
                                 <td>589</td>
                                 <td>390</td>
                                 <td>239</td>
-                                <td> <span class="custom_badge badge_inactive">InActive</span> </td>
+                                <td> <span class="custom_badge badge_inactive">inActive</span> </td>
                                 <td class="text-center">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"

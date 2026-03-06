@@ -1636,9 +1636,9 @@
                         <hr style="background-color: #0C223D">
                         <p class="mb-1 mt-3"><b>Notes:</b></p>
                                 <ol>
-                                    <li>Only review if you had direct contact with the Escort.</li>
+                                    <li>Only review if you had direct contact with the Centre.</li>
                                     <li>Do not write fake or abusive reviews, as they will not be published.</li>
-                                    <li>To contact this Escort click on <a href="{{ route('user.viewer-messages') }}" style="color: #ff3c5f;" class="custom_links_design">Message Me</span></a>.</li>
+                                    <li>To contact this Centre click on <a href="{{ route('user.viewer-messages') }}" style="color: #ff3c5f;" class="custom_links_design">Message Us</span></a>.</li>
                                 </ol>
                     </div>
                     <div class="modal-footer">
