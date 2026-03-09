@@ -20,11 +20,11 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="http://127.0.0.1:8000/images/logo.png" alt="E4U Logo"
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                        New Registration - Viewer [Title]<br>
+                                        New Registration - Viewer<br>
                                         <span style="font-size: 13px; color: #cccccc;">
                                             Member ID: {{$user->member_id ?? ''}}</span>
                                     </td>
@@ -39,7 +39,7 @@
 
                             <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Attention Operations</b></p>
                             <p style="font-size: 16px; margin: 35px 0 15px 0;">The following Viewer Registration was
-                                made on the [date of registration]. Details of the registration are:</p>
+                                made on the {{ $user->created_at->format('d-m-Y') }}. Details of the registration are:</p>
                             <!-- Details Table -->
                             <table width="100%" cellpadding="5" cellspacing="0"
                                 style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
@@ -55,7 +55,7 @@
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bold; padding: 10px 0px;">Location:</td>
-                                    <td style="padding: 10px 0px 10px 10px">{{config('escort.profile.states')[$user->state] ?? 'N/A'}}</td>
+                                    <td style="padding: 10px 0px 10px 10px">{{config('escorts.profile.states')[$user->state_id]['stateName']}}</td>
                                 </tr>
                             </table>
 
