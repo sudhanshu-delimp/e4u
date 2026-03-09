@@ -16,6 +16,16 @@ class Tour extends Model
         return $this->hasMany(TourLocation::class);
     }
 
+    public function getCurrentLocationAttribute()
+    {
+        return $this->locations()->with('state')->get()->first(function ($location) {
+
+            $today = now($location->timezone)->toDateString();
+
+            return $today >= $location->start_date && $today <= $location->end_date;
+        });
+    }
+
     public function latestLocation()
     {
         return $this->hasOne(TourLocation::class)->latestOfMany('end_date');
