@@ -127,7 +127,7 @@
                             <tr>
                                 <th>Ref</th>
                                 <th>Date</th>
-                                <th>Escort ID</th>
+                                <th>Escort/Massage ID</th>
                                 <th>Viewer ID</th>
                                 <th>Mobile</th>
                                 <th>Status</th>
