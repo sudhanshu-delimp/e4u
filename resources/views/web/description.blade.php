@@ -1309,7 +1309,7 @@
                         
                         @foreach($reviews as $key => $review)
                             @php
-                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id && $review->escort_id == $escort->id){
+                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id && $review->advertiser_id == $escort->id && $review->advertiser_type=='escort'){
                                     $reviewAlreadyExist = true;
                                     $reviewExistsMessage = $review->description;
                                     $reviewExistsStarRating = $review->star_rating;

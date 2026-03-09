@@ -12,6 +12,7 @@ use App\Models\MassagerMasseur;
 use App\Models\MassageService;
 use App\Models\Masseur;
 use App\Models\ReportMassageProfile;
+use App\Models\Reviews;
 use App\Models\Service;
 use App\Models\State;
 use App\Models\User;
@@ -354,6 +355,9 @@ class MassageCentre extends Controller
 
          //$listing = MassageProfile::where('id','=',$id)->first();
          $reviews = $listing->reviews;
+
+        
+
          $massage_durations = (isset($listing->durations) && count($listing->durations)>0) ? $listing->durations->toArray() : [];
 
     
@@ -445,13 +449,19 @@ class MassageCentre extends Controller
                 'description' => $request->description,
                 'star_rating' => $request->rating ? $request->rating : NULL,
                 'user_id' => auth()->user()->id,
-                'massage_id' => $massage_id,
+                'advertiser_id' => $massage_id,
+                'advertiser_type' => 'massage',
                 'status' => 'pending',  
             ];
             $id = null;
-            $reviewExist = MassageReviews::where('user_id', auth()->user()->id)->where('massage_id',$massage_id)->first();
+           
+            $reviewExist = Reviews::where([
+                                    'user_id'=> auth()->user()->id,
+                                    'advertiser_type'=>'massage',
+                                    'advertiser_id'=>$massage_id])
+                                    ->first();
             if($reviewExist != null){
-                MassageReviews::where('id',$reviewExist->id)->update($data);
+                Reviews::where('id',$reviewExist->id)->update($data);
                 $error = false;
             }else{
                 if($this->reviews->store($data, $id))
@@ -465,7 +475,7 @@ class MassageCentre extends Controller
         }
 
         # add statistics for escort profile view and added stats for reviews and recommendation
-        $userId = MassageReviews::where('id', $massage_id)->pluck('user_id');
+        $userId = MassageProfile::where('id', $massage_id)->pluck('user_id');
         saving_massage_stats($userId, $massage_id,'reviews_count');
         saving_massage_stats($userId, $massage_id,'recommendation_count');
 

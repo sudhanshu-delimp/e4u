@@ -1290,7 +1290,7 @@
                                         
                                         @foreach($reviews as $key => $review)
                                             @php
-                                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id && $review->massage_id == $listing->id){
+                                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id && $review->advertiser_id == $listing->id && $review->advertiser_type=='massage'){
                                                     $reviewAlreadyExist = true;
                                                     $reviewExistsMessage = $review->description;
                                                     $reviewExistsStarRating = $review->star_rating;
@@ -1602,16 +1602,7 @@
                             <div class="col">
                                 <div class="form-group popup_massage_box">
                                     <p class="font-weight-bold">Tell us about your experience:</p>
-                                    <textarea name="description" 
-                                    class="form-control popup_massage_box p-2" id="review_textarea" rows="5" 
-                                    placeholder="Message (500 characters)"
-                                    required
-                                        data-parsley-required-message="Please enter your review"
-                                        data-parsley-maxlength="500"
-                                        data-parsley-maxlength-message="Maximum 500 characters allowed">
-                                    
-                                    {{$reviewExistsMessage}}
-                                    </textarea>
+                                   <textarea name="description" class="form-control popup_massage_box p-2" id="review_textarea" rows="5" placeholder="Message (500 characters)" required data-parsley-required-message="Please enter your review" data-parsley-maxlength="500" data-parsley-maxlength-message="Maximum 500 characters allowed">{{ $review->description ?? '' }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -2077,7 +2068,7 @@ $(document).on('click', '.open_review_box', function (e) {
 
 
 
-            $('#review_textarea').val('');
+            $('#review_textarea').val($.trim($('#review_textarea').val()));
 
             $.ajaxSetup({
                 headers: {

@@ -51,81 +51,127 @@ class AdvertiserReviewsController extends Controller
     public function getReviewsByAjax()
     {
         [$advertiserReviews, $reports] = $this->getAdvertiserReviews();
-            
-        return DataTables::of($advertiserReviews)
-            ->addColumn('ref', fn($row) =>  $row->id . ($row->escort->id ?? ''))
+
+            return DataTables::of($advertiserReviews)
+
+            ->addColumn('ref', function ($row) {
+
+                if ($row->advertiser_type == 'escort') {
+                    return $row->id . (optional($row->escort)->id ?? '');
+                }
+
+                if ($row->advertiser_type == 'massage') {
+                    return $row->id . (optional($row->massage)->id ?? '');
+                }
+
+                return $row->id;
+            })
+
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
-            ->addColumn('escort_id', fn($row) => $row->escort->user->member_id ?? '-')
+
+            ->addColumn('escort_id', function ($row) {
+
+                if ($row->advertiser_type == 'escort') {
+                    return optional(optional($row->escort)->user)->member_id ?? '-';
+                }
+
+                if ($row->advertiser_type == 'massage') {
+                    return optional(optional($row->massage)->user)->member_id ?? '-';
+                }
+
+                return '-';
+            })
+
             ->addColumn('viewer_id', fn($row) => $row->user->member_id ?? '-')
+
             ->addColumn('mobile', fn($row) => $row->user->phone ?? '-')
-          
-            // ->addColumn('status', fn($row) => Str::title($row->status) ?? 'Pending')
+
             ->addColumn('status', function ($row) {
-                $statusText = $row->status 
-                    ? Str::title($row->status) 
-                    : 'Pending';
+
+                $statusText = $row->status ? Str::title($row->status) : 'Pending';
                 $badgeClass = getStatusBadgeClass($statusText);
+
                 return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
             })
-            // ->addColumn('review', fn($row) => $row->description != null && $row->description != '' ? Str::title($row->description) : '-')
+
             ->addColumn('action', function ($row) {
 
-                $statusActionHtml = '
-                    <div class="dropdown no-arrow ml-3">
-                        <a class="dropdown-toggle update-review-status" href="#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
+                $advertiserMemberId = '-';
 
-                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">';
+                if ($row->advertiser_type == 'escort') {
+                $advertiserMemberId = optional(optional($row->escort)->user)->member_id ?? '-';
+                }
+
+            if ($row->advertiser_type == 'massage') {
+                $advertiserMemberId = optional(optional($row->massage)->user)->member_id ?? '-';
+                }
+
+                $statusActionHtml = '
+                <div class="dropdown no-arrow ml-3">
+                    <a class="dropdown-toggle update-review-status" href="#" role="button"
+                        data-toggle="dropdown">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+
+                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">';
 
                 if ($this->editAccessEnabled) {
-                // Pending option
-                if ($row->status !== 'pending') {
-                    $statusActionHtml .= '
-                        <a class="dropdown-item update-review-status d-flex justify-content-start gap-10 align-items-center" data-id="'.$row->id.'" data-ref="'.$row->id.$row->escort_id.'" data-toggle="modal" data-target="#confirm-popup" href="#" data-value="pending">
+
+                    if ($row->status !== 'pending') {
+                        $statusActionHtml .= '
+                        <a class="dropdown-item update-review-status"
+                            data-id="'.$row->id.'" 
+                            data-ref="'.$row->id.$advertiserMemberId.'"
+                            data-value="pending"
+                            data-toggle="modal"
+                            data-target="#confirm-popup">
                             <i class="fa fa-hourglass-half text-dark"></i> Pending
                         </a>
                         <div class="dropdown-divider"></div>';
-                }
+                    }
 
-                // Published option
-                if ($row->status !== 'published') {
-                    $statusActionHtml .= '
-                        <a class="dropdown-item update-review-status d-flex justify-content-start gap-10 align-items-center" 
-                            href="#" data-toggle="modal" data-id="'.$row->id.'" data-ref="'.$row->id.$row->escort_id.'" data-value="published" data-target="#confirm-popup">
+                    if ($row->status !== 'published') {
+                        $statusActionHtml .= '
+                        <a class="dropdown-item update-review-status"
+                            data-id="'.$row->id.'"
+                            data-ref="'.$row->id.$advertiserMemberId.'"
+                            data-value="published"
+                            data-toggle="modal"
+                            data-target="#confirm-popup">
                             <i class="fa fa-check-circle text-dark"></i> Publish
                         </a>
                         <div class="dropdown-divider"></div>';
-                }
+                    }
 
-                // Rejected option
-                if ($row->status !== 'rejected') {
-                    $statusActionHtml .= '
-                        <a class="dropdown-item update-review-status d-flex justify-content-start gap-10 align-items-center" 
-                            href="#" data-toggle="modal" data-id="'.$row->id.'" data-ref="'.$row->id.$row->escort_id.'" data-value="rejected" data-target="#confirm-popup">
+                    if ($row->status !== 'rejected') {
+                        $statusActionHtml .= '
+                        <a class="dropdown-item update-review-status"
+                            data-id="'.$row->id.'"
+                            data-ref="'.$row->id.$advertiserMemberId.'"
+                            data-value="rejected"
+                            data-toggle="modal"
+                            data-target="#confirm-popup">
                             <i class="fa fa-ban text-dark"></i> Reject
                         </a>
                         <div class="dropdown-divider"></div>';
+                    }
                 }
-            }
-                // Always show View option
+
                 $statusActionHtml .= '
-                        <a class="dropdown-item view_member_report d-flex justify-content-start gap-10 align-items-center"
-                            href="#" data-id="'.$row->id.'">
-                            <i class="fa fa-eye text-dark"></i> View
-                        </a>
+                    <a class="dropdown-item view_member_report"
+                        href="#" data-id="'.$row->id.'">
+                        <i class="fa fa-eye text-dark"></i> View
+                    </a>
                     </div>
                 </div>';
 
                 return $statusActionHtml;
-            })
-            ->rawColumns(['action','status'])
-             ->with([
+            })->rawColumns(['action','status'])
+            ->with([
                 'reports' => $reports
             ])
             ->make(true);
+
     }
 
     private function getAdvertiserReviews()
@@ -143,7 +189,14 @@ class AdvertiserReviewsController extends Controller
         $allCount   = Reviews::count();
 
         # If you still want to return reviews with relations
-        $advertiserReviews = Reviews::with(['escort','user'])->orderByRaw("FIELD(status, 'pending','published','rejected','suspended')")->orderBy('updated_at', 'desc')->get();
+
+        $advertiserReviews = Reviews::with(['escort','massage','user'])
+        ->orderByRaw("FIELD(status, 'pending','published','rejected','suspended')")
+        ->orderBy('updated_at', 'desc')
+        ->get();
+
+        
+        //$advertiserReviews = Reviews::with(['escort','user'])->orderByRaw("FIELD(status, 'pending','published','rejected','suspended')")->orderBy('updated_at', 'desc')->get();
 
         $reports = [
             'today'    => $todayCount,
