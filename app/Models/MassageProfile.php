@@ -4,6 +4,7 @@ namespace App\Models;
 //use App\Models\State;
 
 use App\Models\MassageLike;
+use App\Models\Reviews;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -387,7 +388,8 @@ class MassageProfile extends Model
 
     public function reviews()
     {
-        return $this->hasMany(MassageReviews::class, 'massage_id', 'id');
+        return $this->hasMany(Reviews::class, 'advertiser_id')
+                    ->where('advertiser_type', 'massage');
     }
 
     public function getUserLikeDislike($massage_id, $ip, $userId)

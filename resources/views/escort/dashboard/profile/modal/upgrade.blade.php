@@ -55,7 +55,7 @@
                       <p class="mb-1"><b>Notes:</b></p>
                       <ol class="pl-4 text-justify">
                         <li>Your nominated Profile will be Bumped Up to the top of your nominated Membership Type in the Listings.</li>
-                     
+                        <li>Your Fee has been adjusted for the balance of the Listing period and charged to your Card.</li>
                       </ol>
                     </div>
                   </div>

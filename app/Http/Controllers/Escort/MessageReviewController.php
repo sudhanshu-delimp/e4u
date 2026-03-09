@@ -51,11 +51,18 @@ class MessageReviewController extends Controller
                 'description' => $request->description,
                 'star_rating' => $request->rating ? $request->rating : NULL,
                 'user_id' => auth()->user()->id,
-                'escort_id' => $escort_id,
+                'advertiser_id' => $escort_id,
                 'status' => 'pending',  
+                'advertiser_type' => 'escort',
             ];
             $id = null;
-            $reviewExist = Reviews::where('user_id', auth()->user()->id)->where('escort_id',$escort_id)->first();
+
+            $reviewExist = Reviews::where([
+                                    'user_id'=> auth()->user()->id,
+                                    'advertiser_type'=>'escort',
+                                    'advertiser_id'=>$escort_id])
+                                    ->first();
+
             if($reviewExist != null){
                 Reviews::where('id',$reviewExist->id)->update($data);
                 $error = false;
