@@ -1135,7 +1135,7 @@
                 <!-- Playmates Section -->
                 {{-- <div class="box_shadow manage_padding_margin_bg_color">
                     <div class="profile_card_border profile_description_contect">
-                        <h2><img src="../assets/app/img/bedroom.svg"> Playmates</h2>
+                        <h2><img src="{{ asset('assets/app/img/icon_my-playmates.svg') }}" style="width: 36px"> Playmates</h2>
                     </div>
                     <div class="padding_20_tob_btm_side reduse_pad">
                         <p class="profile_description_contect_pera">Alina does not have any Playmates.</p>

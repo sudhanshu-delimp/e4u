@@ -182,14 +182,17 @@
 
                     <div class="d-flex footer_text_color_white">
                         <div class="wcustom-100">
-                            <ul class="list-group footer_list_style_none ">
-                                <li><a href="{{ 'https://agencymanagement.com.au' }}" target="_blank">Agency
-                                        Management</a></li>
-                                <li><a href="{{ 'http://www.nationaluglymugs.com.au' }}" target="_blank">NUM</a>
+                            <ul class="list-group footer_list_style_none resources_list">
+                                <li> <a href="{{ 'https://agencymanagement.com.au' }}" target="_blank">
+                                    <div class="icon_boxs"><img src="{{ asset('assets/app/img/AM_icon-boxed.png') }}"></div> Agency Management</a></li>
+                                <li><a href="{{ 'http://www.nationaluglymugs.com.au' }}" target="_blank"> 
+                                    <div class="icon_boxs"><img src="{{ asset('assets/app/img/Logo_NUM.png') }}"></div> NUM</a>
                                 </li>
-                                <li><a href="{{ 'http://www.peamsaustralia.com.au' }}" target="_blank">PEAMS
+                                <li><a href="{{ 'http://www.peamsaustralia.com.au' }}" target="_blank"> 
+                                    <div class="icon_boxs"><img src="{{ asset('assets/app/img/PEAMS_Icon.png') }}"></div> PEAMS
                                         Australia</a></li>
-                                <li><a href="{{ 'http://www.punterbox.com.au' }}" target="_blank">Punterbox</a>
+                                <li><a href="{{ 'http://www.punterbox.com.au' }}" target="_blank"> 
+                                    <div class="icon_boxs"><img src="{{ asset('assets/app/img/Icon_Punterbox.png') }}"></div> Punterbox</a>
                                 </li>
 
                             </ul>
