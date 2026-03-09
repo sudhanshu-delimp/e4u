@@ -57,50 +57,6 @@
             display: flex;
             justify-content: space-between;
         }
-        .profile_list{
-            display: flex;
-            align-items: center;        
-            justify-content: flex-start;
-            gap: 10px;
-            margin-bottom: 5px;
-            position: relative;
-        }
-        .profile_label{
-            position: absolute;
-            display: none;
-            background: #0C223D;
-            padding: 3px;
-            border-radius: 3px;
-            font-size: 11px;
-            font-weight: 500;
-            color: #fff;
-            top: -28px;
-            left: 0px;
-       }
-       .profile_label::after{
-            position: absolute;
-            content: '';
-            left: 2px;
-            top: 19px;
-            border-width: 8px;
-            border-style: solid;
-            border-color: #0C223D transparent transparent transparent;
-            transform: rotate(0deg);
-       }
-       .profile_list:hover .profile_label{
-        display: block;
-       }
-        
-        .profile_list i{           
-            width: 20px;
-            background: #ff4768;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 100%;
-            font-size: 10px;            
-        }
         .table td{
             vertical-align: middle;
         }
