@@ -217,7 +217,7 @@
       </table>
     </div>
    
- <button type="button" data-target="#mergeList" data-toggle="modal">hellll</button>
+ {{-- <button type="button" data-target="#mergeList" data-toggle="modal">hellll</button> --}}
 </div>
 
         @include('agent.dashboard.modal.merge-type-modal')
