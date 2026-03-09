@@ -349,7 +349,8 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="text-align: center; display: block;">
-                            <button type="submit" class="btn-success-modal" id="save_brb" disabled>Save</button>
+                            <button type="submit" class="btn-success-modal" id="save_brb" disabled>Suspend</button>
+                            <button type="submit" class="btn-cancel-modal" id="save_brb" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
