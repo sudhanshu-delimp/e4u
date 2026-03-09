@@ -20,9 +20,9 @@ class Tour extends Model
     {
         return $this->locations()->with('state')->get()->first(function ($location) {
 
-            $today = now($location->timezone)->toDateString();
+            $today = Carbon::now($location->timezone)->format('Y-m-d');
 
-            return $today >= $location->start_date && $today <= $location->end_date;
+            return $today >= $location->start_date->format('Y-m-d') && $today <= $location->end_date->format('Y-m-d');
         });
     }
 

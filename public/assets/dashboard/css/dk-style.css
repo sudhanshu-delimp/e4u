@@ -282,7 +282,29 @@ span.menu-active {
     border-radius: 7px;
     width: 60% !important;
 }
-
+.profile_shape{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--blue--text);
+    padding: 5px;
+    border-radius: 5px;
+}
+.profile_shape .list_profile_name{
+    color: #fff;
+}
+.profile_shape .icons{
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    object-fit: cover;
+}
+.profile_shape .icons img{
+    width: 100%;
+    border-radius: 100px;
+    object-fit: cover;
+}
 .save_profile_btn {
     border: 1px solid transparent;
     padding: 10px 21px 10px 20px;

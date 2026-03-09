@@ -38,6 +38,11 @@ class TourLocation extends Model
         return $this->hasMany(TourProfile::class,'tour_location_id');
     }
 
+    public function Purchase()
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
     public function getStartDateFormattedAttribute()
     {
         return $this->start_date
