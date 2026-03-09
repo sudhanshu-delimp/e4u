@@ -338,7 +338,7 @@
                     <a class="collapse-item {{ request()->segment(2) == 'credit-my-account' ? 'menu-active' : '' }}"
                         href="{{ url('escort-dashboard/credit-my-account') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
-                        <span>Add Credit</span>
+                        <span>My Wallet</span>
                     </a>
                     <a class="collapse-item {{ request()->segment(2) == 'bank_account' ? 'menu-active' : '' }}"
                         href="{{ route('escort.bank_account') }}">

@@ -1106,7 +1106,7 @@
 
     <div class="box_shadow manage_padding_margin_bg_color">
         <div class="profile_card_border profile_description_contect">
-            <h2><img src="{{ asset('assets/app/img/bedroom.svg') }}">My Playmates</h2>
+            <h2><img src="{{ asset('assets/app/img/icon_my-playmates.svg') }}" style="width: 36px">My Playmates</h2>
         </div>
         <div class="padding_20_tob_btm_side reduse_pad">
             @if($escort->playmates->count() > 0 && $escort->activeSuspendProfile->count()==0)
