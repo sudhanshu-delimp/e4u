@@ -25,17 +25,18 @@
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
                   <li>All lists are created according to a post code (<b>List</b>). Go to <a href="{{ route('marketing.agencreate-prospect') }}" class="custom_links_design">Prospect Lists </a> to create a List.</li>
-                  <li>If you merged a List it will be listed here.</li>
+                  <li>If you merged a List it will be saved here.</li>
                   <li>You can manage your merged Lists by:
                      <ol class="level-2">
                         <li>emailing to the prospective Member;</li>
-                        <li>printing a hard copy for mailing to the prospective Member; and</li>
+                        <li>printing a hard copy for mailing to the prospective Member;</li>
                         <li>printing a hard copy for binding and presenting to a prospective Member at an
-                           appointment.</li>
+appointment; and</li>
+<li>Creating an appointment in My Appointments.</li>
                            
                      </ol>
                      <p>You should check the information set out in the Information Package before presenting
-                        it to the prospective Member.</p>
+it to the prospective Member.</p>
                   </li>
                   <li>Click the 'View' button to view the Information Package in full.</li>
                </ol>
