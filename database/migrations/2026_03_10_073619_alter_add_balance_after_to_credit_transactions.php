@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class AlterAddBalanceAfterToCreditTransactions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        // Schema::table('credit_transactions', function (Blueprint $table) {
-        //     $table->foreign(['wallet_id'])->references(['id'])->on('wallets')->onDelete('CASCADE');
-        // });
+        Schema::table('credit_transactions', function (Blueprint $table) {
+            $table->decimal('balance_after', 15, 2)
+                  ->default(0)
+                  ->after('amount');
+        });
     }
 
     /**
@@ -26,7 +28,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('credit_transactions', function (Blueprint $table) {
-            $table->dropForeign('credit_transactions_wallet_id_foreign');
+            $table->dropColumn('balance_after');
         });
     }
-};
+}
