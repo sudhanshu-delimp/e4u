@@ -1318,6 +1318,10 @@
                             
                             <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
                                 <div class="d-flex align-items-center justify-content-between">
+                                    <span style="font-size: 14px;"> Reviewed By </span>
+                                    <span style="font-size: 14px;"> Review Date </span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between">
                                     <h5>
                                         @if (!empty($review->user->name))
                                             {{ Str::title($review->user->name) }}
@@ -1327,7 +1331,7 @@
                                             Username
                                         @endif
                                     </h5>
-                                    <p class="custome-text-date mb-0">Reviewed: {{$review->created_at->format('d-m-Y')}}</p>
+                                    <p class="custome-text-date mb-0">{{$review->created_at->format('d-m-Y')}}</p>
                                 </div>
                                 <ul class="list-inline mb-0">
                                     @for($i=1; $i<= 5; $i++)
