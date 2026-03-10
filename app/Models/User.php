@@ -919,12 +919,18 @@ class User extends Authenticatable
 
     public function wallet()
     {
-        return $this->hasOne(Wallet::class);
+        return $this->hasOne(Wallet::class)->withDefault([
+            'balance' => 0.00,
+        ]);
     }
 
     public function getOrCreateWallet(): Wallet
     {
-        return $this->wallet ?? $this->wallet()->create([
+        if ($this->wallet()->exists()) {
+            return $this->wallet;
+        }
+    
+        return $this->wallet()->create([
             'balance' => 0
         ]);
     }
