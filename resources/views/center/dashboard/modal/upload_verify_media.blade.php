@@ -22,7 +22,7 @@
 
                                     <img id="blah" class="item px-2"
                                         src="{{ asset('assets/app/img/upload-media.png') }}"
-                                        style="width: 400px;object-fit: cover; height:100%">
+                                        style="width: 400px;object-fit: cover; height:250px">
 
                                     <input name="img[]" id="upload_file" class="pis"
                                         onchange="preview_image(event);" type="file" multiple accept="image/*">

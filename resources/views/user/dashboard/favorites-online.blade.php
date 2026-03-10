@@ -56,12 +56,12 @@
                 <tr>
                 <td class="icon-col"><i class="fas fa-map-marker-alt"></i></td>
                 <td>In my Location</td>
-                <td class="text-center">15</td>
+                <td class="text-center">{{$result['same_state_count'] ?? 0}}</td>
                 </tr>
                 <tr>
                 <td class="icon-col"><i class="fas fa-globe"></i></td>
                 <td>Outside my Location</td>
-                <td class="text-center" style="border-bottom: 2px solid">15</td>
+                <td class="text-center" style="border-bottom: 2px solid">{{$result['outside_state_count'] ?? 0}}</td>
                 </tr>
                 <tr>
                 <td class="icon-col"><i class="fas fa-wifi"></i>

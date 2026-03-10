@@ -306,7 +306,8 @@
                 {
                     $('body').on("click","#resendOtpSubmit",function(){
                         $("#loginFormViewer").submit();
-                        $('#senderror').html("<p class='text-center text-success mt-4'> Your verification code has been re-sent to your selected contact method (email or mobile).</p>");
+                        var message = "{{ config('common.resend_2fa_verification_code_msg') }}";
+                        $('#senderror').html("<p class='text-center text-success'>" + message + "</p>");
                     });
 
 

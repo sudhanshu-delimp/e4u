@@ -19,6 +19,10 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
     }
+    
+        p, ol, ul{
+            text-align: justify
+        }
 </style>
 @endsection
 @section('content')

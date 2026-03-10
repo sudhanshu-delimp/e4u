@@ -1187,6 +1187,26 @@
                 color: #FF3C5F;
             }
             
+            .resources_list li a {
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                gap: 5px;
+            }
+            
+            .resources_list li .icon_boxs {
+                width: 30px;
+                height: 30px;
+                object-fit: cover;
+            }
+            
+            .resources_list li a img {
+                width: 100%;
+                padding-bottom: 0px !important;
+                object-fit: cover;
+                height: auto;
+            }
+            
             .reg_info.viewer-registration p,
             .reg_info.viewer-registration ul li {
                 font-size: 16px;
@@ -1909,6 +1929,18 @@
                 margin: 10px auto;
             }
             
+            .accordion-container .set p {
+                text-align: justify;
+            }
+            
+            .accordion-container .set ul {
+                text-align: justify;
+            }
+            
+            .accordion-container .set ol {
+                text-align: justify;
+            }
+            
             .set {
                 position: relative;
                 margin-bottom: 15px;
@@ -1955,6 +1987,7 @@
                 line-height: 28px;
                 padding: 2px 0px;
                 margin: 0;
+                text-align: justify;
             }
             
             .footer-links-si p,
@@ -1965,6 +1998,7 @@
                 font-weight: normal;
                 font-size: 16px;
                 line-height: 28px;
+                text-align: justify;
             }
             
             .content p:first-of-type {
@@ -4781,7 +4815,7 @@ i.fa.fa-heart-o{
             }
             
             .footer_mange_padding .row .col.dk-right {
-                max-width: 180px;
+                max-width: 250px;
             }
             
             .footer_mange_padding .row .col:nth-child(3) {

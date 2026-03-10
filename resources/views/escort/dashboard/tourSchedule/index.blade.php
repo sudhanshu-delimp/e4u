@@ -75,130 +75,9 @@
              </div>    
         </div>
     </div>
-    <button class="btn-cancel-modal" data-target="#tour_summary" data-toggle="modal">Test</button>
-    {{-- Tour Summary popup --}}
-    <div class="modal fade upload-modal" id="tour_summary" tabindex="-1" role="dialog" aria-labelledby="tour_summary"
-        aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered " role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <img src="{{ asset('assets/dashboard/img/travel.png') }}" class="custompopicon">
-                        <span class="text-white" id="tour_summary">Tour Summary</span>                        
-                     </h5>
-                  
-                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body pb-0 agent-tour">
-                    <div class="table-responsive">
-                        <table class="table table-bordered ">
-                           
-                            <tr>
-                                <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0;">Tour start date : </th>
-                                <td class="location_count">10-06-2025</td>
-                                <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0">Tour end date : </th>
-                                <td class="location_current">15-06-2025</td>
-                            </tr>
-                             <tr>
-                                <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0;">Locations : </th>
-                                <td class="location_count">4</td>
-                                <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0">Current Location : </th>
-                                <td class="location_current">Delhi</td>
-                            </tr>
-                            <tr>
-                               
-                                <th style="color: #0C223D; font-weight:600;">Current Profiles : </th>
-                                <td class="current_profile">Priya Sharma</td>
-                                <th style="color: #0C223D; font-weight:600;">Fees : </th>
-                                <td class="current_fees">$1,200</td>
-                            </tr> 
-                            
-                            <tr>
-                                <td colspan="4">
-                                    
-                                    <div class="current_date">Date : <span>{{ now()->format('d-m-Y') }}</span></div>
-                                </td>
-                            </tr>
-                    </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- end --}}
-    {{-- Cancel Tour Popup --}}
-    <div class="modal fade upload-modal" id="tour_location_cancel" tabindex="-1" aria-labelledby="new-ban-3" data-backdrop="static" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <img src="{{asset('assets/dashboard/img/travel.png')}}" class="custompopicon">
-                        <span class="text-white">  Cancel Tour</span>                        
-                     </h5>
-                    <button type="button" class="close cancelTourcloseSuccessBtn" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                
-                <div class="modal-body pb-0 agent-tour">
-                    <form id="cancelTourForm" action="{{route('escort.tour.cancel_tour_location')}}" method="POST">
-                        <h4>You are about to cancel your Tour. Are you sure you want to cancel your Tour?</h4>
-                        <hr style="background-color: #0C223D" class="mt-3">
-                        <input type="hidden" id="cancel_tour_id" value="119">
-                        <div class="note">
-                            <p class="font-weight-bold">Notes:</p>
-                            <ol>
-                                <li>If you cancel your Tour, any remaining Fees paid will be credited back to
-                                    you. Cancellation is immediate.</li>
-                                <li>You can reactivate this Tour by going to the Tours group in the menu.</li>
-                            </ol>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 my-3 d-flex align-items-center justify-content-between">
-                                <div class="">Date : <span>27-01-2026</span></div>
-
-                                <div class="form-group mb-0">
-                                    <input type="hidden" name="item_id">
-                                    <button type="button" class="btn-cancel-modal ml-2" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                        <button type="submit" class="btn-success-modal ml-2 cancelTourbtn">Cancel Tour</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> 
-    {{-- end --}}
-    {{-- Cancel Tour confirmation Popup --}}
-    <div class="modal fade upload-modal" id="cancel_tour_confirm" tabindex="-1" role="dialog" aria-labelledby="cancel_tour_confirm"
-        aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <img src="{{ asset('assets/dashboard/img/cancel-travel.png') }}" class="custompopicon">
-                        <span class="text-white">Cancellation of Tour - Confirmation</span>                        
-                     </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                   
-                        <h5 class="popu_heading_style my-4">Your Tour has been cancelled and all Profiles associated with the Tour removed from the
-                            Website.</h5>
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <button class="btn-cancel-modal" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- end --}}
+    @include('escort.dashboard.tourSchedule.modal.summary')
+    @include('escort.dashboard.tourSchedule.modal.cancel')
+    @include('escort.dashboard.tourSchedule.modal.cancel_confirmation')
 @endsection
 @section('script') 
      <script>
@@ -338,6 +217,28 @@ $("#cancelTourForm").on('submit', function(e){
         }
     });
 
+});
+
+$("#tour_summary").on('show.bs.modal', function(event){
+    let modal = $(this);
+    let button = $(event.relatedTarget);
+    let tourId = button.data('item-id');
+    $.ajax({
+        url: '{{route("escort.dashboard.get-tour-summary-ajax")}}',
+        method: 'post',
+        dataType:'json',
+        data: {tourId},
+        beforeSend: function(){
+          
+        },
+        success: function (response) {
+            modal.find('.modal-body').html(response.html);
+            console.log(modalObj);
+        },
+        error: function (xhr) {
+            console.error(xhr.responseText);
+        }
+    });
 });
     </script>
 @endsection
