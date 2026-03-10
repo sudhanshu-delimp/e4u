@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class CreditTransaction extends Model
 {
     protected $fillable = [
-        'wallet_id','type','amount','description','meta','transactionable_id','transactionable_type'
+        'wallet_id','type','amount','balance_after','description','meta','transactionable_id','transactionable_type'
     ];
 
     protected $casts = [

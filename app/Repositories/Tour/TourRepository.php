@@ -56,6 +56,7 @@ class TourRepository extends BaseRepository implements TourInterface
 
 		return [$result, $count];
 	}
+    
     protected function modifyProperties($result ,$start)
     {
         //dd($result);
