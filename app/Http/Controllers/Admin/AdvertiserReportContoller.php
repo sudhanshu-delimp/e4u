@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\ReportEscortProfile;
 use Carbon\Carbon;
+use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use DataTables;
+use Illuminate\Support\Str;
 
 class AdvertiserReportContoller extends Controller
 {
@@ -110,7 +111,7 @@ class AdvertiserReportContoller extends Controller
             ->addColumn('status', function ($row) {
                 $statusText = $row->report_status == 'pending' 
                     ? 'Active' 
-                    : 'Resolved';
+                    : Str::ucfirst($row->report_status);
                 $badgeClass = getStatusBadgeClass($statusText);
                 return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
             })
