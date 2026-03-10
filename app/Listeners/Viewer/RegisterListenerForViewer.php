@@ -11,7 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
-class RegisterListenerForViewer
+class RegisterListenerForViewer implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -33,7 +33,7 @@ class RegisterListenerForViewer
     {
         $user = $event->user;
         Mail::to($user->email)->send(new RegisterEmailForViewer($user));
-        Mail::to($user->email)->later(now()->addSeconds(5), new NewUserRegistrationConfirmation($user));
-        Mail::to(config('common.contactus_admin_email'))->later(now()->addSeconds(5), new NewUserRegistrationConfirmationToAdmin($user));
+        Mail::to($user->email)->send( new NewUserRegistrationConfirmation($user));
+        Mail::to(config('common.contactus_admin_email'))->send(new NewUserRegistrationConfirmationToAdmin($user));
     }
 }
