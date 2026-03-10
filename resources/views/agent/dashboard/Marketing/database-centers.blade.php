@@ -53,7 +53,7 @@
                     <table class="table mb-3" id="databaseCentreTable">
                         <thead class="table-bg">
                             <tr>
-                                <th>Upload</th>
+                                <th>Uploaded</th>
                                 <th>Territory</th>
                                 <th>Centres</th>
                                 <th>Mobile</th>
