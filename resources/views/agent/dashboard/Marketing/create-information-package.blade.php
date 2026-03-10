@@ -101,7 +101,7 @@ it to the prospective Member.</p>
    {{-- end --}}
 </div>
 
-
+        {{-- @include('agent.dashboard.modal.view-list-modal') --}}
     {{-- search modal --}}
     <div class="modal fade upload-modal" id="search" tabindex="-1" role="dialog"
         aria-labelledby="searchlabel" aria-hidden="true" data-backdrop="static">
@@ -170,14 +170,13 @@ it to the prospective Member.</p>
                             <thead class="bg-first">
                                 <!-- Table Headings -->
                                 <tr>
-                                    <td style="text-align:center;">ID</td>
+                                    <td>ID</td>
                                     <td>Business Name</td>
                                     <td>Address</td>
                                     <td>Post Code</td>
                                     <td>Mobile Number</td>
                                     <td>Business Number</td>
-                                    <td>Email</td>
-                                    <td>Website</td>
+                                    <td>Done</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -188,8 +187,9 @@ it to the prospective Member.</p>
                                 <td>6000</td>
                                 <td>0456 665 012</td>
                                 <td>9236 2587</td>
-                                <td></td>
-                                <td></td>
+                                <td style="text-align: center;">
+                                        <input type="checkbox" />
+                                    </td>
                                 
                               </tr>
                               <tr>
@@ -199,8 +199,9 @@ it to the prospective Member.</p>
                                 <td>6000</td>
                                 <td>0426 610 881</td>
                                 <td>9325 2011</td>
-                                <td></td>
-                                <td></td>
+                                 <td style="text-align: center;">
+                                        <input type="checkbox" />
+                                    </td>
                                 
                               </tr>
                               <tr>
@@ -210,8 +211,9 @@ it to the prospective Member.</p>
                                 <td>6000</td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
+                                 <td style="text-align: center;">
+                                        <input type="checkbox" />
+                                    </td>
                                 
                               </tr>
                             </tbody>
