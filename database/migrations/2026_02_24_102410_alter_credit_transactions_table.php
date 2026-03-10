@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+class AlterCreditTransactionsTable extends Migration {
 
     public function up(): void
     {
-        Schema::dropIfExists('credit_transactions');
+       Schema::dropIfExists('credit_transactions');
 
         Schema::create('credit_transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
