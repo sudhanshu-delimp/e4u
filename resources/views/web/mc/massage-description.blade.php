@@ -9,7 +9,8 @@
 }
 
 .profile_img {
-    border-radius: 23px;
+    border-radius: 100%;
+    box-shadow: 0px 0px 3px 1px #ccc;
 }
 .our-masseurs {
     border-radius: 23px;
