@@ -18,7 +18,7 @@
                         <div class="form-group mt-3">
                             <label for="excelFile" class="upload_exl">Select Excel file to upload:</label>
                             <input type="file" class="form-control-file d-none" id="excelFile" accept=".xlsx, .xls">
-                             <!-- File name will appear here -->
+                            
                             <p id="fileName" class="upl_file_name"></p>
                         </div>
                         <div class="modal-footer d-flex justify-content-center">

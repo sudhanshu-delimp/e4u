@@ -23,13 +23,11 @@
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
-                            <li>You can select a payment option by clicking the card, or simply insert the amount you want
-                                to pay.</li>
+                            <li>You can select a payment option from the drop down including your preferred amount you want to pay.</li>
                             <li>SMS 2FA applies to this feature.</li>
                             <li>You can enable the Auto Recharge feature <a href="#"
                                     class="custom_links_design">here</a> as well.</li>
-                            <li>You can view how much credit you have available in the summary below. When creating a
-                                Listing or Tour, your available credit will be displayed on the payment page.</li>
+                           <li>You can view how much credit you have available in the summary below. When creating a Listing or Tour, your available credit will be displayed on the checkout payment page.</li>
                         </ol>
                     </div>
                 </div>
@@ -59,6 +57,8 @@
                                         <option value="100">AU$100</option>
                                         <option value="200">AU$200</option>
                                         <option value="500">AU$500</option>
+                                        <option value="750">AU$750</option>
+                                        <option value="1000">AU$1,000</option>
                                         <option value="other">Other</option>
                                     </select>
                                 </div>
@@ -69,7 +69,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">AU$</span>
                                         </div>
-                                        <input type="text" name="custom_amount" id="custom_amount" class="form-control" placeholder="Enter amount e.g. 100"
+                                        <input type="text" name="custom_amount" id="custom_amount" class="form-control" placeholder="Enter amount e.g. 1,000"
                                             disabled>
                                     </div>
 
