@@ -13,7 +13,7 @@
             
             <div class="modal-body pb-0 agent-tour">
                 <form id="cancelTourForm" action="{{route('escort.tour.cancel_tour_location')}}" method="POST">
-                    <h5 class="text-center">You are about to cancel your Tour. Are you sure you<br> want to cancel your Tour?</h5>
+                    <h5 class="popu_heading_style my-3 text-center">You are about to cancel your Tour. Are you sure you<br> want to cancel your Tour?</h5>
                     <hr style="background-color: #0C223D" class="mt-3">
                     <input type="hidden" id="cancel_tour_id" value="119">
                     <div class="note">
