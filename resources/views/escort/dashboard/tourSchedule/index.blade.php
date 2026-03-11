@@ -78,7 +78,6 @@
     @include('escort.dashboard.tourSchedule.modal.summary')
     @include('escort.dashboard.tourSchedule.modal.cancel')
     @include('escort.dashboard.tourSchedule.modal.cancel_confirmation')
-    <button class="btn btn-primary" data-target="#tour_location_cancel" data-toggle="modal">Cancel Tour</button>
 @endsection
 @section('script') 
      <script>
