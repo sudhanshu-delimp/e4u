@@ -25,17 +25,18 @@
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
                   <li>All lists are created according to a post code (<b>List</b>). Go to <a href="{{ route('marketing.agencreate-prospect') }}" class="custom_links_design">Prospect Lists </a> to create a List.</li>
-                  <li>If you merged a List it will be listed here.</li>
+                  <li>If you merged a List it will be saved here.</li>
                   <li>You can manage your merged Lists by:
                      <ol class="level-2">
                         <li>emailing to the prospective Member;</li>
-                        <li>printing a hard copy for mailing to the prospective Member; and</li>
+                        <li>printing a hard copy for mailing to the prospective Member;</li>
                         <li>printing a hard copy for binding and presenting to a prospective Member at an
-                           appointment.</li>
+appointment; and</li>
+<li>Creating an appointment in My Appointments.</li>
                            
                      </ol>
                      <p>You should check the information set out in the Information Package before presenting
-                        it to the prospective Member.</p>
+it to the prospective Member.</p>
                   </li>
                   <li>Click the 'View' button to view the Information Package in full.</li>
                </ol>
@@ -100,7 +101,7 @@
    {{-- end --}}
 </div>
 
-
+        {{-- @include('agent.dashboard.modal.view-list-modal') --}}
     {{-- search modal --}}
     <div class="modal fade upload-modal" id="search" tabindex="-1" role="dialog"
         aria-labelledby="searchlabel" aria-hidden="true" data-backdrop="static">
@@ -169,14 +170,13 @@
                             <thead class="bg-first">
                                 <!-- Table Headings -->
                                 <tr>
-                                    <td style="text-align:center;">ID</td>
+                                    <td>ID</td>
                                     <td>Business Name</td>
                                     <td>Address</td>
                                     <td>Post Code</td>
                                     <td>Mobile Number</td>
                                     <td>Business Number</td>
-                                    <td>Email</td>
-                                    <td>Website</td>
+                                    <td>Done</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -187,8 +187,9 @@
                                 <td>6000</td>
                                 <td>0456 665 012</td>
                                 <td>9236 2587</td>
-                                <td></td>
-                                <td></td>
+                                <td style="text-align: center;">
+                                        <input type="checkbox" />
+                                    </td>
                                 
                               </tr>
                               <tr>
@@ -198,8 +199,9 @@
                                 <td>6000</td>
                                 <td>0426 610 881</td>
                                 <td>9325 2011</td>
-                                <td></td>
-                                <td></td>
+                                 <td style="text-align: center;">
+                                        <input type="checkbox" />
+                                    </td>
                                 
                               </tr>
                               <tr>
@@ -209,8 +211,9 @@
                                 <td>6000</td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
+                                 <td style="text-align: center;">
+                                        <input type="checkbox" />
+                                    </td>
                                 
                               </tr>
                             </tbody>

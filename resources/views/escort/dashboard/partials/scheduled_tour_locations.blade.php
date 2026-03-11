@@ -5,7 +5,7 @@
             <td>{{$location->days_total}}</td>
             <td>{{$location->start_date_formatted}}</td>
             <td>{{$location->end_date_formatted}}</td>
-            <td>{{$location->status}}</td>
+            <td>{!! $location->status !!}</td>
             <td>{!! $location->action !!}</td>
         </tr>  
     @endforeach

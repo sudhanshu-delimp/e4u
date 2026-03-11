@@ -79,7 +79,7 @@
 
                                             <div class="row">
                                                 <div class="col-12 my-2">
-                                                    <h5>Personal Details</h5>
+                                                    <h5>Operator Details</h5>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -197,6 +197,21 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-12 my-2">
+                                                            <h5>Fees</h5>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                               {{--  <label for="member_id">Fee</label> --}}
+                                                                <span class="form-control form-back">
+                                                                    {{ $operator->operator_detail->fee }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <div class="col-md-12">
                                                     <div class="row">
                                                         <div class="col-12 my-2">

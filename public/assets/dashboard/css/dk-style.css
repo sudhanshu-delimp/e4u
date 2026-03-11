@@ -282,7 +282,29 @@ span.menu-active {
     border-radius: 7px;
     width: 60% !important;
 }
-
+.profile_shape{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--blue--text);
+    padding: 5px;
+    border-radius: 5px;
+}
+.profile_shape .list_profile_name{
+    color: #fff;
+}
+.profile_shape .icons{
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    object-fit: cover;
+}
+.profile_shape .icons img{
+    width: 100%;
+    border-radius: 100px;
+    object-fit: cover;
+}
 .save_profile_btn {
     border: 1px solid transparent;
     padding: 10px 21px 10px 20px;
@@ -1409,6 +1431,82 @@ button.btn:focus {
 
 
 /* end */
+
+
+/* wallet */
+
+
+/* Header */
+
+.wallet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.wallet-header h2 {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.balance-box {
+    background: var(--blue--text);
+    text-align: center;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+
+/* Card */
+
+.wallet-card {
+    background: white;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+
+/* Add money section */
+
+.add-money-box {
+    background: #f7f9fc;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+
+/* Table */
+
+.table thead th {
+    border-top: none;
+}
+
+.credit {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.debit {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.amount-plus {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.amount-minus {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+
+/* wallet */
 
 @media only screen and (max-width:1024px) {
     .main--chat--wrapper {
@@ -2939,8 +3037,8 @@ button.btn:focus {
 /* Make all images fill properly */
 
 .view_img_gallery img {
-    width: 100%;
-    height: 100%;
+    width: 140px;
+    height: 120px;
     object-fit: cover;
     border-radius: 6px;
 }
@@ -2956,9 +3054,9 @@ button.btn:focus {
 /* Center 6 Images Grid */
 
 .view_img_gallery .other_images {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* grid-template-rows: repeat(2, 150px); */
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     gap: 10px;
     height: 400px;
     overflow: auto;
@@ -2985,7 +3083,7 @@ button.btn:focus {
 
 .thumbnail img,
 .verification img {
-    height: 100%;
+    height: 400px;
     width: 100%;
     object-fit: cover;
 }
@@ -3009,9 +3107,57 @@ button.btn:focus {
 
 .view_img_gallery_masseur img {
     width: 100%;
-    height: 100%;
+    height: 112px;
     object-fit: cover;
     border-radius: 6px;
+}
+
+.profile_list {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.profile_label {
+    position: absolute;
+    display: none;
+    background: #0C223D;
+    padding: 3px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #fff;
+    top: -28px;
+    left: 0px;
+}
+
+.profile_label::after {
+    position: absolute;
+    content: '';
+    left: 3px;
+    top: 19px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #0C223D transparent transparent transparent;
+    transform: rotate(0deg);
+}
+
+.profile_list:hover .profile_label {
+    display: block;
+}
+
+.profile_list i {
+    width: 20px;
+    background: #ff4768;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    font-size: 10px;
 }
 
 
@@ -3029,7 +3175,7 @@ button.btn:focus {
 
 .view_img_gallery_masseur .thumbnail img,
 .view_img_gallery_masseur .verification img {
-    height: 100%;
+    height: 360px;
     width: 100%;
     object-fit: cover;
 }

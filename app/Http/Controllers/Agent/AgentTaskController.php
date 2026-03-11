@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class AgentTaskController extends Controller
@@ -17,7 +18,14 @@ class AgentTaskController extends Controller
 
     public function fetchTask(Request $request)
     {
-        $data = Task::orderByRaw("CASE 
+        $data = Task::select('tasks.*')
+        ->addSelect(DB::raw("CASE
+            WHEN status = 'open' THEN 'badge_open'
+            WHEN status = 'inprogress' THEN 'badge_inProgress'
+            WHEN status = 'completed' THEN 'badge_completed'
+            ELSE 'badge_default'
+        END as status_color_class"))
+        ->orderByRaw("CASE 
             WHEN status = 'inprogress' THEN 0 
             WHEN status = 'open' THEN 1 
             ELSE 2 
@@ -27,9 +35,12 @@ class AgentTaskController extends Controller
             WHEN priority = 'medium' THEN 1 
             ELSE 2 
         END")
-        ->orderByDesc('id') // then by newest
+        ->orderByDesc('id') 
         ->where('user_id',Auth::user()->id)
         ->paginate(10);
+
+
+        
 
         return response()->json([
             'status' => true,

@@ -42,20 +42,20 @@ class DbBackEndProcess extends Command
         
             $yesterday = Carbon::yesterday();
 
-            $tokens = DB::table('masseurs')
-                ->whereDate('created_at', $yesterday)
-                ->pluck('token_id');
+            // $tokens = DB::table('masseurs')
+            //     ->whereDate('created_at', $yesterday)
+            //     ->pluck('token_id');
 
-            if ($tokens->isNotEmpty()) 
-            {
-                DB::table('masseur_galleries')
-                    ->whereNotIn('masseur_token_id', $tokens)
-                    ->delete();
+            // if ($tokens->isNotEmpty()) 
+            // {
+            //     DB::table('masseur_galleries')
+            //         ->whereNotIn('masseur_token_id', $tokens)
+            //         ->delete();
 
-                DB::table('massuers_media')
-                    ->whereNotIn('masseur_token_id', $tokens)
-                    ->delete();
-            }
+            //     DB::table('massuers_media')
+            //         ->whereNotIn('masseur_token_id', $tokens)
+            //         ->delete();
+            // }
 
     }
 }

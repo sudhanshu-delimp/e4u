@@ -29,6 +29,9 @@
                 transform: rotate(360deg);
             }
         }
+        p, ol, ul{
+            text-align: justify
+        }
     </style>
 @endsection
 @section('content')

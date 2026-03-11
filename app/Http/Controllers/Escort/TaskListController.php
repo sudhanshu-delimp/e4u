@@ -1,18 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Http\Request;
-use App\Repositories\Escort\EscortInterface;
-use App\Repositories\User\UserInterface;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Facades\Validator;
 
-class TaskController extends Controller
+class TaskListController extends Controller
 {
+    // i m just move right source code from TaskController to TaskListController for escort dashboard task list SHS
+
+
+    public function index()
+    {
+        return view('escort.dashboard.task-list');
+    }
+
     public function fetchTask(Request $request)
     {
         $data = Task::orderByRaw("CASE 
@@ -20,14 +25,14 @@ class TaskController extends Controller
             WHEN status = 'open' THEN 1 
             ELSE 2 
         END")
-        ->orderByRaw("CASE 
+            ->orderByRaw("CASE 
             WHEN priority = 'high' THEN 0 
             WHEN priority = 'medium' THEN 1 
             ELSE 2 
         END")
-        ->orderByDesc('id') // then by newest
-        ->where('user_id',Auth::user()->id)
-        ->paginate(10); 
+            ->orderByDesc('id') // then by newest
+            ->where('user_id', Auth::user()->id)
+            ->paginate(10);
 
         return response()->json([
             'status' => true,
@@ -58,18 +63,18 @@ class TaskController extends Controller
         $task->user_id = Auth::user()->id;
         $task->save();
 
-        return response()->json(['success' => true, 'task' => $task,'task_name' => 'add_task']);
+        return response()->json(['success' => true, 'task' => $task, 'task_name' => 'add_task']);
     }
 
     public function editTask(Request $request)
     {
-        $task = Task::where('user_id',Auth::user()->id)->findOrFail($request->id);
-        return response()->json(['success' => true, 'task' => $task,'task_name' => 'edit_task']);
+        $task = Task::where('user_id', Auth::user()->id)->findOrFail($request->id);
+        return response()->json(['success' => true, 'task' => $task, 'task_name' => 'edit_task']);
     }
 
     public function updateTask(Request $request)
     {
-        $task = Task::where('user_id',Auth::user()->id)->findOrFail($request->task_id);
+        $task = Task::where('user_id', Auth::user()->id)->findOrFail($request->task_id);
 
         $validator = Validator::make($request->all(), [
             'title' => 'required',
@@ -83,30 +88,30 @@ class TaskController extends Controller
         }
 
         $task->update([
-            'title'=>$request->title,
-            'priority'=>$request->task_priority,
-            'description'=>$request->description,
-            'status'=>$request->status,
+            'title' => $request->title,
+            'priority' => $request->task_priority,
+            'description' => $request->description,
+            'status' => $request->status,
         ]);
 
-        return response()->json(['success' => true, 'task' => $task,'task_name' => 'update_task']);
+        return response()->json(['success' => true, 'task' => $task, 'task_name' => 'update_task']);
     }
 
     public function statusTask(Request $request)
     {
-        $task = Task::where('user_id',Auth::user()->id)->findOrFail($request->change_task_id);
+        $task = Task::where('user_id', Auth::user()->id)->findOrFail($request->change_task_id);
         $task->update([
-            'status'=>'completed',
+            'status' => 'completed',
         ]);
 
-        return response()->json(['success' => true, 'task' => $task,'task_name' => 'complete_task']);
+        return response()->json(['success' => true, 'task' => $task, 'task_name' => 'complete_task']);
     }
 
     public function openTask(Request $request)
     {
-        $openCount = Task::where('status', 'open')->where('user_id',Auth::user()->id)->count();
-        $inprogressCount = Task::where('status', 'inprogress')->where('user_id',Auth::user()->id)->count();
-        $completedCount = Task::where('status', 'completed')->where('user_id',Auth::user()->id)->count();
+        $openCount = Task::where('status', 'open')->where('user_id', Auth::user()->id)->count();
+        $inprogressCount = Task::where('status', 'inprogress')->where('user_id', Auth::user()->id)->count();
+        $completedCount = Task::where('status', 'completed')->where('user_id', Auth::user()->id)->count();
 
         return response()->json([
             'status' => true,
@@ -121,8 +126,7 @@ class TaskController extends Controller
 
     public function destroy($id)
     {
-        Task::where('user_id',Auth::user()->id)->findOrFail($id)->delete();
+        Task::where('user_id', Auth::user()->id)->findOrFail($id)->delete();
         return response()->json(['success' => true]);
     }
-
 }

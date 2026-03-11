@@ -27,7 +27,7 @@
                                             </div> --}}
                                             <div class="{{request()->segment(2) == 'archive-view-photos'?'col-lg-4':'col-lg-4'}}">
                                                 <div class="plate"><label class="newbtn">
-                                                    <img id="blah" class="img-fluid pl-2 pr-2 js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/upload-thum-1.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                    <img id="blah" class="img-fluid pl-2 pr-2 js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/upload-thum-1.png')}}" style="height: 150px;object-fit: cover;width: 250px;">
                                                     <input name="img[]" id="upload_file" class="pis" onchange="preview_image(event);" type="file" multiple accept="image/*">
                                                     
                                                     </label>

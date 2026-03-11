@@ -53,7 +53,7 @@
                     <table class="table mb-3" id="databaseCentreTable">
                         <thead class="table-bg">
                             <tr>
-                                <th>Upload</th>
+                                <th>Uploaded</th>
                                 <th>Territory</th>
                                 <th>Centres</th>
                                 <th>Mobile</th>
@@ -132,7 +132,7 @@
                                 <td>589</td>
                                 <td>390</td>
                                 <td>239</td>
-                                <td> <span class="custom_badge badge_inactive">InActive</span> </td>
+                                <td> <span class="custom_badge badge_inactive">Inactive</span> </td>
                                 <td class="text-center">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"

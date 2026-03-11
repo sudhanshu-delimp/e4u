@@ -46,9 +46,7 @@ class SendPasswordExpiryNotifications extends Command
     public function handle(): int
     {
 
-        $users = User::whereHas('account_setting')->get();
-
-        
+        $users = User::where('type', '!=', '7')->whereHas('account_setting')->get();
         $reminderCount = 0;
         $today = Carbon::today('UTC');
 
@@ -56,6 +54,10 @@ class SendPasswordExpiryNotifications extends Command
             $setting = $user->account_setting;
 
             if (!$setting || !$setting->password_updated_date || !$setting->password_expiry_days) {
+                continue; 
+            }
+
+            if ($setting->password_expiry_days == 'never') {
                 continue; 
             }
 

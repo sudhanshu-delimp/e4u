@@ -1,33 +1,36 @@
 <?php
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MugsController;
-use App\Http\Controllers\EscortBrbController;
-use App\Http\Controllers\Escort\NumController;
-use App\Http\Controllers\Escort\TourController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\Escort\EscortController;
-use App\Http\Controllers\Escort\PinUpsController;
-use App\Http\Controllers\SupportTicketsController;
-use App\Http\Controllers\Escort\ArchivesController;
-use App\Http\Controllers\Escort\PlaymateController;
-use App\Http\Controllers\Escort\MyPlaymatesContoller;
+use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
-use App\Http\Controllers\Escort\HowIsItDoneController;
-use App\Http\Controllers\User\Dashboard\UserController;
+use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Escort\EscortAccountController;
-use App\Http\Controllers\Escort\EscortGalleryController;
-use App\Http\Controllers\Escort\EscortReviewsController;
-use App\Http\Controllers\Escort\Profile\CreateController;
-use App\Http\Controllers\Escort\Profile\UpdateController;
+use App\Http\Controllers\Escort\EscortController;
 use App\Http\Controllers\Escort\EscortDashboardController;
-use App\Http\Controllers\Escort\EscortStatisticsController;
+use App\Http\Controllers\Escort\EscortGalleryController;
 use App\Http\Controllers\Escort\EscortPolyPaymentController;
+use App\Http\Controllers\Escort\EscortReviewsController;
+use App\Http\Controllers\Escort\EscortStatisticsController;
+use App\Http\Controllers\Escort\EscortSuspendProfileController;
 use App\Http\Controllers\Escort\EscortTourPaymentController;
 use App\Http\Controllers\Escort\EscortTourScheduleContoller;
-use App\Http\Controllers\Escort\EscortSuspendProfileController;
-use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
+use App\Http\Controllers\Escort\HowIsItDoneController;
+use App\Http\Controllers\Escort\MyPlaymatesContoller;
+use App\Http\Controllers\Escort\NumController;
+use App\Http\Controllers\Escort\PinUpsController;
+use App\Http\Controllers\Escort\PlaymateController;
+use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
+use App\Http\Controllers\Escort\Profile\UpdateController;
+use App\Http\Controllers\Escort\TaskListController;
+use App\Http\Controllers\Escort\TourController;
+use App\Http\Controllers\EscortBrbController;
+use App\Http\Controllers\MugsController;
+use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SupportTicketsController;
+use App\Http\Controllers\User\Dashboard\UserController;
+use App\Http\Controllers\Escort\WalletController;
+use Illuminate\Support\Facades\Route;
 
 //remove before prod
 Route::post('/test-paymentUrl', [EscortController::class, 'pinup_test_payment'])->name('escort.payment');
@@ -254,6 +257,20 @@ Route::get('get-account-video-gallery',[EscortGalleryController ::class, 'getAcc
 // });
 //new changess
 
+// Route::get('task-list',function(){
+//     return view('escort.dashboard.task-list');
+// })->name('escort.dashboard.task-list');
+
+# Dashboard escort tasks
+Route::get('/task-list',[TaskListController::class,'index'])->name('escort.dashboard.task-list');
+Route::get('/task-fetch',[TaskListController::class,'fetchTask'])->name('dashboard.ajax-fetch-task');
+Route::post('/task-add',[TaskListController::class,'addTask'])->name('dashboard.ajax-add-task');
+Route::post('/task-edit',[TaskListController::class,'editTask'])->name('dashboard.ajax-edit-task');
+Route::post('/task-update',[TaskListController::class,'updateTask'])->name('dashboard.ajax-update-task');
+Route::post('/task-status',[TaskListController::class,'statusTask'])->name('dashboard.ajax-change-status');
+Route::post('/task-open',[TaskListController::class,'openTask'])->name('dashboard.ajax-open-task');
+Route::post('/task-delete',[TaskListController::class,'destroy'])->name('dashboard.ajax-delete-task');
+
 
 
 
@@ -283,9 +300,7 @@ Route::get('feedback',function(){
 Route::get('criticalinformation',function(){
     return view('escort.dashboard.Annalytics.criticalinformation');
 });
-Route::get('credit-my-account',function(){
-    return view('escort.dashboard.Bookkeeping.credit-my-account');
-});
+
 Route::get('my-bank-account',function(){
     return view('escort.dashboard.Bookkeeping.my-bank-account');
 });
@@ -300,6 +315,9 @@ Route::get('reccomendations',function(){
     return view('escort.dashboard.Reviews.reccomendations');
 });
 
+# Wallet Module
+Route::get('my-wallet',[WalletController::class, 'index'])->name('escort.my_wallet');
+Route::get('wallet_transaction',[WalletController::class, 'transactionList'])->name('escort.wallet_transaction');
 # Escort profile reviews
 Route::get('view-reviews',[EscortReviewsController::class, 'viewReviews'])->name('escort.view-reviews');
 Route::get('reviews-by-ajax',[EscortReviewsController::class, 'getEscortProfileReviewsByAjax'])->name('escort.reviews-profile-by-ajax');

@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('credit_transactions', function (Blueprint $table) {
-            $table->foreign(['wallet_id'])->references(['id'])->on('wallets')->onDelete('CASCADE');
-        });
+        // Schema::table('credit_transactions', function (Blueprint $table) {
+        //     $table->foreign(['wallet_id'])->references(['id'])->on('wallets')->onDelete('CASCADE');
+        // });
     }
 
     /**

@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\ReportEscortProfile;
 use Carbon\Carbon;
+use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use DataTables;
+use Illuminate\Support\Str;
 
 class AdvertiserReportContoller extends Controller
 {
@@ -52,25 +53,65 @@ class AdvertiserReportContoller extends Controller
     {
         [$advertiserReports, $reports] = $this->getAdvertiserReports();
 
-        $advertiserReports = ReportEscortProfile::with('escort.user')
-            ->orderByRaw("CASE WHEN report_status = 'pending' THEN 1 WHEN report_status = 'resolved' THEN 2 END")
-            ->orderBy('updated_at', 'desc');
+        // $advertiserReports = ReportEscortProfile::with('escort.user')
+        //     ->orderByRaw("CASE WHEN report_status = 'pending' THEN 1 WHEN report_status = 'resolved' THEN 2 END")
+        //     ->orderBy('updated_at', 'desc');
+
+
+             $advertiserReports = ReportEscortProfile::with(['escort','massage','viewer'])
+        ->orderByRaw("CASE WHEN report_status = 'pending' THEN 1 WHEN report_status = 'resolved' THEN 2 END")
+        ->orderBy('updated_at', 'desc');
+       
 
         return DataTables::of($advertiserReports)
-            ->addColumn('ref', fn($row) => $row->id . ($row->escort->id ?? ''))
-            
-            ->addColumn('member_id', fn($row) => $row->escort->user->member_id ?? '-')
+
+
+            ->addColumn('ref', function ($row) {
+
+                if ($row->advertiser_type == 'escort') {
+                    return $row->id . (optional($row->escort)->id ?? '');
+                }
+
+                if ($row->advertiser_type == 'massage') {
+                    return $row->id . (optional($row->massage)->id ?? '');
+                }
+
+                return $row->id;
+            })
+
+            ->addColumn('member_id', function ($row) {
+
+                if ($row->advertiser_type == 'escort') {
+                    return optional(optional($row->escort)->user)->member_id ?? '-';
+                }
+
+                if ($row->advertiser_type == 'massage') {
+                    return optional(optional($row->massage)->user)->member_id ?? '-';
+                }
+
+                return '-';
+            })
+
             ->addColumn('report_type', fn($row) => formatStringTitleCase($row->report_tag) ?? '-')
-            // ->addColumn('mobile', fn($row) => $row->escort->user->phone ?? '-')
-            // ->addColumn('home_state', fn($row) => $row->escort->user->home_state ?? '-')
-            ->addColumn('advertiser_id', fn($row) => $row->escort->id ?? '-')
-            ->addColumn('stage_name', fn($row) => $row->escort->name ?? '-')
+            ->addColumn('advertiser_id', function ($row) {
+                return $row->viewer->member_id;
+            })
+            ->addColumn('stage_name', function ($row) {
+
+                if ($row->advertiser_type == 'escort') {
+                    return  (optional($row->escort)->name ?? '');
+                }
+
+                if ($row->advertiser_type == 'massage') {
+                    return  (optional($row->massage)->profile_name ?? '');
+                }               
+            })
+
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
-            // ->addColumn('status', fn($row) => $row->report_status == 'pending' ? 'Active' : 'Resolved')
             ->addColumn('status', function ($row) {
                 $statusText = $row->report_status == 'pending' 
                     ? 'Active' 
-                    : 'Resolved';
+                    : Str::ucfirst($row->report_status);
                 $badgeClass = getStatusBadgeClass($statusText);
                 return "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
             })

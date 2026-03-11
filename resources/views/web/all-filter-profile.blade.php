@@ -655,7 +655,7 @@
                                             <li>You can undertake a search for an Escort within your Location, which is the
                                                 default, or Australia wide
                                                 by selecting ‘Australia’.</li>
-                                            <li>Searching by Member ID is the most efficient manner. </li>
+                                            <li>Searching by the Member ID is the most efficient way to find the Escort you are looking for. </li>
                                         </ol>
                                     </div>
                                     <div class="tab-pane p-3" id="tabs-3" role="tabpanel">

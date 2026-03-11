@@ -50,7 +50,7 @@ class EscortTourScheduleContoller extends Controller
                 }
             })
             ->values();
-        return view('escort.dashboard.tour-schedule',['tours' => $tours]);
+        return view('escort.dashboard.tourSchedule.index',['tours' => $tours]);
     }
 
     public function getTourScheduleByAjax(Request $request)
@@ -157,23 +157,23 @@ class EscortTourScheduleContoller extends Controller
     }   
     public function getTourSummaryAjax(Request $request) 
     {
-        $tour = TourLocation::where('id', $request->tour_id)->with('tour','tour.locations','tour.user','state','profiles','profiles.escort')->first();
+        try {
+            $response['success'] = false;
+            $tourId = $request->tourId;
+            $tourDetail = $this->tour->find($tourId);
+            $html = view('escort.dashboard.tourSchedule.modal.summary', compact('tourDetail'))->render();
+            $response['success'] = true;
+            $response['tourDetail'] = $tourDetail;
+            $response['html'] = $html;
+            return response()->json($response);
 
-        //dd($tour->profiles);
-        // tour_plan
-        $price = Pricing::where('membership_id', $tour->profiles[0]->tour_plan)->first();
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
 
-        $diffDays = Carbon::parse($tour->end_date)->diffInDays(Carbon::parse($tour->start_date))+1;
-
-        $tourFee = $price != null ? $price->discount_amount * ($diffDays + 1) : 0.00;
-
-        return response()->json([
-            'status' => $tour != null ? 'success' : 'error', 
-            'message' => 'Tour summary fetched successfully.', 
-            'data' => $tour,
-            'fees' => number_format($tourFee, 2),
-            'type' => 'tour_summary'
-        ]);
     } 
     
     public function getTourLocationListing(Request $request){
@@ -210,14 +210,13 @@ class EscortTourScheduleContoller extends Controller
             if($tourLocation->days_left < $tourLocation->days_total){
                 foreach($items as $item){
                     $escortDetail = $item->escort;
-                    $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
-                    $localEndDateTime = Carbon::today($profileTimezone)->endOfDay();
+                    $localEndDateTime = Carbon::today($escortDetail->time_zone)->endOfDay();
                     $utcEndTime = $localEndDateTime->copy()->setTimezone('UTC');
-                    $purchase = Purchase::where(['id'=>$escortDetail->purchase_id])->first();
+                    $purchase = $escortDetail->mainPurchase;
 
                     $refundAmount  += $purchase->refund_amount;
 
-                    $purchase->end_date = $localEndDateTime;
+                    $purchase->end_date = $localEndDateTime->format('d-m-Y');
                     $purchase->utc_end_time = $utcEndTime;
                     $purchase->save();
                     Escort::where(['id'=>$escortDetail->id])->update(['end_date'=>$localEndDateTime->format('Y-m-d'),'utc_end_time'=>$utcEndTime]);
@@ -225,6 +224,7 @@ class EscortTourScheduleContoller extends Controller
                         EscortPinup::where('id', $item->is_pinup)->whereDate('end_date', '>', $localEndDateTime->format('Y-m-d'))->update(['end_date'=>$localEndDateTime->format('Y-m-d'),'utc_end_time'=>$utcEndTime]);
                     }
                 }
+                $tourLocation->update(['end_date'=>$localEndDateTime->format('d-m-Y')]);
                 $response['refundAmount'] = $refundAmount;
             }
             else{
@@ -246,6 +246,13 @@ class EscortTourScheduleContoller extends Controller
                 $response['refundAmount'] = $refundAmount;
                 $tourLocation->delete();
                 $tourLocationProfiles->delete();
+            }
+
+            /* Update tour end date according to the last tour location */
+            $tour = $tourLocation->tour;
+            $tourEndDate = $tour->locations()->max('end_date');
+            if ($tourEndDate) {
+                $tour->update(['end_date' => $tourEndDate]);
             }
 
             $this->walletService->credit(
