@@ -14,11 +14,11 @@
         text-align: center;
         }
         td.dt-control::before {
-        content: "⌄";
+        content: "\2BC5";
         font-weight: bold;
         }
         tr.shown td.dt-control::before {
-        content: "⌃";
+        content: "\2BC6";
         }
     </style>
 @endsection
@@ -59,7 +59,7 @@
                    <table id="sailorTable" class="table table-striped" width="100%">
                       <thead>
                          <tr>
-                            <th></th>
+                            <th>Open</th>
                             <th>ID</th>
                             <th>Tour Name</th>
                             <th>Start Date</th>
