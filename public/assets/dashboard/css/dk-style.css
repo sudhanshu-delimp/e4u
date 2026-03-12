@@ -3126,7 +3126,8 @@ button.btn:focus {
     position: relative;
 }
 
-.upload_exl {
+.upload_exl,
+.upload_media {
     padding: 20px;
     border: 1px dashed #ccc;
     border-radius: 5px;

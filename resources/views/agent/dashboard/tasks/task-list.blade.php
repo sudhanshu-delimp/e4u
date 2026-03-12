@@ -176,11 +176,15 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                   <div class="py-4 text-center" id="success_form_html">
-                        <h4 id="success_msg">Are you sure you want to mark this Appointment as completed?</h4>
-                        <button type="button"
-                    class="btn-success-modal mt-3 shadow-none"
-                    data-dismiss="modal" aria-label="Close" id="cancel_button">OK</button>
+                   <div class="py-4 " id="success_form_html">
+                        <h4 id="success_msg" class="text-center">Are you sure you want to mark this Appointment as completed?</h4>
+                       <div class="d-flex justify-content-center mt-3">
+
+                         <button type="button"
+                            class="btn-success-modal"
+                            data-dismiss="modal" aria-label="Close" id="cancel_button">OK</button>
+
+                       </div>
                     </div>
                     
                 </div>

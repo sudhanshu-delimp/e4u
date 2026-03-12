@@ -114,7 +114,7 @@
              </div>
 
              <!-- Footer -->
-             <div class="modal-footer justify-content-center">
+             <div class="modal-footer justify-content-end">
                  <button type="button" class="btn-success-modal">Print</button>
                  <button type="button" class="btn-success-modal">Save</button>
                  <button type="button" class="btn-cancel-modal" data-dismiss="modal">

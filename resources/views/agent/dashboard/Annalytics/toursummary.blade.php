@@ -188,10 +188,10 @@
 
 
                                 <!-- Footer -->
-                                <div class="modal-footer justify-content-center">
+                                <div class="modal-footer justify-content-end">
                                     <button type="button" class="btn-success-modal" data-dismiss="modal"
                                         id="close_change">View</button>
-                                    <button type="button" class="btn-success-modal" id="save_change">Print</button>
+                                    <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
                                 </div>
                             </div>
                         </div>
@@ -350,10 +350,10 @@
                         </table>
                     </div>
 
-                    <div class="modal-footer justify-content-center mt-3">
+                    <div class="modal-footer justify-content-end mt-3">
                         <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                             id="close_change">Ok</button>
-                        <button type="button" class="btn-success-modal" id="save_change">Print</button>
+                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
                     </div>
                 </div>
             </div>

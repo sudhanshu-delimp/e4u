@@ -21,7 +21,7 @@
                         <div class="row my-3">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <div class="d-flex align-items-center justify-content-center gap-20">
+                                    <div class="d-flex align-items-center justify-content-start gap-20">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="mergeType"
                                                 id="single" checked>
@@ -35,15 +35,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Save Button -->
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <div class="form-group text-center">
+                                 <div class="d-flex justify-content-end mt-4">
                                     <button type="submit" class="btn-success-modal" id="save_button">Merge</button>
-                                </div>
+                                 </div>
                             </div>
                         </div>
                     </form>
