@@ -53,11 +53,12 @@ $tourDetail = $tourDetail ?? null;
                                         $profiles = $tourDetail->current_location->profiles;
                                     @endphp
                                     @foreach ($profiles as $profile)
-                                      <div class="profile_shape">
+                                      <div class="profile_shape summary_tooltip">
                                         <div class="icons">
                                             <img src="{{$profile->escort->DefaultImage}}" class="custompopicon">
                                         </div>
                                          <span class="list_profile_name">{{$profile->escort->name}}</span> 
+                                         <span class="details">{{$profile->escort->membership_type}}</span>
                                       </div>
                                     @endforeach
                                 </div>

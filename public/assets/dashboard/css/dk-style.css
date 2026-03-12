@@ -1393,6 +1393,37 @@ button.btn:focus {
     position: relative;
 }
 
+.summary_tooltip {
+    position: relative;
+}
+
+.summary_tooltip .details {
+    position: absolute;
+    font-size: 12px;
+    background-color: var(--peach);
+    color: #fff;
+    display: none;
+    width: max-content;
+    padding: 3px 5px;
+    border-radius: 3px;
+    top: -31px;
+    left: 0;
+}
+
+.summary_tooltip .details::after {
+    position: absolute;
+    content: '';
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+    top: 22px;
+    left: 15px;
+}
+
+.summary_tooltip:hover .details {
+    display: block;
+}
+
 .details_tooltip {
     position: absolute;
     font-size: 12px;
@@ -3126,7 +3157,8 @@ button.btn:focus {
     position: relative;
 }
 
-.upload_exl {
+.upload_exl,
+.upload_media {
     padding: 20px;
     border: 1px dashed #ccc;
     border-radius: 5px;
@@ -5493,6 +5525,7 @@ div.myacording-design .card .card-body {
     text-align: left;
     border-top: 1px solid #192A3E;
     margin-top: 30px;
+    text-align: justify;
 }
 
 div.myacording-design .card-header a.card-link.collapsed {

@@ -918,6 +918,7 @@ class MasseurController extends AppController
 
         $masseurs  = Masseur::where('user_id', auth()->user()->id)->get();
         $countries = getCountryList();
+        $totalActive = $masseurs->where('status', 1)->count();
 
         $data = $masseurs->map(function ($row) use ($countries) {
 
@@ -952,6 +953,7 @@ class MasseurController extends AppController
 
             return [
                 
+                'member_id' => $row->member_id,
                 'name' => $row->name,
                 'stage_name' => $row->stage_name,
                 'mobile' => $row->mobile,
@@ -967,7 +969,8 @@ class MasseurController extends AppController
 
 
         return response()->json([
-            'data' => $data
+            'data' => $data,
+            'total_active' => $totalActive
         ]);
 
 
