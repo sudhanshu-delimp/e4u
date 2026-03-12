@@ -169,7 +169,7 @@
                         <a class="collapse-item {{ request()->segment(2) == 'archives-listing' ? 'menu-active' : '' }}"
                             href="{{ route('center.archives-listing') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png') }}">
-                            <span>Archives</span>
+                            <span>Manage</span>
                         </a>
 
                     </div>

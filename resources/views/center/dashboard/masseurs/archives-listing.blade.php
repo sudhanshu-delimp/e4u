@@ -64,7 +64,7 @@
       <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
          <div class="row">    
             <div class="custom-heading-wrapper col-md-12">
-               <h1 class="h1">Archives</h1>
+               <h1 class="h1">Manage Masseurs</h1>
                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
             <div class="col-md-12 mb-4">
@@ -72,12 +72,9 @@
                   <div class="card-body">
                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                      <ol>
-                           <li>Use these help pages for explanations and guidance on managing all of your Masseur
-                              Profiles.</li>
-                           <li>You can upload four photos for each Masseur. Designate one as the Masseur’s
-                              Thumbnail.</li>
-                           <li>Activate up to eight Masseur Profiles at any one time to appear the Massage Centre
-                              Profile.</li>
+                           <li>Activate and deactivate Masseurs. The status must be Active to include the Masseur in the Default Listing.</li>
+                           <li>Edit a Masseur's details here.</li>
+                           <li>You can have up to eight Masseur Profiles at any one time appearing in a Centre Profile. You can also designate which Masseur Profiles are Default Listings in your Centre Profile.</li>
                      </ol>
                   </div>
                </div>
@@ -94,31 +91,40 @@
                         <div class="tab-pane fade active show" id="tab3warning">
                            <div class="row pb-3">
 
-                                 <!-- <div class="col-md-12 col-sm-12">
-                                    <div class="bothsearch-form d-flex align-items-center justify-content-end" style="gap: 10px;">
+                           <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10">
+
+                                 <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-10">
                                        <div class="total_listing">
                                           <div><span>Current Active : </span></div>
-                                          <div><span id="totalViewerLegboxList">1</span></div>
+                                          <div><span class="current_active">fetching...</span></div>
                                        </div>
                                        
+                                 </div>
+                                
+                                
+                                    <div class="text-center small d-flex justify-content-end align-items-center gap-10 flex-wrap">
+                                          <a  href="./create-new-masseur" id="new_task" name="submit" class="btn btn-sm btn-primary shadow-none create-tour-sec">Add Masseure</a>
                                     </div>
-                                 </div> -->
+                            </div>
                            </div>
+
+
                            <div class="table-responsive-xl">
 
 
                               <table class="table mb-3" id="masseurs_list">
                                  <thead class="table-bg">
                                     <tr>
-                                   
+                                  
+                                    <th scope="col">Member ID</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Stage Name</th>
                                     <th scope="col">Mobile</th>
-                                    <th scope="col">Ethnicity</th>
                                     <th scope="col">Nationality</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Default Listing</th>
+                                    <th scope="col">Ethnicity</th>
                                     <th scope="col">Created Date</th>
+                                    <th scope="col">Default Listing</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col" class="text-center">Action</th>
                                     </tr>
                                  </thead>
@@ -201,21 +207,22 @@ var table = $("#masseurs_list").DataTable({
         headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
-        data: function (d) {
-            d.type = 'player';
-            return JSON.stringify(d);
+        dataSrc: function(json){
+            $(".current_active").text(json.total_active);
+            return json.data;
         }
     },
 
     columns: [
+            { data: 'member_id', name: 'member_id', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'stage_name', name: 'stage_name', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'mobile', name: 'mobile', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'ethnicity', name: 'ethnicity', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'nationality', name: 'nationality', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'status', name: 'status', searchable: false, orderable:true ,defaultContent: 'NA'},
-            { data: 'default_profile', name: 'default_profile', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'ethnicity', name: 'ethnicity', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'created_at', name: 'created_at', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'default_profile', name: 'default_profile', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'status', name: 'status', searchable: false, orderable:true ,defaultContent: 'NA'},
             { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
     ],
 
