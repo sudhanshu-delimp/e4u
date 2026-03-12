@@ -57,26 +57,25 @@
        <p><u><i>When can a refund be requested?</i></u></p>
       <p>You can request a refund of the Fee before:</p>
       <ul>
-         <li>Your Profile is posted (you can create a Profile and place it on hold / archive it until
-             payment is made); or
+         <li>Your Profile expires and you suspend the Profile (you can create a Profile, List the Profile, and then place the Profile on hold or suspend); or
          </li>
-         <li>Your membership registration becomes inactive</li>
+         <li>Your Membership becomes subject to a breach of the Terms</li>
       </ul>
-      <p>Any refund request made after a Profile or Tour has been posted, or your Membership
-          becomes inactive will not be considered or provided.
+      <p>Any refund request made after a Profile or Tour has expired, or your Membership
+          becomes inactive, will not be considered or provided.
       </p>
        <p><u><i>How can a refund requested?</i></u></p>
-      <p>A written refund request must be submitted to Escorts4U by the Advertiser or Agent. A
-          written refund request can only be submitted by ‘Support Ticket’. The written request must
-          be sent to <a href="mailto:support@e4u.com.au">support@escorts4u.com.au</a>. Your refund request must include sufficient information for us to assess your refund request (including any errors that require
-          correction, such as your arrival date).
+      <p>A written refund request must be submitted to Escorts4U by the Advertiser or their Agent. A
+          written refund request can only be submitted by 'Support Ticket', or by a written request, 
+          sent to <a href="mailto:support@e4u.com.au">support@escorts4u.com.au</a>. Your refund request must include sufficient information for us to assess your refund request (including any errors that require
+          correction, such as the start or end date of a Listing or Tour).
       </p>
        <p><u><i>What happens after the refund request is made?</i></u></p>
-      <p class="mb-1">Escorts4U will action the ‘Support Ticket’ promptly after receiving the written refund
+      <p class="mb-1">Escorts4U will action the 'Support Ticket' promptly after receiving the written refund
           request.
       </p>
       <p>Escorts4U will contact you within five (5) business days from the date of your request to
-          gather more information to allow it to determine whether or not to authorise a refund.
+          gather more information, if deemed necessary, to allow it to determine whether or not to authorise a refund.
       </p>
        <p><u><i>How will a refund request be decided?</i></u></p>
       <p class="mb-1">Escorts4U reserves the right, at its sole discretion, to authorise refunds, or credits on a
@@ -84,9 +83,9 @@
                                           class="termsandconditions_text_color">Terms and Conditions</a>).
       </p>
       <p>You will be informed of the outcome of the refund request within thirty (30) days from your
-          refund request being received. If a refund request is approved the refund will be provided
-          to the provided bank account details within two (2) business days of your refund request
-          being approved.
+          refund request being received. If a refund request is approved, subject to the status of your Membership, the refund will be processed
+          to your nominated bank account, or a Credit added to your Wallet, the details of which will be advised to you within five (5) business days of your refund request
+          being approved and processed.
       </p>
       <h5>Acknowledgment</h5>
       <p>You acknowledge and agree that you are liable for any Services provided to you by
