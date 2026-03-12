@@ -39,9 +39,9 @@ $tourDetail = $tourDetail ?? null;
                             <th style="color: #0C223D; font-weight:600;">Fees</th>
                             <td class="current_fees">AU$ {{!empty($tourDetail) ? $tourDetail->tourPurchase()->sum('paid_rate') : 0.00}}</td>
                             <td class=""  colspan="2">
-                                <span><strong>Start Date:</strong> {{!empty($tourDetail)?$tourDetail->current_location->start_date->format('d-m-Y'):''}}</span>
+                                <span style="color: #0C223D; font-weight:600;">Start Date: </span> <span>{{!empty($tourDetail)?$tourDetail->current_location->start_date->format('d-m-Y'):''}}</span>
                                 &nbsp;&nbsp;
-                                <span><strong>End Date:</strong> {{!empty($tourDetail)?$tourDetail->current_location->end_date->format('d-m-Y'):''}}</span>
+                                <span style="color: #0C223D; font-weight:600;">End Date: </span> <span>{{!empty($tourDetail)?$tourDetail->current_location->end_date->format('d-m-Y'):''}}</span>
                             </td>
                         </tr>
                         @if(!empty($tourDetail) && $tourDetail->current_location) 
