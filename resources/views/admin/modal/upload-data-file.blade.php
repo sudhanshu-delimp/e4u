@@ -13,15 +13,15 @@
                         <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                     </button>
                 </div>
-                <div class="modal-body d-flex justify-content-center">
+                <div class="modal-body">
                     <form>                        
-                        <div class="form-group mt-3">
+                        <div class="form-group mt-3 w-75 text-center mx-auto">
                             <label for="excelFile" class="upload_exl">Select Excel file to upload:</label>
                             <input type="file" class="form-control-file d-none" id="excelFile" accept=".xlsx, .xls">
                             
                             <p id="fileName" class="upl_file_name"></p>
                         </div>
-                        <div class="modal-footer d-flex justify-content-center">
+                        <div class="modal-footer d-flex justify-content-end">
                             <button type="submit" class="btn-success-modal">Upload</button>
                         </div>
                     </form>
