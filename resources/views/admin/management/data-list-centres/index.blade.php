@@ -35,7 +35,7 @@
         {{-- end --}}
         <div class="row">
             <div class="col-md-12 d-flex align-items-center justify-content-end flex-wrap gap-10 my-3">
-                <button  class="btn-success-modal" type="button">Upload</button>
+                <button  class="btn-success-modal" type="button" data-target="#upload_data_file" data-toggle="modal">Upload</button>
             </div>
             <div class="col-lg-12">
                 <div class="table-responsive-xl">
@@ -163,6 +163,7 @@
 
 
   @include('admin.modal.data-summary-modal')
+  @include('admin.modal.upload-data-file')
 @endsection
 @push('script')
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
@@ -224,6 +225,10 @@
                     class: 'text-center'
                 },
             ],
+        });
+        document.getElementById("excelFile").addEventListener("change", function() {
+            let fileName = this.files[0] ? this.files[0].name : "No file selected";
+            document.getElementById("fileName").textContent = fileName;
         });
     </script>
 @endpush

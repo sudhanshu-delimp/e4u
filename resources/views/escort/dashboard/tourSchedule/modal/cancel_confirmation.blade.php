@@ -13,7 +13,7 @@
             
             <div class="modal-body pb-0 agent-tour">
                 <form id="cancelTourForm" action="{{route('escort.tour.cancel_tour_location')}}" method="POST">
-                    <h4>You are about to cancel your Tour. Are you sure you want to cancel your Tour?</h4>
+                    <h5 class="popu_heading_style my-3 text-center">You are about to cancel your Tour. Are you sure you<br> want to cancel your Tour?</h5>
                     <hr style="background-color: #0C223D" class="mt-3">
                     <input type="hidden" id="cancel_tour_id" value="119">
                     <div class="note">
@@ -25,12 +25,12 @@
                         </ol>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 my-3 d-flex align-items-center justify-content-between">
+                        <div class="col-md-12 my-3">
 
-                            <div class="form-group mb-0">
+                            <div class="form-group d-flex align-items-center justify-content-end gap-10">
                                 <input type="hidden" name="item_id">
-                                <button type="button" class="btn-cancel-modal ml-2" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                    <button type="submit" class="btn-success-modal ml-2 cancelTourbtn">Cancel Tour</button>
+                                <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                <button type="submit" class="btn-success-modal cancelTourbtn">Cancel Tour</button>
                             </div>
                         </div>
                     </div>

@@ -332,15 +332,14 @@
                                             <div class="col-lg-12">
                                                 <p class="mb-1"><b>Notes:</b></p>
                                                 <ol class="pl-4 text-justify">
-                                                    <li> Use this feature to review and
+                                                    {{-- <li> Use this feature to review and
                                                         make changes to your Profiles. Any changes you make to a Profile
                                                         will be applied to the
-                                                        Profile once the changes are saved.</li>
-                                                    <li> Once your Profile is suspended, it cannot be reinstated for the
+                                                        Profile once the changes are saved.</li> --}}
+                                                    
+                                                    <li> To suspend a Listing, select the Profile and suspension period, then click Suspend. You will be credited with the Fees according to the suspension period.</li>
+                                                        <li> Once your Profile is suspended, it cannot be reinstated for the
                                                         suspended period.</li>
-                                                    <li> To suspend a Profile listing,
-                                                        click the button. You will be credited with the Fees according to
-                                                        the suspension period.</li>
                                                 </ol>
                                             </div>
                                         </div>
@@ -348,9 +347,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer" style="text-align: center; display: block;">
+                        <div class="modal-footer" style="text-align: end; display: block;">
                             <button type="submit" class="btn-success-modal" id="save_brb" disabled>Suspend</button>
-                            <button type="submit" class="btn-cancel-modal" id="save_brb" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn-cancel-modal" id="save_brb" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </div>

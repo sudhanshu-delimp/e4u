@@ -282,7 +282,8 @@ span.menu-active {
     border-radius: 7px;
     width: 60% !important;
 }
-.profile_shape{
+
+.profile_shape {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -291,20 +292,24 @@ span.menu-active {
     padding: 5px;
     border-radius: 5px;
 }
-.profile_shape .list_profile_name{
+
+.profile_shape .list_profile_name {
     color: #fff;
 }
-.profile_shape .icons{
+
+.profile_shape .icons {
     width: 30px;
     height: 30px;
     border-radius: 100px;
     object-fit: cover;
 }
-.profile_shape .icons img{
+
+.profile_shape .icons img {
     width: 100%;
     border-radius: 100px;
     object-fit: cover;
 }
+
 .save_profile_btn {
     border: 1px solid transparent;
     padding: 10px 21px 10px 20px;
@@ -3119,6 +3124,21 @@ button.btn:focus {
     gap: 10px;
     margin-bottom: 5px;
     position: relative;
+}
+
+.upload_exl {
+    padding: 20px;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.upl_file_name {
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .profile_label {
