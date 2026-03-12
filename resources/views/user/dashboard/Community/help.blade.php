@@ -1,5 +1,10 @@
 @extends('layouts.userDashboard')
 @section('style')
+<style>
+   .card .card-body p{
+      text-align: justify
+   }
+</style>
 @endsection
 @section('content')
 <div id="wrapper">

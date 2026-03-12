@@ -5494,6 +5494,7 @@ div.myacording-design .card .card-body {
     text-align: left;
     border-top: 1px solid #192A3E;
     margin-top: 30px;
+    text-align: justify;
 }
 
 div.myacording-design .card-header a.card-link.collapsed {
