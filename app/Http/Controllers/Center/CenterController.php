@@ -254,17 +254,21 @@ class CenterController extends Controller
         $data = [];
         $data = [
             'name' => $request->name,
-            // 'gender' => $request->gender,
+            'business_name' => $request->business_name,
+            'business_address' => $request->business_address,
             'contact_type' => $request->contact_type,
+            'pay_id_name'=>$request->payID_name,
+            'pay_id_no'=>$request->paID_no,
+            'subrub_city'=>$request->subrub_city,
+            
+            // 'gender' => $request->gender,
             //'phone' => $request->phone,
             //'city_id'=>$request->city_id,
             //'country_id'=>$request->country_id,
             // 'state_id'=>$request->state_id,
             // 'email'=>$request->email ? $request->email : null,
             //'social_links'=>$request->social_links,
-            'pay_id_name'=>$request->payID_name,
-            'pay_id_no'=>$request->paID_no,
-            'subrub_city'=>$request->subrub_city,
+            
         ];
 
         $error = true;

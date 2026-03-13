@@ -102,16 +102,16 @@
 
                                                                 </label>
                                                                 <input type="text" class="form-control" placeholder=" "
-                                                                    name="" aria-describedby="emailHelp"
-                                                                    value="{{ $escort->business_name }}">
+                                                                    name="entity_name" aria-describedby="emailHelp"
+                                                                    value="{{ $escort->entity_name }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="email" class="my-agent">Our Address </label>
-                                                                <input type="text" class="form-control" placeholder=" "
+                                                                <input type="text" name="business_address" class="form-control" placeholder=" "
                                                                     name="" aria-describedby="emailHelp"
-                                                                    value=" {{ $escort->state_id ? config('escorts.profile.states')[$escort->state_id]['stateName'] : ''}}">
+                                                                    value=" {{ $escort->business_address }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -126,10 +126,12 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="Business No.">Business No.</label>
-                                                                <label type="text" class="form-control form-back"
-                                                                    placeholder=" " name="phone"
+                                                                <input type="text" class="form-control form-back"
+                                                                    placeholder=" " name="business number"
                                                                     aria-describedby="emailHelp"
-                                                                    value="{{ $escort->business_number }}">{{ $escort->business_number }}</label>
+                                                                    value="{{ $escort->business_number }}">
+
+                                                              
                                                             </div>
                                                         </div>
 
