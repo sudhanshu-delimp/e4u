@@ -2,44 +2,44 @@
 
 namespace App\Http\Controllers\Center;
 
-use Auth;
-
-use FFMpeg;
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Pricing;
-use App\Models\Service;
-use App\Models\Duration;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Models\MassageSetting;
-use App\Models\MembershipPlan;
-use App\Models\DashboardViewer;
-use App\Models\CenterNotification;
-use App\Models\FeesSupportService;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Models\FeesConciergeService;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Hash;
-use App\Models\VariablLoyaltyProgram;
-use Illuminate\Support\Facades\Storage;
-use App\Repositories\User\UserInterface;
+use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\Escort\StoreRequest;
-use App\Http\Requests\UpdateEscortRequest;
-use App\Repositories\Escort\EscortInterface;
-use App\Http\Requests\StoreAvatarMediaRequest;
-use App\Repositories\Service\ServiceInterface;
 use App\Http\Requests\Escort\StoreRequestRates;
+use App\Http\Requests\Escort\StoreRequestServices;
 use App\Http\Requests\Escort\UpdateRequestAbout;
 use App\Http\Requests\Escort\UpdateRequestPolicy;
-use App\Http\Requests\Escort\StoreRequestServices;
-use App\Repositories\Escort\AvailabilityInterface;
 use App\Http\Requests\Escort\UpdateRequestReadMore;
-use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
-use App\Repositories\MassageProfile\MassageProfileInterface;
+use App\Http\Requests\StoreAvatarMediaRequest;
+use App\Http\Requests\UpdateEscortRequest;
+use App\Http\Requests\UpdateMassageRequest;
+use App\Models\CenterNotification;
+use App\Models\DashboardViewer;
+use App\Models\Duration;
+use App\Models\FeesConciergeService;
+use App\Models\FeesSupportService;
+use App\Models\MassageSetting;
+use App\Models\MembershipPlan;
+use App\Models\Pricing;
+use App\Models\Service;
+use App\Models\User;
+use App\Models\VariablLoyaltyProgram;
 use App\Repositories\AttemptLogin\AttemptLoginRepository;
+use App\Repositories\Escort\AvailabilityInterface;
+use App\Repositories\Escort\EscortInterface;
+use App\Repositories\MassageProfile\MassageProfileInterface;
+use App\Repositories\Service\ServiceInterface;
+use App\Repositories\User\UserInterface;
+use Auth;
+use Carbon\Carbon;
+use FFMpeg;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 
 class CenterController extends Controller
@@ -248,19 +248,21 @@ class CenterController extends Controller
 
         return view('center.my-account.edit-my-account', compact('escort'));
     }
-    public function update(UpdateEscortRequest $request)
+    public function update(UpdateMassageRequest $request)
     {
         //dd($request->all());  // "payID_name" => "5386363869" "paID_no" => "8998"
         $data = [];
         $data = [
             'name' => $request->name,
-            'business_name' => $request->business_name,
+            'entity_name' => $request->entity_name,
             'business_address' => $request->business_address,
+            'business_number' => $request->business_number,
+            'phone' => $request->phone,
             'contact_type' => $request->contact_type,
             'pay_id_name'=>$request->payID_name,
             'pay_id_no'=>$request->paID_no,
             'subrub_city'=>$request->subrub_city,
-            
+
             // 'gender' => $request->gender,
             //'phone' => $request->phone,
             //'city_id'=>$request->city_id,

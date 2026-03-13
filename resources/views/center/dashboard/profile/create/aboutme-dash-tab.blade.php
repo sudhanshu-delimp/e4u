@@ -130,6 +130,8 @@ textarea {
 
 @media (min-width:600px) and (max-width: 1024px) {
    .grid-container {
+img#blah8 {
+   width: 425px !important;
        grid-template-columns: repeat(3, 1fr);
    }
 }
@@ -146,7 +148,7 @@ textarea {
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="#C2CFE0"></path>
             </svg>
-            <span>Member ID: M60218:001</span>
+            <span>Member ID: {{ auth()->user()->member_id }}</span>
         </div>
       </div>
 
@@ -167,36 +169,37 @@ textarea {
          <div class="business-info-field pt-4">
             <div class="form-group business-field">
                <label for="profile_name">Profile Name:</label>
-                 <input type="hidden" value="{{ $escort->profile_name}}" class="form-control" id="profile_profile_name">
-                  <input type="text" value="" name="profile_name" class="form-control update_profile_data" id="profile_name"  placeholder="Enter Profile Name" required data-tab="group_one">
+                 <!-- <input type="hidden" value="{{ $user->business_name}}" class="form-control" id="profile_profile_name"> -->
+                  <input type="text"  value="{{ $user->business_name }}" name="profile_name" class="form-control" id="profile_name"   placeholder="Enter Profile Name" required data-tab="group_one">
                  
             </div>
 
             <div class="form-group business-field">
                <label for="business_name">
                   Business Name:</label>
-                  <input type="hidden" value="{{ $escort->business_name}}" class="form-control" id="profile_business_name">
-                  <input type="text" value="" name="business_name" class="form-control update_profile_data" id="business_name" placeholder="Enter Business Name"  required data-tab="group_one">
+                  <!-- <input type="hidden" value="{{ $user->business_name}}" class="form-control" id="profile_business_name"> -->
+                  <input type="text" value="{{ $user->business_name }}" name="business_name" class="form-control" id="business_name" placeholder="Enter Business Name"  required data-tab="group_one">
                   
                 </div>           
 
             <div class="form-group business-field">
                <label for="business_no">
                   Business No:</label>
-                  <input type="hidden" value="{{ $escort->business_no}}" class="form-control" id="profile_business_no">
-                  <input type="text" value="" name="business_no" class="form-control update_profile_data" id="business_no" placeholder="Enter Business Number" >               
+                  <!-- <input type="hidden" value="{{ $user->business_number}}" class="form-control" id="profile_business_no"> -->
+                  <input type="text" value="{{ $user->getRawOriginal('business_number')}}" name="business_no" class="form-control" id="business_no" placeholder="Enter Business Number" >               
             </div>
 
             <div class="form-group business-field">
                <label for="phone">
                   Mobile No: </label>
-                  <input type="hidden" value="{{ $escort->phone}}" class="form-control" id="profile_phone">
-               <input type="text" value="" name="phone" class="form-control update_profile_data" id="phone" placeholder="Enter Mobile Number">           
+                  <!-- <input type="hidden" value="{{ $user->phone}}" class="form-control" id="profile_phone"> -->
+                  <input type="text" value="{{ $user->getRawOriginal('phone')}}" name="phone" class="form-control" id="phone" placeholder="Enter Mobile Number">           
             </div>
 
             <div class="form-group business-field">
                <label for="address">Address:</label>
-               <textarea name="address" rows="3" class="form-control" id="address" placeholder="Enter Address" data-parsley-group="goup_one" ></textarea>              
+               <input type="text" value="{{ $user->business_address}}" class="form-control" id="address" names="address" >           
+                           
             </div>
 
          </div>

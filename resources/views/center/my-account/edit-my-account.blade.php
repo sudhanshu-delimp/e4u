@@ -129,7 +129,7 @@
                                                                 <input type="text" class="form-control form-back"
                                                                     placeholder=" " name="business number"
                                                                     aria-describedby="emailHelp"
-                                                                    value="{{ $escort->business_number }}">
+                                                                    value="{{ $escort->getRawOriginal('business_number') }}">
 
                                                               
                                                             </div>
@@ -138,11 +138,11 @@
 
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="email">Mobile No.</label>
-                                                                <label type="text" class="form-control form-back"
+                                                                <label for="email">Mobile No.</label> 
+                                                                 <input type="text" class="form-control form-back"
                                                                     placeholder=" " name="phone"
                                                                     aria-describedby="emailHelp"
-                                                                    value="{{ $escort->phone }}">{{ $escort->phone }}</label>
+                                                                    value="{{ $escort->getRawOriginal('phone') }}">
                                                             </div>
                                                         </div>
 
@@ -1007,7 +1007,7 @@
             e.preventDefault();
 
             var form = $(this);
-            $("#modal-title").text("Abou Us");
+            $("#modal-title").text("About Us");
             $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
             if (form.parsley().isValid()) {
 
@@ -1043,6 +1043,23 @@
 
                         }
                     },
+                    error: function(xhr) {
+                    const modalElement = document.getElementById('comman_modal');
+                    const modal = new bootstrap.Modal(modalElement);
+
+                    if (xhr.status === 422) {
+
+                        let errors = xhr.responseJSON.errors;
+                        let msg = '';
+
+                        $.each(errors, function(key, value) {
+                            msg += value[0] + "<br>";
+                        });
+
+                        $('.comman_msg').html(msg);
+                        modal.show();
+                    }
+            }
 
                 });
             }
@@ -1178,15 +1195,19 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
+                     const modalElement = document.getElementById('comman_modal');
+                    const modal = new bootstrap.Modal(modalElement);
                     if (!data.error) {
                         $('.comman_msg').html("Saved");
                         //$("#my_account_modal").modal('show');
                         //$("#my_account_modal").show();
-                        $("#comman_modal").modal('show');
+                        //$("#comman_msg").modal('show');
+                        modal.show();
 
                     } else {
                         $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                        $("#comman_modal").show();
+                        //$("#comman_msg").show();
+                         modal.show();
 
                     }
                 },

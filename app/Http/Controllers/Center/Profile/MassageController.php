@@ -219,7 +219,7 @@ class MassageController extends Controller
 
         $masseurs  = Masseur::all();
 
-        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations','masseurs'));
+        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations','masseurs','user'));
     }
 
     public function getProfile(Request $request, $id)

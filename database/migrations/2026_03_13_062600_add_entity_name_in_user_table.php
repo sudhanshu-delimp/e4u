@@ -14,7 +14,7 @@ class AddEntityNameInUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('entity_name')->nullable()->after('availability');
+            $table->string('entity_name')->nullable()->after('otp_created_at');
         });
     }
 
