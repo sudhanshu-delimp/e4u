@@ -1,6 +1,6 @@
 <div class="modal fade upload-modal" id="mediaVerificationModal" tabindex="-1" role="dialog" aria-labelledby="mediaVerificationModal" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content" style="width: 900px;position: absolute;">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
             <form id="mulitiImage" method="POST" action="{{route('escort.upload.gallery')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content border-0">

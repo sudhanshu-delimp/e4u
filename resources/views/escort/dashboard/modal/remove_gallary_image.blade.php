@@ -1,7 +1,7 @@
-<div class="modal" id="delete_img" style="display: none">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
+<div class="modal fade upload-modal" id="delete_img" style="display: none">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h5 class="modal-title text-white"> <img src="/assets/dashboard/img/remove-image.png" class="custompopicon" alt="cross"> Delete Image</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">
@@ -16,8 +16,8 @@
                 </h1>
             </div>
             <div class="modal-footer" style="justify-content: center;">
-                <button type="submit" class="btn-cancel-modal d_img" data-dismiss="modal" id="close">Cancel</button>
-                <button type="submit" class="btn-success-modal d_img" id="dImg">Ok</button>
+                <button type="submit" class="btn-cancel-modal d_img" data-dismiss="modal" id="close">No</button>
+                <button type="submit" class="btn-success-modal d_img" id="dImg">Yes</button>
             </div>
         </div>
     </div>

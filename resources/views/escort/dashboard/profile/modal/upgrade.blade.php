@@ -1,8 +1,8 @@
 <div class="modal fade upload-modal" id="upgrade_modal" tabindex="-1" role="dialog" aria-labelledby="extendBumpUpProfile" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <form id="upgrade_modal_form" action="{{route('escort.upgrade_list')}}" method="POST">
         {{ csrf_field() }}
-        <div class="modal-content" style="width: 800px;">
+        <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
               <img src="{{ asset('assets/dashboard/img/upgrade.png') }}" class="custompopicon" alt="Upgrade">

@@ -1,6 +1,6 @@
 <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     data-keyboard="false" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 900px;">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <form id="mulitiImage" method="POST" action="{{ route('escort.upload.gallery') }}"
                 enctype="multipart/form-data">

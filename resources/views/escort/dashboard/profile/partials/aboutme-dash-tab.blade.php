@@ -1957,9 +1957,9 @@
 </div>
 
 
-<div class="modal" id="photo_gallery" style="display: none">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
+<div class="modal fade upload-modal" id="photo_gallery" style="display: none">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
             <div class="modal-header main_bg_color border-0">
                 <h5 class="modal-title" style="color: white;"><img
                         src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon"> Select Photo
@@ -1995,9 +1995,9 @@
         </div>
     </div>
 </div>
-<div class="modal programmatic" id="setAsDefaultForMainAccount" style="display: none">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content custome_modal_max_width">
+<div class="modal fade upload-modal programmatic" id="setAsDefaultForMainAccount" style="display: none">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
             <div class="modal-header main_bg_color border-0">
                 <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img
                         src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon">Update Media

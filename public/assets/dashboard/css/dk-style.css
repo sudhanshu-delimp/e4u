@@ -6895,10 +6895,11 @@ margin-left: 10px;
     text-transform: capitalize;
 }
 
-.modal-dialog {
+
+/* .modal-dialog {
     max-width: 642px;
     margin: auto;
-}
+} */
 
 .modal-apointment-details {
     width: 500px !important;

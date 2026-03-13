@@ -1,7 +1,7 @@
 <div class="modal fade upload-modal" id="pinup_profile" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
         aria-modal="true">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 800px;">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             
                 <div class="modal-content">
                         <div class="modal-header">
@@ -53,14 +53,7 @@
                                               </div>
                                             </div>
                                           </div>
-                                        <div class="form-group row custom-pin-button">
-                                            <div class="col-sm-12 text-right">
-                                                <button type="submit" class="btn-success-modal"
-                                                    id="savePinupButton">Proceed to Payment</button>
-                                            </div>
-                                        </div>
-                                        </form>
-                                        <hr style="background-color: #0C223D" class="mt-4"> 
+                                          <hr style="background-color: #0C223D" class="mt-4"> 
                                         <div class="form-group row">
                                             <div class="col-lg-12">
                                                 <p class="mb-1"><b>Notes:</b></p>
@@ -77,6 +70,14 @@
                                                 </ol>
                                             </div>
                                         </div>
+                                        <div class="form-group row custom-pin-button">
+                                            <div class="col-sm-12 text-right">
+                                                <button type="submit" class="btn-success-modal"
+                                                    id="savePinupButton">Proceed to Payment</button>
+                                            </div>
+                                        </div>
+                                        </form>
+                                        
                                     </div>
                                 </div>
                             </div>

@@ -156,18 +156,17 @@
     
     <!-- extend profile modal start here -->
     <div class="modal fade upload-modal" id="extend_profile" tabindex="-1" role="dialog" aria-labelledby="extendProfileTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <form action="{{ route('escort.account.listing_checkout')}}" method="POST" id="extend_form">
-            {{ csrf_field() }}
-            <div class="modal-content" style="width: 800px;">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+         
+            <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">
-                  <img src="{{ asset('/assets/dashboard/img/extend-profile.png') }}" class="custompopicon" alt="extend" style="margin-right: 10px;">
+                  <img src="{{ asset('/assets/dashboard/img/extend-profile.png') }}" class="custompopicon" alt="extend">
                   Extend Profile
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">
-                    <img id="modal_close_extend" src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                    <img id="modal_close_extend" src="{{ asset('assets/app/img/newcross.png') }}" class="img_resize_in_smscreen">
                   </span>
                 </button>
               </div>
@@ -176,87 +175,88 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="container p-0">
-      
-                      <!-- Profile select -->
-                      <div class="form-group row">
-                        <label class="col-sm-3" for="">Profile:</label>
-                        <div class="col-sm-9">
-                          <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
-                                  id="extendProfileId"
-                                  name="escort_id[]"
-                                  data-parsley-errors-container="#extend-profile-errors"
-                                  required
-                                  data-parsley-required-message="Select Profile">
-                            <option value="">Select Profile</option>
-                            
-                          </select>
-                          <span id="extend-profile-errors"></span>
-                        </div>
-                      </div>
-      
-                      <!-- Extend Period -->
-                      <div class="form-group row extend--profile">
-                        <label class="col-sm-3">Extend Period:</label>
-                        <div class="col-sm-9">
-                         <div class="row">
-                             <div class="col-sm-6">
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay1" value="1" disabled>
-                              <label class="form-check-label" for="extendDay1">1 day</label>
+                        <form action="{{ route('escort.account.listing_checkout')}}" method="POST" id="extend_form">
+                            {{ csrf_field() }}
+                            <!-- Profile select -->
+                            <div class="form-group row">
+                                <label class="col-sm-3" for="">Profile:</label>
+                                <div class="col-sm-9">
+                                <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
+                                        id="extendProfileId"
+                                        name="escort_id[]"
+                                        data-parsley-errors-container="#extend-profile-errors"
+                                        required
+                                        data-parsley-required-message="Select Profile">
+                                    <option value="">Select Profile</option>
+                                    
+                                </select>
+                                <span id="extend-profile-errors"></span>
+                                </div>
                             </div>
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay5" value="5" disabled>
-                              <label class="form-check-label" for="extendDay5">5 days</label>
+            
+                            <!-- Extend Period -->
+                            <div class="form-group row extend--profile">
+                                <label class="col-sm-3">Extend Period:</label>
+                                <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay1" value="1" disabled>
+                                    <label class="form-check-label" for="extendDay1">1 day</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay5" value="5" disabled>
+                                    <label class="form-check-label" for="extendDay5">5 days</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay10" value="10" disabled>
+                                    <label class="form-check-label" for="extendDay10">10 days</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input type="hidden" name="membership[]" id="extendMembership">
+                                    <input type="hidden" name="start_date[]" id="extendStartDate">
+                                    <input type="text" id="extendEndDate" class="form-control form-control-sm removebox_shdow js_datepicker" name="end_date[]" required disabled>
+                                </div>
+                                </div>
+                                </div>
                             </div>
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay10" value="10" disabled>
-                              <label class="form-check-label" for="extendDay10">10 days</label>
+            
+                            <!-- Fee -->
+                            {{-- <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="">Fee:</label>
+                                <div class="col-sm-4">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
+                                    <span class="form-control" id="extendFeeLive" style="background-color: #e9ecef; border: 1px solid #ced4da;">0.00</span>
+                                </div>
+                                </div>
+                            </div> --}}
+            
+                            <hr style="background-color: #0C223D" class="mt-4">
+            
+                            <!-- Notes -->
+                            <div class="form-group row">
+                                <div class="col-lg-12">
+                                <p class="mb-1"><b>Notes:</b></p>
+                                <ol class="pl-4 text-justify">
+                                    <li>The Fee is calculated according to the Membership Type.</li>
+                                    <li>You agree to your Card being debited the Fee.</li>
+                                    <li>Details of this transaction can be viewed in the Transaction Summary.</li>
+                                </ol>
+                                </div>
                             </div>
-                          </div>
-                          <div class="col-sm-6">
-                            <input type="hidden" name="membership[]" id="extendMembership">
-                            <input type="hidden" name="start_date[]" id="extendStartDate">
-                            <input type="text" id="extendEndDate" class="form-control form-control-sm removebox_shdow js_datepicker" name="end_date[]" required disabled>
-                          </div>
-                         </div>
-                        </div>
-                      </div>
-      
-                      <!-- Fee -->
-                      {{-- <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="">Fee:</label>
-                        <div class="col-sm-4">
-                          <div class="input-group input-group-sm">
-                            <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
-                            <span class="form-control" id="extendFeeLive" style="background-color: #e9ecef; border: 1px solid #ced4da;">0.00</span>
-                          </div>
-                        </div>
-                      </div> --}}
-      
-                      <hr style="background-color: #0C223D" class="mt-4">
-      
-                      <!-- Notes -->
-                      <div class="form-group row">
-                        <div class="col-lg-12">
-                          <p class="mb-1"><b>Notes:</b></p>
-                          <ol class="pl-4 text-justify">
-                            <li>The Fee is calculated according to the Membership Type.</li>
-                            <li>You agree to your Card being debited the Fee.</li>
-                            <li>Details of this transaction can be viewed in the Transaction Summary.</li>
-                          </ol>
-                        </div>
-                      </div>
-      
+                            <div class="modal-footer" style="text-align: right; display: block;">
+                                    <button type="submit" class="btn-success-modal">Proceed to Payment</button>
+                                </div>
+                            </form>
                     </div>
                   </div>
                 </div>
               </div>
       
-              <div class="modal-footer" style="text-align: end; display: block;">
-                <button type="submit" class="btn-success-modal">Proceed to Payment</button>
-              </div>
+              
             </div>
-          </form>
         </div>
       </div>      
   <!-- end extend profile modal -->  
@@ -265,13 +265,13 @@
     <div class="modal fade upload-modal" id="suspend_profile" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
         aria-modal="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <form id="suspend_form">
-                <div class="modal-content" style="width: 800px;">
+                <div class="modal-content">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="">
-                                <img src="{{ asset('assets/app/img/deactivate.png')}}" class="custompopicon" alt="cross" style="margin-right: 10px;"> Suspend Profile</h5>
+                                <img src="{{ asset('assets/app/img/deactivate.png')}}" class="custompopicon" alt="cross"> Suspend Profile</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><img id="modal_close"
                                         src="{{ asset('assets/app/img/newcross.png') }}"
@@ -362,10 +362,10 @@
     </div>
     <!-- end suspend profile modal -->
 
-    <div class="modal fade programmatic" id="delete_profile" style="display: none">
+    <div class="modal fade upload-modal programmatic" id="delete_profile" style="display: none">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title" id="" style="color:white"><img src="/assets/app/img/block-user.png" class="custompopicon" alt="cross"> Delete Profile
                     </h5>
                    
