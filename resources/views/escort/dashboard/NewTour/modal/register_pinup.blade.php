@@ -6,7 +6,7 @@
                 <div class="modal-content">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id=""><img src="/assets/app/img/register.png" class="custompopicon" alt="cross" style="width:32px"> Register for Pin Up</h5>
+                            <h5 class="modal-title" id=""><img src="{{ asset('assets/dashboard/img/pinup-location.png')}}" class="custompopicon" alt="cross"> Register for Pin Up</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><img id="modal_close"
                                         src="{{ asset('assets/app/img/newcross.png') }}"
@@ -70,14 +70,7 @@
                                               </div>
                                             </div>
                                           </div>
-                                        <div class="form-group row custom-pin-button">
-                                            <div class="col-sm-12 text-right">
-                                                <input type="hidden" name="tour_location_id">
-                                                <button type="submit" class="btn-success-modal"
-                                                    id="savePinupButton">Proceed to Payment</button>
-                                            </div>
-                                        </div>
-                                        </form>
+                                          
                                         <hr style="background-color: #0C223D" class="mt-4"> 
                                         <div class="form-group row">
                                             <div class="col-lg-12">
@@ -95,6 +88,14 @@
                                                 </ol>
                                             </div>
                                         </div>
+                                        <div class="form-group row custom-pin-button">
+                                            <div class="col-sm-12 text-right">
+                                                <input type="hidden" name="tour_location_id">
+                                                <button type="submit" class="btn-success-modal"
+                                                    id="savePinupButton">Proceed to Payment</button>
+                                            </div>
+                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

@@ -6989,6 +6989,17 @@ ul#accordionSidebar {
     color: var(--blue--text);
 }
 
+.custom_modal_text {
+    font-family: Poppins !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 20px !important;
+    line-height: 1.5 !important;
+    color: var(--blue--text);
+    padding: 15px 0px;
+    text-align: center;
+}
+
 .modal-image-first {
     height: 208px;
     object-fit: cover;
