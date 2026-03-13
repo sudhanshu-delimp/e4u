@@ -5,7 +5,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <form id="duplicate_profile_form" data-parsley-validate>
             <input type="hidden" name="duplicate_profile" value="duplicate" />
-            <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+            <div class="modal-content" style="width: 800px;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id=""><img src="/assets/app/img/dublicate-profile.png" class="custompopicon" alt="cross"> Duplicate Profile</h5>
@@ -27,7 +27,7 @@
                                                 data-boundary="window">
                                             <span style='color:red'>*</span>
                                         </label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-9">
                                             <input type="text" required class="form-control form-control-sm removebox_shdow" name="profile_name"
                                             required
                                             data-parsley-group="group_one" 
@@ -47,7 +47,7 @@
                                             Stage Name:
                                             <span style='color:red'>*</span>
                                         </label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-9">
                                             <select onclick="stageNameInput(this)" style="display: block"
                                                 class=" change_default_select form-control form-control-sm select_tag_remove_box_sadow"
                                                 title="(for public display)" id="stageName" name="name"
@@ -86,7 +86,7 @@
                                                 title="This is the Location you want the Profile to be saved to, like Western Australia, Victoria etc. Make sure the Profile Name matches up."
                                                 data-boundary="window">
                                         </label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-9">
                                             <select
                                                 class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
                                                 id="profile_state_id" name="state_id"
@@ -100,14 +100,13 @@
                                             </select>
                                             <span id="profile-errors"></span>
                                         </div>
-                                        <div class="col-sm-1"></div>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer" style="text-align: center; display: block;">
+                    <div class="modal-footer" style="text-align: right; display: block;">
                         <input type="hidden" name="escort_id">
                         <input type="hidden" id="profile_city_id" name="city_id">
                         <button type="submit" class="btn-success-modal" id="save_brb">Save</button>
