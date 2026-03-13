@@ -159,10 +159,10 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <form action="{{ route('escort.account.listing_checkout')}}" method="POST" id="extend_form">
             {{ csrf_field() }}
-            <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+            <div class="modal-content" style="width: 800px;">
               <div class="modal-header">
                 <h5 class="modal-title">
-                  <img src="/assets/app/img/profile-30.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
+                  <img src="{{ asset('/assets/dashboard/img/extend-profile.png') }}" class="custompopicon" alt="extend" style="margin-right: 10px;">
                   Extend Profile
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -180,7 +180,7 @@
                       <!-- Profile select -->
                       <div class="form-group row">
                         <label class="col-sm-3" for="">Profile:</label>
-                        <div class="col-sm-8 pr-2">
+                        <div class="col-sm-9">
                           <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
                                   id="extendProfileId"
                                   name="escort_id[]"
@@ -197,8 +197,9 @@
                       <!-- Extend Period -->
                       <div class="form-group row extend--profile">
                         <label class="col-sm-3">Extend Period:</label>
-                        <div class="col-sm-9 row">
-                          <div class="col-sm-6">
+                        <div class="col-sm-9">
+                         <div class="row">
+                             <div class="col-sm-6">
                             <div class="form-check form-check-inline">
                               <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay1" value="1" disabled>
                               <label class="form-check-label" for="extendDay1">1 day</label>
@@ -212,11 +213,12 @@
                               <label class="form-check-label" for="extendDay10">10 days</label>
                             </div>
                           </div>
-                          <div class="col-sm-5 pr-1">
+                          <div class="col-sm-6">
                             <input type="hidden" name="membership[]" id="extendMembership">
                             <input type="hidden" name="start_date[]" id="extendStartDate">
                             <input type="text" id="extendEndDate" class="form-control form-control-sm removebox_shdow js_datepicker" name="end_date[]" required disabled>
                           </div>
+                         </div>
                         </div>
                       </div>
       
@@ -250,7 +252,7 @@
                 </div>
               </div>
       
-              <div class="modal-footer" style="text-align: center; display: block;">
+              <div class="modal-footer" style="text-align: end; display: block;">
                 <button type="submit" class="btn-success-modal">Proceed to Payment</button>
               </div>
             </div>
@@ -265,11 +267,11 @@
         aria-modal="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <form id="suspend_form">
-                <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+                <div class="modal-content" style="width: 800px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="">
-                                <img src="/assets/app/img/deactivate.png" class="custompopicon" alt="cross" style="margin-right: 10px;"> Suspend Profile</h5>
+                                <img src="{{ asset('assets/app/img/deactivate.png')}}" class="custompopicon" alt="cross" style="margin-right: 10px;"> Suspend Profile</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><img id="modal_close"
                                         src="{{ asset('assets/app/img/newcross.png') }}"
@@ -282,7 +284,7 @@
                                     <div class="container p-0">
                                         <div class="form-group row">
                                             <label class="col-sm-3" for=""> Profile:</label>
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-9">
                                                 <select
                                                     class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
                                                     id="suspendProfileId" name="suspend_profile_id"
@@ -292,12 +294,13 @@
                                                 </select>
                                                 <span id="profile-errors"></span>
                                             </div>
-                                            <div class="col-sm-1"></div>
+                                            {{-- <div class="col-sm-1"></div> --}}
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-3" for=""> Suspension Period:</label>
-                                            <div class="col-sm-9 row">
-                                                <div class="col-sm-5">
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col-sm-5">
                                                     <input type="text" id="suspendStartDate" required
                                                         class="form-control form-control-sm removebox_shdow js_datepicker"
                                                         name="start_date"
@@ -307,12 +310,13 @@
                                                 <div class="col-sm-1">
                                                     <span>to:</span>
                                                 </div>
-                                                <div class="col-sm-5">
+                                                <div class="col-sm-6">
                                                     <input type="text" id="suspendEndDate" required
                                                         class="form-control form-control-sm removebox_shdow js_datepicker"
                                                         name="end_date" data-parsley-type=""
                                                         data-parsley-type-message="">
                                                     <span id="brb-time-errors"></span>
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -358,7 +362,7 @@
     </div>
     <!-- end suspend profile modal -->
 
-    <div class="modal programmatic" id="delete_profile" style="display: none">
+    <div class="modal fade programmatic" id="delete_profile" style="display: none">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
@@ -381,9 +385,9 @@
                     <h5 class="popu_heading_style mb-0 mt-4 text-center"><span id="log"></span> </h5>
                     <div class="modal-footer justify-content-center">
                         <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                            value="close" id="close_change">Close</button>
+                            value="close" id="close_change">No</button>
                         <button type="button" class="btn-success-modal"
-                            id="save_change">Delete</button>
+                            id="save_change">Yes</button>
                     </div>
                 </div>
             </div>

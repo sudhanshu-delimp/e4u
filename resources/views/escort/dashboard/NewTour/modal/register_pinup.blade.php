@@ -3,7 +3,7 @@
         aria-modal="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             
-                <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+                <div class="modal-content" style="width: 800px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id=""><img src="/assets/app/img/register.png" class="custompopicon" alt="cross" style="width:32px"> Register for Pin Up</h5>

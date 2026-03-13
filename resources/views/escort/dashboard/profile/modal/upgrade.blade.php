@@ -2,10 +2,10 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <form id="upgrade_modal_form" action="{{route('escort.upgrade_list')}}" method="POST">
         {{ csrf_field() }}
-        <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+        <div class="modal-content" style="width: 800px;">
           <div class="modal-header">
             <h5 class="modal-title">
-              <img src="/assets/app/img/bump-up.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
+              <img src="{{ asset('assets/dashboard/img/upgrade.png') }}" class="custompopicon" alt="Upgrade">
               Upgrade
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -23,7 +23,7 @@
                   <!-- Profile select -->
                   <div class="form-group row">
                     <label class="col-sm-3" for="">Membership:</label>
-                    <div class="col-sm-8 pr-2">
+                    <div class="col-sm-9">
                       <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
                               id="membershipId"
                               name="membership"
@@ -68,7 +68,7 @@
             </div>
           </div>
   
-          <div class="modal-footer" style="text-align: center; display: block;">
+          <div class="modal-footer" style="text-align: right; display: block;">
             <input type="hidden" name="profile_id">
             <button type="submit" id="saveBumpupButton" class="btn-success-modal">Proceed to Payment</button>
           </div>
