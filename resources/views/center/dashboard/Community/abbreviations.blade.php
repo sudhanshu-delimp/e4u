@@ -1164,7 +1164,7 @@
                                 
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <div class="container mt-4 px-0 chagneto-policy">
+                                                            <div class="mt-4 px-0 chagneto-policy">
                                                                 <hr class="custom_hr">
                                                                 <h2 class="primery_color normal_heading">Changes to this Policy</h2>
                                                                 <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to

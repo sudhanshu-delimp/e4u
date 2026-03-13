@@ -16,6 +16,9 @@
    .list-sec .table td, .table th{
    border: 1px solid #0c233d;
    }
+   .card .card-body p{
+      text-align: justify
+   }
 </style>
 @endsection
 @section('content')

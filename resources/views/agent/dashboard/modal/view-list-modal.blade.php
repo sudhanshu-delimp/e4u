@@ -72,7 +72,7 @@
                         </table>
                     </div>
 
-                    <div class="modal-footer justify-content-center mt-3">
+                    <div class="d-flex justify-content-end mt-3">
                         <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
                             id="close_change">Close</button>
                     </div>

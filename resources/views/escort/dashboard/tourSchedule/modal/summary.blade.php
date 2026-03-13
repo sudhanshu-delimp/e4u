@@ -38,7 +38,11 @@ $tourDetail = $tourDetail ?? null;
                         <tr>
                             <th style="color: #0C223D; font-weight:600;">Fees</th>
                             <td class="current_fees">AU$ {{!empty($tourDetail) ? $tourDetail->tourPurchase()->sum('paid_rate') : 0.00}}</td>
-                            <td class=""  colspan="3"></td>
+                            <td class=""  colspan="2">
+                                <span style="color: #0C223D; font-weight:600;">Start Date: </span> <span>{{!empty($tourDetail)?$tourDetail->current_location->start_date->format('d-m-Y'):''}}</span>
+                                &nbsp;&nbsp;
+                                <span style="color: #0C223D; font-weight:600;">End Date: </span> <span>{{!empty($tourDetail)?$tourDetail->current_location->end_date->format('d-m-Y'):''}}</span>
+                            </td>
                         </tr>
                         @if(!empty($tourDetail) && $tourDetail->current_location) 
                         <tr>
@@ -49,11 +53,12 @@ $tourDetail = $tourDetail ?? null;
                                         $profiles = $tourDetail->current_location->profiles;
                                     @endphp
                                     @foreach ($profiles as $profile)
-                                      <div class="profile_shape">
+                                      <div class="profile_shape summary_tooltip">
                                         <div class="icons">
                                             <img src="{{$profile->escort->DefaultImage}}" class="custompopicon">
                                         </div>
                                          <span class="list_profile_name">{{$profile->escort->name}}</span> 
+                                         <span class="details">{{$profile->escort->membership_type}}</span>
                                       </div>
                                     @endforeach
                                 </div>
