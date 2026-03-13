@@ -1426,10 +1426,10 @@
 </div>
 </div>
 <!-- model start here 1-->
-<div class="modal fade" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade upload-modal" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color">
+        <div class="modal-content">
+            <div class="modal-header">
                
                 
                 <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Me </h5>
@@ -1439,10 +1439,10 @@
             </div>
             @if(auth()->check() && auth()->user()->type==0)
             <div class="modal-body">
-                    <h6 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                    <h5 class="custom_modal_text">
                                 <span id="Lname">To message {{ $escort->name}} please go to your Dashboard and select
                                     Communications > Messages. </span>
-                            </h6>
+                            </h5>
                     <hr style="background-color: #0C223D">
                     <p class="mb-1 mt-3"><b>Notes:</b></p>
                                 <ol>
@@ -1456,12 +1456,12 @@
             </div>
             @else
             <!-- if viewer not login -->
-            <div class="modal-body pb-0 teop-text" >
-                <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
+            <div class="modal-body">
+                <h5 class="custom_modal_text">
                     <span id="Lname">Message Me is only available to Viewers.
                         Please log in or Register to access Message Me.</span>
-                </h6>
-                <div class="modal-footer text-center justify-content-center pt-0" >
+                </h5>
+                <div class="modal-footer text-center justify-content-center">
                 <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
                 <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
                 </div>
@@ -1475,9 +1475,9 @@
 <!-- model end here 1-->
 <!-- Report advertiser model start here 2-->
 
-<div class="modal fade" id="reportAdvertiserNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal upload-modal fade" id="reportAdvertiserNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content custome_modal_max_width">
+        <div class="modal-content">
             <div class="modal-header main_bg_color">
                
                 
@@ -1487,10 +1487,10 @@
                 </button>
             </div>
             <!-- if viewer not login -->
-            <div class="modal-body pb-0 teop-text" >
-                <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
+            <div class="modal-body" >
+                <h5 class="custom_modal_text">
                     <span id="Lname">Report Advertiser is only available to Viewers. Please log in or Register to access Report Advertiser.</span>
-                </h6>
+                </h5>
                 <div class="modal-footer text-center justify-content-center" >
                 <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
                 <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
@@ -1503,7 +1503,7 @@
 </div>
 
 
-<div class="modal fade ss" id="sendcarlat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade ss upload-modal"  id="sendcarlat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color">
@@ -1581,47 +1581,45 @@ genuine reports will be considered.</li>
     </div>
 </div>
  
+<button data-target="#reportLogedIn" data-toggle="modal">review-submitted-popup</button>
  
 <!-- Report Advertiser Modal confirmation popup -->
-<div class="modal fade" id="reportLogedIn" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
+<div class="modal fade upload-modal" id="reportLogedIn" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content custome_modal_max_width">
+        <div class="modal-content">
  
             <!-- Header with navy background and [X] -->
-            <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
-                <img src="{{ asset('assets/dashboard/img/request-submit.png') }}"
-                                class="custompopicon">
-                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">
-                    
-                    Report Logged
-                    </h5>
-                <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
-                <img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+            <div class="modal-header">
+                
+                <h5 class="modal-title" id="reportAdvertiserLabelNew">                    
+                   <img src="{{ asset('assets/dashboard/img/request-submit.png') }}"
+                                class="custompopicon">  Report Logged </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
             </div>
  
             <!-- if logi Body content -->
            
-            <div class="modal-body text-left">
-                <h6 class="popu_heading_style  mt-2 " style="text-align: center; color:#0C223D;">
+            <div class="modal-body">
+                <h5 class="custom_modal_text">
                     <span id="Lname">Thank you for your report. Someone from our team will be in
                 touch shortly.</span>
-                </h6>
+                </h5>
              
             </div>
             <div class="modal-footer pt-0" style="justify-content: center; ">
-                <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                <button type="submit" class="btn-success-modal" data-dismiss="modal"
                     id="close">Ok</button>
             </div>
  
         </div>
     </div>
 </div>
-
 <!-- model start here 3 Review and Rating-->
-<div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content custome_modal_max_width">
+<div class="modal fade upload-modal add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
             
         
         <div class="modal-header main_bg_color">
@@ -1686,11 +1684,11 @@ genuine reports will be considered.</li>
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn site_btn_primary main_bg_color" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif>
+                    <button type="button" class="btn-cancel-modal site_btn_primary" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif>
                         Cancel
                     </button>
 
-                    <button type="submit" class="btn main_bg_color site_btn_primary rounded">{{$reviewAlreadyExist ? 'Update' : "Submit"}} Review</button>
+                    <button type="submit" class="btn-success-modal site_btn_primary">{{$reviewAlreadyExist ? 'Update' : "Submit"}} Review</button>
                 </div>
             </form>
         </div>
@@ -1825,7 +1823,7 @@ genuine reports will be considered.</li>
 </div>
 <!-- model start here 3-->
 
-<div class="modal fade" id="my_legbox" style="display: none">
+<div class="modal fade upload-modal" id="my_legbox" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custome_modal_max_width rounded-0">
             <div class="modal-header main_bg_color border-0">
@@ -1837,11 +1835,14 @@ genuine reports will be considered.</li>
                 </button>
             </div>
             <div class="modal-body text-center">
-                <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                <h5 class="custom_modal_text">
                     <span id="Lname">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
-                </h1>
+                </h5>
+                </div>
+             <div class="modal-footer pt-0" style="justify-content: center; ">
                 <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
                 <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
+            
             </div>
         </div>
     </div>
@@ -1859,9 +1860,9 @@ genuine reports will be considered.</li>
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
-                <div class="modal-body pb-0 agent-tour">
+                <div class="modal-body agent-tour">
                     <form method="post" action="#">
-                        <h4 class="text-center">Are you sure you want to mark this Appointment as completed?</h4>
+                        <h5 class="custom_modal_text">Are you sure you want to mark this Appointment as completed?</h5>
                         <div class="row">
                             <div class="col-md-12 my-3 text-center">
                                 <div class="form-group">  
@@ -1883,15 +1884,15 @@ genuine reports will be considered.</li>
 
 
 
-<div class="modal fade" id="review-submitted-popup" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
+<div class="modal fade upload-modal" id="review-submitted-popup" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content custome_modal_max_width">
+        <div class="modal-content">
  
             <!-- Header with navy background and [X] -->
-            <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
+            <div class="modal-header">
                 <img src="{{ asset('assets/app/img/tick.png')}}"
                                 class="custompopicon">
-                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Review Submitted</h5>
+                <h5 class="modal-title" id="reportAdvertiserLabelNew">Review Submitted</h5>
                 <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
                 <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                 </button>
@@ -1900,15 +1901,11 @@ genuine reports will be considered.</li>
             <!-- if logi Body content -->
            
             <div class="modal-body text-center">
-                 <h5 class="popu_heading_style mt-4">Thank you for your Review.</h5>
-                  <h6 class="popu_heading_style mb-4 mt-2">
-                   
-                    Your Review for <span id="review-escort-name"></span> has been submitted for approval.
-                </h6>
-             
+                 <h5 class="custom_modal_text">Thank you for your Review. Your Review for <span id="review-escort-name"></span> has been submitted for approval.
+                </h5>             
             </div>
             <div class="modal-footer pt-0" style="justify-content: center; ">
-                <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                <button type="submit" class="btn-success-modal site_btn_primary" data-dismiss="modal"
                     id="close">Ok</button>
             </div>
  

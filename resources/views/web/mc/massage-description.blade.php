@@ -583,8 +583,8 @@
 
 
                                 <!-- /////////// Messeur Modal //////////////// -->
-                                <div class="modal fade product_view" id="product_view_{{$masseur->id}}">
-                                    <div class="modal-dialog">
+                                <div class="modal fade upload-modal product_view" id="product_view_{{$masseur->id}}">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header border-0">
                                             <h5 class="mc_member_id"> <img src="{{ asset('../assets/app/img/Vector-31.png') }}" class="img-responsive"> Member ID: {{ $masseur->member_id ?? 'N/A' }} </h5>
@@ -1422,11 +1422,11 @@
     </div>
 
     <!-- model start here 1-->
-    <div class="modal fade" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade upload-modal" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color">
+            <div class="modal-content">
+                <div class="modal-header">
 
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img
                             src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Us </h5>
@@ -1437,7 +1437,7 @@
                 </div>
                 @if (auth()->check() && auth()->user()->type == 0)
                     <div class="modal-body">
-                        <h6 class="popu_heading_style my-4" style="text-align: center;">
+                        <h6 class="custom_modal_text">
                             <span id="Lname">To message Alina please go to your Dashboard and select
                                 Communications > Messages. </span>
                         </h6>
@@ -1455,12 +1455,12 @@
                     </div>
                 @else
                     <!-- if viewer not login -->
-                    <div class="modal-body pb-0 teop-text text-center">
-                        <h5 class="popu_heading_style my-4">
+                    <div class="modal-body text-center">
+                        <h5 class="custom_modal_text">
                             <span id="Lname">Message Us is only available to Viewers.
                                 Please log in or Register to access Message Us.</span>
                         </h5>
-                        <div class="modal-footer text-center justify-content-center" >
+                        <div class="modal-footer pt-0 text-center justify-content-center" >
                             <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
                             <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
                         </div>
@@ -1474,10 +1474,10 @@
     <!-- model end here 1-->
     <!-- model start here 2-->
 
-    <div class="modal fade" id="reportMcNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade modal-upload" id="reportMcNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color">
+            <div class="modal-content">
+                <div class="modal-header">
                 
                     
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Report Centre </h5>
@@ -1486,8 +1486,8 @@
                     </button>
                 </div>
                 <!-- if viewer not login -->
-                <div class="modal-body pb-0 teop-text" >
-                    <h6 class="popu_heading_style my-4 " style="text-align: center; color:#0C223D;">
+                <div class="modal-body" >
+                    <h6 class="custom_modal_text">
                         <span id="Lname">Report Centre is only available to Viewers. Please log in or Register to access Report Centre.</span>
                     </h6>
                     <div class="modal-footer text-center justify-content-center" >
@@ -1500,14 +1500,15 @@
             </div>
         </div>
     </div>
+    
 
-    <div class="modal fade ss" id="sendcarlat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade upload-modal" id="sendcarlat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content custome_modal_max_width">
+            <div class="modal-content">
                 <div class="modal-header main_bg_color">
                     <img src="{{ asset('../assets/app/img/alert.png') }}" class="custompopicon">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Report {{-- [Name] --}} to
+                    <h5 class="modal-title" id="exampleModalLabel">Report {{-- [Name] --}} to
                         our team.
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1581,14 +1582,14 @@
         </div>
     </div>
     <!-- model start here 3-->
-    <div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
+    <div class="modal fade add_reviews upload-modal" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
                 
             
-            <div class="modal-header main_bg_color">
+            <div class="modal-header">
                     <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $massager_name }}
+                    <h5 class="modal-title" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $massager_name }}
                     </h5>
                     <button type="button" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif class="close" aria-label="Close">
                     <span aria-hidden="true">
@@ -1640,27 +1641,26 @@
                     </div>
                     <div class="modal-footer">
 
-                        <button type="button" class="btn site_btn_primary main_bg_color" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif>
+                        <button type="button" class="btn-cancel-modal" @if($reviewAlreadyExist) data-bs-dismiss="modal" @else data-bs-dismiss="modal" @endif>
                             Cancel
                         </button>
 
-                        <button type="submit" class="btn main_bg_color site_btn_primary rounded">{{$reviewAlreadyExist ? 'Update' : "Submit"}} Review</button>
+                        <button type="submit" class="btn-success-modal">{{$reviewAlreadyExist ? 'Update' : "Submit"}} Review</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
     {{-- confirmation review modal --}}
-        <div class="modal fade" id="review-submitted-popup" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
+        <div class="modal fade upload-modal" id="review-submitted-popup" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content custome_modal_max_width">
+                <div class="modal-content">
         
                     <!-- Header with navy background and [X] -->
                     <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
                         <img src="{{ asset('../assets/app/img/tick.png')}}"
                                         class="custompopicon">
-                        <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Review Submitted</h5>
+                        <h5 class="modal-title" id="reportAdvertiserLabelNew">Review Submitted</h5>
                         <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
                         <img src="{{ asset('../assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                         </button>
@@ -1669,15 +1669,14 @@
                     <!-- if logi Body content -->
                 
                     <div class="modal-body text-center">
-                        <h5 class="popu_heading_style mt-4">Thank you for your Review.</h5>
-                        <h6 class="popu_heading_style mb-4 mt-2">
+                        <h5 class="custom_modal_text">Thank you for your Review.
                         
                             Your Review for <span id="review-escort-name"></span> has been submitted for approval.
-                        </h6>
+                        </h5>
                     
                     </div>
                     <div class="modal-footer pt-0" style="justify-content: center; ">
-                        <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                        <button type="submit" class="btn-success-modal" data-dismiss="modal"
                             id="close">Ok</button>
                     </div>
         
@@ -1688,14 +1687,13 @@
 
 
     <!-- model start here 1-->
-    <div class="modal fade" id="newmodal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade upload-modal" id="newmodal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
                     <img src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="icustompopicon">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img
-                            src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="img-fluid"> Send New Harmony
+                    <h5 class="modal-title" id="exampleModalLabel"> Send New Harmony
                         Nature Massage a
                         message</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1703,13 +1701,8 @@
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
-                <div class="modal-body pb-0 teop-text">
-                    <p class="popu_heading_style">Note:-</p>
-                    <ol class="mb-0">
-                        <li>The Escort needs to have this feature enabled in order to receive it.</li>
-                        <li>You will receive a notification when thismessage is responded to.</li>
-                    </ol>
-                </div>
+                <div class="modal-body">
+                    
                 <form id="messageMe" action="#" method="post">
                     <input type="hidden" name="_token" value="UuIFvrcEqKkKmQRBOgnpguuLsEYEUO1qHwlvC49U">
                     <div class="modal-body">
@@ -1739,6 +1732,15 @@
                             </div>
                         </div>
                     </div>
+                    <hr style="background-color: #0C223D" class="mt-3">
+                    <div class="note">
+                        <p class="font-weight-bold">Notes:</p>
+                        <ol class="mb-0">
+                            <li>The Escort needs to have this feature enabled in order to receive it.</li>
+                            <li>You will receive a notification when thismessage is responded to.</li>
+                        </ol>
+                    </div>
+                </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn-success-modal">Send Message</button>
                     </div>
@@ -1751,7 +1753,7 @@
 
     {{-- My Photos --}}
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content border-0">
                 <div class="modal-header d-flex justify-content-between align-items-center">                                       
@@ -1824,11 +1826,11 @@
     {{-- end --}}
 
     {{-- my legbox --}}
-    
-    <div class="modal fade" id="my_legbox" style="display: none">
+
+    <div class="modal fade upload-modal" id="my_legbox" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width rounded-0">
-                <div class="modal-header main_bg_color border-0">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/my-legbox.png')}}" class="custompopicon"> My Legbox</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
@@ -1849,12 +1851,11 @@
         </div>
     </div>
 
-    <div class="modal fade" id="reportLogedIn" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
+    <div class="modal fade upload-modal" id="reportLogedIn" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
+            <div class="modal-content">
     
-                <!-- Header with navy background and [X] -->
-                <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
+                <div class="modal-header">
                     <img src="{{ asset('assets/dashboard/img/request-submit.png') }}"
                                     class="custompopicon">
                     <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">
@@ -1869,7 +1870,7 @@
                 <!-- if logi Body content -->
             
                 <div class="modal-body text-left">
-                    <h6 class="popu_heading_style  mt-2 " style="text-align: center; color:#0C223D;">
+                    <h6 class="custom_modal_text">
                         <span id="Lname">Thank you for your report. Someone from our team will be in
                     touch shortly.</span>
                     </h6>
@@ -1886,20 +1887,20 @@
     
     {{-- end --}}
 
-    <div class="modal fade" id="reportAdvertiserNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade upload-modal" id="reportAdvertiserNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color">
+                <div class="modal-content">
+                    <div class="modal-header">
                     
                         
-                        <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Report Centre </h5>
+                        <h5 class="modal-title" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Report Centre </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                         </button>
                     </div>
                     <!-- if viewer not login -->
-                    <div class="modal-body pb-0 teop-text" >
-                        <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
+                    <div class="modal-body" >
+                        <h6 class="custom_modal_text" style="text-align: center; color:#0C223D;">
                             <span id="Lname">Report Centre is only available to Viewers. Please log in or Register to access Report Centre.</span>
                         </h6>
                         <div class="modal-footer text-center justify-content-center" >

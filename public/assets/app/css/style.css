@@ -3446,6 +3446,11 @@ i.fa.fa-heart-o{
                 max-width: 900px;
             }
             
+            .modal-header {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+            
             div#exampleModal .modal-header {
                 background: #0C223D;
                 height: 69px;
@@ -4605,11 +4610,10 @@ i.fa.fa-heart-o{
             .padding15-bottom {
                 padding-bottom: 15px;
             }
-            
-            .modal-dialog {
+            /* .modal-dialog {
                 max-width: 1000px !important;
                 margin: 1.75rem auto;
-            }
+            } */
             
             .no-padding div {
                 width: 250px;
@@ -4675,6 +4679,17 @@ i.fa.fa-heart-o{
                 font-size: 17px;
                 line-height: 25px;
                 color: #000000;
+            }
+            
+            .custom_modal_text {
+                font-family: Poppins;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 17px;
+                line-height: 25px;
+                color: var(--blue--text);
+                text-align: center;
+                padding: 15px 0px;
             }
             
             .policy_close_btn {
