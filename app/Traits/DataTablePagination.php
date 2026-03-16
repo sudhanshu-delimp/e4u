@@ -53,6 +53,20 @@ trait DataTablePagination
         return $search;
     }
 
+	protected function getSearchableFieldsName($searchables = array())
+    {
+        $search = array();
+        if(empty($searchables)) {
+            return $search;
+        }
+        foreach($searchables as $field){
+            if($field['searchable'] == 'true' && !empty($field['name'])) {
+                $search[] = $field['name'];
+            }
+        }
+        return $search;
+    }
+
 	protected function getOrder(int $key)
 	{
 		$columns = $this->getColumns();

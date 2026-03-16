@@ -136,7 +136,9 @@
               <label>Content (max 250 characters)</label>
               <textarea class="form-control" maxlength="250" rows="3"></textarea>
             </div>
-            <button type="submit" class="create-tour-sec">Publish Notification</button>
+            <div class="d-flex align-items-center justify-content-end gap-10">
+              <button type="submit" class="create-tour-sec">Publish Notification</button> 
+            </div>
           </form>
         </div>
       </div>

@@ -918,6 +918,7 @@ class MasseurController extends AppController
 
         $masseurs  = Masseur::where('user_id', auth()->user()->id)->get();
         $countries = getCountryList();
+        $totalActive = $masseurs->where('status', 1)->count();
 
         $data = $masseurs->map(function ($row) use ($countries) {
 
@@ -941,7 +942,7 @@ class MasseurController extends AppController
                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-144px, 20px, 0px);" x-placement="bottom-end">
                                                 
                                                 
-                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="../update-masseur/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
+                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="update-masseur/'.$row->id.'" target="_blank"> <i class="fa fa-pen"></i> Edit profile </a>
                                                 <div class="dropdown-divider"></div>'.$status.'<div class="dropdown-divider"></div>'.$default;
                                                 
                                                 
@@ -952,6 +953,7 @@ class MasseurController extends AppController
 
             return [
                 
+                'member_id' => $row->member_id,
                 'name' => $row->name,
                 'stage_name' => $row->stage_name,
                 'mobile' => $row->mobile,
@@ -967,7 +969,8 @@ class MasseurController extends AppController
 
 
         return response()->json([
-            'data' => $data
+            'data' => $data,
+            'total_active' => $totalActive
         ]);
 
 

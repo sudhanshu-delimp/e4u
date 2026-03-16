@@ -232,9 +232,14 @@
        </div>
        <div class="modal-body">
          <form>
-           <div class="form-group">
-             <label>Upload New Image</label>
-             <input type="file" class="form-control-file">
+           <div class="form-group text-center">
+             <label class="upload_media" for="fileInput">
+              
+              <svg version="1.1" id="Uploaded to svgrepo.com" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64px" height="64px" viewBox="0 0 32 32" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .flatshadows_een{fill:#fcfcfc;} .flatshadows_twee{fill:#E1E5E5;} .flatshadows_drie{fill:#C4CCCC;} .st0{fill:#A3AFAF;} .st1{fill:#8D9999;} .st2{fill:#8C9898;} </style> <g> <path class="flatshadows_twee" d="M28,13h-1c0-3.314-2.686-6-6-6h-0.587C19.226,4.069,16.357,2,13,2c-4.418,0-8,3.582-8,8v1 c-2.209,0-4,1.791-4,4c0,2.209,1.791,4,4,4h23c1.657,0,3-1.343,3-3S29.657,13,28,13z"></path> <polygon class="flatshadows_drie" points="14,9 24,19 11,19 11,17 8,17 "></polygon> <polygon class="flatshadows_een" points="8,17 14,9 20,17 17,17 17,30 11,30 11,17 "></polygon> </g> </g></svg>
+              <p>Upload New Image</p>
+            </label>
+             <input type="file" class="form-control-file d-none" id="fileInput" accept="image/*">
+             <p id="fileName" class="upl_file_name"></p>
            </div>
          </form>
        </div>
@@ -429,5 +434,11 @@ function openActionModal(action, memberId) {
    console.log("Action Triggered:", action, "| Member ID:", memberId);
    // Add modal or route logic here
 }
+
+
+        document.getElementById("fileInput").addEventListener("change", function() {
+            let fileName = this.files[0] ? this.files[0].name : "No file selected";
+            document.getElementById("fileName").textContent = fileName;
+        });
 </script>
 @endpush

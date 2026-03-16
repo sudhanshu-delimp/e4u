@@ -64,6 +64,11 @@ class Purchase extends Model
         return $this->belongsTo('App\Models\Escort', 'escort_id');
     }
 
+    public function tour_location()
+    {
+        return $this->belongsTo(TourLocation::class);
+    }
+
     public function scopeOverlapping($query, $start, $end)
     {
         $formatted_start = Carbon::createFromFormat('d-m-Y', $start)->format('Y-m-d');

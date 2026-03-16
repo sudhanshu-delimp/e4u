@@ -216,7 +216,7 @@ class Escort extends Model
     public function activeUpcomingSuspend(){
         return $this->hasOne(SuspendProfile::class, 'escort_profile_id')
         ->where('utc_end_date', '>=', Carbon::now('UTC'))
-        ->latestOfMany('utc_end_date');
+        ->oldestOfMany('utc_start_date');
     }
     
     public function latestActiveBrb(): HasOne
@@ -548,7 +548,8 @@ class Escort extends Model
 
     public function reviews()
     {
-        return $this->hasMany(Reviews::class, 'escort_id', 'id');
+         return $this->hasMany(Reviews::class, 'advertiser_id', 'id')
+                ->where('advertiser_type', 'escort');
     }
 
     ///////////////////

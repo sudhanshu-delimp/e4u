@@ -24,8 +24,10 @@ class AdvertiserSpamReportController extends Controller
             $escort_id = $request->escort_id;
             $viewer_id = Auth::user()->id;
 
-            $res = ReportEscortProfile::where('escort_id', $escort_id)->where( 
-                    'viewer_id', $viewer_id)->select('report_desc','report_tag')->first();
+            $res = ReportEscortProfile::where('advertiser_id', $escort_id)
+                            ->where('advertiser_type', 'escort')
+                            ->where('viewer_id', $viewer_id)
+                            ->select('report_desc','report_tag')->first();
 
             $data = array(
                 'status'=>200,
@@ -59,8 +61,10 @@ class AdvertiserSpamReportController extends Controller
 
             $res = ReportEscortProfile::updateOrCreate(
                 [
-                    'escort_id' => $escort_id,  
+                    'advertiser_id' => $escort_id,  
                     'viewer_id' => $viewer_id, 
+                    'advertiser_type' => 'escort'
+                   
                 ],
                 [
                     'report_tag'     => $report_tag,  

@@ -37,12 +37,15 @@
                       <span id="membershipId-errors"></span>
                     </div>
                   </div>
-  
+                  
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label" for="">Fee:</label>
                     <div class="col-sm-4">
                       <div class="input-group input-group-sm">
-                        <input type="text" class="form-control"  name="upgrade_amount" id="upgrade_amount" value="0.00">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1" style="border-radius: 0rem;">$</span>
+                      </div>
+                        <input type="text" class="form-control"  name="upgrade_amount" id="upgrade_amount" value="0.00" style="border-radius: 0rem;" disabled >
                       </div>
                     </div>
                   </div>
@@ -54,8 +57,8 @@
                     <div class="col-lg-12">
                       <p class="mb-1"><b>Notes:</b></p>
                       <ol class="pl-4 text-justify">
-                        <li>Your nominated Profile will be Bumped Up to the top of your nominated Membership Type in the Listings.</li>
-                     
+                        <li>Your nominated Profile, once upgraded, will be Bumped Up to the top of your nominated Membership Type in the Listings.</li>
+                        <li>Your Fee has been adjusted for the balance of the Listing period and charged to your Card.</li>
                       </ol>
                     </div>
                   </div>

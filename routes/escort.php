@@ -29,6 +29,7 @@ use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\User\Dashboard\UserController;
+use App\Http\Controllers\Escort\WalletController;
 use Illuminate\Support\Facades\Route;
 
 //remove before prod
@@ -300,9 +301,7 @@ Route::get('feedback',function(){
 Route::get('criticalinformation',function(){
     return view('escort.dashboard.Annalytics.criticalinformation');
 });
-Route::get('credit-my-account',function(){
-    return view('escort.dashboard.Bookkeeping.credit-my-account');
-});
+
 Route::get('my-bank-account',function(){
     return view('escort.dashboard.Bookkeeping.my-bank-account');
 });
@@ -317,6 +316,9 @@ Route::get('reccomendations',function(){
     return view('escort.dashboard.Reviews.reccomendations');
 });
 
+# Wallet Module
+Route::get('my-wallet',[WalletController::class, 'index'])->name('escort.my_wallet');
+Route::get('wallet_transaction',[WalletController::class, 'transactionList'])->name('escort.wallet_transaction');
 # Escort profile reviews
 Route::get('view-reviews',[EscortReviewsController::class, 'viewReviews'])->name('escort.view-reviews');
 Route::get('reviews-by-ajax',[EscortReviewsController::class, 'getEscortProfileReviewsByAjax'])->name('escort.reviews-profile-by-ajax');

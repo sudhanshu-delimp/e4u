@@ -283,6 +283,33 @@ span.menu-active {
     width: 60% !important;
 }
 
+.profile_shape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--blue--text);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.profile_shape .list_profile_name {
+    color: #fff;
+}
+
+.profile_shape .icons {
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    object-fit: cover;
+}
+
+.profile_shape .icons img {
+    width: 100%;
+    border-radius: 100px;
+    object-fit: cover;
+}
+
 .save_profile_btn {
     border: 1px solid transparent;
     padding: 10px 21px 10px 20px;
@@ -1364,6 +1391,37 @@ button.btn:focus {
 
 .show_details {
     position: relative;
+}
+
+.summary_tooltip {
+    position: relative;
+}
+
+.summary_tooltip .details {
+    position: absolute;
+    font-size: 12px;
+    background-color: var(--peach);
+    color: #fff;
+    display: none;
+    width: max-content;
+    padding: 3px 5px;
+    border-radius: 3px;
+    top: -31px;
+    left: 0;
+}
+
+.summary_tooltip .details::after {
+    position: absolute;
+    content: '';
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+    top: 22px;
+    left: 15px;
+}
+
+.summary_tooltip:hover .details {
+    display: block;
 }
 
 .details_tooltip {
@@ -3088,6 +3146,70 @@ button.btn:focus {
     height: 112px;
     object-fit: cover;
     border-radius: 6px;
+}
+
+.profile_list {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.upload_exl,
+.upload_media {
+    padding: 20px;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.upl_file_name {
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.profile_label {
+    position: absolute;
+    display: none;
+    background: #0C223D;
+    padding: 3px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #fff;
+    top: -28px;
+    left: 0px;
+}
+
+.profile_label::after {
+    position: absolute;
+    content: '';
+    left: 3px;
+    top: 19px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #0C223D transparent transparent transparent;
+    transform: rotate(0deg);
+}
+
+.profile_list:hover .profile_label {
+    display: block;
+}
+
+.profile_list i {
+    width: 20px;
+    background: #ff4768;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    font-size: 10px;
 }
 
 
@@ -5403,6 +5525,7 @@ div.myacording-design .card .card-body {
     text-align: left;
     border-top: 1px solid #192A3E;
     margin-top: 30px;
+    text-align: justify;
 }
 
 div.myacording-design .card-header a.card-link.collapsed {
@@ -9372,8 +9495,8 @@ td {
 }
 
 .blog-img-admin {
-    width: 75px;
-    border-radius: 5px !important;
+    width: 35px;
+    border-radius: 100px !important;
 }
 
 .upload-box {

@@ -9,7 +9,8 @@
 }
 
 .profile_img {
-    border-radius: 23px;
+    border-radius: 100%;
+    box-shadow: 0px 0px 3px 1px #ccc;
 }
 .our-masseurs {
     border-radius: 23px;
@@ -605,7 +606,7 @@
                                                             @endforeach
 
                                                     <div class="veryfy_img">
-                                                        <img src="{{ asset('../assets/app/img/verify/unverified_light.png') }}">
+                                                        <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
                                                     </div>
                                                 </div>
 
@@ -1135,7 +1136,7 @@
                 <!-- Playmates Section -->
                 {{-- <div class="box_shadow manage_padding_margin_bg_color">
                     <div class="profile_card_border profile_description_contect">
-                        <h2><img src="../assets/app/img/bedroom.svg"> Playmates</h2>
+                        <h2><img src="{{ asset('assets/app/img/icon_my-playmates.svg') }}" style="width: 36px"> Playmates</h2>
                     </div>
                     <div class="padding_20_tob_btm_side reduse_pad">
                         <p class="profile_description_contect_pera">Alina does not have any Playmates.</p>
@@ -1290,7 +1291,7 @@
                                         
                                         @foreach($reviews as $key => $review)
                                             @php
-                                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id && $review->escort_id == $listing->id){
+                                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id && $review->advertiser_id == $listing->id && $review->advertiser_type=='massage'){
                                                     $reviewAlreadyExist = true;
                                                     $reviewExistsMessage = $review->description;
                                                     $reviewExistsStarRating = $review->star_rating;
@@ -1298,6 +1299,10 @@
                                             @endphp
                                             
                                             <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
+                                                 <div class="d-flex align-items-center justify-content-between">
+                                                    <span style="font-size: 14px;"> Reviewed By </span>
+                                                    <span style="font-size: 14px;"> Review Date </span>
+                                                </div>
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <h5>
                                                         @if (!empty($review->user->name))
@@ -1308,7 +1313,7 @@
                                                             Username
                                                         @endif
                                                     </h5>
-                                                    <p class="custome-text-date mb-0">Reviewed: {{$review->created_at->format('d-m-Y')}}</p>
+                                                    <p class="custome-text-date mb-0">{{$review->created_at->format('d-m-Y')}}</p>
                                                 </div>
                                                 <ul class="list-inline mb-0">
                                                     @for($i=1; $i<= 5; $i++)
@@ -1331,7 +1336,7 @@
                                     </div>
 
                                     <!-- Custom Nav Buttons -->
-                                    <div class="d-flex justify-content-start mt-3 carousel-nav-btn-wrapper">
+                                    <div class="d-flex justify-content-start mt-3 carousel-nav-btn-wrapper flex-wrap">
                                         <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
                                         <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
                                         
@@ -1602,16 +1607,7 @@
                             <div class="col">
                                 <div class="form-group popup_massage_box">
                                     <p class="font-weight-bold">Tell us about your experience:</p>
-                                    <textarea name="description" 
-                                    class="form-control popup_massage_box p-2" id="review_textarea" rows="5" 
-                                    placeholder="Message (500 characters)"
-                                    required
-                                        data-parsley-required-message="Please enter your review"
-                                        data-parsley-maxlength="500"
-                                        data-parsley-maxlength-message="Maximum 500 characters allowed">
-                                    
-                                    {{$reviewExistsMessage}}
-                                    </textarea>
+                                   <textarea name="description" class="form-control popup_massage_box p-2" id="review_textarea" rows="5" placeholder="Message (500 characters)" required data-parsley-required-message="Please enter your review" data-parsley-maxlength="500" data-parsley-maxlength-message="Maximum 500 characters allowed">{{ $review->description ?? '' }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -2077,7 +2073,7 @@ $(document).on('click', '.open_review_box', function (e) {
 
 
 
-            $('#review_textarea').val('');
+            $('#review_textarea').val($.trim($('#review_textarea').val()));
 
             $.ajaxSetup({
                 headers: {

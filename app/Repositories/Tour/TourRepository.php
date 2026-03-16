@@ -56,6 +56,7 @@ class TourRepository extends BaseRepository implements TourInterface
 
 		return [$result, $count];
 	}
+    
     protected function modifyProperties($result ,$start)
     {
         //dd($result);
@@ -184,9 +185,10 @@ class TourRepository extends BaseRepository implements TourInterface
             switch ($type) {
                 case 'purchased':{
                     if($item->status=='Upcoming'){
-                        $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#tour_location_cancel" data-item-id="'.$item->id.'" data-item-type="tour"> <i class="fa fa-trash" ></i> Cancel</a>';
+                        $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#tour_location_cancel" data-item-id="'.$item->id.'" data-item-type="tour"> <i class="fa fa-trash" ></i> Cancel</a><div class="dropdown-divider"></div>';
                     }
-                     $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.current.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
+                     $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.current.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a><div class="dropdown-divider"></div>'; 
+                     $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#tour_summary" data-item-id="'.$item->id.'" data-item-type="tour-location"> <i class="fa fa-list" ></i> Summary</a>'; 
                     }
                     break;
                 default:{
@@ -197,7 +199,7 @@ class TourRepository extends BaseRepository implements TourInterface
                     }
                     else{
                         $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#pinup_profile" data-tour-id="'.$item->id.'"> <i class="fa fa-arrow-up" ></i> List Pin Up</a>'; 
-                        $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#" data-tour-id="'.$item->id.'"> <i class="fa fa-trash" ></i> Summary</a>'; 
+                        //$action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#" data-tour-id="'.$item->id.'"> <i class="fa fa-trash" ></i> Summary</a>'; 
                         $action .= ($type=='current')?'<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.current.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a>':'<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.past.tour', $item->id).'"> <i class="fa fa-eye " ></i> View</a>'; 
                     }
                 } break;
@@ -240,6 +242,8 @@ class TourRepository extends BaseRepository implements TourInterface
             $action .= '</div></div>';
             $item->action = $action;
             $item->status = Carbon::parse($item->end_date)->lt(Carbon::today($item->time_zone)->format('Y-m-d')) ?'Completed' : (Carbon::parse($item->start_date)->lte(Carbon::today($item->time_zone)->format('Y-m-d')) ? 'Current':'Upcoming');
+            $badgeClass = getStatusBadgeClass(strtolower($item->status));
+            $item->status = "<span class='custom_badge {$badgeClass}'>{$item->status}</span>";
         }
         return $result;
     }

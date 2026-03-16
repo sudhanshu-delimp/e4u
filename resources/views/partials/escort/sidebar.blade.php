@@ -250,7 +250,7 @@
                     'feedback',
                     'criticalinformation',
                     'bank_account',
-                    'credit-my-account',
+                    'my-wallet',
                     'transaction-summary',
                     'escort-agency-request',
                     'send-notifications',
@@ -331,14 +331,14 @@
 
                 <div id="ManagementBookkeeping"
                     class="collapse
-                    @if (in_array(request()->segment(2), ['bank_account', 'credit-my-account', 'transaction-summary'])) show @endif"
+                    @if (in_array(request()->segment(2), ['bank_account', 'my-wallet', 'transaction-summary'])) show @endif"
                     data-parent="#Management">
 
                     
-                    <a class="collapse-item {{ request()->segment(2) == 'credit-my-account' ? 'menu-active' : '' }}"
-                        href="{{ url('escort-dashboard/credit-my-account') }}">
+                    <a class="collapse-item {{ request()->segment(2) == 'my-wallet' ? 'menu-active' : '' }}"
+                        href="{{ route('escort.my_wallet') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
-                        <span>Add Credit</span>
+                        <span>My Wallet</span>
                     </a>
                     <a class="collapse-item {{ request()->segment(2) == 'bank_account' ? 'menu-active' : '' }}"
                         href="{{ route('escort.bank_account') }}">

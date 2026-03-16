@@ -11,7 +11,8 @@
         <tr>
             <td align="center">
                 <!-- Main container -->
-                <table width="700" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
+                <table width="700" cellpadding="0" cellspacing="0"
+                    style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
 
                     <!-- Header with background and logo -->
                     <tr>
@@ -19,12 +20,13 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="http://127.0.0.1:8000/images/logo.png" alt="E4U Logo" style="height: 50px;">
+                                        <img src="{{ asset('images/logo.png') }}" alt="E4U Logo"
+                                            style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                        New Registration - Viewer [Title]<br>
+                                        New Registration - Viewer<br>
                                         <span style="font-size: 13px; color: #cccccc;">
-                      Member ID: [Member ID]</span>
+                                            Member ID: {{$user->member_id ?? ''}}</span>
                                     </td>
                                 </tr>
                             </table>
@@ -36,22 +38,24 @@
                         <td style="padding: 30px;">
 
                             <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Attention Operations</b></p>
-                            <p style="font-size: 16px; margin: 35px 0 15px 0;">The following Viewer Registration was made on the [date of registration]. Details of the registration are:</p>
+                            <p style="font-size: 16px; margin: 35px 0 15px 0;">The following Viewer Registration was
+                                made on the {{ $user->created_at->format('d-m-Y') }}. Details of the registration are:</p>
                             <!-- Details Table -->
-                            <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
+                            <table width="100%" cellpadding="5" cellspacing="0"
+                                style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
 
 
                                 <tr>
                                     <td style="font-weight: bold; padding: 10px 0px;">Mobile:</td>
-                                    <td style="padding: 10px 0px 10px 10px">[Mobile (&gt; My Account &gt; Edit My Account &gt; About Me &gt; Mobile)]</td>
+                                    <td style="padding: 10px 0px 10px 10px">{{removeSpaceFromString($user->phone)}}</td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bold; padding: 10px 0px;">Email:</td>
-                                    <td style="padding: 10px 0px 10px 10px">[from form]</td>
+                                    <td style="padding: 10px 0px 10px 10px">{{$user->email}}</td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bold; padding: 10px 0px;">Location:</td>
-                                    <td style="padding: 10px 0px 10px 10px">[Home State (&gt; My Account &gt; Edit My Account &gt; About Me &gt; Home State)]</td>
+                                    <td style="padding: 10px 0px 10px 10px">{{config('escorts.profile.states')[$user->state_id]['stateName']}}</td>
                                 </tr>
                             </table>
 
@@ -66,11 +70,12 @@
                 </table>
 
                 <!-- Footer -->
-                <table width="700" cellpadding="0" cellspacing="0" style="background-color:#0c223d; padding: 15px 30px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
+                <table width="700" cellpadding="0" cellspacing="0"
+                    style="background-color:#0c223d; padding: 15px 30px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
                     <tr>
                         <td style="line-height: 21px; text-align:center;">
                             <em>This is an automatically generated email by the Escorts4U Operations Centre.<br>
-                &copy; Copyright 2024 Blackbox Tech Pty Ltd. All rights reserved.</em>
+                                &copy; Copyright {{date('Y')}} Blackbox Tech Pty Ltd. All rights reserved.</em>
                         </td>
                     </tr>
                 </table>

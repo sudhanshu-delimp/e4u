@@ -71,16 +71,16 @@
                             </p>
 
                             <p>
-                                When you enquire about E4U’s services, or become a User of the Websites, a record is
+                                When you enquire about E4U's services, or become a User of the Websites, a record is
                                 made that includes your Personal Information. By using the Website, you consent to
                                 Escorts4U collecting and using your Personal Information in order to provide the
                                 Services.
                                 By using this Website you consent to Escorts4U disclosing your Personal Information in
-                                accordance with the Australian Privacy Principles and its Policies.
+                                accordance with the APP and its Policies.
                             </p>
 
                             <p>Escorts4U collects Personal Information that is considered reasonably necessary for
-                                Escorts4U to carry out its business, manage our User’s needs, and provide its Services.
+                                Escorts4U to carry out its business, manage our User's needs, and provide its Services.
                                 We may also collect information to fulfil administrative functions associated with these
                                 services, for example billing, entering into contracts with you and/or third parties and
                                 managing client relationships.
@@ -91,7 +91,7 @@
                                 depending on the nature of your transaction with Escorts4U, but may include:
                             </p>
                             <ul>
-                                <li>Providing you with the Escorts4U services <b>(Services)</b></li>
+                                <li>Providing you with the Escorts4U services (<b>Services</b>)</li>
                                 <li>Identifying you, including your Home State; and</li>
                                 <li>Managing and administering the Services</li>
                                 <li>Developing and expanding the Services</li>
@@ -128,7 +128,7 @@
                                 In some circumstances, Escorts4U may need to collect the Personal Information from a
                                 third party. For example, Escorts4U may collect, from the provider of a payments
                                 platform
-                                where your transactions are stored (Payments System), information about the
+                                where your transactions are stored (<b>Payments System</b>), information about the
                                 transactions you undertake with us. Escorts4U may also collect information from other
                                 participants in the Payments System and other financial institutions in order to resolve
                                 disputes or errors which are brought to our attention. If you do not provide some or all
@@ -142,7 +142,7 @@
                                 remain anonymous or use a pseudonym in your dealings with us.</p>
                             <p>If you identify yourself (for example, by providing your contact details), any Personal
                                 Information you provide to Escorts4U will be managed in accordance with this Privacy
-                                Policy, and Escort4U’s other Policies and <a class="c-red" href="{{ url('terms-conditions')}}">Terms and Conditions</a>.</p>
+                                Policy, and Escort4U's other Policies and <a class="c-red" href="{{ url('terms-conditions')}}">Terms and Conditions</a>.</p>
 
                             <h2 class="primery_color normal_heading">Non-provision of information</h2>
                             <p>You can always decline to give Escorts4U any Personal Information we request, but that
@@ -181,12 +181,12 @@
                                 information about your complaint and the outcome you are seeking. We will then typically
                                 gather relevant facts, locate and review relevant documents and speak with individuals
                                 involved.</p>
-                            <p>In most cases, we will investigate and respond to a complaint within [30 days] of receipt of
+                            <p>In most cases, we will investigate and respond to a complaint within thirty (30) days of receipt of
                                 the complaint. If the matter is more complex or our investigation may take longer, we will
                                 let you know.</p>
                             <p>If you are not satisfied with our response to your complaint, or you consider that Escorts4U
                                 may have breached the APPs or the Privacy Act, a complaint may be made to the Office
-                                of the Australian Information Commissioner (OAIC). The OAIC can be contacted by
+                                of the Australian Information Commissioner (<b>OAIC</b>). The OAIC can be contacted by
                                 telephone on 1300 363 992 or by using the contact details on the OAIC website.</p>
 
                             <h2 class="primery_color normal_heading">Responsible authority</h2>
@@ -294,19 +294,18 @@
                             <h2 class="primery_color normal_heading">The Use of Social Plugins and AdSense</h2>
                             <p>The Website does not use any form of plugin which are commonly deployed by the social
                                 networks known as facebook.com, operated by Facebook Inc., 1601 S. California Avenue,
-                                Palo Alto, CA 94304, USA (<b>Facebook</b>), Twitter Inc., 795 Folsom St., Suite 600, San
-                                Francisco, CA 94107, USA (<b>Twitter</b>), or Google AdSense, 1600 Amphitheatre Parkway,
+                                Palo Alto, CA 94304, USA (<b>Facebook</b>), X Inc., 795 Folsom St., Suite 600, San
+                                Francisco, CA 94107, USA (<b>X</b>), or Google AdSense, 1600 Amphitheatre Parkway,
                                 Mountain View, CA 94043, USA (<b>Google</b>).</p>
                             <p>When you visit a page on the Website, your browser will not be able to establish a direct
-                                connection to the Facebook, Twitter or Google servers, thus enabling Facebook, Twitter
+                                connection to the Facebook, X or Google servers, thus enabling Facebook, X
                                 or
                                 Google to receive information about you having accessed any of the pages of the Website
                                 with your IP address. Whilst Escorts4U attempts to maintain the Users anonymity, it is
-                                not
-                                guaranteed.</p>
-                            <p>As a precaution, if you are a Facebook or Twitter member and do not want Facebook or
-                                Twitter to connect the data concerning your visit to the Website with your Facebook or
-                                Twitter member data, you should log off from Facebook or Twitter before entering the
+                                not guaranteed.</p>
+                            <p>As a precaution, if you are a Facebook or X member and do not want Facebook or
+                                X to connect the data concerning your visit to the Website with your Facebook or
+                                X member data, you should log off from Facebook or X before entering the
                                 Website.</p>
                             <h2 class="primery_color normal_heading">Google Analytics</h2>
                             <p>The Website uses Google Analytics, a web analytics service provided by Google, Inc.
