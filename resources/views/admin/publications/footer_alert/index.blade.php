@@ -79,8 +79,8 @@
     {{-- end --}}
     <div class="modal fade upload-modal" id="Create_Notice" tabindex="-1" role="dialog"
         aria-labelledby="Create_AlertLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="Create_Notice_heading"><img
                             src="{{ asset('assets/dashboard/img/new-notice.png') }}" alt="alert" class="custompopicon">
@@ -135,8 +135,8 @@
 
     <div class="modal fade upload-modal" id="Create_Alert" tabindex="-1" role="dialog" aria-labelledby="Create_Alert"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
                 <form method="POST" id="AlertForm">
                     @csrf
                     <input type="hidden" id="edit_alert_id" name="edit_alert_id">
@@ -203,14 +203,14 @@
                         <span id="success_task_title"></span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        {{-- <span aria-hidden="true"><img src="{{ asset('assets/app/img/alert.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span> --}}
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                    class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <div class="py-4 text-center" id="success_form_html">
-                        <h4 id="success_msg"></h4>
-                        <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal"
+                    <div class="pb-3 text-center" id="success_form_html">
+                        <h5 id="success_msg" class="custom_modal_text"></h5>
+                        <button type="button" class="btn-success-modal" data-dismiss="modal"
                             aria-label="Close">OK</button>
                     </div>
 
@@ -222,8 +222,8 @@
     <!-- View Alert Pop up module-->
     <div class="modal fade upload-modal " id="view-listing" tabindex="-1" role="dialog"
         aria-labelledby="view-listingLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="view-listings"><img
                             src="{{ asset('assets/dashboard/img/create-notification.png') }}" alt="alert"
@@ -456,8 +456,8 @@
 
             img.attr('src', endpoint.alert_image);
             body.html(
-                `<h4>${confirmMsg}</h4>
-                <div class="d-flex justify-content-center gap-10 mt-3">
+                `<h5 class="custom_modal_text">${confirmMsg}</h5>
+                <div class="d-flex justify-content-center gap-10 mt-4">
                     <button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button>
                     <button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button>
                 </div>`
@@ -492,8 +492,8 @@
                         }
                         $('#success_task_title').text('Error');
                         $('#image_icon').attr('src', endpoint.error_image);
-                        $('#success_form_html').html('<h4>' + msg +
-                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                        $('#success_form_html').html('<h5 class="custom_modal_text">' + msg +
+                            '</h5><button type="button" class="btn-success-modal mt-4 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                         );
                     }
                 });
@@ -610,8 +610,8 @@
                         let msg = response.message ? response.message : "Save Successfully";
                         $("#image_icon").attr("src", endpoint.success_image);
                         $('#success_task_title').text('Success');
-                        $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
-                            '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                        $('#success_form_html').html('<h5 class="custom_modal_text">' + (msg || 'Status updated successfully') +
+                            '</h5><button type="button" class="btn-success-modal mt-4 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                         );
                         form[0].reset();
                         $('#successModal').modal('show');
@@ -646,9 +646,9 @@
                     }
                     $("#image_icon").attr("src", endpoint.error_image);
                     $('#success_task_title').text('Error');
-                    $('#success_form_html').html('<h4>' + (msg ||
+                    $('#success_form_html').html('<h5 class="custom_modal_text">' + (msg ||
                             'Status updated successfully') +
-                        '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                        '</h5><button type="button" class="btn-success-modal mt-4 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                     );
                     $('#successModal').modal('show');
                 }

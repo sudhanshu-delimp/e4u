@@ -131,11 +131,11 @@
 
     <!-- See Email Report popup -->
 
-
+   
     <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog"
         aria-labelledby="emailReportLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-            <div class="modal-content basic-modal modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="emailReport"> <img
                             src="{{ asset('assets/dashboard/img/view-listing.png') }}" class="custompopicon"> Listing</h5>
@@ -228,14 +228,14 @@
         </div>
     </div>
     <!-- end -->
-
+ 
     <!-- confirmation model -->
-    <div class="modal " id="confirm_modal" style=" padding-right: 15px;" aria-modal="true"
+    <div class="modal fade upload-modal " id="confirm_modal" style=" padding-right: 15px;" aria-modal="true"
         role="dialog">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title text-white">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
                         <img src="/assets/dashboard/img/ban.png" class="custompopicon" id="modal-icon">
                         <span style="color:white" id="modal_suspend_title">Profile Suspended</span>
                     </h5>
@@ -247,11 +247,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                    <h5 class="custom_modal_text" style="text-align: center;">
                         Are you sure you want to <span class="bodyMessageTitle">suspend</span> this profile?
                     </h5>
                 </div>
-                <div class="modal-footer" style="justify-content: center;">
+                <div class="modal-footer pt-0" style="justify-content: center;">
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal" id="close">No</button>
                     <button type="submit" class="btn-success-modal" data-user-id="" data-dismiss="modal" id="saveSuspendPfileInfo" >Yes</button>
                 </div>
@@ -259,30 +259,31 @@
         </div>
     </div>
     <!-- end -->
+  
     <!-- success model -->
-    <div class="modal " id="success_modal" style=" padding-right: 15px;" aria-modal="true"
+    <div class="modal fade upload-modal" id="success_modal" style=" padding-right: 15px;" aria-modal="true"
         role="dialog">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title text-white">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
                         <img src="/assets/dashboard/img/unblock.png" class="custompopicon" id="modal-icon">
                         <span style="color:white" id="modal-title">Profile <span class="modal_success_title">Suspended</span></span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src="http://127.0.0.1:8000/assets/app/img/newcross.png"
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h4 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                    <h4 class="custom_modal_text" style="text-align: center;">
                         <span id="comman_str"></span>
                         <span class="comman_msg">Status updated succesfully.</span>
                     </h4>
                 </div>
-                <div class="modal-footer" style="justify-content: center;">
+                <div class="modal-footer pt-0" style="justify-content: center;">
                     <button type="submit" class="btn-success-modal" data-dismiss="modal" id="close">Ok</button>
                 </div>
             </div>

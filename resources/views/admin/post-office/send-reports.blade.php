@@ -275,8 +275,8 @@
 
 
 <div class="modal fade upload-modal bd-example-modal-lg" id="emailReport" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-      <div class="modal-content basic-modal modal-lg">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="emailReport"> <img src="{{ asset('assets/dashboard/img/email-details.png') }}" class="custompopicon"> Email Report</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -335,8 +335,8 @@
 <!-- custome modal design previeo template -->
 
 <div class="modal fade upload-modal bd-example-modal-lg" id="previewTemplate" tabindex="-1" role="dialog" aria-labelledby="previewTemplateLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-      <div class="modal-content basic-modal modal-lg">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="previewTemplate"> <img src="{{ asset('assets/dashboard/img/email-template.png') }}" class="custompopicon"> Template</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -398,7 +398,7 @@
                             </table>
 
                             <!-- Footer -->
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#2b3d50; padding: 15px 30px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
+                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0C223D; padding: 15px 30px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
                                 <tr>
                                     <td style="text-align:center;">
                                         <em>This is an automatically generated email by the Escorts4U Operations Centre.<br>

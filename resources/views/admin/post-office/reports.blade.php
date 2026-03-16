@@ -102,8 +102,8 @@
 
 
 <div class="modal fade upload-modal bd-example-modal-lg" id="postOffivereport" tabindex="-1" role="dialog" aria-labelledby="postOffivereportLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-      <div class="modal-content basic-modal modal-lg">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="postOffivereport"><img src="{{ asset('assets/dashboard/img/post-office-report.png') }}" class="custompopicon">Post Office Report</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
