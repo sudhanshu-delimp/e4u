@@ -82,10 +82,9 @@
 
 <div class="modal fade upload-modal" id="conversation_modal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable"
-         role="document"> {{--NOTE:: use  modal-dialog-scrollable instead of modal-dialog to make body scrollable only--}}
-        <div class="modal-content" style="width: 900px;position: absolute;top:50px;">
-            {{-- {{ route('escort.upload.gallery') }} --}}
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
+         role="document">
+        <div class="modal-content">
             <div class="modal-content border-0">
                 <div class="modal-header">
                     <span class="custom-pop-wrapper"><img src="/assets/app/img/history.png" class="custompopicon" alt="cross"><h5 class="modal-title" id="ticket_name">Support Ticket</h5></span>

@@ -514,11 +514,11 @@
         @include('center.dashboard.modal.upload_gallery_image')
         @include('center.dashboard.modal.upload_verify_media')
 
-        <div class="modal" id="photo_gallery" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title" style="color: white;"><img src="/assets/dashboard/img/upload-photos.png"
+        <div class="modal fade upload-modal" id="photo_gallery" style="display: none">
+            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><img src="/assets/dashboard/img/upload-photos.png"
                                 class="custompopicon" alt="cross"> Select Photo</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
@@ -528,8 +528,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div id="gallery_modal_container" class="grid-container modalPopup"
-                            style="max-height: 500px; overflow-y:scroll;">
+                        <div id="gallery_modal_container" class="grid-container modalPopup">
                             @foreach ($media as $keyId => $image)
                                 @if (!in_array($image->position, [9, 10]) /*$image->position != 8*/)
                                     <div class="item4">
@@ -547,11 +546,11 @@
         </div>
 
 
-        <div class="modal" id="photo_gallery_banner" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png"
+        <div class="modal fade upload-modal" id="photo_gallery_banner" style="display: none">
+            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> <img src="/assets/dashboard/img/upload-photos.png"
                                 class="custompopicon" alt="cross"> Select Banner</h5>
 
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -578,7 +577,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="modalPopup" style="max-height: 350px; overflow:auto;">
+                        <div class="modalPopup">
 
                             <div class="tab-content mt-3">
                                 <!-- Tab panes -->
@@ -745,11 +744,11 @@
             </div>
         </div>
 
-        <div class="modal" id="photo_gallery_pinup" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png"
+        <div class="modal fade upload-modal" id="photo_gallery_pinup" style="display: none">
+            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> <img src="/assets/dashboard/img/upload-photos.png"
                                 class="custompopicon" alt="cross"> Select Pin Up</h5>
 
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
