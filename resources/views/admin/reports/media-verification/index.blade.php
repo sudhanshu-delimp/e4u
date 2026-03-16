@@ -16,6 +16,7 @@
             height: 60px;
             border-radius: 50%;
         }
+        
     </style>
 @endsection
 @section('content')
@@ -158,7 +159,35 @@
             </div>
         </div>
     </div>
-    
+    <!-- <div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
+                        <img src="{{ asset('assets/dashboard/img/question-mark.png') }}" alt="resolved" class="custompopicon">
+                        <span>Confirmation</span>
+                    </h5>
+                    <input type="hidden" id="status_data_value" name="status_data_value" value="">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+
+                <div class="modal-body pb-0 teop-text text-center">
+                    <h5 class="popu_heading_style mt-2">
+                        Are you sure you want to perform this action.
+                    </h5>
+
+                </div>
+                <div class="modal-footer justify-content-center border-0 pb-4">
+
+                    <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal" aria-label="Close">Yes</button> <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">No</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
     @include('admin.reports.modal.view_image')
     @include('admin.reports.modal.view_tag')
     @include('admin.reports.modal.view_centre')
@@ -264,7 +293,7 @@
             var memberId = $(this).data('member-id');
             var status = $(this).data('status');
 
-            if (status === 'Verified') {
+            if (status === 'Verified' || status === 'Rejected') {
                 $('.approve-btn').hide();
                 $('.reject-btn').hide();
             }else{
@@ -297,52 +326,74 @@
                     console.log(xhr.responseText);
                 }
             });
-        });
+        }); 
 
+        $(document).off('click', '.approve-btn');
         $(document).on('click', '.approve-btn', function () {
-            if($(this).data('id')){
-                mediaVerificationId = $(this).data('id');
-            }
-            
+            let id = $(this).data('id');
+            if (!id){
+                id = mediaVerificationId;
+            };
+            Swal.fire({
+                text: "You want to approve this media verification.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Approve it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    changeMediaVerificationStatus(id , 1);
+                }
+            });
+        }); 
+
+
+        $(document).off('click', '.reject-btn');
+        $(document).on('click', '.reject-btn', function () {
+            let id = $(this).data('id');
+            if (!id){
+                id = mediaVerificationId;
+            };
+            Swal.fire({
+                text: "You want to reject this media verification.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Reject it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    changeMediaVerificationStatus(id , 2);
+                }
+            });
+        }); 
+
+
+        function changeMediaVerificationStatus(mediaVerificationId, status) {
             $.ajax({
-                url: "{{ route('admin.approve-media-verification') }}",
+                url: "{{ route('admin.update-media-verification') }}",
                 method: "POST",
                 data: {
                     id: mediaVerificationId,
                     _token: "{{ csrf_token() }}",
-                },
-                beforeSend: function() {
-                    $('.approve-btn').text('Approving...');
+                    status: status
                 },
                 success: function (response) {
-                    if (response.status && response.media_verification_status == 'Verified') {
-                        $('.approve-btn').hide();
-                        $('.reject-btn').hide();
-                        $('#mediaverifyTable').DataTable().ajax.reload();
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: response.message ?? 'Media verification approved successfully.'
-                        });
-                    } else {
-                        $('.approve-btn').show();
-                        $('.reject-btn').show();
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Failed',
-                            text: response.message ?? 'Failed to approve media verification.'
-                        });
+                    if (response.status) {
+                        $('#view_image').modal('hide');
+                        $('#mediaverifyTable').DataTable().ajax.reload();   
                     }
                 },
-                complete: function() {
-                    $('.approve-btn').text('Approve');
-                },
-
                 error: function (xhr) {
                     console.log(xhr.responseText);
+                    alert('An error occurred while approving media verification');
                 }
             });
-        }); 
+        }
     });
+
+$(document).on('click', '.printImages', function () {
+    window.print();
+});
+    
 </script>
 @endsection

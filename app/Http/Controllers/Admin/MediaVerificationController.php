@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\MediaVerificationAdvertiserMail;
 use App\Models\EscortMedia;
 use App\Models\MediaVerification;
 use App\Models\User;
 use Carbon\Carbon;
-use Auth;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Mail;
 
 class MediaVerificationController extends Controller
 {
@@ -89,13 +91,13 @@ class MediaVerificationController extends Controller
                 );
                 break;
 
-            case 5: // agent_id (users.assigned_agent_id)
-                $media_verificatiion->orderBy(
-                    User::select('assigned_agent_id')
-                        ->whereColumn('users.id', 'media_verifications.user_id'),
-                    $dir
-                );
-                break;
+            // case 5: // agent_id (users.assigned_agent_id)
+            //     $media_verificatiion->orderBy(
+            //         User::select('assigned_agent_id')
+            //             ->whereColumn('users.id', 'media_verifications.user_id'),
+            //         $dir
+            //     );
+            //     break;
         }
 
 
@@ -190,15 +192,37 @@ class MediaVerificationController extends Controller
 
 
 
-    public function mediaVerificationImage()
+    public function mediaVerificationImage(Request $request)
     {
-        $id = request()->get('id');
-        $user_id = request()->get('user_id');
+       
+        $id = $request->get('id');
+        $user_id = $request->get('user_id');
         $media_verification = MediaVerification::where('id', $id)
             ->where('user_id', $user_id)
             ->first();
+        $status = $media_verification->getRawOriginal('status');
+        $query = EscortMedia::where('user_id', $user_id);
 
-        $escort_medias = EscortMedia::where('user_id', $user_id)->get();
+        switch ($status) {
+            case '1': // Approved
+                $query->where('media_verification_id', $id)
+                    ->where('varified', '1');
+                break;
+
+            case '2': // Rejected
+                $query->where('media_verification_id', $id)
+                    ->where('varified', '2');
+                break;
+
+            case '0': // Pending
+            default:
+                $query->whereNull('media_verification_id')
+                    ->whereNull('varified');
+                break;
+        }
+
+        $escort_medias = $query->get();
+        
         $media_verification_image = asset('escorts/'.$media_verification->image_path);
         $mediaImages = [];
         foreach ($escort_medias as $escort_media) {
@@ -220,9 +244,9 @@ class MediaVerificationController extends Controller
         }
     }
 
-    public function approveMediaVerification()
+    public function updateMediaVerification(Request $request)
     {
-        $id = request()->get('id');
+        $id = $request->get('id');
         $media_verification = MediaVerification::find($id);
 
         if (!$media_verification) {
@@ -232,16 +256,54 @@ class MediaVerificationController extends Controller
             ], 404);
         }
 
-        $media_verification->status = (string) MediaVerification::STATUS_APPROVED;
+        $media_verification->status = (string) $request->get('status');
+
         // $media_verification->status = '0';
         $media_verification->reviewed_by = Auth::id();
         $media_verification->reviewed_at = Carbon::now();
         $media_verification->save();
 
+        EscortMedia::where('user_id', $media_verification->user_id)
+            ->where('varified', null)
+            ->update([
+                'media_verification_id' => $media_verification->id,
+                'varified' => (string) $request->get('status')
+            ]);
+
+        $user = User::with('my_agent')
+            ->select('id','name','email','member_id','assigned_agent_id')
+            ->find($media_verification->user_id);
+
+        $body = [
+            'name' => $user->name ?? $user->email,
+            'email' => $user->email,
+            'member_id' => $user->member_id,
+            'status' => $request->get('status'),
+            'agent_id' => $user->my_agent->member_id ?? null,
+        ];
+
+        $ccEmail = $user->my_agent->email ?? null;
+
+       $status = $media_verification->getRawOriginal('status');
+
+        switch ($status) {
+            case '1': // Approved
+            case '2': // Rejected
+                $cc = !empty($ccEmail) ? [$ccEmail] : [];
+                Mail::to($body['email'])
+                    ->cc($cc)
+                    ->queue(new MediaVerificationAdvertiserMail($body));
+
+                break;
+
+            default: // Pending 
+                break;
+        }
+
         return response()->json([
             'status' => true,
             'message' => 'Media verification approved successfully.',
-            'media_verification_status' => $media_verification->status
+            'media_verification_status' => $status
         ]);
     }
 }
