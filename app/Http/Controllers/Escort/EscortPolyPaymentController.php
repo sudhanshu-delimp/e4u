@@ -545,19 +545,8 @@ class EscortPolyPaymentController extends Controller
         $json['EndDateTime'] =  date('Y-m-d H:i:s');
 
 
-        // $escort = $this->escort->find($get_id[1]);
         $arr = explode("/",$save_data);
-        // dd(explode("/",$json['MerchantReference']));
-        /*$form_data = [
-            'user_id' => $arr[0],
-            'referenceId' => $arr[1],
-            'start_date' => $arr[2],
-            'end_date' => $arr[3],
-            'days' => $arr[4],
-            'plan' => $arr[5],
-        ];*/
-        //dd($form_data);
-        //dd(json_decode($json['MerchantReference']));
+        
         $user = auth()->user();
         $payment_data = [];
         $purchaseTotal = Payment::whereIn('id', $arr)->sum('PaymentAmount');
@@ -568,17 +557,7 @@ class EscortPolyPaymentController extends Controller
                 $payment->save();
             }
         }
-        /*$payment_data = [
-            'start_date'=>$arr[2] . " 00:00:00",
-            'end_date'=>$arr[3] . " 00:00:00",
-            'plan_type'=>$arr[5],
-            'PaymentAmount'=>$json['PaymentAmount'],
-            'AmountPaid'=>$json['AmountPaid'],
-            'user_id'=>auth()->user()->id,
-            'user_type'=>auth()->user()->roleType,
-            'referenceId'=>$arr[1],
-
-        ];*/
+        
         $checkout = session()->get('checkout');
         foreach ($checkout as $startDate => $item) {
             $escortDetail = getEscortDetail($item['escort_id']);
@@ -619,6 +598,9 @@ class EscortPolyPaymentController extends Controller
                 $escort->enabled = 1;
                 $escort->purchase_id = $purchaseDetail->id;
                 $escort->save();
+
+                $purchaseDetail->status = 'listed';
+                $purchaseDetail->save();
             }
         }
         Transaction::create($json);

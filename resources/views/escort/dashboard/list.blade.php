@@ -220,16 +220,6 @@
                         </div>
                       </div>
       
-                      <!-- Fee -->
-                      {{-- <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="">Fee:</label>
-                        <div class="col-sm-4">
-                          <div class="input-group input-group-sm">
-                            <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
-                            <span class="form-control" id="extendFeeLive" style="background-color: #e9ecef; border: 1px solid #ced4da;">0.00</span>
-                          </div>
-                        </div>
-                      </div> --}}
       
                       <hr style="background-color: #0C223D" class="mt-4">
       
