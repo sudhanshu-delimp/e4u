@@ -1,8 +1,8 @@
-<div class="modal fade" id="view_image" style="display: none">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 1100px;">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title" style="color: white;"><img
+<div class="modal fade upload-modal" id="view_image" style="display: none">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><img
                         src="{{ asset('assets/dashboard/img/verify-image.png') }}" class="custompopicon"> Verification Image - [Member ID]
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

@@ -169,7 +169,7 @@
          }
 
      console.log(statusRows);
-     var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
+     var modal_html =`<div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
                            <div class="modal-content">
                               <div class="modal-header">
                                  <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/status.png')}}" style="width:40px; margin-right:10px;" alt="Current Status">  Current Status : Ref - ${rowData.ref_number}</h5>
@@ -177,16 +177,16 @@
                                  <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                                  </button>
                               </div>
-                              <div class="modal-body d_request_agent_modal pb-0">
+                              <div class="modal-body d_request_agent_modal pb-0" >
                                     <div class="row">
-                                       <div class="col-12 my-2 text-center">
+                                       <div class="col-sm-12 my-2 text-center">
                                              
                                           <table border="1" id="agentStatusTable" class="w-100">
                                              <thead class="table-bg">
                                                 <tr>
-                                                      <th class="font-weight:bold;">Agent ID</th>
-                                                      <th>Mobile</th>
-                                                      <th>Status</th>
+                                                      <th class="font-weight:bold; text-left">Agent ID</th>
+                                                      <th class="text-left">Mobile</th>
+                                                      <th class="text-left">Status</th>
                                                 </tr>
                                              </thead>
                                              <tbody>${statusRows}</tbody>
@@ -195,8 +195,8 @@
                                        </div>
                                     </div>
                               </div>
-                              <div class="modal-footer text-center justify-content-center">             
-                                 <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
+                              <div class="modal-footer text-center justify-content-end">             
+                                 <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
                               </div>
                            </div>
                         </div>`;
@@ -315,13 +315,13 @@
    } 
    else if (rowData.contact_by_email && rowData.contact_by_mobile) {
    contact_data = "By Mobile or By Email";
-   } 
-   
-    var modal_html = `<div class="modal-dialog modal-dialog-centered" role="document">
+   }
+
+    var modal_html = `<div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
        <div class="modal-content basic-modal">
           <div class="modal-header">
            
-             <h5 class="modal-title" id="viewAgentdetails"><img src="{{asset('assets/dashboard/img/data-listing.png')}}" style="width:40px; margin-right:10px;" alt="Request Accepted"> Agent Request</h5>
+             <h5 class="modal-title" id="viewAgentdetails"><img src="{{asset('assets/dashboard/img/data-listing.png')}}" class="custompopicon" alt="Request Accepted"> Agent Request</h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">
                 <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>

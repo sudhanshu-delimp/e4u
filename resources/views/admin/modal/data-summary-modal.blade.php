@@ -1,7 +1,7 @@
   {{-- Modal: View database Centre --}}
     <div class="modal fade upload-modal" id="view_data_summary" tabindex="-1" aria-labelledby="view_data_summarLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
@@ -13,7 +13,7 @@
                         <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                     </button>
                 </div>
-                <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
+                <div class="modal-body">
                     <table class="table table-bordered">
                         
                         <thead class="table-bg">

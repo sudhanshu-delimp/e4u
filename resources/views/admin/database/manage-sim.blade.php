@@ -128,8 +128,8 @@
 
 <!-- Edit Modal -->
 <div class="modal fade upload-modal" id="edit_req" tabindex="-1" aria-labelledby="edit_reqLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content basic-modal">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+     <div class="modal-content">
        <div class="modal-header">
          <h5 class="modal-title" id="edit_reqLabel">
            <img src="{{ asset('assets/dashboard/img/edit-task.png')}}" alt="edit" class="custompopicon"> Edit SIM Record
@@ -169,8 +169,8 @@
 {{-- end --}}
 <!-- Renew Modal -->
 <div class="modal fade upload-modal" id="renew_req" tabindex="-1" aria-labelledby="renew_reqLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content basic-modal">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+     <div class="modal-content">
        <div class="modal-header">
          <h5 class="modal-title" id="renew_reqLabel">
             <img src="{{ asset('assets/dashboard/img/renew.png')}}" alt="alert" class="custompopicon"> Renew SIM Record
@@ -212,7 +212,7 @@
 {{-- confirm_popup --}}
 <div class="modal fade upload-modal" id="confirm_popup" tabindex="-1" aria-labelledby="confirm_popupLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content custome_modal_max_width">
+     <div class="modal-content">
    <div class="modal-header">
       <h5 class="modal-title" id="confirm_popup"><img src="{{ asset('assets/dashboard/img/unblock.png')}}" alt="alert" class="custompopicon"> Completed
       </h5>
@@ -236,7 +236,7 @@
 {{-- reject_popup --}}
 <div class="modal fade upload-modal" id="reject_popup" tabindex="-1" aria-labelledby="reject_popupLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content custome_modal_max_width">
+     <div class="modal-content">
    <div class="modal-header">
       <h5 class="modal-title" id="reject_popup"><img src="{{ asset('assets/dashboard/img/block.png')}}" alt="alert" class="custompopicon"> Rejected
       </h5>

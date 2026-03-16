@@ -401,8 +401,8 @@
                             <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#0C223D; padding: 15px 30px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
                                 <tr>
                                     <td style="text-align:center;">
-                                        <em>This is an automatically generated email by the Escorts4U Operations Centre.<br>
-                                          &copy; Copyright 2024 Blackbox Tech Pty Ltd. All rights reserved.</em>
+                                        This is an automatically generated email by the Escorts4U Operations Centre.<br>
+                                          &copy; Copyright 2024 Blackbox Tech Pty Ltd. All rights reserved.
                                     </td>
                                 </tr>
                             </table>

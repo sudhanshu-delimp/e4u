@@ -81,8 +81,8 @@
     <!-- Add New Operator popup form -->
     <div class="modal fade upload-modal" id="addOperator" tabindex="-1" role="dialog" aria-labelledby="addOperatorLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addOperatorTitle"> <img
                             src="{{ asset('assets/dashboard/img/operators.png') }}" class="custompopicon"> Add New Operator
@@ -250,8 +250,8 @@
     <!-- Edit Operator popupform -->
     <div class="modal fade upload-modal" id="editOperatorModel" tabindex="-1" role="dialog"
         aria-labelledby="editOperatorLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editOperatorTitle">
                         <img src="{{ asset('assets/dashboard/img/operators.png') }}" class="custompopicon">
@@ -274,8 +274,8 @@
     <!-- View Operator popupform -->
     <div class="modal fade upload-modal" id="viewOperatorPopUpModel" tabindex="-1" role="dialog"
         aria-labelledby="viewOperatorNewLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="viewOperatorTitle">
                         <img src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">View Account
@@ -296,7 +296,7 @@
     <!-- Account Suspended -->
     <div class="modal fade upload-modal" id="SuspendedOperator" tabindex="-1" role="dialog"
         aria-labelledby="viewOperatorLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
 
                 <!-- Header -->

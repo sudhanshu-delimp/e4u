@@ -111,7 +111,7 @@
 
 <div class="modal fade upload-modal" id="payAgentreport" tabindex="-1" role="dialog"
     aria-labelledby="payAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
 
             <!-- Header -->
@@ -156,7 +156,7 @@
 
                 <hr style="margin: 20px 0;">
 
-                <div style="text-align: center;">
+                <div style="text-align: right;">
 
                  
                     <button type="button" class="btn-success-modal">Print</button>
@@ -176,7 +176,7 @@
 
 <div class="modal fade upload-modal" id="viewAgentreport" tabindex="-1" role="dialog"
     aria-labelledby="viewAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-xl modal-dialog-centered custom_admin_modal" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
 

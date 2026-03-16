@@ -146,72 +146,25 @@
                 </div>
                 <div class="modal-body" id="escortPopupModalBody">
                     <div class="col-md-12 " id="printArea">
-                        <div class="my-account-card" style="display: none; margin:10px;">
-                            <div class="card-head">
 
-                                <h2 style="font-weight: 500;">My Account Details </h2>
-                                <input type="hidden" id="user_type">
-                            </div>
-                            <div class="info-grid">
-                                <div class="info-item d-none">
-                                    <label>Member ID</label>
-                                    <span class="account_member_id">M60178</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Member</label>
-                                    <span class="account_member_name">Lins Massage</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>IP Address</label>
-                                    <span class="account_ip_address">123.176.113.164</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Platform</label>
-                                    <span class="account_platform">Firefox</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Page</label>
-                                    <span class="account_visit_page">/escort-dashboard</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Listed Profiles (Escort)</label>
-                                    <span class="account_listed_profile_count">08</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Published Masseurs (Massage Centre)</label>
-                                    <span class="account_masseurs_count">02</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Massage Legboxes (Massage Centre)</label>
-                                    <span class="account_massage_legbox">02</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>List Advertisers (Escort)</label>
-                                    <span class="account_list_adervtiser_count">01</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Escort Legboxes (Viewer)</label>
-                                    <span class="account_legbox_count">04</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Playmates</label>
-                                    <span class="account_escort_playmates">04</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Reffered By Advertisers</label>
-                                    <span class="account_refer_by_advertiser_agent">04</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Reffered By Massage Centers</label>
-                                    <span class="account_refer_by_massage_center_agent">04</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Idle Preference Time (Minutes)</label>
-                                    <span class="account_idle_prefrence_time">04</span>
-                                </div>
-                                
-                            </div>
-                        </div>
+
+                            <h6 class=" text-blue-primary my-2">My Account Details</h6>
+                            <table class="table table-bordered mb-3">
+                                <tr> <th style="font-weight: 600"> Merchant ID</th><td><span class="account_member_id">M60178</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Member</th><td><span class="account_member_name">Lins Massage</span></td></tr>
+                                <tr> <th style="font-weight: 600"> IP Address</th><td><span class="account_ip_address">123.176.113.164</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Platform</th><td><span class="account_platform">Firefox</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Page</th><td><span class="account_visit_page">/escort-dashboard</span></td></tr>
+                                {{-- <tr> <th style="font-weight: 600"> Listed Profiles (Escort)</th><td><span class="account_listed_profile_count">08</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Published Masseurs (Massage Centre)</th><td><span class="account_masseurs_count">02</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Massage Legboxes (Massage Centre)</th><td> <span class="account_massage_legbox">02</span></td></tr>
+
+                                <tr> <th style="font-weight: 600"> List Advertisers (Escort)</th><td> <span class="account_list_adervtiser_count">01</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Playmates</th><td><span class="account_legbox_count">04</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Reffered By Advertisers</th><td> <span class="account_refer_by_advertiser_agent">04</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Reffered By Massage Centers</th><td> <span class="account_refer_by_massage_center_agent">04</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Idle Preference Time (Minutes)</th><td> <span class="account_idle_prefrence_time">04</span></td></tr> --}}
+                            </table>
                     </div>
                     <div class="modal-footer">
                         <form action="{{ route('print.logged.user.single-details') }}" method="post">

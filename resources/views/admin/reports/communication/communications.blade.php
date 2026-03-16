@@ -64,7 +64,7 @@
     <div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog"
         aria-labelledby="confirmPopupLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+            <div class="modal-content">
                 <div class="modal-header border-0">
                     <input type="hidden" id="status_data_id">
                     <input type="hidden" id="status_data_value">
@@ -101,7 +101,7 @@
 
     <div class="modal fade upload-modal bd-example-modal-lg" id="communicationReport" tabindex="-1" role="dialog"
         aria-labelledby="communicationReportLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content basic-modal w-auto">
                 <div class="modal-header">
                     <h5 class="modal-title" id="communicationReport"><img
@@ -112,7 +112,7 @@
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
-                <div class="modal-body" id="append_email_template" style="max-height: 600px; overflow-y:auto;"></div>
+                <div class="modal-body" id="append_email_template"></div>
                 <div class="modal-footer mt-2">
                     {{-- <button class="btn-success-modal">Print</button> --}}
                     <button class="btn-success-modal" id="printEmail">
