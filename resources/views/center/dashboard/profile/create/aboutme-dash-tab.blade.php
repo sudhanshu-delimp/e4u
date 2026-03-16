@@ -170,7 +170,7 @@ img#blah8 {
             <div class="form-group business-field">
                <label for="profile_name">Profile Name:</label>
                  <!-- <input type="hidden" value="{{ $user->business_name}}" class="form-control" id="profile_profile_name"> -->
-                  <input type="text"  value="{{ $user->business_name }}" name="profile_name" class="form-control" id="profile_name"   placeholder="Enter Profile Name" required data-tab="group_one">
+                  <input type="text"  value="" name="profile_name" class="form-control" id="profile_name"   placeholder="Enter Profile Name" required data-tab="group_one">
                  
             </div>
 
@@ -178,7 +178,7 @@ img#blah8 {
                <label for="business_name">
                   Business Name:</label>
                   <!-- <input type="hidden" value="{{ $user->business_name}}" class="form-control" id="profile_business_name"> -->
-                  <input type="text" value="{{ $user->business_name }}" name="business_name" class="form-control" id="business_name" placeholder="Enter Business Name"  required data-tab="group_one">
+                  <input type="text" value="{{ $user->name }}" name="name" class="form-control" id="business_name" placeholder="Enter Business Name"  required data-tab="group_one">
                   
                 </div>           
 

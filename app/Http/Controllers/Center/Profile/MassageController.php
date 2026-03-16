@@ -211,6 +211,8 @@ class MassageController extends Controller
         $massage_profile = $escort;
 
         
+
+        
         $massage_durations = (isset($escort->durations) && count($escort->durations)>0) ? $escort->durations->toArray() : [];
 
         // echo '<pre>';
@@ -226,7 +228,7 @@ class MassageController extends Controller
         $masseurs  = Masseur::all();
 
 
-        dd($user->business_name );
+      
         return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations','masseurs','user'));
     }
 

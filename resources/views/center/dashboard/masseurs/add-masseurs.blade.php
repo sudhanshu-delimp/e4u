@@ -1034,8 +1034,9 @@
 
 
     <script>
-        ////////////// For Our Open Times ///////////////// 
 
+        var is_profile_complete = Number("{{ $massage_default->is_profile_complete ?? 0 }}");
+        ////////////// For Our Open Times ///////////////// 
         function validateAvailability() {
 
             let isFormValid = true;
@@ -1230,8 +1231,6 @@
 
             //// ----------- Update Single Data ------------ ///////
 
-
-
             $('.resetdays').on('click', function() {
                 let row = $(this).closest('.parent-row');
                 row.find('select').val('').prop('disabled', false);
@@ -1240,8 +1239,8 @@
             });
 
 
-
-            function checkRates() {
+            function checkRates() 
+            {
                 const selectors = [
                     'input[name="massage_price[]"]',
                     'input[name="incall_price[]"]',
@@ -1360,14 +1359,8 @@
 
                 });
 
-
-                    
-
                 return isValid;
             }
-
-            
-
 
             function checkProfileDynamicMedia() 
             {
@@ -1403,18 +1396,13 @@
 
             $('#submitMasseur').on('click', function(e) {
                 e.preventDefault();
-
-               
-
                 // let existRates = checkRates();
                 // if (!existRates) 
                 // {
                 //      swal_error_warning('Rate','You must complete at least one rate value to proceed.')
                 //      return false;
                 // }
-                
-
-
+            
                 if (!checkProfileDynamicMedia()) {
                     return false;
                 }
@@ -1473,18 +1461,10 @@
                 });
 
             });
-
-
-
-
-
-
         });
 
 
         // ########## Image Upload Script ##########
-
-
         const CHUNK_SIZE = 1024 * 1024;
         let currentPageUrl = window.location.href;
         var bannerDefaultImage;
@@ -1531,13 +1511,8 @@
 
 
         $("body").on('submit', '#mulitiImage', function(e) {
-
-
             console.log('mulitiImage===============');
             e.preventDefault();
-
-            //return false;
-
             let selectedImagesCount = parseInt(countSelectedImages());
             let page_token = $('#page_token').val();
             let existingImagesCount = parseInt($("input[name='media_count']").val());
@@ -1753,18 +1728,6 @@
                 $("#mediaId" + updatePosition).val(mediaId);
 
                 console.log('profile_selected_images.length', profile_selected_images.length);
-
-                // if (profile_selected_images.length > 0) {
-                //     let modalTitle = document.querySelector("#setAsDefaultForMainAccount .modal-title");
-                //     let textNode = [...modalTitle.childNodes].find(
-                //         node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== ""
-                //     );
-                //     if (textNode) {
-                //         textNode.textContent = default_image_icons.includes(targetImageName) ?
-                //             'Save to Default Media or Repository' : 'Replace Media';
-                //     }
-                //     $("#setAsDefaultForMainAccount").modal('show');
-                // }
             }
             $("#photo_gallery").modal("hide");
             $("#photo_gallery_banner").modal("hide");
@@ -1797,7 +1760,6 @@
 
                     };
                 } else {
-                    //alert("file size in MB = "+imgMB);
                     $('.comman_msg').html("Can't upload more than 2 MB size");
                     $("#comman_modal").modal('show');
                 }
@@ -1820,34 +1782,6 @@
             })
 
         }
-
-
-        //     function updateDefaultImage(position, meidaId, img_target, media_src) {
-        //        var url = "{{ route('center.masseur.default.images') }} ";
-        //        $.ajax({
-        //            type: 'POST',
-        //            url: url,
-        //            data: {
-        //                position: position,
-        //                meidaId: meidaId
-        //            },
-        //            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        //            success : function (data) {
-        //                if(data.error == true) {
-        //                    img_target.attr('data-id', meidaId);
-        //                    img_target.attr('src', media_src);
-        //                } else {
-        //                    swal.fire('', "<p>"+data.msg+"</p>", 'error');
-
-        //                    $('#comman_modal').on('hidden.bs.modal', function () {
-
-        //                    });
-        //                }
-        //            }
-        //        });
-        //    }
-
-
 
         $('.select-Photo').on('click', function(e) {
             $("#photo_gallery").modal('hide');
@@ -1923,89 +1857,39 @@
             this.value = this.value.replace(/[^0-9]/g, '');
         });
 
-
-
-
-
-
-        //     $(document).on('click','.modalPopup .item2,.modalPopup .item4', function(e) {
-        //        let imageSrc = $(this).find('img').attr('src');
-        //        let mediaId = $(this).find('img').data('id');
-        //        let img_target = $("#img"+updatePosition);
-        //        updateDefaultImage(updatePosition, mediaId, img_target, imageSrc);
-        //        $(`#${$(this).parents('.modal').attr('id')}`).modal("hide");
-        //    });
-
-
-        // $(document).on('click', '.modalPopup .item4, .modalPopup .item2', function(e) {
-
-        //         let imageSrc = $(this).find('img').attr('src');
-        //         let mediaId = $(this).find('img').data('id');
-        //         let img_target = $("#img" + updatePosition);
-        //         let targetImageSrc = img_target.attr('src');
-        //         let targetImageName = targetImageSrc.split("/").pop();
-        //         /**
-        //          * Get existing profile image data to check duplicates
-        //          */
-        //         let srcArray = $(".upld-img").map(function() {
-        //             return $(this).attr("src"); // Get the 'src' attribute of each <img>
-        //         }).get();
-
-        //         let newObject = {
-        //             imageSrc: imageSrc,
-        //             mediaId: mediaId,
-        //             img_target: img_target,
-        //             updatePosition: updatePosition
-        //         };
-
-        //         let duplicateImage = srcArray.findIndex(item => item === imageSrc);
-        //         if (duplicateImage !== -1) {
-        //             swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
-        //         } else {
-        //             let index = profile_selected_images.findIndex(item => item.updatePosition === updatePosition);
-        //             if (index !== -1) {
-        //                 profile_selected_images[index] = {
-        //                     ...profile_selected_images[index],
-        //                     ...newObject
-        //                 };
-        //             } else {
-        //                 profile_selected_images.push(newObject);
-        //             }
-        //             $("#blah" + updatePosition).attr('src', imageSrc);
-        //             $("#img" + updatePosition).attr('src', imageSrc);
-        //             $("#mediaId" + updatePosition).val(mediaId);
-
-        //             console.log('profile_selected_images.length',profile_selected_images.length);
-
-        //             // if (profile_selected_images.length > 0) {
-        //             //     let modalTitle = document.querySelector("#setAsDefaultForMainAccount .modal-title");
-        //             //     let textNode = [...modalTitle.childNodes].find(
-        //             //         node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== ""
-        //             //     );
-        //             //     if (textNode) {
-        //             //         textNode.textContent = default_image_icons.includes(targetImageName) ?
-        //             //             'Save to Default Media or Repository' : 'Replace Media';
-        //             //     }
-        //             //     $("#setAsDefaultForMainAccount").modal('show');
-        //             // }
-        //         }
-        //         $("#photo_gallery").modal("hide");
-        //         $("#photo_gallery_banner").modal("hide");
-        //     });
-
         // ########## Image Upload Script ##########
 
 $(document).ready(function () {
     initDragDrop();
+
+     console.log('==========is_profile_complete',is_profile_complete)
+
+    if (!is_profile_complete) {
+
+    console.log('is_profile_complete',is_profile_complete)
+
+        Swal.fire({
+            icon: 'warning',
+            title: 'Profile',
+            text: 'Please update your profile information.',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+
+            if(result.isConfirmed){
+                window.location.href = "{{ url('center-dashboard/profile-informations') }}";
+            }
+
+        });
+
+    }
+
 });
 
 
-
- function initDragDrop(){
+function initDragDrop()
+{
 
     console.log("initDragDrop");
-
-    
     $(".grid-container .defult-image.ui-draggable").draggable("destroy");
 
    
@@ -2082,7 +1966,5 @@ $(document).ready(function () {
 
 }
 
-
-
-    </script>
+</script>
 @endpush
