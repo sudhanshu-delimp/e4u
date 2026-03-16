@@ -246,10 +246,37 @@
                                 </ol>
                                 </div>
                             </div>
+<<<<<<< HEAD
                             <div class="modal-footer" style="text-align: right; display: block;">
                                     <button type="submit" class="btn-success-modal">Proceed to Payment</button>
                                 </div>
                             </form>
+=======
+                          </div>
+                          <div class="col-sm-5 pr-1">
+                            <input type="hidden" name="membership[]" id="extendMembership">
+                            <input type="hidden" name="start_date[]" id="extendStartDate">
+                            <input type="text" id="extendEndDate" class="form-control form-control-sm removebox_shdow js_datepicker" name="end_date[]" required disabled>
+                          </div>
+                        </div>
+                      </div>
+      
+      
+                      <hr style="background-color: #0C223D" class="mt-4">
+      
+                      <!-- Notes -->
+                      <div class="form-group row">
+                        <div class="col-lg-12">
+                          <p class="mb-1"><b>Notes:</b></p>
+                          <ol class="pl-4 text-justify">
+                            <li>The Fee is calculated according to the Membership Type.</li>
+                            <li>You agree to your Card being debited the Fee.</li>
+                            <li>Details of this transaction can be viewed in the Transaction Summary.</li>
+                          </ol>
+                        </div>
+                      </div>
+      
+>>>>>>> 7531dcfe29b2d0cdda9f354980d82c8754182510
                     </div>
                   </div>
                 </div>

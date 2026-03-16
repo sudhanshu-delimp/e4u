@@ -55,14 +55,24 @@
         </div>
        </div>
        
-        <form id="my_escort_profile" action="{{ route('escort.poli.paymentUrl')}}" method="post" enctype="multipart/form-data">
-            @csrf
-{{--            <input type="hidden" name="user_startDate" id="user_startDate" value="{{ date('Y-m-d',strtotime(auth()->user()->created_at)) }}">--}}
-            <div>
-                @include('escort.dashboard.profile.partials.pricing-dash-tab2')
-            </div>
-        </form>
+        @switch($checkout_type)
+            @case('upgrade')
+                <form id="my_escort_profile" action="{{ route('escort.upgrade_list')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div>
+                        @include('escort.dashboard.profile.partials.upgrade-checkout-form')
+                    </div>
+                </form>
+                @break
 
+            @default
+            <form id="my_escort_profile" action="{{ route('escort.poli.paymentUrl')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div>
+                    @include('escort.dashboard.profile.partials.pricing-dash-tab2')
+                </div>
+            </form>
+        @endswitch
     </div>
 
 @endsection
