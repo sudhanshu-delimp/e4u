@@ -185,6 +185,24 @@
             } 
 
         }
+       
+
+
+.ui-draggable-dragging{
+    display:block !important;
+    opacity:1 !important;
+    z-index:999999 !important;
+    pointer-events:none;
+}
+
+.carousel,.grid-container{
+    overflow:visible !important;
+}
+
+
+
+
+
     </style>
 @stop
 @section('content')
@@ -394,41 +412,43 @@
                                                         <div class="col-sm-12 masseur_upl_img">
                                                             <div class="thumnail_img">
                                                                 <h4 class="banner-sub-heading my-2">Thumbnail</h4>
-                                                                <div class="plate">
+                                                                <div class="plate dvDest">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
+
+                                                                        
                                                                         <img class="w-100 gal-thumb-first upld-img profile-gallery"
                                                                             id="img1"
                                                                             src="{{ asset('assets/app/img/mcc-default-thumbnail.png') }}"
-                                                                            onclick="positionToUpdate(1)">
+                                                                            onclick="positionToUpdate(1)" data-type="gallery">
                                                                     </label>
                                                                 </div>
                                                             </div>
                                                             <div class="gal_img">
                                                                 <h4 class="banner-sub-heading my-2">Gallery Images</h4>
                                                                 <div class="masseur_gallery">
-                                                                    <div class="plate">
+                                                                    <div class="plate dvDest">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
                                                                             <img class="upld-img profile-gallery"
                                                                                 id="img2"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
-                                                                                onclick="positionToUpdate(2)">
+                                                                                onclick="positionToUpdate(2)" data-type="gallery">
                                                                         </label>
                                                                     </div>
-                                                                    <div class="plate">
+                                                                    <div class="plate dvDest">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
                                                                             <img class="upld-img profile-gallery"
                                                                                 id="img3"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
-                                                                                onclick="positionToUpdate(3)">
+                                                                                onclick="positionToUpdate(3)" data-type="gallery">
                                                                         </label>
                                                                     </div>
-                                                                    <div class="plate">
+                                                                    <div class="plate dvDest">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
                                                                             <img class="upld-img profile-gallery"
                                                                                 id="img4"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
-                                                                                onclick="positionToUpdate(4)">
+                                                                                onclick="positionToUpdate(4)" data-type="gallery">
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -502,13 +522,82 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div id="pagination-container"></div>
+                                                            
+                                                            
+                                                            
+    <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
+                <ul class="pagination ml-2 pl-1">
+                <li class="page-item preview">
+                <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
+
+                </li>
+                                <li class="page-item active" id="pageItem_0" data-id="0">
+                    <a data-target="#carouselExampleIndicators" data-slide-to="0" class="page-link" href="#">1</a>
+                </li>
+                                <li class="page-item nextOne">
+                <a class="page-link" href="#carouselExampleIndicators" id="nextId">››</a>
+                </li>
+                </ul>
+                <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
+                <div class="carousel-inner" id="view_all">
+                                    <div class="carousel-item active" id="cItem_0" data-id="0">
+                        <div class="grid-container" class="dvSource">  
+                            
+                                                                       
+                            <div class="item4" id="dm_231">
+                                <img class="img-thumbnail defult-image" src="https://e4u.local/escorts/images/186/gallery_abd12cebff72dea8576143c79.jpg" alt=" " data-id="231" data-position="">
+                                <i class="fa fa-trash deleteimg" data-id="231" title="Remove this media"></i>                                        
+                                                                        <span class="badge badge-red">Gallery</span>
+                                                            </div>
+                            
+                           
+                        </div>
+                    </div>
+                                     
+                </div>
+            </div>
+        </div> -->
+
+
+        <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
+                <ul class="pagination ml-2 pl-1">
+                <li class="page-item preview">
+                <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
+
+                </li>
+                                <li class="page-item active" id="pageItem_0" data-id="0">
+                    <a data-target="#carouselExampleIndicators" data-slide-to="0" class="page-link" href="#">1</a>
+                </li>
+                                <li class="page-item nextOne">
+                <a class="page-link" href="#carouselExampleIndicators" id="nextId">››</a>
+                </li>
+                </ul>
+                <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
+                <div class="carousel-inner" id="view_all">
+                                    <div class="carousel-item active" id="cItem_0" data-id="0">
+                        <div class="grid-container">  
+                            
+                                                                       
+                            <div class="item4" id="dm_236">
+                                <img class="img-thumbnail defult-image" src="https://e4u.local/escorts/images/186/gallery_dc5b2af164148548d9ceb267a.jpg" alt=" " data-id="236" data-position="">
+                                <i class="fa fa-trash deleteimg" data-id="236" title="Remove this media"></i>                                        
+                                                                        <span class="badge badge-red">Gallery</span>
+                                                            </div>
+                            
+                           
+                        </div>
+                    </div>
+                                     
+                </div>
+            </div>
+        </div> -->
                                                             <div id="carouselExampleIndicators" class="carousel slide"
                                                                 data-bs-wrap="false" data-bs-ride="carousel">
 
                                                                 <ul class="pagination ml-2 pl-1">
-                                                                    <!-- Declare the item in the group -->
+                                                                   
                                                                     <li class="page-item preview">
-                                                                        <!-- Declare the link of the item -->
+                                                                      
                                                                         <a class="page-link"
                                                                             href="#carouselExampleIndicators"
                                                                             id="preId">‹‹</a>
@@ -526,9 +615,12 @@
                                                                     <div class="carousel-inner" id="view_all">
 
                                                                     </div>
-                                                                    <!--.Carousel-->
+                                                                   
                                                                 </div>
                                                             </div>
+
+
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1501,6 +1593,12 @@
                 success: function(data) {
                     if (data.status == 200) {
                         resetAddPhotoFrom(form);
+                        setTimeout(function(){
+                            initDragDrop();
+                        },200);
+
+
+
                     } else if (data.status == 405) {
                         swal.fire('Media',
                             "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>",
@@ -1605,63 +1703,7 @@
         }
 
 
-        function initDragDrop() {
-            $("#dvSource img").draggable({
-                revert: "invalid",
-                helper: 'clone',
-                appendTo: ".upload-banner",
-                refreshPositions: false,
-                start: function(event, ui) {
-                    ui.helper.css({
-                        width: "82px", // shrink preview
-                        height: "auto",
-                        "z-index": 9999
-                    });
-                    ui.helper.find("img").css({
-                        width: "100%",
-                        height: "auto"
-                    });
-                },
-                drag: function(event, ui) {
-
-                },
-                stop: function(event, ui) {}
-            });
-
-            $(".dvDest").droppable({
-                drop: function(event, ui) {
-                    let dropSlot = $(this);
-                    let dragSlot = ui.draggable;
-                    let dropSlotType = dropSlot.find('img').data('type');
-                    let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
-                    if (dropSlotType != dragSlotType) {
-                        let message = (dragSlotType == 'gallery') ?
-                            `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :
-                            `The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
-                        swal.fire('Media', message, 'error');
-                        return false;
-                    } else {
-                        $(this).trigger('click');
-                        let meidaId = dragSlot.data('id');
-                        let target;
-                        switch (dragSlotType) {
-                            case 'gallery': {
-                                target = $(".modalPopup .item4 img[data-id='" + meidaId + "']").closest(
-                                    ".item4");
-                            }
-                            break;
-                            case 'banner': {
-                                target = $(".modalPopup .item2 img[data-id='" + meidaId + "']").closest(
-                                    ".item2");
-                            }
-                            break;
-                        }
-                        target.trigger('click');
-                    }
-
-                }
-            });
-        }
+   
 
         function positionToUpdate(position) {
             updatePosition = position;
@@ -1952,5 +1994,95 @@
         //     });
 
         // ########## Image Upload Script ##########
+
+$(document).ready(function () {
+    initDragDrop();
+});
+
+
+
+ function initDragDrop(){
+
+    console.log("initDragDrop");
+
+    
+    $(".grid-container .defult-image.ui-draggable").draggable("destroy");
+
+   
+    $(".grid-container .defult-image").draggable({
+        revert: "invalid",
+        appendTo: "body",
+        cursor: "move",
+        zIndex: 999999,
+
+        helper: function(){
+
+            let src = $(this).attr("src");
+
+            return $("<img>")
+                .attr("src", src)
+                .css({
+                    width: "90px",
+                    height: "auto",
+                    borderRadius: "6px",
+                    boxShadow: "0 4px 10px rgba(0,0,0,0.3)"
+                });
+
+        }
+    });
+
+   
+    $(".dvDest").droppable({
+
+        hoverClass: "drop-hover",
+
+        drop: function(event, ui){
+
+            let dropSlot = $(this);
+            let dragSlot = ui.draggable;
+
+            let dropSlotType = dropSlot.find("img").attr("data-type");
+            let dragSlotType = dragSlot.closest(".item4").find("span").text().toLowerCase();
+
+            let imgSrc = dragSlot.attr("src");
+            let imgId  = dragSlot.attr("data-id");
+
+            console.log(dropSlotType, dragSlotType);
+
+            if(dropSlotType === dragSlotType){
+
+              
+                let alreadyUsed = false;
+
+                $(".dvDest img").each(function(){
+                    if($(this).attr("data-id") == imgId){
+                        alreadyUsed = true;
+                    }
+                });
+
+                if(alreadyUsed){
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Duplicate Image",
+                        text: "This image is already used."
+                    });
+                    return;
+                }
+
+                
+                dropSlot.find("img")
+                    .attr("src", imgSrc)
+                    .attr("data-id", imgId);
+
+            }
+
+        }
+
+    });
+
+}
+
+
+
     </script>
 @endpush

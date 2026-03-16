@@ -12,8 +12,11 @@ use App\Models\Escort;
 use App\Models\EscortMedia;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
+use App\Models\MassageAvailability;
 use App\Models\MassageMedia;
 use App\Models\MassageProfile;
+use App\Models\MassageRate;
+use App\Models\MassageService;
 use App\Models\MassageStatistics;
 use App\Models\MasseurMedia;
 use App\Models\State;
@@ -1577,17 +1580,65 @@ function getStateIdByCityId($states, $cityId)
 }
 
 
-if (!function_exists('get_social_links')) {
-  function get_social_links($user_id)
+if (!function_exists('massage_profile_complete_status')) {
+  function massage_profile_complete_status($massage_id)
   {
-        $user = MassageProfile::where('user_id',$user_id)->where('default_setting',1)->first();
-        if($user)
-        {
-            if($user->social_links!="")
-            return $user->social_links;
-        }
-        else
-        return [];
+    
+       try
+       {
+            $massage = MassageProfile::where([
+                'id' => $massage_id,
+                'default_setting' => '1'
+            ])->first();
+
+            if (!$massage) {
+                return false;
+            }
+
+            $fields = [
+                $massage->ambiance,
+                $massage->parking,
+                $massage->entry,
+                $massage->building,
+                $massage->furniture_types,
+                $massage->shower,
+                $massage->security,
+                $massage->payment,
+                $massage->loyalty,
+                $massage->language,
+                $massage->social_links
+            ];
+
+            $is_complete = 1;
+
+            foreach ($fields as $field) {
+                if (empty($field)) {
+                    $is_complete = 0;
+                    break;
+                }
+            }
+
+          
+            $rate_count = MassageRate::where('massage_profile_id', $massage_id)->count();
+            $services_count =  MassageService::where('massage_profile_id', $massage_id)->count();
+            $availability_count =  MassageAvailability::where('massage_profile_id', $massage_id)->count();
+
+            if ($rate_count < 6   || !$services_count || !$availability_count ) {
+                Log::info('$is_complete======='.$is_complete);
+                $is_complete = 0;
+            }
+
+            $massage->is_profile_complete = $is_complete;
+            $massage->save();
+
+       } catch (Exception $e) {
+            return false;
+       }
+        
   }
 }
+
+
+
+
 

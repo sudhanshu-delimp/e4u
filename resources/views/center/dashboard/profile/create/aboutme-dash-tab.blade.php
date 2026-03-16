@@ -289,7 +289,7 @@ img#blah8 {
                                         <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
                                                 data-target="#photo_gallery" onclick="positionToUpdate(1)">
                                                 <img class="img-fluid upld-img profile-gallery" data-type="gallery"
-                                                    id="img1" src="{{ asset($escort->imagePosition(1)) }}"
+                                                    id="img1" src="{{ asset($path->findByposition(auth()->user()->id, 1, 0)['path']) }}"
                                                     style="object-fit: cover;width: 167px;height: 172px;">
                                             </label>
                                         </div>
@@ -304,7 +304,7 @@ img#blah8 {
                                                         data-target="#photo_gallery" onclick="positionToUpdate(2)">
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img2"
-                                                            src="{{ asset($escort->imagePosition(2)) }}">
+                                                            src="{{ asset($path->findByposition(auth()->user()->id, 2, 0)['path']) }}">
                                                     </label>
                                                 </div>
                                             </div>
@@ -313,7 +313,7 @@ img#blah8 {
                                                         data-target="#photo_gallery" onclick="positionToUpdate(3)">
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img3"
-                                                            src="{{ asset($escort->imagePosition(3)) }}">
+                                                            src="{{ asset($path->findByposition(auth()->user()->id, 3, 0)['path']) }}">
                                                     </label>
                                                 </div>
                                             </div>
@@ -322,7 +322,7 @@ img#blah8 {
                                                         data-target="#photo_gallery" onclick="positionToUpdate(4)">
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img4"
-                                                            src="{{ asset($escort->imagePosition(4)) }}">
+                                                            src="{{ asset($path->findByposition(auth()->user()->id, 4, 0)['path']) }}">
                                                     </label>
                                                 </div>
                                             </div>
@@ -333,7 +333,7 @@ img#blah8 {
                                                         data-target="#photo_gallery" onclick="positionToUpdate(5)">
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img5"
-                                                            src="{{ asset($escort->imagePosition(5)) }}">
+                                                            src="{{ asset($path->findByposition(auth()->user()->id, 5, 0)['path']) }}">
                                                     </label>
                                                 </div>
                                             </div>
@@ -342,7 +342,7 @@ img#blah8 {
                                                         data-target="#photo_gallery" onclick="positionToUpdate(6)">
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img6"
-                                                            src="{{ asset($escort->imagePosition(6)) }}">
+                                                            src="{{ asset($path->findByposition(auth()->user()->id, 6, 0)['path']) }}">
                                                     </label>
                                                 </div>
                                             </div>
@@ -351,7 +351,7 @@ img#blah8 {
                                                         data-target="#photo_gallery" onclick="positionToUpdate(7)">
                                                         <img class="img-fluid upld-img profile-gallery"
                                                             data-type="gallery" id="img7"
-                                                            src="{{ asset($escort->imagePosition(7)) }}">
+                                                            src="{{ asset($path->findByposition(auth()->user()->id, 7, 0)['path']) }}">
                                                     </label>
                                                 </div>
                                             </div>
@@ -364,7 +364,7 @@ img#blah8 {
                                         <label class="newbtn dvDest" data-toggle="modal"
                                             data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
                                             <img class="img-fluid profile-gallery" data-type="banner" id="img9"
-                                                src="{{ asset($escort->imagePosition(9)) }}"
+                                                src="{{ asset($path->findByposition(auth()->user()->id, 9, 0)['path']) }}"
                                                 style="height: 167.578px;width: 1066.640px;object-fit: cover;">
                                         </label>
                                     </div>

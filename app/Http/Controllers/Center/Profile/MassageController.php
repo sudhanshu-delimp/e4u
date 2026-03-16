@@ -39,7 +39,7 @@ use App\Repositories\Escort\EscortMediaInterface;
 use App\Repositories\Escort\AvailabilityInterface;
 use App\Repositories\Thumbnail\ThumbnailInterface;
 use App\Http\Requests\Escort\UpdateRequestReadMore;
-use App\Repositories\Message\MassageMediaInterface;
+
 use App\Repositories\Message\MessageMediaInterface;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
@@ -47,6 +47,10 @@ use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
+
+// use App\Repositories\MassageProfile\MassageMediaInterface;
+use App\Repositories\Message\MassageMediaInterface;
+use App\Repositories\MassageProfile\MassageMediaInterface as MassageMedia;
 
 //use Illuminate\Http\Request;
 
@@ -63,7 +67,7 @@ class MassageController extends Controller
     
 
 
-    public function __construct(MassageProfileInterface $massage_profile ,MessageInterface $escort, MessageMediaInterface $media, ThumbnailInterface $thumbnail,  ServiceInterface $service, MassageDurationInterface $duration,MassageAvailabilityInterface $massage_availability)
+    public function __construct(MassageProfileInterface $massage_profile ,MessageInterface $escort, MassageMedia $massage_media, MessageMediaInterface $media, ThumbnailInterface $thumbnail,  ServiceInterface $service, MassageDurationInterface $duration,MassageAvailabilityInterface $massage_availability)
     {
         $this->escort = $escort;
         $this->massage_availability = $massage_availability;
@@ -71,7 +75,7 @@ class MassageController extends Controller
         $this->duration = $duration;
         $this->media = $media;
         $this->massage_profile = $massage_profile;
-        //$this->massage_media = $massage_media;
+        $this->massage_media = $massage_media;
     }
 
    
@@ -213,12 +217,16 @@ class MassageController extends Controller
         // print_r($massage_durations);
         // exit;
 
-        $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
-        $path = $this->media;
+        
+
+        $media = $this->massage_media->with_Or_withoutPosition(auth()->user()->id, []);
+        $path = $this->massage_media;
         $durations = $this->duration->all();
 
         $masseurs  = Masseur::all();
 
+
+        dd($user->business_name );
         return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations','masseurs','user'));
     }
 
@@ -555,6 +563,7 @@ class MassageController extends Controller
             $message = 'Business information updated successfully.';
             if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) 
             $error = false;
+            massage_profile_complete_status($request->massage_id);
         }
         ######### End Update profile  #####################
 
@@ -580,6 +589,7 @@ class MassageController extends Controller
             $message = 'Updated successfully.';
             if($data =  MassageProfile::where(['id'=>$request->massage_id])->update($input)) 
             $error = false;
+            massage_profile_complete_status($request->massage_id);
         }
         ######### End Update Abous us #####################
 
@@ -737,6 +747,7 @@ class MassageController extends Controller
                         MassageService::insert($services);
                     }
                     
+                    massage_profile_complete_status($request->massage_id);
                 }
 
 
@@ -778,6 +789,8 @@ class MassageController extends Controller
                             MassageRate::where(['massage_profile_id'=> $massage_profile_id])->delete();
                             MassageRate::insert($rates);
                         }
+                      
+                    massage_profile_complete_status($request->massage_id);    
                 }
 
 
@@ -842,6 +855,7 @@ class MassageController extends Controller
                 $profile->default_setting = 1;
                 $profile->social_links = $request->social_links;
                 $profile->save();
+                massage_profile_complete_status($request->massage_id);
             }
 
             $error = false;
