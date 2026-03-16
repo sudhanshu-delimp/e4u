@@ -18,9 +18,11 @@
                                         <div class="col-sm-12 p-0 text-center">
                                             <div class="">
                                                 <div class="plate"><label class="newbtn">
-                                                    <img id="blah9" class="img-fluid px-2   preview-image js_VerificationMedia" src="{{ $imageUrl  }}" style="width: 400px;object-fit: cover; height:100%">
+                                                    <img id="blah9" class="img-fluid px-2   preview-image js_VerificationMedia" src="{{ $imageUrl  }}" style="width: 400px;object-fit: cover; height:250px">
                                                     <input name="image" id="upload_varification_img" class="pis galleryMedia" onchange="readVarificationImageURL(this);" type="file" accept="image/*" >
                                                     </label>
+                                                       <!-- <img id="blah9" class="img-fluid px-2 js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/upload-media.png')}}" style="width: 400px;object-fit: cover; height:250px">
+                                                    <input name="banner" id="upload_banner" class="pis galleryMedia" onchange="readImageURL(this);" type="file" accept="image/*" > -->
                                                 </div>
                                             </div>
                                             <div class="verification-type mt-3 d-flex justify-content-center gap-20">
