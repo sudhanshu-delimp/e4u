@@ -149,10 +149,20 @@ class MasseurController extends AppController
         // $path = $this->media;
         // $defaultImages = $this->media->findDefaultMedia($user->id, 0);
         // //$escortDefault = $this->escort->findDefault(auth()->user()->id, 1);
+
+      
         
        
         return view('center.dashboard.masseurs.add-masseurs',compact('durations','massage_durations','massage_default','page_token','media'));
     }
+
+
+    public function count_default_masseur($user_id)
+    {
+       return  Masseur::where(['user_id'=>$user_id,'is_default'=>'1'])->count();
+    }
+
+
 
     public function add_masseur(Request $request)
     {
@@ -170,6 +180,27 @@ class MasseurController extends AppController
             $availabilityJson = json_encode($availability);
 
             // Log::info($availabilityJson);
+
+            $make_defailt = false;
+            $message = 'Profile created successfully';
+
+            if(isset($request->make_default) && $request->make_default=='1')
+            {
+                $count = $this->count_default_masseur($user->id); 
+
+                Log::info('count');
+                Log::info($count);
+
+                if($count<8) 
+                {
+                    $make_defailt = true;
+                }
+                else
+                {
+                    $message = 'You have reached the limit of 8 default Listings.<br>Profile created successfully.';
+                }
+                
+            }
 
             /* ================== Masseur Profile ================== */
             $masseur = new Masseur();
@@ -192,7 +223,7 @@ class MasseurController extends AppController
             $masseur->availability          = $availabilityJson;
 
             $masseur->service = $request->filled('service') ? $request->service : [];
-
+            $masseur->is_default = $make_defailt ? '1' : '0';
                         
             $masseur->save();
             $masseur_profile_id = $masseur->id;
@@ -240,10 +271,12 @@ class MasseurController extends AppController
             }
 
            
+
             DB::commit();
 
             return response()->json([
                 'success'   => true,
+                'message' => $message,
                 'masseur_profile_id' => $masseur_profile_id,
             ]);
 
@@ -1006,8 +1039,21 @@ class MasseurController extends AppController
 
             else if($request->action == 'row_default')
             {
-                 $masseurs->is_default = '1';  
-                 $mess = 'Profile set as default successfully.'; 
+                 $count = $this->count_default_masseur(auth()->user()->id); 
+                if($count<8) 
+                {
+                    $make_defailt = '1';
+                    $message = 'Profile set as default successfully';
+                   
+                }
+                else
+                {
+                    $make_defailt = '0';
+                    $message = 'You have reached the limit of 8 default Listings.';
+                }
+                
+                 $masseurs->is_default = $make_defailt;  
+                 $mess = $message; 
             }
 
             else if($request->action == 'row_undefault')

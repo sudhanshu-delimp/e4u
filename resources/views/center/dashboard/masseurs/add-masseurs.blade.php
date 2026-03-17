@@ -750,6 +750,7 @@
 
 
                                     <div class="d-flex justify-content-end py-3">
+                                        <input type="hidden" id="make_default" name="make_default" value="0">
                                         <input type="hidden" name="page_token" id="page_token"
                                             value="{{ $page_token }}">
                                         <button type="button" id="submitMasseur" class="btn-common">Create
@@ -1173,8 +1174,7 @@
                 var current_feild = $(this).attr('id');
 
                 var current_old_input = 'profile_' + current_feild;
-                var old_value = $(this).closest('.service_rate_dolor_symbol').find('.' + current_old_input)
-                    .val();
+                var old_value = $(this).closest('.service_rate_dolor_symbol').find('.' + current_old_input).val();
 
 
 
@@ -1394,7 +1394,7 @@
             }
 
 
-            $('#submitMasseur').on('click', function(e) {
+            $('#submitMasseur').on('click', async function(e) {
                 e.preventDefault();
                 // let existRates = checkRates();
                 // if (!existRates) 
@@ -1422,8 +1422,31 @@
 
              
 
+                let mess_data = {
+                    'title' : 'NA',
+                    'text' : 'Do you want to add this as the default masseur Listing?',
+                    'action' : 'make',
+                    'cancelText': 'No'
+                }
 
-                swal_waiting_popup({
+                if(await isConfirm(mess_data))
+                {
+                    $('#make_default').val(1);
+                    submit_messaure_form();
+                }
+                else
+                {
+                    submit_messaure_form();
+                }
+
+            });
+
+        });
+
+
+        function submit_messaure_form()
+        {
+            swal_waiting_popup({
                     'title': 'Creating new masseur.'
                 });
                 let form = $('form[name="masseur_frm"]');
@@ -1459,9 +1482,8 @@
                         swal_error_popup(message);
                     }
                 });
-
-            });
-        });
+            
+        }
 
 
         // ########## Image Upload Script ##########
@@ -1862,7 +1884,7 @@
 $(document).ready(function () {
     initDragDrop();
 
-     console.log('==========is_profile_complete',is_profile_complete)
+   
 
     if (!is_profile_complete) {
 
@@ -1874,7 +1896,6 @@ $(document).ready(function () {
             text: 'Please update your profile information.',
             confirmButtonText: 'OK'
         }).then((result) => {
-
             if(result.isConfirmed){
                 window.location.href = "{{ url('center-dashboard/profile-informations') }}";
             }
@@ -1965,6 +1986,8 @@ function initDragDrop()
     });
 
 }
+
+
 
 </script>
 @endpush
