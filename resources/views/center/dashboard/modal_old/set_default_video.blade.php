@@ -1,4 +1,4 @@
-<div class="modal programmatic" id="setAsDefaultVideoForMainAccount" style="display: none">
+<div class="modal fade upload-modal programmatic" id="setAsDefaultVideoForMainAccount" style="display: none">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color border-0">
@@ -13,13 +13,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                Would you like to update Media in your My Information page for future Profiles?
-                <div class="modal-footer">
+                <h5 class="custom_modal_text">Would you like to update Media in your My Information page for future Profiles?</h5>
+               
+            </div>
+             <div class="modal-footer justify-content-center pt-0">
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
                         id="close_change">No</button>
                     <button type="button" class="btn-success-modal" onclick="saveDefaultVideo()">Yes</button>
                 </div>
-            </div>
         </div>
     </div>
 </div>

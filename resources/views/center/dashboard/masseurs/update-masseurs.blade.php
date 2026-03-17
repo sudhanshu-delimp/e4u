@@ -1026,7 +1026,7 @@
                 <form id="mulitiImage" method="POST" action="{{ route('center.massuers-media-upload-gallery') }}"
                     enctype="multipart/form-data">
                     @csrf
-                    <div class="modal-content border-0">
+                    <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle"><img
                                     src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross">
@@ -1092,9 +1092,9 @@
                         <input type="hidden" name="post_type" id="post_type" value="">
 
                         <h3 class="my-2"><span id="Lname">
-                                <p>Would you like to update <b>
+                                <h5 class="custom_modal_text">Would you like to update <b>
                                         <span id="field_name"></span>
-                                    </b> in your 'My Information' page for future Profiles?</p>
+                                    </b> in your 'My Information' page for future Profiles?</h5>
                             </span> </h3>
                         <div class="modal-footer">
                             <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"

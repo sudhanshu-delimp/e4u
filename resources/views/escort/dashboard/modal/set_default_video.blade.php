@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img
+                <h5 class="modal-title" id="exampleModalLabel"> <img
                         src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon">Replace Media
                 </h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -13,13 +13,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                Would you like to update Media in your My Information page for future Profiles?
-                <div class="modal-footer">
+                <h5 class="custom_modal_text">Would you like to update Media in your My Information page for future Profiles?</h5>
+                
+            </div>
+            <div class="modal-footer  justify-content-center pt-0">
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
                         id="close_change">No</button>
                     <button type="button" class="btn-success-modal" onclick="saveDefaultVideo()">Yes</button>
                 </div>
-            </div>
         </div>
     </div>
 </div>
