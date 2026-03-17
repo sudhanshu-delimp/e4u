@@ -140,11 +140,43 @@ class EscortController extends BaseController
     // function listing_checkout(UpdateEscortRequest $request) {
     function listing_checkout(Request $request)
     {
-        $escort_ids = $request->input('escort_id');
-        $start_dates = $request->input('start_date');
-        $end_dates = $request->input('end_date');
-        $memberships = $request->input('membership');
+        $checkout_type = !empty($request->checkout_type)?$request->checkout_type:null;
+        $refundAmount = 0.00;
+            switch ($request->checkout_type) {
+                case 'upgrade':{
+                    $escort_id = $request->input('escort_id');
+                    $newMembership = $request->input('membership');
+                    $escortDetail = getEscortDetail($escort_id);
+                    $today = Carbon::today($escortDetail->time_zone);
 
+                    $oldPurchase = $escortDetail->mainPurchase;
+                    $start_date = $today->copy()->addDay()->format('d-m-Y');
+                    $end_date = $oldPurchase->end_date;
+                    $oldMembership = $oldPurchase->membership;
+
+                    $escort_ids = [$escort_id];
+                    $start_dates = [$start_date];
+                    $end_dates = [$end_date];
+                    $memberships = [$newMembership];
+
+
+                    //list($usedDicount, $usedAmount) = calculateTotalFee($oldPurchase->membership, ($oldPurchase->days_number - $escortDetail->left_listing_days));
+                    list($dicount, $amount, $unitAmount, $unitDiscount) = calculateTotalFee($newMembership, $escortDetail->days_left);
+
+                    //  echo $amount;
+                    //  die;
+                    $refundAmount = getListingRefundAmount($escortDetail);
+                    //  die;
+                    // list($newDicount, $newAmount) = calculateTotalFee($newMembership, $escortDetail->days_left);
+                    // $net_paid_amount = number_format($newAmount-$refundAmount,2);
+                } break;
+                default:{
+                    $escort_ids = $request->input('escort_id');
+                    $start_dates = $request->input('start_date');
+                    $end_dates = $request->input('end_date');
+                    $memberships = $request->input('membership');
+                } break;
+            }
         $data = array_map(function ($escort_id, $start_date, $end_date, $membership) {
             return [
                 'escort_id' => $escort_id,
@@ -166,7 +198,7 @@ class EscortController extends BaseController
         $escorts = Escort::whereIn('id', $escort_ids)->pluck('name', 'id')->toArray();
         //save here in session to retrieve later
         session()->put('checkout', $checkoutData);
-        return view('escort.dashboard.checkoutPage', compact('data', 'escorts'));
+        return view('escort.dashboard.checkoutPage', compact('data', 'escorts', 'checkout_type', 'refundAmount'));
     }
 
 
@@ -836,7 +868,7 @@ class EscortController extends BaseController
     public function getUpgradeAmount(Request $request)
     {
         try {
-            $profileId = $request->profieId;
+            $profileId = $request->escortId;
             $membershipId = $request->membershipId;
             $profileDetail = getEscortDetail($profileId);
             $refundAmount = getListingRefundAmount($profileDetail);
@@ -861,7 +893,7 @@ class EscortController extends BaseController
 
     public function upgradeList(Request $request){
         try {
-            $profileId = $request->profile_id;
+            $profileId = $request->escort_id;
             $membershipId = $request->membership;
             
             DB::transaction(function () use ($profileId, $membershipId){
@@ -899,11 +931,15 @@ class EscortController extends BaseController
                 $profileDetail->membership = $membershipId;
                 $profileDetail->save();
             });
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Listing has been upgraded.',
-            ]);
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Listing has been upgraded.',
+                ]);
+            }
+            else{
+                return redirect()->route('escort.list', 'current');
+            }
 
         } catch (Exception $e) {
             return response()->json([

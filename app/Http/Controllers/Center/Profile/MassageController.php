@@ -370,8 +370,7 @@ class MassageController extends Controller
     public function createProfile(Request $request)
     {
         
-       
-       
+    
         try 
         {
 
