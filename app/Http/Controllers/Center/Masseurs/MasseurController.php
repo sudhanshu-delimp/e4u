@@ -134,7 +134,6 @@ class MasseurController extends AppController
     public function index(Request $request)
     {
         $page_token = bin2hex(random_bytes(32));
-
         $durations = $this->duration->all();
         $user = auth()->user();
 
@@ -151,7 +150,7 @@ class MasseurController extends AppController
         // $defaultImages = $this->media->findDefaultMedia($user->id, 0);
         // //$escortDefault = $this->escort->findDefault(auth()->user()->id, 1);
         
-
+       
         return view('center.dashboard.masseurs.add-masseurs',compact('durations','massage_durations','massage_default','page_token','media'));
     }
 
@@ -960,7 +959,7 @@ class MasseurController extends AppController
                 'ethnicity' => config('escorts.profile.ethnicities')[$row->ethnicity] ?? 'NA',
                 'nationality' => $countries[$row->nationality] ?? 'NA',
                 'created_at' => date('d M Y', strtotime($row->created_at)),
-                'status' => ($row->status==1) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Deactive</span>',
+                'status' => ($row->status==1) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Deactived</span>',
                 'default_profile' => ($row->is_default==1) ? 'Yes' : 'No',
                 'action' => $action
 

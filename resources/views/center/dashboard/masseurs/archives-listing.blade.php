@@ -242,26 +242,26 @@ $(document).on('click', '.masseur_action', async function () {
 
       if(current_id=='row_deactive')
       {
-          mess =   'Are you sure you want to deactivate this profile?' 
+          mess =   'Are you sure you want to deactivate this Profile?' 
           action = current_id;
       }
      
       else if(current_id=='row_active')
       {
-         mess =   'Do you want to activate this profile?';
+         mess =   'Do you want to activate this Profile?';
          action = current_id;
       }
        
 
       else if(current_id=='row_default')
       {
-         mess =   'Do you want to add this profile as the default listing on the Masseur tab in the Create MC Profile page?' 
+         mess =   'Do you want to add this Profile as the default Listing on the Masseur tab in the Centre Profile creator?' 
          action = current_id;
       }
 
       else if(current_id=='row_undefault')
       {
-         mess =   'Do you want to remove this profile as the default listing from the Masseur tab on the Create MC Profile page?' 
+         mess =   'Do you want to remove this Profile as the default Listing from the Masseur tab on the Centre Profile creator?' 
          action = current_id;
       }
 

@@ -90,11 +90,13 @@ class CenterProfileInformationController extends BaseController
         
         $user = auth()->user()->id;
 
-       
+     
 
         if(!$massage_profile = $this->massage_profile->findDefault($user,1)) {
             $massage_profile = $this->massage_profile->make();
         }
+
+      
         //dd($massage_profile);
         list($service_one, $service_two, $service_three) = $this->service->findByCategory([1,2,3]);
         $durations = $this->duration->all();
