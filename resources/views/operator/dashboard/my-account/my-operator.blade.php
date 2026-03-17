@@ -286,14 +286,14 @@
                                        <h5 for="mobile">Your Agreement</h5>
                                        <label>You can retrieve your Agent Management Agreement by
                                        @if($agreement_file != "")
-                                          <a download="true" href="{{ asset('storage/' . $agreement_file) }}" 
-                                             class="custom_links_design">
+                                          <a href="{{ asset('storage/' . $agreement_file) }}" 
+                                             class="custom_links_design" download>
                                              <span style="color: #FF3C5F;">clicking here.</span>
                                           </a>
                                           @else
 
-                                          <a download="true" href="javascript:void(0)" 
-                                             class="custom_links_design">
+                                          <a href="javascript:void(0)" 
+                                             class="custom_links_design" download>
                                              <span style="color: #FF3C5F;">clicking here.</span>
                                           </a>
 
