@@ -515,10 +515,10 @@ console.log('profileId',profileId);
 
           $("#img1, #img2, #img3, #img4, #img5, #img6, #img7, #img9").on('click', function(e) {
                 if ($(this).attr('id') == 'img9') {
-                    $(".uploadModalTrigger").find("button").attr('data-target', '#upload-sec-banner');
+                    $(".uploadModalTrigger").find("button").attr('data-target', '#exampleModal');
 
                 } else {
-                    $(".uploadModalTrigger").find("button").attr('data-target', '#upload-sec');
+                    $(".uploadModalTrigger").find("button").attr('data-target', '#exampleModal');
 
                 }
             });
