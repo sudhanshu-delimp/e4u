@@ -36,8 +36,7 @@ $contactTypesText = implode(", ", $contactTypesArray);
 
 $countries = config('operator.country');
 $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$operator->country_id]['name'] : '';
-
-
+$agreement_file = isset($operator->operator_detail->agreement_file) ? $operator->operator_detail->agreement_file : '';
 @endphp
 <div class="row">
     <div class="col-sm-12">
@@ -116,6 +115,12 @@ $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$op
                     <th>Fees</th>
                     <td>{{ $operator->operator_detail->fee }}</td>
                 </tr>
+                 @if(!empty($agreement_file))
+                <tr>
+                    <th>Agreement File</th>
+                    <td><a href="{{ asset('storage') }}/{{$agreement_file}}" target="_blank" title="Click here to dowload or view agreement file." download>View Agreement</a></td>
+                </tr>
+                @endif
             </table>
             <!-- Commission -->
             <h6 class=" text-blue-primary">Commission</h6>
