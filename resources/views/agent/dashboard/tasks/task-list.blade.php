@@ -125,7 +125,7 @@
     <!-- open tour section button -->
     <div class="modal fade upload-modal" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModallabel"
         aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" >
@@ -139,21 +139,25 @@
                     <form method="post" id="task_form" action="#">
                         {{ csrf_field() }}
                         <div class="row" id="task_form_html">
-                            <h4 id="task_desc">Are you sure you want to mark this Appointment as completed?</h4>
+                            <h4 id="task_desc" class="custom_modal_text">Are you sure you want to mark this Appointment as completed?</h4>
                         </div>
 
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
-                                <div class="form-group">
-                                    <label for="exampleFormControlTextarea1" class="ml-2 showDateLabel"
+                                <div class="form-group d-flex justify-content-between align-items-center gap-10">
+                                    <div>
+                                        <label for="exampleFormControlTextarea1" class="ml-2 showDateLabel"
                                         style="display: none;">Date Created: {{ \Carbon\Carbon::now()->format('d-m-Y') }}.
                                     </label>
                                     <input type="hidden" name="change_task_id" id="change_task_id">
-                                    <button type="submit" class="btn-success-modal float-right ml-2 "
+                                    </div>
+                                   <div class="d-flex justify-content-end mt-3 gap-10">
+                                        <button type="submit" class="btn-success-modal"
                                         id="save_button">Yes</button>
                                     <button type="button"
-                                        class="btn-cancel-modal float-right ml-2"
+                                        class="btn-cancel-modal"
                                         data-dismiss="modal" aria-label="Close" id="cancel_button">No</button>
+                                   </div>
                                 </div>
                             </div>
                         </div>
