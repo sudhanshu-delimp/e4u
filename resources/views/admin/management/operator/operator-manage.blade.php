@@ -93,7 +93,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form name="add_operator" id="add_operator" method="POST" action="{{ route('admin.add.operator') }}">
+                    <form name="add_operator" id="add_operator" method="POST" action="{{ route('admin.add.operator') }}" enctype="multipart/form-data">
                         <div class="row">
                             <!-- Section: Personal Details -->
                             <div class="col-12 my-2">
@@ -211,6 +211,17 @@
                                     maxlength="100">
                                 <span class="text-danger error-fee"></span>
                             </div>
+                        </div>
+                        <div class="row">
+                              <div class="col-12 my-2">
+                                <h6 class="border-bottom pb-1 text-blue-primary">Upload Agreement</h6>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <input type="file" name="agreement_file" id="agreement_file">
+                                 <span class="text-danger error-agreement_file"></span>
+                            </div>
+
+                            <div class="col-6 mb-3 my-auto text-right" id="file_preview"></div>
                         </div>
                         <div class="row">
 
