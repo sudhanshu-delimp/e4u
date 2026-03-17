@@ -268,15 +268,15 @@
                 <div class="photo-header custom-photo-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <ul class="nav nav-tabs border-0">
+                            <ul class="nav nav-tabs border-0" id="escort_profile_media_filter_type">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="menu_all"  href="#home">All</a>
+                                    <a class="nav-link active" data-filter-type="all" id="menu_all"  href="#home">All</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="menu_varified"  href="#menu1">Verified</a>
+                                    <a class="nav-link" data-filter-type="verified" id="menu_varified"  href="#menu1">Verified</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="menu_unverified"  href="#menu2">Unverified</a>
+                                    <a class="nav-link" data-filter-type="unverified" id="menu_unverified"  href="#menu2">Unverified</a>
                                 </li>
                             </ul>
                         </div>
@@ -786,5 +786,6 @@
        updateDefaultImage(updatePosition, mediaId, img_target, imageSrc);
        $(`#${$(this).parents('.modal').attr('id')}`).modal("hide");
    });
+   
 </script>
 @endpush

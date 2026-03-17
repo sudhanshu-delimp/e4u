@@ -21,11 +21,20 @@ class MediaVerificationController extends Controller
 
     public function mediaVerificationLList()
     {
+        $order = request()->get('order');
+        $column = null;
+        $dir = 'asc';
+
+        if (!empty($order)) {
+            $column = $order[0]['column'] ?? null;
+            $dir = $order[0]['dir'] ?? 'asc';
+        }
+
         list($result, $count, $total_pending_verification) = $this->getMediaVerificationData(
             request()->get('start'),
             request()->get('length'),
-            (request()->get('order')[0]['column']),
-            request()->get('order')[0]['dir']
+            $column,
+            $dir
         );
         $data = array(
             "draw"            => intval(request()->input('draw')),
@@ -64,7 +73,7 @@ class MediaVerificationController extends Controller
             $media_verificatiion->orderByRaw("FIELD(media_verifications.status,'0','1','2')")
                 ->orderBy('media_verifications.created_at', 'desc');
         }
- 
+
         switch ($order_key) {
 
             case 0: // member_id (users.member_id)
@@ -91,38 +100,38 @@ class MediaVerificationController extends Controller
                 );
                 break;
 
-            // case 5: // agent_id (users.assigned_agent_id)
-            //     $media_verificatiion->orderBy(
-            //         User::select('assigned_agent_id')
-            //             ->whereColumn('users.id', 'media_verifications.user_id'),
-            //         $dir
-            //     );
-            //     break;
+                // case 5: // agent_id (users.assigned_agent_id)
+                //     $media_verificatiion->orderBy(
+                //         User::select('assigned_agent_id')
+                //             ->whereColumn('users.id', 'media_verifications.user_id'),
+                //         $dir
+                //     );
+                //     break;
         }
 
 
         $total_media_verificatiion = $media_verificatiion->count();
         $media_verificatiions = $media_verificatiion->offset($start)->limit($limit)->get();
-        
+
         $total_pending_verification =  0;
         foreach ($media_verificatiions as $key => $item) {
             $user = $item->user;
             $item->member_id = $user->member_id ?? 'N/A';
             $item->name      = $user->name ?? 'N/A';
             $item->mobile    = $user->phone ?? 'N/A';
-            $item->created_date = $item->created_at 
-                ? showDateWithFormat($item->created_at) 
+            $item->created_date = $item->created_at
+                ? showDateWithFormat($item->created_at)
                 : 'NA';
-            $submittedUser = User::select('type','member_id')->find($item->submited_by);
-           
-            $item->submitted = $submittedUser 
-                ? getTypeById($submittedUser->type) 
+            $submittedUser = User::select('type', 'member_id')->find($item->submited_by);
+
+            $item->submitted = $submittedUser
+                ? getTypeById($submittedUser->type)
                 : 'N/A';
 
-            $item->agent_id = ($item->submitted === 'Agents') 
-                ? $submittedUser->member_id ?? 'N/A' 
+            $item->agent_id = ($item->submitted === 'Agents')
+                ? $submittedUser->member_id ?? 'N/A'
                 : 'N/A';
-                
+
             $types = [
                 '0' => 'Selfie',
                 '1' => 'Licence',
@@ -179,22 +188,22 @@ class MediaVerificationController extends Controller
                 </div>
             </div>';
 
-            if($item->status == 'Pending'){
-                $total_pending_verification ++;
+            if ($item->status == 'Pending') {
+                $total_pending_verification++;
             }
             $statusText = $item->status ?? 'NA';
             $badgeClass = getStatusBadgeClass($statusText);
             $item->status_text = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
             $item->action = $dropdown;
         }
-        return [$media_verificatiions, $total_media_verificatiion , $total_pending_verification];
+        return [$media_verificatiions, $total_media_verificatiion, $total_pending_verification];
     }
 
 
 
     public function mediaVerificationImage(Request $request)
     {
-       
+
         $id = $request->get('id');
         $user_id = $request->get('user_id');
         $media_verification = MediaVerification::where('id', $id)
@@ -222,14 +231,14 @@ class MediaVerificationController extends Controller
         }
 
         $escort_medias = $query->get();
-        
-        $media_verification_image = asset('escorts/'.$media_verification->image_path);
+
+        $media_verification_image = asset('escorts/' . $media_verification->image_path);
         $mediaImages = [];
         foreach ($escort_medias as $escort_media) {
             $imageUrl = asset($escort_media->path);
-            $mediaImages[] = '<img src="'.$imageUrl.'" alt="view image gallery" style="width:100px;">';
+            $mediaImages[] = '<img src="' . $imageUrl . '" alt="view image gallery" style="width:100px;">';
         }
-    
+
         if ($media_verification) {
             return response()->json([
                 'status' => true,
@@ -271,7 +280,7 @@ class MediaVerificationController extends Controller
             ]);
 
         $user = User::with('my_agent')
-            ->select('id','name','email','member_id','assigned_agent_id')
+            ->select('id', 'name', 'email', 'member_id', 'assigned_agent_id')
             ->find($media_verification->user_id);
 
         $body = [
@@ -284,7 +293,7 @@ class MediaVerificationController extends Controller
 
         $ccEmail = $user->my_agent->email ?? null;
 
-       $status = $media_verification->getRawOriginal('status');
+        $status = $media_verification->getRawOriginal('status');
 
         switch ($status) {
             case '1': // Approved

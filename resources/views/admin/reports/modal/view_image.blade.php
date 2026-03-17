@@ -16,32 +16,12 @@
                     
                     <div class="other_wrapper">
                         <span class="banner-sub-heading mt-2">Gallery Images</span>
-                         <div class="other_images" id="media-images">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b3.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b4.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b5.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b6.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b3.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b4.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b5.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b6.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b6.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b3.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b4.jpg') }}" alt="view image gallery">
-                         </div>
+                        <div class="other_images" id="media-images"></div>
                     </div>
                     <div class="verification">
                         <span class="banner-sub-heading mt-2">Verification Image</span>
                         <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" id="verification-image" alt="view image gallery">
                     </div>
-
-
                 </div>
             </div>
 
