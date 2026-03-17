@@ -1011,10 +1011,6 @@
                 text-align: justify;
             }
             
-            div#add_wishlist .modal-dialog {
-                max-width: 642px;
-            }
-            
             div#add_wishlist .modal-dialog .modal-body {
                 padding: 30px 31px;
             }
@@ -1384,10 +1380,9 @@
         width: 100%;
     } */
             /* end */
-            
-            div.defult-modal .modal-dialog {
+            /* div.defult-modal .modal-dialog {
                 max-width: 768px;
-            }
+            } */
             
             div.defult-modal .modal-body h3 {
                 font-family: Poppins;
@@ -5067,12 +5062,11 @@ i.fa.fa-heart-o{
                 line-height: 1.5;
                 color: #000000;
             }
-            
-            .custome_modal_max_width {
+            /* .custome_modal_max_width {
                 max-width: 600px;
                 margin: auto;
                 border-radius: 0;
-            }
+            } */
             
             .forgot_pass {
                 justify-content: center;
@@ -9303,13 +9297,12 @@ background-image:none;
                     flex-direction: column;
                 }
             }
-            
-            @media (min-width: 576px) {
+            /* @media (min-width: 576px) {
                 .modal-dialog {
                     max-width: 600px;
                     margin: 1.75rem auto;
                 }
-            }
+            } */
             
             @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
                 .nav-item {

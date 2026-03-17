@@ -201,9 +201,9 @@
             </button>
          </div>
          <div class="modal-body text-center">
-            <h1 class="popu_heading_style mb-4 mt-4">
-               <span id="Lname" class="my_legbox_title">Thank you for your request.<br>An email has been forwarded.</span>
-            </h1>
+            <h5 class="custom_modal_text">
+               <span id="Lname">Thank you for your request.<br>An email has been forwarded.</span>
+            </h5>
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <div class="form-group d-flex align-items-center justify-content-center">
