@@ -512,6 +512,10 @@ Route::get('/reports/communication/list', [CommunicationController::class, 'inde
 Route::get('/reports/communication/{id}/show',[CommunicationController::class, 'show'])->name('admin.reports.communication.show');
 
 
+//Management Agent Date List
+//Route::get('management/agent-data/data-list', [AgentExcelDataManageController::class, 'dataList'])->name('admin.dashboard.agent.data-list');
+
+
 
 // Route::get('/notifications/shareholders',function(){
 //     return view('admin.notifications.shareholders.index');
@@ -521,9 +525,9 @@ Route::get('/reports/communication/{id}/show',[CommunicationController::class, '
 //     return view('admin.notifications.global');
 // })->name('admin.global');
 
-Route::get('/management/data-list',function(){
-    return view('admin.management.data-list-centres.index');
-})->name('admin.data-list');
+// Route::get('/management/data-list',function(){
+//     return view('admin.management.data-list-centres.index');
+// })->name('admin.data-list');
 
 
 // ye Operation Management Notification hai administration kanhi 
