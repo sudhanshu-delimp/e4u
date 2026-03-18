@@ -125,7 +125,7 @@ class MediaVerificationController extends Controller
             $submittedUser = User::select('type', 'member_id')->find($item->submited_by);
 
             $item->submitted = $submittedUser
-                ? getTypeById($submittedUser->type)
+                ? getUserTypeById($submittedUser->type)
                 : 'N/A';
 
             $item->agent_id = ($item->submitted === 'Agents')
@@ -210,8 +210,12 @@ class MediaVerificationController extends Controller
             ->where('user_id', $user_id)
             ->first();
         $status = $media_verification->getRawOriginal('status');
-        $query = EscortMedia::where('user_id', $user_id);
-
+        //$query = EscortMedia::where('user_id', $user_id)->whereNotIn('position', ['9', '10']);
+        $query = EscortMedia::where('user_id', $user_id)
+            ->where(function ($q) {
+                $q->whereNotIn('position', [9, 10])
+                ->orWhereNull('position');
+            });
         switch ($status) {
             case '1': // Approved
                 $query->where('media_verification_id', $id)
@@ -231,7 +235,6 @@ class MediaVerificationController extends Controller
         }
 
         $escort_medias = $query->get();
-
         $media_verification_image = asset('escorts/' . $media_verification->image_path);
         $mediaImages = [];
         foreach ($escort_medias as $escort_media) {

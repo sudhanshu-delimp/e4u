@@ -1638,8 +1638,8 @@ if (!function_exists('massage_profile_complete_status')) {
   }
 }
 
-if (!function_exists('getTypeById')) {
-        function getTypeById($value)
+if (!function_exists('getUserTypeById')) {
+        function getUserTypeById($value)
         {
             switch ($value) {
                 case 0:
