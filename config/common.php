@@ -32,4 +32,6 @@ return [
     ],
     'access_denied_suspended_msg' => env('ACCESS_DENIED_SUSPENDED_MSG', 'Your membership has been Suspended due to a Report'),
     'resend_2fa_verification_code_msg' => env('RESEND_2FA_VERIFICTION_CODE_MSG', 'Your verification code has been re-sent to your selected contact method (email or mobile).'),
+
+    'opt_resend_seconds' => env('OTP_RESEND_SECONDS', 60),
 ];

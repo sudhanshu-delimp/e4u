@@ -163,6 +163,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->city_name = $item->city ? $item->city->name : null;
             $item->state_name = $item->state ? $item->state->name : null;
             $localTimeZone = getEscortTimezone($item);
+            $mainPurchase = $item->mainPurchase;
             if ($item->enabled == 1) {
                 $item->enabled = "Active";
             } elseif ($item->enabled == 0) {
@@ -203,7 +204,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary"><i class="fa fa-hand-pointer"></i>Pin Up Summary</a><div class="dropdown-divider"></div>';
             }
 
-            if($item->membership_number > 1){
+            if($item->membership_number > 1 && $item->left_listing_days > 0){
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '" data-membership="' . $item->membership_number . '"  data-toggle="modal" data-target="#upgrade_modal"><i class="fa fa-wrench"></i>Upgrade</a><div class="dropdown-divider"></div>';
             }
 
@@ -265,15 +266,17 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->pro_name .= '</sup>';
             }
 
-            if($item->mainPurchase && $item->mainPurchase->tour_location_id!=null){
+            if($mainPurchase && $mainPurchase->tour_location_id!=null){
                 $item->pro_name .= '<sup class="tour_icon listing-tag-tooltip ml-1">Tour
                 <small class="listing-tag-tooltip-desc">Listed from ' . date("d-m-Y", strtotime($item->start_date)) . " to ".date("d-m-Y", strtotime($item->end_date)).'</small>
                 </sup>';
                 $item->tour = true;
             }
 
-            if($item->mainPurchase && $item->mainPurchase->parent_id>0){
-                $item->pro_name .= '<sup class="upgrade_icon listing-tag-tooltip ml-1">Upgraded</sup>';
+            if($mainPurchase && $mainPurchase->parent_id > 0){
+                $item->pro_name .= '<sup class="upgrade_icon listing-tag-tooltip ml-1">Upgraded
+                <small class="listing-tag-tooltip-desc">Upgraded from '.$mainPurchase->previous_membership_type.' to '.$mainPurchase->membership_type.' on '.getEscortLocalTime($item->updated_at, $item->time_zone)->format('d-m-Y').'.</small>
+                </sup>';
                 $item->tour = true;
             }
 

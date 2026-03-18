@@ -12,8 +12,18 @@ class Purchase extends Model
 
     protected $fillable = ['parent_id','escort_id', 'start_date', 'end_date', 'membership', 'utc_start_time', 'utc_end_time', 'status', 'tour_location_id','rate','discount_rate','total_rate','paid_rate'];
     protected $table = 'purchase';
-    public $timestamps = false;
+    public $timestamps = true;
 
+
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_id');
+    }
 
     public function setStartDateAttribute($value)
     {
@@ -47,16 +57,11 @@ class Purchase extends Model
 
     public function getMembershipTypeAttribute($value)
     {
+        return getMembershipType($this->membership);
+    }
 
-        switch($this->membership)
-        {
-            case(1): return "Platinum";  break;
-            case(2): return "Gold";  break;
-            case(3): return "Silver";  break;
-            case(4): return "Free";  break;
-
-        }
-
+    public function getPreviousMembershipTypeAttribute(){
+        return getMembershipType($this->parent->membership);
     }
 
     public function escort()
