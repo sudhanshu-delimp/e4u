@@ -1639,6 +1639,67 @@ if (!function_exists('massage_profile_complete_status')) {
 }
 
 
+if (!function_exists('get_social_links')) {
+  function get_social_links($user_id)
+  {
+        $user = MassageProfile::where('user_id',$user_id)->where('default_setting',1)->first();
+        if($user)
+        {
+            if($user->social_links!="")
+            return $user->social_links;
+        }
+        else
+        return [];
+  }
+}
 
 
+if (!function_exists('find_massage_default_duration')) {
+function find_massage_default_duration($massage_id)
+{
+
+        $massage = MassageProfile::where('user_id', $massage_id)
+            ->where('default_setting', 1)
+            ->first();
+
+        $durations = optional($massage)->durations ?? collect();
+
+        $result = [
+            'massage_price' => $durations->map(function ($item) {
+                return data_get($item, 'pivot.massage_price');
+            })->filter()->values()->toArray(),
+
+            'incall_price' => $durations->map(function ($item) {
+                return data_get($item, 'pivot.incall_price');
+            })->filter()->values()->toArray(),
+
+            'outcall_price' => $durations->map(function ($item) {
+                return data_get($item, 'pivot.outcall_price');
+            })->filter()->values()->toArray(),
+        ];
+
+        return $result;
+		
+}
+
+
+if (!function_exists('isPriceValid')) {
+function isPriceValid($array)
+{
+    // check empty array
+    if (empty($array)) {
+        return false;
+    }
+
+    foreach ($array as $value) {
+        if ($value === 0 || $value === null) {
+            return false;
+        }
+    }
+
+    return true;
+}
+}
+
+}
 

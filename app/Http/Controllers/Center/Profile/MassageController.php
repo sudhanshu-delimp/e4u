@@ -789,7 +789,37 @@ class MassageController extends Controller
                         {
                             MassageRate::where(['massage_profile_id'=> $massage_profile_id])->delete();
                             MassageRate::insert($rates);
-                        }
+
+                            $default_duration = find_massage_default_duration(auth()->user()->id);
+                            $serviceMap = [
+                                'massage' => $default_duration['massage_price'] ?? [],
+                                '2_hand'  => $default_duration['incall_price'] ?? [],
+                                '4_hand'  => $default_duration['outcall_price'] ?? [],
+                            ];
+
+                            $validServices = [];
+                            foreach ($serviceMap as $service => $prices) {
+                                if (isPriceValid($prices)) {
+                                    $validServices[] = $service;
+                                }
+                            }
+
+                            
+                            $masseurs = DB::table('masseurs as m')
+                                ->leftJoin('massager_masseurs as mm', 'm.id', '=', 'mm.masseur_profile_id')
+                                ->whereNull('mm.masseur_profile_id')
+                                ->select('m.*')
+                                ->get();
+
+                            $masseurIds = $masseurs->pluck('id')->toArray();
+
+                            Log::info($masseurIds);
+
+                            Masseur::whereIn('id', $masseurIds)
+                                ->update([
+                                    'service' => json_encode($validServices)
+                                ]);
+                            }
                       
                     massage_profile_complete_status($request->massage_id);    
                 }

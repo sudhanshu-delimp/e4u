@@ -229,7 +229,7 @@
                                             <h4>Massage</h4>
                                         </div>
                                         <div class="profile_hr">
-                                            <h4 class="header_rate_massage">$100/hr</h4>
+                                            <h4 class="header_rate_massage"></h4>
                                         </div>
                                     </div>
                                 </div>
@@ -240,10 +240,10 @@
                                     </div>    
                                     <div class="div_contain_text">
                                         <div class="profile_message">
-                                            <h4>Masseur</h4>
+                                            <h4>+2 Hands</h4>
                                         </div>
                                         <div class="profile_hr">
-                                            <h4 class="header_rate_masseur">$120/hr</h4>
+                                            <h4 class="header_rate_masseur"></h4>
                                         </div>
                                     </div>
                                 </div>
@@ -254,10 +254,10 @@
                                     </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
-                                            <h4 >2+ Masseurs</h4>
+                                            <h4>4+ Hands</h4>
                                         </div>
                                         <div class="profile_hr">
-                                            <h4 class="header_rate_two_masseur">$150/hr</h4>
+                                            <h4 class="header_rate_two_masseur"></h4>
                                         </div>
                                     </div>
                                 </div>
@@ -275,9 +275,6 @@
 
                 <div class="row mc_profile_table">
                     <div class="col-lg-6 col-md-12">
-
-                        
-
                         <table class="table table_striped">
                             <thead>
                                 <tr>
@@ -290,8 +287,11 @@
 
                             <tbody>
 
+                            
+
                             @foreach($durations->whereIn('id',[2,3,4,5,6,7]) as $duration)
                             @php
+                            
                             if($duration->id!="")
                             {
 
@@ -306,7 +306,7 @@
                                                 $incall_price = isset($db_duration['pivot']['incall_price']) ? $db_duration['pivot']['incall_price'] : null;
                                                 $outcall_price = isset($db_duration['pivot']['outcall_price']) ? $db_duration['pivot']['outcall_price'] : null;
 
-
+                                                
                                                 if($duration->id==5)
                                                 {
                                                     $rates_header = [
@@ -320,6 +320,8 @@
                                             break;
                                             
                                         } 
+
+                                        
                                     }   
                                 }
                             }

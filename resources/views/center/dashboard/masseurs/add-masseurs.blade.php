@@ -354,21 +354,20 @@
                                             <label class="label">Services</label>
                                             <div class="d-flex justify-content-start gap-10">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="service[]" value="massage"
-                                                        value="1" required data-label="Vaccination">
+                                                    <input class="form-check-input" type="checkbox"  required data-label="Vaccination" {{ !isPriceValid($default_duration['massage_price']) ? 'disabled' : '' }} name="service[]" value="massage" >
                                                     <label class="form-check-label">
                                                         Massage
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"  name="service[]" value="2_hand"
+                                                    <input class="form-check-input" type="checkbox" {{ !isPriceValid($default_duration['incall_price']) ? 'disabled' : '' }}   name="service[]" value="2_hand"
                                                         value="2">
                                                     <label class="form-check-label">
                                                         +2 Hands
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="service[]"  value="4_hand"
+                                                    <input class="form-check-input" type="checkbox" {{ !isPriceValid($default_duration['outcall_price']) ? 'disabled' : '' }} name="service[]"  value="4_hand"
                                                         value="3">
                                                     <label class="form-check-label">
                                                         +4 Hands.

@@ -82,7 +82,7 @@
 
         <div id="ProfileManagement" class="collapse
                 @if (in_array(request()->segment(3), ['add-listing', 'current', 'past', 'new-listing', 'videos']) ||
-                        in_array(request()->segment(2), ['create-profile', 'list', 'archive-view-photos', 'create-new-masseur','archives-listing'])) show @endif"
+                        in_array(request()->segment(2), ['create-profile', 'list', 'archive-view-photos', 'create-new-masseur','archives-listing','update-masseur','update-profile'])) show @endif"
             data-parent="#accordionSidebar">
 
             <div class="collapse-inner">
@@ -126,7 +126,7 @@
 
                 <div id="ManageProfile"
                     class="collapse
-                    @if (in_array(request()->segment(2), ['create-profile', 'list'])) show @endif"
+                    @if (in_array(request()->segment(2), ['create-profile', 'list','update-profile'])) show @endif"
                     data-parent="#ProfileManagement">
 
                     <div class="py-0 collapse-inner rounded mb-2">
@@ -137,10 +137,10 @@
                             <span>New Profile</span>
                         </a>
 
-                        <a class="collapse-item {{ in_array(request()->segment(2), ['list', 'profile']) ? 'menu-active' : '' }}"
+                        <a class="collapse-item {{ in_array(request()->segment(2), ['list', 'profile','update-profile']) ? 'menu-active' : '' }}"
                             href="{{ route('center.list') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
-                            <span>Our Profiles</span>
+                            <span>Our Profiles </span>
                         </a>
 
                     </div>
@@ -150,12 +150,13 @@
                 {{-- Masseurs --}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterMasseurs">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/masseur-profile.png') }}">
-                    <span>Masseurs</span>
+                    <span>Masseurs </span>
                 </a>
 
                 <div id="CenterMasseurs"
                     class="collapse
-                    @if (in_array(request()->segment(2), ['create-new-masseur','archives-listing'] )) show @endif"
+                    
+                    @if (in_array(request()->segment(2), ['create-new-masseur','archives-listing','update-masseur'] )) show @endif"
                     data-parent="#ProfileManagement">
 
                     <div class="py-0 collapse-inner rounded mb-2">
@@ -166,7 +167,7 @@
                             <span>New</span>
                         </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'archives-listing' ? 'menu-active' : '' }}"
+                        <a class="collapse-item {{ (request()->segment(2) == 'archives-listing' || request()->segment(2) == 'update-masseur') ? 'menu-active' : '' }}"
                             href="{{ route('center.archives-listing') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png') }}">
                             <span>Manage</span>

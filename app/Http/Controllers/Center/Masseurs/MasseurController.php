@@ -150,10 +150,11 @@ class MasseurController extends AppController
         // $defaultImages = $this->media->findDefaultMedia($user->id, 0);
         // //$escortDefault = $this->escort->findDefault(auth()->user()->id, 1);
 
-      
         
-       
-        return view('center.dashboard.masseurs.add-masseurs',compact('durations','massage_durations','massage_default','page_token','media'));
+        $default_duration = find_massage_default_duration($user->id);
+
+        
+        return view('center.dashboard.masseurs.add-masseurs',compact('durations','massage_durations','massage_default','page_token','media','default_duration'));
     }
 
 
@@ -311,6 +312,12 @@ class MasseurController extends AppController
         $durations = $this->duration->all();
         $user = auth()->user();
 
+        $exists = DB::table('massager_masseurs')
+        ->where('masseur_profile_id', $id)
+        ->exists();
+
+        $default_duration = find_massage_default_duration($user->id);
+
         ########## default profile data ############
         $massage_default = $this->massage_profile->findDefault($user->id,1);
         if(!$massage_default ) {
@@ -324,7 +331,7 @@ class MasseurController extends AppController
 
         
 
-        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur','media','services'));
+        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur','media','services','default_duration','exists'));
     }
 
     public function update_masseur(Request $request)
