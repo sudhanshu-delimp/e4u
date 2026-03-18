@@ -10563,6 +10563,13 @@ border-top: 5px solid var(--peach);
     padding: 0 5px;
 }
 
+.upgrade_icon {
+    color: white;
+    background-color: #0c223d;
+    border-radius: 15%;
+    padding: 0 5px;
+}
+
 .playmate_icon {
     color: white;
     background-color: #c81c1c;

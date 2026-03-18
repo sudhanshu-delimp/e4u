@@ -27,15 +27,12 @@
                 } else {
                     $contactType = [99999];
                 }
-               
 
                 $countries = config('operator.country');
                 $countryName = isset($countries[$operator->country_id]['name'])
                     ? $countries[$operator->country_id]['name']
                     : '';
-
-              ;
-
+                $agreement_file = isset($operator->operator_detail->agreement_file) ? $operator->operator_detail->agreement_file : '';
             @endphp
             <div class="operator-heading-wrapper col-lg-12">
                 <h1 class="h1">View Our Account</h1>
@@ -63,6 +60,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div id="accordion" class="myacording-design">
+                    <!-- About Us -->
                     <div class="card">
                         <div class="card-header">
                             <a class="card-link collapsed" data-toggle="collapse" href="#abbrieviations"
@@ -76,7 +74,6 @@
                                     <input type="hidden" name="_token">
                                     <div class="row">
                                         <div class="col-md-10 px-0">
-
                                             <div class="row">
                                                 <div class="col-12 my-2">
                                                     <h5>Operator Details</h5>
@@ -149,20 +146,14 @@
                                                         <span class="form-control form-back">{{ $operator->email }}</span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="countryName">Territory</label>
-                                                        <span class="form-control form-back">{{ $countryName }}</span>
-                                                    </div>
-                                                </div>
+
                                                 <div class="col-md-12">
                                                     <h5 for="mobile">Method of contact - how we communicate with you</h5>
                                                     <div class="form-group custom--contact">
 
                                                         <div class="form-check-inline">
                                                             <label class="customradio mr-4">
-                                                                <input type="checkbox" name="contact_type[]"
-                                                                    value="1"
+                                                                <input type="checkbox" name="contact_type[]" value="1"
                                                                     @if (!empty($contactType)) {{ in_array(1, $contactType) ? 'checked' : null }}
                                               @else
                                                 checked @endif
@@ -197,22 +188,22 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
+                                                {{--  <div class="col-md-12">
                                                     <div class="row">
                                                         <div class="col-12 my-2">
                                                             <h5>Fees</h5>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                               {{--  <label for="member_id">Fee</label> --}}
+                                                                <!--  <label for="member_id">Fee</label> -->
                                                                 <span class="form-control form-back">
                                                                     {{ $operator->operator_detail->fee }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
-                                                <div class="col-md-12">
+                                                {{-- <div class="col-md-12">
                                                     <div class="row">
                                                         <div class="col-12 my-2">
                                                             <h5>Commission
@@ -235,7 +226,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -243,15 +234,125 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <!-- End About Us -->
+
+                    <!-- Agreement -->
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="card-link collapsed" data-toggle="collapse" href="#lingo"
+                                aria-expanded="false">Agreement</a>
+                        </div>
+                        <div id="lingo" class="collapse" data-parent="#accordion" style="">
+                            <div class="card-body">
+                                <form id="operatorProfile" class="v-form-design"
+                                    action="{{ route('operator.account.update', [$operator->id]) }}" method="POST">
+                                    <input type="hidden" name="user_id" value="{{ $operator->id }}">
+                                    <input type="hidden" name="_token">
+
+                                    <div class="row">
+                                        <div class="col-md-10 px-0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="member_id">Agreement Date</label>
+                                                        <span
+                                                            class="form-control form-back">{{ showDateWithFormat($operator->operator_detail->agreement_date, 'd-m-Y') }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="date_appointed">Term</label>
+                                                        <span
+                                                            class="form-control form-back">{{ $operator->operator_detail->term }}</span>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="member_id">Fee</label>
+                                                        <span class="form-control form-back">
+                                                            {{ $operator->operator_detail->fee }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="countryName">Territory</label>
+                                                        <span class="form-control form-back">{{ $countryName }}</span>
+                                                    </div>
+                                                </div>
+                                               
+
+                                                <div class="col-md-12">
+                                    <div class="form-group">
+                                       <h5 for="mobile">Your Agreement</h5>
+                                       <label>You can retrieve your Agent Management Agreement by
+                                       @if($agreement_file != "")
+                                          <a href="{{ asset('storage/' . $agreement_file) }}" 
+                                             class="custom_links_design" download>
+                                             <span style="color: #FF3C5F;">clicking here.</span>
+                                          </a>
+                                          @else
+
+                                          <a href="javascript:void(0)" 
+                                             class="custom_links_design" download>
+                                             <span style="color: #FF3C5F;">clicking here.</span>
+                                          </a>
+
+                                       @endif            
+                                      
+                                           
+                                    </div>
+                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Agreement -->
+                    <!-- Fee -->
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="card-link collapsed" data-toggle="collapse" href="#lingo"
+                                aria-expanded="false">Fees</a>
+                        </div>
+                        <div id="lingo" class="collapse" data-parent="#accordion" style="">
+                            <div class="card-body">
+                                <form id="operatorProfile" class="v-form-design"
+                                    action="{{ route('operator.account.update', [$operator->id]) }}" method="POST">
+                                    <input type="hidden" name="user_id" value="{{ $operator->id }}">
+                                    <input type="hidden" name="_token">
+
+                                    <div class="row">
+                                        <div class="col-md-10 px-0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="member_id">Advertising</label>
+                                                        <span class="form-control form-back">
+                                                            {{ $operator->operator_detail->commission_advertising_percent }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="date_appointed">Massage Centre
+                                                            (Registrations)</label>
+                                                        <span class="form-control form-back">
+                                                            {{ $operator->operator_detail->commission_massage_centre_percent }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Fee -->
                 </div>
             </div>
         </div>
     </div>
-
-   
 @endsection
 @push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    
 @endpush

@@ -110,7 +110,19 @@ class OperatorRepository extends BaseRepository implements OperatorInterface
                 }
 
                 /// Update operator detail
+               
                 $operator = $user->operator_detail ?? $user->operator_detail()->create(['user_id' => $user->id]);
+                if (!empty($data['agreement_file'])) {
+                   
+                    $file = $data['agreement_file'];
+                    $filename = time().'.'.$file->getClientOriginalExtension();
+                    $file_path = 'operator_files/' . $filename; 
+                    $file->storeAs('public/operator_files', $filename);
+                    $operator->update(['agreement_file' => $file_path]);
+                    $agrement_file = $file_path;
+                } else {
+                    $agrement_file  = $operator->agreement_file;
+                }
 
                 $operator->update([
                     'date_appointed' => !empty($data['date_appointed'])
@@ -125,6 +137,7 @@ class OperatorRepository extends BaseRepository implements OperatorInterface
                     'fee' => $data['fee'] ?? null,
                     'commission_advertising_percent' => $data['commission_advertising_percent'] ?? null,
                     'commission_massage_centre_percent' => $data['commission_massage_centre_percent'] ?? null,
+                    'agreement_file' => $agrement_file,
 
                 ]);
 

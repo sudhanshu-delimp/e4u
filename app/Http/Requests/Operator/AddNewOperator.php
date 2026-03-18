@@ -54,6 +54,7 @@ class AddNewOperator extends FormRequest
             //'commission_massage_centre_percent' => 'bail|required|integer|between:1,100',
             'commission_advertising_percent' => 'required',
             'commission_massage_centre_percent' => 'required',
+            'agreement_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120'
         ];
     }
 
@@ -82,6 +83,10 @@ class AddNewOperator extends FormRequest
             'commission_massage_centre_percent.integer' => 'The massage centre commission must be an integer.',
             'commission_advertising_percent.between' => 'The advertising commission must be between 1 and 100.',
             'commission_massage_centre_percent.between' => 'The massage centre commission must be between 1 and 100.',
+            'agreement_file.required' => 'Please upload a file.',
+            'agreement_file.file' => 'The agreement file must be a valid file.',
+            'agreement_file.mimes' => 'Only PDF, JPG, JPEG, and PNG files are allowed.',
+            'agreement_file.max' => 'The file size must not exceed 5MB.',
         ];
     }
 }

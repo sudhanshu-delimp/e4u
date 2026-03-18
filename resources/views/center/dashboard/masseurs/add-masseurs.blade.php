@@ -185,6 +185,24 @@
             } 
 
         }
+       
+
+
+.ui-draggable-dragging{
+    display:block !important;
+    opacity:1 !important;
+    z-index:999999 !important;
+    pointer-events:none;
+}
+
+.carousel,.grid-container{
+    overflow:visible !important;
+}
+
+
+
+
+
     </style>
 @stop
 @section('content')
@@ -394,41 +412,43 @@
                                                         <div class="col-sm-12 masseur_upl_img">
                                                             <div class="thumnail_img">
                                                                 <h4 class="banner-sub-heading my-2">Thumbnail</h4>
-                                                                <div class="plate">
+                                                                <div class="plate dvDest">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
+
+                                                                        
                                                                         <img class="w-100 gal-thumb-first upld-img profile-gallery"
                                                                             id="img1"
                                                                             src="{{ asset('assets/app/img/mcc-default-thumbnail.png') }}"
-                                                                            onclick="positionToUpdate(1)">
+                                                                            onclick="positionToUpdate(1)" data-type="gallery">
                                                                     </label>
                                                                 </div>
                                                             </div>
                                                             <div class="gal_img">
                                                                 <h4 class="banner-sub-heading my-2">Gallery Images</h4>
                                                                 <div class="masseur_gallery">
-                                                                    <div class="plate">
+                                                                    <div class="plate dvDest">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
                                                                             <img class="upld-img profile-gallery"
                                                                                 id="img2"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
-                                                                                onclick="positionToUpdate(2)">
+                                                                                onclick="positionToUpdate(2)" data-type="gallery">
                                                                         </label>
                                                                     </div>
-                                                                    <div class="plate">
+                                                                    <div class="plate dvDest">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
                                                                             <img class="upld-img profile-gallery"
                                                                                 id="img3"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
-                                                                                onclick="positionToUpdate(3)">
+                                                                                onclick="positionToUpdate(3)" data-type="gallery">
                                                                         </label>
                                                                     </div>
-                                                                    <div class="plate">
+                                                                    <div class="plate dvDest">
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
                                                                             <img class="upld-img profile-gallery"
                                                                                 id="img4"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
-                                                                                onclick="positionToUpdate(4)">
+                                                                                onclick="positionToUpdate(4)" data-type="gallery">
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -502,13 +522,82 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div id="pagination-container"></div>
+                                                            
+                                                            
+                                                            
+    <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
+                <ul class="pagination ml-2 pl-1">
+                <li class="page-item preview">
+                <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
+
+                </li>
+                                <li class="page-item active" id="pageItem_0" data-id="0">
+                    <a data-target="#carouselExampleIndicators" data-slide-to="0" class="page-link" href="#">1</a>
+                </li>
+                                <li class="page-item nextOne">
+                <a class="page-link" href="#carouselExampleIndicators" id="nextId">››</a>
+                </li>
+                </ul>
+                <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
+                <div class="carousel-inner" id="view_all">
+                                    <div class="carousel-item active" id="cItem_0" data-id="0">
+                        <div class="grid-container" class="dvSource">  
+                            
+                                                                       
+                            <div class="item4" id="dm_231">
+                                <img class="img-thumbnail defult-image" src="https://e4u.local/escorts/images/186/gallery_abd12cebff72dea8576143c79.jpg" alt=" " data-id="231" data-position="">
+                                <i class="fa fa-trash deleteimg" data-id="231" title="Remove this media"></i>                                        
+                                                                        <span class="badge badge-red">Gallery</span>
+                                                            </div>
+                            
+                           
+                        </div>
+                    </div>
+                                     
+                </div>
+            </div>
+        </div> -->
+
+
+        <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
+                <ul class="pagination ml-2 pl-1">
+                <li class="page-item preview">
+                <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
+
+                </li>
+                                <li class="page-item active" id="pageItem_0" data-id="0">
+                    <a data-target="#carouselExampleIndicators" data-slide-to="0" class="page-link" href="#">1</a>
+                </li>
+                                <li class="page-item nextOne">
+                <a class="page-link" href="#carouselExampleIndicators" id="nextId">››</a>
+                </li>
+                </ul>
+                <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
+                <div class="carousel-inner" id="view_all">
+                                    <div class="carousel-item active" id="cItem_0" data-id="0">
+                        <div class="grid-container">  
+                            
+                                                                       
+                            <div class="item4" id="dm_236">
+                                <img class="img-thumbnail defult-image" src="https://e4u.local/escorts/images/186/gallery_dc5b2af164148548d9ceb267a.jpg" alt=" " data-id="236" data-position="">
+                                <i class="fa fa-trash deleteimg" data-id="236" title="Remove this media"></i>                                        
+                                                                        <span class="badge badge-red">Gallery</span>
+                                                            </div>
+                            
+                           
+                        </div>
+                    </div>
+                                     
+                </div>
+            </div>
+        </div> -->
                                                             <div id="carouselExampleIndicators" class="carousel slide"
                                                                 data-bs-wrap="false" data-bs-ride="carousel">
 
                                                                 <ul class="pagination ml-2 pl-1">
-                                                                    <!-- Declare the item in the group -->
+                                                                   
                                                                     <li class="page-item preview">
-                                                                        <!-- Declare the link of the item -->
+                                                                      
                                                                         <a class="page-link"
                                                                             href="#carouselExampleIndicators"
                                                                             id="preId">‹‹</a>
@@ -526,9 +615,12 @@
                                                                     <div class="carousel-inner" id="view_all">
 
                                                                     </div>
-                                                                    <!--.Carousel-->
+                                                                   
                                                                 </div>
                                                             </div>
+
+
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -942,8 +1034,9 @@
 
 
     <script>
-        ////////////// For Our Open Times ///////////////// 
 
+        var is_profile_complete = Number("{{ $massage_default->is_profile_complete ?? 0 }}");
+        ////////////// For Our Open Times ///////////////// 
         function validateAvailability() {
 
             let isFormValid = true;
@@ -1138,8 +1231,6 @@
 
             //// ----------- Update Single Data ------------ ///////
 
-
-
             $('.resetdays').on('click', function() {
                 let row = $(this).closest('.parent-row');
                 row.find('select').val('').prop('disabled', false);
@@ -1148,8 +1239,8 @@
             });
 
 
-
-            function checkRates() {
+            function checkRates() 
+            {
                 const selectors = [
                     'input[name="massage_price[]"]',
                     'input[name="incall_price[]"]',
@@ -1268,14 +1359,8 @@
 
                 });
 
-
-                    
-
                 return isValid;
             }
-
-            
-
 
             function checkProfileDynamicMedia() 
             {
@@ -1311,18 +1396,13 @@
 
             $('#submitMasseur').on('click', function(e) {
                 e.preventDefault();
-
-               
-
                 // let existRates = checkRates();
                 // if (!existRates) 
                 // {
                 //      swal_error_warning('Rate','You must complete at least one rate value to proceed.')
                 //      return false;
                 // }
-                
-
-
+            
                 if (!checkProfileDynamicMedia()) {
                     return false;
                 }
@@ -1381,18 +1461,10 @@
                 });
 
             });
-
-
-
-
-
-
         });
 
 
         // ########## Image Upload Script ##########
-
-
         const CHUNK_SIZE = 1024 * 1024;
         let currentPageUrl = window.location.href;
         var bannerDefaultImage;
@@ -1439,13 +1511,8 @@
 
 
         $("body").on('submit', '#mulitiImage', function(e) {
-
-
             console.log('mulitiImage===============');
             e.preventDefault();
-
-            //return false;
-
             let selectedImagesCount = parseInt(countSelectedImages());
             let page_token = $('#page_token').val();
             let existingImagesCount = parseInt($("input[name='media_count']").val());
@@ -1501,6 +1568,12 @@
                 success: function(data) {
                     if (data.status == 200) {
                         resetAddPhotoFrom(form);
+                        setTimeout(function(){
+                            initDragDrop();
+                        },200);
+
+
+
                     } else if (data.status == 405) {
                         swal.fire('Media',
                             "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>",
@@ -1605,63 +1678,7 @@
         }
 
 
-        function initDragDrop() {
-            $("#dvSource img").draggable({
-                revert: "invalid",
-                helper: 'clone',
-                appendTo: ".upload-banner",
-                refreshPositions: false,
-                start: function(event, ui) {
-                    ui.helper.css({
-                        width: "82px", // shrink preview
-                        height: "auto",
-                        "z-index": 9999
-                    });
-                    ui.helper.find("img").css({
-                        width: "100%",
-                        height: "auto"
-                    });
-                },
-                drag: function(event, ui) {
-
-                },
-                stop: function(event, ui) {}
-            });
-
-            $(".dvDest").droppable({
-                drop: function(event, ui) {
-                    let dropSlot = $(this);
-                    let dragSlot = ui.draggable;
-                    let dropSlotType = dropSlot.find('img').data('type');
-                    let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
-                    if (dropSlotType != dragSlotType) {
-                        let message = (dragSlotType == 'gallery') ?
-                            `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :
-                            `The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
-                        swal.fire('Media', message, 'error');
-                        return false;
-                    } else {
-                        $(this).trigger('click');
-                        let meidaId = dragSlot.data('id');
-                        let target;
-                        switch (dragSlotType) {
-                            case 'gallery': {
-                                target = $(".modalPopup .item4 img[data-id='" + meidaId + "']").closest(
-                                    ".item4");
-                            }
-                            break;
-                            case 'banner': {
-                                target = $(".modalPopup .item2 img[data-id='" + meidaId + "']").closest(
-                                    ".item2");
-                            }
-                            break;
-                        }
-                        target.trigger('click');
-                    }
-
-                }
-            });
-        }
+   
 
         function positionToUpdate(position) {
             updatePosition = position;
@@ -1711,18 +1728,6 @@
                 $("#mediaId" + updatePosition).val(mediaId);
 
                 console.log('profile_selected_images.length', profile_selected_images.length);
-
-                // if (profile_selected_images.length > 0) {
-                //     let modalTitle = document.querySelector("#setAsDefaultForMainAccount .modal-title");
-                //     let textNode = [...modalTitle.childNodes].find(
-                //         node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== ""
-                //     );
-                //     if (textNode) {
-                //         textNode.textContent = default_image_icons.includes(targetImageName) ?
-                //             'Save to Default Media or Repository' : 'Replace Media';
-                //     }
-                //     $("#setAsDefaultForMainAccount").modal('show');
-                // }
             }
             $("#photo_gallery").modal("hide");
             $("#photo_gallery_banner").modal("hide");
@@ -1755,7 +1760,6 @@
 
                     };
                 } else {
-                    //alert("file size in MB = "+imgMB);
                     $('.comman_msg').html("Can't upload more than 2 MB size");
                     $("#comman_modal").modal('show');
                 }
@@ -1778,34 +1782,6 @@
             })
 
         }
-
-
-        //     function updateDefaultImage(position, meidaId, img_target, media_src) {
-        //        var url = "{{ route('center.masseur.default.images') }} ";
-        //        $.ajax({
-        //            type: 'POST',
-        //            url: url,
-        //            data: {
-        //                position: position,
-        //                meidaId: meidaId
-        //            },
-        //            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        //            success : function (data) {
-        //                if(data.error == true) {
-        //                    img_target.attr('data-id', meidaId);
-        //                    img_target.attr('src', media_src);
-        //                } else {
-        //                    swal.fire('', "<p>"+data.msg+"</p>", 'error');
-
-        //                    $('#comman_modal').on('hidden.bs.modal', function () {
-
-        //                    });
-        //                }
-        //            }
-        //        });
-        //    }
-
-
 
         $('.select-Photo').on('click', function(e) {
             $("#photo_gallery").modal('hide');
@@ -1881,76 +1857,114 @@
             this.value = this.value.replace(/[^0-9]/g, '');
         });
 
-
-
-
-
-
-        //     $(document).on('click','.modalPopup .item2,.modalPopup .item4', function(e) {
-        //        let imageSrc = $(this).find('img').attr('src');
-        //        let mediaId = $(this).find('img').data('id');
-        //        let img_target = $("#img"+updatePosition);
-        //        updateDefaultImage(updatePosition, mediaId, img_target, imageSrc);
-        //        $(`#${$(this).parents('.modal').attr('id')}`).modal("hide");
-        //    });
-
-
-        // $(document).on('click', '.modalPopup .item4, .modalPopup .item2', function(e) {
-
-        //         let imageSrc = $(this).find('img').attr('src');
-        //         let mediaId = $(this).find('img').data('id');
-        //         let img_target = $("#img" + updatePosition);
-        //         let targetImageSrc = img_target.attr('src');
-        //         let targetImageName = targetImageSrc.split("/").pop();
-        //         /**
-        //          * Get existing profile image data to check duplicates
-        //          */
-        //         let srcArray = $(".upld-img").map(function() {
-        //             return $(this).attr("src"); // Get the 'src' attribute of each <img>
-        //         }).get();
-
-        //         let newObject = {
-        //             imageSrc: imageSrc,
-        //             mediaId: mediaId,
-        //             img_target: img_target,
-        //             updatePosition: updatePosition
-        //         };
-
-        //         let duplicateImage = srcArray.findIndex(item => item === imageSrc);
-        //         if (duplicateImage !== -1) {
-        //             swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
-        //         } else {
-        //             let index = profile_selected_images.findIndex(item => item.updatePosition === updatePosition);
-        //             if (index !== -1) {
-        //                 profile_selected_images[index] = {
-        //                     ...profile_selected_images[index],
-        //                     ...newObject
-        //                 };
-        //             } else {
-        //                 profile_selected_images.push(newObject);
-        //             }
-        //             $("#blah" + updatePosition).attr('src', imageSrc);
-        //             $("#img" + updatePosition).attr('src', imageSrc);
-        //             $("#mediaId" + updatePosition).val(mediaId);
-
-        //             console.log('profile_selected_images.length',profile_selected_images.length);
-
-        //             // if (profile_selected_images.length > 0) {
-        //             //     let modalTitle = document.querySelector("#setAsDefaultForMainAccount .modal-title");
-        //             //     let textNode = [...modalTitle.childNodes].find(
-        //             //         node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== ""
-        //             //     );
-        //             //     if (textNode) {
-        //             //         textNode.textContent = default_image_icons.includes(targetImageName) ?
-        //             //             'Save to Default Media or Repository' : 'Replace Media';
-        //             //     }
-        //             //     $("#setAsDefaultForMainAccount").modal('show');
-        //             // }
-        //         }
-        //         $("#photo_gallery").modal("hide");
-        //         $("#photo_gallery_banner").modal("hide");
-        //     });
-
         // ########## Image Upload Script ##########
-    </script>
+
+$(document).ready(function () {
+    initDragDrop();
+
+     console.log('==========is_profile_complete',is_profile_complete)
+
+    if (!is_profile_complete) {
+
+    console.log('is_profile_complete',is_profile_complete)
+
+        Swal.fire({
+            icon: 'warning',
+            title: 'Profile',
+            text: 'Please update your profile information.',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+
+            if(result.isConfirmed){
+                window.location.href = "{{ url('center-dashboard/profile-informations') }}";
+            }
+
+        });
+
+    }
+
+});
+
+
+function initDragDrop()
+{
+
+    console.log("initDragDrop");
+    $(".grid-container .defult-image.ui-draggable").draggable("destroy");
+
+   
+    $(".grid-container .defult-image").draggable({
+        revert: "invalid",
+        appendTo: "body",
+        cursor: "move",
+        zIndex: 999999,
+
+        helper: function(){
+
+            let src = $(this).attr("src");
+
+            return $("<img>")
+                .attr("src", src)
+                .css({
+                    width: "90px",
+                    height: "auto",
+                    borderRadius: "6px",
+                    boxShadow: "0 4px 10px rgba(0,0,0,0.3)"
+                });
+
+        }
+    });
+
+   
+    $(".dvDest").droppable({
+
+        hoverClass: "drop-hover",
+
+        drop: function(event, ui){
+
+            let dropSlot = $(this);
+            let dragSlot = ui.draggable;
+
+            let dropSlotType = dropSlot.find("img").attr("data-type");
+            let dragSlotType = dragSlot.closest(".item4").find("span").text().toLowerCase();
+
+            let imgSrc = dragSlot.attr("src");
+            let imgId  = dragSlot.attr("data-id");
+
+            console.log(dropSlotType, dragSlotType);
+
+            if(dropSlotType === dragSlotType){
+
+              
+                let alreadyUsed = false;
+
+                $(".dvDest img").each(function(){
+                    if($(this).attr("data-id") == imgId){
+                        alreadyUsed = true;
+                    }
+                });
+
+                if(alreadyUsed){
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Duplicate Image",
+                        text: "This image is already used."
+                    });
+                    return;
+                }
+
+                
+                dropSlot.find("img")
+                    .attr("src", imgSrc)
+                    .attr("data-id", imgId);
+
+            }
+
+        }
+
+    });
+
+}
+
+</script>
 @endpush

@@ -20,7 +20,7 @@ $loginAccount = auth()->user();
             <div class="row margin_zero_for_row">
                 <div class="col-lg-12 col-md-12 col-12 mb-2">
                     <div class="paymnt_summery mb-3 summary-bg d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">Summary</h4>
+                        <h4 class="mb-0">Upgrade Summary</h4>
                         <div class="member-id">
                             <span class="pr-2 "><i class="fa fa-user"></i></span>
                             <span>Member ID: {{$loginAccount->member_id}}</span>
@@ -65,13 +65,25 @@ $loginAccount = auth()->user();
                                         <td class="text-center"><span class="mr-2">$</span>  {{ number_format($discount, 2) }}</td>
                                         <td class="text-center"><span class="mr-2">$</span>  {{ number_format($rate, 2) }}</td>
                                     </tr>
+                                    <input type="hidden" name="escort_id" value="{{ $listing['escort_id']  }}">
+                                    <input type="hidden" name="membership" value="{{ $listing['membership'] }}">
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="8" class="border-0"></td>
-                                    <td  class="text-center"><b>Total Fees:</b></td>
+                                    <td  class="text-center"><b>Sub Total:</b></td>
                                     <td class="text-center"><b><span class="mr-2">$</span> {{ number_format($totalAmount, 2) }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8" class="border-0"></td>
+                                    <td  class="text-center"><b>Refund:</b></td>
+                                    <td class="text-center"><b><span class="mr-2">- $</span> {{ number_format($refundAmount, 2) }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8" class="border-0"></td>
+                                    <td  class="text-center"><b>Total:</b></td>
+                                    <td class="text-center"><b><span class="mr-2">$</span> {{ number_format(($totalAmount-$refundAmount), 2) }}</b></td>
                                 </tr>
                             </tfoot>
                         </table>
