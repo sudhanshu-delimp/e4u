@@ -128,6 +128,23 @@ class AuthController extends Controller
                 }
             }
 
+            if ($user->type == 9) {
+                $opStatus = $user->operator->status;
+                if ($opStatus != 'Active') {
+                    if ($opStatus == 'Pending') {
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Your operator account is currently pending approval. You operator will be notified via email once it has been approved.',
+                        ], 401);
+                    } else {
+                        return response()->json([
+                            'status' => false,
+                            'message' => "Your operator account has been suspended until further notice."
+                        ], 401);
+                    }
+                }
+            }
+
             /**
              * 1 for Admin
              * 2 for Sub Admin
