@@ -213,15 +213,15 @@
 <script src="{{ asset('assets/dashboard/vendor/ckeditor/ckeditor.js') }}"></script>
 
 <script>
-window.defaultImagesUrl = "{{ route('center.get.default.images') }}";
-window.postdefaultImageUrl = "{{ route('center.default.images') }}";
-var textarea = document.getElementById('about_us_box');
-CKEDITOR.replace('about_us_box');
-var updatePosition = 0;
-var edit_mode = @json($edit_mode ?? false);
-var profileId = "{{ $escort->id}}";
-console.log('profileId',profileId);
-</script>
+// window.defaultImagesUrl = "{{ route('center.get.default.images') }}";
+// window.postdefaultImageUrl = "{{ route('center.default.images') }}";
+// var textarea = document.getElementById('about_us_box');
+// CKEDITOR.replace('about_us_box');
+// var updatePosition = 0;
+// var edit_mode = @json($edit_mode ?? false);
+// var profileId = "{{ $escort->id}}";
+// console.log('profileId',profileId);
+// </script>
 
 
 <script src="{{ asset('js/massage/create-profile-methods.js') }}"></script> 

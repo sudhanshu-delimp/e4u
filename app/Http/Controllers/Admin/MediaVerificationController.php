@@ -211,7 +211,7 @@ class MediaVerificationController extends Controller
             ->first();
         $status = $media_verification->getRawOriginal('status');
         //$query = EscortMedia::where('user_id', $user_id)->whereNotIn('position', ['9', '10']);
-        $query = EscortMedia::where('user_id', $user_id)
+        $query = EscortMedia::where('user_id', $user_id)->where('type', '0')
             ->where(function ($q) {
                 $q->whereNotIn('position', [9, 10])
                 ->orWhereNull('position');
@@ -277,6 +277,7 @@ class MediaVerificationController extends Controller
 
         EscortMedia::where('user_id', $media_verification->user_id)
             ->where('varified', null)
+            ->where('type', 0)
             ->update([
                 'media_verification_id' => $media_verification->id,
                 'varified' => (string) $request->get('status')
@@ -311,10 +312,9 @@ class MediaVerificationController extends Controller
             default: // Pending 
                 break;
         }
-
         return response()->json([
             'status' => true,
-            'message' => 'Media verification approved successfully.',
+            'message' => 'Media verification '.strtolower($media_verification->status).' successfully.',
             'media_verification_status' => $status
         ]);
     }
