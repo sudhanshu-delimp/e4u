@@ -114,7 +114,7 @@
                         <tbody>
                             <!-- <tr>
                                 <td>E60125</td>
-                                <td>18-02-2026</td>
+                                <td>18-02-2026</td> 
                                 <td>Tiera</td>
                                 <td>1438 028 728</td>
                                 <td>Escort</td>
@@ -351,6 +351,7 @@
                 },
                 success: function (response) {
                     if (response.status) {
+                        swal.fire('', response.message, 'success');
                         $('#view_image').modal('hide');
                         $('#mediaverifyTable').DataTable().ajax.reload();   
                     }
