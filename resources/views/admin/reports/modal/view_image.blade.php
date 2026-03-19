@@ -13,13 +13,49 @@
             </div>
             <div class="modal-body">
                 <div class="view_img_gallery">
-                    
                     <div class="other_wrapper">
-                        <span class="banner-sub-heading mt-2">Gallery Images</span>
-                        <div class="other_images" id="media-images"></div>
+                        
+                        <ul class="nav nav-tabs view_img_tab" id="myTab" role="tablist">
+                    
+                            <li class="nav-item">
+                                <a class="nav-link active" id="gallery-tab" data-toggle="tab" href="#gallery" role="tab" aria-controls="gallery" aria-selected="false">
+                                    Gallery Images
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="banners-tab" data-toggle="tab" href="#banners" role="tab" aria-controls="banners" aria-selected="true">
+                                        Banner
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pinups-tab" data-toggle="tab" href="#pinups" role="tab" aria-controls="pinups" aria-selected="true">
+                                        Pinup
+                                    </a>
+                                </li>
+                        </ul>
+                        <div class="tab-content mt-3">
+                            <!-- Tab panes -->
+                            <div class="tab-pane fade show active" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
+                                    <div class="other_images" id="media-images"></div>
+                            </div>
+
+                            <div class="tab-pane fade" id="banners" role="tabpanel" aria-labelledby="banners-tab">
+                                    <div class="banner_img">
+                                        <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}"  alt="view image gallery">
+                                    </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="pinups" role="tabpanel" aria-labelledby="pinups-tab">
+                                 <div class="pinup_img">
+                                     <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" alt="view image gallery">
+                                 </div>
+                            </div>
+                        </div>            
+                
+                        
                     </div>
                     <div class="verification">
-                        <span class="banner-sub-heading mt-2">Verification Image</span>
+                        <p class="banner-sub-heading mt-2" style=" border-bottom: 1px solid #dddfeb; padding-bottom: 9px;">Verification Image</p>
                         <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" id="verification-image" alt="view image gallery">
                     </div>
                 </div>

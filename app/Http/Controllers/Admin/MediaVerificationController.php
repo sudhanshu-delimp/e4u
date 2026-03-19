@@ -239,7 +239,7 @@ class MediaVerificationController extends Controller
         $mediaImages = [];
         foreach ($escort_medias as $escort_media) {
             $imageUrl = asset($escort_media->path);
-            $mediaImages[] = '<img src="' . $imageUrl . '" alt="view image gallery" style="width:100px;">';
+            $mediaImages[] = '<img src="' . $imageUrl . '" alt="view image gallery">';
         }
 
         if ($media_verification) {
