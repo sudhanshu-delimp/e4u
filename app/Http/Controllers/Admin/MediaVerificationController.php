@@ -312,10 +312,9 @@ class MediaVerificationController extends Controller
             default: // Pending 
                 break;
         }
-
         return response()->json([
             'status' => true,
-            'message' => 'Media verification approved successfully.',
+            'message' => 'Media verification '.strtolower($media_verification->status).' successfully.',
             'media_verification_status' => $status
         ]);
     }
