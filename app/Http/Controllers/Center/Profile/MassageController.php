@@ -898,6 +898,20 @@ class MassageController extends Controller
         {
             if (!empty($request->masseur_ids)) 
             {
+               
+                $default_duration = find_massage_default_duration(auth()->user()->id);
+                $messure_service = [];
+                if(isset($default_duration['massage_price']) && (!empty($default_duration['massage_price'])))
+                $messure_service[] = 'massage';
+                
+                if(isset($default_duration['incall_price']) && (!empty($default_duration['incall_price'])))
+                $messure_service[] = '2_hand'; 
+
+                if(isset($default_duration['outcall_price']) && (!empty($default_duration['outcall_price'])))
+                $messure_service[] = '4_hand'; 
+
+                //dd($messure_service);
+
                 $massage_profile_id = $request->massage_id;
                 $masseurIds = $request->masseur_ids;
                 if (is_string($masseurIds)) {
@@ -909,12 +923,12 @@ class MassageController extends Controller
                 {
                     foreach ($masseurIds as $key => $value) 
                     {
-                            $masseur[] = [  
-                                            'masseur_profile_id'    => $value,
-                                            'massage_profile_id'    => $massage_profile_id,
-                                            'created_at'            => now(),
-                                            'updated_at'            => now(),
-                                        ];
+                        $masseur[] = [  
+                                        'masseur_profile_id'    => $value,
+                                        'massage_profile_id'    => $massage_profile_id,
+                                        'created_at'            => now(),
+                                        'updated_at'            => now(),
+                                    ];
                     }   
                 }
 
@@ -922,6 +936,7 @@ class MassageController extends Controller
                 {
                     MassagerMasseur::where(['massage_profile_id'=> $massage_profile_id])->delete();
                     MassagerMasseur::insert($masseur);
+                    Masseur::whereIn('id', $masseurIds)->update(['service'=>$messure_service]);
 
                 }
                
