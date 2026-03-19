@@ -207,7 +207,7 @@ class EscortTourScheduleContoller extends Controller
             $tourLocationProfiles = $tourLocation->profiles();
             $items = $tourLocationProfiles->with('escort')->get();
             $refundAmount = 0.00;
-            if($tourLocation->days_left < $tourLocation->days_total){
+            if($tourLocation->left_listing_days < $tourLocation->days_total){
                 foreach($items as $item){
                     $escortDetail = $item->escort;
                     $localEndDateTime = Carbon::today($escortDetail->time_zone)->endOfDay();

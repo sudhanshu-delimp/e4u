@@ -72,7 +72,8 @@ async function isConfirm(data = {}) {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, " + (data.action ? data.action : 'do') + " it!"
+        confirmButtonText: "Yes, " + (data.action ? data.action : 'do') + " it!",
+        cancelButtonText: data.cancelText ? data.cancelText : "Cancel"
     });
 
     if (result.isConfirmed) {

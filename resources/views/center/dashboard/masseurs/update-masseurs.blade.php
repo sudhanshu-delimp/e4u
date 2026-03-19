@@ -334,21 +334,21 @@
                                             <div class="d-flex justify-content-start gap-10">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="service[]" value="massage"
-                                                        {{ in_array('massage', $services) ? 'checked' : '' }} required data-label="Vaccination">
+                                                        {{ in_array('massage', $services) ? 'checked' : '' }} required data-label="Vaccination" @if(!$exists) {{ !isPriceValid($default_duration['massage_price']) ? 'disabled' : '' }} @endif >
                                                     <label class="form-check-label">
                                                         Massage
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"  name="service[]" value="2_hand"
-                                                         {{ in_array('2_hand', $services) ? 'checked' : '' }}>
+                                                    <input class="form-check-input" type="checkbox"  name="service[]" value="2_hand" 
+                                                         {{ in_array('2_hand', $services) ? 'checked' : '' }} @if(!$exists) {{ !isPriceValid($default_duration['incall_price']) ? 'disabled' : '' }} @endif >
                                                     <label class="form-check-label">
                                                         +2 Hands
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="service[]"  value="4_hand"
-                                                       {{ in_array('4_hand', $services) ? 'checked' : '' }}>
+                                                       {{ in_array('4_hand', $services) ? 'checked' : '' }}  @if(!$exists) {{ !isPriceValid($default_duration['outcall_price']) ? 'disabled' : '' }} @endif>
                                                     <label class="form-check-label">
                                                         +4 Hands.
                                                     </label>

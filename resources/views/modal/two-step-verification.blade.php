@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
     $('#sendOtp_modal').on('shown.bs.modal', focusFirstOtpInput);
     
 
-    let seconds = 120; 
+    let seconds = '{{config("common.otp_resend_seconds")}}'; 
 
     function startOtpTimer() {
         resendEl.style.display = "none";
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("resendOtpSubmit").addEventListener("click", function (e) {
         e.preventDefault();
         $('#resendLine').css({'display':'none'});
-        seconds = 120;
+        seconds = '{{config("common.otp_resend_seconds")}}';
         startOtpTimer();
 
         focusFirstOtpInput();

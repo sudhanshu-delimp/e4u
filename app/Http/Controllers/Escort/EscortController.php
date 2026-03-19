@@ -159,16 +159,7 @@ class EscortController extends BaseController
                     $end_dates = [$end_date];
                     $memberships = [$newMembership];
 
-
-                    //list($usedDicount, $usedAmount) = calculateTotalFee($oldPurchase->membership, ($oldPurchase->days_number - $escortDetail->left_listing_days));
-                    list($dicount, $amount, $unitAmount, $unitDiscount) = calculateTotalFee($newMembership, $escortDetail->days_left);
-
-                    //  echo $amount;
-                    //  die;
                     $refundAmount = getListingRefundAmount($escortDetail);
-                    //  die;
-                    // list($newDicount, $newAmount) = calculateTotalFee($newMembership, $escortDetail->days_left);
-                    // $net_paid_amount = number_format($newAmount-$refundAmount,2);
                 } break;
                 default:{
                     $escort_ids = $request->input('escort_id');
@@ -872,7 +863,7 @@ class EscortController extends BaseController
             $membershipId = $request->membershipId;
             $profileDetail = getEscortDetail($profileId);
             $refundAmount = getListingRefundAmount($profileDetail);
-            list($newDicount, $newAmount) = calculateTotalFee($membershipId, $profileDetail->days_left);
+            list($newDicount, $newAmount) = calculateTotalFee($membershipId, $profileDetail->left_listing_days);
             $net_paid_amount = number_format($newAmount-$refundAmount,2);
 
             return response()->json([
@@ -905,7 +896,7 @@ class EscortController extends BaseController
                 $refundAmount = getListingRefundAmount($profileDetail);
 
                 list($usedDicount, $usedAmount) = calculateTotalFee($oldPurchase->membership, ($oldPurchase->days_number - $profileDetail->left_listing_days));
-                list($dicount, $amount, $unitAmount, $unitDiscount) = calculateTotalFee($membershipId, $profileDetail->days_left);
+                list($dicount, $amount, $unitAmount, $unitDiscount) = calculateTotalFee($membershipId, $profileDetail->left_listing_days);
 
                 $today = Carbon::today($profileDetail->TimeZone);
                 $startOfToady = $today->copy()->startOfDay()->setTimezone('UTC');
@@ -923,7 +914,7 @@ class EscortController extends BaseController
                 $newPurchase->utc_start_time =  $startOfToady;
                 $newPurchase->rate = $unitAmount;
                 $newPurchase->discount_rate = $unitDiscount;
-                $newPurchase->total_rate = $profileDetail->days_left*$unitAmount;
+                $newPurchase->total_rate = $profileDetail->left_listing_days*$unitAmount;
                 $newPurchase->paid_rate = $amount;
                 $newPurchase->save();
 
