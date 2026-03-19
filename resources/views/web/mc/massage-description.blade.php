@@ -58,6 +58,9 @@
 .mc_avail_table table td {
     padding: 5px 0px !important;
 }
+.masseurs_modals{
+    max-width: 1000px !important;
+}
 </style>
     @stop
     @section('content')
@@ -586,9 +589,9 @@
 
                                 <!-- /////////// Messeur Modal //////////////// -->
                                 <div class="modal fade upload-modal product_view" id="product_view_{{$masseur->id}}">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-dialog modal-dialog-centered masseurs_modals modal-xl">
                                     <div class="modal-content">
-                                        <div class="modal-header border-0">
+                                        <div class="modal-header">
                                             <h5 class="mc_member_id"> <img src="{{ asset('../assets/app/img/Vector-31.png') }}" class="img-responsive"> Member ID: {{ $masseur->member_id ?? 'N/A' }} </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}"
