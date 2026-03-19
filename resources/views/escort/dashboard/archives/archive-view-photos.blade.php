@@ -428,7 +428,7 @@
 
 
 <div class="modal fade upload-modal" id="photo_gallery_banner" style="display: none">
-   <div class="modal-dialog modal-dialog-centered modal-lg">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
        <div class="modal-content">
            <div class="modal-header">
                <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Banner</h5>

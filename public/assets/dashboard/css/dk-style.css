@@ -2889,7 +2889,6 @@ button.btn:focus {
 .nav-item a.active {
     /*background: #0C223D !important;*/
     background: var(--peach) !important;
-    color: #fff !important;
 }
 
 .sub-nav.nav-link.active {

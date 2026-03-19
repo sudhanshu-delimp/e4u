@@ -513,7 +513,7 @@ img#blah8 {
                     <div class="modal-header">
                         <h5 class="modal-title"> <img
                                 src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross">
-                            Select Banner</h5>
+                            Select Banner fddf</h5>
     
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">

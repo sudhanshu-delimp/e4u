@@ -632,11 +632,11 @@
             </div>
         </div>
 
-        <div class="modal" id="photo_gallery_banner" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title" style="color: white;"> <img
+        <div class="modal upload-modal fade" id="photo_gallery_banner" style="display: none">
+            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> <img
                                 src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross">
                             Select Banner</h5>
     
@@ -664,7 +664,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="modalPopup" style="max-height: 350px; min-height:100px; overflow:auto;">
+                        <div class="modalPopup">
     
                             <div class="tab-content mt-3">
                                 <!-- Tab panes -->
@@ -1976,8 +1976,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div id="gallery_modal_container" class="grid-container modalPopup"
-                    style="max-height: 500px; overflow-y:scroll;">
+                <div id="gallery_modal_container" class="grid-container modalPopup">
 
                     @foreach ($media as $keyId => $image)
                         @if (!in_array($image->position, [9, 10]))
