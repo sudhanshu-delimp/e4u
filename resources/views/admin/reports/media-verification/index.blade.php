@@ -159,35 +159,7 @@
             </div>
         </div>
     </div>
-    <!-- <div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel" aria-modal="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
-                <div class="modal-header border-0">
-                    <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
-                        <img src="{{ asset('assets/dashboard/img/question-mark.png') }}" alt="resolved" class="custompopicon">
-                        <span>Confirmation</span>
-                    </h5>
-                    <input type="hidden" id="status_data_value" name="status_data_value" value="">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
-                </div>
-
-                <div class="modal-body pb-0 teop-text text-center">
-                    <h5 class="popu_heading_style mt-2">
-                        Are you sure you want to perform this action.
-                    </h5>
-
-                </div>
-                <div class="modal-footer justify-content-center border-0 pb-4">
-
-                    <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal" aria-label="Close">Yes</button> <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">No</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
+    
     @include('admin.reports.modal.view_image')
     @include('admin.reports.modal.view_tag')
     @include('admin.reports.modal.view_centre')
