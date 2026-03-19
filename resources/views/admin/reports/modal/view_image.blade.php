@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"><img
-                        src="{{ asset('assets/dashboard/img/verify-image.png') }}" class="custompopicon"> Verification Image - [Member ID]
+                        src="{{ asset('assets/dashboard/img/verify-image.png') }}" class="custompopicon"> Verification Image - <span id="member-id"></span>
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
@@ -16,40 +16,20 @@
                     
                     <div class="other_wrapper">
                         <span class="banner-sub-heading mt-2">Gallery Images</span>
-                         <div class="other_images">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b3.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b4.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b5.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b6.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b3.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b4.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b5.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b6.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b6.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b3.jpg') }}" alt="view image gallery">
-                            <img src="{{ asset('assets/dashboard/img/view_img/b4.jpg') }}" alt="view image gallery">
-                         </div>
+                        <div class="other_images" id="media-images"></div>
                     </div>
                     <div class="verification">
                         <span class="banner-sub-heading mt-2">Verification Image</span>
-                        <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" alt="view image gallery">
+                        <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" id="verification-image" alt="view image gallery">
                     </div>
-
-
                 </div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn-success-modal">Print</button>
+                <button type="button" class="btn-success-modal printImages">Print</button>
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
-                <button type="button" class="btn-success-modal" data-dismiss="modal">Approve</button>
-                <button type="button" class="btn-success-modal" data-dismiss="modal">Reject</button>
+                <button type="button" class="btn-success-modal approve-btn"  data-toggle="modal">Approve</button>
+                <button type="button" class="btn-success-modal reject-btn" data-toggle="modal">Reject</button>
             </div>
 
         </div>

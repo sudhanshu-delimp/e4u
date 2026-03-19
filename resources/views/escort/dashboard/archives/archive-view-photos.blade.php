@@ -100,6 +100,7 @@
     .my-custompop-tabs .nav-item .nav-link.active{
     color: #fff;
     }
+    
 </style>
 @endsection
 @section('content')
@@ -267,15 +268,15 @@
                 <div class="photo-header custom-photo-header">
                     <div class="row">
                         <div class="col-md-8">
-                            <ul class="nav nav-tabs border-0">
+                            <ul class="nav nav-tabs border-0" id="escort_profile_media_filter_type">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="menu_all"  href="#home">All</a>
+                                    <a class="nav-link active" data-filter-type="all" id="menu_all"  href="#home">All</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="menu_varified"  href="#menu1">Verified</a>
+                                    <a class="nav-link" data-filter-type="verified" id="menu_varified"  href="#menu1">Verified</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="menu_unverified"  href="#menu2">Unverified</a>
+                                    <a class="nav-link" data-filter-type="unverified" id="menu_unverified"  href="#menu2">Unverified</a>
                                 </li>
                             </ul>
                         </div>
@@ -491,7 +492,7 @@
                             </div>
                         </div> --}}
 
-                         {{-- Issko remove nahi karna hai Bhai Log --}}
+                         {{-- Don't Remove This  --}} 
                                 <!-- Templates Tab -->
                                     <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
 
@@ -672,6 +673,7 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/ajax/libs/jquery/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
+<script src="{{ asset('js/escort/media-varification.js') }}"></script>
 <script>
     var updatePosition = 0;
     $("body").on('click','.cropEdit',function(){
@@ -795,5 +797,6 @@
        updateDefaultImage(updatePosition, mediaId, img_target, imageSrc);
        $(`#${$(this).parents('.modal').attr('id')}`).modal("hide");
    });
+   
 </script>
 @endpush

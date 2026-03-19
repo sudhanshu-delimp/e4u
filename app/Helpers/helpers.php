@@ -1244,7 +1244,7 @@ if (!function_exists('getStatusBadgeClass')) {
             'In-progress'       => 'badge_inProgress',
             'Upcoming'          => 'badge_upcoming',
             'Withdrawn'         => 'badge_withdraw',
-            'Approved'          => 'badge_accepted',
+            'Verified'          => 'badge_accepted',
             'Current'          => 'badge_current',
             
         ];
@@ -1637,6 +1637,46 @@ if (!function_exists('massage_profile_complete_status')) {
         
   }
 }
+
+if (!function_exists('getUserTypeById')) {
+        function getUserTypeById($value)
+        {
+            switch ($value) {
+                case 0:
+                    return 'User';
+                    break;
+
+                case 1:
+                    return "Admin";
+                    break;
+
+                case 2:
+                    return "Sub-Admin";
+                    break;
+
+                case 3:
+                    return "Escort";
+                    break;
+
+                case 4:
+                    return "Massage-Center";
+                    break;
+
+                case 5:
+                    return "Agents";
+                    break;
+                case 6:
+                    return "Staff";
+                    break;
+                case 7:
+                    return "Operator";
+                    break;
+                case 9:
+                    return "Operator-Staff";
+                    break;
+            }
+        }
+    }
 
 
 if (!function_exists('get_social_links')) {

@@ -31,6 +31,7 @@ use App\Models\EscortGallery;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use Illuminate\Support\Facades\DB;
+use App\Models\MediaVerification;
 
 use App\Models\EscortCovidReport;
 //use Illuminate\Http\Request;
@@ -59,7 +60,11 @@ class EscortGalleryController extends AppController
     {
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
         $path = $this->media;
-        return view('escort.dashboard.archives.archive-view-photos',compact('media','path'));
+        $verification = MediaVerification::where('user_id', auth()->id())->first();
+        $imageUrl = $verification && $verification->image_path
+            ? asset('escorts/' . $verification->image_path)
+            : asset('assets/app/img/upload-media.png');
+        return view('escort.dashboard.archives.archive-view-photos',compact('media','path','imageUrl'));
     }
 
     public function videoGalleries()
@@ -612,4 +617,47 @@ class EscortGalleryController extends AppController
             'url' => asset("escorts/{$finalFilePath}") // Returns public URL
         ]);
     }
+
+   public function mediaVerificationUpload(Request $request)
+{
+    $request->validate([
+        'image' => 'required|image|mimes:jpg,jpeg,png|max:5120',
+        'verification_type' => 'required|in:0,1,2',
+    ]);
+
+    $user = auth()->user();
+    $image = $request->file('image');
+
+    $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+    $destination_path = $user->id . '/verifications/' . $fileName;
+
+    Storage::disk('escorts')->put(
+        $destination_path,
+        file_get_contents($image)
+    );
+
+    $verification = MediaVerification::where('user_id', $user->id)
+        ->where('status', '0')
+        ->first();
+
+    if ($verification) {
+        $verification->update([
+            'image_path' => $destination_path,
+            'type' => (string) $request->verification_type,
+        ]);
+    } else {
+        MediaVerification::create([
+            'user_id' => $user->id,
+            'image_path' => $destination_path,
+            'type' => (string) $request->verification_type,
+            'status' => MediaVerification::STATUS_PENDING,
+            'submited_by' => $user->id,
+        ]);
+    }
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Verification uploaded successfully.',
+    ]);
+}
 }
