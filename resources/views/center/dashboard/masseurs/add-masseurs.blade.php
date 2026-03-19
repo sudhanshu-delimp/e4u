@@ -1845,7 +1845,7 @@ function initDragDrop()
 {
 
     console.log("initDragDrop");
-    $(".grid-container .defult-image.ui-draggable").draggable("destroy");
+    //$(".grid-container .defult-image.ui-draggable").draggable("destroy");
 
    
     $(".grid-container .defult-image").draggable({
