@@ -150,11 +150,11 @@
 
 
 
-<div class="modal programmatic" id="update_info" style="display: none">
+<div class="modal fade upload-modal programmatic" id="update_info" style="display: none">
    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content custome_modal_max_width">
-         <div class="modal-header main_bg_color border-0">
-            <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">
             <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -171,9 +171,9 @@
              <input type="hidden" name="post_json" id="post_json" value="">
             <input type="hidden" name="post_type" id="post_type" value="">
                 
-                <h3 class="my-2"><span id="Lname"><p>Would you like to update <b>
+                <h5 class="my-4 custom_modal_text"><span id="Lname"><p>Would you like to update <b>
                                 <span id="field_name"></span>       
-                </b> in your 'My Information' page for future Profiles?</p></span> </h3>
+                </b> in your 'My Information' page for future Profiles?</p></span> </h5>
                 <div class="modal-footer">
                 <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
                     value="close" id="close_change">No</button>

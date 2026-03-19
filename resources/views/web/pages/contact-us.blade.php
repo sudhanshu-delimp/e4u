@@ -337,12 +337,12 @@ $contactMsg = session('success');
    </div>
    </div>
 </section>
-<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade upload-modal" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
    aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content custome_modal_max_width">
-         <div class="modal-header main_bg_color border-0">
-            <h5 class="modal-title" id="exampleModalLabel" style="color:white">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
                <img src="{{ asset('assets/app/img/contact_me.svg')}}" class="custompopicon">
                Contact Us
             </h5>

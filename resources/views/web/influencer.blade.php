@@ -185,11 +185,11 @@
     </div> --}}
 
     
-<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade upload-modal" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
    aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content custome_modal_max_width">
-         <div class="modal-header main_bg_color border-0">
+      <div class="modal-content">
+         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel" style="color:white">
                <img src="{{ asset('assets/dashboard/img/unblock.png')}}" class="custompopicon">
                Influencer

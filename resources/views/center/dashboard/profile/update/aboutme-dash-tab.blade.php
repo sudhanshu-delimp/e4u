@@ -728,11 +728,11 @@ textarea {
 
         
 
-        <div class="modal" id="photo_gallery_banner" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title" style="color: white;"> <img
+        <div class="modal fade upload-modal" id="photo_gallery_banner" style="display: none">
+            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> <img
                                 src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross">
                             Select Banner</h5>
     
@@ -901,8 +901,8 @@ textarea {
         <div class="modal fade upload-modal" id="upload-sec" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false"
             data-backdrop="static" aria-modal="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+                <div class="modal-content">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle"> <img
@@ -1053,7 +1053,7 @@ textarea {
         <div class="modal fade upload-modal" id="upload-sec-banner" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false"
             data-backdrop="static">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle"> <img
@@ -1636,11 +1636,11 @@ textarea {
 </div>
 
 
-<div class="modal programmatic" id="setAsDefaultForMainAccount" style="display: none">
+<div class="modal fade upload-modal programmatic" id="setAsDefaultForMainAccount" style="display: none">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> <img
                         src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon">Update Media
                 </h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">

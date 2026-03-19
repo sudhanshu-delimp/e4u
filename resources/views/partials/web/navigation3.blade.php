@@ -149,9 +149,9 @@
       </nav>
 
       <!-- My Playbox Modal -->
-<div class="modal defult-modal fade" id="myPlayboxModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myPlayboxModalLabel" aria-hidden="true">
+<div class="modal defult-modal upload-modal fade" id="myPlayboxModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myPlayboxModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
+        <div class="modal-content">
            <!-- Modal body -->
            <div class="modal-body p-0">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 20px;">

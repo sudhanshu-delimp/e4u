@@ -777,10 +777,10 @@
                 </div>
             </div>
         </div>
-        <div class="modal" id="comman_modal" style="display: none">
+        <div class="modal fade upload-modal" id="comman_modal" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
+                <div class="modal-content">
+                    <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
                                 <img src="{{ asset('assets/app/img/newcross.png') }}"

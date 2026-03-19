@@ -106,10 +106,10 @@
 
 
 
-    <div class="modal fade hh" id="add_wishlist" style="display: none">
+    <div class="modal fade upload-modal hh" id="add_wishlist" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"><img
                             src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
                             class="popup_modal_title_new">Add To Shortlist</span></h5>
@@ -121,7 +121,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0" style="padding: 15px 0px;">
-                    <h1 class="popu_heading_style mb-4 mt-4 user_short_list" style="text-align: center;">
+                    <h1 class="my-4 custom_modal_text user_short_list" style="text-align: center;">
                         <span id="Lname">[MC Name]</span>
                         has been added to your Shortlist.
                     </h1>
@@ -136,12 +136,13 @@
     </div>
 
 
-     <div class="modal fade hh" id="clear_wishlist" style="display: none">
+     <div class="modal fade upload-modal hh" id="clear_wishlist" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-list" style="color:#ff3c5f !important; font-family: FontAwesome !important;"></i><span
-                            class="popup_modal_title_new">  Clear Shortlist</span></h5>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <img src="{{ asset('assets/dashboard/img/short-list-profile.png') }}" class="custompopicon">
+                        <span class="popup_modal_title_new"> Clear Shortlist</span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -149,14 +150,14 @@
                         </span>
                     </button>
                 </div>
-                <div class="modal-body pb-0" style="padding: 15px 0px;">
-                    <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                <div class="modal-body pb-0">
+                    <h1 class="my-4 custom_modal_text" style="text-align: center;">
                        Are you sure you want to clear the shortlist? 
                     </h1>
                 </div>
                 <div class="modal-footer pt-0" style="justify-content: center;">
-                    <button type="button" class="btn main_bg_color site_btn_primary yes_clear_short_list" id="close">Yes</button>
-                         <button type="button" class="btn main_bg_color site_btn_primary"  data-dismiss="modal"
+                    <button type="button" class="btn-success-modal  yes_clear_short_list" id="close">Yes</button>
+                         <button type="button" class="btn-success-modal "  data-dismiss="modal"
                         id="close">No</button>
                 </div>
             </div>
@@ -164,11 +165,13 @@
         </div>
      </div>
 
-     <div class="modal fade hh" id="clear_wishlist_confirmation" style="display: none">
+     <div class="modal fade upload-modal hh" id="clear_wishlist_confirmation" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-list" style="color:#ff3c5f !important; font-family: FontAwesome !important;"></i><span
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                         <img src="{{ asset('assets/dashboard/img/short-list-profile.png') }}" class="custompopicon">
+                        <span
                             class="popup_modal_title_new">  Clear Shortlist</span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
@@ -177,13 +180,13 @@
                         </span>
                     </button>
                 </div>
-                <div class="modal-body pb-0" style="padding: 15px 0px;">
-                    <h1 class="popu_heading_style mb-4 mt-4 clear_wishlist_confirmation_text" style="text-align: center;">
+                <div class="modal-body pb-0">
+                    <h5 class="my-4 custom_modal_text clear_wishlist_confirmation_text">
                        
-                    </h1>
+                    </h5>
                 </div>
                 <div class="modal-footer pt-0" style="justify-content: center;">
-                <button type="button" class="btn main_bg_color site_btn_primary"  data-dismiss="modal"id="close">ok</button>
+                <button type="button" class="btn-success-modal"  data-dismiss="modal"id="close">ok</button>
                 </div>
             </div>
 
@@ -193,10 +196,10 @@
 
 
 
-    <div class="modal fade hh" id="my_legbox" style="display: none">
+    <div class="modal fade upload-modal hh" id="my_legbox" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"> <img
                             src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
                             class=" popup_modal_title_new">My Legbox</span></h5>
@@ -208,13 +211,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="custom_modal_text" style="text-align: center;">
+                    <h5 class="custom_modal_text">
                         <span id="Lname">My Legbox is only available to Viewers. Please
                             log in
                             or Register to access your Legbox.</span>
                     </h5>
                 </div>
-                <div class="modal-footer my_legbox_footer" style="justify-content: center;">
+                <div class="modal-footer my_legbox_footer pt-0" style="justify-content: center;">
                     <a href="{{ route('viewer.login') }}" type="button"
                         class="btn-cancel-modal text-decoration-none text-white" id="loginUrl">Login</a>
                     <a href="{{ route('register') }}" type="button"
