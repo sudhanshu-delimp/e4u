@@ -3408,10 +3408,6 @@ i.fa.fa-heart-o{
             }
             /*aashish end*/
             
-            div#exampleModal .modal-dialog {
-                max-width: 900px;
-            }
-            
             .modal-header {
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
