@@ -588,18 +588,142 @@
 
 
                                 <!-- /////////// Messeur Modal //////////////// -->
-                                <div class="modal fade upload-modal product_view" id="product_view_{{$masseur->id}}">
-                                    <div class="modal-dialog modal-dialog-centered masseurs_modals modal-xl">
+                                <div class="modal fade product_view upload-modal" id="product_view_{{$masseur->id}}">
+                                    <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                        <div class="modal-header">
+                                        <div class="modal-header custom_header">
                                             <h5 class="mc_member_id"> <img src="{{ asset('../assets/app/img/Vector-31.png') }}" class="img-responsive"> Member ID: {{ $masseur->member_id ?? 'N/A' }} </h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            
+                                            <div class="navigation_button">
+                                                <button class="btn-prev"><i class="fa fa-chevron-left text-white"></i> Previous </button> 
+                                                <button class="btn-prev">Next <i class="fa fa-chevron-right text-white"></i> </button>
+                                            </div>
+                                            
+                                            <button type="button" class="close_btn"  data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}"
                                                         class="img-fluid img_resize_in_smscreen"></span>
                                             </button>
                                         </div>
-                                        <div class="modal-body pb-4 mb-2 pt-1">
-                                            <div class="row">
+                                        <div class="modal-body">
+
+                                            <div class="masseur_profile_wrapper">
+                                                <div class="product_img mc_profile_img">
+
+                                                            @foreach ($messure_validImages as $index => $image)
+                                                                @if($loop->first)
+                                                                <img src="{{  $image }}" class="img-responsive"
+                                                                style="width: 305px;height: 374px;object-fit: cover;">
+                                                                @endif
+                                                            @endforeach
+
+                                                    <div class="veryfy_img">
+                                                        <img src="{{ asset('../assets/app/img/pending_icon/e4u_pending_REV.svg') }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="masseur_extra_img">
+
+                                                        @foreach ($messure_validImages as $index => $image)
+                                                            @if(!$loop->first)
+                                                            <img src="{{ $image }}" class="img-responsive">
+                                                            @endif
+                                                        @endforeach
+                                                </div>
+
+                                                <div class="masseur_content" style="">
+
+                                                    <div>
+                                                        <div class="mc_profile_info">
+                                                            <h3 class="mb-0">{{ $masseur->name ?? 'N/A' }}</h3>
+                                                            <span>AGE : <b>{{ $masseur->age ?? 'N/A' }}</b></span>
+
+                                                            <div class="massage_type">
+                                                               
+                                                            
+
+
+                                                            @if(in_array('massage', $masseur_services))
+                                                                <div class="massage_type_info">
+                                                                    <img src="{{ asset('assets/dashboard/img/massage-only.png') }}">
+                                                                    <p class="mc_rate_tooltip">Massage only</p>
+                                                                </div>
+                                                            @endif    
+
+                                                            @if(in_array('2_hand', $masseur_services))
+                                                                <div class="massage_type_info">
+                                                                    <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}">
+                                                                    <p class="mc_rate_tooltip">Massage with extras +2 hands.</p>
+                                                                </div>
+                                                             @endif       
+
+                                                            @if(in_array('4_hand', $masseur_services))
+                                                                <div class="massage_type_info">
+                                                                    <img src="{{ asset('assets/dashboard/img/massage-with4.png') }}">
+                                                                    <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>
+                                                                </div>
+                                                             @endif   
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="mc_profile_modal">
+                                                            <span><b>Mobile Number :</b> <span class="about_box_small_heading_value">{{ formatMobileNumber($masseur->mobile) ?? 'N/A' }}</span></span>
+                                                            <span><b>Vaccination :</b> <span class="about_box_small_heading_value">
+                                                                @switch($masseur->vaccination)
+
+                                                                     @case(1)
+                                                                        Vaccinated, not up to date
+                                                                        @break
+
+                                                                    @case(2)
+                                                                        Vaccinated, up to date
+                                                                        @break
+
+                                                                    @case(3)
+                                                                        Not Vaccinated
+                                                                        @break
+
+                                                                    @default
+                                                                        Not Set
+
+                                                                @endswitch
+                                                            </span></span>
+
+                                                        </div>
+                                                        <div class="mc_profile_modal">
+                                                            <span><b>Nationality :</b> <span class="about_box_small_heading_value">
+
+                                                                {{ getCountryList()[$masseur->nationality] ?? 'N/A' }}
+
+                                                            </span></span>
+                                                            
+                                                            <span><b>Ethnicity :</b> <span class="about_box_small_heading_value">
+                                                                 {{  config('escorts.profile.ethnicities')[$masseur->ethnicity] ??  'N/A' }}
+                                                            </span></span>
+                                                        </div>
+                                                        <div class="mc_profile_modal d-block">
+                                                            <span><b>Massage Services:</b> <span class="about_box_small_heading_value">
+                                                                    {{ rtrim($massage_services, ', ') }}
+                                                            </span></span>
+                                                        </div>
+
+                                                        <div class="mc_profile_modal d-block">
+                                                            <span><b>Other Service Types :</b> <span class="about_box_small_heading_value">
+                                                                    {{ rtrim($other_services, ', ') }}
+
+                                                            </span></span>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="mt-2">
+                                                        <h5 class="mb-0" style="color: #000">About Me : </h5>
+                                                        <p class=" mt-0 text-justify">{!! $masseur->commentary ?? 'N/A' !!}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {{-- <div class="row">
 
                                                 <div class="col-md-4 product_img mc_profile_img pr-0">
 
@@ -719,7 +843,7 @@
 
 
 
-                                            </div>
+                                            </div> --}}
 
                                             <div class="col-lg-12 mt-2 p-0">
                                                 <div class="table-responsive-sm mc_avail_table">
