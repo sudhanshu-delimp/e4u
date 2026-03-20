@@ -20,7 +20,8 @@ class StaffAuth
         $response = $next($request);
 
         if(!$user = auth()->user()) {
-            return redirect()->route('advertiser.login');
+            //return redirect()->route('advertiser.login');
+            return redirect('/');
         }
 
         if($user->type != 6) {
