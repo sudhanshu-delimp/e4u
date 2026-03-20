@@ -586,7 +586,7 @@
 
                                 <!-- /////////// Messeur Modal //////////////// -->
                                 <div class="modal fade product_view upload-modal" id="product_view_{{$masseur->id}}">
-                                    <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-dialog modal-dialog-centered max-modal" >
                                     <div class="modal-content">
                                         <div class="modal-header custom_header">
                                             <h5 class="mc_member_id"> <img src="{{ asset('../assets/app/img/Vector-31.png') }}" class="img-responsive"> Member ID: {{ $masseur->member_id ?? 'N/A' }} </h5>

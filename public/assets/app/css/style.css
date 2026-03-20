@@ -5916,6 +5916,10 @@ i.fa.fa-heart-o{
                     /* z-index: 10; */
                 }
                 
+                .max-modal {
+                    max-width: 1000px;
+                }
+                
                 .mc_card_header {
                     background-color: rgba(12, 34, 61, 0.5);
                     padding: 10px;
