@@ -1552,53 +1552,67 @@
     <!-- model start here 1-->
     <div class="modal fade upload-modal" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
+         @if (auth()->check() && auth()->user()->type == 0)
+                <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
 
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img
-                            src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Us </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                @if (auth()->check() && auth()->user()->type == 0)
-                    <div class="modal-body">
-                        <h6 class="custom_modal_text">
-                            <span id="Lname">To message Alina please go to your Dashboard and select
-                                Communications > Messages. </span>
-                        </h6>
-                        <hr style="background-color: #0C223D">
-                        <p class="mb-1 mt-3"><b>Notes:</b></p>
-                        <ol>
-                            <li>Make sure you have enabled Messaging in your settings. If you have added Alina to your
-                                Legbox, they will appear in your Message list. Otherwise, you can search by Member ID.</li>
-                            <li>To message Alina, they will also need to have Messaging enabled.</li>
-                        </ol>
+                            <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img
+                                    src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Us </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                        class="img-fluid img_resize_in_smscreen"></span>
+                            </button>
+                        </div>
+                    
+                        <div class="modal-body">
+                            <h6 class="custom_modal_text">
+                                <span id="Lname">To message Alina please go to your Dashboard and select
+                                    Communications > Messages. </span>
+                            </h6>
+                            <hr style="background-color: #0C223D">
+                            <p class="mb-1 mt-3"><b>Notes:</b></p>
+                            <ol>
+                                <li>Make sure you have enabled Messaging in your settings. If you have added Alina to your
+                                    Legbox, they will appear in your Message list. Otherwise, you can search by Member ID.</li>
+                                <li>To message Alina, they will also need to have Messaging enabled.</li>
+                            </ol>
+                        </div>
+                        <div class="modal-footer text-center justify-content-end">
+                            <a href="{{ route('user.viewer-messages') }}" type="button" class="btn-success-modal text-white"
+                                id="loginUrl" style="text-decoration: none;">Go to Message</a>
+                        </div>
                     </div>
-                    <div class="modal-footer text-center justify-content-center">
-                        <a href="{{ route('user.viewer-messages') }}" type="button" class="btn-success-modal text-white"
-                            id="loginUrl" style="text-decoration: none;">Go to Message</a>
-                    </div>
+                </div>    
                 @else
-                    <!-- if viewer not login -->
-                    <div class="modal-body text-center">
-                        <h5 class="custom_modal_text">
-                            <span id="Lname">Message Us is only available to Viewers.
-                                Please log in or Register to access Message Us.</span>
-                        </h5>
+                <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img
+                                    src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Us </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                        class="img-fluid img_resize_in_smscreen"></span>
+                            </button>
+                        </div>
+                        <!-- if viewer not login -->
+                        <div class="modal-body text-center">
+                            <h5 class="custom_modal_text">
+                                <span id="Lname">Message Us is only available to Viewers.
+                                    Please log in or Register to access Message Us.</span>
+                            </h5>
+                            
+                        </div>
                         <div class="modal-footer pt-0 text-center justify-content-center" >
                             <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary btn-cancel-modal" id="loginUrl" style="text-decoration: none;">Login</a>
                             <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
                         </div>
-                    </div>
+                    </div>  
+                </div>  
                 @endif
                 <!--- end -->
-
             </div>
-        </div>
-    </div>
     <!-- model end here 1-->
     <!-- model start here 2-->
 
@@ -1632,7 +1646,7 @@
 
     <div class="modal fade upload-modal" id="sendcarlat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header main_bg_color">
                     <img src="{{ asset('../assets/app/img/alert.png') }}" class="custompopicon">

@@ -1383,12 +1383,12 @@
         aria-hidden="true">
 
         
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-centered " role="document">
             <div class="modal-content">
                 <div class="modal-header">
 
                     <h5 class="modal-title" id="exampleModalLabel"> <img
-                            src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Us </h5>
+                            src="{{ asset('../assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Us  </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>

@@ -1428,7 +1428,7 @@
 <!-- model start here 1-->
 <div class="modal fade upload-modal" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     @if(auth()->check() && auth()->user()->type==0)
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                
