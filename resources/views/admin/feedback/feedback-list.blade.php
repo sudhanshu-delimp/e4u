@@ -232,7 +232,7 @@
 
 <div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel" aria-modal="true" style="padding-right: 15px;">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content basic-modal">
+        <div class="modal-content">
             <div class="modal-header border-0">
                 <input type="hidden" id="status_data_id" value="334">
                 <input type="hidden" id="status_data_value" value="7">
@@ -251,7 +251,7 @@
             </div>
 
             <div class="modal-body pb-0 teop-text text-center">
-                <h5 class="popu_heading_style mt-2">
+                <h5 class="custom_modal_text" style="text-align: center;">
                     Are you sure you want to perform this action.
                 </h5>
 

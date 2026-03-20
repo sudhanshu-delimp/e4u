@@ -126,10 +126,10 @@
     @include('agent.dashboard.partials.playmates-modal')
     <!-- Print Tour Report Modal -->
 
-    <div class="modal fade programmatic" id="printReport">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+    <div class="modal fade upload-modal programmatic" id="printReport">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title text-white">
                         <img src="{{ asset('assets/dashboard/img/admin-report.png') }}" class="custompopicon" alt="cross">
                         Tour Report
@@ -189,9 +189,9 @@
 
                                 <!-- Footer -->
                                 <div class="modal-footer justify-content-end">
-                                    <button type="button" class="btn-success-modal" data-dismiss="modal"
+                                    
+                                    <button type="button" class="btn-cancel-modal" id="save_change">Print</button><button type="button" class="btn-success-modal" data-dismiss="modal"
                                         id="close_change">View</button>
-                                    <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
                                 </div>
                             </div>
                         </div>
@@ -206,8 +206,8 @@
 
     <div class="upload-modal fade modal programmatic" id="current_location">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+            <div class="modal-content">
+                <div class="modal-header">
 
                     <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/map.png') }}"
                             class="custompopicon" alt="cross">Current Location - E60165</h5>
@@ -221,7 +221,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12 text-center">
-                            <h5 class="popu_heading_style my-1">The current Location for Name is: <b>Location</b></h5>
+                            <h5 class="custom_modal_text">The current Location for Name is: <b>Location</b></h5>
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                                     id="close_change">Ok</button>
@@ -244,8 +244,8 @@
     {{-- tour_summary --}}
     <div class="modal fade upload-modal bd-example-modal-lg" id="tour_summary" tabindex="-1" role="dialog"
         aria-labelledby="tour_summaryLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-            <div class="modal-content basic-modal modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tour_summary"><img
                             src="{{ asset('assets/dashboard/img/tour-summary.png') }}" class="custompopicon">Tour Summary
@@ -351,9 +351,10 @@
                     </div>
 
                     <div class="modal-footer justify-content-end mt-3">
+                        
+                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
                         <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                             id="close_change">Ok</button>
-                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
                     </div>
                 </div>
             </div>

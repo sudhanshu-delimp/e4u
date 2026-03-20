@@ -131,9 +131,9 @@
     <i class="fas fa-angle-up"></i>
 </a>
 <div class="modal opr-modal fade " id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
+    <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/crop.png') }}" class="custompopicon"> Crop Photo</h5>
                 <a href="" class="close" data-dismiss="modal" aria-label="Close">
                    <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
@@ -157,9 +157,9 @@
 </div>
 
 <div class="modal opr-modal" id="conformation_modal" style="display: none">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h5 class="modal-title text-white">
                     <img src="{{ asset('assets/dashboard/img/operator/image.png') }}" class="custompopicon" id="modal-icon">
                     <span style="color:white" id="modal-title">Remove Avatar</span>

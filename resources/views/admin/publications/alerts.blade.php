@@ -108,7 +108,7 @@
 </div>
 {{-- end --}}
 <div class="modal fade upload-modal" id="Create_Notice" tabindex="-1" role="dialog" aria-labelledby="Create_AlertLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
      <div class="modal-content basic-modal">
    <div class="modal-header">
       <h5 class="modal-title" id="Create_Notice"><img src="{{ asset('assets/dashboard/img/new-notice.png')}}" alt="alert" class="custompopicon"> New Notice
@@ -147,8 +147,8 @@
 </div>
 
 <div class="modal fade upload-modal" id="Create_Alert" tabindex="-1" role="dialog" aria-labelledby="Create_AlertLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content basic-modal">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+     <div class="modal-content">
    <div class="modal-header">
       <h5 class="modal-title" id="Create_Alert"><img src="{{ asset('assets/app/img/alert.png')}}" alt="alert" class="custompopicon"> New Alert
       </h5>

@@ -27,11 +27,11 @@
                     </div>
                 </div>
             </div>
-            <div class="modal" id="comman_modal" style="display: none">
+            <div class="modal upload-modal fade" id="comman_modal" style="display: none">
                 <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content custome_modal_max_width">
-                        <div class="modal-header main_bg_color border-0">
-                            <h5 class="modal-title text-white" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" >
                                 <img src="{{ asset('assets/dashboard/img/save-setting.png')}}" class="custompopicon" id="modal-icon">
                                 <span id="modal-title"></span>
                             </h5>
@@ -42,21 +42,21 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                            <h1 class="my-4 custom_modal_text" style="text-align: center;">
                             <span id="comman_str"></span>
                             <span class="comman_msg"></span>
                             </h1>
                         </div>
-                        <div class="modal-footer" style="justify-content: center;">
+                        <div class="modal-footer justify-content-center pt-0">
                             <button type="submit" class="btn-success-modal common_modal_close_btn" data-dismiss="modal" id="close">Ok</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal" id="update_modal" style="display: none">
+            <div class="modal upload-modal fade" id="update_modal" style="display: none">
                 <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content custome_modal_max_width">
-                        <div class="modal-header main_bg_color border-0">
+                    <div class="modal-content">
+                        <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -64,12 +64,12 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                            <h1 class="my-4 custom_modal_text" style="text-align: center;">
                             <span id="comman_str"></span>
                             <span class="comman_msg"></span>
                             </h1>
                         </div>
-                        <div class="modal-footer" style="justify-content: center;">
+                        <div class="modal-footer" class="justify-content-center pt-0">
                             <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal">Save</button>
                         </div>
                     </div>

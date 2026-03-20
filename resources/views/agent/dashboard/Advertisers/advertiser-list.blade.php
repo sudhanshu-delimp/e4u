@@ -285,12 +285,33 @@
          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
             class="img-fluid img_resize_in_smscreen"></span></button>
        </div>
-       <div class="modal-body">
-         <p><b>Name:</b> Carla Brasil</p>
-         <p><b>Email:</b> carla@gmail.com</p>
-         <p><b>Phone:</b> 0438 028 728</p>
-         <p><b>Joined:</b> 01/01/2022</p>
-       </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-bordered">
+                <tr>
+                  <th><b>Name</b></th>
+                  <td>Carla Brasil</td>
+                </tr>
+                <tr>
+                  <th><b>Email</b></th>
+                  <td>carla@gmail.com</td>
+                </tr>
+                <tr>
+                  <th><b>Phone</b></th>
+                  <td>0438 028 728</td>
+                </tr>
+                <tr>
+                  <th><b>Joined</b></th>
+                  <td>01-01-2026</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel-modal" data-dismiss="modal">Close</button>
+        </div>
      </div>
    </div>
  </div>
@@ -304,18 +325,18 @@
          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
             class="img-fluid img_resize_in_smscreen"></span></button>
        </div>
-       <div class="modal-body">
-         <form>
-           <div class="form-group">
-             <label>Name</label>
-             <input type="text" class="form-control" value="Carla Brasil">
-           </div>
-           <div class="form-group">
-             <label>Email</label>
-             <input type="email" class="form-control" value="carla@gmail.com">
-           </div>
-         </form>
-       </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control" value="Carla Brasil">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-control" value="carla@gmail.com">
+            </div>
+          </form>
+        </div>
        <div class="modal-footer">
          <button class="btn-success-modal">Save Changes</button>
        </div>

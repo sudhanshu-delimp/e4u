@@ -94,10 +94,10 @@ box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
             </div>
          </section>
       </section>
-      <div class="modal" id="resetPassword_modal" style="display: none">
+      <div class="modal upload-modal fade" id="resetPassword_modal" style="display: none">
          <div class="modal-dialog modal-dialog-centered">
-             <div class="modal-content custome_modal_max_width">
-                  <div class="modal-header main_bg_color border-0">
+             <div class="modal-content">
+                  <div class="modal-header">
                 <h5 class="modal-title text-white"> <img src="{{asset('assets/dashboard/img/save-setting.png')}}" class="custompopicon" alt="logo">Password Updated</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
@@ -106,13 +106,13 @@ box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
                 </button>
             </div>
                  <div class="modal-body">
-                     <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;" id="hid"></h1>
+                     <h5 class="custom_modal_text my-4" style="text-align: center;" id="hid"></h5>
                      <span id="comman_str"></span>
                      <span class="comman_msg"></span>
                      
                  </div>
-                 <div class="modal-footer" style="justify-content: center;">
-                     <a href="{{route('advertiser.login')}}" class="btn main_bg_color site_btn_primary">Click Hear To Login</a>
+                 <div class="modal-footer justify-content-center pt-0">
+                     <a href="{{route('advertiser.login')}}" class="btn-success-modal">Click Hear To Login</a>
                  </div>
              </div>
          </div>

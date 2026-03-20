@@ -475,8 +475,8 @@
 
 
 <div class="modal fade upload-modal" id="addStaffnew" tabindex="-1" role="dialog" aria-labelledby="addStaffnewLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content basic-modal">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="addStaffnew">Add New Staff Member</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">

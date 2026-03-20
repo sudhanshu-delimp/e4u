@@ -1,7 +1,7 @@
  {{-- View Modal --}}
     <div class="modal fade upload-modal bd-example-modal-lg" id="view_list" tabindex="-1" role="dialog"
         aria-labelledby="view_listLabel" aria-hidden="true">
-        <div class="modal-dialog print-list-modal modal-dialog-centered " role="document">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="view_list"><img

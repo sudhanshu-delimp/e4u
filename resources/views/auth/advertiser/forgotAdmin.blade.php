@@ -114,10 +114,10 @@
             </div>
         </section>
     </section>
-      <div class="modal" id="resetPassword_modal" style="display: none">
+      <div class="modal upload-modal fade" id="resetPassword_modal" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
+                <div class="modal-content">
+                    <div class="modal-header">
                     <h5 class="modal-title text-white"> <img src="{{asset('assets/dashboard/img/save-setting.png')}}" class="custompopicon" alt="logo">Password Updated</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
@@ -131,11 +131,11 @@
                         <span class="comman_msg"></span>
                         
                     </div>
-                    <div class="modal-footer" style="justify-content: center;">
+                    <div class="modal-footer justify-content-center pt-0">
                         <a href="{{ $user_info 
                                         ? ($user_info->type == 9 ? route('operator.login') : route('admin.login')) 
                                         : route('home') 
-                                }}" class="btn main_bg_color site_btn_primary">
+                                }}" class="btn-success-modal">
                             Click Hear To Login
                         </a>
                     </div>
@@ -165,8 +165,8 @@
                     </button>
                 </div>
 
-                <div class="modal-body pb-0 teop-text text-center">
-                    <h5 class="popu_heading_style mt-2">
+                <div class="modal-body pb-0  text-center">
+                    <h5 class="custom_modal_text mt-2">
                         Your password reset link is invalid or has expired. Please request a new one.
                     </h5>
 

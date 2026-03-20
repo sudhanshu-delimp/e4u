@@ -98,8 +98,8 @@
     {{-- add blog popup modal --}}
     <div class="modal fade upload-modal" id="createBlog" tabindex="-1" role="dialog" aria-labelledby="createBlog"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered custom_w_blog" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createBlogTitle"> <img
                             src="{{ asset('assets/dashboard/img/title-blog.png') }}" class="custompopicon"> Create Blog</h5>
@@ -184,12 +184,12 @@
                         <span id="success_task_title"></span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        {{-- <span aria-hidden="true"><img src="{{ asset('assets/app/img/alert.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span> --}}
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <div class="py-4 text-center" id="success_form_html">
+                    <div class="pb-3 pt-2 text-center" id="success_form_html">
                         <h4 id="success_msg"></h4>
                         <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal"
                             aria-label="Close">OK</button>
@@ -366,8 +366,8 @@
 
                     let msg = response.message ? response.message : "Save Successfully";
                     $('#success_task_title').text('Success');
-                    $('#success_form_html').html('<h4>' + (msg || 'Status updated successfully') +
-                        '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                    $('#success_form_html').html('<h5 class="custom_modal_text">' + (msg || 'Status updated successfully') +
+                        '</h5><button type="button" class="btn-success-modal mt-4 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                     );
                     $('#successModal').modal('show');
                     setTimeout(function() {
@@ -401,9 +401,9 @@
                     }
                     $("#image_icon").attr("src", endpoint.error_image);
                     $('#success_task_title').text('Error');
-                    $('#success_form_html').html('<h4>' + (msg ||
+                    $('#success_form_html').html('<h5 class="custom_modal_text">' + (msg ||
                             'Something went wrong.') +
-                        '</h4><button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
+                        '</h5><button type="button" class="btn-success-modal mt-4 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>'
                     );
                     $('#successModal').modal('show');
 
@@ -538,8 +538,8 @@
             img.attr('src', endpoint.alert_image);
 
             body.html(
-                `<h4>${confirmMsg}</h4>
-                <div class="d-flex justify-content-center gap-10 mt-3">
+                `<h5 class="custom_modal_text">${confirmMsg}</h5>
+                <div class="d-flex justify-content-center gap-10 mt-4">
                     <button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes</button>
                     <button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button>
                 </div>`

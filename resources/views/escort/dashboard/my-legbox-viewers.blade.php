@@ -196,8 +196,8 @@
 
                 <div class="modal-body pb-0 agent-tour">
                     <div class="row">
-                        <div class="col-md-12 my-4  text-center">
-                            <h5 class=" body_text mb-2">This Escort does not presently have any Listed Profiles.</h5>
+                        <div class="col-md-12">
+                            <h5 class="custom_modal_text">This Escort does not presently have any Listed Profiles.</h5>
                         </div>
                     </div>
 

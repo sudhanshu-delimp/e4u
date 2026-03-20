@@ -153,7 +153,7 @@
 
 <div class="modal fade upload-modal" id="active_req" tabindex="-1" aria-labelledby="active_reqLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content basic-modal">
+     <div class="modal-content">
    <div class="modal-header">
       <h5 class="modal-title" id="active_req"><img src="{{ asset('assets/dashboard/img/order-tracking.png')}}" alt="alert" class="custompopicon"> Tracking Details
       </h5>
@@ -182,7 +182,7 @@
 {{-- confirm_popup --}}
 <div class="modal fade upload-modal" id=" " tabindex="-1" aria-labelledby="confirm_popupLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content custome_modal_max_width">
+     <div class="modal-content">
    <div class="modal-header">
       <h5 class="modal-title" id="confirm_popup"><img src="{{ asset('assets/dashboard/img/unblock.png')}}" alt="alert" class="custompopicon"> Confirmation
       </h5>
@@ -191,7 +191,7 @@
       </button>
    </div>
       <div class="modal-body pb-0">
-            <h5 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+            <h5 class="popu_heading_style my-4" style="text-align: center;">
                The order has been completed.
            </h5>
          </div>
@@ -207,7 +207,7 @@
 {{-- reject_popup --}}
 <div class="modal fade upload-modal" id="reject_popup" tabindex="-1" aria-labelledby="reject_popupLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content custome_modal_max_width">
+     <div class="modal-content">
    <div class="modal-header">
       <h5 class="modal-title" id="reject_popup"><img src="{{ asset('assets/dashboard/img/block.png')}}" alt="alert" class="custompopicon"> Deactivate SIM Account
       </h5>
@@ -216,7 +216,7 @@
       </button>
    </div>
       <div class="modal-body pb-0">
-            <h5 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+            <h5 class="popu_heading_style my-4" style="text-align: center;">
                Are you sure you want to deactivate account?
            </h5>
          </div>

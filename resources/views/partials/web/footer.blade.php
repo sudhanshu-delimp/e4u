@@ -372,9 +372,9 @@
          </div>
       </div>
    </div> --}}
-    <div class="modal fade defult-modal" id="manage-consent" tabindex="-1" role="dialog"
+    <div class="modal fade upload-modal defult-modal" id="manage-consent" tabindex="-1" role="dialog"
         aria-labelledby="cookies-notice" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header main_bg_color border-0">
                     <h5 class="modal-title text-white" id="manage_consent"><img src="{{ asset('assets/app/img/aeroupimg.png')}}" class="custompopicon"> Manage Consent Preferences</h5>
@@ -464,8 +464,8 @@
             </div>
         </div>
     </div>
-    <div id="myFrontpop" class="modal fade" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog">
+    <div id="myFrontpop" class="modal upload-modal fade" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <img src="{{ asset('assets/app/img/logo.png') }}" style="max-width: 195px; width:100%">
@@ -514,7 +514,7 @@
                             </label>
                             <span id='ch_name' style="color:red"></span>
                         </div>
-                        <button type="submit" class="btn btn-secondary btn-sm agree">I agree - Enter
+                        <button type="submit" class="btn-success-modal agree">I agree - Enter
                             Escorts4U</button>
                         <a class="pr-3" href="https://www.google.com/" style="text-align: center;display: flex;"
                             role="button">I disagree - Leave the Website</a>
