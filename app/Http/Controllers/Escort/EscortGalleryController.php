@@ -60,7 +60,8 @@ class EscortGalleryController extends AppController
     {
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
         $path = $this->media;
-        $verification = MediaVerification::where('user_id', auth()->id())->first();
+        $verification = MediaVerification::where('user_id', auth()->id())->where('status' , '0')->first();
+
         $imageUrl = $verification && $verification->image_path
             ? asset('escorts/' . $verification->image_path)
             : asset('assets/app/img/upload-media.png');

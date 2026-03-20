@@ -58,15 +58,72 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="row my-3">
-                        <div class="col-sm-12">
-                            <div class="d-flex justify-content-between align-items-center">
-                               
-                                    <div class="total_listing">
-                                        <div><span>Active Email Accounts : </span></div>
-                                        <div><span>2</span></div>
+                  </div>
+               </div>
+            </div>
+                <div class="row my-3">
+                    <div class="col-sm-12 d-flex justify-content-end">
+                        <div class="total_listing">
+                            <div><span>Active Email Accounts : </span></div>
+                            <div><span>2</span></div>
+                        </div>
+                     </div>
+
+                     <div class="col-sm-12 d-flex justify-content-end mt-3">
+                         @if($addAccessEnabled)
+                        <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#createNewrecord">Add New Record</button>
+                        @endif
+                     </div>
+                </div>
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="table-responsive-xl">
+                        <table class="table" id="EmailManageTable">
+                           <thead class="table-bg">
+                              <tr>
+                                 <th>Server
+                                 </th>
+                                 <th>Email Account</th>
+                                 <th>
+                                   Notification Address
+                                 </th>
+                                 <th>Activation
+                                   Date</th>
+                                 <th>Member ID</th>
+                                 <th>Term</th>
+                                 <th>Status</th>
+                                 <th>Action</th>
+                              </tr>
+                           </thead>
+                           <tbody class="table-content">
+                              <tr>
+                                 <td>ax.email</td>
+                                 <td><a href="maleto:julie@e4u.com.au">julie@e4u.com.au</a></td>
+                                 <td><a href="maleto:julie.1996@gmail.com">julie.1996@gmail.com</a></td>
+                                 <td>11-06-2025 </td>
+                                 <td>E60125</td>
+                                 <td>12 months</td>
+                                 <td><span class="custom_badge badge_pending">Pending</span></td>
+                                 <td>
+                                     @if($editAccessEnabled)
+                                    <div class="dropdown no-arrow" >
+                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                       </a>
+                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal">   <i class="fa fa-fw fa-check"></i> Activate</a>
+                                           <div class="dropdown-divider"></div>
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal" >   <i class="fa fa-fw fa-times" ></i> Deactivate</a>
+                                           <div class="dropdown-divider"></div>
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-toggle="modal" data-target="#editNewrecord" > <i class="fa fa-fw fa-pen"></i> Edit</a>
+                                           <div class="dropdown-divider"></div>
+                                           
+                                           
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-target="#renewEmailmodal" data-toggle="modal" >  <i class="fa fa-sync-alt"></i> Renew</a>
+                                           <div class="dropdown-divider"></div>
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"href="javascript:void(0);" data-toggle="modal" data-target="#confirmModal" >  <i class="fa fa-fw fa-ban" ></i> Suspend</a>
+                                           
+                                        </div>
                                     </div>
                                
 
