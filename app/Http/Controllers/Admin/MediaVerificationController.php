@@ -210,12 +210,8 @@ class MediaVerificationController extends Controller
             ->where('user_id', $user_id)
             ->first();
         $status = $media_verification->getRawOriginal('status');
-        //$query = EscortMedia::where('user_id', $user_id)->whereNotIn('position', ['9', '10']);
-        $query = EscortMedia::where('user_id', $user_id)->where('type', '0')
-            ->where(function ($q) {
-                $q->whereNotIn('position', [9, 10])
-                ->orWhereNull('position');
-            });
+        
+        $query = EscortMedia::where('user_id', $user_id)->where('type', '0');
         switch ($status) {
             case '1': // Approved
                 $query->where('media_verification_id', $id)
@@ -236,16 +232,30 @@ class MediaVerificationController extends Controller
 
         $escort_medias = $query->get();
         $media_verification_image = asset('escorts/' . $media_verification->image_path);
+        $bannerImage = [];
+        $pinupImage =  [];
         $mediaImages = [];
-        foreach ($escort_medias as $escort_media) {
-            $imageUrl = asset($escort_media->path);
-            $mediaImages[] = '<img src="' . $imageUrl . '" alt="view image gallery" style="width:100px;">';
+        foreach ($escort_medias as $escort_media) { 
+            switch ($escort_media->position) {
+                case 9:
+                    $bannerImage[] = '<img src="' . asset($escort_media->path) . '" class="banner-img" alt="Banner Image">';
+                    break;
+                case 10:
+                    $pinupImage[] = '<img src="' . asset($escort_media->path) . '" class="pinup-img" alt="Pinup Image">';
+                    break;
+
+                default:
+                    $mediaImages[] = '<img src="' . asset($escort_media->path) . '" class="gallery-img" alt="Gallery Image">';
+                    break;
+            }
         }
 
         if ($media_verification) {
             return response()->json([
                 'status' => true,
                 'media_verification_image' => $media_verification_image,
+                'media_banner_image' => $bannerImage,
+                'media_pinup_image' => $pinupImage,
                 'media_img' => $mediaImages,
             ]);
         } else {

@@ -239,10 +239,10 @@
                     <!-- Agreement -->
                     <div class="card">
                         <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" href="#lingo"
+                            <a class="card-link collapsed" data-toggle="collapse" href="#agreement"
                                 aria-expanded="false">Agreement</a>
                         </div>
-                        <div id="lingo" class="collapse" data-parent="#accordion" style="">
+                        <div id="agreement" class="collapse" data-parent="#accordion" style="">
                             <div class="card-body">
                                 <form id="operatorProfile" class="v-form-design"
                                     action="{{ route('operator.account.update', [$operator->id]) }}" method="POST">
@@ -273,7 +273,7 @@
                                                             {{ $operator->operator_detail->fee }}</span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="countryName">Territory</label>
                                                         <span class="form-control form-back">{{ $countryName }}</span>
@@ -287,13 +287,13 @@
                                        <label>You can retrieve your Agent Management Agreement by
                                        @if($agreement_file != "")
                                           <a href="{{ asset('storage/' . $agreement_file) }}" 
-                                             class="custom_links_design" download>
+                                             class="custom_links_design" title="Click here to download the agreement file." download >
                                              <span style="color: #FF3C5F;">clicking here.</span>
                                           </a>
                                           @else
 
                                           <a href="javascript:void(0)" 
-                                             class="custom_links_design" download>
+                                             class="custom_links_design" title="The agreement file has not been uploaded.">
                                              <span style="color: #FF3C5F;">clicking here.</span>
                                           </a>
 
@@ -313,10 +313,10 @@
                     <!-- Fee -->
                     <div class="card">
                         <div class="card-header">
-                            <a class="card-link collapsed" data-toggle="collapse" href="#lingo"
+                            <a class="card-link collapsed" data-toggle="collapse" href="#fees"
                                 aria-expanded="false">Fees</a>
                         </div>
-                        <div id="lingo" class="collapse" data-parent="#accordion" style="">
+                        <div id="fees" class="collapse" data-parent="#accordion" style="">
                             <div class="card-body">
                                 <form id="operatorProfile" class="v-form-design"
                                     action="{{ route('operator.account.update', [$operator->id]) }}" method="POST">
