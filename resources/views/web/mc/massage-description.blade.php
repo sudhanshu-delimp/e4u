@@ -257,7 +257,7 @@
                                     </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
-                                            <h4>4+ Hands</h4>
+                                            <h4>+4 Hands</h4>
                                         </div>
                                         <div class="profile_hr">
                                             <h4 class="header_rate_two_masseur"></h4>
