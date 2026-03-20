@@ -6252,12 +6252,45 @@ i.fa.fa-heart-o{
                 text-overflow: ellipsis;
             }
             
+            .modal-header.custom_header {
+                align-items: center;
+                border-radius: 0px;
+                padding: 10px 20px;
+            }
+            
+            .custom_header h5 {
+                margin-bottom: 0px;
+            }
+            
+            .navigation_button .btn-prev,
+            .navigation_button .btn-next {
+                background: #ff3c5f;
+                padding: 3px 10px;
+                border-radius: 3px;
+            }
+            
+            .custom_header .close_btn {
+                padding: 0px;
+            }
+            
+            .custom_header .navigation_button {
+                min-width: 250px;
+            }
+            
+            .custom_header .navigation_button button:hover {
+                background-color: #cc2a48;
+            }
+            
             .masseur_content {
                 width: 100%;
             }
             /* end */
             
             @media (max-width: 768px) {
+                .modal-header.custom_header {
+                    flex-wrap: wrap;
+                    gap: 10px;
+                }
                 .masseur_profile_wrapper {
                     flex-wrap: wrap;
                 }

@@ -1,12 +1,6 @@
 <div class="modal fade upload-modal" id="upgrade_modal" tabindex="-1" role="dialog" aria-labelledby="extendBumpUpProfile" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
-<<<<<<< HEAD
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <form id="upgrade_modal_form" action="{{route('escort.upgrade_list')}}" method="POST">
-=======
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      {{-- <form id="upgrade_modal_form" action="{{route('escort.upgrade_list')}}" method="POST"> --}}
-      <form id="upgrade_modal_form" action="{{route('escort.account.listing_checkout')}}" method="POST">
->>>>>>> 7531dcfe29b2d0cdda9f354980d82c8754182510
         {{ csrf_field() }}
         <div class="modal-content">
           <div class="modal-header">
@@ -74,14 +68,8 @@
             </div>
           </div>
   
-<<<<<<< HEAD
           <div class="modal-footer" style="text-align: right; display: block;">
             <input type="hidden" name="profile_id">
-=======
-          <div class="modal-footer" style="text-align: center; display: block;">
-            <input type="hidden" name="escort_id">
-            <input type="hidden" name="checkout_type" value="upgrade">
->>>>>>> 7531dcfe29b2d0cdda9f354980d82c8754182510
             <button type="submit" id="saveBumpupButton" class="btn-success-modal">Proceed to Payment</button>
           </div>
         </div>

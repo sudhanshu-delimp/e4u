@@ -1,5 +1,5 @@
 <div class="modal fade upload-modal" id="mediaVerificationModal" tabindex="-1" role="dialog" aria-labelledby="mediaVerificationModal" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-scrollable" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <form id="mediaVerification" method="POST" action="{{ route('escort.media.verification.upload') }}" enctype="multipart/form-data">
                 @csrf

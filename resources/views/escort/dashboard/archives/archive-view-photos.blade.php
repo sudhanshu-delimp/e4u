@@ -455,7 +455,7 @@
                 </a>
                 </li>
             </ul>
-               <div class="modalPopup" style="max-height: 350px; overflow:auto;">
+               <div class="modalPopup">
                     
                     <div class="tab-content mt-3">
                         <!-- Tab panes -->

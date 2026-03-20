@@ -591,9 +591,14 @@
                                 <div class="modal fade product_view upload-modal" id="product_view_{{$masseur->id}}">
                                     <div class="modal-dialog modal-dialog-centered max-modal" >
                                     <div class="modal-content">
-                                        <div class="modal-header">
+                                        <div class="modal-header custom_header">
                                             <h5 class="mc_member_id"> <img src="{{ asset('../assets/app/img/Vector-31.png') }}" class="img-responsive"> Member ID: {{ $masseur->member_id ?? 'N/A' }} </h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            
+                                            <div class="navigation_button">
+                                                <button class="btn-prev"><i class="fa fa-chevron-left text-white"></i> Previous </button> 
+                                                <button class="btn-prev">Next <i class="fa fa-chevron-right text-white"></i> </button>
+                                            </div>
+                                            <button type="button" class="close_btn" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}"
                                                         class="img-fluid img_resize_in_smscreen"></span>
                                             </button>
