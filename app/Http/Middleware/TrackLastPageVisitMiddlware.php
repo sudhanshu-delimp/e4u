@@ -45,7 +45,7 @@ class TrackLastPageVisitMiddlware
             if (auth()->user()->status == 'Blocked' || auth()->user()->status == 4) {
                 auth()->logout();
 
-                return redirect()->route('/')
+                return redirect()->route('home')
                     ->withErrors(['message' => 'You have been logged out due to suspended by admin.']);
             }
 
@@ -63,7 +63,8 @@ class TrackLastPageVisitMiddlware
 
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
-                return redirect()->route('agent.login')
+                 //Route:agent.login
+                return redirect()->route('home')
                     ->withErrors(['message' => 'You have been logged out due to inactivity.']);
                 } 
             }
@@ -74,7 +75,8 @@ class TrackLastPageVisitMiddlware
 
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
-                return redirect()->route('advertiser.login')
+                 //Route: advertiser.login'
+                return redirect()->route('home')
                     ->withErrors(['message' => 'You have been logged out due to inactivity.']);
                 } 
             }
@@ -86,7 +88,8 @@ class TrackLastPageVisitMiddlware
 
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
-                return redirect()->route('advertiser.login')
+                 //Route: advertiser.login
+                return redirect()->route('home')
                     ->withErrors(['message' => 'You have been logged out due to inactivity.']);
                 } 
             }
@@ -97,6 +100,7 @@ class TrackLastPageVisitMiddlware
                 $idle_preference_time = (auth()->user()->viewer_settings && auth()->user()->viewer_settings->idle_preference_time) ? auth()->user()->viewer_settings->idle_preference_time : '60';
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
+                //Route: viewer.login
                 return redirect()->route('viewer.login')
                     ->withErrors(['message' => 'You have been logged out due to inactivity.']);
                 } 
@@ -109,16 +113,22 @@ class TrackLastPageVisitMiddlware
                     
                     if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                          auth()->logout();
-                        return redirect()->route('admin.login')->withErrors(['message' => 'You have been logged out due to inactivity.']);
+                         //Route: admin.login
+                        return redirect()->route('home')->withErrors(['message' => 'You have been logged out due to inactivity.']);
                         
                     } 
                 }
                  
             } elseif(auth()->user()->type == 9) {
+                
+               if (auth()->check() && !request()->is('operator-dashboard*')) {
+                   return redirect()->route('operator.index');
+            }
                 $idle_preference_time = (auth()->user()->operator_staff_setting && auth()->user()->operator_staff_setting->idle_preference_time) ? auth()->user()->operator_staff_setting->idle_preference_time : '60';
                 if ($lastActivity && now()->diffInMinutes($lastActivity) > (int) $idle_preference_time) {
                 auth()->logout();
-                return redirect()->route('operator-login')
+                //Route: operator-login
+                return redirect()->route('home')
                     ->withErrors(['message' => 'You have been logged out due to inactivity.']);
                 } 
             }
