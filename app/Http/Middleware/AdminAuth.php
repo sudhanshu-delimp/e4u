@@ -20,7 +20,8 @@ class AdminAuth
         $response = $next($request);
 
         if (!$user = auth()->user()) {
-            return redirect()->route('admin.login');
+            //return redirect()->route('admin.login');
+            return redirect('/');
         }
 
         //if ($user->type != 1 &&  $user->type != 2) {
