@@ -25,7 +25,8 @@ class CenterAuth
         // ->header('Accept', 'application/json');
 
         if(!$user = auth()->user()) {
-            return redirect()->route('advertiser.login');
+            //return redirect()->route('advertiser.login');
+            return redirect('/');
         }
 
         if($user->type != 4) {
