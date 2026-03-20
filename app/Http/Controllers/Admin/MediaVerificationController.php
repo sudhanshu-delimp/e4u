@@ -206,12 +206,21 @@ class MediaVerificationController extends Controller
 
         $id = $request->get('id');
         $user_id = $request->get('user_id');
+        $category =  $request->get('type');
+        if($category == "banners"){
+            $category = '9';
+        }else if($category == "pinups"){
+                $category = '10';
+        }else{
+            $category = null;
+        }
+
         $media_verification = MediaVerification::where('id', $id)
             ->where('user_id', $user_id)
             ->first();
         $status = $media_verification->getRawOriginal('status');
         
-        $query = EscortMedia::where('user_id', $user_id)->where('type', '0');
+        $query = EscortMedia::where('user_id', $user_id)->where('type', '0')->where('position',$category);
         switch ($status) {
             case '1': // Approved
                 $query->where('media_verification_id', $id)
@@ -289,17 +298,19 @@ class MediaVerificationController extends Controller
         EscortMedia::where('user_id', $media_verification->user_id)
             ->where('varified', 2)
             ->where('type', 0)
+            ->whereNull('media_verification_id')
             ->update([
                 'media_verification_id' => $media_verification->id,
                 'varified' => (string) $request->get('status')
             ]);
-            EscortMedia::where('user_id', $media_verification->user_id)
-            ->whereNull('varified')
-            ->where('type', 0)
-            ->update([
-                'media_verification_id' => $media_verification->id,
-                'varified' => (string) $request->get('status')
-            ]);
+            // EscortMedia::where('user_id', $media_verification->user_id)
+            // ->whereNull('varified')
+            // ->where('type', 0)
+            // ->whereNull('media_verification_id')
+            // ->update([
+            //     'media_verification_id' => $media_verification->id,
+            //     'varified' => (string) $request->get('status')
+            // ]);
 
         $user = User::with('my_agent')
             ->select('id', 'name', 'email', 'member_id', 'assigned_agent_id')
