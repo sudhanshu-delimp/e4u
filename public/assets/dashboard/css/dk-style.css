@@ -3075,8 +3075,9 @@ button.btn:focus {
 .view_img_gallery img {
     width: 140px;
     height: 120px;
-    object-fit: cover;
+    object-fit: fill;
     border-radius: 6px;
+    border: 1px solid var(--blue--text);
 }
 
 
@@ -3086,15 +3087,55 @@ button.btn:focus {
     height: 100%;
 }
 
+.nav-tabs.view_img_tab li {
+    margin-bottom: 0px;
+}
+
+.nav-tabs.view_img_tab li a {
+    color: var(--blue--text);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.nav-tabs.view_img_tab li a.active {
+    color: #fff;
+}
+
+.nav-tabs.view_img_tab li a:hover {
+    background-color: var(--blue--text);
+    color: #fff;
+}
+
+.banner_img,
+.pinup_img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.banner_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pinup_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 
 /* Center 6 Images Grid */
 
 .view_img_gallery .other_images {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-wrap: wrap;
-    gap: 10px;
-    height: 400px;
+    gap: 20px;
+    min-height: 120px;
+    max-height: 400px;
     overflow: auto;
 }
 
@@ -3121,7 +3162,7 @@ button.btn:focus {
 .verification img {
     height: 400px;
     width: 100%;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 .verify_ing_masseurs table td {
@@ -6895,10 +6936,11 @@ margin-left: 10px;
     text-transform: capitalize;
 }
 
-.modal-dialog {
+
+/* .modal-dialog {
     max-width: 642px;
     margin: auto;
-}
+} */
 
 .modal-apointment-details {
     width: 500px !important;
@@ -6974,7 +7016,7 @@ ul#accordionSidebar {
     font-family: Poppins !important;
     font-style: normal !important;
     font-weight: 500 !important;
-    font-size: 20px !important;
+    font-size: 18px !important;
     line-height: 1.5 !important;
     color: var(--blue--text);
 }
@@ -6983,9 +7025,20 @@ ul#accordionSidebar {
     font-family: Poppins !important;
     font-style: normal !important;
     font-weight: 500 !important;
-    font-size: 20px !important;
+    font-size: 18px !important;
     line-height: 1.5 !important;
     color: var(--blue--text);
+}
+
+.custom_modal_text {
+    font-family: Poppins !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    line-height: 1.5 !important;
+    color: var(--blue--text);
+    padding: 15px 0px;
+    text-align: center;
 }
 
 .modal-image-first {

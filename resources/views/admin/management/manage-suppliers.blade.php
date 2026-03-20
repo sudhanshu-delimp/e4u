@@ -131,8 +131,8 @@
 
 <!-- Add New Merchant member popupform -->
 <div class="modal fade upload-modal" id="addNewMerchant" tabindex="-1" role="dialog" aria-labelledby="addNewMerchantLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content basic-modal">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="addNewMerchant"> <img src="{{ asset('assets/dashboard/img/add-agent.png')}}" class="custompopicon"> Add New Merchant</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -226,8 +226,8 @@
  
 
             </div>
-            <div class="modal-footer p-0 pl-2 pb-4">
-               <button type="submit" class="btn-success-modal mr-2">Save</button>
+            <div class="modal-footer px-0">
+               <button type="submit" class="btn-success-modal">Save</button>
             </div>
             </form>
          </div>
@@ -238,8 +238,8 @@
  
 <!-- Edit Merchant popupform -->
 <div class="modal fade upload-modal" id="edit_merchant_data" tabindex="-1" role="dialog" aria-labelledby="edit_merchant_dataLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content basic-modal">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="edit_merchant_data"> 
                <img src="{{ asset('assets/dashboard/img/update-agent.png')}}" class="custompopicon"> 
@@ -334,8 +334,8 @@
                   </div>
 
                </div>
-               <div class="modal-footer p-0 pl-2 pb-4">
-                  <button type="submit" class="btn-success-modal mr-2">Update</button>
+               <div class="modal-footer px-0">
+                  <button type="submit" class="btn-success-modal">Update</button>
                   <button type="button" class="btn-success-modal">Approve</button>
                </div>
             </form>
@@ -348,7 +348,7 @@
 
 <!-- View Merchant popupform -->
 <div class="modal fade upload-modal" id="view_merchant_data" tabindex="-1" role="dialog" aria-labelledby="view_merchant_dataLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
       <div class="modal-content">
          
          <!-- Header -->
@@ -367,9 +367,7 @@
          <!-- Body -->
          <div class="modal-body pb-0">
             <div class="row">
-               <div class="col-12 custom-merchant-modal" >
-                  
-                  <div class="card mb-3 p-3">
+               <div class="col-sm-12" >
                      <!-- Avatar + Name -->
                      <div class="d-flex align-items-center mb-3">
                         <img src="{{ asset('assets/img/default_user.png')}}" alt="Avatar" class="rounded-circle mr-3" width="50" height="50">
@@ -408,7 +406,7 @@
                      </table>
 
                      
-                  </div>
+                  
                   
 
                </div>

@@ -1,12 +1,12 @@
-<div class="modal" id="delete_img" style="display: none">
+<div class="modal fade upload-modal" id="delete_img" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title text-white"> <img src="/assets/dashboard/img/remove-image.png" class="custompopicon" alt="cross"> Delete Image</h5>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> <img src="/assets/dashboard/img/remove-image.png" class="custompopicon" alt="cross"> Delete Image</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">
-                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                </span>
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                    </span>
                 </button>
             </div>
             <div class="modal-body">

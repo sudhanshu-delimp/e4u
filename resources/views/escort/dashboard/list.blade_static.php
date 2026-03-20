@@ -435,11 +435,11 @@
     </div>
     <!-- end suspend profile modal -->
 
-    <div class="modal programmatic" id="delete_profile" style="display: none">
+    <div class="modal fade upload-modal programmatic" id="delete_profile" style="display: none">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title" id="" style="color:white"><img src="/assets/app/img/block-user.png"
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id=""><img src="/assets/app/img/block-user.png"
                             class="custompopicon" alt="cross"> Delete Profile
                     </h5>
 

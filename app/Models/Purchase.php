@@ -127,4 +127,5 @@ class Purchase extends Model
     {
         return $this->morphMany(CreditTransaction::class, 'transactionable');
     }
+
 }

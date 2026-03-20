@@ -39,8 +39,8 @@ $countryName = isset($countries[$operator->country_id]['name']) ? $countries[$op
 $agreement_file = isset($operator->operator_detail->agreement_file) ? $operator->operator_detail->agreement_file : '';
 @endphp
 <div class="row">
-    <div class="col-12 custom-merchant-modal">
-        <div class="card mb-3 p-3">
+    <div class="col-sm-12">
+        {{-- <div class="card mb-3 p-3"> --}}
             <!-- Avatar + Name -->
             <div class="d-flex align-items-center mb-3">
                 <img src="{{ asset('assets/img/default_user.png') }}" alt="Avatar" class="rounded-circle mr-3"
@@ -134,7 +134,7 @@ $agreement_file = isset($operator->operator_detail->agreement_file) ? $operator-
                     <td>{{ $operator->operator_detail->commission_massage_centre_percent }}</td>
                 </tr>
             </table>
-        </div>
+        {{-- </div> --}}
     </div>
     <div class="col-lg-12">
         <!-- Footer Buttons -->

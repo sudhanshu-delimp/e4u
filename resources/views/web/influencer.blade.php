@@ -185,11 +185,11 @@
     </div> --}}
 
     
-<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade upload-modal" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
    aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content custome_modal_max_width">
-         <div class="modal-header main_bg_color border-0">
+      <div class="modal-content">
+         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel" style="color:white">
                <img src="{{ asset('assets/dashboard/img/unblock.png')}}" class="custompopicon">
                Influencer
@@ -201,9 +201,9 @@
             </button>
          </div>
          <div class="modal-body text-center">
-            <h1 class="popu_heading_style mb-4 mt-4">
-               <span id="Lname" class="my_legbox_title">Thank you for your request.<br>An email has been forwarded.</span>
-            </h1>
+            <h5 class="custom_modal_text">
+               <span id="Lname">Thank you for your request.<br>An email has been forwarded.</span>
+            </h5>
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <div class="form-group d-flex align-items-center justify-content-center">

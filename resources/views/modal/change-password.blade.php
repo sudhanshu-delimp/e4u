@@ -52,19 +52,18 @@ if (auth()->check())
 
 
 @if($open_pop_up)
-<div class="modal fade" id="change_Password_Modal" tabindex="-1" role="dialog" aria-labelledby="changePasswordLabel"
+<div class="modal upload-modal fade" id="change_Password_Modal" tabindex="-1" role="dialog" aria-labelledby="changePasswordLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title" id="changePasswordLabel" style="color:white">
-                    {{-- <i class="fa fa-key fa-lg fa-fw" style="color: white;"></i> --}}
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordLabel">
                     <img src="{{asset('assets/dashboard/img/reset-password.png')}}" alt="" class="custompopicon">
                     Change Password  
                 </h5>
-                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-                </button> -->
+                </button>
             </div>
 
             <form method="POST" name="change_Password_Modal" action="{{ route($submit_url) }}">
@@ -103,7 +102,7 @@ if (auth()->check())
                     </div>
                 </div>
 
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-end pt-0">
                    
                     <button type="submit" class="btn-success-modal">Update Password</button>
                 </div>

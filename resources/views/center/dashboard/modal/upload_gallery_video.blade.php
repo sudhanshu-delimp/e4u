@@ -1,5 +1,5 @@
 <div class="modal fade upload-modal" id="upload_video_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
                 <div class="modal-content border-0">
                     <div class="modal-header">
