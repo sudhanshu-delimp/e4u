@@ -236,7 +236,7 @@
 
 <div class="modal fade upload-modal" id="viewReports" tabindex="-1" role="dialog"
     aria-labelledby="viewReportsLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-xl modal-dialog-centered custom_admin_modal" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
 
@@ -794,7 +794,7 @@
 
 
             <div class="modal-footer">
-                <button type="button" class="btn-success-modal">Print</button>
+                <button type="button" class="btn-cancel-modal">Print</button>
                 <button type="button" class="btn-success-modal" data-dismiss="modal">Approved</button>
 
                 {{-- <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button> --}}

@@ -278,13 +278,13 @@
                    </div>
                 </div>
              </div>
-             <div class="modal" id="sendOtp_modal" style="display: none">
+             <div class="modal fade upload-modal" id="sendOtp_modal" style="display: none">
                 <div class="modal-dialog modal-dialog-centered">
-                   <div class="modal-content custome_modal_max_width">
+                   <div class="modal-content">
                       <form id="SendBankOtp" method="post" action="">
                          @csrf
-                         <div class="modal-header main_bg_color border-0">
-                            <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/face-lock.png') }}" style="width:40px;" alt="face-lock verification"> 2FA Verification</h5>
+                         <div class="modal-header">
+                            <h5 class="modal-title "><img src="{{ asset('assets/app/img/face-lock.png') }}" style="width:40px;" alt="face-lock verification"> 2FA Verification</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                <span aria-hidden="true">
                                   <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -293,7 +293,7 @@
                          </div>
                          <div class="modal-body forgot_pass pb-1">
                             <div class="form-group label_margin_zero_for_login">
-                               <div class="row text-center" style="">
+                               <div class="row text-center">
                                   <div class="col-md-12">
                                      <a href="#"><img src="{{ asset('assets/app/img/e4u_forget.png') }}" class="img-fluid" alt="logo"></a>
                                   </div>
@@ -329,12 +329,12 @@
                    </div>
                 </div>
              </div>
-             <div class="modal programmatic" id="delete_bank" style="display: none">
+             <div class="modal fade upload-modal programmatic" id="delete_bank" style="display: none">
                 <div class="modal-dialog modal-dialog-centered" role="document">
-                   <div class="modal-content custome_modal_max_width">
-                      <div class="modal-header main_bg_color border-0">
+                   <div class="modal-content">
+                      <div class="modal-header">
              
-                         <h5 class="modal-title text-white"><img src="/assets/dashboard/img/remove-bank-account.png" class="custompopicon" alt="cross"> Delete Bank Account</h5>
+                         <h5 class="modal-title "><img src="/assets/dashboard/img/remove-bank-account.png" class="custompopicon" alt="cross"> Delete Bank Account</h5>
                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
                                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -585,7 +585,7 @@
   </div>
 
   <!-- PIN Reset Confirmation Modal -->
-<div class="modal fade" id="PinResetConfirm" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade upload-modal" id="PinResetConfirm" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -606,7 +606,7 @@
   </div>
 
   <!-- PIN Reset Confirmation Modal -->
-<div class="modal fade" id="PinResetConfirm" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade upload-modal" id="PinResetConfirm" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">

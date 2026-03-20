@@ -3,7 +3,7 @@ $tourDetail = $tourDetail ?? null;
 @endphp
 @if(empty($tourDetail))
 <div class="modal fade upload-modal" id="tour_summary" tabindex="-1" role="dialog" aria-labelledby="tour_summary" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">

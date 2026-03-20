@@ -111,7 +111,7 @@
                 <div class="modal-header">
 
                     <h5 class="modal-title" id="requestAccepted">
-                        <img src="{{ asset('assets/dashboard/img/accept.png') }}" style="width:40px; margin-right:10px;" alt="Request Accepted">
+                        <img src="{{ asset('assets/dashboard/img/accept.png') }}" class="custompopicon" alt="Request Accepted">
                          Request Accepted</h5>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -129,8 +129,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer text-center justify-content-center">
-                    <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
+                <div class="modal-footer text-center justify-content-end">
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
                 </div>
             </div>
         </div>
@@ -141,7 +141,7 @@
     
     <template id="reject-popup-template-{{$list->id}}">
     <div class="modal fade upload-modal" id="requestRejected-{{$list->id}}" tabindex="-1" role="dialog" aria-labelledby="requestRejected" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="requestRejected"><img src="{{ asset('assets/dashboard/img/reject.png') }}" style="width:40px; margin-right:10px;" alt="Request Rejected"> Request Rejected</h5>
@@ -158,7 +158,7 @@
                     </div>
                 </div>
                 <div class="modal-footer text-center justify-content-center">
-                    <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
                 </div>
             </div>
         </div>

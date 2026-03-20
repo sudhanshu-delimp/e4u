@@ -632,11 +632,11 @@
             </div>
         </div>
 
-        <div class="modal" id="photo_gallery_banner" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title" style="color: white;"> <img
+        <div class="modal upload-modal fade" id="photo_gallery_banner" style="display: none">
+            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> <img
                                 src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross">
                             Select Banner</h5>
     
@@ -664,7 +664,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="modalPopup" style="max-height: 350px; min-height:100px; overflow:auto;">
+                        <div class="modalPopup">
     
                             <div class="tab-content mt-3">
                                 <!-- Tab panes -->
@@ -1957,14 +1957,14 @@
 </div>
 
 
-<div class="modal" id="photo_gallery" style="display: none">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
+<div class="modal fade upload-modal" id="photo_gallery" style="display: none">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
             <div class="modal-header main_bg_color border-0">
                 <h5 class="modal-title" style="color: white;"><img
                         src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon"> Select Photo
                 </h5>
-                <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 200px;">
+                <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 300px;">
                     <button type="button" data-toggle="modal" data-target="empty" class="btn-cancel-modal"
                         style=" padding: 5px 10px;">Upload from device</button>
                 </div>
@@ -1976,8 +1976,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div id="gallery_modal_container" class="grid-container modalPopup"
-                    style="max-height: 500px; overflow-y:scroll;">
+                <div id="gallery_modal_container" class="grid-container modalPopup">
 
                     @foreach ($media as $keyId => $image)
                         @if (!in_array($image->position, [9, 10]))
@@ -1995,10 +1994,10 @@
         </div>
     </div>
 </div>
-<div class="modal programmatic" id="setAsDefaultForMainAccount" style="display: none">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
+<div class="modal fade upload-modal programmatic" id="setAsDefaultForMainAccount" style="display: none">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img
                         src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon">Update Media
                 </h5>
@@ -2010,13 +2009,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                Would you like to update Media in your My Information page for future Profiles?
-                <div class="modal-footer">
+               <h5 class="custom_modal_text"> Would you like to update Media in your My Information page for future Profiles?</h5>
+                
+            </div>
+            <div class="modal-footer justify-content-center">
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
                         id="close_change">No</button>
                     <button type="button" class="btn-success-modal" onclick="setAsDefultImages()">Yes</button>
                 </div>
-            </div>
         </div>
     </div>
 </div>

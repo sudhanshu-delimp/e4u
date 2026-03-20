@@ -183,9 +183,9 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
-<div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade upload-modal" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
+        <div class="modal-content">
             <div class="modal-header main_bg_color border-0">
                 <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/crop-image.png') }}" class="custompopicon"> Crop Photo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -210,9 +210,9 @@
 </div>
 </div>
 
-<div class="modal" id="conformation_modal" style="display: none">
+<div class="modal fade upload-modal" id="conformation_modal" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
+        <div class="modal-content">
             <div class="modal-header main_bg_color border-0">
                 <h5 class="modal-title text-white">
                     <img src="{{ asset('assets/dashboard/img/remove-image.png') }}" class="custompopicon" id="modal-icon">

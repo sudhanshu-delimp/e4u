@@ -141,21 +141,21 @@
           </div>
           <div class="modal-body pb-0">
                 <div class="row">
-                   <div class="col-12 mb-3">
+                   <div class="col-sm-12">
 
                     @if(session('resposne_status') === true)
 
-                            <p>Your Request for a Support Agent has been submitted. A Support Agent will be in touch
-                            with you according to your preferred method.</p>
-                            <p>If a Support Agent has not contacted you within 24 hours, please raise a Support Ticket
+                            <h5 class="custom_modal_text">Your Request for a Support Agent has been submitted. A Support Agent will be in touch
+                            with you according to your preferred method.</h5>
+                            <h5 class="custom_modal_text">If a Support Agent has not contacted you within 24 hours, please raise a Support Ticket
                                 quoting the following reference : 
                                 @if(session('req_ref_number'))
                                 {{ session('req_ref_number') }}.
                                 @endif
-                            </p>
+                            </h5>
 
                      @else
-                           <p>{{ session('agent_success') }}</p> 
+                           <h5 class="custom_modal_text">{{ session('agent_success') }}</h5> 
 
                     @endif
                                 

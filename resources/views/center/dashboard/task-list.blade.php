@@ -201,7 +201,7 @@
     <!-- open tour section button -->
     <div class="modal fade upload-modal" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModallabel"
         aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/reject.png') }}" class="task_title_img" style="width:32px; margin-right:10px;" alt="New Task"><span id="task_title">New Task</span></h5>
@@ -218,7 +218,7 @@
                         </div>
 
                         <div class="row" id="task_form_button">
-                            <div class="col-md-11 mb-3 p-0 mx-auto">
+                            <div class="col-md-12 mb-3">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1" class="ml-2 showDateLabel"
                                         style="display: none;">Date Created: {{ \Carbon\Carbon::now()->format('d-m-Y') }}.
@@ -241,7 +241,7 @@
     <!-- open success popup model -->
     <div class="modal fade upload-modal" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModallabel"
         aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered " role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" ><img src="{{ asset('assets/dashboard/img/unblock.png') }}" class="success_task_title_img" style="width:32px; margin-right:10px;" alt="New Task"><span id="success_task_title">Task</span></h5>
@@ -354,7 +354,7 @@
 
         function newTask() {
             let addNewTaskHtml = `
-                <div class="mx-auto my-2 col-md-11">
+                <div class="mx-auto my-2 col-md-12">
                     <div class="form-group ">
                         <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
                         <input id="title" placeholder="Enter Title..." name="title" type="text"
@@ -422,7 +422,7 @@
             let editNewTaskHtml = ``;
             // for (selectedTask; selectedTask <= checkboxInputs.length; selectedTask++) {
                 editNewTaskHtml += `
-                    <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
+                    <div class="task-form-wrapper mx-auto mb-4 col-md-12" style="cursor:pointer;">
                         <div class=" col-md-12 card shadow-sm  rounded-3">
                             <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10" style="background:#C2CFE0; ">
                                 <h6 class="mb-0 text-dark">Task Summary</h6> <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>                            
@@ -555,7 +555,7 @@
             }
 
             completeHtml =
-                `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc">Are you sure you want to mark selected tasks as completed?</h4></div>`;
+                `<div class="mx-2 my-2 col-md-12"><h4 id="task_desc" class="custom_modal_text">Are you sure you want to mark selected tasks as completed?</h4></div>`;
 
             $("#task_form_html").html(completeHtml);
             $("#save_button").text('Yes');
@@ -575,7 +575,7 @@
             let viewTaskHtml = ``;
 
             viewTaskHtml += `
-                <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
+                <div class="task-form-wrapper mx-auto mb-4 col-md-12" style="cursor:pointer;">
                     <div class=" col-md-12 card shadow-sm  rounded-3">
                         <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10" style="background:#C2CFE0; ">
                             <h6 class="mb-0 text-dark">Task Summary</h6> <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>                            
@@ -637,7 +637,7 @@
 
         function openTask(openData) {
 
-            let openHtml = `<div class="col-md-11 mx-auto my-3">
+            let openHtml = `<div class="col-md-12 mx-auto my-3">
                 <div class="card shadow-sm  rounded-3">
                     <div class="card-header text-white" style="background:#C2CFE0;">
                         <h5 class="mb-0 text-dark" >Task Summary</h5>

@@ -131,11 +131,11 @@
     @include('agent.dashboard.partials.playmates-modal')
     <!-- Print Profile Report Modal -->
 
-    <div class="modal fade programmatic" id="printReport" tabindex="-1" role="dialog"
+    <div class="modal fade upload-modal programmatic" id="printReport" tabindex="-1" role="dialog"
         aria-labelledby="printReport" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title text-white">
                         <img src="{{ asset('assets/dashboard/img/admin-report.png') }}" class="custompopicon"
                             alt="cross">
@@ -172,6 +172,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="form-group">
                                    
                                     <div class="d-flex align-items-center flex-wrap gap-20">
@@ -201,9 +202,10 @@
 
                                 <!-- Footer -->
                                 <div class="modal-footer justify-content-end">
-                                    <button type="button" class="btn-success-modal" data-dismiss="modal"
-                                        id="close_change">View</button>
+                                   
                                     <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
+                                     <button type="button" class="btn-success-modal" data-dismiss="modal"
+                                        id="close_change">View</button>
                                 </div>
                             </div>
                         </div>
@@ -219,8 +221,8 @@
     <div class="upload-modal fade modal programmatic" id="current_location" tabindex="-1" role="dialog"
         aria-labelledby="current_location" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+            <div class="modal-content">
+                <div class="modal-header">
 
                     <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/map.png') }}"
                             class="custompopicon" alt="cross">Current Location - E60165</h5>
@@ -234,7 +236,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12 text-center">
-                            <h5 class="popu_heading_style my-1">
+                            <h5 class="custom_modal_text">
                                 The current Location for Name is: <b>Location</b>
                             </h5>
                             <div class="modal-footer justify-content-center">
@@ -255,8 +257,8 @@
 
     <div class="modal fade upload-modal bd-example-modal-lg" id="activity_summary" tabindex="-1" role="dialog"
         aria-labelledby="activity_summaryLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-            <div class="modal-content basic-modal modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="activity_summary"><img
                             src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Activity
@@ -329,9 +331,10 @@
                         <!-- Footer Row -->
                     </table>
                     <div class="modal-footer justify-content-end mt-3">
+                       
+                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
                         <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                             id="close_change">Ok</button>
-                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
                     </div>
                 </div>
             </div>
@@ -344,8 +347,8 @@
     {{-- profile_summary --}}
     <div class="modal fade upload-modal bd-example-modal-lg" id="profile_summary" tabindex="-1" role="dialog"
         aria-labelledby="profile_summaryLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-            <div class="modal-content basic-modal modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="profile_summary"><img
                             src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Profile
@@ -441,9 +444,10 @@
                     </div>
 
                     <div class="modal-footer justify-content-end mt-3">
+                        
+                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
                         <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                             id="close_change">Ok</button>
-                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
                     </div>
                 </div>
             </div>

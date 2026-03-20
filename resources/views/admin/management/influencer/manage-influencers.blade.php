@@ -125,8 +125,8 @@
 
 {{-- Set up fluencer --}}
 <div class="modal fade upload-modal" id="setUp" tabindex="-1" role="dialog" aria-labelledby="setUpLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content basic-modal">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/influencer.png')}}" class="custompopicon"> Set Up Influencers</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -238,7 +238,7 @@
 
                 <!-- Footer Buttons -->
                 <div class="modal-footer p-0 pl-2 pb-4">
-                    <button type="button" class="btn-success-modal mr-2" onclick="window.print()">Print</button>
+                    <button type="button" class="btn-cancel-modal mr-2" onclick="window.print()">Print</button>
                     <button type="submit" class="btn-success-modal">Save & Close</button>
                 </div>
             </form>
@@ -251,8 +251,8 @@
 
 {{-- Set up edit Influencer --}}
 <div class="modal fade upload-modal" id="editInfluencer" tabindex="-1" role="dialog" aria-labelledby="editInfluencerLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content basic-modal">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/influencer.png')}}" class="custompopicon"> Edit Account</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -376,8 +376,8 @@
 
 {{-- Set up view Influencer --}}
 <div class="modal fade upload-modal" id="viewInfluencer" tabindex="-1" role="dialog" aria-labelledby="viewInfluencerLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content basic-modal">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/influencer.png')}}" class="custompopicon"> View Account</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -455,7 +455,7 @@
 
             <!-- Footer Button -->
             <div class="modal-footer p-0 pl-2 pb-4 mt-2">
-                <button type="button" class="btn-success-modal" onclick="window.print()">Print</button>
+                <button type="button" class="btn-cancel-modal" onclick="window.print()">Print</button>
             </div>
          </div>
       </div>

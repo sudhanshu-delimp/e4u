@@ -131,11 +131,11 @@
 
     <!-- See Email Report popup -->
 
-
+   
     <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog"
         aria-labelledby="emailReportLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-            <div class="modal-content basic-modal modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="emailReport"> <img
                             src="{{ asset('assets/dashboard/img/view-listing.png') }}" class="custompopicon"> Listing</h5>
@@ -146,72 +146,25 @@
                 </div>
                 <div class="modal-body" id="escortPopupModalBody">
                     <div class="col-md-12 " id="printArea">
-                        <div class="my-account-card" style="display: none; margin:10px;">
-                            <div class="card-head">
 
-                                <h2 style="font-weight: 500;">My Account Details </h2>
-                                <input type="hidden" id="user_type">
-                            </div>
-                            <div class="info-grid">
-                                <div class="info-item d-none">
-                                    <label>Member ID</label>
-                                    <span class="account_member_id">M60178</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Member</label>
-                                    <span class="account_member_name">Lins Massage</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>IP Address</label>
-                                    <span class="account_ip_address">123.176.113.164</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Platform</label>
-                                    <span class="account_platform">Firefox</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Page</label>
-                                    <span class="account_visit_page">/escort-dashboard</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Listed Profiles (Escort)</label>
-                                    <span class="account_listed_profile_count">08</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Published Masseurs (Massage Centre)</label>
-                                    <span class="account_masseurs_count">02</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Massage Legboxes (Massage Centre)</label>
-                                    <span class="account_massage_legbox">02</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>List Advertisers (Escort)</label>
-                                    <span class="account_list_adervtiser_count">01</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Escort Legboxes (Viewer)</label>
-                                    <span class="account_legbox_count">04</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Playmates</label>
-                                    <span class="account_escort_playmates">04</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Reffered By Advertisers</label>
-                                    <span class="account_refer_by_advertiser_agent">04</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Reffered By Massage Centers</label>
-                                    <span class="account_refer_by_massage_center_agent">04</span>
-                                </div>
-                                <div class="info-item d-none">
-                                    <label>Idle Preference Time (Minutes)</label>
-                                    <span class="account_idle_prefrence_time">04</span>
-                                </div>
-                                
-                            </div>
-                        </div>
+
+                            <h6 class=" text-blue-primary my-2">My Account Details</h6>
+                            <table class="table table-bordered mb-3">
+                                <tr> <th style="font-weight: 600"> Merchant ID</th><td><span class="account_member_id">M60178</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Member</th><td><span class="account_member_name">Lins Massage</span></td></tr>
+                                <tr> <th style="font-weight: 600"> IP Address</th><td><span class="account_ip_address">123.176.113.164</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Platform</th><td><span class="account_platform">Firefox</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Page</th><td><span class="account_visit_page">/escort-dashboard</span></td></tr>
+                                {{-- <tr> <th style="font-weight: 600"> Listed Profiles (Escort)</th><td><span class="account_listed_profile_count">08</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Published Masseurs (Massage Centre)</th><td><span class="account_masseurs_count">02</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Massage Legboxes (Massage Centre)</th><td> <span class="account_massage_legbox">02</span></td></tr>
+
+                                <tr> <th style="font-weight: 600"> List Advertisers (Escort)</th><td> <span class="account_list_adervtiser_count">01</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Playmates</th><td><span class="account_legbox_count">04</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Reffered By Advertisers</th><td> <span class="account_refer_by_advertiser_agent">04</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Reffered By Massage Centers</th><td> <span class="account_refer_by_massage_center_agent">04</span></td></tr>
+                                <tr> <th style="font-weight: 600"> Idle Preference Time (Minutes)</th><td> <span class="account_idle_prefrence_time">04</span></td></tr> --}}
+                            </table>
                     </div>
                     <div class="modal-footer">
                         <form action="{{ route('print.logged.user.single-details') }}" method="post">
@@ -228,14 +181,14 @@
         </div>
     </div>
     <!-- end -->
-
+ 
     <!-- confirmation model -->
-    <div class="modal " id="confirm_modal" style=" padding-right: 15px;" aria-modal="true"
+    <div class="modal fade upload-modal " id="confirm_modal" style=" padding-right: 15px;" aria-modal="true"
         role="dialog">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title text-white">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
                         <img src="/assets/dashboard/img/ban.png" class="custompopicon" id="modal-icon">
                         <span style="color:white" id="modal_suspend_title">Profile Suspended</span>
                     </h5>
@@ -247,11 +200,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                    <h5 class="custom_modal_text" style="text-align: center;">
                         Are you sure you want to <span class="bodyMessageTitle">suspend</span> this profile?
                     </h5>
                 </div>
-                <div class="modal-footer" style="justify-content: center;">
+                <div class="modal-footer pt-0" style="justify-content: center;">
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal" id="close">No</button>
                     <button type="submit" class="btn-success-modal" data-user-id="" data-dismiss="modal" id="saveSuspendPfileInfo" >Yes</button>
                 </div>
@@ -259,30 +212,31 @@
         </div>
     </div>
     <!-- end -->
+  
     <!-- success model -->
-    <div class="modal " id="success_modal" style=" padding-right: 15px;" aria-modal="true"
+    <div class="modal fade upload-modal" id="success_modal" style=" padding-right: 15px;" aria-modal="true"
         role="dialog">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title text-white">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
                         <img src="/assets/dashboard/img/unblock.png" class="custompopicon" id="modal-icon">
                         <span style="color:white" id="modal-title">Profile <span class="modal_success_title">Suspended</span></span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src="http://127.0.0.1:8000/assets/app/img/newcross.png"
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h4 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                    <h4 class="custom_modal_text" style="text-align: center;">
                         <span id="comman_str"></span>
                         <span class="comman_msg">Status updated succesfully.</span>
                     </h4>
                 </div>
-                <div class="modal-footer" style="justify-content: center;">
+                <div class="modal-footer pt-0" style="justify-content: center;">
                     <button type="submit" class="btn-success-modal" data-dismiss="modal" id="close">Ok</button>
                 </div>
             </div>

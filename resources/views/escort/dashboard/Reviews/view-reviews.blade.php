@@ -150,11 +150,11 @@
 </div>
 
 <!-- confirmation model -->
-    <div class="modal " id="confirm_modal" style=" padding-right: 15px;" aria-modal="true"
+    <div class="modal fade upload-modal" id="confirm_modal" style=" padding-right: 15px;" aria-modal="true"
         role="dialog">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title text-white">
                         <img src="/assets/dashboard/img/ban.png" class="custompopicon" id="modal-icon">
                         <span style="color:white" id="modal_suspend_title">Review Suspended</span>
@@ -167,7 +167,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                    <h5 class="my-4 custom_modal_text">
                         Are you sure that you want to <span class="bodyMessageTitle">suspend</span> this <br> Review <span class="bodyMessageSentence">from</span> all of your Profiles?
                     </h5>
                 </div>
@@ -180,12 +180,12 @@
     </div>
     <!-- end -->
     <!-- success model -->
-    <div class="modal " id="success_modal" style=" padding-right: 15px;" aria-modal="true"
+    <div class="modal fade upload-modal" id="success_modal" style=" padding-right: 15px;" aria-modal="true"
         role="dialog">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title text-white">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
                         <img src="/assets/dashboard/img/unblock.png" class="custompopicon" id="modal-icon">
                         <span style="color:white" id="modal-title">Review <span class="modal_success_title">Suspended</span></span>
                     </h5>

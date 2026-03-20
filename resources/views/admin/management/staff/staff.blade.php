@@ -1,10 +1,5 @@
 @extends('layouts.admin')
 @section('style')
-    <style>
-        .modal-dialog {
-            max-width: 700px !important;
-        }
-    </style>
 @stop
 @section('content')
 @php
@@ -101,8 +96,8 @@
     <!-- add new staff member popupform -->
     <div class="modal fade upload-modal" id="addStaffnew" tabindex="-1" role="dialog" aria-labelledby="addStaffnewLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addStaffnewTitle"><img
                             src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon"> Add New Staff
@@ -115,7 +110,7 @@
                 <div class="modal-body">
                     <form name="add_staff" id="add_staff" method="POST" action="{{ route('admin.add-staff') }}"
                         enctype="multipart/form-data">
-                        <div class="row" style="max-height: 500px; overflow:auto;">
+                        <div class="row">
                             <!-- Section: Personal Details -->
                             <div class="col-12 my-2">
                                 <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
@@ -361,8 +356,8 @@
 
     <div class="modal fade upload-modal" id="staffEditModal" tabindex="-1" role="dialog"
         aria-labelledby="editStaffnewLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content ">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editStaffnewTitle"><img
                             src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">Edit Staff
@@ -381,8 +376,8 @@
 
     <div class="modal fade upload-modal" id="staffViewModal" tabindex="-1" role="dialog"
         aria-labelledby="editStaffnewLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content ">
                 <div class="modal-header">
                     <h5 class="modal-title" id="viewStaffnewTitle"><img
                             src="{{ asset('assets/dashboard/img/add-member.png') }}" class="custompopicon">View Staff

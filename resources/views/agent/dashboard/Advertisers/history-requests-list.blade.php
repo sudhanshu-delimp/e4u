@@ -69,7 +69,7 @@
 
    <!-- ================ Modal Popup ================================ -->
     <div class="modal fade upload-modal" id="agent_modal_{{$list->id}}" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false" >
-   <div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
             <h5 class="modal-title" id="Agent_Name">

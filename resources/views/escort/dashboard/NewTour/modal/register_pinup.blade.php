@@ -1,12 +1,12 @@
 <div class="modal fade upload-modal" id="pinup_profile" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
         aria-modal="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             
-                <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+                <div class="modal-content">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id=""><img src="/assets/app/img/register.png" class="custompopicon" alt="cross" style="width:32px"> Register for Pin Up</h5>
+                            <h5 class="modal-title" id=""><img src="{{ asset('assets/dashboard/img/pinup-location.png')}}" class="custompopicon" alt="cross"> Register for Pin Up</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><img id="modal_close"
                                         src="{{ asset('assets/app/img/newcross.png') }}"
@@ -21,7 +21,7 @@
                                         @csrf
                                         <div class="form-group row">
                                             <label class="col-sm-3" for=""> Location:</label>
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-9">
                                                 <select
                                                     class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
                                                     id="pinup_location_id" name="pinup_location_id"
@@ -35,7 +35,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-3" for=""> Profile:</label>
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-9">
                                                 <select
                                                     class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
                                                     id="pinup_profile_id" name="pinup_profile_id"
@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-3" for=""> Next available:</label>
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-9">
                                                 <select
                                                     class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
                                                     id="pinup_week" name="pinup_week"
@@ -70,14 +70,7 @@
                                               </div>
                                             </div>
                                           </div>
-                                        <div class="form-group row custom-pin-button">
-                                            <div class="col-sm-12 text-center">
-                                                <input type="hidden" name="tour_location_id">
-                                                <button type="submit" class="btn btn-primary"
-                                                    id="savePinupButton">Proceed to Payment</button>
-                                            </div>
-                                        </div>
-                                        </form>
+                                          
                                         <hr style="background-color: #0C223D" class="mt-4"> 
                                         <div class="form-group row">
                                             <div class="col-lg-12">
@@ -95,6 +88,14 @@
                                                 </ol>
                                             </div>
                                         </div>
+                                        <div class="form-group row custom-pin-button">
+                                            <div class="col-sm-12 text-right">
+                                                <input type="hidden" name="tour_location_id">
+                                                <button type="submit" class="btn-success-modal"
+                                                    id="savePinupButton">Proceed to Payment</button>
+                                            </div>
+                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

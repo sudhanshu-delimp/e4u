@@ -39,6 +39,9 @@
         .btn-primary {
             border-color: unset !important;
         }
+        .table-responsive{
+            overflow: visible
+        }
     </style>
 @endsection
 @section('content')
@@ -78,60 +81,51 @@
 
         <!-- Page Heading -->
         <div class="row">
-            <div class="col-lg-12 p-0">
-                <!-- Card Body -->
-                <div class="card-body">
-                    <div class="mb-2 row">
-                        <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10">
-                            <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-10">
-                                <div class="total_listing">
-                                    <div><span>In Progress Task : </span></div>
-                                    <div><span class="totalInprogressTask">0</span></div>
-                                </div>
-                                <div class="total_listing">
-                                    <div><span>Open Task : </span></div>
-                                    <div><span class="totalOpenTask">0</span></div>
-                                </div>
-                                <div class="total_listing">
-                                    <div><span>Completed Task : </span></div>
-                                    <div><span class="totalCompletedTask">0</span></div>
-                                </div>
-                            </div>
-                            <div class="text-center small d-flex justify-content-end align-items-center gap-10 flex-wrap">
-
-                                <span class="mr-2 text-uppercase font-weight-bold">Importance:</span>
-                                <span class="d-flex justify-content-start gap-5 align-items-center">High <i
-                                        class="fas fa-circle text-high mr-2"></i></span>
-                                <span class="d-flex justify-content-start gap-5 align-items-center">Medium <i
-                                        class="fas fa-circle text-medium mr-2"></i></span>
-
-                                <span class="d-flex justify-content-start gap-5 align-items-center">Low <i
-                                        class="fas fa-circle text-low"></i></span>
-                                <button type="submit" id="new_task" name="submit" class="create-tour-sec">New
-                                    Task</button>
-                            </div>
-                        </div>
+            <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10">
+                <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-10">
+                    <div class="total_listing">
+                        <div><span>In Progress Task : </span></div>
+                        <div><span class="totalInprogressTask">0</span></div>
                     </div>
-                    <div class="card-body p-0 Dash-table task_table">
-                        <div class="table-responsive">
-                            <table class="table table-bordered ">
-                                <thead class="bg-first">
-                                    <tr>
-                                        <th>Task</th>
-                                        <th class="text-center">Status</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="taskList">
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="d-flex justify-content-end mt-4 custome_paginator">
-
-                        </div>
+                    <div class="total_listing">
+                        <div><span>Open Task : </span></div>
+                        <div><span class="totalOpenTask">0</span></div>
+                    </div>
+                    <div class="total_listing">
+                        <div><span>Completed Task : </span></div>
+                        <div><span class="totalCompletedTask">0</span></div>
                     </div>
                 </div>
+                <div class="text-center small d-flex justify-content-end align-items-center gap-10 flex-wrap">
+
+                    <span class="mr-2 text-uppercase font-weight-bold">Importance:</span>
+                    <span class="d-flex justify-content-start gap-5 align-items-center">High <i
+                            class="fas fa-circle text-high mr-2"></i></span>
+                    <span class="d-flex justify-content-start gap-5 align-items-center">Medium <i
+                            class="fas fa-circle text-medium mr-2"></i></span>
+
+                    <span class="d-flex justify-content-start gap-5 align-items-center">Low <i
+                            class="fas fa-circle text-low"></i></span>
+                    <button type="submit" id="new_task" name="submit" class="create-tour-sec">New
+                        Task</button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered ">
+                        <thead class="bg-first">
+                            <tr>
+                                <th>Task</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="taskList">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-end mt-4 custome_paginator"></div>
             </div>
         </div>
     </div>
@@ -139,19 +133,19 @@
     <!-- open tour section button -->
     <div class="modal fade upload-modal" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModallabel"
         aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        <img src="{{ asset('assets/dashboard/img/reject.png') }}" class="task_title_img"
-                            style="width:32px; margin-right:10px;" alt="New Task"><span id="task_title">New Task</span>
+                        <img src="{{ asset('assets/dashboard/img/reject.png') }}" class="task_title_img custompopicon"
+                            alt="New Task"><span id="task_title">New Task</span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
-                <div class="modal-body pb-0 agent-tour">
+                <div class="modal-body agent-tour">
                     <form method="post" id="task_form" action="#">
                         {{ csrf_field() }}
                         <div class="row" id="task_form_html">
@@ -161,14 +155,22 @@
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
-                                    <label for="exampleFormControlTextarea1" class="ml-2 showDateLabel"
-                                        style="display: none;">Date Created: {{ \Carbon\Carbon::now()->format('d-m-Y') }}.
-                                    </label>
-                                    <input type="hidden" name="change_task_id" id="change_task_id">
-                                    <button type="submit" class="btn-success-modal float-right ml-2 "
-                                        id="save_button">Yes</button>
-                                    <button type="button" class="btn-cancel-modal float-right ml-2" data-dismiss="modal"
-                                        aria-label="Close" id="cancel_button">No</button>
+                                    <div class="d-flex d-flex justify-content-between align-items-center gap-10">
+                                        <div>
+                                            <label for="exampleFormControlTextarea1" class="ml-2 showDateLabel"
+                                                style="display: none;">Date Created:
+                                                {{ \Carbon\Carbon::now()->format('d-m-Y') }}.
+                                            </label>
+                                            <input type="hidden" name="change_task_id" id="change_task_id">
+                                        </div>
+                                        <div class="d-flex justify-content-end gap-10 ">
+                                            <button type="submit" class="btn-success-modal"
+                                                id="save_button">Yes</button>
+                                            <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                                                aria-label="Close" id="cancel_button">No</button>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -194,7 +196,8 @@
                 </div>
                 <div class="modal-body pb-0 agent-tour">
                     <div class="py-4 text-center" id="success_form_html">
-                        <h4 id="success_msg">Are you sure you want to mark this Appointment as completed?</h4>
+                        <h4 id="success_msg" class="custom_modal_text">Are you sure you want to mark this Appointment as
+                            completed?</h4>
                         <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal"
                             aria-label="Close" id="cancel_button">OK</button>
                     </div>
@@ -203,6 +206,8 @@
             </div>
         </div>
     </div>
+    
+
 @endsection
 @push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
@@ -210,11 +215,11 @@
         $(document).ready(function() {
             // calculate task summary
             let formData = $('#task_form').serialize();
-            let actionUrl = '{{ route("viewer.dashboard.ajax-open-task") }}';
+            let actionUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
             callAjax(formData, actionUrl);
 
             $(".showDateLabel").hide();
-            
+
             // Reusable click event
             $(document).on('click', '.create-tour-sec-dropdown, .create-tour-sec', function(e) {
                 e.preventDefault();
@@ -237,7 +242,8 @@
                     $('#task_title').text(taskName);
                     viewTask(taskId);
                 } else if (buttonId === 'complete_task') {
-                    $(".task_title_img").attr('src', "{{ asset('assets/dashboard/img/complete-appointment.png') }}");
+                    $(".task_title_img").attr('src',
+                        "{{ asset('assets/dashboard/img/complete-appointment.png') }}");
                     $('#task_title').text(taskName);
                     completeTask(taskId);
                 }
@@ -260,9 +266,11 @@
 
             let icon = $(this).find('i');
             if ($(this).hasClass('open')) {
-                icon.removeClass('top-icon-bg fas fa-chevron-down fa-fw').addClass('top-icon-bg fas fa-chevron-up fa-fw');
+                icon.removeClass('top-icon-bg fas fa-chevron-down fa-fw').addClass(
+                    'top-icon-bg fas fa-chevron-up fa-fw');
             } else {
-                icon.removeClass('top-icon-bg fas fa-chevron-up fa-fw').addClass('top-icon-bg fas fa-chevron-down fa-fw');
+                icon.removeClass('top-icon-bg fas fa-chevron-up fa-fw').addClass(
+                    'top-icon-bg fas fa-chevron-down fa-fw');
             }
         });
 
@@ -349,8 +357,10 @@
             `;
 
             $("#task_form_html").html(editNewTaskHtml);
-            
-            let formData = { 'id': taskId };
+
+            let formData = {
+                'id': taskId
+            };
             fetchAjaxEditData(formData);
 
             let updateUrl = "{{ route('viewer.dashboard.ajax-update-task') }}";
@@ -395,7 +405,8 @@
                 success: function(response) {
                     if (response.task) {
                         $("#edit_title").val(response.task.title);
-                        $('input[name="task_priority"][value="' + response.task.priority + '"]').prop('checked', true);
+                        $('input[name="task_priority"][value="' + response.task.priority + '"]').prop('checked',
+                            true);
                         $("#edit_status").val(response.task.status);
                         $("#edit_description").text(response.task.description);
                     }
@@ -407,13 +418,16 @@
         }
 
         function completeTask(taskId) {
-            let formData = { 'task_id': taskId };
-            let completeHtml = `<div class="text-center my-3 col-md-12"><h4 id="task_desc">Are you sure you want to mark selected tasks as completed?</h4></div>`;
+            let formData = {
+                'task_id': taskId
+            };
+            let completeHtml =
+                `<div class="text-center my-3 col-md-12"><h4 id="task_desc">Are you sure you want to mark selected tasks as completed?</h4></div>`;
 
             $("#task_form_html").html(completeHtml);
             $("#save_button").text('Yes').show();
             $("#cancel_button").text('Cancel');
-            
+
             let actionStatusUrl = "{{ route('viewer.dashboard.ajax-change-status') }}";
             $('#task_form').attr('action', actionStatusUrl);
             $("#change_task_id").val(taskId);
@@ -462,10 +476,12 @@
             `;
 
             $("#task_form_html").html(viewTaskHtml);
-            
-            let formData = { 'id': taskId };
+
+            let formData = {
+                'id': taskId
+            };
             fetchAjaxEditData(formData);
-            
+
             $("#save_button").hide();
             $("#cancel_button").text('Cancel');
         }
@@ -497,7 +513,7 @@
                     if (response.task_name === 'update_task') {
                         loadTasks(1);
                         let openData = $('#task_form').serialize();
-                        let openUrl = '{{ route("viewer.dashboard.ajax-open-task") }}';
+                        let openUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
                         callAjax(openData, openUrl);
                         $('#taskModal').modal('hide');
                         $("#success_msg").text('Task Updated successfully.');
@@ -508,7 +524,7 @@
                     if (response.task_name === 'complete_task') {
                         loadTasks(1);
                         let openData = $('#task_form').serialize();
-                        let openUrl = '{{ route("viewer.dashboard.ajax-open-task") }}';
+                        let openUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
                         callAjax(openData, openUrl);
                         $('#taskModal').modal('hide');
                         $("#success_msg").text('Task has been marked as completed');
@@ -554,7 +570,7 @@
 
         function renderTasks(tasks) {
             let html = '';
-            
+
             $.each(tasks, function(index, task) {
                 let statusLabel = task.status;
                 if (task.status === 'inprogress') {
@@ -571,7 +587,7 @@
                 } else if (task.priority === 'low') {
                     priorityColor = 'text-low';
                 }
-                
+
                 let checkboxId = 'task_checkbox_' + task.id;
                 let taskId = task.id;
                 let menuId = 'dropdownMenuLink_' + task.id;
@@ -617,9 +633,11 @@
             let pagination = `<nav><ul class="pagination">`;
 
             if (data.current_page > 1) {
-                pagination += `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page - 1}"><i class="fa fa-angle-left"></i></a></li>`;
+                pagination +=
+                    `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page - 1}"><i class="fa fa-angle-left"></i></a></li>`;
             } else {
-                pagination += `<li class="page-item page-link border-0 text-muted" style="cursor: not-allowed;"><i class="fa fa-angle-left"></i></li>`;
+                pagination +=
+                    `<li class="page-item page-link border-0 text-muted" style="cursor: not-allowed;"><i class="fa fa-angle-left"></i></li>`;
             }
 
             for (let i = 1; i <= data.last_page; i++) {
@@ -629,9 +647,11 @@
             }
 
             if (data.current_page < data.last_page) {
-                pagination += `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page + 1}"><i class="fa fa-angle-right"></i></a></li>`;
+                pagination +=
+                    `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page + 1}"><i class="fa fa-angle-right"></i></a></li>`;
             } else {
-                pagination += `<li class="page-item page-link border-0 text-muted" style="cursor: not-allowed;"><i class="fa fa-angle-right"></i></li>`;
+                pagination +=
+                    `<li class="page-item page-link border-0 text-muted" style="cursor: not-allowed;"><i class="fa fa-angle-right"></i></li>`;
             }
 
             pagination += `</ul></nav>`;

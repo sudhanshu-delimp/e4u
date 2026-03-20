@@ -17,11 +17,11 @@
                 @yield('content')
 
             </div>
-            <div class="modal" id="comman_modal" style="display: none">
+            <div class="modal upload-modal fade" id="comman_modal" style="display: none">
                 <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content custome_modal_max_width">
-                        <div class="modal-header main_bg_color border-0">
-                            <h5 class="modal-title text-white">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">
                                 <img src="{{ asset('assets/dashboard/img/save-setting.png') }}" class="custompopicon" id="modal-icon">
                                 <span id="modal-title">About Me</span> </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -31,10 +31,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                            <h5 class="my-4 custom_modal_text" style="text-align: center;">
                             <span id="comman_str"></span>
                             <span class="comman_msg"></span>
-                            </h1>
+                            </h5>
                         </div>
                         <div class="modal-footer" style="justify-content: center;">
                             <button type="submit" class="btn-success-modal" data-dismiss="modal" id="close">Ok</button>

@@ -1,7 +1,7 @@
 <div class="modal fade upload-modal" id="veryfy_media" tabindex="-1" role="dialog" aria-labelledby="veryfy_mediaLongTitle"
     data-keyboard="false" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 900px;position: absolute;">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
             <form id="mulitiImage" method="POST" action="{{ route('center.upload.gallery') }}"
                 enctype="multipart/form-data">
                 @csrf
