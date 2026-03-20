@@ -25,15 +25,19 @@
         @endforeach
         @endif
         <div class="custom-heading-wrapper col-md-12">
-            <h1 class="h1">Dashbaord</h1>
+            <h1 class="h1">Dashboard</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b></p>
+                    <p></p>
                     <ol>
-
+                        <li>Use this feature to enable and disable your feature preferences.</li> 
+                        <li>Please note that for an Advertiser to participate in any of these features, they must 
+                            have enabled the corresponding feature in their preference settings.</li>
+                        <li>Note also the default setting for 2FA authentification.</li> 
                     </ol>
                 </div>
             </div>
