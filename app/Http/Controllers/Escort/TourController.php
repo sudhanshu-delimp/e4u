@@ -987,7 +987,8 @@ class TourController extends Controller
         //return view('escort.dashboard.NewTour.create-tour',compact('escorts','tours','find_tour','user_names'));
     }
 
-    public function tourCheckout($id){
+    public function tourCheckout(Request $request, $id){
+        $checkout_type = !empty($request->checkout_type)?$request->checkout_type:null;
         $tour = Tour::findOrFail($id);
         $data = [];
         $escort_ids = [];
@@ -1015,7 +1016,7 @@ class TourController extends Controller
         }
         $escorts = Escort::whereIn('id', $escort_ids)->pluck('name', 'id')->toArray();
         session()->put('checkout', $checkoutData);
-        return view('escort.dashboard.checkoutPage', compact('data', 'escorts'));
+        return view('escort.dashboard.checkoutPage', compact('data', 'escorts', 'checkout_type'));
     }
 
     public function validateDateRange(Request $request){
