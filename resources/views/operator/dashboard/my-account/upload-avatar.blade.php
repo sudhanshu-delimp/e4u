@@ -131,7 +131,7 @@
     <i class="fas fa-angle-up"></i>
 </a>
 <div class="modal opr-modal fade " id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/crop.png') }}" class="custompopicon"> Crop Photo</h5>
@@ -148,7 +148,7 @@
                 <div class="cr-slider-wrap"><input class="cr-slider" type="range" step="0.0001" aria-label="zoom" min="0.0000" max="1.5000" aria-valuenow="0.0913"></div> --}}
             </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer justify-content-center">
             <button type="button" class="opr-btn-common" data-dismiss="modal">Close</button>
             <button type="button" id="cropImageBtn" class="opr-btn-common">Crop</button>
         </div>

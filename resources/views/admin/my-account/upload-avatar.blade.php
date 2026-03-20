@@ -17,11 +17,12 @@
         margin-top: -30px;
     }
 
-    #upload-demo {
+    /* #upload-demo {
         width: 250px;
         height: 250px;
         padding-bottom: 25px;
-    }
+        margin: 0 auto;
+    } */
 </style>
 @stop
 @section('content')
@@ -153,7 +154,7 @@
     <i class="fas fa-angle-up"></i>
 </a>
 <div class="modal fade upload-modal" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered modal-lg">
+    <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/crop-image.png') }}" class="custompopicon"> Crop Photo</h5>
@@ -171,7 +172,7 @@
                 <div class="cr-slider-wrap"><input class="cr-slider" type="range" step="0.0001" aria-label="zoom" min="0.0000" max="1.5000" aria-valuenow="0.0913"></div> --}}
             </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer justify-content-center">
             <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
             <button type="button" id="cropImageBtn" class="btn-success-modal">Crop</button>
         </div>

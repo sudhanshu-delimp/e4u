@@ -11414,6 +11414,13 @@ button:disabled {
     font-weight: 500;
 }
 
+#upload-demo {
+    width: 250px;
+    height: 250px;
+    padding-bottom: 25px;
+    margin: 0 auto;
+}
+
 .pill {
     font-size: 12px;
     padding: 3px 8px;

@@ -152,7 +152,7 @@
                 <div class="cr-slider-wrap"><input class="cr-slider" type="range" step="0.0001" aria-label="zoom" min="0.0000" max="1.5000" aria-valuenow="0.0913"></div> --}}
             </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer justify-content-center">
             <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
             <button type="button" id="cropImageBtn" class="btn main_bg_color site_btn_primary">Crop</button>
         </div>
