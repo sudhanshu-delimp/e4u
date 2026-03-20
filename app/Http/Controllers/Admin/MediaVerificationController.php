@@ -226,11 +226,12 @@ class MediaVerificationController extends Controller
             case '0': // Pending
             default:
                 $query->whereNull('media_verification_id')
-                    ->whereNull('varified');
+                    ->where('varified', '2');
                 break;
         }
 
         $escort_medias = $query->get();
+        
         $media_verification_image = asset('escorts/' . $media_verification->image_path);
         $bannerImage = [];
         $pinupImage =  [];
@@ -284,9 +285,16 @@ class MediaVerificationController extends Controller
         $media_verification->reviewed_by = Auth::id();
         $media_verification->reviewed_at = Carbon::now();
         $media_verification->save();
-
+        
         EscortMedia::where('user_id', $media_verification->user_id)
-            ->where('varified', null)
+            ->where('varified', 2)
+            ->where('type', 0)
+            ->update([
+                'media_verification_id' => $media_verification->id,
+                'varified' => (string) $request->get('status')
+            ]);
+            EscortMedia::where('user_id', $media_verification->user_id)
+            ->whereNull('varified')
             ->where('type', 0)
             ->update([
                 'media_verification_id' => $media_verification->id,
