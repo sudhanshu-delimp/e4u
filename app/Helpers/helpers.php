@@ -9,6 +9,7 @@ use App\Models\AlertNotic;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Escort;
+use App\Models\Purchase;
 use App\Models\EscortMedia;
 use App\Models\EscortStatistics;
 use App\Models\GlobalNotification;
@@ -164,7 +165,7 @@ if (!function_exists('formatCurrency')) {
             $formatted = $lastThree;
         }
 
-        return '$' . $formatted . '.' . $decimalPart;
+        return 'AU$' . $formatted . '.' . $decimalPart;
     }
 }
 
@@ -1721,7 +1722,7 @@ function find_massage_default_duration($massage_id)
         return $result;
 		
 }
-
+}
 
 if (!function_exists('isPriceValid')) {
 function isPriceValid($array)
@@ -1741,5 +1742,22 @@ function isPriceValid($array)
 }
 }
 
-}
+if (!function_exists('getPurchaseNetAmount')) {
+    function getPurchaseNetAmount($id, &$total = 0)
+    {
+        $purchase = Purchase::find($id);
+
+        if (!$purchase) return;
+
+        $total += $purchase->paid_rate;
+
+        if ($purchase->parent_id) {
+            getPurchaseNetAmount($purchase->parent_id, $total);
+        }
+
+         return formatCurrency($total);
+        }
+    }
+
+
 
