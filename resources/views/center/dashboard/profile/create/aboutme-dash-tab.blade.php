@@ -955,7 +955,7 @@ img#blah8 {
             </div>
         </div>
         
-    </div>
+     </div>
       <!-- ########## End Photos Tab #################    -->
 
 
@@ -1144,16 +1144,8 @@ img#blah8 {
                      <span class="theme-text-color text-capitalize">max limit 2500 characters</span>
                      <div id="about_me_error"></div>
                   </div>
-               
-               </div>
-
-               {{-- <div class="row pt-3">
-                  <div class="col-md-12 text-right" style="padding-right: 1.8rem;">
-                        <button id="update_who_am_i" type="button" class="save_profile_btn who_am_i">Update</button>
-                  </div>
-               </div> --}}
-      </div>
-
+            </div>
+         </div>
       </div>
       <div class="tab_btm_btns_preview_and_next py-3">
          <div class="row pt-3 pb-2">
@@ -1168,17 +1160,6 @@ img#blah8 {
       </div>
    </div>
    
-
-
-
-
-
-
-
-
-
-
-
 <div class="modal fade upload-modal" id="photo_gallery" style="display: none">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -1223,24 +1204,23 @@ img#blah8 {
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"> <img
-                        src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon">Update Media
-                </h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        <img src="{{ asset('assets/app/img/newcross.png') }}"
-                            class="img-fluid img_resize_in_smscreen">
-                    </span>
-                </button>
+            <h5 class="modal-title" id="exampleModalLabel"> <img
+                    src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon">Update Media
+            </h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">
+                    <img src="{{ asset('assets/app/img/newcross.png') }}"
+                        class="img-fluid img_resize_in_smscreen">
+                </span>
+            </button>
             </div>
             <div class="modal-body">
-               <h5 class="custom_modal_text"> Would you like to update Media in your My Information page for future Profiles?</h5>
+            <h5 class="custom_modal_text"> Would you like to update Media in your My Information page for future Profiles?</h5>
             </div>
-                <div class="modal-footer justify-content-center pt-0">
-                    <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
-                        id="close_change">No</button>
-                    <button type="button" class="btn-success-modal" onclick="setAsDefultImages()">Yes</button>
-                </div>
+            <div class="modal-footer justify-content-center pt-0">
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
+                    id="close_change">No</button>
+                <button type="button" class="btn-success-modal" onclick="setAsDefultImages()">Yes</button>
             </div>
         </div>
     </div>
