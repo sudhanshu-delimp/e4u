@@ -149,9 +149,9 @@
       </nav>
 
       <!-- My Playbox Modal -->
-<div class="modal defult-modal fade" id="myPlayboxModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myPlayboxModalLabel" aria-hidden="true">
+<div class="modal defult-modal upload-modal fade" id="myPlayboxModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myPlayboxModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
+        <div class="modal-content">
            <!-- Modal body -->
            <div class="modal-body p-0">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:15px 20px;">
@@ -159,11 +159,9 @@
               </button>
               <h3><img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}" class="custompopicon menu-icon my--play"> My Playbox</h3>
               <div class="modal-sec pb-0">
-                <h1 class="popu_heading_style mb-3 mt-3" style="text-align: center;">
-                    <span id="Lname " class="my_legbox_title">My Playbox content is only available to Viewers.<br> Please Login or Register to access My Playbox.</span>
-                    </h1>
-                
-                    
+                <h5 class="custom_modal_text" style="text-align: center;">
+                    <span id="Lname">My Playbox content is only available to Viewers.<br> Please Login or Register to access My Playbox.</span>
+                    </h5> 
                 </div>
            </div>
            <div class="modal-footer justify-content-center pt-3">

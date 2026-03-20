@@ -107,7 +107,7 @@
 
 <div class="modal fade upload-modal" id="commission-report" tabindex="-1" role="dialog"
     aria-labelledby="commission-reportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-xl modal-dialog-centered custom_admin_modal" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
 
@@ -332,7 +332,7 @@
 
 
             <div class="modal-footer">
-                <button type="button" class="btn-success-modal">Print</button>
+                <button type="button" class="btn-cancel-modal">Print</button>
                 <button type="button" class="btn-success-modal" data-dismiss="modal">Query</button>
                 <button type="button" class="btn-success-modal" data-dismiss="modal">Approve</button>
             </div>

@@ -1,5 +1,5 @@
 <div class="modal fade" id="verify_masseur_images" style="display: none">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 900px;">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header main_bg_color border-0">
                 <h5 class="modal-title" style="color: white;"><img src="{{ asset('assets/dashboard/img/verify-image.png') }}"

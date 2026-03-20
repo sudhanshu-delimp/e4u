@@ -1,5 +1,5 @@
 <div class="modal fade upload-modal" id="tour_location_cancel" tabindex="-1" aria-labelledby="new-ban-3" data-backdrop="static" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
@@ -13,7 +13,7 @@
             
             <div class="modal-body pb-0 agent-tour">
                 <form id="cancelTourForm" action="{{route('escort.tour.cancel_tour_location')}}" method="POST">
-                    <h5 class="popu_heading_style my-3 text-center">You are about to cancel your Tour. Are you sure you<br> want to cancel your Tour?</h5>
+                    <h5 class="custom_modal_text">You are about to cancel your Tour. Are you sure you<br> want to cancel your Tour?</h5>
                     <hr style="background-color: #0C223D" class="mt-3">
                     <input type="hidden" id="cancel_tour_id" value="119">
                     <div class="note">

@@ -91,8 +91,8 @@
     <!-- End of Content Wrapper -->
     <div class="modal fade upload-modal" id="createNotification" tabindex="-1" role="dialog"
         aria-labelledby="createNotification" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createNotification"> <img
                             src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create
@@ -189,7 +189,7 @@
 
                             </div>
                         </div>
-                        <div class="modal-footer pr-3">
+                        <div class="modal-footer px-0">
                             <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
                             <button type="submit" id="submitBtn" class="btn-success-modal">Save</button>
                         </div>
@@ -204,7 +204,7 @@
 
     <div class="modal fade upload-modal " id="view-listing" tabindex="-1" role="dialog"
         aria-labelledby="view-listingLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="view-listings"><img

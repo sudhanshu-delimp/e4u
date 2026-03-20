@@ -519,7 +519,7 @@
    </div>
 </div>
 <div class="modal fade upload-modal" id="Edit_Competitor" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
       <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="Edit_Competitor"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Variables - Loyalty Program Advertisers</h5>
@@ -1110,7 +1110,7 @@ var loyalty_program_advertisers = $("#loyalty_program_advertisers").DataTable({
                   }
 
 
-                  var modal_html = `<div class="modal-dialog modal-dialog-centered" role="document">
+                  var modal_html = `<div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
                                        <form name="loyalty_program_advertisers_modal_frm" method="post">
                                           <div class="modal-content">
                                              <div class="modal-header">

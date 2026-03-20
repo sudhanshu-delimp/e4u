@@ -183,7 +183,7 @@
          user_img = avatar_base + rowData.avatar_img;
          
 
-         var modal_html =`<div id="account-row-${requestId}" class="modal-dialog modal-dialog-centered" role="document">
+         var modal_html =`<div id="account-row-${requestId}" class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
                               <div class="modal-content">
                                  <div class="modal-header">
                                     <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/view-merchant.png')}}" style="width:40px; margin-right:10px;" alt="Request Accepted"> 
@@ -195,9 +195,8 @@
                                  </div>
                                  <div class="modal-body pb-0">
                                        <div class="row">
-                                          <div class="col-12">
+                                          <div class="col-sm-12">
                                                 
-                                          <div class="card mb-3 p-3">
                                                 <!-- Avatar -->
                                                 <div class="d-flex align-items-center mb-3">
                                                    <img src="${user_img}" alt="Avatar" class="rounded-circle mr-3" width="50" height="50">
@@ -213,7 +212,12 @@
                                                    <tr><th>Address</th><td>${(rowData.business_address) ? rowData.business_address : 'NA'}</td></tr>
                                                 </table>
                                        
-                                                <div class="d-flex justify-content-end mb-2">
+                                                
+                                                   
+                                          </div>
+                                       </div>
+                                 </div>
+                                 <div class="d-flex justify-content-end modal-footer">
                                                    <!-- Print Button -->
 
                                                     <button class="btn-success-modal d-block btn-print" data-agent='${safeData}'>
@@ -221,14 +225,8 @@
                                                    </button>
 
                                                 
-                                                <button type="button" class="btn-cancel-modal ml-2" data-dismiss="modal" aria-label="Close">Close</button>
+                                                   <button type="button" class="btn-cancel-modal ml-2" data-dismiss="modal" aria-label="Close">Close</button>
                                                 </div>
-                                             </div>
-                                                   
-                                          </div>
-                                       </div>
-                                 </div>
-                              
                               </div>
                            </div>`;
 
@@ -298,7 +296,7 @@
                
                   
 
-                  var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
+                  var modal_html =`<div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
                   <div class="modal-content basic-modal">
                      <div class="modal-header">
                         <h5 class="modal-title" id="edit_agent_data"> <img src="{{ asset('assets/dashboard/img/update-agent.png')}}" class="custompopicon"> Update Agent (${rowData.member_id}) </h5>
@@ -534,9 +532,9 @@
             Object.entries(states).forEach(([key, state]) => {
                   optionsHtml += `<option value="${key}" >${state.stateName}</option>`;
             });
-               
-               
-            var new_agent_modal =`<div class="modal-dialog modal-dialog-centered" role="document">
+
+
+            var new_agent_modal =`<div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content basic-modal">
             <div class="modal-header">
             <h5 class="modal-title" id="edit_agent_data"> <img src="{{ asset('assets/dashboard/img/update-agent.png')}}" class="custompopicon"> New Agent Details </h5>

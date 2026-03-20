@@ -1,12 +1,17 @@
 <div class="modal fade upload-modal" id="upgrade_modal" tabindex="-1" role="dialog" aria-labelledby="extendBumpUpProfile" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
+<<<<<<< HEAD
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <form id="upgrade_modal_form" action="{{route('escort.upgrade_list')}}" method="POST">
+=======
     <div class="modal-dialog modal-dialog-centered" role="document">
       {{-- <form id="upgrade_modal_form" action="{{route('escort.upgrade_list')}}" method="POST"> --}}
       <form id="upgrade_modal_form" action="{{route('escort.account.listing_checkout')}}" method="POST">
+>>>>>>> 7531dcfe29b2d0cdda9f354980d82c8754182510
         {{ csrf_field() }}
-        <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+        <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">
-              <img src="/assets/app/img/bump-up.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
+              <img src="{{ asset('assets/dashboard/img/upgrade.png') }}" class="custompopicon" alt="Upgrade">
               Upgrade
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -24,7 +29,7 @@
                   <!-- Profile select -->
                   <div class="form-group row">
                     <label class="col-sm-3" for="">Membership:</label>
-                    <div class="col-sm-8 pr-2">
+                    <div class="col-sm-9">
                       <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
                               id="membershipId"
                               name="membership"
@@ -69,9 +74,14 @@
             </div>
           </div>
   
+<<<<<<< HEAD
+          <div class="modal-footer" style="text-align: right; display: block;">
+            <input type="hidden" name="profile_id">
+=======
           <div class="modal-footer" style="text-align: center; display: block;">
             <input type="hidden" name="escort_id">
             <input type="hidden" name="checkout_type" value="upgrade">
+>>>>>>> 7531dcfe29b2d0cdda9f354980d82c8754182510
             <button type="submit" id="saveBumpupButton" class="btn-success-modal">Proceed to Payment</button>
           </div>
         </div>

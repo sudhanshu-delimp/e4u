@@ -100,12 +100,11 @@ $operatorCountryName = isset(auth()->user()->operator->country->name) ? auth()->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
     <!-- add new staff member popupform -->
     <div class="modal fade opr-modal" id="addStaffnew" tabindex="-1" role="dialog" aria-labelledby="addStaffnewLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-white" id="addStaffnewTitle"><img
                             src="{{ asset('assets/dashboard/img/operator-staff-member.png') }}" class="custompopicon"> Add New Staff Member</h5>
@@ -116,7 +115,7 @@ $operatorCountryName = isset(auth()->user()->operator->country->name) ? auth()->
                 <div class="modal-body">
                     <form name="add_staff" id="add_staff" method="POST" action="{{ route('operator.operator.add-staff') }}"
                         enctype="multipart/form-data">
-                        <div class="row" style="max-height: 500px; overflow:auto;">
+                        <div class="row">
                             <div class="col-12 my-2">
                                 <h6 class="border-bottom pb-1 text-blue-primary">Operator</h6>
                             </div>
@@ -380,8 +379,8 @@ $operatorCountryName = isset(auth()->user()->operator->country->name) ? auth()->
 
     <div class="modal fade opr-modal" id="staffEditModal" tabindex="-1" role="dialog"
         aria-labelledby="editStaffnewLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-white" id="editStaffnewTitle"><img
                             src="{{ asset('assets/dashboard/img/operator-staff-member.png') }}" class="custompopicon">Edit Staff
@@ -399,8 +398,8 @@ $operatorCountryName = isset(auth()->user()->operator->country->name) ? auth()->
 
     <div class="modal fade opr-modal" id="staffViewModal" tabindex="-1" role="dialog"
         aria-labelledby="editStaffnewLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-white" id="viewStaffnewTitle"><img
                             src="{{ asset('assets/dashboard/img/operator-staff-member.png') }}" class="custompopicon">View Staff

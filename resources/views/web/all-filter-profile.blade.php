@@ -1023,10 +1023,10 @@
     </div>
 </section> --}}
     <!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
-    <div class="modal fade hh" id="my_legbox" style="display: none">
+    <div class="modal fade upload-modal hh" id="my_legbox" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"> <img
                             src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
                             class=" popup_modal_title_new">My Legbox</span></h5>
@@ -1038,10 +1038,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
-                        <span id="Lname " class="my_legbox_title">My Legbox is only available to Viewers. Please log in
+                    <h5 class="custom_modal_text" style="text-align: center;">
+                        <span id="Lname ">My Legbox is only available to Viewers. Please log in
                             or Register to access your Legbox.</span>
-                    </h1>
+                    </h5>
                 </div>
                 <div class="modal-footer my_legbox_footer" style="justify-content: center;">
                     <a href="{{ route('viewer.login') }}" type="button"
@@ -1053,10 +1053,11 @@
             </div>
         </div>
     </div>
-    <div class="modal fade hh" id="add_wishlist" style="display: none">
+
+    <div class="modal fade upload-modal hh" id="add_wishlist" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"><img
                             src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
                             class="popup_modal_title_new">Add To Shortlist</span></h5>
@@ -1086,9 +1087,9 @@
 
 
 
-    <div class="modal" id="add_wishlist1" style="display: none">
+    <div class="modal fade upload-modal" id="add_wishlist1" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-0">
+            <div class="modal-content">
                 <div class="modal-body text-center">
                     <img src="{{ asset('assets/app/img/check-box.png') }}">
 
@@ -1100,9 +1101,9 @@
             </div>
         </div>
     </div>
-    <div class="modal" id="withoutLogin" style="display: none">
+    <div class="modal fade upload-modal" id="withoutLogin" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-0">
+            <div class="modal-content">
                 <div class="modal-body text-center">
                     <img src="{{ asset('assets/app/img/check-box.png') }}">
                     <h3 class="mb-4 mt-5"><span id="string"></span> </h3>
@@ -1117,10 +1118,10 @@
 
 {{-- viewer Preferences when viewer change location from filter than open this modal  --}}
 
-<div class="modal fade" id="viewerPreferences" tabindex="-1" role="dialog">
+<div class="modal fade upload-modal" id="viewerPreferences" tabindex="-1" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content custome_modal_max_width">
-         <div class="modal-header main_bg_color border-0">
+      <div class="modal-content">
+         <div class="modal-header">
 
             <h5 class="modal-title text-white">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

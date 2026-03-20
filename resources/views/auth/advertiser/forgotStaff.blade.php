@@ -49,10 +49,10 @@
             </div>
          </section>
       </section>
-      <div class="modal" id="resetPassword_modal" style="display: none">
+      <div class="modal upload-modal fade" id="resetPassword_modal" style="display: none">
          <div class="modal-dialog modal-dialog-centered">
-             <div class="modal-content custome_modal_max_width">
-                 <div class="modal-header main_bg_color border-0">
+             <div class="modal-content ">
+                 <div class="modal-header">
                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">
                      <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -66,7 +66,7 @@
                      
                  </div>
                  <div class="modal-footer" style="justify-content: center;">
-                     <a href="{{route('staff.login')}}" class="btn main_bg_color site_btn_primary">Click Hear To Login</button>
+                     <a href="{{route('staff.login')}}" class="btn-success-modal">Click Hear To Login</button>
                  </div>
              </div>
          </div>

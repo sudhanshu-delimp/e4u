@@ -504,11 +504,11 @@
 
 
             var modal_html =
-                `<div id="account-row-${requestId}" class="modal-dialog modal-dialog-centered" role="document">
+                `<div id="account-row-${requestId}" class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="confirmationPopup">
-                <img src="{{ asset('assets/dashboard/img/view-merchant.png') }}" style="width:40px; margin-right:10px;" alt="Request Accepted"> 
+                <img src="{{ asset('assets/dashboard/img/view-merchant.png') }}" class="custompopicon"  alt="Request Accepted"> 
                 View Member Details
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -517,8 +517,7 @@
         </div>
         <div class="modal-body pb-0">
             <div class="row">
-                <div class="col-12">
-                    <div class="card mb-3 p-3">
+                <div class="col-sm-12">
                         <!-- Details Table -->
                         <table class="table table-bordered mb-3">
                             <tr><th>Name</th><td>${rowData.name ? rowData.name : 'NA'}</td></tr>
@@ -539,7 +538,7 @@
                                 <div class="d-flex justify-content-end mb-2">
                                     <button type="button" class="btn-cancel-modal ml-2" data-dismiss="modal" aria-label="Close">Close</button>
                                 </div>
-                                </div>
+                                
                                 </div>
                                 </div>
                                 </div>
@@ -558,7 +557,7 @@
             currentStatus = parseInt(currentStatus);
             if (currentStatus != 6) {
                 var requestId = $(this).data('id');
-                var modal_html = `<div id="account-row-${requestId}" class="modal-dialog modal-dialog-centered" role="document">
+                var modal_html = `<div id="account-row-${requestId}" class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
                               <div class="modal-content">
                                  <div class="modal-header">
                                     <h5 class="modal-title" id="confirmationPopup"> <i class="fa fa-exclamation-triangle text-danger"></i>

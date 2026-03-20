@@ -19,7 +19,7 @@ $securityLevel = isset($securityLevels[$staff->staff_detail->security_level]) ? 
 </style>
 <form name="add_staff" id="edit_staff" method="POST" action="{{ route('admin.store-staff') }}"
     enctype="multipart/form-data">
-    <div class="row" style="max-height: 500px; overflow:auto;">
+    <div class="row">
         <!-- Section: Personal Details -->
         <div class="col-12 my-2">
             <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
