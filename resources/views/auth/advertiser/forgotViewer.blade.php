@@ -124,7 +124,7 @@ box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
                         <span class="comman_msg"></span>
                         
                     </div>
-                    <div class="modal-footer" style="justify-content: center;">
+                    <div class="modal-footer justify-content-center pt-0">
                         <a href="{{ route('viewer.login')}}" class="btn-success-modal">Click Hear To Login</a>
                     </div>
                 </div>
@@ -134,7 +134,7 @@ box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
 
 <div class="modal fade upload-modal" id="userNotFoundModal" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel" aria-modal="true" >
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+            <div class="modal-content">
                 <div class="modal-header border-0">
                     <input type="hidden" id="status_data_id" value="334">
                     <input type="hidden" id="status_data_value" value="7">

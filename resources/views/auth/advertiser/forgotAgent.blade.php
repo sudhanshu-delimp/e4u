@@ -119,7 +119,7 @@
                 <span class="comman_msg"></span>
 
             </div>
-            <div class="modal-footer" style="justify-content: center;">
+            <div class="modal-footer justify-content-center pt-0">
                 <a href="{{route('agent.login')}}" class="btn main_bg_color site_btn_primary">Click Hear To Login</a>
             </div>
         </div>

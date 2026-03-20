@@ -131,7 +131,7 @@
                         <span class="comman_msg"></span>
                         
                     </div>
-                    <div class="modal-footer" class="justify-content-center pt-0">
+                    <div class="modal-footer justify-content-center pt-0">
                         <a href="{{ $user_info 
                                         ? ($user_info->type == 9 ? route('operator.login') : route('admin.login')) 
                                         : route('home') 

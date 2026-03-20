@@ -50,7 +50,7 @@
                             <span class="comman_msg"></span>
                             </h5>
                         </div>
-                        <div class="modal-footer" class="justify-content-center pt-0">
+                        <div class="modal-footer justify-content-center pt-0">
                             <button type="submit" class="btn main_bg_color site_btn_primary common_modal_close_btn" data-dismiss="modal" id="close">Ok</button>
                         </div>
                     </div>

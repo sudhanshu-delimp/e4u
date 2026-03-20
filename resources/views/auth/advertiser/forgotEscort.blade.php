@@ -111,7 +111,7 @@ box-shadow: 0 20px 25px -5px rgb(0 0 0 / 14%);
                      <span class="comman_msg"></span>
                      
                  </div>
-                 <div class="modal-footer" style="justify-content: center;">
+                 <div class="modal-footer justify-content-center pt-0">
                      <a href="{{route('advertiser.login')}}" class="btn-success-modal">Click Hear To Login</a>
                  </div>
              </div>
