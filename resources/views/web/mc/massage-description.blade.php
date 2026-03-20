@@ -1882,7 +1882,7 @@
     {{-- My Photos --}}
 
     <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-scrollable" role="document">
             <div class="modal-content border-0">
                 <div class="modal-header d-flex justify-content-between align-items-center">                                       
                     <ul class="nav nav-tabs justify-content-center border-0">
