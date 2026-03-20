@@ -118,10 +118,10 @@
 </div>
 <!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
 
-    <div class="modal programmatic" id="change_all" style="display: none">
+    <div class="modal fade upload-modal programmatic" id="change_all" style="display: none">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+            <div class="modal-content">
+                <div class="modal-header">
                     {{-- <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5> --}}
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
@@ -134,9 +134,9 @@
                     <input type="hidden" id="previous" name="previous">
                     <input type="hidden" id="label" name="label">
                     <input type="hidden" id="trigger-element">
-                    <h3 class="mb-4 mt-5"><span id="Lname"></span> </h3>
-                    <h3 class="mb-4 mt-5"><span id="log"></span> </h3>
-                    <div class="modal-footer">
+                    <h3 class="my-4 custom_modal_text"><span id="Lname"></span> </h3>
+                    <h3 class="my-4 custom_modal_text"><span id="log"></span> </h3>
+                    <div class="modal-footer justify-content-center">
                         <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal" value="close" id="close_change">Close</button>
                         <button type="button" class="btn main_bg_color site_btn_primary" id="save_change">save</button>
                     </div>

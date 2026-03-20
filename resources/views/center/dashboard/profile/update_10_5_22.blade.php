@@ -115,10 +115,10 @@
 </div> --}}
 <!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
 
-    <div class="modal programmatic" id="change_all" style="display: none">
+    <div class="modal fade upload-modal programmatic" id="change_all" style="display: none">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+            <div class="modal-content">
+                <div class="modal-header">
                     {{-- <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5> --}}
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">

@@ -133,11 +133,11 @@
     </div>
 </div>
 
-<div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade upload-modal" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/crop-image.png') }}" style="width:32px; padding-right:10px;"> Crop Photo</h5>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/crop-image.png') }}" class="custompopicon"> Crop Photo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
 
@@ -160,13 +160,13 @@
 </div>
 </div>
 
-<div class="modal" id="conformation_modal" style="display: none">
+<div class="modal fade upload-modal" id="conformation_modal" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title text-white">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
                     <img src="{{ asset('assets/dashboard/img/remove-image.png') }}" class="custompopicon" id="modal-icon">
-                    <span style="color:white" id="modal-title">Remove Avatar</span>
+                    <span id="modal-title">Remove Avatar</span>
                 </h5>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -176,15 +176,17 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                <h5 class="custom_modal_text my-4">
                     <span id="comman_str">Are you sure you want to delete your avatar?</span>
                     <!-- <span class="comman_msg"></span> -->
-                </h1>
+                </h5>
             </div>
+
             <div class="modal-footer" style="justify-content: center;">
                 <button type="submit" class="btn-success-modal" id="confirmDelete" data-dismiss="modal" id="close">Yes</button>
                 <button type="submit" class="btn-cancel-modal" id="cancelDelete" data-dismiss="modal" id="close">NO</button>
             </div>
+
         </div>
     </div>
 </div>

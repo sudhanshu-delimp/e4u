@@ -246,9 +246,9 @@
  </div>
 
 
- <!-- <div class="modal" id="sendOtp_modal" style="display: none">
+ <!-- <div class="modal fade upload-modal" id="sendOtp_modal" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
+        <div class="modal-content">
             <form id="SendOtp" method="post" action="" >
                 @csrf
                 <div class="modal-header main_bg_color border-0">
@@ -293,13 +293,13 @@
 
    @include('modal.two-step-verification')
 
-<div class="modal" id="comman_modal" style="display: none">
+<div class="modal fade upload-modal" id="comman_modal" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
+        <div class="modal-content">
             <form id="forgotPasswordSend" method="post" action="" >
                 @csrf
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title text-white">Reset Password</h5>
+                <div class="modal-header">
+                    <h5 class="modal-title">Reset Password</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">

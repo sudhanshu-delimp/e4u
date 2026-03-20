@@ -105,8 +105,8 @@
 </div>
 
 <div class="modal fade upload-modal" id="commission-report" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel" aria-hidden="true" style="display: none">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content basic-modal">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
          <div class="modal-header">
                <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/add-new-account.png')}}" class="custompopicon"> Add Bank Account</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">

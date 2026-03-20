@@ -96,8 +96,8 @@ authentification is applied for any changes to your Bank Account details.
 </div>
 
 <div class="modal fade opr-modal" id="commission-report" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel" aria-hidden="true" style="display: none">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content basic-modal">
+   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
          <div class="modal-header">
              
                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/add-bank.png') }}" class="custompopicon"> <span id="modleCustomHeading">Add Bank Account</span></h5>
@@ -166,8 +166,8 @@ authentification is applied for any changes to your Bank Account details.
    </div>
 </div>
 <div class="modal fade opr-modal" id="sendOtp_modal" style="display: none">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
             <form id="SendBankOtp" method="post" action="" >
                 @csrf
                 <div class="modal-header main_bg_color border-0">
@@ -217,10 +217,10 @@ authentification is applied for any changes to your Bank Account details.
         </div>
     </div>
 </div>
-<div class="modal programmatic opr-modal" id="delete_bank" style="display: none">
+<div class="modal fade programmatic opr-modal" id="delete_bank" style="display: none">
     <div class="modal-dialog modal-dialog-centered" role="document">
-       <div class="modal-content custome_modal_max_width">
-          <div class="modal-header main_bg_color border-0">
+       <div class="modal-content">
+          <div class="modal-header">
              <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/remove-bank_new.png') }}" class="custompopicon"> Delete Bank Account</h5>
                 <a href="" class="close" data-dismiss="modal" aria-label="Close">
                    <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">

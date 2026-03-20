@@ -1,6 +1,6 @@
 <div class="modal fade upload-modal" id="cancel_tour_confirm" tabindex="-1" role="dialog" aria-labelledby="cancel_tour_confirm"
         aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-body text-center">
                    
-                        <h5 class="popu_heading_style my-4">Your Tour has been cancelled and all Profiles associated with the Tour removed from the
+                        <h5 class="custom_modal_text">Your Tour has been cancelled and all Profiles associated with the Tour removed from the
                             Website.</h5>
                 </div>
                 <div class="modal-footer justify-content-center">

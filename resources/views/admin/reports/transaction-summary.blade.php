@@ -100,8 +100,8 @@
 
 <div class="modal fade upload-modal" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="view-listingLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content basic-modal">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="view-listing"><img src="{{ asset('assets/dashboard/img/transaction.png')}}" alt="alert" style="width:29px;">
                     Transaction Summary

@@ -1,5 +1,5 @@
 <div class="modal fade upload-modal" id="agentconfirmationPopup" tabindex="-1" role="dialog" aria-labelledby="confirmationPopup" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
        <div class="modal-content">
           <div class="modal-header">
              <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/request-submit.png')}}" style="width:40px; margin-right:10px;" alt="Agent Request Submitted"> 
@@ -40,7 +40,7 @@
                    </div>
                 </div>
           </div>
-          <div class="modal-footer text-center justify-content-center">             
+          <div class="modal-footer text-center justify-content-end">             
              <button type="button" class="btn-success-modal close_request_modal" data-dismiss="modal" aria-label="Close">Close</button>
           </div>
        </div>
