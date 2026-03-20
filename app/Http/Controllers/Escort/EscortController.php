@@ -196,24 +196,6 @@ class EscortController extends BaseController
     function listings($type)
     {
         $relatedEscorts = null;
-        /*$relatedEscorts = Escort::with(['purchase' => function ($query) use ($type) {
-                if($type == 'past') {
-                    $query->where('end_date', '<', date('Y-m-d'));
-                } else {
-                    $query->where('end_date', '>=', date('Y-m-d'));
-                }
-                $query->orderBy('start_date', 'ASC');
-            }])
-            ->whereHas('purchase')
-            ->with([
-                'Brb' => function($query){
-                    $query->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc');
-                }
-            ])
-            ->where('user_id', auth()->user()->id)
-            ->orderBy('name', 'ASC')
-            ->get()->toArray();*/
-
         return view('escort.dashboard.listings', compact('type', 'relatedEscorts'));
     }
 
@@ -281,6 +263,7 @@ class EscortController extends BaseController
         $conditions = [];
         if ($type == 'current') {
             $conditions[] = ['end_date', '>=', date('Y-m-d')];
+            $conditions[] = ['status','listed'];
         } elseif ($type == 'past') {
             $conditions[] = ['end_date', '<', date('Y-m-d')];
         }
