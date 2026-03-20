@@ -1011,10 +1011,6 @@
                     text-align: justify;
                 }
                 
-                div#add_wishlist .modal-dialog {
-                    max-width: 642px;
-                }
-                
                 div#add_wishlist .modal-dialog .modal-body {
                     padding: 30px 31px;
                 }
@@ -1042,10 +1038,6 @@
                     background: #2C3E50;
                     border-radius: 3px;
                     border: 0;
-                }
-                
-                div#add_wishlist1 .modal-dialog {
-                    max-width: 642px;
                 }
                 
                 .modal-body button {
@@ -1376,17 +1368,6 @@
                 .filter-contain .my-shortlist ul li i.fa {
                     color: #FF3C5F;
                     margin-left: 12px;
-                }
-                /*  profile-list-container*/
-                /* .profile-list-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        width: 100%;
-    } */
-                /* end */
-                
-                div.defult-modal .modal-dialog {
-                    max-width: 768px;
                 }
                 
                 div.defult-modal .modal-body h3 {
@@ -3442,10 +3423,6 @@ i.fa.fa-heart-o{
                 }
                 /*aashish end*/
                 
-                div#exampleModal .modal-dialog {
-                    max-width: 900px;
-                }
-                
                 div#exampleModal .modal-header {
                     background: #0C223D;
                     height: 69px;
@@ -4604,11 +4581,6 @@ i.fa.fa-heart-o{
                 
                 .padding15-bottom {
                     padding-bottom: 15px;
-                }
-                
-                .modal-dialog {
-                    max-width: 1000px !important;
-                    margin: 1.75rem auto;
                 }
                 
                 .no-padding div {
@@ -9367,13 +9339,12 @@ background-image:none;
                         flex-direction: column;
                     }
                 }
-                
-                @media (min-width: 576px) {
+                /* @media (min-width: 576px) {
                     .modal-dialog {
                         max-width: 600px;
                         margin: 1.75rem auto;
                     }
-                }
+                } */
                 
                 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
                     .nav-item {
