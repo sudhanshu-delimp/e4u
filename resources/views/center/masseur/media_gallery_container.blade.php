@@ -72,7 +72,7 @@
                         @foreach($images as $image)    
                         @if(!in_array($image->position, [8]))                                               
                             <div class="item4" id="dm_{{$image->id}}">
-                                <img class="img-thumbnail defult-image" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
+                                <img class="img-thumbnail defult-image ui-draggable ui-draggable-handle" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                                 <i class="fa fa-trash deleteimg" data-id="{{$image->id}}" title="Remove this media"></i>                                        
                                 @switch($image->position)
                                     @case(9)

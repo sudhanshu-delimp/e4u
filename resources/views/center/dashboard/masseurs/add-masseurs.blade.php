@@ -419,6 +419,7 @@
                                                                         <img class="w-100 gal-thumb-first upld-img profile-gallery"
                                                                             id="img1"
                                                                             src="{{ asset('assets/app/img/mcc-default-thumbnail.png') }}"
+                                                                            data-position=1
                                                                             onclick="positionToUpdate(1)" data-type="gallery">
                                                                     </label>
                                                                 </div>
@@ -430,7 +431,7 @@
                                                                         <label class="newbtn" data-toggle="modal"
                                                                             data-target="#photo_gallery">
                                                                             <img class="upld-img profile-gallery"
-                                                                                id="img2"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
+                                                                                id="img2" data-position=2  src="{{ asset('assets/app/img/frame-main-thum.png') }}"
                                                                                 onclick="positionToUpdate(2)" data-type="gallery">
                                                                         </label>
                                                                     </div>
@@ -439,6 +440,7 @@
                                                                             data-target="#photo_gallery">
                                                                             <img class="upld-img profile-gallery"
                                                                                 id="img3"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
+                                                                                data-position=3
                                                                                 onclick="positionToUpdate(3)" data-type="gallery">
                                                                         </label>
                                                                     </div>
@@ -447,6 +449,7 @@
                                                                             data-target="#photo_gallery">
                                                                             <img class="upld-img profile-gallery"
                                                                                 id="img4"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
+                                                                                data-position=4
                                                                                 onclick="positionToUpdate(4)" data-type="gallery">
                                                                         </label>
                                                                     </div>
@@ -522,74 +525,6 @@
                                                         <div class="col-md-12">
                                                             <div id="pagination-container"></div>
                                                             
-                                                            
-                                                            
-    <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
-                <ul class="pagination ml-2 pl-1">
-                <li class="page-item preview">
-                <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
-
-                </li>
-                                <li class="page-item active" id="pageItem_0" data-id="0">
-                    <a data-target="#carouselExampleIndicators" data-slide-to="0" class="page-link" href="#">1</a>
-                </li>
-                                <li class="page-item nextOne">
-                <a class="page-link" href="#carouselExampleIndicators" id="nextId">››</a>
-                </li>
-                </ul>
-                <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
-                <div class="carousel-inner" id="view_all">
-                                    <div class="carousel-item active" id="cItem_0" data-id="0">
-                        <div class="grid-container" class="dvSource">  
-                            
-                                                                       
-                            <div class="item4" id="dm_231">
-                                <img class="img-thumbnail defult-image" src="https://e4u.local/escorts/images/186/gallery_abd12cebff72dea8576143c79.jpg" alt=" " data-id="231" data-position="">
-                                <i class="fa fa-trash deleteimg" data-id="231" title="Remove this media"></i>                                        
-                                                                        <span class="badge badge-red">Gallery</span>
-                                                            </div>
-                            
-                           
-                        </div>
-                    </div>
-                                     
-                </div>
-            </div>
-        </div> -->
-
-
-        <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
-                <ul class="pagination ml-2 pl-1">
-                <li class="page-item preview">
-                <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
-
-                </li>
-                                <li class="page-item active" id="pageItem_0" data-id="0">
-                    <a data-target="#carouselExampleIndicators" data-slide-to="0" class="page-link" href="#">1</a>
-                </li>
-                                <li class="page-item nextOne">
-                <a class="page-link" href="#carouselExampleIndicators" id="nextId">››</a>
-                </li>
-                </ul>
-                <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
-                <div class="carousel-inner" id="view_all">
-                                    <div class="carousel-item active" id="cItem_0" data-id="0">
-                        <div class="grid-container">  
-                            
-                                                                       
-                            <div class="item4" id="dm_236">
-                                <img class="img-thumbnail defult-image" src="https://e4u.local/escorts/images/186/gallery_dc5b2af164148548d9ceb267a.jpg" alt=" " data-id="236" data-position="">
-                                <i class="fa fa-trash deleteimg" data-id="236" title="Remove this media"></i>                                        
-                                                                        <span class="badge badge-red">Gallery</span>
-                                                            </div>
-                            
-                           
-                        </div>
-                    </div>
-                                     
-                </div>
-            </div>
-        </div> -->
                                                             <div id="carouselExampleIndicators" class="carousel slide"
                                                                 data-bs-wrap="false" data-bs-ride="carousel">
 
@@ -1910,7 +1845,7 @@ function initDragDrop()
 {
 
     console.log("initDragDrop");
-    $(".grid-container .defult-image.ui-draggable").draggable("destroy");
+    //$(".grid-container .defult-image.ui-draggable").draggable("destroy");
 
    
     $(".grid-container .defult-image").draggable({
@@ -1922,6 +1857,10 @@ function initDragDrop()
         helper: function(){
 
             let src = $(this).attr("src");
+            let mediaId = $(this).data('id');
+
+            console.log('mediaId',mediaId);
+           
 
             return $("<img>")
                 .attr("src", src)
@@ -1950,9 +1889,8 @@ function initDragDrop()
 
             let imgSrc = dragSlot.attr("src");
             let imgId  = dragSlot.attr("data-id");
-
-            console.log(dropSlotType, dragSlotType);
-
+            let position  = dragSlot.attr("data-position");
+            let dropPosition = dropSlot.find("img").data("position");
             if(dropSlotType === dragSlotType){
 
               
@@ -1973,10 +1911,16 @@ function initDragDrop()
                     return;
                 }
 
+                console.log('position',dropPosition)
                 
                 dropSlot.find("img")
                     .attr("src", imgSrc)
                     .attr("data-id", imgId);
+
+                $('#mediaId'+dropPosition).val(imgId);
+
+
+                    
 
             }
 

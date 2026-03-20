@@ -402,11 +402,13 @@
                                                     <div class="col-sm-12 masseur_upl_img">
                                                         <div class="thumnail_img">
                                                             <h4 class="banner-sub-heading my-2">Thumbnail</h4>
-                                                            <div class="plate">
+                                                            <div class="plate dvDest ui-droppable">
                                                                 <label class="newbtn" data-toggle="modal"
                                                                     data-target="#photo_gallery">
                                                                     <img class="w-100 gal-thumb-first upld-img"
                                                                         id="img1"
+                                                                        data-position=1
+                                                                        data-type="gallery"
                                                                         src="{{ asset($masseur->getImagePosition(1, $masseur->id)) }}"
                                                                         onclick="positionToUpdate(1)">
                                                                 </label>
@@ -415,27 +417,28 @@
                                                         <div class="gal_img">
                                                             <h4 class="banner-sub-heading my-2">Gallery Images</h4>
                                                             <div class="masseur_gallery">
-                                                                <div class="plate">
+                                                                <div class="plate dvDest ui-droppable">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
                                                                         <img class="upld-img"
-                                                                            id="img2"src="{{ asset($masseur->getImagePosition(2, $masseur->id)) }}"
+                                                                            data-position=2
+                                                                            id="img2" data-type="gallery" src="{{ asset($masseur->getImagePosition(2, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(2)">
                                                                     </label>
                                                                 </div>
-                                                                <div class="plate">
+                                                                <div class="plate dvDest ui-droppable">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
                                                                         <img class="upld-img"
-                                                                            id="img3"src="{{ asset($masseur->getImagePosition(3, $masseur->id)) }}"
+                                                                            id="img3" data-position=3 data-type="gallery" src="{{ asset($masseur->getImagePosition(3, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(3)">
                                                                     </label>
                                                                 </div>
-                                                                <div class="plate">
+                                                                <div class="plate dvDest ui-droppable">
                                                                     <label class="newbtn" data-toggle="modal"
                                                                         data-target="#photo_gallery">
                                                                         <img class="upld-img"
-                                                                            id="img4"src="{{ asset($masseur->getImagePosition(4, $masseur->id)) }}"
+                                                                            id="img4" data-position=4 data-type="gallery" src="{{ asset($masseur->getImagePosition(4, $masseur->id)) }}"
                                                                             onclick="positionToUpdate(4)">
                                                                     </label>
                                                                 </div>
@@ -1863,63 +1866,7 @@
 
 
 
-        function initDragDrop() {
-            $("#dvSource img").draggable({
-                revert: "invalid",
-                helper: 'clone',
-                appendTo: ".upload-banner",
-                refreshPositions: false,
-                start: function(event, ui) {
-                    ui.helper.css({
-                        width: "82px", // shrink preview
-                        height: "auto",
-                        "z-index": 9999
-                    });
-                    ui.helper.find("img").css({
-                        width: "100%",
-                        height: "auto"
-                    });
-                },
-                drag: function(event, ui) {
-
-                },
-                stop: function(event, ui) {}
-            });
-
-            $(".dvDest").droppable({
-                drop: function(event, ui) {
-                    let dropSlot = $(this);
-                    let dragSlot = ui.draggable;
-                    let dropSlotType = dropSlot.find('img').data('type');
-                    let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
-                    if (dropSlotType != dragSlotType) {
-                        let message = (dragSlotType == 'gallery') ?
-                            `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :
-                            `The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
-                        swal.fire('Media', message, 'error');
-                        return false;
-                    } else {
-                        $(this).trigger('click');
-                        let meidaId = dragSlot.data('id');
-                        let target;
-                        switch (dragSlotType) {
-                            case 'gallery': {
-                                target = $(".modalPopup .item4 img[data-id='" + meidaId + "']").closest(
-                                    ".item4");
-                            }
-                            break;
-                            case 'banner': {
-                                target = $(".modalPopup .item2 img[data-id='" + meidaId + "']").closest(
-                                    ".item2");
-                            }
-                            break;
-                        }
-                        target.trigger('click');
-                    }
-
-                }
-            });
-        }
+        
 
 
         function positionToUpdate(position) {
@@ -2014,6 +1961,8 @@
 
 
         var getAccountMediaGallery = function() {
+            console.log('getAccountMediaGallery=======');
+           
             let page_token = $('#page_token').val();
             let activeGalleryTab = $(".js_gallery_category .nav-link.active").attr('data-type');
             return $.ajax({
@@ -2042,7 +1991,7 @@
                         $(`#pageItem_0`).addClass('active');
                         $(`#cItem_0`).addClass('active');
                     }
-                    initDragDrop();
+                     initDragDrop();
                 }
             }).fail(function(xhr, status, error) {
                 console.error("Error:", error);
@@ -2096,6 +2045,100 @@
         });
 
 
-        getAccountMediaGallery();
+getAccountMediaGallery();
+
+$(document).ready(function () {
+    //();
+});
+
+
+function initDragDrop()
+{
+
+    console.log("initDragDrop");
+    //$(".grid-container .defult-image.ui-draggable").draggable("destroy");
+    $(".grid-container .defult-image").draggable({
+        revert: "invalid",
+        appendTo: "body",
+        cursor: "move",
+        zIndex: 999999,
+
+        helper: function(){
+
+            let src = $(this).attr("src");
+            let mediaId = $(this).data('id');
+
+            console.log('mediaId',mediaId);
+           
+
+            return $("<img>")
+                .attr("src", src)
+                .css({
+                    width: "90px",
+                    height: "auto",
+                    borderRadius: "6px",
+                    boxShadow: "0 4px 10px rgba(0,0,0,0.3)"
+                });
+
+        }
+    });
+
+   
+    $(".dvDest").droppable({
+
+        hoverClass: "drop-hover",
+
+        drop: function(event, ui){
+
+            let dropSlot = $(this);
+            let dragSlot = ui.draggable;
+
+            let dropSlotType = dropSlot.find("img").attr("data-type");
+            let dragSlotType = dragSlot.closest(".item4").find("span").text().toLowerCase();
+
+            let imgSrc = dragSlot.attr("src");
+            let imgId  = dragSlot.attr("data-id");
+            let position  = dragSlot.attr("data-position");
+            let dropPosition = dropSlot.find("img").data("position");
+            if(dropSlotType === dragSlotType){
+
+              
+                let alreadyUsed = false;
+
+                $(".dvDest img").each(function(){
+                    if($(this).attr("data-id") == imgId){
+                        alreadyUsed = true;
+                    }
+                });
+
+                if(alreadyUsed){
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Duplicate Image",
+                        text: "This image is already used."
+                    });
+                    return;
+                }
+
+                console.log('position',dropPosition)
+                
+                dropSlot.find("img")
+                    .attr("src", imgSrc)
+                    .attr("data-id", imgId);
+
+                $('#mediaId'+dropPosition).val(imgId);
+
+
+                    
+
+            }
+
+        }
+
+    });
+
+}
+
+
     </script>
 @endpush
