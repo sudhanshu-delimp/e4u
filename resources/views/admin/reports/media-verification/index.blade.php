@@ -112,7 +112,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr>
+                            <tr>
                                 <td>E60125</td>
                                 <td>18-02-2026</td> 
                                 <td>Tiera</td>
@@ -147,11 +147,15 @@
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-centre"> <i
                                                     class="fa fa-eye"></i> View Centre</a>
+                                                     <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
+                                                    class="fa fa-eye"></i> View Tag</a>
+
 
                                         </div>
                                     </div>
                                 </td>
-                            </tr> -->
+                            </tr>
                         </tbody>
 
                     </table>

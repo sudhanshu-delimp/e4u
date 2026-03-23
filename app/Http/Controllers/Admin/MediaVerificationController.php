@@ -303,14 +303,7 @@ class MediaVerificationController extends Controller
                 'media_verification_id' => $media_verification->id,
                 'varified' => (string) $request->get('status')
             ]);
-            // EscortMedia::where('user_id', $media_verification->user_id)
-            // ->whereNull('varified')
-            // ->where('type', 0)
-            // ->whereNull('media_verification_id')
-            // ->update([
-            //     'media_verification_id' => $media_verification->id,
-            //     'varified' => (string) $request->get('status')
-            // ]);
+            
 
         $user = User::with('my_agent')
             ->select('id', 'name', 'email', 'member_id', 'assigned_agent_id')

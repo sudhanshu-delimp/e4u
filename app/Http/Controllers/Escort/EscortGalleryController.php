@@ -652,45 +652,56 @@ class EscortGalleryController extends AppController
     }
 
    public function mediaVerificationUpload(Request $request)
-{
-    $request->validate([
-        'image' => 'required|image|mimes:jpg,jpeg,png|max:5120',
-        'verification_type' => 'required|in:0,1,2',
-    ]);
-
-    $user = auth()->user();
-    $image = $request->file('image');
-
-    $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-    $destination_path = $user->id . '/verifications/' . $fileName;
-
-    Storage::disk('escorts')->put(
-        $destination_path,
-        file_get_contents($image)
-    );
-
-    $verification = MediaVerification::where('user_id', $user->id)
-        ->where('status', '0')
-        ->first();
-
-    if ($verification) {
-        $verification->update([
-            'image_path' => $destination_path,
-            'type' => (string) $request->verification_type,
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:5120',
+            'verification_type' => 'required|in:0,1,2',
         ]);
-    } else {
-        MediaVerification::create([
-            'user_id' => $user->id,
-            'image_path' => $destination_path,
-            'type' => (string) $request->verification_type,
-            'status' => MediaVerification::STATUS_PENDING,
-            'submited_by' => $user->id,
+
+        $user = auth()->user();
+        $image = $request->file('image');
+        $media = EscortMedia::where('user_id', $user->id)
+        ->where('varified', '2')
+        ->whereNull('media_verification_id')
+        ->count();
+   
+        if ($media  <= 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please upload your media before uploading the verification image.'
+            ], 400);
+        }
+
+        $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $destination_path = $user->id . '/verifications/' . $fileName;
+
+        Storage::disk('escorts')->put(
+            $destination_path,
+            file_get_contents($image)
+        );
+
+        $verification = MediaVerification::where('user_id', $user->id)
+            ->where('status', '0')
+            ->first();
+
+        if ($verification) {
+            $verification->update([
+                'image_path' => $destination_path,
+                'type' => (string) $request->verification_type,
+            ]);
+        } else {
+            MediaVerification::create([
+                'user_id' => $user->id,
+                'image_path' => $destination_path,
+                'type' => (string) $request->verification_type,
+                'status' => MediaVerification::STATUS_PENDING,
+                'submited_by' => $user->id,
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Verification uploaded successfully.',
         ]);
     }
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Verification uploaded successfully.',
-    ]);
-}
 }
