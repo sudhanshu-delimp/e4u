@@ -284,14 +284,11 @@ route::get('/reports/media-verification', [MediaVerificationController::class, '
 route::get('/reports/media-verification-list', [MediaVerificationController::class, 'mediaVerificationLList'])->name('admin.media-verification-list');
 route::get('/reports/media-verification-image', [MediaVerificationController::class, 'mediaVerificationImage'])->name('admin.media-verification-image');
 route::post('/reports/update-media-verification', [MediaVerificationController::class, 'updateMediaVerification'])->name('admin.update-media-verification');
+route::get('/gallery-pdf/{id}/{user_id}', [MediaVerificationController::class, 'galleryPdf'])->name('admin.gallery-pdf');
 
 Route::get('support-tickets', function () {
     return view('admin.support-tickets');
 })->name('admin.support-tickets');
-
-Route::get('gallery-pdf/', function () {
-    return view('admin.reports.media-verification.gallery-pdf');
-})->name('gallery-pdf');
 
 
 Route::post('update-pricing-detail', [PricingsummariesController::class, 'storePricingDetail'])->name('admin.save.pricing.details');

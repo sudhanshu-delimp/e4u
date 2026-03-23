@@ -271,7 +271,7 @@
             userId = $(this).data('user-id');
             memberId = $(this).data('member-id');
             status = $(this).data('status');
-
+            $('.printBtn').attr('href', '/admin-dashboard/gallery-pdf/' + mediaVerificationId+'/' + userId);
             if (status === 'Verified' || status === 'Rejected') {
                 $('.approve-btn').hide();
                 $('.reject-btn').hide();
@@ -390,9 +390,5 @@
         }); 
     });
 
-$(document).on('click', '.printImages', function () {
-    window.print();
-});
-    
 </script>
 @endsection
