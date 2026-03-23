@@ -901,16 +901,17 @@ class MassageController extends Controller
                
                 $default_duration = find_massage_default_duration(auth()->user()->id);
                 $messure_service = [];
-                if(isset($default_duration['massage_price']) && (!empty($default_duration['massage_price'])))
+
+                if(isset($default_duration['massage_price']) && (empty($default_duration['massage_price'])))
                 $messure_service[] = 'massage';
                 
-                if(isset($default_duration['incall_price']) && (!empty($default_duration['incall_price'])))
+                if(isset($default_duration['incall_price']) && (empty($default_duration['incall_price'])))
                 $messure_service[] = '2_hand'; 
 
-                if(isset($default_duration['outcall_price']) && (!empty($default_duration['outcall_price'])))
+                if(isset($default_duration['outcall_price']) && (empty($default_duration['outcall_price'])))
                 $messure_service[] = '4_hand'; 
 
-                //dd($messure_service);
+               
 
                 $massage_profile_id = $request->massage_id;
                 $masseurIds = $request->masseur_ids;
@@ -936,7 +937,19 @@ class MassageController extends Controller
                 {
                     MassagerMasseur::where(['massage_profile_id'=> $massage_profile_id])->delete();
                     MassagerMasseur::insert($masseur);
-                    Masseur::whereIn('id', $masseurIds)->update(['service'=>$messure_service]);
+                    $messures =  Masseur::whereIn('id', $masseurIds)->get();
+                    if($messures->isNotEmpty())
+                    {
+                        foreach($messures as $messure)
+                        {
+                            if(!empty($messure->service))
+                            {
+                                $newService = array_values(array_diff($messure->service, $messure_service));
+                                $messure->service = !empty($newService) ? $newService : null;
+                                $messure->save();
+                            }
+                        }
+                    }
 
                 }
                

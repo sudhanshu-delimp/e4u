@@ -79,6 +79,49 @@ class MasseurController extends AppController
          
     }   
 
+    public function make_masseur_availability($request_data)
+    {
+
+        $time = $request_data['time'] ?? [];
+        $availability = $request_data['availability_time'] ?? [];
+
+        $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+
+        $result = [];
+
+        foreach ($days as $day) {
+
+            $status = $availability[$day] ?? 'closed';
+
+            $from = $time[$day]['hh_from'] ?? null;
+            $to   = $time[$day]['hh_to'] ?? null;
+
+
+            if ($status === 'closed') {
+                $from = null;
+                $to   = null;
+            }
+
+            if ($status === 'til_late') {
+                $to = null;
+            }
+
+            if ($status === 'custom') {
+                $from = $from ?: null;
+                $to   = $to ?: null;
+            }
+
+            $result[$day] = [
+                'status' => $status,
+                'from'   => $from,
+                'to'     => $to,
+            ];
+        }
+
+        return $result;
+    }
+
+
     public function makeAvailability($request_data)
     {
         $days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
@@ -150,11 +193,14 @@ class MasseurController extends AppController
         // $defaultImages = $this->media->findDefaultMedia($user->id, 0);
         // //$escortDefault = $this->escort->findDefault(auth()->user()->id, 1);
 
-        
+        $availability = $massage_default->availability ? json_decode($massage_default->availability->availability_time, true) : [];
         $default_duration = find_massage_default_duration($user->id);
 
-        
-        return view('center.dashboard.masseurs.add-masseurs',compact('durations','massage_durations','massage_default','page_token','media','default_duration'));
+       // dd($availability );
+
+      
+  
+        return view('center.dashboard.masseurs.add-masseurs',compact('durations','massage_durations','massage_default','page_token','media','default_duration','availability'));
     }
 
 
@@ -167,6 +213,7 @@ class MasseurController extends AppController
 
     public function add_masseur(Request $request)
     {
+
         try 
         {
 
@@ -177,7 +224,7 @@ class MasseurController extends AppController
             // Log::info('$request_data');
             // Log::info($request_data);
 
-            $availability     = $this->makeAvailability($request_data);
+            $availability     = $this->make_masseur_availability($request_data);
             $availabilityJson = json_encode($availability);
 
             // Log::info($availabilityJson);
@@ -307,14 +354,15 @@ class MasseurController extends AppController
         return redirect()->route('center.create-new-masseur');
         }
 
-        $availability = $masseur ? json_decode($masseur->availability, true) : [];
+        $masseur_availability = $masseur ? json_decode($masseur->availability, true) : [];
         
         $durations = $this->duration->all();
         $user = auth()->user();
 
-        $exists = DB::table('massager_masseurs')
-        ->where('masseur_profile_id', $id)
-        ->exists();
+        // $exists = DB::table('massager_masseurs')
+        // ->where('masseur_profile_id', $id)
+        // ->exists();
+        $exists = false;
 
         $default_duration = find_massage_default_duration($user->id);
 
@@ -329,9 +377,11 @@ class MasseurController extends AppController
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, $masseur->token_id,[]);
         $services = $masseur->service ?? [];
 
-        
+        $availability = $massage_default->availability ? json_decode($massage_default->availability->availability_time, true) : [];
 
-        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur','media','services','default_duration','exists'));
+        //dd($masseur_availability);
+
+        return view('center.dashboard.masseurs.update-masseurs',compact('durations','massage_durations','availability','masseur_availability','masseur','media','services','default_duration','exists'));
     }
 
     public function update_masseur(Request $request)
@@ -464,7 +514,7 @@ class MasseurController extends AppController
                         {
                             $user = auth()->user();
                             $request_data     = $request->all();
-                            $availability     = $this->makeAvailability($request_data);
+                            $availability     = $this->make_masseur_availability($request_data);
                             $availabilityJson = json_encode($availability);
                             $masseur = Masseur::where(['id'=> $request->masseur_id])->first();
                             $masseur->availability          = $availabilityJson;
