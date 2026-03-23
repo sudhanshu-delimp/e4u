@@ -8409,6 +8409,10 @@ i.fa.fa-heart-o{
                 z-index: 1000;
             }
             
+            #sendOtp_modal .modal-dialog {
+                max-width: 600px;
+            }
+            
             .vrf-tooltip::after {
                 content: '';
                 position: absolute;

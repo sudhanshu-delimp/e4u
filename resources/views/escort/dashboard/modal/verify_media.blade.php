@@ -1,9 +1,9 @@
 <div class="modal fade upload-modal" id="mediaVerificationModal" tabindex="-1" role="dialog" aria-labelledby="mediaVerificationModal" data-keyboard="false" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
-            <form id="mediaVerification" method="POST" action="{{ route('escort.media.verification.upload') }}" enctype="multipart/form-data">
-                @csrf
+           
                 <div class="modal-content border-0">
+                     
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle"><img src="/assets/dashboard/img/verify-image.png" class="custompopicon" alt="cross"> Media Verification</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -11,6 +11,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <form id="mediaVerification" method="POST" action="{{ route('escort.media.verification.upload') }}" enctype="multipart/form-data">
+                @csrf
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="container p-0">
@@ -65,12 +67,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="modal-footer justify-content-end w-100">
+                            <button type="submit" class="btn-success-modal" id="verifyMediaBtn">Verify Media</button>
+                        </div>
+                          </form>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn-success-modal" id="verifyMediaBtn">Verify Media</button>
-                </div>
+                
+                
+      
             </div>
-        </form>
     </div>
 </div>

@@ -20,7 +20,8 @@ class OperatorAuth
         $response = $next($request);
 
         if(!$user = auth()->user()) {
-            return redirect()->route('operator.login');
+            //return redirect()->route('operator.login');
+            return redirect('/');
         }
 
         if($user->type != 9) {
