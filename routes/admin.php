@@ -37,6 +37,7 @@ use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\MediaVerificationController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 use App\Http\Controllers\User\Dashboard\UserController;
+use App\Http\Controllers\Admin\SupplierController;
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
@@ -305,12 +306,6 @@ Route::get('agent_operator_fees', [PricingsummariesController::class, 'agent_ope
 Route::get('commision_playbox_fees', [PricingsummariesController::class, 'commision_playbox_fees_datatable'])->name('admin.commision_playbox_fees');
 
 
-
-Route::get('management/manage-suppliers', function () {
-    return view('admin.management.manage-suppliers');
-})->name('admin.manage-suppliers');
-
-
 Route::get('database/manage-email', function () {
     return view('admin.database.manage-email');
 })->name('manage-email');
@@ -369,6 +364,10 @@ Route::get('reports-num-email', [AdminNumsController::class, 'viewReport'])->nam
 Route::get('reports/transaction-summary', function () {
     return view('admin.reports.transaction-summary');
 })->name('admin.transaction-summary');
+
+/** Manage Suppliers */
+Route::get('/management/manage-suppliers', [SupplierController::class, 'supplierList'])->name('admin.manage-suppliers');
+
 
 // Route::get('reports/advertiser-suspensions',function(){
 //     return view('admin.reports.advertiser-suspensions');
