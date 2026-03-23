@@ -43,9 +43,9 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Gallery Images -->
+                   <!-- Gallery Images -->
             <tr>
-                <td colspan="5">
+                <td colspan="3">
                     <div><h2 style="margin-top: 0px;font-size: 18px;">Gallery Images</h2></div>
                     <div id="galleryImages">
                         @if($mediaImages)
@@ -55,7 +55,15 @@
                         @endif
                     </div>
                 </td>
-            </tr>
+                <td colspan="2">
+                     <div><h2 style="margin-top: 0px;font-size: 18px;"> Verification Image </h2></div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1634715281818-ce65b4dbc99f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" style="width:340px; height:265px;object-fit: fill; border: 1px solid #ccc; padding:10px;">
+                    </div>
+                </td>
+            </tr>    
+             
+            
 
             <!-- Banner Images -->
             <tr>
