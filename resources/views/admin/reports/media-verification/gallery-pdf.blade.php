@@ -30,7 +30,7 @@
             <thead>
                 <tr>
                     <td colspan="4">
-                        <h1>Verification Image - E40112</h1>
+                        <h1>Verification Image - {{$member_id}}</h1>
                     </td>
                     <td colspan="1" style="text-align: end">
                         <div id="printBtn">
@@ -62,7 +62,7 @@
                 <td colspan="5">
                     <div><h2 style="margin-top: 0px;font-size: 18px;">Banner Images</h2></div>
                     <div id="bannerImages">     
-                        @if($mediaImages)
+                        @if($bannerImage)
                             @foreach($bannerImage as $banner_image)
                                 {!! $banner_image !!}
                             @endforeach
@@ -78,7 +78,7 @@
                 <td colspan="5">
                     <div><h2 style="margin-top: 0px;font-size: 18px;">Pinup Images</h2></div>
                     <div id="pinupImages">
-                        @if($mediaImages)
+                        @if($pinupImage)
                             @foreach($pinupImage as $pinup_image)
                                 {!! $pinup_image !!}
                             @endforeach

@@ -16,6 +16,11 @@
             height: 60px;
             border-radius: 50%;
         }
+        .printBtn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
         
     </style>
 @endsection
@@ -271,6 +276,7 @@
             userId = $(this).data('user-id');
             memberId = $(this).data('member-id');
             status = $(this).data('status');
+    
             $('.printBtn').attr('href', '/admin-dashboard/gallery-pdf/' + mediaVerificationId+'/' + userId);
             if (status === 'Verified' || status === 'Rejected') {
                 $('.approve-btn').hide();
@@ -284,6 +290,21 @@
 
             getMediaVerificationImage(userId,mediaVerificationId, category = "gallery",memberId);
         }); 
+
+        function checkPrintBtn() {
+            let hasImages = 
+                $('#banners_img').children().length > 0 ||
+                $('#pinup_img').children().length > 0 ||
+                $('#media-images').children().length > 0;
+            
+            if (hasImages) {
+                $('.printBtn').removeClass('disabled').off('click');
+            } else {
+                $('.printBtn').addClass('disabled').off('click').on('click', function(e) {
+                    e.preventDefault();
+                });
+            }
+        }
 
         function getMediaVerificationImage(userId,mediaVerificationId,category,memberId){
             $.ajax({
@@ -313,6 +334,7 @@
                     } else {
                         $('#view_image .modal-body').html('<p>No images found</p>');
                     }
+                    checkPrintBtn();
                 },
                 error: function (xhr) {
                     console.log(xhr.responseText);
@@ -388,6 +410,7 @@
             let activeGalleryTab = $(".verification-img-popup .nav-link.active").attr('data-type');
             getMediaVerificationImage(userId,mediaVerificationId, activeGalleryTab ,memberId); 
         }); 
+
     });
 
 </script>

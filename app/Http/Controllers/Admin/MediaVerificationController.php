@@ -348,6 +348,7 @@ class MediaVerificationController extends Controller
             ->first();
         $status = $media_verification->getRawOriginal('status');
         $query = EscortMedia::where('user_id', $user_id)->where('type', '0');
+        $member_id = get_massage_member_id($user_id);
 
         switch ($status) {
             case '1': // Approved
@@ -368,7 +369,10 @@ class MediaVerificationController extends Controller
         }
 
         $escorts_medias = $query->get();
-           foreach ($escorts_medias as $escort_media) { 
+        $bannerImage = [];
+        $pinupImage =  [];
+        $mediaImages = [];
+        foreach ($escorts_medias as $escort_media) { 
             switch ($escort_media->position) {
                 case 9:
                     $bannerImage[] = '<img src="' . asset($escort_media->path) . '" style="width:170px; border: 1px solid #ccc; padding:10px; height: 120px; object-fit: cover;" >';
@@ -382,6 +386,6 @@ class MediaVerificationController extends Controller
                     break;
             }
         }
-        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage','pinupImage','mediaImages'));
+        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage','pinupImage','mediaImages','member_id'));
     }
 }

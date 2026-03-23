@@ -41,13 +41,11 @@
 
                             <div class="tab-pane fade" id="banners" role="tabpanel" aria-labelledby="banners-tab">
                                     <div class="other_images" id="banners_img">
-                                        <img src="{{ asset('assets/dashboard/img/view_img/b1.jpg') }}"  alt="view image gallery">
                                     </div>
                             </div>
 
                             <div class="tab-pane fade" id="pinups" role="tabpanel" aria-labelledby="pinups-tab">
                                  <div class="other_images" id="pinup_img">
-                                     <img src="{{ asset('assets/dashboard/img/view_img/b2.jpg') }}" alt="view image gallery">
                                  </div>
                             </div>
                         </div>            
