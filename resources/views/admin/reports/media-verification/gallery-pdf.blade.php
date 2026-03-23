@@ -30,7 +30,7 @@
             <thead>
                 <tr>
                     <td colspan="4">
-                        <h1>Verification Image - E40112</h1>
+                        <h1>Verification Image - {{$member_id}}</h1>
                     </td>
                     <td colspan="1" style="text-align: end">
                         <div id="printBtn">
