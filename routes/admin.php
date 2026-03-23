@@ -289,6 +289,10 @@ Route::get('support-tickets', function () {
     return view('admin.support-tickets');
 })->name('admin.support-tickets');
 
+Route::get('gallery-pdf/', function () {
+    return view('admin.reports.media-verification.gallery-pdf');
+})->name('gallery-pdf');
+
 
 Route::post('update-pricing-detail', [PricingsummariesController::class, 'storePricingDetail'])->name('admin.save.pricing.details');
 Route::get('pricingsummaries-datatable', [PricingsummariesController::class, 'PricingDataTable'])->name('admin.myPricing.dataTable');

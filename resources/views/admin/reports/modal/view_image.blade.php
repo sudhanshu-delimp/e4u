@@ -62,7 +62,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn-success-modal printImages">Print</button>
+                <a type="button" href="{{ route('gallery-pdf') }}" class="btn-success-modal" target="_blank">Print</a>
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
                 <button type="button" class="btn-success-modal approve-btn"  data-toggle="modal">Approve</button>
                 <button type="button" class="btn-success-modal reject-btn" data-toggle="modal">Reject</button>
