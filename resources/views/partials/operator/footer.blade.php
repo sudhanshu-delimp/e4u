@@ -20,7 +20,7 @@
                     </div>
                     <div class="modal-footer justify-content-center pt-0">
                         <button class="opr-btn-common" type="button" data-dismiss="modal">Cancel</button>
-                        <form method="POST" action="{{ route('admin.logout') }}">
+                        <form method="POST" name="logout"  id="logout" action="{{ route('admin.logout') }}">
                             @csrf
                             <button type="submit" class="opr-btn-common">Logout</button>
                         </form>
