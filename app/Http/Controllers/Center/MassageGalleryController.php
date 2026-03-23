@@ -475,7 +475,7 @@ class MassageGalleryController extends AppController
         return [$type, 'attatchment/'.$str];
     }
 
-    public function getAccountMediaGallery(Request $request, $category=null){
+    public function getAccountMediaGallery(Request $request, $category=null , $status = null){
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
             $mediaCategory = match ($category) {

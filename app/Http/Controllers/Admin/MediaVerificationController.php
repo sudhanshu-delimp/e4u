@@ -206,12 +206,21 @@ class MediaVerificationController extends Controller
 
         $id = $request->get('id');
         $user_id = $request->get('user_id');
+        $category =  $request->get('type');
+        if($category == "banners"){
+            $category = '9';
+        }else if($category == "pinups"){
+                $category = '10';
+        }else{
+            $category = null;
+        }
+
         $media_verification = MediaVerification::where('id', $id)
             ->where('user_id', $user_id)
             ->first();
         $status = $media_verification->getRawOriginal('status');
         
-        $query = EscortMedia::where('user_id', $user_id)->where('type', '0');
+        $query = EscortMedia::where('user_id', $user_id)->where('type', '0')->where('position',$category);
         switch ($status) {
             case '1': // Approved
                 $query->where('media_verification_id', $id)
@@ -226,11 +235,12 @@ class MediaVerificationController extends Controller
             case '0': // Pending
             default:
                 $query->whereNull('media_verification_id')
-                    ->whereNull('varified');
+                    ->where('varified', '2');
                 break;
         }
 
         $escort_medias = $query->get();
+        
         $media_verification_image = asset('escorts/' . $media_verification->image_path);
         $bannerImage = [];
         $pinupImage =  [];
@@ -284,14 +294,16 @@ class MediaVerificationController extends Controller
         $media_verification->reviewed_by = Auth::id();
         $media_verification->reviewed_at = Carbon::now();
         $media_verification->save();
-
+        
         EscortMedia::where('user_id', $media_verification->user_id)
-            ->where('varified', null)
+            ->where('varified', 2)
             ->where('type', 0)
+            ->whereNull('media_verification_id')
             ->update([
                 'media_verification_id' => $media_verification->id,
                 'varified' => (string) $request->get('status')
             ]);
+            
 
         $user = User::with('my_agent')
             ->select('id', 'name', 'email', 'member_id', 'assigned_agent_id')
@@ -327,5 +339,49 @@ class MediaVerificationController extends Controller
             'message' => 'Media verification '.strtolower($media_verification->status).' successfully.',
             'media_verification_status' => $status
         ]);
+    }
+
+
+    public function galleryPdf($id , $user_id){
+        $media_verification = MediaVerification::where('id', $id)
+            ->where('user_id', $user_id)
+            ->first();
+        $status = $media_verification->getRawOriginal('status');
+        $query = EscortMedia::where('user_id', $user_id)->where('type', '0');
+
+        switch ($status) {
+            case '1': // Approved
+                $query->where('media_verification_id', $id)
+                    ->where('varified', '1');
+                break;
+
+            case '2': // Rejected
+                $query->where('media_verification_id', $id)
+                    ->where('varified', '2');
+                break;
+
+            case '0': // Pending
+            default:
+                $query->whereNull('media_verification_id')
+                    ->where('varified', '2');
+                break;
+        }
+
+        $escorts_medias = $query->get();
+           foreach ($escorts_medias as $escort_media) { 
+            switch ($escort_media->position) {
+                case 9:
+                    $bannerImage[] = '<img src="' . asset($escort_media->path) . '" style="width:170px; border: 1px solid #ccc; padding:10px; height: 120px; object-fit: cover;" >';
+                    break;
+                case 10:
+                    $pinupImage[] = '<img src="' . asset($escort_media->path) . '" " style="width:170px; border: 1px solid #ccc; padding:10px; height: 120px; object-fit: cover;">';
+                    break;
+
+                default:
+                    $mediaImages[] = '<img src="' . asset($escort_media->path) . '" " style="width:170px; border: 1px solid #ccc; padding:10px;height: 120px; object-fit: cover;">';
+                    break;
+            }
+        }
+        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage','pinupImage','mediaImages'));
     }
 }
