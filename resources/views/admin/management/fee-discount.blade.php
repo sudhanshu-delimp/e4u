@@ -1,84 +1,14 @@
 @extends('layouts.admin')
-@section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
-<style>
-   .swal-button {
-   background-color: #242a2c;
-   }
-.concierge_services_table tbody td:nth-child(1), 
-.concierge_services_table tbody td:nth-child(3), 
-.concierge_services_table tbody td:nth-child(4),   
-.concierge_services_table tbody td:nth-child(5) {
-  text-align: center;
-}
-#loyalty_program_advertisers tbody td:nth-child(7),
-#loyalty_program_advertisers tbody td:nth-child(1),
-#loyalty_program_advertisers tbody td:nth-child(4),
-#loyalty_program_advertisers tbody td:nth-child(5),
-#loyalty_program_advertisers tbody td:nth-child(6),
-#loyalty_program_advertisers tbody td:nth-child(3) {
-  text-align: center;
-}
-
-
-#fee_support_services tbody td:nth-child(1),
-#fee_support_services tbody td:nth-child(3),
-#fee_support_services tbody td:nth-child(4),
-#fee_support_services tbody td:nth-child(5) {
-  text-align: center;
-}
-#agent_operator_fees tbody td:nth-child(5) {
-  text-align: center;
-}
-
-#agent_operator_fees tbody td:nth-child(3) {
-  text-align: center;
-}
-
-#agent_operator_fees tbody td:nth-child(4) {
-  text-align: center;
-}
-#agent_operator_fees tbody td:nth-child(1) {
-  text-align: center;
-}
-
-#commision_playbox_fees tbody td:nth-child(4) {
-  text-align: center;
-}
-
-
-#commision_playbox_fees tbody td:nth-child(1) {
-  text-align: center;
-}
-
-#commision_playbox_fees tbody td:nth-child(3) {
-  text-align: center;
-}
-
-
-#myPricing tbody td:nth-child(1),
-#myPricing tbody td:nth-child(3),
-#myPricing tbody td:nth-child(4),
-#myPricing tbody td:nth-child(5),
-#myPricing tbody td:nth-child(6),
-#myPricing tbody td:nth-child(7),
-#myPricing tbody td:nth-child(8)  {
-  text-align: center;
-}
-
-
-
-</style>
+@section('style') 
 @stop
 @section('content')
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
       <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-         <!--middle content-->
          <div class="row">
 
             <div class="custom-heading-wrapper col-md-12">
-               <h1 class="h1">Fee Discounts</h1>
+               <h1 class="h1">Discount to Fees</h1>
                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
             <div class="col-md-12 mb-4">
@@ -87,41 +17,149 @@
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
                            <li>
-                              Fees and Variables can only be determined by the Managing Director (Level 1).
+                              Discounts to Fees (<b>Discounts</b>) must be approved by the Managing Director (Level 1).
                            </li>
-                           <li>
-                              There are a range of Fees that apply to Advertisers, namely:
-                              <ol class="level-2">
-                                          <li>Advertising Fees.</li>
-                                          <li>Concierge Services.</li>
-                                          <li>Support Services.</li>
-                                       </ol>
-                           </li>
-                           <li>
-                           There is a loyalty program which applies to Advertisers.
-                           </li>
-                           <li>
-                           There are a range of variables that determine:
-                           <ol class="level-2">
-                                          <li>Discounts to Adverting Fees.</li>
-                                          <li>Loyalty Program entitlements and discounts.</li>
-                                          <li>Agent Fees.</li>
-                                       </ol>
-                           </li>
-                           <li>
-                           All amounts are exclusive of GST.
-                           </li>
-                           <li>
-                           Support Services are where E4U staff perform a service requested by the Advertiser, like for example, creating a Profile.
 
+                           <li>
+                              Discounts only apply to the Advertiser’s Membership Type.
+                           </li>
+
+                           <li>
+                              Where a Discount has been applied, the Loyalty Program falls away.
                            </li>
                         </ol>
                      </div>
                </div>
             </div> 
          </div>
+
+         <div class="row mb-3">
+            <div class="col-lg-12">
+               <div class="d-flex justify-content-between gap-10">
+                  <div class="d-flex justify-content-between gap-10">
+                     <div class="total_listing">
+                        <div><span>Escorts Discount : </span></div>
+                        <div><span class="totalInprogressTask">1</span></div>
+                     </div>
+                     
+                     <div class="total_listing">
+                           <div><span>Centres Discount : </span></div>
+                           <div><span class="totalInprogressTask">2</span></div>
+                     </div>
+                  </div>
+                  <button class="btn-success-modal" type="button" data-target="#advertiser_discount" data-toggle="modal">
+                     Advertiser Discount
+                  </button>
+               </div>
+            </div>
+         </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+               <div class="table-responsive">
+                  <table class="table w-100 " id="discountFeetable">
+                     <thead class="table-bg">
+                        
+                        <tr>
+                           <th>Member ID</th>
+                           <th>Name</th>
+                           <th>Agent ID</th>
+                           <th>Rate</th>
+                           <th>Discount</th>
+                           <th>Granted</th>
+                           <th>Status</th>
+                           <th>Action</th>
+                        </tr>
+                           
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>M40156</td>
+                           <td>CBD Massage</td>
+                           <td>A40489</td>
+                           <td>$ 20.00</td>
+                           <td>33.0%</td>
+                           <td>31-03-2026</td>
+                           <td>Expires: 30-06-2026</td>
+                           <td>
+                              <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button"
+                                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="custom-tooltip-container"><a
+                                                        class="dropdown-item align-item-custom toggle-massage-notification"
+                                                        href="#" title="Click to disable notification">
+                                                    </a>
+                                                    <a class="dropdown-item align-item-custom" data-toggle="modal"
+                                                        data-target="#confirm" href=""> <i
+                                                            class="fa fa-times" aria-hidden="true"></i>
+                                                        Cancel</a>
+                                                    <div class="dropdown-divider"></div>
+                                                     <a class="dropdown-item align-item-custom" href="#"
+                                                        data-toggle="modal" data-target="#discount_history"> <i
+                                                            class="fa fa-history" aria-hidden="true"></i>
+                                                        History</a>
+                                                        <div class="dropdown-divider"></div>
+                                                     <a class="dropdown-item align-item-custom" href="#"
+                                                        data-toggle="modal" data-target="#renew_discount"> <i
+                                                            class="fa fa-sync" aria-hidden="true"></i>
+                                                        Renew</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+
       </div>
 </div>
+
+@include('admin/modal/discount_history_modal')
+@include('admin/modal/advertiser_discount_modal')
+@include('admin/modal/renew_discount_modal')
+@include('admin/modal/confirm_modal')
 @endsection
 @push('script')
+
+<script>
+    var table = $("#discountFeetable").DataTable({
+        language: {
+            search: "Search: _INPUT_",
+            searchPlaceholder: "Search by Member ID"
+        },
+        info: true,
+        paging: true,
+        lengthChange: true,
+        searching: true,
+        bStateSave: true,
+        order: [
+            [1, 'desc']
+        ],
+        lengthMenu: [
+            [10, 25, 50, 100],
+            [10, 25, 50, 100]
+        ],
+        pageLength: 10,
+
+           columns: [
+               { data: 'member_id', name: 'member_id', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'agent_id', name: 'agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'rate', name: 'rate', searchable: true, orderable:false ,defaultContent: 'NA'},
+               { data: 'discount', name: 'discount', searchable: true, orderable:false,defaultContent: 'NA' },
+               { data: 'granted', name: 'granted', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'status', name: 'status', searchable: true, orderable:true,defaultContent: 'NA' },
+               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
+           ],
+    });
+</script>
 @endpush
