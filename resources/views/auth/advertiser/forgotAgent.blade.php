@@ -100,12 +100,12 @@
 </div>
 
 
-<div class="modal" id="resetPassword_modal" style="display: none">
+<div class="modal upload-modal fade" id="resetPassword_modal" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
+        <div class="modal-content">
           
-            <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title text-white"> <img src="{{asset('assets/dashboard/img/save-setting.png')}}" class="custompopicon" alt="logo">Password Updated</h5>
+            <div class="modal-header">
+                <h5 class="modal-title"> <img src="{{asset('assets/dashboard/img/save-setting.png')}}" class="custompopicon" alt="logo">Password Updated</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
                         <img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -114,12 +114,12 @@
             </div>
 
             <div class="modal-body">
-                <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;" id="hid"></h1>
+                <h1 class="custom_modal_text my-4" style="text-align: center;" id="hid"></h1>
                 <span id="comman_str"></span>
                 <span class="comman_msg"></span>
 
             </div>
-            <div class="modal-footer" style="justify-content: center;">
+            <div class="modal-footer justify-content-center pt-0">
                 <a href="{{route('agent.login')}}" class="btn main_bg_color site_btn_primary">Click Hear To Login</a>
             </div>
         </div>
@@ -128,8 +128,8 @@
 
 <div class="modal fade upload-modal" id="userNotFoundModal" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel" aria-modal="true" >
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
-                <div class="modal-header border-0">
+            <div class="modal-content">
+                <div class="modal-header">
                     <input type="hidden" id="status_data_id" value="334">
                     <input type="hidden" id="status_data_value" value="7">
                     <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
@@ -147,12 +147,12 @@
                 </div>
 
                 <div class="modal-body pb-0 teop-text text-center">
-                    <h5 class="popu_heading_style mt-2">
+                    <h5 class="custom_modal_text my-4">
                         Your password reset link is invalid or has expired. Please request a new one.
                     </h5>
 
                 </div>
-                <div class="modal-footer justify-content-center border-0 pb-4">
+                <div class="modal-footer justify-content-center pb-4">
                     <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Ok</button>
                 </div>
             </div>

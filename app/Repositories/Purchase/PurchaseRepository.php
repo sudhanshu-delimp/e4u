@@ -85,9 +85,8 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $item->status = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
             
             $item->location = $locations[$item->escort->state_id]['stateName'];
-            [$discount, $rate, $totalAmount] = calculateTotalFee($item->membership, $item->days_number);
             $item->membership = getMembershipType($item->membership);
-            $item->fee = formatCurrency($totalAmount);
+            $item->net_amount = getPurchaseNetAmount($item->id);
             $i++;
         }
 

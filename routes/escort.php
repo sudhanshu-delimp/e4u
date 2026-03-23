@@ -251,7 +251,7 @@ Route::post('merge-chunks', [EscortGalleryController::class, 'mergeChunks'])->na
 //     return view('escort.dashboard.archives.archive-view-photos');
 // });
 Route::get('archive-view-videos',[EscortGalleryController ::class, 'videoGalleries'])->name('escort.archive-view-videos');
-Route::get('get-account-media-gallery/{category?}',[EscortGalleryController ::class, 'getAccountMediaGallery'])->name('escort.account.gallery');
+Route::get('get-account-media-gallery/{category?}/{status?}', [EscortGalleryController::class, 'getAccountMediaGallery'])->name('escort.account.gallery');
 Route::get('get-account-video-gallery',[EscortGalleryController ::class, 'getAccountVideoGallery'])->name('escort.account.video_gallery');
 // Route::get('archive-view-videos',function(){
 //     return view('escort.dashboard.archives.archive-view-videos');

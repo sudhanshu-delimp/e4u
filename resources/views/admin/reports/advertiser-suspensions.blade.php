@@ -81,9 +81,10 @@
 </div>
 
 
+
 <!-- View Merchant popupform -->
 <div class="modal fade upload-modal" id="view-profile" tabindex="-1" role="dialog" aria-labelledby="view-profileLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
       <div class="modal-content">
          
          <!-- Header -->

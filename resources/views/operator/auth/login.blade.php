@@ -83,9 +83,9 @@
                     </div>
                 </section>
             </section>
-            <div class="modal" id="comman_modal" style="display: none">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content custome_modal_max_width">
+            <div class="modal upload-modal opr-modal" id="comman_modal" style="display: none">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
                         <input type="hidden" value="0" id="forgot_password">
                         <form id="forgotPasswordSend" method="post" action="">
                             @csrf
@@ -131,9 +131,9 @@
                     </div>
                 </div>
             </div>
-            <div class="modal upload-modal" id="recovery_modal" style="display: none">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content custome_modal_max_width">
+            <div class="modal upload-modal opr-modal" id="recovery_modal" style="display: none">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
                         <div class="modal-header main_bg_color border-0">
                             <h5 class="modal-title "> <img src="{{ asset('assets/img/account-recovery.png') }}"
                                     class="custompopicon" alt="Account Recovery">Account Recovery</h5>

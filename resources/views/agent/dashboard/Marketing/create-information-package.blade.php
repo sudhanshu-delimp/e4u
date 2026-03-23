@@ -105,7 +105,7 @@ it to the prospective Member.</p>
     {{-- search modal --}}
     <div class="modal fade upload-modal" id="search" tabindex="-1" role="dialog"
         aria-labelledby="searchlabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
@@ -120,7 +120,7 @@ it to the prospective Member.</p>
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour text-center">
-                    <h4 class="my-2">Search the Information Package document you are looking
+                    <h4 class="custom_modal_text">Search the Information Package document you are looking
                      for by the ID contained in the List.</h4>
                     <form>
                         <div class="row mt-3">
@@ -152,7 +152,7 @@ it to the prospective Member.</p>
     {{-- View list Modal --}}
     <div class="modal fade upload-modal bd-example-modal-lg" id="view_list" tabindex="-1" role="dialog"
         aria-labelledby="view_listLabel" aria-hidden="true">
-        <div class="modal-dialog print-list-modal modal-dialog-centered " role="document">
+        <div class="modal-dialog modal-dialog-centered  modal-xl modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="view_list"><img
@@ -230,7 +230,8 @@ it to the prospective Member.</p>
         </div>
     </div>
     {{-- end --}}
-     <!-- view Massage merged list Modal -->
+
+    {{-- view Massage merged list Modal --}}
      <div class="modal fade upload-modal" id="centresModal" tabindex="-1" aria-labelledby="centresModalLabel" aria-hidden="true">
          <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered ">
             <div class="modal-content">

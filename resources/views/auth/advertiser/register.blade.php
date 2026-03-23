@@ -531,13 +531,13 @@
         @include('modal.two-step-verification')
 
 
-        <div class="modal" id="comman_modal" style="display: none">
+        <div class="modal upload-modal fade" id="comman_modal" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
+                <div class="modal-content">
                     <form id="forgotPasswordSend" method="post" action="">
                         @csrf
-                        <div class="modal-header main_bg_color border-0">
-                            <h5 class="modal-title text-white">Reset Password</h5>
+                        <div class="modal-header">
+                            <h5 class="modal-title">Reset Password</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">
                                     <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -555,7 +555,7 @@
                                 </div>
                                 <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Reset
                                         Password</strong></h4>
-                                <p class="text-center pb-2">We will send you a reset password link to your email.</p>
+                                <h5 class="text-center custom_modal_text">We will send you a reset password link to your email.</h5>
                                 <input type="txt" required class="form-control" name="email" id="email"
                                     aria-describedby="emailHelp" placeholder="Email Address"
                                     data-parsley-required-message="Your Email is required" value="{{ old('email') }}">

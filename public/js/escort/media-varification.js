@@ -86,22 +86,23 @@ $(document).on('submit', '#mediaVerification', function (e) {
             $('#mediaVerificationModal').modal('hide');
         },
         error: function (xhr) {
+            let errorMsg = 'Something went wrong.';
 
-            let errors = xhr.responseJSON?.errors;
-            let errorMsg = '';
-
-            if (errors) {
-                $.each(errors, function (key, value) {
-                    errorMsg += value[0] + "<br>";
-                });
-            } else {
-                errorMsg = 'Something went wrong.';
+            if (xhr.responseText) {
+                try {
+                    let res = JSON.parse(xhr.responseText);
+                    if (res.message) {
+                        errorMsg = res.message;
+                    }
+                } catch (e) {
+                    console.log('JSON parse error');
+                }
             }
 
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                html: errorMsg
+                text: errorMsg
             });
         },
         complete: function () {

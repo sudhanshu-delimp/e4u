@@ -82,7 +82,6 @@ class EscortMediaRepository extends BaseRepository implements EscortMediaInterfa
     }
     public function with_Or_withoutPosition($user_id,$position = null)
     {
-//        dd($user_id);
         $result = $this->model
             ->where('user_id',$user_id)
 //            ->where('position', null)

@@ -43,11 +43,7 @@
             </div>
             <div class="row">    
                <div class="col-md-12 ">
-                  <div class="panel with-nav-tabs panel-warning">
-                     <div class="panel-body">
-                        <div class="tab-content">
-                           <div class="tab-pane fade in active show" id="tab1warning">
-                              <div class="table-responsive-xl">
+                  <div class="table-responsive">
                                  <table class="table" id="postReportTable">
                                     <thead class="table-bg">
                                        <tr>
@@ -62,12 +58,12 @@
                                           </th>
                                        </tr>
                                     </thead>
-                                    <tbody class="table-content">
-                                       <tr class="row-color">
-                                          <td class="theme-color">123</td>
-                                          <td class="theme-color">2025-06-09 8:36:54</td>
-                                          <td class="theme-color">National Ugly Mugs Feature [header tile in email]</td>
-                                          <td class="theme-color text-center">
+                                    <tbody >
+                                       <tr>
+                                          <td>123</td>
+                                          <td>2025-06-09 8:36:54</td>
+                                          <td>National Ugly Mugs Feature [header tile in email]</td>
+                                          <td class=" text-center">
                                              <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -86,10 +82,6 @@
                                     </tbody>
                                  </table>
                               </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
                </div>
             </div>
          </div>
@@ -102,8 +94,8 @@
 
 
 <div class="modal fade upload-modal bd-example-modal-lg" id="postOffivereport" tabindex="-1" role="dialog" aria-labelledby="postOffivereportLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-      <div class="modal-content basic-modal modal-lg">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="postOffivereport"><img src="{{ asset('assets/dashboard/img/post-office-report.png') }}" class="custompopicon">Post Office Report</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">

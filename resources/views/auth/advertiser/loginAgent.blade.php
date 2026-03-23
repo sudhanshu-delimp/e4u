@@ -90,14 +90,14 @@
             </div>
          </section>
       </section>
-      <div class="modal" id="comman_modal" style="display: none">
+      <div class="modal upload-modal fade" id="comman_modal" style="display: none">
          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
+            <div class="modal-content">
                <input type="hidden" value="0" id="forgot_password">
                <form id="forgotPasswordSend" method="post" action="" >
                   @csrf
-                  <div class="modal-header main_bg_color border-0">
-                     <h5 class="modal-title text-white"> <img src="{{asset('assets/app/img/2fa.png')}}" class="custompopicon" alt="logo">Reset Password</h5>
+                  <div class="modal-header">
+                     <h5 class="modal-title"> <img src="{{asset('assets/app/img/2fa.png')}}" class="custompopicon" alt="logo">Reset Password</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                         <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -132,10 +132,10 @@
             </div>
          </div>
       </div>
-      <div class="modal upload-modal" id="recovery_modal" style="display: none">
+      <div class="modal upload-modal fade" id="recovery_modal" style="display: none">
          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-               <div class="modal-header main_bg_color border-0">
+            <div class="modal-content">
+               <div class="modal-header">
                   <h5 class="modal-title "> <img src="{{asset('assets/img/account-recovery.png')}}" class="custompopicon" alt="Account Recovery">Account Recovery</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true"><img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
@@ -154,8 +154,8 @@
                         <p class="comman_msg text-center font-weight-bold"></p>
                      </div>
               </div>
-              <div class="modal-footer" style="justify-content: center;">
-                  <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
+              <div class="modal-footer" class="justify-contant-center pt-0">
+                  <button type="submit" class="btn-success-modal" data-dismiss="modal" id="close">Ok</button>
               </div>
             </div>
          </div>

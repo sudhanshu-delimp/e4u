@@ -212,15 +212,15 @@ $loginAccount = auth()->user();
    <div class="toast-body">Hello, world! This is a toast message.</div>
 </div>
 <!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
-<div class="modal programmatic" id="change_all" style="display: none">
+<div class="modal fade upload-modal programmatic" id="change_all" style="display: none">
    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content custome_modal_max_width">
-         <div class="modal-header main_bg_color border-0">
-            <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">
-            <img src="{{ asset('assets/app/img/newcross.png') }}"
-               class="img-fluid img_resize_in_smscreen">
+                <img src="{{ asset('assets/app/img/newcross.png') }}"
+                class="img-fluid img_resize_in_smscreen">
             </span>
             </button>
          </div>
@@ -232,19 +232,20 @@ $loginAccount = auth()->user();
             <input type="hidden" id="trigger-element2">
             <h3 class="my-2"><span id="Lname"></span> </h3>
             <h3 class="my-2"><span id="log"></span> </h3>
-            <div class="modal-footer">
+            
+         </div>
+         <div class="modal-footer justify-content-center pt-0">
                <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
                   value="close" id="close_change">No</button>
                <button type="button" class="btn-success-modal" id="save_change">Yes</button>
             </div>
-         </div>
       </div>
    </div>
 </div>
 
 <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-      <div class="modal-content basic-modal modal-lg">
+   <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+      <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="emailReport"><img src="{{ asset('assets/dashboard/img/view-listing.png') }}" class="custompopicon"> Listing</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1372,8 +1373,8 @@ $loginAccount = auth()->user();
                         }).get();
                         $('#current').val(checkedValues);
                     }
-                    
-                    let popupMessage = `<p>Would you like to update ${label ? `<b>${label}</b> in your` : 'your'} 'My Information' page for future Profiles?</p>`;
+
+                    let popupMessage = `<h5 class="custom_modal_text">Would you like to update ${label ? `<b>${label}</b> in your` : 'your'} 'My Information' page for future Profiles?</h5>`;
 
                     $("#Lname").html(popupMessage);
 
@@ -1397,7 +1398,7 @@ $loginAccount = auth()->user();
                 $('#previous').val(previous);
                 if ($(this).attr('name') == 'price[]') {
                     $('#trigger-element2').val($(this).attr('service_id'));
-                    let popupMessage = `<p>Would you like to update ${label ? `<b>${label}</b> in your` : 'your'} 'My Information' page for future Profiles?</p>`;
+                    let popupMessage = `<h5 class="custom_modal_text">Would you like to update ${label ? `<b>${label}</b> in your` : 'your'} 'My Information' page for future Profiles?</h5>`;
                     $("#Lname").html(popupMessage);
 
                     if ($(this).attr('name') != 'license' || ($(this).attr('name') == 'license' &&

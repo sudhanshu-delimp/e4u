@@ -1041,14 +1041,14 @@ use Illuminate\Support\Facades\Log;
 
 
 
-    <div class="modal" id="photo_gallery" style="display: none">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title" style="color: white;"><img
+    <div class="modal fade upload-modal" id="photo_gallery" style="display: none">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><img
                             src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon"> Select Photo
                     </h5>
-                    <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 200px;">
+                    <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 300px;">
                         <button type="button" data-toggle="modal" data-target="#add_photo_mcc"
                             class="btn-cancel-modal select-Photo" style=" padding: 5px 10px;">Upload from device</button>
                     </div>
@@ -1060,8 +1060,7 @@ use Illuminate\Support\Facades\Log;
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="gallery_modal_container" class="grid-container modalPopup"
-                        style="max-height: 500px; overflow-y:scroll;">
+                    <div id="gallery_modal_container" class="grid-container modalPopup">
 
                         @foreach ($media as $keyId => $image)
                             @if (!in_array($image->position, [9, 10]))
@@ -1082,12 +1081,12 @@ use Illuminate\Support\Facades\Log;
 
     <div class="modal fade upload-modal" id="add_photo_mcc" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width: 900px;position: absolute;">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content">
                 <form id="mulitiImage" method="POST" action="{{ route('center.massuers-media-upload-gallery') }}"
                     enctype="multipart/form-data">
                     @csrf
-                    <div class="modal-content border-0">
+                    <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLongTitle"><img
                                     src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross">
@@ -1120,7 +1119,7 @@ use Illuminate\Support\Facades\Log;
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="page_token" id="page_token" value="{{ $masseur->token_id }}">
-                            <button type="submit" class="btn-success-modal">Verify Media</button>
+                            {{-- <button type="submit" class="btn-success-modal">Verify Media</button> --}}
                             <button type="submit" class="btn-success-modal">Upload</button>
                         </div>
                     </div>
@@ -1129,10 +1128,10 @@ use Illuminate\Support\Facades\Log;
         </div>
     </div>
 
-    <div class="modal programmatic" id="update_info" style="display: none">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
+    <div class="modal fade upload-modal programmatic" id="update_info" style="display: none">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img
                             src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My
                         Information</h5>
@@ -1153,9 +1152,9 @@ use Illuminate\Support\Facades\Log;
                         <input type="hidden" name="post_type" id="post_type" value="">
 
                         <h3 class="my-2"><span id="Lname">
-                                <p>Would you like to update <b>
+                                <h5 class="custom_modal_text">Would you like to update <b>
                                         <span id="field_name"></span>
-                                    </b> in your 'My Information' page for future Profiles?</p>
+                                    </b> in your 'My Information' page for future Profiles?</h5>
                             </span> </h3>
                         <div class="modal-footer">
                             <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"

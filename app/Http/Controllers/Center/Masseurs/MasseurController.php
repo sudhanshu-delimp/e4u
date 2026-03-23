@@ -649,7 +649,7 @@ class MasseurController extends AppController
 
 
 
-    public function getAccountMediaGallery(Request $request, $category=null,$page_token,)
+    public function getAccountMediaGallery(Request $request, $category=null,$page_token, $status = null)
     {
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id,$page_token, []);

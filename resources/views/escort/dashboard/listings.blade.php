@@ -219,7 +219,7 @@
                         visible: '{{$type == "past"?false:true}}'
                     },
                     {
-                        data: 'fee',
+                        data: 'net_amount',
                         searchable: false,
                         orderable: false
                     }

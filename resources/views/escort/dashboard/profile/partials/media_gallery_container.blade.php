@@ -4,13 +4,13 @@
             <div class="col-md-8">
                 <ul class="nav nav-tabs border-0" id="escort_profile_media_filter_type">
                     <li class="nav-item">
-                        <a class="nav-link active" id="menu_all" data-filter-type="all" data-toggle="tab" href="#home">All</a>
+                        <a class="nav-link  {{ is_null($status) ? 'active' : '' }}" id="menu_all" data-filter-type="all" data-toggle="tab" href="#home">All</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="menu_varified" data-filter-type="verified" data-toggle="tab" href="#menu1">Verified</a>
+                        <a class="nav-link {{$status == '1' ? 'active' : ''}}" id="menu_varified" data-filter-type="verified" data-toggle="tab" href="#menu1">Verified</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="menu_unverified" data-filter-type="unverified" data-toggle="tab" href="#menu2">Unverified</a>
+                        <a class="nav-link {{$status == '2' ? 'active' : ''}} " id="menu_unverified" data-filter-type="unverified" data-toggle="tab" href="#menu2">Unverified</a>
                     </li>
                 </ul>
             </div>

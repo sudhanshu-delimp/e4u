@@ -2,7 +2,7 @@
  <div class="modal fade upload-modal" id="mergeList" tabindex="-1" role="dialog" aria-labelledby="mergeListlabel"
      aria-hidden="true" data-backdrop="static">
 
-     <div class="modal-dialog modal-dialog-centered" style="max-width: 1200px" role="document">
+     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
          <div class="modal-content">
 
              <!-- Header -->
@@ -22,7 +22,7 @@
              </div>
 
              <!-- Body -->
-             <div class="modal-body" style="max-height:500px; overflow-y:auto;">
+             <div class="modal-body">
 
                  <div class="table-responsive">
                      <table class="table table-bordered table-sm">

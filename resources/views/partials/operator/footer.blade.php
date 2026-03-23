@@ -1,26 +1,26 @@
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
-        <div class="modal opr-modal fade fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal opr-modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content custome_modal_max_width">
-                   
-                    <div class="modal-header main_bg_color border-0">
-                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/logout.png') }}" class="custompopicon"> Logout</h5>
+                <div class="modal-content ">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/operator/logout.png') }}" class="custompopicon"> Logout</h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                        <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
+                            <img src="{{ asset('assets/dashboard/img/operator/close.png')}}" class="opr-close-btn">
                         </a>
 
                     </div>
                     <div class="modal-body text-center">
-                        <h5 class="popu_heading_style mb-0 mt-4">
-                                Are you sure that you want to logout?
+                        <h5 class="my-2 custom_modal_text">
+                            Are you sure that you want to logout?
                         </h5>
                     </div>
-                    <div class="modal-footer justify-content-center">
+                    <div class="modal-footer justify-content-center pt-0">
                         <button class="opr-btn-common" type="button" data-dismiss="modal">Cancel</button>
-                        <form method="POST" action="{{ route('admin.logout') }}">
+                        <form method="POST" name="logout"  id="logout" action="{{ route('admin.logout') }}">
                             @csrf
                             <button type="submit" class="opr-btn-common">Logout</button>
                         </form>

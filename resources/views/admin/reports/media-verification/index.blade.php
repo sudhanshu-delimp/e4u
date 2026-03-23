@@ -16,6 +16,11 @@
             height: 60px;
             border-radius: 50%;
         }
+        .printBtn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
         
     </style>
 @endsection
@@ -112,7 +117,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr>
+                            <tr>
                                 <td>E60125</td>
                                 <td>18-02-2026</td> 
                                 <td>Tiera</td>
@@ -147,11 +152,15 @@
                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                                 href="#" data-toggle="modal" data-target="#view-centre"> <i
                                                     class="fa fa-eye"></i> View Centre</a>
+                                                     <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                                href="#" data-toggle="modal" data-target="#view_tag"> <i
+                                                    class="fa fa-eye"></i> View Tag</a>
+
 
                                         </div>
                                     </div>
                                 </td>
-                            </tr> -->
+                            </tr>
                         </tbody>
 
                     </table>
@@ -259,12 +268,16 @@
         });
 
         var mediaVerificationId = 0;
+        var userId = 0;
+        var memberId = 0;
+
         $(document).on('click', '.view-image-btn', function () {
             mediaVerificationId = $(this).data('id');
-            var userId = $(this).data('user-id');
-            var memberId = $(this).data('member-id');
-            var status = $(this).data('status');
-
+            userId = $(this).data('user-id');
+            memberId = $(this).data('member-id');
+            status = $(this).data('status');
+    
+            $('.printBtn').attr('href', '/admin-dashboard/gallery-pdf/' + mediaVerificationId+'/' + userId);
             if (status === 'Verified' || status === 'Rejected') {
                 $('.approve-btn').hide();
                 $('.reject-btn').hide();
@@ -274,12 +287,33 @@
             }
             
             $('#media-images').html('Loading...');
+
+            getMediaVerificationImage(userId,mediaVerificationId, category = "gallery",memberId);
+        }); 
+
+        function checkPrintBtn() {
+            let hasImages = 
+                $('#banners_img').children().length > 0 ||
+                $('#pinup_img').children().length > 0 ||
+                $('#media-images').children().length > 0;
+            
+            if (hasImages) {
+                $('.printBtn').removeClass('disabled').off('click');
+            } else {
+                $('.printBtn').addClass('disabled').off('click').on('click', function(e) {
+                    e.preventDefault();
+                });
+            }
+        }
+
+        function getMediaVerificationImage(userId,mediaVerificationId,category,memberId){
             $.ajax({
                 url: "{{ route('admin.media-verification-image') }}",
                 method: "GET",
                 data: {
                     id: mediaVerificationId,
-                    user_id: userId
+                    user_id: userId,
+                    type: category
                 },
                 success: function (response) {
                     $('#verification-image').attr('src',response.media_verification_image);
@@ -289,16 +323,24 @@
                         $.each(response.media_img, function (key, img) {
                             mediaImages += img;
                         });
-                        $('#media-images').html(mediaImages);
+                        if(category == "pinups"){
+                            $('#pinup_img').html(response.media_pinup_image);
+                        }else if (category == "banners"){
+                             $('#banners_img').html(response.media_banner_image);
+                        }else{
+                            $('#media-images').html(mediaImages);
+                        }
+                        
                     } else {
                         $('#view_image .modal-body').html('<p>No images found</p>');
                     }
+                    checkPrintBtn();
                 },
                 error: function (xhr) {
                     console.log(xhr.responseText);
                 }
             });
-        }); 
+        }
 
         $(document).off('click', '.approve-btn');
         $(document).on('click', '.approve-btn', function () {
@@ -362,11 +404,14 @@
                 }
             });
         }
+
+        $(document).off('click', '.verification-img-popup');
+        $(document).on('click', '.verification-img-popup .nav-link', function () {
+            let activeGalleryTab = $(".verification-img-popup .nav-link.active").attr('data-type');
+            getMediaVerificationImage(userId,mediaVerificationId, activeGalleryTab ,memberId); 
+        }); 
+
     });
 
-$(document).on('click', '.printImages', function () {
-    window.print();
-});
-    
 </script>
 @endsection

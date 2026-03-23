@@ -22,7 +22,7 @@
 </style>
 <form name="add_staff" id="edit_staff" method="POST" action="{{ route('admin.operator.store-staff') }}"
     enctype="multipart/form-data">
-    <div class="row" style="max-height: 500px; overflow:auto;">
+    <div class="row">
         <div class="col-12 my-2">
             <h6 class="border-bottom pb-1 text-blue-primary">Operator</h6>
         </div>

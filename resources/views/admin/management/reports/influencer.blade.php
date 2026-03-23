@@ -256,8 +256,8 @@
 
     <div class="modal fade upload-modal" id="editSocialMediaAccount" tabindex="-1" role="dialog"
         aria-labelledby="confirmPopupLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header border-0">
                     <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
                         <img src="{{ asset('assets/dashboard/img/influencer.png') }}" alt="resolved" class="custompopicon">
@@ -277,7 +277,7 @@
                         enctype="multipart/form-data">
 
                      <div class="row social_media_modal" >
-                        <div class="col-lg-12" style="max-height: 500px; overflow:auto;">
+                        <div class="col-lg-12">
                             <div class="row">
                                 <!-- Section -->
                                 <div class="col-lg-12 my-2">
@@ -552,8 +552,8 @@
 
     <div class="modal fade upload-modal" id="viewSummarydetails" tabindex="-1" role="dialog"
         aria-labelledby="viewSummarydetailsLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered influencer_modal" role="document">
-            <div class="modal-content basic-modal">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+            <div class="modal-content">
                 <div class="modal-header border-0">
                     <h5 class="modal-title d-flex align-items-center">
                         <img src="{{ asset('assets/dashboard/img/influencer.png') }}" alt="resolved" class="custompopicon">
