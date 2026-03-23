@@ -363,7 +363,7 @@ Route::post('/update-password', [AgentAccountController::class, 'changePassword'
 // Route::post('delete-photos/{id}', [CenterProfileInformationController ::class, 'ImagesDelete'])->name('center.delete.gallery');
 
 Route::get('archive-view-videos',[MassageGalleryController ::class, 'videoGalleries'])->name('center.archive-view-videos');
-Route::get('get-account-media-gallery/{category?}',[MassageGalleryController ::class, 'getAccountMediaGallery'])->name('center.account.gallery');
+Route::get('get-account-media-gallery/{category?}/{status?}',[MassageGalleryController ::class, 'getAccountMediaGallery'])->name('center.account.gallery');
 Route::post('upload-galleries',[MassageGalleryController::class,'uploadGallery'])->name('center.upload.gallery');
 Route::post('upload-videos-galleries',[MassageGalleryController::class,'uploadVideosGaller'])->name('center.upload.videos.gallery');
 Route::post('default_photos', [MassageGalleryController ::class, 'defaultImages'])->name('center.default.images');

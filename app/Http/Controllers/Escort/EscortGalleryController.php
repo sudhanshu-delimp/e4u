@@ -487,13 +487,6 @@ class EscortGalleryController extends AppController
             ];
 
             $status = $statusMap[$status] ?? null;
-
-          
-            // $mediaCategory = match ($category) {
-            //     'gallery' => $media->whereNotIn('position',[9,10]),
-            //     'banner'  => $media->whereIn('position',[9])->where('template','0'),
-            //     'pinup'   => $media->whereIn('position',[10]),
-            // };
             $mediaCategory = match ($category) {
                 'gallery' => $media
                     ->whereNotIn('position',[9,10])

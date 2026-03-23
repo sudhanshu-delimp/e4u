@@ -99,6 +99,7 @@ class MassageGalleryController extends AppController
                     'user_id' => $userId,
                     'type' => $type,
                     'path' => 'escorts/'.$destination_path,
+                    'varified' => '2'
                     ];
                     $response['status'] = 200;
                     $media = $this->media->store($data);
@@ -136,7 +137,8 @@ class MassageGalleryController extends AppController
                 'user_id' => $userId,
                 'type' => $type,
                 'position' => $key,
-                'path' => 'escorts/'.$destination_path
+                'path' => 'escorts/'.$destination_path,
+                 'varified' => '2'
                 ];
                 $media = $this->media->store($data);
                 $response['status'] = 200;
@@ -475,19 +477,43 @@ class MassageGalleryController extends AppController
         return [$type, 'attatchment/'.$str];
     }
 
-    public function getAccountMediaGallery(Request $request, $category=null , $status = null){
+    public function getAccountMediaGallery(Request $request, $category=null , $status = null ){
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
+            // $mediaCategory = match ($category) {
+            //     'gallery' => $media->whereNotIn('position',[9,10]),
+            //     'banner'  => $media->whereIn('position',[9])->where('template','0'),
+            //     'pinup'   => $media->whereIn('position',[10]),
+            // };
+
+            $statusMap = [
+                'verified'   => '1',
+                'unverified' => '2',
+            ];
+
+            $status = $statusMap[$status] ?? null;
+            
             $mediaCategory = match ($category) {
-                'gallery' => $media->whereNotIn('position',[9,10]),
-                'banner'  => $media->whereIn('position',[9])->where('template','0'),
-                'pinup'   => $media->whereIn('position',[10]),
+                'gallery' => $media
+                    ->whereNotIn('position',[9,10])
+                    ->when($status !== null, function ($query) use ($status) {
+                        return $query->where('varified', $status);
+                    }),
+
+                'banner'  => $media
+                    ->whereIn('position',[9])
+                    ->where('template','0')
+                    ->when($status !== null, function ($query) use ($status) {
+                        return $query->where('varified', $status);
+                    }),
+
             };
+
             $path = $this->media;
             $response = [];
             $response['success'] = true;
             $response['category'] = $category;
-            $response['gallery_container_html'] = view('escort.dashboard.profile.partials.media_gallery_container',compact('mediaCategory','media','path','category'))->render();
+            $response['gallery_container_html'] = view('escort.dashboard.profile.partials.media_gallery_container',compact('mediaCategory','media','path','category','status'))->render();
             $response['gallery_modal_container_html'] = view('escort.dashboard.profile.partials.gallery_modal_container',compact('media','path'))->render();
             $response['banner_modal_container_html'] = view('escort.dashboard.profile.partials.banner_modal_container',compact('media','path'))->render();
             
