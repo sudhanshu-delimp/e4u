@@ -68,10 +68,10 @@
                         </div>
                         <div id="abbrieviations" class="collapse" data-parent="#accordion" style="">
                             <div class="card-body">
-                                <form id="operatorProfile" class="v-form-design"
+                                <form name="operatorProfile" id="operatorProfile" class="v-form-design"
                                     action="{{ route('operator.account.update', [$operator->id]) }}" method="POST">
                                     <input type="hidden" name="user_id" value="{{ $operator->id }}">
-                                    <input type="hidden" name="_token">
+                                   
                                     <div class="row">
                                         <div class="col-md-10 px-0">
                                             <div class="row">
@@ -244,10 +244,9 @@
                         </div>
                         <div id="agreement" class="collapse" data-parent="#accordion" style="">
                             <div class="card-body">
-                                <form id="operatorProfile" class="v-form-design"
+                                <form name="operatorAgreement" id="operatorAgreement" class="v-form-design"
                                     action="{{ route('operator.account.update', [$operator->id]) }}" method="POST">
                                     <input type="hidden" name="user_id" value="{{ $operator->id }}">
-                                    <input type="hidden" name="_token">
 
                                     <div class="row">
                                         <div class="col-md-10 px-0">
@@ -305,7 +304,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <form>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -318,10 +317,10 @@
                         </div>
                         <div id="fees" class="collapse" data-parent="#accordion" style="">
                             <div class="card-body">
-                                <form id="operatorProfile" class="v-form-design"
+                                <form name="feeFrm" id="feeFrm" class="v-form-design"
                                     action="{{ route('operator.account.update', [$operator->id]) }}" method="POST">
                                     <input type="hidden" name="user_id" value="{{ $operator->id }}">
-                                    <input type="hidden" name="_token">
+                                    
 
                                     <div class="row">
                                         <div class="col-md-10 px-0">
@@ -344,6 +343,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                     </form>
                             </div>
                         </div>
                     </div>
@@ -353,6 +353,3 @@
         </div>
     </div>
 @endsection
-@push('script')
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-@endpush
