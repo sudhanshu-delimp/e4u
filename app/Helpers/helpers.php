@@ -85,7 +85,7 @@ if (!function_exists('old_calculateTotalFee')) {
 
 
 if (!function_exists('calculateTotalFee')) {
-    function calculateTotalFee($membership_id, $days, $purchaseObject = null)
+    function calculateTotalFee($membership_id, $days,$purchaseObject = null)
     {
         $discount_day = 21;
         if(!empty($purchaseObject)){  /* To manage price changes done by Admin , to use same price at the time of purchase */
@@ -1300,6 +1300,7 @@ if (!function_exists('generate_masseur_member_id')) {
 
 if (!function_exists('getListingRefundAmount')) {
     function getListingRefundAmount($profile){
+        dd($profile);
         $refundAmount = 0.00;
         $escortDetail = is_object($profile)?$profile:getEscortDetail($profile);
         $purchase = $escortDetail->mainPurchase;
