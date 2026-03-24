@@ -4495,7 +4495,9 @@ ol.custom--substyle li:before {
 
 .fa-ellipsis,
 .fa-ellipsis-v {
-    transform: rotate(90deg)
+    transform: rotate(90deg);
+    color: #333 !important;
+    font-weight: 600 !important;
 }
 
 

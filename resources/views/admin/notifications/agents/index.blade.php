@@ -345,7 +345,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer pb-4 mb-2">
+                <div class="modal-footer">
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
                     <button type="submit" id="pdf-download" data-notification-id="">Print</button>
                 </div>

@@ -173,13 +173,13 @@
                <div class="row">
                   
                   <div class="col-12 mb-3">
-                     <label for="Traking ID" class="label">Traking ID</label>
+                     <label for="Traking ID">Traking ID</label>
                      <input type="text" class="form-control rounded-0" placeholder="Enter traking id ">
                   </div>
                </div>
             </form>
          </div>
-         <div class="modal-footer pb-4 mb-2">
+         <div class="modal-footer">
             <button type="submit" class="btn-success-modal">save</button>
          </div>
       </div>
