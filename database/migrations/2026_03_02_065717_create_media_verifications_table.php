@@ -15,7 +15,7 @@ class CreateMediaVerificationsTable extends Migration
 
             // selfie / licence / passport
             $table->enum('type', ['0', '1', '2'])
-             ->comment('0 = selfie, 1 = licence, 2 = passport');
+             ->comment('0 = selfie, 1 = licence, 2 = passport')->nullable();
 
              $table->enum('status', ['0', '1', '2'])
                 ->default('0')
