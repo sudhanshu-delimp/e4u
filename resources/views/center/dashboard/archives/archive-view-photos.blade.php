@@ -811,6 +811,7 @@
         </script>
         <script src="{{ asset('assets/plugins/ajax/libs/jquery/jquery-ui.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/massage/profile_and_media_gallery.js') }}"></script>
+        <script src="{{ asset('js/massage/media-varification.js') }}"></script>
         <script>
             var updatePosition = 0;
             $("body").on('click', '.cropEdit', function() {

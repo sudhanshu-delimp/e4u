@@ -270,8 +270,6 @@ img#blah8 {
                         <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">
                             <button type="button" class="create-tour-sec dctour" data-toggle="modal"
                                 data-target="#exampleModal">Add Photos</button>
-                                <button type="button" class="create-tour-sec dctour" data-toggle="modal" 
-                                data-target="#mediaVerificationModal">Media Verification</button>
                         </div>
 
                         <div class="col-lg-4">
@@ -515,7 +513,7 @@ img#blah8 {
                     <div class="modal-header">
                         <h5 class="modal-title"> <img
                                 src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross">
-                            Select Banner fddf</h5>
+                            Select Banner</h5>
     
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">

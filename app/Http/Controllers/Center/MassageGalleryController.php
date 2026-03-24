@@ -39,6 +39,8 @@ use App\Repositories\Message\MessageMediaInterface;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\Escort\StoreGalleryMediaRequest;
+use App\Models\MediaVerification;
+
 //use Illuminate\Http\Request;
 
 class MassageGalleryController extends AppController
@@ -646,4 +648,52 @@ class MassageGalleryController extends AppController
             'url' => asset("escorts/{$finalFilePath}") // Returns public URL
         ]);
     }
+
+   public function mediaVerificationUpload(Request $request)
+    {
+        $user = auth()->user();
+        $image = $request->file('image');
+        $media = MassageMedia::where('user_id', $user->id)
+        ->where('varified', '2')
+        ->whereNull('media_verification_id')
+        ->count();
+        if ($media  <= 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please upload your media before uploading the verification image.'
+            ], 400);
+        }
+
+        $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $destination_path = $user->id . '/verifications/' . $fileName;
+
+        Storage::disk('escorts')->put(
+            $destination_path,
+            file_get_contents($image)
+        );
+
+        $verification = MediaVerification::where('user_id', $user->id)
+            ->where('status', '0')
+            ->first();
+    
+        if ($verification) {
+            $verification->update([
+                'image_path' => $destination_path,
+            ]);
+        } else {
+            MediaVerification::create([
+                'user_id' => $user->id,
+                'image_path' => $destination_path,
+                'status' => MediaVerification::STATUS_PENDING,
+                'submited_by' => $user->id,
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Verification uploaded successfully.',
+        ]);
+    }
+
+    
 }

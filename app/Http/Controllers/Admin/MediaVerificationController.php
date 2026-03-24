@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\MediaVerificationAdvertiserMail;
 use App\Models\EscortMedia;
+use App\Models\MassageMedia;
 use App\Models\MediaVerification;
 use App\Models\User;
 use Carbon\Carbon;
@@ -125,7 +126,7 @@ class MediaVerificationController extends Controller
             $submittedUser = User::select('type', 'member_id')->find($item->submited_by);
 
             $item->submitted = $submittedUser
-                ? getUserTypeById($submittedUser->type)
+                ? (getUserTypeById($submittedUser->type) === 'Massage-Center' ? 'Centre' : getUserTypeById($submittedUser->type))
                 : 'N/A';
 
             $item->agent_id = ($item->submitted === 'Agents')
@@ -148,20 +149,20 @@ class MediaVerificationController extends Controller
 
             if ($status == 0) {
                 $approve_html = '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 approve-btn"
-                        href="javascript:void(0)" data-id="' . $item->id . '">
+                        href="javascript:void(0)" " data-user_type="' . $user->type . '" data-id="' . $item->id . '">
                         <i class="fa fa-check-circle"></i> Approve
                     </a>
                     <div class="dropdown-divider"></div>';
 
                 $reject_html = '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 reject-btn"
-                        href="javascript:void(0)" data-id="' . $item->id . '">
+                        href="javascript:void(0)" " data-user_type="' . $user->type . '" data-id="' . $item->id . '">
                         <i class="fa fa-ban"></i> Reject
                     </a>
                     <div class="dropdown-divider"></div>';
             }
 
             $view_image = '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-image-btn"
-                href="javascript:void(0)" data-toggle="modal" data-target="#view_image" data-status="' . $item->status . '" data-id="' . $item->id . '" data-member-id="' . $item->member_id . '" data-user-id="' . $item->user->id . '">
+                href="javascript:void(0)" data-toggle="modal" data-target="#view_image" data-status="' . $item->status . '" data-id="' . $item->id . '" data-user_type="' . $user->type . '" data-member-id="' . $item->member_id . '" data-user-id="' . $item->user->id . '">
                 <i class="fa fa-eye"></i> View Image
             </a>
             ';
@@ -203,7 +204,6 @@ class MediaVerificationController extends Controller
 
     public function mediaVerificationImage(Request $request)
     {
-
         $id = $request->get('id');
         $user_id = $request->get('user_id');
         $category =  $request->get('type');
@@ -219,8 +219,14 @@ class MediaVerificationController extends Controller
             ->where('user_id', $user_id)
             ->first();
         $status = $media_verification->getRawOriginal('status');
+        $user = User::findOrFail($user_id);
+     
+        if($user->type == 3){
+            $query = EscortMedia::where('user_id', $user_id)->where('type', '0')->where('position',$category);
+        }else{
+           $query = MassageMedia::where('user_id', $user_id)->where('type', '0')->where('position',$category); 
+        }        
         
-        $query = EscortMedia::where('user_id', $user_id)->where('type', '0')->where('position',$category);
         switch ($status) {
             case '1': // Approved
                 $query->where('media_verification_id', $id)
@@ -294,8 +300,9 @@ class MediaVerificationController extends Controller
         $media_verification->reviewed_by = Auth::id();
         $media_verification->reviewed_at = Carbon::now();
         $media_verification->save();
-        
-        EscortMedia::where('user_id', $media_verification->user_id)
+
+        $model = $request->user_type == '3' ? EscortMedia::class : MassageMedia::class;
+        $model::where('user_id', $media_verification->user_id)
             ->where('varified', 2)
             ->where('type', 0)
             ->whereNull('media_verification_id')
@@ -303,8 +310,7 @@ class MediaVerificationController extends Controller
                 'media_verification_id' => $media_verification->id,
                 'varified' => (string) $request->get('status')
             ]);
-            
-
+        
         $user = User::with('my_agent')
             ->select('id', 'name', 'email', 'member_id', 'assigned_agent_id')
             ->find($media_verification->user_id);
@@ -347,8 +353,13 @@ class MediaVerificationController extends Controller
             ->where('user_id', $user_id)
             ->first();
         $status = $media_verification->getRawOriginal('status');
-        $query = EscortMedia::where('user_id', $user_id)->where('type', '0');
+        $user = User::findOrFail($user_id);
+        $user_type = $user->type;
+        $model = $user_type == '3'  ? EscortMedia::class : MassageMedia::class;
+        $query = $model::where('user_id', $user_id)->where('type', '0');
         $member_id = get_massage_member_id($user_id);
+
+        $media_verification_image = asset('escorts/' . $media_verification->image_path);
 
         switch ($status) {
             case '1': // Approved
@@ -386,6 +397,6 @@ class MediaVerificationController extends Controller
                     break;
             }
         }
-        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage','pinupImage','mediaImages','member_id'));
+        return view('admin.reports.media-verification.gallery-pdf', compact('bannerImage','pinupImage','mediaImages','member_id','media_verification_image','user_type'));
     }
 }

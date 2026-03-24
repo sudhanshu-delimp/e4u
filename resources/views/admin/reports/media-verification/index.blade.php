@@ -270,14 +270,21 @@
         var mediaVerificationId = 0;
         var userId = 0;
         var memberId = 0;
+        var userType = 0;
 
         $(document).on('click', '.view-image-btn', function () {
             mediaVerificationId = $(this).data('id');
             userId = $(this).data('user-id');
             memberId = $(this).data('member-id');
             status = $(this).data('status');
-    
+            userType = $(this).data('user_type');
+            if(userType == '4'){
+                $('#pinups-tab').hide();
+            }else{
+                $('#pinups-tab').show();
+            }
             $('.printBtn').attr('href', '/admin-dashboard/gallery-pdf/' + mediaVerificationId+'/' + userId);
+
             if (status === 'Verified' || status === 'Rejected') {
                 $('.approve-btn').hide();
                 $('.reject-btn').hide();
@@ -345,6 +352,10 @@
         $(document).off('click', '.approve-btn');
         $(document).on('click', '.approve-btn', function () {
             let id = $(this).data('id');
+            if(!userType){
+                userType =  $(this).attr('data-user_type');  
+            }
+            
             if (!id){
                 id = mediaVerificationId;
             };
@@ -356,7 +367,7 @@
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    changeMediaVerificationStatus(id , 1);
+                    changeMediaVerificationStatus(id , 1 , userType);
                 }
             });
         }); 
@@ -364,6 +375,9 @@
 
         $(document).off('click', '.reject-btn');
         $(document).on('click', '.reject-btn', function () {
+            if(!userType){
+                userType =  $(this).attr('data-user_type');  
+            }
             let id = $(this).data('id');
             if (!id){
                 id = mediaVerificationId;
@@ -376,20 +390,21 @@
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    changeMediaVerificationStatus(id , 2);
+                    changeMediaVerificationStatus(id , 2 , userType);
                 }
             });
         }); 
 
 
-        function changeMediaVerificationStatus(mediaVerificationId, status) {
+        function changeMediaVerificationStatus(mediaVerificationId, status,userType) {
             $.ajax({
                 url: "{{ route('admin.update-media-verification') }}",
                 method: "POST",
                 data: {
                     id: mediaVerificationId,
                     _token: "{{ csrf_token() }}",
-                    status: status
+                    status: status,
+                    user_type : userType
                 },
                 success: function (response) {
                     if (response.status) {
