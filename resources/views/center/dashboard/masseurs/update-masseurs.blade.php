@@ -1,4 +1,3 @@
-use Illuminate\Support\Facades\Log;
 @extends('layouts.center')
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/parsley/src/parsley.css') }}">
