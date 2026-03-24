@@ -1058,17 +1058,19 @@
                                 <span style="{{ request()->segment(3) == 'set-fees' ? 'color: #FF3C5F;' : '' }}">Fees
                                     & Variables</span>
                             </a>
-                            <a class="collapse-item" href="{{ route('admin.management.allUser') }}">
-                                <img src="{{ asset('assets/dashboard/img/menu-icon/security-and-access.png') }}">
-                                <span
-                                    style="{{ request()->segment(3) == 'All-user' ? 'color: #FF3C5F;' : '' }}">Security
-                                    & Access</span>
-                            </a>
                             
 
                             <a class="collapse-item" href="{{ route('fee-discount') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/fee.png') }}">
                                 <span style="{{ request()->segment(3) == 'fee-discount' ? 'color: #FF3C5F;' : '' }}">Fee Discounts</span>
+                            </a>
+
+                            
+                            <a class="collapse-item" href="{{ route('admin.management.allUser') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/security-and-access.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'All-user' ? 'color: #FF3C5F;' : '' }}">Security
+                                    & Access</span>
                             </a>
 
                         </div>

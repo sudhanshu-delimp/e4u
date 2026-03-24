@@ -305,8 +305,8 @@ Route::get('criticalinformation',function(){
 Route::get('my-bank-account',function(){
     return view('escort.dashboard.Bookkeeping.my-bank-account');
 });
-Route::get('transaction-history',function(){
-    return view('escort.dashboard.Bookkeeping.transaction-history');
+Route::get('transaction-summary',function(){
+    return view('escort.dashboard.Bookkeeping.transaction-summary');
 });
 
 Route::get('reccomendations',function(){

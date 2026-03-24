@@ -329,8 +329,8 @@
                         <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
                         <span>Add Credit</span>
                     </a>
-                    <a class="collapse-item {{ request()->segment(2) == 'transaction-history' ? 'menu-active' : '' }}"
-                        href="{{ url('escort-dashboard/transaction-history') }}">
+                    <a class="collapse-item {{ request()->segment(2) == 'transaction-summary' ? 'menu-active' : '' }}"
+                        href="{{ url('escort-dashboard/transaction-summary') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
                         <span>Transaction Summary</span></a> --}}
                 </div>
