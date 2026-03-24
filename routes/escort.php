@@ -308,9 +308,6 @@ Route::get('my-bank-account',function(){
 Route::get('transaction-history',function(){
     return view('escort.dashboard.Bookkeeping.transaction-history');
 });
-Route::get('transaction-summary',function(){
-    return view('escort.dashboard.Bookkeeping.transaction-summary');
-});
 
 Route::get('reccomendations',function(){
     return view('escort.dashboard.Reviews.reccomendations');

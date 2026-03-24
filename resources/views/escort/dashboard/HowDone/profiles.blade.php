@@ -715,7 +715,7 @@
                                             <p>
                                                 Once the process is completed, and payment has been made
                                                 the receipt details will appear in the <a
-                                                    href="{{ url('escort-dashboard/transaction-summary') }}"
+                                                    href="{{ url('escort-dashboard/transaction-history') }}"
                                                     class="custom_links_design">Transaction Summary</a> which you will find
                                                 in the
                                                 Bookkeeping menu group.
