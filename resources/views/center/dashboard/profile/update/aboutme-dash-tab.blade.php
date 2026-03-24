@@ -192,7 +192,7 @@ textarea {
 
                     <div class="form-group business-field">
                     <label for="address">Address:</label>
-                    <textarea name="address" rows="3" class="form-control" id="address" placeholder="Enter Address" data-parsley-group="goup_one" >{{ $escort->address}}</textarea>              
+                    <input type="text" value="{{ $escort->address}}" class="form-control" id="address" name="address" >  
                     </div>
 
                 </div>
