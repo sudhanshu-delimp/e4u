@@ -45,6 +45,7 @@ class EscortPolyPaymentController extends Controller
     protected $user;
     protected $media;
     protected $massage_profile;
+    protected $account;
     /**
      * Display a listing of the resource.
      *
@@ -58,7 +59,10 @@ class EscortPolyPaymentController extends Controller
         // $this->duration = $duration;
         //$this->media = $media;
         $this->user = $user;
-
+        $this->middleware(function ($request, $next) {
+            $this->account = auth()->user();
+            return $next($request);
+        });
 
     }
 
@@ -581,7 +585,7 @@ class EscortPolyPaymentController extends Controller
             $item['utc_end_time'] = $utcEndTime; 
             //Payment::create($item);  //Moved to polyPaymentUrl()
             $daysDiff = Carbon::parse($item['end_date'])->diffInDays(Carbon::parse($item['start_date']))+1;
-            list($total_discount, $total_rate, $normalRate, $discountRate) = calculateTotalFee($item['plan'], $daysDiff);
+            list($total_discount, $total_rate, $normalRate, $discountRate) = calculateTotalFee($item['plan'], $daysDiff, $this->account);
             $item['rate'] = $normalRate; 
             $item['discount_rate'] = $discountRate; 
             $item['total_rate'] = $normalRate*$daysDiff; 

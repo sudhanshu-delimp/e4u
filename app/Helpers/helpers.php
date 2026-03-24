@@ -85,8 +85,11 @@ if (!function_exists('old_calculateTotalFee')) {
 
 
 if (!function_exists('calculateTotalFee')) {
-    function calculateTotalFee($membership_id, $days,$purchaseObject = null)
+    function calculateTotalFee($membership_id, $days, $userObject = null, $purchaseObject = null)
     {
+        if(!empty($userObject)){
+            
+        }
         $discount_day = 21;
         if(!empty($purchaseObject)){  /* To manage price changes done by Admin , to use same price at the time of purchase */
             $normalRate   = $purchaseObject->rate;
@@ -1300,7 +1303,6 @@ if (!function_exists('generate_masseur_member_id')) {
 
 if (!function_exists('getListingRefundAmount')) {
     function getListingRefundAmount($profile){
-        dd($profile);
         $refundAmount = 0.00;
         $escortDetail = is_object($profile)?$profile:getEscortDetail($profile);
         $purchase = $escortDetail->mainPurchase;
@@ -1309,7 +1311,7 @@ if (!function_exists('getListingRefundAmount')) {
             $total_days = $purchase->days_number;
             $remaining_days = $purchase->left_listing_days;
             //$remaining_days = $escortDetail->left_listing_days;
-            list($usedDicount, $usedAmount) = calculateTotalFee($membership, ($total_days - $remaining_days), $purchase);
+            list($usedDicount, $usedAmount) = calculateTotalFee($membership, ($total_days - $remaining_days), $escortDetail->user, $purchase);
             $refundAmount = $purchase->paid_rate-$usedAmount;
         }
         return number_format($refundAmount, 2, '.', '');
@@ -1327,8 +1329,8 @@ if (!function_exists('getSuspendRefundAmount')) {
             $dayBeforeSuspendStart = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($startDate));
             $dayTillSuspendEnd = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($endDate))+1;
             /* In calculateTotalFee third param is optional , to ignore later paln price updates */
-            [$discountOne, $costBeforeSuspendStart] = calculateTotalFee($purchase->membership, $dayBeforeSuspendStart, $purchase);
-            [$discountTwo, $costTillSuspendEnd] = calculateTotalFee($purchase->membership, $dayTillSuspendEnd, $purchase);
+            [$discountOne, $costBeforeSuspendStart] = calculateTotalFee($purchase->membership, $dayBeforeSuspendStart, $profileDetail->user, $purchase);
+            [$discountTwo, $costTillSuspendEnd] = calculateTotalFee($purchase->membership, $dayTillSuspendEnd, $profileDetail->user, $purchase);
 
             $netAmount = number_format($costTillSuspendEnd-$costBeforeSuspendStart, 2, '.', '');
             $refundAmount = min($piadAmount,$netAmount);
