@@ -19,7 +19,7 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <div class="row">
       <div class="col-md-12 custom-heading-wrapper">
-         <h1 class="h1">Transaction History</h1>
+         <h1 class="h1">Transaction Summary</h1>
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
       </div>
    </div>
