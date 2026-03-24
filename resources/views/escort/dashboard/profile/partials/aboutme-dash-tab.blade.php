@@ -636,7 +636,7 @@
             </div>
         </div>
 
-        <div class="modal upload-modal fade" id="photo_gallery_banner" style="display: none">
+        <div class="modal upload-modal" id="photo_gallery_banner" style="display: none">
             <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1985,8 +1985,8 @@
 </div>
 
 
-<div class="modal fade upload-modal" id="photo_gallery" style="display: none">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+<div class="modal upload-modal" id="photo_gallery" style="display: none">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header main_bg_color border-0">
                 <h5 class="modal-title" style="color: white;"><img
@@ -2024,7 +2024,7 @@
 </div>
 
 <div class="modal fade upload-modal programmatic" id="setAsDefaultForMainAccount" style="display: none">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img
@@ -2037,7 +2037,7 @@
                     </span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body pb-0">
                 <h5 class="custom_modal_text"> Would you like to update Media in your My Information page for future
                     Profiles?</h5>
             </div>
@@ -2145,23 +2145,27 @@
             let img_target = $("#img" + updatePosition);
             let targetImageSrc = img_target.attr('src');
             let targetImageName = targetImageSrc.split("/").pop();
+            
             /**
              * Get existing profile image data to check duplicates
              */
             let srcArray = $(".upld-img").map(function() {
                 return $(this).attr("src"); // Get the 'src' attribute of each <img>
             }).get();
-
+            
             let newObject = {
                 imageSrc: imageSrc,
                 mediaId: mediaId,
                 img_target: img_target,
                 updatePosition: updatePosition
             };
+            
             let duplicateImage = srcArray.findIndex(item => item === imageSrc);
             if (duplicateImage !== -1) {
+                console.log("working...","Duplicate..");
                 swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
             } else {
+                
                 let index = profile_selected_images.findIndex(item => item.updatePosition === updatePosition);
                 if (index !== -1) {
                     profile_selected_images[index] = {
@@ -2171,6 +2175,7 @@
                 } else {
                     profile_selected_images.push(newObject);
                 }
+                
                 $("#blah" + updatePosition).attr('src', imageSrc);
                 $("#img" + updatePosition).attr('src', imageSrc);
                 $("#mediaId" + updatePosition).val(mediaId);
