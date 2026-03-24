@@ -60,11 +60,13 @@
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 10px;
     }
-    @media (max-width: 450px){
+
+    @media (max-width: 450px) {
         .grid-container {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        }
     }
-    }
+
     .grid-container>div {
         background-color: rgba(255, 255, 255, 0.8);
     }
@@ -140,7 +142,8 @@
         color: #fff;
     }
 </style>
-<div class="tab-pane fade {{$activeTab=='about-me'?'show active':''}}" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
+<div class="tab-pane fade {{ $activeTab == 'about-me' ? 'show active' : '' }}" id="aboutme" role="tabpanel"
+    aria-labelledby="home-tab">
     <div class="row pl-3">
         <div class="col-12">
             <div class="member-id pl-0 pb-2 pt-3">
@@ -149,7 +152,8 @@
                         d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z"
                         fill="#C2CFE0" />
                 </svg>
-                <span>Member ID: {{$loginAccount->member_id}}</span>&nbsp;&nbsp;<span>{{$editMode?"Profile: $escort->profile_name":""}}</span>
+                <span>Member ID:
+                    {{ $loginAccount->member_id }}</span>&nbsp;&nbsp;<span>{{ $editMode ? "Profile: $escort->profile_name" : '' }}</span>
             </div>
         </div>
     </div>
@@ -367,7 +371,7 @@
         </div>
     </div>
 
-    
+
     <div class="about_me_drop_down_info profile-sec">
         @if (request()->segment(2) == 'profile' && request()->segment(3))
             <form id="myProfileMediaForm" name="myProfileMediaForm"
@@ -390,7 +394,7 @@
                     </div>
                     <div class="row  mt-3">
                         <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">
-                             <button type="button" class="create-tour-sec dctour" data-toggle="modal"
+                            <button type="button" class="create-tour-sec dctour" data-toggle="modal"
                                 data-target="#exampleModal">Add Photos</button>
                             {{-- <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#mediaVerificationModal">Media Verification</button> --}}
                         </div>
@@ -564,11 +568,11 @@
 
                                                 </li>
                                                 @for ($i = 0;
-                                                        $i <
-                                                        ceil(
-                                                            collect($media)->whereNotIn('position', [9, 10])->count() / 10,
-                                                        );
-                                                        $i++)
+    $i <
+    ceil(
+        collect($media)->whereNotIn('position', [9, 10])->count() / 10,
+    );
+    $i++)
                                                     <li class="page-item" id="pageItem_{{ $i }}"
                                                         data-id="{{ $i }}">
                                                         <a data-target="#carouselExampleIndicators"
@@ -632,14 +636,14 @@
             </div>
         </div>
 
-        <div class="modal upload-modal fade" id="photo_gallery_banner" style="display: none">
+        <div class="modal upload-modal" id="photo_gallery_banner" style="display: none">
             <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"> <img
-                                src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross">
+                        <h5 class="modal-title"> <img src="/assets/dashboard/img/upload-photos.png"
+                                class="custompopicon" alt="cross">
                             Select Banner</h5>
-    
+
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
                                 <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -650,7 +654,7 @@
                     <div class="modal-body">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs my-custompop-tabs" id="myTab" role="tablist">
-    
+
                             <li class="nav-item">
                                 <a class="nav-link active" id="upload-tab" data-toggle="tab" href="#upload"
                                     role="tab" aria-controls="upload" aria-selected="false">
@@ -665,7 +669,7 @@
                             </li>
                         </ul>
                         <div class="modalPopup">
-    
+
                             <div class="tab-content mt-3">
                                 <!-- Tab panes -->
                                 <div class="tab-pane fade show active" id="upload" role="tabpanel"
@@ -684,124 +688,142 @@
                                         @endforeach
                                     </div>
                                 </div>
-                               
+
 
                                 {{-- Issko remove nahi karna hai Bhai Log --}}
                                 <!-- Templates Tab -->
-                                    <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
+                                <div class="tab-pane fade" id="default" role="tabpanel"
+                                    aria-labelledby="default-tab">
 
-                                        <!-- Nested Tabs (Static) -->
-                                        <ul class="sub-nav-tabs nav nav-tabs mt-3">
-                                            <li class="nav-item">
-                                                <a class="sub-nav nav-link active" data-toggle="tab" href="#bdsm">BDSM</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="sub-nav nav-link" data-toggle="tab" href="#lingerie">Lingerie</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="sub-nav nav-link" data-toggle="tab" href="#passive">Passive</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="sub-nav nav-link" data-toggle="tab" href="#sheets">Sheets</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="sub-nav nav-link" data-toggle="tab" href="#subtle">Subtle</a>
-                                            </li>
-                                        </ul>
+                                    <!-- Nested Tabs (Static) -->
+                                    <ul class="sub-nav-tabs nav nav-tabs mt-3">
+                                        <li class="nav-item">
+                                            <a class="sub-nav nav-link active" data-toggle="tab"
+                                                href="#bdsm">BDSM</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="sub-nav nav-link" data-toggle="tab"
+                                                href="#lingerie">Lingerie</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="sub-nav nav-link" data-toggle="tab" href="#passive">Passive</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="sub-nav nav-link" data-toggle="tab" href="#sheets">Sheets</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="sub-nav nav-link" data-toggle="tab" href="#subtle">Subtle</a>
+                                        </li>
+                                    </ul>
 
-                                        <div class="tab-content mt-3">
+                                    <div class="tab-content mt-3">
 
-                                            <!-- GROUP 1 STATIC -->
-                                            <div class="tab-pane fade show active" id="bdsm">
-                                                @php  
-                                                    $bannerTemplates = getBannerTemplates(1);
-                                                @endphp
-                                                <div class="modal-tab">
-                                                @if(!empty($bannerTemplates))
-                                                    @foreach($bannerTemplates as $keyId => $image)
+                                        <!-- GROUP 1 STATIC -->
+                                        <div class="tab-pane fade show active" id="bdsm">
+                                            @php
+                                                $bannerTemplates = getBannerTemplates(1);
+                                            @endphp
+                                            <div class="modal-tab">
+                                                @if (!empty($bannerTemplates))
+                                                    @foreach ($bannerTemplates as $keyId => $image)
                                                         <div class="item2">
-                                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                            <img src="{{ asset($image->path) }}"
+                                                                data-id="{{ $image->id }}"
+                                                                data-position="{{ $image->position ? $image->position : '' }}"
+                                                                class="img-thumbnail defult-image select_image">
                                                         </div>
                                                     @endforeach
                                                 @endif
-                                                </div>
                                             </div>
+                                        </div>
 
-                                            <!-- GROUP 2 STATIC -->
-                                            <div class="tab-pane fade" id="lingerie">
-                                                @php  
-                                                    $bannerTemplates = getBannerTemplates(2);
-                                                @endphp
-                                                <div class="modal-tab">
-                                                @if(!empty($bannerTemplates))
-                                                    @foreach($bannerTemplates as $keyId => $image)
+                                        <!-- GROUP 2 STATIC -->
+                                        <div class="tab-pane fade" id="lingerie">
+                                            @php
+                                                $bannerTemplates = getBannerTemplates(2);
+                                            @endphp
+                                            <div class="modal-tab">
+                                                @if (!empty($bannerTemplates))
+                                                    @foreach ($bannerTemplates as $keyId => $image)
                                                         <div class="item2">
-                                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                            <img src="{{ asset($image->path) }}"
+                                                                data-id="{{ $image->id }}"
+                                                                data-position="{{ $image->position ? $image->position : '' }}"
+                                                                class="img-thumbnail defult-image select_image">
                                                         </div>
                                                     @endforeach
                                                 @endif
-                                                </div>
                                             </div>
+                                        </div>
 
-                                            <!-- GROUP 3 STATIC -->
-                                            <div class="tab-pane fade" id="passive">
-                                                @php  
-                                                    $bannerTemplates = getBannerTemplates(3);
-                                                @endphp
-                                                <div class="modal-tab">
-                                                @if(!empty($bannerTemplates))
-                                                    @foreach($bannerTemplates as $keyId => $image)
+                                        <!-- GROUP 3 STATIC -->
+                                        <div class="tab-pane fade" id="passive">
+                                            @php
+                                                $bannerTemplates = getBannerTemplates(3);
+                                            @endphp
+                                            <div class="modal-tab">
+                                                @if (!empty($bannerTemplates))
+                                                    @foreach ($bannerTemplates as $keyId => $image)
                                                         <div class="item2">
-                                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                            <img src="{{ asset($image->path) }}"
+                                                                data-id="{{ $image->id }}"
+                                                                data-position="{{ $image->position ? $image->position : '' }}"
+                                                                class="img-thumbnail defult-image select_image">
                                                         </div>
                                                     @endforeach
                                                 @endif
-                                                </div>
                                             </div>
+                                        </div>
 
-                                            <!-- GROUP 4 STATIC -->
-                                            <div class="tab-pane fade" id="sheets">
-                                                @php  
-                                                    $bannerTemplates = getBannerTemplates(4);
-                                                @endphp
-                                                <div class="modal-tab">
-                                                @if(!empty($bannerTemplates))
-                                                    @foreach($bannerTemplates as $keyId => $image)
+                                        <!-- GROUP 4 STATIC -->
+                                        <div class="tab-pane fade" id="sheets">
+                                            @php
+                                                $bannerTemplates = getBannerTemplates(4);
+                                            @endphp
+                                            <div class="modal-tab">
+                                                @if (!empty($bannerTemplates))
+                                                    @foreach ($bannerTemplates as $keyId => $image)
                                                         <div class="item2">
-                                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                            <img src="{{ asset($image->path) }}"
+                                                                data-id="{{ $image->id }}"
+                                                                data-position="{{ $image->position ? $image->position : '' }}"
+                                                                class="img-thumbnail defult-image select_image">
                                                         </div>
                                                     @endforeach
                                                 @endif
-                                                </div>
                                             </div>
+                                        </div>
 
-                                            <!-- GROUP 5 STATIC -->
-                                            <div class="tab-pane fade" id="subtle">
-                                                @php  
-                                                    $bannerTemplates = getBannerTemplates(5);
-                                                @endphp
-                                                <div class="modal-tab">
-                                                @if(!empty($bannerTemplates))
-                                                    @foreach($bannerTemplates as $keyId => $image)
+                                        <!-- GROUP 5 STATIC -->
+                                        <div class="tab-pane fade" id="subtle">
+                                            @php
+                                                $bannerTemplates = getBannerTemplates(5);
+                                            @endphp
+                                            <div class="modal-tab">
+                                                @if (!empty($bannerTemplates))
+                                                    @foreach ($bannerTemplates as $keyId => $image)
                                                         <div class="item2">
-                                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                                            <img src="{{ asset($image->path) }}"
+                                                                data-id="{{ $image->id }}"
+                                                                data-position="{{ $image->position ? $image->position : '' }}"
+                                                                class="img-thumbnail defult-image select_image">
                                                         </div>
                                                     @endforeach
                                                 @endif
-                                                </div>
                                             </div>
-
                                         </div>
 
                                     </div>
-                                    {{-- end --}}
+
+                                </div>
+                                {{-- end --}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="modal fade upload-modal" id="upload-sec" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false"
             data-backdrop="static" aria-modal="true">
@@ -916,7 +938,7 @@
                                         <div class="row mt-3 pt-1" style="border: 1px dotted;">
                                             <div class="col-6 pt-4 pb-4">
                                                 <h4>Verify these Photos</h4>
-    
+
                                                 <ul style="text-align: justify;">
                                                     <li>Two (2) selfies with your User Name and Membership ID printed
                                                         (can be handwritten) on a sheet of paper held up to the side of
@@ -979,7 +1001,7 @@
                                                     <img id="blah9" class="img-fluid"
                                                         src="{{ asset($escort->imagefrontPosition(9)) }}"
                                                         style="height: 118px;object-fit: cover;width: 618px;">
-    
+
                                                     <input name="img[9]" id="pic9" class="pis"
                                                         onchange="readURL(this);" type="file" accept="image/*">
                                                     <input type="hidden" name="position[9]" id="mediaId9">
@@ -1008,87 +1030,93 @@
             </div>
             </form>
         @endif
-                {{-- video section start --}}
-                <hr>
-                @if (request()->segment(2) == 'profile' && request()->segment(3))
-                <form id="myProfileMediaVideoForm" name="myProfileMediaVideoForm"
-                    action="{{ route('escort.profile.video', [$escort->id]) }}" method="POST"
-                    enctype="multipart/form-data">
-                    @CSRF
-            @endif
-                <div class="row">
-                    <div class="col-md-12">
-                <div class="col-md-12 mb-3">    
+        {{-- video section start --}}
+        <hr>
+        @if (request()->segment(2) == 'profile' && request()->segment(3))
+            <form id="myProfileMediaVideoForm" name="myProfileMediaVideoForm"
+                action="{{ route('escort.profile.video', [$escort->id]) }}" method="POST"
+                enctype="multipart/form-data">
+                @CSRF
+        @endif
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12 mb-3">
                     <div class="d-flex justify-content-end">
-                        <button id="add_video_button" type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#upload_video_modal">Add Videos</button>
+                        <button id="add_video_button" type="button" class="create-tour-sec dctour"
+                            data-toggle="modal" data-target="#upload_video_modal">Add Videos</button>
                     </div>
                 </div>
-            <div class="col-md-12 py-3">
-                <div class="video-header">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h3 class="media-head">All Videos</h3>
-                        </div>
-                        <div class="col-md-2 my-auto">
-                            <div class="progress">
-                                <div id="js_profile_video_gallery_progressbar" class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="col-md-12 py-3">
+                    <div class="video-header">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h3 class="media-head">All Videos</h3>
+                            </div>
+                            <div class="col-md-2 my-auto">
+                                <div class="progress">
+                                    <div id="js_profile_video_gallery_progressbar" class="progress-bar bg-success"
+                                        role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 my-auto">
+                                <div class="d-flex gap-10">
+                                    <p id="js_profile_video_gallery_count" class="m-0 text-white"></p>
+                                    <img src="{{ asset('assets/app/img/Vector-2.png') }}" style="height: 21px;">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-2 my-auto">
-                            <div class="d-flex gap-10">
-                                <p id="js_profile_video_gallery_count" class="m-0 text-white"></p>
-                                <img src="{{ asset('assets/app/img/Vector-2.png')}}" style="height: 21px;">
+                    </div>
+                    <div class="archive-photo-sec">
+                        <div class="row blog">
+                            <div id="js_profile_video_gallery" class="col-md-12">
+
+                                <!--.Carousel-->
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="archive-photo-sec">
-                    <div class="row blog">
-                        <div id="js_profile_video_gallery" class="col-md-12">
-                           
-                            <!--.Carousel-->
+
+                <div class="col-md-12 my-4">
+                    <div class="upload-photo-sec">
+                        <div class="d-sm-flex align-items-center justify-content-between p-3 custom-img-filter-header">
+                            <h4 class="text-white">Default Video</h4>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-4">
+                                <label class="newbtn videoDroppable w-100" id="videoDroppable_1">
+                                    <video class="videoUp" id="img1" controls="" controls
+                                        poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                        <source id="" type="video/mp4">
+                                    </video>
+                                    <input type="hidden" id="pos_1" name="video_position[1]" value="">
+                                </label>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <label class="newbtn videoDroppable w-100" id="videoDroppable_2">
+                                    <video class="videoUp" id="img2" controls=""
+                                        poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                        <source id="" type="video/mp4">
+                                    </video>
+                                    <input type="hidden" id="pos_2" name="video_position[2]" value="">
+                                </label>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <label class="newbtn videoDroppable w-100" id="videoDroppable_3">
+                                    <video class="videoUp" id="img3" controls=""
+                                        poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                        <source id="" type="video/mp4">
+                                    </video>
+                                    <input type="hidden" id="pos_3" name="video_position[3]" value="">
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="col-md-12 my-4">
-                <div class="upload-photo-sec">
-                    <div class="d-sm-flex align-items-center justify-content-between p-3 custom-img-filter-header">
-                        <h4 class="text-white">Default Video</h4>
-                    </div>
-                    
-                    <div class="row mt-3">
-                        <div class="col-lg-4">
-                            <label class="newbtn videoDroppable w-100" id="videoDroppable_1">
-                                <video class="videoUp" id="img1" controls=""  controls poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                    <source id=""  type="video/mp4" >
-                                </video>
-                                <input  type="hidden"  id="pos_1" name="video_position[1]" value="">
-                            </label>
-                        </div>
-        
-                        <div class="col-lg-4">
-                            <label class="newbtn videoDroppable w-100" id="videoDroppable_2">
-                                <video class="videoUp" id="img2" controls="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                    <source id="" type="video/mp4" >
-                                </video>
-                                <input  type="hidden"  id="pos_2" name="video_position[2]" value="">
-                            </label>
-                        </div>
-        
-                       <div class="col-lg-4">
-                        <label class="newbtn videoDroppable w-100" id="videoDroppable_3">
-                            <video class="videoUp" id="img3" controls="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                <source id="" type="video/mp4" >
-                            </video>
-                            <input  type="hidden"  id="pos_3" name="video_position[3]" value="">
-                        </label>
-                       </div>
-                    </div>
-                </div>
-            </div>
-            {{-- end video section --}}
+                {{-- end video section --}}
             </div>
         </div>
         @if (request()->segment(2) == 'profile' && request()->segment(3))
@@ -1585,8 +1613,8 @@
 
                     <div class="border_covid covid_heading mt-4">
                         <h2>Read more
-                            <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}" data-toggle="tooltip"
-                                data-html="true" data-placement="top"
+                            <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
+                                data-toggle="tooltip" data-html="true" data-placement="top"
                                 title="This section will only appear in your Profile if the Viewer clicks it to view."
                                 data-boundary="window">
                             {{--                                <span style='color:red'>*</span> --}}
@@ -1957,8 +1985,8 @@
 </div>
 
 
-<div class="modal fade upload-modal" id="photo_gallery" style="display: none">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+<div class="modal upload-modal" id="photo_gallery" style="display: none">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header main_bg_color border-0">
                 <h5 class="modal-title" style="color: white;"><img
@@ -1994,8 +2022,9 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade upload-modal programmatic" id="setAsDefaultForMainAccount" style="display: none">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img
@@ -2008,39 +2037,39 @@
                     </span>
                 </button>
             </div>
-            <div class="modal-body">
-               <h5 class="custom_modal_text"> Would you like to update Media in your My Information page for future Profiles?</h5>
-                
+            <div class="modal-body pb-0">
+                <h5 class="custom_modal_text"> Would you like to update Media in your My Information page for future
+                    Profiles?</h5>
             </div>
             <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
-                        id="close_change">No</button>
-                    <button type="button" class="btn-success-modal" onclick="setAsDefultImages()">Yes</button>
-                </div>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
+                    id="close_change">No</button>
+                <button type="button" class="btn-success-modal" onclick="setAsDefultImages()">Yes</button>
+            </div>
         </div>
     </div>
 </div>
 
 @push('script')
-
     <script>
-        var profileId = parseInt('{{request()->segment(2) == "profile"?$escort->id:0}}');
+        var profileId = parseInt('{{ request()->segment(2) == 'profile' ? $escort->id : 0 }}');
+
         function initDragDrop() {
             $("#dvSource img").draggable({
                 revert: "invalid",
                 helper: 'clone',
                 appendTo: ".upload-banner",
                 refreshPositions: false,
-                start: function (event, ui) {
-                ui.helper.css({
-                    width: "82px",   // shrink preview
-                    height: "auto",
-                    "z-index": 9999
-                });
-                ui.helper.find("img").css({
-                    width: "100%",
-                    height: "auto"
-                });
+                start: function(event, ui) {
+                    ui.helper.css({
+                        width: "82px", // shrink preview
+                        height: "auto",
+                        "z-index": 9999
+                    });
+                    ui.helper.find("img").css({
+                        width: "100%",
+                        height: "auto"
+                    });
                 },
                 drag: function(event, ui) {
 
@@ -2116,23 +2145,27 @@
             let img_target = $("#img" + updatePosition);
             let targetImageSrc = img_target.attr('src');
             let targetImageName = targetImageSrc.split("/").pop();
+            
             /**
              * Get existing profile image data to check duplicates
              */
             let srcArray = $(".upld-img").map(function() {
                 return $(this).attr("src"); // Get the 'src' attribute of each <img>
             }).get();
-
+            
             let newObject = {
                 imageSrc: imageSrc,
                 mediaId: mediaId,
                 img_target: img_target,
                 updatePosition: updatePosition
             };
+            
             let duplicateImage = srcArray.findIndex(item => item === imageSrc);
             if (duplicateImage !== -1) {
+                console.log("working...","Duplicate..");
                 swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
             } else {
+                
                 let index = profile_selected_images.findIndex(item => item.updatePosition === updatePosition);
                 if (index !== -1) {
                     profile_selected_images[index] = {
@@ -2142,6 +2175,7 @@
                 } else {
                     profile_selected_images.push(newObject);
                 }
+                
                 $("#blah" + updatePosition).attr('src', imageSrc);
                 $("#img" + updatePosition).attr('src', imageSrc);
                 $("#mediaId" + updatePosition).val(mediaId);

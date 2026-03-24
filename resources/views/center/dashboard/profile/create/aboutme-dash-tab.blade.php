@@ -507,13 +507,13 @@ img#blah8 {
             </div>
         </div>
 
-        <div class="modal upload-modal fade" id="photo_gallery_banner" style="display: none">
+        <div class="modal upload-modal" id="photo_gallery_banner" style="display: none">
             <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title"> <img
                                 src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross">
-                            Select Banner fddf</h5>
+                            Select Banner</h5>
     
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
@@ -1160,7 +1160,7 @@ img#blah8 {
       </div>
    </div>
    
-<div class="modal fade upload-modal" id="photo_gallery" style="display: none">
+<div class="modal upload-modal" id="photo_gallery" style="display: none">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
