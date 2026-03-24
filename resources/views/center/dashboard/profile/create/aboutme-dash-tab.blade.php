@@ -198,7 +198,7 @@ img#blah8 {
 
             <div class="form-group business-field">
                <label for="address">Address:</label>
-               <input type="text" value="{{ $user->business_address}}" class="form-control" id="address" names="address" >           
+               <input type="text" value="{{ $user->business_address}}" class="form-control" id="address" name="address" >           
                            
             </div>
 

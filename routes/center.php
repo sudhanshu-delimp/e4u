@@ -139,6 +139,7 @@ Route::get('create-check-messure-profile', [MasseurController::class, 'count_mes
 Route::post('all-masseur-list', [MasseurController ::class, 'get_all_masseur_list'])->name('center.all-masseur-list');
 Route::post('masseurs/archives-listing',[MasseurController::class,'masseur_list'])->name('center.archives-listing');
 
+
 Route::post('center.massuers-media-upload-gallery',[MasseurController::class,'uploadGallery'])->name('center.massuers-media-upload-gallery');
 Route::get('get-massuers-account-media-gallery/{category?}/{pagetoken?}',[MasseurController ::class, 'getAccountMediaGallery'])->name('center.massuers.account.gallery');
 
@@ -265,6 +266,8 @@ Route::get('archives-listing', function()
 {
 	return view('center.dashboard.masseurs.archives-listing');
 })->name('center.archives-listing');
+
+Route::post('action-massage-profile', [MassageController::class, 'action_massage_profile'])->name('center.action-massage-profile');
 
 
 Route::get('masseurs/add-media', function()

@@ -26,10 +26,15 @@ class PricingsummariesController extends BaseController
     protected $escort;
     protected $user;
     protected $pricing;
+    protected $account;
     public function __construct(PricingInterface $pricing,EscortInterface $escort, UserInterface $user){
         $this->escort = $escort;
         $this->user = $user;
         $this->pricing = $pricing;
+        $this->middleware(function ($request, $next) {
+            $this->account = auth()->user();
+            return $next($request);
+        });
     }
 
     
@@ -678,7 +683,7 @@ class PricingsummariesController extends BaseController
 
            
             list($total_discount, $total_rate, $single_fee) =
-                calculateTotalFee($request->membership_id, $days);
+                calculateTotalFee($request->membership_id, $days, $this->account);
 
            
             $fee = $single_fee * $request->members;

@@ -200,7 +200,9 @@
 }
 
 
-
+.time-field {
+    width: 95px;
+}
 
 
     </style>
@@ -576,107 +578,163 @@
                                     <div class="mcc-form-tab">
 
                                         <h2>My Availability</h2>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div
-                                                    class="padding_20_all_side my-availability-mon profile_time_availibility">
+                                        
 
-                                                    @php
-                                                        $days = [
-                                                            'monday' => 'Monday',
-                                                            'tuesday' => 'Tuesday',
-                                                            'wednesday' => 'Wednesday',
-                                                            'thursday' => 'Thursday',
-                                                            'friday' => 'Friday',
-                                                            'saturday' => 'Saturday',
-                                                            'sunday' => 'Sunday',
-                                                        ];
-                                                    @endphp
+                                        @php
+                                        $days = [
+                                            'monday' => 'Monday',
+                                            'tuesday' => 'Tuesday',
+                                            'wednesday' => 'Wednesday',
+                                            'thursday' => 'Thursday',
+                                            'friday' => 'Friday',
+                                            'saturday' => 'Saturday',
+                                            'sunday' => 'Sunday',
+                                        ];
 
-                                                    @foreach ($days as $dayKey => $dayLabel)
-                                                        <div class="d-flex align-items-center flex-wrap gap-20 my-3 parent-row"
-                                                            data-day="{{ $dayKey }}">
+                                        // 🔹 Generate 24-hour AM/PM time options
+                                        function generateTimes($start, $end, $selected = '', $minTime = null) {
 
-                                                            <label
-                                                                style="width:100px;"><strong>{{ $dayLabel }}:</strong></label>
+                                            $startTime = strtotime($start);
+                                            $endTime   = strtotime($end);
 
-                                                            <!-- FROM -->
-                                                            <select name="time[{{ $dayKey }}][hh_from]"
-                                                                class="time-field">
-                                                                <option value="">H:M</option>
-                                                                @for ($i = 1; $i <= 12; $i++)
-                                                                    <option value="{{ sprintf('%02d', $i) }}:00">
-                                                                        {{ sprintf('%02d', $i) }}:00</option>
-                                                                    <option value="{{ sprintf('%02d', $i) }}:30">
-                                                                        {{ sprintf('%02d', $i) }}:30</option>
-                                                                @endfor
-                                                            </select>
+                                            
+                                            if ($end == '12:00 AM') {
+                                                $endTime = strtotime('tomorrow 12:00 AM');
+                                            }
 
-                                                            <select name="time[{{ $dayKey }}][ampm_from]"
-                                                                class="time-field">
-                                                                <option value="">--</option>
-                                                                <option value="AM">AM</option>
-                                                                <option value="PM">PM</option>
-                                                            </select>
+                                            // fallback safety
+                                            if ($endTime <= $startTime) {
+                                                $endTime = strtotime('+1 day', $endTime);
+                                            }
 
-                                                            <span class="mx-2">To</span>
+                                            $output = '';
 
-                                                            <!-- TO -->
-                                                            <select name="time[{{ $dayKey }}][hh_to]"
-                                                                class="time-field">
-                                                                <option value="">H:M</option>
-                                                                @for ($i = 1; $i <= 12; $i++)
-                                                                    <option value="{{ sprintf('%02d', $i) }}:00">
-                                                                        {{ sprintf('%02d', $i) }}:00</option>
-                                                                    <option value="{{ sprintf('%02d', $i) }}:30">
-                                                                        {{ sprintf('%02d', $i) }}:30</option>
-                                                                @endfor
-                                                            </select>
+                                            for ($time = $startTime; $time <= $endTime; $time += 1800) {
 
-                                                            <select name="time[{{ $dayKey }}][ampm_to]"
-                                                                class="time-field">
-                                                                <option value="">--</option>
-                                                                <option value="AM">AM</option>
-                                                                <option value="PM">PM</option>
-                                                            </select>
+                                                $formatted = date('h:i A', $time);
 
-                                                            <!-- DEFAULT STATUS -->
-                                                            <input type="hidden"
-                                                                name="availability_time[{{ $dayKey }}]"
-                                                                value="custom">
+                                                // skip invalid TO values
+                                                if ($minTime && strtotime($formatted) <= strtotime($minTime)) {
+                                                    continue;
+                                                }
 
-                                                            <!-- STATUS RADIOS -->
-                                                            <label class="ms-3">
-                                                                <input type="radio"
-                                                                    name="availability_time[{{ $dayKey }}]"
-                                                                    value="til_late">
-                                                                … Till late
-                                                            </label>
+                                                $selectedAttr = ($formatted == $selected) ? 'selected' : '';
+                                                $output .= "<option value=\"$formatted\" $selectedAttr>$formatted</option>";
+                                            }
 
-                                                            <label class="ms-2" style="display: none;">
-                                                                <input type="radio"
-                                                                    name="availability_time[{{ $dayKey }}]"
-                                                                    value="24_hours">
-                                                                Open 24 Hours
-                                                            </label>
-
-                                                            <label class="ms-2">
-                                                                <input type="radio"
-                                                                    name="availability_time[{{ $dayKey }}]"
-                                                                    value="closed">
-                                                                Not Available
-                                                            </label>
+                                            return $output;
+                                        }
+                                        @endphp
 
 
+                                <div class="row">
+                                <div class="col-12">
+                                <div class="padding_20_all_side profile_time_availibility">
 
-                                                            <div class="resetdays-icon"> <input type="button"
-                                                                    value="Reset" class="resetdays"> </div>
-                                                        </div>
-                                                    @endforeach
+                                        @foreach ($days as $dayKey => $dayLabel)
 
+                                            @php
+                                                $dayData = $availability[$dayKey] ?? [];
+
+                                                $status = $dayData['status'] ?? 'custom';
+                                                $from   = $dayData['from'] ?? '';
+                                                $to     = $dayData['to'] ?? '';
+
+                                                $disabled = ($status == 'closed') ? 'disabled' : '';
+
+                                                // 🔹 DEFAULT full day
+                                                $fromStart = '12:00 AM';
+                                                $fromEnd   = '12:00 AM';
+
+                                                $toStart   = '12:00 AM';
+                                                $toEnd     = '12:00 AM';
+
+                                                // 🔹 TILL LATE
+                                            if ($status == 'til_late' && $from) {
+
+                                                $fromStart = $from;
+                                                $fromEnd   = '11:30 PM';
+
+                                                $toStart = date('h:i A', strtotime($from . ' +30 minutes'));
+                                                $toEnd   = '12:00 AM'; // must be this
+                                            }
+
+                                                // 🔹 CUSTOM
+                                                if ($status == 'custom' && $from && $to) {
+
+                                                    $fromStart = $from;
+                                                    $fromEnd   = date('h:i A', strtotime($to . ' -30 minutes'));
+
+                                                    $toStart   = date('h:i A', strtotime($from . ' +30 minutes'));
+                                                    $toEnd     = $to;
+                                                }
+
+                                            @endphp
+
+
+                                            <div class="d-flex align-items-center flex-wrap gap-20 my-3 parent-row">
+
+                                                <label style="width:100px;"><strong>{{ $dayLabel }}:</strong></label>
+                                                <!-- FROM -->
+                                                <select name="time[{{ $dayKey }}][hh_from]"
+                                                        class="time-field hh_from from"
+                                                        {{ $disabled }}>
+
+                                                    <option value="">Select</option>
+
+                                                    {!! generateTimes($fromStart, $fromEnd, $from) !!}
+
+                                                </select>
+
+                                                <span class="mx-2">To</span>
+
+                                                <!-- TO -->
+                                                <select name="time[{{ $dayKey }}][hh_to]"
+                                                        class="time-field hh_to to"
+                                                        {{ $disabled }}>
+
+                                                    <option value="">Select</option>
+
+                                                @if($status == 'til_late')
+                                                    {!! generateTimes($toStart, $toEnd, $to, $from) !!}
+                                                    <option value="12:00 AM" {{ $to == '12:00 AM' ? 'selected' : '' }}>12:00 AM</option>
+                                                @else
+                                                    {!! generateTimes($toStart, $toEnd, $to, $from) !!}
+                                                @endif
+
+                                                </select>
+
+                                                <!-- STATUS -->
+                                                <label class="ms-3" style="display: none;">
+                                                <input type="radio" name="availability_time[{{ $dayKey }}]"
+                                                    value="custom" {{ $status=='custom'?'checked':'' }} {{ $disabled }}> Custom
+                                                </label>
+
+                                                <label class="ms-2">
+                                                <input type="radio" name="availability_time[{{ $dayKey }}]"
+                                                    value="til_late" {{ $status=='til_late'?'checked':'' }} {{ $disabled }}> Til Late
+                                                </label>
+
+                                                <label class="ms-2">
+                                                <input type="radio" name="availability_time[{{ $dayKey }}]"
+                                                    value="closed" {{ $status=='closed'?'checked':'' }}> Not Available
+                                                </label>
+
+                                                @if($status!='closed')
+                                                <div class="resetdays-icon">
+                                                        <input type="button" value="Reset" class="resetdays">
                                                 </div>
+                                                @endif
+
                                             </div>
-                                        </div>
+
+                                @endforeach
+
+                                </div>
+                                </div>
+                                </div>
+
+
 
                                     </div>
                                     <!-- End My Availability -->
@@ -970,43 +1028,49 @@
     <script>
 
         var is_profile_complete = Number("{{ $massage_default->is_profile_complete ?? 0 }}");
-        ////////////// For Our Open Times ///////////////// 
-        function validateAvailability() {
+
+
+
+        /////////////// For Our Open Times ///////////////// 
+        
+        function validateAvailability() 
+        {
 
             let isFormValid = true;
-
-            $('.profile_time_availibility .parent-row').each(function() {
+            $('.profile_time_availibility .parent-row').each(function () {
 
                 let row = $(this);
-
-                let status = row.find('input[type="radio"]:checked').val() || '';
-
-                let fromHH = row.find('select[name*="[hh_from]"]').val();
-                let fromAMPM = row.find('select[name*="[ampm_from]"]').val();
-                let toHH = row.find('select[name*="[hh_to]"]').val();
-                let toAMPM = row.find('select[name*="[ampm_to]"]').val();
-
+                let status   = row.find('input[type="radio"]:checked').val() || '';
+                let fromHH   = row.find('select[name*="[hh_from]"]').val();
+                let toHH     = row.find('select[name*="[hh_to]"]').val();
+            
                 row.removeClass('border border-danger');
 
-                let hasFrom = fromHH && fromAMPM;
-                let hasTo = toHH && toAMPM;
+                let hasFrom = fromHH;
+                let hasTo   = toHH;
 
-
+                
                 if (!status && !hasFrom && !hasTo) {
                     isFormValid = false;
                     row.addClass('border border-danger');
                     return;
                 }
 
-
+                
                 if (status === 'til_late' && !hasFrom) {
                     isFormValid = false;
                     row.addClass('border border-danger');
                     return;
                 }
 
-
+                
                 if (!status && hasFrom && !hasTo) {
+                    isFormValid = false;
+                    row.addClass('border border-danger');
+                    return;
+                }
+
+                if ((!hasFrom || !hasTo) && status === 'custom') {
                     isFormValid = false;
                     row.addClass('border border-danger');
                     return;
@@ -1019,79 +1083,82 @@
 
             console.log('isFormValid', isFormValid);
             if (!isFormValid) {
-                return true;
+            return true;
             }
+
             return false;
-
         }
 
-        function getRow(row) {
-            return {
-                from: row.find('select[name*="[hh_from]"], select[name*="[ampm_from]"]'),
-                to: row.find('select[name*="[hh_to]"], select[name*="[ampm_to]"]'),
-                radios: row.find('input[type="radio"]')
-            };
-        }
+        document.addEventListener('DOMContentLoaded', function () {
 
+            document.querySelectorAll('.parent-row').forEach(row => {
 
-        $('.profile_time_availibility').on('change', 'input[type="radio"]', function() {
+                const radios = row.querySelectorAll('input[type="radio"]');
+                const fromDropdown = row.querySelector('.hh_from');
+                const toDropdown = row.querySelector('.hh_to');
+                const resetBtn = row.querySelector('.resetdays');
 
-            let row = $(this).closest('.parent-row');
-            let val = $(this).val();
-            let {
-                from,
-                to
-            } = getRow(row);
+                function updateState() {
+                    const selected = row.querySelector('input[type="radio"]:checked');
+                    if (!selected) return;
 
-            if (val === 'til_late') {
-                from.prop('disabled', false);
-                to.val('').prop('disabled', true);
-            } else {
-                from.val('').prop('disabled', true);
-                to.val('').prop('disabled', true);
-            }
+                    if (selected.value === 'closed') {
+                        fromDropdown.setAttribute('disabled', 'disabled');
+                        toDropdown.setAttribute('disabled', 'disabled');
+                    }
+                    else if (selected.value === 'til_late') {
+                        fromDropdown.removeAttribute('disabled');
+                        toDropdown.setAttribute('disabled', 'disabled');
+                    }
+                    else {
+                        fromDropdown.removeAttribute('disabled');
+                        toDropdown.removeAttribute('disabled');
+                    }
+                }
+
+                function setCustomIfTimeSelected() {
+
+                    const selected = row.querySelector('input[type="radio"]:checked');
+                    if (selected && selected.value === 'closed') return;
+
+                    if (fromDropdown.value || toDropdown.value) {
+                        const customRadio = row.querySelector('input[value="custom"]');
+                        if (customRadio) {
+                            customRadio.checked = true;
+                        }
+                    } 
+                    else {
+                        radios.forEach(r => r.checked = false);
+                    }
+
+                    updateState();
+                }
+
+                fromDropdown.addEventListener('change', setCustomIfTimeSelected);
+                toDropdown.addEventListener('change', setCustomIfTimeSelected);
+
+                if (resetBtn) {
+                    resetBtn.addEventListener('click', function () {
+                        fromDropdown.removeAttribute('disabled');
+                        toDropdown.removeAttribute('disabled');
+
+                        fromDropdown.value = '';
+                        toDropdown.value = '';
+                        radios.forEach(radio => radio.checked = false);
+                    });
+                }
+
+                updateState();
+
+                radios.forEach(radio => {
+                    radio.addEventListener('change', updateState);
+                });
+
+            });
+
         });
-
-
-        // $('.profile_time_availibility').on(
-        //     'change',
-        //     'select[name*="[hh_from]"], select[name*="[ampm_from]"]',
-        //     function () {
-
-        //         let row = $(this).closest('.parent-row');
-        //         let { from, to, radios } = getRow(row);
-
-        //         radios.prop('checked', false);   // uncheck radios
-        //         from.prop('disabled', false);
-        //         to.prop('disabled', false);
-        //     }
-        // );
-
-        $('.profile_time_availibility .parent-row').each(function() {
-
-            let row = $(this);
-            let checked = row.find('input[type="radio"]:checked').val();
-            let {
-                from,
-                to
-            } = getRow(row);
-
-            if (checked === 'til_late') {
-                from.prop('disabled', false);
-                to.prop('disabled', true);
-            } else {
-                //from.prop('disabled', true);
-                //to.prop('disabled', true);
-            }
-
-        });
-
-
-
-
 
         ////////////// End For Our Open Times ///////////////// 
-
 
         $(function(e) {
 
@@ -1164,12 +1231,12 @@
 
             //// ----------- Update Single Data ------------ ///////
 
-            $('.resetdays').on('click', function() {
-                let row = $(this).closest('.parent-row');
-                row.find('select').val('').prop('disabled', false);
-                row.find('input[type="radio"]').prop('checked', false);
+            // $('.resetdays').on('click', function() {
+            //     let row = $(this).closest('.parent-row');
+            //     row.find('select').val('').prop('disabled', false);
+            //     row.find('input[type="radio"]').prop('checked', false);
 
-            });
+            // });
 
 
             function checkRates() 
@@ -1336,9 +1403,9 @@
                 //      return false;
                 // }
             
-                if (!checkProfileDynamicMedia()) {
-                    return false;
-                }
+                // if (!checkProfileDynamicMedia()) {
+                //     return false;
+                // }
 
                 var hasError = validateAvailability();
               
@@ -1397,8 +1464,7 @@
                             swal_success_popup(response.message ??
                                 'Profile created successfully');
                             setTimeout(function() {
-                                window.location = 'update-masseur/' + response
-                                    .masseur_profile_id;
+                                window.location = 'update-masseur/' + response.masseur_profile_id;
                             }, 2000); // 2 seconds
 
                         } else {

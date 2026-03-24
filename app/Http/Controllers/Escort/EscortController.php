@@ -57,6 +57,7 @@ class EscortController extends BaseController
     protected $user;
     protected $attemptlogin;
     protected $walletService;
+    protected $account;
 
     public function __construct(AttemptLoginRepository $attemptlogin, EscortInterface $escort, UserInterface $user, PurchaseInterface $purchase, WalletService $walletService)
     {
@@ -65,6 +66,11 @@ class EscortController extends BaseController
         $this->user = $user;
         $this->attemptlogin = $attemptlogin;
         $this->walletService = $walletService;
+
+        $this->middleware(function ($request, $next) {
+            $this->account = auth()->user();
+            return $next($request);
+        });
     }
 
     public function index()
@@ -846,7 +852,7 @@ class EscortController extends BaseController
             $membershipId = $request->membershipId;
             $profileDetail = getEscortDetail($profileId);
             $refundAmount = getListingRefundAmount($profileDetail);
-            list($newDicount, $newAmount) = calculateTotalFee($membershipId, $profileDetail->left_listing_days);
+            list($newDicount, $newAmount) = calculateTotalFee($membershipId, $profileDetail->left_listing_days, $this->account);
             $net_paid_amount = number_format($newAmount-$refundAmount,2);
 
             return response()->json([
@@ -878,8 +884,8 @@ class EscortController extends BaseController
 
                 $refundAmount = getListingRefundAmount($profileDetail);
 
-                list($usedDicount, $usedAmount) = calculateTotalFee($oldPurchase->membership, ($oldPurchase->days_number - $profileDetail->left_listing_days));
-                list($dicount, $amount, $unitAmount, $unitDiscount) = calculateTotalFee($membershipId, $profileDetail->left_listing_days);
+                list($usedDicount, $usedAmount) = calculateTotalFee($oldPurchase->membership, ($oldPurchase->days_number - $profileDetail->left_listing_days), $this->account);
+                list($dicount, $amount, $unitAmount, $unitDiscount) = calculateTotalFee($membershipId, $profileDetail->left_listing_days, $this->account);
 
                 $today = Carbon::today($profileDetail->TimeZone);
                 $startOfToady = $today->copy()->startOfDay()->setTimezone('UTC');

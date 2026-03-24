@@ -69,7 +69,7 @@
           </div>
   
           <div class="modal-footer" style="text-align: right; display: block;">
-            <input type="hidden" name="profile_id">
+            <input type="hidden" name="escort_id">
             <button type="submit" id="saveBumpupButton" class="btn-success-modal">Proceed to Payment</button>
           </div>
         </div>
