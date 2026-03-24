@@ -87,17 +87,16 @@ class MassageController extends Controller
     public function  get_all_massager_list(Request $request)
     {
 
-            $masseurs  = MassageProfile::where('user_id', auth()->user()->id)->where('default_setting','=',0)->get();
+            $masseurs  = MassageProfile::where('user_id', auth()->user()->id)->where('default_setting','=',0)->orderBy('id', 'desc')->get();
             $countries = getCountryList();
 
             $data = $masseurs->map(function ($row) use ($countries) {
 
-                if($row->enabled==1)
-                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Deactivate</a>';   
-                 else
-                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-circle"></i> Activate</a>';     
-               
                 $status = "";
+                if($row->enabled==0)
+                $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action" data-row-id="'.$row->id.'" id="row_active"  href="javascript:void(0)">   <i class="fa fa-circle"></i> Activate</a>';     
+               
+                //$status = "";
                
                  $action = '<div class="dropdown no-arrow">
                                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -115,7 +114,7 @@ class MassageController extends Controller
                 //<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
 
                 return [
-                   
+                    'id' => $row->id,
                     'profile_name' => $row->profile_name,
                     'business_name' => $row->business_name,
                     'business_no' => $row->business_no,
@@ -380,6 +379,11 @@ class MassageController extends Controller
             $availability     = $this->makeAvailability($request_data);
             $availabilityJson = json_encode($availability);
 
+            $massage_profile = MassageProfile::where('user_id', auth()->user()->id)
+            ->where('default_setting', '!=', 1)
+            ->where('enabled', '=', 1)
+            ->first();
+
             /* ================== Massage Profile ================== */
             $massage = new MassageProfile();
 
@@ -410,6 +414,12 @@ class MassageController extends Controller
             $massage->social_links    = $social_links;
 
             $massage->contact         = $request->filled('contact') ? $request->contact : null;
+
+            if($massage_profile)
+            $massage->enabled  = 0; 
+            else
+            $massage->enabled  = 1;     
+
 
             $massage->save();
 
@@ -977,6 +987,51 @@ class MassageController extends Controller
                                 ])->get();
 
         return view('center.dashboard.listing.add-listing',compact('profiles'));     
+    }
+
+
+
+    public function action_massage_profile(Request $request)
+    {
+        DB::beginTransaction();
+
+        try 
+        {
+            $userId = auth()->user()->id;
+            $massage  = MassageProfile::where(['user_id' => $userId,'id'=>$request->profile_id])->first();
+
+            if (!$massage) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Profile not found.'
+                ]);
+            }
+
+            MassageProfile::where('user_id', $userId)
+            ->where('default_setting', '!=', 1)
+            ->where('enabled', '=', 1)
+            ->update(['enabled'=> 0]);
+
+            $massage->enabled = 1;  
+            $mess = 'Profile activated successfully.'; 
+            $massage->save();
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => $mess
+            ]);
+
+        } 
+        catch (Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong!',
+            ]);
+        }
+        
     }
 
 

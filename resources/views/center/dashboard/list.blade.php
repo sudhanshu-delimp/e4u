@@ -110,7 +110,7 @@
                               <table class="table mb-3" id="massage_list">
                                  <thead class="table-bg">
                                     <tr>
-                                   
+                                    <th scope="col">ID</th>
                                     <th scope="col">Profile Name</th>
                                     <th scope="col">Business Name</th>
                                     <th scope="col">Business No</th>
@@ -187,7 +187,7 @@ var table = $("#massage_list").DataTable({
     lengthChange: true,
     searching: true,
     bStateSave: true,
-    order: [[1, 'desc']],
+    order: [[0, 'desc']],
     lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
     pageLength: 10,    
 
@@ -206,7 +206,7 @@ var table = $("#massage_list").DataTable({
     },
 
     columns: [
-           
+            { data: 'id', name: 'id', visible: false },
             { data: 'profile_name', name: 'profile_name', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'business_name', name: 'business_name', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'business_no', name: 'business_no', searchable: true, orderable:true ,defaultContent: 'NA'},
@@ -218,6 +218,64 @@ var table = $("#massage_list").DataTable({
 
 
 });
+
+
+
+$(document).on('click', '.massage_action', async function () {
+
+      let current_id = $(this).attr('id');
+      var mess = "";
+      let rowId = $(this).data('row-id');
+      let action = "";
+
+      if(!current_id || !rowId )
+      return false;
+
+       mess =   'Do you want to activate this Profile?';
+       action = current_id;
+
+      let mess_data = {
+         'title' : 'NA',
+         'text' : mess,
+      }
+
+      let post_data = {
+         'action' : action,
+         'profile_id':rowId
+      }
+   
+      if(await isConfirm(mess_data))
+      {
+            swal_waiting_popup({
+                'title': 'Updating...'
+            });
+
+            $.ajax({
+               url: "{{ route('center.action-massage-profile') }}",
+               type: 'POST',
+               data: post_data,
+               success: function(response) {
+                  Swal.close();
+                  if (response.success) {
+                    table.ajax.reload(null, false);
+                    swal_success_popup(response.message);
+
+                  }
+               },
+
+               error: function(xhr) {
+                  Swal.close();
+                  let message = 'Error while saving profile';
+                  if (xhr.responseJSON && xhr.responseJSON.message) {
+                     message = xhr.responseJSON.message;
+                  }
+                  swal_error_popup(message);
+               }
+         });
+      }
+
+})
+
 
  </script>
 
