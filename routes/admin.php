@@ -95,7 +95,7 @@ Route::get('/management/set-fees', [SetFeesVariablesUsers::class, 'setFees'])->n
 Route::get('Analytics/consoles', [ConsolesController::class, 'consoles'])->name('consoles');
 Route::get('consoles-list-all-users', [ConsolesController::class, 'allUserDatatable'])->name('admin.Analytics.consolesDataTable');
 
-Route::get('fee-discount', function(){
+Route::get('management/fee-discount', function(){
     return view('admin.management.fee-discount');
 })->name('fee-discount');
 
