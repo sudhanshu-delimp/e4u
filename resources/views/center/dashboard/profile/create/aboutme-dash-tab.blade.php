@@ -1100,7 +1100,27 @@ img#blah8 {
                                     </select>
 
 
-                                    <div id="container_language"> </div>
+                                     @if(!empty($escort->language)) 
+                                        <div id="show_db_language" class="d-flex">
+                                                @foreach($escort->language as $language)
+                                                
+                                                        <div class='selecated_languages select_lang'>
+                                                            <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!} <small class='remove-lang'>×</small></span>
+                                                            
+                                                        </div>
+                                            
+                                                @endforeach 
+                                        </div>
+                                        @endif
+
+
+                                    <div id="container_language"> 
+                                        @if(!empty($escort->language)) 
+                                            @foreach($escort->language as $language)
+                                            <input type='hidden' name='language[]' value="{{$key}}">
+                                            @endforeach
+                                        @endif
+                                    </div>
                                     <div id="show_language" style="display:none"></div>
                                    
                                  </div>
