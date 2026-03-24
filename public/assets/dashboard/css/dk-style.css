@@ -10618,7 +10618,7 @@ border-top: 5px solid var(--peach);
 
 .upgrade_icon {
     color: white;
-    background-color: #f63ee8;
+    background-color: var(--deactivated--status);
     border-radius: 15%;
     padding: 0 5px;
 }
