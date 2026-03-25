@@ -428,17 +428,19 @@
                                
                             </tbody>
                              <tfoot class="table_heading_bgcolor_color">
-                                
                                 <tr>
-                                    <td colspan="2" class="text-left">Deposit:</td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>0.00</div></td>
-                                    <td><div class="public-num-value-table"> <span>$ </span>0.00</div></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left" colspan="2">Payment ($AU):</td>
-                                    <td colspan="2">
-                                        {{ config("escorts.profile.Payments.$escort->payment_type") }}
+                                    <td colspan="4" >
+                                      <div class="d-flex justify-content-between">
+                                          <span style="font-size: 13px">Payment ($AU): {{ config("escorts.profile.Payments.$escort->payment_type") }}</span>
+                                          <span style="font-size: 13px"> Deposit: $[value]</span>
+                                      </div>
+                                    
+                                       
                                     </td>
+                                    {{-- <td class="text-left">
+                                        <span style="font-size: 12px; line-height: 15px;">Outcall: $[value]</span> 
+                                    
+                                    </td> --}}
                                 </tr>
                             </tfoot>
                         </table>

@@ -275,6 +275,56 @@
                     @endforeach
                 </div>
             </div>
+
+            <div class="row">
+                    <div class="col-lg-12">
+                        <div class="about_me_heading_in_first_tab fill_profile_headings_global custom--social-head">
+                            <h2>Deposit</h2>
+                        </div>
+                        <!-- Incall -->
+                        <div class="form-group d-flex justify-content-start gap-20  align-items-baseline flex-wrap pt-3">
+                            <label style="width:100px">Incall :</label>
+
+                            <label>
+                                <input type="radio" name="incall_deposit" value="no" checked onclick="toggleDeposit('incall', false)"> No
+                            </label>
+
+                            <label>
+                                <input type="radio" name="incall_deposit" value="yes" onclick="toggleDeposit('incall', true)"> Yes
+                            </label>
+
+                          
+                            
+                            <span id="incall_input" style="display:none;">
+                                <div class="d-flex justify-content-start gap-10 align-items-center">
+                                <span>$</span>
+                               <input type="number" class="form-control" placeholder="0" onblur="saveDeposit('incall', this.value)" style="padding-right: 0px !important; width:100px;">
+                                </div>
+                            </span>
+                        </div>
+
+                        <!-- Outcall -->
+                        <div class="form-group d-flex justify-content-start gap-20 align-items-baseline flex-wrap">
+                            <label style="width:100px">Outcall: </label>
+
+                            <label>
+                                <input type="radio" name="outcall_deposit" value="no" checked onclick="toggleDeposit('outcall', false)"> No
+                            </label>
+
+                            <label>
+                                <input type="radio" name="outcall_deposit" value="yes" onclick="toggleDeposit('outcall', true)"> Yes
+                            </label>
+                            <span id="outcall_input" style="display:none;">
+                                <div class="d-flex justify-content-start gap-10 align-items-center">
+                                <span>$</span>
+                                <input type="number" class="form-control" placeholder="0" onblur="saveDeposit('outcall', this.value)" style="padding-right: 0px !important; width:100px;">
+                                </div>
+                            </span>
+                        </div>
+
+                        
+                    </div>
+                </div>
             @if (request()->segment(2) == 'profile' && request()->segment(3))
                 <div class="row">
                     <div class="col-md-12 text-right">
