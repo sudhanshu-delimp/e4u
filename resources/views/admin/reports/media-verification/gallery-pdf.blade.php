@@ -55,7 +55,7 @@
                         @endif
                     </div>
                 </td>
-                <td colspan="2">
+                <td colspan="2" style="vertical-align:baseline;">
                      <div><h2 style="margin-top: 0px;font-size: 18px;"> Verification Image </h2></div>
                     <div>
                         <img src="{{$media_verification_image ? $media_verification_image : ''}}" alt="Verification Image" style="width:340px; height:265px;object-fit: fill; border: 1px solid #ccc; padding:10px;">

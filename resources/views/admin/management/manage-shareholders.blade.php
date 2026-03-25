@@ -16,11 +16,10 @@
                   <div class="card">
                      <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol class="level-1">
-                          
-                            </ol>
-                          </li>
-                        </ol>
+                           <ol class="level-1">
+                              <li>Create and manage Shareholders here.</li>
+                              <li>Shareholdings are managed from <a href="{{ route('admin.shareholder') }}" class="custom_links_design">Share Register</a>. </li>
+                           </ol>
                      </div>
                   </div>
                </div>
