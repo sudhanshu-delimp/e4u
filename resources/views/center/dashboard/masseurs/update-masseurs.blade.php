@@ -822,26 +822,14 @@
                                                     $closed_row = "";
                                                 }
 
-                                            @endphp
-
-                                             <?php
                                                 $selected = [];
-                                                //$db_day = $masseur_availability[$dayKey];
-                                                 $selected['from'] = $masseur_data['from'];
-                                                 $selected['to'] = $masseur_data['to'];  
-                                                
-                                               
-                                            ?>
+                                                $selected['from'] = $masseur_data['from'];
+                                                $selected['to'] = $masseur_data['to'];   
 
-
+                                            @endphp
                                             <div class="d-flex align-items-center flex-wrap gap-20 my-3 parent-row">
 
-                                                <label style="width:100px;"><strong>{{ $dayLabel }}: </strong>
-
-                                                
-
-                                            </label>
-                                                <!-- FROM -->
+                                                <label style="width:100px;"><strong>{{ $dayLabel }}: </strong></label>
                                                 <select name="time[{{ $dayKey }}][hh_from]"
                                                         class="time-field hh_from from"
                                                         {{ $disabled }}>

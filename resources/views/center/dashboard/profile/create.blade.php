@@ -333,10 +333,10 @@
 
         $('#language').change(function() {
             var languageValue = $('#language').val();
-            $("#show_language").show();
-            $(".select_lang").hide();
+            //$("#show_language").show();
+            //$(".select_lang").hide();
             var selectedLanguage = $(this).children("option:selected", this).data("name");
-            $("#show_language").append("  <div class='selecated_languages' style='display: inline-block'><span class='languages_choosed_from_drop_down'>" + selectedLanguage + " <small class='remove-lang'>×</small></span> </div> ");
+            $("#show_db_language").append(" <div class='selecated_languages select_lang'><span class='languages_choosed_from_drop_down'>" + selectedLanguage + " <small class='remove-lang'>×</small></span> </div> ");
             $("#container_language").append("<input type='hidden' name='language[]' value=" + languageValue + ">");
             $("#language option[value='" + languageValue + "']").remove();
         });
@@ -457,7 +457,7 @@
         ///////// End Update Single Data //////////////////      
 
 
-        //$('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
+        $('#profile-tab, #contact-tab, #massuers-tab').addClass('disabled-form-tab');
 
 
         const validator = $('#my_massage_profile').validate({
@@ -949,9 +949,137 @@
 
     });
 
+
+        //  ######### For Our Open Times #################### //
+            function validateAvailability() 
+            {
+
+                let isFormValid = true;
+                $('.profile_time_availibility .parent-row').each(function () {
+
+                    let row = $(this);
+                    let status   = row.find('input[type="radio"]:checked').val() || '';
+                    let fromHH   = row.find('select[name*="[hh_from]"]').val();
+                    let toHH     = row.find('select[name*="[hh_to]"]').val();
+                
+                    row.removeClass('border border-danger');
+
+                    let hasFrom = fromHH;
+                    let hasTo   = toHH;
+
+                    
+                    if (!status && !hasFrom && !hasTo) {
+                        isFormValid = false;
+                        row.addClass('border border-danger');
+                        return;
+                    }
+
+                    
+                    if (status === 'til_late' && !hasFrom) {
+                        isFormValid = false;
+                        row.addClass('border border-danger');
+                        return;
+                    }
+
+                    
+                    if (!status && hasFrom && !hasTo) {
+                        isFormValid = false;
+                        row.addClass('border border-danger');
+                        return;
+                    }
+
+                    if ((!hasFrom || !hasTo) && status === 'custom') {
+                        isFormValid = false;
+                        row.addClass('border border-danger');
+                        return;
+                    }
+
+                    if (status === '24_hours' || status === 'closed') {
+                        return;
+                    }
+                });
+
+                console.log('isFormValid', isFormValid);
+                if (!isFormValid) {
+                return true;
+                }
+
+                return false;
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+
+                document.querySelectorAll('.parent-row').forEach(row => {
+
+                    const radios = row.querySelectorAll('input[type="radio"]');
+                    const fromDropdown = row.querySelector('.hh_from');
+                    const toDropdown = row.querySelector('.hh_to');
+                    const resetBtn = row.querySelector('.resetdays');
+
+                    function updateState() {
+                        const selected = row.querySelector('input[type="radio"]:checked');
+                        if (!selected) return;
+
+                        if (selected.value === 'closed') {
+                            fromDropdown.setAttribute('disabled', 'disabled');
+                            toDropdown.setAttribute('disabled', 'disabled');
+                        }
+                        else if (selected.value === 'til_late') {
+                            fromDropdown.removeAttribute('disabled');
+                            toDropdown.setAttribute('disabled', 'disabled');
+                        }
+                        else {
+                            fromDropdown.removeAttribute('disabled');
+                            toDropdown.removeAttribute('disabled');
+                        }
+                    }
+
+                    function setCustomIfTimeSelected() {
+
+                        const selected = row.querySelector('input[type="radio"]:checked');
+                        if (selected && selected.value === 'closed') return;
+
+                        if (fromDropdown.value || toDropdown.value) {
+                            const customRadio = row.querySelector('input[value="custom"]');
+                            if (customRadio) {
+                                customRadio.checked = true;
+                            }
+                        } 
+                        else {
+                            radios.forEach(r => r.checked = false);
+                        }
+
+                        updateState();
+                    }
+
+                    fromDropdown.addEventListener('change', setCustomIfTimeSelected);
+                    toDropdown.addEventListener('change', setCustomIfTimeSelected);
+
+                    if (resetBtn) {
+                        resetBtn.addEventListener('click', function () {
+                            fromDropdown.removeAttribute('disabled');
+                            toDropdown.removeAttribute('disabled');
+
+                            fromDropdown.value = '';
+                            toDropdown.value = '';
+                            radios.forEach(radio => radio.checked = false);
+                        });
+                    }
+
+                    updateState();
+
+                    radios.forEach(radio => {
+                        radio.addEventListener('change', updateState);
+                    });
+
+                });
+
+            });
+
+        //  ######### Close For Our Open Times ############## //
+
+
      // ########## Load Default Massure ################ //
-
-
     $('#create_messure_profile').on('click', function() {
         window.location.href = 'create-new-masseur';
     });

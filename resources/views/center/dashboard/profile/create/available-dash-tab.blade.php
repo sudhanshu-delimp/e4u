@@ -17,6 +17,54 @@
         
 
     <div class="about-me-box-one-name stage_name">Our Open Time</div>
+
+        @php
+
+        $days = [
+            'monday' => 'Monday',
+            'tuesday' => 'Tuesday',
+            'wednesday' => 'Wednesday',
+            'thursday' => 'Thursday',
+            'friday' => 'Friday',
+            'saturday' => 'Saturday',
+            'sunday' => 'Sunday',
+        ];
+
+       
+        function generateTimes($start, $end, $selected = '', $minTime = null) {
+
+            $startTime = strtotime($start);
+            $endTime   = strtotime($end);
+
+            
+            if ($end == '12:00 AM') {
+                $endTime = strtotime('tomorrow 12:00 AM');
+            }
+
+            // fallback safety
+            if ($endTime <= $startTime) {
+                $endTime = strtotime('+1 day', $endTime);
+            }
+
+            $output = '';
+
+            for ($time = $startTime; $time <= $endTime; $time += 1800) {
+
+                $formatted = date('h:i A', $time);
+
+                // skip invalid TO values
+                if ($minTime && strtotime($formatted) <= strtotime($minTime)) {
+                    continue;
+                }
+
+                $selectedAttr = ($formatted == $selected) ? 'selected' : '';
+                $output .= "<option value=\"$formatted\" $selectedAttr>$formatted</option>";
+            }
+
+            return $output;
+        }
+        @endphp
+
         <div class="padding_20_all_side my-availability-mon">
            
        
@@ -24,78 +72,105 @@
                     <div class="col-12">
                         <div class="padding_20_all_side my-availability-mon profile_time_availibility">
 
-                            @php
-                                $days = [
-                                    'monday' => 'Monday',
-                                    'tuesday' => 'Tuesday',
-                                    'wednesday' => 'Wednesday',
-                                    'thursday' => 'Thursday',
-                                    'friday' => 'Friday',
-                                    'saturday' => 'Saturday',
-                                    'sunday' => 'Sunday',
-                                ];
-                            @endphp
+                                     @foreach ($days as $dayKey => $dayLabel)
 
-                            @foreach ($days as $dayKey => $dayLabel)
-                                <div class="d-flex align-items-center flex-wrap gap-20 my-3 parent-row" data-day="{{ $dayKey }}">
-                                    
-                                    <label style="width:100px;"><strong>{{ $dayLabel }}:</strong></label>
+                                            @php
+                                                $dayData = $availability[$dayKey] ?? [];
 
-                                    <!-- FROM -->
-                                    <select name="time[{{ $dayKey }}][hh_from]" class="time-field">
-                                        <option value="">H:M</option>
-                                        @for ($i = 1; $i <= 12; $i++)
-                                            <option value="{{ sprintf('%02d',$i) }}:00">{{ sprintf('%02d',$i) }}:00</option>
-                                            <option value="{{ sprintf('%02d',$i) }}:30">{{ sprintf('%02d',$i) }}:30</option>
-                                        @endfor
-                                    </select>
+                                                $status = $dayData['status'] ?? 'custom';
+                                                $from   = $dayData['from'] ?? '';
+                                                $to     = $dayData['to'] ?? '';
 
-                                    <select name="time[{{ $dayKey }}][ampm_from]" class="time-field">
-                                        <option value="">--</option>
-                                        <option value="AM">AM</option>
-                                        <option value="PM">PM</option>
-                                    </select>
+                                                $disabled = ($status == 'closed') ? 'disabled' : '';
 
-                                    <span class="mx-2">To</span>
+                                                // 🔹 DEFAULT full day
+                                                $fromStart = '12:00 AM';
+                                                $fromEnd   = '12:00 AM';
 
-                                    <!-- TO -->
-                                    <select name="time[{{ $dayKey }}][hh_to]" class="time-field">
-                                        <option value="">H:M</option>
-                                        @for ($i = 1; $i <= 12; $i++)
-                                            <option value="{{ sprintf('%02d',$i) }}:00">{{ sprintf('%02d',$i) }}:00</option>
-                                            <option value="{{ sprintf('%02d',$i) }}:30">{{ sprintf('%02d',$i) }}:30</option>
-                                        @endfor
-                                    </select>
+                                                $toStart   = '12:00 AM';
+                                                $toEnd     = '12:00 AM';
 
-                                    <select name="time[{{ $dayKey }}][ampm_to]" class="time-field">
-                                        <option value="">--</option>
-                                        <option value="AM">AM</option>
-                                        <option value="PM">PM</option>
-                                    </select>
+                                                // 🔹 TILL LATE
+                                            if ($status == 'til_late' && $from) {
 
-                                    <!-- DEFAULT STATUS -->
-                                    <input type="hidden" name="availability_time[{{ $dayKey }}]" value="custom">
+                                                $fromStart = $from;
+                                                $fromEnd   = '11:30 PM';
 
-                                    <!-- STATUS RADIOS -->
-                                    <label class="ms-3">
-                                        <input type="radio" name="availability_time[{{ $dayKey }}]" value="til_late">
-                                        … Till late
-                                    </label>
+                                                $toStart = date('h:i A', strtotime($from . ' +30 minutes'));
+                                                $toEnd   = '12:00 AM'; // must be this
+                                            }
 
-                                    <label class="ms-2" style="display: none;">
-                                        <input type="radio" name="availability_time[{{ $dayKey }}]" value="24_hours">
-                                        Open 24 Hours
-                                    </label>
+                                                // 🔹 CUSTOM
+                                                if ($status == 'custom' && $from && $to) {
 
-                                    <label class="ms-2">
-                                        <input type="radio" name="availability_time[{{ $dayKey }}]" value="closed">
-                                        Closed
-                                    </label>
+                                                    $fromStart = $from;
+                                                    $fromEnd   = date('h:i A', strtotime($to . ' -30 minutes'));
 
-                                    
+                                                    $toStart   = date('h:i A', strtotime($from . ' +30 minutes'));
+                                                    $toEnd     = $to;
+                                                }
 
-                                    <div class="resetdays-icon"> <input type="button" value="Reset" class="resetdays"> </div>
-                                </div>
+                                            @endphp
+
+
+
+                                        <div class="d-flex align-items-center flex-wrap gap-20 my-3 parent-row">
+
+                                                <label style="width:100px;"><strong>{{ $dayLabel }}:</strong></label>
+                                                <!-- FROM -->
+                                                <select name="time[{{ $dayKey }}][hh_from]"
+                                                        class="time-field hh_from from"
+                                                        {{ $disabled }}>
+
+                                                    <option value="">Select</option>
+
+                                                    {!! generateTimes($fromStart, $fromEnd, $from) !!}
+
+                                                </select>
+
+                                                <span class="mx-2">To</span>
+
+                                                <!-- TO -->
+                                                <select name="time[{{ $dayKey }}][hh_to]"
+                                                        class="time-field hh_to to"
+                                                        {{ $disabled }}>
+
+                                                    <option value="">Select</option>
+
+                                                @if($status == 'til_late')
+                                                    {!! generateTimes($toStart, $toEnd, $to, $from) !!}
+                                                    <option value="12:00 AM" {{ $to == '12:00 AM' ? 'selected' : '' }}>12:00 AM</option>
+                                                @else
+                                                    {!! generateTimes($toStart, $toEnd, $to, $from) !!}
+                                                @endif
+
+                                                </select>
+
+                                                <!-- STATUS -->
+                                                <label class="ms-3" style="display: none;">
+                                                <input type="radio" name="availability_time[{{ $dayKey }}]"
+                                                    value="custom" {{ $status=='custom'?'checked':'' }} {{ $disabled }}> Custom
+                                                </label>
+
+                                                <label class="ms-2">
+                                                <input type="radio" name="availability_time[{{ $dayKey }}]"
+                                                    value="til_late" {{ $status=='til_late'?'checked':'' }} {{ $disabled }}> Til Late
+                                                </label>
+
+                                                <label class="ms-2">
+                                                <input type="radio" name="availability_time[{{ $dayKey }}]"
+                                                    value="closed" {{ $status=='closed'?'checked':'' }}> Closed
+                                                </label>
+
+                                                @if($status!='closed')
+                                                <div class="resetdays-icon">
+                                                        <input type="button" value="Reset" class="resetdays"> 
+                                                </div>
+                                                @endif
+
+                                        </div>
+
+                            
                             @endforeach
 
                         </div>
