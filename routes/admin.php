@@ -367,6 +367,15 @@ Route::get('reports/transaction-summary', function () {
 
 /** Manage Suppliers */
 Route::get('/management/manage-suppliers', [SupplierController::class, 'supplierList'])->name('admin.manage-suppliers');
+Route::post('/management/add-supplier', [SupplierController::class, 'addSupplier'])->name('admin.add.supplier');
+Route::get('operator_list_data_table', [SupplierController::class, 'supplierDataList'])->name('admin.supplier_list_data_table');
+Route::get('/edit-supplier/{id}', [SupplierController::class, 'editSupplier'])->name('admin.edit-supplier');
+Route::post('/store-supplier', [SupplierController::class, 'updateSupplier'])->name('admin.store-supplier');
+Route::get('/view-supplier/{id}', [SupplierController::class, 'viewSupplier'])->name('admin.view-supplier');
+Route::post('/print-supplier', [SupplierController::class, 'printSupplierDetails'])->name('admin.print_supplier');
+Route::post('/suspend-supplier', [SupplierController::class, 'suspendSupplier'])->name('admin.suspend-supplier');
+Route::post('/active-supplier-account', [SupplierController::class, 'activate_user'])->name('admin.active-supplier-account');
+Route::post('/approve-supplier-account', [SupplierController::class, 'approve_supplier_account'])->name('admin.approve_supplier_account');
 
 
 // Route::get('reports/advertiser-suspensions',function(){

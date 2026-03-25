@@ -47,7 +47,7 @@
                                                 <div class="col-md-12 col-sm-12">
                                                     <div class="bothsearch-form" style="gap: 10px;">
                                                         <button type="button" class="create-tour-sec dctour"
-                                                            data-toggle="modal" data-target="#addNewMerchant">Add New
+                                                            data-toggle="modal" data-target="#addNewSupplier">Add New
                                                             Merchant</button>
                                                     </div>
                                                 </div>
@@ -88,7 +88,7 @@
                                                                     x-placement="bottom-end">
                                                                     @if ($editAccessEnabled)
                                                                         <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
-                                                                            href="#" data-target="#edit_merchant_data"
+                                                                            href="#" data-target="#editSupplierModel"
                                                                             data-toggle="modal"> <i class="fa fa-pen"></i>
                                                                             Edit </a>
                                                                         <div class="dropdown-divider"></div>
@@ -101,7 +101,7 @@
 
                                                                     <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center"
                                                                         href="#" data-toggle="modal"
-                                                                        data-target="#view_merchant_data"> <i
+                                                                        data-target="#viewSupplierdata"> <i
                                                                             class="fa fa-eye "></i> View Account</a>
                                                                 </div>
                                                             </div>
@@ -143,7 +143,7 @@
     </a>
 
     <!-- Add Supplier From -->
-    <div class="modal fade upload-modal" id="addNewMerchant" tabindex="-1" role="dialog"
+    <div class="modal fade upload-modal" id="addNewSupplier" tabindex="-1" role="dialog"
         aria-labelledby="addNewMerchantLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -166,7 +166,7 @@
 
 
     <!-- Edit Merchant popup form -->
-    <div class="modal fade upload-modal" id="edit_merchant_data" tabindex="-1" role="dialog"
+    <div class="modal fade upload-modal" id="editSupplierModel" tabindex="-1" role="dialog"
         aria-labelledby="edit_merchant_dataLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -192,7 +192,7 @@
     {{-- view merchant modal popup --}}
 
     <!-- View Merchant popupform -->
-    <div class="modal fade upload-modal" id="view_merchant_data" tabindex="-1" role="dialog"
+    <div class="modal fade upload-modal" id="viewSupplierdata" tabindex="-1" role="dialog"
         aria-labelledby="view_merchant_dataLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -280,5 +280,49 @@
                 }
             ]
         });
+
+                    $(document).on('submit', 'form[name="add_supplier"]', function(e) {
+                e.preventDefault();
+                let form = $(this);
+                let formData = new FormData(this);
+                $('span.text-danger').text('');
+
+                swal_waiting_popup({
+                    'title': 'Saving Supplier Details'
+                });
+                //  return false
+
+                $.ajax({
+                    url: "{{ route('admin.add.supplier') }}",
+                    method: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        table.ajax.reload(null, false);
+                        Swal.close();
+                        $('span.text-danger').text('');
+                        $('#addNewSupplier').modal('hide');
+                        $('#editSupplierModel').modal('hide');
+                        $('#add_supplier')[0].reset();
+                        swal_success_popup(response.message);
+                    },
+                    error: function(xhr) {
+
+                        Swal.close();
+                        console.log(xhr);
+                        if (xhr.status === 422) {
+                            $('span.text-danger').text('');
+                            let errors = xhr.responseJSON.errors;
+                            $.each(errors, function(field, messages) {
+                                $('.error-' + field).text(messages[0]);
+                            });
+                        } else {
+                            swal_error_popup(xhr.responseJSON.message ||
+                                'Something went wrong');
+                        }
+                    }
+                });
+            });
     </script>
 @endpush

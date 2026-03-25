@@ -5,24 +5,23 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Operator\AddNewOperator;
-use App\Models\Operator;
-use App\Repositories\Operator\OperatorInterface;
-use App\Models\VariablAgentOperator;
-use PDF;
+use App\Http\Requests\Supplier\AddNewSupplier;
+use App\Models\Supplier;
+use App\Repositories\Supplier\SupplierInterface;
+//use PDF;
 class SupplierController extends BaseController
 {
     protected $current_date_time;
-    protected $operatorRepo;
+    protected $supplierRepo;
     protected $viewAccessEnabled;
     protected $editAccessEnabled;
     protected $addAccessEnabled;
     protected $sidebar;
 
-    public function __construct(OperatorInterface $operatorRepo)
+    public function __construct(SupplierInterface $supplierRepo)
     {
         $this->current_date_time = date('Y-m-d H:i:s');
-        $this->operatorRepo = $operatorRepo;
+        $this->supplierRepo = $supplierRepo;
         $this->middleware(function ($request, $next) {
 
             $user = auth()->user();   // works here
@@ -48,14 +47,14 @@ class SupplierController extends BaseController
     }
 
     /**
-     * Add operator
+     * Add Supplier
      * 
      * @param \Illuminate\Http\Request $request
      */
-    public function addSupplier(AddNewOperator $request)
+    public function addSupplier(AddNewSupplier $request)
     {
         $data = $request->all();
-        $resposne = $this->operatorRepo->addUpdateOperator($data);
+        $resposne = $this->supplierRepo->addUpdate($data);
         if ($resposne['status'])
             return $this->successResponse($resposne['message']);
         else
@@ -63,51 +62,51 @@ class SupplierController extends BaseController
     }
 
     /**
-     * Edit operator
+     * Edit supplier
      * 
      * @param integer $id
      */
-    public function editOperator($id)
+    public function editSupplier($id)
     {
-        $operator = Operator::with('operator_detail', 'operator_setting')->where("id", $id)->first();
-        if ($operator) {
-            $countryNotAssignToOperator = (new Operator)->getCountryNotAssignToOperator($operator->country_id);
-            return view('admin.management.operator.operator-edit', compact('operator', 'countryNotAssignToOperator'));
+        $supplier = Supplier::with('supplier_detail', 'supplier_setting')->where("id", $id)->first();
+        if ($supplier) {
+            
+            return view('admin.management.Supplier.edit', compact('supplier'));
         } else {
             return "";
         }
     }
 
     /**
-     * Store operator
+     * Store supplier
      * 
      * @param \Illuminate\Http\Request $request
      */
-    public function updateOperator(AddNewOperator $request)
+    public function updateSupplier(AddNewSupplier $request)
     {
         $data = $request->all();
-        $resposne = $this->operatorRepo->addUpdateOperator($data);
+        $resposne = $this->supplierRepo->addUpdate($data);
         if (isset($resposne['status']) && $resposne['status'])
             return $this->successResponse($resposne['message']);
         else
             return $this->validationError($resposne['message']);
     }
     /**
-     * View operator
+     * View Supplier
      * 
      * @param integer $id
      */
-    public function viewOperator($id)
+    public function viewSupplier($id)
     {
-        $operator = Operator::with('operator_detail')->where("id", $id)->first();
-        if ($operator) {
-            return view('admin.management.operator.operator-view', compact('operator'));
+        $Supplier = Supplier::with('supplier_detail')->where("id", $id)->first();
+        if ($Supplier) {
+            return view('admin.management.supplier.view', compact('supplier'));
         } else {
             return "";
         }
     }
     /**
-     * View operator list
+     * View Supplier list
      */
     public function supplierList()
     {
@@ -115,11 +114,11 @@ class SupplierController extends BaseController
     }
 
     /**
-     * Get all operator list
+     * Get all Supplier list
      */
-    public function operator_data_list()
+    public function supplierDataList()
     {
-        list($result, $count) = $this->operator_data_pagination(
+        list($result, $count) = $this->supplierDataPagination(
             request()->get('start'),
             request()->get('length'),
             (request()->get('order')[0]['column']),
@@ -136,22 +135,22 @@ class SupplierController extends BaseController
     }
 
     /**
-     *  Get all operator list with filter
+     *  Get all Supplier list with filter
      * 
      * @param integer $start
      * @param integer $limit
      * @param string $order_key
      * @param string $dir
      */
-    public function operator_data_pagination($start, $limit, $order_key, $dir)
+    public function supplierDataPagination($start, $limit, $order_key, $dir)
     {
-        $operator = User::with('country', 'operator_detail', 'account_setting', 'LoginStatus')
+        $supplier = User::with('country', 'supplier_detail', 'account_setting', 'LoginStatus')
             ->where('type', '7');
 
         $search = request()->input('search.value');
 
         if (!empty($search)) {
-            $operator->where(function ($query) use ($search) {
+            $supplier->where(function ($query) use ($search) {
                 $query->where('member_id', 'like', "%{$search}%")
                     ->orWhere('business_name', 'like', "%{$search}%")
                     ->orWhere('phone', 'like', "%{$search}%")
@@ -165,42 +164,41 @@ class SupplierController extends BaseController
 
         switch ($order_key) {
             case 0:
-                $operator->orderBy('member_id', $dir);
+                $supplier->orderBy('member_id', $dir);
                 break;
             case 1:
-                $operator->orderBy('id', $dir);
+                $supplier->orderBy('id', $dir);
                 break;
             case 2:
-                $operator->orderBy('name', $dir);
+                $supplier->orderBy('name', $dir);
                 break;
             default:
-                $operator->orderBy('id', 'DESC');
+                $supplier->orderBy('id', 'DESC');
                 break;
         }
 
-       $total_operators = $operator->count();
-        $operators = $operator->offset($start)->limit($limit)->get();
+       $total_suppliers = $supplier->count();
+        $suppliers = $supplier->offset($start)->limit($limit)->get();
         $i = 1;
-        foreach ($operators as $key => $item) {
-        
+        foreach ($suppliers as $key => $item) {
             $logAndStatus = $item->LoginStatus;
             $item->last_login = ((isset($item->account_setting) && ($item->account_setting->last_login != NULL)) ? convert_aus_date_time_format($item->account_setting->last_login) : 'NA');
             $item->login_count = (isset($logAndStatus->login_count) && $logAndStatus->login_count > 0) ? $logAndStatus->login_count : 0;
-            $item->operator_id = $item->id;
+            $item->supplier_id = $item->id;
             $item->member_id = isset($item->member_id) ? $item->member_id : 'NA';
             $item->territory = isset($item->country->name) ? $item->country->name : 'NA';
             $item->email = isset($item->email) ? $item->email : 'NA';
             $item->totalAgents = 0;
             $item->company_name = isset($item->name) ? $item->name : 'NA';
             $item->point_of_contact = 'NA';
-             $item->point_of_contact = isset($item->operator_detail->point_of_contact) ?$item->operator_detail->point_of_contact : 'NA';
+             $item->point_of_contact = isset($item->supplier_detail->point_of_contact) ?$item->supplier_detail->point_of_contact : 'NA';
 
             $suspend_html = "";
             $activate_html = "";
             $dropdownsub = "";
             $edit = "";
 
-            $view = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center viewOperatorBtn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-eye"></i> View Account</a>';
+            $view = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center viewSupplierBtn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-eye"></i> View Account</a>';
 
             $dropdown = '<div class="dropdown no-arrow ml-3">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
@@ -208,7 +206,7 @@ class SupplierController extends BaseController
 
             if ($this->editAccessEnabled) {
                 if (auth()->user()->member_id != $item->member_id) {
-                    $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-operator-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
+                    $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-supplier-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
                 }
             }
 
@@ -259,17 +257,17 @@ class SupplierController extends BaseController
             $item->action = $dropdown;
             $i++;
         }
-        return [$operators, $total_operators];
+        return [$suppliers, $total_suppliers];
     }
     /**
-     *  Suspent the access of operator dashboard
+     *  Suspent the access of supplier dashboard
      * 
      * @param \Illuminate\Http\Request $request
      */
-    public function suspend_operator(Request $request)
+    public function suspendSupplier(Request $request)
     {
         if ($request->id && $request->request_type && $request->request_type == 'suspend') {
-            $user = Operator::where('id', $request->id)->first();
+            $user = Supplier::where('id', $request->id)->first();
             if ($user->status && $user->status == 'Suspended') {
                 return $this->successResponse('This Account Already Suspended.');
             }
@@ -277,7 +275,7 @@ class SupplierController extends BaseController
             $response = $user->save();
 
             if ($response) {
-                $resposne = $this->operatorRepo->sendSuspendEmail($user);
+                $resposne = $this->supplierRepo->sendSuspendEmail($user);
                 return $this->successResponse('Account Suspended Successfully.');
             } else
                 return $this->successResponse('Error Occurred while Account Suspending.');
