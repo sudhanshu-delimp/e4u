@@ -173,17 +173,17 @@
                <div class="row">
                   
                   <div class="col-12 mb-3">
-                     <label for="email" class="label">Email</label>
+                     <label for="email">Email</label>
                      <input type="email" class="form-control rounded-0" placeholder="Enter your email ">
                   </div>
                   <div class="col-12 mb-3">
-                     <label for="password" class="label">Password</label>
+                     <label for="password">Password</label>
                      <input type="password" class="form-control rounded-0" placeholder="Enter your password">
                   </div>
                </div>
             </form>
          </div>
-         <div class="modal-footer pb-4 mb-2">
+         <div class="modal-footer">
             <button type="submit" class="btn-success-modal">save</button>
          </div>
       </div>
@@ -202,11 +202,11 @@
       </button>
    </div>
       <div class="modal-body pb-0">
-            <h5 class="popu_heading_style my-4" style="text-align: center;">
+            <h5 class="custom_modal_text">
                The order has been completed.
            </h5>
          </div>
-         <div class="modal-footer pb-4 mb-2 justify-content-center">
+         <div class="modal-footer justify-content-center">
             <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
          </div>
       </div>
@@ -226,11 +226,11 @@
       </button>
    </div>
       <div class="modal-body pb-0">
-            <h5 class="popu_heading_style my-4" style="text-align: center;">
+            <h5 class="custom_modal_text">
               Are you sure you want to deactivate account?
            </h5>
          </div>
-         <div class="modal-footer pb-4 mb-2 justify-content-center">
+         <div class="modal-footer justify-content-center">
             <button type="button" class="btn-success-modal" data-dismiss="modal">Confirm</button>
             <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
          </div>

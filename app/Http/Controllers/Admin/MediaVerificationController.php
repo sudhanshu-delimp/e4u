@@ -254,14 +254,23 @@ class MediaVerificationController extends Controller
         foreach ($escort_medias as $escort_media) { 
             switch ($escort_media->position) {
                 case 9:
-                    $bannerImage[] = '<img src="' . asset($escort_media->path) . '" class="banner-img" alt="Banner Image">';
+                    $bannerImage[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="banner-img" alt="Banner Image"> <span class="verify_icon">
+                                            <img src="'.asset('assets/app/img/verify/unverified_icon.png').'" />
+                                            <span class="mc_media_tooltip">Media Unverified</span>
+                                        </span></div>';  
                     break;
                 case 10:
-                    $pinupImage[] = '<img src="' . asset($escort_media->path) . '" class="pinup-img" alt="Pinup Image">';
+                    $pinupImage[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="pinup-img" alt="Pinup Image"><span class="verify_icon">
+                                            <img src="'.asset('assets/app/img/verify/unverified_icon.png').'" />
+                                            <span class="mc_media_tooltip">Media Unverified</span>
+                                        </span></div>';
                     break;
 
                 default:
-                    $mediaImages[] = '<img src="' . asset($escort_media->path) . '" class="gallery-img" alt="Gallery Image">';
+                    $mediaImages[] = '<div class="verify_icon_wrapper"><img src="' . asset($escort_media->path) . '" class="gallery-img" alt="Gallery Image"><span class="verify_icon">
+                                            <img src="'.asset('assets/app/img/verify/verified_icon.png').'" />
+                                            <span class="mc_media_tooltip">Media Verified</span>
+                                        </span></div>';
                     break;
             }
         }
