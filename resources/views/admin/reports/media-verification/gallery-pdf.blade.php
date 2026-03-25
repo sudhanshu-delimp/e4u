@@ -58,7 +58,7 @@
                 <td colspan="2">
                      <div><h2 style="margin-top: 0px;font-size: 18px;"> Verification Image </h2></div>
                     <div>
-                        <img src="https://images.unsplash.com/photo-1634715281818-ce65b4dbc99f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" style="width:340px; height:265px;object-fit: fill; border: 1px solid #ccc; padding:10px;">
+                        <img src="{{$media_verification_image ? $media_verification_image : ''}}" alt="Verification Image" style="width:340px; height:265px;object-fit: fill; border: 1px solid #ccc; padding:10px;">
                     </div>
                 </td>
             </tr>    
@@ -82,18 +82,20 @@
 
             <!-- Pinup Images -->
             <tr>
-            <tr>
-                <td colspan="5">
-                    <div><h2 style="margin-top: 0px;font-size: 18px;">Pinup Images</h2></div>
-                    <div id="pinupImages">
-                        @if($pinupImage)
-                            @foreach($pinupImage as $pinup_image)
-                                {!! $pinup_image !!}
-                            @endforeach
-                        @endif
-                    </div>
-                </td>
-            </tr>
+            @if($user_type == '3')
+                <tr>
+                    <td colspan="5">
+                        <div><h2 style="margin-top: 0px;font-size: 18px;">Pinup Images</h2></div>
+                        <div id="pinupImages">
+                            @if($pinupImage )
+                                @foreach($pinupImage as $pinup_image)
+                                    {!! $pinup_image !!}
+                                @endforeach
+                            @endif
+                        </div>
+                    </td>
+                </tr>
+            @endif
             </tbody>
 
         </table>

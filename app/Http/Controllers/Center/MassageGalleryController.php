@@ -39,6 +39,8 @@ use App\Repositories\Message\MessageMediaInterface;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\Escort\StoreGalleryMediaRequest;
+use App\Models\MediaVerification;
+
 //use Illuminate\Http\Request;
 
 class MassageGalleryController extends AppController
@@ -99,6 +101,7 @@ class MassageGalleryController extends AppController
                     'user_id' => $userId,
                     'type' => $type,
                     'path' => 'escorts/'.$destination_path,
+                    'varified' => '2'
                     ];
                     $response['status'] = 200;
                     $media = $this->media->store($data);
@@ -136,7 +139,8 @@ class MassageGalleryController extends AppController
                 'user_id' => $userId,
                 'type' => $type,
                 'position' => $key,
-                'path' => 'escorts/'.$destination_path
+                'path' => 'escorts/'.$destination_path,
+                 'varified' => '2'
                 ];
                 $media = $this->media->store($data);
                 $response['status'] = 200;
@@ -475,19 +479,43 @@ class MassageGalleryController extends AppController
         return [$type, 'attatchment/'.$str];
     }
 
-    public function getAccountMediaGallery(Request $request, $category=null , $status = null){
+    public function getAccountMediaGallery(Request $request, $category=null , $status = null ){
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
+            // $mediaCategory = match ($category) {
+            //     'gallery' => $media->whereNotIn('position',[9,10]),
+            //     'banner'  => $media->whereIn('position',[9])->where('template','0'),
+            //     'pinup'   => $media->whereIn('position',[10]),
+            // };
+
+            $statusMap = [
+                'verified'   => '1',
+                'unverified' => '2',
+            ];
+
+            $status = $statusMap[$status] ?? null;
+            
             $mediaCategory = match ($category) {
-                'gallery' => $media->whereNotIn('position',[9,10]),
-                'banner'  => $media->whereIn('position',[9])->where('template','0'),
-                'pinup'   => $media->whereIn('position',[10]),
+                'gallery' => $media
+                    ->whereNotIn('position',[9,10])
+                    ->when($status !== null, function ($query) use ($status) {
+                        return $query->where('varified', $status);
+                    }),
+
+                'banner'  => $media
+                    ->whereIn('position',[9])
+                    ->where('template','0')
+                    ->when($status !== null, function ($query) use ($status) {
+                        return $query->where('varified', $status);
+                    }),
+
             };
+
             $path = $this->media;
             $response = [];
             $response['success'] = true;
             $response['category'] = $category;
-            $response['gallery_container_html'] = view('escort.dashboard.profile.partials.media_gallery_container',compact('mediaCategory','media','path','category'))->render();
+            $response['gallery_container_html'] = view('escort.dashboard.profile.partials.media_gallery_container',compact('mediaCategory','media','path','category','status'))->render();
             $response['gallery_modal_container_html'] = view('escort.dashboard.profile.partials.gallery_modal_container',compact('media','path'))->render();
             $response['banner_modal_container_html'] = view('escort.dashboard.profile.partials.banner_modal_container',compact('media','path'))->render();
             
@@ -620,4 +648,52 @@ class MassageGalleryController extends AppController
             'url' => asset("escorts/{$finalFilePath}") // Returns public URL
         ]);
     }
+
+   public function mediaVerificationUpload(Request $request)
+    {
+        $user = auth()->user();
+        $image = $request->file('image');
+        $media = MassageMedia::where('user_id', $user->id)
+        ->where('varified', '2')
+        ->whereNull('media_verification_id')
+        ->count();
+        if ($media  <= 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please upload your media before uploading the verification image.'
+            ], 400);
+        }
+
+        $fileName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $destination_path = $user->id . '/verifications/' . $fileName;
+
+        Storage::disk('escorts')->put(
+            $destination_path,
+            file_get_contents($image)
+        );
+
+        $verification = MediaVerification::where('user_id', $user->id)
+            ->where('status', '0')
+            ->first();
+    
+        if ($verification) {
+            $verification->update([
+                'image_path' => $destination_path,
+            ]);
+        } else {
+            MediaVerification::create([
+                'user_id' => $user->id,
+                'image_path' => $destination_path,
+                'status' => MediaVerification::STATUS_PENDING,
+                'submited_by' => $user->id,
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Verification uploaded successfully.',
+        ]);
+    }
+
+    
 }

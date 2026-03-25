@@ -267,7 +267,7 @@ img#blah8 {
                     </div>
                     <div class="row  mt-3">
 
-                        <div class="col-md-12 mb-3 d-flex justify-content-end">
+                        <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">
                             <button type="button" class="create-tour-sec dctour" data-toggle="modal"
                                 data-target="#exampleModal">Add Photos</button>
                         </div>
@@ -379,17 +379,17 @@ img#blah8 {
                                         style="display: block;position: relative;top: 30%;">
                                         <div class="row">
                                             <div class="col-md-8">
-                                                <ul class="nav nav-tabs border-0">
+                                                <ul class="nav nav-tabs border-0" id="escort_profile_media_filter_type">
                                                     <li class="nav-item">
-                                                        <a class="nav-link active" id="menu_all" data-toggle="tab"
+                                                        <a class="nav-link active" id="menu_all" data-filter-type="all" data-toggle="tab"
                                                             href="#home">All</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" id="menu_varified" data-toggle="tab"
+                                                        <a class="nav-link" id="menu_varified" data-filter-type="verified" data-toggle="tab"
                                                             href="#menu1">Verified</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" id="menu_unverified" data-toggle="tab"
+                                                        <a class="nav-link" id="menu_unverified" data-filter-type="unverified" data-toggle="tab"
                                                             href="#menu2">Unverified</a>
                                                     </li>
                                                 </ul>
@@ -507,13 +507,13 @@ img#blah8 {
             </div>
         </div>
 
-        <div class="modal upload-modal fade" id="photo_gallery_banner" style="display: none">
+        <div class="modal upload-modal" id="photo_gallery_banner" style="display: none">
             <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title"> <img
                                 src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross">
-                            Select Banner fddf</h5>
+                            Select Banner</h5>
     
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
@@ -1180,7 +1180,7 @@ img#blah8 {
       </div>
    </div>
    
-<div class="modal fade upload-modal" id="photo_gallery" style="display: none">
+<div class="modal upload-modal" id="photo_gallery" style="display: none">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
