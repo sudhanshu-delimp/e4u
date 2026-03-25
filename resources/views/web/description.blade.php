@@ -401,7 +401,7 @@
                     </div> --}}
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-md-12 table-width-dk mb-2 table-responsive">
+                    <div class="col-lg-6 col-md-12 mb-2 table-responsive-lg">
                         <table class="table table_striped">
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
@@ -425,14 +425,22 @@
                                 </tr>
                                 @endforeach
                                 @endif
-                            <thead class="table_heading_bgcolor_color">
-                                <tr>
-                                    <th class="payment_accept_text_color" scope="col" colspan="4">Payment ($AUS):
-                                        {{ config("escorts.profile.Payments.$escort->payment_type") }}
-                                    </th>
-                                </tr>
-                            </thead>
+                               
                             </tbody>
+                             <tfoot class="table_heading_bgcolor_color">
+                                
+                                <tr>
+                                    <td colspan="2" class="text-left">Deposit:</td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>0.00</div></td>
+                                    <td><div class="public-num-value-table"> <span>$ </span>0.00</div></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left" colspan="2">Payment ($AU):</td>
+                                    <td colspan="2">
+                                        {{ config("escorts.profile.Payments.$escort->payment_type") }}
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
 
                     </div>

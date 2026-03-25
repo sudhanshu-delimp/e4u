@@ -36,7 +36,9 @@
                         <div class="tab-content mt-3">
                             <!-- Tab panes -->
                             <div class="tab-pane fade show active" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
-                                    <div class="other_images" id="media-images"></div>
+                                    <div class="other_images" id="media-images">
+                                        
+                                    </div>
                             </div>
 
                             <div class="tab-pane fade" id="banners" role="tabpanel" aria-labelledby="banners-tab">
