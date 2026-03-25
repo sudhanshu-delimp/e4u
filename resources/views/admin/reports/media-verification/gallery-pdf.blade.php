@@ -45,7 +45,7 @@
             <tbody>
                    <!-- Gallery Images -->
             <tr>
-                <td colspan="3">
+                <td colspan="3" style="vertical-align:baseline;">
                     <div><h2 style="margin-top: 0px;font-size: 18px;">Gallery Images</h2></div>
                     <div id="galleryImages">
                         @if($mediaImages)
