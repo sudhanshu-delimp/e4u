@@ -1895,5 +1895,11 @@ $loginAccount = auth()->user();
                 custom_id: custom_id
             });
         });
+        
+    function toggleDeposit(type, show) {
+        document.getElementById(type + '_input').style.display = show ? 'block' : 'none';
+    }
+
+
     </script>
 @endpush
