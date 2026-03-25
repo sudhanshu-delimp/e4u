@@ -208,11 +208,13 @@ class MassageController extends Controller
             $escort = $this->massage_profile->make();
         }
         $massage_profile = $escort;
+        $defaultServiceIds = $escort->services()->pluck('service_id')->toArray();
 
         
 
         
         $massage_durations = (isset($escort->durations) && count($escort->durations)>0) ? $escort->durations->toArray() : [];
+
 
         // echo '<pre>';
         // print_r($massage_durations);
@@ -228,7 +230,7 @@ class MassageController extends Controller
 
 
       
-        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations','masseurs','user'));
+        return view('center.dashboard.profile.create',compact('path','media','escort','durations','massage_profile','massage_durations','masseurs','user','defaultServiceIds'));
     }
 
     public function getProfile(Request $request, $id)
