@@ -1117,7 +1117,7 @@ img#blah8 {
                                     <div id="container_language"> 
                                         @if(!empty($escort->language)) 
                                             @foreach($escort->language as $language)
-                                            <input type='hidden' name='language[]' value="{{$key}}">
+                                            <input type='hidden' name='language[]' value="{{$language}}">
                                             @endforeach
                                         @endif
                                     </div>
