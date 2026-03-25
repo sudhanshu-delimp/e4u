@@ -64,8 +64,8 @@
                            <label for="exampleFormControlSelect1">Location<sup>(*)</sup></label>
                            <select class="form-control" id="location_state" name="state_id" required data-parsley-required-message="Select Location">
                            <option value="">Select your Home State (if not already identified)</option>
-                            @foreach($state as $name)
-                                <option value="{{$name->id}}" {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $name->name ? request()->ipinfo->region : '' }}>{{$name->name}}</option>
+                            @foreach(config('escorts.profile.states') as $key => $state)
+                                <option value="{{ $key }}" {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $state['stateName'] ? request()->ipinfo->region : '' }}>{{$state['stateName']}}</option>
                             @endforeach
                            </select>
                         </div>

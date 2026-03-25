@@ -65,11 +65,6 @@
             </div>
         </div>
     </div>
-
-
-    
-
-    
 @include('partials.admin.footer')
 
 

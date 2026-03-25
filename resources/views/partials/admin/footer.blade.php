@@ -74,17 +74,28 @@
                 if ($inputs.length > 0) {
                     $inputs.attr('placeholder', 'DD-MM-YYYY');
                     $inputs.attr('autocomplete', 'off');
-                    $inputs.datepicker({
-                        dateFormat: "dd-mm-yy",
-                        changeMonth: true,
-                        changeYear: true,
-                        showAnim: "slideDown",
-                        onSelect: function(dateText) {
-                            $(this).trigger('change');
-                        }
+                    $inputs.each(function() {
+                        let options = {
+                            dateFormat: "dd-mm-yy",
+                            changeMonth: true,
+                            changeYear: true,
+                            showAnim: "slideDown",
+                            onSelect: function(dateText) {
+                                $(this).trigger('change');
+                            }
+                        };
+                    // Start from today
+                    if ($(this).hasClass('min_today')) {
+                        options.minDate = 0;
+                    }
+                        $(this).datepicker(options);
                     });
                 }
             }
+
+            $(document).on('input', '.only_digits', function () {
+             this.value = this.value.replace(/\D/g, '');
+            });
 
             $(document).ready(function() {
                 initJsDatePicker();
@@ -150,8 +161,6 @@
                 }
             }
   </script>
-        @section('script')
-        @show
-        @stack('script')
+  @stack('script')
         </body>
         </html>
