@@ -430,9 +430,9 @@
                              <tfoot class="table_heading_bgcolor_color">
                                 <tr>
                                     <td colspan="4" >
-                                      <div class="d-flex justify-content-between">
-                                          <span style="font-size: 13px">Payment ($AU): {{ config("escorts.profile.Payments.$escort->payment_type") }}</span>
-                                          <span style="font-size: 13px"> Deposit: $[value]</span>
+                                      <div class="d-flex justify-content-center">
+                                          Payment ($AU): {{ config("escorts.profile.Payments.$escort->payment_type") }}
+                                          {{-- <span style="font-size: 13px"> Deposit: $[value]</span> --}}
                                       </div>
                                     
                                        
