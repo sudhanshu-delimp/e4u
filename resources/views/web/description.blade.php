@@ -427,22 +427,13 @@
                                 @endif
                                
                             </tbody>
-                             <tfoot class="table_heading_bgcolor_color">
+                             <thead class="table_heading_bgcolor_color">
                                 <tr>
-                                    <td colspan="4" >
-                                      <div class="d-flex justify-content-center">
-                                          Payment ($AU): {{ config("escorts.profile.Payments.$escort->payment_type") }}
-                                          {{-- <span style="font-size: 13px"> Deposit: $[value]</span> --}}
-                                      </div>
-                                    
-                                       
-                                    </td>
-                                    {{-- <td class="text-left">
-                                        <span style="font-size: 12px; line-height: 15px;">Outcall: $[value]</span> 
-                                    
-                                    </td> --}}
+                                    <th class="payment_accept_text_color" scope="col" colspan="4">Payment ($AUS):
+                                        {{ config("escorts.profile.Payments.$escort->payment_type") }}
+                                    </th>
                                 </tr>
-                            </tfoot>
+                            </thead>
                         </table>
 
                     </div>
